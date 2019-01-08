@@ -1,0 +1,24 @@
+/*------------------------------------*\
+    # modules.form
+\*------------------------------------*/
+
+.form {
+    &__group {
+        position: relative;
+        margin-bottom: calc($unit * 2);
+
+        &__label {
+            display: block;
+            margin-bottom: calc($unit / 2);
+                                
+            @mixin type-scale $type-tiny, 1;
+            font-weight: $type-weight-medium;
+            word-break: break-all;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            
+            color: $grey-6;
+            opacity: 0.7;
+        }
+    }
+}

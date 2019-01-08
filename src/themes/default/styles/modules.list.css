@@ -1,0 +1,22 @@
+/*------------------------------------*\
+    # modules.list
+\*------------------------------------*/
+
+.list {
+    &--primary {
+        &__item {
+            padding: $unit;
+            border-bottom: 1px solid $grey-2;
+            cursor: pointer;
+            word-break: break-all;
+
+            &:hover {
+                background-color: $grey-1;
+            }
+
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+}

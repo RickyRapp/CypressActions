@@ -1,0 +1,49 @@
+/*------------------------------------*\
+    # tools.ricky
+\*------------------------------------*/
+
+/**
+ * Custom grid based on flexbox.
+ * $f-grid-gutter - amount of space between columns
+ * $f-grid-columns - number of columns of the grid
+ */
+$f-grid-gutter: 24px;
+$f-grid-columns: 16; 
+
+
+
+ /**
+ * The flex-col mixin is used for building flexbox grid columns
+ */
+@define-mixin f-col $grid-span: 1, $context: $grid-columns {
+    width: calc($(grid-span) / $(context) * 100%);
+}
+
+/**
+ * The flex-col mixin is used for building flexbox grid columns
+ */
+@define-mixin f-offset $grid-span: 1, $context: $grid-columns {
+    margin-left: calc($(grid-span) / $(context) * 100%);
+}
+
+
+/**
+ * Row
+ */
+.f-row {  
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    margin-left:    calc(-$f-grid-gutter / 2);
+    margin-right:   calc(-$f-grid-gutter / 2);
+}
+
+/**
+ * Column
+ */
+.f-col {
+    padding-left:    calc($f-grid-gutter / 2);
+    padding-right:   calc($f-grid-gutter / 2);
+}

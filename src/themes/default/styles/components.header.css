@@ -1,0 +1,82 @@
+/*------------------------------------*\
+    # components.header
+\*------------------------------------*/
+
+.header {
+
+    &__logo {
+        width: calc($unit * 17);
+        float: left;
+        margin: calc($unit / 2) calc($unit / 2) 0 $unit;
+        cursor: pointer;
+    }
+
+    &__profile {
+        position: relative;
+        margin-right: calc($unit * 2);
+        padding: $unit;
+        
+        cursor: pointer;
+        border-radius: $global-radial;
+        background-color: $color-secondary-light;
+        transition: all 200ms ease-in-out;
+        
+        &:hover {
+            background-color: color($color-secondary-light blackness(+10%));
+            color: $white;
+        }
+
+        &:focus {
+            background-color: color($color-secondary blackness(+15%));
+            outline: none;
+        }
+
+        &__dropdown {
+            z-index: 3;
+            opacity: 0;
+            visibility: hidden;
+
+            position: absolute;
+            top: calc(100% + $unit / 2);
+            right: 0;
+            
+            width: calc($unit * 30);
+            
+            @mixin type-scale $type-xsmall, 1;
+            text-align: left;
+            
+            border-radius: $global-radial;
+            background-color: $white;
+            box-shadow: 0 1px $unit $grey-7;
+            
+            transform: translateY(calc(-$unit * 2));
+            transition: transform 200ms ease-in-out;
+
+            &.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            &__item {
+                padding: $unit calc($unit * 2);
+                color: $color-text-dark;
+                transition: all 250ms ease-out;
+
+                &:hover {
+                    background-color: $grey-2;
+                }
+            }
+        }
+
+        &__img {
+            border-radius: $global-rounded;
+            margin-left: calc($unit / 2);
+        }
+    }
+
+    &__language {
+        position: relative;
+        cursor: pointer;
+    }
+}

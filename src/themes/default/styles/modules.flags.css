@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    # modules.flags
+\*------------------------------------*/
+.flag {
+    display: inline-block;
+    width: $spacer;
+    height: 18px;
+    margin-right: $unit;
+    
+    vertical-align: middle;
+    background-size: cover;
+
+    &-al {
+        background-image: url("~/flags/flag_al.svg");
+    }
+
+    &-de {
+        background-image: url("~/flags/flag_de.svg");
+    }
+
+    &-en {
+        background-image: url("~/flags/flag_en.svg");
+    }
+
+    &-fr {
+        background-image: url("~/flags/flag_fr.svg");
+    }
+
+    &-hr {
+        background-image: url("~/flags/flag_hr.svg");
+    }
+
+    &-it {
+        background-image: url("~/flags/flag_it.svg");
+    }
+
+    &-tr {
+        background-image: url("~/flags/flag_tr.svg");
+    }
+}
+

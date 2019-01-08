@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    # utils.positions
+\*------------------------------------*/
+
+.pos {
+	&--rel {
+		position: relative;
+	}
+
+	&--fix {
+		position: fixed;
+	}
+	
+	&--abs {
+		position: absolute;
+	}
+}

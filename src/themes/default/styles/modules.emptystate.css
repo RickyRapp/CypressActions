@@ -1,0 +1,87 @@
+/*------------------------------------*\
+    # modules.emptystate
+\*------------------------------------*/
+
+/*define width in table when data is empty*/
+.emptystate {
+    &--horizontal {
+        @mixin clearfix;
+        width: 700px;
+        padding: calc($unit * 6);
+        margin-left: auto;
+        margin-right: auto;
+
+        background-color: #fff;
+        border: 1px solid $grey-1;
+        border-radius: $global-radial;
+
+        &__image {
+            float: left;
+            width: 200px;
+            height: 200px;
+            margin-right: calc($unit * 4);
+            margin-bottom: calc($unit * 4);
+            background-color: $grey-3;
+        }
+
+        &__title {
+            @mixin type-scale $type-large, 1.25;
+            margin-bottom: calc($unit * 2);
+        }
+
+        &__description {
+            margin-bottom: calc($unit * 4);
+        }
+
+        &__action {
+            width: 50%;
+            display: inline-block;
+            margin-bottom: calc($unit * 4);
+            
+            &__label {
+                display: block;
+                margin-bottom: $unit;
+            }
+        }
+
+    }
+
+    &--vertical {
+        width: 470px;
+        padding: calc($unit * 6);
+        margin-left: auto;
+        margin-right: auto;
+
+        background-color: #fff;
+        border: 1px solid $grey-1;
+        border-radius: $global-radial;
+        text-align: center;
+
+        &__image {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            margin-bottom: calc($unit * 4);
+
+            background-color: $grey-3;
+        }
+
+        &__title {
+            @mixin type-scale $type-large, 1.25;
+            margin-bottom: calc($unit * 2);
+        }
+
+        &__description {
+            margin-bottom: calc($unit * 4);
+        }
+
+        &__action {
+            margin-bottom: calc($unit * 4);
+            
+            &__label {
+                display: block;
+                margin-bottom: $unit;
+            }
+        }
+    }
+}

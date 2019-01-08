@@ -1,0 +1,30 @@
+/*------------------------------------*\
+    # utils.scrollbar
+\*------------------------------------*/
+
+/*
+    Scroll bar style
+        -working on chrome    
+*/
+
+::-webkit-scrollbar-thumb {
+  background-color: #343541;
+  border-radius: $global-radial;
+
+  &:hover {
+      background-color: #333556;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-color: #7f809b;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: $white;
+}

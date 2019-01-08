@@ -1,0 +1,61 @@
+/*------------------------------------*\
+    # vars.colors
+\*------------------------------------*/
+
+/**
+* Generic colors
+* Color naming taken from: http://www.color-blindness.com/color-name-hue/
+*/
+
+/**
+* Brand colors
+*/
+$cinnabar: 			#eb4646;
+$midnight-express:  #1B2031;
+$deep-sky-blue:     #00a1ff;
+$spring-green:      #0DFF92;
+$mango-tango:       #ea7d00;
+
+/**
+* Global text color
+*/
+$color-text:        #eee;
+$color-text-dark:   #333;
+$white:             #fff;
+$black:             #000;
+
+/**
+* Theme colors
+*/
+$color-primary:         $cinnabar;
+$color-secondary: 	    $midnight-express;
+$color-secondary-light: color($color-secondary lightness(+20%));
+$color-tertiary: 	    $deep-sky-blue;
+$color-quaternary:      $spring-green;
+
+/*
+    table color
+*/
+$lavender:        #ddeafa;
+
+/*
+    Shades of gray (pure gray)
+    ------------------------------------
+    If you need mix some color to gray, use 10% of saturated color
+*/
+$grey-1: #f0f0f0;  /*  6% - lightness */
+$grey-2: #e8e8e8;  /* 17% - lightness */
+$grey-3: #b8b8b8;  /* 28% - lightness */
+$grey-4: #9c9c9c;  /* 39% - lightness */
+$grey-5: #7f7f7f;  /* 50% - lightness */
+$grey-6: #636363;  /* 61% - lightness */
+$grey-7: #474747;  /* 72% - lightness */
+$grey-8: #2b2b2b;  /* 83% - lightness */
+$grey-9: #0f0f0f;  /* 94% - lightness */
+
+/**
+* Utility colors
+*/
+$color-warning:     #f44336;
+$color-success:     #30a62f;
+$color-note:        #ffeb3b;

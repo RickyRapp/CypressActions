@@ -1,0 +1,62 @@
+/*------------------------------------*\
+    # modules.messages
+\*------------------------------------*/
+
+.messages {
+    /*height of graph + statistics*/
+    max-height: 566px;
+    overflow-y: auto;
+
+    border: 1px solid $grey-2;
+    border-radius: $global-radial;
+
+    background-color: $white;
+
+    &__item {
+        position: relative;
+
+        padding: calc($unit * 2) calc($unit * 4);
+        border-bottom: 1px solid $grey-1;
+
+        &:last-child {
+            border: none;
+        }
+
+        &.unread {
+            font-weight: $type-weight-bold;
+            background-color: color($color-tertiary a(0.15));
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: calc($unit * 2);
+                right: calc($unit * 2);
+
+                width: calc($unit * 1.5);
+                height: calc($unit * 1.5);
+                border-radius: $global-rounded;
+
+                background-color: $color-tertiary;
+            }
+        }
+
+        &__sender {
+            margin-bottom: calc($unit / 2);
+            
+            @mixin type-scale $type-tiny, 0.75;
+            font-weight: $type-weight-regular;
+            
+            color: $grey-6;
+        }
+
+        &__message {
+            margin-bottom: calc($unit / 2);
+        }
+
+        &__time {
+            @mixin type-scale $type-tiny, 0.75;
+            color: $grey-5;
+            font-weight: $type-weight-regular;
+        }
+    }
+}

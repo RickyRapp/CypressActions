@@ -1,0 +1,12 @@
+/*------------------------------------*\
+    # plugins.kendo-general
+\*------------------------------------*/
+
+/*
+    Override loader overlay
+      -make halftransparent to see through
+*/
+.k-loading-image {
+    background-color: rgba(240,240,240,0.8);
+}
+

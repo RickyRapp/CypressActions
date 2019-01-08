@@ -1,0 +1,25 @@
+/*------------------------------------*\
+    # plugins.modal
+\*------------------------------------*/
+
+/*make default light theme*/
+.modal__content {
+    background-color: $grey-1 !important;
+}
+
+/*override of react modal window*/
+.ReactModal {
+    &__Content {
+        opacity: 0;
+
+        &--after-open {
+            opacity: 1;
+            transition: all 250ms ease;
+ 
+        }   
+
+        &--before-close {
+            opacity: 0;
+        }
+    }
+}

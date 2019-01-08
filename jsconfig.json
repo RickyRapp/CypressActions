@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "paths": {
+          "themes/*": ["src/themes/default/*"]
+        },
+        "experimentalDecorators": true
+    }
+}
