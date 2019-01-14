@@ -20,9 +20,8 @@ function getApplicationSettings(settings) {
     settings.availableLanguages = availableLanguages;
     return settings;
 }
-  
+
 const ApplicationSettings = getApplicationSettings(require(paths.appSettings));
-const isMultiTenancy = ApplicationSettings.appId === '';
 
 const themeName = process.env.npm_config_theme || 'default';
 const alias = {
@@ -45,11 +44,6 @@ let entry = {
 };
 
 let commonChunks = ['polyfills', 'hotDevClient', 'commonModules', 'appModules', 'app']
-
-if (isMultiTenancy) {
-    entry.platformModules = glob.sync("./src/platform/**/config.js");
-    commonChunks.splice(commonChunks.indexOf('commonModules') + 1, 0, 'platformModules');    
-}
 
 console.log(commonChunks);
 
@@ -108,12 +102,13 @@ module.exports = function (options) {
                     options: {
                         formatter: eslintFormatter,
                         eslintPath: require.resolve('eslint'),
+                        emitWarning: true,
         
                     },
                     loader: require.resolve('eslint-loader'),
                     },
                 ],
-                include: paths.appSrc,
+                include: paths.appSrc,  
                 },
                 {
                 // "oneOf" will traverse all following loaders until one will

@@ -28,7 +28,6 @@ class ApplicationStore {
     }
 
     @action register(apiKey, config = {}) {
-        if (apiKey === 'platform') { throw new Error('Application can\'t be initialized with platform key'); }
         if (this.applicationExists && this.appIdentifier === apiKey)
             return this.app;
         

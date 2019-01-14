@@ -158,7 +158,7 @@ module.exports = merge(commonConfig({ env: env }), {
         minifyCSS: true,
         minifyURLs: true,
       },
-      chunks: ['polyfills', 'common', 'modules', 'platform', 'app'],
+      chunks: ['polyfills', 'common', 'modules', 'app'],
       chunksSortMode: 'manual',
     }),
     // Minify the code.

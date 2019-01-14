@@ -12,9 +12,6 @@ class PermissionService {
 
         const user = this.baasicApp.getUser();
         if (!isSome(user) || !isSome(user.user)) { return false; }
-    
-        return user.user.isApplicationUser === false
-            ? this.platformUserHasPermission(authorization) : this.appUserHasPermission(authorization);
     }
     
     appUserHasPermission(authorization) {
@@ -28,20 +25,6 @@ class PermissionService {
         }
 
         return false;
-    }
-    
-    platformUserHasPermission(authorization) {
-        const { user } = this.baasicApp.getUser();
-        const apiKey = this.baasicApp.getApiKey();
-        if (authorization) {
-            return checkPermission(this.baasicApp.membershipModule.permissions, authorization);
-        } 
-
-        if (apiKey === 'platform') {
-            return true;
-        }
-
-        return user.applications !== undefined && _.some(user.applications, function (app) { return app && app.identifier && app.identifier.toLowerCase() === apiKey; });
     }
 }
 

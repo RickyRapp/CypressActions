@@ -13,9 +13,8 @@ import { RootStore } from 'common/stores';
 import Modal from 'react-modal';
 
 function startApplication() {
-	const isMultiTenancy = ApplicationSettings.appId === '';
 	const context = {
-		rootStore: new RootStore(isMultiTenancy),
+		rootStore: new RootStore(),
 	};
 	bootstrap.run(context);
 

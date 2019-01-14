@@ -1,6 +1,5 @@
-import { action, observable, runInAction } from 'mobx';
-import { BaseListViewStore, LoaderStore, TableViewStore } from 'core/stores';
-import { QueryUtility } from 'core/utils';
+import { action, observable } from 'mobx';
+import { BaseListViewStore, TableViewStore } from 'core/stores';
 
 class UserListViewStore extends BaseListViewStore {
     @observable filterVisible = false;
@@ -52,16 +51,16 @@ class UserListViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: "userName",
-                    title: "PLATFORM_USERS.LIST.COLUMNS.USERNAME",
+                    title: "CORE_USERS.LIST.COLUMNS.USERNAME",
                     onClick: user => this.routes.edit(user.id)
                 },
                 {
                     key: "displayName",
-                    title: "PLATFORM_USERS.LIST.COLUMNS.NAME"
+                    title: "CORE_USERS.LIST.COLUMNS.NAME"
                 },
                 {
                     key: "email",
-                    title: "PLATFORM_USERS.LIST.COLUMNS.EMAIL"
+                    title: "CORE_USERS.LIST.COLUMNS.EMAIL"
                 }
             ],
             actions: {

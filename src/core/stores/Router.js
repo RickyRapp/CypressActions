@@ -146,16 +146,13 @@ class Router {
 function getNextRouterState(rootStore, routeName, params, queryParams) {
     const { routerState } = rootStore.routerStore;    
 
-    if ((_.isNil(params) || _.isNil(params.appId)) && rootStore.isMultiTenancy && _.startsWith(routeName, 'master.app.')) {
+    if ((_.isNil(params) || _.isNil(params.appId)) && _.startsWith(routeName, 'master.app.')) {
         if (routerState.params && !_.isNil(routerState.params.appId) && routerState.params.appId !== '') {
             // reuse current application identifier
             return new RouterState(routeName, {
                 ...params,
                 appId: routerState.params.appId
             }, queryParams);
-        } else {
-            // navigate to application list
-            return new RouterState('master.platform.main.application.list');
         }
     }
 

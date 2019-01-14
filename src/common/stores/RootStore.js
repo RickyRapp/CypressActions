@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { RouterState } from 'mobx-state-router';
 import { action, observable, computed } from 'mobx';
-import { AppStore, ApplicationStore, PlatformStore } from 'common/stores';
+import { AppStore, ApplicationStore } from 'common/stores';
 import { Router } from 'core/stores';
 
 import {
@@ -15,15 +15,12 @@ import {
 } from 'core/stores';
 
 export default class RootStore {
-    isPlatformUrl = true;
     routerStore = null;
     routerMaps = null;
 
-    initialState = this.isMultiTenancy 
-        ? new RouterState('master.platform.main.user.list') : new RouterState('master.app.main.user.list');
+    initialState = new RouterState('master.app.main.user.list');
 
     get app() { return this.applicationStore.app; }
-    get platform() { return this.platformStore.platform; } 
 
     @computed get breadcrumbs() {
         const activeMenuItem = this.menuStore.activeMenuItem;
@@ -52,17 +49,11 @@ export default class RootStore {
         ];
     }
 
-    getBaasicApp(apiKey) {
-        if (!this.isMultiTenancy) { 
-            return this.applicationStore.applicationExists ? this.applicationStore.app.baasic : null
-        };
-
-        return apiKey ?
-            this.applicationStore.apps.get(apiKey) : ((!this.isPlatformUrl && this.applicationStore.applicationExists) ? this.app.baasic : this.platform.baasic);
+    getBaasicApp() {
+        return this.applicationStore.applicationExists ? this.applicationStore.app.baasic : null
     }
 
-    constructor(isMultiTenancy) {
-        this.isMultiTenancy = isMultiTenancy;
+    constructor() {
         
         this.errorStore = new ErrorStore(this);
         this.appStore = new AppStore(this);
@@ -72,7 +63,6 @@ export default class RootStore {
         this.notificationStore = new NotificationStore(this);
         this.viewStore = new MainViewStore(this);
         this.applicationStore = new ApplicationStore(this);
-        this.platformStore = new PlatformStore(this);
         this.modalStore = new ModalStore(this);
     }
 
@@ -98,10 +88,7 @@ export default class RootStore {
     }
 
     initializeStores(store) {
-        const { platform, app, ...other } = store;
-        if (platform) {
-            this.platformStore.extend(platform);
-        }
+        const { app, ...other } = store;
 
         if (app) {
             this.applicationStore.extend(app);
@@ -115,11 +102,7 @@ export default class RootStore {
     }
 
     getLoginRoute() {
-        if (this.isMultiTenancy) {
-            return new RouterState('master.platform.membership.login');
-        } else {
-            return new RouterState('master.app.membership.login');
-        }  
+        return new RouterState('master.app.membership.login');
     }
 }
 

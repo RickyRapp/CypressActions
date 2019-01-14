@@ -28,11 +28,7 @@ class MainViewStore extends BaseViewStore {
         }
 
         if (token) {
-            if (token.isPlatform) {
-                await endSession(this.rootStore.platform.baasic, true);
-            } else {
-                await endSession(app, false);
-            }
+            await endSession(app, false);
         }
     }
 }

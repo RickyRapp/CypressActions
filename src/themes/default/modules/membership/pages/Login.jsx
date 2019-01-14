@@ -7,7 +7,7 @@ function LoginTemplate({ currentView, t }) {
     return <section className="w--300--500 align--h--center padd--top--med">
             <img className="w--160--px display--b align--h--center" src={require("themes/assets/img/logo.svg")} alt="Logo" />
             <form className="form card card--xlrg card--primary spc--top--med" onSubmit={loginForm.onSubmit}>
-                <h3 className="spc--bottom--sml">Platform Login</h3>
+                <h3 className="spc--bottom--sml">Login</h3>
                 <div className="form__group">
                     <BasicInput field={loginForm.$("email")} />
                 </div>

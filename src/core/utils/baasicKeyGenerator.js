@@ -5,11 +5,6 @@ const keyTypes = [
         replace: 'react-baasic-token'
     },
     {
-        name: 'platform-user',
-        key: new RegExp(/^baasic-user-info-platform.*$/),
-        replace: 'react-baasic-platform-user'
-    },
-    {
         name: 'app-user',
         key: new RegExp(/^baasic-user-info-(?!platform).*$/),
         replace: 'react-baasic-app-user'

@@ -54,7 +54,7 @@ function HeaderTemplate({ rootStore, routerStore }) {
                                 <li className="header__profile__dropdown__item"
                                     onClick={() => {
                                     // membershipStore.viewStore.routes.userPreferences();
-                                    routerStore.goTo('master.platform.main.user-profile.password-change');
+                                    routerStore.goTo('master.app.membership.password-change');
                                     toggleProfileMenu(); }}> Change password
                                 </li>
 

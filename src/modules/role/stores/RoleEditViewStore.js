@@ -1,4 +1,4 @@
-import { RoleEditForm } from 'platform/modules/role/forms';
+import { RoleEditForm } from 'modules/role/forms';
 import { BaseEditViewStore } from 'core/stores';
 
 class RoleEditViewStore extends BaseEditViewStore {

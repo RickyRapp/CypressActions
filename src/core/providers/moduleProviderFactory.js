@@ -4,7 +4,6 @@ import { ModuleProvider } from 'core/providers';
 class ModuleProviderFactory {
     common = new ModuleProvider();
     application = new ModuleProvider();
-    platform = new ModuleProvider();
 
     get(name) {
         if (this[name] === undefined) {

@@ -6,8 +6,6 @@ class BaasicBootstrap {
 
 		const { rootStore } = context;
 		let modules = ['common', 'application'];
-		if (rootStore.isMultiTenancy)
-			modules.push('platform');		
 
 		const routes = moduleBuilder.buildRoutes(modules);
 		const stores = moduleBuilder.buildStores(['common']);

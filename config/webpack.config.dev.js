@@ -89,7 +89,7 @@ module.exports = merge(commonConfig(), {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
-      chunks: ['common', 'polyfills', 'hotDevClient', 'commonModules', 'platformModules', 'appModules', 'app'],
+      chunks: ['common', 'polyfills', 'hotDevClient', 'commonModules', 'appModules', 'app'],
       chunksSortMode: 'manual',
     }),
     // Add module names to factory functions so they appear in browser profiler.
