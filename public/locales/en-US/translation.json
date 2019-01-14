@@ -1,6 +1,5 @@
 {
     "hello": "Hello",
     "world": "World",
-    "select-language" : "Choose language",
-    "MENU.PIN_TO_SIDE": "Pin to side"
+    "select-language" : "Choose language"
 }
