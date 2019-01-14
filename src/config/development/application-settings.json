@@ -2,5 +2,5 @@
     "appId": "thedonorsfund",
     "appUrl": "api.thedonorsfund.local",
     "appVersion": "",
-    "useSSL": true
+    "useSSL": false
 }

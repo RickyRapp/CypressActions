@@ -84,7 +84,8 @@ function SecondaryItems({ items, routerStore, menuStore, t }) {
         <div className={"layout__nav--secondary" + (menuStore.secondaryMenuVisible ? " active" : "")}>
             <ul>
                 <li className="pin" onClick={menuStore.onMenuPin}>
-                    {t('MENU.PIN_TO_SIDE') + " "}
+                
+                    Pin to side
                     <span
                         className={
                             "icomoon icon-pin pin__icon" +

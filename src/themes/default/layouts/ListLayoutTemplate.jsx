@@ -44,7 +44,7 @@ function DefaultListLayoutHeaderContent({ t, onCreate = null }) {
     return onCreate ? (
         <button className="btn btn--med btn--tertiary push spc--top--med" onClick={onCreate}>
             <span className="icomoon icon-add tiny align--v--baseline spc--right--tny"></span>
-            <span className="align--v--bottom">{t('LIST_LAYOUT.CREATE_BUTTON')}</span>
+            <span className="align--v--bottom">Create New</span>
         </button>
     ) : null;
 }

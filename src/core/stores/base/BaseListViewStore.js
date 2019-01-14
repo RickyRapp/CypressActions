@@ -65,17 +65,17 @@ class BaseListViewStore extends BaseViewStore {
         const { modalStore, notificationStore } = this.rootStore;
 
         modalStore.showConfirm(
-            'LIST_LAYOUT.CONFIRM_DELETE',
+            'Are you sure you want to delete selected resource?',
             async () => {
                 try {
                     await this.actions.delete(resource);
-                    notificationStore.success('LIST_LAYOUT.SUCCESS_DELETE');
+                    notificationStore.success('Successfully removed selected resource');
                     await this.queryUtility.fetch();
                 } catch ({ statusCode, data }) {
                     notificationStore.error(
                         data && data.message
                             ? data.message
-                            : 'LIST_LAYOUT.ERROR_DELETE'
+                            : 'Error occurred while trying to remove selected resource'
                     );
                 }
             }
@@ -89,17 +89,17 @@ class BaseListViewStore extends BaseViewStore {
         const { modalStore, notificationStore } = this.rootStore;
 
         modalStore.showConfirm(
-            'LIST_LAYOUT.CONFIRM_BATCH_DELETE',
+            'Are you sure you want to delete selected resources?',
             async () => {
                 try {
                     await this.actions.batchDelete(resources);
-                    notificationStore.success('LIST_LAYOUT.SUCCESS_BATCH_DELETE');
+                    notificationStore.success('Successfully removed selected resources');
                     await this.queryUtility.fetch();
                 } catch ({ statusCode, data }) {
                     notificationStore.error(
                         data && data.message
                             ? data.message
-                            : 'LIST_LAYOUT.ERROR_BATCH_DELETE'
+                            : 'Error occurred while trying to remove selected resources'
                     );
                 }
             }
@@ -113,18 +113,18 @@ class BaseListViewStore extends BaseViewStore {
         const { modalStore, notificationStore } = this.rootStore;
 
         modalStore.showConfirm(
-            'LIST_LAYOUT.CONFIRM_BATCH_UPDATE',
+            'Are you sure you want to update selected resources?',
             async () => {
                 try {
                     await this.actions.batchUpdate(resources);
-                    notificationStore.success('LIST_LAYOUT.SUCCESS_BATCH_UPDATE');
+                    notificationStore.success('Successfully updated selected resources');
                     await this.queryUtility.fetch();
                 }
                 catch (err) {
                     notificationStore.error(
                         err.data && err.data.message
                             ? err
-                            : 'LIST_LAYOUT.ERROR_BATCH_UPDATE'
+                            : 'Error occurred while trying to update selected resources'
                     );
                     this.tableStore.resetGridItems();
                 }

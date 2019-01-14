@@ -51,16 +51,16 @@ class UserListViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: "userName",
-                    title: "CORE_USERS.LIST.COLUMNS.USERNAME",
+                    title: "Username",
                     onClick: user => this.routes.edit(user.id)
                 },
                 {
                     key: "displayName",
-                    title: "CORE_USERS.LIST.COLUMNS.NAME"
+                    title: "Display name"
                 },
                 {
                     key: "email",
-                    title: "CORE_USERS.LIST.COLUMNS.EMAIL"
+                    title: "Email"
                 }
             ],
             actions: {

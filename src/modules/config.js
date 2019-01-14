@@ -14,7 +14,6 @@ import { resolveApplicationUser } from 'core/utils';
                         applicationStore,
                         authStore                        
                     } = routerStore.rootStore;
-                    debugger;
                     applicationStore.register(ApplicationSettings.appId);
 
                     try {
