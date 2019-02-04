@@ -4,93 +4,93 @@
 
 /*table style*/
 .k-widget {
-    table {
-        .k-grid-header {
-            background-color: $lavender;
-        }
-
-        tbody {
-            .k-master-row.k-alt {
-                background-color: color($lavender lightness(+3%));
-            }
-        }
-    }
-    /*toolbar for batch actions*/
-    .k-header.k-grid-toolbar {
-        background-color: $color-secondary-light;
+  table {
+    .k-grid-header {
+      background-color: $lavender;
     }
 
-    /*stle for table footer*/
-    .k-pager-wrap.k-grid-pager.k-widget {
-        background-color: $lavender;
+    tbody {
+      .k-master-row.k-alt {
+        background-color: color($lavender lightness(+3%));
+      }
     }
+  }
+  /*toolbar for batch actions*/
+  .k-header.k-grid-toolbar {
+    background-color: $color-secondary-light;
+  }
+
+  /*stle for table footer*/
+  .k-pager-wrap.k-grid-pager.k-widget {
+    background-color: $lavender;
+  }
 }
 
 /*hover state on table row*/
 .k-grid tbody tr.k-state-hover,
 .k-grid tbody tr:hover,
 .k-grid tbody tr.k-alt:hover {
-    background-color: color($lavender lightness(-8%));
+  background-color: color($lavender lightness(-8%));
 }
 
 /*cursor pointer on clickable table <td> element*/
 .c-poiner {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /*style for numbers in pagerlist under the table*/
 .k-pager-wrap .k-pager-numbers {
-    & .k-state-selected {
-        background-color: $color-tertiary;
-        border-radius: $global-rounded;
-    }
+  & .k-state-selected {
+    background-color: $color-tertiary;
+    border-radius: $global-rounded;
+  }
 
-    & .k-link {
-        color: $color-tertiary;
-        border-radius: $global-rounded;
+  & .k-link {
+    color: $color-tertiary;
+    border-radius: $global-rounded;
 
-        &:hover,
-        &:focus {
-            background-color: color($color-tertiary a(0.2));
-        }
+    &:hover,
+    &:focus {
+      background-color: color($color-tertiary a(0.2));
     }
+  }
 }
 
 /*make all pagerlist elements, consistant*/
 .k-pager-wrap {
-    .k-link {
-        &:hover {
-            background-color: color($color-tertiary a(0.2));
-        }
-        &:focus {
-            span.k-icon {
-                color: $grey-4;
-            }
-        }
+  .k-link {
+    &:hover {
+      background-color: color($color-tertiary a(0.2));
     }
-    .k-pager-nav {
-        border-radius: $global-rounded;
+    &:focus {
+      span.k-icon {
+        color: $grey-4;
+      }
+    }
+  }
+  .k-pager-nav {
+    border-radius: $global-rounded;
 
-        &:hover {
-            background-color: color($color-tertiary a(0.2));
-        }
+    &:hover {
+      background-color: color($color-tertiary a(0.2));
     }
-} 
+  }
+}
 
 .k-pager-sizes > select {
-    display: inline-block;
-    vertical-align: middle;
-    touch-action: manipulation;
-    transition: all 250ms;
-    border-radius: $global-radial;
-    box-sizing: border-box;
-    background-color: $white;
-    height: calc($unit * 4);
-    line-height: calc($unit * 4);
-    padding: 0 calc($unit * 1);
+  display: inline-block;
+  vertical-align: middle;
+  touch-action: manipulation;
+  transition: all 250ms;
+  border-radius: $global-radial;
+  box-sizing: border-box;
+  background-color: $white;
+  height: calc($unit * 4);
+  line-height: calc($unit * 4);
+  padding: 0 calc($unit * 1);
 
-    &:focus {
-        outline: 0;
-        box-shadow: 0 0 5px 0px $color-tertiary;
-    }
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 5px 0px $color-tertiary;
+  }
 }

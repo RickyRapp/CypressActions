@@ -3,33 +3,33 @@
 \*------------------------------------*/
 
 .premission {
-    border-collapse: collapse;
+  border-collapse: collapse;
 
-    &__thead {
-        border-bottom: 1px solid $grey-3;
+  &__thead {
+    border-bottom: 1px solid $grey-3;
 
-        &__item {
-            max-width: 80px;
-            min-width: 80px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: left;
-        }
+    &__item {
+      max-width: 80px;
+      min-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
     }
+  }
 
-    &__tbody {
-        th {
-            text-align: left;
-            padding: calc($unit / 2) $unit;
-        }
-        td {
-            padding: calc($unit / 2) $unit;
-        }
+  &__tbody {
+    th {
+      text-align: left;
+      padding: calc($unit / 2) $unit;
     }
-    &__title {
-        padding: calc($unit * 2);
-        background-color: $lavender;
+    td {
+      padding: calc($unit / 2) $unit;
+    }
+  }
+  &__title {
+    padding: calc($unit * 2);
+    background-color: $lavender;
 
-        font-weight: $type-weight-medium;
-    }
+    font-weight: $type-weight-medium;
+  }
 }

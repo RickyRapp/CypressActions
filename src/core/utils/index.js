@@ -18,7 +18,6 @@ export { default as passwordRequirements } from './constants';
 export * from './apiParameters';
 export * from './router/queryParams';
 
-
 // Templates
 export { default as renderIf } from './templates/renderIf';
 

@@ -6,199 +6,198 @@
 $custom: 15;
 
 .spc {
-    /* MARGIN TOP */
-    &--top {
-        &--xtny {
-            margin-top: calc($unit / 2);
-        }
-
-        &--tny {
-            margin-top: $unit;
-        }
-
-        &--xsml {
-            margin-top: calc($unit * 1.5);
-        }
-
-        &--sml {
-            margin-top: calc($unit * 2);
-        }
-
-        &--med {
-            margin-top: calc($unit * 4);
-        }
-
-        &--lrg {
-            margin-top: calc($unit * 6);
-        }
-
-        &--xlrg {
-            margin-top: calc($unit * 8);
-        }
-
-        &--xxlrg {
-            margin-top: calc($unit * 10);
-        }
-
-        &--xxxlrg {
-            margin-top: calc($unit * 12);
-        }
-
-        &--huge{
-            margin-top: calc($unit * $custom);
-        }
+  /* MARGIN TOP */
+  &--top {
+    &--xtny {
+      margin-top: calc($unit / 2);
     }
 
-    /* MARGIN RIGHT */
-    &--right {
-        &--tny {
-            margin-right: $unit;
-        }
-
-        &--xsml {
-            margin-right: calc($unit * 1.5);
-        }
-
-        &--sml {
-            margin-right: calc($unit * 2);
-        }
-
-        &--med {
-            margin-right: calc($unit * 4);
-        }
-
-        &--lrg {
-            margin-right: calc($unit * 6);
-        }
-
-        &--xlrg {
-            margin-right: calc($unit * 8);
-        }
-
-        &--xxlrg {
-            margin-right: calc($unit * 10);
-        }
-
-        &--xxxlrg {
-            margin-right: calc($unit * 12);
-        }
-
-        &--huge{
-            margin-right: calc($unit * $custom);
-        }
+    &--tny {
+      margin-top: $unit;
     }
 
-    /* MARGIN BOTTOM */
-    &--bottom {
-        &--tny {
-            margin-bottom: $unit;
-        }
-
-        &--xsml {
-            margin-bottom: calc($unit * 1.5);
-        }
-
-        &--sml {
-            margin-bottom: calc($unit * 2);
-        }
-
-        &--med {
-            margin-bottom: calc($unit * 4);
-        }
-
-        &--lrg {
-            margin-bottom: calc($unit * 6);
-        }
-
-        &--xlrg {
-            margin-bottom: calc($unit * 8);
-        }
-
-        &--xxlrg {
-            margin-bottom: calc($unit * 10);
-        }
-
-        &--xxxlrg {
-            margin-bottom: calc($unit * 12);
-        }
-
-        &--huge{
-            margin-bottom: calc($unit * $custom);
-        }
-
-        &--reset {
-            margin-bottom: 0;
-        }
+    &--xsml {
+      margin-top: calc($unit * 1.5);
     }
 
-    /* MARGIN LEFT */
-    &--left {
-        &--tny {
-            margin-left: $unit;
-        }
-
-        &--xsml {
-            margin-left: calc($unit * 1.5);
-        }
-
-        &--sml {
-            margin-left: calc($unit * 2);
-        }
-
-        &--med {
-            margin-left: calc($unit * 4);
-        }
-
-        &--lrg {
-            margin-left: calc($unit * 6);
-        }
-
-        &--xlrg {
-            margin-left: calc($unit * 8);
-        }
-
-        &--xxlrg {
-            margin-left: calc($unit * 10);
-        }
-
-        &--xxxlrg {
-            margin-left: calc($unit * 12);
-        }
-
-        &--huge{
-            margin-left: calc($unit * $custom);
-        }
+    &--sml {
+      margin-top: calc($unit * 2);
     }
 
-    /*You can use spacers by "X" or "Y" axis*/
-    /* 
+    &--med {
+      margin-top: calc($unit * 4);
+    }
+
+    &--lrg {
+      margin-top: calc($unit * 6);
+    }
+
+    &--xlrg {
+      margin-top: calc($unit * 8);
+    }
+
+    &--xxlrg {
+      margin-top: calc($unit * 10);
+    }
+
+    &--xxxlrg {
+      margin-top: calc($unit * 12);
+    }
+
+    &--huge {
+      margin-top: calc($unit * $custom);
+    }
+  }
+
+  /* MARGIN RIGHT */
+  &--right {
+    &--tny {
+      margin-right: $unit;
+    }
+
+    &--xsml {
+      margin-right: calc($unit * 1.5);
+    }
+
+    &--sml {
+      margin-right: calc($unit * 2);
+    }
+
+    &--med {
+      margin-right: calc($unit * 4);
+    }
+
+    &--lrg {
+      margin-right: calc($unit * 6);
+    }
+
+    &--xlrg {
+      margin-right: calc($unit * 8);
+    }
+
+    &--xxlrg {
+      margin-right: calc($unit * 10);
+    }
+
+    &--xxxlrg {
+      margin-right: calc($unit * 12);
+    }
+
+    &--huge {
+      margin-right: calc($unit * $custom);
+    }
+  }
+
+  /* MARGIN BOTTOM */
+  &--bottom {
+    &--tny {
+      margin-bottom: $unit;
+    }
+
+    &--xsml {
+      margin-bottom: calc($unit * 1.5);
+    }
+
+    &--sml {
+      margin-bottom: calc($unit * 2);
+    }
+
+    &--med {
+      margin-bottom: calc($unit * 4);
+    }
+
+    &--lrg {
+      margin-bottom: calc($unit * 6);
+    }
+
+    &--xlrg {
+      margin-bottom: calc($unit * 8);
+    }
+
+    &--xxlrg {
+      margin-bottom: calc($unit * 10);
+    }
+
+    &--xxxlrg {
+      margin-bottom: calc($unit * 12);
+    }
+
+    &--huge {
+      margin-bottom: calc($unit * $custom);
+    }
+
+    &--reset {
+      margin-bottom: 0;
+    }
+  }
+
+  /* MARGIN LEFT */
+  &--left {
+    &--tny {
+      margin-left: $unit;
+    }
+
+    &--xsml {
+      margin-left: calc($unit * 1.5);
+    }
+
+    &--sml {
+      margin-left: calc($unit * 2);
+    }
+
+    &--med {
+      margin-left: calc($unit * 4);
+    }
+
+    &--lrg {
+      margin-left: calc($unit * 6);
+    }
+
+    &--xlrg {
+      margin-left: calc($unit * 8);
+    }
+
+    &--xxlrg {
+      margin-left: calc($unit * 10);
+    }
+
+    &--xxxlrg {
+      margin-left: calc($unit * 12);
+    }
+
+    &--huge {
+      margin-left: calc($unit * $custom);
+    }
+  }
+
+  /*You can use spacers by "X" or "Y" axis*/
+  /* 
        ---------------------------------
        --   x-axis ->  left & right   --
        --   y-axis ->  top & bottom   --  
        ---------------------------------
     */
-    &--x{
-        &--sml {
-            margin-left: calc($unit * 2); 
-            margin-right: calc($unit * 2); 
-        }
-        &--med {
-            margin-left: calc($unit * 4); 
-            margin-right: calc($unit * 4);
-
-        }
-    }
-    &--y{
-        &--sml {
-            margin-top: calc($unit * 2); 
-            margin-bottom: calc($unit * 2); 
-        }
-        &--med {
-            margin-top: calc($unit * 4); 
-            margin-bottom: calc($unit * 4); 
-        }
-    }
+  &--x {
     &--sml {
-        margin: calc($unit * 2);
+      margin-left: calc($unit * 2);
+      margin-right: calc($unit * 2);
     }
+    &--med {
+      margin-left: calc($unit * 4);
+      margin-right: calc($unit * 4);
+    }
+  }
+  &--y {
+    &--sml {
+      margin-top: calc($unit * 2);
+      margin-bottom: calc($unit * 2);
+    }
+    &--med {
+      margin-top: calc($unit * 4);
+      margin-bottom: calc($unit * 4);
+    }
+  }
+  &--sml {
+    margin: calc($unit * 2);
+  }
 }

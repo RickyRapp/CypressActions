@@ -3,22 +3,22 @@
 \*------------------------------------*/
 
 .field {
+  margin-bottom: $unit;
+
+  label {
+    display: block;
+    margin-bottom: calc($unit / 2);
+  }
+
+  &--inline {
     margin-bottom: $unit;
 
     label {
-        display: block;
-        margin-bottom: calc($unit / 2);
+      display: inline-block;
     }
 
-    &--inline {
-        margin-bottom: $unit;
-        
-        label {
-            display: inline-block;
-        }
-        
-        .input {
-            display: inline-block;
-        }
+    .input {
+      display: inline-block;
     }
+  }
 }

@@ -3,93 +3,93 @@
 \*------------------------------------*/
 
 .w {
-    &--50 {
-        width: 50%;
+  &--50 {
+    width: 50%;
 
-        &--px {
-            width: 50px;
-        }
+    &--px {
+      width: 50px;
+    }
+  }
+
+  &--80 {
+    width: 80%;
+
+    &--px {
+      width: 80px;
+    }
+  }
+
+  &--100 {
+    width: 100%;
+
+    &--px {
+      width: 100px;
     }
 
-    &--80 {
-        width: 80%;
-
-        &--px {
-            width: 80px;
+    &--from {
+      &-med {
+        @media (--screen-from-med) {
+          width: 100%;
         }
+      }
     }
 
-    &--100 {
-        width: 100%;
+    &--to {
+      &-lrg {
+        @media (--screen-to-lrg) {
+          width: 100%;
+        }
+      }
+    }
 
-        &--px {
-            width: 100px;
-        }
+    &--min {
+      min-width: 100px;
+    }
+  }
+  &--120 {
+    &--min {
+      min-width: 120px;
+    }
+  }
+  &--160 {
+    &--px {
+      width: 160px;
+    }
+  }
+  &--200 {
+    &--px {
+      width: 200px;
+    }
+  }
+  &--250 {
+    &--px {
+      width: 250px;
+    }
+  }
+  &--300 {
+    &--500 {
+      min-width: 300px;
+      max-width: 500px;
+    }
 
-        &--from {
-            &-med {
-                @media (--screen-from-med) {
-                    width: 100%;
-                }
-            }
-        }
-
-        &--to {
-            &-lrg {
-                @media (--screen-to-lrg) {
-                    width: 100%;
-                }
-            }
-        }
-
-        &--min {
-            min-width: 100px;
-        }
+    &--1200 {
+      min-width: 300px;
+      max-width: 1200px;
     }
-    &--120 {
-        &--min {
-            min-width: 120px;
-        }
+  }
+  &--400 {
+    &--px {
+      width: 400px;
     }
-    &--160 {
-        &--px {
-            width: 160px;
-        }
+  }
+  &--760 {
+    &--max {
+      max-width: 760px;
     }
-    &--200 {
-        &--px {
-            width: 200px;
-        }
+  }
+  &--1024 {
+    &--max {
+      max-width: 1024px;
     }
-    &--250 {
-        &--px {
-            width: 250px;
-        }
-    }
-    &--300 {
-        &--500 {
-            min-width: 300px;
-            max-width: 500px;
-        }
-
-        &--1200 {
-            min-width: 300px;
-            max-width: 1200px;
-        }
-    }
-    &--400 {
-        &--px {
-            width: 400px;
-        }
-    }
-    &--760 {
-        &--max {
-            max-width: 760px;
-        }
-    }
-    &--1024 {
-        &--max {
-            max-width: 1024px;
-        }
-    }
+  }
 }

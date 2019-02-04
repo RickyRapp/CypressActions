@@ -16,10 +16,9 @@ i18n
     },
     preload: ['en'],
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
+      loadPath: '/locales/{{lng}}/{{ns}}.json'
     },
     whitelist: ApplicationSettings.availableLanguages
   });
-
 
 export default i18n;

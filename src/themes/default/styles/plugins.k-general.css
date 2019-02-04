@@ -7,6 +7,5 @@
       -make halftransparent to see through
 */
 .k-loading-image {
-    background-color: rgba(240,240,240,0.8);
+  background-color: rgba(240, 240, 240, 0.8);
 }
-

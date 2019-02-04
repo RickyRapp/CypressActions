@@ -3,8 +3,8 @@
 \*------------------------------------*/
 
 .error {
-    &__desc {
-        overflow: auto;
-        max-height: 40vh;
-    }
+  &__desc {
+    overflow: auto;
+    max-height: 40vh;
+  }
 }

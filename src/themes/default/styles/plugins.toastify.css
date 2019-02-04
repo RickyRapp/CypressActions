@@ -4,19 +4,19 @@
 
 /*override colors on toast messageses*/
 .green-background {
-    background-color: $color-success;
-    color: $white;
+  background-color: $color-success;
+  color: $white;
 }
 .red-background {
-    background-color: $color-primary;
-    color: $white;
+  background-color: $color-primary;
+  color: $white;
 }
 .orange-background {
-    background-color: $mango-tango;
-    color: $white;
+  background-color: $mango-tango;
+  color: $white;
 }
 
 /*override progress bar color*/
 .fancy-progress-bar {
-    background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
 }

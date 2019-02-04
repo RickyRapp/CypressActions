@@ -4,16 +4,16 @@ import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
 import { PasswordChangeViewStore } from 'modules/membership/stores';
 
-@setCurrentView((rootStore) => new PasswordChangeViewStore(rootStore))
+@setCurrentView(rootStore => new PasswordChangeViewStore(rootStore))
 @observer
 class PasswordChange extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return <PasswordChangeTemplate {...this.props} />
-    }
+  render() {
+    return <PasswordChangeTemplate {...this.props} />;
+  }
 }
 
 export default PasswordChange;

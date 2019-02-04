@@ -1,7 +1,5 @@
-import { RouterState } from "mobx-state-router";
+import { RouterState } from 'mobx-state-router';
 
 const unauthorizedRoute = new RouterState('unauthorized');
 
-export {
-    unauthorizedRoute
-}
+export { unauthorizedRoute };

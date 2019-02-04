@@ -1,16 +1,16 @@
-import { observable, action, runInAction } from "mobx";
+import { observable, action, runInAction } from 'mobx';
 
 export default class AppStore {
-    rootStore;
+  rootStore;
 
-    @observable initialized = false;
+  @observable initialized = false;
 
-    constructor(rootStore) {
-        this.rootStore = rootStore;
-    }
+  constructor(rootStore) {
+    this.rootStore = rootStore;
+  }
 
-    @action async initialize() {
-        await this.rootStore.localizationStore.initialize();
-        runInAction(() => this.initialized = true);
-    }
+  @action async initialize() {
+    await this.rootStore.localizationStore.initialize();
+    runInAction(() => (this.initialized = true));
+  }
 }

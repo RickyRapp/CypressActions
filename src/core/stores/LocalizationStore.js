@@ -1,61 +1,57 @@
-import { observable, action, runInAction } from "mobx";
+import { observable, action, runInAction } from 'mobx';
 import { localizationService } from 'core/services';
 
 class LocalizationStore {
-    rootStore;
-    maxInitDuration = 10000;
+  rootStore;
+  maxInitDuration = 10000;
 
-    @observable language;
+  @observable language;
 
-    languages = [
-        { "value": "en", "label": "English" },
-        { "value": "hr", "label": "Croatian" },
-        { "value": "it", "label": "Italian" },
-    ];
+  languages = [
+    { value: 'en', label: 'English' },
+    { value: 'hr', label: 'Croatian' },
+    { value: 'it', label: 'Italian' }
+  ];
 
-    constructor(rootStore) {
-        this.rootStore = rootStore;           
+  constructor(rootStore) {
+    this.rootStore = rootStore;
+  }
+
+  @action changeLanguage = lng => {
+    const { whitelist, fallbackLng } = localizationService.options;
+
+    if (whitelist.indexOf(lng) === -1) {
+      lng = fallbackLng[0];
     }
-    
-    @action changeLanguage = (lng) => {
-        const {
-            whitelist,
-            fallbackLng
-        } = localizationService.options;
+    localizationService.changeLanguage(lng);
+  };
 
-        if (whitelist.indexOf(lng) === -1) {
-            lng = fallbackLng[0];
-        }
-        localizationService.changeLanguage(lng);
-    }
+  @action async initialize() {
+    localizationService.on('languageChanged', lng => {
+      runInAction(() => {
+        this.language = lng;
+      });
+    });
 
-    @action async initialize() {
-        localizationService.on('languageChanged', (lng) => {
-            runInAction(() => {
-                this.language = lng;
-            });
+    return new Promise((resolve, reject) => {
+      const cancelID = setTimeout(() => {
+        reject();
+      }, this.maxInitDuration);
+
+      const onInitialize = () => {
+        clearTimeout(cancelID);
+        resolve();
+      };
+
+      if (localizationService.isInitialized) {
+        onInitialize();
+      } else {
+        localizationService.on('initialized', options => {
+          onInitialize();
         });
-
-        return new Promise((resolve, reject) => {
-            const cancelID = setTimeout(() => {
-                reject();
-            }, this.maxInitDuration);
-
-            const onInitialize = () => {
-                clearTimeout(cancelID);
-                resolve();
-            };
-
-            if (localizationService.isInitialized) {
-                onInitialize();
-            } else {
-                localizationService.on('initialized', (options) => {
-                    onInitialize();
-                });
-            }            
-        });
-
-    }
+      }
+    });
+  }
 }
 
 export default LocalizationStore;

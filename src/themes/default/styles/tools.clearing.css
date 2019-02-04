@@ -3,37 +3,37 @@
 \*------------------------------------*/
 
 @define-mixin clearfix {
-    &:after {
-        content: "";
-        clear: both;
-        display: block;
-        height: 0;
-        visibility: hidden;
-        font-size: 0;
-    }
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+    font-size: 0;
+  }
 }
 
 .clearfix {
-    @mixin clearfix;
+  @mixin clearfix;
 }
 
 .group {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /*Clearfix for each side*/
 .clear {
-    &--left {
-        clear: left;
-    }
+  &--left {
+    clear: left;
+  }
 
-    &--right {
-        clear: right;
-    }
+  &--right {
+    clear: right;
+  }
 
-    &--both {
-        clear: both;
-    }
+  &--both {
+    clear: both;
+  }
 }
 
 /*clearfix for IE6 & above*/

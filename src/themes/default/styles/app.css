@@ -18,58 +18,58 @@
 * Import: vars
 * Description: variables
 */
-@import "vars.globals.css";
-@import "vars.typography.css";
-@import "vars.responsive.css";
-@import "vars.colors.css";
-@import "vars.shadows.css";
+@import 'vars.globals.css';
+@import 'vars.typography.css';
+@import 'vars.responsive.css';
+@import 'vars.colors.css';
+@import 'vars.shadows.css';
 
 /**
 * Import: tools
 * Description: tools like typomatic and other mixins / libraries
 */
-@import "tools.typomatic.css";
-@import "tools.bubba.css";
-@import "tools.clearing.css";
-@import "tools.ricky.css";
+@import 'tools.typomatic.css';
+@import 'tools.bubba.css';
+@import 'tools.clearing.css';
+@import 'tools.ricky.css';
 
 /**
 * Import: generic
 * Description: normalize or reset CSS, box sizing
 */
-@import "../../../../node_modules/normalize.css/normalize.css";
-@import "generic.boxsizing.css";
+@import '../../../../node_modules/normalize.css/normalize.css';
+@import 'generic.boxsizing.css';
 
 /**
 * Import: base
 * Description: base structural stylings for setting the body, typography
 * and other base styles (no classes should be added here)
 */
-@import "base.globals.css";
-@import "base.typography.css";
+@import 'base.globals.css';
+@import 'base.typography.css';
 
 /**
 * Import: modules
 * Description: cross project reusable modules
 */
-@import "modules.animations.css";
-@import "modules.btn.css";
-@import "modules.field.css";
-@import "modules.input.css";
-@import "modules.layout.css";
-@import "modules.card.css";
-@import "modules.table.css";
-@import "modules.animations.css";
-@import "modules.form.css";
-@import "modules.emptystate.css";
-@import "modules.notifications.css";
-@import "modules.tabs.css";
-@import "modules.messages.css";
-@import "modules.breadcrumbs.css";
-@import "modules.flags.css";
-@import "modules.pin.css";
-@import "modules.list.css";
-@import "modules.listbox.css";
+@import 'modules.animations.css';
+@import 'modules.btn.css';
+@import 'modules.field.css';
+@import 'modules.input.css';
+@import 'modules.layout.css';
+@import 'modules.card.css';
+@import 'modules.table.css';
+@import 'modules.animations.css';
+@import 'modules.form.css';
+@import 'modules.emptystate.css';
+@import 'modules.notifications.css';
+@import 'modules.tabs.css';
+@import 'modules.messages.css';
+@import 'modules.breadcrumbs.css';
+@import 'modules.flags.css';
+@import 'modules.pin.css';
+@import 'modules.list.css';
+@import 'modules.listbox.css';
 
 /* @import modules.anchor.css; */
 
@@ -77,12 +77,12 @@
 * Import: components
 * Description: specific website/app components
 */
-@import "components.header.css";
-@import "components.loader.css";
-@import "components.modal.css";
-@import "components.treeview.css";
-@import "components.content.css";
-@import "components.premissions.css";
+@import 'components.header.css';
+@import 'components.loader.css';
+@import 'components.modal.css';
+@import 'components.treeview.css';
+@import 'components.content.css';
+@import 'components.premissions.css';
 /* @import components.footer.css; */
 
 /**
@@ -90,26 +90,26 @@
 * Description: specific website/app views (example: 404 view, login view)
 */
 /* @import view.login.css; */
- @import "view.404.css";
+@import 'view.404.css';
 
 /**
 * Import: utils
 * Description: reusable utilities such as floats, spacers etc.
 */
-@import "utils.grid.css";
-@import "utils.f-grid.css";
-@import "utils.grid-offset.css";
-@import "utils.spacers.css";
-@import "utils.width.css";
-@import "utils.type.css";
-@import "utils.floats.css";
-@import "utils.separator.css";
-@import "utils.display.css";
-@import "utils.padders.css";
-@import "utils.opacity.css";
-@import "utils.align.css";
-@import "utils.position.css";
-@import "utils.scrollbar.css";
+@import 'utils.grid.css';
+@import 'utils.f-grid.css';
+@import 'utils.grid-offset.css';
+@import 'utils.spacers.css';
+@import 'utils.width.css';
+@import 'utils.type.css';
+@import 'utils.floats.css';
+@import 'utils.separator.css';
+@import 'utils.display.css';
+@import 'utils.padders.css';
+@import 'utils.opacity.css';
+@import 'utils.align.css';
+@import 'utils.position.css';
+@import 'utils.scrollbar.css';
 
 /* @import utils.floats.css; */
 /* @import utils.visibility.css; */
@@ -120,15 +120,15 @@
 * Note: when importing code from a 3rd party it should be stripped off
 * any vendor prefixes since autoprefixer will use project specific vendor prefixes
 */
-@import "plugins.fontface.css";
-@import "plugins.toastify.css";
-@import "plugins.modal.css";
-@import "plugins.highcharts.css";
-@import "plugins.icomoon.css";
-@import "plugins.treeview.css";
-@import "plugins.k-general.css";
-@import "plugins.k-inputs.css";
-@import "plugins.k-table.css";
+@import 'plugins.fontface.css';
+@import 'plugins.toastify.css';
+@import 'plugins.modal.css';
+@import 'plugins.highcharts.css';
+@import 'plugins.icomoon.css';
+@import 'plugins.treeview.css';
+@import 'plugins.k-general.css';
+@import 'plugins.k-inputs.css';
+@import 'plugins.k-table.css';
 
 /**
 * Import: shame

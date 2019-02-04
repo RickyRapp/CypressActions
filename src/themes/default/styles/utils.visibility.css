@@ -3,12 +3,11 @@
 \*------------------------------------*/
 
 .visibility {
-	&--hidden {
-    	visibility: hidden;
-	}
+  &--hidden {
+    visibility: hidden;
+  }
 
-	&--visible {
-		visibility: visible;
-	}
+  &--visible {
+    visibility: visible;
+  }
 }
-

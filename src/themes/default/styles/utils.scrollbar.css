@@ -12,7 +12,7 @@
   border-radius: $global-radial;
 
   &:hover {
-      background-color: #333556;
+    background-color: #333556;
   }
 }
 
@@ -26,5 +26,5 @@
 }
 
 ::-webkit-scrollbar-corner {
-    background-color: $white;
+  background-color: $white;
 }

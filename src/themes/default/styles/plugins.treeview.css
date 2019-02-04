@@ -3,122 +3,121 @@
 \*------------------------------------*/
 
 .rc-tree {
-    overflow: auto;
-    
-    padding: 0 calc($unit * 2);
-    padding-bottom: calc($unit * 4);
+  overflow: auto;
 
-    .rc-tree-title {
-        font-size: 16px !important;
-        font-family: 'IBM Plex Sans';
+  padding: 0 calc($unit * 2);
+  padding-bottom: calc($unit * 4);
+
+  .rc-tree-title {
+    font-size: 16px !important;
+    font-family: 'IBM Plex Sans';
+  }
+
+  li {
+    /*spacing between elements*/
+
+    margin-bottom: $unit !important;
+
+    ul {
+      margin-top: 3px !important;
     }
 
-    li {
-        /*spacing between elements*/
+    /*style of icons*/
 
-        margin-bottom: $unit !important;
+    .rc-tree-switcher {
+      margin-top: 5px;
+      vertical-align: sub !important;
 
-        ul {
-            margin-top: 3px !important;
+      &.rc-tree-switcher_close {
+        background-image: none;
+        background: none;
+
+        &:before {
+          content: '';
+          display: inline-block;
+
+          width: 12px;
+          height: 12px;
+
+          vertical-align: top;
+          border-right: 3px solid $grey-8;
+          border-bottom: 3px solid $grey-8;
+          transform: rotate(-45deg) scale(0.65);
         }
+      }
 
-        /*style of icons*/
+      &.rc-tree-switcher_open {
+        background-image: none;
+        background: none;
 
-        .rc-tree-switcher {
-            margin-top: 5px;
-            vertical-align: sub !important;
+        &:before {
+          content: '';
+          display: block;
 
-            &.rc-tree-switcher_close {
-                background-image: none;
-                background: none;
+          width: 12px;
+          height: 12px;
 
-                &:before {
-                    content:"";
-                    display: inline-block;
-                    
-                    width: 12px;
-                    height: 12px;
-                    
-                    vertical-align: top;
-                    border-right: 3px solid $grey-8;
-                    border-bottom: 3px solid $grey-8;
-                    transform: rotate(-45deg) scale(0.65);
-                }
-            }
-
-            &.rc-tree-switcher_open {
-                background-image: none;
-                background: none;
-
-                &:before {
-                    content:"";
-                    display: block;
-                    
-                    width: 12px;
-                    height: 12px;
-                    
-                    vertical-align: top;
-                    border-right: 3px solid $grey-8;
-                    border-bottom: 3px solid $grey-8;
-                    transform: rotate(45deg) scale(0.65);
-                }
-            }
+          vertical-align: top;
+          border-right: 3px solid $grey-8;
+          border-bottom: 3px solid $grey-8;
+          transform: rotate(45deg) scale(0.65);
         }
-        .rc-tree-checkbox {
-            margin: 8px 3px !important;
-            margin-right: 8px !important;
-
-            &.rc-tree-checkbox-checked {
-
-            }
-        }
-        .rc-tree-iconEle {
-            margin-right: $unit !important;
-        }
+      }
     }
+    .rc-tree-checkbox {
+      margin: 8px 3px !important;
+      margin-right: 8px !important;
+
+      &.rc-tree-checkbox-checked {
+      }
+    }
+    .rc-tree-iconEle {
+      margin-right: $unit !important;
+    }
+  }
 }
 
 ul.rc-tree {
-    li {
-        span.rc-tree-checkbox {
-            font-family: "icomoon" !important;
-            speak: none;
-            font-size: 13px;
-            font-style: normal;
-            font-weight: normal;
-            font-variant: normal;
-            text-transform: none;
-            line-height: 1;
-            background-image: none;
+  li {
+    span.rc-tree-checkbox {
+      font-family: 'icomoon' !important;
+      speak: none;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      background-image: none;
 
-            /* Better Font Rendering =========== */
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 
-            &:before {
-                content: "\e900";
-            }
+      &:before {
+        content: '\e900';
+      }
 
-            &.rc-tree-checkbox-checked {
-                color: $color-tertiary;
+      &.rc-tree-checkbox-checked {
+        color: $color-tertiary;
 
-                &:before {
-                    content: "\e901";
-                }
-            }
-
-            /*checkbox third state (some selected)*/
-            &.rc-tree-checkbox-indeterminate {
-                color: $color-tertiary;
-
-                &:before {
-                    content: "\e97a";
-                }
-            }
+        &:before {
+          content: '\e901';
         }
-        /*make selected item tall enough*/
-        .rc-tree-node-content-wrapper {
-            height: unset;
+      }
+
+      /*checkbox third state (some selected)*/
+      &.rc-tree-checkbox-indeterminate {
+        color: $color-tertiary;
+
+        &:before {
+          content: '\e97a';
         }
+      }
     }
+    /*make selected item tall enough*/
+    .rc-tree-node-content-wrapper {
+      height: unset;
+    }
+  }
 }

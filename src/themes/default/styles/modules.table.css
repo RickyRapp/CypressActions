@@ -3,78 +3,79 @@
 \*------------------------------------*/
 
 .table {
-    border-collapse: collapse;
-    table-layout: fixed;
+  border-collapse: collapse;
+  table-layout: fixed;
 
-    th, td {
-        word-break: break-all;
+  th,
+  td {
+    word-break: break-all;
+  }
+
+  &__icons {
+    float: right;
+    width: 90px;
+  }
+
+  &__head {
+    border-bottom: 2px solid $grey-3;
+
+    &--data {
+      padding: $unit calc($unit * 2);
+
+      color: $color-text-dark;
+      opacity: 0.9;
+      font-weight: $type-weight-semibold;
+      text-align: left;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      &.center {
+        text-align: center;
+      }
+
+      &.right {
+        text-align: right;
+      }
     }
+  }
 
-    &__icons {
-        float: right;
-        width: 90px;
-    }
+  &__body {
+    &--data {
+      padding: calc($unit * 1.5) calc($unit * 2);
 
-    &__head {
-        border-bottom: 2px solid $grey-3;
+      &.center {
+        text-align: center;
+      }
 
-        &--data {
-            padding: $unit calc($unit * 2);
-            
-            color: $color-text-dark;
-            opacity: 0.9;
-            font-weight: $type-weight-semibold;
-            text-align: left;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+      &.right {
+        text-align: right;
+      }
 
-            &.center {
-                text-align: center;
-            }
+      .icomoon {
+        color: $grey-6;
+        transition: all 250ms ease-in-out;
+        cursor: pointer;
 
-            &.right {
-                text-align: right;
-            }
+        &:hover {
+          color: $color-primary;
         }
+      }
     }
 
-    &__body {
-        &--data {
-            padding: calc($unit * 1.5) calc($unit * 2);
-            
-            &.center {
-                text-align: center;
-            }
+    tr {
+      border-bottom: $unit solid $white;
+      cursor: pointer;
+      color: $color-text-dark;
+      transition: all 250ms ease-in-out;
+      background-color: $grey-1;
 
-            &.right {
-                text-align: right;
-            }
+      &:last-child {
+        border: none;
+      }
 
-            .icomoon {
-                color: $grey-6;
-                transition: all 250ms ease-in-out;
-                cursor: pointer;
-
-                &:hover {
-                    color: $color-primary;
-                }
-            }
-        }
-        
-        tr {
-            border-bottom: $unit solid $white;
-            cursor: pointer;
-            color: $color-text-dark;
-            transition: all 250ms ease-in-out;
-            background-color: $grey-1;
-
-            &:last-child {
-                border: none;
-            }
-
-            &:hover {
-                background-color: color($grey-2 blackness(+10%));
-            }
-        }
+      &:hover {
+        background-color: color($grey-2 blackness(+10%));
+      }
     }
+  }
 }

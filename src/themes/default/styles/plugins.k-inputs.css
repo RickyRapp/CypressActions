@@ -3,157 +3,165 @@
 \*------------------------------------*/
 
 /*make all inputs 100% width*/
-.k-autocomplete, .k-combobox, .k-dateinput, .k-datepicker, .k-datetimepicker, .k-dropdown, .k-dropdowntree, .k-maskedtextbox, .k-multiselect, .k-numerictextbox, .k-timepicker, .k-textbox-container {
-    width: 100%;
+.k-autocomplete,
+.k-combobox,
+.k-dateinput,
+.k-datepicker,
+.k-datetimepicker,
+.k-dropdown,
+.k-dropdowntree,
+.k-maskedtextbox,
+.k-multiselect,
+.k-numerictextbox,
+.k-timepicker,
+.k-textbox-container {
+  width: 100%;
 }
 
 /*fixing dropdown on language select*/
 .k-list-scroller .k-item img {
-    margin-right: 4px;
-    vertical-align: baseline;
+  margin-right: 4px;
+  vertical-align: baseline;
 }
 
 /*make style for language selection dropdown in header*/
 .k-dropdown {
-    &.language-select {
-        width: 120px;
+  &.language-select {
+    width: 120px;
 
-        .k-dropdown-wrap {
-            padding: $unit 0;
-            border-radius: $global-radial;
-            
-            color: $grey-2;
-            background-image: none;
-            background-color: $color-secondary-light;
-            transition: all 250ms ease-out;
+    .k-dropdown-wrap {
+      padding: $unit 0;
+      border-radius: $global-radial;
 
-            &:hover {
-                background-color: color($color-secondary-light blackness(+10%));
-            }
+      color: $grey-2;
+      background-image: none;
+      background-color: $color-secondary-light;
+      transition: all 250ms ease-out;
 
-            .k-input {
-                color: $grey-2;
+      &:hover {
+        background-color: color($color-secondary-light blackness(+10%));
+      }
 
-                img {
-                    display: inline-block;
-                    min-width: 19px;
-                    margin-right: 3px;
-                }
-            }
+      .k-input {
+        color: $grey-2;
+
+        img {
+          display: inline-block;
+          min-width: 19px;
+          margin-right: 3px;
         }
+      }
     }
-    
-    /*override input elements to be consistent with app*/
-    &.input--dropdown {
+  }
 
-        .k-dropdown-wrap {
-            padding: 4px;
-            border: 1px solid $grey-3;
-            border-radius: $global-radial;
-            
-            background-color: $white;
-            background-image: none;
+  /*override input elements to be consistent with app*/
+  &.input--dropdown {
+    .k-dropdown-wrap {
+      padding: 4px;
+      border: 1px solid $grey-3;
+      border-radius: $global-radial;
 
-            &.k-state-focused {
-                border: 1px solid $grey-3;
-                box-shadow: 0 0 5px 0px $color-tertiary;
-                outline: 0;
-                animation: shadow 1s alternate infinite;
-            }
-        }
+      background-color: $white;
+      background-image: none;
+
+      &.k-state-focused {
+        border: 1px solid $grey-3;
+        box-shadow: 0 0 5px 0px $color-tertiary;
+        outline: 0;
+        animation: shadow 1s alternate infinite;
+      }
     }
+  }
 }
 
 /*version switch in header override*/
 .k-switch {
-    width: 7em;
+  width: 7em;
 }
 .version-switch {
-    .k-widget.k-switch {
-        background-color: $color-secondary-light;
+  .k-widget.k-switch {
+    background-color: $color-secondary-light;
 
-        .k-switch-container {
-            .k-switch-label-on {
-                top: 0;
-                color: $white;
-            } 
-            .k-switch-label-off {
-                top: 0;
-                color: $white;
-            }  
-
-        }
+    .k-switch-container {
+      .k-switch-label-on {
+        top: 0;
+        color: $white;
+      }
+      .k-switch-label-off {
+        top: 0;
+        color: $white;
+      }
     }
-    & .k-switch-on {
-        & .k-switch-handle {
-            background-color: $color-quaternary;
-            border-color: $color-quaternary;
-        }   
-
-        & .k-switch-label-off {
-            left: 3.5em;
-        }  
-
-        & .k-switch-label-on {
-            left: -3em;
-        }
+  }
+  & .k-switch-on {
+    & .k-switch-handle {
+      background-color: $color-quaternary;
+      border-color: $color-quaternary;
     }
-    & .k-switch-off {
-        & .k-switch-label-on {
-            left: -3.2em;
-        }
+
+    & .k-switch-label-off {
+      left: 3.5em;
     }
+
+    & .k-switch-label-on {
+      left: -3em;
+    }
+  }
+  & .k-switch-off {
+    & .k-switch-label-on {
+      left: -3.2em;
+    }
+  }
 }
 
 /*Make all multiselect consistant with other inputs*/
 .k-multiselect {
-
-    /*Custom style*/
-    &.input--multiselect {
-        .k-multiselect-wrap {
-            padding: calc($unit / 2);
-            border: 1px solid $grey-3;
-            border-radius: $global-radial;
-        }
-
-        &.k-state-focused {
-            outline: 0;
-            box-shadow: 0 0 5px 0px $color-tertiary;
-            animation: shadow 1s alternate infinite;
-
-            .k-multiselect-wrap {
-                border: 1px solid $grey-3;
-            }
-        }
+  /*Custom style*/
+  &.input--multiselect {
+    .k-multiselect-wrap {
+      padding: calc($unit / 2);
+      border: 1px solid $grey-3;
+      border-radius: $global-radial;
     }
+
+    &.k-state-focused {
+      outline: 0;
+      box-shadow: 0 0 5px 0px $color-tertiary;
+      animation: shadow 1s alternate infinite;
+
+      .k-multiselect-wrap {
+        border: 1px solid $grey-3;
+      }
+    }
+  }
 }
 
 /*Make style for datepicker to look like dropdown or text input */
 .k-datepicker {
-    .k-picker-wrap {
-        border: 1px solid $grey-3;
-        border-radius: $global-radial;
+  .k-picker-wrap {
+    border: 1px solid $grey-3;
+    border-radius: $global-radial;
 
-        &.k-state-focused {
-            border: 1px solid $grey-3;
-        }
-
-        .k-dateinput .k-dateinput-wrap .k-input {
-            height: unset;
-            padding: 8px;
-        }
+    &.k-state-focused {
+      border: 1px solid $grey-3;
     }
+
+    .k-dateinput .k-dateinput-wrap .k-input {
+      height: unset;
+      padding: 8px;
+    }
+  }
+  .k-select {
+    background-color: $lavender;
+    background-image: none;
+  }
+
+  &:hover {
     .k-select {
-        background-color: $lavender;
-        background-image: none;
+      background-color: $lavender;
+      background-image: none;
     }
-
-    &:hover {
-        .k-select {
-            background-color: $lavender;
-            background-image: none;
-        }
-    }
+  }
 }
 
 /*
@@ -163,26 +171,26 @@
 */
 
 .k-textbox-container {
-    &.k-state-empty > .k-label {
-        display: block;
-    }
+  &.k-state-empty > .k-label {
+    display: block;
+  }
 
-    &.k-state-focused > .k-label {
-        transform: none;
-        display: none;
-    }
+  &.k-state-focused > .k-label {
+    transform: none;
+    display: none;
+  }
 
-    span.k-label {
-        display: none;
-    }
+  span.k-label {
+    display: none;
+  }
 }
 
 /* fix position of placeholder in input*/
 .k-textbox-container > .k-label {
-    top: calc(1.07143em + -5px);
+  top: calc(1.07143em + -5px);
 }
 
 /*remove padding above input which was used for label motion*/
 .k-textbox-container {
-    padding-top: 0;
+  padding-top: 0;
 }

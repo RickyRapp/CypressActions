@@ -11,7 +11,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    
+
     background-color: $white;
     & .center {
       position: absolute;
@@ -41,7 +41,7 @@
   border-color: $color-primary transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
-  animation-delay: -0.30s;
+  animation-delay: -0.3s;
 }
 .lds-ring div:nth-child(2) {
   animation-delay: -0.2s;

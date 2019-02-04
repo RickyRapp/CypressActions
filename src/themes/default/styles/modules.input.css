@@ -3,276 +3,274 @@
 \*------------------------------------*/
 
 .input {
-    /**
+  /**
      * Input base
      */
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 
-    vertical-align: middle;
-    touch-action: manipulation;
-    appearance: none;
-    transition: all 250ms;
-    -webkit-appearance: none;
-    border-radius: $global-radial;
-    box-sizing: border-box;
-    background-color: $white;
+  vertical-align: middle;
+  touch-action: manipulation;
+  appearance: none;
+  transition: all 250ms;
+  -webkit-appearance: none;
+  border-radius: $global-radial;
+  box-sizing: border-box;
+  background-color: $white;
 
-    /**
+  /**
      * Input sizes
     */
-    &--sml {
-        height: calc($unit * 4);
-        line-height: calc($unit * 4);
-        padding: 0 calc($unit * 1);
-    }
+  &--sml {
+    height: calc($unit * 4);
+    line-height: calc($unit * 4);
+    padding: 0 calc($unit * 1);
+  }
 
-    &--med {
-        height: calc($unit * 6);
-        line-height: calc($unit * 6);
-        padding: 0 calc($unit * 2);
-    }
+  &--med {
+    height: calc($unit * 6);
+    line-height: calc($unit * 6);
+    padding: 0 calc($unit * 2);
+  }
 
-    &--lrg {
-        height: calc($unit * 8);
-        line-height: calc($unit * 8);
-        padding: 0 calc($unit * 3);
-    }
+  &--lrg {
+    height: calc($unit * 8);
+    line-height: calc($unit * 8);
+    padding: 0 calc($unit * 3);
+  }
 
-    /**
+  /**
      * Input base project styling
      */
-    font-family: $ff-sans;
+  font-family: $ff-sans;
+  border: 1px solid $grey-3;
+
+  &::placeholder {
+    color: color(white blackness(+60%));
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:invalid {
+    border: 1px solid $color-warning;
+  }
+
+  &:focus {
+    outline: 0;
     border: 1px solid $grey-3;
+    box-shadow: 0 0 5px 0px $color-tertiary;
+    animation: shadow 1s alternate infinite;
+  }
 
-    &::placeholder {
-        color: color(white blackness(+60%));
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $black;
+  }
+
+  /**
+     * Input types
+     */
+  &--text {
+    width: 100%;
+    padding: calc($unit * 1.5);
+    @mixin type-scale $type-small, 1;
+
+    &--alt {
+      background-color: $grey-8;
+      color: $grey-2;
+    }
+  }
+
+  &--alt {
+    &:focus {
+      outline: 0;
+      box-shadow: 0 1px 10px -1px $white;
+
+      & + .icomoon {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &--textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 200px;
+    min-height: 56px;
+    padding: calc($unit * 1.5);
+
+    line-height: 1.2rem;
+
+    &--alt {
+      background-color: $grey-8;
+      color: $grey-2;
+    }
+  }
+
+  &--select,
+  &--date,
+  &--search {
+    padding-right: calc($unit * 5);
+
+    color: $color-text-dark;
+    vertical-align: middle;
+
+    &:focus {
+      box-shadow: 0 0 5px 0px $color-tertiary;
+      animation: shadow 1s alternate infinite;
+
+      & + .input__icon {
+        color: $color-tertiary;
+      }
+    }
+    & + .input__icon {
+      position: absolute;
+      top: calc(50% - 10px);
+      right: calc($unit / 2);
+
+      color: $grey-5;
+      transition: all 250ms ease-in-out;
+
+      &:hover,
+      &:focus {
+        color: $color-tertiary;
+      }
+    }
+    &--alt {
+      background-color: $grey-8;
+      color: $grey-2;
+
+      & + .input__icon {
+        color: $grey-2;
+      }
+    }
+  }
+
+  &--date {
+    /* background-image: url(../img/ic_date_range_black_24px.svg); */
+  }
+
+  &--search {
+    /* background-image: url(../img/ic_search_black_24px.svg); */
+  }
+
+  &--check {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+
+    & + .check {
+      position: relative;
+      width: 16px;
+      height: 16px;
+
+      display: inline-block;
+      border: 1px solid $grey-3;
+
+      background-color: $grey-1;
+      cursor: pointer;
+      vertical-align: sub;
+      transition: all 250ms ease-in-out;
+
+      /*draw check from borders*/
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 4px;
+        width: 6px;
+        height: 10px;
+
+        display: block;
+        border-right: 2px solid $color-tertiary;
+        border-bottom: 2px solid $color-tertiary;
+
+        opacity: 0;
+        transform: rotate(45deg);
+        transition: all 250ms ease-in-out;
+      }
     }
 
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+    /*make all labels consistant*/
+    & ~ .label {
+      display: inline-block;
+      margin-top: $unit;
+      margin-bottom: $unit;
+
+      @mixin type-scale $type-tiny, 1;
+      font-weight: $type-weight-medium;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $grey-6;
+
+      opacity: 0.7;
+      cursor: pointer;
     }
 
-    &:invalid {
-        border: 1px solid $color-warning;
+    &:checked {
+      & + label.check {
+        border: 1px solid $color-tertiary;
+        background-color: $color-tertiary;
+        vertical-align: sub;
+
+        &:before {
+          opacity: 1;
+          border-color: $white;
+        }
+      }
+    }
+  }
+
+  &--radio {
+    opacity: 0;
+    position: absolute;
+
+    & + label {
+      cursor: pointer;
+
+      &:before {
+        content: '';
+        width: calc($unit * 3);
+        height: calc($unit * 3);
+        margin-top: calc($unit / 2);
+        margin-right: calc($unit * 2);
+        float: left;
+
+        padding: $unit;
+        border: 1px solid color(white blackness(+30%));
+      }
+    }
+
+    &:checked {
+      & + label {
+        &:before {
+          background-repeat: no-repeat;
+          background-position: center center;
+        }
+      }
     }
 
     &:focus {
-        outline: 0;
-        border: 1px solid $grey-3;
-        box-shadow: 0 0 5px 0px $color-tertiary;
-        animation: shadow 1s alternate infinite;
-    }
-
-    &:-moz-focusring {
-        color: transparent;
-        text-shadow: 0 0 0 $black;
-    }
-
-    /**
-     * Input types
-     */
-    &--text {
-        width: 100%;
-        padding: calc($unit * 1.5);
-        @mixin type-scale $type-small, 1;
-
-        &--alt {
-            background-color: $grey-8;
-            color: $grey-2;
+      & + label {
+        &:before {
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
         }
+      }
     }
+  }
 
-    &--alt {
-        &:focus {
-            outline: 0;
-            box-shadow: 0 1px 10px -1px $white;
+  &--warning {
+    border: 1px solid $color-warning;
+  }
 
-            & + .icomoon {
-                color: $color-primary;
-            }
-        }
-    }
-
-    &--textarea {
-         width: 100%;
-         max-width: 100%;
-         min-width: 100%;
-         max-height: 200px;
-         min-height: 56px;
-         padding: calc($unit * 1.5);
-         
-         line-height: 1.2rem;
-
-         &--alt {
-            background-color: $grey-8;
-            color: $grey-2;
-         }
-    }
-
-    &--select, 
-    &--date, 
-    &--search {
-        padding-right: calc($unit * 5);
-        
-        color: $color-text-dark;
-        vertical-align: middle;
-
-        &:focus {
-            box-shadow: 0 0 5px 0px $color-tertiary;
-            animation: shadow 1s alternate infinite;
-
-            & + .input__icon {
-                color: $color-tertiary;
-            }
-        }
-        & + .input__icon {
-            position: absolute;
-            top: calc(50% - 10px);
-            right: calc($unit / 2);
-
-            color: $grey-5;
-            transition: all 250ms ease-in-out;
-
-            &:hover,
-            &:focus {
-                color: $color-tertiary;
-            }
-        }
-        &--alt {
-            background-color: $grey-8;
-            color: $grey-2;
-
-            & + .input__icon {
-                color: $grey-2;
-            }
-        }
-    }
-
-    &--date {
-        /* background-image: url(../img/ic_date_range_black_24px.svg); */
-    }
-
-    &--search {
-        /* background-image: url(../img/ic_search_black_24px.svg); */
-
-    }
-    
-    &--check {
-        position: absolute;
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-
-        & + .check {
-            position: relative;
-            width: 16px;
-            height: 16px;
-            
-            display: inline-block;
-            border: 1px solid $grey-3;
-            
-            background-color: $grey-1;
-            cursor: pointer;
-            vertical-align: sub;
-            transition: all 250ms ease-in-out;
-
-            /*draw check from borders*/
-            &:before {
-                content:"";
-                position: absolute;
-                top: 0px;
-                left: 4px;
-                width: 6px;
-                height: 10px;
-                
-                display: block;
-                border-right: 2px solid $color-tertiary;
-                border-bottom: 2px solid $color-tertiary;
-                
-                opacity: 0;
-                transform: rotate(45deg);
-                transition: all 250ms ease-in-out;
-            }
-        }
-
-        /*make all labels consistant*/
-        & ~ .label {
-            display: inline-block;
-            margin-top: $unit;
-            margin-bottom: $unit;
-            
-            @mixin type-scale $type-tiny, 1;
-            font-weight: $type-weight-medium;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: $grey-6;
-            
-            opacity: 0.7;
-            cursor: pointer;
-
-        }
-
-        &:checked {
-            & + label.check {
-                border: 1px solid $color-tertiary;
-                background-color: $color-tertiary;
-                vertical-align: sub;
-
-                &:before {
-                    opacity: 1;
-                    border-color: $white;
-                }
-            }
-        }
-    }
-    
-    &--radio {
-        opacity: 0;
-        position: absolute;
-
-        & + label {
-            cursor: pointer;
-
-            &:before {
-                content: '';
-                width: calc($unit * 3);
-                height: calc($unit * 3);
-                margin-top: calc($unit / 2);
-                margin-right: calc($unit * 2);
-                float: left;
-                
-                padding: $unit;
-                border: 1px solid color(white blackness(+30%));
-            }
-        }
-
-        &:checked {
-            & + label {
-                &:before {
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                }
-            }
-        }
-
-        &:focus {
-            & + label {
-                &:before {
-                    box-shadow: 0 0 10px rgba(0,0,0,0.4);
-                }
-            }
-        }
-    }
-
-    &--warning {
-        border: 1px solid $color-warning;
-    }
-
-    &--disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }

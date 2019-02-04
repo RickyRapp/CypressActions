@@ -6,17 +6,17 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  
+
   &__main {
     position: relative;
-    
+
     display: flex;
     flex-direction: row;
 
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    
+
     &__aside {
       width: 0;
       overflow-y: auto;
@@ -25,7 +25,7 @@
       bottom: 0;
       overflow: auto;
       border-right: 1px solid $grey-2;
-      
+
       &.active {
         width: 200px;
       }
@@ -35,22 +35,22 @@
       width: calc(100% - 200px);
 
       overflow-x: auto;
-      
+
       &.sidebar-hidden {
         width: 100%;
       }
     }
   }
-  
-  &__header {
-      border-bottom: 1px solid $grey-2;
-      padding: $unit $spacer;
-    }
 
-    &__footer {
-      padding: calc($unit * 2);
-      
-      background-color: $white;
-      border-top: 1px solid $grey-2;
-    }
+  &__header {
+    border-bottom: 1px solid $grey-2;
+    padding: $unit $spacer;
+  }
+
+  &__footer {
+    padding: calc($unit * 2);
+
+    background-color: $white;
+    border-top: 1px solid $grey-2;
+  }
 }

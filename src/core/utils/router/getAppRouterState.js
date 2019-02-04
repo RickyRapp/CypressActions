@@ -1,7 +1,7 @@
-import { RouterState } from "mobx-state-router";
+import { RouterState } from 'mobx-state-router';
 
 const getAppRouterState = (routeName, appId) => {
-    return new RouterState(routeName, { appId: appId });
-}
+  return new RouterState(routeName, { appId: appId });
+};
 
 export default getAppRouterState;

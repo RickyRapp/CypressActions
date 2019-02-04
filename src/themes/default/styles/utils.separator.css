@@ -4,19 +4,19 @@
 
 /*use separators exclusively on <div> elements*/
 .separator {
-	border: none;
+  border: none;
 
-    &--primary {
-        border-bottom: 1px solid $grey-3;
-    }
+  &--primary {
+    border-bottom: 1px solid $grey-3;
+  }
 
-    &--light {
-    	border-bottom: 1px solid $grey-1;
-    }
+  &--light {
+    border-bottom: 1px solid $grey-1;
+  }
 
-    &--last {
-    	&:last-child {
-    		border-bottom: 1px solid transparent;
-    	}
+  &--last {
+    &:last-child {
+      border-bottom: 1px solid transparent;
     }
+  }
 }

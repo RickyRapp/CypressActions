@@ -4,30 +4,30 @@
 
 /*pin navigation to the side (stay visible when lose a focus)*/
 .pin {
-    padding: $unit calc($spacer / 2);
-    
-    color: $grey-3;
-    background-color: color($color-secondary lightness(+10%));
-    cursor: pointer;
+  padding: $unit calc($spacer / 2);
 
-    &__icon {
-        display: inline-block;
-        float: right;
-        margin-left: $unit;
-        
-        vertical-align: sub;
-        transition: all 250ms ease-out;
+  color: $grey-3;
+  background-color: color($color-secondary lightness(+10%));
+  cursor: pointer;
 
-        &.active {
-            transform: rotate(-45deg);
-            transform-origin: center;
-            color: $color-primary;
-        }
+  &__icon {
+    display: inline-block;
+    float: right;
+    margin-left: $unit;
 
-        &:hover {
-            transform: rotate(-15deg);
-            color: $color-primary;
-            cursor: pointer;
-        }
+    vertical-align: sub;
+    transition: all 250ms ease-out;
+
+    &.active {
+      transform: rotate(-45deg);
+      transform-origin: center;
+      color: $color-primary;
     }
+
+    &:hover {
+      transform: rotate(-15deg);
+      color: $color-primary;
+      cursor: pointer;
+    }
+  }
 }

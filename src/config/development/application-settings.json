@@ -1,6 +1,6 @@
 {
-    "appId": "thedonorsfund",
-    "appUrl": "api.thedonorsfund.local",
-    "appVersion": "",
-    "useSSL": false
+  "appId": "thedonorsfund",
+  "appUrl": "api.thedonorsfund.local",
+  "appVersion": "",
+  "useSSL": false
 }

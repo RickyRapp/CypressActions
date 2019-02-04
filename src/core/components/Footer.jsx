@@ -2,7 +2,7 @@ import React from 'react';
 import { FooterTemplate } from 'themes/components';
 
 function Footer() {
-    return <FooterTemplate />
+  return <FooterTemplate />;
 }
 
 export default Footer;

@@ -2,5 +2,5 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const BaasicTab = ({ children }) => {
-    return children;
-}
+  return children;
+};

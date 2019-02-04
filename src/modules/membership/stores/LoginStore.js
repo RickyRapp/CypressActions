@@ -1,25 +1,23 @@
-import { action } from "mobx";
+import { action } from 'mobx';
 
 export default class LoginStore {
-    moduleStore;
-    
-    constructor(moduleStore) {
-        this.moduleStore = moduleStore;
-        this.rootStore = moduleStore.rootStore;
-    }
+  moduleStore;
 
-    @action async login({ username, password }) {
-        const {
-            app,
-        } = this.moduleStore.rootStore;
+  constructor(moduleStore) {
+    this.moduleStore = moduleStore;
+    this.rootStore = moduleStore.rootStore;
+  }
 
-        await app.baasic.membershipModule.login.login({ username, password });
-    }
+  @action async login({ username, password }) {
+    const { app } = this.moduleStore.rootStore;
 
-    @action.bound async logout() {
-        const baasicApp = this.moduleStore.rootStore.app.baasic;
-        const { token, type } = baasicApp.getAccessToken();
-        await baasicApp.membershipModule.login.logout(token, type);
-        baasicApp.updateAccessToken(null);
-    }
+    await app.baasic.membershipModule.login.login({ username, password });
+  }
+
+  @action.bound async logout() {
+    const baasicApp = this.moduleStore.rootStore.app.baasic;
+    const { token, type } = baasicApp.getAccessToken();
+    await baasicApp.membershipModule.login.logout(token, type);
+    baasicApp.updateAccessToken(null);
+  }
 }

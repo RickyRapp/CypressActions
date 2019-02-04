@@ -1,3 +1,3 @@
 export default function isSome(value) {
-    return value !== null && value !== undefined;
+  return value !== null && value !== undefined;
 }

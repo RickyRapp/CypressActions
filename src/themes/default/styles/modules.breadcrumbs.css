@@ -3,56 +3,56 @@
 \*------------------------------------*/
 
 .breadcrumbs {
-    padding: calc($unit * 1.5) 0;
+  padding: calc($unit * 1.5) 0;
 
-    &__item {
-        position: relative;
-        display: inline-block;
-        padding: 0 calc($unit * 1.5);
+  &__item {
+    position: relative;
+    display: inline-block;
+    padding: 0 calc($unit * 1.5);
 
-        @mixin type-scale $type-tiny, 1;
-        
-        color: $color-tertiary;
-        font-weight: $type-weight-medium;
+    @mixin type-scale $type-tiny, 1;
 
-        transition: all 250ms ease-out;
+    color: $color-tertiary;
+    font-weight: $type-weight-medium;
 
-        &:hover {
-            color: $grey-9;
-            cursor: pointer;
-        }
+    transition: all 250ms ease-out;
 
-        &.disabled {
-            color: $grey-5;
-            font-weight: $type-weight-medium;
-            cursor: default;
-        }
-
-        &.active,
-        &:last-child {
-            color: $grey-5;
-            font-weight: $type-weight-medium;
-        }
-
-        /*make start point to beginning of the page*/
-        &:first-child {
-            padding-left: 0;
-        }
-
-        /*arrow right icon*/
-        .icomoon {
-            z-index: 1;
-            position: absolute;
-            top: 0;
-            right: -6px;
-            
-            display: inline-block;
-            height: 24px;
-            font-size: 9px;
-            line-height: 24px;
-            
-            color: $grey-6;
-            background-color: $white;
-        }
+    &:hover {
+      color: $grey-9;
+      cursor: pointer;
     }
+
+    &.disabled {
+      color: $grey-5;
+      font-weight: $type-weight-medium;
+      cursor: default;
+    }
+
+    &.active,
+    &:last-child {
+      color: $grey-5;
+      font-weight: $type-weight-medium;
+    }
+
+    /*make start point to beginning of the page*/
+    &:first-child {
+      padding-left: 0;
+    }
+
+    /*arrow right icon*/
+    .icomoon {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      right: -6px;
+
+      display: inline-block;
+      height: 24px;
+      font-size: 9px;
+      line-height: 24px;
+
+      color: $grey-6;
+      background-color: $white;
+    }
+  }
 }

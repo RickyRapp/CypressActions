@@ -4,12 +4,12 @@ import { observer } from 'mobx-react';
 import { RoleEditViewStore } from 'modules/role/stores';
 import { setCurrentView } from 'core/utils';
 
-@setCurrentView((rootStore) => new RoleEditViewStore(rootStore), "editView")
+@setCurrentView(rootStore => new RoleEditViewStore(rootStore), 'editView')
 @observer
 class RoleEdit extends React.Component {
-    render() {
-        return <RoleEditTemplate {...this.props} />
-    }
+  render() {
+    return <RoleEditTemplate {...this.props} />;
+  }
 }
 
 export default RoleEdit;
