@@ -5,6 +5,7 @@ import { PublicLayout, MainLayout } from 'core/layouts';
 import {
   Login,
   Register,
+  RegisterPublic,
   ActivationConfirm,
   RegistrationSuccess,
   PasswordChange,
@@ -39,6 +40,19 @@ import {
             name: 'master.app.membership.register',
             pattern: '/register',
             component: Register
+          },
+          {
+            name: 'master.app.membership.register-public',
+            pattern: '/register-public',
+            component: RegisterPublic,
+            beforeEnter: function(fromState, toState, routerStore) {
+              if (routerStore.rootStore.authStore.isAuthenticated) {
+                // if user is already logged in and tries to navigate to register page, navigate to initial state
+                return Promise.reject(routerStore.rootStore.initialState);
+              }
+
+              return Promise.resolve();
+            }
           },
           {
             name: 'master.app.membership.password-recovery',

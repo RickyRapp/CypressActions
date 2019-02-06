@@ -1,4 +1,5 @@
 export { default as LoginForm } from './LoginForm';
 export { default as RegisterForm } from './RegisterForm';
+export { default as RegisterPublicForm } from './RegisterPublicForm';
 export { default as PasswordRecoveryForm } from './PasswordRecoveryForm';
 export { default as PasswordChangeForm } from './PasswordChangeForm';

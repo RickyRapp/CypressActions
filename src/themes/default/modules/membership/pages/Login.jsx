@@ -6,15 +6,8 @@ function LoginTemplate({ currentView, t }) {
   const { loginForm, loading, routes } = currentView;
   return (
     <section className="w--300--500 align--h--center padd--top--med">
-      <img
-        className="w--160--px display--b align--h--center"
-        src={require('themes/assets/img/logo.svg')}
-        alt="Logo"
-      />
-      <form
-        className="form card card--xlrg card--primary spc--top--med"
-        onSubmit={loginForm.onSubmit}
-      >
+      <img className="w--160--px display--b align--h--center" src={require('themes/assets/img/logo.svg')} alt="Logo" />
+      <form className="form card card--xlrg card--primary spc--top--med" onSubmit={loginForm.onSubmit}>
         <h3 className="spc--bottom--sml">Login</h3>
         <div className="form__group">
           <BasicInput field={loginForm.$('email')} />
@@ -29,10 +22,7 @@ function LoginTemplate({ currentView, t }) {
         )}
         <div className="clearfix spc--top--sml">
           <div className="push">
-            <a
-              className="btn--link spc--top--tny display--ib"
-              onClick={routes.forgotPassword}
-            >
+            <a className="btn--link spc--top--tny display--ib" onClick={routes.forgotPassword}>
               Forgot Password?
             </a>
           </div>
@@ -41,11 +31,7 @@ function LoginTemplate({ currentView, t }) {
               className="btn btn--med btn--primary"
               type="submit"
               disabled={loginForm.submitting}
-              icon={
-                loginForm.submitting || loginForm.validating
-                  ? 'synchronize-arrows-1 rotate'
-                  : ''
-              }
+              icon={loginForm.submitting || loginForm.validating ? 'synchronize-arrows-1 rotate' : ''}
               label="Sign In"
             />
             {loading && (

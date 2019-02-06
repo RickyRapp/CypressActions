@@ -2,11 +2,8 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { Loader } from 'core/components';
 
-function ActivationConfirmTemplate({ viewStore }) {
-  const {
-    routes,
-    registerView: { errorMessage, loadingActivation }
-  } = viewStore;
+function ActivationConfirmTemplate({ currentView }) {
+  const { routes, errorMessage, loadingActivation } = currentView;
 
   if (loadingActivation) return <Loader />;
 

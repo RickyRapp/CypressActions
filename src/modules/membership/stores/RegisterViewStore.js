@@ -1,11 +1,15 @@
 import { action, observable } from 'mobx';
-import { RegisterForm } from 'modules/membership/forms';
+import { RegisterForm, RegisterPublicForm } from 'modules/membership/forms';
 import { ActivationConfirmTemplate } from 'themes/modules/membership/pages';
 import { BaseViewStore } from 'core/stores';
 
 class RegisterViewStore extends BaseViewStore {
   @observable errorMessage = null;
   @observable loadingActivation = true;
+
+  routes = {
+    login: () => this.rootStore.routerStore.navigate('master.app.membership.login')
+  };
 
   registerForm = new RegisterForm({
     onSuccess: async form => {
@@ -16,6 +20,14 @@ class RegisterViewStore extends BaseViewStore {
         password,
         confirmPassword
       });
+    },
+    onError: form => {}
+  });
+
+  registerPublicForm = new RegisterPublicForm({
+    onSuccess: async form => {
+      let model = form.values();
+      await this.registerPublic(model);
     },
     onError: form => {}
   });
@@ -32,44 +44,30 @@ class RegisterViewStore extends BaseViewStore {
     this.loaderStore.suspend();
     try {
       await this.store.register({ username, email, password, confirmPassword });
-      this.rootStore.routerStore.navigate(
-        'master.app.membership.registration-success'
-      );
+      this.moduleStore.rootStore.routerStore.navigate('master.app.membership.registration-success');
     } catch ({ statusCode, data }) {
       switch (statusCode) {
         case 400:
-          this.registerForm.invalidate(
-            'Requested action could not be understood by the system.'
-          );
+          this.registerForm.invalidate('Requested action could not be understood by the system.');
           break;
         case 401:
-          this.registerForm.invalidate(
-            'Requested action requires authentication.'
-          );
+          this.registerForm.invalidate('Requested action requires authentication.');
           break;
         case 403:
-          this.registerForm.invalidate(
-            'System refuses to fulfill the requested action.'
-          );
+          this.registerForm.invalidate('System refuses to fulfill the requested action.');
           break;
         case 409:
-          this.registerForm.invalidate(
-            'Requested action could not be carried out because of a conflict in the system.'
-          );
+          this.registerForm.invalidate('Requested action could not be carried out because of a conflict in the system.');
           break;
         case 500:
-          this.registerForm.invalidate(
-            'A generic error has occurred on the system.'
-          );
+          this.registerForm.invalidate('A generic error has occurred on the system.');
       }
     }
     this.loaderStore.resume();
   }
 
   @action.bound async handleActivation() {
-    this.activate(
-      this.rootStore.routerStore.routerState.queryParams.activationToken
-    );
+    this.activate(this.moduleStore.rootStore.routerStore.routerState.queryParams.activationToken);
   }
 
   @action.bound async activate(activationToken) {
@@ -79,8 +77,7 @@ class RegisterViewStore extends BaseViewStore {
     } catch ({ statusCode }) {
       switch (statusCode) {
         case 400:
-          this.errorMessage =
-            'Requested action could not be understood by the system.';
+          this.errorMessage = 'Requested action could not be understood by the system.';
           break;
         case 401:
           this.errorMessage = 'Requested action requires authentication.';
@@ -89,18 +86,45 @@ class RegisterViewStore extends BaseViewStore {
           this.errorMessage = 'System refuses to fulfill the requested action.';
           break;
         case 404:
-          this.errorMessage =
-            'Specified user account does not exist in the system.';
+          this.errorMessage = 'Specified user account does not exist in the system.';
           break;
         case 409:
-          this.errorMessage =
-            'Requested action could not be carried out because of a conflict in the system.';
+          this.errorMessage = 'Requested action could not be carried out because of a conflict in the system.';
           break;
         case 500:
           this.errorMessage = 'A generic error has occurred on the system.';
       }
     }
     this.loadingActivation = false;
+    this.loaderStore.resume();
+  }
+
+  @action.bound async registerPublic(model) {
+    this.loaderStore.suspend();
+    try {
+      await this.store.registerPublic(model);
+      this.moduleStore.rootStore.routerStore.navigate('master.app.membership.registration-success');
+    } catch ({ statusCode, data }) {
+      switch (statusCode) {
+        case 400:
+          this.registerPublicForm.invalidate('Requested action could not be understood by the system.');
+          break;
+        case 401:
+          this.registerPublicForm.invalidate('Requested action requires authentication.');
+          break;
+        case 403:
+          this.registerPublicForm.invalidate('System refuses to fulfill the requested action.');
+          break;
+        case 405:
+          this.registerPublicForm.invalidate('Requested action is allowed only for non registered users.');
+          break;
+        case 409:
+          this.registerPublicForm.invalidate('Requested action could not be carried out because of a conflict in the system.');
+          break;
+        case 500:
+          this.registerPublicForm.invalidate('A generic error has occurred on the system.');
+      }
+    }
     this.loaderStore.resume();
   }
 }

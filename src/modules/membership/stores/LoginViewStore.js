@@ -5,15 +5,9 @@ import { BaseViewStore } from 'core/stores';
 class LoginViewStore extends BaseViewStore {
   routes = {
     register: () =>
-      this.moduleStore.rootStore.routerStore.navigate(
-        'master.app.membership.register',
-        { appId: this.rootStore.app.baasic.getApiKey() }
-      ),
+      this.moduleStore.rootStore.routerStore.navigate('master.app.membership.register', { appId: this.rootStore.app.baasic.getApiKey() }),
     forgotPassword: () =>
-      this.moduleStore.rootStore.routerStore.navigate(
-        'master.app.membership.password-recovery',
-        { appId: this.rootStore.app.baasic.getApiKey() }
-      )
+      this.moduleStore.rootStore.routerStore.navigate('master.app.membership.password-recovery', { appId: this.rootStore.app.baasic.getApiKey() })
   };
 
   loginForm = new LoginForm({
@@ -39,6 +33,8 @@ class LoginViewStore extends BaseViewStore {
     this.loaderStore.suspend();
     try {
       await this.store.login({ username, password });
+      //You can set here where it will redirect after successful login. Check roles and redirect where it needs to go.
+      //this.store.moduleStore.rootStore.authStore.setSignInRedirect('master.app.membership.register-public');
       const redirectState = this.store.moduleStore.rootStore.authStore.getSignInRedirect();
       this.store.moduleStore.rootStore.routerStore.navigate(redirectState);
     } catch ({ statusCode, data }) {

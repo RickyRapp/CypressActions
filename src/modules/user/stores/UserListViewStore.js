@@ -17,8 +17,7 @@ class UserListViewStore extends BaseListViewStore {
           this.rootStore.routerStore.navigate('master.app.main.user.edit', {
             id: id
           }),
-        create: () =>
-          this.rootStore.routerStore.navigate('master.app.main.user.create')
+        create: () => this.rootStore.routerStore.navigate('master.app.main.user.create')
       },
       actions: {
         find: async params => {
@@ -32,7 +31,7 @@ class UserListViewStore extends BaseListViewStore {
           return userService.lock(user);
         },
         unlock: user => {
-          return userService.unlock(resouuserrce);
+          return userService.unlock(user);
         },
         approve: user => {
           return userService.approve(user);

@@ -12,18 +12,22 @@ function RegisterTemplate({ currentView }) {
         <BasicInput field={registerForm.$('email')} />
         <BasicInput field={registerForm.$('password')} />
         <BasicInput field={registerForm.$('confirmPassword')} />
-        <BasicFieldRecaptcha field={registerForm.$('botProtection')} />
+        {/* <BasicFieldRecaptcha field={registerForm.$('botProtection')} />*/}
         {registerForm.error && (
           <div>
             <p>{registerForm.error}</p>
           </div>
         )}
         <p>
-          <button type="submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={registerForm.submitting}
+            icon={registerForm.submitting || registerForm.validating ? 'synchronize-arrows-1 rotate' : ''}
+          >
             {' '}
             Register
           </button>
-          {loading && <span style={{ paddingLeft: 10 }}>Registering...</span>}
+          {registerForm.submitting && <span style={{ paddingLeft: 10 }}>Registering...</span>}
         </p>
       </form>
     </div>

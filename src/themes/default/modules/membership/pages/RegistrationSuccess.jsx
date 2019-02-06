@@ -1,8 +1,8 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 
-function RegistrationSuccessTemplate({ viewStore }) {
-  const { routes } = viewStore;
+function RegistrationSuccessTemplate({ currentView }) {
+  const { routes } = currentView;
 
   return (
     <div>
