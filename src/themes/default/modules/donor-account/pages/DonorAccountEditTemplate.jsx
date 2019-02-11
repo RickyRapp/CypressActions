@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicSelect } from 'core/components';
+import { BasicInput, BaasicSelect, BaasicDropdown } from 'core/components';
 import { EditFormLayout } from 'core/layouts';
 
 function DonorAccountEditTemplate({ editViewStore }) {
-    const { form, loading, deliveryMethodsOptions, selectedDeliveryMethodOption, onChangeDeliveryMethod } = editViewStore;
+    const { form, loading, deliveryMethodTypeMultiSelectStore, prefixTypeMultiSelectStore } = editViewStore;
 
     return (
         <EditFormLayout form={form} isEdit={true} loading={loading}>
             <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                    <div className="inputgroup">
+                        <label>Prefix Type</label>
+                        <BaasicDropdown classNames="input" field={form.$('coreUser.prefixType')} store={prefixTypeMultiSelectStore} />
+                    </div>
+                </div>
+
                 <div className="form__group f-col f-col-lrg-6">
                     <BasicInput field={form.$('coreUser.firstName')} />
                 </div>
@@ -37,7 +44,7 @@ function DonorAccountEditTemplate({ editViewStore }) {
                 <div className="form__group f-col f-col-lrg-6">
                     <div className="inputgroup">
                         <label>Delivery Method Type</label>
-                        <BaasicSelect classNames="input" name={form.$('deliveryMethodTypeId').name} id={form.$('deliveryMethodTypeId').id} options={deliveryMethodsOptions} value={selectedDeliveryMethodOption} onChange={onChangeDeliveryMethod} />
+                        <BaasicDropdown classNames="input" field={form.$('deliveryMethodType')} store={deliveryMethodTypeMultiSelectStore} />
                     </div>
                 </div>
             </div>

@@ -27,10 +27,9 @@ export default class DonorAccountEditForm extends FormBase {
                     rules: 'numeric|min:0'
                 },
                 {
-                    name: 'deliveryMethodTypeId',
+                    name: 'deliveryMethodType',
                     label: 'How would you like to get the following reports',
-                    placeholder: 'Delivery Method',
-                    rules: 'required|string'
+                    placeholder: 'Delivery Method Types'
                 },
                 {
                     name: 'coreUser',
@@ -53,6 +52,11 @@ export default class DonorAccountEditForm extends FormBase {
                             label: 'Last Name',
                             placeholder: 'Enter Last Name',
                             rules: 'required|string'
+                        },
+                        {
+                            name: 'prefixType',
+                            label: 'Prefix Types',
+                            placeholder: 'Prefix type'
                         },
                     ]
                 }

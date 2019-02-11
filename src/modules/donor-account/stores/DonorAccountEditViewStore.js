@@ -1,13 +1,11 @@
 import { action, observable } from 'mobx';
-import { BaseEditViewStore } from "core/stores";
+import { BaseEditViewStore, BaasicDropdownStore } from "core/stores";
 import { DonorAccountService, LookupService } from "common/data";
 import { DonorAccountEditForm } from 'modules/donor-account/forms';
-import _ from 'lodash';
 import { isSome } from 'core/utils';
+import _ from 'lodash';
 
 class DonorAccountEditViewStore extends BaseEditViewStore {
-    @observable deliveryMethodsOptions = [{ label: 'Fetching', value: -1 }];
-    @observable selectedDeliveryMethodOption = { label: 'Fetching', value: -1 };
 
     constructor(rootStore) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
@@ -17,11 +15,14 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             id: rootStore.routerStore.routerState.params.id,
             actions: {
                 update: async donorAccount => {
-                    if (donorAccount.coreUser.middleName) {
-                        donorAccount.coreUser.json = JSON.stringify(donorAccount.coreUser.middleName);
+                    if (isSome(donorAccount.coreUser.prefixType)) {
+                        donorAccount.coreUser.prefixTypeId = donorAccount.coreUser.prefixType.id;
                     }
-                    else {
-                        donorAccount.coreUser.json = null;
+
+                    donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
+
+                    if (isSome(donorAccount.deliveryMethodType)) {
+                        donorAccount.deliveryMethodTypeId = donorAccount.deliveryMethodType.id;
                     }
 
                     await donorAccountService.update({
@@ -31,34 +32,69 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['coreUser'];
+                    params.embed = ['coreUser,deliveryMethodType'];
                     const response = await donorAccountService.get(id, params);
-                    if (response && response.coreUser && response.coreUser.json) {
-                        response.coreUser.middleName = (JSON.parse(response.coreUser.json)).MiddleName;
+                    if (isSome(response) && isSome(response.coreUser) && isSome(response.coreUser.json)) {
+                        response.coreUser.middleName = (JSON.parse(response.coreUser.json)).middleName;
+                        response.coreUser.prefixTypeId = (JSON.parse(response.coreUser.json)).prefixTypeId;
+                        if (isSome(response.coreUser.prefixTypeId)) {
+                            let lookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'prefix-type')
+                            let models = await lookupService.getAll();
+                            response.coreUser.prefixType = _.find(models.data, { id: response.coreUser.prefixTypeId });
+                        }
                     }
                     return response;
                 },
             },
             FormClass: DonorAccountEditForm
         });
+
+        this.deliveryMethodTypeMultiSelectStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                textField: 'name',
+                dataItemKey: 'id',
+                clearable: false
+            },
+            {
+                fetchFunc: term => {
+                    return this.handleOptions('delivery-method-type');
+                },
+                onChange: this.onChangeDeliveryMethod
+            }
+        );
+
+        this.prefixTypeMultiSelectStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                textField: 'name',
+                dataItemKey: 'id',
+                clearable: true,
+                placeholder: 'Prefix Type Placeholder'
+            },
+            {
+                fetchFunc: term => {
+                    return this.handleOptions('prefix-type');
+                },
+                onChange: this.onChangePrefixType
+            },
+        );
     }
 
     @action.bound async onChangeDeliveryMethod(option) {
-        console.log(option);
-        this.selectedDeliveryMethodOption = option;
+        this.item.deliveryMethodType = option;
+        this.form.update(this.item);
     }
 
-    @action.bound async handleOptions() {
-        let lookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'delivery-method-type')
+    @action.bound async onChangePrefixType(option) {
+        this.item.coreUser.prefixType = option;
+        this.form.update(this.item);
+    }
 
+    @action.bound async handleOptions(lookupType) {
+        let lookupService = new LookupService(this.rootStore.app.baasic.apiClient, lookupType)
         let models = await lookupService.getAll();
-        this.deliveryMethodsOptions = _.map(models.data, function (item) {
-            return { label: item.name, value: item.id };
-        })
-
-        if (isSome(this.item) && _.find(this.deliveryMethodsOptions, { value: this.item.deliveryMethodTypeId })) {
-            this.selectedDeliveryMethodOption = _.find(this.deliveryMethodsOptions, { value: this.item.deliveryMethodTypeId });
-        }
+        return models.data;
     }
 }
 

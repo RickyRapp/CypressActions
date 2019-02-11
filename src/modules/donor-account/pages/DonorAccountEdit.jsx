@@ -11,10 +11,6 @@ class DonorAccountEdit extends React.Component {
     render() {
         return <DonorAccountEditTemplate {...this.props} />;
     }
-
-    componentDidMount() {
-        this.props.editViewStore.handleOptions();
-    }
 }
 
 export default DonorAccountEdit;

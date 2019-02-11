@@ -2,23 +2,25 @@ import React from 'react';
 import AsyncSelect from 'react-select/lib/Async';
 import { defaultTemplate } from 'core/utils';
 
-function BaasicDropdownTemplate({ store }) {
+function BaasicDropdownTemplate({ store, field }) {
   const {
-    value,
     defaultValue,
     options,
     onChange,
-    placeholder,
-    name,
     loading
   } = store;
+
+  const {
+    value,
+    name
+  } = field;
 
   return (
     <AsyncSelect
       value={value}
       defaultValue={defaultValue}
       onChange={onChange}
-      placeholder={placeholder}
+      placeholder={options.placeholder}
       name={name}
       isDisabled={options.disabled}
       isMulti={options.multi}
