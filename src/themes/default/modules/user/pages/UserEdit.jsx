@@ -63,11 +63,11 @@ function UserEditTemplate({ editView }) {
                   <span> Disapprove</span>
                 </span>
               ) : (
-                <span>
-                  <span className="icomoon icon-check-double align--v--middle" />
-                  <span> Approve</span>
-                </span>
-              )}
+                  <span>
+                    <span className="icomoon icon-check-double align--v--middle" />
+                    <span> Approve</span>
+                  </span>
+                )}
             </a>
             <a className="display--b spc--bottom--tny" onClick={toggleLock}>
               {item.isLockedOut ? (
@@ -76,11 +76,11 @@ function UserEditTemplate({ editView }) {
                   <span> Unlock</span>
                 </span>
               ) : (
-                <span>
-                  <span className="icomoon icon-lock-unlock-1 align--v--middle" />
-                  <span> Lock</span>
-                </span>
-              )}
+                  <span>
+                    <span className="icomoon icon-lock-unlock-1 align--v--middle" />
+                    <span> Lock</span>
+                  </span>
+                )}
             </a>
           </div>
         )}

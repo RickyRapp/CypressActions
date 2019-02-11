@@ -33,7 +33,7 @@ class BaseService {
 
   async update(resource) {
     const url = this.routeService.update(resource);
-    const resposne = await this.apiClient.put(url, resource);
+    const response = await this.apiClient.put(url, resource);
     return response.data || null;
   }
 
