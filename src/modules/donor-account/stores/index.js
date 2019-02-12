@@ -1,2 +1,3 @@
 export { default as DonorAccountListViewStore } from './DonorAccountListViewStore';
-export { default as DonorAccountEditViewStore } from './DonorAccountEditViewStore';
+export { default as DonorAccountProfileEditViewStore } from './DonorAccountProfileEditViewStore';
+export { default as DonorAccountSettingEditViewStore } from './DonorAccountSettingEditViewStore';

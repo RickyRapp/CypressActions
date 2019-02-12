@@ -17,7 +17,7 @@ import { DonorAccountList, DonorAccountEdit } from 'modules/donor-account/pages'
                     },
                     {
                         name: 'master.app.main.donor-account.edit',
-                        pattern: ':id',
+                        pattern: 'edit/:id',
                         component: DonorAccountEdit
                     }
                 ]

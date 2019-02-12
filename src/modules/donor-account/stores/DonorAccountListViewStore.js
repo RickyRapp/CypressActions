@@ -14,7 +14,7 @@ class DonorAccountListViewStore extends BaseListViewStore {
             },
             actions: {
                 find: async params => {
-                    params.embed = ['coreUser'];
+                    params.embed = 'coreUser';
                     const response = await donorAccountService.find(params);
                     return response;
                 }
@@ -39,7 +39,7 @@ class DonorAccountListViewStore extends BaseListViewStore {
                     }
                 ],
                 actions: {
-                    onEdit: donorAccount => this.routes.edit(donorAccount.id),
+                    onEdit: donorAccount => this.routes.edit(donorAccount.id)
                 }
             })
         );

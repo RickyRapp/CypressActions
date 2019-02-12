@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicConfirmModal, BaasicButton } from 'core/components';
-import { EditFormLayout, PageHeader } from 'core/layouts';
+import { BasicInput, BaasicConfirmModal, BaasicModal, BaasicDropdown, EditFormContent, BaasicFormControls } from 'core/components';
+import { EditFormLayout } from 'core/layouts';
 
 function UserEditTemplate({ editView }) {
   const {
@@ -12,14 +11,13 @@ function UserEditTemplate({ editView }) {
     toggleLock,
     toggleApprove,
     item,
-    roleMultiselectStore,
-    languageDropdownStore,
-    titleDropdownStore,
-    agencyDropdownStore,
+    roleMultiSelectStore,
     loading,
     lockConfirm,
     approveConfirm,
-    mailPasswordResetConfirm
+    mailPasswordResetConfirm,
+    changePassword,
+    passwordChangeForm
   } = editView;
 
   return (
@@ -33,10 +31,17 @@ function UserEditTemplate({ editView }) {
         </div>
 
         <div className="form__group f-col f-col-lrg-6">
+          <div className="form__group__label">Display Name</div>
+          <span className="input input--text   input--med padd--top--tny input--disabled">
+            {form.$('displayName').value}
+          </span>
+        </div>
+
+        <div className="form__group f-col f-col-lrg-6">
           <BasicInput field={form.$('email')} />
         </div>
         <div className="form__group f-col f-col-lrg-12 spc--bottom--sml">
-          {/* <BaasicFieldDropdown classNames="input--multiselect" field={form.$('roles')} store={roleMultiselectStore} /> */}
+          <BaasicDropdown classNames="input--multiselect" field={form.$('roles')} store={roleMultiSelectStore} />
         </div>
         <div className="f-col f-col-lrg-6 f-col-med-12">
           <a
@@ -89,6 +94,21 @@ function UserEditTemplate({ editView }) {
       <BaasicConfirmModal modalParams={lockConfirm} />
       <BaasicConfirmModal modalParams={approveConfirm} />
       <BaasicConfirmModal modalParams={mailPasswordResetConfirm} />
+      <BaasicModal modalParams={changePassword} >
+        <EditFormContent form={passwordChangeForm} >
+          <div className="f-row">
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicInput field={passwordChangeForm.$('newPassword')} />
+            </div>
+
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicInput field={passwordChangeForm.$('confirmPassword')} />
+            </div>
+          </div>
+
+          <BaasicFormControls form={passwordChangeForm} onSubmit={passwordChangeForm.onSubmit} />
+        </EditFormContent>
+      </BaasicModal>
     </EditFormLayout>
   );
 }

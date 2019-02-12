@@ -1,11 +1,11 @@
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from "core/stores";
 import { DonorAccountService, LookupService } from "common/data";
-import { DonorAccountEditForm } from 'modules/donor-account/forms';
+import { DonorAccountProfileEditForm } from 'modules/donor-account/forms';
 import { isSome } from 'core/utils';
 import _ from 'lodash';
 
-class DonorAccountEditViewStore extends BaseEditViewStore {
+class DonorAccountProfileEditViewStore extends BaseEditViewStore {
 
     constructor(rootStore) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
@@ -46,8 +46,9 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                     return response;
                 },
             },
-            FormClass: DonorAccountEditForm
+            FormClass: DonorAccountProfileEditForm
         });
+
 
         this.deliveryMethodTypeMultiSelectStore = new BaasicDropdownStore(
             {
@@ -98,4 +99,4 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
     }
 }
 
-export default DonorAccountEditViewStore;
+export default DonorAccountProfileEditViewStore;

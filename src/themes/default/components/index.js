@@ -9,6 +9,7 @@ export { default as BaasicTableRowTemplate } from './table/BaasicTableRow';
 export { default as BaasicTableActionsTemplate } from './table/BaasicTableActions';
 export { default as BasicInputTemplate } from './forms/BasicInput';
 export { default as BasicTextAreaTemplate } from './forms/BasicTextArea';
+export { default as BasicCheckBoxTemplate } from './forms/BasicCheckBoxTemplate';
 export { default as BaasicFormControlsTemplate } from './forms/BaasicFormControlsTemplate';
 export { default as BaasicConfirmModalTemplate } from './dialog/BaasicConfirmModal';
 export { default as BaasicModalTemplate } from './dialog/BaasicModal';

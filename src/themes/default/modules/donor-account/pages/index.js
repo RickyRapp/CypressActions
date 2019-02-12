@@ -1,2 +1,3 @@
 export { default as DonorAccountListTemplate } from './DonorAccountListTemplate'
-export { default as DonorAccountEditTemplate } from './DonorAccountEditTemplate'
+export { default as DonorAccountProfileEditTemplate } from './DonorAccountProfileEditTemplate'
+export { default as DonorAccountSettingEditTemplate } from './DonorAccountSettingEditTemplate'

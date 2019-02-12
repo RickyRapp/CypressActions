@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class DonorAccountEditForm extends FormBase {
+export default class DonorAccountProfileEditForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }

@@ -1,23 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {
-  BaasicFormControls,
-  BaasicButton,
-  EditFormContent
-} from 'core/components';
+import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/components';
 import { Page, PageFooter } from 'core/layouts';
 import { defaultTemplate } from 'core/utils';
 import { getPageObject } from 'core/utils';
 
-function EditFormLayoutTemplate({
-  rootStore,
-  form,
-  loading,
-  children,
-  t,
-  layoutFooterVisible = true
-}) {
+function EditFormLayoutTemplate({ rootStore, form, loading, children, t, layoutFooterVisible = true }) {
   const { header, footer, content } = getPageObject(children);
 
   return (

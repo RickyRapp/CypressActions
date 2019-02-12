@@ -7,6 +7,19 @@ class DonorAccountService extends BaseService {
     super(apiClient, new DonorAccountRouteService());
     this.apiClient = apiClient;
   }
+
+  async getSettings(id) {
+    const url = this.routeService.getSettings(id);
+    const response = await this.apiClient.get(url);
+    return response.data || null;
+  }
+
+  async updateSettings(resource) {
+    const url = this.routeService.updateSettings(resource);
+    const response = await this.apiClient.put(url, resource);
+    return response.data || null;
+  }
+
 }
 
 export default DonorAccountService;

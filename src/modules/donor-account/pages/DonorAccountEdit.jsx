@@ -1,15 +1,21 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { DonorAccountEditTemplate } from 'themes/modules/donor-account/pages';
-import { setCurrentView } from 'core/utils';
-import { LookupService } from "common/data";
-import { DonorAccountEditViewStore } from 'modules/donor-account/stores';
+import { DonorAccountProfileEdit, DonorAccountSettingEdit } from 'modules/donor-account/pages'
+import { Page } from 'core/layouts';
 
-@setCurrentView(rootStore => new DonorAccountEditViewStore(rootStore), 'editViewStore')
-@observer
 class DonorAccountEdit extends React.Component {
     render() {
-        return <DonorAccountEditTemplate {...this.props} />;
+        return (
+            <Page>
+                <div className="f-row">
+                    <div className="form__group f-col f-col-lrg-6">
+                        <DonorAccountProfileEdit {...this.props} />
+                    </div>
+                    <div className="form__group f-col f-col-lrg-6">
+                        <DonorAccountSettingEdit {...this.props} />
+                    </div>
+                </div>
+            </Page>
+        )
     }
 }
 

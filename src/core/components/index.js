@@ -18,6 +18,7 @@ export { default as FormBase } from './FormBase';
 export { default as BasicInput } from './forms/BasicInput';
 export { default as BasicTextArea } from './forms/BasicTextArea';
 export { default as BaasicFormControls } from './forms/BaasicFormControls';
+export { default as BasicCheckBox } from './forms/BasicCheckBox';
 
 export { default as BaasicConfirmModal } from './dialog/BaasicConfirmModal';
 export { default as BaasicModal } from './dialog/BaasicModal';
