@@ -12,6 +12,7 @@ export { default as BaasicTableActions } from './table/BaasicTableActions';
 
 export { default as TableFilter } from './filters/TableFilter';
 export { default as SearchFilter } from './filters/SearchFilter';
+export { default as InputFilter } from './filters/InputFilter';
 
 export { default as FormBase } from './FormBase';
 

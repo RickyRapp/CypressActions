@@ -1,5 +1,6 @@
 import { BaseListViewStore, TableViewStore } from "core/stores";
 import { DonorAccountService } from "common/data";
+import { DonorAccountListFilter } from 'modules/donor-account/models';
 
 class DonorAccountListViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -18,6 +19,9 @@ class DonorAccountListViewStore extends BaseListViewStore {
                     const response = await donorAccountService.find(params);
                     return response;
                 }
+            },
+            queryConfig: {
+                filter: new DonorAccountListFilter()
             }
         })
 

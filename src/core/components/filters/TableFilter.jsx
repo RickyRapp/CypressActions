@@ -4,7 +4,27 @@ import { action, observable } from 'mobx';
 import { setCurrentView, defaultTemplate } from 'core/utils';
 import { TableFilterTemplate } from 'themes/components';
 
-const TableFilter = function(props) {
+
+class TableFilterStore {
+  @observable filterVisible = true;
+
+  constructor(rootStore, props) {
+    this.rootStore = rootStore;
+    if (props.onFilterVisibilityChange) {
+      this.onFilterVisibilityChange = props.onFilterVisibilityChange;
+    }
+  }
+
+  @action.bound
+  toggleFilterVisibility() {
+    this.filterVisible = !this.filterVisible;
+    if (this.onFilterVisibilityChange) {
+      this.onFilterVisibilityChange(this.filterVisible);
+    }
+  }
+}
+
+const TableFilter = function (props) {
   return <TableFilterTemplate {...props} />;
 };
 
@@ -17,22 +37,3 @@ export default setCurrentView(
   (rootStore, props) => new TableFilterStore(rootStore, props),
   'filterStore'
 )(defaultTemplate(TableFilter));
-
-class TableFilterStore {
-  constructor(rootStore, props) {
-    this.rootStore = rootStore;
-    if (props.onFilterVisibilityChange) {
-      this.onFilterVisibilityChange = props.onFilterVisibilityChange;
-    }
-  }
-
-  @observable filterVisible = false;
-
-  @action.bound
-  toggleFilterVisibility() {
-    this.filterVisible = !this.filterVisible;
-    if (this.onFilterVisibilityChange) {
-      this.onFilterVisibilityChange(this.filterVisible);
-    }
-  }
-}

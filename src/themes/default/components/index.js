@@ -29,6 +29,7 @@ export { default as ListContentTemplate } from './content/ListContentTemplate';
 
 export { default as SearchFilterTemplate } from './filters/SearchFilterTemplate';
 export { default as TableFilterTemplate } from './filters/TableFilterTemplate';
+export { default as InputFilterTemplate } from './filters/InputFilterTemplate';
 
 export { default as BaasicFieldSelectTemplate } from './select/BaasicFieldSelectTemplate';
 export { default as BaasicPageSizeSelectTemplate } from './select/BaasicPageSizeSelectTemplate';
