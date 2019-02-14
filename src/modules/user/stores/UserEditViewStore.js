@@ -52,13 +52,14 @@ class UserEditViewStore extends BaseEditViewStore {
         dataItemKey: 'id'
       },
       {
-        fetchFunc: term => {
+        fetchFunc: async term => {
           let options = {};
           if (term && term !== '') {
             options.searchQuery = term;
           }
 
-          return roleService.find(options);
+          let models = await roleService.find(options);
+          return models.data.item;
         },
         onChange: this.setUserRoles
       }
@@ -85,8 +86,8 @@ class UserEditViewStore extends BaseEditViewStore {
   async mailPasswordReset(email) {
     const recoverUrl = `${
       window.location.origin
-    }/agency/password-change/{?passwordRecoveryToken}`;
-    const response = await this.rootStore.platform.baasic.membershipModule.passwordRecovery.requestReset(
+      }/agency/password-change/{?passwordRecoveryToken}`;
+    const response = await this.rootStore.app.baasic.membershipModule.passwordRecovery.requestReset(
       {
         userName: email,
         recoverUrl: recoverUrl
@@ -101,7 +102,7 @@ class UserEditViewStore extends BaseEditViewStore {
 
   @action.bound
   async changeUserPassword() {
-    const response = await this.rootStore.platform.baasic.membershipModule.user.changePassword(
+    const response = await this.rootStore.app.baasic.membershipModule.user.changePassword(
       this.item.userName,
       this.passwordChangeForm.values()
     );
@@ -114,7 +115,7 @@ class UserEditViewStore extends BaseEditViewStore {
   async toggleLock() {
     this.rootStore.modalStore.showConfirm(
       `Are you sure you want to ${
-        this.item.isLockedOut ? 'unlock' : 'lock'
+      this.item.isLockedOut ? 'unlock' : 'lock'
       } user?`,
       async () => {
         const operation = this.item.isLockedOut
@@ -134,7 +135,7 @@ class UserEditViewStore extends BaseEditViewStore {
   async toggleApprove() {
     this.rootStore.modalStore.showConfirm(
       `Are you sure you want to ${
-        this.item.isApproved ? 'disapprove' : 'approve'
+      this.item.isApproved ? 'disapprove' : 'approve'
       } user?`,
       async () => {
         this.loaderStore.suspend();
@@ -145,7 +146,7 @@ class UserEditViewStore extends BaseEditViewStore {
         await this.getResource(this.item.id);
         this.rootStore.notificationStore.success(
           `Successfully ${
-            this.item.isApproved ? 'approved' : 'disapproved'
+          this.item.isApproved ? 'approved' : 'disapproved'
           } user`
         );
         this.loaderStore.resume();

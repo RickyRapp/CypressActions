@@ -2,6 +2,7 @@ import React from 'react';
 import { translate } from 'core/utils';
 import { NotifyOutsideClick, Gravatar } from 'core/components';
 import logo from 'themes/assets/img/logo.svg';
+import userLogo from 'themes/assets/img/user.svg';
 import { defaultTemplate } from 'core/utils';
 
 function HeaderTemplate({ rootStore, routerStore }) {
@@ -31,10 +32,17 @@ function HeaderTemplate({ rootStore, routerStore }) {
             <div onClick={toggleProfileMenu}>
               {rootStore.authStore.user ? (
                 <div>
-                  <Gravatar
+                  <img
+                    alt={`Gravatar for ${rootStore.authStore.user.email}`}
+                    src={userLogo}
+                    height="30"
+                    width="30"
+                    className="header__profile__img"
+                  />
+                  {/* <Gravatar
                     className="header__profile__img"
                     email={rootStore.authStore.user.email}
-                  />
+                  /> */}
                   <span>
                     {/* {rootStore.authStore.user.displayName} */}
                     <span className="k-icon k-i-arrow-s type--color--negative" />

@@ -8,6 +8,8 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     return (
         <React.Fragment>
             <EditFormContent form={form} isEdit={true} loading={loading}>
+                <h3>Profile Informations</h3>
+
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">

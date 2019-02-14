@@ -7,6 +7,8 @@ function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
 
     return (
         <EditFormContent form={form} isEdit={true} loading={loading}>
+            <h3>Account Settings</h3>
+
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-6">
                     <BasicInput field={form.$('lineOfCredit')} />
@@ -49,6 +51,7 @@ function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
                 className="btn btn--med btn--primary display--ib"
                 label={'Cancel'}
                 onClick={() => rootStore.routerStore.goBack()}
+                disabled={form.disabled}
             />
         </EditFormContent >
     );

@@ -12,7 +12,7 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.id,
+            id: rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id,
             actions: {
                 update: async donorAccount => {
                     if (isSome(donorAccount.coreUser.prefixType)) {
@@ -55,7 +55,8 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
                 multi: false,
                 textField: 'name',
                 dataItemKey: 'id',
-                clearable: false
+                clearable: false,
+                placeholder: 'Choose Delivery Method'
             },
             {
                 fetchFunc: term => {
@@ -71,7 +72,7 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
                 textField: 'name',
                 dataItemKey: 'id',
                 clearable: true,
-                placeholder: 'Prefix Type Placeholder'
+                placeholder: 'Choose Prefix Type'
             },
             {
                 fetchFunc: term => {

@@ -3,6 +3,7 @@ import { BaseEditViewStore } from "core/stores";
 import { DonorAccountService } from "common/data";
 import { DonorAccountSettingEditForm } from 'modules/donor-account/forms';
 import _ from 'lodash';
+import { isSome } from 'core/utils';
 
 class DonorAccountSettingEditViewStore extends BaseEditViewStore {
 
@@ -11,7 +12,7 @@ class DonorAccountSettingEditViewStore extends BaseEditViewStore {
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.id,
+            id: rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id,
             actions: {
                 update: async donorAccount => {
                     await donorAccountService.updateSettings({
@@ -26,11 +27,17 @@ class DonorAccountSettingEditViewStore extends BaseEditViewStore {
             },
             FormClass: DonorAccountSettingEditForm
         });
+
+        if (!isSome(rootStore.authStore.user.permissions.theDonorsFundSection)) {
+            this.form.setFieldsDisabled(true);
+        }
     }
 
     @action.bound async onChangeInitialContribution(option) {
-        this.item.initialContribution = option.currentTarget.checked;
-        this.form.update(this.item);
+        if (isSome(this.rootStore.authStore.user.permissions.theDonorsFundSection)) {
+            this.item.initialContribution = option.currentTarget.checked;
+            this.form.update(this.item);
+        }
     }
 }
 

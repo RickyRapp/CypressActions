@@ -12,7 +12,7 @@ const BaasicFormControlsTemplate = defaultTemplate(
           type="submit"
           className="btn btn--med btn--tertiary spc--sml display--ib"
           onClick={form.onSubmit}
-          disabled={form.submitting || form.validating}
+          disabled={form.submitting || form.validating || form.disabled}
           rotate
           icon={
             form.submitting || form.validating
