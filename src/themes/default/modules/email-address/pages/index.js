@@ -1,0 +1,1 @@
+export { default as EmailAddressEditTemplate } from './EmailAddressEditTemplate'

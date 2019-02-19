@@ -47,12 +47,6 @@ function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
                 </div>
             </div>
             <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-            <BaasicButton
-                className="btn btn--med btn--primary display--ib"
-                label={'Cancel'}
-                onClick={() => rootStore.routerStore.goBack()}
-                disabled={form.disabled}
-            />
         </EditFormContent >
     );
 }

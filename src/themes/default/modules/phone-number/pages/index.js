@@ -1,0 +1,1 @@
+export { default as PhoneNumberEditTemplate } from './PhoneNumberEditTemplate'
