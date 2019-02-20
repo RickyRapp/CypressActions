@@ -30,7 +30,7 @@ function PhoneNumberEditTemplate(props) {
 
             {isSome(props.donorAccountPhoneNumber.$('phoneNumber.id').value) &&
                 props.donorAccountPhoneNumber.$('phoneNumber.id').value !== '' &&
-                props.donorAccountPhoneNumber.$('primary').value !== '' &&
+                !props.donorAccountPhoneNumber.$('primary').value &&
                 <button
                     type="button"
                     onClick={() => alert('TODO:delete or mark as deleted?')}

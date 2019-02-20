@@ -26,7 +26,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
             style={{
                 color: color,
                 backgroundColor: color,
-                height: 3
+                height: 1
             }}
         />
     );

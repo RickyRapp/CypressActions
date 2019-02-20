@@ -39,7 +39,7 @@ export default class RegisterStore {
       coreUser: {
         username: model.email,
         firstName: model.firstName,
-        json: model.middleName,
+        json: JSON.stringify({ middleName: model.middleName }),
         lastName: model.lastName,
         coreMembership: { email: model.email, password: model.password, confirmPassword: model.confirmPassword }
       },

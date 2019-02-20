@@ -30,7 +30,7 @@ function EmailAddressEditTemplate(props) {
 
             {isSome(props.donorAccountEmailAddress.$('emailAddress.id').value) &&
                 props.donorAccountEmailAddress.$('emailAddress.id').value !== '' &&
-                props.donorAccountEmailAddress.$('primary').value !== '' &&
+                !props.donorAccountEmailAddress.$('primary').value &&
                 <button
                     type="button"
                     onClick={() => alert('TODO:delete or mark as deleted?')}
