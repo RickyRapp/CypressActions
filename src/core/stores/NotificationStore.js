@@ -18,7 +18,8 @@ class NotificationStore {
     return showToast(message, {
       className: 'orange-background',
       bodyClassName: 'grow-font-size',
-      progressClassName: 'fancy-progress-bar'
+      progressClassName: 'fancy-progress-bar',
+      autoClose: options.autoClose
     });
   }
 
@@ -26,7 +27,8 @@ class NotificationStore {
     return showToast(message, {
       className: 'red-background',
       bodyClassName: 'grow-font-size',
-      progressClassName: 'fancy-progress-bar'
+      progressClassName: 'fancy-progress-bar',
+      autoClose: options.autoClose
     });
   }
 }

@@ -22,6 +22,7 @@ function EmailAddressEditTemplate(props) {
 
             {!isSome(props.donorAccountEmailAddress.$('emailAddress.id').value) || props.donorAccountEmailAddress.$('emailAddress.id').value === '' &&
                 <button
+                    className="btn btn--sml btn--primary display--ib"
                     type="button"
                     onClick={props.donorAccountEmailAddress.onDel}
                 >Cancel New Email Address
@@ -32,6 +33,7 @@ function EmailAddressEditTemplate(props) {
                 props.donorAccountEmailAddress.$('emailAddress.id').value !== '' &&
                 !props.donorAccountEmailAddress.$('primary').value &&
                 <button
+                    className="btn btn--med btn--primary display--ib"
                     type="button"
                     onClick={() => alert('TODO:delete or mark as deleted?')}
                 >Delete Email Address

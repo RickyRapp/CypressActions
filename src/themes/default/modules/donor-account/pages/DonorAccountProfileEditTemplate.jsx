@@ -82,10 +82,9 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
 
                 <div style={border} >
                     {form.$('donorAccountAddresses').map((donorAccountAddress, i) =>
-                        <React.Fragment>
-                            <div className="f-row" key={donorAccountAddress.key}>
+                        <React.Fragment key={donorAccountAddress.key}>
+                            <div className="f-row">
                                 <AddressEdit
-                                    key={donorAccountAddress.key}
                                     donorAccountAddress={donorAccountAddress}
                                     onChangePrimaryAddress={onChangePrimaryAddress}
                                 />
@@ -97,6 +96,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     )}
                     {form.$('donorAccountAddresses').value.length < 3 &&
                         <button
+                            className="btn btn--med btn--ghost"
                             type="button"
                             onClick={form.$('donorAccountAddresses').onAdd}
                             data-tip={`Add ${form.$('donorAccountAddresses').label}`}
@@ -107,10 +107,9 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
 
                 <div style={border} >
                     {form.$('donorAccountEmailAddresses').map((donorAccountEmailAddress, i) =>
-                        <React.Fragment>
-                            <div className="f-row" key={donorAccountEmailAddress.key}>
+                        <React.Fragment key={donorAccountEmailAddress.key}>
+                            <div className="f-row">
                                 <EmailAddressEdit
-                                    key={donorAccountEmailAddress.key}
                                     donorAccountEmailAddress={donorAccountEmailAddress}
                                     onChangePrimaryEmailAddress={onChangePrimaryEmailAddress}
                                 />
@@ -122,6 +121,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     )}
                     {form.$('donorAccountEmailAddresses').value.length < 3 &&
                         <button
+                            className="btn btn--med btn--ghost"
                             type="button"
                             onClick={form.$('donorAccountEmailAddresses').onAdd}
                             data-tip={`Add ${form.$('donorAccountEmailAddresses').label}`}
@@ -132,10 +132,9 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
 
                 <div style={border} >
                     {form.$('donorAccountPhoneNumbers').map((donorAccountPhoneNumber, i) =>
-                        <React.Fragment>
-                            <div className="f-row" key={donorAccountPhoneNumber.key}>
+                        <React.Fragment key={donorAccountPhoneNumber.key}>
+                            <div className="f-row">
                                 <PhoneNumberEdit
-                                    key={donorAccountPhoneNumber.key}
                                     donorAccountPhoneNumber={donorAccountPhoneNumber}
                                     onChangePrimaryPhoneNumber={onChangePrimaryPhoneNumber}
                                 />
@@ -147,6 +146,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     )}
                     {form.$('donorAccountPhoneNumbers').value.length < 3 &&
                         <button
+                            className="btn btn--med btn--ghost"
                             type="button"
                             onClick={form.$('donorAccountPhoneNumbers').onAdd}
                             data-tip={`Add ${form.$('donorAccountPhoneNumbers').label}`}

@@ -16,7 +16,7 @@ function PasswordRecoveryTemplate({ currentView }) {
           password.
         </span>
         <BasicInput field={form.$('email')} />
-        <BaasicRecaptcha verifyCallback={onVerifyRecaptcha} />
+        {/* <BaasicRecaptcha verifyCallback={onVerifyRecaptcha} /> */}
         {form.error && (
           <div>
             <p className="type--color--warning">{form.error}</p>

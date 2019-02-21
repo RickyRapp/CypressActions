@@ -9,11 +9,11 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
 
     form = null;
 
-    name = null;
-
     id = null;
 
     @observable item = null;
+
+    changedDonorAccount = true;
 
     constructor(rootStore) {
         super(rootStore);
@@ -70,118 +70,133 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
     @action.bound
     async updateDonorProfile(donorAccount) {
         this.form.setFieldsDisabled(true);
-        if (isSome(donorAccount.coreUser.prefixType)) {
-            donorAccount.coreUser.prefixTypeId = donorAccount.coreUser.prefixType.id;
+
+        let promises = [];
+        let updateText = '';
+
+        if (this.form.$('coreUser').changed || this.form.$('fundName').changed || this.form.$('blankBookletMax').changed ||
+            this.form.$('notificationLimitRemainderAmount').changed || this.changedDonorAccount) {
+            const donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
+
+            donorAccount.coreUser.prefixTypeId = isSome(donorAccount.coreUser.prefixType) && isSome(donorAccount.coreUser.prefixType.id) ? donorAccount.coreUser.prefixType.id : null;
+            donorAccount.deliveryMethodTypeId = isSome(donorAccount.deliveryMethodType) && isSome(donorAccount.deliveryMethodType.id) ? donorAccount.deliveryMethodType.id : null;
+
+            donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
+            let donorPromise = donorAccountService.update({
+                id: this.id,
+                ...donorAccount
+            })
+            promises.push(donorPromise);
+            updateText += 'donor account';
+            this.changedDonorAccount = false;
         }
 
-        donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
-
-        if (isSome(donorAccount.deliveryMethodType)) {
-            donorAccount.deliveryMethodTypeId = donorAccount.deliveryMethodType.id;
+        if (this.form.$('donorAccountAddresses').changed) {
+            let addressPromise = this.updateDonorAddresses(donorAccount.donorAccountAddresses);
+            promises.push(addressPromise);
+            updateText += updateText ? ', addresses' : 'addresses';
+        }
+        if (this.form.$('donorAccountEmailAddresses').changed) {
+            let emailAddressPromise = this.updateDonorAccountEmailAddresses(donorAccount.donorAccountEmailAddresses);
+            promises.push(emailAddressPromise);
+            updateText += updateText ? ', email addresses' : 'email addresses';
+        }
+        if (this.form.$('donorAccountPhoneNumbers').changed) {
+            let phoneNumberPromise = this.updateDonorAccountPhoneNumbers(donorAccount.donorAccountPhoneNumbers);
+            promises.push(phoneNumberPromise);
+            updateText += updateText ? ', phone numbers' : 'phone numbers';
         }
 
-        const donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
-        await donorAccountService.update({
-            id: this.id,
-            ...donorAccount
-        })
-
-        let reloadAddresses = await this.updateDonorAddresses(donorAccount.donorAccountAddresses);
-        let reloadEmailAddresses = await this.updateDonorAccountEmailAddresses(donorAccount.donorAccountEmailAddresses);
-        let reloadPhoneNumbers = await this.updateDonorAccountPhoneNumbers(donorAccount.donorAccountPhoneNumbers);
-
-        if (reloadAddresses || reloadEmailAddresses || reloadPhoneNumbers) {
+        if (promises.length > 0) {
+            await this.fetch(promises);
             await this.getResource(this.id);
+            this.form.setFieldsDisabled(false);
+            await setTimeout(() => this.notifySuccessUpdate(updateText, { autoClose: 6000 }))
         }
-
-        this.form.setFieldsDisabled(false);
-        await setTimeout(() => this.notifySuccessUpdate(this.name, { autoClose: 10000 }))
+        else {
+            this.form.setFieldsDisabled(false);
+            await setTimeout(() => this.notifySuccessWarning('Nothing to update.', { autoClose: 3000 }))
+        }
     }
 
     @action.bound
     async updateDonorAddresses(donorAddresses) {
         const addressService = new AddressService(this.rootStore.app.baasic.apiClient);
-        let donorAddressesToUpdate = _.filter(donorAddresses, function (x) {
-            return isSome(x.id) && x.id !== "";
+        let form = this.form;
+        let addressesToUpdate = [];
+        _.forEach(donorAddresses, function (value, key) {
+            if (isSome(value.id) && value.id !== "" && form.$(`donorAccountAddresses[${key}]`).changed) {
+                addressesToUpdate.push(value.address);
+            }
         });
-
-        let addressesToUpdate = _.map(donorAddressesToUpdate, function (x) {
-            return x.address;
-        })
 
         if (addressesToUpdate.length > 0) {
             await addressService.updateCollection({ id: this.id }, addressesToUpdate);
         };
 
-        let donorAddressesToInsert = _.filter(donorAddresses, function (x) {
-            return !isSome(x.id) || x.id === "";
+        let addressesToInsert = [];
+        _.forEach(donorAddresses, function (value) {
+            if (!isSome(value.id) || value.id === "") {
+                addressesToInsert.push(value.address);
+            }
         });
-
-        let addressesToInsert = _.map(donorAddressesToInsert, function (x) {
-            return x.address;
-        })
 
         if (addressesToInsert.length > 0) {
             await addressService.createCollection({ id: this.id }, addressesToInsert);
-            return true;
         }
     }
 
     @action.bound
     async updateDonorAccountEmailAddresses(donorEmailAddresses) {
         const emailAddressService = new EmailAddressService(this.rootStore.app.baasic.apiClient);
-        let donorEmailAddressesToUpdate = _.filter(donorEmailAddresses, function (x) {
-            return isSome(x.id) && x.id !== "";
+        let form = this.form;
+        let emailAddressesToUpdate = [];
+        _.forEach(donorEmailAddresses, function (value, key) {
+            if (isSome(value.id) && value.id !== "" && form.$(`donorAccountEmailAddresses[${key}]`).changed) {
+                emailAddressesToUpdate.push(value.emailAddress);
+            }
         });
-
-        let emailAddressesToUpdate = _.map(donorEmailAddressesToUpdate, function (x) {
-            return x.emailAddress;
-        })
 
         if (emailAddressesToUpdate.length > 0) {
             await emailAddressService.updateCollection({ id: this.id }, emailAddressesToUpdate);
         };
 
-        let donorEmailAddressesToInsert = _.filter(donorEmailAddresses, function (x) {
-            return !isSome(x.id) || x.id === "";
+        let emailAddressesToInsert = [];
+        _.forEach(donorEmailAddresses, function (value) {
+            if (!isSome(value.id) || value.id === "") {
+                emailAddressesToInsert.push(value.emailAddress);
+            }
         });
-
-        let emailAddressesToInsert = _.map(donorEmailAddressesToInsert, function (x) {
-            return x.emailAddress;
-        })
 
         if (emailAddressesToInsert.length > 0) {
             await emailAddressService.createCollection({ id: this.id }, emailAddressesToInsert);
-            return true;
         }
     }
 
     @action.bound
     async updateDonorAccountPhoneNumbers(donorPhoneNumbers) {
         const phoneNumberService = new PhoneNumberService(this.rootStore.app.baasic.apiClient);
-        let donorPhoneNumbersToUpdate = _.filter(donorPhoneNumbers, function (x) {
-            return isSome(x.id) && x.id !== "";
+        let form = this.form;
+        let phoneNumbersToUpdate = [];
+        _.forEach(donorPhoneNumbers, function (value, key) {
+            if (isSome(value.id) && value.id !== "" && form.$(`donorAccountPhoneNumbers[${key}]`).changed) {
+                phoneNumbersToUpdate.push(value.phoneNumber);
+            }
         });
-
-        let phoneNumbersToUpdate = _.map(donorPhoneNumbersToUpdate, function (x) {
-            return x.phoneNumber;
-        })
 
         if (phoneNumbersToUpdate.length > 0) {
             await phoneNumberService.updateCollection({ id: this.id }, phoneNumbersToUpdate);
         };
 
-        let donorPhoneNumbersToInsert = _.filter(donorPhoneNumbers, function (x) {
-            return !isSome(x.id) || x.id === "";
+        let phoneNumbersToInsert = [];
+        _.forEach(donorPhoneNumbers, function (value) {
+            if (!isSome(value.id) || value.id === "") {
+                phoneNumbersToInsert.push(value.phoneNumber);
+            }
         });
-
-        let phoneNumbersToInsert = _.map(donorPhoneNumbersToInsert, function (x) {
-            return x.phoneNumber;
-        })
 
         if (phoneNumbersToInsert.length > 0) {
             await phoneNumberService.createCollection({ id: this.id }, phoneNumbersToInsert);
-            return true;
         }
     }
 
@@ -240,14 +255,24 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         );
     }
 
+    @action.bound
+    notifySuccessWarning(name, options) {
+        this.rootStore.notificationStore.warning(
+            `${name}`,
+            options
+        );
+    }
+
     @action.bound async onChangeDeliveryMethod(option) {
         this.item.deliveryMethodType = option;
         this.form.update(this.item);
+        this.changedDonorAccount = true;
     }
 
     @action.bound async onChangePrefixType(option) {
         this.item.coreUser.prefixType = option;
         this.form.update(this.item);
+        this.changedDonorAccount = true;
     }
 
     @action.bound async handleOptions(lookupType) {

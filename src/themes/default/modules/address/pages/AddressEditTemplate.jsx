@@ -34,6 +34,7 @@ function AddressEditTemplate(props) {
 
             {!isSome(props.donorAccountAddress.$('address.id').value) || props.donorAccountAddress.$('address.id').value === '' &&
                 <button
+                    className="btn btn--sml btn--primary display--ib"
                     type="button"
                     onClick={props.donorAccountAddress.onDel}
                 >Cancel New Address
@@ -44,6 +45,7 @@ function AddressEditTemplate(props) {
                 props.donorAccountAddress.$('address.id').value !== '' &&
                 !props.donorAccountAddress.$('primary').value &&
                 <button
+                    className="btn btn--med btn--primary display--ib"
                     type="button"
                     onClick={() => alert('TODO:delete or mark as deleted?')}
                 >Delete Address

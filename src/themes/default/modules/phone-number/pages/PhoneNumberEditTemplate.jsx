@@ -22,6 +22,7 @@ function PhoneNumberEditTemplate(props) {
 
             {!isSome(props.donorAccountPhoneNumber.$('phoneNumber.id').value) || props.donorAccountPhoneNumber.$('phoneNumber.id').value === '' &&
                 <button
+                    className="btn btn--sml btn--primary display--ib"
                     type="button"
                     onClick={props.donorAccountPhoneNumber.onDel}
                 >Cancel New Phone Number
@@ -32,6 +33,7 @@ function PhoneNumberEditTemplate(props) {
                 props.donorAccountPhoneNumber.$('phoneNumber.id').value !== '' &&
                 !props.donorAccountPhoneNumber.$('primary').value &&
                 <button
+                    className="btn btn--med btn--primary display--ib"
                     type="button"
                     onClick={() => alert('TODO:delete or mark as deleted?')}
                 >Delete Phone Number
