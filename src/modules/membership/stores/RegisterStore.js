@@ -36,6 +36,7 @@ export default class RegisterStore {
       fundName: model.fundName,
       accountTypeId: model.accountTypeId,
       activationUrl: model.activationUrl,
+      securityPin: model.securityPin,
       coreUser: {
         username: model.email,
         firstName: model.firstName,

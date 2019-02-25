@@ -50,6 +50,9 @@ function RegisterPublicTemplate({ currentView }) {
         <div className="form__group">
           <BasicInput field={registerPublicForm.$('numberDescription')} />
         </div>
+        <div className="form__group">
+          <BasicInput field={registerPublicForm.$('securityPin')} />
+        </div>
         {/* <BasicFieldRecaptcha field={registerPublicForm.$('botProtection')} /> */}
         {registerPublicForm.error && (
           <div>

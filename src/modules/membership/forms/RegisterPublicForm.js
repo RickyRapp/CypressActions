@@ -106,6 +106,13 @@ export default class RegisterPublicForm extends FormBase {
           label: 'Number Description',
           placeholder: 'Enter Number Description',
           value: 'test'
+        },
+        {
+          name: 'securityPin',
+          label: 'Security Pin',
+          placeholder: 'Enter Security Pin',
+          rules: 'required|string|size:4',
+          value: '0508'
         }
         // {
         //   name: 'botProtection',
