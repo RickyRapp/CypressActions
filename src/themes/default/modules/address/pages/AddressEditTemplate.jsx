@@ -1,57 +1,45 @@
 import React from 'react';
-import { defaultTemplate, isSome } from 'core/utils';
-import { BasicInput, BasicCheckBox } from 'core/components';
+import { defaultTemplate } from 'core/utils';
+import { BasicInput, EditFormContent, BaasicFormControls } from 'core/components';
 
-function AddressEditTemplate(props) {
+function AddressEditTemplate({ addressEditViewStore, title, children }) {
+    const {
+        form,
+        loading,
+    } = addressEditViewStore;
 
     return (
-        <React.Fragment>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={props.donorAccountAddress.$('address.addressLine1')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={props.donorAccountAddress.$('address.addressLine2')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={props.donorAccountAddress.$('address.city')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={props.donorAccountAddress.$('address.state')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={props.donorAccountAddress.$('address.zipCode')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={props.donorAccountAddress.$('address.description')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicCheckBox
-                    field={props.donorAccountAddress.$('primary')}
-                    onChange={(e) => props.onChangePrimaryAddress(props.donorAccountAddress.value, e)}
-                    disabled={!isSome(props.donorAccountAddress.$('address.id').value) || props.donorAccountAddress.$('address.id').value === '' || props.donorAccountAddress.$('primary').value}
-                />
-            </div>
+        <EditFormContent form={form} loading={loading}>
+            <h3>{title}</h3>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('addressLine1')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('addressLine2')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('city')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('state')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('zipCode')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('description')} />
+                </div>
 
-            {!isSome(props.donorAccountAddress.$('address.id').value) || props.donorAccountAddress.$('address.id').value === '' &&
-                <button
-                    className="btn btn--sml btn--primary display--ib"
-                    type="button"
-                    onClick={props.donorAccountAddress.onDel}
-                >Cancel New Address
-                </button>
-            }
+                {children &&
+                    <div className="form__group f-col f-col-lrg-4">
+                        {children}
+                    </div>}
 
-            {isSome(props.donorAccountAddress.$('address.id').value) &&
-                props.donorAccountAddress.$('address.id').value !== '' &&
-                !props.donorAccountAddress.$('primary').value &&
-                <button
-                    className="btn btn--med btn--primary display--ib"
-                    type="button"
-                    onClick={() => alert('TODO:delete or mark as deleted?')}
-                >Delete Address
-                </button>
-            }
-        </React.Fragment >
+                {form.changed &&
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+            </div>
+        </EditFormContent>
     );
 }
 

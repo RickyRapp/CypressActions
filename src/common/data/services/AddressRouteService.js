@@ -1,5 +1,6 @@
 import { BaseRouteService } from 'core/services';
 import * as uritemplate from 'uritemplate';
+import { getParams } from 'core/utils';
 
 class AddressRouteService extends BaseRouteService {
     constructor() {
@@ -16,6 +17,11 @@ class AddressRouteService extends BaseRouteService {
         return super.get(this.base + '{id}/{?embed}', id, options);
     }
 
+    getDonorAccountCollection(id, options) {
+        const params = getParams({ id: id, ...options });
+        return this.uriTemplateService.parse(this.base + 'donor-account/{id}/{?embed,sort}').expand(params);
+    }
+
     create(id) {
         return super.create(this.base + '{id}', id);
     }
@@ -24,11 +30,7 @@ class AddressRouteService extends BaseRouteService {
         return this.uriTemplateService.parse(this.base + 'donor-account/{id}').expand(id);
     }
 
-    update(resource) {
-        return super.update(this.base + '{id}', resource);
-    }
-
-    updateCollection() {
+    update() {
         return this.base;
     }
 

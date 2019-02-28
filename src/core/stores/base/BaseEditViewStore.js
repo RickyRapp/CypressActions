@@ -6,6 +6,8 @@ class BaseEditViewStore extends BaseViewStore {
   id = null;
   name = null;
   form = null;
+  goBack = null;
+  onAfterCreate = null;
 
   @observable item = null;
 
@@ -21,13 +23,15 @@ class BaseEditViewStore extends BaseViewStore {
 
   constructor(
     rootStore,
-    { name, id, actions, form, FormClass, crumbs, autoInit = true }
+    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate }
   ) {
     super(rootStore);
 
     this.id = id;
     this.name = name;
     this._actions = actions;
+    this.goBack = goBack;
+    this.onAfterCreate = onAfterCreate;
     this.form =
       form ||
       new FormClass({
@@ -89,7 +93,9 @@ class BaseEditViewStore extends BaseViewStore {
     });
     this.form.setFieldsDisabled(false);
 
-    await this.rootStore.routerStore.goBack();
+    if (this.goBack === true) {
+      await this.rootStore.routerStore.goBack();
+    }
     await setTimeout(() => this.notifySuccessUpdate(this.name), 10);
   }
 
@@ -101,7 +107,12 @@ class BaseEditViewStore extends BaseViewStore {
     await this.actions.create(resource);
     this.form.setFieldsDisabled(false);
 
-    await this.rootStore.routerStore.goBack();
+    if (this.onAfterCreate) {
+      this.onAfterCreate();
+    }
+    if (this.goBack === true) {
+      await this.rootStore.routerStore.goBack();
+    }
     await setTimeout(() => this.notifySuccessCreate(this.name), 10);
   }
 

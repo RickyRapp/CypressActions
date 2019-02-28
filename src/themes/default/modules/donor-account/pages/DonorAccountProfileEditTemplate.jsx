@@ -1,10 +1,7 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicDropdown, BaasicButton, EditFormContent, BaasicFormControls, BasicCheckBox } from 'core/components';
-import { AddressEdit } from 'modules/address/pages';
-import { EmailAddressEdit } from 'modules/email-address/pages';
-import { PhoneNumberEdit } from 'modules/phone-number/pages';
-import { BankAccountEdit } from 'modules/bank-account/pages';
+import { DonorAccountSettingEdit } from 'modules/donor-account/pages'
 
 function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const {
@@ -12,30 +9,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
         loading,
         deliveryMethodTypeMultiSelectStore,
         prefixTypeMultiSelectStore,
-        rootStore,
-        onChangePrimaryAddress,
-        onChangePrimaryEmailAddress,
-        onChangePrimaryPhoneNumber
     } = profileEditViewStore;
-
-    const border = {
-        borderStyle: "solid"
-    };
-
-    const ColoredLine = ({ color }) => (
-        <hr
-            style={{
-                color: color,
-                backgroundColor: color,
-                height: 1
-            }}
-        />
-    );
-
-    const donorAccountAddressesLength = form.$('donorAccountAddresses').value.length;
-    const donorAccountEmailAddressesLength = form.$('donorAccountEmailAddresses').value.length;
-    const donorAccountPhoneNumbersLength = form.$('donorAccountPhoneNumbers').value.length;
-    const donorAccountBankAccountsLength = form.$('donorAccountBankAccounts').value.length;
 
     return (
         <React.Fragment>
@@ -82,105 +56,11 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     </div>
                 </div>
 
-                <div style={border} >
-                    {form.$('donorAccountAddresses').map((donorAccountAddress, i) =>
-                        <React.Fragment key={donorAccountAddress.key}>
-                            <div className="f-row">
-                                <AddressEdit
-                                    donorAccountAddress={donorAccountAddress}
-                                    onChangePrimaryAddress={onChangePrimaryAddress}
-                                />
-                            </div>
-                            {donorAccountAddressesLength !== i + 1 &&
-                                <ColoredLine color="black" />
-                            }
-                        </React.Fragment>
-                    )}
-                    {form.$('donorAccountAddresses').value.length < 3 &&
-                        <button
-                            className="btn btn--med btn--ghost"
-                            type="button"
-                            onClick={form.$('donorAccountAddresses').onAdd}
-                            data-tip={`Add ${form.$('donorAccountAddresses').label}`}
-                        >Add Address
-                </button>
-                    }
-                </div>
-
-                <div style={border} >
-                    {form.$('donorAccountEmailAddresses').map((donorAccountEmailAddress, i) =>
-                        <React.Fragment key={donorAccountEmailAddress.key}>
-                            <div className="f-row">
-                                <EmailAddressEdit
-                                    donorAccountEmailAddress={donorAccountEmailAddress}
-                                    onChangePrimaryEmailAddress={onChangePrimaryEmailAddress}
-                                />
-                            </div>
-                            {donorAccountEmailAddressesLength !== i + 1 &&
-                                <ColoredLine color="black" />
-                            }
-                        </React.Fragment>
-                    )}
-                    {form.$('donorAccountEmailAddresses').value.length < 3 &&
-                        <button
-                            className="btn btn--med btn--ghost"
-                            type="button"
-                            onClick={form.$('donorAccountEmailAddresses').onAdd}
-                            data-tip={`Add ${form.$('donorAccountEmailAddresses').label}`}
-                        >Add Email Address
-                </button>
-                    }
-                </div>
-
-                <div style={border} >
-                    {form.$('donorAccountPhoneNumbers').map((donorAccountPhoneNumber, i) =>
-                        <React.Fragment key={donorAccountPhoneNumber.key}>
-                            <div className="f-row">
-                                <PhoneNumberEdit
-                                    donorAccountPhoneNumber={donorAccountPhoneNumber}
-                                    onChangePrimaryPhoneNumber={onChangePrimaryPhoneNumber}
-                                />
-                            </div>
-                            {donorAccountPhoneNumbersLength !== i + 1 &&
-                                <ColoredLine color="black" />
-                            }
-                        </React.Fragment>
-                    )}
-                    {form.$('donorAccountPhoneNumbers').value.length < 3 &&
-                        <button
-                            className="btn btn--med btn--ghost"
-                            type="button"
-                            onClick={form.$('donorAccountPhoneNumbers').onAdd}
-                            data-tip={`Add ${form.$('donorAccountPhoneNumbers').label}`}
-                        >Add Phone Number
-                </button>
-                    }
-                </div>
-
-                <div style={border} >
-                    {form.$('donorAccountBankAccounts').map((donorAccountBankAccount, i) =>
-                        <React.Fragment key={donorAccountBankAccount.key}>
-                            <div className="f-row">
-                                <BankAccountEdit donorAccountBankAccount={donorAccountBankAccount} />
-                            </div>
-                            {donorAccountBankAccountsLength !== i + 1 &&
-                                <ColoredLine color="black" />
-                            }
-                        </React.Fragment>
-                    )}
-                    {form.$('donorAccountBankAccounts').value.length < 3 &&
-                        <button
-                            className="btn btn--med btn--ghost"
-                            type="button"
-                            onClick={form.$('donorAccountBankAccounts').onAdd}
-                            data-tip={`Add ${form.$('donorAccountBankAccounts').label}`}
-                        >Add Bank Account
-                </button>
-                    }
-                </div>
-
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                {form.changed && //checky why form.isDirty not working and fix changed dropdowns
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
             </EditFormContent >
+
+            <DonorAccountSettingEdit {...this.props} />
         </React.Fragment>
     );
 }

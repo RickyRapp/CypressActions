@@ -1,6 +1,7 @@
 import React from 'react';
 import { DonorAccountProfileEdit, DonorAccountSettingEdit } from 'modules/donor-account/pages'
 import { Page } from 'core/layouts';
+import { DonorAccountAddressEdit } from 'modules/address/pages';
 
 class DonorAccountEdit extends React.Component {
     render() {
@@ -11,7 +12,7 @@ class DonorAccountEdit extends React.Component {
                         <DonorAccountProfileEdit {...this.props} />
                     </div>
                     <div className="form__group f-col f-col-lrg-6">
-                        <DonorAccountSettingEdit {...this.props} />
+                        <DonorAccountAddressEdit />
                     </div>
                 </div>
             </Page>

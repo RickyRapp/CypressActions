@@ -9,14 +9,14 @@ function EditFormContentTemplate({ form, children, loading }) {
       {shouldRenderContentChildren(children) ? (
         children
       ) : (
-        <form onSubmit={form.onSubmit} className="clearfix">
-          {children ? (
-            <div className="col col-sml-12 card card--form card--primary card--lrg">
-              {children}
-            </div>
-          ) : null}
-        </form>
-      )}
+          <form onSubmit={form.onSubmit} className="clearfix">
+            {children ? (
+              <div className="col col-sml-12 card card--form card--primary card--lrg">
+                {children}
+              </div>
+            ) : null}
+          </form>
+        )}
     </React.Fragment>
   );
 }
