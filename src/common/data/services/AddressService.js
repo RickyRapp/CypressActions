@@ -14,14 +14,14 @@ class AddressService extends BaseService {
         return response.data || null;
     }
 
-    async updateCollection(id, resource) {
-        const url = this.routeService.updateCollection(id);
+    async updateCollection(resource) {
+        const url = this.routeService.updateCollection();
         const response = await this.apiClient.put(url, resource);
         return response.data || null;
     }
 
-    async createCollection(id, resource) {
-        const url = this.routeService.createCollection(id);
+    async createDonorAccountCollection(id, resource) {
+        const url = this.routeService.createDonorAccountCollection(id);
         const response = await this.apiClient.post(url, resource);
         return response.data || null;
     }

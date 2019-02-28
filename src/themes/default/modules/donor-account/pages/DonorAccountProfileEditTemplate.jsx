@@ -4,6 +4,7 @@ import { BasicInput, BaasicDropdown, BaasicButton, EditFormContent, BaasicFormCo
 import { AddressEdit } from 'modules/address/pages';
 import { EmailAddressEdit } from 'modules/email-address/pages';
 import { PhoneNumberEdit } from 'modules/phone-number/pages';
+import { BankAccountEdit } from 'modules/bank-account/pages';
 
 function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const {
@@ -34,6 +35,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const donorAccountAddressesLength = form.$('donorAccountAddresses').value.length;
     const donorAccountEmailAddressesLength = form.$('donorAccountEmailAddresses').value.length;
     const donorAccountPhoneNumbersLength = form.$('donorAccountPhoneNumbers').value.length;
+    const donorAccountBankAccountsLength = form.$('donorAccountBankAccounts').value.length;
 
     return (
         <React.Fragment>
@@ -151,6 +153,28 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                             onClick={form.$('donorAccountPhoneNumbers').onAdd}
                             data-tip={`Add ${form.$('donorAccountPhoneNumbers').label}`}
                         >Add Phone Number
+                </button>
+                    }
+                </div>
+
+                <div style={border} >
+                    {form.$('donorAccountBankAccounts').map((donorAccountBankAccount, i) =>
+                        <React.Fragment key={donorAccountBankAccount.key}>
+                            <div className="f-row">
+                                <BankAccountEdit donorAccountBankAccount={donorAccountBankAccount} />
+                            </div>
+                            {donorAccountBankAccountsLength !== i + 1 &&
+                                <ColoredLine color="black" />
+                            }
+                        </React.Fragment>
+                    )}
+                    {form.$('donorAccountBankAccounts').value.length < 3 &&
+                        <button
+                            className="btn btn--med btn--ghost"
+                            type="button"
+                            onClick={form.$('donorAccountBankAccounts').onAdd}
+                            data-tip={`Add ${form.$('donorAccountBankAccounts').label}`}
+                        >Add Bank Account
                 </button>
                     }
                 </div>

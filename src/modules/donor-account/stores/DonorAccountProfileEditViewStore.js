@@ -1,6 +1,6 @@
 import { action, runInAction, observable } from 'mobx';
 import { BaseViewStore, BaasicDropdownStore } from "core/stores";
-import { DonorAccountService, LookupService, AddressService, EmailAddressService, PhoneNumberService } from "common/data";
+import { DonorAccountService, LookupService, AddressService, EmailAddressService, PhoneNumberService, BankAccountService } from "common/data";
 import { DonorAccountProfileEditForm } from 'modules/donor-account/forms';
 import { isSome } from 'core/utils';
 import _ from 'lodash';
@@ -106,6 +106,11 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
             promises.push(phoneNumberPromise);
             updateText += updateText ? ', phone numbers' : 'phone numbers';
         }
+        if (this.form.$('donorAccountBankAccounts').changed) {
+            let bankAccountPromise = this.donorAccountBankAccounts(donorAccount.donorAccountBankAccounts);
+            promises.push(bankAccountPromise);
+            updateText += updateText ? ', bank accounts' : 'bank accounts';
+        }
 
         if (promises.length > 0) {
             await this.fetch(promises);
@@ -131,7 +136,7 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         });
 
         if (addressesToUpdate.length > 0) {
-            await addressService.updateCollection({ id: this.id }, addressesToUpdate);
+            await addressService.updateCollection(addressesToUpdate);
         };
 
         let addressesToInsert = [];
@@ -142,7 +147,7 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         });
 
         if (addressesToInsert.length > 0) {
-            await addressService.createCollection({ id: this.id }, addressesToInsert);
+            await addressService.createDonorAccountCollection({ id: this.id }, addressesToInsert);
         }
     }
 
@@ -158,7 +163,7 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         });
 
         if (emailAddressesToUpdate.length > 0) {
-            await emailAddressService.updateCollection({ id: this.id }, emailAddressesToUpdate);
+            await emailAddressService.updateCollection(emailAddressesToUpdate);
         };
 
         let emailAddressesToInsert = [];
@@ -169,7 +174,7 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         });
 
         if (emailAddressesToInsert.length > 0) {
-            await emailAddressService.createCollection({ id: this.id }, emailAddressesToInsert);
+            await emailAddressService.createDonorAccountCollection({ id: this.id }, emailAddressesToInsert);
         }
     }
 
@@ -185,7 +190,7 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         });
 
         if (phoneNumbersToUpdate.length > 0) {
-            await phoneNumberService.updateCollection({ id: this.id }, phoneNumbersToUpdate);
+            await phoneNumberService.updateCollection(phoneNumbersToUpdate);
         };
 
         let phoneNumbersToInsert = [];
@@ -196,15 +201,41 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
         });
 
         if (phoneNumbersToInsert.length > 0) {
-            await phoneNumberService.createCollection({ id: this.id }, phoneNumbersToInsert);
+            await phoneNumberService.createDonorAccountCollection({ id: this.id }, phoneNumbersToInsert);
         }
     }
 
+    @action.bound
+    async donorAccountBankAccounts(donorBankAccounts) {
+        const bankAccountService = new BankAccountService(this.rootStore.app.baasic.apiClient);
+        let form = this.form;
+        let bankAccountsToUpdate = [];
+        _.forEach(donorBankAccounts, function (value, key) {
+            if (isSome(value.id) && value.id !== "" && form.$(`donorAccountBankAccounts[${key}]`).changed) {
+                bankAccountsToUpdate.push(value);
+            }
+        });
+
+        if (bankAccountsToUpdate.length > 0) {
+            await bankAccountService.updateCollection(bankAccountsToUpdate);
+        };
+
+        let bankAccountsToInsert = [];
+        _.forEach(donorBankAccounts, function (value) {
+            if (!isSome(value.id) || value.id === "") {
+                bankAccountsToInsert.push(value);
+            }
+        });
+
+        if (bankAccountsToInsert.length > 0) {
+            await bankAccountService.createDonorAccountCollection({ id: this.id }, bankAccountsToInsert);
+        }
+    }
 
     @action.bound
     async getResource(id, updateForm = true) {
         let params = {};
-        params.embed = ['coreUser,deliveryMethodType,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers'];
+        params.embed = ['coreUser,deliveryMethodType,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,donorAccountBankAccounts,bankAccount,nonMember,address,emailAddress,phoneNumber'];
         const donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
         const response = await donorAccountService.get(id, params);
         if (isSome(response)) {
@@ -221,6 +252,7 @@ class DonorAccountProfileEditViewStore extends BaseViewStore {
             response.donorAccountAddresses = _.orderBy(response.donorAccountAddresses, ['primary', 'dateCreated'], ['desc', 'asc']);
             response.donorAccountEmailAddresses = _.orderBy(response.donorAccountEmailAddresses, ['primary', 'dateCreated'], ['desc', 'asc']);
             response.donorAccountPhoneNumbers = _.orderBy(response.donorAccountPhoneNumbers, ['primary', 'dateCreated'], ['desc', 'asc']);
+            response.donorAccountBankAccounts = _.orderBy(response.donorAccountBankAccounts, ['dateCreated'], ['asc']);
         }
 
         runInAction(() => {

@@ -20,16 +20,16 @@ class AddressRouteService extends BaseRouteService {
         return super.create(this.base + '{id}', id);
     }
 
-    createCollection(id) {
-        return this.uriTemplateService.parse(this.base + '{id}').expand(id);
+    createDonorAccountCollection(id) {
+        return this.uriTemplateService.parse(this.base + 'donor-account/{id}').expand(id);
     }
 
     update(resource) {
         return super.update(this.base + '{id}', resource);
     }
 
-    updateCollection(id) {
-        return this.uriTemplateService.parse(this.base + '{id}').expand(id);
+    updateCollection() {
+        return this.base;
     }
 
     updateDonorAccountAddresses(resource) {

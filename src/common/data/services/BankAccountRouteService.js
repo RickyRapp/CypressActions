@@ -1,15 +1,15 @@
 import { BaseRouteService } from 'core/services';
 import * as uritemplate from 'uritemplate';
 
-class EmailAddressRouteService extends BaseRouteService {
+class BankAccountRouteService extends BaseRouteService {
     constructor() {
         super();
-        this.base = 'email-address/';
+        this.base = 'bank-account/';
         this.uriTemplateService = uritemplate;
     }
 
     find(filter) {
-        return super.find(this.base + '{?page,rpp,sort,embed,fields,searchFields}', filter);
+        return super.find(this.base + '{?page,rpp,sort,embed,fields,searchFields,donorAccountId}', filter);
     }
 
     get(id, options) {
@@ -32,13 +32,9 @@ class EmailAddressRouteService extends BaseRouteService {
         return this.base;
     }
 
-    updateDonorAccountEmailAddresses(resource) {
-        return super.update(this.base + 'donor-account-email-addresses/{id}', resource);
-    }
-
     delete(resource) {
         return super.delete(this.base + '{id}', resource);
     }
 }
 
-export default EmailAddressRouteService;
+export default BankAccountRouteService;

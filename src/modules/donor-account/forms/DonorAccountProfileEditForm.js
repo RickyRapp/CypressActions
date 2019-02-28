@@ -40,7 +40,20 @@ export default class DonorAccountProfileEditForm extends FormBase {
                 'donorAccountPhoneNumbers[].phoneNumber',
                 'donorAccountPhoneNumbers[].phoneNumber.id',
                 'donorAccountPhoneNumbers[].phoneNumber.number',
-                'donorAccountPhoneNumbers[].phoneNumber.description'
+                'donorAccountPhoneNumbers[].phoneNumber.description',
+                'donorAccountBankAccounts',
+                'donorAccountBankAccounts[].id',
+                'donorAccountBankAccounts[].bankAccount',
+                'donorAccountBankAccounts[].nonMember',
+                'donorAccountBankAccounts[].bankAccount.id',
+                'donorAccountBankAccounts[].bankAccount.name',
+                'donorAccountBankAccounts[].bankAccount.description',
+                'donorAccountBankAccounts[].bankAccount.accountNumber',
+                'donorAccountBankAccounts[].bankAccount.routingNumber',
+                'donorAccountBankAccounts[].nonMember.id',
+                'donorAccountBankAccounts[].nonMember.firstName',
+                'donorAccountBankAccounts[].nonMember.lastName',
+                'donorAccountBankAccounts[].nonMember.middleName'
             ],
 
             labels: {
@@ -66,11 +79,21 @@ export default class DonorAccountProfileEditForm extends FormBase {
                 'donorAccountEmailAddresses[].emailAddress': 'Email Address',
                 'donorAccountEmailAddresses[].emailAddress.email': 'Email',
                 'donorAccountEmailAddresses[].emailAddress.description': 'Description',
-                'donorAccountPhoneNumbers': 'Phone Number',
+                'donorAccountPhoneNumbers': 'Phone Numbers',
                 'donorAccountPhoneNumbers[].primary': 'Primary',
                 'donorAccountPhoneNumbers[].phoneNumber': 'Phone Number',
                 'donorAccountPhoneNumbers[].phoneNumber.number': 'Number',
-                'donorAccountPhoneNumbers[].phoneNumber.description': 'Description'
+                'donorAccountPhoneNumbers[].phoneNumber.description': 'Description',
+                'donorAccountBankAccounts': 'Bank Accounts',
+                'donorAccountBankAccounts[].bankAccount': 'Bank Account',
+                'donorAccountBankAccounts[].nonMember': 'Owner',
+                'donorAccountBankAccounts[].bankAccount.name': 'Name',
+                'donorAccountBankAccounts[].bankAccount.description': 'Description',
+                'donorAccountBankAccounts[].bankAccount.accountNumber': 'Account Number',
+                'donorAccountBankAccounts[].bankAccount.routingNumber': 'Routing Number',
+                'donorAccountBankAccounts[].nonMember.firstName': 'First name',
+                'donorAccountBankAccounts[].nonMember.lastName': 'Last Name',
+                'donorAccountBankAccounts[].nonMember.middleName': 'Middle Name'
             },
 
             placeholders: {
@@ -96,7 +119,17 @@ export default class DonorAccountProfileEditForm extends FormBase {
                 'donorAccountPhoneNumbers[].primary': 'Select Primary Phone Number',
                 'donorAccountPhoneNumbers[].phoneNumber': 'Enter Phone Number',
                 'donorAccountPhoneNumbers[].phoneNumber.number': 'Enter Number',
-                'donorAccountPhoneNumbers[].phoneNumber.description': 'Enter Description'
+                'donorAccountPhoneNumbers[].phoneNumber.description': 'Enter Description',
+                'donorAccountBankAccounts': 'Bank Accounts',
+                'donorAccountBankAccounts[].bankAccount': 'Bank Account',
+                'donorAccountBankAccounts[].nonMember': 'Owner',
+                'donorAccountBankAccounts[].bankAccount.name': 'Name',
+                'donorAccountBankAccounts[].bankAccount.description': 'Description',
+                'donorAccountBankAccounts[].bankAccount.accountNumber': 'Account Number',
+                'donorAccountBankAccounts[].bankAccount.routingNumber': 'Routing Number',
+                'donorAccountBankAccounts[].nonMember.firstName': 'First name',
+                'donorAccountBankAccounts[].nonMember.lastName': 'Last Name',
+                'donorAccountBankAccounts[].nonMember.middleName': 'Middle Name'
             },
 
             rules: {
@@ -117,7 +150,14 @@ export default class DonorAccountProfileEditForm extends FormBase {
                 'donorAccountEmailAddresses[].emailAddress.email': 'required|email',
                 'donorAccountEmailAddresses[].emailAddress.description': 'string',
                 'donorAccountPhoneNumbers[].phoneNumber.number': 'required|string',
-                'donorAccountPhoneNumbers[].phoneNumber.description': 'string'
+                'donorAccountPhoneNumbers[].phoneNumber.description': 'string',
+                'donorAccountBankAccounts[].bankAccount.name': 'required|string',
+                'donorAccountBankAccounts[].bankAccount.description': 'string',
+                'donorAccountBankAccounts[].bankAccount.accountNumber': 'required|string',
+                'donorAccountBankAccounts[].bankAccount.routingNumber': 'required|string',
+                'donorAccountBankAccounts[].nonMember.firstName': 'string',
+                'donorAccountBankAccounts[].nonMember.lastName': 'string',
+                'donorAccountBankAccounts[].nonMember.middleName': 'string',
             }
         };
     }

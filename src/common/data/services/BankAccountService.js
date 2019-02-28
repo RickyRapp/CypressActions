@@ -1,17 +1,11 @@
-import { PhoneNumberRouteService } from 'common/data';
+import { BankAccountRouteService } from 'common/data';
 import { BaseService } from 'core/services';
 import _ from 'lodash';
 
-class PhoneNumberService extends BaseService {
+class BankAccountService extends BaseService {
     constructor(apiClient) {
-        super(apiClient, new PhoneNumberRouteService());
+        super(apiClient, new BankAccountRouteService());
         this.apiClient = apiClient;
-    }
-
-    async updateDonorAccountPhoneNumbers(resource) {
-        const url = this.routeService.updateDonorAccountPhoneNumbers(resource);
-        const response = await this.apiClient.put(url, resource);
-        return response.data || null;
     }
 
     async updateCollection(resource) {
@@ -27,4 +21,4 @@ class PhoneNumberService extends BaseService {
     }
 }
 
-export default PhoneNumberService;
+export default BankAccountService;
