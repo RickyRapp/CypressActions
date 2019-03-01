@@ -1,45 +1,33 @@
 import React from 'react';
-import { defaultTemplate, isSome } from 'core/utils';
-import { BasicInput, BasicCheckBox } from 'core/components';
+import { defaultTemplate } from 'core/utils';
+import { BasicInput, EditFormContent, BaasicFormControls } from 'core/components';
 
-function PhoneNumberEditTemplate(props) {
+function PhoneNumberEditTemplate({ phoneNumberEditViewStore, title, children }) {
+    const {
+        form,
+        loading,
+    } = phoneNumberEditViewStore;
 
     return (
-        <React.Fragment>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={props.donorAccountPhoneNumber.$('phoneNumber.number')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={props.donorAccountPhoneNumber.$('phoneNumber.description')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicCheckBox
-                    field={props.donorAccountPhoneNumber.$('primary')}
-                    onChange={(e) => props.onChangePrimaryPhoneNumber(props.donorAccountPhoneNumber.value, e)}
-                    disabled={!isSome(props.donorAccountPhoneNumber.$('phoneNumber.id').value) || props.donorAccountPhoneNumber.$('phoneNumber.id').value === '' || props.donorAccountPhoneNumber.$('primary').value}
-                />
-            </div>
+        <EditFormContent form={form} loading={loading}>
+            <h3>{title}</h3>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('number')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('description')} />
+                </div>
 
-            {!isSome(props.donorAccountPhoneNumber.$('phoneNumber.id').value) || props.donorAccountPhoneNumber.$('phoneNumber.id').value === '' &&
-                <button
-                    className="btn btn--sml btn--primary display--ib"
-                    type="button"
-                    onClick={props.donorAccountPhoneNumber.onDel}
-                >Cancel New Phone Number
-                </button>
-            }
+                {children &&
+                    <div className="form__group f-col f-col-lrg-4">
+                        {children}
+                    </div>}
 
-            {isSome(props.donorAccountPhoneNumber.$('phoneNumber.id').value) &&
-                props.donorAccountPhoneNumber.$('phoneNumber.id').value !== '' &&
-                !props.donorAccountPhoneNumber.$('primary').value &&
-                <button
-                    className="btn btn--med btn--primary display--ib"
-                    type="button"
-                    onClick={() => alert('TODO:delete or mark as deleted?')}
-                >Delete Phone Number
-                </button>
-            }
-        </React.Fragment >
+                {form.changed &&
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+            </div>
+        </EditFormContent>
     );
 }
 

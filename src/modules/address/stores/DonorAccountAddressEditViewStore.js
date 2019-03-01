@@ -7,7 +7,6 @@ import _ from 'lodash';
 
 class DonorAccountAddressEditViewStore extends BaseViewStore {
     @observable items = null;
-    @observable addAddress = false;
 
     constructor(rootStore) {
         super(rootStore);
@@ -36,10 +35,6 @@ class DonorAccountAddressEditViewStore extends BaseViewStore {
         await this.addressService.updateDonorAccountAddresses(this.items);
         await this.getResource();
         await setTimeout(() => this.notifySuccessUpdate("primary address", { autoClose: 4000 }));
-    }
-
-    @action.bound addNewAddress() {
-        this.addAddress = true;
     }
 
     @action.bound
