@@ -1,5 +1,6 @@
 import { BaseRouteService } from 'core/services';
 import * as uritemplate from 'uritemplate';
+import { getParams } from 'core/utils';
 
 class BankAccountRouteService extends BaseRouteService {
     constructor() {
@@ -8,32 +9,25 @@ class BankAccountRouteService extends BaseRouteService {
         this.uriTemplateService = uritemplate;
     }
 
-    find(filter) {
-        return super.find(this.base + '{?page,rpp,sort,embed,fields,searchFields,donorAccountId}', filter);
-    }
-
     get(id, options) {
         return super.get(this.base + '{id}/{?embed}', id, options);
     }
 
-    create(id) {
-        return super.create(this.base + '{id}', id);
+    getDonorAccountCollection(id, options) {
+        const params = getParams({ id: id, ...options });
+        return this.uriTemplateService.parse(this.base + 'donor-account/{id}/{?embed,sort}').expand(params);
     }
 
     createDonorAccountCollection(id) {
         return this.uriTemplateService.parse(this.base + 'donor-account/{id}').expand(id);
     }
 
-    update(resource) {
-        return super.update(this.base + '{id}', resource);
-    }
-
-    updateCollection() {
+    update() {
         return this.base;
     }
 
-    delete(resource) {
-        return super.delete(this.base + '{id}', resource);
+    updateDonorAccountBankAccounts(resource) {
+        return super.update(this.base + 'donor-account-bank-accounts/{id}', resource);
     }
 }
 

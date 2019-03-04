@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DonorAccountAddressEditTemplate } from 'themes/modules/address/pages';
 import { setCurrentView } from 'core/utils';
+import { DonorAccountAddressEditTemplate } from 'themes/modules/address/pages';
 import { DonorAccountAddressEditViewStore } from 'modules/address/stores';
 
 @setCurrentView(rootStore => new DonorAccountAddressEditViewStore(rootStore), 'donorAccountAddressEditViewStore')

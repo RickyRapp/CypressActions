@@ -1,7 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicDropdown, BaasicButton, EditFormContent, BaasicFormControls, BasicCheckBox } from 'core/components';
-import { DonorAccountSettingEdit } from 'modules/donor-account/pages'
 
 function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const {
@@ -59,8 +58,6 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                 {form.changed && //checky why form.isDirty not working and fix changed dropdowns
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
             </EditFormContent >
-
-            <DonorAccountSettingEdit {...this.props} />
         </React.Fragment>
     );
 }

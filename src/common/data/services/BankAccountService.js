@@ -8,15 +8,15 @@ class BankAccountService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async updateCollection(resource) {
-        const url = this.routeService.updateCollection();
-        const response = await this.apiClient.put(url, resource);
-        return response.data || null;
-    }
-
     async createDonorAccountCollection(id, resource) {
         const url = this.routeService.createDonorAccountCollection(id);
         const response = await this.apiClient.post(url, resource);
+        return response.data || null;
+    }
+
+    async getDonorAccountCollection(id, options = {}) {
+        const url = this.routeService.getDonorAccountCollection(id, options);
+        const response = await this.apiClient.get(url);
         return response.data || null;
     }
 }

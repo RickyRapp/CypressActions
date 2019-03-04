@@ -2,7 +2,7 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, EditFormContent, BaasicFormControls, BasicCheckBox } from 'core/components';
 
-function BankAccountEditTemplate({ bankAccountEditViewStore, title, children }) {
+function BankAccountCreateTemplate({ bankAccountEditViewStore, title, children }) {
     const {
         form,
         loading,
@@ -31,7 +31,7 @@ function BankAccountEditTemplate({ bankAccountEditViewStore, title, children }) 
                         </div>
                     </div>
                     <div className="group">
-                        <div className="display--b pull">Reveal Account Holder Informations</div>
+                        <div className="display--b pull">Third Party Bank Account</div>
                         <div className="display--b pull spc--left--sml">
                             <input
                                 type="checkbox"
@@ -90,4 +90,4 @@ function BankAccountEditTemplate({ bankAccountEditViewStore, title, children }) 
     );
 }
 
-export default defaultTemplate(BankAccountEditTemplate);
+export default defaultTemplate(BankAccountCreateTemplate);

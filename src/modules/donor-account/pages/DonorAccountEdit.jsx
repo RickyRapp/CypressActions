@@ -4,6 +4,8 @@ import { Page } from 'core/layouts';
 import { DonorAccountAddressEdit } from 'modules/address/pages';
 import { DonorAccountEmailAddressEdit } from 'modules/email-address/pages';
 import { DonorAccountPhoneNumberEdit } from 'modules/phone-number/pages';
+import { DonorAccountSettingEdit } from 'modules/donor-account/pages'
+import { DonorAccountBankAccountEdit } from 'modules/bank-account/pages'
 
 class DonorAccountEdit extends React.Component {
     render() {
@@ -11,10 +13,21 @@ class DonorAccountEdit extends React.Component {
             <Page>
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
-                        <DonorAccountProfileEdit {...this.props} />
+                        <div className="f-row">
+                            <div className="form__group f-col f-col-lrg-12">
+                                <DonorAccountProfileEdit {...this.props} />
+                            </div>
+                            <div className="form__group f-col f-col-lrg-12">
+                                <DonorAccountSettingEdit {...this.props} />
+                            </div>
+                        </div>
                     </div>
+
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="f-row">
+                            <div className="form__group f-col f-col-lrg-12">
+                                <DonorAccountBankAccountEdit />
+                            </div>
                             <div className="form__group f-col f-col-lrg-12">
                                 <DonorAccountAddressEdit />
                             </div>

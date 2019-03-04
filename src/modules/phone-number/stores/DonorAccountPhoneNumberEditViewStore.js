@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 class DonorAccountPhoneNumberEditViewStore extends BaseViewStore {
     @observable items = null;
+    @observable hide = true;
 
     constructor(rootStore) {
         super(rootStore);
@@ -40,6 +41,16 @@ class DonorAccountPhoneNumberEditViewStore extends BaseViewStore {
         this.rootStore.notificationStore.success(
             `Successfully updated ${_.toLower(name)}.`
         );
+    }
+
+    @action.bound
+    async onShowHideChange() {
+        if (event.target.checked) {
+            this.hide = true;
+        }
+        else {
+            this.hide = false;
+        }
     }
 }
 
