@@ -6,38 +6,22 @@ function DonorAccountEmailAddressEditTemplate({ donorAccountEmailAddressEditView
     const {
         items,
         onChangePrimaryEmailAddress,
-        getResource,
-        hide,
-        onShowHideChange
+        getResource
     } = donorAccountEmailAddressEditViewStore;
 
     return (
         <React.Fragment>
-            <div className="group">
-                <div className="display--b pull">Hide Email Address Informations</div>
-                <div className="display--b pull spc--left--sml">
-                    <input
-                        type="checkbox"
-                        onChange={onShowHideChange}
-                        checked={hide}
-                    />
-                </div>
-            </div>
-            {!hide &&
-                <React.Fragment>
-                    {items && items.map((donorAccountEmailAddress, i) =>
-                        <React.Fragment key={donorAccountEmailAddress.id} >
-                            {!donorAccountEmailAddress.primary && markPrimary(onChangePrimaryEmailAddress)}
-                            <EmailAddressEdit
-                                id={donorAccountEmailAddress.emailAddressId}
-                                title={donorAccountEmailAddress.primary ? 'Primary Email Address' : 'Secondary Email Address'}
-                            ></EmailAddressEdit>
-                        </React.Fragment>
-                    )}
-
-                    {items && items.length < 2 && <EmailAddressEdit onAfterCreate={getResource} title={'You can add secondary email address'} />}
+            {items && items.map((donorAccountEmailAddress, i) =>
+                <React.Fragment key={donorAccountEmailAddress.id} >
+                    {!donorAccountEmailAddress.primary && markPrimary(onChangePrimaryEmailAddress)}
+                    <EmailAddressEdit
+                        id={donorAccountEmailAddress.emailAddressId}
+                        title={donorAccountEmailAddress.primary ? 'Primary Email Address' : 'Secondary Email Address'}
+                    ></EmailAddressEdit>
                 </React.Fragment>
-            }
+            )}
+
+            {items && items.length < 2 && <EmailAddressEdit onAfterCreate={getResource} title={'You can add secondary email address'} />}
         </React.Fragment>
     );
 }

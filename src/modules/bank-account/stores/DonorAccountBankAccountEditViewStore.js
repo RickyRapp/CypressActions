@@ -5,7 +5,6 @@ import _ from 'lodash';
 
 class DonorAccountBankAccountEditViewStore extends BaseViewStore {
     @observable items = null;
-    @observable hide = true;
 
     constructor(rootStore) {
         super(rootStore);
@@ -20,16 +19,6 @@ class DonorAccountBankAccountEditViewStore extends BaseViewStore {
         params.sort = ['dateCreated|asc']
         const response = await this.bankAccountService.getDonorAccountCollection(id, params);
         this.items = response;
-    }
-
-    @action.bound
-    async onShowHideChange() {
-        if (event.target.checked) {
-            this.hide = true;
-        }
-        else {
-            this.hide = false;
-        }
     }
 }
 

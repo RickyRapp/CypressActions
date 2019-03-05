@@ -12,10 +12,14 @@ export default class DonorAccountProfileEditForm extends FormBase {
                 'blankBookletMax',
                 'notificationLimitRemainderAmount',
                 'deliveryMethodType',
+                'deliveryMethodType.id',
+                'deliveryMethodType.name',
                 'coreUser.firstName',
                 'coreUser.lastName',
                 'coreUser.middleName',
-                'coreUser.prefixType'
+                'coreUser.prefixType',
+                'coreUser.prefixType.id',
+                'coreUser.prefixType.name'
             ],
 
             labels: {
@@ -46,7 +50,9 @@ export default class DonorAccountProfileEditForm extends FormBase {
                 'notificationLimitRemainderAmount': 'numeric|min:0',
                 'coreUser.firstName': 'required|string',
                 'coreUser.middleName': 'string',
-                'coreUser.lastName': 'required|string'
+                'coreUser.lastName': 'required|string',
+                'deliveryMethodType.id': 'required|string',
+                'deliveryMethodType.name': 'required|string',
             }
         };
     }
