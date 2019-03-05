@@ -11,7 +11,8 @@ export default class DonorAccountSettingEditForm extends FormBase {
                 {
                     name: 'initialContribution',
                     label: 'Initial Contribution',
-                    rules: 'boolean'
+                    rules: 'boolean',
+                    type: 'checkbox'
                 },
                 {
                     name: 'contributionMinimumInitial',

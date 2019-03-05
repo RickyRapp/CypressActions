@@ -1,26 +1,34 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter } from 'core/components';
-import { isSome } from 'core/utils';
-import { ListLayout } from 'core/layouts';
+import { BaasicTable } from 'core/components';
+import { DonorNoteEdit, DonorNoteCreate } from 'modules/donor-note/pages';
 
 function DonorNoteListTemplate({ donorNoteListViewStore }) {
     const {
-        queryUtility,
         loaderStore,
-        tableStore
+        tableStore,
+        editNoteId,
+        onAfterEditCreate,
+        onCancelEdit
     } = donorNoteListViewStore;
 
     return (
-        <ListLayout loading={loaderStore.loading}>
-            <div className="spc--bottom--sml">
-                <TableFilter queryUtility={queryUtility} />
-            </div>
+        <React.Fragment>
             <BaasicTable
                 tableStore={tableStore}
                 loading={loaderStore.loading}
+                hidePageSizeSelect={true}
             />
-        </ListLayout>
+            {editNoteId && <DonorNoteEdit
+                id={editNoteId}
+                title='Edit New Note'
+                onAfterUpdate={onAfterEditCreate}
+                onCancelEdit={onCancelEdit} />}
+
+            {!editNoteId && <DonorNoteCreate
+                title='Add New Note'
+                onAfterCreate={onAfterEditCreate} />}
+        </React.Fragment>
     );
 }
 

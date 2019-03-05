@@ -1,6 +1,8 @@
 import React from 'react';
 import { isSome, renderIf } from 'core/utils';
 import _ from 'lodash';
+import moment from 'moment';
+import 'moment-timezone';
 
 function BaasicTableRowTemplate({
   item,
@@ -44,15 +46,35 @@ function renderRow(item, column) {
     );
   }
 
-  const itemValue =
-    item[column.key] !== undefined && item[column.key] !== null
-      ? item[column.key].toString()
-      : tryGetColumnValue(item, column.key);
+  let itemValue = getColumnValue(item, column.key);
+
+  if (column.type === 'date') {
+    itemValue = moment(itemValue).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(column.format);
+  }
+
+  if (column.type === 'object') {
+    var baseItem = '';
+    _.forEach(column.additionalColumns, (childColumn, index) => {
+      let columnValue = getColumnValue(item[column.key], childColumn.key)
+      if (columnValue !== null) {
+        baseItem += columnValue + ((index === (column.additionalColumns.length - 1)) ? '' : column.separator);
+      }
+    });
+    itemValue = baseItem;
+  }
+
   return (
     <td key={column.key} className="table__body--data">
       <div {...rowProps}>{itemValue}</div>
     </td>
   );
+}
+
+function getColumnValue(item, key) {
+  let data = item[key] !== undefined && item[key] !== null
+    ? item[key].toString()
+    : tryGetColumnValue(item, key);
+  return data;
 }
 
 function tryGetColumnValue(item, key) {

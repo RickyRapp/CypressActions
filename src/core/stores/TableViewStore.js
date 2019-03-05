@@ -6,7 +6,7 @@ const DefaultConfig = {
   columns: [],
   actions: {},
   batchActions: {},
-  onDataChange: data => {}
+  onDataChange: data => { }
 };
 
 class TableViewStore {
@@ -77,8 +77,7 @@ class TableViewStore {
   }
 
   @action.bound setPage = page => this.queryUtility.changePage(page);
-  @action.bound setPageSize = pageSize =>
-    this.queryUtility.changePageSize(pageSize);
+  @action.bound setPageSize = pageSize => this.queryUtility.changePageSize(pageSize);
   @action.bound setSort = sort => this.queryUtility.changeOrder(sort);
   @action.bound onItemChange = event => event;
 }

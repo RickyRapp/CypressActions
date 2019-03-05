@@ -42,6 +42,8 @@
     "mobx-react": "5.2.0",
     "mobx-react-form": "1.34.0",
     "mobx-state-router": "3.3.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
     "normalize.css": "^8.0.0",
     "object-assign": "4.1.1",
     "postcss-calc": "6.0.1",

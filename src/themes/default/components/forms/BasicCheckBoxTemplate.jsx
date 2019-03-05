@@ -8,7 +8,6 @@ const BasicCheckBoxTemplate = defaultTemplate(({ field, label = '' }) => {
             <div className="display--b pull spc--left--sml">
                 <input
                     {...field.bind()}
-                    type="checkbox"
                 />
                 <label htmlFor={field.id}>&nbsp;</label>
             </div>

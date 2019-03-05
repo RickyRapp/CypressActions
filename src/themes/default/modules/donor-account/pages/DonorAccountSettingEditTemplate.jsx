@@ -15,7 +15,7 @@ function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
                 </div>
 
                 <div className="form__group f-col f-col-lrg-6">
-                    <BasicCheckBox field={form.$('initialContribution')} onChange={onChangeInitialContribution} />
+                    <BasicCheckBox field={form.$('initialContribution')} />
                 </div>
 
                 <div className="form__group f-col f-col-lrg-6">
@@ -46,7 +46,9 @@ function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
                     <BasicInput field={form.$('extraBookletPercentage')} />
                 </div>
             </div>
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+
+            {form.changed &&
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
         </EditFormContent >
     );
 }

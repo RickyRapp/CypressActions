@@ -11,7 +11,7 @@ function hasAction(actions) {
   return actions && (actions.onEdit || actions.onDelete);
 }
 
-function BaasicTableTemplate({ tableStore, actionsComponent, ...otherProps }) {
+function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect = false, ...otherProps }) {
   const {
     data,
     config: { columns, actions },
@@ -81,11 +81,11 @@ function BaasicTableTemplate({ tableStore, actionsComponent, ...otherProps }) {
         </table>
       </div>
       <BaasicPager queryUtility={queryUtility} />
-      <BaasicPageSizeSelect
+      {!hidePageSizeSelect && <BaasicPageSizeSelect
         queryUtility={queryUtility}
         options={pageSizeOptions}
         placeholder="Select page size"
-      />
+      />}
     </div>
   );
 }

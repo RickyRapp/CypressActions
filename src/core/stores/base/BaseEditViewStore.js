@@ -8,6 +8,7 @@ class BaseEditViewStore extends BaseViewStore {
   form = null;
   goBack = null;
   onAfterCreate = null;
+  onAfterUpdate = null;
 
   @observable item = null;
 
@@ -23,7 +24,7 @@ class BaseEditViewStore extends BaseViewStore {
 
   constructor(
     rootStore,
-    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate }
+    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate, onAfterUpdate }
   ) {
     super(rootStore);
 
@@ -32,6 +33,7 @@ class BaseEditViewStore extends BaseViewStore {
     this._actions = actions;
     this.goBack = goBack;
     this.onAfterCreate = onAfterCreate;
+    this.onAfterUpdate = onAfterUpdate;
     this.form =
       form ||
       new FormClass({
@@ -93,6 +95,10 @@ class BaseEditViewStore extends BaseViewStore {
     });
     this.form.setFieldsDisabled(false);
 
+    if (this.onAfterUpdate) {
+      this.onAfterUpdate();
+      this.form.clear();
+    }
     if (this.goBack === true) {
       await this.rootStore.routerStore.goBack();
     }

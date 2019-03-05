@@ -12,6 +12,22 @@ class DonorNoteRouteService extends BaseRouteService {
     find(filter) {
         return super.find(this.base + '{?id,page,rpp,sort,embed,fields,searchFields}', filter);
     }
+
+    get(id, options) {
+        return super.get(this.base + '{id}/{?embed}', id, options);
+    }
+
+    update(resource) {
+        return super.update(this.base + '{id}', resource);
+    }
+
+    create() {
+        return super.create(this.base);
+    }
+
+    delete(resource) {
+        return super.delete(this.base + '{id}', resource);
+    }
 }
 
 export default DonorNoteRouteService;

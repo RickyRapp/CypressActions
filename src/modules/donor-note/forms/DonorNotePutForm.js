@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class DonorNotePostForm extends FormBase {
+export default class DonorNotePutForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -8,6 +8,7 @@ export default class DonorNotePostForm extends FormBase {
     setup() {
         return {
             fields: [
+                'id',
                 'donorAccountId',
                 'note'
             ],
@@ -21,6 +22,7 @@ export default class DonorNotePostForm extends FormBase {
             },
 
             rules: {
+                'id': 'required|string',
                 'donorAccountId': 'required|string',
                 'note': 'required|string'
             }

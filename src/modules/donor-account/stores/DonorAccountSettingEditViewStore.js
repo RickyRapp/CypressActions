@@ -32,13 +32,6 @@ class DonorAccountSettingEditViewStore extends BaseEditViewStore {
             this.form.setFieldsDisabled(true);
         }
     }
-
-    @action.bound async onChangeInitialContribution(option) {
-        if (isSome(this.rootStore.authStore.user.permissions.theDonorsFundSection)) {
-            this.item.initialContribution = option.currentTarget.checked;
-            this.form.update(this.item);
-        }
-    }
 }
 
 export default DonorAccountSettingEditViewStore;
