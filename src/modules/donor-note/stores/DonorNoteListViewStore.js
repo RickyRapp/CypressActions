@@ -13,6 +13,10 @@ class DonorNoteListViewStore extends BaseListViewStore {
             name: 'donor note',
             actions: {
                 find: async params => {
+                    if (!rootStore.routerStore.routerState.params.id) {
+                        return;
+                    }
+                    params.id = rootStore.routerStore.routerState.params.id;
                     const response = await donorNoteService.find(params);
                     return response;
                 },
@@ -57,7 +61,7 @@ class DonorNoteListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onEdit: note => this.editNoteId = note.id,
-                    onDelete: note => this.delete(note),
+                    onDelete: note => this.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.delete') && this.delete(note),
                     onSort: column => this.queryUtility.changeOrder(column.key)
                 }
             })

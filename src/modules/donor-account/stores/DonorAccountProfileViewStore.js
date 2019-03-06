@@ -10,7 +10,11 @@ class DonorAccountProfileViewStore extends BaseViewStore {
 
     constructor(rootStore) {
         super(rootStore);
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
+
+        this.permissions = {
+            administrationRead: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read'),
+            mainUpdate: rootStore.authStore.hasPermission('theDonorsFundSection.update'),
+        }
     }
 
     @action.bound

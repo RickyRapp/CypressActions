@@ -9,9 +9,6 @@ class RoleEditViewStore extends BaseEditViewStore {
       name: 'role',
       id: rootStore.routerStore.routerState.params.id,
       actions: {
-        create: role => {
-          return roleService.create(role);
-        },
         update: role => {
           return roleService.update(role);
         },

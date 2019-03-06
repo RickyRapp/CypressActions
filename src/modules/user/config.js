@@ -1,7 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { UserList, UserEdit, UserCreate } from 'modules/user/pages';
 
-(function() {
+(function () {
   moduleProviderFactory.application.register({
     routes: [
       {
@@ -12,17 +12,18 @@ import { UserList, UserEdit, UserCreate } from 'modules/user/pages';
           {
             name: 'master.app.main.user.list',
             pattern: '',
-            component: UserList
+            component: UserList,
+            authorization: 'theDonorsFundAdministrationSection.read'
           },
           {
             name: 'master.app.main.user.create',
             pattern: 'create',
-            component: UserCreate
+            component: UserCreate,
           },
           {
             name: 'master.app.main.user.edit',
             pattern: ':id',
-            component: UserEdit
+            component: UserEdit,
           }
         ]
       }

@@ -1,18 +1,15 @@
-import { action } from 'mobx';
 import { BaseEditViewStore } from "core/stores";
 import { DonorAccountService } from "common/data";
 import { DonorAccountSettingEditForm } from 'modules/donor-account/forms';
 import _ from 'lodash';
-import { isSome } from 'core/utils';
 
 class DonorAccountSettingEditViewStore extends BaseEditViewStore {
-
     constructor(rootStore) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id,
+            id: rootStore.routerStore.routerState.params.id,
             actions: {
                 update: async donorAccount => {
                     await donorAccountService.updateSettings({
@@ -25,12 +22,9 @@ class DonorAccountSettingEditViewStore extends BaseEditViewStore {
                     return response;
                 },
             },
-            FormClass: DonorAccountSettingEditForm
+            FormClass: DonorAccountSettingEditForm,
+            goBack: false
         });
-
-        if (!isSome(rootStore.authStore.user.permissions.theDonorsFundSection)) {
-            this.form.setFieldsDisabled(true);
-        }
     }
 }
 

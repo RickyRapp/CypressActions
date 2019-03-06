@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
-import { DonorAccountProfileEdit } from 'modules/donor-account/pages'
+import { DonorAccountProfileEdit, DonorAccountSettingPreview } from 'modules/donor-account/pages'
 import { Page } from 'core/layouts';
 import { DonorAccountAddressEdit } from 'modules/address/pages';
 import { DonorAccountEmailAddressEdit } from 'modules/email-address/pages';
@@ -23,12 +23,18 @@ class DonorAccountEdit extends React.Component {
                             <div className="form__group f-col f-col-lrg-12">
                                 <DonorAccountProfileEdit />
                             </div>
-                            <div className="form__group f-col f-col-lrg-12">
-                                <DonorAccountSettingEdit />
-                            </div>
-                            <div className="form__group f-col f-col-lrg-12">
-                                <DonorNoteList />
-                            </div>
+                            {this.props.donorAccountProfileViewStore.permissions.mainUpdate &&
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <DonorAccountSettingEdit />
+                                </div>}
+                            {!this.props.donorAccountProfileViewStore.permissions.mainUpdate &&
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <DonorAccountSettingPreview />
+                                </div>}
+                            {this.props.donorAccountProfileViewStore.permissions.administrationRead &&
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <DonorNoteList />
+                                </div>}
                         </div>
                     </div>
 

@@ -7,21 +7,16 @@ class PermissionService {
   }
 
   hasPermission(authorization) {
-    // TODO: implement authorization when user is correctly fetched
-    return true;
-
     const user = this.baasicApp.getUser();
     if (!isSome(user) || !isSome(user.user)) {
       return false;
     }
+    return this.appUserHasPermission(authorization);
   }
 
   appUserHasPermission(authorization) {
     if (authorization) {
-      return checkPermission(
-        this.baasicApp.membershipModule.permissions,
-        authorization
-      );
+      return checkPermission(this.baasicApp.membershipModule.permissions, authorization);
     }
 
     const { user } = this.baasicApp.getUser();
@@ -36,7 +31,7 @@ class PermissionService {
 }
 
 function firstCharToLowerCase(text) {
-  return text.replace(/^./, function(char) {
+  return text.replace(/^./, function (char) {
     return char.toLowerCase();
   });
 }
@@ -44,10 +39,7 @@ function firstCharToLowerCase(text) {
 function checkPermission(permissionService, authorization) {
   authorization = firstCharToLowerCase(authorization);
   var fullPermission = authorization.split('.')[0] + '.full';
-  return (
-    permissionService.hasPermission(authorization) ||
-    permissionService.hasPermission(fullPermission)
-  );
+  return (permissionService.hasPermission(authorization) || permissionService.hasPermission(fullPermission));
 }
 
 export default PermissionService;

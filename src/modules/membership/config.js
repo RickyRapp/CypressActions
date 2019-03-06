@@ -14,7 +14,7 @@ import {
   UserPreferences
 } from 'modules/membership/pages';
 
-(function() {
+(function () {
   moduleProviderFactory.application.register({
     name: 'Baasic.Membership',
     routes: [
@@ -27,7 +27,7 @@ import {
             name: 'master.app.membership.login',
             pattern: '/login',
             component: Login,
-            beforeEnter: function(fromState, toState, routerStore) {
+            beforeEnter: function (fromState, toState, routerStore) {
               if (routerStore.rootStore.authStore.isAuthenticated) {
                 // if user is already logged in and tries to navigate to login page, navigate to initial state
                 return Promise.reject(routerStore.rootStore.initialState);
@@ -39,13 +39,14 @@ import {
           {
             name: 'master.app.membership.register',
             pattern: '/register',
-            component: Register
+            component: Register,
+            authorization: 'theDonorsFundSection.create'
           },
           {
             name: 'master.app.membership.register-public',
             pattern: '/register-public',
             component: RegisterPublic,
-            beforeEnter: function(fromState, toState, routerStore) {
+            beforeEnter: function (fromState, toState, routerStore) {
               if (routerStore.rootStore.authStore.isAuthenticated) {
                 // if user is already logged in and tries to navigate to register page, navigate to initial state
                 return Promise.reject(routerStore.rootStore.initialState);
@@ -88,7 +89,7 @@ import {
         component: Unauthorized
       }
     ],
-    storeFactory: function(context) {
+    storeFactory: function (context) {
       return {
         'app.membership': new MembershipModuleStore(context.rootStore)
       };

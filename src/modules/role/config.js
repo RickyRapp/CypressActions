@@ -1,7 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { RoleList, RoleEdit } from 'modules/role/pages';
 
-(function() {
+(function () {
   moduleProviderFactory.application.register({
     routes: [
       {
@@ -12,17 +12,14 @@ import { RoleList, RoleEdit } from 'modules/role/pages';
           {
             name: 'master.app.main.role.list',
             pattern: '',
-            component: RoleList
-          },
-          {
-            name: 'master.app.main.role.create',
-            pattern: 'create',
-            component: RoleEdit
+            component: RoleList,
+            authorization: 'coreRoleSection.read'
           },
           {
             name: 'master.app.main.role.edit',
             pattern: ':id',
-            component: RoleEdit
+            component: RoleEdit,
+            authorization: 'coreRoleSection.update'
           }
         ]
       }

@@ -58,6 +58,7 @@ class StateRoute {
     this.name = route.name;
     this.parent = route.parent;
     this.authorization = route.authorization;
+    this.withoutAuthorization = route.withoutAuthorization;
 
     this.pattern = _.reduce(
       parentOptions,
@@ -162,10 +163,11 @@ class StateRoute {
             return Promise.resolve();
           },
           option => {
-            if (
-              isSome(option.authorization) &&
-              !rootStore.authStore.hasPermission(option.authorization)
-            ) {
+            if (isSome(option.authorization) && !rootStore.authStore.hasPermission(option.authorization)) {
+              return Promise.reject(new RouterState('unauthorized'));
+            }
+
+            if (isSome(option.withoutAuthorization) && rootStore.authStore.hasPermission(option.withoutAuthorization)) {
               return Promise.reject(new RouterState('unauthorized'));
             }
 
@@ -244,6 +246,7 @@ class StateRouteOptions {
     this.name = route.name;
     this.pattern = route.pattern;
     this.authorization = route.authorization;
+    this.withoutAuthorization = route.withoutAuthorization;
     this.data = route.data;
 
     this.parent =

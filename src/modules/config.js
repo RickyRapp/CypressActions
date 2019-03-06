@@ -1,9 +1,10 @@
 import { moduleBuilder, moduleProviderFactory } from 'core/providers';
-import { MainLayout } from 'core/layouts';
-import { Home } from 'modules/root/pages';
+import { MainLayout, PublicLayout } from 'core/layouts';
+import { Overview } from 'modules/root/pages';
 import { resolveApplicationUser } from 'core/utils';
+import { Home } from 'modules/public/pages'
 
-(function() {
+(function () {
   moduleProviderFactory.application.register({
     routes: context => [
       {
@@ -24,7 +25,7 @@ import { resolveApplicationUser } from 'core/utils';
         children: [
           {
             name: 'master.app.main',
-            pattern: '',
+            pattern: '/app',
             component: [MainLayout],
             isPrivate: true,
             beforeEnter: async (fromState, toState, routerStore) => {
@@ -33,14 +34,20 @@ import { resolveApplicationUser } from 'core/utils';
               let modules = ['common', 'application'];
               const menus = moduleBuilder.buildMenus(modules);
               routerStore.rootStore.initializeMenus(menus, toState);
-            },
-            children: [
-              {
-                name: 'master.app.main.home',
-                pattern: '',
-                component: Home
-              }
-            ]
+            }
+          }
+        ]
+      },
+      {
+        name: 'master.public',
+        pattern: '',
+        component: [PublicLayout],
+        isPrivate: false,
+        children: [
+          {
+            name: 'master.public.home',
+            pattern: '',
+            component: Home
           }
         ]
       }

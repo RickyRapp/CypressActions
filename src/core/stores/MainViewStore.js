@@ -24,7 +24,7 @@ class MainViewStore extends BaseViewStore {
       await baasicApp.membershipModule.login.logout(token.token, token.type);
       this.rootStore.authStore.resetSignInRedirect();
       baasicApp.updateAccessToken(null);
-      await this.rootStore.routerStore.navigate(this.rootStore.getLoginRoute());
+      await this.rootStore.routerStore.navigate(this.rootStore.initialState);
     };
 
     if (token) {

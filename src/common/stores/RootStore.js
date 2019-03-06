@@ -18,7 +18,7 @@ export default class RootStore {
   routerStore = null;
   routerMaps = null;
 
-  initialState = new RouterState('master.app.main.user.list');
+  initialState = new RouterState('master.public.home');
 
   get app() {
     return this.applicationStore.app;

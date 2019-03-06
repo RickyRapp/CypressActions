@@ -1,4 +1,3 @@
-import { MainLayout } from 'core/layouts';
 import { moduleProviderFactory } from 'core/providers';
 import { DonorAccountList, DonorAccountEdit } from 'modules/donor-account/pages'
 
@@ -13,12 +12,28 @@ import { DonorAccountList, DonorAccountEdit } from 'modules/donor-account/pages'
                     {
                         name: 'master.app.main.donor-account.list',
                         pattern: '',
-                        component: DonorAccountList
+                        component: DonorAccountList,
+                        authorization: 'theDonorsFundSection.read'
                     },
                     {
                         name: 'master.app.main.donor-account.edit',
                         pattern: 'edit/:id?',
-                        component: DonorAccountEdit
+                        component: DonorAccountEdit,
+                        authorization: 'theDonorsFundSection.update'
+                    }
+                ]
+            },
+            {
+                name: 'master.app.main.profile',
+                pattern: '/profile',
+                isPrivate: true,
+                children: [
+                    {
+                        name: 'master.app.main.profile.edit',
+                        pattern: '/:id?',
+                        component: DonorAccountEdit,
+                        authorization: 'theDonorsFundDonorSection.update',
+                        withoutAuthorization: 'theDonorsFundSection.update'
                     }
                 ]
             }
@@ -30,6 +45,11 @@ import { DonorAccountList, DonorAccountEdit } from 'modules/donor-account/pages'
                     {
                         title: 'Donors',
                         route: 'master.app.main.donor-account.list',
+                        order: 3
+                    },
+                    {
+                        title: 'Profile',
+                        route: 'master.app.main.profile.edit',
                         order: 3
                     }
                 ]

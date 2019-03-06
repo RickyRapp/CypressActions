@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 function buildMenu(menuItems, routes, permissionFunc) {
   var menuTree = [];
-  _.each(menuItems, function(moduleItems) {
+  _.each(menuItems, function (moduleItems) {
     _.each(moduleItems, moduleItem => {
       let root = _.find(menuTree, t => t.title === moduleItem.title);
       if (!root) {
@@ -17,7 +17,7 @@ function buildMenu(menuItems, routes, permissionFunc) {
         root.icon = moduleItem.icon;
       }
 
-      _.each(moduleItem.subMenu, function(menuItem, idx) {
+      _.each(moduleItem.subMenu, function (menuItem, idx) {
         var route = getRouteByMenu(menuItem, routes);
         if (hasPermission(route, permissionFunc)) {
           if (menuItem.subMenu) {
@@ -35,7 +35,7 @@ function buildMenu(menuItems, routes, permissionFunc) {
 
 function evaluateSubMenuItems(menuItem, routes, permissionFunc) {
   var keys = [];
-  _.each(menuItem.subMenu, function(subMenuItem, key) {
+  _.each(menuItem.subMenu, function (subMenuItem, key) {
     var childRoute = getRouteByMenu(subMenuItem, routes);
     if (!hasPermission(childRoute, permissionFunc)) {
       keys.push(key);
@@ -45,7 +45,7 @@ function evaluateSubMenuItems(menuItem, routes, permissionFunc) {
       }
     }
   });
-  _.each(keys.reverse(), function(key) {
+  _.each(keys.reverse(), function (key) {
     if (_.isArray(menuItem.subMenu)) {
       menuItem.subMenu.splice(key, 1);
     } else {
@@ -73,11 +73,10 @@ function getRouteByMenu(menuItem, routes) {
 function hasPermission(item, permissionFunc) {
   let authorized = true;
   if (item && item.authorization) {
-    if (_.isString(item.authorization)) {
-      authorized = permissionFunc(item.authorization);
-    } else {
-      authorized = item.authorization();
-    }
+    authorized = permissionFunc(item.authorization);
+  }
+  if (authorized && item && item.withoutAuthorization) {
+    authorized = !permissionFunc(item.withoutAuthorization);
   }
   return authorized;
 }

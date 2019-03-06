@@ -7,7 +7,7 @@ function RoleListTemplate({ currentView, ...props }) {
   const { tableStore, queryUtility, loaderStore, routes } = currentView;
 
   return (
-    <ListLayout onCreate={routes.create} loading={loaderStore.loading}>
+    <ListLayout loading={loaderStore.loading}>
       <div className="spc--bottom--sml">
         <TableFilter queryUtility={queryUtility} />
       </div>

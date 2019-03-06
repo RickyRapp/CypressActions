@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { action, runInAction, observable, computed } from 'mobx';
 import { BaseViewStore } from 'core/stores';
+import { isFunction } from 'core/utils';
 
 class BaseEditViewStore extends BaseViewStore {
   id = null;
@@ -96,8 +97,10 @@ class BaseEditViewStore extends BaseViewStore {
     this.form.setFieldsDisabled(false);
 
     if (this.onAfterUpdate) {
-      this.onAfterUpdate();
-      this.form.clear();
+      if (isFunction(this.onAfterUpdate)) {
+        this.onAfterUpdate();
+        this.form.clear();
+      }
     }
     if (this.goBack === true) {
       await this.rootStore.routerStore.goBack();

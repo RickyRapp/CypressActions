@@ -11,7 +11,8 @@ class DonorAccountListViewStore extends BaseListViewStore {
             routes: {
                 edit: id => this.rootStore.routerStore.navigate('master.app.main.donor-account.edit', {
                     id: id
-                })
+                }),
+                create: () => this.rootStore.routerStore.navigate('master.app.membership.register')
             },
             actions: {
                 find: async params => {

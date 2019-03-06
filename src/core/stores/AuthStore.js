@@ -38,7 +38,7 @@ class AuthStore {
       { equals: (from, to) => from === to }
     );
 
-    reaction(() => this.user, user => {});
+    reaction(() => this.user, user => { });
 
     this.initAuthEvents();
   }
@@ -108,12 +108,10 @@ class AuthStore {
   }
 
   resetPermissions() {
-    this.rootStore
-      .getBaasicApp()
-      .membershipModule.permissions.resetPermissions();
+    this.rootStore.getBaasicApp().membershipModule.permissions.resetPermissions();
   }
 
-  hasPermission(authorization = '') {
+  @action.bound hasPermission(authorization = '') {
     const permissionService = new PermissionService(
       this.rootStore.getBaasicApp()
     );

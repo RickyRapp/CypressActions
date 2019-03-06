@@ -10,9 +10,7 @@ class RoleListViewStore extends BaseListViewStore {
         edit: id =>
           this.rootStore.routerStore.navigate('master.app.main.role.edit', {
             id: id
-          }),
-        create: () =>
-          this.rootStore.routerStore.navigate('master.app.main.role.create')
+          })
       },
       actions: {
         find: async filter => {
