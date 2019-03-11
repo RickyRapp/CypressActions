@@ -90,10 +90,17 @@ class BaseEditViewStore extends BaseViewStore {
     if (!this.actions.update) return;
 
     this.form.setFieldsDisabled(true);
-    await this.actions.update({
+    const response = await this.actions.update({
       id: this.id,
       ...resource
     });
+    if (response && (response.statusCode >= 400 || response.statusCode < 506) && response.data) {
+      if (response.data.message) {
+        await setTimeout(() => this.notifyErrorResponse(response.data.message), 10);
+      }
+      this.rootStore.routerStore.navigate('master.app.main.contribution.list')
+      return;
+    }
     this.form.setFieldsDisabled(false);
 
     if (this.onAfterUpdate) {
@@ -113,7 +120,14 @@ class BaseEditViewStore extends BaseViewStore {
     if (!this.actions.create) return;
 
     this.form.setFieldsDisabled(true);
-    await this.actions.create(resource);
+    const response = await this.actions.create(resource);
+    if (response && (response.statusCode >= 400 || response.statusCode < 506) && response.data) {
+      if (response.data.message) {
+        await setTimeout(() => this.notifyErrorResponse(response.data.message), 10);
+      }
+      this.rootStore.routerStore.navigate('master.app.main.contribution.list')
+      return;
+    }
     this.form.setFieldsDisabled(false);
 
     if (this.onAfterCreate) {
@@ -137,6 +151,13 @@ class BaseEditViewStore extends BaseViewStore {
   notifySuccessUpdate(name) {
     this.rootStore.notificationStore.success(
       `Successfully updated ${_.toLower(name)}.`
+    );
+  }
+
+  @action.bound
+  notifyErrorResponse(message) {
+    this.rootStore.notificationStore.error(
+      message
     );
   }
 }

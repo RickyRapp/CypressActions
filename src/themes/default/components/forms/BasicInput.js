@@ -5,7 +5,7 @@ import { renderIf, isSome } from 'core/utils';
 const BasicInputTemplate = defaultTemplate(({ field }) => {
   return (
     <div className="inputgroup">
-      <label htmlFor={field.id}>{field.label}</label>
+      <label htmlFor={field.id}>{field.label} <strong>{field.disabled ? 'Disabled' : ''}</strong></label>
       <input className="input input--med input--text" {...field.bind()} />
       {renderIf(isSome(field.error))(
         <p className="type--tiny type--color--error">{field.error}</p>

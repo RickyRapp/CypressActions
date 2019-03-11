@@ -9,7 +9,6 @@ import { Overview } from 'modules/root/pages'
                 pattern: '',
                 isPrivate: true,
                 component: Overview,
-                authorization: 'theDonorsFundSection.read'
             }
         ],
         menu: [

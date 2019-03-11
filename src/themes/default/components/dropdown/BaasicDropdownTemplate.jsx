@@ -12,7 +12,8 @@ function BaasicDropdownTemplate({ store, field }) {
 
   const {
     value,
-    name
+    name,
+    placeholder
   } = field;
 
   return (
@@ -20,7 +21,7 @@ function BaasicDropdownTemplate({ store, field }) {
       value={value}
       defaultValue={defaultValue}
       onChange={onChange}
-      placeholder={options.placeholder}
+      placeholder={placeholder}
       name={name}
       isDisabled={options.disabled}
       isMulti={options.multi}

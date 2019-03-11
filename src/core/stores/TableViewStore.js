@@ -5,6 +5,7 @@ import { LoaderStore } from 'core/stores';
 const DefaultConfig = {
   columns: [],
   actions: {},
+  actionsConfig: {},
   batchActions: {},
   onDataChange: data => { }
 };

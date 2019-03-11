@@ -6,6 +6,7 @@ export { default as EmailAddressService } from './services/EmailAddressService';
 export { default as PhoneNumberService } from './services/PhoneNumberService';
 export { default as BankAccountService } from './services/BankAccountService';
 export { default as DonorNoteService } from './services/DonorNoteService';
+export { default as ContributionService } from './services/ContributionService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -15,3 +16,4 @@ export { default as EmailAddressRouteService } from './services/EmailAddressRout
 export { default as PhoneNumberRouteService } from './services/PhoneNumberRouteService';
 export { default as BankAccountRouteService } from './services/BankAccountRouteService';
 export { default as DonorNoteRouteService } from './services/DonorNoteRouteService';
+export { default as ContributionRouteService } from './services/ContributionRouteService';
