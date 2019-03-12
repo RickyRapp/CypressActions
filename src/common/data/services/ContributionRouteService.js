@@ -8,7 +8,7 @@ class ContributionRouteService extends BaseRouteService {
   }
 
   find(filter) {
-    return super.find(this.base + '{?firstName,lastName,page,rpp,sort,embed,fields,searchFields}', filter);
+    return super.find(this.base + '{?confirmationNumber,amountRangeMin,amountRangeMax,donorAccountId,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields}', filter);
   }
 
   get(id, options) {

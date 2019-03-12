@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter, InputFilter } from 'core/components';
+import { BaasicTable, TableFilter, InputFilter, NumericRangeFilter, DateRangeFilter, DropdownFilter } from 'core/components';
 import { isSome } from 'core/utils';
 import { ListLayout } from 'core/layouts';
 import moment from 'moment';
@@ -10,25 +10,51 @@ function ContributionListTemplate({ contributionListViewStore }) {
         queryUtility,
         loaderStore,
         tableStore,
-        routes: { create }
+        routes: { create },
+        contributionStatusDropdownStore,
+        paymentTypeDropdownStore
     } = contributionListViewStore;
 
     return (
         <ListLayout onCreate={create} loading={loaderStore.loading}>
             <div className="spc--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
-                    <div className="pos--rel display--ib  spc--right--sml">
+                    <div className="pos--rel display--ib spc--right--sml">
                         <InputFilter
                             queryUtility={queryUtility}
-                            name="firstName"
-                            placeholder="First Name"
+                            name="confirmationNumber"
+                            placeholder="Confirmation Number"
+                            type="number"
                         />
                     </div>
-                    <div className="pos--rel display--ib  spc--right--sml">
-                        <InputFilter
+                    <div className="pos--rel display--ib spc--right--sml">
+                        <NumericRangeFilter
                             queryUtility={queryUtility}
-                            name="lastName"
-                            placeholder="Last Name"
+                            nameMin="amountRangeMin"
+                            nameMax="amountRangeMax"
+                            minPlaceholder="Min"
+                            maxPlaceholder="Max"
+                        />
+                    </div>
+                    <div className="pos--rel display--ib spc--right--sml">
+                        <DateRangeFilter
+                            queryUtility={queryUtility}
+                            nameMin="dateCreatedStartDate"
+                            nameMax="dateCreatedEndDate"
+                        />
+                    </div>
+                    <div className="pos--rel spc--right--sml">
+                        <DropdownFilter
+                            queryUtility={queryUtility}
+                            name="contributionStatusIds"
+                            dropdownStore={contributionStatusDropdownStore}
+                        />
+                    </div>
+                    <div className="pos--rel spc--right--sml">
+                        <DropdownFilter
+                            queryUtility={queryUtility}
+                            name="paymentTypeIds"
+                            dropdownStore={paymentTypeDropdownStore}
                         />
                     </div>
                 </TableFilter>
@@ -56,11 +82,11 @@ function renderActions({ item, actions, actionsConfig }) {
     if (isSome(onEditConfig)) {
         if (!onEditConfig.permissions.contributionEmployeeUpdate) {
             if (onEditConfig.permissions.contributionUpdate) {
-                if (moment().local().isAfter(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(onEditConfig.days, 'days'))) {
+                if (moment().local().isAfter(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(onEditConfig.minutes, 'minutes'))) {
                     onEdit = null;
                 }
                 else {
-                    editTitle += ' until ' + moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(onEditConfig.days, 'days').format('HH:mm:ss');
+                    editTitle += ' until ' + moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(onEditConfig.minutes, 'minutes').format('HH:mm:ss');
                 }
             }
             else {
@@ -92,25 +118,3 @@ function renderActions({ item, actions, actionsConfig }) {
 }
 
 export default defaultTemplate(ContributionListTemplate);
-
-// const { onEditByTime } = actions;
-// if (!isSome(onEditByTime)) {
-//     return null;
-// }
-// // else if (moment().local().isAfter(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))) {
-// //     return (
-// //         <td className="table__body--data right">
-// //             <i className="material-icons align--v--middle">
-// //             </i>
-// //         </td>
-// //     )
-// // }
-
-// return (
-//     <td className="table__body--data right">
-//         <i className="material-icons align--v--middle" onClick={() => onEditByTime(item)} >
-//             edit until {moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes').format('HH:mm:ss')}
-//         </i>
-//     </td>
-// );
-// }

@@ -43,7 +43,6 @@ class BankAccountEditViewStore extends BaseEditViewStore {
                         let params = {};
                         params.embed = ['coreUser,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
                         const donorAccount = await donorAccountService.get(userId, params);
-                        debugger;
                         bankAccount.accountHolder.firstName = donorAccount.coreUser.firstName;
                         bankAccount.accountHolder.lastName = donorAccount.coreUser.lastName;
                         var primaryDonorAccountAddress = _.find(donorAccount.donorAccountAddresses, { primary: true })

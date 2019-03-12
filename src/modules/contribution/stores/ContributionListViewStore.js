@@ -1,10 +1,14 @@
 import { BaseListViewStore, TableViewStore } from "core/stores";
-import { ContributionService } from "common/data";
+import { ContributionService, LookupService } from "common/data";
 import { ContributionListFilter } from 'modules/contribution/models';
+import { BaasicDropdownStore } from "core/stores";
+import moment from 'moment';
 
 class ContributionListViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
+        const contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
+        const paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
 
         super(rootStore, {
             name: 'contribution',
@@ -81,9 +85,41 @@ class ContributionListViewStore extends BaseListViewStore {
                     onDetails: contribution => this.routes.details(contribution.id)
                 },
                 actionsConfig: {
-                    onEditConfig: { 'days': 60, 'title': 'edit', 'permissions': this.permissions }
+                    onEditConfig: { 'minutes': 15, 'title': 'edit', 'permissions': this.permissions }
                 }
             })
+        );
+
+        this.contributionStatusDropdownStore = new BaasicDropdownStore(
+            {
+                multi: true,
+                textField: 'name',
+                dataItemKey: 'id',
+                clearable: true,
+                placeholder: 'Choose Contribution Status'
+            },
+            {
+                fetchFunc: async term => {
+                    let models = await contributionStatusLookup.getAll();
+                    return models.data;
+                },
+            }
+        );
+
+        this.paymentTypeDropdownStore = new BaasicDropdownStore(
+            {
+                multi: true,
+                textField: 'name',
+                dataItemKey: 'id',
+                clearable: true,
+                placeholder: 'Choose Payment Type'
+            },
+            {
+                fetchFunc: async term => {
+                    let models = await paymentTypeLookup.getAll();
+                    return models.data;
+                },
+            }
         );
     }
 }
