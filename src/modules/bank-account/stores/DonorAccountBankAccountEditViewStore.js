@@ -16,7 +16,8 @@ class DonorAccountBankAccountEditViewStore extends BaseViewStore {
     async getResource() {
         let id = this.rootStore.routerStore.routerState.params.id ? this.rootStore.routerStore.routerState.params.id : this.rootStore.authStore.user.id
         let params = {};
-        params.sort = ['dateCreated|asc']
+        params.orderBy = 'dateCreated';
+        params.orderDirection = 'asc';
         const response = await this.bankAccountService.getDonorAccountCollection(id, params);
         this.items = response;
     }

@@ -19,7 +19,8 @@ class DonorAccountAddressEditViewStore extends BaseViewStore {
     async getResource() {
         let id = this.rootStore.routerStore.routerState.params.id ? this.rootStore.routerStore.routerState.params.id : this.rootStore.authStore.user.id
         let params = {};
-        params.sort = ['primary|desc']
+        params.orderBy = 'primary';
+        params.orderDirection = 'desc';
         const response = await this.addressService.getDonorAccountCollection(id, params);
         this.items = response;
     }

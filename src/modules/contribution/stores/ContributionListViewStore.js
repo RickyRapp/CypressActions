@@ -2,7 +2,7 @@ import { BaseListViewStore, TableViewStore } from "core/stores";
 import { ContributionService, LookupService } from "common/data";
 import { ContributionListFilter } from 'modules/contribution/models';
 import { BaasicDropdownStore } from "core/stores";
-import moment from 'moment';
+import _ from 'lodash';
 
 class ContributionListViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -22,6 +22,8 @@ class ContributionListViewStore extends BaseListViewStore {
             actions: {
                 find: async params => {
                     params.embed = 'donorAccount,coreUser,payerInformation,address,bankAccount,createdByCoreUser,paymentType,contributionStatus';
+                    params.orderBy = 'dateCreated';
+                    params.orderDirection = 'desc';
                     const response = await contributionService.find(params);
                     return response;
                 }
@@ -99,9 +101,9 @@ class ContributionListViewStore extends BaseListViewStore {
                 placeholder: 'Choose Contribution Status'
             },
             {
-                fetchFunc: async term => {
+                fetchFunc: async () => {
                     let models = await contributionStatusLookup.getAll();
-                    return models.data;
+                    return _.orderBy(models.data, ['sortOrder'], ['asc']);
                 },
             }
         );
@@ -115,9 +117,9 @@ class ContributionListViewStore extends BaseListViewStore {
                 placeholder: 'Choose Payment Type'
             },
             {
-                fetchFunc: async term => {
+                fetchFunc: async () => {
                     let models = await paymentTypeLookup.getAll();
-                    return models.data;
+                    return _.orderBy(models.data, ['sortOrder'], ['asc']);
                 },
             }
         );

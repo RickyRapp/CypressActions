@@ -29,34 +29,16 @@ export default class ContributionEditForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'paymentType',
+                    name: 'paymentTypeId',
                     label: 'Payment Type',
-                    fields:
-                        [{
-                            name: 'id',
-                            label: 'Id',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'name',
-                            label: 'Name',
-                            rules: 'required|string'
-                        }]
+                    placeholder: 'Choose Payment Type',
+                    rules: 'required|string'
                 },
                 {
-                    name: 'bankAccount',
+                    name: 'bankAccountId',
                     label: 'Bank Account',
-                    fields:
-                        [{
-                            name: 'id',
-                            label: 'Id',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'name',
-                            label: 'Name',
-                            rules: 'string'
-                        }]
+                    placeholder: 'Choose Bank Account',
+                    rules: 'string'
                 },
                 {
                     name: 'payerInformation',

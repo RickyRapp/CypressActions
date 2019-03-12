@@ -32,17 +32,17 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
         <div className="form__group f-col f-col-lrg-6">
           <div className="inputgroup">
             <label>Payment Type</label>
-            <BaasicDropdown classNames="input" field={form.$('paymentType')} store={paymentTypeDropdownStore} />
+            <BaasicDropdown classNames="input" field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
           </div>
         </div>
         {showBankAccounts && <div className="form__group f-col f-col-lrg-6">
           <div className="inputgroup">
             <label>Bank Account</label>
-            <BaasicDropdown classNames="input" field={form.$('bankAccount')} store={bankAccountDropdownStore} />
+            <BaasicDropdown classNames="input" field={form.$('bankAccountId')} store={bankAccountDropdownStore} />
           </div>
         </div>}
       </div>
-      {form.$('paymentType.id').value && (!showBankAccounts || showBankAccounts && form.$('bankAccount.id').value) &&
+      {form.$('paymentTypeId').value && (!showBankAccounts || showBankAccounts && form.$('bankAccountId').value) &&
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-12">
             <h5>Payer Information</h5>

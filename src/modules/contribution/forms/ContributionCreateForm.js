@@ -21,34 +21,14 @@ export default class ContributionCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'paymentType',
+                    name: 'paymentTypeId',
                     label: 'Payment Type',
-                    fields:
-                        [{
-                            name: 'id',
-                            label: 'Id',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'name',
-                            label: 'Name',
-                            rules: 'required|string'
-                        }]
+                    rules: 'required|string'
                 },
                 {
-                    name: 'bankAccount',
+                    name: 'bankAccountId',
                     label: 'Bank Account',
-                    fields:
-                        [{
-                            name: 'id',
-                            label: 'Id',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'name',
-                            label: 'Name',
-                            rules: 'string'
-                        }]
+                    rules: 'string'
                 },
                 {
                     name: 'payerInformation',

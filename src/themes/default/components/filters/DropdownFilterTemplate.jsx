@@ -8,9 +8,7 @@ class DropdownFilterTemplate extends React.Component {
     constructor(props) {
         super(props);
 
-        this.items = null;
-        this.state = { items: null };
-
+        this.state = { items: this.props.queryUtility.filter[this.props.name] ? _.map(this.props.queryUtility.filter[this.props.name].split(','), e => { return { 'id': e, 'name': '' } }) : null };
         this.onDropwdownChange = this.onDropwdownChange.bind(this)
     }
 
@@ -32,16 +30,11 @@ class DropdownFilterTemplate extends React.Component {
             defaultValue,
             options,
             loading
-        } = this.props.dropdownStore;
-
-        let items = [];
-        _.forEach(this.state.items, function (x) {
-            items.push({ 'id': x.id, 'name': x.name })
-        });
+        } = this.props.store;
 
         return (
             <AsyncSelect
-                value={items}
+                value={this.props.queryUtility.filter[this.props.name] ? this.state.items : null}
                 defaultValue={defaultValue}
                 onChange={this.onDropwdownChange}
                 placeholder={options.placeholder}
@@ -55,8 +48,15 @@ class DropdownFilterTemplate extends React.Component {
                 getOptionValue={option => option[options.dataItemKey]}
                 defaultOptions={true} //  tells the control to immediately fire the remote request, described by your loadOptions
                 loadOptions={(input, callback) => {
-                    this.props.dropdownStore.onFilter({ value: input }).then(() => {
-                        callback(this.props.dropdownStore.items);
+                    this.props.store.onFilter({ value: input }).then(() => {
+                        let fetchedItems = this.props.store.items;
+                        let setItems = [];
+                        _.forEach(this.state.items, function (x) {
+                            let item = _.find(fetchedItems, { id: x.id })
+                            setItems.push({ id: item.id, name: item.name })
+                        });
+                        this.setState({ items: setItems });
+                        callback(fetchedItems);
                     });
                 }}
             />

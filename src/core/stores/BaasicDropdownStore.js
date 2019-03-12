@@ -27,7 +27,7 @@ class BaasicDropdownStore {
     onFilter: this.defaultFilter,
     fetchFunc: null,
     onChange: selected => selected,
-    onOpen: () => {}
+    onOpen: () => { }
   };
 
   constructor(options = null, actions = null, initialState = null) {
@@ -54,14 +54,10 @@ class BaasicDropdownStore {
     const { _value, options } = this;
 
     const resolveValue = val => {
-      return _.isString(val)
-        ? _.find(this.items, i => i[options.dataItemKey] === val)
-        : val;
+      return _.isString(val) ? _.find(this.items, i => i[options.dataItemKey] === val) : val;
     };
 
-    return options.multi
-      ? _.map(_value, i => resolveValue(i))
-      : resolveValue(_value);
+    return options.multi ? _.map(_value, i => resolveValue(i)) : resolveValue(_value);
   }
 
   @computed get defaultValue() {

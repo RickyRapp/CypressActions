@@ -1,9 +1,9 @@
 import { action, observable } from 'mobx';
-import _ from 'lodash';
 import { ContributionEditForm } from 'modules/contribution/forms';
 import { ContributionService, BankAccountService, LookupService, DonorAccountService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { isSome } from 'core/utils';
+import _ from 'lodash';
 
 class ContributionEditViewStore extends BaseEditViewStore {
     paymentTypes = null;
@@ -59,7 +59,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
                 placeholder: 'Choose Bank Account'
             },
             {
-                fetchFunc: async term => {
+                fetchFunc: async () => {
                     let response = null;
                     if (isSome(this.bankAccounts) && this.bankAccounts.length > 0) {
                         response = this.bankAccounts
@@ -67,7 +67,8 @@ class ContributionEditViewStore extends BaseEditViewStore {
                     else {
                         let params = {};
                         params.embed = 'bankAccount,accountHolder,address,emailAddress,phoneNumber'
-                        params.sort = ['dateCreated|asc']
+                        params.orderBy = 'dateCreated';
+                        params.orderDirection = 'asc';
                         response = await this.bankAccountService.getDonorAccountCollection(this.userId, params);
                     }
 
@@ -89,7 +90,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
                 placeholder: 'Choose Payment Type'
             },
             {
-                fetchFunc: async term => {
+                fetchFunc: async () => {
                     let models = await paymentTypeLookupService.getAll();
                     this.paymentTypes = models.data;
                     return models.data;
@@ -100,23 +101,24 @@ class ContributionEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound async onChangePaymentType(option) {
-        this.form.$('paymentType').set('value', option);
+        if (option && option.id && option.name)
+            this.form.$('paymentTypeId').set('value', option.id);
+
         if (option.id === _.find(this.paymentTypes, function (type) { return (type.abrv === 'ach') }).id) {
             this.showBankAccounts = true;
         }
         else if (option.id === _.find(this.paymentTypes, function (type) { return (type.abrv === 'wire-transfer') }).id) {
             this.showBankAccounts = true;
-            this.form.$('bankAccount').each(field => field.resetValidation());
+            this.form.$('bankAccountId').resetValidation();
         }
         else {
             this.showBankAccounts = false;
-            this.form.$('bankAccount').each(field => field.resetValidation());
-            await this.onChangeBankAccount(null);
-            if (!this.donorAccount) {
-                let params = {};
-                params.embed = ['coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber'];
-                this.donorAccount = await this.donorAccountService.get(this.userId, params)
-            }
+            this.form.$('bankAccountId').resetValidation();
+            await this.bankAccountDropdownStore.onChange(null);
+
+            if (!isSome(this.donorAccount))
+                await this.reloadDonorAccount();
+
             this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
             this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
             this.form.$('payerInformation.address').set('value', (_.find(this.donorAccount.donorAccountAddresses, function (donorAddress) { return (donorAddress.primary === true) })).address);
@@ -127,14 +129,14 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
     @action.bound async onChangeBankAccount(option) {
         if (option) {
-            this.form.$('bankAccount').set('value', option);
+            this.form.$('bankAccountId').set('value', option.id);
             let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.bankAccount.id === option.id) });
             this.form.$('payerInformation').set('value', donorBankAccount.bankAccount.accountHolder);
             this.form.$('payerInformation').each(field => field.resetValidation());
             this.form.$('payerInformation').each(field => field.set('disabled', true));
         }
         else {
-            this.form.$('bankAccount').clear();
+            this.form.$('bankAccountId').clear();
             this.form.$('payerInformation').clear();
             this.form.$('payerInformation').each(field => field.set('disabled', false));
         }
@@ -142,6 +144,12 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
     @action.bound async onChangeShowPayerInformation(event) {
         this.showPayerInformation = event.target.checked;
+    }
+
+    @action.bound async reloadDonorAccount() {
+        let params = {};
+        params.embed = ['coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber'];
+        this.donorAccount = await this.donorAccountService.get(this.userId, params)
     }
 }
 

@@ -19,43 +19,45 @@ function ContributionListTemplate({ contributionListViewStore }) {
         <ListLayout onCreate={create} loading={loaderStore.loading}>
             <div className="spc--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
-                    <div className="pos--rel display--ib spc--right--sml">
-                        <InputFilter
-                            queryUtility={queryUtility}
-                            name="confirmationNumber"
-                            placeholder="Confirmation Number"
-                            type="number"
-                        />
-                    </div>
-                    <div className="pos--rel display--ib spc--right--sml">
-                        <NumericRangeFilter
-                            queryUtility={queryUtility}
-                            nameMin="amountRangeMin"
-                            nameMax="amountRangeMax"
-                            minPlaceholder="Min"
-                            maxPlaceholder="Max"
-                        />
-                    </div>
-                    <div className="pos--rel display--ib spc--right--sml">
-                        <DateRangeFilter
-                            queryUtility={queryUtility}
-                            nameMin="dateCreatedStartDate"
-                            nameMax="dateCreatedEndDate"
-                        />
-                    </div>
-                    <div className="pos--rel spc--right--sml">
-                        <DropdownFilter
-                            queryUtility={queryUtility}
-                            name="contributionStatusIds"
-                            dropdownStore={contributionStatusDropdownStore}
-                        />
-                    </div>
-                    <div className="pos--rel spc--right--sml">
-                        <DropdownFilter
-                            queryUtility={queryUtility}
-                            name="paymentTypeIds"
-                            dropdownStore={paymentTypeDropdownStore}
-                        />
+                    <div className="f-row">
+                        <div className="f-col f-col-lrg-2 pos--rel spc--right--sml">
+                            <InputFilter
+                                queryUtility={queryUtility}
+                                name="confirmationNumber"
+                                placeholder="Confirmation Number"
+                                type="number"
+                            />
+                        </div>
+                        <div className="f-col f-col-lrg-4 pos--rel spc--right--sml">
+                            <NumericRangeFilter
+                                queryUtility={queryUtility}
+                                nameMin="amountRangeMin"
+                                nameMax="amountRangeMax"
+                                minPlaceholder="Min"
+                                maxPlaceholder="Max"
+                            />
+                        </div>
+                        <div className="f-col f-col-lrg-3">
+                            <DateRangeFilter
+                                queryUtility={queryUtility}
+                                nameMin="dateCreatedStartDate"
+                                nameMax="dateCreatedEndDate"
+                            />
+                        </div>
+                        <div className="f-col f-col-lrg-3 input--multiselect">
+                            <DropdownFilter
+                                queryUtility={queryUtility}
+                                name="contributionStatusIds"
+                                store={contributionStatusDropdownStore}
+                            />
+                        </div>
+                        <div className="f-col f-col-lrg-3 input--multiselect">
+                            <DropdownFilter
+                                queryUtility={queryUtility}
+                                name="paymentTypeIds"
+                                store={paymentTypeDropdownStore}
+                            />
+                        </div>
                     </div>
                 </TableFilter>
             </div>

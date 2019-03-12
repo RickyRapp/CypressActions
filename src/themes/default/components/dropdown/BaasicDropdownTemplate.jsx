@@ -7,22 +7,16 @@ function BaasicDropdownTemplate({ store, field }) {
     defaultValue,
     options,
     onChange,
-    loading
+    loading,
+    value
   } = store;
-
-  const {
-    value,
-    name,
-    placeholder
-  } = field;
 
   return (
     <AsyncSelect
       value={value}
       defaultValue={defaultValue}
       onChange={onChange}
-      placeholder={placeholder}
-      name={name}
+      placeholder={options.placeholder}
       isDisabled={options.disabled}
       isMulti={options.multi}
       isClearable={options.clearable}
@@ -33,6 +27,8 @@ function BaasicDropdownTemplate({ store, field }) {
       defaultOptions={true} //  tells the control to immediately fire the remote request, described by your loadOptions
       loadOptions={(input, callback) => {
         store.onFilter({ value: input }).then(() => {
+          store._value = field.value;
+          onChange(store.value);
           callback(store.items);
         });
       }}
