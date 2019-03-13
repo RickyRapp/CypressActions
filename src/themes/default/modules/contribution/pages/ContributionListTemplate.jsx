@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter, InputFilter, NumericRangeFilter, DateRangeFilter, DropdownFilter } from 'core/components';
+import { BaasicTable, TableFilter, InputFilter, NumericRangeFilter, DateRangeFilter, DropdownFilter, Export } from 'core/components';
 import { isSome } from 'core/utils';
 import { ListLayout } from 'core/layouts';
 import moment from 'moment';
@@ -12,7 +12,10 @@ function ContributionListTemplate({ contributionListViewStore }) {
         tableStore,
         routes: { create },
         contributionStatusDropdownStore,
-        paymentTypeDropdownStore
+        paymentTypeDropdownStore,
+        contributionService,
+        selectedExportColumnsName,
+        additionalExportColumnsName
     } = contributionListViewStore;
 
     return (
@@ -60,6 +63,12 @@ function ContributionListTemplate({ contributionListViewStore }) {
                         </div>
                     </div>
                 </TableFilter>
+                <Export
+                    queryUtility={queryUtility}
+                    selectedExportColumnsName={selectedExportColumnsName}
+                    additionalExportColumnsName={additionalExportColumnsName}
+                    service={contributionService}
+                />
             </div>
             <BaasicTable
                 tableStore={tableStore}

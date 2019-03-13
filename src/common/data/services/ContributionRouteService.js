@@ -20,6 +20,10 @@ class ContributionRouteService extends BaseRouteService {
     return this.uriTemplateService.parse(this.base + '{id}').expand(params)
   }
 
+  export(filter) {
+    return super.find(this.base + 'search-export/{?exportFields,exportLimit,confirmationNumber,amountRangeMin,amountRangeMax,donorAccountId,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields}', filter);
+  }
+
   update(resource) {
     return super.update(this.base + '{id}', resource);
   }

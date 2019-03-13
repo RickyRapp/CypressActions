@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicDropdown, BaasicButton, EditFormContent, BaasicFormControls, BasicCheckBox } from 'core/components';
+import { BasicInput, BaasicAsyncSelect, EditFormContent, BaasicFormControls } from 'core/components';
 
 function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const {
@@ -19,7 +19,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Prefix Type</label>
-                            <BaasicDropdown classNames="input" field={form.$('coreUser').$('prefixType')} store={prefixTypeMultiSelectStore} />
+                            <BaasicAsyncSelect classNames="input" field={form.$('coreUser').$('prefixType')} store={prefixTypeMultiSelectStore} />
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Delivery Method Type</label>
-                            <BaasicDropdown classNames="input" field={form.$('deliveryMethodType')} store={deliveryMethodTypeMultiSelectStore} />
+                            <BaasicAsyncSelect classNames="input" field={form.$('deliveryMethodType')} store={deliveryMethodTypeMultiSelectStore} />
                         </div>
                     </div>
                 </div>

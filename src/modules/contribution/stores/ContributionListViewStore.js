@@ -1,5 +1,5 @@
 import { BaseListViewStore, TableViewStore } from "core/stores";
-import { ContributionService, LookupService } from "common/data";
+import { ContributionService, LookupService, ContributionRouteService } from "common/data";
 import { ContributionListFilter } from 'modules/contribution/models';
 import { BaasicDropdownStore } from "core/stores";
 import _ from 'lodash';
@@ -9,6 +9,7 @@ class ContributionListViewStore extends BaseListViewStore {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         const contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
         const paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
+        const contributionEmployeeRead = rootStore.authStore.hasPermission('theDonorsFundSection.read')
 
         super(rootStore, {
             name: 'contribution',
@@ -29,9 +30,11 @@ class ContributionListViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: new ContributionListFilter()
+                filter: new ContributionListFilter(contributionEmployeeRead ? null : rootStore.authStore.user.id)
             }
-        })
+        });
+
+        this.contributionService = contributionService;
 
         this.permissions = {
             contributionUpdate: rootStore.authStore.hasPermission('theDonorsFundContributionSection.update'),
@@ -107,6 +110,9 @@ class ContributionListViewStore extends BaseListViewStore {
                 },
             }
         );
+
+        this.selectedExportColumnsName = ['Amount', 'Payment Type'];
+        this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(
             {

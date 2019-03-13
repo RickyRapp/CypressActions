@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicDropdown } from 'core/components';
+import { BasicInput, BaasicFieldAsyncDropdown } from 'core/components';
 import { EditFormLayout } from 'core/layouts';
 import _ from 'lodash';
 
@@ -32,13 +32,13 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
         <div className="form__group f-col f-col-lrg-6">
           <div className="inputgroup">
             <label>Payment Type</label>
-            <BaasicDropdown classNames="input" field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
+            <BaasicFieldAsyncDropdown classNames="input" field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
           </div>
         </div>
         {showBankAccounts && <div className="form__group f-col f-col-lrg-6">
           <div className="inputgroup">
             <label>Bank Account</label>
-            <BaasicDropdown classNames="input" field={form.$('bankAccountId')} store={bankAccountDropdownStore} />
+            <BaasicFieldAsyncDropdown classNames="input" field={form.$('bankAccountId')} store={bankAccountDropdownStore} />
           </div>
         </div>}
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicConfirmModal, BaasicModal, BaasicDropdown, EditFormContent, BaasicFormControls } from 'core/components';
+import { BasicInput, BaasicConfirmModal, BaasicModal, BaasicAsyncSelect, EditFormContent, BaasicFormControls } from 'core/components';
 import { EditFormLayout } from 'core/layouts';
 
 function UserEditTemplate({ editView }) {
@@ -41,7 +41,7 @@ function UserEditTemplate({ editView }) {
           <BasicInput field={form.$('email')} />
         </div>
         <div className="form__group f-col f-col-lrg-12 spc--bottom--sml">
-          <BaasicDropdown classNames="input--multiselect" field={form.$('roles')} store={roleMultiSelectStore} />
+          <BaasicAsyncSelect classNames="input--multiselect" field={form.$('roles')} store={roleMultiSelectStore} />
         </div>
         <div className="f-col f-col-lrg-6 f-col-med-12">
           <a

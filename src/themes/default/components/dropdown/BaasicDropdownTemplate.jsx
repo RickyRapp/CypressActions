@@ -1,39 +1,31 @@
 import React from 'react';
-import AsyncSelect from 'react-select/lib/Async';
+import Select from 'react-select';
 import { defaultTemplate } from 'core/utils';
 
-function BaasicDropdownTemplate({ store, field }) {
-  const {
-    defaultValue,
-    options,
-    onChange,
-    loading,
-    value
-  } = store;
+function BaasicDropdownTemplate({ store }) {
+    const {
+        options,
+        onChange,
+        value,
+        items
+    } = store;
 
-  return (
-    <AsyncSelect
-      value={value}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      placeholder={options.placeholder}
-      isDisabled={options.disabled}
-      isMulti={options.multi}
-      isClearable={options.clearable}
-      isLoading={loading}
-      cacheOptions={true}
-      getOptionLabel={option => option[options.textField]}
-      getOptionValue={option => option[options.dataItemKey]}
-      defaultOptions={true} //  tells the control to immediately fire the remote request, described by your loadOptions
-      loadOptions={(input, callback) => {
-        store.onFilter({ value: input }).then(() => {
-          store._value = field.value;
-          onChange(store.value);
-          callback(store.items);
-        });
-      }}
-    />
-  );
+    return (
+        <Select
+            value={value}
+            onChange={onChange}
+            options={items}
+            isMulti={options.multi}
+            placeholder={options.placeholder}
+            name={options.name}
+            isSearchable={options.isSearchable}
+            className={options.className}
+            classNamePrefix={options.classNamePrefix}
+            autoFocus={options.autoFocus}
+            getOptionLabel={option => option[options.textField]}
+            getOptionValue={option => option[options.dataItemKey]}
+        />
+    )
 }
 
 export default defaultTemplate(BaasicDropdownTemplate);

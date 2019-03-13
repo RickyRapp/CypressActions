@@ -70,10 +70,10 @@ class BaasicDropdownStore {
 
     return item
       ? {
-          ...item,
-          [options.textField]: t(item[options.textField]),
-          [options.dataItemKey]: item[options.dataItemKey] || null
-        }
+        ...item,
+        [options.textField]: t(item[options.textField]),
+        [options.dataItemKey]: item[options.dataItemKey] || null
+      }
       : undefined;
   }
 

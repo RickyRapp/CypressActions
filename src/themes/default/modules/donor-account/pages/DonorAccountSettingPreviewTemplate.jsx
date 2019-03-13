@@ -1,6 +1,5 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BasicCheckBox } from 'core/components';
 
 function DonorAccountSettingEditTemplate({ settingPreviewViewStore }) {
     const { settings } = settingPreviewViewStore;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BasicCheckBox, EditFormContent, BaasicFormControls, BaasicButton } from 'core/components';
+import { BasicInput, BasicCheckBox, EditFormContent, BaasicFormControls } from 'core/components';
 
 function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
-    const { form, loading, rootStore, onChangeInitialContribution } = settingEditViewStore;
+    const { form, loading } = settingEditViewStore;
 
     return (
         <EditFormContent form={form} isEdit={true} loading={loading}>

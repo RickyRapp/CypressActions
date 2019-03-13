@@ -13,10 +13,14 @@ class ContributionListFilter extends FilterParams {
     @observable contributionStatusIds;
     @observable paymentTypeIds;
 
-    constructor() {
+    constructor(userId = null) {
         super();
 
         this.reset();
+
+        if (userId) {
+            this.donorAccountId = userId;
+        }
     }
 
     @action reset() {
