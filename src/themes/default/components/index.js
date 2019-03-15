@@ -39,6 +39,7 @@ export { default as BaasicPageSizeSelectTemplate } from './select/BaasicPageSize
 export { default as BaasicSelectTemplate } from './select/BaasicSelectTemplate';
 
 export { default as BaasicFieldAsyncDropdownTemplate } from './dropdown/BaasicFieldAsyncDropdownTemplate';
+export { default as BaasicAsyncDropdownTemplate } from './dropdown/BaasicAsyncDropdownTemplate';
 export { default as BaasicDropdownTemplate } from './dropdown/BaasicDropdownTemplate';
 
 export { default as BaasicPagerTemplate } from './BaasicPager';

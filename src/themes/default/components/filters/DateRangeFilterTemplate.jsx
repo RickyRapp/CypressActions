@@ -1,5 +1,4 @@
 import React from 'react';
-import { action, observable } from 'mobx';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
 import 'react-dates/initialize';
@@ -17,8 +16,6 @@ class DateRangeFilterTemplate extends React.Component {
 
         this.onDatesChange = this.onDatesChange.bind(this);
         this.onFocusChange = this.onFocusChange.bind(this);
-
-
     }
 
     onDatesChange({ startDate, endDate }) {
@@ -65,6 +62,7 @@ class DateRangeFilterTemplate extends React.Component {
                     small={true}
                     keepOpenOnDateSelect={true}
                     hideKeyboardShortcutsPanel={true}
+                    isOutsideRange={date => false}
                 />
             </div>
         );

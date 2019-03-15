@@ -20,6 +20,11 @@ class DonorAccountService extends BaseService {
     return response.data || null;
   }
 
+  async search(filter) {
+    const url = this.routeService.search(filter);
+    const response = await this.apiClient.get(url, filter);
+    return response.data || null;
+  }
 }
 
 export default DonorAccountService;

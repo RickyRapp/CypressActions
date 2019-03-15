@@ -1,5 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
+import { RouterState } from 'mobx-state-router';
 import { ContributionList, ContributionCreate, ContributionEdit } from 'modules/contribution/pages'
+import { isSome, getAppRouterState } from 'core/utils';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -11,19 +13,42 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'modules/
                 children: [
                     {
                         name: 'master.app.main.contribution.list',
-                        pattern: '',
+                        pattern: 'list/:id?',
                         component: ContributionList,
-                        authorization: 'theDonorsFundContributionSection.read'
+                        authorization: 'theDonorsFundContributionSection.read',
+                        beforeEnter: (fromState, toState, routerStore) => {
+                            const { rootStore } = routerStore;
+                            if (!isSome(toState.params.id)) {
+                                if (rootStore && rootStore.authStore) {
+                                    if (rootStore.authStore.hasPermission('theDonorsFundSection.read')) {
+                                        //admin or employee
+                                    }
+                                    else if (rootStore.authStore.hasPermission('theDonorsFundDonorSection.update')) {
+                                        //donor
+                                        return Promise.reject(new RouterState('master.app.main.contribution.list', { id: rootStore.authStore.user.id }));
+                                    }
+                                    else {
+                                        //this is reporter role
+                                        //fetch userId from local storage
+                                    }
+                                }
+                                else {
+                                    rootStore.viewStore.logout()
+                                    return Promise.reject();
+                                }
+                            }
+                            return Promise.resolve();
+                        },
                     },
                     {
                         name: 'master.app.main.contribution.create',
-                        pattern: 'create/:id?',
+                        pattern: ':id/create',
                         component: ContributionCreate,
                         authorization: 'theDonorsFundContributionSection.create'
                     },
                     {
                         name: 'master.app.main.contribution.edit',
-                        pattern: 'edit/:contributionId',
+                        pattern: ':id/edit/:contributionId',
                         component: ContributionEdit,
                         authorization: 'theDonorsFundContributionSection.update'
                     }

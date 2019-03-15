@@ -106,8 +106,7 @@ export default class MenuStore {
   @observable selectedPath = [];
 
   @action selectMenuItem = item => {
-    const menuItem =
-      item.hasChildren && item.depth === 3 ? item.subMenu[0] : item; // custom handling of tabs which start at depth 3
+    const menuItem = item.hasChildren && item.depth === 3 ? item.subMenu[0] : item; // custom handling of tabs which start at depth 3
     const route = menuItem.getRoute();
 
     // if middle menu item is set, route is null so just update path (which should reveal next level menu but not navigate), else navigate to route

@@ -34,7 +34,6 @@ function BaasicTableRowTemplate({
 
 function renderRow(item, column) {
   const rowProps = {};
-
   if (column.onClick) {
     rowProps.onClick = () => column.onClick(item, column);
   }

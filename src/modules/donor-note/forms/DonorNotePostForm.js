@@ -8,22 +8,17 @@ export default class DonorNotePostForm extends FormBase {
     setup() {
         return {
             fields: [
-                'donorAccountId',
-                'note'
-            ],
-
-            labels: {
-                'note': 'Note'
-            },
-
-            placeholders: {
-                'note': 'Enter note'
-            },
-
-            rules: {
-                'donorAccountId': 'required|string',
-                'note': 'required|string'
-            }
+                {
+                    name: 'donorAccountId',
+                    rules: 'string'
+                },
+                {
+                    name: 'note',
+                    label: 'Note',
+                    placeholder: 'Enter Note',
+                    rules: 'required|string'
+                }
+            ]
         };
     }
 };

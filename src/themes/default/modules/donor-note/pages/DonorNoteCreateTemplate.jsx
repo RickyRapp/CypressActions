@@ -16,7 +16,7 @@ function DonorNoteCreateTemplate({ donorNoteCreateViewStore, title }) {
                     <BasicTextArea field={form.$('note')} />
                 </div>
 
-                {form.changed &&
+                {form.isDirty &&
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
             </div>
         </EditFormContent>

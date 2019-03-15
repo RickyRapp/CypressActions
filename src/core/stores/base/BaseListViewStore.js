@@ -60,11 +60,6 @@ class BaseListViewStore extends BaseViewStore {
 
   @action.bound
   setTableStore(tableStore) {
-    const primaryColumn = _.first(tableStore.config.columns);
-    if (!primaryColumn.onClick && this.routes.edit) {
-      primaryColumn.onClick = item => this.routes.edit(item.id);
-    }
-
     this.tableStore = tableStore;
     this.isReady.set(true);
   }

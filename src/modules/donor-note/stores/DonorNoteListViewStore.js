@@ -30,9 +30,16 @@ class DonorNoteListViewStore extends BaseListViewStore {
                     orderBy: 'dateCreated',
                     orderDirection: 'desc',
                     pageSize: 5
+                },
+                options: {
+                    disableUpdateQueryParams: true
                 }
             }
         });
+
+        this.permissions = {
+            delete: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.delete')
+        }
 
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
@@ -61,8 +68,11 @@ class DonorNoteListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onEdit: note => this.editNoteId = note.id,
-                    onDelete: note => this.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.delete') && this.delete(note),
+                    onDelete: note => this.delete(note),
                     onSort: column => this.queryUtility.changeOrder(column.key)
+                },
+                actionsConfig: {
+                    onDeleteConfig: { 'title': 'delete', 'permissions': this.permissions }
                 }
             })
         );

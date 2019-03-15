@@ -1,4 +1,5 @@
 import React from 'react';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
 import { DonorAccountProfileEdit, DonorAccountSettingPreview } from 'modules/donor-account/pages'
@@ -14,6 +15,11 @@ import { DonorAccountProfileViewStore } from 'modules/donor-account/stores';
 @setCurrentView(rootStore => new DonorAccountProfileViewStore(rootStore), 'donorAccountProfileViewStore')
 @observer
 class DonorAccountEdit extends React.Component {
+    @observable showBankAccounts = false;
+    @observable showAddresses = false;
+    @observable showEmailAddresses = false;
+    @observable showPhoneNumbers = false;
+
     render() {
         return (
             <Page>
@@ -42,59 +48,59 @@ class DonorAccountEdit extends React.Component {
                         <div className="f-row">
                             <div className="form__group f-col f-col-lrg-12">
                                 <div className="group">
-                                    <div className="display--b pull">Hide Bank Informations</div>
+                                    <div className="display--b pull">{this.showBankAccounts ? 'Hide' : 'Show'} Bank Informations</div>
                                     <div className="display--b pull spc--left--sml">
                                         <input
                                             type="checkbox"
-                                            onChange={this.props.donorAccountProfileViewStore.onShowHideBankAccountChange}
-                                            checked={this.props.donorAccountProfileViewStore.hideBankAccount}
+                                            onChange={(event) => this.showBankAccounts = event.target.checked}
+                                            checked={this.showBankAccounts}
                                         />
                                     </div>
                                 </div>
-                                {!this.props.donorAccountProfileViewStore.hideBankAccount &&
+                                {this.showBankAccounts &&
                                     <DonorAccountBankAccountEdit />}
                             </div>
                             <div className="form__group f-col f-col-lrg-12">
                                 <div className="group">
-                                    <div className="display--b pull">Hide Address Informations</div>
+                                    <div className="display--b pull">{this.showAddresses ? 'Hide' : 'Show'} Address Informations</div>
                                     <div className="display--b pull spc--left--sml">
                                         <input
                                             type="checkbox"
-                                            onChange={this.props.donorAccountProfileViewStore.onShowHideAddressChange}
-                                            checked={this.props.donorAccountProfileViewStore.hideAddress}
+                                            onChange={(event) => this.showAddresses = event.target.checked}
+                                            checked={this.showAddresses}
                                         />
                                     </div>
                                 </div>
-                                {!this.props.donorAccountProfileViewStore.hideAddress &&
+                                {this.showAddresses &&
                                     <DonorAccountAddressEdit />}
                             </div>
                             <div className="form__group f-col f-col-lrg-12">
                                 <div className="group">
-                                    <div className="display--b pull">Hide Email Address Informations</div>
+                                    <div className="display--b pull">{this.showEmailAddresses ? 'Hide' : 'Show'} Email Address Informations</div>
                                     <div className="display--b pull spc--left--sml">
                                         <input
                                             type="checkbox"
-                                            onChange={this.props.donorAccountProfileViewStore.onShowHideEmailAddressChange}
-                                            checked={this.props.donorAccountProfileViewStore.hideEmailAddress}
+                                            onChange={(event) => this.showEmailAddresses = event.target.checked}
+                                            checked={this.showEmailAddresses}
                                         />
                                     </div>
                                 </div>
-                                {!this.props.donorAccountProfileViewStore.hideEmailAddress &&
+                                {this.showEmailAddresses &&
                                     <DonorAccountEmailAddressEdit />
                                 }
                             </div>
                             <div className="form__group f-col f-col-lrg-12">
                                 <div className="group">
-                                    <div className="display--b pull">Hide Phone Number Informations</div>
+                                    <div className="display--b pull">{this.showPhoneNumbers ? 'Hide' : 'Show'} Phone Number Informations</div>
                                     <div className="display--b pull spc--left--sml">
                                         <input
                                             type="checkbox"
-                                            onChange={this.props.donorAccountProfileViewStore.onShowHidePhoneNumberChange}
-                                            checked={this.props.donorAccountProfileViewStore.hidePhoneNumber}
+                                            onChange={(event) => this.showPhoneNumbers = event.target.checked}
+                                            checked={this.showPhoneNumbers}
                                         />
                                     </div>
                                 </div>
-                                {!this.props.donorAccountProfileViewStore.hidePhoneNumber &&
+                                {this.showPhoneNumbers &&
                                     <DonorAccountPhoneNumberEdit />}
                             </div>
                         </div>

@@ -83,7 +83,7 @@ function BankAccountCreateTemplate({ bankAccountEditViewStore, title, children }
                         {children}
                     </div>}
 
-                {form.changed &&
+                {form.isDirty &&
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
             </div>
         </EditFormContent>

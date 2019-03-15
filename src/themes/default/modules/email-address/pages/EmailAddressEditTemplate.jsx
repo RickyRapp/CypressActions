@@ -24,8 +24,7 @@ function EmailAddressEditTemplate({ emailAddressEditViewStore, title, children }
                         {children}
                     </div>}
 
-                {form.changed &&
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
         </EditFormContent>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicAsyncSelect, EditFormContent, BaasicFormControls } from 'core/components';
+import { BasicInput, BaasicFieldAsyncDropdown, EditFormContent, BaasicFormControls } from 'core/components';
 
 function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const {
@@ -19,7 +19,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Prefix Type</label>
-                            <BaasicAsyncSelect classNames="input" field={form.$('coreUser').$('prefixType')} store={prefixTypeMultiSelectStore} />
+                            <BaasicFieldAsyncDropdown classNames="input" field={form.$('coreUser').$('prefixTypeId')} store={prefixTypeMultiSelectStore} />
                         </div>
                     </div>
 
@@ -50,13 +50,12 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Delivery Method Type</label>
-                            <BaasicAsyncSelect classNames="input" field={form.$('deliveryMethodType')} store={deliveryMethodTypeMultiSelectStore} />
+                            <BaasicFieldAsyncDropdown classNames="input" field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeMultiSelectStore} />
                         </div>
                     </div>
                 </div>
 
-                {form.changed && //checky why form.isDirty not working and fix changed dropdowns
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </EditFormContent >
         </React.Fragment>
     );

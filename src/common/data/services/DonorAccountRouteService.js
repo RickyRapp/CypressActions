@@ -33,6 +33,10 @@ class DonorAccountRouteService extends BaseRouteService {
   delete(resource) {
     return super.delete(this.base + '{id}', resource);
   }
+
+  search(filter) {
+    return super.find(this.base + 'search/{?searchQuery,page,rpp,sort,embed,fields}', filter);
+  }
 }
 
 export default DonorAccountRouteService;

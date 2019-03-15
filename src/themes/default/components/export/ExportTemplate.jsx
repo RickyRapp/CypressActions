@@ -7,19 +7,19 @@ function ExportTemplate({ onClick, exportFieldStore, exportLimitStore }) {
         <React.Fragment>
             <div className="f-row">
                 <div className="f-col f-col-sml-1">
+                    <button className="btn btn--primary btn--med btn--rounded align--v-initial" onChange={onClick} onClick={onClick}>Export</button>
+                </div>
+                <div className="f-col f-col-sml-1">
                     <div className="inputgroup">
                         <label>Export Limits</label>
                         <BaasicDropdown store={exportLimitStore} />
                     </div>
                 </div>
-                <div className="f-col f-col-sml-8">
+                <div className="f-col f-col-sml-10">
                     <div className="inputgroup">
                         <label>Export Fields</label>
                         <BaasicDropdown store={exportFieldStore} />
                     </div>
-                </div>
-                <div className="f-col f-col-sml-3">
-                    <button className="btn btn--primary btn--med btn--rounded align--v-initial" onChange={onClick} onClick={onClick}>Export</button>
                 </div>
             </div>
         </React.Fragment >

@@ -1,7 +1,9 @@
+import { action } from 'mobx';
 import { BaseListViewStore, TableViewStore } from "core/stores";
-import { ContributionService, LookupService, ContributionRouteService } from "common/data";
+import { ContributionService, LookupService, DonorAccountService } from "common/data";
 import { ContributionListFilter } from 'modules/contribution/models';
 import { BaasicDropdownStore } from "core/stores";
+import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseListViewStore {
@@ -9,36 +11,51 @@ class ContributionListViewStore extends BaseListViewStore {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         const contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
         const paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
-        const contributionEmployeeRead = rootStore.authStore.hasPermission('theDonorsFundSection.read')
 
         super(rootStore, {
             name: 'contribution',
             routes: {
-                edit: (contributionId, userId) => this.rootStore.routerStore.navigate('master.app.main.contribution.edit', {
-                    contributionId: contributionId,
-                    id: userId
-                }),
-                create: () => this.rootStore.routerStore.navigate('master.app.main.contribution.create')
+                edit: (contributionId) =>
+                    this.rootStore.routerStore.navigate('master.app.main.contribution.edit', {
+                        contributionId: contributionId,
+                        id: rootStore.routerStore.routerState.params.id
+                    }),
+                create: () => {
+                    if (rootStore.routerStore.routerState.params.id) {
+                        this.rootStore.routerStore.navigate('master.app.main.contribution.create', {
+                            id: rootStore.routerStore.routerState.params.id
+                        })
+                    }
+                    else {
+                        this.findDonorModalParams.open();
+                    }
+                }
             },
             actions: {
                 find: async params => {
                     params.embed = 'donorAccount,coreUser,payerInformation,address,bankAccount,createdByCoreUser,paymentType,contributionStatus';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
-                    const response = await contributionService.find(params);
+                    const response = await contributionService.find(rootStore.routerStore.routerState.params.id, params);
                     return response;
                 }
             },
             queryConfig: {
-                filter: new ContributionListFilter(contributionEmployeeRead ? null : rootStore.authStore.user.id)
+                filter: new ContributionListFilter()
             }
         });
 
         this.contributionService = contributionService;
+        const contributionEmployeeUpdate = rootStore.authStore.hasPermission('theDonorsFundSection.update');
+        const contributionUpdate = rootStore.authStore.hasPermission('theDonorsFundContributionSection.update');
+        this.minutes = 15;
+
+        if (contributionEmployeeUpdate) {
+            this.minutes = null;
+        }
 
         this.permissions = {
-            contributionUpdate: rootStore.authStore.hasPermission('theDonorsFundContributionSection.update'),
-            contributionEmployeeUpdate: rootStore.authStore.hasPermission('theDonorsFundSection.update'),
+            update: contributionUpdate || contributionEmployeeUpdate,
         }
 
         this.setTableStore(
@@ -90,7 +107,7 @@ class ContributionListViewStore extends BaseListViewStore {
                     onDetails: contribution => this.routes.details(contribution.id)
                 },
                 actionsConfig: {
-                    onEditConfig: { 'minutes': 15, 'title': 'edit', 'permissions': this.permissions }
+                    onEditConfig: { 'minutes': this.minutes, 'title': 'edit', 'permissions': this.permissions }
                 }
             })
         );
@@ -111,7 +128,10 @@ class ContributionListViewStore extends BaseListViewStore {
             }
         );
 
-        this.selectedExportColumnsName = ['Amount', 'Payment Type'];
+        this.selectedExportColumnsName = ['Amount'];
+        if (contributionEmployeeUpdate) {
+            this.selectedExportColumnsName.push('Payment Type');
+        }
         this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(
@@ -129,6 +149,18 @@ class ContributionListViewStore extends BaseListViewStore {
                 },
             }
         );
+
+        this.findDonorModalParams = new ModalParams({
+            onClose: null
+        });
+    }
+
+    @action.bound async onChangeSearchDonor(option) {
+        if (option) {
+            this.rootStore.routerStore.navigate('master.app.main.contribution.create', {
+                id: option.id
+            })
+        }
     }
 }
 

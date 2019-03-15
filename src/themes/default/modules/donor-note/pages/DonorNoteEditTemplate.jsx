@@ -16,8 +16,7 @@ function DonorNoteEditTemplate({ donorNoteEditViewStore, title, onCancelEdit }) 
                     <BasicTextArea field={form.$('note')} />
                 </div>
 
-                {form.changed &&
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
 
                 <BaasicButton
                     className="btn btn--med btn--primary display--ib"

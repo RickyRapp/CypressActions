@@ -18,7 +18,7 @@ function DonorAccountSettingEditTemplate({ settingPreviewViewStore }) {
                     </div>
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
-                            <label htmlFor={settings.initialContribution}>Initial Contribution</label>
+                            <label>Initial Contribution</label>
                             {settings.initialContribution ? 'Yes' : 'No'}
                         </div>
                     </div>

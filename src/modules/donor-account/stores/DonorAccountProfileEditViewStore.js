@@ -16,6 +16,7 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
             id: rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id,
             actions: {
                 update: async donorAccount => {
+                    donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
                     await donorAccountService.update({
                         id: this.id,
                         ...donorAccount
@@ -29,10 +30,6 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
                         if (isSome(response.coreUser) && isSome(response.coreUser.json)) {
                             response.coreUser.middleName = (JSON.parse(response.coreUser.json)).middleName;
                             response.coreUser.prefixTypeId = (JSON.parse(response.coreUser.json)).prefixTypeId;
-                            if (isSome(response.coreUser.prefixTypeId)) {
-                                let models = await prefixTypeLookupService.getAll();
-                                response.coreUser.prefixType = _.find(models.data, { id: response.coreUser.prefixTypeId });
-                            }
                         }
                     }
                     return response;
@@ -77,15 +74,21 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound async onChangeDeliveryMethod(option) {
-        this.item.deliveryMethodType = option;
-        this.form.update(this.item);
-        this.changedDonorAccount = true;
+        if (option) {
+            this.form.$('deliveryMethodTypeId').set('value', option.id);
+        }
+        else {
+            this.form.$('deliveryMethodTypeId').clear();
+        }
     }
 
     @action.bound async onChangePrefixType(option) {
-        this.item.coreUser.prefixType = option;
-        this.form.update(this.item);
-        this.changedDonorAccount = true;
+        if (option) {
+            this.form.$('coreUser.prefixTypeId').set('value', option.id)
+        }
+        else {
+            this.form.$('coreUser.prefixTypeId').clear();
+        }
     }
 }
 

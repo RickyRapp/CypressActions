@@ -18,6 +18,7 @@ class Export extends React.Component {
             a.href = url;
             a.download = fileName;
             a.click();
+            a.remove();
             window.URL.revokeObjectURL(url);
         }
 
@@ -80,7 +81,7 @@ class Export extends React.Component {
             null,
             this.exportLimits
         );
-        this.exportLimitDropdownStore._value = { id: 10, name: 10 };
+        this.exportLimitDropdownStore._value = { id: 50, name: 50 };
     }
 
     @action.bound async onExportClick() {
@@ -103,7 +104,7 @@ class Export extends React.Component {
             exportFieldStore={this.exportFieldsDropdownStore}
             exportLimitStore={this.exportLimitDropdownStore}
             onClick={this.onExportClick}
-        />;
+        />
     }
 }
 

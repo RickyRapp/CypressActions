@@ -7,8 +7,16 @@ class ContributionRouteService extends BaseRouteService {
     this.base = 'contribution/';
   }
 
-  find(filter) {
-    return super.find(this.base + '{?confirmationNumber,amountRangeMin,amountRangeMax,donorAccountId,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields}', filter);
+  find(id, filter) {
+    let url = this.base;
+    if (id) {
+      const params = getParams({ id: id });
+      url = this.uriTemplateService.parse(this.base + 'list/{id}/').expand(params);
+    }
+    else {
+      url = this.base + 'list/';
+    }
+    return super.find(url + '{?confirmationNumber,amountRangeMin,amountRangeMax,donorAccountIds,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields}', filter);
   }
 
   get(id, options) {
