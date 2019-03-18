@@ -20,10 +20,10 @@ class ContributionService extends BaseService {
     return response.data || null;
   }
 
-  async export(resource) {
-    var url = this.routeService.export(resource);
-    const response = await this.apiClient.get(url, resource);
-    return response || null;
+  async export(filter) {
+    var url = this.routeService.export(filter);
+    const response = await this.apiClient.get(url, filter);
+    return response.data || null;
   }
 }
 

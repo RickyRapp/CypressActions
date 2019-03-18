@@ -2,14 +2,14 @@ import React from 'react';
 import { action } from 'mobx';
 import { ExportTemplate } from 'themes/components';
 import { BaasicDropdownStore } from "core/stores";
+import { ContributionListFilter } from 'modules/contribution/models';
 import _ from 'lodash';
 
 class Export extends React.Component {
     constructor(props) {
         super(props);
 
-        this.saveData = (blob, fileName) => // does the same as FileSaver.js
-        {
+        this.saveData = (blob, fileName) => {
             var a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display: none";
@@ -21,19 +21,6 @@ class Export extends React.Component {
             a.remove();
             window.URL.revokeObjectURL(url);
         }
-
-        this.getFilenameFromResponse = (contentDisposition) => {
-            var filename = "";
-            if (contentDisposition && contentDisposition.indexOf('attachment') !== -1) {
-                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                var matches = filenameRegex.exec(contentDisposition);
-                if (matches != null && matches[1]) {
-                    filename = matches[1].replace(/['"]/g, '');
-                }
-            }
-            return filename;
-        }
-
         let exportColumnsName = _.concat(props.additionalExportColumnsName, props.selectedExportColumnsName);
 
         this.exportColumns = [];
@@ -61,7 +48,6 @@ class Export extends React.Component {
         );
         this.exportFieldsDropdownStore._value = this.selectedExportColumns;
 
-
         this.exportLimits = [
             { id: 10, name: 10 },
             { id: 50, name: 50 },
@@ -85,17 +71,17 @@ class Export extends React.Component {
     }
 
     @action.bound async onExportClick() {
-        let filter = this.props.queryUtility.filter;
-        filter.exportFields = _.map(this.exportFieldsDropdownStore.value, item => { return item.id });
-        filter.exportLimit = this.exportLimitDropdownStore.value.id;
-        let response = await this.props.service.export(filter);
+        var f = new ContributionListFilter();
+        _.extend(f, this.props.queryUtility.filter)
+        f.exportFields = _.map(this.exportFieldsDropdownStore.value, item => { return item.id });
+        f.exportLimit = this.exportLimitDropdownStore.value.id;
+        let response = await this.props.service.export(f);
         if (response) {
-            var blob = new Blob([response.data], { type: `${response.headers["content-type"]}; encoding=utf8` });
-            let filename = this.getFilenameFromResponse(response.headers["content-disposition"])
-            this.saveData(blob, filename);
+            let blob = new Blob([response.content], { type: `${response.contentType}; ${response.encoding}` });
+            this.saveData(blob, response.fileName);
         }
         else {
-            this.rootStore.notifyErrorResponse('Something gone wrong.');
+            this.rootStore.notificationStore.error('Something gone wrong.');
         }
     }
 

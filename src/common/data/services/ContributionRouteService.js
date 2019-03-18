@@ -5,18 +5,16 @@ class ContributionRouteService extends BaseRouteService {
   constructor() {
     super();
     this.base = 'contribution/';
+    this.queryParams = 'confirmationNumber,amountRangeMin,amountRangeMax,donorAccountIds,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields';
   }
 
   find(id, filter) {
-    let url = this.base;
+    let url = this.base + 'list/';
     if (id) {
       const params = getParams({ id: id });
-      url = this.uriTemplateService.parse(this.base + 'list/{id}/').expand(params);
+      url = this.uriTemplateService.parse(url + '{id}/').expand(params);
     }
-    else {
-      url = this.base + 'list/';
-    }
-    return super.find(url + '{?confirmationNumber,amountRangeMin,amountRangeMax,donorAccountIds,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(url + `{?${this.queryParams}}`, filter);
   }
 
   get(id, options) {
@@ -29,7 +27,7 @@ class ContributionRouteService extends BaseRouteService {
   }
 
   export(filter) {
-    return super.find(this.base + 'search-export/{?exportFields,exportLimit,confirmationNumber,amountRangeMin,amountRangeMax,donorAccountId,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(this.base + `search-export/{?exportFields,exportLimit,${this.queryParams}}`, filter);
   }
 
   update(resource) {
