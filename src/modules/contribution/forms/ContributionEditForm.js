@@ -8,133 +8,83 @@ export default class ContributionEditForm extends FormBase {
     setup() {
         return {
             fields: [
-                {
-                    name: 'id',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'donorAccountId',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'amount',
-                    label: 'Amount',
-                    placeholder: 'Enter Amount',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'description',
-                    label: 'Description',
-                    placeholder: 'Enter Description',
-                    rules: 'string'
-                },
-                {
-                    name: 'paymentTypeId',
-                    label: 'Payment Type',
-                    placeholder: 'Choose Payment Type',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'bankAccountId',
-                    label: 'Bank Account',
-                    placeholder: 'Choose Bank Account',
-                    rules: 'string'
-                },
-                {
-                    name: 'payerInformation',
-                    label: 'Payer Information',
-                    fields:
-                        [{
-                            name: 'firstName',
-                            label: 'Payer First Name',
-                            placeholder: 'Enter Payer First Name',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'lastName',
-                            label: 'Payer Last Name',
-                            placeholder: 'Enter Payer Last Name',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'address',
-                            label: 'Payer Address Information',
-                            fields:
-                                [{
-                                    name: 'addressLine1',
-                                    label: 'Payer Address Line 1',
-                                    placeholder: 'Enter Payer Address Line 1',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'addressLine2',
-                                    label: 'Payer Address Line 2',
-                                    placeholder: 'Enter Payer Address Line 2',
-                                    rules: 'string'
-                                },
-                                {
-                                    name: 'city',
-                                    label: 'Payer City',
-                                    placeholder: 'Enter Payer City',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'state',
-                                    label: 'Payer State',
-                                    placeholder: 'Enter Payer State',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'zipCode',
-                                    label: 'Payer Zip Code',
-                                    placeholder: 'Enter Payer Zip Code',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'Payer Address Description',
-                                    placeholder: 'Enter Payer Address Description',
-                                    rules: 'string'
-                                }
-                                ]
-                        },
-                        {
-                            name: 'emailAddress',
-                            label: 'Payer Email Address Information',
-                            fields:
-                                [{
-                                    name: 'email',
-                                    label: 'Payer Email',
-                                    placeholder: 'Enter Payer Email',
-                                    rules: 'required|email'
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'Payer Email Description',
-                                    placeholder: 'Enter Payer Email Description',
-                                    rules: 'string'
-                                }]
-                        },
-                        {
-                            name: 'phoneNumber',
-                            label: 'Payer Phone Number Information',
-                            fields:
-                                [{
-                                    name: 'number',
-                                    label: 'Payer Phone Number',
-                                    placeholder: 'Enter Payer Phone Number',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'Payer Phone Number Description',
-                                    placeholder: 'Enter Payer Phone Number Description',
-                                    rules: 'string'
-                                }]
-                        }
-                        ]
-                }
-            ]
+                'id',
+                'donorAccountId',
+                'amount',
+                'description',
+                'paymentTypeId',
+                'bankAccountId',
+                'payerInformation',
+                'payerInformation.firstName',
+                'payerInformation.lastName',
+                'payerInformation.address',
+                'payerInformation.address.id',
+                'payerInformation.address.addressLine1',
+                'payerInformation.address.addressLine2',
+                'payerInformation.address.city',
+                'payerInformation.address.state',
+                'payerInformation.address.zipCode',
+                'payerInformation.emailAddress',
+                'payerInformation.emailAddress.id',
+                'payerInformation.emailAddress.email',
+                'payerInformation.phoneNumber',
+                'payerInformation.phoneNumber.id',
+                'payerInformation.phoneNumber.number',
+            ],
+
+            labels: {
+                'amount': 'Amount',
+                'description': 'Description',
+                'paymentTypeId': 'Payment Type',
+                'bankAccountId': 'Bank Account',
+                'payerInformation': 'Payer Information',
+                'payerInformation.firstName': 'Payer First Name',
+                'payerInformation.lastName': 'Payer Last Name',
+                'payerInformation.address': 'Payer Address',
+                'payerInformation.address.addressLine1': 'Payer Address Line 1',
+                'payerInformation.address.addressLine2': 'Payer Address Line 2',
+                'payerInformation.address.city': 'Payer City',
+                'payerInformation.address.state': 'Payer State',
+                'payerInformation.address.zipCode': 'Payer Zip Code',
+                'payerInformation.emailAddress': 'Payer Email Address',
+                'payerInformation.emailAddress.email': 'Payer Email',
+                'payerInformation.phoneNumber': 'Payer Phone Number',
+                'payerInformation.phoneNumber.number': 'Payer Number',
+            },
+
+            placeholders: {
+                'amount': 'Enter Amount',
+                'description': 'Enter Description',
+                'paymentTypeId': 'Choose Payment Type',
+                'bankAccountId': 'Choose Bank Account',
+                'payerInformation.firstName': 'Enter Payer First Name',
+                'payerInformation.lastName': 'Enter Payer Last Name',
+                'payerInformation.address.addressLine1': 'Enter Payer Address Line 1',
+                'payerInformation.address.addressLine2': 'Enter Payer Address Line 2',
+                'payerInformation.address.city': 'Enter Payer City',
+                'payerInformation.address.state': 'Enter Payer State',
+                'payerInformation.address.zipCode': 'Enter Payer Zip Code',
+                'payerInformation.emailAddress.email': 'Enter Payer Email',
+                'payerInformation.phoneNumber.number': 'Enter Payer Number',
+            },
+
+            rules: {
+                'id': 'required|string',
+                'donorAccountId': 'required|string',
+                'amount': 'required|numeric|min:0',
+                'description': 'string',
+                'paymentTypeId': 'required|string',
+                'bankAccountId': 'required|string',
+                'payerInformation.firstName': 'required|string',
+                'payerInformation.lastName': 'required|string',
+                'payerInformation.address.addressLine1': 'required|string',
+                'payerInformation.address.addressLine2': 'string',
+                'payerInformation.address.city': 'required|string',
+                'payerInformation.address.state': 'required|string',
+                'payerInformation.address.zipCode': 'required|string',
+                'payerInformation.emailAddress.email': 'required|string',
+                'payerInformation.phoneNumber.number': 'required|string',
+            }
         };
     }
 }

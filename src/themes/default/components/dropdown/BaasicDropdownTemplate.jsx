@@ -19,6 +19,7 @@ function BaasicDropdownTemplate({ store }) {
             placeholder={options.placeholder}
             name={options.name}
             isSearchable={options.isSearchable}
+            isClearable={options.isClearable}
             className={options.className}
             classNamePrefix={options.classNamePrefix}
             autoFocus={options.autoFocus}

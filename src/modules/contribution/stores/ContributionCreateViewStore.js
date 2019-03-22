@@ -1,7 +1,7 @@
 import { action, observable, computed } from 'mobx';
 import { ContributionCreateForm } from 'modules/contribution/forms';
 import { ContributionService, BankAccountService, LookupService, DonorAccountService } from "common/data";
-import { BaseEditViewStore } from 'core/stores';
+import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
@@ -10,6 +10,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     @observable bankAccounts = null;
     @observable donorAccount = null;
     @observable showPayerInformation = false;
+    @observable paymentTypeDropdownStore = null;
+    @observable bankAccountDropdownStore = null;
 
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
@@ -25,13 +27,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             FormClass: ContributionCreateForm
         });
 
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        this.bankAccountService = new BankAccountService(rootStore.app.baasic.apiClient);
-        this.paymentTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
         this.userId = userId;
-        this.getDonorAccount();
-        this.getPaymentTypes();
-        this.getBankAccounts();
 
         const contributionEmployeeCreate = rootStore.authStore.hasPermission('theDonorsFundSection.create');
         this.permissions = {
@@ -45,9 +41,19 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.onAddBankAccount = async () => {
             this.addBankAccountModalParams.close();
             await this.getBankAccounts();
+            await this.setStores();
             let lastBankAccount = _.orderBy(this.bankAccounts, ['dateCreated'], ['desc'])[0];
             this.onChangeBankAccount({ id: lastBankAccount.bankAccount.id, name: lastBankAccount.bankAccount.name });
         }
+
+        this.load();
+    }
+
+    @action.bound async load() {
+        await this.getDonorAccount();
+        await this.getPaymentTypes();
+        await this.getBankAccounts();
+        await this.setStores();
     }
 
     @action.bound async onChangePaymentType(option) {
@@ -74,7 +80,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound async onChangeBankAccount(option) {
-        if (option) {
+        if (option && option.id) {
             this.form.$('bankAccountId').set('value', option.id);
             let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.bankAccount.id === option.id) });
             this.form.$('payerInformation').set('value', donorBankAccount.bankAccount.accountHolder);
@@ -93,32 +99,33 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound async getDonorAccount() {
+        this.donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
         let params = {};
         params.embed = ['coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber'];
         this.donorAccount = await this.donorAccountService.get(this.userId, params)
     }
 
     @action.bound async getBankAccounts() {
+        this.bankAccountService = new BankAccountService(this.rootStore.app.baasic.apiClient);
         let params = {};
         params.embed = 'bankAccount,accountHolder,address,emailAddress,phoneNumber'
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
-        const response = await this.bankAccountService.getDonorAccountCollection(this.userId, params);
-        this.bankAccounts = response;
+        this.bankAccounts = await this.bankAccountService.getDonorAccountCollection(this.userId, params);
     }
 
     @action.bound async getPaymentTypes() {
+        this.paymentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'payment-type');
         let models = await this.paymentTypeLookupService.getAll();
         this.paymentTypes = models.data;
     }
 
-
     @computed get showBankAccounts() {
         if (this.form && this.paymentTypes) {
-            if (this.form.$("paymentTypeId").value === _.find(this.paymentTypes, function (type) { return (type.abrv === 'ach') }).id) {
+            if (this.form.$("paymentTypeId").value === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
                 return true;
             }
-            if (this.form.$("paymentTypeId").value == _.find(this.paymentTypes, function (type) { return (type.abrv === 'wire-transfer') }).id) {
+            if (this.form.$("paymentTypeId").value == _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
                 return true;
             }
         }
@@ -139,42 +146,36 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         return false;
     }
 
-    @computed get paymentTypeDropdownStore() {
-        if (this.form && this.paymentTypes) {
-            return {
-                options: {
-                    multi: false,
-                    placeholder: 'Choose Payment Type',
-                    name: 'PaymentType',
-                    textField: 'name',
-                    dataItemKey: 'id'
-                },
-                onChange: this.onChangePaymentType,
-                value: null,
-                items: this.paymentTypes
-            }
-        }
-        return false;
-    }
+    @action.bound async setStores() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                placeholder: 'Choose Payment Type',
+                name: 'PaymentType',
+                textField: 'name',
+                dataItemKey: 'id',
+                isClearable: false
+            },
+            {
+                onChange: this.onChangePaymentType
+            },
+            this.paymentTypes
+        );
 
-    @computed get bankAccountDropdownStore() {
-        if (this.form && this.form.$('paymentTypeId').value && this.bankAccounts && this.paymentTypes) {
-
-            return {
-                options: {
-                    multi: false,
-                    placeholder: 'Choose Bank Account',
-                    name: 'BankAccount',
-                    textField: 'name',
-                    dataItemKey: 'id',
-                    clearable: this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id
-                },
-                onChange: this.onChangeBankAccount,
-                value: null,
-                items: _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
-            }
-        }
-        return false;
+        this.bankAccountDropdownStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                placeholder: 'Choose Bank Account',
+                name: 'BankAccount',
+                textField: 'name',
+                dataItemKey: 'id',
+                isClearable: true
+            },
+            {
+                onChange: this.onChangeBankAccount
+            },
+            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+        );
     }
 }
 
