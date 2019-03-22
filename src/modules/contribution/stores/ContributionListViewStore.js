@@ -15,10 +15,10 @@ class ContributionListViewStore extends BaseListViewStore {
         super(rootStore, {
             name: 'contribution',
             routes: {
-                edit: (contributionId) =>
+                edit: (contributionId, userId) =>
                     this.rootStore.routerStore.navigate('master.app.main.contribution.edit', {
                         contributionId: contributionId,
-                        id: rootStore.routerStore.routerState.params.id
+                        id: userId
                     }),
                 create: () => {
                     if (rootStore.routerStore.routerState.params.id) {
@@ -26,8 +26,11 @@ class ContributionListViewStore extends BaseListViewStore {
                             id: rootStore.routerStore.routerState.params.id
                         })
                     }
-                    else {
+                    else if (rootStore.authStore.hasPermission('theDonorsFundSection.create')) {
                         this.findDonorModalParams.open();
+                    }
+                    else {
+                        rootStore.routerStore.navigate('master.error');
                     }
                 }
             },
@@ -103,7 +106,7 @@ class ContributionListViewStore extends BaseListViewStore {
                     },
                 ],
                 actions: {
-                    onEdit: contribution => this.routes.edit(contribution.id),
+                    onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
                     onDetails: contribution => this.routes.details(contribution.id)
                 },
                 actionsConfig: {
@@ -151,7 +154,7 @@ class ContributionListViewStore extends BaseListViewStore {
         );
 
         this.findDonorModalParams = new ModalParams({
-            onClose: null
+            onClose: this.onClose
         });
     }
 

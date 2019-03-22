@@ -52,9 +52,6 @@ function BankAccountCreateTemplate({ bankAccountEditViewStore, title, children }
                                 <BasicInput field={form.$('accountHolder.lastName')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.middleName')} />
-                            </div>
-                            <div className="form__group f-col f-col-lrg-4">
                                 <BasicInput field={form.$('accountHolder.address.addressLine1')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">

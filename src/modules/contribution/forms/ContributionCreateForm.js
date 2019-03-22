@@ -28,7 +28,10 @@ export default class ContributionCreateForm extends FormBase {
                 {
                     name: 'bankAccountId',
                     label: 'Bank Account',
-                    rules: 'string'
+                    rules: 'string',
+                    options: {
+                        validateOnChange: true,
+                    }
                 },
                 {
                     name: 'payerInformation',

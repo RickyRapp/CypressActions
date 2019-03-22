@@ -81,7 +81,11 @@ class BaseEditViewStore extends BaseViewStore {
   @action.bound
   updateForm() {
     if (this.item) {
+      console.log(this.form.$('payerInformation.firstName').label) //Payer First Name
+      console.log(this.form.$('payerInformation.address.addressLine1').label) //Payer Address Line 1
       this.form.update(this.item);
+      console.log(this.form.$('payerInformation.firstName').label) //Payer First Name
+      console.log(this.form.$('payerInformation.address.addressLine1').label) //addressLine1
     }
   }
 
