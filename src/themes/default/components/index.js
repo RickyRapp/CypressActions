@@ -32,6 +32,7 @@ export { default as TableFilterTemplate } from './filters/TableFilterTemplate';
 export { default as InputFilterTemplate } from './filters/InputFilterTemplate';
 export { default as NumericRangeFilterTemplate } from './filters/NumericRangeFilterTemplate';
 export { default as DateRangeFilterTemplate } from './filters/DateRangeFilterTemplate';
+export { default as DropdownAsyncFilterTemplate } from './filters/DropdownAsyncFilterTemplate';
 export { default as DropdownFilterTemplate } from './filters/DropdownFilterTemplate';
 
 export { default as BaasicFieldSelectTemplate } from './select/BaasicFieldSelectTemplate';

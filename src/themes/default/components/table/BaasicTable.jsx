@@ -32,6 +32,9 @@ function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect 
             <tr>
               {columns.map(column => {
                 const headerProps = {};
+                if (column.permissions && !column.permissions.read) {
+                  return false;
+                }
 
                 if (column.onHeaderClick) {
                   headerProps.onClick = () => column.onHeaderClick(column);

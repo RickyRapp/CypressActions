@@ -17,6 +17,7 @@ export { default as getRouterState } from './router/getRouterState';
 export { default as passwordRequirements } from './constants';
 export * from './apiParameters';
 export * from './router/queryParams';
+export * from './donorAccountFunctions';
 
 // Templates
 export { default as renderIf } from './templates/renderIf';

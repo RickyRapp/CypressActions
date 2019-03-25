@@ -1,9 +1,9 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter, InputFilter, NumericRangeFilter, DateRangeFilter, DropdownFilter, Export, BaasicAsyncDropdown, BaasicModal } from 'core/components';
+import { BaasicTable, TableFilter, InputFilter, NumericRangeFilter, DateRangeFilter, DropdownFilter, Export, DropdownAsyncFilter } from 'core/components';
 import { ListLayout } from 'core/layouts';
 import { DonorAccountSearch } from 'modules/donor-account/components';
-
+import { BaasicModal } from 'core/components';
 
 function ContributionListTemplate({ contributionListViewStore, rootStore }) {
     const {
@@ -13,11 +13,13 @@ function ContributionListTemplate({ contributionListViewStore, rootStore }) {
         routes: { create },
         contributionStatusDropdownStore,
         paymentTypeDropdownStore,
+        donorAccountSearchDropdownStore,
         contributionService,
         selectedExportColumnsName,
         additionalExportColumnsName,
         findDonorModalParams,
-        onChangeSearchDonor
+        onChangeSearchDonor,
+        contributionEmployeeRead
     } = contributionListViewStore;
 
     return (
@@ -26,6 +28,15 @@ function ContributionListTemplate({ contributionListViewStore, rootStore }) {
                 <div className="spc--bottom--sml">
                     <TableFilter queryUtility={queryUtility}>
                         <div className="f-row">
+                            {contributionEmployeeRead &&
+                                <div className="f-col f-col-lrg-3 input--multiselect">
+                                    {donorAccountSearchDropdownStore &&
+                                        <DropdownAsyncFilter
+                                            queryUtility={queryUtility}
+                                            name="donorAccountId"
+                                            store={donorAccountSearchDropdownStore}
+                                        />}
+                                </div>}
                             <div className="f-col f-col-lrg-2 pos--rel spc--right--sml">
                                 <InputFilter
                                     queryUtility={queryUtility}
@@ -51,18 +62,20 @@ function ContributionListTemplate({ contributionListViewStore, rootStore }) {
                                 />
                             </div>
                             <div className="f-col f-col-lrg-3 input--multiselect">
-                                <DropdownFilter
-                                    queryUtility={queryUtility}
-                                    name="contributionStatusIds"
-                                    store={contributionStatusDropdownStore}
-                                />
+                                {contributionStatusDropdownStore &&
+                                    <DropdownFilter
+                                        queryUtility={queryUtility}
+                                        name="contributionStatusIds"
+                                        store={contributionStatusDropdownStore}
+                                    />}
                             </div>
                             <div className="f-col f-col-lrg-3 input--multiselect">
-                                <DropdownFilter
-                                    queryUtility={queryUtility}
-                                    name="paymentTypeIds"
-                                    store={paymentTypeDropdownStore}
-                                />
+                                {paymentTypeDropdownStore &&
+                                    <DropdownFilter
+                                        queryUtility={queryUtility}
+                                        name="paymentTypeIds"
+                                        store={paymentTypeDropdownStore}
+                                    />}
                             </div>
                         </div>
                     </TableFilter>
@@ -78,11 +91,19 @@ function ContributionListTemplate({ contributionListViewStore, rootStore }) {
                     loading={loaderStore.loading}
                 />
             </ListLayout>
-            <DonorAccountSearch
-                modalParams={findDonorModalParams}
-                onChange={onChangeSearchDonor}
-                rootStore={rootStore}
-            />
+            <BaasicModal modalParams={findDonorModalParams} >
+                <div className="col col-sml-12 card card--form card--primary card--lrg">
+                    <div className="f-row">
+                        <div className="form__group f-col f-col-lrg-12">
+                            <span>Please select donor</span>
+                            <DonorAccountSearch
+                                onChange={onChangeSearchDonor}
+                                rootStore={rootStore}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </BaasicModal>
         </React.Fragment>
     );
 }

@@ -65,7 +65,8 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
             <div className="display--b pull">Show payer informations</div>
             <div className="display--b pull spc--left--sml">
               <input type="checkbox" onChange={onChangeShowPayerInformation} value={showPayerInformation} />
-              {!showPayerInformation && !isPayerInformationValid && <span className="type--tiny type--color--error">Check this</span>}
+              {renderIf(!showPayerInformation && !isPayerInformationValid && form.$('paymentTypeId').value === _.find(paymentTypes, { abrv: 'wire-transfer' }).id)
+                (<span className="type--tiny type--color--error">Check this</span>)}
             </div>
           </div>
           {showPayerInformation &&

@@ -5,7 +5,7 @@ class ContributionRouteService extends BaseRouteService {
   constructor() {
     super();
     this.base = 'contribution/';
-    this.queryParams = 'confirmationNumber,amountRangeMin,amountRangeMax,donorAccountIds,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields';
+    this.queryParams = 'confirmationNumber,amountRangeMin,amountRangeMax,donorAccountId,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields';
   }
 
   find(id, filter) {

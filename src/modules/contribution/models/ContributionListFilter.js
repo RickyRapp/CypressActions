@@ -2,8 +2,7 @@ import { action, observable } from 'mobx';
 import { FilterParams } from 'core/models';
 
 class ContributionListFilter extends FilterParams {
-    @observable donorAccountIds;
-    @observable contributionStatusId;
+    @observable donorAccountId;
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
@@ -22,9 +21,7 @@ class ContributionListFilter extends FilterParams {
 
     @action reset() {
         super.reset();
-        this.donorAccountIds = null;
-        this.paymentTypeId = null;
-        this.contributionStatusId = null;
+        this.donorAccountId = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;

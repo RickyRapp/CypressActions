@@ -5,6 +5,8 @@ import { BasicInput, BaasicDropdown, BaasicModal } from 'core/components';
 import { EditFormLayout, PageContentHeader } from 'core/layouts';
 import { BankAccountCreate } from 'modules/bank-account/pages';
 import { renderIf, isSome } from 'core/utils';
+import moment from 'moment';
+import 'moment-timezone';
 import _ from 'lodash';
 
 function ContributionEditTemplate({ contributionEditViewStore }) {
@@ -21,7 +23,8 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     showPayerInformation,
     onChangeShowPayerInformation,
     paymentTypes,
-    isPayerInformationValid
+    isPayerInformationValid,
+    contribution
   } = contributionEditViewStore;
 
   const ColoredLine = ({ color }) => (
@@ -37,7 +40,7 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
   return (
     <React.Fragment>
       <EditFormLayout form={form} isEdit={true} loading={loading}>
-        {permissions.employeeUpdate ? <PageContentHeader>{donorDetails(donorAccount)}</PageContentHeader> : null}
+        {permissions.employeeUpdate ? <PageContentHeader>{donorDetails(donorAccount, contribution)}</PageContentHeader> : null}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
@@ -64,7 +67,8 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
             <div className="display--b pull">Show payer informations</div>
             <div className="display--b pull spc--left--sml">
               <input type="checkbox" onChange={onChangeShowPayerInformation} value={showPayerInformation} />
-              {!showPayerInformation && !isPayerInformationValid && <span className="type--tiny type--color--error">Check this</span>}
+              {renderIf(!showPayerInformation && !isPayerInformationValid && form.$('paymentTypeId').value === _.find(paymentTypes, { abrv: 'wire-transfer' }).id)
+                (<span className="type--tiny type--color--error">Check this</span>)}
             </div>
           </div>
           {showPayerInformation &&
@@ -120,22 +124,41 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
   );
 };
 
-function donorDetails(donorAccount) {
+function donorDetails(donorAccount, contribution) {
   return (
     <React.Fragment>
-      {donorAccount ?
-        <div className="f-row">
-          <div className="form__group f-col f-col-lrg-3">
-            Donor Name: <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-          </div>
-          <div className="form__group f-col f-col-lrg-3">
-            Available Balance: <strong>${donorAccount.availableBalance}</strong>
-          </div>
-          <div className="form__group f-col f-col-lrg-3">
-            Initial Contribution: <strong>{donorAccount.initialContribution ? `Yes - Minimum $${donorAccount.contributionMinimumAdditional}` : `No - Minimum $${donorAccount.contributionMinimumInitial}`}</strong>
-          </div>
-        </div> : null}
-    </React.Fragment>
+      {
+        donorAccount ?
+          <React.Fragment >
+            <div className="f-row">
+              <div className="form__group f-col f-col-lrg-3">
+                Donor Name: <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
+              </div>
+              <div className="form__group f-col f-col-lrg-3">
+                Available Balance: <strong>${donorAccount.availableBalance}</strong>
+              </div>
+              <div className="form__group f-col f-col-lrg-3">
+                Initial Contribution: <strong>{donorAccount.initialContribution ? `Yes - Minimum $${donorAccount.contributionMinimumAdditional}` : `No - Minimum $${donorAccount.contributionMinimumInitial}`}</strong>
+              </div>
+            </div>
+            <div className="f-row">
+              <div className="form__group f-col f-col-lrg-3">
+                Contribution Status: <strong>{contribution.contributionStatus.name}</strong>
+              </div>
+              <div className="form__group f-col f-col-lrg-3">
+                Conf. Number: <strong>{contribution.confirmationNumber}</strong>
+              </div>
+              <div className="form__group f-col f-col-lrg-3">
+                Date Created: <strong>{moment(contribution.dateCreated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
+              </div>
+              <div className="form__group f-col f-col-lrg-3">
+                Created By: <strong>{`${contribution.createdByCoreUser.firstName} ${contribution.createdByCoreUser.lastName}`}</strong>
+              </div>
+            </div>
+          </React.Fragment >
+          : null}
+    </React.Fragment >
+
   );
 }
 

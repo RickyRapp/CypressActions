@@ -10,6 +10,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
     @observable paymentTypes = null;
     @observable bankAccounts = null;
     @observable donorAccount = null;
+    contribution = null;
     @observable showPayerInformation = false;
     @observable paymentTypeDropdownStore = null;
     @observable bankAccountDropdownStore = null;
@@ -34,8 +35,9 @@ class ContributionEditViewStore extends BaseEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount'];
-                    return await contributionService.get(id, params);
+                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus'];
+                    this.contribution = await contributionService.get(id, params);
+                    return this.contribution;
                 }
             },
             FormClass: ContributionEditForm,
@@ -73,9 +75,16 @@ class ContributionEditViewStore extends BaseEditViewStore {
         await this.getPaymentTypes();
         await this.getBankAccounts();
         await this.setStores();
-        await this.onChangePaymentType({ id: this.form.$('paymentTypeId').value });
+
+        if (this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
+            this.form.$('bankAccountId').set('rules', 'required|string');
+        }
+        else if (this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
+            this.form.$('bankAccountId').set('rules', 'string');
+        }
+
         if (this.form.$('bankAccountId').value) {
-            await this.onChangeBankAccount({ id: this.form.$('bankAccountId').value });
+            this.form.$('payerInformation').each(field => field.set('disabled', true));
         }
     }
 
@@ -96,9 +105,9 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
             this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
             this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
-            this.form.$('payerInformation.address').set('value', (_.find(this.donorAccount.donorAccountAddresses, function (donorAddress) { return (donorAddress.primary === true) })).address);
-            this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, function (donorEmailAddress) { return (donorEmailAddress.primary) }).emailAddress);
-            this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, function (donorPhoneNumber) { return (donorPhoneNumber.primary) }).phoneNumber);
+            this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
+            this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
+            this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
         }
     }
 

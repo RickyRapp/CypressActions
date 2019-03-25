@@ -1,14 +1,13 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicAsyncDropdown, BaasicModal } from 'core/components';
+import { BaasicAsyncDropdown } from 'core/components';
 import { BaasicDropdownStore } from "core/stores";
 import { DonorAccountService } from "common/data";
+import { getDonorNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
-function DonorAccountSearchTemplate(props) {
-    const { modalParams, onChange, rootStore } = props;
+function DonorAccountSearchTemplate({ onChange, rootStore }) {
     const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-
     const donorDropdownStore = new BaasicDropdownStore(
         {
             multi: false,
@@ -26,46 +25,15 @@ function DonorAccountSearchTemplate(props) {
                 }
 
                 let response = await donorAccountService.search(options);
-                return _.map(response.item, x => { return { 'id': x.id, 'name': getName(x) } });
+                return _.map(response.item, x => { return { 'id': x.id, 'name': getDonorNameDropdown(x) } });
             },
             onChange: onChange
         }
     );
 
     return (
-        <BaasicModal modalParams={modalParams} >
-            <div className="col col-sml-12 card card--form card--primary card--lrg">
-                <div className="f-row">
-                    <div className="form__group f-col f-col-lrg-12">
-                        <span>Please select donor</span>
-                        <BaasicAsyncDropdown store={donorDropdownStore} />
-                    </div>
-                </div>
-            </div>
-        </BaasicModal>
+        <BaasicAsyncDropdown store={donorDropdownStore} />
     );
 }
-
-
-function getName(val) {
-    let fullName = `${val.coreUser.firstName}`
-    if (val.coreUser.json && JSON.parse(val.coreUser.json).middleName) {
-        fullName += ` (${JSON.parse(val.coreUser.json).middleName})`
-    }
-    fullName += ` ${val.coreUser.lastName}`;
-
-    if (val.donorAccountAddresses) {
-        var primaryAddress = _.find(val.donorAccountAddresses, { primary: true }).address;
-        if (primaryAddress) {
-            fullName += ` - ${primaryAddress.addressLine1}`
-            if (primaryAddress.addressLine2) {
-                fullName += ` ${primaryAddress.addressLine2}`
-            }
-            fullName += `, ${primaryAddress.city}, ${primaryAddress.state} ${primaryAddress.zipCode}`
-        }
-    }
-    return fullName;
-}
-
 
 export default defaultTemplate(DonorAccountSearchTemplate);

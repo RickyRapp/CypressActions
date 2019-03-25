@@ -33,6 +33,9 @@ function BaasicTableRowTemplate({
 }
 
 function renderRow(item, column) {
+  if (column.permissions && !column.permissions.read) {
+    return false;
+  }
   const rowProps = {};
   if (column.onClick) {
     rowProps.onClick = () => column.onClick(item, column);
@@ -53,9 +56,13 @@ function renderRow(item, column) {
   }
 
   if (column.type === 'object') {
-    var baseItem = '';
+    let baseItem = '';
     _.forEach(column.additionalColumns, (childColumn, index) => {
-      let columnValue = getColumnValue(item[column.key], childColumn.key)
+      let objectValue = item[column.key] !== undefined && item[column.key] !== null ? item[column.key] : null;
+      if (!objectValue) {
+        objectValue = getColumnValue(item, column.key);
+      }
+      let columnValue = getColumnValue(objectValue, childColumn.key)
       if (columnValue !== null) {
         baseItem += columnValue + ((index === (column.additionalColumns.length - 1)) ? '' : column.separator);
       }
@@ -79,11 +86,13 @@ function getColumnValue(item, key) {
 
 function tryGetColumnValue(item, key) {
   if (isSome(key) && _.includes(key, '.')) {
-    var segments = key.split('.');
+    let segments = key.split('.');
     if (segments.length > 1) {
       let segmentValue = item;
       segments.map(function (segment) {
-        segmentValue = segmentValue[segment];
+        if (segmentValue) {
+          segmentValue = segmentValue[segment];
+        }
       });
       return segmentValue;
     }
