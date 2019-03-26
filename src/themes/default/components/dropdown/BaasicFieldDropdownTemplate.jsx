@@ -14,7 +14,7 @@ function BaasicFieldDropdownTemplate({ store, field }) {
     return (
         <React.Fragment>
             <Select
-                value={_.find(items, { id: field.value })}
+                value={_.find(items, { id: field.value }) ? _.find(items, { id: field.value }) : null}
                 onChange={onChange}
                 options={items}
                 isMulti={options.multi}

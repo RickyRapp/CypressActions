@@ -28,13 +28,13 @@ class BaseService {
   async create(resource) {
     var url = this.routeService.create();
     const response = await this.apiClient.post(url, resource);
-    return response.data || null;
+    return response || null;
   }
 
   async update(resource) {
     const url = this.routeService.update(resource);
     const response = await this.apiClient.put(url, resource);
-    return response.data || null;
+    return response || null;
   }
 
   async delete(resource) {

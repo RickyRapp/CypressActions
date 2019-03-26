@@ -94,25 +94,42 @@ class BaseEditViewStore extends BaseViewStore {
       id: this.id,
       ...resource
     });
-    if (response && (response.statusCode >= 400 || response.statusCode < 506) && response.data) {
-      if (response.data.message) {
-        await setTimeout(() => this.notifyErrorResponse(response.data.message), 10);
+    if (response) {
+      if (this.isErrorCode(response.statusCode)) {
+        if (response.data) {
+          if (_.isObject(response.data)) {
+            await setTimeout(() => this.notifyErrorResponse(response.data.description), 10);
+          }
+          else if (_.isString(response.data)) {
+            await setTimeout(() => this.notifyErrorResponse(response.data), 10);
+          }
+        }
+        this.form.setFieldsDisabled(false);
+        return;
       }
-      this.rootStore.routerStore.navigate('master.app.main.contribution.list')
-      return;
-    }
-    this.form.setFieldsDisabled(false);
+      else if (this.isSuccessCode(response.statusCode)) {
+        this.form.setFieldsDisabled(false);
 
-    if (this.onAfterUpdate) {
-      if (isFunction(this.onAfterUpdate)) {
-        this.onAfterUpdate();
-        this.form.clear();
+        if (this.onAfterUpdate) {
+          if (isFunction(this.onAfterUpdate)) {
+            this.onAfterUpdate();
+            this.form.clear();
+          }
+        }
+        if (this.goBack === true) {
+          await this.rootStore.routerStore.goBack();
+        }
+
+        if (response.data) {
+          if (_.isObject(response.data)) {
+            await setTimeout(() => this.rootStore.notificationStore.success(response.data.description), 10);
+          }
+          else if (_.isString(response.data)) {
+            await setTimeout(() => this.rootStore.notificationStore.success(response.data), 10);
+          }
+        }
       }
     }
-    if (this.goBack === true) {
-      await this.rootStore.routerStore.goBack();
-    }
-    await setTimeout(() => this.notifySuccessUpdate(this.name), 10);
   }
 
   @action.bound
@@ -121,12 +138,29 @@ class BaseEditViewStore extends BaseViewStore {
 
     this.form.setFieldsDisabled(true);
     const response = await this.actions.create(resource);
-    if (response && (response.statusCode >= 400 || response.statusCode < 506) && response.data) {
-      if (response.data.message) {
-        await setTimeout(() => this.notifyErrorResponse(response.data.message), 10);
+    if (response) {
+      if (this.isErrorCode(response.statusCode)) {
+        if (response.data) {
+          if (_.isObject(response.data)) {
+            await setTimeout(() => this.notifyErrorResponse(response.data.description), 10);
+          }
+          else if (_.isString(response.data)) {
+            await setTimeout(() => this.notifyErrorResponse(response.data), 10);
+          }
+        }
+        this.form.setFieldsDisabled(false);
+        return;
       }
-      this.rootStore.routerStore.navigate('master.app.main.contribution.list')
-      return;
+      else if (this.isSuccessCode(response.statusCode)) {
+        if (response.data) {
+          if (_.isObject(response.data)) {
+            await setTimeout(() => this.rootStore.notificationStore.success(response.data.description), 10);
+          }
+          else if (_.isString(response.data)) {
+            await setTimeout(() => this.rootStore.notificationStore.success(response.data), 10);
+          }
+        }
+      }
     }
     this.form.setFieldsDisabled(false);
 
@@ -137,7 +171,16 @@ class BaseEditViewStore extends BaseViewStore {
     if (this.goBack === true) {
       await this.rootStore.routerStore.goBack();
     }
-    await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+  }
+
+  @action
+  isErrorCode(statusCode) {
+    return statusCode >= 400 && statusCode < 506;
+  }
+
+  @action
+  isSuccessCode(statusCode) {
+    return statusCode >= 200 && statusCode < 207;
   }
 
   @action.bound

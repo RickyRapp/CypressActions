@@ -21,7 +21,11 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             name: 'contribution',
             actions: {
                 create: async newContribution => {
-                    await contributionService.createContribution(userId, newContribution);
+                    try {
+                        return await contributionService.createContribution(userId, newContribution);
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
                 }
             },
             FormClass: ContributionCreateForm
@@ -51,6 +55,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
     @action.bound async load() {
         await this.getDonorAccount();
+        this.setAdditionalFieldValidation();
         await this.getPaymentTypes();
         await this.getBankAccounts();
         await this.setStores();
@@ -60,22 +65,22 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         if (option && option.id && option.name) {
             this.form.$('paymentTypeId').set('value', option.id);
         }
+        this.form.$('checkNumber').clear();
+        this.form.$('bankAccountId').clear();
+        this.form.$('payerInformation').clear();
+        this.form.$('payerInformation').each(field => field.set('disabled', false));
+
+        this.form.$('bankAccountId').set('rules', 'string');
+        this.form.$('checkNumber').set('rules', 'string');
 
         if (option && option.id === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
             this.form.$('bankAccountId').set('rules', 'required|string');
         }
-        else if (option && option.id === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
-            this.form.$('bankAccountId').set('rules', 'string');
-        }
         else {
-            this.form.$('bankAccountId').set('rules', 'string');
-            await this.bankAccountDropdownStore.onChange(null);
-
-            this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
-            this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
-            this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
-            this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
-            this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
+            if (option && option.id === _.find(this.paymentTypes, { abrv: 'check' }).id) {
+                this.form.$('checkNumber').set('rules', 'required|string');
+            }
+            this.setDefaultPayerInformations();
         }
     }
 
@@ -91,7 +96,19 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             this.form.$('bankAccountId').clear();
             this.form.$('payerInformation').clear();
             this.form.$('payerInformation').each(field => field.set('disabled', false));
+
+            if (this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
+                this.setDefaultPayerInformations();
+            }
         }
+    }
+
+    @action async setDefaultPayerInformations() {
+        this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
+        this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
+        this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
+        this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
+        this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
     }
 
     @action.bound async onChangeShowPayerInformation(event) {
@@ -120,12 +137,34 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.paymentTypes = models.data;
     }
 
+    @action.bound async setAdditionalFieldValidation() {
+        let minimumAmount = 0;
+        if (!this.permissions.employeeCreate) {
+            if (this.donorAccount.initialContribution) {
+                minimumAmount = this.donorAccount.contributionMinimumAdditional;
+            }
+            else {
+                minimumAmount = this.donorAccount.contributionMinimumInitial;
+            }
+        }
+        this.form.$('amount').set('rules', `required|numeric|min:${minimumAmount}`);
+    }
+
     @computed get showBankAccounts() {
         if (this.form && this.paymentTypes) {
             if (this.form.$("paymentTypeId").value === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
                 return true;
             }
             if (this.form.$("paymentTypeId").value == _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @computed get showCheckNumber() {
+        if (this.form && this.paymentTypes) {
+            if (this.form.$("paymentTypeId").value === _.find(this.paymentTypes, { abrv: 'check' }).id) {
                 return true;
             }
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicDropdown, BaasicModal } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
 import { EditFormLayout, PageContentHeader } from 'core/layouts';
 import { BankAccountCreate } from 'modules/bank-account/pages';
 import { renderIf, isSome } from 'core/utils';
@@ -14,6 +14,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     bankAccountDropdownStore,
     paymentTypeDropdownStore,
     showBankAccounts,
+    showCheckNumber,
     donorAccount,
     permissions,
     addBankAccountModalParams,
@@ -42,22 +43,23 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
               <label>Payment Type</label>
-              {paymentTypeDropdownStore && <BaasicDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
-              {renderIf(isSome(form.$('paymentTypeId').error))(
-                <p className="type--tiny type--color--error">{form.$('paymentTypeId').error}</p>
-              )}
+              {paymentTypeDropdownStore &&
+                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
             </div>
           </div>
-          {showBankAccounts && <div className="form__group f-col f-col-lrg-6">
-            <div className="inputgroup">
-              <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
-              {bankAccountDropdownStore && <BaasicDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
-              {renderIf(isSome(form.$('bankAccountId').error))(
-                <p className="type--tiny type--color--error">{form.$('bankAccountId').error}</p>
-              )}
-            </div>
-          </div>
-          }
+          {showBankAccounts &&
+            <div className="form__group f-col f-col-lrg-6">
+              <div className="inputgroup">
+                <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
+                {bankAccountDropdownStore &&
+                  <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
+              </div>
+            </div>}
+
+          {showCheckNumber &&
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicInput field={form.$('checkNumber')} />
+            </div>}
         </div>
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-12">
