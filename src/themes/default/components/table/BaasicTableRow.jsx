@@ -55,6 +55,11 @@ function renderRow(item, column) {
     itemValue = moment(itemValue).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(column.format);
   }
 
+  if (column.type === 'currency') {
+    //TODO: add support for currency format
+    itemValue = `$${itemValue}`;
+  }
+
   if (column.type === 'object') {
     let baseItem = '';
     _.forEach(column.additionalColumns, (childColumn, index) => {

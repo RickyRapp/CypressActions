@@ -41,6 +41,12 @@ class DonorAccountListViewStore extends BaseListViewStore {
                     {
                         key: 'accountNumber',
                         title: 'Account Number'
+                    },
+                    {
+                        key: 'availableBalance',
+                        title: 'Available Balance',
+                        type: 'currency',
+                        format: 'US'
                     }
                 ],
                 actions: {

@@ -1,9 +1,43 @@
 import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 class NotificationStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
+
+  showMessageFromResponse(response, autoClose = 5000) {
+    debugger;
+    if (this.isErrorCode(response.statusCode)) {
+      if (response.data) {
+        if (_.isObject(response.data)) {
+          return this.error(response.data.description, { autoClose: autoClose });
+        }
+        else if (_.isString(response.data)) {
+          return this.error(response.data, { autoClose: autoClose });
+        }
+      }
+    }
+    else if (this.isSuccessCode(response.statusCode)) {
+      if (response.data) {
+        if (_.isObject(response.data)) {
+          return this.success(response.data.description, { autoClose: autoClose });
+        }
+        else if (_.isString(response.data)) {
+          return this.success(response.data, { autoClose: autoClose });
+        }
+      }
+    }
+  }
+
+  isErrorCode(statusCode) {
+    return statusCode >= 400 && statusCode < 506;
+  }
+
+  isSuccessCode(statusCode) {
+    return statusCode >= 200 && statusCode < 207;
+  }
+
 
   success(message, options = { autoClose: 6000 }) {
     return showToast(message, {

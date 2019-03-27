@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { action, runInAction, observable, computed } from 'mobx';
 import { BaseViewStore } from 'core/stores';
-import { isFunction } from 'core/utils';
 
 class BaseEditViewStore extends BaseViewStore {
   id = null;
@@ -95,40 +94,16 @@ class BaseEditViewStore extends BaseViewStore {
       ...resource
     });
     if (response) {
-      if (this.isErrorCode(response.statusCode)) {
-        if (response.data) {
-          if (_.isObject(response.data)) {
-            await setTimeout(() => this.notifyErrorResponse(response.data.description), 10);
-          }
-          else if (_.isString(response.data)) {
-            await setTimeout(() => this.notifyErrorResponse(response.data), 10);
-          }
-        }
-        this.form.setFieldsDisabled(false);
-        return;
-      }
-      else if (this.isSuccessCode(response.statusCode)) {
-        this.form.setFieldsDisabled(false);
+      this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+    }
+    this.form.setFieldsDisabled(false);
 
-        if (this.onAfterUpdate) {
-          if (isFunction(this.onAfterUpdate)) {
-            this.onAfterUpdate();
-            this.form.clear();
-          }
-        }
-        if (this.goBack === true) {
-          await this.rootStore.routerStore.goBack();
-        }
-
-        if (response.data) {
-          if (_.isObject(response.data)) {
-            await setTimeout(() => this.rootStore.notificationStore.success(response.data.description), 10);
-          }
-          else if (_.isString(response.data)) {
-            await setTimeout(() => this.rootStore.notificationStore.success(response.data), 10);
-          }
-        }
-      }
+    if (this.onAfterUpdate) {
+      this.onAfterUpdate();
+      this.form.clear();
+    }
+    if (this.goBack === true) {
+      await this.rootStore.routerStore.goBack();
     }
   }
 
@@ -139,28 +114,7 @@ class BaseEditViewStore extends BaseViewStore {
     this.form.setFieldsDisabled(true);
     const response = await this.actions.create(resource);
     if (response) {
-      if (this.isErrorCode(response.statusCode)) {
-        if (response.data) {
-          if (_.isObject(response.data)) {
-            await setTimeout(() => this.notifyErrorResponse(response.data.description), 10);
-          }
-          else if (_.isString(response.data)) {
-            await setTimeout(() => this.notifyErrorResponse(response.data), 10);
-          }
-        }
-        this.form.setFieldsDisabled(false);
-        return;
-      }
-      else if (this.isSuccessCode(response.statusCode)) {
-        if (response.data) {
-          if (_.isObject(response.data)) {
-            await setTimeout(() => this.rootStore.notificationStore.success(response.data.description), 10);
-          }
-          else if (_.isString(response.data)) {
-            await setTimeout(() => this.rootStore.notificationStore.success(response.data), 10);
-          }
-        }
-      }
+      this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
     }
     this.form.setFieldsDisabled(false);
 
@@ -171,16 +125,6 @@ class BaseEditViewStore extends BaseViewStore {
     if (this.goBack === true) {
       await this.rootStore.routerStore.goBack();
     }
-  }
-
-  @action
-  isErrorCode(statusCode) {
-    return statusCode >= 400 && statusCode < 506;
-  }
-
-  @action
-  isSuccessCode(statusCode) {
-    return statusCode >= 200 && statusCode < 207;
   }
 
   @action.bound

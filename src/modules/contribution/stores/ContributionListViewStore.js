@@ -1,8 +1,7 @@
-import { action, observable, computed } from 'mobx';
-import { BaseListViewStore, TableViewStore } from "core/stores";
+import { action, observable } from 'mobx';
 import { ContributionService, LookupService, DonorAccountService } from "common/data";
 import { ContributionListFilter } from 'modules/contribution/models';
-import { BaasicDropdownStore } from "core/stores";
+import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { ModalParams } from 'core/models';
 import { getDonorNameDropdown } from 'core/utils';
 import _ from 'lodash';
@@ -10,6 +9,9 @@ import _ from 'lodash';
 class ContributionListViewStore extends BaseListViewStore {
     paymentTypeDropdownStore = null;
     contributionStatusDropdownStore = null;
+    contributionStatuses = null;
+    @observable loaded = false;
+    @observable reviewId = null;
     @observable donorAccountSearchDropdownStore = null;
 
     constructor(rootStore) {
@@ -69,7 +71,28 @@ class ContributionListViewStore extends BaseListViewStore {
             update: this.contributionUpdate || this.contributionEmployeeUpdate,
         }
 
-        this.setFilterDropdownStores();
+        this.selectedExportColumnsName = ['Amount'];
+        if (this.contributionEmployeeRead) {
+            this.selectedExportColumnsName.push('Payment Type');
+        }
+        this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
+
+        this.findDonorModalParams = new ModalParams({
+            onClose: this.onClose
+        });
+
+        this.reviewContributionModalParams = new ModalParams({
+            onClose: this.onClose
+        });
+
+        this.load();
+    }
+
+    @action.bound async load() {
+        await this.setFilterDropdownStores();
+
+        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
+        let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
 
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
@@ -138,23 +161,26 @@ class ContributionListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
+                    onReview: contribution => this.onReviewClick(contribution.id),
                     onDetails: contribution => this.routes.details(contribution.id)
                 },
                 actionsConfig: {
-                    onEditConfig: { 'minutes': this.minutes, 'title': 'edit', 'permissions': this.permissions }
+                    onEditConfig: { minutes: this.minutes, title: 'edit', permissions: this.permissions, statuses: availableStatuesForEdit },
+                    onReviewConfig: { title: 'review', permissions: { update: this.contributionEmployeeUpdate }, statuses: availableStatuesForReview }
                 }
             })
         );
+        this.loaded = true;
+    }
 
-        this.selectedExportColumnsName = ['Amount'];
-        if (this.contributionEmployeeRead) {
-            this.selectedExportColumnsName.push('Payment Type');
-        }
-        this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
+    @action.bound async onReviewClick(id) {
+        this.reviewId = id;
+        this.reviewContributionModalParams.open();
+    }
 
-        this.findDonorModalParams = new ModalParams({
-            onClose: this.onClose
-        });
+    @action.bound async onAfterReviewContribution() {
+        this.queryUtility._reloadCollection();
+        this.reviewContributionModalParams.close();
     }
 
     @action.bound async onChangeSearchDonor(option) {
@@ -182,6 +208,7 @@ class ContributionListViewStore extends BaseListViewStore {
         );
 
         let contributionStatusModels = await this.contributionStatusLookup.getAll();
+        this.contributionStatuses = contributionStatusModels.data;
         this.contributionStatusDropdownStore = new BaasicDropdownStore(
             {
                 multi: true,
@@ -193,7 +220,7 @@ class ContributionListViewStore extends BaseListViewStore {
             {
                 onChange: (options) => this.queryUtility.filter.contributionStatusIds = (options ? _.map(options, item => { return item.id }) : null)
             },
-            _.map(_.orderBy(contributionStatusModels.data, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
+            _.map(_.orderBy(this.contributionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
         );
 
         this.donorAccountSearchDropdownStore = new BaasicDropdownStore(

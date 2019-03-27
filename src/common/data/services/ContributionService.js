@@ -17,13 +17,19 @@ class ContributionService extends BaseService {
   async createContribution(id, resource) {
     var url = this.routeService.createContribution(id);
     const response = await this.apiClient.post(url, resource);
-    return response.data || null;
+    return response || null;
   }
 
   async export(filter) {
     var url = this.routeService.export(filter);
     const response = await this.apiClient.get(url, filter);
     return response.data || null;
+  }
+
+  async review(resource) {
+    const url = this.routeService.review(resource);
+    const response = await this.apiClient.put(url, resource);
+    return response || null;
   }
 }
 

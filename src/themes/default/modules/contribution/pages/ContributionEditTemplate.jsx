@@ -4,12 +4,13 @@ import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
 import { EditFormLayout, PageContentHeader } from 'core/layouts';
 import { BankAccountCreate } from 'modules/bank-account/pages';
+import { ContributionReview } from 'modules/contribution/components';
 import { renderIf, isSome } from 'core/utils';
 import moment from 'moment';
 import 'moment-timezone';
 import _ from 'lodash';
 
-function ContributionEditTemplate({ contributionEditViewStore }) {
+function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
   const {
     form,
     loading,
@@ -21,6 +22,8 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     permissions,
     addBankAccountModalParams,
     onAddBankAccount,
+    reviewContributionModalParams,
+    onAfterReviewContribution,
     showPayerInformation,
     onChangeShowPayerInformation,
     paymentTypes,
@@ -41,7 +44,8 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
   return (
     <React.Fragment>
       <EditFormLayout form={form} isEdit={true} loading={loading}>
-        {permissions.employeeUpdate ? <PageContentHeader>{donorDetails(donorAccount, contribution)}</PageContentHeader> : null}
+        {permissions.employeeUpdate ?
+          <PageContentHeader>{donorDetails(donorAccount, contribution, reviewContributionModalParams)}</PageContentHeader> : null}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
@@ -55,7 +59,7 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
           {showBankAccounts &&
             <div className="form__group f-col f-col-lrg-6">
               <div className="inputgroup">
-                <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
+                <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a></label>
                 {bankAccountDropdownStore && <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
                 {renderIf(isSome(form.$('bankAccountId').error))(
                   <p className="type--tiny type--color--error">{form.$('bankAccountId').error}</p>
@@ -127,11 +131,16 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
           <BankAccountCreate onAfterCreate={onAddBankAccount} />
         </div>
       </BaasicModal>
+      <BaasicModal modalParams={reviewContributionModalParams} >
+        <div className="col col-sml-12 card card--form card--primary card--lrg">
+          <ContributionReview onAfterReview={onAfterReviewContribution} rootStore={rootStore} id={form.$('id').value} />
+        </div>
+      </BaasicModal>
     </React.Fragment>
   );
 };
 
-function donorDetails(donorAccount, contribution) {
+function donorDetails(donorAccount, contribution, reviewContributionModalParams) {
   return (
     <React.Fragment>
       {
@@ -139,27 +148,35 @@ function donorDetails(donorAccount, contribution) {
           <React.Fragment >
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-3">
-                Donor Name: <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
+                Donor Name:
+                <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
               </div>
               <div className="form__group f-col f-col-lrg-3">
-                Available Balance: <strong>${donorAccount.availableBalance}</strong>
+                Available Balance:
+                <strong>${donorAccount.availableBalance}</strong>
               </div>
               <div className="form__group f-col f-col-lrg-3">
-                Initial Contribution: <strong>{donorAccount.initialContribution ? `Yes - Minimum $${donorAccount.contributionMinimumAdditional}` : `No - Minimum $${donorAccount.contributionMinimumInitial}`}</strong>
+                Initial Contribution:
+                <strong>{donorAccount.initialContribution ? `Yes - Minimum $${donorAccount.contributionMinimumAdditional}` : `No - Minimum $${donorAccount.contributionMinimumInitial}`}</strong>
               </div>
             </div>
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-3">
-                Contribution Status: <strong>{contribution.contributionStatus.name}</strong>
+                Status:
+                <strong>{contribution.contributionStatus.name}</strong>
+                <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>
               </div>
               <div className="form__group f-col f-col-lrg-3">
-                Conf. Number: <strong>{contribution.confirmationNumber}</strong>
+                Conf. Number:
+                <strong>{contribution.confirmationNumber}</strong>
               </div>
               <div className="form__group f-col f-col-lrg-3">
-                Date Created: <strong>{moment(contribution.dateCreated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
+                Date Created:
+                <strong>{moment(contribution.dateCreated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
               </div>
               <div className="form__group f-col f-col-lrg-3">
-                Created By: <strong>{`${contribution.createdByCoreUser.firstName} ${contribution.createdByCoreUser.lastName}`}</strong>
+                Created By:
+                <strong>{`${contribution.createdByCoreUser.firstName} ${contribution.createdByCoreUser.lastName}`}</strong>
               </div>
             </div>
           </React.Fragment >

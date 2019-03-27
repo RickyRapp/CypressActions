@@ -52,12 +52,23 @@ class ContributionEditViewStore extends BaseEditViewStore {
             onClose: this.onClose
         });
 
+        this.reviewContributionModalParams = new ModalParams({
+            onClose: this.onClose
+        });
+
         this.onAddBankAccount = async () => {
             this.addBankAccountModalParams.close();
             await this.getBankAccounts();
             await this.setStores();
             let lastBankAccount = _.orderBy(this.bankAccounts, ['dateCreated'], ['desc'])[0];
             this.onChangeBankAccount({ id: lastBankAccount.bankAccount.id, name: lastBankAccount.bankAccount.name });
+        }
+
+        this.onAfterReviewContribution = async (val) => {
+            console.log(val);
+
+            this.reviewContributionModalParams.close();
+            this.rootStore.routerStore.navigate('master.app.main.contribution.list')
         }
 
         this.load();

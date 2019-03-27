@@ -33,6 +33,10 @@ class ContributionRouteService extends BaseRouteService {
   update(resource) {
     return super.update(this.base + '{id}', resource);
   }
+
+  review(resource) {
+    return this.uriTemplateService.parse(this.base + 'review/{id}').expand(resource);
+  }
 }
 
 export default ContributionRouteService;
