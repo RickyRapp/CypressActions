@@ -146,6 +146,7 @@ class ContributionListViewStore extends BaseListViewStore {
                         title: 'Created By',
                         type: 'object',
                         separator: ' ',
+                        defaultValue: 'System',
                         additionalColumns: [{
                             key: 'firstName'
                         }, {
@@ -170,6 +171,7 @@ class ContributionListViewStore extends BaseListViewStore {
                 }
             })
         );
+
         this.loaded = true;
     }
 

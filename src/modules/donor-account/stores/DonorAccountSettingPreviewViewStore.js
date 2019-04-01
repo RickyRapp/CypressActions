@@ -8,7 +8,7 @@ class DonorAccountSettingPreviewViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore);
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        this.fetch([this.getResource()]);
+        this.getResource();
     }
 
     @action.bound

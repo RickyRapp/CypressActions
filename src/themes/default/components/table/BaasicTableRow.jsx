@@ -68,10 +68,14 @@ function renderRow(item, column) {
         objectValue = getColumnValue(item, column.key);
       }
       let columnValue = getColumnValue(objectValue, childColumn.key)
-      if (columnValue !== null) {
+      if (columnValue) {
         baseItem += columnValue + ((index === (column.additionalColumns.length - 1)) ? '' : column.separator);
       }
     });
+
+    if (!baseItem) {
+      baseItem = column.defaultValue;
+    }
     itemValue = baseItem;
   }
 

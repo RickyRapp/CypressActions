@@ -25,6 +25,7 @@ function BaasicFieldDropdownTemplate({ store, field }) {
                 className={options.className}
                 classNamePrefix={options.classNamePrefix}
                 autoFocus={options.autoFocus}
+                isDisabled={field.disabled}
                 getOptionLabel={option => option[options.textField]}
                 getOptionValue={option => option[options.dataItemKey]}
             />

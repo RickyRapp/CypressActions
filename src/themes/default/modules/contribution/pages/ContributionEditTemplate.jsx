@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
-import { EditFormLayout, PageContentHeader } from 'core/layouts';
+import { BasicInput, BaasicButton, BaasicFieldDropdown, BaasicFormControls, BaasicModal } from 'core/components';
+import { EditFormLayout, PageContentHeader, PageContentSidebar } from 'core/layouts';
 import { BankAccountCreate } from 'modules/bank-account/pages';
 import { ContributionReview } from 'modules/contribution/components';
 import { renderIf, isSome } from 'core/utils';
+import { DonorAccountHeaderDetails } from 'modules/donor-account/components'
 import moment from 'moment';
 import 'moment-timezone';
 import _ from 'lodash';
@@ -18,7 +19,6 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
     paymentTypeDropdownStore,
     showBankAccounts,
     showCheckNumber,
-    donorAccount,
     permissions,
     addBankAccountModalParams,
     onAddBankAccount,
@@ -43,9 +43,10 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
 
   return (
     <React.Fragment>
-      <EditFormLayout form={form} isEdit={true} loading={loading}>
-        {permissions.employeeUpdate ?
-          <PageContentHeader>{donorDetails(donorAccount, contribution, reviewContributionModalParams)}</PageContentHeader> : null}
+      <EditFormLayout form={form} isEdit={true} loading={loading} layoutFooterVisible={false}>
+        {contribution && permissions.employeeUpdate ?
+          <PageContentHeader><DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' /></PageContentHeader> : null}
+        <PageContentSidebar>{contributionDetails(contribution, reviewContributionModalParams, permissions)}</PageContentSidebar>
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
@@ -125,6 +126,10 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
             <BasicInput field={form.$('description')} />
           </div>
         </div>
+        {renderFormButtonControls({
+          form,
+          goBack: () => rootStore.routerStore.goBack()
+        })}
       </EditFormLayout>
       <BaasicModal modalParams={addBankAccountModalParams} >
         <div className="col col-sml-12 card card--form card--primary card--lrg">
@@ -140,50 +145,52 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
   );
 };
 
-function donorDetails(donorAccount, contribution, reviewContributionModalParams) {
+function contributionDetails(contribution, reviewContributionModalParams, permissions) {
   return (
     <React.Fragment>
-      {
-        donorAccount ?
-          <React.Fragment >
-            <div className="f-row">
-              <div className="form__group f-col f-col-lrg-3">
-                Donor Name:
-                <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-              </div>
-              <div className="form__group f-col f-col-lrg-3">
-                Available Balance:
-                <strong>${donorAccount.availableBalance}</strong>
-              </div>
-              <div className="form__group f-col f-col-lrg-3">
-                Initial Contribution:
-                <strong>{donorAccount.initialContribution ? `Yes - Minimum $${donorAccount.contributionMinimumAdditional}` : `No - Minimum $${donorAccount.contributionMinimumInitial}`}</strong>
-              </div>
+      {contribution ?
+        <React.Fragment >
+          <h4>Details</h4>
+          <div className="f-row">
+            <div className="form__group f-col f-col-lrg-12">
+              <div>Status:</div>
+              <strong>{contribution.contributionStatus.name}</strong>
+              {permissions.employeeUpdate && <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>}
             </div>
-            <div className="f-row">
-              <div className="form__group f-col f-col-lrg-3">
-                Status:
-                <strong>{contribution.contributionStatus.name}</strong>
-                <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>
-              </div>
-              <div className="form__group f-col f-col-lrg-3">
-                Conf. Number:
-                <strong>{contribution.confirmationNumber}</strong>
-              </div>
-              <div className="form__group f-col f-col-lrg-3">
-                Date Created:
-                <strong>{moment(contribution.dateCreated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
-              </div>
-              <div className="form__group f-col f-col-lrg-3">
-                Created By:
+            <div className="form__group f-col f-col-lrg-12">
+              <div>Conf. Number:</div>
+              <strong>{contribution.confirmationNumber}</strong>
+            </div>
+            <div className="form__group f-col f-col-lrg-12">
+              <div>Date Created:</div>
+              <strong>{moment(contribution.dateCreated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
+            </div>
+            <div className="form__group f-col f-col-lrg-12">
+              <div>Created By:</div>
+              {contribution.createdByCoreUser ?
                 <strong>{`${contribution.createdByCoreUser.firstName} ${contribution.createdByCoreUser.lastName}`}</strong>
-              </div>
+                :
+                <strong>System</strong>
+              }
             </div>
-          </React.Fragment >
-          : null}
+          </div>
+        </React.Fragment >
+        : null}
     </React.Fragment >
-
   );
+}
+
+function renderFormButtonControls({ form, goBack }) {
+  return (
+    <div>
+      <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+      <BaasicButton
+        className="btn btn--med btn--primary display--ib"
+        label={'Cancel'}
+        onClick={goBack}
+      />
+    </div>
+  )
 }
 
 ContributionEditTemplate.propTypes = {

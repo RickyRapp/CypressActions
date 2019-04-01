@@ -1,6 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { RouterState } from 'mobx-state-router';
 import { ContributionList, ContributionCreate, ContributionEdit } from 'modules/contribution/pages'
+import { ContributionSettingList } from 'modules/contribution-setting/pages'
 import { isSome, getAppRouterState } from 'core/utils';
 
 (function () {
@@ -50,6 +51,12 @@ import { isSome, getAppRouterState } from 'core/utils';
                         name: 'master.app.main.contribution.edit',
                         pattern: ':id/edit/:contributionId',
                         component: ContributionEdit,
+                        authorization: 'theDonorsFundContributionSection.update'
+                    },
+                    {
+                        name: 'master.app.main.contribution.setting',
+                        pattern: ':id/setting',
+                        component: ContributionSettingList,
                         authorization: 'theDonorsFundContributionSection.update'
                     }
                 ]

@@ -7,7 +7,6 @@ class NotificationStore {
   }
 
   showMessageFromResponse(response, autoClose = 5000) {
-    debugger;
     if (this.isErrorCode(response.statusCode)) {
       if (response.data) {
         if (_.isObject(response.data)) {

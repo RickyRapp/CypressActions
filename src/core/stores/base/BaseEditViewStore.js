@@ -100,7 +100,6 @@ class BaseEditViewStore extends BaseViewStore {
 
     if (this.onAfterUpdate) {
       this.onAfterUpdate();
-      this.form.clear();
     }
     if (this.goBack === true) {
       await this.rootStore.routerStore.goBack();

@@ -3,7 +3,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
 import { DonorAccountProfileEdit, DonorAccountSettingPreview } from 'modules/donor-account/pages'
-import { Page } from 'core/layouts';
+import { Page, PageContentHeader } from 'core/layouts';
 import { DonorAccountAddressEdit } from 'modules/address/pages';
 import { DonorAccountEmailAddressEdit } from 'modules/email-address/pages';
 import { DonorAccountPhoneNumberEdit } from 'modules/phone-number/pages';
@@ -20,9 +20,23 @@ class DonorAccountEdit extends React.Component {
     @observable showEmailAddresses = false;
     @observable showPhoneNumbers = false;
 
+    renderShorcuts() {
+        return (
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-4">
+                    <a className="btn btn--xsml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.list', { donorAccountId: this.props.donorAccountProfileViewStore.userId })}>Contributions (TODO)</a>
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
+                    <a className="btn btn--xsml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.setting', { id: this.props.donorAccountProfileViewStore.userId })}>Contribution Settings</a>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <Page>
+                <PageContentHeader>{this.renderShorcuts()}</PageContentHeader>
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="f-row">
@@ -110,5 +124,6 @@ class DonorAccountEdit extends React.Component {
         )
     }
 }
+
 
 export default DonorAccountEdit;

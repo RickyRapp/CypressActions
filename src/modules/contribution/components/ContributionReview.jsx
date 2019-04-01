@@ -71,7 +71,6 @@ class ContributionReview extends React.Component {
 
         if (model.contributionStatusId === pending.id) {
             availableStatuses.push(inProcess);
-            availableStatuses.push(funded);
             availableStatuses.push(canceled);
         }
         else if (model.contributionStatusId === inProcess.id) {

@@ -38,7 +38,6 @@ const MainContent = defaultTemplate(
           <Content isError={isError} empty={false} loading={loading}>
             {' '}
             {/*when loading main content don't show empty (for now)*/}
-            {content.sidebar}
             <div
               className={
                 'content__main__content' +
@@ -51,6 +50,7 @@ const MainContent = defaultTemplate(
                 )}
 
                 <div className="content__main">
+                  {content.sidebar}
                   <div className="content__main__content sidebar-hidden">
                     <div className="padd--sml">{content.children}</div>
                   </div>

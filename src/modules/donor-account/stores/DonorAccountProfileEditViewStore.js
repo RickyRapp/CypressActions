@@ -10,10 +10,11 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         const deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
         const prefixTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'prefix-type');
+        let userId = rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id;
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id,
+            id: userId,
             actions: {
                 update: async donorAccount => {
                     donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
@@ -37,6 +38,8 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
             },
             FormClass: DonorAccountProfileEditForm
         });
+
+        this.userId = userId;
 
         this.deliveryMethodTypeMultiSelectStore = new BaasicDropdownStore(
             {

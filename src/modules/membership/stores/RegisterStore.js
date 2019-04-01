@@ -28,7 +28,6 @@ export default class RegisterStore {
   }
 
   @action async registerPublic(model) {
-    console.log(model);
     const donorAccountService = new DonorAccountService(this.moduleStore.rootStore.app.baasic.apiClient);
     model.activationUrl = `${window.location.origin}/account-activation?activationToken={activationToken}`;
     model.accountTypeId = 'f0e138ae-9daa-1e41-41c9-254051e7d981';

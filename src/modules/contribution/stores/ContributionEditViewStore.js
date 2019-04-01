@@ -65,8 +65,6 @@ class ContributionEditViewStore extends BaseEditViewStore {
         }
 
         this.onAfterReviewContribution = async (val) => {
-            console.log(val);
-
             this.reviewContributionModalParams.close();
             this.rootStore.routerStore.navigate('master.app.main.contribution.list')
         }
