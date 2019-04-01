@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, EditFormContent, BaasicFormControls, BaasicFieldDropdown, BasicCheckBox } from 'core/components';
+import { BasicInput, EditFormContent, BaasicFormControls, BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker } from 'core/components';
 import _ from 'lodash';
 
 function ContributionSettingEditTemplate({ contributionSettingEditViewStore, title }) {
@@ -15,7 +15,7 @@ function ContributionSettingEditTemplate({ contributionSettingEditViewStore, tit
         opacity: '0.5',
         pointerEvents: 'none'
     }
-    debugger;
+
     return (
         <EditFormContent form={form} loading={loading}>
             <h3>{form.$('contributionSettingTypeId').value && _.find(contributionSettingType, { id: form.$('contributionSettingTypeId').value }).name}</h3>
@@ -36,7 +36,7 @@ function ContributionSettingEditTemplate({ contributionSettingEditViewStore, tit
                     </div>
                     :
                     <div className="form__group f-col f-col-lrg-12">
-                        <BasicInput field={form.$('startDate')} />
+                        <BasicFieldDatePicker field={form.$('startDate')} />
                     </div>}
             </div>
             <BaasicFormControls form={form} onSubmit={form.onSubmit} />

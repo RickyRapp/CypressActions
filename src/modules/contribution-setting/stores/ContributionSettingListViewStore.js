@@ -30,9 +30,6 @@ class ContributionSettingListViewStore extends BaseViewStore {
         let filter = new ContributionSettingListFilter();
         this.contributionSettingService = new ContributionSettingService(this.rootStore.app.baasic.apiClient);
         filter.donorAccountId = this.userId;
-        debugger;
-        filter.orderBy = 'dateCreated';
-        filter.orderDirection = 'asc';
         let response = await this.contributionSettingService.find(filter)
         this.contributionSettings = response.item;
 

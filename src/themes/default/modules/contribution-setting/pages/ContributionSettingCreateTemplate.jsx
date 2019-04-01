@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, EditFormContent, BaasicFormControls, BaasicFieldDropdown, BasicCheckBox } from 'core/components';
+import { BasicInput, EditFormContent, BaasicFormControls, BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker } from 'core/components';
 import _ from 'lodash';
 
 function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore }) {
@@ -40,7 +40,7 @@ function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore 
                                 </div>
                                 :
                                 <div className="form__group f-col f-col-lrg-12">
-                                    <BasicInput field={form.$('startDate')} />
+                                    <BasicFieldDatePicker field={form.$('startDate')} />
                                 </div>}
                         </div>
                     </React.Fragment>

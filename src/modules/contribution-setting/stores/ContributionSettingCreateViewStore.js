@@ -62,7 +62,7 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
                 name: 'ContributionSettingTypeId',
                 textField: 'name',
                 dataItemKey: 'id',
-                isClearable: false
+                isClearable: true
             },
             {
                 onChange: this.onChangeContributionSetting
