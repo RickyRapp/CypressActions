@@ -23,7 +23,7 @@ export default class ContributionSettingEditForm extends FormBase {
                 'bankAccountId': 'Bank Account',
                 'contributionSettingTypeId': 'Setting Type',
                 'enabled': 'Enabled',
-                'startDate': 'Date Initiate',
+                'startDate': 'Start Date',
                 'lowBalanceAmount': 'Low Balance Amount'
             },
 
@@ -32,7 +32,7 @@ export default class ContributionSettingEditForm extends FormBase {
                 'bankAccountId': 'Choose Bank Account',
                 'contributionSettingTypeId': 'Choose Setting Type',
                 'enabled': 'Enabled',
-                'startDate': 'Select Date To Initiate',
+                'startDate': 'Select Start Date',
                 'lowBalanceAmount': 'Enter Low Balance Amount',
 
             },
