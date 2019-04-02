@@ -1,91 +1,88 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/utils';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+import { formatDate, parseDate } from 'react-day-picker/moment';
+import { defaultTemplate } from 'core/utils';
+import PropTypes from 'prop-types';
 
 class DateRangeFilterTemplate extends React.Component {
+    static defaultProps = {
+        numberOfMonths: 1,
+    };
     constructor(props) {
         super(props);
-
-        this.state = {
-            focusedInput: null
-        };
-
-        this.onDatesChange = this.onDatesChange.bind(this);
-        this.onFocusChange = this.onFocusChange.bind(this);
+        this.handleFromChange = this.handleFromChange.bind(this);
+        this.handleToChange = this.handleToChange.bind(this);
     }
 
-    onDatesChange({ startDate, endDate }) {
-        if (startDate)
-            this.props.queryUtility.filter[this.props.nameMin] = startDate.format('YYYY-MM-DD');
-        else
-            this.props.queryUtility.filter[this.props.nameMin] = null;
+    showFromMonth() {
+        const fromDateString = this.props.queryUtility.filter[this.props.nameMin];
+        const toDateString = this.props.queryUtility.filter[this.props.nameMax];
+        const from = fromDateString ? new Date(fromDateString) : undefined;
+        const to = toDateString ? new Date(toDateString) : undefined;
 
-        if (endDate)
-            this.props.queryUtility.filter[this.props.nameMax] = endDate.format('YYYY-MM-DD');
-        else
-            this.props.queryUtility.filter[this.props.nameMax] = null;
+        if (!from) {
+            return;
+        }
+        if (moment(to).diff(moment(from), 'months') < 2) {
+            this.to.getDayPicker().showMonth(from);
+        }
     }
 
-    onFocusChange(focusedInput) {
-        this.setState({ focusedInput });
+    handleFromChange(from) {
+        this.props.queryUtility.filter[this.props.nameMin] = from ? moment(from).format('YYYY-MM-DD') : undefined;
+    }
+    handleToChange(to) {
+        this.props.queryUtility.filter[this.props.nameMax] = to ? moment(to).format('YYYY-MM-DD') : undefined;
     }
 
     render() {
-        const {
-            queryUtility,
-            nameMin,
-            nameMax,
-            placeholderStartDate,
-            placeholderEndDate,
-            isClearable
-        } = this.props;
-
-        const { focusedInput } = this.state;
+        const fromDateString = this.props.queryUtility.filter[this.props.nameMin];
+        const toDateString = this.props.queryUtility.filter[this.props.nameMax];
+        const from = fromDateString ? new Date(fromDateString) : undefined;
+        const to = toDateString ? new Date(toDateString) : undefined;
+        const modifiers = { start: from, end: to };
 
         return (
-            <div>
-                <DateRangePicker
-                    onDatesChange={this.onDatesChange}
-                    onFocusChange={this.onFocusChange}
-                    focusedInput={focusedInput}
-                    startDate={queryUtility.filter[nameMin] instanceof moment ? queryUtility.filter[nameMin] : (queryUtility.filter[nameMin] ? moment(queryUtility.filter[nameMin]) : null)}
-                    startDateId={nameMin}
-                    endDate={queryUtility.filter[nameMax] instanceof moment ? queryUtility.filter[nameMax] : (queryUtility.filter[nameMax] ? moment(queryUtility.filter[nameMax]) : null)}
-                    endDateId={nameMax}
-                    showClearDates={isClearable}
-                    startDatePlaceholderText={placeholderStartDate}
-                    endDatePlaceholderText={placeholderEndDate}
-                    small={true}
-                    keepOpenOnDateSelect={true}
-                    hideKeyboardShortcutsPanel={true}
-                    isOutsideRange={date => false}
+            <div className="inputgroup">
+                <DayPickerInput
+                    value={from}
+                    placeholder="From"
+                    format="LL"
+                    formatDate={formatDate}
+                    parseDate={parseDate}
+                    dayPickerProps={{
+                        selectedDays: [from, { from, to }],
+                        disabledDays: { after: to },
+                        toMonth: to,
+                        modifiers,
+                        numberOfMonths: this.props.numberOfMonths,
+                        onDayClick: () => this.to.getInput().focus(),
+                    }}
+                    onDayChange={this.handleFromChange}
+                />
+                {' '}—{' '}
+                <DayPickerInput
+                    ref={el => (this.to = el)}
+                    value={to}
+                    placeholder="To"
+                    format="LL"
+                    formatDate={formatDate}
+                    parseDate={parseDate}
+                    dayPickerProps={{
+                        selectedDays: [from, { from, to }],
+                        disabledDays: { before: from },
+                        modifiers,
+                        month: from,
+                        fromMonth: from,
+                        numberOfMonths: this.props.numberOfMonths,
+                    }}
+                    onDayChange={this.handleToChange}
                 />
             </div>
         );
     }
 }
-
-DateRangeFilterTemplate.propTypes = {
-    queryUtility: PropTypes.object,
-    nameMin: PropTypes.string,
-    nameMax: PropTypes.string,
-    className: PropTypes.string,
-    placeholderStartDate: PropTypes.string,
-    placeholderEndDate: PropTypes.string,
-    isClearable: PropTypes.bool
-};
-
-DateRangeFilterTemplate.defaultProps = {
-    nameMin: 'startDate',
-    nameMax: 'endDate',
-    className: 'input input--med input--search w--250--px',
-    placeholderStartDate: 'Start Date',
-    placeholderEndDate: 'End Date',
-    isClearable: true
-};
 
 export default defaultTemplate(DateRangeFilterTemplate);

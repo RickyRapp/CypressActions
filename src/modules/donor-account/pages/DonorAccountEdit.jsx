@@ -24,10 +24,10 @@ class DonorAccountEdit extends React.Component {
         return (
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-4">
-                    <a className="btn btn--xsml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.list', { donorAccountId: this.props.donorAccountProfileViewStore.userId })}>Contributions (TODO)</a>
+                    <a className="btn btn--sml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.list', { donorAccountId: this.props.donorAccountProfileViewStore.userId })}>Contributions</a>
                 </div>
                 <div className="form__group f-col f-col-lrg-4">
-                    <a className="btn btn--xsml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.setting', { id: this.props.donorAccountProfileViewStore.userId })}>Contribution Settings</a>
+                    <a className="btn btn--sml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.setting', { id: this.props.donorAccountProfileViewStore.userId })}>Contribution Settings</a>
                 </div>
             </div>
         );

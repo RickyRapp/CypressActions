@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import { ContributionCreateForm } from 'modules/contribution/forms';
-import { ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
+import { ContributionService, BankAccountService, LookupService, DonorAccountService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import _ from 'lodash';
@@ -14,7 +14,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     @observable bankAccountDropdownStore = null;
 
     constructor(rootStore) {
-        const contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
+        const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         let userId = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
@@ -22,7 +22,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             actions: {
                 create: async newContribution => {
                     try {
-                        return await contributionSettingService.createContributionSetting(userId, newContribution);
+                        return await contributionService.createContribution(userId, newContribution);
                     } catch (errorResponse) {
                         return errorResponse;
                     }

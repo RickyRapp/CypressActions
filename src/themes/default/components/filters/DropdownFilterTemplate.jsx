@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, isSome } from 'core/utils';
 import _ from 'lodash';
 
 function DropdownFilterTemplate({ store, queryUtility, name }) {
@@ -12,7 +12,7 @@ function DropdownFilterTemplate({ store, queryUtility, name }) {
 
     return (
         <Select
-            value={queryUtility.filter[name] ? _.filter(items, function (x) { return _.includes(queryUtility.filter[name], x.id) }) : null}
+            value={isSome(queryUtility.filter[name]) ? _.filter(items, function (x) { return _.includes(queryUtility.filter[name], x.id) }) : null}
             onChange={onChange}
             options={items}
             isMulti={options.multi}

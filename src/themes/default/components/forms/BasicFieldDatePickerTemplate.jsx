@@ -56,7 +56,6 @@ CustomOverlay.propTypes = {
 
 // Used for modal representation
 function CustomOverlay({ classNames, selectedDay, children, ...props }) {
-    debugger;
     return (
         <div
             className={classNames.overlayWrapper}

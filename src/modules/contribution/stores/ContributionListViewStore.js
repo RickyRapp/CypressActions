@@ -17,6 +17,11 @@ class ContributionListViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
 
+        let filter = new ContributionListFilter();
+        if (rootStore.routerStore.routerState.params.donorAccountId) {
+            filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
+        }
+
         super(rootStore, {
             name: 'contribution',
             routes: {
@@ -49,7 +54,7 @@ class ContributionListViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: new ContributionListFilter()
+                filter: filter
             }
         });
 
@@ -247,6 +252,16 @@ class ContributionListViewStore extends BaseListViewStore {
                 onChange: this.onDonorFilterSearch
             }
         );
+
+        if (this.queryUtility.filter.donorAccountId) {
+            let params = {};
+            params.embed = ['coreUser,donorAccountAddresses,address'];
+            const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
+            let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
+            let donorSearchs = [];
+            donorSearchs.push(defaultSearchDonor);
+            this.donorAccountSearchDropdownStore.items = donorSearchs;
+        }
     }
 
 

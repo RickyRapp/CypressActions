@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, isSome } from 'core/utils';
 import AsyncSelect from 'react-select/lib/Async';
 import _ from 'lodash';
 
@@ -14,7 +14,7 @@ function DropdownAsyncFilterTemplate({ store, queryUtility, name }) {
 
     return (
         <AsyncSelect
-            value={queryUtility.filter[name] ? _.filter(items, function (x) { return _.includes(queryUtility.filter[name], x.id) }) : null}
+            value={isSome(queryUtility.filter[name]) ? _.filter(items, function (x) { return _.includes(queryUtility.filter[name], x.id) }) : null}
             defaultValue={defaultValue}
             onChange={onChange}
             placeholder={options.placeholder}
