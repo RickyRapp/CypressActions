@@ -11,13 +11,13 @@ class PhoneNumberService extends BaseService {
     async updateDonorAccountPhoneNumbers(resource) {
         const url = this.routeService.updateDonorAccountPhoneNumbers(resource);
         const response = await this.apiClient.put(url, resource);
-        return response.data || null;
+        return response || null;
     }
 
     async createDonorAccountCollection(id, resource) {
         const url = this.routeService.createDonorAccountCollection(id);
         const response = await this.apiClient.post(url, resource);
-        return response.data || null;
+        return response || null;
     }
 
     async getDonorAccountCollection(id, options = {}) {

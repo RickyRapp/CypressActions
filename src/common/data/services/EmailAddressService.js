@@ -11,13 +11,13 @@ class EmailAddressService extends BaseService {
     async updateDonorAccountEmailAddresses(resource) {
         const url = this.routeService.updateDonorAccountEmailAddresses(resource);
         const response = await this.apiClient.put(url, resource);
-        return response.data || null;
+        return response || null;
     }
 
     async createDonorAccountCollection(id, resource) {
         const url = this.routeService.createDonorAccountCollection(id);
         const response = await this.apiClient.post(url, resource);
-        return response.data || null;
+        return response || null;
     }
 
     async getDonorAccountCollection(id, options = {}) {

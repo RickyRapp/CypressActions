@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore } from "core/stores";
 import { BankAccountService, DonorAccountService } from "common/data";
-import { DonorAccountBankAccountPostForm } from "modules/bank-account/forms";
+import { DonorAccountBankAccountCreateForm } from "modules/bank-account/forms";
 import _ from 'lodash';
 
 class BankAccountCreateViewStore extends BaseEditViewStore {
@@ -28,10 +28,14 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                         var primaryDonorAccountPhoneNumber = _.find(donorAccount.donorAccountPhoneNumbers, { primary: true })
                         bankAccount.accountHolder.phoneNumber = primaryDonorAccountPhoneNumber.phoneNumber;
                     }
-                    await bankAccountService.createDonorAccountCollection({ id: id }, { 'bankAccount': bankAccount });
+                    try {
+                        return await bankAccountService.createDonorAccountCollection({ id: id }, { 'bankAccount': bankAccount });
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
                 }
             },
-            FormClass: DonorAccountBankAccountPostForm,
+            FormClass: DonorAccountBankAccountCreateForm,
             goBack: false,
             onAfterCreate: onAfterCreate
         });

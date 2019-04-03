@@ -1,6 +1,6 @@
 import { BaseRouteService } from 'core/services';
 import * as uritemplate from 'uritemplate';
-import { getParams } from 'core/utils';
+import { findParams } from 'core/utils';
 
 class EmailAddressRouteService extends BaseRouteService {
     constructor() {
@@ -14,7 +14,7 @@ class EmailAddressRouteService extends BaseRouteService {
     }
 
     getDonorAccountCollection(id, options) {
-        const params = getParams({ id: id, ...options });
+        const params = findParams({ id: id, ...options });
         return this.uriTemplateService.parse(this.base + 'donor-account/{id}/{?embed,sort}').expand(params);
     }
 

@@ -81,7 +81,7 @@ export default class DonorAccountBankAccountEditForm extends FormBase {
             rules: {
                 'name': 'required|string',
                 'accountNumber': 'required|string',
-                'routingNumber': 'required|string',
+                'routingNumber': 'required|string|digits:9',
                 'description': 'string',
                 'accountHolder.firstName': 'required_if:thirdParty, true|string',
                 'accountHolder.lastName': 'required_if:thirdParty, true|string',
@@ -93,6 +93,10 @@ export default class DonorAccountBankAccountEditForm extends FormBase {
                 'accountHolder.address.zipCode': 'required_if:thirdParty, true|string',
                 'accountHolder.emailAddress.email': 'required_if:thirdParty, true|email',
                 'accountHolder.phoneNumber.number': 'required_if:thirdParty, true|string',
+            },
+
+            disabled: {
+                accountNumber: true
             }
         };
     }

@@ -11,8 +11,12 @@ class DonorNoteCreateViewStore extends BaseEditViewStore {
             name: 'donor note',
             actions: {
                 create: async donorNote => {
-                    donorNote.donorAccountId = rootStore.routerStore.routerState.params.id;
-                    await donorNoteService.create(donorNote);
+                    try {
+                        donorNote.donorAccountId = rootStore.routerStore.routerState.params.id;
+                        return await donorNoteService.create(donorNote);
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
                 }
             },
             FormClass: DonorNotePostForm,

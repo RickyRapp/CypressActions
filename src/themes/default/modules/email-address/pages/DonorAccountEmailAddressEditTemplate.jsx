@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { EmailAddressEdit } from 'modules/email-address/pages';
+import { EmailAddressEdit, DonorAccountEmailAddressCreate } from 'modules/email-address/pages';
 
 function DonorAccountEmailAddressEditTemplate({ donorAccountEmailAddressEditViewStore }) {
     const {
@@ -17,11 +17,14 @@ function DonorAccountEmailAddressEditTemplate({ donorAccountEmailAddressEditView
                     <EmailAddressEdit
                         id={donorAccountEmailAddress.emailAddressId}
                         title={donorAccountEmailAddress.primary ? 'Primary Email Address' : 'Secondary Email Address'}
+                        key={donorAccountEmailAddress.dateUpdated}
+                        item={donorAccountEmailAddress.emailAddress}
+                        onAfterUpdate={getResource}
                     ></EmailAddressEdit>
                 </React.Fragment>
             )}
 
-            {items && items.length < 2 && <EmailAddressEdit onAfterCreate={getResource} title={'You can add secondary email address'} />}
+            {items && items.length < 2 && <DonorAccountEmailAddressCreate onAfterCreate={getResource} title={'You can add secondary email address'} />}
         </React.Fragment>
     );
 }

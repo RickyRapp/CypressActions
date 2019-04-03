@@ -14,7 +14,7 @@ import { isSome, getAppRouterState } from 'core/utils';
                 children: [
                     {
                         name: 'master.app.main.contribution.list',
-                        pattern: 'list/:id?',
+                        pattern: '/:id?',
                         component: ContributionList,
                         authorization: 'theDonorsFundContributionSection.read',
                         beforeEnter: (fromState, toState, routerStore) => {
@@ -29,6 +29,7 @@ import { isSome, getAppRouterState } from 'core/utils';
                                         return Promise.reject(new RouterState('master.app.main.contribution.list', { id: rootStore.authStore.user.id }));
                                     }
                                     else {
+                                        //TODO:
                                         //this is reporter role
                                         //fetch userId from local storage
                                     }

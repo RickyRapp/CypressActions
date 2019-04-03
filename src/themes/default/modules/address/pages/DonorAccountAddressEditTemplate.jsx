@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { AddressEdit } from 'modules/address/pages';
+import { AddressEdit, DonorAccountAddressCreate } from 'modules/address/pages';
 
 function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
     const {
@@ -12,17 +12,19 @@ function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
     return (
         <React.Fragment>
             {items && items.map((donorAccountAddress, i) =>
-                <React.Fragment key={donorAccountAddress.id} >
+                <React.Fragment key={donorAccountAddress.dateUpdated} >
                     {!donorAccountAddress.primary && markPrimary(onChangePrimaryAddress)}
                     <AddressEdit
                         id={donorAccountAddress.addressId}
+                        key={donorAccountAddress.dateUpdated}
+                        item={donorAccountAddress.address}
+                        onAfterUpdate={getResource}
                         title={donorAccountAddress.primary ? 'Primary Address' : 'Secondary Address'}
                     ></AddressEdit>
-                </React.Fragment>
+                </React.Fragment >
             )}
-
-            {items && items.length < 2 && <AddressEdit onAfterCreate={getResource} title={'You can add secondary address'} />}
-        </React.Fragment>
+            {items && items.length < 2 && <DonorAccountAddressCreate onAfterCreate={getResource} title={'You can add secondary address'} />}
+        </React.Fragment >
     );
 }
 
@@ -33,7 +35,7 @@ function markPrimary(onChangePrimaryAddress) {
             className="btn btn--med btn--ghost"
             type="button">
             Switch Primary Address
-                </button>
+        </button>
     )
 }
 

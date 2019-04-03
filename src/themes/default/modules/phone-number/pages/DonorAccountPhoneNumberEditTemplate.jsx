@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { PhoneNumberEdit } from 'modules/phone-number/pages';
+import { PhoneNumberEdit, DonorAccountPhoneNumberCreate } from 'modules/phone-number/pages';
 
 function DonorAccountPhoneNumberEditTemplate({ donorAccountPhoneNumberEditViewStore }) {
     const {
@@ -16,12 +16,14 @@ function DonorAccountPhoneNumberEditTemplate({ donorAccountPhoneNumberEditViewSt
                     {!donorAccountPhoneNumber.primary && markPrimary(onChangePrimaryPhoneNumber)}
                     <PhoneNumberEdit
                         id={donorAccountPhoneNumber.phoneNumberId}
+                        key={donorAccountPhoneNumber.dateUpdated}
+                        item={donorAccountPhoneNumber.phoneNumber}
+                        onAfterUpdate={getResource}
                         title={donorAccountPhoneNumber.primary ? 'Primary Phone Number' : 'Secondary Phone Number'}
                     ></PhoneNumberEdit>
                 </React.Fragment>
             )}
-
-            {items && items.length < 2 && <PhoneNumberEdit onAfterCreate={getResource} title={'You can add secondary Phone Number'} />}
+            {items && items.length < 2 && <DonorAccountPhoneNumberCreate onAfterCreate={getResource} title={'You can add secondary Phone Number'} />}
         </React.Fragment>
     );
 }
@@ -33,7 +35,7 @@ function markPrimary(onChangePrimaryPhoneNumber) {
             className="btn btn--med btn--ghost"
             type="button">
             Switch Primary Phone Number
-                </button>
+        </button>
     )
 }
 

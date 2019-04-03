@@ -47,8 +47,7 @@ function DonorAccountSettingEditTemplate({ settingEditViewStore }) {
                 </div>
             </div>
 
-            {form.changed &&
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
         </EditFormContent >
     );
 }

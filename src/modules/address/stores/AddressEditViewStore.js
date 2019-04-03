@@ -5,28 +5,34 @@ import { AddressEditForm } from "modules/address/forms";
 import _ from 'lodash';
 
 class AddressEditViewStore extends BaseEditViewStore {
-    constructor(rootStore, { id, onAfterCreate }) {
+    constructor(rootStore, { id, onAfterUpdate, item }) {
         const addressService = new AddressService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id;
+
         super(rootStore, {
             name: 'address',
             id: id,
             actions: {
                 update: async address => {
-                    await addressService.update(address);
-                },
-                create: async address => {
-                    await addressService.createDonorAccountCollection({ id: userId }, address);
+                    try {
+                        return await addressService.update(address);
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
                 },
                 get: async id => {
-                    let params = {};
-                    const response = await addressService.get(id, params);
-                    return response;
+                    if (item) {
+                        return item;
+                    }
+                    else {
+                        let params = {};
+                        const response = await addressService.get(id, params);
+                        return response;
+                    }
                 }
             },
             FormClass: AddressEditForm,
             goBack: false,
-            onAfterCreate: onAfterCreate
+            onAfterUpdate: onAfterUpdate
         });
     }
 }

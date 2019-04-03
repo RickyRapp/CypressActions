@@ -5,9 +5,9 @@ import { EmailAddressEditForm } from "modules/email-address/forms";
 import _ from 'lodash';
 
 class EmailAddressEditViewStore extends BaseEditViewStore {
-    constructor(rootStore, { id, onAfterCreate }) {
+    constructor(rootStore, { id, onAfterUpdate, item }) {
         const emailAddressService = new EmailAddressService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id;
+
         super(rootStore, {
             name: 'email address',
             id: id,
@@ -15,18 +15,20 @@ class EmailAddressEditViewStore extends BaseEditViewStore {
                 update: async emailAddress => {
                     await emailAddressService.update(emailAddress);
                 },
-                create: async emailAddress => {
-                    await emailAddressService.createDonorAccountCollection({ id: userId }, emailAddress);
-                },
                 get: async id => {
-                    let params = {};
-                    const response = await emailAddressService.get(id, params);
-                    return response;
+                    if (item) {
+                        return item;
+                    }
+                    else {
+                        let params = {};
+                        const response = await emailAddressService.get(id, params);
+                        return response;
+                    }
                 }
             },
             FormClass: EmailAddressEditForm,
             goBack: false,
-            onAfterCreate: onAfterCreate
+            onAfterUpdate: onAfterUpdate
         });
     }
 }

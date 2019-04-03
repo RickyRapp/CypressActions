@@ -31,7 +31,7 @@ function renderContribution(donorAccount, rootStore) {
                 Donor Name:
                 <a
                     className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor-account.edit', { id: donorAccount.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor.account.edit', { id: donorAccount.id })}>
                     <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
                 </a>
             </div>
@@ -68,7 +68,7 @@ function renderContributionSetting(donorAccount, rootStore) {
                 Donor Name:
                 <a
                     className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor-account.edit', { id: donorAccount.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor.account.edit', { id: donorAccount.id })}>
                     <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
                 </a>
             </div>

@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class DonorAccountBankAccountPostForm extends FormBase {
+export default class DonorAccountBankAccountCreateForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -24,7 +24,7 @@ export default class DonorAccountBankAccountPostForm extends FormBase {
                     name: 'routingNumber',
                     label: 'Routing Number',
                     placeholder: 'Enter Routing Number',
-                    rules: 'required|string'
+                    rules: 'required|string|digits:9'
                 },
                 {
                     name: 'description',

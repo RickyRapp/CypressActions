@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { PhoneNumberEditTemplate } from 'themes/modules/phone-number/pages';
 import { PhoneNumberEditViewStore } from 'modules/phone-number/stores';
 
-@setCurrentView((rootStore, props) => new PhoneNumberEditViewStore(rootStore, { id: props.id, onAfterCreate: props.onAfterCreate }), 'phoneNumberEditViewStore')
+@setCurrentView((rootStore, props) => new PhoneNumberEditViewStore(rootStore, { id: props.id, onAfterUpdate: props.onAfterUpdate, item: props.item }), 'phoneNumberEditViewStore')
 @observer
 class PhoneNumberEdit extends React.Component {
     render() {

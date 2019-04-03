@@ -6,10 +6,11 @@ import { isSome } from 'core/utils';
 import _ from 'lodash';
 
 class DonorAccountProfileEditViewStore extends BaseEditViewStore {
+    @observable deliveryMethodTypeDropdownStore = null;
+    @observable prefixTypeDropdownStore = null;
+
     constructor(rootStore) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        const deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
-        const prefixTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'prefix-type');
         let userId = rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id;
 
         super(rootStore, {
@@ -39,40 +40,52 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
             FormClass: DonorAccountProfileEditForm
         });
 
+        this.deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
+        this.prefixTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'prefix-type');
         this.userId = userId;
+        this.load();
+    }
 
-        this.deliveryMethodTypeMultiSelectStore = new BaasicDropdownStore(
+    @action.bound async load() {
+        await this.loadLookups();
+        await this.setStores();
+    }
+
+    @action.bound async loadLookups() {
+        let deliveryMethodTypeModels = await this.deliveryMethodTypeLookupService.getAll();
+        this.deliveryMethodType = deliveryMethodTypeModels.data;
+
+        let prefixTypeModels = await this.prefixTypeLookupService.getAll();
+        this.prefixType = prefixTypeModels.data;
+    }
+
+    @action.bound async setStores() {
+        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
                 textField: 'name',
                 dataItemKey: 'id',
-                clearable: false,
+                isClearable: false,
                 placeholder: 'Choose Delivery Method'
             },
             {
-                fetchFunc: async term => {
-                    let models = await deliveryMethodTypeLookupService.getAll();
-                    return models.data;
-                },
                 onChange: this.onChangeDeliveryMethod
-            }
+            },
+            this.deliveryMethodType
         );
 
-        this.prefixTypeMultiSelectStore = new BaasicDropdownStore(
+        this.prefixTypeDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
                 textField: 'name',
                 dataItemKey: 'id',
-                clearable: true,
+                isClearable: true,
                 placeholder: 'Choose Prefix Type'
             },
             {
-                fetchFunc: async term => {
-                    let models = await prefixTypeLookupService.getAll();
-                    return models.data;
-                },
                 onChange: this.onChangePrefixType
             },
+            this.prefixType
         );
     }
 

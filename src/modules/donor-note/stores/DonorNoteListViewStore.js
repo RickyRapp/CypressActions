@@ -31,9 +31,7 @@ class DonorNoteListViewStore extends BaseListViewStore {
                     orderDirection: 'desc',
                     pageSize: 5
                 },
-                options: {
-                    disableUpdateQueryParams: true
-                }
+                disableUpdateQueryParams: true
             }
         });
 

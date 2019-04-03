@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { AddressEditViewStore } from 'modules/address/stores';
 import { AddressEditTemplate } from 'themes/modules/address/pages';
 
-@setCurrentView((rootStore, props) => new AddressEditViewStore(rootStore, { id: props.id, onAfterCreate: props.onAfterCreate }), 'addressEditViewStore')
+@setCurrentView((rootStore, props) => new AddressEditViewStore(rootStore, { id: props.id, onAfterUpdate: props.onAfterUpdate, item: props.item }), 'addressEditViewStore')
 @observer
 class AddressEdit extends React.Component {
     render() {

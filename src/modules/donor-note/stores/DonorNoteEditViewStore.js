@@ -12,7 +12,11 @@ class DonorNoteEditViewStore extends BaseEditViewStore {
             id: id,
             actions: {
                 update: async donorNote => {
-                    await donorNoteService.update({ id: id, ...donorNote });
+                    try {
+                        return await donorNoteService.update({ id: id, ...donorNote });
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
                 },
                 get: async id => {
                     let params = {};

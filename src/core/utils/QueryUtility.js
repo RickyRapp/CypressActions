@@ -56,6 +56,7 @@ class QueryUtility {
       this.ignoreQueryParams = options.ignoreQueryParams;
     }
 
+    debugger;
     if (options.disableUpdateQueryParams) {
       this.disableUpdateQueryParams = options.disableUpdateQueryParams;
     }
@@ -168,6 +169,7 @@ class QueryUtility {
 
   updateUrlParams = () => {
     if (this.disableUpdateQueryParams) return;
+    debugger;
 
     const { routerStore } = this.rootStore;
     let queryParams = this.getFilterUrlParams();

@@ -1,13 +1,13 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldAsyncDropdown, EditFormContent, BaasicFormControls } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, EditFormContent, BaasicFormControls } from 'core/components';
 
 function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
     const {
         form,
         loading,
-        deliveryMethodTypeMultiSelectStore,
-        prefixTypeMultiSelectStore,
+        deliveryMethodTypeDropdownStore,
+        prefixTypeDropdownStore,
     } = profileEditViewStore;
 
     return (
@@ -19,16 +19,16 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Prefix Type</label>
-                            <BaasicFieldAsyncDropdown classNames="input" field={form.$('coreUser').$('prefixTypeId')} store={prefixTypeMultiSelectStore} />
+                            {prefixTypeDropdownStore && <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />}
                         </div>
                     </div>
 
                     <div className="form__group f-col f-col-lrg-6">
-                        <BasicInput field={form.$('coreUser').$('firstName')} />
+                        <BasicInput field={form.$('coreUser.firstName')} />
                     </div>
 
                     <div className="form__group f-col f-col-lrg-6">
-                        <BasicInput field={form.$('coreUser').$('middleName')} />
+                        <BasicInput field={form.$('coreUser.middleName')} />
                     </div>
 
                     <div className="form__group f-col f-col-lrg-6">
@@ -50,7 +50,7 @@ function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Delivery Method Type</label>
-                            <BaasicFieldAsyncDropdown classNames="input" field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeMultiSelectStore} />
+                            {deliveryMethodTypeDropdownStore && <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />}
                         </div>
                     </div>
                 </div>

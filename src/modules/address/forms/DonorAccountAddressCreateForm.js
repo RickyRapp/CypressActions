@@ -8,7 +8,6 @@ export default class DonorAccountAddressEditForm extends FormBase {
     setup() {
         return {
             fields: [
-                'id',
                 'addressLine1',
                 'addressLine2',
                 'city',
@@ -36,7 +35,6 @@ export default class DonorAccountAddressEditForm extends FormBase {
             },
 
             rules: {
-                'id': 'required|string',
                 'addressLine1': 'required|string',
                 'addressLine2': 'string',
                 'city': 'required|string',

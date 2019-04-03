@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, EditFormContent, BaasicFormControls, BasicCheckBox } from 'core/components';
+import { BasicInput, EditFormContent, BaasicFormControls } from 'core/components';
 
 function BankAccountCreateTemplate({ bankAccountEditViewStore, title, children }) {
     const {
@@ -73,11 +73,6 @@ function BankAccountCreateTemplate({ bankAccountEditViewStore, title, children }
                                 <BasicInput field={form.$('accountHolder.phoneNumber.number')} />
                             </div>
                         </div>
-                    </div>}
-
-                {children &&
-                    <div className="form__group f-col f-col-lrg-4">
-                        {children}
                     </div>}
 
                 {form.isDirty &&

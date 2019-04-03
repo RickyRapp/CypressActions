@@ -5,52 +5,33 @@ import _ from 'lodash';
 
 class DonorAccountPhoneNumberEditViewStore extends BaseViewStore {
     @observable items = null;
-    @observable hide = true;
 
     constructor(rootStore) {
         super(rootStore);
+        this.rootStore = rootStore;
         this.phoneNumberService = new PhoneNumberService(rootStore.app.baasic.apiClient);
-        this.fetch([this.getResource()]);
+        this.userId = this.rootStore.routerStore.routerState.params.id ? this.rootStore.routerStore.routerState.params.id : this.rootStore.authStore.user.id
+        this.getResource();
     }
 
     @action.bound
     async getResource() {
-        let id = this.rootStore.routerStore.routerState.params.id ? this.rootStore.routerStore.routerState.params.id : this.rootStore.authStore.user.id
         let params = {};
+        params.embed = 'phoneNumber';
         params.orderBy = 'primary';
         params.orderDirection = 'desc';
-        const response = await this.phoneNumberService.getDonorAccountCollection(id, params);
+        const response = await this.phoneNumberService.getDonorAccountCollection(this.userId, params);
         this.items = response;
     }
 
     @action.bound async onChangePrimaryPhoneNumber() {
-        this.items.map(donorAccountPhoneNumber => {
-            if (donorAccountPhoneNumber.primary === true) {
-                donorAccountPhoneNumber.primary = false;
-            }
-            else {
-                donorAccountPhoneNumber.primary = true;
-            }
-        });
-        await this.phoneNumberService.updateDonorAccountPhoneNumbers(this.items);
-        await this.getResource();
-        await setTimeout(() => this.notifySuccessUpdate("primary email address", { autoClose: 4000 }));
-    }
-
-    @action.bound
-    notifySuccessUpdate(name) {
-        this.rootStore.notificationStore.success(
-            `Successfully updated ${_.toLower(name)}.`
-        );
-    }
-
-    @action.bound
-    async onShowHideChange() {
-        if (event.target.checked) {
-            this.hide = true;
-        }
-        else {
-            this.hide = false;
+        _.forEach(this.items, function (x) { x.primary = !x.primary });
+        try {
+            let response = await this.phoneNumberService.updateDonorAccountPhoneNumbers(this.items);
+            this.getResource();
+            this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+        } catch (errorResponse) {
+            this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
         }
     }
 }

@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { EmailAddressEditTemplate } from 'themes/modules/email-address/pages';
 import { EmailAddressEditViewStore } from 'modules/email-address/stores';
 
-@setCurrentView((rootStore, props) => new EmailAddressEditViewStore(rootStore, { id: props.id, onAfterCreate: props.onAfterCreate }), 'emailAddressEditViewStore')
+@setCurrentView((rootStore, props) => new EmailAddressEditViewStore(rootStore, { id: props.id, onAfterUpdate: props.onAfterUpdate, item: props.item }), 'emailAddressEditViewStore')
 @observer
 class EmailAddressEdit extends React.Component {
     render() {
