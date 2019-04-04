@@ -12,6 +12,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
     @observable donorAccount = null;
     contribution = null;
     @observable showPayerInformation = false;
+    @observable showStockAndMutualFundsContactInfo = false;
     @observable paymentTypeDropdownStore = null;
     @observable bankAccountDropdownStore = null;
 
@@ -25,6 +26,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
             actions: {
                 update: async contribution => {
                     try {
+
                         return await contributionService.update({ id: this.id, ...contribution })
                     } catch (errorResponse) {
                         return errorResponse;
@@ -33,7 +35,13 @@ class ContributionEditViewStore extends BaseEditViewStore {
                 get: async id => {
                     let params = {};
                     params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus'];
-                    this.contribution = await contributionService.get(id, params);
+                    let model = await contributionService.get(id, params);
+                    if (model.json && JSON.parse(model.json).paymentTypeInformations) {
+                        _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {
+                            model[key] = value;
+                        });
+                    }
+                    this.contribution = model;
                     return this.contribution;
                 }
             },
@@ -83,10 +91,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
         await this.getBankAccounts();
         await this.setStores();
 
-        if (this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
+        if (this.form.$('paymentTypeId').value === this.achId) {
             this.form.$('bankAccountId').set('rules', 'required|string');
         }
-        else if (this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'check' }).id) {
+        else if (this.form.$('paymentTypeId').value === this.checkId) {
             this.form.$('checkNumber').set('rules', 'required|string');
         }
 
@@ -106,13 +114,31 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
         this.form.$('bankAccountId').set('rules', 'string');
         this.form.$('checkNumber').set('rules', 'string');
+        this.form.$('financialInstitution').set('rules', 'string');
+        this.form.$('accountNumber').set('rules', 'string');
+        this.form.$('securityType').set('rules', 'string');
+        this.form.$('numberOfShares').set('rules', 'numeric|min:0');
+        this.form.$('estimatedValue').set('rules', 'numeric|min:10000');
+        this.form.$('securitySymbol').set('rules', 'string');
+        this.form.$('transactionId').set('rules', 'string');
 
-        if (option && option.id === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
+        if (option && option.id === this.achId) {
             this.form.$('bankAccountId').set('rules', 'required|string');
         }
         else {
-            if (option && option.id === _.find(this.paymentTypes, { abrv: 'check' }).id) {
+            if (option && option.id === this.checkId) {
                 this.form.$('checkNumber').set('rules', 'required|string');
+            }
+            else if (option && option.id === this.stockAndMutualFundsId) {
+                this.form.$('financialInstitution').set('rules', 'required|string');
+                this.form.$('accountNumber').set('rules', 'required|string');
+                this.form.$('securityType').set('rules', 'required|string');
+                this.form.$('numberOfShares').set('rules', 'required|numeric|min:0');
+                this.form.$('estimatedValue').set('rules', 'required|numeric|min:10000');
+                this.form.$('securitySymbol').set('rules', 'required|string');
+            }
+            else if (option && option.id === this.chaseQuickPayId) {
+                this.form.$('transactionId').set('rules', 'required|string');
             }
             this.setDefaultPayerInformations();
         }
@@ -131,7 +157,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
             this.form.$('payerInformation').clear();
             this.form.$('payerInformation').each(field => field.set('disabled', false));
 
-            if (this.form.$('paymentTypeId').value === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
+            if (this.form.$('paymentTypeId').value === this.wireTransferId) {
                 this.setDefaultPayerInformations();
             }
         }
@@ -147,6 +173,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
     @action.bound async onChangeShowPayerInformation(event) {
         this.showPayerInformation = event.target.checked;
+    }
+
+    @action.bound async onChangeShowStockAndMutualFundsContactInfo(event) {
+        this.showStockAndMutualFundsContactInfo = event.target.checked;
     }
 
     @action.bound async getDonorAccount() {
@@ -168,7 +198,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
     @action.bound async getPaymentTypes() {
         this.paymentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'payment-type');
         let models = await this.paymentTypeLookupService.getAll();
-        this.paymentTypes = models.data;
+        this.paymentTypes = _.orderBy(models.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async setAdditionalFieldValidation() {
@@ -184,25 +214,24 @@ class ContributionEditViewStore extends BaseEditViewStore {
         this.form.$('amount').set('rules', `required|numeric|min:${minimumAmount}`);
     }
 
-    @computed get showBankAccounts() {
-        if (this.form && this.paymentTypes) {
-            if (this.form.$("paymentTypeId").value === _.find(this.paymentTypes, { abrv: 'ach' }).id) {
-                return true;
-            }
-            if (this.form.$("paymentTypeId").value == _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
-                return true;
-            }
-        }
-        return false;
+    @computed get achId() {
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'ach' }).id : null;
     }
 
-    @computed get showCheckNumber() {
-        if (this.form && this.paymentTypes) {
-            if (this.form.$("paymentTypeId").value === _.find(this.paymentTypes, { abrv: 'check' }).id) {
-                return true;
-            }
-        }
-        return false;
+    @computed get wireTransferId() {
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id : null;
+    }
+
+    @computed get chaseQuickPayId() {
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'chase-quickpay' }).id : null;
+    }
+
+    @computed get stockAndMutualFundsId() {
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'stock-and-mutual-funds' }).id : null;
+    }
+
+    @computed get checkId() {
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'check' }).id : null;
     }
 
     @computed get isPayerInformationValid() {

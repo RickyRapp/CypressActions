@@ -13,16 +13,21 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     loading,
     bankAccountDropdownStore,
     paymentTypeDropdownStore,
-    showBankAccounts,
-    showCheckNumber,
     donorAccount,
     permissions,
     addBankAccountModalParams,
     onAddBankAccount,
     showPayerInformation,
     onChangeShowPayerInformation,
+    showStockAndMutualFundsContactInfo,
+    onChangeShowStockAndMutualFundsContactInfo,
     paymentTypes,
-    isPayerInformationValid
+    isPayerInformationValid,
+    chaseQuickPayId,
+    achId,
+    wireTransferId,
+    stockAndMutualFundsId,
+    checkId
   } = contributionCreateViewStore;
 
   const ColoredLine = ({ color }) => (
@@ -38,29 +43,99 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
   return (
     <React.Fragment>
       <EditFormLayout form={form} isEdit={true} loading={loading}>
-        {permissions.employeeCreate ? <PageContentHeader>{donorDetails(donorAccount)}</PageContentHeader> : null}
+        {renderIf(permissions.employeeCreate)(
+          <PageContentHeader>{donorDetails(donorAccount)}</PageContentHeader>)}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
               <label>Payment Type</label>
-              {paymentTypeDropdownStore &&
-                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
+              {renderIf(paymentTypeDropdownStore)(
+                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />)}
             </div>
           </div>
-          {showBankAccounts &&
+        </div>
+
+        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && (paymentTypeDropdownStore.value.id === achId || paymentTypeDropdownStore.value.id === wireTransferId))(
+          <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
               <div className="inputgroup">
                 <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
-                {bankAccountDropdownStore &&
-                  <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
+                {renderIf(bankAccountDropdownStore)(
+                  <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />)}
               </div>
-            </div>}
+            </div>
+          </div>)}
 
-          {showCheckNumber &&
+        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === checkId)(
+          <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
               <BasicInput field={form.$('checkNumber')} />
-            </div>}
-        </div>
+            </div>
+          </div>)}
+
+        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === stockAndMutualFundsId)(
+          <React.Fragment>
+            <div className="f-row">
+              <div className="form__group f-col f-col-lrg-12">
+                <BasicInput field={form.$('financialInstitution')} />
+              </div>
+            </div>
+            <div className="f-row">
+              {renderIf(showStockAndMutualFundsContactInfo)(
+                <React.Fragment>
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('financialInstitutionAddressLine1')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('financialInstitutionAddressLine2')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('financialInstitutionCity')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('financialInstitutionState')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('financialInstitutionZipCode')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-4">
+                    <BasicInput field={form.$('financialInstitutionPhoneNumber')} />
+                  </div>
+                </React.Fragment>)}
+              <div className="form__group f-col f-col-lrg-6">
+                <div className="display--b pull">{showStockAndMutualFundsContactInfo ? 'Hide' : 'Show'} institution contact informations</div>
+                <div className="display--b pull spc--left--sml">
+                  <input type="checkbox" onChange={onChangeShowStockAndMutualFundsContactInfo} value={showStockAndMutualFundsContactInfo} />
+                </div>
+              </div>
+            </div>
+            <div className="f-row">
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('accountNumber')} />
+              </div>
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('securityType')} />
+              </div>
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('securitySymbol')} />
+              </div>
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('numberOfShares')} />
+              </div>
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('estimatedValue')} />
+              </div>
+            </div>
+          </React.Fragment>)}
+        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === chaseQuickPayId)(
+          <div className="f-row">
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicInput field={form.$('transactionId')} />
+            </div>
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicInput field={form.$('memo')} />
+            </div>
+          </div>)}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-12">
             <h5>Payer Information</h5>
@@ -71,7 +146,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
                 (<span className="type--tiny type--color--error">Check this</span>)}
             </div>
           </div>
-          {showPayerInformation &&
+          {renderIf(showPayerInformation)(
             <React.Fragment>
               <div className="form__group f-col f-col-lrg-6">
                 <BasicInput field={form.$('payerInformation.firstName')} />
@@ -103,8 +178,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
               <div className="form__group f-col f-col-lrg-12">
                 <ColoredLine color="red" />
               </div>
-            </React.Fragment>
-          }
+            </React.Fragment>)}
         </div>
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
