@@ -42,7 +42,12 @@ class ContributionListViewStore extends BaseListViewStore {
                     else {
                         rootStore.routerStore.navigate('master.error');
                     }
-                }
+                },
+                details: (contributionId, userId) =>
+                    this.rootStore.routerStore.navigate('master.app.main.contribution.details', {
+                        contributionId: contributionId,
+                        id: userId
+                    }),
             },
             actions: {
                 find: async params => {
@@ -168,7 +173,7 @@ class ContributionListViewStore extends BaseListViewStore {
                 actions: {
                     onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
                     onReview: contribution => this.onReviewClick(contribution.id),
-                    onDetails: contribution => this.routes.details(contribution.id)
+                    onDetails: contribution => this.routes.details(contribution.id, contribution.donorAccountId)
                 },
                 actionsConfig: {
                     onEditConfig: { minutes: this.minutes, title: 'edit', permissions: this.permissions, statuses: availableStatuesForEdit },
