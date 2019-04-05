@@ -34,16 +34,12 @@ class ContributionDetailsViewStore extends BaseViewStore {
             onClose: this.onClose
         });
 
-        debugger;
         this.load();
     }
 
     @action.bound async load() {
-        debugger;
         await this.loadLookups();
-        debugger;
         await this.setFilterDropdownStores();
-        debugger;
 
         let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
         let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });

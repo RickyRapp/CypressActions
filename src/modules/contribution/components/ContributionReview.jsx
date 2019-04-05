@@ -4,15 +4,17 @@ import { BaasicDropdownStore } from "core/stores";
 import { ContributionReviewTemplate } from 'themes/modules/contribution/components';
 import { LookupService, ContributionService } from "common/data";
 import _ from 'lodash';
-import { toast } from 'react-toastify';
+import { inject } from "mobx-react";
 
+@inject(i => ({
+    rootStore: i.rootStore
+}))
 class ContributionReview extends React.Component {
     constructor({ rootStore, id, onAfterReview }) {
         super();
-        this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
-        this.onAfterReview = onAfterReview;
         this.rootStore = rootStore;
-
+        this.contributionService = new ContributionService(this.rootStore.app.baasic.apiClient);
+        this.onAfterReview = onAfterReview;
         this.load(id);
     }
 

@@ -13,8 +13,8 @@ function NavigationTemplate({
 }) {
   const lastIndex = breadcrumbs.length - 1;
   return !overrideDefaultContent ? (
-    <div className="row">
-      <div className="col-sml-8">
+    <div className="f-row">
+      <div className="f-col f-col-lrg-8">
         <h5 className="display--ib spc--top--sml">{t(title)}</h5>
         <div className="breadcrumbs">
           {_.map(breadcrumbs, (breadcrumb, index) => {
@@ -39,12 +39,14 @@ function NavigationTemplate({
         </div>
       </div>
       {children ? (
-        <div className="col-sml-4">{renderChildren(children)}</div>
+        <div className="f-col f-col-lrg-4">
+          {renderChildren(children)}
+        </div>
       ) : null}
     </div>
   ) : (
-    renderChildren(children)
-  );
+      renderChildren(children)
+    );
 }
 
 function renderChildren(children) {

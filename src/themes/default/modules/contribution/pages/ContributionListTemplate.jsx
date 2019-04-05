@@ -8,7 +8,7 @@ import { BaasicModal } from 'core/components';
 import moment from 'moment';
 import _ from 'lodash';
 
-function ContributionListTemplate({ contributionListViewStore, rootStore }) {
+function ContributionListTemplate({ contributionListViewStore }) {
     const {
         queryUtility,
         loaderStore,
@@ -108,7 +108,6 @@ function ContributionListTemplate({ contributionListViewStore, rootStore }) {
                                     <span>Please select donor</span>
                                     <DonorAccountSearch
                                         onChange={onChangeSearchDonor}
-                                        rootStore={rootStore}
                                     />
                                 </div>
                             </div>
@@ -116,7 +115,7 @@ function ContributionListTemplate({ contributionListViewStore, rootStore }) {
                     </BaasicModal>
                     <BaasicModal modalParams={reviewContributionModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">
-                            <ContributionReview onAfterReview={onAfterReviewContribution} rootStore={rootStore} id={reviewId} />
+                            <ContributionReview onAfterReview={onAfterReviewContribution} id={reviewId} />
                         </div>
                     </BaasicModal>
                 </React.Fragment>}
