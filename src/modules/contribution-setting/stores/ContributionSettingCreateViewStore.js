@@ -1,6 +1,6 @@
-import { action, observable, computed } from 'mobx';
+import { action, observable } from 'mobx';
 import { ContributionSettingCreateForm } from 'modules/contribution-setting/forms';
-import { ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
+import { ContributionSettingService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import _ from 'lodash';
 
@@ -85,23 +85,16 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
             this.form.$('contributionSettingTypeId').set('value', option.id);
             if (option.abrv === 'low-balance') {
                 this.form.$('lowBalanceAmount').set('rules', 'required|numeric');
+                this.form.$('startDate').set('rules', 'date');
             }
             else {
+                this.form.$('lowBalanceAmount').set('rules', 'numeric');
                 this.form.$('startDate').set('rules', 'required|date');
             }
         }
         else {
             this.form.$('contributionSettingTypeId').clear();
         }
-    }
-
-    @action.bound async getBankAccounts() {
-        this.bankAccountService = new BankAccountService(this.rootStore.app.baasic.apiClient);
-        let params = {};
-        params.embed = 'bankAccount'
-        params.orderBy = 'dateCreated';
-        params.orderDirection = 'asc';
-        return await this.bankAccountService.getDonorAccountCollection(this.userId, params);
     }
 }
 

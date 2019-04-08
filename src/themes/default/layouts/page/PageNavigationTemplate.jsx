@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/utils';
 import { Navigation } from 'core/components';
 import { TabMenuLayout } from 'core/layouts';
 
-const PageNavigationTemplate = function({ title, hideNavigation, children }) {
+const PageNavigationTemplate = function ({ title, hideNavigation, children }) {
+
   return (
     <div className="content__header">
       <Navigation title={title} overrideDefaultContent={hideNavigation}>

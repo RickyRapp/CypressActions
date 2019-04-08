@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import { defaultTemplate } from 'core/utils';
 import { Loader } from 'core/components';
+import { NotifyOutsideClick } from 'core/components';
 
 const customStyles = {
   content: {
@@ -17,8 +18,10 @@ const customStyles = {
 function BaasicModalTemplate({ modalParams, children, ...other }) {
   return (
     <Modal isOpen={modalParams.isOpen} style={customStyles} {...other}>
-      <button onClick={modalParams.close}>close</button>
-      {modalParams.loading ? <Loader /> : children}
+      <NotifyOutsideClick action={modalParams.notifyOutsideClick}>
+        <button onClick={modalParams.close}>close</button>
+        {modalParams.loading ? <Loader /> : children}
+      </NotifyOutsideClick>
     </Modal>
   );
 }

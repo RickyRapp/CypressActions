@@ -5,7 +5,7 @@ import { BasicInput, BaasicButton, BaasicFieldDropdown, BaasicFormControls, Baas
 import { EditFormLayout, PageContentHeader, PageContentSidebar } from 'core/layouts';
 import { BankAccountCreate } from 'modules/bank-account/pages';
 import { ContributionReview } from 'modules/contribution/components';
-import { renderIf, isSome } from 'core/utils';
+import { renderIf } from 'core/utils';
 import { DonorAccountHeaderDetails } from 'modules/donor-account/components'
 import moment from 'moment';
 import 'moment-timezone';

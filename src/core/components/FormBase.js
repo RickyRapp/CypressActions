@@ -1,12 +1,19 @@
 import { Form } from 'mobx-react-form';
 import validatorjs from 'validatorjs';
+import { dvrExtend } from 'core/models';
 
 class FormBase extends Form {
   constructor(hooks) {
+
     super(
       {},
       {
-        plugins: { dvr: validatorjs },
+        plugins: {
+          dvr: {
+            package: validatorjs,
+            extend: dvrExtend,
+          },
+        },
         hooks,
         options: {
           validationDebounceWait: 50

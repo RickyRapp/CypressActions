@@ -39,7 +39,13 @@ export default class ContributionCreateForm extends FormBase {
                 'numberOfShares',
                 'estimatedValue',
                 'transactionId',
-                'memo'
+                'memo',
+                'settingAmount',
+                'settingBankAccountId',
+                'contributionSettingTypeId',
+                'settingEnabled',
+                'settingStartDate',
+                'settingLowBalanceAmount'
             ],
 
             labels: {
@@ -75,6 +81,12 @@ export default class ContributionCreateForm extends FormBase {
                 'estimatedValue': 'Estimated Value',
                 'transactionId': 'Transaction Id',
                 'memo': 'Memo',
+                'settingAmount': 'Amount',
+                'settingBankAccountId': 'Bank Account',
+                'contributionSettingTypeId': 'Setting Type',
+                'settingEnabled': 'Enabled',
+                'settingStartDate': 'Start Date',
+                'settingLowBalanceAmount': 'Low Balance',
             },
 
             placeholders: {
@@ -106,6 +118,12 @@ export default class ContributionCreateForm extends FormBase {
                 'securitySymbol': 'Enter Security Symbol',
                 'transactionId': 'Enter Transaction Id',
                 'memo': 'Enter Memo',
+                'settingAmount': 'Enter Amount',
+                'settingBankAccountId': 'Choose Bank Account',
+                'contributionSettingTypeId': 'Choose Setting Type',
+                'settingEnabled': 'Enabled',
+                'settingStartDate': 'Select Start Date',
+                'settingLowBalanceAmount': 'Enter Low Balance Amount',
             },
 
             rules: {
@@ -137,7 +155,22 @@ export default class ContributionCreateForm extends FormBase {
                 'securitySymbol': 'string',
                 'transactionId': 'string',
                 'memo': 'string',
+                'settingAmount': 'numeric|min:0',
+                'settingBankAccountId': 'string',
+                'contributionSettingTypeId': 'string',
+                'settingStartDate': 'date',
+                'settingLowBalanceAmount': 'numeric',
+            },
+
+            types: {
+                'settingEnabled': 'checkbox',
+            },
+
+            options: {
+                'settingStartDate': {
+                    validateOnChange: true,
+                },
             }
-        };
+        }
     }
 };

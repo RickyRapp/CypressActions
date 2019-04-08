@@ -11,19 +11,27 @@ class PageNavigation extends React.Component {
 
   render() {
     const contributionEmployeeRead = this.props.rootStore.authStore.hasPermission('theDonorsFundSection.read');
-    debugger;
+
     return (
       <PageNavigationTemplate {...this.props}>
-        {(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && contributionEmployeeRead &&
-          <div className="spc--top--sml">
-            <DonorAccountSearch
-              onChange={event => this.props.rootStore.routerStore.goTo('master.app.main.donor.account.edit', {
-                id: event.id
-              })}
+        <div className="f-row">
+          {(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && contributionEmployeeRead &&
+            <div className={this.props.children ? "f-col f-col-lrg-8" : "f-col f-col-lrg-12"}>
+              <div className="spc--top--sml">
+                <DonorAccountSearch
+                  onChange={event => this.props.rootStore.routerStore.goTo('master.app.main.donor.account.edit', {
+                    id: event.id
+                  })}
 
-            // onChange={event => this.props.rootStore.routerStore.historyAdapter.history.push('/app/donor-account/edit/' + event.id)}
-            />
-          </div>}
+                // onChange={event => this.props.rootStore.routerStore.historyAdapter.history.push('/app/donor-account/edit/' + event.id)}
+                />
+              </div>
+            </div>}
+
+          <div className={(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && contributionEmployeeRead ? "f-col f-col-lrg-4" : "f-col f-col-lrg-12"} >
+            {this.props.children}
+          </div>
+        </div>
       </PageNavigationTemplate>
     )
   }

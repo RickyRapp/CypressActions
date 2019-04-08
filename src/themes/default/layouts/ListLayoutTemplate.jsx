@@ -5,7 +5,7 @@ import { Page, PageNavigation } from 'core/layouts';
 import { defaultTemplate } from 'core/utils';
 import { getPageObject } from 'core/utils';
 
-const ListLayoutTemplate = function({
+const ListLayoutTemplate = function ({
   title,
   onCreate,
   children,
@@ -20,10 +20,10 @@ const ListLayoutTemplate = function({
       {navigation ? (
         navigation
       ) : (
-        <PageNavigation>
-          <DefaultListLayoutHeaderContent t={t} onCreate={onCreate} />
-        </PageNavigation>
-      )}
+          <PageNavigation>
+            <DefaultListLayoutHeaderContent t={t} onCreate={onCreate} />
+          </PageNavigation>
+        )}
       {header}
       {content.header}
       <ListContent>{content.children}</ListContent>
@@ -42,7 +42,7 @@ ListLayoutTemplate.propTypes = {
 function DefaultListLayoutHeaderContent({ t, onCreate = null }) {
   return onCreate ? (
     <button
-      className="btn btn--med btn--tertiary push spc--top--med"
+      className="btn btn--med btn--tertiary push spc--top--sml"
       onClick={onCreate}
     >
       <span className="icomoon icon-add tiny align--v--baseline spc--right--tny" />

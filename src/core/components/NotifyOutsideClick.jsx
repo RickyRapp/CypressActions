@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 class NotifyOutsideClick extends React.Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class NotifyOutsideClick extends React.Component {
 
   handleClickOutside(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.props.action();
+      if (_.isFunction(this.props.action))
+        this.props.action();
     }
   }
 
@@ -33,7 +35,7 @@ class NotifyOutsideClick extends React.Component {
 }
 
 NotifyOutsideClick.propTypes = {
-  children: PropTypes.element.isRequired,
+  // children: PropTypes.element.isRequired,
   action: PropTypes.func
 };
 

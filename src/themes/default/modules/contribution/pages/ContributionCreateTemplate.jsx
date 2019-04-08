@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, BaasicModal, BasicCheckBox } from 'core/components';
 import { EditFormLayout, PageContentHeader } from 'core/layouts';
 import { BankAccountCreate } from 'modules/bank-account/pages';
-import { renderIf, isSome } from 'core/utils';
+import { renderIf } from 'core/utils';
+import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/contribution-setting/components';
+import { DonorAccountHeaderDetails } from 'modules/donor-account/components'
 import _ from 'lodash';
 
 function ContributionCreateTemplate({ contributionCreateViewStore }) {
@@ -13,7 +15,6 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     loading,
     bankAccountDropdownStore,
     paymentTypeDropdownStore,
-    donorAccount,
     permissions,
     addBankAccountModalParams,
     onAddBankAccount,
@@ -27,7 +28,14 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     achId,
     wireTransferId,
     stockAndMutualFundsId,
-    checkId
+    checkId,
+    bankAccountSettingDropdownStore,
+    contributionSettingTypeDropdownStore,
+    onChangeMakeAsRecurringPayment,
+    makeAsRecurringPayment,
+    userId,
+    usedSettingTypeIds,
+    contributionSettingType
   } = contributionCreateViewStore;
 
   const ColoredLine = ({ color }) => (
@@ -44,7 +52,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     <React.Fragment>
       <EditFormLayout form={form} isEdit={true} loading={loading}>
         {renderIf(permissions.employeeCreate)(
-          <PageContentHeader>{donorDetails(donorAccount)}</PageContentHeader>)}
+          <PageContentHeader><DonorAccountHeaderDetails userId={userId} type='contribution' /></PageContentHeader>)}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
@@ -188,34 +196,49 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
             <BasicInput field={form.$('description')} />
           </div>
         </div>
+        {bankAccountDropdownStore && paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === achId &&
+          form.$('bankAccountId').value && form.$('amount').value &&
+          <React.Fragment>
+            <div className="f-row">
+              <div className="form__group f-col f-col-lrg-12">
+                <div className="display--b pull">Make As Recurring Payment</div>
+                <div className="display--b pull spc--left--sml">
+                  <input type="checkbox" onChange={onChangeMakeAsRecurringPayment} value={makeAsRecurringPayment} />
+                </div>
+              </div>
+            </div>
+            {makeAsRecurringPayment &&
+              < div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                  <ContributionSettingCreateFormFieldsTemplate
+                    enabledField={form.$('settingEnabled')}
+                    amountField={form.$('settingAmount')}
+                    bankAccountIdField={form.$('settingBankAccountId')}
+                    contributionSettingTypeIdField={form.$('contributionSettingTypeId')}
+                    lowBalanceAmountField={form.$('settingLowBalanceAmount')}
+                    startDateField={form.$('settingStartDate')}
+                    bankAccountDropdownStore={bankAccountSettingDropdownStore}
+                    contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />
+                </div>
+                {usedSettingTypeIds &&
+                  <div className="form__group f-col f-col-lrg-6">
+                    Created Setting Rules:
+                {usedSettingTypeIds.map((settingTypeId, i) =>
+                      <ul key={settingTypeId}>
+                        <li>{_.find(contributionSettingType, { id: settingTypeId }).name}</li>
+                      </ul>)}
+                  </div>}
+              </div>}
+          </React.Fragment>}
       </EditFormLayout>
       <BaasicModal modalParams={addBankAccountModalParams} >
         <div className="col col-sml-12 card card--form card--primary card--lrg">
           <BankAccountCreate onAfterCreate={onAddBankAccount} />
         </div>
       </BaasicModal>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
-
-function donorDetails(donorAccount) {
-  return (
-    <React.Fragment>
-      {donorAccount ?
-        <div className="f-row">
-          <div className="form__group f-col f-col-lrg-3">
-            Donor Name: <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-          </div>
-          <div className="form__group f-col f-col-lrg-3">
-            Available Balance: <strong>${donorAccount.availableBalance}</strong>
-          </div>
-          <div className="form__group f-col f-col-lrg-3">
-            Initial Contribution: <strong>{donorAccount.initialContribution ? `Yes - Minimum $${donorAccount.contributionMinimumAdditional}` : `No - Minimum $${donorAccount.contributionMinimumInitial}`}</strong>
-          </div>
-        </div> : null}
-    </React.Fragment>
-  );
-}
 
 ContributionCreateTemplate.propTypes = {
   contributionCreateViewStore: PropTypes.object.isRequired

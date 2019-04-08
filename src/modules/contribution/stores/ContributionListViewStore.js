@@ -92,7 +92,8 @@ class ContributionListViewStore extends BaseListViewStore {
         });
 
         this.reviewContributionModalParams = new ModalParams({
-            onClose: this.onClose
+            onClose: this.onClose,
+            notifyOutsideClick: true
         });
 
         this.load();

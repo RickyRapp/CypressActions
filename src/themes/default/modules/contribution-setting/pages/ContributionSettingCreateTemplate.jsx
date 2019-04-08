@@ -1,6 +1,7 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, EditFormContent, BaasicFormControls, BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker } from 'core/components';
+import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/contribution-setting/components';
 import _ from 'lodash';
 
 function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore }) {
@@ -18,35 +19,18 @@ function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore 
 
     return (
         <EditFormContent form={form} loading={loading}>
-            {contributionSettingTypeDropdownStore && <BaasicFieldDropdown field={form.$('contributionSettingTypeId')} store={contributionSettingTypeDropdownStore} />}
+            <ContributionSettingCreateFormFieldsTemplate
+                enabledField={form.$('enabled')}
+                amountField={form.$('amount')}
+                bankAccountIdField={form.$('bankAccountId')}
+                contributionSettingTypeIdField={form.$('contributionSettingTypeId')}
+                lowBalanceAmountField={form.$('lowBalanceAmount')}
+                startDateField={form.$('startDate')}
+                bankAccountDropdownStore={bankAccountDropdownStore}
+                contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />
 
             {form.$('contributionSettingTypeId').value &&
-                <React.Fragment>
-                    <BasicCheckBox field={form.$('enabled')} />
-                    <React.Fragment>
-                        <div className="f-row" style={form.$('enabled').value ? null : styles}>
-                            <div className="form__group f-col f-col-lrg-12">
-                                <BasicInput field={form.$('amount')} />
-                            </div>
-                            <div className="form__group f-col f-col-lrg-12">
-                                <div className="inputgroup">
-                                    <label>Bank Account</label>
-                                    {bankAccountDropdownStore && <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
-                                </div>
-                            </div>
-                            {form.$('contributionSettingTypeId').value && contributionSettingTypeDropdownStore.value.abrv === 'low-balance' ?
-                                <div className="form__group f-col f-col-lrg-12">
-                                    <BasicInput field={form.$('lowBalanceAmount')} />
-                                </div>
-                                :
-                                <div className="form__group f-col f-col-lrg-12">
-                                    <BasicFieldDatePicker field={form.$('startDate')} />
-                                </div>}
-                        </div>
-                    </React.Fragment>
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                </React.Fragment>
-            }
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
         </EditFormContent>
     );
 }

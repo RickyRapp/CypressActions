@@ -1,13 +1,21 @@
 import { observable, action } from 'mobx';
+import _ from 'lodash';
 
 class ModalParams {
   @observable isOpen = false;
   @observable loading = false;
   @observable data = {};
 
-  constructor({ onClose }) {
+  constructor({ onClose, notifyOutsideClick = false }) {
     if (onClose) {
       this.onClose = onClose;
+    }
+
+    if (notifyOutsideClick) {
+      this.notifyOutsideClick = _.isFunction(notifyOutsideClick) ? notifyOutsideClick : this.close;
+    }
+    else {
+      this.notifyOutsideClick = null;
     }
   }
 
