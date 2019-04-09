@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, EditFormContent, BaasicFormControls, BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker } from 'core/components';
+import { EditFormContent, BaasicFormControls } from 'core/components';
 import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/contribution-setting/components';
 import _ from 'lodash';
 
@@ -12,10 +12,6 @@ function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore 
         contributionSettingTypeDropdownStore
     } = contributionSettingCreateViewStore;
 
-    const styles = {
-        opacity: '0.5',
-        pointerEvents: 'none'
-    }
 
     return (
         <EditFormContent form={form} loading={loading}>

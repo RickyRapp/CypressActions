@@ -1,7 +1,7 @@
 import { FormBase } from 'core/components';
 
 export default class ContributionSettingCreateForm extends FormBase {
-    constructor(hooks, settingTypeId) {
+    constructor(hooks) {
         super(hooks);
     }
 

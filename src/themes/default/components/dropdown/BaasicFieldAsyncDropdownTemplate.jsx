@@ -27,7 +27,7 @@ function BaasicFieldAsyncDropdownTemplate({ store, field, label = null }) {
         cacheOptions={true}
         getOptionLabel={option => option[options.textField]}
         getOptionValue={option => option[options.dataItemKey]}
-        defaultOptions={true} //  tells the control to immediately fire the remote request, described by your loadOptions
+        defaultOptions={options.initFetch} //  tells the control to immediately fire the remote request, described by your loadOptions
         loadOptions={(input, callback) => {
           store.onFilter({ value: input }).then(() => {
             if (field) {

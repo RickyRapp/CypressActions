@@ -8,6 +8,7 @@ export { default as BankAccountService } from './services/BankAccountService';
 export { default as DonorNoteService } from './services/DonorNoteService';
 export { default as ContributionService } from './services/ContributionService';
 export { default as ContributionSettingService } from './services/ContributionSettingService';
+export { default as FundTransferService } from './services/FundTransferService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -19,3 +20,4 @@ export { default as BankAccountRouteService } from './services/BankAccountRouteS
 export { default as DonorNoteRouteService } from './services/DonorNoteRouteService';
 export { default as ContributionRouteService } from './services/ContributionRouteService';
 export { default as ContributionSettingRouteService } from './services/ContributionSettingRouteService';
+export { default as FundTransferRouteService } from './services/FundTransferRouteService';
