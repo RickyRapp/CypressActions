@@ -6,11 +6,17 @@ import { FundTransferListFilter } from 'modules/fund-transfer/models';
 import _ from 'lodash';
 
 class FundTransferListViewStore extends BaseListViewStore {
-    @observable recepientDonorAccountSearchDropdownStore = null;
+    @observable recipientDonorAccountSearchDropdownStore = null;
     @observable senderDonorAccountSearchDropdownStore = null;
 
     constructor(rootStore) {
         const fundTransferService = new FundTransferService(rootStore.app.baasic.apiClient);
+
+        const filter = new FundTransferListFilter();
+        //TODO: add filter for donor account id (both sender and recipient)
+        if (rootStore.routerStore.routerState.params.donorAccountId) {
+            filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
+        }
 
         super(rootStore, {
             name: 'fund transfer',
@@ -21,7 +27,7 @@ class FundTransferListViewStore extends BaseListViewStore {
             },
             actions: {
                 find: async params => {
-                    params.embed = 'senderDonorAccount,recepientDonorAccount,coreUser,createdByCoreUser';
+                    params.embed = 'senderDonorAccount,recipientDonorAccount,coreUser,createdByCoreUser';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await fundTransferService.find(rootStore.routerStore.routerState.params.id, params);
@@ -29,7 +35,7 @@ class FundTransferListViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: new FundTransferListFilter()
+                filter: filter
             }
         });
 
@@ -62,13 +68,13 @@ class FundTransferListViewStore extends BaseListViewStore {
             }
         );
 
-        this.recepientDonorAccountSearchDropdownStore = new BaasicDropdownStore(
+        this.recipientDonorAccountSearchDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
                 textField: 'name',
                 dataItemKey: 'id',
                 clearable: true,
-                placeholder: 'Choose Recepient',
+                placeholder: 'Choose Recipient',
                 initFetch: false
             },
             {
@@ -81,7 +87,7 @@ class FundTransferListViewStore extends BaseListViewStore {
                     const response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onChangeRecepientDonorAccountSearch
+                onChange: this.onChangerecipientDonorAccountSearch
             }
         );
 
@@ -97,7 +103,6 @@ class FundTransferListViewStore extends BaseListViewStore {
                     {
                         key: 'senderDonorAccount.coreUser',
                         title: 'Sender',
-                        permissions: { read: this.contributionEmployeeRead },
                         type: 'object',
                         separator: ' ',
                         additionalColumns: [{
@@ -107,9 +112,8 @@ class FundTransferListViewStore extends BaseListViewStore {
                         }]
                     },
                     {
-                        key: 'recepientDonorAccount.coreUser',
-                        title: 'Recepient',
-                        permissions: { read: this.contributionEmployeeRead },
+                        key: 'recipientDonorAccount.coreUser',
+                        title: 'recipient',
                         type: 'object',
                         separator: ' ',
                         additionalColumns: [{
@@ -134,12 +138,14 @@ class FundTransferListViewStore extends BaseListViewStore {
                         }]
                     },
                     {
-                        key: 'dateUpdated',
-                        title: 'Date Updated',
+                        key: 'dateCreated',
+                        title: 'Date Created',
                         type: 'date',
                         format: 'YYYY-MM-DD HH:mm'
                     },
-                ]
+                ],
+                actions: {
+                },
             })
         );
     }
@@ -148,8 +154,8 @@ class FundTransferListViewStore extends BaseListViewStore {
         this.queryUtility.filter.senderDonorAccountId = (option ? option.id : null)
     }
 
-    @action.bound async onChangeRecepientDonorAccountSearch(option) {
-        this.queryUtility.filter.recepientDonorAccountId = (option ? option.id : null)
+    @action.bound async onChangerecipientDonorAccountSearch(option) {
+        this.queryUtility.filter.recipientDonorAccountId = (option ? option.id : null)
     }
 }
 

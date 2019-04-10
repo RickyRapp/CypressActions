@@ -29,6 +29,8 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
         else if (this.isContributionSettingType) {
             embeds.push('contributionSetting');
         }
+        else if (this.isActivityAndHistoryType) {
+        }
 
         return embeds.join(',');
     }
@@ -41,6 +43,9 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
         return this.type === 'contribution-setting';
     }
 
+    @computed get isActivityAndHistoryType() {
+        return this.type === 'activity-and-history';
+    }
 }
 
 export default DonorAccountHeaderDetailsViewStore;

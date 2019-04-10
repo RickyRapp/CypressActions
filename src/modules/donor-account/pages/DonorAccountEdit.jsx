@@ -24,6 +24,9 @@ class DonorAccountEdit extends React.Component {
         return (
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-4">
+                    <a className="btn btn--sml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.activity.and.history', { donorAccountId: this.props.donorAccountProfileViewStore.userId })}>Activity And History</a>
+                </div>
+                <div className="form__group f-col f-col-lrg-4">
                     <a className="btn btn--sml btn--tertiary" onClick={() => this.props.rootStore.routerStore.navigate('master.app.main.contribution.list', { donorAccountId: this.props.donorAccountProfileViewStore.userId })}>Contributions</a>
                 </div>
                 <div className="form__group f-col f-col-lrg-4">
@@ -36,7 +39,8 @@ class DonorAccountEdit extends React.Component {
     render() {
         return (
             <Page>
-                <PageContentHeader>{this.renderShorcuts()}</PageContentHeader>
+                {this.props.donorAccountProfileViewStore.permissions.administrationRead &&
+                    <PageContentHeader>{this.renderShorcuts()}</PageContentHeader>}
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="f-row">

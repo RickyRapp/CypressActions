@@ -7,7 +7,7 @@ class FundTransferRouteService extends BaseRouteService {
         super();
         this.base = 'fund-transfer/';
         this.uriTemplateService = uritemplate;
-        this.queryParams = 'amountRangeMin,amountRangeMax,senderDonorAccountId,recepientDonorAccountId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,searchFields';
+        this.queryParams = 'amountRangeMin,amountRangeMax,senderDonorAccountId,recipientDonorAccountId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,searchFields';
     }
 
     find(id, filter) {

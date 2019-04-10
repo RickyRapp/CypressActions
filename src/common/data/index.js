@@ -9,6 +9,7 @@ export { default as DonorNoteService } from './services/DonorNoteService';
 export { default as ContributionService } from './services/ContributionService';
 export { default as ContributionSettingService } from './services/ContributionSettingService';
 export { default as FundTransferService } from './services/FundTransferService';
+export { default as ActivityAndHistoryService } from './services/ActivityAndHistoryService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -21,3 +22,4 @@ export { default as DonorNoteRouteService } from './services/DonorNoteRouteServi
 export { default as ContributionRouteService } from './services/ContributionRouteService';
 export { default as ContributionSettingRouteService } from './services/ContributionSettingRouteService';
 export { default as FundTransferRouteService } from './services/FundTransferRouteService';
+export { default as ActivityAndHistoryRouteService } from './services/ActivityAndHistoryRouteService';

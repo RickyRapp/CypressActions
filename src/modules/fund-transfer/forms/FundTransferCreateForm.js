@@ -9,7 +9,7 @@ export default class FundTransferCreateForm extends FormBase {
         return {
             fields: [
                 'senderDonorAccountId',
-                'recepientDonorAccountId',
+                'recipientDonorAccountId',
                 'description',
                 'paymentTransaction',
                 'amount',
@@ -17,21 +17,21 @@ export default class FundTransferCreateForm extends FormBase {
 
             labels: {
                 'senderDonorAccountId': 'Sender Donor',
-                'recepientDonorAccountId': 'Recepient Donor',
+                'recipientDonorAccountId': 'recipient Donor',
                 'description': 'Description',
                 'amount': 'Amount',
             },
 
             placeholders: {
                 'senderDonorAccountId': 'Select Sender Donor',
-                'recepientDonorAccountId': 'Select Recepient Donor',
+                'recipientDonorAccountId': 'Select Recipient Donor',
                 'description': 'Enter Description',
                 'amount': 'Enter Amount',
             },
 
             rules: {
                 'senderDonorAccountId': 'required|string',
-                'recepientDonorAccountId': 'required|string',
+                'recipientDonorAccountId': 'required|string',
                 'description': 'string',
                 'amount': 'required|numeric|min:0',
             }

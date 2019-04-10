@@ -7,8 +7,8 @@ function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
     const {
         senderDonorAccountDropdownStore,
         senderDonorAccount,
-        recepientDonorAccountDropdownStore,
-        recepientDonorAccount,
+        recipientDonorAccountDropdownStore,
+        recipientDonorAccount,
         form,
         loading
     } = fundTransferCreateViewStore;
@@ -31,22 +31,22 @@ function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-6">
                     {renderIf(isSome(senderDonorAccountDropdownStore))(
-                        <BaasicFieldAsyncDropdown field={form.$('recepientDonorAccountId')} store={recepientDonorAccountDropdownStore} />)}
+                        <BaasicFieldAsyncDropdown field={form.$('recipientDonorAccountId')} store={recipientDonorAccountDropdownStore} />)}
                 </div>
                 <div className="form__group f-col f-col-lrg-6 spc--top--med">
-                    {recepientDonorAccount &&
+                    {recipientDonorAccount &&
                         <div>
                             <div>
-                                {recepientDonorAccount.coreUser.firstName}
+                                {recipientDonorAccount.coreUser.firstName}
                             </div>
                             <div>
-                                ${recepientDonorAccount.availableBalance}
+                                ${recipientDonorAccount.availableBalance}
                             </div>
                         </div>}
                 </div>
             </div>
 
-            {form.$('senderDonorAccountId').value && form.$('recepientDonorAccountId').value &&
+            {form.$('senderDonorAccountId').value && form.$('recipientDonorAccountId').value &&
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
                         <BasicInput field={form.$('amount')} />

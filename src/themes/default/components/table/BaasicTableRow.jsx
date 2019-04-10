@@ -60,6 +60,14 @@ function renderRow(item, column) {
     itemValue = `$${itemValue}`;
   }
 
+  if (column.type === 'lookup' && column.lookup && itemValue) {
+    itemValue = _.find(column.lookup, { id: itemValue }).name;
+  }
+
+  if (column.type === 'function' && column.function && _.isFunction(column.function)) {
+    itemValue = column.function(item);
+  }
+
   if (column.type === 'object') {
     let baseItem = '';
     _.forEach(column.additionalColumns, (childColumn, index) => {

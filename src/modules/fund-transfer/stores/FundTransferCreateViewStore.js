@@ -8,8 +8,8 @@ import _ from 'lodash';
 class FundTransferCreateViewStore extends BaseEditViewStore {
     @observable senderDonorAccountDropdownStore = null;
     @observable senderDonorAccount = null;
-    @observable recepientDonorAccountDropdownStore = null;
-    @observable recepientDonorAccount = null;
+    @observable recipientDonorAccountDropdownStore = null;
+    @observable recipientDonorAccount = null;
 
     constructor(rootStore) {
         const fundTransferService = new FundTransferService(rootStore.app.baasic.apiClient);
@@ -36,13 +36,12 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                 textField: 'name',
                 dataItemKey: 'id',
                 clearable: true,
-                placeholder: 'Choose Donor',
                 initFetch: false
             },
             {
                 fetchFunc: async (term) => {
                     let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
-                    options.exceptId = this.recepientDonorAccount ? this.recepientDonorAccount.id : null;
+                    options.exceptId = this.recipientDonorAccount ? this.recipientDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -54,13 +53,12 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             }
         );
 
-        this.recepientDonorAccountDropdownStore = new BaasicDropdownStore(
+        this.recipientDonorAccountDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
                 textField: 'name',
                 dataItemKey: 'id',
                 clearable: true,
-                placeholder: 'Choose Donor',
                 initFetch: false
             },
             {
@@ -74,7 +72,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                     const response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onChangeRecepientDonorAccount
+                onChange: this.onChangerecipientDonorAccount
             }
         );
     }
@@ -95,17 +93,17 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
         }
     }
 
-    @action.bound async onChangeRecepientDonorAccount(option) {
+    @action.bound async onChangerecipientDonorAccount(option) {
         if (option) {
-            this.form.$('recepientDonorAccountId').set('value', option.id);
+            this.form.$('recipientDonorAccountId').set('value', option.id);
             let params = {};
             params.embed = ['coreUser'];
             const response = await this.donorAccountService.get(option.id, params);
-            this.recepientDonorAccount = response;
+            this.recipientDonorAccount = response;
         }
         else {
-            this.recepientDonorAccount = null;
-            this.form.$('recepientDonorAccountId').set('value', null);
+            this.recipientDonorAccount = null;
+            this.form.$('recipientDonorAccountId').set('value', null);
         }
     }
 }

@@ -19,11 +19,9 @@ class PageNavigation extends React.Component {
             <div className={this.props.children ? "f-col f-col-lrg-8" : "f-col f-col-lrg-12"}>
               <div className="spc--top--sml">
                 <DonorAccountSearch
-                  onChange={event => this.props.rootStore.routerStore.goTo('master.app.main.donor.account.edit', {
+                  onChange={event => this.props.rootStore.routerStore.navigate('master.app.main.donor.account.edit', {
                     id: event.id
                   })}
-
-                // onChange={event => this.props.rootStore.routerStore.historyAdapter.history.push('/app/donor-account/edit/' + event.id)}
                 />
               </div>
             </div>}
