@@ -1,1 +1,3 @@
-export { default as ActivityAndHistoryListTemplate } from './ActivityAndHistoryListTemplate'
+export { default as ActivityAndHistoryAdministrationListTemplate } from './administration/ActivityAndHistoryAdministrationListTemplate'
+
+export { default as ActivityAndHistoryMainListTemplate } from './main/ActivityAndHistoryMainListTemplate'

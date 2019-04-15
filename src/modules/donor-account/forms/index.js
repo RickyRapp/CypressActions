@@ -1,2 +1,3 @@
-export { default as DonorAccountProfileEditForm } from './DonorAccountProfileEditForm';
-export { default as DonorAccountSettingEditForm } from './DonorAccountSettingEditForm';
+export { default as DonorAccountSettingAdministrationEditForm } from './administration/DonorAccountSettingAdministrationEditForm';
+
+export { default as DonorAccountEditForm } from './DonorAccountEditForm';

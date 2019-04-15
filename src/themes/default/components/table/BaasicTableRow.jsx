@@ -57,15 +57,35 @@ function renderRow(item, column) {
 
   if (column.type === 'currency') {
     //TODO: add support for currency format
+    //column.format
     itemValue = `$${itemValue}`;
   }
 
-  if (column.type === 'lookup' && column.lookup && itemValue) {
-    itemValue = _.find(column.lookup, { id: itemValue }).name;
+  if (column.type === 'lookup' && column.lookup) {
+    if (itemValue) {
+      itemValue = _.find(column.lookup, { id: itemValue }).name;
+    }
+    else {
+      if (column.defaultValue) {
+        itemValue = column.defaultValue;
+      }
+    }
   }
 
   if (column.type === 'function' && column.function && _.isFunction(column.function)) {
     itemValue = column.function(item);
+  }
+
+  if (column.type === 'bool') {
+    if (itemValue === 'true') {
+      itemValue = "Yes";
+    }
+    else if (itemValue === 'false') {
+      itemValue = "No";
+    }
+    else {
+      itemValue = "-"
+    }
   }
 
   if (column.type === 'object') {

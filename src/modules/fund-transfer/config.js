@@ -5,22 +5,34 @@ import { FundTransferCreate, FundTransferList } from 'modules/fund-transfer/page
     moduleProviderFactory.application.register({
         routes: [
             {
+                name: 'master.app.administration.fund.transfer',
+                pattern: '/fund-transfer',
+                isPrivate: true,
+                children: [
+                    {
+                        name: 'master.app.administration.fund.transfer.list',
+                        pattern: '',
+                        component: FundTransferList,
+                    },
+                    {
+                        name: 'master.app.administration.fund.transfer.create',
+                        pattern: 'create',
+                        component: FundTransferCreate,
+                        authorization: 'theDonorsFundSection.create'
+
+                    }
+                ]
+            },
+            {
                 name: 'master.app.main.fund.transfer',
                 pattern: '/fund-transfer',
                 isPrivate: true,
                 children: [
                     {
                         name: 'master.app.main.fund.transfer.list',
-                        pattern: 'list/:id?',
+                        pattern: '',
                         component: FundTransferList,
                         authorization: 'theDonorsFundContributionSection.read'
-                    },
-                    {
-                        name: 'master.app.main.fund.transfer.create',
-                        pattern: 'create',
-                        component: FundTransferCreate,
-                        authorization: 'theDonorsFundSection.create'
-
                     }
                 ]
             }
@@ -32,7 +44,12 @@ import { FundTransferCreate, FundTransferList } from 'modules/fund-transfer/page
                     {
                         title: 'Fund Transfers',
                         route: 'master.app.main.fund.transfer.list',
-                        order: 3
+                        order: 4
+                    },
+                    {
+                        title: 'Fund Transfers',
+                        route: 'master.app.administration.fund.transfer.list',
+                        order: 4
                     }
                 ]
             }

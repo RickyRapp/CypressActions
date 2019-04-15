@@ -2,13 +2,13 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicFieldDropdown, EditFormContent, BaasicFormControls } from 'core/components';
 
-function DonorAccountProfileEditTemplate({ profileEditViewStore }) {
+function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
     const {
         form,
         loading,
         deliveryMethodTypeDropdownStore,
         prefixTypeDropdownStore,
-    } = profileEditViewStore;
+    } = donorAccountProfileEditViewStore;
 
     return (
         <React.Fragment>

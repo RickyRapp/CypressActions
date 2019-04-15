@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'mobx';
-import { ContributionCreateForm } from 'modules/contribution/forms';
+import { ContributionCreateForm, ContributionEditForm } from 'modules/contribution/forms';
 import { ContributionService, ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
@@ -15,17 +15,21 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     @observable paymentTypeDropdownStore = null;
     @observable bankAccountDropdownStore = null;
     @observable contributionSettingType = null;
+    @observable contributionStatuses = null;
     @observable makeAsRecurringPayment = false;
     @observable usedSettingTypeIds = null;
+    contribution = null;
 
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         const contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
 
-        let userId = rootStore.routerStore.routerState.params.id;
+        let userId = rootStore.routerStore.routerState.params.userId;
+        let contributionId = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
             name: 'contribution',
+            id: contributionId,
             actions: {
                 create: async newContribution => {
                     let contributionCreate = false;
@@ -56,20 +60,47 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                         }
                         return errorResponse;
                     }
+                },
+                update: async contribution => {
+                    try {
+
+                        return await contributionService.update({ id: contributionId, ...contribution })
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
+                },
+                get: async id => {
+                    let params = {};
+                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus'];
+                    let model = await contributionService.get(id, params);
+                    if (model.json && JSON.parse(model.json).paymentTypeInformations) {
+                        _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {
+                            model[key] = value;
+                        });
+                    }
+                    this.contribution = model;
+                    return this.contribution;
                 }
             },
-            FormClass: ContributionCreateForm
+            FormClass: contributionId ? ContributionEditForm : ContributionCreateForm,
+            autoInit: false //need to load all lookups and donors data before contribution
         });
 
         this.userId = userId;
         this.rootStore = rootStore;
 
-        const contributionEmployeeCreate = rootStore.authStore.hasPermission('theDonorsFundSection.create');
+        const employeeCreate = rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.create');
+        const employeeUpdate = rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.update');
         this.permissions = {
-            employeeCreate: contributionEmployeeCreate,
+            employeeCreate: employeeCreate,
+            employeeUpdate: employeeUpdate,
         }
 
         this.addBankAccountModalParams = new ModalParams({
+            onClose: this.onClose
+        });
+
+        this.reviewContributionModalParams = new ModalParams({
             onClose: this.onClose
         });
 
@@ -81,16 +112,103 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             this.onChangeBankAccount({ id: lastBankAccount.bankAccount.id, name: lastBankAccount.bankAccount.name });
         }
 
+        this.onAfterReviewContribution = async (val) => {
+            this.reviewContributionModalParams.close();
+            this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
+        }
+
         this.load();
     }
 
     @action.bound async load() {
+        if (this.isEdit) {
+            await this.initialize();
+            if (moment().local().isAfter(moment.utc(this.item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes')) && !this.permissions.employeeUpdate) {
+                this.rootStore.routerStore.navigate('master.app.main.contribution.list')
+            }
+        }
+
+        await this.loadLookups();
+
         await this.getDonorAccount();
-        this.setAdditionalFieldValidation();
-        await this.getPaymentTypes();
-        this.getContributionSettingType();
         await this.getBankAccounts();
         await this.setStores();
+        this.setAdditionalFieldValidation();
+    }
+
+    @action.bound async setStores() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                placeholder: 'Choose Payment Type',
+                name: 'PaymentType',
+                textField: 'name',
+                dataItemKey: 'id',
+                isClearable: false
+            },
+            {
+                onChange: this.onChangePaymentType
+            },
+            this.paymentTypes
+        );
+
+        this.bankAccountDropdownStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                placeholder: 'Choose Bank Account',
+                name: 'BankAccount',
+                textField: 'name',
+                dataItemKey: 'id',
+                isClearable: true
+            },
+            {
+                onChange: this.onChangeBankAccount
+            },
+            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+        );
+
+        if (!this.edit) {
+            this.bankAccountSettingDropdownStore = new BaasicDropdownStore(
+                {
+                    multi: false,
+                    placeholder: 'Choose Bank Account',
+                    name: 'BankAccount',
+                    textField: 'name',
+                    dataItemKey: 'id',
+                    isClearable: false
+                },
+                {
+                    onChange: this.onChangeSettingBankAccount
+                },
+                _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+            );
+
+            let availableContributionSettingType = [];
+            if (this.donorAccount.contributionSettings) {
+                this.usedSettingTypeIds = _.map(this.donorAccount.contributionSettings, function (x) { return x.contributionSettingTypeId; });
+                let usedSettingTypeIds = this.usedSettingTypeIds;
+                _.forEach(this.contributionSettingType, function (x) {
+                    if (!_.includes(usedSettingTypeIds, x.id)) {
+                        availableContributionSettingType.push(x);
+                    }
+                });
+            }
+
+            this.contributionSettingTypeDropdownStore = new BaasicDropdownStore(
+                {
+                    multi: false,
+                    placeholder: 'Choose Setting',
+                    name: 'ContributionSettingTypeId',
+                    textField: 'name',
+                    dataItemKey: 'id',
+                    isClearable: true
+                },
+                {
+                    onChange: this.onChangeContributionSetting
+                },
+                availableContributionSettingType
+            );
+        }
     }
 
     @action.bound async onChangePaymentType(option) {
@@ -153,14 +271,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         }
     }
 
-    @action async setDefaultPayerInformations() {
-        this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
-        this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
-        this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
-        this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
-        this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
-    }
-
     @action.bound async onChangeShowPayerInformation(event) {
         this.showPayerInformation = event.target.checked;
     }
@@ -189,17 +299,32 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         }
     }
 
+    @action.bound async onChangeSettingBankAccount(option) {
+        this.form.$('settingBankAccountId').set('value', option ? option.id : null);
+    }
+
+    @action.bound async onChangeContributionSetting(option) {
+        if (option && option.id) {
+            this.form.$('contributionSettingTypeId').set('value', option.id);
+            if (option.abrv === 'low-balance') {
+                this.form.$('settingLowBalanceAmount').set('rules', 'required|numeric');
+                this.form.$('settingStartDate').set('rules', 'date');
+            }
+            else {
+                this.form.$('settingLowBalanceAmount').set('rules', 'numeric');
+                this.form.$('settingStartDate').set('rules', 'required|date|after_override:' + moment(new Date).add(1, 'days').format('MM/DD/YYYY'));
+            }
+        }
+        else {
+            this.form.$('contributionSettingTypeId').clear();
+        }
+    }
+
     @action.bound async getDonorAccount() {
         this.donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
         let params = {};
         params.embed = ['coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber,contributionSettings'];
         this.donorAccount = await this.donorAccountService.get(this.userId, params)
-    }
-
-    @action.bound async getContributionSettingType() {
-        let contributionSettingTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'contribution-setting-type');
-        let contributionSettingTypeModels = await contributionSettingTypeLookupService.getAll();
-        this.contributionSettingType = _.orderBy(contributionSettingTypeModels.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async getBankAccounts() {
@@ -211,15 +336,26 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.bankAccounts = await this.bankAccountService.getDonorAccountCollection(this.userId, params);
     }
 
-    @action.bound async getPaymentTypes() {
+    @action.bound async loadLookups() {
         this.paymentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'payment-type');
-        let models = await this.paymentTypeLookupService.getAll();
-        this.paymentTypes = _.orderBy(models.data, ['sortOrder'], ['asc']);
+        let paymentTypesModels = await this.paymentTypeLookupService.getAll();
+        this.paymentTypes = _.orderBy(paymentTypesModels.data, ['sortOrder'], ['asc']);
+
+
+        this.contributionStatusLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'contribution-status');
+        let contributionStatusModels = await this.contributionStatusLookupService.getAll();
+        this.contributionStatuses = _.orderBy(contributionStatusModels.data, ['sortOrder'], ['asc']);
+
+        if (!this.isEdit) {
+            let contributionSettingTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'contribution-setting-type');
+            let contributionSettingTypeModels = await contributionSettingTypeLookupService.getAll();
+            this.contributionSettingType = _.orderBy(contributionSettingTypeModels.data, ['sortOrder'], ['asc']);
+        }
     }
 
-    @action.bound async setAdditionalFieldValidation() {
+    @action.bound setAdditionalFieldValidation() {
         let minimumAmount = 0;
-        if (!this.permissions.employeeCreate) {
+        if (!this.permissions.employeeCreate && !this.permissions.employeeUpdate) {
             if (this.donorAccount.initialContribution) {
                 minimumAmount = this.donorAccount.contributionMinimumAdditional;
             }
@@ -228,6 +364,27 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             }
         }
         this.form.$('amount').set('rules', `required|numeric|min:${minimumAmount}`);
+
+        if (this.edit) {
+            if (this.form.$('paymentTypeId').value === this.achId) {
+                this.form.$('bankAccountId').set('rules', 'required|string');
+            }
+            else if (this.form.$('paymentTypeId').value === this.checkId) {
+                this.form.$('checkNumber').set('rules', 'required|string');
+            }
+
+            if (this.form.$('bankAccountId').value) {
+                this.form.$('payerInformation').each(field => field.set('disabled', true));
+            }
+        }
+    }
+
+    @action async setDefaultPayerInformations() {
+        this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
+        this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
+        this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
+        this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
+        this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
     }
 
     @computed get achId() {
@@ -262,105 +419,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             return valid;
         }
         return false;
-    }
-
-    @action.bound async setStores() {
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Payment Type',
-                name: 'PaymentType',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: false
-            },
-            {
-                onChange: this.onChangePaymentType
-            },
-            this.paymentTypes
-        );
-
-        this.bankAccountDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Bank Account',
-                name: 'BankAccount',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: this.onChangeBankAccount
-            },
-            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
-        );
-
-        this.bankAccountSettingDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Bank Account',
-                name: 'BankAccount',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: false
-            },
-            {
-                onChange: this.onChangeSettingBankAccount
-            },
-            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
-        );
-
-        let availableContributionSettingType = [];
-        if (this.donorAccount) {
-            this.usedSettingTypeIds = _.map(this.donorAccount.contributionSettings, function (x) { return x.contributionSettingTypeId; });
-            let usedSettingTypeIds = this.usedSettingTypeIds;
-            _.forEach(this.contributionSettingType, function (x) {
-                if (!_.includes(usedSettingTypeIds, x.id)) {
-                    availableContributionSettingType.push(x);
-                }
-            });
-        }
-
-        this.contributionSettingTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Setting',
-                name: 'ContributionSettingTypeId',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: this.onChangeContributionSetting
-            },
-            availableContributionSettingType
-        );
-    }
-
-    @action.bound async onChangeSettingBankAccount(option) {
-        if (option && option.id) {
-            this.form.$('settingBankAccountId').set('value', option.id);
-        }
-        else {
-            this.form.$('settingBankAccountId').clear();
-        }
-    }
-
-    @action.bound async onChangeContributionSetting(option) {
-        if (option && option.id) {
-            this.form.$('contributionSettingTypeId').set('value', option.id);
-            if (option.abrv === 'low-balance') {
-                this.form.$('settingLowBalanceAmount').set('rules', 'required|numeric');
-                this.form.$('settingStartDate').set('rules', 'date');
-            }
-            else {
-                this.form.$('settingLowBalanceAmount').set('rules', 'numeric');
-                this.form.$('settingStartDate').set('rules', 'required|date|after_override:' + moment(new Date).add(1, 'days').format('MM/DD/YYYY'));
-            }
-        }
-        else {
-            this.form.$('contributionSettingTypeId').clear();
-        }
     }
 }
 

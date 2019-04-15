@@ -8,12 +8,6 @@ class ContributionService extends BaseService {
     this.apiClient = apiClient;
   }
 
-  async find(id, filter) {
-    const url = this.routeService.find(id, filter);
-    const response = await this.apiClient.get(url);
-    return response.data || null;
-  }
-
   async createContribution(id, resource) {
     var url = this.routeService.createContribution(id);
     const response = await this.apiClient.post(url, resource);

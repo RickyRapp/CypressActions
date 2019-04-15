@@ -40,7 +40,7 @@ import {
             name: 'master.app.membership.register',
             pattern: '/register',
             component: Register,
-            authorization: 'theDonorsFundSection.create'
+            authorization: 'theDonorsFundAdministrationSection.create'
           },
           {
             name: 'master.app.membership.register-public',

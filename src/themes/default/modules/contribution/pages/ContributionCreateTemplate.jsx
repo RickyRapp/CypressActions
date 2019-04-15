@@ -220,7 +220,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
                     bankAccountDropdownStore={bankAccountSettingDropdownStore}
                     contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />
                 </div>
-                {usedSettingTypeIds &&
+                {usedSettingTypeIds && usedSettingTypeIds.length > 0 &&
                   <div className="form__group f-col f-col-lrg-6">
                     Created Setting Rules:
                 {usedSettingTypeIds.map((settingTypeId, i) =>

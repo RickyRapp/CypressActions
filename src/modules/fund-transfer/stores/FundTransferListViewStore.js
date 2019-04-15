@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { FundTransferService, DonorAccountService } from "common/data";
 import { BaseListViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { getDonorNameDropdown } from 'core/utils';
-import { FundTransferListFilter } from 'modules/fund-transfer/models';
+import { FundTransferAdministrationListFilter, FundTransferMainListFilter } from 'modules/fund-transfer/models';
 import _ from 'lodash';
 
 class FundTransferListViewStore extends BaseListViewStore {
@@ -12,17 +12,23 @@ class FundTransferListViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const fundTransferService = new FundTransferService(rootStore.app.baasic.apiClient);
 
-        const filter = new FundTransferListFilter();
-        //TODO: add filter for donor account id (both sender and recipient)
-        if (rootStore.routerStore.routerState.params.donorAccountId) {
-            filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
+        let filter = null;
+        if (rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            filter = new FundTransferAdministrationListFilter()
+            //TODO: add filter for donor account id (both sender and recipient)
+            if (rootStore.routerStore.routerState.params.donorAccountId) {
+                filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
+            }
+        }
+        else {
+            filter = new FundTransferMainListFilter(rootStore)
         }
 
         super(rootStore, {
             name: 'fund transfer',
             routes: {
                 create: () => {
-                    this.rootStore.routerStore.navigate('master.app.main.fund.transfer.create')
+                    this.rootStore.routerStore.navigate('master.app.administration.fund.transfer.create')
                 }
             },
             actions: {
@@ -30,18 +36,19 @@ class FundTransferListViewStore extends BaseListViewStore {
                     params.embed = 'senderDonorAccount,recipientDonorAccount,coreUser,createdByCoreUser';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
-                    const response = await fundTransferService.find(rootStore.routerStore.routerState.params.id, params);
+                    const response = await fundTransferService.find(params);
                     return response;
                 }
             },
             queryConfig: {
-                filter: filter
+                filter: filter,
+                disableUpdateQueryParams: true
             }
         });
 
         this.permissions = {
-            employeeRead: rootStore.authStore.hasPermission('theDonorsFundSection.read'),
-            create: rootStore.authStore.hasPermission('theDonorsFundSection.create')
+            employeeRead: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read'),
+            employeeCreate: rootStore.authStore.hasPermission('theDonorsFundSection.create')
         }
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
@@ -87,7 +94,7 @@ class FundTransferListViewStore extends BaseListViewStore {
                     const response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onChangerecipientDonorAccountSearch
+                onChange: this.onChangeRecipientDonorAccountSearch
             }
         );
 
@@ -154,7 +161,7 @@ class FundTransferListViewStore extends BaseListViewStore {
         this.queryUtility.filter.senderDonorAccountId = (option ? option.id : null)
     }
 
-    @action.bound async onChangerecipientDonorAccountSearch(option) {
+    @action.bound async onChangeRecipientDonorAccountSearch(option) {
         this.queryUtility.filter.recipientDonorAccountId = (option ? option.id : null)
     }
 }

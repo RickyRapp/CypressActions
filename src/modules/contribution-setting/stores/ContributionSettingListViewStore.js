@@ -14,9 +14,8 @@ class ContributionSettingListViewStore extends BaseViewStore {
         super(rootStore);
 
         this.rootStore = rootStore;
-        const contributionEmployeeUpdate = rootStore.authStore.hasPermission('theDonorsFundSection.update');
         this.permissions = {
-            employeeUpdate: contributionEmployeeUpdate,
+            employeeUpdate: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.update'),
         }
 
         this.userId = this.rootStore.routerStore.routerState.params.id;

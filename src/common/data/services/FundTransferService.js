@@ -7,12 +7,6 @@ class FundTransferService extends BaseService {
         super(apiClient, new FundTransferRouteService());
         this.apiClient = apiClient;
     }
-
-    async find(id, filter) {
-        const url = this.routeService.find(id, filter);
-        const response = await this.apiClient.get(url);
-        return response.data || null;
-    }
 }
 
 export default FundTransferService;

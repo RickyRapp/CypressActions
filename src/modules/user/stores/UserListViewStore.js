@@ -10,14 +10,14 @@ class UserListViewStore extends BaseListViewStore {
       name: 'user',
       routes: {
         detail: id =>
-          this.rootStore.routerStore.navigate('master.app.main.user.preview', {
+          this.rootStore.routerStore.navigate('master.app.administration.user.preview', {
             id
           }),
         edit: id =>
-          this.rootStore.routerStore.navigate('master.app.main.user.edit', {
+          this.rootStore.routerStore.navigate('master.app.administration.user.edit', {
             id: id
           }),
-        create: () => this.rootStore.routerStore.navigate('master.app.main.user.create')
+        create: () => this.rootStore.routerStore.navigate('master.app.administration.user.create')
       },
       actions: {
         find: async params => {
@@ -110,7 +110,7 @@ class UserListViewStore extends BaseListViewStore {
     this.loaderStore.resume();
   }
 
-  @action async getUser() {}
+  @action async getUser() { }
 }
 
 export default UserListViewStore;

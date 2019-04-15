@@ -1,6 +1,7 @@
 import { action, runInAction } from 'mobx';
 import { LoginForm } from 'modules/membership/forms';
 import { BaseViewStore } from 'core/stores';
+import { resolveApplicationUser } from 'core/utils';
 
 class LoginViewStore extends BaseViewStore {
   routes = {
@@ -18,7 +19,7 @@ class LoginViewStore extends BaseViewStore {
         password
       });
     },
-    onError: form => {}
+    onError: form => { }
   });
 
   constructor(rootStore) {
@@ -34,7 +35,7 @@ class LoginViewStore extends BaseViewStore {
     try {
       await this.store.login({ username, password });
       //You can set here where it will redirect after successful login. Check roles and redirect where it needs to go.
-      //this.store.moduleStore.rootStore.authStore.setSignInRedirect('master.app.membership.register-public');
+      this.store.moduleStore.rootStore.authStore.setSignInRedirect(this.store.moduleStore.rootStore.initialAppState);
       const redirectState = this.store.moduleStore.rootStore.authStore.getSignInRedirect();
       this.store.moduleStore.rootStore.routerStore.navigate(redirectState);
     } catch ({ statusCode, data }) {

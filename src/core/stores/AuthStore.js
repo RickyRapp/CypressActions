@@ -152,6 +152,57 @@ class AuthStore {
       this.updateAccessToken(token);
     });
   }
+
+  @action.bound hasRole(roles = '') {
+    const splitedRoles = roles.split(',');
+    const adminRole = this.isAministratorRole;
+    const employeeRole = this.isEmployeeRole;
+    const userRole = this.isUserRole;
+    const reporterRole = this.isReporterRole;
+
+    let result = false;
+    _.forEach(splitedRoles, function (x) {
+      if (!result) {
+        if (x.toLowerCase() === 'Administrators'.toLowerCase()) {
+          if (adminRole)
+            result = true;
+        }
+        else if (x.toLowerCase() === 'Employees'.toLowerCase()) {
+          if (employeeRole)
+            result = true;
+        }
+        else if (x.toLowerCase() === 'Users'.toLowerCase()) {
+          if (userRole)
+            result = true;
+        }
+        else if (x.toLowerCase() === 'Reporters'.toLowerCase()) {
+          if (reporterRole)
+            result = true;
+        }
+      }
+    });
+    return result;
+  }
+
+
+  @computed get isAministratorRole() {
+    return _.includes(this.user.roles, 'Administrators');
+  }
+
+  @computed get isEmployeeRole() {
+    return _.includes(this.user.roles, 'Employees');
+  }
+
+  @computed get isUserRole() {
+    return _.includes(this.user.roles, 'Users');
+  }
+
+  @computed get isReporterRole() {
+    //TODO:
+    return _.includes(this.user.roles, 'Reporters');
+  }
+
+
 }
 
 function isTokenValid(token) {

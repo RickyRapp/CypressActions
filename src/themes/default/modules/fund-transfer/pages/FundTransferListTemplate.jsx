@@ -15,7 +15,7 @@ function FundTransferListTemplate({ fundTransferListViewStore }) {
     } = fundTransferListViewStore;
 
     return (
-        <ListLayout onCreate={permissions.create ? create : null} loading={loaderStore.loading}>
+        <ListLayout onCreate={permissions.employeeCreate ? create : null} loading={loaderStore.loading}>
             <div className="spc--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
                     <div className="f-row">

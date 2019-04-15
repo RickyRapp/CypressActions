@@ -1,12 +1,42 @@
 import { moduleProviderFactory } from 'core/providers';
-import { RouterState } from 'mobx-state-router';
-import { ContributionList, ContributionCreate, ContributionEdit, ContributionDetails } from 'modules/contribution/pages'
+import { ContributionAdministrationList, ContributionMainList, ContributionCreate, ContributionEdit, ContributionDetails } from 'modules/contribution/pages'
 import { ContributionSettingList } from 'modules/contribution-setting/pages'
-import { isSome, getAppRouterState } from 'core/utils';
 
 (function () {
     moduleProviderFactory.application.register({
         routes: [
+            {
+                name: 'master.app.administration.contribution',
+                pattern: 'contribution',
+                isPrivate: true,
+                children: [
+                    {
+                        name: 'master.app.administration.contribution.list',
+                        pattern: '',
+                        component: ContributionAdministrationList,
+                    },
+                    {
+                        name: 'master.app.administration.contribution.create',
+                        pattern: ':userId/create',
+                        component: ContributionCreate,
+                    },
+                    {
+                        name: 'master.app.administration.contribution.edit',
+                        pattern: ':userId/edit/:id',
+                        component: ContributionEdit,
+                    },
+                    {
+                        name: 'master.app.administration.contribution.details',
+                        pattern: ':id/details',
+                        component: ContributionDetails,
+                    },
+                    {
+                        name: 'master.app.administration.contribution.setting',
+                        pattern: ':userId/setting',
+                        component: ContributionSettingList,
+                    }
+                ]
+            },
             {
                 name: 'master.app.main.contribution',
                 pattern: 'contribution',
@@ -14,55 +44,31 @@ import { isSome, getAppRouterState } from 'core/utils';
                 children: [
                     {
                         name: 'master.app.main.contribution.list',
-                        pattern: '/:id?',
-                        component: ContributionList,
+                        pattern: '',
+                        component: ContributionMainList,
                         authorization: 'theDonorsFundContributionSection.read',
-                        beforeEnter: (fromState, toState, routerStore) => {
-                            const { rootStore } = routerStore;
-                            if (!isSome(toState.params.id)) {
-                                if (rootStore && rootStore.authStore) {
-                                    if (rootStore.authStore.hasPermission('theDonorsFundSection.read')) {
-                                        //admin or employee
-                                    }
-                                    else if (rootStore.authStore.hasPermission('theDonorsFundDonorSection.update')) {
-                                        //donor
-                                        return Promise.reject(new RouterState('master.app.main.contribution.list', { id: rootStore.authStore.user.id }));
-                                    }
-                                    else {
-                                        //TODO:
-                                        //this is reporter role
-                                        //fetch userId from local storage
-                                    }
-                                }
-                                else {
-                                    rootStore.viewStore.logout()
-                                    return Promise.reject();
-                                }
-                            }
-                            return Promise.resolve();
-                        },
                     },
                     {
                         name: 'master.app.main.contribution.create',
-                        pattern: ':id/create',
+                        pattern: ':userId/create',
                         component: ContributionCreate,
                         authorization: 'theDonorsFundContributionSection.create'
                     },
                     {
                         name: 'master.app.main.contribution.edit',
-                        pattern: ':id/edit/:contributionId',
+                        pattern: ':id/edit',
                         component: ContributionEdit,
                         authorization: 'theDonorsFundContributionSection.update'
                     },
                     {
                         name: 'master.app.main.contribution.details',
-                        pattern: ':id/details/:contributionId',
+                        pattern: ':id/details',
                         component: ContributionDetails,
                         authorization: 'theDonorsFundContributionSection.read'
                     },
                     {
                         name: 'master.app.main.contribution.setting',
-                        pattern: ':id/setting',
+                        pattern: ':userId/setting',
                         component: ContributionSettingList,
                         authorization: 'theDonorsFundContributionSection.update'
                     }
@@ -76,7 +82,12 @@ import { isSome, getAppRouterState } from 'core/utils';
                     {
                         title: 'Contributions',
                         route: 'master.app.main.contribution.list',
-                        order: 5
+                        order: 2
+                    },
+                    {
+                        title: 'Contributions',
+                        route: 'master.app.administration.contribution.list',
+                        order: 2
                     }
                 ]
             }

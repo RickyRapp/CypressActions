@@ -1,9 +1,7 @@
 import { action, observable, computed } from 'mobx';
 import { ContributionService, LookupService, DonorAccountService } from "common/data";
-import { ContributionListFilter } from 'modules/contribution/models';
-import { BaasicDropdownStore, BaseViewStore, TableViewStore } from "core/stores";
+import { BaasicDropdownStore, BaseViewStore } from "core/stores";
 import { ModalParams } from 'core/models';
-import { getDonorNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
 class ContributionDetailsViewStore extends BaseViewStore {
@@ -17,17 +15,14 @@ class ContributionDetailsViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore);
 
-        this.id = rootStore.routerStore.routerState.params.contributionId;
+        this.id = rootStore.routerStore.routerState.params.id;
         this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
         this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
 
-        this.contributionEmployeeRead = rootStore.authStore.hasPermission('theDonorsFundSection.read');
-        this.contributionRead = rootStore.authStore.hasPermission('theDonorsFundContributionSection.read');
-
         this.permissions = {
-            employeeRead: this.contributionEmployeeRead
+            employeeRead: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')
         }
 
         this.reviewContributionModalParams = new ModalParams({
@@ -40,9 +35,6 @@ class ContributionDetailsViewStore extends BaseViewStore {
     @action.bound async load() {
         await this.loadLookups();
         await this.setFilterDropdownStores();
-
-        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
-        let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
 
         let params = {};
         params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser'];

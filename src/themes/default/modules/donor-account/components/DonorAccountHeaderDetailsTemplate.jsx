@@ -5,6 +5,7 @@ import _ from 'lodash';
 function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore, rootStore }) {
     const {
         donorAccount,
+        isDonorAccountType,
         isContributionType,
         isContributionSettingType,
         isActivityAndHistoryType
@@ -14,6 +15,9 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
         <React.Fragment>
             {donorAccount ?
                 <React.Fragment >
+                    {isDonorAccountType &&
+                        renderDonorAccount(donorAccount, rootStore)}
+
                     {isContributionType &&
                         renderContribution(donorAccount, rootStore)}
 
@@ -27,6 +31,30 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
         </React.Fragment >
     );
 }
+
+function renderDonorAccount(donorAccount, rootStore) {
+    return (
+        <div className="f-row">
+            <div className="form__group f-col f-col-lrg-3">
+                <a className="btn btn--xsml btn--ghost"
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.activity.and.history', null, { id: donorAccount.id })}>
+                    Activity And History
+                </a>
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                <a
+                    className="btn btn--xsml btn--ghost"
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.list', null, { id: donorAccount.id })}>
+                    Contributions
+                </a>
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                <a className="btn btn--xsml btn--ghost" onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', null, { id: donorAccount.id })}>Contribution Settings</a>
+            </div>
+        </div>
+    )
+}
+
 
 function renderContribution(donorAccount, rootStore) {
     return (

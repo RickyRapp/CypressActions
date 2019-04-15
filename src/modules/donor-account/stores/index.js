@@ -1,6 +1,7 @@
-export { default as DonorAccountListViewStore } from './DonorAccountListViewStore';
-export { default as DonorAccountProfileViewStore } from './DonorAccountProfileViewStore';
-export { default as DonorAccountProfileEditViewStore } from './DonorAccountProfileEditViewStore';
-export { default as DonorAccountSettingEditViewStore } from './DonorAccountSettingEditViewStore';
-export { default as DonorAccountSettingPreviewViewStore } from './DonorAccountSettingPreviewViewStore';
-export { default as DonorAccountHeaderDetailsViewStore } from './DonorAccountHeaderDetailsViewStore';
+export { default as DonorAccountAdministrationListViewStore } from './administration/DonorAccountAdministrationListViewStore';
+export { default as DonorAccountProfileAdministrationEditViewStore } from './administration/DonorAccountProfileAdministrationEditViewStore';
+export { default as DonorAccountSettingAdministrationEditViewStore } from './administration/DonorAccountSettingAdministrationEditViewStore';
+export { default as DonorAccountHeaderDetailsViewStore } from './administration/DonorAccountHeaderDetailsViewStore';
+
+export { default as DonorAccountProfileMainEditViewStore } from './main/DonorAccountProfileMainEditViewStore';
+export { default as DonorAccountSettingMainPreviewViewStore } from './main/DonorAccountSettingMainPreviewViewStore';

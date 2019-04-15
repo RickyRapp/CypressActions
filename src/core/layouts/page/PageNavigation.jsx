@@ -10,12 +10,12 @@ import { isSome } from "core/utils";
 class PageNavigation extends React.Component {
 
   render() {
-    const contributionEmployeeRead = this.props.rootStore.authStore.hasPermission('theDonorsFundSection.read');
+    const employeeRead = this.props.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read');
 
     return (
       <PageNavigationTemplate {...this.props}>
         <div className="f-row">
-          {(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && contributionEmployeeRead &&
+          {(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && employeeRead &&
             <div className={this.props.children ? "f-col f-col-lrg-8" : "f-col f-col-lrg-12"}>
               <div className="spc--top--sml">
                 <DonorAccountSearch
@@ -26,7 +26,7 @@ class PageNavigation extends React.Component {
               </div>
             </div>}
 
-          <div className={(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && contributionEmployeeRead ? "f-col f-col-lrg-4" : "f-col f-col-lrg-12"} >
+          <div className={(!isSome(this.props.showDonorAccountSearch) || this.props.showDonorAccountSearch) && employeeRead ? "f-col f-col-lrg-4" : "f-col f-col-lrg-12"} >
             {this.props.children}
           </div>
         </div>

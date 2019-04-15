@@ -1,1 +1,2 @@
-export { default as FundTransferListFilter } from './FundTransferListFilter'
+export { default as FundTransferAdministrationListFilter } from './administration/FundTransferAdministrationListFilter'
+export { default as FundTransferMainListFilter } from './main/FundTransferMainListFilter'

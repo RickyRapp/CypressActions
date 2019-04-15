@@ -9,9 +9,8 @@ class ActivityAndHistoryRouteService extends BaseRouteService {
         this.uriTemplateService = uritemplate;
     }
 
-    find(id, filter) {
-        const params = findParams({ id: id, ...filter });
-        return this.uriTemplateService.parse(this.base + '{id}/{?page,rpp,sort,embed,fields,searchFields}').expand(params);
+    find(filter) {
+        return super.find(this.base + '/{?donorAccountId,done,paymentTransactionTypeId,paymentTransactionStatusId,page,rpp,sort,embed,fields,searchFields}', filter);
     }
 }
 

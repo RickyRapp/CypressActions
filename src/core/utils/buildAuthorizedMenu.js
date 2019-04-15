@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-function buildMenu(menuItems, routes, permissionFunc) {
+function buildMenu(menuItems, routes, permissionFunc, roleFunc) {
   var menuTree = [];
   _.each(menuItems, function (moduleItems) {
     _.each(moduleItems, moduleItem => {
@@ -19,9 +19,9 @@ function buildMenu(menuItems, routes, permissionFunc) {
 
       _.each(moduleItem.subMenu, function (menuItem, idx) {
         var route = getRouteByMenu(menuItem, routes);
-        if (hasPermission(route, permissionFunc)) {
+        if (hasPermission(route, permissionFunc, roleFunc)) {
           if (menuItem.subMenu) {
-            evaluateSubMenuItems(menuItem, routes, permissionFunc);
+            evaluateSubMenuItems(menuItem, routes, permissionFunc, roleFunc);
           }
 
           root.subMenu = [...root.subMenu, menuItem];
@@ -33,11 +33,11 @@ function buildMenu(menuItems, routes, permissionFunc) {
   return menuTree;
 }
 
-function evaluateSubMenuItems(menuItem, routes, permissionFunc) {
+function evaluateSubMenuItems(menuItem, routes, permissionFunc, roleFunc) {
   var keys = [];
   _.each(menuItem.subMenu, function (subMenuItem, key) {
     var childRoute = getRouteByMenu(subMenuItem, routes);
-    if (!hasPermission(childRoute, permissionFunc)) {
+    if (!hasPermission(childRoute, permissionFunc, roleFunc)) {
       keys.push(key);
     } else {
       if (subMenuItem.subMenu) {
@@ -70,13 +70,27 @@ function getRouteByMenu(menuItem, routes) {
   return _.find(routes, r => r.name === route);
 }
 
-function hasPermission(item, permissionFunc) {
+function hasPermission(item, permissionFunc, roleFunc) {
   let authorized = true;
   if (item && item.authorization) {
     authorized = permissionFunc(item.authorization);
   }
   if (authorized && item && item.withoutAuthorization) {
     authorized = !permissionFunc(item.withoutAuthorization);
+  }
+  if (authorized && item) {
+    if (item.roles || (item.parent && item.parent.roles)) {
+      authorized = roleFunc(item.roles ? item.roles : item.parent.roles);
+    }
+    else {
+      let parentRoute = item.parent;
+      while (parentRoute && !parentRoute.isParentLoginRoute) {
+        parentRoute = parentRoute.parent;
+      }
+      if (parentRoute && parentRoute.roles) {
+        authorized = roleFunc(parentRoute.roles);
+      }
+    }
   }
   return authorized;
 }

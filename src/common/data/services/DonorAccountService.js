@@ -17,7 +17,7 @@ class DonorAccountService extends BaseService {
   async updateSettings(resource) {
     const url = this.routeService.updateSettings(resource);
     const response = await this.apiClient.put(url, resource);
-    return response.data || null;
+    return response || null;
   }
 
   async search(filter) {

@@ -1,16 +1,22 @@
 import { moduleProviderFactory } from 'core/providers';
-import { ActivityAndHistoryList } from 'modules/activity-and-history/pages'
+import { ActivityAndHistoryAdministrationList, ActivityAndHistoryMainList } from 'modules/activity-and-history/pages'
 
 (function () {
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.activity.and.history',
-                pattern: '/activity-and-history',
+                name: 'master.app.administration.activity.and.history',
+                pattern: 'activity-and-history',
                 isPrivate: true,
-                component: ActivityAndHistoryList,
-                authorization: 'theDonorsFundDonorSection.read'
+                component: ActivityAndHistoryAdministrationList
             },
+            {
+                name: 'master.app.main.activity.and.history',
+                pattern: 'activity-and-history',
+                isPrivate: true,
+                component: ActivityAndHistoryMainList,
+                authorization: 'theDonorsFundDonorSection.read',
+            }
         ],
         menu: [
             {
@@ -19,7 +25,12 @@ import { ActivityAndHistoryList } from 'modules/activity-and-history/pages'
                     {
                         title: 'Activity And History',
                         route: 'master.app.main.activity.and.history',
-                        order: 3
+                        order: 1
+                    },
+                    {
+                        title: 'Activity And History',
+                        route: 'master.app.administration.activity.and.history',
+                        order: 1
                     }
                 ]
             }

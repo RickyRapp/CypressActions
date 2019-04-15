@@ -1,5 +1,8 @@
-export { default as DonorAccountList } from './DonorAccountList'
-export { default as DonorAccountSettingEdit } from './DonorAccountSettingEdit'
-export { default as DonorAccountProfileEdit } from './DonorAccountProfileEdit'
-export { default as DonorAccountEdit } from './DonorAccountEdit'
-export { default as DonorAccountSettingPreview } from './DonorAccountSettingPreview'
+export { default as DonorAccountAdministrationList } from './administration/DonorAccountAdministrationList'
+export { default as DonorAccountSettingAdministrationEdit } from './administration/DonorAccountSettingAdministrationEdit'
+export { default as DonorAccountProfileAdministrationEdit } from './administration/DonorAccountProfileAdministrationEdit'
+export { default as DonorAccountAdministrationEdit } from './administration/DonorAccountAdministrationEdit'
+
+export { default as DonorAccountMainEdit } from './main/DonorAccountMainEdit'
+export { default as DonorAccountSettingMainPreview } from './main/DonorAccountSettingMainPreview'
+export { default as DonorAccountProfileMainEdit } from './main/DonorAccountProfileMainEdit'

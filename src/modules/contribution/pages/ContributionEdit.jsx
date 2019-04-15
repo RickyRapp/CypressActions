@@ -1,10 +1,10 @@
 import React from 'react';
 import { ContributionEditTemplate } from 'themes/modules/contribution/pages';
 import { observer } from 'mobx-react';
-import { ContributionEditViewStore } from 'modules/contribution/stores';
+import { ContributionCreateViewStore } from 'modules/contribution/stores';
 import { setCurrentView } from 'core/utils';
 
-@setCurrentView(rootStore => new ContributionEditViewStore(rootStore), 'contributionEditViewStore')
+@setCurrentView(rootStore => new ContributionCreateViewStore(rootStore), 'contributionCreateViewStore')
 @observer
 class ContributionEdit extends React.Component {
     render() {

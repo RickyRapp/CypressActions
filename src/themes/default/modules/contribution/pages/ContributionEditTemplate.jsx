@@ -11,7 +11,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import _ from 'lodash';
 
-function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
+function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
   const {
     form,
     loading,
@@ -21,12 +21,12 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
     addBankAccountModalParams,
     onAddBankAccount,
     reviewContributionModalParams,
+    contributionStatuses,
     onAfterReviewContribution,
     showPayerInformation,
     onChangeShowPayerInformation,
     showStockAndMutualFundsContactInfo,
     onChangeShowStockAndMutualFundsContactInfo,
-    paymentTypes,
     isPayerInformationValid,
     contribution,
     chaseQuickPayId,
@@ -34,7 +34,7 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
     wireTransferId,
     stockAndMutualFundsId,
     checkId
-  } = contributionEditViewStore;
+  } = contributionCreateViewStore;
 
   const ColoredLine = ({ color }) => (
     <hr
@@ -44,14 +44,15 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
         height: 5
       }}
     />
-
   );
+
   return (
     <React.Fragment>
       <EditFormLayout form={form} isEdit={true} loading={loading} layoutFooterVisible={false}>
         {contribution && permissions.employeeUpdate &&
           <PageContentHeader><DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' /></PageContentHeader>}
-        <PageContentSidebar>{contributionDetails(contribution, reviewContributionModalParams, permissions)}</PageContentSidebar>
+        {contribution && contributionStatuses &&
+          <PageContentSidebar>{contributionDetails(contribution, reviewContributionModalParams, permissions, contributionStatuses)}</PageContentSidebar>}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
             <div className="inputgroup">
@@ -62,25 +63,25 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
           </div>
         </div>
 
-        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && (paymentTypeDropdownStore.value.id === achId || paymentTypeDropdownStore.value.id === wireTransferId))(
+        {(form.$('paymentTypeId').value === achId || form.$('paymentTypeId').value === wireTransferId) &&
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
               <div className="inputgroup">
                 <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
-                {renderIf(bankAccountDropdownStore)(
-                  <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />)}
+                {bankAccountDropdownStore &&
+                  <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
               </div>
             </div>
-          </div>)}
+          </div>}
 
-        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === checkId)(
+        {form.$('paymentTypeId').value === checkId &&
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
               <BasicInput field={form.$('checkNumber')} />
             </div>
-          </div>)}
+          </div>}
 
-        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === stockAndMutualFundsId)(
+        {form.$('paymentTypeId').value === stockAndMutualFundsId &&
           <React.Fragment>
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-12">
@@ -133,8 +134,8 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
                 <BasicInput field={form.$('estimatedValue')} />
               </div>
             </div>
-          </React.Fragment>)}
-        {renderIf(paymentTypeDropdownStore && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === chaseQuickPayId)(
+          </React.Fragment>}
+        {form.$('paymentTypeId').value === chaseQuickPayId &&
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
               <BasicInput field={form.$('transactionId')} />
@@ -142,15 +143,15 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
             <div className="form__group f-col f-col-lrg-6">
               <BasicInput field={form.$('memo')} />
             </div>
-          </div>)}
+          </div>}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-12">
             <h5>Payer Information</h5>
             <div className="display--b pull">Show payer informations</div>
             <div className="display--b pull spc--left--sml">
               <input type="checkbox" onChange={onChangeShowPayerInformation} value={showPayerInformation} />
-              {renderIf(!showPayerInformation && !isPayerInformationValid && form.$('paymentTypeId').value === _.find(paymentTypes, { abrv: 'wire-transfer' }).id)
-                (<span className="type--tiny type--color--error">Check this</span>)}
+              {!showPayerInformation && !isPayerInformationValid && form.$('paymentTypeId').value === wireTransferId &&
+                <span className="type--tiny type--color--error">Check this</span>}
             </div>
           </div>
           {renderIf(showPayerInformation)(
@@ -207,14 +208,14 @@ function ContributionEditTemplate({ contributionEditViewStore, rootStore }) {
       </BaasicModal>
       <BaasicModal modalParams={reviewContributionModalParams} >
         <div className="col col-sml-12 card card--form card--primary card--lrg">
-          <ContributionReview onAfterReview={onAfterReviewContribution} rootStore={rootStore} id={form.$('id').value} />
+          <ContributionReview onAfterReview={onAfterReviewContribution} id={form.$('id').value} />
         </div>
       </BaasicModal>
     </React.Fragment >
   );
 };
 
-function contributionDetails(contribution, reviewContributionModalParams, permissions) {
+function contributionDetails(contribution, reviewContributionModalParams, permissions, contributionStatuses) {
   return (
     <React.Fragment>
       {contribution ?
@@ -223,7 +224,7 @@ function contributionDetails(contribution, reviewContributionModalParams, permis
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-12">
               <div>Status:</div>
-              <strong>{contribution.contributionStatus.name}</strong>
+              <strong>{_.find(contributionStatuses, { id: contribution.contributionStatusId }).name}</strong>
               {renderIf(permissions.employeeUpdate)(
                 <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>)}
             </div>
@@ -264,7 +265,7 @@ function renderFormButtonControls({ form, goBack }) {
 }
 
 ContributionEditTemplate.propTypes = {
-  contributionEditViewStore: PropTypes.object.isRequired
+  contributionCreateViewStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(ContributionEditTemplate);

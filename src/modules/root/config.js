@@ -5,8 +5,8 @@ import { Overview } from 'modules/root/pages'
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.home',
-                pattern: '',
+                name: 'master.app.home.entry',
+                pattern: 'home',
                 isPrivate: true,
                 component: Overview,
             }
@@ -15,10 +15,11 @@ import { Overview } from 'modules/root/pages'
             {
                 title: 'Application',
                 subMenu: [
+
                     {
                         title: 'Home',
-                        route: 'master.app.main.home',
-                        order: 4
+                        route: 'master.app.home.entry',
+                        order: 7
                     }
                 ]
             }

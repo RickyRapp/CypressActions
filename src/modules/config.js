@@ -9,7 +9,7 @@ import { Home } from 'modules/public/pages'
     routes: context => [
       {
         name: 'master.app',
-        pattern: '',
+        pattern: '/app',
         beforeEnter: async (fromState, toState, routerStore) => {
           const { applicationStore, authStore } = routerStore.rootStore;
           applicationStore.register(ApplicationSettings.appId);
@@ -24,12 +24,44 @@ import { Home } from 'modules/public/pages'
         },
         children: [
           {
-            name: 'master.app.main',
-            pattern: '/app',
+            name: 'master.app.administration',
+            pattern: '/administration',
             component: [MainLayout],
             isPrivate: true,
+            roles: 'administrators,employees',
+            isParentLoginRoute: true,
             beforeEnter: async (fromState, toState, routerStore) => {
-              await resolveApplicationUser(fromState, toState, routerStore);
+              await resolveApplicationUser(routerStore);
+
+              let modules = ['common', 'application'];
+              const menus = moduleBuilder.buildMenus(modules);
+              routerStore.rootStore.initializeMenus(menus, toState);
+            }
+          },
+          {
+            name: 'master.app.main',
+            pattern: '',
+            component: [MainLayout],
+            isPrivate: true,
+            roles: 'users',
+            isParentLoginRoute: true,
+            beforeEnter: async (fromState, toState, routerStore) => {
+              await resolveApplicationUser(routerStore);
+
+              let modules = ['common', 'application'];
+              const menus = moduleBuilder.buildMenus(modules);
+              routerStore.rootStore.initializeMenus(menus, toState);
+            }
+          },
+          {
+            name: 'master.app.home',
+            pattern: '',
+            component: [MainLayout],
+            isPrivate: true,
+            roles: 'administrators,employees,users',
+            isParentLoginRoute: true,
+            beforeEnter: async (fromState, toState, routerStore) => {
+              await resolveApplicationUser(routerStore);
 
               let modules = ['common', 'application'];
               const menus = moduleBuilder.buildMenus(modules);

@@ -5,18 +5,19 @@ import { RoleList, RoleEdit } from 'modules/role/pages';
   moduleProviderFactory.application.register({
     routes: [
       {
-        name: 'master.app.main.role',
+        name: 'master.app.administration.role',
         pattern: '/roles',
         isPrivate: true,
+        roles: 'administrators',
         children: [
           {
-            name: 'master.app.main.role.list',
+            name: 'master.app.administration.role.list',
             pattern: '',
             component: RoleList,
             authorization: 'coreRoleSection.read'
           },
           {
-            name: 'master.app.main.role.edit',
+            name: 'master.app.administration.role.edit',
             pattern: ':id',
             component: RoleEdit,
             authorization: 'coreRoleSection.update'
@@ -30,8 +31,8 @@ import { RoleList, RoleEdit } from 'modules/role/pages';
         subMenu: [
           {
             title: 'Roles',
-            route: 'master.app.main.role.list',
-            order: 2
+            route: 'master.app.administration.role.list',
+            order: 5
           }
         ]
       }

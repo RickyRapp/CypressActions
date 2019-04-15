@@ -5,25 +5,28 @@ import { UserList, UserEdit, UserCreate } from 'modules/user/pages';
   moduleProviderFactory.application.register({
     routes: [
       {
-        name: 'master.app.main.user',
+        name: 'master.app.administration.user',
         pattern: '/users',
         isPrivate: true,
+        roles: 'administrators',
         children: [
           {
-            name: 'master.app.main.user.list',
+            name: 'master.app.administration.user.list',
             pattern: '',
             component: UserList,
             authorization: 'theDonorsFundAdministrationSection.read'
           },
           {
-            name: 'master.app.main.user.create',
+            name: 'master.app.administration.user.create',
             pattern: 'create',
             component: UserCreate,
+            authorization: 'theDonorsFundAdministrationSection.create'
           },
           {
-            name: 'master.app.main.user.edit',
+            name: 'master.app.administration.user.edit',
             pattern: ':id',
             component: UserEdit,
+            authorization: 'theDonorsFundAdministrationSection.update'
           }
         ]
       }
@@ -35,8 +38,8 @@ import { UserList, UserEdit, UserCreate } from 'modules/user/pages';
         subMenu: [
           {
             title: 'Users',
-            route: 'master.app.main.user.list',
-            order: 1
+            route: 'master.app.administration.user.list',
+            order: 6
           }
         ]
       }
