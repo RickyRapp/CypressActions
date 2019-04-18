@@ -1,16 +1,18 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, renderIf, isSome } from 'core/utils';
 
 const BasicCheckBoxTemplate = defaultTemplate(({ field, onChange = null, label = '' }) => {
     return (
-        <div className="group">
-            <div className="display--b pull">{label ? label : field.label}</div>
+        <div className="inputgroup">
+            <label htmlFor={field.id}>{label ? label : field.label} <strong>{field.disabled ? 'Disabled' : ''}</strong></label>
             <div className="display--b pull spc--left--sml">
                 <input
                     {...field.bind()}
                     onChange={onChange || field.sync}
                 />
-                <label htmlFor={field.id}>&nbsp;</label>
+                {renderIf(isSome(field.error))(
+                    <p className="type--tiny type--color--error">{field.error}</p>
+                )}
             </div>
         </div>
     );

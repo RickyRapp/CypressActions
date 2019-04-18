@@ -4,7 +4,7 @@ import { MembershipModuleStore } from 'modules/membership/stores';
 import { PublicLayout, MainLayout } from 'core/layouts';
 import {
   Login,
-  Register,
+  CreateDonorAccount,
   RegisterPublic,
   ActivationConfirm,
   RegistrationSuccess,
@@ -37,14 +37,8 @@ import {
             }
           },
           {
-            name: 'master.app.membership.register',
+            name: 'master.app.membership.register.public',
             pattern: '/register',
-            component: Register,
-            authorization: 'theDonorsFundAdministrationSection.create'
-          },
-          {
-            name: 'master.app.membership.register-public',
-            pattern: '/register-public',
             component: RegisterPublic,
             beforeEnter: function (fromState, toState, routerStore) {
               if (routerStore.rootStore.authStore.isAuthenticated) {
@@ -68,18 +62,18 @@ import {
         ]
       },
       {
-        name: 'master.app.main.user-preferences',
+        name: 'master.app.administration.membership.user-preferences',
         pattern: '/user-preferences',
         component: [MainLayout, UserPreferences],
         isPrivate: true
       },
       {
-        name: 'master.app.membership.activation-confirm',
+        name: 'master.app.administration.membership.activation-confirm',
         pattern: '/account-activation',
         component: ActivationConfirm
       },
       {
-        name: 'master.app.membership.registration-success',
+        name: 'master.app.administration.membership.registration-success',
         pattern: '/registration-success',
         component: RegistrationSuccess
       },

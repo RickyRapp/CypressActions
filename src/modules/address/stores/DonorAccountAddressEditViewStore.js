@@ -10,7 +10,7 @@ class DonorAccountAddressEditViewStore extends BaseViewStore {
         super(rootStore);
         this.rootStore = rootStore;
         this.addressService = new AddressService(rootStore.app.baasic.apiClient);
-        this.userId = this.rootStore.routerStore.routerState.params.id ? this.rootStore.routerStore.routerState.params.id : this.rootStore.authStore.user.id
+        this.userId = this.rootStore.routerStore.routerState.params.userId ? this.rootStore.routerStore.routerState.params.userId : this.rootStore.authStore.user.id
         this.getResource();
     }
 

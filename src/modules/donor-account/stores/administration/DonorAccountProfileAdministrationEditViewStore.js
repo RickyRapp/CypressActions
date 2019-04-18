@@ -14,18 +14,14 @@ class DonorAccountProfileAdministrationEditViewStore extends BaseEditViewStore {
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.id,
+            id: rootStore.routerStore.routerState.params.userId,
             actions: {
                 update: async donorAccount => {
                     donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
-                    try {
-                        return await donorAccountService.update({
-                            id: this.id,
-                            ...donorAccount
-                        });
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await donorAccountService.update({
+                        id: this.id,
+                        ...donorAccount
+                    });
                 },
                 get: async id => {
                     let params = {};

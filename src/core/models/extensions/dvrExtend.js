@@ -1,51 +1,52 @@
-import { ContributionSettingService } from "common/data";
+import _ from "lodash";
 
-//TODO: not using currently, need to figure oute how to inject apiClient
-//rootStore.app.baasic.apiClient
-const asyncRules = {
-  checkUser: (value, attr, key, passes) => {
-    const msg = `Hey! The username ${value} is already taken.`;
-    // show error if the call does not returns entries
+export default ({ validator, form }) => {
+  const form2 = form;
+  const rules = {
+    required_if: {
+      function(val, req, attribute) {
 
-    const contributionSettingService = new ContributionSettingService();
-    const contributionSetting = {
-      amount: 15,
-      bankAccountId: '4bc6b7f9-bbe0-4106-a8a9-aa0f0107a618',
-      contributionSettingTypeId: '4bc6b7f9-bbe0-4106-a8a9-aa0f0107a618',
-      startDate: null,
-      enabled: false,
-      lowBalanceAmount: 1000,
-    }
-    contributionSettingService.createContributionSetting('4bc6b7f9-bbe0-4106-a8a9-aa0f0107a618', contributionSetting)
-      .then((items) => (items.length === 0) ? passes() : passes(false, msg));
-  },
-};
+        req = this.getParameters();
+        let compareValue = req[1];
+        if (_.isString(compareValue) && (compareValue === 'true' || compareValue === 'false')) {
+          compareValue = (compareValue == 'true');
+        }
+        if (this.validator._objectPath(this.validator.input, req[0]) === compareValue) {
+          return this.validator.getRule('required').validate(val);
+        }
 
-const rules = {
-  after_override: {
-    function: (value, attr) => {
-      var val1 = attr;
-      var val2 = value;
-
-      if (!isValidDate(val1)) { return false; }
-      if (!isValidDate(val2)) { return false; }
-
-      if (new Date(val1).getTime() < new Date(val2).getTime()) {
         return true;
-      }
-      return false;
+      },
+      message: "The :attribute is required."
     },
-    message: "The :attribute date must be after today's date"
-  },
-};
+    after: {
+      function: (value, req) => {
+        let date1 = '';
 
-export default ($validator) => {
-  // // register async rules
-  // Object.keys(asyncRules).forEach(key =>
-  //   $validator.registerAsyncRule(key, asyncRules[key]));
+        if (isValidDate(req)) {
+          date1 = req;
+        }
+        else if (form2.$(req)) {
+          date1 = form2.$(req).value;
+        }
 
-  Object.keys(rules).forEach(key =>
-    $validator.register(key, rules[key].function, rules[key].message));
+        var date2 = value;
+
+        if (!isValidDate(date1)) { return false; }
+        if (!isValidDate(date2)) { return false; }
+
+        if (new Date(date1).getTime() < new Date(date2).getTime()) {
+          return true;
+        }
+        return false;
+      },
+      message: 'The :attribute date is not valid.'
+    }
+  };
+
+
+  Object.keys(rules).forEach((key) =>
+    validator.register(key, rules[key].function, rules[key].message));
 };
 
 function leapYear(year) {

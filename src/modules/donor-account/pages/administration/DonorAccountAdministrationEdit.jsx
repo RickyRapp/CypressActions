@@ -22,7 +22,7 @@ class DonorAccountAdministrationEdit extends React.Component {
         return (
             <Page>
                 <PageContentHeader>
-                    <DonorAccountHeaderDetails userId={this.props.rootStore.routerStore.routerState.params.id} type='donor-account' />
+                    <DonorAccountHeaderDetails userId={this.props.rootStore.routerStore.routerState.params.userId} type='donor-account' />
                 </PageContentHeader>
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">

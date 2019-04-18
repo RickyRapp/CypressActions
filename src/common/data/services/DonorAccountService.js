@@ -8,6 +8,13 @@ class DonorAccountService extends BaseService {
     this.apiClient = apiClient;
   }
 
+  async register(resource) {
+    var url = this.routeService.register();
+    const response = await this.apiClient.post(url, resource);
+    return response || null;
+  }
+
+
   async getSettings(id) {
     const url = this.routeService.getSettings(id);
     const response = await this.apiClient.get(url);

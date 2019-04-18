@@ -15,7 +15,7 @@ class DonorAccountEmailAddressEditViewStore extends BaseViewStore {
 
     @action.bound
     async getResource() {
-        let id = this.rootStore.routerStore.routerState.params.id ? this.rootStore.routerStore.routerState.params.id : this.rootStore.authStore.user.id
+        let id = this.rootStore.routerStore.routerState.params.userId ? this.rootStore.routerStore.routerState.params.userId : this.rootStore.authStore.user.id
         let params = {};
         params.orderBy = 'primary';
         params.orderDirection = 'desc';

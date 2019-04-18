@@ -10,7 +10,7 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, { onAfterCreate }) {
         const bankAccountService = new BankAccountService(rootStore.app.baasic.apiClient);
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.id;
+        const id = rootStore.routerStore.routerState.params.userId;
         super(rootStore, {
             name: 'bank account',
             actions: {

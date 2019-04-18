@@ -18,7 +18,6 @@ function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
-                            <label>Prefix Type</label>
                             {prefixTypeDropdownStore && <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />}
                         </div>
                     </div>
@@ -49,7 +48,6 @@ function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
 
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
-                            <label>Delivery Method Type</label>
                             {deliveryMethodTypeDropdownStore && <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />}
                         </div>
                     </div>

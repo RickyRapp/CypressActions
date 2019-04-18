@@ -2,10 +2,10 @@ import { LoginViewStore, RegisterViewStore, PasswordRecoveryViewStore, PasswordC
 
 class MembershipViewStore {
   routes = {
-    register: () => this.rootStore.routerStore.navigate('master.app.membership.register'),
-    login: () => this.rootStore.routerStore.navigate('master.app.membership.login'),
-    forgotPassword: () => this.moduleStore.rootStore.routerStore.navigate('master.app.membership.password-recovery'),
-    userPreferences: () => this.moduleStore.rootStore.routerStore.navigate('master.app.main.user-preferences')
+    register: () => this.rootStore.routerStore.navigate('master.app.administration.membership.register'),
+    login: () => this.rootStore.routerStore.navigate('master.app.administration.membership.login'),
+    forgotPassword: () => this.moduleStore.rootStore.routerStore.navigate('master.app.administration.membership.password-recovery'),
+    userPreferences: () => this.moduleStore.rootStore.routerStore.navigate('master.app.administration.membership.user-preferences')
   };
 
   constructor(rootStore) {

@@ -14,7 +14,7 @@ class PasswordChangeViewStore extends BaseViewStore {
         passwordRecoveryToken
       });
     },
-    onError: form => {}
+    onError: form => { }
   });
 
   constructor(rootStore) {
@@ -47,7 +47,7 @@ class PasswordChangeViewStore extends BaseViewStore {
   }
 
   @action.bound async goToLogin() {
-    await this.rootStore.routerStore.navigate('master.app.membership.login', {
+    await this.rootStore.routerStore.navigate('master.app.administration.membership.login', {
       appId: this.rootStore.routerStore.routerState.params.appId
     });
   }

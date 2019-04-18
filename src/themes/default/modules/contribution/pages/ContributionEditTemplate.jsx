@@ -46,6 +46,9 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
     />
   );
 
+  const labelBankAccount =
+    <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
+
   return (
     <React.Fragment>
       <EditFormLayout form={form} isEdit={true} loading={loading} layoutFooterVisible={false}>
@@ -55,22 +58,16 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
           <PageContentSidebar>{contributionDetails(contribution, reviewContributionModalParams, permissions, contributionStatuses)}</PageContentSidebar>}
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
-            <div className="inputgroup">
-              <label>Payment Type</label>
-              {renderIf(paymentTypeDropdownStore)(
-                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />)}
-            </div>
+            {paymentTypeDropdownStore &&
+              <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
           </div>
         </div>
 
         {(form.$('paymentTypeId').value === achId || form.$('paymentTypeId').value === wireTransferId) &&
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
-              <div className="inputgroup">
-                <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
-                {bankAccountDropdownStore &&
-                  <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
-              </div>
+              {bankAccountDropdownStore &&
+                <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} label={labelBankAccount} />}
             </div>
           </div>}
 
@@ -89,7 +86,7 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
               </div>
             </div>
             <div className="f-row">
-              {renderIf(showStockAndMutualFundsContactInfo)(
+              {showStockAndMutualFundsContactInfo &&
                 <React.Fragment>
                   <div className="form__group f-col f-col-lrg-6">
                     <BasicInput field={form.$('financialInstitutionAddressLine1')} />
@@ -109,7 +106,7 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
                   <div className="form__group f-col f-col-lrg-4">
                     <BasicInput field={form.$('financialInstitutionPhoneNumber')} />
                   </div>
-                </React.Fragment>)}
+                </React.Fragment>}
               <div className="form__group f-col f-col-lrg-6">
                 <div className="display--b pull">{showStockAndMutualFundsContactInfo ? 'Hide' : 'Show'} institution contact informations</div>
                 <div className="display--b pull spc--left--sml">
@@ -154,7 +151,7 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
                 <span className="type--tiny type--color--error">Check this</span>}
             </div>
           </div>
-          {renderIf(showPayerInformation)(
+          {showPayerInformation &&
             <React.Fragment>
               <div className="form__group f-col f-col-lrg-6">
                 <BasicInput field={form.$('payerInformation.firstName')} />
@@ -186,7 +183,7 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
               <div className="form__group f-col f-col-lrg-12">
                 <ColoredLine color="red" />
               </div>
-            </React.Fragment>)}
+            </React.Fragment>}
         </div>
         <div className="f-row">
           <div className="form__group f-col f-col-lrg-6">
@@ -225,8 +222,8 @@ function contributionDetails(contribution, reviewContributionModalParams, permis
             <div className="form__group f-col f-col-lrg-12">
               <div>Status:</div>
               <strong>{_.find(contributionStatuses, { id: contribution.contributionStatusId }).name}</strong>
-              {renderIf(permissions.employeeUpdate)(
-                <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>)}
+              {permissions.employeeUpdate &&
+                <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>}
             </div>
             <div className="form__group f-col f-col-lrg-12">
               <div>Conf. Number:</div>

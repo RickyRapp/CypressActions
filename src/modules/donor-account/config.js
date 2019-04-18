@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonorAccountAdministrationList, DonorAccountAdministrationEdit, DonorAccountMainEdit } from 'modules/donor-account/pages'
+import { DonorAccountAdministrationList, DonorAccountAdministrationEdit, DonorAccountMainEdit, DonorAccountAdministrationCreate } from 'modules/donor-account/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -16,8 +16,13 @@ import { DonorAccountAdministrationList, DonorAccountAdministrationEdit, DonorAc
                     },
                     {
                         name: 'master.app.administration.donor.account.edit',
-                        pattern: 'edit/:id',
+                        pattern: 'edit/:userId',
                         component: DonorAccountAdministrationEdit,
+                    },
+                    {
+                        name: 'master.app.administration.donor.account.create',
+                        pattern: 'create',
+                        component: DonorAccountAdministrationCreate,
                     }
                 ]
             },

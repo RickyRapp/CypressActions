@@ -6,7 +6,7 @@ import _ from 'lodash';
 class DonorAccountAddressCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, { onAfterCreate }) {
         const addressService = new AddressService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id;
+        let userId = rootStore.routerStore.routerState.params.userId ? rootStore.routerStore.routerState.params.userId : rootStore.authStore.user.id;
 
         super(rootStore, {
             name: 'donor address',

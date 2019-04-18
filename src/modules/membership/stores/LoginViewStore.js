@@ -6,9 +6,9 @@ import { resolveApplicationUser } from 'core/utils';
 class LoginViewStore extends BaseViewStore {
   routes = {
     register: () =>
-      this.moduleStore.rootStore.routerStore.navigate('master.app.membership.register', { appId: this.rootStore.app.baasic.getApiKey() }),
+      this.moduleStore.rootStore.routerStore.navigate('master.app.administration.membership.register', { appId: this.rootStore.app.baasic.getApiKey() }),
     forgotPassword: () =>
-      this.moduleStore.rootStore.routerStore.navigate('master.app.membership.password-recovery', { appId: this.rootStore.app.baasic.getApiKey() })
+      this.moduleStore.rootStore.routerStore.navigate('master.app.administration.membership.password-recovery', { appId: this.rootStore.app.baasic.getApiKey() })
   };
 
   loginForm = new LoginForm({

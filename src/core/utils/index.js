@@ -18,6 +18,7 @@ export { default as passwordRequirements } from './constants';
 export * from './apiParameters';
 export * from './router/queryParams';
 export * from './donorAccountFunctions';
+export * from './formExtensions';
 
 // Templates
 export { default as renderIf } from './templates/renderIf';

@@ -18,7 +18,7 @@ class ContributionSettingListViewStore extends BaseViewStore {
             employeeUpdate: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.update'),
         }
 
-        this.userId = this.rootStore.routerStore.routerState.params.id;
+        this.userId = this.rootStore.routerStore.routerState.params.userId;
         this.load();
     }
 

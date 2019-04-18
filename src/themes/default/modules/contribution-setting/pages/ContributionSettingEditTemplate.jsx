@@ -25,10 +25,8 @@ function ContributionSettingEditTemplate({ contributionSettingEditViewStore, tit
                     <BasicInput field={form.$('amount')} />
                 </div>
                 <div className="form__group f-col f-col-lrg-12">
-                    <div className="inputgroup">
-                        <label>Bank Account</label>
-                        {bankAccountDropdownStore && <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
-                    </div>
+                    {bankAccountDropdownStore &&
+                        <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} />}
                 </div>
                 {_.find(contributionSettingType, { abrv: 'low-balance' }).id == form.$('contributionSettingTypeId').value ?
                     <div className="form__group f-col f-col-lrg-12">

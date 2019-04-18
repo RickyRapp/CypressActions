@@ -9,17 +9,13 @@ class DonorAccountSettingAdministrationEditViewStore extends BaseEditViewStore {
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.id,
+            id: rootStore.routerStore.routerState.params.userId,
             actions: {
                 update: async donorAccount => {
-                    try {
-                        return await donorAccountService.updateSettings({
-                            id: this.id,
-                            ...donorAccount
-                        })
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await donorAccountService.updateSettings({
+                        id: this.id,
+                        ...donorAccount
+                    })
                 },
                 get: async id => {
                     const response = await donorAccountService.getSettings(id);

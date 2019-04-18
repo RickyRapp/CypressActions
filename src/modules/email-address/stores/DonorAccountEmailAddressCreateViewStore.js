@@ -5,7 +5,7 @@ import { DonorAccountEmailAddressCreateForm } from "modules/email-address/forms"
 class DonorAccountEmailAddressCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, { onAfterCreate }) {
         const emailAddressService = new EmailAddressService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.id ? rootStore.routerStore.routerState.params.id : rootStore.authStore.user.id;
+        let userId = rootStore.routerStore.routerState.params.userId ? rootStore.routerStore.routerState.params.userId : rootStore.authStore.user.id;
 
         super(rootStore, {
             name: 'donor email address',

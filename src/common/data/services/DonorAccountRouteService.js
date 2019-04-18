@@ -19,6 +19,10 @@ class DonorAccountRouteService extends BaseRouteService {
   }
 
   create() {
+    return super.create(this.base);
+  }
+
+  register() {
     return super.create(this.base + 'register');
   }
 

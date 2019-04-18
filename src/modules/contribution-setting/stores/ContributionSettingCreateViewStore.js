@@ -10,7 +10,7 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
 
     constructor(rootStore, onAfterCreate, bankAccounts, contributionSettingType) {
         const contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.id;
+        let userId = rootStore.routerStore.routerState.params.userId;
 
         super(rootStore, {
             name: 'contribution setting',

@@ -1,5 +1,6 @@
 export { default as DonorAccountAdministrationListTemplate } from './administration/DonorAccountAdministrationListTemplate'
 export { default as DonorAccountSettingAdministrationEditTemplate } from './administration/DonorAccountSettingAdministrationEditTemplate'
+export { default as DonorAccountAdministrationCreateTemplate } from './administration/DonorAccountAdministrationCreateTemplate'
 
 export { default as DonorAccountSettingMainPreviewTemplate } from './main/DonorAccountSettingMainPreviewTemplate'
 

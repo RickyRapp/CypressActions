@@ -3,7 +3,7 @@ import { defaultTemplate } from 'core/utils';
 import { Content } from 'core/layouts';
 import shouldRenderContentChildren from './shouldRenderContentChildren';
 
-function EditFormContentTemplate({ form, children, loading }) {
+function EditFormContentTemplate({ form, children, loading, className = null }) {
   return (
     <React.Fragment>
       {shouldRenderContentChildren(children) ? (
@@ -11,7 +11,7 @@ function EditFormContentTemplate({ form, children, loading }) {
       ) : (
           <form onSubmit={form.onSubmit} className="clearfix">
             {children ? (
-              <div className="col col-sml-12 card card--form card--primary card--lrg">
+              <div className={className ? className : "col col-sml-12 card card--form card--primary card--lrg"}>
                 {children}
               </div>
             ) : null}

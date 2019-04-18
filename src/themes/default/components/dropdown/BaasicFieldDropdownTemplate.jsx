@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/utils';
 import { renderIf, isSome } from 'core/utils';
 import _ from 'lodash';
 
-function BaasicFieldDropdownTemplate({ store, field }) {
+function BaasicFieldDropdownTemplate({ store, field, label = null }) {
     const {
         options,
         onChange,
@@ -12,14 +12,15 @@ function BaasicFieldDropdownTemplate({ store, field }) {
     } = store;
 
     return (
-        <React.Fragment>
+        <div className="inputgroup">
+            <label htmlFor={field.id}>{label ? label : field.label} <strong>{field.disabled ? 'Disabled' : ''}</strong></label>
             <Select
                 value={_.find(items, { id: field.value }) ? _.find(items, { id: field.value }) : null}
                 onChange={onChange}
                 options={items}
                 isMulti={options.multi}
-                placeholder={options.placeholder}
-                name={options.name}
+                placeholder={field.placeholder ? field.placeholder : options.placeholder}
+                name={field.name ? field.name : options.name}
                 isSearchable={options.isSearchable}
                 isClearable={options.isClearable}
                 className={options.className}
@@ -32,7 +33,7 @@ function BaasicFieldDropdownTemplate({ store, field }) {
             {renderIf(isSome(field.error))(
                 <p className="type--tiny type--color--error">{field.error}</p>
             )}
-        </React.Fragment>
+        </div>
     )
 }
 

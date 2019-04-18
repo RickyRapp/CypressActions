@@ -6,7 +6,7 @@ import { Page, PageFooter } from 'core/layouts';
 import { defaultTemplate } from 'core/utils';
 import { getPageObject } from 'core/utils';
 
-function EditFormLayoutTemplate({ rootStore, form, loading, children, t, layoutFooterVisible = true }) {
+function EditFormLayoutTemplate({ rootStore, form, loading, children, t, layoutFooterVisible = true, className = null }) {
   const { header, footer, content } = getPageObject(children);
 
   return (
@@ -14,7 +14,7 @@ function EditFormLayoutTemplate({ rootStore, form, loading, children, t, layoutF
       {header}
       {content.header}
       {content.sidebar}
-      <EditFormContent form={form}>{content.children}</EditFormContent>
+      <EditFormContent form={form} className={className}>{content.children}</EditFormContent>
       {content.footer}
       {renderEditLayoutFooterContent({
         footer,

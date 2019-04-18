@@ -1,4 +1,5 @@
 import { Form } from 'mobx-react-form';
+import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 import { dvrExtend } from 'core/models';
 
@@ -9,10 +10,10 @@ class FormBase extends Form {
       {},
       {
         plugins: {
-          dvr: {
+          dvr: dvr({
             package: validatorjs,
-            extend: dvrExtend,
-          },
+            extend: dvrExtend
+          }),
         },
         hooks,
         options: {

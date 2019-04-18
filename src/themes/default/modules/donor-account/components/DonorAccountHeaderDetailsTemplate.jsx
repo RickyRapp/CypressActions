@@ -63,7 +63,7 @@ function renderContribution(donorAccount, rootStore) {
                 Donor Name:
                 <a
                     className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor.account.edit', { id: donorAccount.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.donor.account.edit', { id: donorAccount.id })}>
                     <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
                 </a>
             </div>
@@ -84,7 +84,7 @@ function renderContribution(donorAccount, rootStore) {
                 <strong>
                     <a
                         className="btn btn--xsml btn--ghost"
-                        onClick={() => rootStore.routerStore.navigate('master.app.main.contribution.setting', { id: donorAccount.id })}>
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>
                         <strong>Open</strong>
                     </a>
                 </strong>
@@ -100,7 +100,7 @@ function renderContributionSetting(donorAccount, rootStore) {
                 Donor Name:
                 <a
                     className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor.account.edit', { id: donorAccount.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.donor.account.edit', { id: donorAccount.id })}>
                     <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
                 </a>
             </div>
@@ -127,7 +127,7 @@ function renderActivityAndHistory(donorAccount, rootStore) {
                 Donor Name:
                 <a
                     className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.main.donor.account.edit', { id: donorAccount.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.donor.account.edit', { id: donorAccount.id })}>
                     <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
                 </a>
             </div>

@@ -12,6 +12,7 @@ export { default as BasicTextAreaTemplate } from './forms/BasicTextArea';
 export { default as BasicCheckBoxTemplate } from './forms/BasicCheckBoxTemplate';
 export { default as BaasicFormControlsTemplate } from './forms/BaasicFormControlsTemplate';
 export { default as BasicFieldDatePickerTemplate } from './forms/BasicFieldDatePickerTemplate';
+export { default as BasicFormatFieldInputTemplate } from './forms/BasicFormatFieldInputTemplate';
 
 export { default as BaasicConfirmModalTemplate } from './dialog/BaasicConfirmModal';
 export { default as BaasicModalTemplate } from './dialog/BaasicModal';

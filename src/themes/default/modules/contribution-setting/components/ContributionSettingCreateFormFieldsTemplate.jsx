@@ -27,16 +27,15 @@ function ContributionSettingCreateFormFields({
                 <React.Fragment>
                     <div className="f-row" style={enabledField.value ? null : styles}>
                         <div className="form__group f-col f-col-lrg-12">
-                            {contributionSettingTypeDropdownStore && <BaasicFieldDropdown field={contributionSettingTypeIdField} store={contributionSettingTypeDropdownStore} />}
+                            {contributionSettingTypeDropdownStore &&
+                                <BaasicFieldDropdown field={contributionSettingTypeIdField} store={contributionSettingTypeDropdownStore} />}
                         </div>
                         <div className="form__group f-col f-col-lrg-12">
                             <BasicInput field={amountField} />
                         </div>
                         <div className="form__group f-col f-col-lrg-12">
-                            <div className="inputgroup">
-                                <label>Bank Account</label>
-                                {bankAccountDropdownStore && <BaasicFieldDropdown field={bankAccountIdField} store={bankAccountDropdownStore} />}
-                            </div>
+                            {bankAccountDropdownStore &&
+                                <BaasicFieldDropdown field={bankAccountIdField} store={bankAccountDropdownStore} />}
                         </div>
                         {contributionSettingTypeIdField.value &&
                             (contributionSettingTypeDropdownStore.value.abrv === 'low-balance' ?
