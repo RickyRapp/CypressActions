@@ -13,7 +13,7 @@ function BaasicFieldDropdownTemplate({ store, field, label = null }) {
 
     return (
         <div className="inputgroup">
-            <label htmlFor={field.id}>{label ? label : field.label} <strong>{field.disabled ? 'Disabled' : ''}</strong></label>
+            <label htmlFor={field.id}>{label ? label : field.label}</label>
             <Select
                 value={_.find(items, { id: field.value }) ? _.find(items, { id: field.value }) : null}
                 onChange={onChange}

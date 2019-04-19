@@ -4,66 +4,81 @@ export default class DonorAccountSettingAdministrationEditForm extends FormBase 
     constructor(hooks) {
         super(hooks);
     }
-
     setup() {
         return {
             fields: [
-                {
-                    name: 'initialContribution',
-                    label: 'Initial Contribution',
-                    rules: 'boolean',
-                    type: 'checkbox'
-                },
-                {
-                    name: 'contributionMinimumInitial',
-                    label: 'Set minimum initial contribution',
-                    placeholder: 'Enter minimum for initial contribution',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'contributionMinimumAdditional',
-                    label: 'Set minimum for additional contribution',
-                    placeholder: 'Enter minimum for additional contribution',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'grantMinimumAmount',
-                    label: 'Set minimum for grants',
-                    placeholder: 'Enter minimum for grants',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'grantFee',
-                    label: 'Set minimum for grant fee',
-                    placeholder: 'Enter minimum for grant fee',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'certificateDeduction',
-                    label: 'Set minimum for certificate deduction',
-                    placeholder: 'Enter minimum for certificate deduction',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'certificateFee',
-                    label: 'Set minimum for certificate fee',
-                    placeholder: 'Enter minimum for certificate fee',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'extraBookletPercentage',
-                    label: 'Set minimum for extra booklet percentage',
-                    placeholder: 'Enter minimum for extra booklet percentage',
-                    rules: 'required|numeric|min:0'
-                },
-                {
-                    name: 'lineOfCredit',
-                    label: 'Set line of credit',
-                    placeholder: 'Enter line of credit',
-                    rules: 'required|numeric|min:0'
+                'securityPin',
+                'deliveryMethodTypeId',
+                'initialContribution',
+                'contributionMinimumInitial',
+                'contributionMinimumAdditional',
+                'grantMinimumAmount',
+                'grantFee',
+                'certificateDeduction',
+                'certificateFee',
+                'extraBookletPercentage',
+                'lineOfCredit',
+                'blankBookletMax',
+                'notificationLimitRemainderAmount',
+            ],
+
+            labels: {
+                'securityPin': 'Security Pin',
+                'deliveryMethodTypeId': 'Delivery Method Type',
+                'initialContribution': 'Initial Contribution',
+                'contributionMinimumInitial': 'Minimum Initial Contribution',
+                'contributionMinimumAdditional': 'Minimum Additional Contribution',
+                'grantMinimumAmount': 'Minimum Grant',
+                'grantFee': 'Grant Fee',
+                'certificateDeduction': 'Certificate Deduction',
+                'certificateFee': 'Certificate Fee',
+                'extraBookletPercentage': 'Extra Booklet Percentage',
+                'lineOfCredit': 'Line Of Credit',
+                'blankBookletMax': 'Blank Booklet Max Amount',
+                'notificationLimitRemainderAmount': 'Low Balance Amount',
+            },
+
+            placeholders: {
+                'deliveryMethodTypeId': 'Choose Delivery Method Type',
+                'securityPin': 'Enter Security Pin',
+                'initialContribution': 'Initial Contribution',
+                'contributionMinimumInitial': 'Enter Minimum Initial Contribution',
+                'contributionMinimumAdditional': 'Enter Minimum Additional Contribution',
+                'grantMinimumAmount': 'Enter Minimum Grant',
+                'grantFee': 'Enter Grant Fee',
+                'certificateDeduction': 'Enter Certificate Deduction',
+                'certificateFee': 'Enter Certificate Fee',
+                'extraBookletPercentage': 'Enter Extra Booklet Percentage',
+                'lineOfCredit': 'Enter Line Of Credit',
+                'blankBookletMax': 'Enter Blank Booklet Max Amount',
+                'notificationLimitRemainderAmount': 'Enter Low Balance Amount'
+            },
+
+            rules: {
+                'deliveryMethodTypeId': 'required|string',
+                'securityPin': 'required|string|size:4',
+                'initialContribution': 'required|boolean',
+                'contributionMinimumInitial': 'required|numeric|min:0',
+                'contributionMinimumAdditional': 'required|numeric|min:0',
+                'grantMinimumAmount': 'required|numeric|min:0',
+                'grantFee': 'required|numeric|min:0',
+                'certificateDeduction': 'required|numeric|min:0',
+                'certificateFee': 'required|numeric|min:0',
+                'extraBookletPercentage': 'numeric|min:0',
+                'lineOfCredit': 'required|numeric|min:0',
+                'blankBookletMax': 'numeric|min:0',
+                'notificationLimitRemainderAmount': 'numeric'
+            },
+
+            types: {
+                'initialContribution': 'checkbox'
+            },
+
+            options: {
+                'securityPin': {
+                    validateOnChange: true
                 }
-            ]
+            }
         };
     }
 };
-

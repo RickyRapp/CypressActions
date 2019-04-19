@@ -1,8 +1,8 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 
-function DonorAccountSettingMainPreviewTemplate({ donorAccountSettingMainPreviewViewStore }) {
-    const { settings } = donorAccountSettingMainPreviewViewStore;
+function DonorAccountSettingMainEditTemplate({ donorAccountSettingMainEditViewStore }) {
+    const { settings } = donorAccountSettingMainEditViewStore;
 
     return (
         <div className="card card--primary card--lrg">
@@ -66,4 +66,4 @@ function DonorAccountSettingMainPreviewTemplate({ donorAccountSettingMainPreview
     );
 }
 
-export default defaultTemplate(DonorAccountSettingMainPreviewTemplate);
+export default defaultTemplate(DonorAccountSettingMainEditTemplate);

@@ -4,7 +4,7 @@ import { DonorAccountService, LookupService } from "common/data";
 import { DonorAccountSettingAdministrationEditForm } from 'modules/donor-account/forms';
 import _ from 'lodash';
 
-class DonorAccountSettingAdministrationEditViewStore extends BaseEditViewStore {
+class DonorAccountSettingMainEditViewStore extends BaseEditViewStore {
     @observable deliveryMethodTypeDropdownStore = null;
 
     constructor(rootStore, fetchedDonorAccunt) {
@@ -12,9 +12,10 @@ class DonorAccountSettingAdministrationEditViewStore extends BaseEditViewStore {
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.userId,
+            id: rootStore.authStore.user.id,
             actions: {
                 update: async donorAccount => {
+                    donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
                     return await donorAccountService.updateSettings({
                         id: this.id,
                         ...donorAccount
@@ -31,6 +32,14 @@ class DonorAccountSettingAdministrationEditViewStore extends BaseEditViewStore {
             FormClass: DonorAccountSettingAdministrationEditForm,
             goBack: false
         });
+
+        this.form.setFieldsDisabled(true);
+        this.form.$('deliveryMethodTypeId').set('disabled', false);
+        this.form.$('blankBookletMax').set('disabled', false);
+        this.form.$('notificationLimitRemainderAmount').set('disabled', false);
+        this.form.$('securityPin').set('disabled', false);
+
+        this.form.each(field => field.resetValidation());
 
         this.deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
         this.load();
@@ -67,4 +76,4 @@ class DonorAccountSettingAdministrationEditViewStore extends BaseEditViewStore {
     }
 }
 
-export default DonorAccountSettingAdministrationEditViewStore;
+export default DonorAccountSettingMainEditViewStore;

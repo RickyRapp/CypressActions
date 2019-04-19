@@ -8,8 +8,9 @@ import _ from 'lodash';
 class DonorAccountProfileMainEditViewStore extends BaseEditViewStore {
     @observable deliveryMethodTypeDropdownStore = null;
     @observable prefixTypeDropdownStore = null;
+    @observable accountType = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { fetchedDonorAccount }) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
 
         super(rootStore, {
@@ -18,21 +19,20 @@ class DonorAccountProfileMainEditViewStore extends BaseEditViewStore {
             actions: {
                 update: async donorAccount => {
                     donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
-                    try {
-                        return await donorAccountService.update({
-                            id: this.id,
-                            ...donorAccount
-                        });
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await donorAccountService.update({
+                        id: this.id,
+                        ...donorAccount
+                    });
                 },
                 get: async id => {
+                    if (fetchedDonorAccount) {
+                        return fetchedDonorAccount;
+                    }
                     let params = {};
-                    params.embed = ['coreUser,deliveryMethodType'];
+                    params.embed = ['coreUser,companyProfile,address,emailAddress,phoneNumber'];
                     const response = await donorAccountService.get(id, params);
-                    if (isSome(response)) {
-                        if (isSome(response.coreUser) && isSome(response.coreUser.json)) {
+                    if (response) {
+                        if (response.coreUser && response.coreUser.json) {
                             response.coreUser.middleName = (JSON.parse(response.coreUser.json)).middleName;
                             response.coreUser.prefixTypeId = (JSON.parse(response.coreUser.json)).prefixTypeId;
                         }
@@ -46,6 +46,7 @@ class DonorAccountProfileMainEditViewStore extends BaseEditViewStore {
 
         this.deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
         this.prefixTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'prefix-type');
+        this.accountTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'account-type');
         this.load();
     }
 
@@ -60,6 +61,9 @@ class DonorAccountProfileMainEditViewStore extends BaseEditViewStore {
 
         let prefixTypeModels = await this.prefixTypeLookupService.getAll();
         this.prefixType = prefixTypeModels.data;
+        let accountTypeModels = await this.accountTypeLookupService.getAll();
+        this.accountType = accountTypeModels.data;
+        this.donorAccountType = _.find(this.accountType, { id: this.form.$('accountTypeId').value });
     }
 
     @action.bound async setStores() {

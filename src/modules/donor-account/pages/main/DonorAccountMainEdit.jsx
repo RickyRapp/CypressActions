@@ -1,8 +1,9 @@
 import React from 'react';
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { DonorAccountProfileMainEdit, DonorAccountSettingMainPreview } from 'modules/donor-account/pages'
+import { DonorAccountProfileMainEdit, DonorAccountSettingMainEdit } from 'modules/donor-account/pages'
 import { Page } from 'core/layouts';
+import { DonorAccountService } from "common/data";
 import { DonorAccountAddressEdit } from 'modules/address/pages';
 import { DonorAccountEmailAddressEdit } from 'modules/email-address/pages';
 import { DonorAccountPhoneNumberEdit } from 'modules/phone-number/pages';
@@ -14,20 +15,42 @@ class DonorAccountMainEdit extends React.Component {
     @observable showAddresses = false;
     @observable showEmailAddresses = false;
     @observable showPhoneNumbers = false;
+    @observable donorAccount = null;
+
+    constructor(props) {
+        super();
+        this.donorAccountService = new DonorAccountService(props.rootStore.app.baasic.apiClient);
+        this.userId = props.rootStore.authStore.user.id;
+        this.load();
+    }
+
+    @action.bound async load() {
+        let params = {};
+        params.embed = ['coreUser,companyProfile,address,emailAddress,phoneNumber'];
+        const response = await this.donorAccountService.get(this.userId, params);
+        if (response) {
+            if (response.coreUser && response.coreUser.json) {
+                response.coreUser.middleName = (JSON.parse(response.coreUser.json)).middleName;
+                response.coreUser.prefixTypeId = (JSON.parse(response.coreUser.json)).prefixTypeId;
+            }
+        }
+        this.donorAccount = response;
+    }
 
     render() {
         return (
             <Page>
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
-                        <div className="f-row">
-                            <div className="form__group f-col f-col-lrg-12">
-                                <DonorAccountProfileMainEdit />
-                            </div>
-                            <div className="form__group f-col f-col-lrg-12">
-                                <DonorAccountSettingMainPreview />
-                            </div>
-                        </div>
+                        {this.donorAccount &&
+                            <div className="f-row">
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <DonorAccountProfileMainEdit fetchedDonorAccount={this.donorAccount} />
+                                </div>
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <DonorAccountSettingMainEdit fetchedDonorAccount={this.donorAccount} columns={4} />
+                                </div>
+                            </div>}
                     </div>
 
                     <div className="form__group f-col f-col-lrg-6">

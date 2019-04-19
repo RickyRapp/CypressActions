@@ -5,5 +5,5 @@ export { default as DonorAccountAdministrationEdit } from './administration/Dono
 export { default as DonorAccountAdministrationCreate } from './administration/DonorAccountAdministrationCreate'
 
 export { default as DonorAccountMainEdit } from './main/DonorAccountMainEdit'
-export { default as DonorAccountSettingMainPreview } from './main/DonorAccountSettingMainPreview'
+export { default as DonorAccountSettingMainEdit } from './main/DonorAccountSettingMainEdit'
 export { default as DonorAccountProfileMainEdit } from './main/DonorAccountProfileMainEdit'

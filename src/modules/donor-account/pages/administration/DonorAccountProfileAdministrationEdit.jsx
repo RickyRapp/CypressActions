@@ -4,7 +4,7 @@ import { DonorAccountProfileEditTemplate } from 'themes/modules/donor-account/pa
 import { setCurrentView } from 'core/utils';
 import { DonorAccountProfileAdministrationEditViewStore } from 'modules/donor-account/stores';
 
-@setCurrentView(rootStore => new DonorAccountProfileAdministrationEditViewStore(rootStore), 'donorAccountProfileEditViewStore')
+@setCurrentView((rootStore, { donorAccount }) => new DonorAccountProfileAdministrationEditViewStore(rootStore, { fetchedDonorAccount: donorAccount }), 'donorAccountProfileEditViewStore')
 @observer
 class DonorAccountProfileAdministrationEdit extends React.Component {
     render() {

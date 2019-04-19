@@ -10,7 +10,7 @@ class DonorAccountAdministrationListViewStore extends BaseListViewStore {
             name: 'donorAccount',
             routes: {
                 edit: id => this.rootStore.routerStore.navigate('master.app.administration.donor.account.edit', {
-                    id: id
+                    userId: id
                 }),
                 create: () => this.rootStore.routerStore.navigate('master.app.administration.donor.account.create')
             },

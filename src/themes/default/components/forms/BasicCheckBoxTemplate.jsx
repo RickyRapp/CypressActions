@@ -4,7 +4,7 @@ import { defaultTemplate, renderIf, isSome } from 'core/utils';
 const BasicCheckBoxTemplate = defaultTemplate(({ field, onChange = null, label = '' }) => {
     return (
         <div className="inputgroup">
-            <label htmlFor={field.id}>{label ? label : field.label} <strong>{field.disabled ? 'Disabled' : ''}</strong></label>
+            <label htmlFor={field.id}>{label ? label : field.label}</label>
             <div className="display--b pull spc--left--sml">
                 <input
                     {...field.bind()}

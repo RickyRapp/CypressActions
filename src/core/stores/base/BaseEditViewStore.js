@@ -44,7 +44,12 @@ class BaseEditViewStore extends BaseViewStore {
           } else {
             return this.createResource(item);
           }
-        }
+        },
+        onError(form) {
+          alert('### see console');
+          console.log('Form Errors', form.errors());
+        },
+
       });
 
     if (autoInit) {
@@ -95,8 +100,8 @@ class BaseEditViewStore extends BaseViewStore {
         ...resource
       });
       this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+      this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
-      errorResponse;
       this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
       this.form.setFieldsDisabled(false);
       return;
@@ -119,13 +124,13 @@ class BaseEditViewStore extends BaseViewStore {
     try {
       response = await this.actions.create(resource);
       this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+      this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
       errorResponse;
       this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
       this.form.setFieldsDisabled(false);
       return;
     }
-    this.form.setFieldsDisabled(false);
 
     if (this.onAfterCreate) {
       this.onAfterCreate(response);

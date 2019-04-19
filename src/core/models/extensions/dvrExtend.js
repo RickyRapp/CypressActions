@@ -47,6 +47,10 @@ export default ({ validator, form }) => {
 
   Object.keys(rules).forEach((key) =>
     validator.register(key, rules[key].function, rules[key].message));
+
+  var messages = validator.getMessages('en');
+  messages.required_with = 'The :attribute field is required when :field is present.';
+  validator.setMessages('en', messages);
 };
 
 function leapYear(year) {

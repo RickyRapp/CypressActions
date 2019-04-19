@@ -12,9 +12,9 @@ const BasicFormatFieldInputTemplate = defaultTemplate(({ field, label = null, ..
 
   return (
     <div className="inputgroup">
-      <label htmlFor={field.id}>{label ? label : field.label} <strong>{field.disabled ? 'Disabled' : ''}</strong></label>
+      <label htmlFor={field.id}>{label ? label : field.label} </label>
       <NumberFormat
-        className="input input--med input--text"
+        className={field.disabled ? "input input--med input--text input--disabled" : "input input--med input--text"}
         onValueChange={({ value }) => field.sync(value)}
         type={field.type}
         value={field.value}
@@ -23,6 +23,7 @@ const BasicFormatFieldInputTemplate = defaultTemplate(({ field, label = null, ..
         format={format}
         mask={mask}
         placeholder={field.placeholder}
+        disabled={field.disabled}
       />
       {renderIf(isSome(field.error))(
         <p className="type--tiny type--color--error">{field.error}</p>

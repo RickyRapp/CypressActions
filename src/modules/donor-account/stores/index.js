@@ -5,4 +5,4 @@ export { default as DonorAccountHeaderDetailsViewStore } from './administration/
 export { default as DonorAccountAdministrationCreateViewStore } from './administration/DonorAccountAdministrationCreateViewStore';
 
 export { default as DonorAccountProfileMainEditViewStore } from './main/DonorAccountProfileMainEditViewStore';
-export { default as DonorAccountSettingMainPreviewViewStore } from './main/DonorAccountSettingMainPreviewViewStore';
+export { default as DonorAccountSettingMainEditViewStore } from './main/DonorAccountSettingMainEditViewStore';
