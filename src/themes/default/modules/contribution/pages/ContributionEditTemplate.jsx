@@ -200,7 +200,7 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
       </EditFormLayout>
       <BaasicModal modalParams={addBankAccountModalParams} >
         <div className="col col-sml-12 card card--form card--primary card--lrg">
-          <BankAccountCreate onAfterCreate={onAddBankAccount} />
+          <BankAccountCreate onAfterCreate={onAddBankAccount} userId={contribution.donorAccountId} />
         </div>
       </BaasicModal>
       <BaasicModal modalParams={reviewContributionModalParams} >

@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorAccountAddressEditTemplate } from 'themes/modules/address/pages';
 import { DonorAccountAddressEditViewStore } from 'modules/address/stores';
 
-@setCurrentView(rootStore => new DonorAccountAddressEditViewStore(rootStore), 'donorAccountAddressEditViewStore')
+@setCurrentView((rootStore, props) => new DonorAccountAddressEditViewStore(rootStore, { userId: props.userId }), 'donorAccountAddressEditViewStore')
 @observer
 class DonorAccountAddressEdit extends React.Component {
     render() {

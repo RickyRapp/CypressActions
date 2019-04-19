@@ -4,9 +4,8 @@ import { DonorAccountAddressCreateForm } from "modules/address/forms";
 import _ from 'lodash';
 
 class DonorAccountAddressCreateViewStore extends BaseEditViewStore {
-    constructor(rootStore, { onAfterCreate }) {
+    constructor(rootStore, { onAfterCreate, userId }) {
         const addressService = new AddressService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.userId ? rootStore.routerStore.routerState.params.userId : rootStore.authStore.user.id;
 
         super(rootStore, {
             name: 'donor address',

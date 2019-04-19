@@ -4,7 +4,7 @@ import { DonorAccountEmailAddressEditTemplate } from 'themes/modules/email-addre
 import { setCurrentView } from 'core/utils';
 import { DonorAccountEmailAddressEditViewStore } from 'modules/email-address/stores';
 
-@setCurrentView(rootStore => new DonorAccountEmailAddressEditViewStore(rootStore), 'donorAccountEmailAddressEditViewStore')
+@setCurrentView((rootStore, props) => new DonorAccountEmailAddressEditViewStore(rootStore, { userId: props.userId }), 'donorAccountEmailAddressEditViewStore')
 @observer
 class DonorAccountEmailAddressEdit extends React.Component {
     render() {

@@ -7,19 +7,19 @@ class DonorAccountEmailAddressEditViewStore extends BaseViewStore {
     @observable items = null;
     @observable hide = true;
 
-    constructor(rootStore) {
+    constructor(rootStore, { userId }) {
         super(rootStore);
         this.emailAddressService = new EmailAddressService(rootStore.app.baasic.apiClient);
+        this.userId = userId;
         this.fetch([this.getResource()]);
     }
 
     @action.bound
     async getResource() {
-        let id = this.rootStore.routerStore.routerState.params.userId ? this.rootStore.routerStore.routerState.params.userId : this.rootStore.authStore.user.id
         let params = {};
         params.orderBy = 'primary';
         params.orderDirection = 'desc';
-        const response = await this.emailAddressService.getDonorAccountCollection(id, params);
+        const response = await this.emailAddressService.getDonorAccountCollection(this.userId, params);
         this.items = response;
     }
 

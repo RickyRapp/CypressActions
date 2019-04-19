@@ -6,11 +6,11 @@ import _ from 'lodash';
 class DonorAccountPhoneNumberEditViewStore extends BaseViewStore {
     @observable items = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { userId }) {
         super(rootStore);
         this.rootStore = rootStore;
         this.phoneNumberService = new PhoneNumberService(rootStore.app.baasic.apiClient);
-        this.userId = this.rootStore.routerStore.routerState.params.userId ? this.rootStore.routerStore.routerState.params.userId : this.rootStore.authStore.user.id
+        this.userId = userId;
         this.getResource();
     }
 

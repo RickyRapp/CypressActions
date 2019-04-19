@@ -7,10 +7,9 @@ import _ from 'lodash';
 class BankAccountCreateViewStore extends BaseEditViewStore {
     @observable thirdParty = false;
 
-    constructor(rootStore, { onAfterCreate }) {
+    constructor(rootStore, { onAfterCreate, userId }) {
         const bankAccountService = new BankAccountService(rootStore.app.baasic.apiClient);
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.userId;
         super(rootStore, {
             name: 'bank account',
             actions: {
@@ -18,7 +17,7 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                     if (!this.thirdParty) {
                         let params = {};
                         params.embed = ['coreUser,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
-                        const donorAccount = await donorAccountService.get(id, params);
+                        const donorAccount = await donorAccountService.get(userId, params);
                         bankAccount.accountHolder.firstName = donorAccount.coreUser.firstName;
                         bankAccount.accountHolder.lastName = donorAccount.coreUser.lastName;
                         var primaryDonorAccountAddress = _.find(donorAccount.donorAccountAddresses, { primary: true })
@@ -29,7 +28,7 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                         bankAccount.accountHolder.phoneNumber = primaryDonorAccountPhoneNumber.phoneNumber;
                     }
                     try {
-                        return await bankAccountService.createDonorAccountCollection({ id: id }, { 'bankAccount': bankAccount });
+                        return await bankAccountService.createDonorAccountCollection({ id: userId }, { 'bankAccount': bankAccount });
                     } catch (errorResponse) {
                         return errorResponse;
                     }

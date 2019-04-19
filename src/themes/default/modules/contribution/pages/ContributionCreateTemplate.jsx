@@ -229,7 +229,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
       </EditFormLayout>
       <BaasicModal modalParams={addBankAccountModalParams} >
         <div className="col col-sml-12 card card--form card--primary card--lrg">
-          <BankAccountCreate onAfterCreate={onAddBankAccount} />
+          <BankAccountCreate onAfterCreate={onAddBankAccount} userId={userId} />
         </div>
       </BaasicModal>
     </React.Fragment >

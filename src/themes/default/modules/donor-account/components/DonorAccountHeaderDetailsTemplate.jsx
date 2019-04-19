@@ -49,7 +49,7 @@ function renderDonorAccount(donorAccount, rootStore) {
                 </a>
             </div>
             <div className="form__group f-col f-col-lrg-3">
-                <a className="btn btn--xsml btn--ghost" onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', null, { id: donorAccount.id })}>Contribution Settings</a>
+                <a className="btn btn--xsml btn--ghost" onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>Contribution Settings</a>
             </div>
         </div>
     )
@@ -84,7 +84,7 @@ function renderContribution(donorAccount, rootStore) {
                 <strong>
                     <a
                         className="btn btn--xsml btn--ghost"
-                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting')}>
                         <strong>Open</strong>
                     </a>
                 </strong>

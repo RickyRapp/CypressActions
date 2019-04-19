@@ -19,6 +19,9 @@ class DonorAccountProfileAdministrationEditViewStore extends BaseEditViewStore {
             actions: {
                 update: async donorAccount => {
                     donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
+                    if (!donorAccount.companyProfileId) {
+                        donorAccount.companyProfile = null;
+                    }
                     return await donorAccountService.update({
                         id: this.id,
                         ...donorAccount

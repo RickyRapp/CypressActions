@@ -6,7 +6,8 @@ function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
     const {
         items,
         onChangePrimaryAddress,
-        getResource
+        getResource,
+        userId
     } = donorAccountAddressEditViewStore;
 
     return (
@@ -23,7 +24,7 @@ function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
                     ></AddressEdit>
                 </React.Fragment >
             )}
-            {items && items.length < 2 && <DonorAccountAddressCreate onAfterCreate={getResource} title={'You can add secondary address'} />}
+            {items && items.length < 2 && <DonorAccountAddressCreate onAfterCreate={getResource} title={'You can add secondary address'} userId={userId} />}
         </React.Fragment >
     );
 }

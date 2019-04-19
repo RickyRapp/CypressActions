@@ -4,10 +4,9 @@ import { DonorAccountPhoneNumberCreateForm } from "modules/phone-number/forms";
 import _ from 'lodash';
 
 class DonorAccountPhoneNumberCreateViewStore extends BaseEditViewStore {
-    constructor(rootStore, { onAfterCreate }) {
+    constructor(rootStore, { onAfterCreate, userId }) {
         const phoneNumberService = new PhoneNumberService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.userId ? rootStore.routerStore.routerState.params.userId : rootStore.authStore.user.id;
-
+        debugger;
         super(rootStore, {
             name: 'donor phone number',
             actions: {

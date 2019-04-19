@@ -15,7 +15,7 @@ function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
             <EditFormContent form={form} isEdit={true} loading={loading}>
                 <h3>Profile Informations - {donorAccountType ? donorAccountType.name : ''}</h3>
 
-                {form.$('companyProfile').value &&
+                {form.$('companyProfileId').value &&
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-4">
                             <BasicInput field={form.$('companyProfile.name')} />

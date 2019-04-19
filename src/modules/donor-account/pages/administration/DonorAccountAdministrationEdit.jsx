@@ -76,7 +76,7 @@ class DonorAccountAdministrationEdit extends React.Component {
                                         </div>
                                     </div>
                                     {this.showBankAccounts &&
-                                        <DonorAccountBankAccountEdit />}
+                                        <DonorAccountBankAccountEdit userId={this.userId} />}
                                 </div>
                                 <div className="form__group f-col f-col-lrg-12">
                                     <div className="group">
@@ -90,7 +90,7 @@ class DonorAccountAdministrationEdit extends React.Component {
                                         </div>
                                     </div>
                                     {this.showAddresses &&
-                                        <DonorAccountAddressEdit />}
+                                        <DonorAccountAddressEdit userId={this.userId} />}
                                 </div>
                                 <div className="form__group f-col f-col-lrg-12">
                                     <div className="group">
@@ -104,7 +104,7 @@ class DonorAccountAdministrationEdit extends React.Component {
                                         </div>
                                     </div>
                                     {this.showEmailAddresses &&
-                                        <DonorAccountEmailAddressEdit />
+                                        <DonorAccountEmailAddressEdit userId={this.userId} />
                                     }
                                 </div>
                                 <div className="form__group f-col f-col-lrg-12">
@@ -119,7 +119,7 @@ class DonorAccountAdministrationEdit extends React.Component {
                                         </div>
                                     </div>
                                     {this.showPhoneNumbers &&
-                                        <DonorAccountPhoneNumberEdit />}
+                                        <DonorAccountPhoneNumberEdit userId={this.userId} />}
                                 </div>
                             </div>
                         </div>

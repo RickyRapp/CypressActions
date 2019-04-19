@@ -4,7 +4,7 @@ import { DonorAccountPhoneNumberCreateTemplate } from 'themes/modules/phone-numb
 import { setCurrentView } from 'core/utils';
 import { DonorAccountPhoneNumberCreateViewStore } from 'modules/phone-number/stores';
 
-@setCurrentView((rootStore, props) => new DonorAccountPhoneNumberCreateViewStore(rootStore, { onAfterCreate: props.onAfterCreate }), 'donorAccountPhoneNumberCreateViewStore')
+@setCurrentView((rootStore, props) => new DonorAccountPhoneNumberCreateViewStore(rootStore, { onAfterCreate: props.onAfterCreate, userId: props.userId }), 'donorAccountPhoneNumberCreateViewStore')
 @observer
 class DonorAccountPhoneNumberCreate extends React.Component {
     render() {

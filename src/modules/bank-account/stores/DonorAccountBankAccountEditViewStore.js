@@ -6,10 +6,10 @@ import _ from 'lodash';
 class DonorAccountBankAccountEditViewStore extends BaseViewStore {
     @observable items = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { userId }) {
         super(rootStore);
         this.bankAccountService = new BankAccountService(rootStore.app.baasic.apiClient);
-        this.userId = this.rootStore.routerStore.routerState.params.userId ? this.rootStore.routerStore.routerState.params.userId : this.rootStore.authStore.user.id;
+        this.userId = userId;
         this.getResource();
     }
 

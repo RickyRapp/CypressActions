@@ -5,7 +5,8 @@ import { BankAccountEdit, BankAccountCreate } from 'modules/bank-account/pages';
 function DonorAccountBankAccountEditTemplate({ donorAccountBankAccountEditViewStore }) {
     const {
         items,
-        getResource
+        getResource,
+        userId
     } = donorAccountBankAccountEditViewStore;
 
     return (
@@ -20,7 +21,7 @@ function DonorAccountBankAccountEditTemplate({ donorAccountBankAccountEditViewSt
                 </React.Fragment>
             )}
 
-            <BankAccountCreate title={items && items.length !== 0 ? 'You can add another bank account' : 'Add bank account'} onAfterCreate={getResource} />
+            <BankAccountCreate title={items && items.length !== 0 ? 'You can add another bank account' : 'Add bank account'} onAfterCreate={getResource} userId={userId} />
         </React.Fragment>
     );
 }

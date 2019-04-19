@@ -62,12 +62,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                     }
                 },
                 update: async contribution => {
-                    try {
-
-                        return await contributionService.update({ id: contributionId, ...contribution })
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await contributionService.update({ id: contributionId, ...contribution })
                 },
                 get: async id => {
                     let params = {};
