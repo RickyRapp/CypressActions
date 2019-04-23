@@ -153,38 +153,6 @@ class AuthStore {
     });
   }
 
-  @action.bound hasRole(roles = '') {
-    const splitedRoles = roles.split(',');
-    const adminRole = this.isAministratorRole;
-    const employeeRole = this.isEmployeeRole;
-    const userRole = this.isUserRole;
-    const reporterRole = this.isReporterRole;
-
-    let result = false;
-    _.forEach(splitedRoles, function (x) {
-      if (!result) {
-        if (x.toLowerCase() === 'Administrators'.toLowerCase()) {
-          if (adminRole)
-            result = true;
-        }
-        else if (x.toLowerCase() === 'Employees'.toLowerCase()) {
-          if (employeeRole)
-            result = true;
-        }
-        else if (x.toLowerCase() === 'Users'.toLowerCase()) {
-          if (userRole)
-            result = true;
-        }
-        else if (x.toLowerCase() === 'Reporters'.toLowerCase()) {
-          if (reporterRole)
-            result = true;
-        }
-      }
-    });
-    return result;
-  }
-
-
   @computed get isAministratorRole() {
     return _.includes(this.user.roles, 'Administrators');
   }

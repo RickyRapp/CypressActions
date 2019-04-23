@@ -1,8 +1,8 @@
 import { moduleProviderFactory } from 'core/providers';
 import { MasterLayout } from 'core/layouts';
-import { NotFound, DisplayError } from 'modules/root/pages';
+import { NotFound, DisplayError } from 'modules/common/root/pages';
 
-(function() {
+(function () {
   moduleProviderFactory.common.register({
     routes: [
       {

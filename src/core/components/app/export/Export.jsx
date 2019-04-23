@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from 'mobx';
 import { ExportTemplate } from 'themes/components';
 import { BaasicDropdownStore } from "core/stores";
-import { ContributionListFilter } from 'modules/contribution/models';
+import { ContributionListFilter } from 'modules/administration/contribution/models';
 import _ from 'lodash';
 
 class Export extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageNavigationTemplate } from 'themes/layouts';
-import { DonorAccountSearch } from 'modules/donor-account/components';
+import { DonorAccountSearch } from 'modules/administration/donor-account/components';
 import { inject } from "mobx-react";
 import { isSome } from "core/utils";
 
@@ -19,7 +19,7 @@ class PageNavigation extends React.Component {
             <div className={this.props.children ? "f-col f-col-lrg-8" : "f-col f-col-lrg-12"}>
               <div className="spc--top--sml">
                 <DonorAccountSearch
-                  onChange={event => this.props.rootStore.routerStore.navigate('master.app.administration.donor.account.edit', {
+                  onChange={event => this.props.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', {
                     userId: event.id
                   })}
                 />

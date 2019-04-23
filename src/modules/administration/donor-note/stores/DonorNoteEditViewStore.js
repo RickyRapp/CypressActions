@@ -1,0 +1,33 @@
+import { BaseEditViewStore } from "core/stores";
+import { DonorNoteService } from "common/data";
+import { DonorNotePostForm } from "modules/administration/donor-note/forms";
+import _ from 'lodash';
+
+class DonorNoteEditViewStore extends BaseEditViewStore {
+    constructor(rootStore, { id, onAfterUpdate }) {
+        const donorNoteService = new DonorNoteService(rootStore.app.baasic.apiClient);
+        super(rootStore, {
+            name: 'donor note',
+            id: id,
+            actions: {
+                update: async donorNote => {
+                    try {
+                        return await donorNoteService.update({ id: id, ...donorNote });
+                    } catch (errorResponse) {
+                        return errorResponse;
+                    }
+                },
+                get: async id => {
+                    let params = {};
+                    const response = await donorNoteService.get(id, params);
+                    return response;
+                }
+            },
+            FormClass: DonorNotePostForm,
+            goBack: false,
+            onAfterUpdate: onAfterUpdate
+        });
+    }
+}
+
+export default DonorNoteEditViewStore;

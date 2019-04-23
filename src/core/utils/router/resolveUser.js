@@ -11,7 +11,7 @@ async function resolvePlatformUser(fromState, toState, routerStore) {
   const resolveUnauthorized = () =>
     authStore.isAuthenticated
       ? Promise.reject(new RouterState('unauthorized'))
-      : Promise.reject(new RouterState(routerState.rootState.getLoginRoute()));
+      : Promise.reject(new RouterState(routerStore.rootState.getLoginRoute()));
 
   if (authStore.isAuthenticated) {
     var user = app.getUser();
@@ -64,7 +64,7 @@ async function resolveApplicationUser(routerStore) {
     authStore.isAuthenticated
       ? Promise.reject(new RouterState('unauthorized'))
       : Promise.reject(
-        routerState.rootStore.getLoginRoute(baasicApplication.getApiKey())
+        routerStore.rootStore.getLoginRoute(baasicApplication.getApiKey())
       );
 
   const getAppUser = async () => {

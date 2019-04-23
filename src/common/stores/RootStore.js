@@ -19,7 +19,8 @@ export default class RootStore {
   routerMaps = null;
 
   initialState = new RouterState('master.public.home');
-  initialAppState = new RouterState('master.app.home.entry');
+  initialMainState = new RouterState('master.app.main.home.overview');
+  initialAdministrationState = new RouterState('master.app.administration.home.overview');
 
   get app() {
     return this.applicationStore.app;
@@ -112,7 +113,7 @@ export default class RootStore {
   }
 
   getLoginRoute() {
-    return new RouterState('master.app.membership.login');
+    return new RouterState('master.public.membership.login');
   }
 
   getAppRoute() {

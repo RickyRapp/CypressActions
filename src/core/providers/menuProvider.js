@@ -12,7 +12,7 @@ class MenuProvider {
       routerStore: {
         routerStore: { routes }
       },
-      authStore: { hasPermission, hasRole }
+      authStore: { hasPermission }
     } = rootStore;
 
     if (menus.length > 0 && !isSome(routes)) {
@@ -21,7 +21,7 @@ class MenuProvider {
       );
     }
 
-    return buildAuthorizedMenu(menus, routes, hasPermission, hasRole);
+    return buildAuthorizedMenu(menus, routes, hasPermission);
   }
 
   refresh() {

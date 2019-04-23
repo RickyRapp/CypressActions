@@ -78,20 +78,7 @@ function hasPermission(item, permissionFunc, roleFunc) {
   if (authorized && item && item.withoutAuthorization) {
     authorized = !permissionFunc(item.withoutAuthorization);
   }
-  if (authorized && item) {
-    if (item.roles || (item.parent && item.parent.roles)) {
-      authorized = roleFunc(item.roles ? item.roles : item.parent.roles);
-    }
-    else {
-      let parentRoute = item.parent;
-      while (parentRoute && !parentRoute.isParentLoginRoute) {
-        parentRoute = parentRoute.parent;
-      }
-      if (parentRoute && parentRoute.roles) {
-        authorized = roleFunc(parentRoute.roles);
-      }
-    }
-  }
+
   return authorized;
 }
 
