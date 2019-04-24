@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/utils';
 import { renderIf, isSome } from 'core/utils';
 import _ from 'lodash';
 
-function BaasicFieldDropdownTemplate({ store, field, label = null }) {
+function BaasicFieldDropdownTemplate({ store, field, label = null, t }) {
     const {
         options,
         onChange,
@@ -13,7 +13,7 @@ function BaasicFieldDropdownTemplate({ store, field, label = null }) {
 
     return (
         <div className="inputgroup">
-            <label htmlFor={field.id}>{label ? label : field.label}</label>
+            <label htmlFor={field.id}>{label ? label : t(field.label)}</label>
             <Select
                 value={_.find(items, { id: field.value }) ? _.find(items, { id: field.value }) : null}
                 onChange={onChange}

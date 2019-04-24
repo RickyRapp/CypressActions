@@ -23,13 +23,13 @@ import { ContributionSettingList } from 'modules/administration/contribution-set
                     },
                     {
                         name: 'master.app.administration.contribution.edit',
-                        pattern: ':userId/edit/:id',
+                        pattern: 'edit/:id',
                         component: ContributionEdit,
                         authorization: 'theDonorsFundAdministrationSection.update'
                     },
                     {
                         name: 'master.app.administration.contribution.details',
-                        pattern: ':id/details',
+                        pattern: 'details/:id',
                         component: ContributionDetails,
                         authorization: 'theDonorsFundAdministrationSection.read'
                     },

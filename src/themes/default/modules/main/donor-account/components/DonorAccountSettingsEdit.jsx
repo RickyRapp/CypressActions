@@ -1,25 +1,10 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BasicCheckBox, BasicFormatFieldInput, BaasicFieldDropdown } from 'core/components';
-import MobxReactFormDevTools from 'mobx-react-form-devtools';
 
 function DonorAccountSettingsEdit({ form, deliveryMethodTypeDropdownStore, columns = 3 }) {
-
-    MobxReactFormDevTools.register({
-        form
-    });
-
-    MobxReactFormDevTools.select('form');
-
-    // open the devtools (closed by default)
-    MobxReactFormDevTools.open(true);
-
-    // render the component
-
     return (
         <React.Fragment>
-            <MobxReactFormDevTools.UI />
-
             <div className={"form__group f-col f-col-lrg-" + columns}>
                 <BasicInput field={form.$('lineOfCredit')} />
             </div>

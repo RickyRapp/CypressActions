@@ -8,15 +8,16 @@ i18n
   .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
-    fallbackLng: 'en',
+    defaultNS: 'translation',
+    fallbackLng: 'en-US',
     debug: false,
-    load: 'languageOnly',
+    load: 'currentOnly',
     react: {
       wait: true
     },
-    preload: ['en'],
+    preload: ['en-US'],
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json'
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
     whitelist: ApplicationSettings.availableLanguages
   });

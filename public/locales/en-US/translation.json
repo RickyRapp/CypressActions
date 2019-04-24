@@ -1,5 +1,89 @@
 {
-    "hello": "Hello",
-    "world": "World",
-    "select-language" : "Choose language"
+    "SAVE": "Save",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "CREATE": "Create",
+    "CONTRIBUTIONCREATEFORM": {
+        "AMOUNT": "Amount",
+        "PAYMENTTYPEID": "Payment Type Id",
+        "DESCRIPTION": "Description",
+        "BANKACCOUNTID": "Bank Account Id",
+        "CHECKNUMBER": "Check Number",
+        "PAYERINFORMATION": {
+            "FIRSTNAME": "First Name",
+            "LASTNAME": "Last Name",
+            "ADDRESS": {
+                "ADDRESSLINE1": "Address line 1",
+                "ADDRESSLINE2": "Address line 2",
+                "CITY": "City",
+                "STATE": "State",
+                "ZIPCODE": "ZipCode"
+            },
+            "EMAILADDRESS": {
+                "EMAIL": "Email Address"
+            },
+            "PHONENUMBER": {
+                "NUMBER": "Phone Number"
+            }
+        },
+        "FINANCIALINSTITUTION": "Financial Institution",
+        "FINANCIALINSTITUTIONADDRESSLINE1": "Address Line 1",
+        "FINANCIALINSTITUTIONADDRESSLINE2": "Address Line 2",
+        "FINANCIALINSTITUTIONCITY": "City",
+        "FINANCIALINSTITUTIONSTATE": "State",
+        "FINANCIALINSTITUTIONZIPCODE": "Zip Code",
+        "FINANCIALINSTITUTIONPHONENUMBER": "Phone Number",
+        "ACCOUNTNUMBER": "Account Number",
+        "SECURITYTYPE": "Security Type",
+        "SECURITYSYMBOL": "Security Symbol",
+        "NUMBEROFSHARES": "Number Of Shares",
+        "ESTIMATEDVALUE": "Estimated Value",
+        "TRANSACTIONID": "Transaction ID",
+        "MEMO": "Memo",
+        "MAKEASRECURRINGPAYMENT": "Recurring Payment?",
+        "SETTINGAMOUNT": "Amount",
+        "SETTINGBANKACCOUNTID": "Bank Account",
+        "CONTRIBUTIONSETTINGTYPEID": "Type",
+        "SETTINGENABLED": "Enabled",
+        "SETTINGSTARTDATE": "Start Date",
+        "SETTINGLOWBALANCEAMOUNT": "Low Balance Amount"
+    },
+    "CONTRIBUTIONEDITFORM": {
+        "AMOUNT": "Amount",
+        "PAYMENTTYPEID": "Payment Type Id",
+        "DESCRIPTION": "Description",
+        "BANKACCOUNTID": "Bank Account Id",
+        "CHECKNUMBER": "Check Number",
+        "PAYERINFORMATION": {
+            "FIRSTNAME": "First Name",
+            "LASTNAME": "Last Name",
+            "ADDRESS": {
+                "ADDRESSLINE1": "Address line 1",
+                "ADDRESSLINE2": "Address line 2",
+                "CITY": "City",
+                "STATE": "State",
+                "ZIPCODE": "ZipCode"
+            },
+            "EMAILADDRESS": {
+                "EMAIL": "Email Address"
+            },
+            "PHONENUMBER": {
+                "NUMBER": "Phone Number"
+            }
+        },
+        "FINANCIALINSTITUTION": "Financial Institution",
+        "FINANCIALINSTITUTIONADDRESSLINE1": "Address Line 1",
+        "FINANCIALINSTITUTIONADDRESSLINE2": "Address Line 2",
+        "FINANCIALINSTITUTIONCITY": "City",
+        "FINANCIALINSTITUTIONSTATE": "State",
+        "FINANCIALINSTITUTIONZIPCODE": "Zip Code",
+        "FINANCIALINSTITUTIONPHONENUMBER": "Phone Number",
+        "ACCOUNTNUMBER": "Account Number",
+        "SECURITYTYPE": "Security Type",
+        "SECURITYSYMBOL": "Security Symbol",
+        "NUMBEROFSHARES": "Number Of Shares",
+        "ESTIMATEDVALUE": "Estimated Value",
+        "TRANSACTIONID": "Transaction ID",
+        "MEMO": "Memo"
+    }
 }

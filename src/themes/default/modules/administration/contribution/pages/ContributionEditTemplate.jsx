@@ -21,11 +21,8 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
     reviewContributionModalParams,
     contributionStatuses,
     onAfterReviewContribution,
-    showPayerInformation,
-    onChangeShowPayerInformation,
     showStockAndMutualFundsContactInfo,
     onChangeShowStockAndMutualFundsContactInfo,
-    isPayerInformationValid,
     contribution,
     chaseQuickPayId,
     achId,
@@ -34,123 +31,107 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
     checkId
   } = contributionCreateViewStore;
 
-  const ColoredLine = ({ color }) => (
-    <hr
-      style={{
-        color: color,
-        backgroundColor: color,
-        height: 5
-      }}
-    />
-  );
-
   const labelBankAccount =
     <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
 
   return (
     <React.Fragment>
-      <EditFormLayout form={form} isEdit={true} loading={loading} layoutFooterVisible={false}>
-        {contribution &&
-          <PageContentHeader><DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' /></PageContentHeader>}
-        {contribution && contributionStatuses &&
-          <PageContentSidebar>{contributionDetails(contribution, reviewContributionModalParams, contributionStatuses)}</PageContentSidebar>}
-        <div className="f-row">
-          <div className="form__group f-col f-col-lrg-6">
-            {paymentTypeDropdownStore &&
-              <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
-          </div>
-        </div>
-
-        {(form.$('paymentTypeId').value === achId || form.$('paymentTypeId').value === wireTransferId) &&
-          <div className="f-row">
-            <div className="form__group f-col f-col-lrg-6">
-              {bankAccountDropdownStore &&
-                <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} label={labelBankAccount} />}
-            </div>
-          </div>}
-
-        {form.$('paymentTypeId').value === checkId &&
-          <div className="f-row">
-            <div className="form__group f-col f-col-lrg-6">
-              <BasicInput field={form.$('checkNumber')} />
-            </div>
-          </div>}
-
-        {form.$('paymentTypeId').value === stockAndMutualFundsId &&
-          <React.Fragment>
+      {form &&
+        <React.Fragment>
+          <EditFormLayout form={form} isEdit={true} loading={loading} layoutFooterVisible={false}>
+            {contribution &&
+              <PageContentHeader><DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' /></PageContentHeader>}
+            {contribution && contributionStatuses &&
+              <PageContentSidebar>{contributionDetails(contribution, reviewContributionModalParams, contributionStatuses)}</PageContentSidebar>}
             <div className="f-row">
-              <div className="form__group f-col f-col-lrg-12">
-                <BasicInput field={form.$('financialInstitution')} />
+              <div className="form__group f-col f-col-lrg-6">
+                {paymentTypeDropdownStore &&
+                  <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
               </div>
             </div>
-            <div className="f-row">
-              {showStockAndMutualFundsContactInfo &&
-                <React.Fragment>
-                  <div className="form__group f-col f-col-lrg-6">
-                    <BasicInput field={form.$('financialInstitutionAddressLine1')} />
-                  </div>
-                  <div className="form__group f-col f-col-lrg-6">
-                    <BasicInput field={form.$('financialInstitutionAddressLine2')} />
-                  </div>
-                  <div className="form__group f-col f-col-lrg-4">
-                    <BasicInput field={form.$('financialInstitutionCity')} />
-                  </div>
-                  <div className="form__group f-col f-col-lrg-4">
-                    <BasicInput field={form.$('financialInstitutionState')} />
-                  </div>
-                  <div className="form__group f-col f-col-lrg-4">
-                    <BasicInput field={form.$('financialInstitutionZipCode')} />
-                  </div>
-                  <div className="form__group f-col f-col-lrg-4">
-                    <BasicInput field={form.$('financialInstitutionPhoneNumber')} />
-                  </div>
-                </React.Fragment>}
-              <div className="form__group f-col f-col-lrg-6">
-                <div className="display--b pull">{showStockAndMutualFundsContactInfo ? 'Hide' : 'Show'} institution contact informations</div>
-                <div className="display--b pull spc--left--sml">
-                  <input type="checkbox" onChange={onChangeShowStockAndMutualFundsContactInfo} value={showStockAndMutualFundsContactInfo} />
+
+            {(form.$('paymentTypeId').value === achId || form.$('paymentTypeId').value === wireTransferId) &&
+              <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                  {bankAccountDropdownStore &&
+                    <BaasicFieldDropdown field={form.$('bankAccountId')} store={bankAccountDropdownStore} label={labelBankAccount} />}
                 </div>
+              </div>}
+
+            {form.$('paymentTypeId').value === checkId &&
+              <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                  <BasicInput field={form.$('checkNumber')} />
+                </div>
+              </div>}
+
+            {form.$('paymentTypeId').value === stockAndMutualFundsId &&
+              <React.Fragment>
+                <div className="f-row">
+                  <div className="form__group f-col f-col-lrg-12">
+                    <BasicInput field={form.$('financialInstitution')} />
+                  </div>
+                </div>
+                <div className="f-row">
+                  {showStockAndMutualFundsContactInfo &&
+                    <React.Fragment>
+                      <div className="form__group f-col f-col-lrg-6">
+                        <BasicInput field={form.$('financialInstitutionAddressLine1')} />
+                      </div>
+                      <div className="form__group f-col f-col-lrg-6">
+                        <BasicInput field={form.$('financialInstitutionAddressLine2')} />
+                      </div>
+                      <div className="form__group f-col f-col-lrg-4">
+                        <BasicInput field={form.$('financialInstitutionCity')} />
+                      </div>
+                      <div className="form__group f-col f-col-lrg-4">
+                        <BasicInput field={form.$('financialInstitutionState')} />
+                      </div>
+                      <div className="form__group f-col f-col-lrg-4">
+                        <BasicInput field={form.$('financialInstitutionZipCode')} />
+                      </div>
+                      <div className="form__group f-col f-col-lrg-4">
+                        <BasicInput field={form.$('financialInstitutionPhoneNumber')} />
+                      </div>
+                    </React.Fragment>}
+                  <div className="form__group f-col f-col-lrg-6">
+                    <div className="display--b pull">{showStockAndMutualFundsContactInfo ? 'Hide' : 'Show'} institution contact informations</div>
+                    <div className="display--b pull spc--left--sml">
+                      <input type="checkbox" onChange={onChangeShowStockAndMutualFundsContactInfo} value={showStockAndMutualFundsContactInfo} />
+                    </div>
+                  </div>
+                </div>
+                <div className="f-row">
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('accountNumber')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('securityType')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('securitySymbol')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('numberOfShares')} />
+                  </div>
+                  <div className="form__group f-col f-col-lrg-6">
+                    <BasicInput field={form.$('estimatedValue')} />
+                  </div>
+                </div>
+              </React.Fragment>}
+            {form.$('paymentTypeId').value === chaseQuickPayId &&
+              <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                  <BasicInput field={form.$('transactionId')} />
+                </div>
+                <div className="form__group f-col f-col-lrg-6">
+                  <BasicInput field={form.$('memo')} />
+                </div>
+              </div>}
+            <div className="f-row card card--sml">
+              <div className="form__group f-col f-col-lrg-12">
+                <h5>Payer Information</h5>
               </div>
-            </div>
-            <div className="f-row">
-              <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('accountNumber')} />
-              </div>
-              <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('securityType')} />
-              </div>
-              <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('securitySymbol')} />
-              </div>
-              <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('numberOfShares')} />
-              </div>
-              <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('estimatedValue')} />
-              </div>
-            </div>
-          </React.Fragment>}
-        {form.$('paymentTypeId').value === chaseQuickPayId &&
-          <div className="f-row">
-            <div className="form__group f-col f-col-lrg-6">
-              <BasicInput field={form.$('transactionId')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-              <BasicInput field={form.$('memo')} />
-            </div>
-          </div>}
-        <div className="f-row">
-          <div className="form__group f-col f-col-lrg-12">
-            <h5>Payer Information</h5>
-            <div className="display--b pull">Show payer informations</div>
-            <div className="display--b pull spc--left--sml">
-              <input type="checkbox" onChange={onChangeShowPayerInformation} value={showPayerInformation} />
-              {!showPayerInformation && !isPayerInformationValid && form.$('paymentTypeId').value === wireTransferId &&
-                <span className="type--tiny type--color--error">Check this</span>}
-            </div>
-          </div>
-          {showPayerInformation &&
-            <React.Fragment>
               <div className="form__group f-col f-col-lrg-6">
                 <BasicInput field={form.$('payerInformation.firstName')} />
               </div>
@@ -178,36 +159,33 @@ function ContributionEditTemplate({ contributionCreateViewStore, rootStore }) {
               <div className="form__group f-col f-col-lrg-4">
                 <BasicInput field={form.$('payerInformation.phoneNumber.number')} />
               </div>
-              <div className="form__group f-col f-col-lrg-12">
-                <ColoredLine color="red" />
+            </div>
+            <div className="f-row">
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('amount')} />
               </div>
-            </React.Fragment>}
-        </div>
-        <div className="f-row">
-          <div className="form__group f-col f-col-lrg-6">
-            <BasicInput field={form.$('amount')} />
-          </div>
-          <div className="form__group f-col f-col-lrg-6">
-            <BasicInput field={form.$('description')} />
-          </div>
-        </div>
-        {renderFormButtonControls({
-          form,
-          goBack: () => rootStore.routerStore.goBack()
-        })}
-      </EditFormLayout>
-      <BaasicModal modalParams={addBankAccountModalParams} >
-        <div className="col col-sml-12 card card--form card--primary card--lrg">
-          {contribution &&
-            <BankAccountCreate onAfterCreate={onAddBankAccount} userId={contribution.donorAccountId} />}
-        </div>
-      </BaasicModal>
-      <BaasicModal modalParams={reviewContributionModalParams} >
-        <div className="col col-sml-12 card card--form card--primary card--lrg">
-          <ContributionReview onAfterReview={onAfterReviewContribution} id={form.$('id').value} />
-        </div>
-      </BaasicModal>
-    </React.Fragment >
+              <div className="form__group f-col f-col-lrg-6">
+                <BasicInput field={form.$('description')} />
+              </div>
+            </div>
+            {renderFormButtonControls({
+              form,
+              goBack: () => rootStore.routerStore.goBack()
+            })}
+          </EditFormLayout>
+          <BaasicModal modalParams={addBankAccountModalParams} >
+            <div className="col col-sml-12 card card--form card--primary card--lrg">
+              {contribution &&
+                <BankAccountCreate onAfterCreate={onAddBankAccount} userId={contribution.donorAccountId} />}
+            </div>
+          </BaasicModal>
+          <BaasicModal modalParams={reviewContributionModalParams} >
+            <div className="col col-sml-12 card card--form card--primary card--lrg">
+              <ContributionReview onAfterReview={onAfterReviewContribution} id={form.$('id').value} />
+            </div>
+          </BaasicModal>
+        </React.Fragment>}
+    </React.Fragment>
   );
 };
 
@@ -230,6 +208,10 @@ function contributionDetails(contribution, reviewContributionModalParams, contri
             <div className="form__group f-col f-col-lrg-12">
               <div>Date Created:</div>
               <strong>{moment(contribution.dateCreated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
+            </div>
+            <div className="form__group f-col f-col-lrg-12">
+              <div>Date Updated:</div>
+              <strong>{moment(contribution.dateUpdated).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY-MM-DD HH:mm:ss')}</strong>
             </div>
             <div className="form__group f-col f-col-lrg-12">
               <div>Created By:</div>

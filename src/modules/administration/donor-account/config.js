@@ -17,7 +17,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'modules/
                     },
                     {
                         name: 'master.app.administration.donor-account.edit',
-                        pattern: 'edit/:userId',
+                        pattern: ':userId/edit',
                         component: DonorAccountEdit,
                         authorization: 'theDonorsFundAdministrationSection.update'
                     },

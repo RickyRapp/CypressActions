@@ -24,18 +24,16 @@ class ContributionListViewStore extends BaseListViewStore {
         super(rootStore, {
             name: 'contribution',
             routes: {
-                edit: (contributionId, userId) =>
+                edit: (contributionId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.contribution.edit', {
                         id: contributionId,
-                        userId: userId
                     }),
                 create: () => {
                     this.findDonorModalParams.open();
                 },
-                details: (contributionId, userId) =>
+                details: (contributionId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.contribution.details', {
                         id: contributionId,
-                        userId: userId
                     }),
             },
             actions: {
@@ -144,9 +142,9 @@ class ContributionListViewStore extends BaseListViewStore {
                     },
                 ],
                 actions: {
-                    onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
+                    onEdit: contribution => this.routes.edit(contribution.id),
                     onReview: contribution => this.onReviewClick(contribution.id),
-                    onDetails: contribution => this.routes.details(contribution.id, contribution.donorAccountId)
+                    onDetails: contribution => this.routes.details(contribution.id)
                 },
                 actionsConfig: {
                     onEditConfig: { statuses: availableStatuesForEdit },

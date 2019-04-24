@@ -4,10 +4,11 @@ import validatorjs from 'validatorjs';
 import { dvrExtend } from 'core/models';
 
 class FormBase extends Form {
-  constructor(hooks) {
-
+  constructor(hooks, fields) {
     super(
-      {},
+      {
+        fields
+      },
       {
         plugins: {
           dvr: dvr({
