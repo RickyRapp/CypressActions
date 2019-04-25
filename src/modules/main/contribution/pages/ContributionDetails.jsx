@@ -1,8 +1,8 @@
 import React from 'react';
-import { ContributionDetailsTemplate } from 'themes/modules/main/contribution/pages';
 import { observer } from 'mobx-react';
-import { ContributionDetailsViewStore } from 'modules/main/contribution/stores';
 import { setCurrentView } from 'core/utils';
+import { ContributionDetailsTemplate } from 'themes/modules/main/contribution/pages';
+import { ContributionDetailsViewStore } from 'modules/main/contribution/stores';
 
 @setCurrentView(rootStore => new ContributionDetailsViewStore(rootStore), 'contributionDetailsViewStore')
 @observer

@@ -3,7 +3,7 @@ import { ContributionService, ContributionSettingService, BankAccountService, Lo
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import { FormBase } from 'core/components';
-import moment from 'moment';
+import { ContributionCreateFormFields } from 'modules/common/contribution/forms';
 import _ from 'lodash';
 
 class ContributionCreateViewStore extends BaseViewStore {
@@ -50,7 +50,7 @@ class ContributionCreateViewStore extends BaseViewStore {
     }
 
     @action.bound async initializeForm() {
-        const fields = contributionCreateFormFields(this.achId, this.checkId, this.chaseQuickPayId, this.stockAndMutualFundsId, this.lowBalanceAmountId, this.oneTimeId, this.everyTwoWeeksId, this.everyTwoMonthsId, this.everySixMonthsId, this.weeklyId, this.monthlyId, this.donorAccount);
+        const fields = ContributionCreateFormFields(this.achId, this.checkId, this.chaseQuickPayId, this.stockAndMutualFundsId, this.lowBalanceAmountId, this.oneTimeId, this.everyTwoWeeksId, this.everyTwoMonthsId, this.everySixMonthsId, this.weeklyId, this.monthlyId, 0, this.donorAccount);
         this.form = new FormBase({
             onSuccess: async (form) => {
                 const item = form.values();
@@ -263,244 +263,30 @@ class ContributionCreateViewStore extends BaseViewStore {
     @computed get lowBalanceAmountId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'low-balance' }).id : null;
     }
+
     @computed get oneTimeId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'one-time' }).id : null;
     }
+
     @computed get everyTwoWeeksId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'every-two-weeks' }).id : null;
     }
+
     @computed get everyTwoMonthsId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'every-two-months' }).id : null;
     }
+
     @computed get everySixMonthsId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'every-six-months' }).id : null;
     }
+
     @computed get weeklyId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'weekly' }).id : null;
     }
+
     @computed get monthlyId() {
         return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'monthly' }).id : null;
     }
 }
 
 export default ContributionCreateViewStore;
-
-export const contributionCreateFormFields = (achId, checkId, chaseQuickPayId, stockAndMutualFundsId, lowBalanceAmountId, oneTimeId, everyTwoWeeksId, everyTwoMonthsId, everySixMonthsId, weeklyId, monthlyId, donorAccount) => [
-    {
-        name: 'donorAccountId',
-        rules: 'required|string',
-        value: donorAccount.id
-    },
-    {
-        name: 'amount',
-        label: 'CONTRIBUTIONCREATEFORM.AMOUNT',
-        rules: `required|numeric|min:0`
-    },
-    {
-        name: 'description',
-        label: 'CONTRIBUTIONCREATEFORM.DESCRIPTION',
-        rules: 'string',
-    },
-    {
-        name: 'paymentTypeId',
-        label: 'CONTRIBUTIONCREATEFORM.PAYMENTTYPEID',
-        rules: 'required|string',
-    },
-    {
-        name: 'bankAccountId',
-        label: 'CONTRIBUTIONCREATEFORM.BANKACCOUNTID',
-        rules: `required_if:paymentTypeId,${achId}|string`,
-    },
-    {
-        name: 'checkNumber',
-        label: 'CONTRIBUTIONCREATEFORM.CHECKNUMBER',
-        rules: `required_if:paymentTypeId,${checkId}|string`,
-    },
-    {
-        name: 'payerInformation',
-        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION',
-        fields: [
-            {
-                name: 'firstName',
-                label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.FIRSTNAME',
-                rules: 'required|string',
-                value: donorAccount.coreUser.firstName
-            },
-            {
-                name: 'lastName',
-                label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.LASTNAME',
-                rules: 'required|string',
-                value: donorAccount.coreUser.lastName
-            },
-            {
-                name: 'address',
-                label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.ADDRESS',
-                fields: [
-                    {
-                        name: 'addressLine1',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.ADDRESS.ADDRESSLINE1',
-                        rules: 'required|string',
-                        value: _.find(donorAccount.donorAccountAddresses, { primary: true }).address.addressLine1
-                    },
-                    {
-                        name: 'addressLine2',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.ADDRESS.ADDRESSLINE2',
-                        rules: 'string',
-                        value: _.find(donorAccount.donorAccountAddresses, { primary: true }).address.addressLine2
-                    },
-                    {
-                        name: 'city',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.ADDRESS.CITY',
-                        rules: 'required|string',
-                        value: _.find(donorAccount.donorAccountAddresses, { primary: true }).address.city
-                    },
-                    {
-                        name: 'state',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.ADDRESS.STATE',
-                        rules: 'required|string',
-                        value: _.find(donorAccount.donorAccountAddresses, { primary: true }).address.state
-                    },
-                    {
-                        name: 'zipCode',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.ADDRESS.ZIPCODE',
-                        rules: 'required|string',
-                        value: _.find(donorAccount.donorAccountAddresses, { primary: true }).address.zipCode
-                    },
-                ]
-            },
-            {
-                name: 'emailAddress',
-                label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.EMAILADDRESS',
-                fields: [
-                    {
-                        name: 'email',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.EMAILADDRESS.EMAIL',
-                        rules: 'required|string',
-                        value: _.find(donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress.email
-                    },
-                ]
-            },
-            {
-                name: 'phoneNumber',
-                label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.PHONENUMBER',
-                fields: [
-                    {
-                        name: 'number',
-                        label: 'CONTRIBUTIONCREATEFORM.PAYERINFORMATION.PHONENUMBER.NUMBER',
-                        rules: 'required|string',
-                        value: _.find(donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber.number
-                    },
-                ]
-            },
-        ]
-    },
-    {
-        name: 'financialInstitution',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTION',
-        rules: `required_if:paymentTypeId,${stockAndMutualFundsId}|string`,
-    },
-    {
-        name: 'financialInstitutionAddressLine1',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTIONADDRESSLINE1',
-        rules: `string`,
-    },
-    {
-        name: 'financialInstitutionAddressLine2',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTIONADDRESSLINE2',
-        rules: 'string'
-    },
-    {
-        name: 'financialInstitutionCity',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTIONCITY',
-        rules: `string`
-    },
-    {
-        name: 'financialInstitutionState',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTIONSTATE',
-        rules: `string`
-    },
-    {
-        name: 'financialInstitutionZipCode',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTIONZIPCODE',
-        rules: `string`
-    },
-    {
-        name: 'financialInstitutionPhoneNumber',
-        label: 'CONTRIBUTIONCREATEFORM.FINANCIALINSTITUTIONPHONENUMBER',
-        rules: `string`
-    },
-    {
-        name: 'accountNumber',
-        label: 'CONTRIBUTIONCREATEFORM.ACCOUNTNUMBER',
-        rules: `required_if:paymentTypeId,${stockAndMutualFundsId}|string`
-    },
-    {
-        name: 'securityType',
-        label: 'CONTRIBUTIONCREATEFORM.SECURITYTYPE',
-        rules: `required_if:paymentTypeId,${stockAndMutualFundsId}|string`
-    },
-    {
-        name: 'securitySymbol',
-        label: 'CONTRIBUTIONCREATEFORM.SECURITYSYMBOL',
-        rules: `required_if:paymentTypeId,${stockAndMutualFundsId}|string`
-    },
-    {
-        name: 'numberOfShares',
-        label: 'CONTRIBUTIONCREATEFORM.NUMBEROFSHARES',
-        rules: `required_if:paymentTypeId,${stockAndMutualFundsId}|numeric|min:0`
-    },
-    {
-        name: 'estimatedValue',
-        label: 'CONTRIBUTIONCREATEFORM.ESTIMATEDVALUE',
-        rules: `required_if:paymentTypeId,${stockAndMutualFundsId}|numeric|min:10000`
-    },
-    {
-        name: 'transactionId',
-        label: 'CONTRIBUTIONCREATEFORM.TRANSACTIONID',
-        rules: `required_if:paymentTypeId,${chaseQuickPayId}|string`
-    },
-    {
-        name: 'memo',
-        label: 'CONTRIBUTIONCREATEFORM.MEMO',
-        rules: 'string'
-    },
-    {
-        name: 'makeAsRecurringPayment',
-        label: 'CONTRIBUTIONCREATEFORM.MAKEASRECURRINGPAYMENT',
-        rules: 'boolean',
-        value: false,
-        type: 'checkbox'
-    },
-    {
-        name: 'settingAmount',
-        label: 'CONTRIBUTIONCREATEFORM.SETTINGAMOUNT',
-        rules: 'required_if:makeAsRecurringPayment,true|string'
-    },
-    {
-        name: 'settingBankAccountId',
-        label: 'CONTRIBUTIONCREATEFORM.SETTINGBANKACCOUNTID',
-        rules: 'required_if:makeAsRecurringPayment,true|string'
-    },
-    {
-        name: 'contributionSettingTypeId',
-        label: 'CONTRIBUTIONCREATEFORM.CONTRIBUTIONSETTINGTYPEID',
-        rules: 'required_if:makeAsRecurringPayment,true|string'
-    },
-    {
-        name: 'settingEnabled',
-        label: 'CONTRIBUTIONCREATEFORM.SETTINGENABLED',
-        rules: 'boolean',
-        value: false,
-        type: 'checkbox'
-    },
-    {
-        name: 'settingStartDate',
-        label: 'CONTRIBUTIONCREATEFORM.SETTINGSTARTDATE',
-        rules: `required_if:contributionSettingTypeId,${oneTimeId}|required_if:contributionSettingTypeId,${weeklyId}|required_if:contributionSettingTypeId,${monthlyId}|required_if:contributionSettingTypeId,${everyTwoWeeksId}|required_if:contributionSettingTypeId,${everyTwoMonthsId}|required_if:contributionSettingTypeId,${everySixMonthsId}|date|after_override:' + ${moment(new Date).add(1, 'days').format('MM/DD/YYYY')}`
-    },
-    {
-        name: 'settingLowBalanceAmount',
-        label: 'CONTRIBUTIONCREATEFORM.SETTINGLOWBALANCEAMOUNT',
-        rules: `required_if:contributionSettingTypeId,${lowBalanceAmountId}|string`
-    }
-]

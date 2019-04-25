@@ -1,7 +1,7 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { EditFormContent, BaasicFormControls } from 'core/components';
-import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/administration/contribution-setting/components';
+import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/common/contribution-setting/components';
 import _ from 'lodash';
 
 function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore }) {

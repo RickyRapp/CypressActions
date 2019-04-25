@@ -1,12 +1,13 @@
 import { action, observable, computed } from 'mobx';
 import { ContributionService, ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
-import { ContributionEditFormFields } from 'modules/common/contribution/forms';
 import { ModalParams } from 'core/models';
 import { FormBase } from 'core/components';
+import { ContributionEditFormFields } from 'modules/common/contribution/forms';
+import moment from 'moment';
 import _ from 'lodash';
 
-class ContributionEditViewStore extends BaseViewStore {
+class ContributionCreateViewStore extends BaseViewStore {
     @observable paymentTypes = null;
     @observable bankAccounts = null;
     @observable donorAccount = null;
@@ -29,10 +30,6 @@ class ContributionEditViewStore extends BaseViewStore {
             onClose: this.onClose
         });
 
-        this.reviewContributionModalParams = new ModalParams({
-            onClose: this.onClose
-        });
-
         this.onAddBankAccount = async () => {
             this.addBankAccountModalParams.close();
             await this.getBankAccounts();
@@ -41,21 +38,24 @@ class ContributionEditViewStore extends BaseViewStore {
             this.onChangeBankAccount({ id: lastBankAccount.bankAccount.id, name: lastBankAccount.bankAccount.name });
         }
 
-        this.onAfterReviewContribution = async (val) => {
-            this.reviewContributionModalParams.close();
-            this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
-        }
-
         this.load();
     }
 
     @action.bound async load() {
         await this.loadLookups();
         await this.initialize();
+
         if (!(this.contribution.contributionStatusId === this.pendingId || this.contribution.contributionStatusId === this.inProcessId)) {
-            this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
+            this.rootStore.routerStore.navigate('master.app.main.contribution.list')
             this.rootStore.notificationStore.warning('Contribution Can be Edited Only In Pending Or In Process Status.', 6000);
+            return;
         }
+        if (moment().local().isAfter(moment.utc(this.contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))) {
+            this.rootStore.notificationStore.warning('Time Expired For Editing.', 6000);
+            this.rootStore.routerStore.navigate('master.app.main.contribution.list');
+            return;
+        }
+
         await this.getDonorAccount();
         await this.initializeForm();
         await this.getBankAccounts();
@@ -76,7 +76,8 @@ class ContributionEditViewStore extends BaseViewStore {
     }
 
     @action.bound async initializeForm() {
-        const fields = ContributionEditFormFields(this.contribution, this.achId, this.checkId, this.chaseQuickPayId, this.stockAndMutualFundsId, 0, this.donorAccount);
+        const minimumAmount = this.donorAccount.initialContribution ? this.donorAccount.contributionMinimumAdditional : this.donorAccount.contributionMinimumInitial;
+        const fields = ContributionEditFormFields(this.contribution, this.achId, this.checkId, this.chaseQuickPayId, this.stockAndMutualFundsId, minimumAmount, this.donorAccount);
         this.form = new FormBase({
             onSuccess: async (form) => {
                 const item = form.values();
@@ -206,4 +207,4 @@ class ContributionEditViewStore extends BaseViewStore {
     }
 }
 
-export default ContributionEditViewStore;
+export default ContributionCreateViewStore;
