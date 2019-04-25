@@ -43,24 +43,25 @@ class ContributionEditViewStore extends BaseViewStore {
 
         this.onAfterReviewContribution = async (val) => {
             this.reviewContributionModalParams.close();
-            this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
+            this.load();
         }
 
         this.load();
     }
 
     @action.bound async load() {
+        if (!this.loaderStore.loading) this.loaderStore.suspend();
         await this.loadLookups();
         await this.initialize();
         if (!(this.contribution.contributionStatusId === this.pendingId || this.contribution.contributionStatusId === this.inProcessId)) {
             this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
-            this.rootStore.notificationStore.warning('Contribution Can be Edited Only In Pending Or In Process Status.', 6000);
         }
         await this.getDonorAccount();
         await this.initializeForm();
         await this.getBankAccounts();
         await this.setStores();
-        this.form.$('payerInformation').each(field => field.set('disabled', this.form.$('bankAccountId').value !== ''))
+        this.form.$('payerInformation').each(field => field.set('disabled', this.form.$('bankAccountId').value !== ''));
+        this.loaderStore.resume();
     }
 
     @action.bound async initialize() {
@@ -79,6 +80,7 @@ class ContributionEditViewStore extends BaseViewStore {
         const fields = ContributionEditFormFields(this.contribution, this.achId, this.checkId, this.chaseQuickPayId, this.stockAndMutualFundsId, 0, this.donorAccount);
         this.form = new FormBase({
             onSuccess: async (form) => {
+                this.loaderStore.suspend();
                 const item = form.values();
                 try {
                     const response = await this.contributionService.update({ id: this.contributionId, ...item });

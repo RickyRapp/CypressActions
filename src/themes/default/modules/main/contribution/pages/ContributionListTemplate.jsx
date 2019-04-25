@@ -1,7 +1,8 @@
 import React from 'react';
 import { defaultTemplate, isSome } from 'core/utils';
-import { BaasicTable, TableFilter, InputFilter, NumericRangeFilter, DateRangeFilter, DropdownFilter, Export } from 'core/components';
+import { BaasicTable, TableFilter, Export } from 'core/components';
 import { ListLayout } from 'core/layouts';
+import { ListFilterTemplate } from 'themes/modules/common/contribution/components';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -27,46 +28,10 @@ function ContributionListTemplate({ contributionListViewStore }) {
                         <div className="spc--bottom--sml">
                             <TableFilter queryUtility={queryUtility}>
                                 <div className="f-row">
-                                    <div className="f-col f-col-lrg-2 pos--rel spc--right--sml">
-                                        <InputFilter
-                                            queryUtility={queryUtility}
-                                            name="confirmationNumber"
-                                            placeholder="Confirmation Number"
-                                            type="number"
-                                        />
-                                    </div>
-                                    <div className="f-col f-col-lrg-4 pos--rel spc--right--sml">
-                                        <NumericRangeFilter
-                                            queryUtility={queryUtility}
-                                            nameMin="amountRangeMin"
-                                            nameMax="amountRangeMax"
-                                            minPlaceholder="Min"
-                                            maxPlaceholder="Max"
-                                        />
-                                    </div>
-                                    <div className="f-col f-col-lrg-3">
-                                        <DateRangeFilter
-                                            queryUtility={queryUtility}
-                                            nameMin="dateCreatedStartDate"
-                                            nameMax="dateCreatedEndDate"
-                                        />
-                                    </div>
-                                    <div className="f-col f-col-lrg-3 input--multiselect">
-                                        {contributionStatusDropdownStore &&
-                                            <DropdownFilter
-                                                queryUtility={queryUtility}
-                                                name="contributionStatusIds"
-                                                store={contributionStatusDropdownStore}
-                                            />}
-                                    </div>
-                                    <div className="f-col f-col-lrg-3 input--multiselect">
-                                        {paymentTypeDropdownStore &&
-                                            <DropdownFilter
-                                                queryUtility={queryUtility}
-                                                name="paymentTypeIds"
-                                                store={paymentTypeDropdownStore}
-                                            />}
-                                    </div>
+                                    <ListFilterTemplate
+                                        queryUtility={queryUtility}
+                                        paymentTypeDropdownStore={paymentTypeDropdownStore}
+                                        contributionStatusDropdownStore={contributionStatusDropdownStore} />
                                 </div>
                             </TableFilter>
                             <Export

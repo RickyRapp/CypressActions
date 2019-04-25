@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import _ from 'lodash';
 
-function SidebarDetailsTemplate({ contribution, contributionStatuses }) {
+function SidebarDetailsTemplate({ contribution, contributionStatuses, reviewContributionModalParams }) {
     return (
         <React.Fragment >
             <h4>Details</h4>

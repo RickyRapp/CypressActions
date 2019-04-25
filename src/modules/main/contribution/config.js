@@ -25,13 +25,13 @@ import { ContributionSettingList } from 'modules/main/contribution-setting/pages
                     },
                     {
                         name: 'master.app.main.contribution.edit',
-                        pattern: ':id/edit',
+                        pattern: 'edit/:id',
                         component: ContributionEdit,
                         authorization: 'theDonorsFundContributionSection.update'
                     },
                     {
                         name: 'master.app.main.contribution.details',
-                        pattern: ':id/details',
+                        pattern: 'details/:id',
                         component: ContributionDetails,
                         authorization: 'theDonorsFundContributionSection.read'
                     },

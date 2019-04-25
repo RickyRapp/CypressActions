@@ -12,7 +12,7 @@ import _ from 'lodash';
 function ContributionEditTemplate({ contributionEditViewStore }) {
   const {
     form,
-    loading,
+    loaderStore: { loading },
     bankAccountDropdownStore,
     paymentTypeDropdownStore,
     addBankAccountModalParams,
@@ -38,7 +38,7 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
             {contribution &&
               <PageContentHeader><DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' /></PageContentHeader>}
             {contribution && contributionStatuses &&
-              <PageContentSidebar><SidebarDetailsTemplate contribution={contribution} contributionStatuses={contributionStatuses} /></PageContentSidebar>}
+              <PageContentSidebar><SidebarDetailsTemplate contribution={contribution} contributionStatuses={contributionStatuses} reviewContributionModalParams={reviewContributionModalParams} /></PageContentSidebar>}
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-6">
                 {paymentTypeDropdownStore &&

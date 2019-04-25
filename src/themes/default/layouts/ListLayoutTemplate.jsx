@@ -10,7 +10,6 @@ const ListLayoutTemplate = function ({
   onCreate,
   children,
   t,
-  loaderStore,
   loading
 }) {
   const { header, footer, navigation, content } = getPageObject(children);

@@ -46,12 +46,18 @@ class ContributionReview extends React.Component {
 
     @action.bound async onReview() {
         if (this.state.contributionStatusDropdownStore.value) {
-            let response = await this.contributionService.review({
-                id: this.state.contribution.id,
-                contributionStatusId: this.state.contributionStatusDropdownStore.value[this.state.contributionStatusDropdownStore.options.dataItemKey],
-            });
+            try {
+                let response = await this.contributionService.review({
+                    id: this.state.contribution.id,
+                    contributionStatusId: this.state.contributionStatusDropdownStore.value[this.state.contributionStatusDropdownStore.options.dataItemKey],
+                });
 
-            this.rootStore.notificationStore.showMessageFromResponse(response);
+                this.rootStore.notificationStore.showMessageFromResponse(response);
+            } catch (errorResponse) {
+                this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
+                return;
+            }
+
 
             if (this.onAfterReview && _.isFunction(this.onAfterReview)) {
                 this.onAfterReview();
