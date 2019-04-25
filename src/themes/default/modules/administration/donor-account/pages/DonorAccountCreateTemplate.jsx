@@ -2,7 +2,6 @@ import React from 'react';
 import { BasicInput, BasicFormatFieldInput, BaasicFieldDropdown, BasicCheckBox } from 'core/components';
 import { defaultTemplate } from 'core/utils';
 import { EditFormLayout } from 'core/layouts';
-import { DonorAccountSettingsEdit } from 'themes/modules/administration/donor-account/components';
 import ReactTooltip from 'react-tooltip'
 
 function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
