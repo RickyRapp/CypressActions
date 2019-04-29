@@ -5,7 +5,6 @@ class UserListViewStore extends BaseListViewStore {
   @observable filterVisible = false;
   constructor(rootStore) {
     const userService = rootStore.app.baasic.membershipModule.user;
-
     super(rootStore, {
       name: 'user',
       routes: {

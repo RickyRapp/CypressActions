@@ -6,8 +6,7 @@ import { UserList, UserEdit, UserCreate } from 'modules/administration/user/page
     routes: [
       {
         name: 'master.app.administration.user',
-        pattern: '/users',
-        isPrivate: true,
+        pattern: 'users',
         children: [
           {
             name: 'master.app.administration.user.list',
@@ -33,7 +32,6 @@ import { UserList, UserEdit, UserCreate } from 'modules/administration/user/page
     menu: [
       {
         title: 'Application',
-        icon: 'cog',
         subMenu: [
           {
             title: 'Users',

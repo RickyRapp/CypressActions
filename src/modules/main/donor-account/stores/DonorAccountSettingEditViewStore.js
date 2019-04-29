@@ -15,7 +15,6 @@ class DonorAccountSettingEditViewStore extends BaseEditViewStore {
             id: rootStore.authStore.user.id,
             actions: {
                 update: async donorAccount => {
-                    debugger;
                     return await donorAccountService.updateSettings({
                         id: this.id,
                         ...donorAccount

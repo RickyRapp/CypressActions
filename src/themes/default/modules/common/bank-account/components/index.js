@@ -1,0 +1,1 @@
+export { default as CreateBankAccountTemplate } from './CreateBankAccountTemplate'

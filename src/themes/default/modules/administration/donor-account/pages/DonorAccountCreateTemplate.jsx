@@ -2,6 +2,7 @@ import React from 'react';
 import { BasicInput, BasicFormatFieldInput, BaasicFieldDropdown, BasicCheckBox } from 'core/components';
 import { defaultTemplate } from 'core/utils';
 import { EditFormLayout } from 'core/layouts';
+import { CreateLoginTemplate } from 'themes/modules/common/donor-account/components';
 import ReactTooltip from 'react-tooltip'
 
 function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
@@ -115,12 +116,6 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     <BasicInput field={form.$('fundName')} />
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('coreUser.coreMembership.password')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('coreUser.coreMembership.confirmPassword')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
                                     <BasicInput field={form.$('address.addressLine1')} />
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
@@ -221,8 +216,14 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                             <BasicInput field={form.$('coreUser.userName')} />
                         </div>
                         <div className="form__group f-col f-col-lrg-3">
+                            <BasicInput field={form.$('coreUser.coreMembership.password')} />
+                        </div>
+                        <div className="form__group f-col f-col-lrg-3">
+                            <BasicInput field={form.$('coreUser.coreMembership.confirmPassword')} />
+                        </div>
+                        <div className="form__group f-col f-col-lrg-3">
                             <BasicCheckBox field={form.$('sendWelcomeEmail')} />
-                            {form.$('sendWelcomeEmail').value &&
+                            {form.$('sendWelcomeEmail').value === true &&
                                 <span>
                                     <span className='icomoon medium icon-cog' data-tip='sendWelcomeEmail' />
                                     <ReactTooltip type='info' effect='solid'>

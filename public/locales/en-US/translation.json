@@ -85,5 +85,58 @@
         "ESTIMATEDVALUE": "Estimated Value",
         "TRANSACTIONID": "Transaction ID",
         "MEMO": "Memo"
+    },
+    "CHARITYCREATEFORM": {
+        "CHARITYSTATUSID": "Charity Status",
+        "CHARITYTYPEID": "Charity Type",
+        "DBA": "DBA",
+        "NAME": "Name",
+        "TAXID": "Tax ID",
+        "SUGGESTEDBYID": "Suggested By",
+        "HASLOGIN": "Create Login",
+        "SENDWELCOMEEMAIL": "Send Welcome Email",
+        "ISAPPROVED": "Is Approved",
+        "HASCONTACT": "Has Contact",
+        "COREUSER": {
+            "USERNAME": "Username",
+            "COREMEMBERSHIP": {
+                "PASSWORD": "Password",
+                "CONFIRMPASSWORD": "Confirm Password"
+            }
+        },
+        "ADDRESS": {
+            "ADDRESSLINE1": "Address line 1",
+            "ADDRESSLINE2": "Address line 2",
+            "CITY": "City",
+            "STATE": "State",
+            "ZIPCODE": "ZipCode"
+        },
+        "EMAILADDRESS": {
+            "EMAIL": "Email Address"
+        },
+        "CONTACTINFORMATION": {
+            "FIRSTNAME": "First Name",
+            "LASTNAME": "Last Name",
+            "ADDRESS": {
+                "ADDRESSLINE1": "Address line 1",
+                "ADDRESSLINE2": "Address line 2",
+                "CITY": "City",
+                "STATE": "State",
+                "ZIPCODE": "ZipCode"
+            },
+            "EMAILADDRESS": {
+                "EMAIL": "Email Address"
+            },
+            "PHONENUMBER": {
+                "NUMBER": "Phone Number"
+            }
+        },
+        "HASBANKACCOUNT": "Has Bank Account",
+        "BANKACCOUNT": {
+            "NAME": "Name",
+            "ACCOUNTNUMBER": "Account Number",
+            "ROUTINGNUMBER": "Routing Number",
+            "DESCRIPTION": "Description"
+        }
     }
 }

@@ -126,7 +126,6 @@ class BaseEditViewStore extends BaseViewStore {
       this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
       this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
-      errorResponse;
       this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
       this.form.setFieldsDisabled(false);
       return;

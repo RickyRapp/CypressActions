@@ -3,7 +3,7 @@ import AsyncSelect from 'react-select/lib/Async';
 import { defaultTemplate } from 'core/utils';
 import { renderIf, isSome } from 'core/utils';
 
-function BaasicFieldAsyncDropdownTemplate({ store, field, label = null }) {
+function BaasicFieldAsyncDropdownTemplate({ store, t, field, label = null }) {
   const {
     defaultValue,
     options,
@@ -14,7 +14,7 @@ function BaasicFieldAsyncDropdownTemplate({ store, field, label = null }) {
 
   return (
     <div className="inputgroup">
-      <label htmlFor={field.id}>{label ? label : field.label} </label>
+      <label htmlFor={field.id}>{label ? label : t(field.label)} </label>
       <AsyncSelect
         value={value}
         defaultValue={defaultValue}

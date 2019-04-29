@@ -16,6 +16,7 @@ function BaasicFieldDropdownTemplate({ store, field, label = null, t }) {
             <label htmlFor={field.id}>{label ? label : t(field.label)}</label>
             <Select
                 value={_.find(items, { id: field.value }) ? _.find(items, { id: field.value }) : null}
+                inputId={field.name ? field.name : options.name}
                 onChange={onChange}
                 options={items}
                 isMulti={options.multi}

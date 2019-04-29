@@ -6,7 +6,7 @@ import { RoleList, RoleEdit } from 'modules/administration/role/pages';
     routes: [
       {
         name: 'master.app.administration.role',
-        isPrivate: true,
+        pattern: 'role',
         children: [
           {
             name: 'master.app.administration.role.list',
