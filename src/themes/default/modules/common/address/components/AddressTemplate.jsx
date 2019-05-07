@@ -1,9 +1,13 @@
 import React from 'react';
 import { BasicInput } from 'core/components';
 
-function AddressTemplate({ field }) {
+function AddressTemplate({ field, title = null }) {
     return (
         <React.Fragment>
+            {title &&
+                <div className="form__group f-col f-col-lrg-12">
+                    <h5>{title}</h5>
+                </div>}
             <div className="form__group f-col f-col-lrg-6">
                 <BasicInput field={field.$('addressLine1')} />
             </div>

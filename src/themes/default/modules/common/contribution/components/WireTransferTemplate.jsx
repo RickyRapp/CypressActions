@@ -5,6 +5,7 @@ function WireTransferTemplate({ bankAccountDropdownStore, field, label = null })
     if (!label) {
         <label>Bank Account <a className="btn btn--xsml btn--tertiary" onClick={() => addBankAccountModalParams.open()}>Add new</a> </label>
     }
+    debugger;
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">

@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class AddressEditForm extends FormBase {
+export default class AddressCreateForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -8,10 +8,6 @@ export default class AddressEditForm extends FormBase {
     setup() {
         return {
             fields: [
-                {
-                    name: 'id',
-                    rules: 'required|string',
-                },
                 {
                     name: 'addressLine1',
                     label: 'ADDRESS.ADDRESSLINE1',

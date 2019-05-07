@@ -15,11 +15,7 @@ class BankAccountEditViewStore extends BaseEditViewStore {
             id: id,
             actions: {
                 update: async bankAccount => {
-                    try {
-                        return await bankAccountService.update(bankAccount);;
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await bankAccountService.update(bankAccount);;
                 },
                 get: async id => {
                     if (item) {
@@ -27,7 +23,7 @@ class BankAccountEditViewStore extends BaseEditViewStore {
                     }
                     else {
                         let params = {};
-                        params.embed = ['accountHolder,address,emailAddress,phoneNumber']
+                        params.embed = ['thirdPartyAccountHolder,address,emailAddress,phoneNumber']
                         const response = await bankAccountService.get(id, params);
                         return response;
                     }
@@ -39,7 +35,6 @@ class BankAccountEditViewStore extends BaseEditViewStore {
         });
     }
 
-
     @action.bound
     async onThirdPartyChange(event) {
         if (event.target.checked) {
@@ -49,6 +44,7 @@ class BankAccountEditViewStore extends BaseEditViewStore {
             this.thirdParty = false;
         }
     }
+
 }
 
 export default BankAccountEditViewStore;

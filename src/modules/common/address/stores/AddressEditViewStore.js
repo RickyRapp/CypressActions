@@ -13,11 +13,7 @@ class AddressEditViewStore extends BaseEditViewStore {
             id: id,
             actions: {
                 update: async address => {
-                    try {
-                        return await addressService.update(address);
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await addressService.update(address);
                 },
                 get: async id => {
                     if (item) {

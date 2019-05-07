@@ -45,7 +45,7 @@ function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
                             <BasicInput field={form.$('companyProfile.emailAddress.email')} />
                         </div>
                         <div className="form__group f-col f-col-lrg-4">
-                            <BasicFormatFieldInput field={form.$('companyProfile.phoneNumber.number')} format="+1 (###) ###-####" mask="_" />
+                            <BasicFormatFieldInput field={form.$('companyProfile.phoneNumber.number')} format="(###) ###-####" mask="_" />
                         </div>
                     </div>}
 

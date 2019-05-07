@@ -18,37 +18,22 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                         let params = {};
                         params.embed = ['coreUser,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
                         const donorAccount = await donorAccountService.get(userId, params);
-                        bankAccount.accountHolder.firstName = donorAccount.coreUser.firstName;
-                        bankAccount.accountHolder.lastName = donorAccount.coreUser.lastName;
+                        bankAccount.thirdPartyAccountHolder.firstName = donorAccount.coreUser.firstName;
+                        bankAccount.thirdPartyAccountHolder.lastName = donorAccount.coreUser.lastName;
                         var primaryDonorAccountAddress = _.find(donorAccount.donorAccountAddresses, { primary: true })
-                        bankAccount.accountHolder.address = primaryDonorAccountAddress.address;
+                        bankAccount.thirdPartyAccountHolder.address = primaryDonorAccountAddress.address;
                         var primaryDonorAccountEmailAddress = _.find(donorAccount.donorAccountEmailAddresses, { primary: true })
-                        bankAccount.accountHolder.emailAddress = primaryDonorAccountEmailAddress.emailAddress;
+                        bankAccount.thirdPartyAccountHolder.emailAddress = primaryDonorAccountEmailAddress.emailAddress;
                         var primaryDonorAccountPhoneNumber = _.find(donorAccount.donorAccountPhoneNumbers, { primary: true })
-                        bankAccount.accountHolder.phoneNumber = primaryDonorAccountPhoneNumber.phoneNumber;
+                        bankAccount.thirdPartyAccountHolder.phoneNumber = primaryDonorAccountPhoneNumber.phoneNumber;
                     }
-                    try {
-                        return await bankAccountService.createDonorAccountCollection({ id: userId }, { 'bankAccount': bankAccount });
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await bankAccountService.createBankAccount(userId, bankAccount);
                 }
             },
             FormClass: DonorAccountBankAccountCreateForm,
             goBack: false,
             onAfterCreate: onAfterCreate
         });
-    }
-
-
-    @action.bound
-    async onThirdPartyChange(event) {
-        if (event.target.checked) {
-            this.thirdParty = true;
-        }
-        else {
-            this.thirdParty = false;
-        }
     }
 }
 

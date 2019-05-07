@@ -23,13 +23,12 @@ class CharityCreateViewStore extends BaseEditViewStore {
                     if (!charity.hasLogin) {
                         charity.coreUser = null;
                     }
-                    if (!charity.bankAccount) {
+                    else {
+                        charity.coreUser.coreMembership.email = charity.emailAddress.email;
+                    }
+                    if (!charity.hasBankAccount) {
                         charity.bankAccount = null;
                     }
-                    if (!charity.emailAddress.email) {
-                        charity.emailAddress = null;
-                    }
-                    charity.taxId = charity.taxId.substr(0, 2) + '-' + charity.taxId.substr(2);
                     return await charityService.create(charity);
                 }
             },

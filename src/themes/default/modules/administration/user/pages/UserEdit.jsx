@@ -25,14 +25,14 @@ function UserEditTemplate({ editView }) {
       <div className="f-row">
         <div className="form__group f-col f-col-lrg-6">
           <div className="form__group__label">Username</div>
-          <span className="input input--text   input--med padd--top--tny input--disabled">
+          <span className="input input--text input--med padd--top--tny input--disabled">
             {form.$('userName').value}
           </span>
         </div>
 
         <div className="form__group f-col f-col-lrg-6">
           <div className="form__group__label">Display Name</div>
-          <span className="input input--text   input--med padd--top--tny input--disabled">
+          <span className="input input--text input--med padd--top--tny input--disabled">
             {form.$('displayName').value}
           </span>
         </div>

@@ -46,31 +46,31 @@ function BankAccountCreateTemplate({ bankAccountEditViewStore, title, children }
                         Account Holder Information
                     <div className="f-row">
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.firstName')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.firstName')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.lastName')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.lastName')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.address.addressLine1')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.address.addressLine1')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.address.addressLine2')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.address.addressLine2')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.address.city')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.address.city')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.address.state')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.address.state')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.address.zipCode')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.address.zipCode')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.emailAddress.email')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.emailAddress.email')} />
                             </div>
                             <div className="form__group f-col f-col-lrg-4">
-                                <BasicInput field={form.$('accountHolder.phoneNumber.number')} />
+                                <BasicInput field={form.$('thirdPartyAccountHolder.phoneNumber.number')} />
                             </div>
                         </div>
                     </div>}

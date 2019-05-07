@@ -17,21 +17,20 @@ class DonorAccountPhoneNumberEditViewStore extends BaseViewStore {
     @action.bound
     async getResource() {
         let params = {};
-        params.embed = 'phoneNumber';
-        params.orderBy = 'primary';
-        params.orderDirection = 'desc';
-        const response = await this.phoneNumberService.getDonorAccountCollection(this.userId, params);
-        this.items = response;
+        params.embed = 'donorAccountPhoneNumbers'
+        params.donorAccountId = this.userId;
+        const response = await this.phoneNumberService.find(params);
+        this.items = response.item;
     }
 
-    @action.bound async onChangePrimaryPhoneNumber() {
-        _.forEach(this.items, function (x) { x.primary = !x.primary });
+    @action.bound async onMarkPrimaryPhoneNumber(phoneNumberId) {
         try {
-            let response = await this.phoneNumberService.updateDonorAccountPhoneNumbers(this.items);
-            this.getResource();
+            const response = await this.phoneNumberService.markPrimary('donor-account/mark-primary', this.userId, phoneNumberId);
             this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+            await this.getResource(this.id, false);
         } catch (errorResponse) {
             this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+            return;
         }
     }
 }

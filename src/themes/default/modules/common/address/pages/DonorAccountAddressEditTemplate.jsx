@@ -5,23 +5,24 @@ import { AddressEdit, DonorAccountAddressCreate } from 'modules/common/address/p
 function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
     const {
         items,
-        onChangePrimaryAddress,
+        onMarkPrimaryAddress,
         getResource,
         userId
     } = donorAccountAddressEditViewStore;
 
     return (
         <React.Fragment>
-            {items && items.map((donorAccountAddress, i) =>
-                <React.Fragment key={donorAccountAddress.dateUpdated} >
-                    {!donorAccountAddress.primary && markPrimary(onChangePrimaryAddress)}
+            {items && items.sort((x, y) => { return (x.donorAccountAddresses[0].primary === y.donorAccountAddresses[0].primary) ? 0 : x.donorAccountAddresses[0].primary ? -1 : 1; }).map((address, i) =>
+                <React.Fragment key={address.dateUpdated} >
                     <AddressEdit
-                        id={donorAccountAddress.addressId}
-                        key={donorAccountAddress.dateUpdated}
-                        item={donorAccountAddress.address}
+                        id={address.id}
+                        key={address.dateUpdated}
+                        item={address}
                         onAfterUpdate={getResource}
-                        title={donorAccountAddress.primary ? 'Primary Address' : 'Secondary Address'}
-                    ></AddressEdit>
+                        title={address.donorAccountAddresses[0].primary ? 'Primary Address' : 'Secondary Address'}
+                    >
+                        {!address.donorAccountAddresses[0].primary && markPrimary(address.id, onMarkPrimaryAddress)}
+                    </AddressEdit>
                 </React.Fragment >
             )}
             {items && items.length < 2 && <DonorAccountAddressCreate onAfterCreate={getResource} title={'You can add secondary address'} userId={userId} />}
@@ -29,13 +30,13 @@ function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
     );
 }
 
-function markPrimary(onChangePrimaryAddress) {
+function markPrimary(addressId, onMarkPrimaryAddress) {
     return (
         <button
-            onClick={onChangePrimaryAddress}
-            className="btn btn--med btn--ghost"
+            onClick={() => onMarkPrimaryAddress(addressId)}
+            className="btn btn--sml btn--ghost"
             type="button">
-            Switch Primary Address
+            Mark Primary
         </button>
     )
 }

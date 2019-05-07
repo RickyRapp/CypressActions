@@ -9,25 +9,24 @@ class EmailAddressRouteService extends BaseRouteService {
         this.uriTemplateService = uritemplate;
     }
 
+    find(filter) {
+        return super.find(this.base + '{?donorAccountId,page,rpp,sort,embed,searchFields}', filter);
+    }
+
     get(id, options) {
         return super.get(this.base + '{id}/{?embed}', id, options);
     }
 
-    getDonorAccountCollection(id, options) {
-        const params = findParams({ id: id, ...options });
-        return this.uriTemplateService.parse(this.base + 'donor-account/{id}/{?embed,sort}').expand(params);
+    createEmailAddress(route, userId) {
+        return this.uriTemplateService.parse(this.base + route + '/{userId}').expand({ userId: userId });
     }
 
-    createDonorAccountCollection(id) {
-        return this.uriTemplateService.parse(this.base + 'donor-account/{id}').expand(id);
+    markPrimary(route, id) {
+        return this.uriTemplateService.parse(this.base + route + '/{id}').expand({ id: id });
     }
 
     update() {
         return this.base;
-    }
-
-    updateDonorAccountEmailAddresses(resource) {
-        return super.update(this.base + 'donor-account-email-addresses/{id}', resource);
     }
 }
 

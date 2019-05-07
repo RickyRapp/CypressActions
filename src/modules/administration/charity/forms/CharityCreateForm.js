@@ -84,7 +84,11 @@ export default class CharityCreateForm extends FormBase {
                                     rules: 'required_if:hasLogin,true|string|same:coreUser.coreMembership.password',
                                     type: 'password'
                                 },
-
+                                {
+                                    name: 'email',
+                                    label: 'CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.EMAIL',
+                                    rules: 'required_if:hasLogin,true|email|string',
+                                }
                             ]
                         }
                     ]
@@ -127,7 +131,7 @@ export default class CharityCreateForm extends FormBase {
                         {
                             name: 'email',
                             label: 'CHARITYCREATEFORM.EMAILADDRESS.EMAIL',
-                            rules: 'required_if:hasLogin,true|email|string',
+                            rules: 'required|email|string',
                         },
                     ]
                 },
@@ -190,7 +194,7 @@ export default class CharityCreateForm extends FormBase {
                                 {
                                     name: 'email',
                                     label: 'CHARITYCREATEFORM.CONTACTINFORMATION.EMAILADDRESS.EMAIL',
-                                    rules: 'required_if:hasContact,true|string',
+                                    rules: 'required_if:hasContact,true|email|string',
                                 },
                             ]
                         },

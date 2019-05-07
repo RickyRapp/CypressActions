@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CharityCreate, CharityList } from 'modules/administration/charity/pages'
+import { CharityCreate, CharityList, CharityEdit } from 'modules/administration/charity/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -19,6 +19,12 @@ import { CharityCreate, CharityList } from 'modules/administration/charity/pages
                         pattern: 'create',
                         component: CharityCreate,
                         authorization: 'theDonorsFundCharitySection.create'
+                    },
+                    {
+                        name: 'master.app.administration.charity.edit',
+                        pattern: 'edit/:id',
+                        component: CharityEdit,
+                        authorization: 'theDonorsFundCharitySection.edit'
                     }
                 ]
             }

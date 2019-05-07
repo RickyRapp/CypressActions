@@ -38,7 +38,7 @@ class ContributionEditViewStore extends BaseViewStore {
             await this.getBankAccounts();
             await this.setStores();
             let lastBankAccount = _.orderBy(this.bankAccounts, ['dateCreated'], ['desc'])[0];
-            this.onChangeBankAccount({ id: lastBankAccount.bankAccount.id, name: lastBankAccount.bankAccount.name });
+            this.onChangeBankAccount({ id: lastBankAccount.id, name: lastBankAccount.name });
         }
 
         this.onAfterReviewContribution = async (val) => {
@@ -109,6 +109,7 @@ class ContributionEditViewStore extends BaseViewStore {
             },
             this.paymentTypes
         );
+        this.paymentTypeDropdownStore._value = this.form.$('paymentTypeId').value;
 
         this.bankAccountDropdownStore = new BaasicDropdownStore(
             {
@@ -122,7 +123,7 @@ class ContributionEditViewStore extends BaseViewStore {
             {
                 onChange: this.onChangeBankAccount
             },
-            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+            _.map(this.bankAccounts, e => { return { 'id': e.id, 'name': e.name } })
         );
     }
 
@@ -138,8 +139,8 @@ class ContributionEditViewStore extends BaseViewStore {
     @action.bound async onChangeBankAccount(option) {
         if (option && option.id) {
             this.form.$('bankAccountId').set('value', option.id);
-            let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.bankAccount.id === option.id) });
-            this.form.$('payerInformation').set('value', donorBankAccount.bankAccount.accountHolder);
+            let bankAccount = _.find(this.bankAccounts, function (bankAccount) { return (bankAccount.id === option.id) });
+            this.form.$('payerInformation').set('value', bankAccount.thirdPartyAccountHolder);
         }
         else {
             this.form.$('bankAccountId').clear();
@@ -163,10 +164,12 @@ class ContributionEditViewStore extends BaseViewStore {
     @action.bound async getBankAccounts() {
         this.bankAccountService = new BankAccountService(this.rootStore.app.baasic.apiClient);
         let params = {};
-        params.embed = 'bankAccount,accountHolder,address,emailAddress,phoneNumber'
+        params.embed = 'thirdPartyAccountHolder,address,emailAddress,phoneNumber'
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
-        this.bankAccounts = await this.bankAccountService.getDonorAccountCollection(this.contribution.donorAccountId, params);
+        params.donorAccountId = this.contribution.donorAccountId;
+        const response = await this.bankAccountService.find(params);
+        this.bankAccounts = response.item;
     }
 
     @action.bound async loadLookups() {

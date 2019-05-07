@@ -30,7 +30,7 @@ class CharityListViewStore extends BaseListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'charityStatus,charityType,charityAddresses,emailAddress';
+                    params.embed = 'charityStatus,charityType,charityAddresses,address,emailAddress';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await charityService.find(params);
@@ -57,6 +57,13 @@ class CharityListViewStore extends BaseListViewStore {
         await this.loadLookups();
         await this.setFilterDropdownStores();
 
+        const renderAddress = (item) => {
+            if (item && item.charityAddresses && item.charityAddresses.length > 0)
+                return getFormattedPrimaryAddress(item.charityAddresses)
+            else
+                return null;
+        }
+
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: [
@@ -72,7 +79,7 @@ class CharityListViewStore extends BaseListViewStore {
                         key: 'charityAddresses',
                         title: 'Address',
                         type: 'function',
-                        function: getFormattedPrimaryAddress
+                        function: renderAddress
                     },
                     {
                         key: 'charityStatusId',

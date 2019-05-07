@@ -1,5 +1,6 @@
 import React from 'react';
-import { BasicInput } from 'core/components';
+import { BasicInput, BasicFormatFieldInput } from 'core/components';
+import { AddressTemplate } from 'themes/modules/common/address/components';
 
 function ContactInformationTemplate({ field }) {
     return (
@@ -13,26 +14,14 @@ function ContactInformationTemplate({ field }) {
             <div className="form__group f-col f-col-lrg-6">
                 <BasicInput field={field.$('lastName')} />
             </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={field.$('address.addressLine1')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={field.$('address.addressLine2')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={field.$('address.city')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={field.$('address.state')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={field.$('address.zipCode')} />
-            </div>
+
+            <AddressTemplate field={field.$('address')} />
+
             <div className="form__group f-col f-col-lrg-4">
                 <BasicInput field={field.$('emailAddress.email')} />
             </div>
             <div className="form__group f-col f-col-lrg-4">
-                <BasicInput field={field.$('phoneNumber.number')} />
+                <BasicFormatFieldInput field={field.$('phoneNumber.number')} format="(###) ###-####" mask="*" />
             </div>
         </div>
     );

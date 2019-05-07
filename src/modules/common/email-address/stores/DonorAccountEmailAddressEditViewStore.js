@@ -5,53 +5,32 @@ import _ from 'lodash';
 
 class DonorAccountEmailAddressEditViewStore extends BaseViewStore {
     @observable items = null;
-    @observable hide = true;
 
     constructor(rootStore, { userId }) {
         super(rootStore);
+        this.rootStore = rootStore;
         this.emailAddressService = new EmailAddressService(rootStore.app.baasic.apiClient);
         this.userId = userId;
-        this.fetch([this.getResource()]);
+        this.getResource();
     }
 
     @action.bound
     async getResource() {
         let params = {};
-        params.orderBy = 'primary';
-        params.orderDirection = 'desc';
-        const response = await this.emailAddressService.getDonorAccountCollection(this.userId, params);
-        this.items = response;
+        params.embed = 'donorAccountEmailAddresses'
+        params.donorAccountId = this.userId;
+        const response = await this.emailAddressService.find(params);
+        this.items = response.item;
     }
 
-    @action.bound async onChangePrimaryEmailAddress() {
-        this.items.map(donorAccountEmailAddress => {
-            if (donorAccountEmailAddress.primary === true) {
-                donorAccountEmailAddress.primary = false;
-            }
-            else {
-                donorAccountEmailAddress.primary = true;
-            }
-        });
-        await this.emailAddressService.updateDonorAccountEmailAddresses(this.items);
-        await this.getResource();
-        await setTimeout(() => this.notifySuccessUpdate("primary email address", { autoClose: 4000 }));
-    }
-
-    @action.bound
-    notifySuccessUpdate(name) {
-        this.rootStore.notificationStore.success(
-            `Successfully updated ${_.toLower(name)}.`
-        );
-    }
-
-
-    @action.bound
-    async onShowHideChange() {
-        if (event.target.checked) {
-            this.hide = true;
-        }
-        else {
-            this.hide = false;
+    @action.bound async onMarkPrimaryEmailAddress(emailAddressId) {
+        try {
+            const response = await this.emailAddressService.markPrimary('donor-account/mark-primary', this.userId, emailAddressId);
+            this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+            await this.getResource(this.id, false);
+        } catch (errorResponse) {
+            this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+            return;
         }
     }
 }

@@ -8,12 +8,6 @@ class CharityService extends BaseService {
     this.apiClient = apiClient;
   }
 
-  // async create(resource) {
-  //   var url = this.routeService.create();
-  //   const response = await this.apiClient.post(url, resource);
-  //   return response || null;
-  // }
-
   async export(filter) {
     var url = this.routeService.export(filter);
     const response = await this.apiClient.get(url, filter);

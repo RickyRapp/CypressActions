@@ -33,7 +33,7 @@ export default class DonorAccountBankAccountCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'accountHolder',
+                    name: 'thirdPartyAccountHolder',
                     label: 'Account Holder',
                     fields:
                         [{

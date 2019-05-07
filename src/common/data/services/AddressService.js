@@ -8,22 +8,16 @@ class AddressService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async updateDonorAccountAddresses(resource) {
-        const url = this.routeService.updateDonorAccountAddresses(resource);
-        const response = await this.apiClient.put(url, resource);
-        return response || null;
-    }
-
-    async createDonorAccountCollection(id, resource) {
-        const url = this.routeService.createDonorAccountCollection(id);
+    async createAddress(route, userId, resource) {
+        const url = this.routeService.createAddress(route, userId);
         const response = await this.apiClient.post(url, resource);
         return response || null;
     }
 
-    async getDonorAccountCollection(id, options = {}) {
-        const url = this.routeService.getDonorAccountCollection(id, options);
-        const response = await this.apiClient.get(url);
-        return response.data || null;
+    async markPrimary(route, id, addressId) {
+        const url = this.routeService.markPrimary(route, id);
+        const response = await this.apiClient.put(url, addressId);
+        return response || null;
     }
 }
 

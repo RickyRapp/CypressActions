@@ -29,6 +29,9 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     stockAndMutualFundsId,
     checkId
   } = contributionEditViewStore;
+  if (paymentTypeDropdownStore) {
+    debugger;
+  }
 
   return (
     <React.Fragment>

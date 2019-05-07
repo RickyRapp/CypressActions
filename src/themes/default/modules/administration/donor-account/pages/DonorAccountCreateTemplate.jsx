@@ -90,7 +90,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                         <BasicInput field={form.$('companyProfile.emailAddress.email')} />
                                     </div>
                                     <div className="form__group f-col f-col-lrg-3">
-                                        <BasicFormatFieldInput field={form.$('companyProfile.phoneNumber.number')} format="+1 (###) ###-####" mask="_" />
+                                        <BasicFormatFieldInput field={form.$('companyProfile.phoneNumber.number')} format="(###) ###-####" mask="_" />
                                     </div>
                                 </div>}
 
@@ -140,7 +140,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     <BasicInput field={form.$('emailAddress.description')} />
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
-                                    <BasicFormatFieldInput field={form.$('phoneNumber.number')} format="+1 (###) ###-####" mask="_" />
+                                    <BasicFormatFieldInput field={form.$('phoneNumber.number')} format="(###) ###-####" mask="*" />
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
                                     <BasicInput field={form.$('phoneNumber.description')} />

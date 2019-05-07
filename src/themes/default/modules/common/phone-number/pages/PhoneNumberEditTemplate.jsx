@@ -10,8 +10,11 @@ function PhoneNumberEditTemplate({ phoneNumberEditViewStore, title, children }) 
 
     return (
         <EditFormContent form={form} loading={loading}>
-            <h3>{title}</h3>
             <div className="f-row">
+                {title &&
+                    <div className="form__group f-col f-col-lrg-12">
+                        <h5>{title}</h5>
+                    </div>}
                 <div className="form__group f-col f-col-lrg-6">
                     <BasicInput field={form.$('number')} />
                 </div>
@@ -23,9 +26,8 @@ function PhoneNumberEditTemplate({ phoneNumberEditViewStore, title, children }) 
                     <div className="form__group f-col f-col-lrg-4">
                         {children}
                     </div>}
-
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
         </EditFormContent>
     );
 }

@@ -12,7 +12,7 @@ export default class LoginForm extends FormBase {
           name: 'email',
           label: 'Email',
           placeholder: 'Enter user name',
-          rules: 'required|string|between:5,25'
+          rules: 'required|string|between:5,55'
         },
         {
           name: 'password',

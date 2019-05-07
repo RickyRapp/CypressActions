@@ -138,7 +138,7 @@ class ContributionCreateViewStore extends BaseViewStore {
         if (option && option.id) {
             this.form.$('bankAccountId').set('value', option.id);
             let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.bankAccount.id === option.id) });
-            this.form.$('payerInformation').set('value', donorBankAccount.bankAccount.accountHolder);
+            this.form.$('payerInformation').set('value', donorBankAccount.bankAccount.thirdPartyAccountHolder);
         }
         else {
             this.form.$('bankAccountId').clear();
@@ -162,7 +162,7 @@ class ContributionCreateViewStore extends BaseViewStore {
     @action.bound async getBankAccounts() {
         this.bankAccountService = new BankAccountService(this.rootStore.app.baasic.apiClient);
         let params = {};
-        params.embed = 'bankAccount,accountHolder,address,emailAddress,phoneNumber'
+        params.embed = 'bankAccount,thirdPartyAccountHolder,address,emailAddress,phoneNumber'
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
         this.bankAccounts = await this.bankAccountService.getDonorAccountCollection(this.contribution.donorAccountId, params);

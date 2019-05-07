@@ -73,8 +73,9 @@ function renderRow(item, column) {
   }
 
   if (column.type === 'function' && column.function && _.isFunction(column.function)) {
-    itemValue = column.function(itemValue);
+    itemValue = column.function(item);
   }
+
 
   if (column.type === 'bool') {
     if (itemValue === 'true') {
@@ -116,7 +117,7 @@ function renderRow(item, column) {
 
 function getColumnValue(item, key) {
   let data = item[key] !== undefined && item[key] !== null
-    ? item[key]
+    ? item[key].toString()
     : tryGetColumnValue(item, key);
   return data;
 }

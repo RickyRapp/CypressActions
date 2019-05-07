@@ -138,5 +138,57 @@
             "ROUTINGNUMBER": "Routing Number",
             "DESCRIPTION": "Description"
         }
+    },
+    "CHARITYUPDATEFORM": {
+        "NAME": "Name",
+        "DBA": "DBA",
+        "TAXID": "Tax ID",
+        "CHARITYSTATUSID": "Charity Status",
+        "CHARITYTYPEID": "Charity Type",
+        "EMAILADDRESS": {
+            "EMAIL": "Email Address"
+        },
+        "HASCONTACT": "Has Contact",
+        "CONTACTINFORMATION": {
+            "FIRSTNAME": "First Name",
+            "LASTNAME": "Last Name",
+            "ADDRESS": {
+                "ADDRESSLINE1": "Address line 1",
+                "ADDRESSLINE2": "Address line 2",
+                "CITY": "City",
+                "STATE": "State",
+                "ZIPCODE": "ZipCode"
+            },
+            "EMAILADDRESS": {
+                "EMAIL": "Email Address"
+            },
+            "PHONENUMBER": {
+                "NUMBER": "Phone Number"
+            }
+        },
+        "BANKACCOUNT": {
+            "NAME": "Name",
+            "ACCOUNTNUMBER": "Account Number",
+            "ROUTINGNUMBER": "Routing Number",
+            "DESCRIPTION": "Description"
+        },
+        "CHARITYADDRESSES": {
+            "PRIMARY": "Primary",
+            "ADDRESS": {
+                "ADDRESSLINE1": "Address line 1",
+                "ADDRESSLINE2": "Address line 2",
+                "CITY": "City",
+                "STATE": "State",
+                "ZIPCODE": "ZipCode"
+            }
+        }
+    },
+    "ADDRESS": {
+        "ADDRESSLINE1": "Address line 1",
+        "ADDRESSLINE2": "Address line 2",
+        "CITY": "City",
+        "STATE": "State",
+        "ZIPCODE": "ZipCode",
+        "DESCRIPTION": "Description"
     }
 }

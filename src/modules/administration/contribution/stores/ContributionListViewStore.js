@@ -82,7 +82,7 @@ class ContributionListViewStore extends BaseListViewStore {
 
         const renderPaymentType = (item) => {
             if (item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'ach' }).id || item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'wire-transfer' }).id) {
-                return `${_.find(this.paymentTypeModels, { id: item.paymentTypeId }).name} ...${item.bankAccount.accountNumber}`;
+                return `${_.find(this.paymentTypeModels, { id: item.paymentTypeId }).name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;
             }
             else
                 return _.find(this.paymentTypeModels, { id: item.paymentTypeId }).name;

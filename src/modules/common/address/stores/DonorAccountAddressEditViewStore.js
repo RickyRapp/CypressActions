@@ -17,21 +17,20 @@ class DonorAccountAddressEditViewStore extends BaseViewStore {
     @action.bound
     async getResource() {
         let params = {};
-        params.embed = 'address';
-        params.orderBy = 'primary';
-        params.orderDirection = 'desc';
-        const response = await this.addressService.getDonorAccountCollection(this.userId, params);
-        this.items = response;
+        params.embed = 'donorAccountAddresses'
+        params.donorAccountId = this.userId;
+        const response = await this.addressService.find(params);
+        this.items = response.item;
     }
 
-    @action.bound async onChangePrimaryAddress() {
-        _.forEach(this.items, function (x) { x.primary = !x.primary });
+    @action.bound async onMarkPrimaryAddress(addressId) {
         try {
-            let response = await this.addressService.updateDonorAccountAddresses(this.items);
-            await this.getResource();
+            const response = await this.addressService.markPrimary('donor-account/mark-primary', this.userId, addressId);
             this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+            await this.getResource(this.id, false);
         } catch (errorResponse) {
             this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+            return;
         }
     }
 }

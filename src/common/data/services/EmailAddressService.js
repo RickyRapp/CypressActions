@@ -8,22 +8,16 @@ class EmailAddressService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async updateDonorAccountEmailAddresses(resource) {
-        const url = this.routeService.updateDonorAccountEmailAddresses(resource);
-        const response = await this.apiClient.put(url, resource);
-        return response || null;
-    }
-
-    async createDonorAccountCollection(id, resource) {
-        const url = this.routeService.createDonorAccountCollection(id);
+    async createEmailAddress(route, userId, resource) {
+        const url = this.routeService.createEmailAddress(route, userId);
         const response = await this.apiClient.post(url, resource);
         return response || null;
     }
 
-    async getDonorAccountCollection(id, options = {}) {
-        const url = this.routeService.getDonorAccountCollection(id, options);
-        const response = await this.apiClient.get(url);
-        return response.data || null;
+    async markPrimary(route, id, emailAddressId) {
+        const url = this.routeService.markPrimary(route, id);
+        const response = await this.apiClient.put(url, emailAddressId);
+        return response || null;
     }
 }
 

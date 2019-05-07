@@ -11,12 +11,12 @@ function DonorAccountBankAccountEditTemplate({ donorAccountBankAccountEditViewSt
 
     return (
         <React.Fragment>
-            {items && items.map((donorAccountBankAccount, i) =>
-                <React.Fragment key={donorAccountBankAccount.id} >
+            {items && items.map((bankAccount, i) =>
+                <React.Fragment key={bankAccount.dateUpdated} >
                     <BankAccountEdit
-                        id={donorAccountBankAccount.bankAccountId}
+                        id={bankAccount.id}
                         title={i === 0 ? 'Oldest Bank Account' : ''}
-                        item={donorAccountBankAccount.bankAccount}
+                        item={bankAccount}
                     ></BankAccountEdit>
                 </React.Fragment>
             )}

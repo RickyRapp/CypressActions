@@ -5,37 +5,38 @@ import { PhoneNumberEdit, DonorAccountPhoneNumberCreate } from 'modules/common/p
 function DonorAccountPhoneNumberEditTemplate({ donorAccountPhoneNumberEditViewStore }) {
     const {
         items,
-        onChangePrimaryPhoneNumber,
+        onMarkPrimaryPhoneNumber,
         getResource,
         userId
     } = donorAccountPhoneNumberEditViewStore;
 
     return (
         <React.Fragment>
-            {items && items.map((donorAccountPhoneNumber, i) =>
-                <React.Fragment key={donorAccountPhoneNumber.id} >
-                    {!donorAccountPhoneNumber.primary && markPrimary(onChangePrimaryPhoneNumber)}
+            {items && items.sort((x, y) => { return (x.donorAccountPhoneNumbers[0].primary === y.donorAccountPhoneNumbers[0].primary) ? 0 : x.donorAccountPhoneNumbers[0].primary ? -1 : 1; }).map((phoneNumber, i) =>
+                <React.Fragment key={phoneNumber.dateUpdated} >
                     <PhoneNumberEdit
-                        id={donorAccountPhoneNumber.phoneNumberId}
-                        key={donorAccountPhoneNumber.dateUpdated}
-                        item={donorAccountPhoneNumber.phoneNumber}
+                        id={phoneNumber.id}
+                        key={phoneNumber.dateUpdated}
+                        item={phoneNumber}
                         onAfterUpdate={getResource}
-                        title={donorAccountPhoneNumber.primary ? 'Primary Phone Number' : 'Secondary Phone Number'}
-                    ></PhoneNumberEdit>
-                </React.Fragment>
+                        title={phoneNumber.donorAccountPhoneNumbers[0].primary ? 'Primary Phone Number' : 'Secondary Phone Number'}
+                    >
+                        {!phoneNumber.donorAccountPhoneNumbers[0].primary && markPrimary(phoneNumber.id, onMarkPrimaryPhoneNumber)}
+                    </PhoneNumberEdit>
+                </React.Fragment >
             )}
             {items && items.length < 2 && <DonorAccountPhoneNumberCreate onAfterCreate={getResource} title={'You can add secondary Phone Number'} userId={userId} />}
         </React.Fragment>
     );
 }
 
-function markPrimary(onChangePrimaryPhoneNumber) {
+function markPrimary(phoneNumberId, onMarkPrimaryPhoneNumber) {
     return (
         <button
-            onClick={onChangePrimaryPhoneNumber}
+            onClick={() => onMarkPrimaryPhoneNumber(phoneNumberId)}
             className="btn btn--med btn--ghost"
             type="button">
-            Switch Primary Phone Number
+            Mark Primary
         </button>
     )
 }
