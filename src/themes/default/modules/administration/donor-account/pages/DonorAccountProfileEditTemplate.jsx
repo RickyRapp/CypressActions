@@ -13,10 +13,11 @@ function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
     return (
         <React.Fragment>
             <EditFormContent form={form} isEdit={true} loading={loading}>
-                <h3>Profile Informations - {donorAccountType ? donorAccountType.name : ''}</h3>
-
                 {form.$('companyProfileId').value &&
                     <div className="f-row">
+                        <div className="form__group f-col f-col-lrg-12">
+                            <h5>Company Profile - {donorAccountType ? donorAccountType.name : ''}</h5>
+                        </div>
                         <div className="form__group f-col f-col-lrg-4">
                             <BasicInput field={form.$('companyProfile.name')} />
                         </div>
@@ -49,9 +50,14 @@ function DonorAccountProfileEditTemplate({ donorAccountProfileEditViewStore }) {
                         </div>
                     </div>}
 
-                {form.$('companyProfile.name').value &&
-                    <h3>Main Contact</h3>}
+
                 <div className="f-row">
+                    <div className="form__group f-col f-col-lrg-12">
+                        {form.$('companyProfile.name').value ?
+                            <h5>Main Contact</h5>
+                            :
+                            <h5>Profile - {donorAccountType ? donorAccountType.name : ''}</h5>}
+                    </div>
                     <div className="form__group f-col f-col-lrg-4">
                         {prefixTypeDropdownStore &&
                             <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />}

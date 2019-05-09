@@ -14,7 +14,7 @@ export * from './router/commonRoutes';
 export * from './router/resolveUser';
 export { default as getAppRouterState } from './router/getAppRouterState';
 export { default as getRouterState } from './router/getRouterState';
-export { default as passwordRequirements } from './constants';
+export * from './constants';
 export * from './apiParameters';
 export * from './router/queryParams';
 export * from './randomTdfFunctions';

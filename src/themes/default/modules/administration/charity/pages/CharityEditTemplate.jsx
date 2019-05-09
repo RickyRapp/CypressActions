@@ -5,7 +5,7 @@ import { BasicInput, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox }
 import { ContactInformationTemplate } from 'themes/modules/common/charity/components';
 import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/components';
 import { Page, PageFooter } from 'core/layouts';
-import { CreateBankAccountTemplate } from 'themes/modules/common/bank-account/components';
+import { BankAccountTemplate } from 'themes/modules/common/bank-account/components';
 import { AddressEdit, AddressCreate } from 'modules/common/address/pages';
 import _ from 'lodash';
 
@@ -13,6 +13,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
     const {
         form,
         charity,
+        imgPreview,
         loaderStore: { loading },
         charityTypeDropdownStore,
         charityStatusDropdownStore,
@@ -64,9 +65,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                 <ContactInformationTemplate field={form.$('contactInformation')} />
 
                                 <div className="f-row card card--sml card--primary">
-                                    <CreateBankAccountTemplate
-                                        form={form.$('bankAccount')}
-                                    />
+                                    <BankAccountTemplate form={form.$('bankAccount')} imgPreview={imgPreview} />
                                 </div>
                             </EditFormContent>
                         </div>

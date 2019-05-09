@@ -212,35 +212,33 @@ export default class CharityCreateForm extends FormBase {
                     ]
                 },
                 {
-                    name: 'hasBankAccount',
-                    label: 'CHARITYCREATEFORM.HASBANKACCOUNT',
-                    rules: 'boolean',
-                    value: false,
-                    type: 'checkbox'
-                },
-                {
                     name: 'bankAccount',
                     label: 'CHARITYCREATEFORM.CONTACTINFORMATION.BANKACCOUNT',
                     fields: [
                         {
                             name: 'name',
                             label: 'CHARITYCREATEFORM.BANKACCOUNT.NAME',
-                            rules: 'required_if:hasBankAccount,true|string'
+                            rules: 'required|string'
                         },
                         {
                             name: 'accountNumber',
                             label: 'CHARITYCREATEFORM.BANKACCOUNT.ACCOUNTNUMBER',
-                            rules: 'required_if:hasBankAccount,true|string'
+                            rules: 'required|string'
                         },
                         {
                             name: 'routingNumber',
                             label: 'CHARITYCREATEFORM.BANKACCOUNT.ROUTINGNUMBER',
-                            rules: 'required_if:hasBankAccount,true|string|digits:9'
+                            rules: 'required|string|digits:9'
                         },
                         {
                             name: 'description',
                             label: 'CHARITYCREATEFORM.BANKACCOUNT.DESCRIPTION',
                             rules: 'string'
+                        },
+                        {
+                            name: 'image',
+                            label: 'CHARITYCREATEFORM.BANKACCOUNT.UPLOADIMAGE',
+                            type: 'file',
                         }
                     ]
                 }

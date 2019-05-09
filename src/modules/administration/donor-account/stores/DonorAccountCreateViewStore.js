@@ -27,7 +27,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
             },
             FormClass: DonorAccountCreateForm,
             goBack: false,
-            onAfterCreate: (response) => console.log('DonorAccountCreateViewStore' + response)
+            onAfterCreate: (response) => console.log(response)
         });
         this.form.$('isCompany').set('value', '');
 

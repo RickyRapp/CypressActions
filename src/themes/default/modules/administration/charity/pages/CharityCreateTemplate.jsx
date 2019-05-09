@@ -63,10 +63,6 @@ function CharityCreateTemplate({ charityCreateViewStore }) {
                 <div className="form__group f-col f-col-lrg-12">
                     <BasicCheckBox field={form.$('hasLogin')} />
                 </div>
-
-                <div className="form__group f-col f-col-lrg-12">
-                    <BasicCheckBox field={form.$('hasBankAccount')} />
-                </div>
             </div>
 
             {form.$('hasContact').value === true &&
@@ -82,12 +78,11 @@ function CharityCreateTemplate({ charityCreateViewStore }) {
                     />
                 </div>}
 
-            {form.$('hasBankAccount').value === true &&
-                <div className="f-row card card--sml card--primary">
-                    <CreateBankAccountTemplate
-                        form={form.$('bankAccount')}
-                    />
-                </div>}
+            <div className="f-row card card--sml card--primary">
+                <CreateBankAccountTemplate
+                    form={form.$('bankAccount')}
+                />
+            </div>
         </EditFormLayout>
     );
 };

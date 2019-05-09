@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class DonorAccountBankAccountCreateForm extends FormBase {
+export default class BankAccountForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -39,7 +39,7 @@ export default class DonorAccountBankAccountCreateForm extends FormBase {
                 },
                 {
                     name: 'thirdParty',
-                    label: 'Third party Bank Account',
+                    label: 'Third Party Bank Account',
                     rules: 'boolean',
                     value: false,
                     type: 'checkbox'

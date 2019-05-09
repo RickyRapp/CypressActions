@@ -1,6 +1,6 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { CharityUpdateForm } from 'modules/administration/charity/forms';
-import { CharityService, LookupService, AddressService } from "common/data";
+import { CharityService, LookupService, AddressService, FileStreamRouteService, FileStreamService } from "common/data";
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import _ from 'lodash';
 
@@ -12,10 +12,13 @@ class CharityEditViewStore extends BaseViewStore {
     @observable hasBankAccount = false;
     @observable charity = null;
     @observable form = null;
+    @observable imgPreview = null;
 
     constructor(rootStore) {
         super(rootStore);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
+        this.fileStreamRouteService = new FileStreamRouteService(rootStore.app.baasic.apiClient);
+        this.fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
         this.id = rootStore.routerStore.routerState.params.id;
         this.rootStore = rootStore;
         this.load();
@@ -42,6 +45,7 @@ class CharityEditViewStore extends BaseViewStore {
             onSuccess: async form => {
                 const item = form.values();
                 try {
+                    this.form.setFieldsDisabled(true);
                     if (this.charity) {
                         if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
                             item.contactInformation = null;
@@ -53,9 +57,21 @@ class CharityEditViewStore extends BaseViewStore {
                             item.bankAccount = null;
                         }
                     }
+
+                    try {
+                        if (this.form.$('bankAccount.image').files) {
+                            const fileResponse = await this.fileStreamService.createCharityBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
+                            item.bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
+                        }
+                    } catch (errorReponse) {
+                        this.rootStore.notificationStore.showMessageFromResponse(errorReponse, 6000);
+                        this.form.setFieldsDisabled(false);
+                        return;
+                    }
                     const response = await this.charityService.update({ id: this.id, ...item });
                     this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
                     this.form.setFieldsDisabled(false);
+                    await this.getResource(this.id);
                 } catch (errorResponse) {
                     this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
                     this.form.setFieldsDisabled(false);
@@ -77,8 +93,13 @@ class CharityEditViewStore extends BaseViewStore {
         const response = await this.charityService.get(id, params);
 
         this.charity = response;
+        if (this.charity && this.charity.bankAccount && this.charity.bankAccount) {
+            if (this.charity.bankAccount.coreMediaVaultEntryId) {
+                //this.imgPreview = await this.fileStreamRouteService.getPreview(this.charity.bankAccount.coreMediaVaultEntryId)
+            }
+        }
         if (updateForm) {
-            this.form.set('value', response)
+            this.form.set('value', this.charity)
         }
     }
 

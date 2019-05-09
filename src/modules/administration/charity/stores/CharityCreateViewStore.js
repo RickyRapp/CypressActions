@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { CharityCreateForm } from 'modules/administration/charity/forms';
-import { CharityService, LookupService, DonorAccountService } from "common/data";
+import { CharityService, LookupService, DonorAccountService, FileStreamService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { getDonorNameDropdown } from 'core/utils';
 import _ from 'lodash';
@@ -12,6 +12,8 @@ class CharityCreateViewStore extends BaseEditViewStore {
 
     constructor(rootStore) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
+        const fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
+        let newCharityId = null;
 
         super(rootStore, {
             name: 'charity',
@@ -26,13 +28,20 @@ class CharityCreateViewStore extends BaseEditViewStore {
                     else {
                         charity.coreUser.coreMembership.email = charity.emailAddress.email;
                     }
-                    if (!charity.hasBankAccount) {
-                        charity.bankAccount = null;
+
+                    const response = await charityService.create(charity);
+                    newCharityId = response.data.value;
+                    try {
+                        const fileResponse = await fileStreamService.tdfCreateCharityBankAccountImage(this.form.$('bankAccount.image').files[0], newCharityId);
+                        return response;
+                    } catch (errorReponse) {
+                        return errorReponse;
                     }
-                    return await charityService.create(charity);
                 }
             },
-            FormClass: CharityCreateForm
+            FormClass: CharityCreateForm,
+            goBack: false,
+            onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: response.data.value }),
         });
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);

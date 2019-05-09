@@ -17,6 +17,7 @@ function DonorAccountBankAccountEditTemplate({ donorAccountBankAccountEditViewSt
                         id={bankAccount.id}
                         title={i === 0 ? 'Oldest Bank Account' : ''}
                         item={bankAccount}
+                        onAfterUpdate={getResource}
                     ></BankAccountEdit>
                 </React.Fragment>
             )}

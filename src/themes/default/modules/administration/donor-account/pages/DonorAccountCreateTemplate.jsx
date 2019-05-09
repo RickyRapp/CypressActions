@@ -3,7 +3,10 @@ import { BasicInput, BasicFormatFieldInput, BaasicFieldDropdown, BasicCheckBox }
 import { defaultTemplate } from 'core/utils';
 import { EditFormLayout } from 'core/layouts';
 import { CreateLoginTemplate } from 'themes/modules/common/donor-account/components';
-import ReactTooltip from 'react-tooltip'
+import { AddressTemplate } from 'themes/modules/common/address/components';
+import { EmailAddressTemplate } from 'themes/modules/common/email-address/components';
+import { PhoneNumberTemplate } from 'themes/modules/common/phone-number/components';
+import { DonorAccountSettingsTemplate } from 'themes/modules/administration/donor-account/components';
 
 function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
     const {
@@ -21,43 +24,46 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
         <EditFormLayout form={form} isEdit={true} loading={loading} className="col col-sml-12">
             <h3 className="spc--bottom--sml">Register</h3>
             <div className="f-row">
-                <div className="form__group f-col f-col-lrg-12">
+                <div className="form__group f-col f-col-lrg-4">
                     <input
                         type="radio"
-                        name={form.$('isCompany').name}
-                        value={form.$('isCompany').value}
-                        checked={form.$('isCompany').value === false}
-                        onChange={e => form.$('isCompany').set('value', false)} />Personal
+                        name={form.$('accountTypeId').name}
+                        value={form.$('accountTypeId').value}
+                        checked={form.$('accountTypeId').value === basicId}
+                        onChange={e => onChangeAccountType(basicId)} />Basic
                     <input
                         type="radio"
-                        name={form.$('isCompany').name}
-                        value={form.$('isCompany').value}
-                        checked={form.$('isCompany').value === true}
-                        onChange={e => form.$('isCompany').set('value', true)} />Company
+                        name={form.$('accountTypeId').name}
+                        value={form.$('accountTypeId').value}
+                        checked={form.$('accountTypeId').value === premiumId}
+                        onChange={e => onChangeAccountType(premiumId)} />Premium
                 </div>
             </div>
-            {form.$('isCompany').value !== '' &&
+            {form.$('accountTypeId').value !== '' &&
                 <React.Fragment>
                     <div className="f-row">
-                        <div className="form__group f-col f-col-lrg-4">
+                        <div className="form__group f-col f-col-lrg-12">
                             <input
                                 type="radio"
-                                name={form.$('accountTypeId').name}
-                                value={form.$('accountTypeId').value}
-                                checked={form.$('accountTypeId').value === basicId}
-                                onChange={e => onChangeAccountType(basicId)} />Basic
-                        <input
+                                name={form.$('isCompany').name}
+                                value={form.$('isCompany').value}
+                                checked={form.$('isCompany').value === false}
+                                onChange={e => form.$('isCompany').set('value', false)} />Personal
+                            <input
                                 type="radio"
-                                name={form.$('accountTypeId').name}
-                                value={form.$('accountTypeId').value}
-                                checked={form.$('accountTypeId').value === premiumId}
-                                onChange={e => onChangeAccountType(premiumId)} />Premium
+                                name={form.$('isCompany').name}
+                                value={form.$('isCompany').value}
+                                checked={form.$('isCompany').value === true}
+                                onChange={e => form.$('isCompany').set('value', true)} />Company
                         </div>
                     </div>
-                    {form.$('accountTypeId').value &&
+                    {form.$('isCompany').value !== '' &&
                         <React.Fragment>
                             {form.$('isCompany').value &&
                                 <div className="f-row card card--sml card--primary">
+                                    <div className="form__group f-col f-col-lrg-12">
+                                        <h5>Company Profile</h5>
+                                    </div>
                                     <div className="form__group f-col f-col-lrg-3">
                                         {businessTypeDropwdownStore &&
                                             <BaasicFieldDropdown field={form.$('companyProfile.businessTypeId')} store={businessTypeDropwdownStore} />}
@@ -71,33 +77,26 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     <div className="form__group f-col f-col-lrg-3">
                                         <BasicInput field={form.$('companyProfile.website')} />
                                     </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.address.addressLine1')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.address.addressLine2')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.address.city')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.address.state')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.address.zipCode')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.emailAddress.email')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicFormatFieldInput field={form.$('companyProfile.phoneNumber.number')} format="(###) ###-####" mask="_" />
-                                    </div>
+
+                                    <AddressTemplate
+                                        field={form.$('companyProfile.address')}
+                                        addressLine1Column={3}
+                                        addressLine2Column={3}
+                                        cityColumn={3}
+                                        stateColumn={3}
+                                        zipCodeColumn={3}
+                                    />
+
+                                    <EmailAddressTemplate field={form.$('companyProfile.emailAddress')} emailColumn={3} />
+                                    <PhoneNumberTemplate field={form.$('companyProfile.phoneNumber')} numberColumn={3} />
                                 </div>}
 
                             <div className="f-row card card--sml card--primary">
                                 <div className="form__group f-col f-col-lrg-12">
-                                    {form.$('isCompany').value &&
-                                        <h5>Main Contact</h5>}
+                                    {form.$('isCompany').value ?
+                                        <h5>Main Contact</h5>
+                                        :
+                                        <h5>Profile</h5>}
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
                                     {prefixTypeDropdownStore &&
@@ -116,129 +115,39 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     <BasicInput field={form.$('fundName')} />
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('address.addressLine1')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('address.addressLine2')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('address.city')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('address.state')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('address.zipCode')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('address.description')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('emailAddress.email')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('emailAddress.description')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicFormatFieldInput field={form.$('phoneNumber.number')} format="(###) ###-####" mask="*" />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('phoneNumber.description')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
                                     <BasicFormatFieldInput field={form.$('securityPin')} format="####" mask="*" />
                                 </div>
+
+                                <AddressTemplate
+                                    field={form.$('address')}
+                                    addressLine1Column={3}
+                                    addressLine2Column={3}
+                                    cityColumn={3}
+                                    stateColumn={3}
+                                    zipCodeColumn={3}
+                                    descriptionColumn={3}
+                                />
+
+                                <EmailAddressTemplate field={form.$('emailAddress')} emailColumn={3} descriptionColumn={3} />
+                                <PhoneNumberTemplate field={form.$('phoneNumber')} numberColumn={3} descriptionColumn={3} />
                                 {/* <BasicFieldRecaptcha field={form.$('botProtection')} /> */}
+                            </div>
+
+                            <div className="f-row card card--sml card--primary">
+                                <DonorAccountSettingsTemplate form={form} deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore} />
+                            </div>
+
+                            <div className="f-row card card--sml card--primary">
+                                <CreateLoginTemplate
+                                    coreUserfields={form.$('coreUser')}
+                                    sendWelcomeEmailField={form.$('sendWelcomeEmail')}
+                                    isApprovedField={form.$('isApproved')}
+                                    emailAddressField={form.$('emailAddress.email')}
+                                />
                             </div>
                         </React.Fragment>}
                 </React.Fragment>}
-
-            {form.$('accountTypeId').value &&
-                <React.Fragment>
-                    <div className="f-row card card--sml card--primary">
-                        <div className="form__group f-col f-col-lrg-12">
-                            <h5>Settings</h5>
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('lineOfCredit')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicCheckBox field={form.$('initialContribution')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('contributionMinimumInitial')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('contributionMinimumAdditional')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('grantMinimumAmount')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('grantFee')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('certificateDeduction')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('certificateFee')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('extraBookletPercentage')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('blankBookletMax')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('notificationLimitRemainderAmount')} />
-                        </div>
-
-                        <div className="form__group f-col f-col-lrg-3">
-                            {deliveryMethodTypeDropdownStore &&
-                                <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />}
-                        </div>
-                    </div>
-                    <div className="f-row card card--sml card--primary">
-                        <div className="form__group f-col f-col-lrg-12">
-                            <h5>Login</h5>
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('coreUser.userName')} />
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('coreUser.coreMembership.password')} />
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicInput field={form.$('coreUser.coreMembership.confirmPassword')} />
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicCheckBox field={form.$('sendWelcomeEmail')} />
-                            {form.$('sendWelcomeEmail').value === true &&
-                                <span>
-                                    <span className='icomoon medium icon-cog' data-tip='sendWelcomeEmail' />
-                                    <ReactTooltip type='info' effect='solid'>
-                                        {form.$('emailAddress.email').value && form.$('emailAddress.email').isValid ?
-                                            <span>Verification Email Will Be Sent On {form.$('emailAddress.email').value}</span> :
-                                            <span>Please Add An Email Address</span>}
-                                    </ReactTooltip>
-                                </span>}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <BasicCheckBox field={form.$('isApproved')} />
-                        </div>
-                    </div>
-                </React.Fragment>}
-        </EditFormLayout >
+        </EditFormLayout>
     );
 }
 

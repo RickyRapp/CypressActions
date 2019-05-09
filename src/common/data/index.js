@@ -11,6 +11,7 @@ export { default as ContributionSettingService } from './services/ContributionSe
 export { default as FundTransferService } from './services/FundTransferService';
 export { default as ActivityAndHistoryService } from './services/ActivityAndHistoryService';
 export { default as CharityService } from './services/CharityService';
+export { default as FileStreamService } from './services/FileStreamService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -25,3 +26,4 @@ export { default as ContributionSettingRouteService } from './services/Contribut
 export { default as FundTransferRouteService } from './services/FundTransferRouteService';
 export { default as ActivityAndHistoryRouteService } from './services/ActivityAndHistoryRouteService';
 export { default as CharityRouteService } from './services/CharityRouteService';
+export { default as FileStreamRouteService } from './services/FileStreamRouteService';

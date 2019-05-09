@@ -136,6 +136,11 @@ export default class CharityUpdateForm extends FormBase {
                             name: 'description',
                             label: 'CHARITYUPDATEFORM.BANKACCOUNT.DESCRIPTION',
                             rules: 'string'
+                        },
+                        {
+                            name: 'image',
+                            label: 'CHARITYUPDATEFORM.BANKACCOUNT.UPLOADIMAGE',
+                            type: 'file',
                         }
                     ]
                 }

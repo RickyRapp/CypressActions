@@ -136,7 +136,8 @@
             "NAME": "Name",
             "ACCOUNTNUMBER": "Account Number",
             "ROUTINGNUMBER": "Routing Number",
-            "DESCRIPTION": "Description"
+            "DESCRIPTION": "Description",
+            "UPLOADIMAGE": "Upload Image"
         }
     },
     "CHARITYUPDATEFORM": {

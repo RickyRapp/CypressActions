@@ -1,16 +1,19 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { EditFormContent, BaasicFormControls } from 'core/components';
-import { DonorAccountSettingsEdit } from 'themes/modules/administration/donor-account/components';
+import { DonorAccountSettingsTemplate } from 'themes/modules/administration/donor-account/components';
 
-function DonorAccountSettingEditTemplate({ donorAccountSettingEditViewStore, columns }) {
+function DonorAccountSettingEditTemplate({ donorAccountSettingEditViewStore, premiumId }) {
     const { form, loading, deliveryMethodTypeDropdownStore } = donorAccountSettingEditViewStore;
 
     return (
         <EditFormContent form={form} isEdit={true} loading={loading}>
-            <h3>Account Settings</h3>
-
-            <DonorAccountSettingsEdit form={form} columns={columns} deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore} />
+            <DonorAccountSettingsTemplate
+                form={form}
+                title='Account Settings'
+                deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore}
+                premiumId={premiumId}
+                columns={4} />
 
             <div className="form__group f-col f-col-lrg-12">
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />

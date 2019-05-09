@@ -22,6 +22,12 @@ function CreateBankAccountTemplate({ form }) {
                 <div className="form__group f-col f-col-lrg-6">
                     <BasicFormatFieldInput field={form.$('routingNumber')} format="###-###-###" mask="*" />
                 </div>
+                {form.has('image') &&
+                    <div className="form__group f-col f-col-lrg-6">
+                        <input
+                            {...form.$('image').bind()}
+                        />
+                    </div>}
             </React.Fragment>
 
             {form.has('thirdParty') && form.$('thirdParty').value === true &&

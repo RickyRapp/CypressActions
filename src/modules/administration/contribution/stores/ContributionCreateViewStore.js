@@ -217,8 +217,6 @@ class ContributionCreateViewStore extends BaseViewStore {
         params.orderDirection = 'asc';
         params.donorAccountId = this.userId;
         const response = await this.bankAccountService.find(params);
-        console.log(response);
-        debugger;
         this.bankAccounts = response.item;
     }
 

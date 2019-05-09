@@ -10,7 +10,7 @@ class NotificationStore {
     if (this.isErrorCode(response.statusCode)) {
       if (response.data) {
         if (_.isObject(response.data)) {
-          return this.error(response.data.description, { autoClose: autoClose });
+          return this.error(response.data.message, { autoClose: autoClose });
         }
         else if (_.isString(response.data)) {
           return this.error(response.data, { autoClose: autoClose });
@@ -20,7 +20,7 @@ class NotificationStore {
     else if (this.isSuccessCode(response.statusCode)) {
       if (response.data) {
         if (_.isObject(response.data)) {
-          return this.success(response.data.description, { autoClose: autoClose });
+          return this.success(response.data.message, { autoClose: autoClose });
         }
         else if (_.isString(response.data)) {
           return this.success(response.data, { autoClose: autoClose });

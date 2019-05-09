@@ -137,3 +137,7 @@
 */
 
 /* @import shame.css; */
+
+input[type='file'] {
+    color: transparent;
+  }
