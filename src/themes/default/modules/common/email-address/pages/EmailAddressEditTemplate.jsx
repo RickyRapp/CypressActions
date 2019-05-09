@@ -1,6 +1,7 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, EditFormContent, BaasicFormControls } from 'core/components';
+import { EmailAddressTemplate } from 'themes/modules/common/email-address/components';
 
 function EmailAddressEditTemplate({ emailAddressEditViewStore, title, children }) {
     const {
@@ -11,16 +12,7 @@ function EmailAddressEditTemplate({ emailAddressEditViewStore, title, children }
     return (
         <EditFormContent form={form} loading={loading}>
             <div className="f-row">
-                {title &&
-                    <div className="form__group f-col f-col-lrg-12">
-                        <h5>{title}</h5>
-                    </div>}
-                <div className="form__group f-col f-col-lrg-6">
-                    <BasicInput field={form.$('email')} />
-                </div>
-                <div className="form__group f-col f-col-lrg-4">
-                    <BasicInput field={form.$('description')} />
-                </div>
+                <EmailAddressTemplate field={form} title={title} />
 
                 {children &&
                     <div className="form__group f-col f-col-lrg-4">

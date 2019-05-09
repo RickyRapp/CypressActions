@@ -26,6 +26,7 @@ export { default as BaasicFormControls } from './forms/BaasicFormControls';
 export { default as BasicCheckBox } from './forms/BasicCheckBox';
 export { default as BasicFieldDatePicker } from './forms/BasicFieldDatePicker';
 export { default as BasicFormatFieldInput } from './forms/BasicFormatFieldInput';
+export { default as PhoneNumberFieldInput } from './forms/PhoneNumberFieldInput';
 
 export { default as BaasicConfirmModal } from './dialog/BaasicConfirmModal';
 export { default as BaasicModal } from './dialog/BaasicModal';

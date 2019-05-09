@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'modules/administration/donor-account/pages'
+import { DonorAccountList, DonorAccountOverview, DonorAccountCreate } from 'modules/administration/donor-account/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -18,7 +18,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'modules/
                     {
                         name: 'master.app.administration.donor-account.edit',
                         pattern: ':userId/edit',
-                        component: DonorAccountEdit,
+                        component: DonorAccountOverview,
                         authorization: 'theDonorsFundAdministrationSection.update'
                     },
                     {

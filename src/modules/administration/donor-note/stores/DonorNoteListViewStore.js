@@ -6,14 +6,14 @@ class DonorNoteListViewStore extends BaseListViewStore {
     @observable filterVisible = false;
     @observable editNoteId = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { userId }) {
         const donorNoteService = new DonorNoteService(rootStore.app.baasic.apiClient);
 
         super(rootStore, {
             name: 'donor note',
             actions: {
                 find: async params => {
-                    if (!rootStore.routerStore.routerState.params.userId) {
+                    if (!userId) {
                         return;
                     }
                     params.id = rootStore.routerStore.routerState.params.userId;

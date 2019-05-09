@@ -25,7 +25,7 @@ function DonorAccountAddressEditTemplate({ donorAccountAddressEditViewStore }) {
                     </AddressEdit>
                 </React.Fragment >
             )}
-            {items && items.length < 2 && <DonorAccountAddressCreate onAfterCreate={getResource} title={'You can add secondary address'} userId={userId} />}
+            {items && items.length < 2 && <DonorAccountAddressCreate onAfterCreate={getResource} title={'Add Secondary address'} userId={userId} />}
         </React.Fragment >
     );
 }

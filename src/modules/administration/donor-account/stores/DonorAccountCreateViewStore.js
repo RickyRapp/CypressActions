@@ -22,14 +22,20 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                     if (!donorAccount.isCompany) {
                         donorAccount.companyProfile = null;
                     }
+                    else {
+                        if (!donorAccount.companyProfile.hasCompanyContact) {
+                            donorAccount.companyProfile.contactPerson = null;
+                        }
+                    }
                     return await donorAccountService.create(donorAccount);
                 }
             },
             FormClass: DonorAccountCreateForm,
             goBack: false,
-            onAfterCreate: (response) => console.log(response)
+            onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: response.data.response }),
         });
         this.form.$('isCompany').set('value', '');
+        this.form.$('activationUrl').set('value', `${window.location.origin}/account-activation?activationToken={activationToken}`);
 
         this.applicationDefaultSettingLookupService = new LookupService(rootStore.app.baasic.apiClient, 'application-default-setting');
         this.deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
@@ -41,7 +47,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
 
     @action.bound async load() {
         await this.loadLookups();
-        this.setDefaults();
+        await this.setDefaults();
         await this.setStores();
     }
 

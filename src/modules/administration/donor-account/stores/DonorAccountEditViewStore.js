@@ -5,46 +5,43 @@ import { DonorAccountEditForm } from 'modules/administration/donor-account/forms
 import { isSome } from 'core/utils';
 import _ from 'lodash';
 
-class DonorAccountProfileEditViewStore extends BaseEditViewStore {
+class DonorAccountEditViewStore extends BaseEditViewStore {
     @observable deliveryMethodTypeDropdownStore = null;
     @observable prefixTypeDropdownStore = null;
     @observable accountType = null;
 
-    constructor(rootStore, { fetchedDonorAccount }) {
+    constructor(rootStore, { userId }) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
 
         super(rootStore, {
             name: 'donor account',
-            id: rootStore.routerStore.routerState.params.userId,
+            id: userId,
             actions: {
                 update: async donorAccount => {
                     donorAccount.coreUser.json = JSON.stringify({ middleName: donorAccount.coreUser.middleName, prefixTypeId: donorAccount.coreUser.prefixTypeId });
                     if (!donorAccount.companyProfileId) {
                         donorAccount.companyProfile = null;
                     }
-                    return await donorAccountService.update({
-                        id: this.id,
-                        ...donorAccount
-                    });
+                    return await donorAccountService.update({ id: this.id, ...donorAccount });
                 },
                 get: async id => {
-                    if (fetchedDonorAccount) {
-                        return fetchedDonorAccount;
-                    }
                     let params = {};
-                    params.embed = ['coreUser,companyProfile,address,emailAddress,phoneNumber'];
+                    params.embed = ['coreUser,companyProfile,contactPerson,address,emailAddress,phoneNumber'];
                     const response = await donorAccountService.get(id, params);
                     if (isSome(response)) {
                         if (isSome(response.coreUser) && isSome(response.coreUser.json)) {
                             response.coreUser.middleName = (JSON.parse(response.coreUser.json)).middleName;
                             response.coreUser.prefixTypeId = (JSON.parse(response.coreUser.json)).prefixTypeId;
                         }
+                        response.isCompany = isSome(response.companyProfileId)
+
                     }
                     return response;
                 }
             },
             FormClass: DonorAccountEditForm,
-            goBack: false
+            goBack: false,
+            setValues: true
         });
 
         this.deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');
@@ -109,4 +106,4 @@ class DonorAccountProfileEditViewStore extends BaseEditViewStore {
     }
 }
 
-export default DonorAccountProfileEditViewStore;
+export default DonorAccountEditViewStore;

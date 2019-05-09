@@ -26,7 +26,7 @@ function DonorAccountEmailAddressEditTemplate({ donorAccountEmailAddressEditView
                 </React.Fragment >
             )}
 
-            {items && items.length < 2 && <DonorAccountEmailAddressCreate onAfterCreate={getResource} title={'You can add secondary email address'} userId={userId} />}
+            {items && items.length < 2 && <DonorAccountEmailAddressCreate onAfterCreate={getResource} title={'Add Secondary Email Address'} userId={userId} />}
         </React.Fragment>
     );
 }

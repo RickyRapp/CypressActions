@@ -25,7 +25,7 @@ function DonorAccountPhoneNumberEditTemplate({ donorAccountPhoneNumberEditViewSt
                     </PhoneNumberEdit>
                 </React.Fragment >
             )}
-            {items && items.length < 2 && <DonorAccountPhoneNumberCreate onAfterCreate={getResource} title={'You can add secondary Phone Number'} userId={userId} />}
+            {items && items.length < 2 && <DonorAccountPhoneNumberCreate onAfterCreate={getResource} title={'Add Secondary Phone Number'} userId={userId} />}
         </React.Fragment>
     );
 }

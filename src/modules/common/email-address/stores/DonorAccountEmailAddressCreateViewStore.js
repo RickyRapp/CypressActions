@@ -1,6 +1,6 @@
 import { BaseEditViewStore } from "core/stores";
 import { EmailAddressService } from "common/data";
-import { DonorAccountEmailAddressCreateForm } from "modules/common/email-address/forms";
+import { EmailAddressCreateForm } from "modules/common/email-address/forms";
 
 class DonorAccountEmailAddressCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, { onAfterCreate, userId }) {
@@ -10,14 +10,10 @@ class DonorAccountEmailAddressCreateViewStore extends BaseEditViewStore {
             name: 'donor email address',
             actions: {
                 create: async donorAccountEmailAddress => {
-                    try {
-                        return await emailAddressService.createDonorAccountCollection({ id: userId }, donorAccountEmailAddress);
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await emailAddressService.createDonorAccountEmailAddress(userId, donorAccountEmailAddress);
                 }
             },
-            FormClass: DonorAccountEmailAddressCreateForm,
+            FormClass: EmailAddressCreateForm,
             goBack: false,
             onAfterCreate: onAfterCreate
         });

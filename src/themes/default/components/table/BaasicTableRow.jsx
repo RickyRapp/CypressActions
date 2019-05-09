@@ -3,6 +3,7 @@ import { isSome, renderIf } from 'core/utils';
 import _ from 'lodash';
 import moment from 'moment';
 import 'moment-timezone';
+import NumberFormat from 'react-number-format';
 
 function BaasicTableRowTemplate({
   item,
@@ -56,9 +57,7 @@ function renderRow(item, column) {
   }
 
   if (column.type === 'currency') {
-    //TODO: add support for currency format
-    //column.format
-    itemValue = `$${itemValue}`;
+    itemValue = <NumberFormat value={itemValue} displayType={'text'} thousandSeparator={true} prefix={column.format ? column.format : '$'} />
   }
 
   if (column.type === 'lookup' && column.lookup) {

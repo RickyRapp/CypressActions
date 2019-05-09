@@ -13,7 +13,7 @@ class EmailAddressEditViewStore extends BaseEditViewStore {
             id: id,
             actions: {
                 update: async emailAddress => {
-                    await emailAddressService.update(emailAddress);
+                    return await emailAddressService.update(emailAddress);
                 },
                 get: async id => {
                     if (item) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BasicInput, BasicFormatFieldInput } from 'core/components';
+import { BasicInput, PhoneNumberFieldInput } from 'core/components';
 
 function PhoneNumberTemplate({
     field,
@@ -15,7 +15,7 @@ function PhoneNumberTemplate({
                     <h5>{title}</h5>
                 </div>}
             <div className={`form__group f-col f-col-lrg-${numberColumn}`}>
-                <BasicFormatFieldInput field={field.$('number')} format="(###) ### ####" />
+                <PhoneNumberFieldInput field={field.$('number')} />
             </div>
             {field.has('description') &&
                 <div className={`form__group f-col f-col-lrg-${descriptionColumn}`}>

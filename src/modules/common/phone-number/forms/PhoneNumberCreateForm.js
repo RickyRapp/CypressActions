@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class EmailAddressEditForm extends FormBase {
+export default class PhoneNumberCreateForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -9,13 +9,13 @@ export default class EmailAddressEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'email',
-                    label: 'EMAILADDRESS.EMAIL',
-                    rules: 'required|email',
+                    name: 'number',
+                    label: 'PHONENUMBER.NUMBER',
+                    rules: 'required|string',
                 },
                 {
                     name: 'description',
-                    label: 'EMAILADDRESS.DESCRIPTION',
+                    label: 'PHONENUMBER.DESCRIPTION',
                     rules: 'string',
                 },
             ]

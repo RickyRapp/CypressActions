@@ -1,6 +1,6 @@
 import { FormBase } from 'core/components';
 
-export default class EmailAddressEditForm extends FormBase {
+export default class EmailAddressCreateForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }

@@ -104,7 +104,8 @@ class ContributionListViewStore extends BaseListViewStore {
                     },
                     {
                         key: 'amount',
-                        title: 'Amount'
+                        title: 'Amount',
+                        type: 'currency'
                     },
                     {
                         key: 'confirmationNumber',

@@ -52,7 +52,7 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
             {
                 onChange: this.onChangeBankAccount
             },
-            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+            _.map(this.bankAccounts, e => { return { 'id': e.id, 'name': e.name } })
         );
 
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore(

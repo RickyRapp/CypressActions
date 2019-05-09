@@ -188,7 +188,7 @@ function ContributionCreateFormFields(achId, checkId, chaseQuickPayId, stockAndM
             name: 'makeAsRecurringPayment',
             label: 'CONTRIBUTIONCREATEFORM.MAKEASRECURRINGPAYMENT',
             rules: 'boolean',
-            value: true,
+            value: false,
             type: 'checkbox'
         },
         {

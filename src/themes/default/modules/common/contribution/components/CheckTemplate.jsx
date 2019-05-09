@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaasicFieldDropdown } from 'core/components';
+import { BasicInput } from 'core/components';
 
 function CheckTemplate({ field }) {
     return (

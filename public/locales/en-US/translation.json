@@ -3,6 +3,37 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CREATE": "Create",
+    "ADDRESS": {
+        "ADDRESSLINE1": "Address line 1",
+        "ADDRESSLINE2": "Address line 2",
+        "CITY": "City",
+        "STATE": "State",
+        "ZIPCODE": "ZipCode",
+        "DESCRIPTION": "Description"
+    },
+    "EMAILADDRESS": {
+        "EMAIL": "Email Address",
+        "DESCRIPTION": "Description"
+    },
+    "PHONENUMBER": {
+        "NUMBER": "Phone Number",
+        "DESCRIPTION": "Description"
+    },
+    "BANKACCOUNT": {
+        "NAME": "Name",
+        "ACCOUNTNUMBER": "Account Number",
+        "ROUTINGNUMBER": "Routing Number",
+        "DESCRIPTION": "Description",
+        "UPLOADIMAGE": "Upload Image"
+    },
+    "FIRSTNAME": "First Name",
+    "MIDDLENAME": "Middle Name",
+    "LASTNAME": "Last Name",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "CONFIRMPASSWORD": "Confirm Password",
+    "SENDWELCOMEEMAIL": "Send Welcome Email",
+    "ISAPPROVED": "Is Approved",
     "CONTRIBUTIONCREATEFORM": {
         "AMOUNT": "Amount",
         "PAYMENTTYPEID": "Payment Type Id",
@@ -184,12 +215,46 @@
             }
         }
     },
-    "ADDRESS": {
-        "ADDRESSLINE1": "Address line 1",
-        "ADDRESSLINE2": "Address line 2",
-        "CITY": "City",
-        "STATE": "State",
-        "ZIPCODE": "ZipCode",
-        "DESCRIPTION": "Description"
+    "COMPANYPROFILE": {
+        "NAME": "Name",
+        "DBA": "DBA",
+        "WEBSITE": "Web site",
+        "BUSINESSTYPEID": "Business Type",
+        "HASCOMPANYCONTACT": "Has Contact"
+    },
+    "DONORACCOUNTCREATEFORM": {
+        "COREUSER": {
+            "PREFIXTYPEID": "Prefix"
+        },
+        "FUNDNAME": "Fund Name",
+        "SECURITYPIN": "Security Pin",
+        "INITIALCONTRIBUTION": "Initial Contribution",
+        "LINEOFCREDIT": "Line Of Credit",
+        "GRANTMINIMUMAMOUNT": "Grant Minimum Amount",
+        "GRANTFEE": "Grant Fee",
+        "DELIVERYMETHODTYPEID": "Delivery Method Type",
+        "CONTRIBUTIONMINIMUMINITIAL": "Contribution Minimum Initial",
+        "CONTRIBUTIONMINIMUMADDITIONAL": "Contribution Minimum Additional",
+        "CERTIFICATEDEDUCTION": "Certificate Deduction",
+        "CERTIFICATEFEE": "Certificate Fee",
+        "EXTRABOOKLETPERCENTAGE": "Extra Booklet Percentage",
+        "BLANKBOOKLETMAX": "Blank Booklet Max",
+        "NOTIFICATIONLIMITREMAINDERAMOUNT": "Low Balance Remainder"
+    },
+    "DONORACCOUNTEDITFORM": {
+        "FUNDNAME": "Fund Name",
+        "SECURITYPIN": "Security Pin",
+        "INITIALCONTRIBUTION": "Initial Contribution",
+        "LINEOFCREDIT": "Line Of Credit",
+        "GRANTMINIMUMAMOUNT": "Grant Minimum Amount",
+        "GRANTFEE": "Grant Fee",
+        "DELIVERYMETHODTYPEID": "Delivery Method Type",
+        "CONTRIBUTIONMINIMUMINITIAL": "Contribution Minimum Initial",
+        "CONTRIBUTIONMINIMUMADDITIONAL": "Contribution Minimum Additional",
+        "CERTIFICATEDEDUCTION": "Certificate Deduction",
+        "CERTIFICATEFEE": "Certificate Fee",
+        "EXTRABOOKLETPERCENTAGE": "Extra Booklet Percentage",
+        "BLANKBOOKLETMAX ": "Blank Booklet Max",
+        "NOTIFICATIONLIMITREMAINDERAMOUNT": "Low Balance Remainder"
     }
 }

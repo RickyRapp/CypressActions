@@ -16,7 +16,7 @@ class DonorAccountListViewStore extends BaseListViewStore {
             },
             actions: {
                 find: async params => {
-                    params.embed = 'coreUser';
+                    params.embed = 'coreUser,companyProfile';
                     const response = await donorAccountService.find(params);
                     return response;
                 }
@@ -30,13 +30,9 @@ class DonorAccountListViewStore extends BaseListViewStore {
             new TableViewStore(this.queryUtility, {
                 columns: [
                     {
-                        key: 'coreUser.firstName',
-                        title: 'First Name',
+                        key: 'fullName',
+                        title: 'Name',
                         onClick: donorAccount => this.routes.edit(donorAccount.id)
-                    },
-                    {
-                        key: 'coreUser.lastName',
-                        title: 'Last Name'
                     },
                     {
                         key: 'accountNumber',
@@ -45,8 +41,7 @@ class DonorAccountListViewStore extends BaseListViewStore {
                     {
                         key: 'availableBalance',
                         title: 'Available Balance',
-                        type: 'currency',
-                        format: 'US'
+                        type: 'currency'
                     }
                 ],
                 actions: {

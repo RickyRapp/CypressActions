@@ -24,7 +24,7 @@ class BaseEditViewStore extends BaseViewStore {
 
   constructor(
     rootStore,
-    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate, onAfterUpdate }
+    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate, onAfterUpdate, setValues = false } //setValues is used for form.set('value', item), because form.update(item) does not work properly with nested child (3 nested row)
   ) {
     super(rootStore);
 
@@ -34,6 +34,7 @@ class BaseEditViewStore extends BaseViewStore {
     this.goBack = goBack;
     this.onAfterCreate = onAfterCreate;
     this.onAfterUpdate = onAfterUpdate;
+    this.setValues = setValues;
     this.form =
       form ||
       new FormClass({
@@ -85,7 +86,12 @@ class BaseEditViewStore extends BaseViewStore {
   @action.bound
   updateForm() {
     if (this.item) {
-      this.form.update(this.item);
+      if (this.setValues) {
+        this.form.set('value', this.item);
+      }
+      else {
+        this.form.update(this.item);
+      }
     }
   }
 

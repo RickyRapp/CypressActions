@@ -1,6 +1,6 @@
 import { BaseEditViewStore } from "core/stores";
 import { PhoneNumberService } from "common/data";
-import { DonorAccountPhoneNumberCreateForm } from "modules/common/phone-number/forms";
+import { PhoneNumberCreateForm } from "modules/common/phone-number/forms";
 import _ from 'lodash';
 
 class DonorAccountPhoneNumberCreateViewStore extends BaseEditViewStore {
@@ -10,14 +10,10 @@ class DonorAccountPhoneNumberCreateViewStore extends BaseEditViewStore {
             name: 'donor phone number',
             actions: {
                 create: async donorAccountPhoneNumber => {
-                    try {
-                        return await phoneNumberService.createDonorAccountCollection({ id: userId }, donorAccountPhoneNumber);
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await phoneNumberService.createDonorAccountPhoneNumber(userId, donorAccountPhoneNumber);
                 }
             },
-            FormClass: DonorAccountPhoneNumberCreateForm,
+            FormClass: PhoneNumberCreateForm,
             goBack: false,
             onAfterCreate: onAfterCreate
         });

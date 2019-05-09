@@ -56,12 +56,13 @@ class ContributionCreateViewStore extends BaseViewStore {
                 const item = form.values();
                 let contributionCreate = false;
                 let response = null;
-                try {
-                    response = await this.contributionService.createContribution(this.userId, item)
-                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    contributionCreate = true;
 
-                    if (form.$('makeAsRecurringPayment').value === true) {
+                response = await this.contributionService.createContribution(this.userId, item)
+                this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+                contributionCreate = true;
+
+                if (form.$('makeAsRecurringPayment').value === true) {
+                    try {
                         const contributionSetting = {
                             amount: this.form.$('settingAmount').value,
                             bankAccountId: this.form.$('settingBankAccountId').value,
@@ -72,14 +73,14 @@ class ContributionCreateViewStore extends BaseViewStore {
                         }
                         const responseSetting = await this.contributionSettingService.createContributionSetting(this.userId, contributionSetting);
                         this.rootStore.notificationStore.showMessageFromResponse(responseSetting, 6000);
-                    }
-
-                    this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
-                } catch (errorResponse) {
-                    if (contributionCreate) {
-                        this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+                    } catch (errorResponse) {
+                        if (contributionCreate) {
+                            this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+                        }
                     }
                 }
+
+                this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
             }
         }, fields);
         this.form.$('bankAccountId').observe(({ form, field, change }) => { form.$('payerInformation').each(field => field.set('disabled', form.$('bankAccountId').value !== '')) })

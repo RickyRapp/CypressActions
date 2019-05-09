@@ -6,6 +6,11 @@ class AddressService extends BaseService {
     constructor(apiClient) {
         super(apiClient, new AddressRouteService());
         this.apiClient = apiClient;
+        this.donorPath = "donor-account";
+    }
+
+    async createDonorAccountAddress(userId, resource) {
+        return this.createAddress(this.donorPath, userId, resource)
     }
 
     async createAddress(route, userId, resource) {

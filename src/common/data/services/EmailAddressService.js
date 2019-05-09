@@ -6,6 +6,11 @@ class EmailAddressService extends BaseService {
     constructor(apiClient) {
         super(apiClient, new EmailAddressRouteService());
         this.apiClient = apiClient;
+        this.donorPath = "donor-account";
+    }
+
+    async createDonorAccountEmailAddress(userId, resource) {
+        return this.createEmailAddress(this.donorPath, userId, resource)
     }
 
     async createEmailAddress(route, userId, resource) {

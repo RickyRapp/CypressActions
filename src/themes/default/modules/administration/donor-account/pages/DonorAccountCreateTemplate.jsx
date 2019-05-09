@@ -3,10 +3,11 @@ import { BasicInput, BasicFormatFieldInput, BaasicFieldDropdown, BasicCheckBox }
 import { defaultTemplate } from 'core/utils';
 import { EditFormLayout } from 'core/layouts';
 import { CreateLoginTemplate } from 'themes/modules/common/donor-account/components';
+import { NonMemberTemplate } from 'themes/modules/common/non-member/components';
+import { DonorAccountSettingsTemplate } from 'themes/modules/administration/donor-account/components';
 import { AddressTemplate } from 'themes/modules/common/address/components';
 import { EmailAddressTemplate } from 'themes/modules/common/email-address/components';
 import { PhoneNumberTemplate } from 'themes/modules/common/phone-number/components';
-import { DonorAccountSettingsTemplate } from 'themes/modules/administration/donor-account/components';
 
 function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
     const {
@@ -59,58 +60,47 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                     </div>
                     {form.$('isCompany').value !== '' &&
                         <React.Fragment>
-                            {form.$('isCompany').value &&
-                                <div className="f-row card card--sml card--primary">
-                                    <div className="form__group f-col f-col-lrg-12">
-                                        <h5>Company Profile</h5>
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        {businessTypeDropwdownStore &&
-                                            <BaasicFieldDropdown field={form.$('companyProfile.businessTypeId')} store={businessTypeDropwdownStore} />}
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.name')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.dba')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('companyProfile.website')} />
-                                    </div>
-
-                                    <AddressTemplate
-                                        field={form.$('companyProfile.address')}
-                                        addressLine1Column={3}
-                                        addressLine2Column={3}
-                                        cityColumn={3}
-                                        stateColumn={3}
-                                        zipCodeColumn={3}
-                                    />
-
-                                    <EmailAddressTemplate field={form.$('companyProfile.emailAddress')} emailColumn={3} />
-                                    <PhoneNumberTemplate field={form.$('companyProfile.phoneNumber')} numberColumn={3} />
-                                </div>}
-
                             <div className="f-row card card--sml card--primary">
-                                <div className="form__group f-col f-col-lrg-12">
-                                    {form.$('isCompany').value ?
-                                        <h5>Main Contact</h5>
-                                        :
-                                        <h5>Profile</h5>}
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    {prefixTypeDropdownStore &&
-                                        <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />}
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('coreUser.firstName')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('coreUser.middleName')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-3">
-                                    <BasicInput field={form.$('coreUser.lastName')} />
-                                </div>
+                                {form.$('isCompany').value &&
+                                    <React.Fragment>
+                                        <div className="form__group f-col f-col-lrg-12">
+                                            <h5>Company Profile</h5>
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            {businessTypeDropwdownStore &&
+                                                <BaasicFieldDropdown field={form.$('companyProfile.businessTypeId')} store={businessTypeDropwdownStore} />}
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            <BasicInput field={form.$('companyProfile.name')} />
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            <BasicInput field={form.$('companyProfile.dba')} />
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            <BasicInput field={form.$('companyProfile.website')} />
+                                        </div>
+                                    </React.Fragment>}
+
+                                {form.$('isCompany').value === false &&
+                                    <React.Fragment>
+                                        <div className="form__group f-col f-col-lrg-12">
+                                            <h5>Profile</h5>
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            {prefixTypeDropdownStore &&
+                                                <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />}
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            <BasicInput field={form.$('coreUser.firstName')} />
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            <BasicInput field={form.$('coreUser.middleName')} />
+                                        </div>
+                                        <div className="form__group f-col f-col-lrg-3">
+                                            <BasicInput field={form.$('coreUser.lastName')} />
+                                        </div>
+                                    </React.Fragment>}
+
                                 <div className="form__group f-col f-col-lrg-3">
                                     <BasicInput field={form.$('fundName')} />
                                 </div>
@@ -134,8 +124,31 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                             </div>
 
                             <div className="f-row card card--sml card--primary">
-                                <DonorAccountSettingsTemplate form={form} deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore} />
+                                <DonorAccountSettingsTemplate
+                                    form={form}
+                                    deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore}
+                                    title="Account Settings"
+                                    premiumId={premiumId} />
                             </div>
+
+                            {form.$('isCompany').value &&
+                                <React.Fragment>
+                                    <div>
+                                        <BasicCheckBox field={form.$('companyProfile.hasCompanyContact')} />
+                                    </div>
+
+                                    {form.$('companyProfile.hasCompanyContact').value &&
+                                        <div className="f-row card card--sml card--primary">
+                                            <NonMemberTemplate
+                                                form={form.$('companyProfile.contactPerson')}
+                                                title="Contact Informations"
+                                                firstNameColumn={3} lastNameColumn={3}
+                                                addressLine1Column={3} addressLine2Column={3} cityColumn={2} stateColumn={2} zipCodeColumn={2}
+                                                emailColumn={3}
+                                                numberColumn={3}
+                                            />
+                                        </div>}
+                                </React.Fragment>}
 
                             <div className="f-row card card--sml card--primary">
                                 <CreateLoginTemplate
@@ -147,7 +160,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                             </div>
                         </React.Fragment>}
                 </React.Fragment>}
-        </EditFormLayout>
+        </EditFormLayout >
     );
 }
 

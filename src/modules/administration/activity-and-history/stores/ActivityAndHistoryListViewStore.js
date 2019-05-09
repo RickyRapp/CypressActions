@@ -4,6 +4,7 @@ import { ActivityAndHistoryService, LookupService, DonorAccountService } from "c
 import { ActivityAndHistoryListFilter } from 'modules/administration/activity-and-history/models';
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { getDonorNameDropdown } from 'core/utils';
+import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 class ActivityAndHistoryListViewStore extends BaseListViewStore {
@@ -102,14 +103,14 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
     @action.bound renderAmount(item) {
         const creditId = _.find(this.paymentTransactionTypes, { abrv: 'credit' }).id;
         const debitId = _.find(this.paymentTransactionTypes, { abrv: 'debit' }).id;
-
+        let amount = null;
         if (item.paymentTransactionTypeId === creditId) {
-            return `$${item.amount}`;
+            amount = `${item.amount}`;
         }
         else if (item.paymentTransactionTypeId === debitId) {
-            return `-$${item.amount}`
+            amount = `-${item.amount}`
         }
-        return null;
+        return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} />;
     }
 
     @action.bound renderLink(item) {

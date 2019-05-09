@@ -8,25 +8,17 @@ export default class PhoneNumberEditForm extends FormBase {
     setup() {
         return {
             fields: [
-                'id',
-                'number',
-                'description'
-            ],
-
-            labels: {
-                'number': 'Number',
-                'description': 'Description'
-            },
-
-            placeholders: {
-                'number': 'Enter Number',
-                'description': 'Enter number description'
-            },
-
-            rules: {
-                'number': 'required|string',
-                'description': 'string'
-            }
-        };
-    }
-};
+                {
+                    name: 'number',
+                    label: 'PHONENUMBER.NUMBER',
+                    rules: 'required|string',
+                },
+                {
+                    name: 'description',
+                    label: 'PHONENUMBER.DESCRIPTION',
+                    rules: 'string',
+                },
+            ]
+        }
+    };
+}

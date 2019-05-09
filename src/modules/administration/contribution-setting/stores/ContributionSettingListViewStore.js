@@ -55,7 +55,8 @@ class ContributionSettingListViewStore extends BaseViewStore {
         params.embed = 'bankAccount'
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
-        this.bankAccounts = await this.bankAccountService.getDonorAccountCollection(this.userId, params);
+        params.donorAccountId = this.userId;
+        this.bankAccounts = (await this.bankAccountService.find(params)).item;
     }
 
     @computed get lowBalanceSettingId() {

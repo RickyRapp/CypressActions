@@ -12,7 +12,6 @@ function AddressTemplate({
     descriptionColumn = 4
 }) {
 
-
     return (
         <React.Fragment>
             {title &&

@@ -6,6 +6,11 @@ class PhoneNumberService extends BaseService {
     constructor(apiClient) {
         super(apiClient, new PhoneNumberRouteService());
         this.apiClient = apiClient;
+        this.donorPath = "donor-account";
+    }
+
+    async createDonorAccountPhoneNumber(userId, resource) {
+        return this.createPhoneNumber(this.donorPath, userId, resource)
     }
 
     async createPhoneNumber(route, userId, resource) {

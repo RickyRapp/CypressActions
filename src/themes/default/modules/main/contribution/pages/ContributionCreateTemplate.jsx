@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BaasicModal, BasicCheckBox } from 'core/components';
-import { AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate } from 'themes/modules/common/contribution/components';
+import { BasicInput, BaasicFieldDropdown, BaasicModal, BasicCheckBox, BasicFormatFieldInput } from 'core/components';
+import { AchTemplate, CheckTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate } from 'themes/modules/common/contribution/components';
 import { EditFormLayout } from 'core/layouts';
 import { BankAccountCreate } from 'modules/common/bank-account/pages';
 import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/common/contribution-setting/components';
@@ -63,7 +63,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
 
               <div className="f-row">
                 <div className="form__group f-col f-col-lrg-6">
-                  <BasicInput field={form.$('amount')} />
+                  <BasicFormatFieldInput field={form.$('amount')} thousandSeparator={true} prefix={'$'} />
                 </div>
                 <div className="form__group f-col f-col-lrg-6">
                   <BasicInput field={form.$('description')} />

@@ -1,6 +1,6 @@
 import { BaseEditViewStore } from "core/stores";
 import { AddressService } from "common/data";
-import { DonorAccountAddressCreateForm } from "modules/common/address/forms";
+import { AddressCreateForm } from "modules/common/address/forms";
 import _ from 'lodash';
 
 class DonorAccountAddressCreateViewStore extends BaseEditViewStore {
@@ -11,10 +11,10 @@ class DonorAccountAddressCreateViewStore extends BaseEditViewStore {
             name: 'donor address',
             actions: {
                 create: async donorAccountAddress => {
-                    await addressService.createDonorAccountCollection({ id: userId }, donorAccountAddress);
+                    return await addressService.createDonorAccountAddress(userId, donorAccountAddress);
                 }
             },
-            FormClass: DonorAccountAddressCreateForm,
+            FormClass: AddressCreateForm,
             goBack: false,
             onAfterCreate: onAfterCreate
         });
