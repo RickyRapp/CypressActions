@@ -38,6 +38,9 @@ class LoginViewStore extends BaseViewStore {
       if (this.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) { //administrator,employee
         this.rootStore.authStore.setSignInRedirect(this.rootStore.initialAdministrationState);
       }
+      else if (this.rootStore.authStore.hasPermission('theDonorsFundCharitySection.read')) { //charity
+        this.rootStore.authStore.setSignInRedirect(this.rootStore.initialCharityState);
+      }
       else { //donor, reporter
         this.rootStore.authStore.setSignInRedirect(this.rootStore.initialMainState);
       }

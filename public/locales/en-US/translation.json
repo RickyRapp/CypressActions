@@ -118,8 +118,8 @@
         "MEMO": "Memo"
     },
     "CHARITYCREATEFORM": {
-        "CHARITYSTATUSID": "Charity Status",
-        "CHARITYTYPEID": "Charity Type",
+        "CHARITYSTATUSID": "Status",
+        "CHARITYTYPEID": "Type",
         "DBA": "DBA",
         "NAME": "Name",
         "TAXID": "Tax ID",
@@ -175,8 +175,8 @@
         "NAME": "Name",
         "DBA": "DBA",
         "TAXID": "Tax ID",
-        "CHARITYSTATUSID": "Charity Status",
-        "CHARITYTYPEID": "Charity Type",
+        "CHARITYSTATUSID": "Status",
+        "CHARITYTYPEID": "Type",
         "EMAILADDRESS": {
             "EMAIL": "Email Address"
         },

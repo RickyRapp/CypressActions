@@ -12,19 +12,19 @@ import { CharityCreate, CharityList, CharityEdit } from 'modules/administration/
                         name: 'master.app.administration.charity.list',
                         pattern: '',
                         component: CharityList,
-                        authorization: 'theDonorsFundCharitySection.read'
+                        authorization: 'theDonorsFundAdministrationSection.read'
                     },
                     {
                         name: 'master.app.administration.charity.create',
                         pattern: 'create',
                         component: CharityCreate,
-                        authorization: 'theDonorsFundCharitySection.create'
+                        authorization: 'theDonorsFundAdministrationSection.create'
                     },
                     {
                         name: 'master.app.administration.charity.edit',
                         pattern: 'edit/:id',
                         component: CharityEdit,
-                        authorization: 'theDonorsFundCharitySection.edit'
+                        authorization: 'theDonorsFundAdministrationSection.edit'
                     }
                 ]
             }

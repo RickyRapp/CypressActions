@@ -20,6 +20,7 @@ export default class RootStore {
 
   initialState = new RouterState('master.public.home');
   initialMainState = new RouterState('master.app.main.home.overview');
+  initialMainCharityState = new RouterState('master.app.main.charity.profile');
   initialAdministrationState = new RouterState('master.app.administration.home.overview');
 
   get app() {

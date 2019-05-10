@@ -2,10 +2,13 @@ import React from 'react';
 
 function HomeTemplate(props) {
   let route = 'master.public.membership.login';
-  
+
   if (props.rootStore.authStore.isAuthenticated) {
     if (props.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) {
       route = 'master.app.administration.home.overview';
+    }
+    else if (props.rootStore.authStore.hasPermission('theDonorsFundCharitySection.read')) {
+      route = 'master.app.main.charity.profile';
     }
     else {
       route = 'master.app.main.home.overview';

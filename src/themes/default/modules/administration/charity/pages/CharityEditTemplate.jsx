@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox } from 'core/components';
-import { ContactInformationTemplate } from 'themes/modules/common/charity/components';
+import { NonMemberTemplate } from 'themes/modules/common/non-member/components';
 import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/components';
 import { Page, PageFooter } from 'core/layouts';
 import { BankAccountTemplate } from 'themes/modules/common/bank-account/components';
@@ -62,7 +62,16 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                     </div>
                                 </div>
 
-                                <ContactInformationTemplate field={form.$('contactInformation')} />
+                                <div className="f-row card card--sml card--primary">
+                                    <NonMemberTemplate
+                                        form={form.$('contactInformation')}
+                                        title="Contact Informations"
+                                        firstNameColumn={6} lastNameColumn={6}
+                                        addressLine1Column={6} addressLine2Column={6} cityColumn={4} stateColumn={4} zipCodeColumn={4}
+                                        emailColumn={6}
+                                        numberColumn={6}
+                                    />
+                                </div>
 
                                 <div className="f-row card card--sml card--primary">
                                     <BankAccountTemplate form={form.$('bankAccount')} imgPreview={imgPreview} />
