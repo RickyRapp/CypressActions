@@ -31,20 +31,7 @@ class CharityEditViewStore extends BaseEditViewStore {
                     if (!(item.emailAddress && item.emailAddress.email)) {
                         item.emailAddress = null;
                     }
-                    if (!(item.bankAccount && item.bankAccount.name)) {
-                        item.bankAccount = null;
-                    }
-
-                    try {
-                        if (this.form.$('bankAccount.image').files) {
-                            const fileResponse = await fileStreamService.createCharityBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
-                            item.bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
-                        }
-                    } catch (errorReponse) {
-                        this.rootStore.notificationStore.showMessageFromResponse(errorReponse, 6000);
-                        this.form.setFieldsDisabled(false);
-                        return;
-                    }
+                    
                     return await charityService.update({ id: this.id, ...item });
                 },
                 get: async id => {

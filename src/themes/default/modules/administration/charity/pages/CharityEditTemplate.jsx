@@ -4,9 +4,10 @@ import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox } from 'core/components';
 import { NonMemberTemplate } from 'themes/modules/common/non-member/components';
 import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/components';
-import { Page, PageFooter } from 'core/layouts';
+import { Page, PageFooter, PageContentHeader } from 'core/layouts';
 import { BankAccountTemplate } from 'themes/modules/common/bank-account/components';
 import { AddressEdit, AddressCreate } from 'modules/common/address/pages';
+import { CharityHeaderDetails } from 'modules/main/charity/components';
 import _ from 'lodash';
 
 function CharityEditTemplate({ charityEditViewStore, t }) {
@@ -25,6 +26,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
 
     return (
         <Page loading={loading}>
+            <PageContentHeader><CharityHeaderDetails userId={id} type='charity' /></PageContentHeader>
             {form &&
                 <React.Fragment>
                     <div className="f-row">

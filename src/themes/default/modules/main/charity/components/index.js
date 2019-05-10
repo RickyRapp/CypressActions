@@ -1,0 +1,1 @@
+export { default as CharityHeaderDetailsTemplate } from './CharityHeaderDetailsTemplate'
