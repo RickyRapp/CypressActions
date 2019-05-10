@@ -12,16 +12,10 @@ class FundTransferListViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const fundTransferService = new FundTransferService(rootStore.app.baasic.apiClient);
 
-        let filter = null;
-        if (rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-            filter = new FundTransferListFilter()
-            //TODO: add filter for donor account id (both sender and recipient)
-            if (rootStore.routerStore.routerState.params.donorAccountId) {
-                filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
-            }
-        }
-        else {
-            filter = new FundTransferMainListFilter(rootStore)
+        let filter = new FundTransferListFilter()
+        //TODO: add filter for donor account id (both sender and recipient)
+        if (rootStore.routerStore.routerState.params.donorAccountId) {
+            filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
         }
 
         super(rootStore, {
@@ -104,8 +98,7 @@ class FundTransferListViewStore extends BaseListViewStore {
                     {
                         key: 'amount',
                         title: 'Amount',
-                        type: 'currency',
-                        format: 'US'
+                        type: 'currency'
                     },
                     {
                         key: 'senderDonorAccount.coreUser',

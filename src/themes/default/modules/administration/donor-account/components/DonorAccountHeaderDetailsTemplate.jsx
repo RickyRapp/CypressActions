@@ -37,6 +37,12 @@ function renderDonorAccount(donorAccount, rootStore) {
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">
                 <a className="btn btn--xsml btn--ghost"
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.user.edit', { id: donorAccount.id })}>
+                    Login Info
+                </a>
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                <a className="btn btn--xsml btn--ghost"
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.activity-and-history', null, { donorAccountId: donorAccount.id })}>
                     Activity And History
                 </a>
