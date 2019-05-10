@@ -3,6 +3,7 @@ import { CharityService, LookupService } from "common/data";
 import { CharityListFilter } from 'modules/administration/charity/models';
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { getFormattedPrimaryAddress } from 'core/utils';
+import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
 class CharityListViewStore extends BaseListViewStore {
@@ -49,6 +50,11 @@ class CharityListViewStore extends BaseListViewStore {
 
         this.selectedExportColumnsName = ['Name', 'Charity Type'];
         this.additionalExportColumnsName = ['Charity Status'];
+
+        this.reviewCharityModalParams = new ModalParams({
+            onClose: this.onClose,
+            notifyOutsideClick: true
+        });
 
         this.load();
     }
@@ -110,12 +116,12 @@ class CharityListViewStore extends BaseListViewStore {
 
     @action.bound async onReviewClick(id) {
         this.reviewId = id;
-        this.reviewContributionModalParams.open();
+        this.reviewCharityModalParams.open();
     }
 
-    @action.bound async onAfterReviewContribution() {
+    @action.bound async onAfterReviewCharity() {
         this.queryUtility._reloadCollection();
-        this.reviewContributionModalParams.close();
+        this.reviewCharityModalParams.close();
     }
 
     @action.bound async loadLookups() {

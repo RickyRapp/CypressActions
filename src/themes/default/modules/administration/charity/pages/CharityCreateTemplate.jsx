@@ -47,8 +47,12 @@ function CharityCreateTemplate({ charityCreateViewStore }) {
                     <BasicInput field={form.$('emailAddress.email')} />
                 </div>
 
-                <div className="card card--sml">
+                <div className="">
                     <AddressTemplate field={form.$('address')} />
+                </div>
+
+                <div className="">
+                    <CreateBankAccountTemplate form={form.$('bankAccount')} />
                 </div>
 
                 <div className="form__group f-col f-col-lrg-6">
@@ -78,11 +82,7 @@ function CharityCreateTemplate({ charityCreateViewStore }) {
                     />
                 </div>}
 
-            <div className="f-row card card--sml card--primary">
-                <CreateBankAccountTemplate
-                    form={form.$('bankAccount')}
-                />
-            </div>
+
         </EditFormLayout>
     );
 };

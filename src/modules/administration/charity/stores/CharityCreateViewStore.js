@@ -30,9 +30,11 @@ class CharityCreateViewStore extends BaseEditViewStore {
                     }
 
                     const response = await charityService.create(charity);
-                    newCharityId = response.data.value;
+                    debugger;
+                    newCharityId = response.data.response;
                     try {
                         const fileResponse = await fileStreamService.tdfCreateCharityBankAccountImage(this.form.$('bankAccount.image').files[0], newCharityId);
+                        debugger;
                         return response;
                     } catch (errorReponse) {
                         return errorReponse;
@@ -41,7 +43,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
             },
             FormClass: CharityCreateForm,
             goBack: false,
-            onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: response.data.value }),
+            onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: response.data.response }),
         });
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);

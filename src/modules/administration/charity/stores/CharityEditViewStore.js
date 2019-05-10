@@ -46,16 +46,14 @@ class CharityEditViewStore extends BaseViewStore {
                 const item = form.values();
                 try {
                     this.form.setFieldsDisabled(true);
-                    if (this.charity) {
-                        if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
-                            item.contactInformation = null;
-                        }
-                        if (!(item.emailAddress && item.emailAddress.email)) {
-                            item.emailAddress = null;
-                        }
-                        if (!(item.bankAccount && item.bankAccount.name)) {
-                            item.bankAccount = null;
-                        }
+                    if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
+                        item.contactInformation = null;
+                    }
+                    if (!(item.emailAddress && item.emailAddress.email)) {
+                        item.emailAddress = null;
+                    }
+                    if (!(item.bankAccount && item.bankAccount.name)) {
+                        item.bankAccount = null;
                     }
 
                     try {
@@ -93,9 +91,9 @@ class CharityEditViewStore extends BaseViewStore {
         const response = await this.charityService.get(id, params);
 
         this.charity = response;
-        if (this.charity && this.charity.bankAccount && this.charity.bankAccount) {
+        if (this.charity && this.charity.bankAccount) {
             if (this.charity.bankAccount.coreMediaVaultEntryId) {
-                //this.imgPreview = await this.fileStreamRouteService.getPreview(this.charity.bankAccount.coreMediaVaultEntryId)
+                this.imgPreview = await this.fileStreamRouteService.getPreview(this.charity.bankAccount.coreMediaVaultEntryId)
             }
         }
         if (updateForm) {

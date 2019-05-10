@@ -71,7 +71,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                         </div>
 
                         <div className="form__group f-col f-col-lrg-6">
-                            {charity && charity.charityAddresses.sort((x, y) => { return (x.primary === y.primary) ? 0 : x.primary ? -1 : 1; }).map((charityAddress, i) =>
+                            {charity && charity.charityAddresses && charity.charityAddresses.sort((x, y) => { return (x.primary === y.primary) ? 0 : x.primary ? -1 : 1; }).map((charityAddress, i) =>
                                 <React.Fragment key={charityAddress.id} >
                                     <AddressEdit
                                         id={charityAddress.addressId}

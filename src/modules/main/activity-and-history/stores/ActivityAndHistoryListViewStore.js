@@ -1,7 +1,7 @@
 import React from 'react';
 import { action, observable } from 'mobx';
 import { ActivityAndHistoryService, LookupService } from "common/data";
-import { ActivityAndHistoryListFilter } from 'modules/main/activity-and-history/models';
+import { ActivityAndHistoryListFilter } from 'modules/common/activity-and-history/models';
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
