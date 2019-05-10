@@ -95,7 +95,6 @@ class FundTransferListViewStore extends BaseListViewStore {
                         key: 'amount',
                         title: 'Amount',
                         type: 'currency',
-                        format: 'US'
                     },
                     {
                         key: 'senderDonorAccount.coreUser',

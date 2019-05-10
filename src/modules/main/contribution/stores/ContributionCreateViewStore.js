@@ -35,7 +35,7 @@ class ContributionCreateViewStore extends BaseViewStore {
             await this.getBankAccounts();
             await this.setStores();
             let lastBankAccount = _.orderBy(this.bankAccounts, ['dateCreated'], ['desc'])[0];
-            this.onChangeBankAccount({ id: lastBankAccount.bankAccount.id, name: lastBankAccount.bankAccount.name });
+            this.onChangeBankAccount({ id: lastBankAccount.id, name: lastBankAccount.name });
         }
 
         this.load();
@@ -114,7 +114,7 @@ class ContributionCreateViewStore extends BaseViewStore {
             {
                 onChange: this.onChangeBankAccount
             },
-            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+            _.map(this.bankAccounts, e => { return { 'id': e.id, 'name': e.name } })
         );
 
         this.bankAccountSettingDropdownStore = new BaasicDropdownStore(
@@ -129,7 +129,7 @@ class ContributionCreateViewStore extends BaseViewStore {
             {
                 onChange: this.onChangeSettingBankAccount
             },
-            _.map(this.bankAccounts, e => { return { 'id': e.bankAccount.id, 'name': e.bankAccount.name } })
+            _.map(this.bankAccounts, e => { return { 'id': e.id, 'name': e.name } })
         );
 
         let availableContributionSettingType = [];
@@ -171,8 +171,8 @@ class ContributionCreateViewStore extends BaseViewStore {
     @action.bound async onChangeBankAccount(option) {
         if (option && option.id) {
             this.form.$('bankAccountId').set('value', option.id);
-            let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.bankAccount.id === option.id) });
-            this.form.$('payerInformation').set('value', donorBankAccount.bankAccount.thirdPartyAccountHolder);
+            let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.id === option.id) });
+            this.form.$('payerInformation').set('value', donorBankAccount.thirdPartyAccountHolder);
         }
         else {
             this.form.$('bankAccountId').clear();
@@ -216,7 +216,8 @@ class ContributionCreateViewStore extends BaseViewStore {
         params.embed = 'bankAccount,thirdPartyAccountHolder,address,emailAddress,phoneNumber'
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
-        this.bankAccounts = await this.bankAccountService.getDonorAccountCollection(this.userId, params);
+        params.donorAccountId = this.userId;
+        this.bankAccounts = (await this.bankAccountService.find(params)).item;
     }
 
     @action.bound async loadLookups() {

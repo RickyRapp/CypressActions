@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonorAccountEdit } from 'modules/main/donor-account/pages'
+import { DonorAccountOverview } from 'modules/main/donor-account/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -12,7 +12,7 @@ import { DonorAccountEdit } from 'modules/main/donor-account/pages'
                     {
                         name: 'master.app.main.donor.account.edit',
                         pattern: '',
-                        component: DonorAccountEdit,
+                        component: DonorAccountOverview,
                         authorization: 'theDonorsFundDonorSection.update',
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read',
                     }

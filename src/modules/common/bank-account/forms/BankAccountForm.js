@@ -38,6 +38,10 @@ export default class BankAccountForm extends FormBase {
                     type: 'file'
                 },
                 {
+                    name: 'coreMediaVaultEntryId',
+                    rules: 'string'
+                },
+                {
                     name: 'thirdParty',
                     label: 'Third Party Bank Account',
                     rules: 'boolean',

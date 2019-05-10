@@ -8,92 +8,221 @@ export default class DonorAccountEditForm extends FormBase {
     setup() {
         return {
             fields: [
-                'fundName',
-                'accountTypeId',
-                'coreUser.prefixTypeId',
-                'coreUser.firstName',
-                'coreUser.middleName',
-                'coreUser.lastName',
-                'companyProfileId',
-                'companyProfile.name',
-                'companyProfile.dba',
-                'companyProfile.website',
-                'companyProfile.businessTypeId',
-                'companyProfile.address.addressLine1',
-                'companyProfile.address.addressLine2',
-                'companyProfile.address.city',
-                'companyProfile.address.state',
-                'companyProfile.address.zipCode',
-                'companyProfile.emailAddress.email',
-                'companyProfile.emailAddress.description',
-                'companyProfile.phoneNumber.number',
-                'companyProfile.phoneNumber.description'
-            ],
-
-            labels: {
-                'fundName': 'Fund Name',
-                'accountTypeId': 'Account Type',
-                'coreUser.prefixTypeId': 'Prefix Type',
-                'coreUser.firstName': 'First Name',
-                'coreUser.middleName': 'Middle Name',
-                'coreUser.lastName': 'Last Name',
-                'companyProfileId': 'Company',
-                'companyProfile.name': 'Company Name',
-                'companyProfile.dba': 'DBA',
-                'companyProfile.website': 'Website',
-                'companyProfile.businessTypeId': 'Business Type',
-                'companyProfile.address.addressLine1': 'Address Line 1',
-                'companyProfile.address.addressLine2': 'Address Line 2',
-                'companyProfile.address.city': 'City',
-                'companyProfile.address.state': 'State',
-                'companyProfile.address.zipCode': 'Zip Code',
-                'companyProfile.emailAddress.email': 'Email',
-                'companyProfile.emailAddress.description': 'Email Description',
-                'companyProfile.phoneNumber.number': 'Number',
-                'companyProfile.phoneNumber.description': 'Number Description',
-            },
-
-            placeholders: {
-                'fundName': 'Enter Fund Name',
-                'coreUser.prefixTypeId': 'Select Prefix Type',
-                'coreUser.firstName': 'Enter First Name',
-                'coreUser.middleName': 'Enter Middle Name',
-                'coreUser.lastName': 'Enter Last Name',
-                'companyProfile.name': 'Enter Company Name',
-                'companyProfile.dba': 'Enter DBA',
-                'companyProfile.website': 'Enter Website',
-                'companyProfile.businessTypeId': 'Select Business Type',
-                'companyProfile.address.addressLine1': 'Enter Address Line 1',
-                'companyProfile.address.addressLine2': 'Enter Address Line 2',
-                'companyProfile.address.city': 'Enter City',
-                'companyProfile.address.state': 'Enter State',
-                'companyProfile.address.zipCode': 'Enter Zip Code',
-                'companyProfile.emailAddress.email': 'Enter Email',
-                'companyProfile.emailAddress.description': 'Enter Email Description',
-                'companyProfile.phoneNumber.number': 'Enter Number',
-                'companyProfile.phoneNumber.description': 'Enter Number Description',
-            },
-
-            rules: {
-                'fundName': 'required|string',
-                'coreUser.prefixTypeId': 'string',
-                'coreUser.firstName': 'required|string',
-                'coreUser.middleName': 'string',
-                'coreUser.lastName': 'required|string',
-                'companyProfile.name': 'required_with:companyProfileId|string',
-                'companyProfile.dba': 'string',
-                'companyProfile.website': 'string',
-                'companyProfile.businessTypeId': 'required_with:companyProfileId|string',
-                'companyProfile.address.addressLine1': 'required_with:companyProfileId|string',
-                'companyProfile.address.addressLine2': 'string',
-                'companyProfile.address.city': 'required_with:companyProfileId|string',
-                'companyProfile.address.state': 'required_with:companyProfileId|string',
-                'companyProfile.address.zipCode': 'required_with:companyProfileId|string',
-                'companyProfile.emailAddress.email': 'required_with:companyProfileId|string',
-                'companyProfile.emailAddress.description': 'string',
-                'companyProfile.phoneNumber.number': 'required_with:companyProfileId|string',
-                'companyProfile.phoneNumber.description': 'string'
-            }
+                {
+                    name: 'isCompany',
+                    label: 'COMPANYPROFILE.ISCOMPANY',
+                    rules: 'boolean',
+                    type: 'checkbox'
+                },
+                {
+                    name: 'companyProfileId',
+                    rules: 'string',
+                },
+                {
+                    name: 'accountTypeId',
+                    label: 'DONORACCOUNTEDITFORM.ACCOUNTTYPEID',
+                    rules: 'required|string',
+                },
+                {
+                    name: 'fundName',
+                    label: 'DONORACCOUNTEDITFORM.FUNDNAME',
+                    rules: 'required|string',
+                },
+                {
+                    name: 'securityPin',
+                    label: 'DONORACCOUNTEDITFORM.SECURITYPIN',
+                    rules: 'required|numeric|digits:4',
+                    options: {
+                        validateOnChange: true
+                    }
+                },
+                {
+                    name: 'deliveryMethodTypeId',
+                    label: 'DONORACCOUNTEDITFORM.DELIVERYMETHODTYPEID',
+                    rules: 'required|string',
+                },
+                {
+                    name: 'coreUser',
+                    fields: [
+                        {
+                            name: 'prefixTypeId',
+                            label: 'COREUSER.PREFIXTYPEID',
+                            rules: 'string',
+                        },
+                        {
+                            name: 'firstName',
+                            label: 'FIRSTNAME',
+                            rules: 'required_if:isCompany,false|string',
+                        },
+                        {
+                            name: 'middleName',
+                            label: 'MIDDLENAME',
+                            rules: 'string',
+                        },
+                        {
+                            name: 'lastName',
+                            label: 'LASTNAME',
+                            rules: 'required_if:isCompany,false|string',
+                        },
+                    ]
+                },
+                {
+                    name: 'companyProfile',
+                    fields: [
+                        {
+                            name: 'name',
+                            label: 'COMPANYPROFILE.NAME',
+                            rules: 'required_if:isCompany,true|string',
+                        },
+                        {
+                            name: 'dba',
+                            label: 'COMPANYPROFILE.DBA',
+                            rules: 'string',
+                        },
+                        {
+                            name: 'website',
+                            label: 'COMPANYPROFILE.WEBSITE',
+                            rules: 'string',
+                        },
+                        {
+                            name: 'businessTypeId',
+                            label: 'COMPANYPROFILE.BUSINESSTYPEID',
+                            rules: 'required_if:isCompany,true|string',
+                        },
+                        {
+                            name: 'hasCompanyContact',
+                            label: 'COMPANYPROFILE.HASCOMPANYCONTACT',
+                            rules: 'boolean',
+                            type: 'checkbox'
+                        },
+                        {
+                            name: 'contactPerson',
+                            fields: [
+                                {
+                                    name: 'firstName',
+                                    label: 'FIRSTNAME',
+                                    rules: 'required_if:companyProfile.hasCompanyContact,true|string',
+                                },
+                                {
+                                    name: 'lastName',
+                                    label: 'LASTNAME',
+                                    rules: 'required_if:companyProfile.hasCompanyContact,true|string',
+                                },
+                                {
+                                    name: 'address',
+                                    fields: [
+                                        {
+                                            name: 'addressLine1',
+                                            label: 'ADDRESS.ADDRESSLINE1',
+                                            rules: 'required_if:companyProfile.hasCompanyContact,true|string',
+                                        },
+                                        {
+                                            name: 'addressLine2',
+                                            label: 'ADDRESS.ADDRESSLINE2',
+                                            rules: 'string',
+                                        },
+                                        {
+                                            name: 'city',
+                                            label: 'ADDRESS.CITY',
+                                            rules: 'required_if:companyProfile.hasCompanyContact,true|string',
+                                        },
+                                        {
+                                            name: 'state',
+                                            label: 'ADDRESS.STATE',
+                                            rules: 'required_if:companyProfile.hasCompanyContact,true|string',
+                                        },
+                                        {
+                                            name: 'zipCode',
+                                            label: 'ADDRESS.ZIPCODE',
+                                            rules: 'required_if:companyProfile.hasCompanyContact,true|string',
+                                        },
+                                    ]
+                                },
+                                {
+                                    name: 'emailAddress',
+                                    fields: [
+                                        {
+                                            name: 'email',
+                                            label: 'EMAILADDRESS.EMAIL',
+                                            rules: 'required_if:companyProfile.hasCompanyContact,true|email|string',
+                                        },
+                                    ]
+                                },
+                                {
+                                    name: 'phoneNumber',
+                                    fields: [
+                                        {
+                                            name: 'number',
+                                            label: 'PHONENUMBER.NUMBER',
+                                            rules: 'required_if:companyProfile.hasCompanyContact,true|numeric',
+                                            options: {
+                                                validateOnChange: true
+                                            }
+                                        },
+                                    ]
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    name: 'initialContribution',
+                    label: 'DONORACCOUNTEDITFORM.INITIALCONTRIBUTION',
+                    rules: 'boolean',
+                    type: 'checkbox',
+                    disabled: true
+                },
+                {
+                    name: 'contributionMinimumInitial',
+                    label: 'DONORACCOUNTEDITFORM.CONTRIBUTIONMINIMUMINITIAL',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'contributionMinimumAdditional',
+                    label: 'DONORACCOUNTEDITFORM.CONTRIBUTIONMINIMUMADDITIONAL',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'grantMinimumAmount',
+                    label: 'DONORACCOUNTEDITFORM.GRANTMINIMUMAMOUNT',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'grantFee',
+                    label: 'DONORACCOUNTEDITFORM.GRANTFEE',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'certificateDeduction',
+                    label: 'DONORACCOUNTEDITFORM.CERTIFICATEDEDUCTION',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'certificateFee',
+                    label: 'DONORACCOUNTEDITFORM.CERTIFICATEFEE',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'lineOfCredit',
+                    label: 'DONORACCOUNTEDITFORM.LINEOFCREDIT',
+                    rules: 'required|numeric|min:0',
+                },
+                {
+                    name: 'extraBookletPercentage',
+                    label: 'DONORACCOUNTEDITFORM.EXTRABOOKLETPERCENTAGE',
+                    rules: 'numeric|min:0',
+                },
+                {
+                    name: 'blankBookletMax',
+                    label: 'DONORACCOUNTEDITFORM.BLANKBOOKLETMAX',
+                    rules: 'numeric|min:0',
+                },
+                {
+                    name: 'notificationLimitRemainderAmount',
+                    label: 'DONORACCOUNTEDITFORM.NOTIFICATIONLIMITREMAINDERAMOUNT',
+                    rules: 'numeric',
+                },
+            ]
         };
     }
 };

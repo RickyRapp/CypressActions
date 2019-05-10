@@ -21,6 +21,8 @@ export { default as DropdownFilter } from './filters/DropdownFilter';
 export { default as FormBase } from './FormBase';
 
 export { default as BasicInput } from './forms/BasicInput';
+export { default as BasicFakeInput } from './forms/BasicFakeInput';
+export { default as BasicFormatFakeInput } from './forms/BasicFormatFakeInput';
 export { default as BasicTextArea } from './forms/BasicTextArea';
 export { default as BaasicFormControls } from './forms/BaasicFormControls';
 export { default as BasicCheckBox } from './forms/BasicCheckBox';

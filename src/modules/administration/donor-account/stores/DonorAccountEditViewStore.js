@@ -9,6 +9,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
     @observable deliveryMethodTypeDropdownStore = null;
     @observable prefixTypeDropdownStore = null;
     @observable accountType = null;
+    @observable premiumId = null;
 
     constructor(rootStore, { userId }) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
@@ -65,6 +66,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
         let accountTypeModels = await this.accountTypeLookupService.getAll();
         this.accountType = accountTypeModels.data;
         this.donorAccountType = _.find(this.accountType, { id: this.form.$('accountTypeId').value });
+        this.premiumId = _.find(this.accountType, { abrv: 'premium' }).id;
     }
 
     @action.bound async setStores() {

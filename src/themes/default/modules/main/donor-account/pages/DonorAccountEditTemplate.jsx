@@ -2,7 +2,7 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BaasicFieldDropdown, EditFormContent, BaasicFormControls } from 'core/components';
 import { NonMemberTemplate } from 'themes/modules/common/non-member/components';
-import { DonorAccountSettingsTemplate } from 'themes/modules/administration/donor-account/components';
+import { DonorAccountSettingsTemplate } from 'themes/modules/main/donor-account/components';
 
 function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
     const {

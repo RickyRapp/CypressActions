@@ -13,6 +13,8 @@ export { default as BasicCheckBoxTemplate } from './forms/BasicCheckBoxTemplate'
 export { default as BaasicFormControlsTemplate } from './forms/BaasicFormControlsTemplate';
 export { default as BasicFieldDatePickerTemplate } from './forms/BasicFieldDatePickerTemplate';
 export { default as BasicFormatFieldInputTemplate } from './forms/BasicFormatFieldInputTemplate';
+export { default as BasicFakeInputTemplate } from './forms/BasicFakeInputTemplate';
+export { default as BasicFormatFakeInputTemplate } from './forms/BasicFormatFakeInputTemplate';
 
 export { default as BaasicConfirmModalTemplate } from './dialog/BaasicConfirmModal';
 export { default as BaasicModalTemplate } from './dialog/BaasicModal';

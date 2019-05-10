@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
-import { AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate, SidebarDetailsTemplate } from 'themes/modules/common/contribution/components';
+import { BasicInput, BasicFormatFieldInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
+import { AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate } from 'themes/modules/common/contribution/components';
+import { SidebarDetailsTemplate } from 'themes/modules/main/contribution/components';
 import { EditFormLayout, PageContentSidebar } from 'core/layouts';
 import { BankAccountCreate } from 'modules/common/bank-account/pages';
 import _ from 'lodash';
@@ -61,7 +62,7 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
 
                 <div className="f-row">
                   <div className="form__group f-col f-col-lrg-6">
-                    <BasicInput field={form.$('amount')} />
+                    <BasicFormatFieldInput field={form.$('amount')} thousandSeparator={true} prefix={'$'} />
                   </div>
                   <div className="form__group f-col f-col-lrg-6">
                     <BasicInput field={form.$('description')} />
