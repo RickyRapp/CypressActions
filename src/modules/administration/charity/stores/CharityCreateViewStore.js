@@ -30,11 +30,9 @@ class CharityCreateViewStore extends BaseEditViewStore {
                     }
 
                     const response = await charityService.create(charity);
-                    debugger;
                     newCharityId = response.data.response;
                     try {
                         const fileResponse = await fileStreamService.tdfCreateCharityBankAccountImage(this.form.$('bankAccount.image').files[0], newCharityId);
-                        debugger;
                         return response;
                     } catch (errorReponse) {
                         return errorReponse;

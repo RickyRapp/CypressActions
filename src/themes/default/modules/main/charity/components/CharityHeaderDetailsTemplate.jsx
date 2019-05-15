@@ -25,8 +25,15 @@ function renderCharity(charity, rootStore) {
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">
                 <a className="btn btn--xsml btn--ghost">
-                    Put something here
+                    {charity.name} - {charity.taxId}
                 </a>
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                <a
+                    className="btn btn--xsml btn--ghost"
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.files', { id: charity.id })}>
+                    Files
+            </a>
             </div>
         </div>
     )
