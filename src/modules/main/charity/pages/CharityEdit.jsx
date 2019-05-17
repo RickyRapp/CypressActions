@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { CharityEditTemplate } from 'themes/modules/administration/charity/pages';
+import { CharityEditTemplate } from 'themes/modules/main/charity/pages';
 import { setCurrentView } from 'core/utils';
 import { CharityEditViewStore } from 'modules/main/charity/stores';
 

@@ -6,7 +6,7 @@ import { CharityEdit } from 'modules/main/charity/pages';
     routes: [
       {
         name: 'master.app.main.charity',
-        pattern: '/profile',
+        pattern: '/charity-profile',
         children: [
           {
             name: 'master.app.main.charity.profile',

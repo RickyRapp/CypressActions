@@ -1,7 +1,7 @@
 import React from 'react'
 import { defaultTemplate } from 'core/utils';
 import { Page, PageContentHeader } from 'core/layouts';
-import { CharityHeaderDetails } from 'modules/main/charity/components';
+import { CharityHeaderDetails } from 'modules/administration/charity/components';
 import { DocumentList, DocumentCreate } from 'modules/common/media-upload/pages';
 
 function CharityFilesTemplate({ charityFilesViewStore }) {
@@ -16,7 +16,7 @@ function CharityFilesTemplate({ charityFilesViewStore }) {
     return (
         <Page loading={loaderStore.loading}>
             <React.Fragment>
-                <PageContentHeader><CharityHeaderDetails userId={id} type='charity' /></PageContentHeader>
+                <PageContentHeader><CharityHeaderDetails userId={id} type='files' /></PageContentHeader>
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
                         <DocumentCreate onRefresh={onRefresh} uploadFunc={uploadFunc} />

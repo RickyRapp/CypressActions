@@ -18,6 +18,7 @@ class MediaUploadCreateViewStore extends BaseViewStore {
         this.acceptFileExtensions = 'image/gif,image/jpg,image/jpeg,image/png,application/msword,application/vnd.ms-excel,application/pdf' //example
         this.onRefresh = onRefresh;
         this.uploadFunc = uploadFunc;
+        this.fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
 
         this.imageExtensions = [imageJpeg, imageJpg, imagePng, imageGif];
         this.applicationMSWord = applicationMSWord;
@@ -91,12 +92,12 @@ class MediaUploadCreateViewStore extends BaseViewStore {
     }
 
     @action.bound async onSubmit() {
+        debugger;
         for (let index = 0; index < this.files.length; index++) {
             const file = this.files[index];
             try {
-                debugger;
                 if (_.isFunction(this.uploadFunc)) {
-                    await this.uploadFunc(file, this.id)
+                    await this.fileStreamService[this.uploadFunc.name](file, this.id)
                     this.rootStore.notificationStore.success("File Uploaded Successfully: " + file.name);
                 }
             } catch (errorResponse) {
@@ -105,7 +106,9 @@ class MediaUploadCreateViewStore extends BaseViewStore {
         }
 
         this.files = [];
-        this.onRefresh()
+        if (_.isFunction(this.uploadFunc)) {
+            this.onRefresh()
+        }
     }
 }
 

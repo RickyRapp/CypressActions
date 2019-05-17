@@ -7,7 +7,7 @@ import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/componen
 import { Page, PageFooter, PageContentHeader } from 'core/layouts';
 import { BankAccountTemplate } from 'themes/modules/common/bank-account/components';
 import { AddressEdit, AddressCreate } from 'modules/common/address/pages';
-import { CharityHeaderDetails } from 'modules/administration/charity/components';
+import { CharityHeaderDetails } from 'modules/main/charity/components';
 import _ from 'lodash';
 
 function CharityEditTemplate({ charityEditViewStore, t }) {

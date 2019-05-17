@@ -1,0 +1,1 @@
+export { default as CharityEditTemplate } from './CharityEditTemplate'
