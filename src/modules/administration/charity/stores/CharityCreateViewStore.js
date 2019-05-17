@@ -28,6 +28,10 @@ class CharityCreateViewStore extends BaseEditViewStore {
                     else {
                         charity.coreUser.coreMembership.email = charity.emailAddress.email;
                     }
+                    if (!this.form.$('bankAccount.image').files || this.form.$('bankAccount.image').files.length === 0) {
+                        this.rootStore.notificationStore.error('Please, Upload Image For Bank Account.')
+                        return;
+                    }
 
                     const response = await charityService.create(charity);
                     newCharityId = response.data.response;
