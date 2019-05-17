@@ -3,6 +3,9 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CREATE": "Create",
+    "COREUSER": {
+        "PREFIXTYPEID": "Prefix"
+    },
     "ADDRESS": {
         "ADDRESSLINE1": "Address line 1",
         "ADDRESSLINE2": "Address line 2",
