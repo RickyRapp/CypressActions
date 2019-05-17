@@ -30,8 +30,8 @@ const env = getClientEnvironment(publicUrl);
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
-if (env.stringified['process.env'].NODE_ENV !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
+if (env.stringified['process.env'].NODE_ENV == '"development"') {
+  throw new Error('Production builds must not have NODE_ENV=development.');
 }
 
 // Note: defined here because it will be used more than once.
@@ -116,18 +116,7 @@ module.exports = merge(commonConfig({ env: env }), {
                         // Necessary for external CSS imports to work
                         // https://github.com/facebookincubator/create-react-app/issues/2677
                         ident: 'postcss',
-                        plugins: () => [
-                          require('postcss-flexbugs-fixes'),
-                          autoprefixer({
-                            browsers: [
-                              '>1%',
-                              'last 4 versions',
-                              'Firefox ESR',
-                              'not ie < 9', // React doesn't support IE8 anyway
-                            ],
-                            flexbox: 'no-2009',
-                          }),
-                        ],
+                        // Note: postcss configuration is in postcss.config.js in root of project (plugins etc)
                       },
                     },
                   ],
@@ -135,7 +124,6 @@ module.exports = merge(commonConfig({ env: env }), {
                 extractTextPluginOptions
               )
             ),
-            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           }
         ],
       },
@@ -158,33 +146,36 @@ module.exports = merge(commonConfig({ env: env }), {
         minifyCSS: true,
         minifyURLs: true,
       },
-      chunks: ['polyfills', 'common', 'modules', 'app'],
+      chunks: ['common', 'polyfills', 'commonModules', 'appModules', 'app'],
       chunksSortMode: 'manual',
     }),
-    // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // Disabled because of an issue with Uglify breaking seemingly valid code:
-        // https://github.com/facebookincubator/create-react-app/issues/2376
-        // Pending further investigation:
-        // https://github.com/mishoo/UglifyJS2/issues/2011
-        comparisons: false,
-      },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using default
-        // https://github.com/facebookincubator/create-react-app/issues/2488
-        ascii_only: true,
-      },
-      sourceMap: shouldUseSourceMap,
-    }),
+    // // Minify the code.
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     //warnings: false,
+    //     // Disabled because of an issue with Uglify breaking seemingly valid code:
+    //     // https://github.com/facebookincubator/create-react-app/issues/2376
+    //     // Pending further investigation:
+    //     // https://github.com/mishoo/UglifyJS2/issues/2011
+    //     comparisons: false,
+    //     warnings: true,
+    //     reduce_vars: true
+    //   },
+    //   mangle: {
+    //     safari10: true,
+    //   },
+    //   output: {
+    //     comments: false,
+    //     // Turned on because emoji and regex is not minified properly using default
+    //     // https://github.com/facebookincubator/create-react-app/issues/2488
+    //     ascii_only: true,
+    //   },
+    //   sourceMap: shouldUseSourceMap,
+    // }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,
+      allChunks: true
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without

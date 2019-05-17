@@ -5,7 +5,7 @@ const fs = require('fs');
 const url = require('url');
 
 const helpers = require('./helpers');
-const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const env = process.env.NODE_ENV;
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
