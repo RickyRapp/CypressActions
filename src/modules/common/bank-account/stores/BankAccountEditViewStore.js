@@ -37,7 +37,7 @@ class BankAccountEditViewStore extends BaseViewStore {
 
                 try {
                     if (this.form.$('image').files) {
-                        const fileResponse = await this.fileStreamService.createCharityBankAccountImage(this.form.$('image').files[0], this.id);
+                        const fileResponse = await this.fileStreamService.createBankAccountImage(this.form.$('image').files[0], this.id);
                         item.coreMediaVaultEntryId = fileResponse.data.id;
                     }
                 } catch ({ data }) {

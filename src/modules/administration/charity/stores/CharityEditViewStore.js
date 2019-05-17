@@ -58,7 +58,7 @@ class CharityEditViewStore extends BaseViewStore {
 
                     try {
                         if (this.form.$('bankAccount.image').files) {
-                            const fileResponse = await this.fileStreamService.createCharityBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
+                            const fileResponse = await this.fileStreamService.createBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
                             item.bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
                         }
                     } catch (errorReponse) {

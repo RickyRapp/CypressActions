@@ -13,12 +13,13 @@ class FileStreamService extends BaseService {
         this.documentPath = 'documents/';
     }
 
-    //TODO: change to update method because charity must have bank account image upon creating
-    async createCharityBankAccountImage(file, userId, embed = null) {
+    //TODO: create update method because charity must have bank account image upon creating
+
+    async createBankAccountImage(file, userId, embed = null) {
         let formData = new FormData();
         formData.append('file', file, file.name);
         const url = this.uriTemplateService.parse(this.routeService.rootBase + userId + "/" + this.bankAccountPath + file.name + '{?embed}').expand({ embed: embed });
-        return await this.update(url, formData);
+        return await this.create(url, formData);
     }
 
     async tdfCreateCharityBankAccountImage(file, userId, embed = null) {
