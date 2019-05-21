@@ -12,7 +12,9 @@ import { CharityEdit } from 'modules/main/charity/pages';
             name: 'master.app.main.charity.profile',
             pattern: '',
             component: CharityEdit,
-            authorization: 'theDonorsFundCharitySection.update'
+            authorization: 'theDonorsFundCharitySection.update',
+            withoutAuthorization: 'theDonorsFundAdministrationSection.read',
+
           },
         ]
       }
