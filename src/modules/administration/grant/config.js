@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantList } from 'modules/administration/grant/pages'
+import { GrantList, GrantCreate } from 'modules/administration/grant/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -14,6 +14,12 @@ import { GrantList } from 'modules/administration/grant/pages'
                         pattern: '',
                         component: GrantList,
                         authorization: 'theDonorsFundAdministrationSection.read'
+                    },
+                    {
+                        name: 'master.app.administration.grant.create',
+                        pattern: ':userId/create',
+                        component: GrantCreate,
+                        authorization: 'theDonorsFundAdministrationSection.create'
                     }
                 ]
             }

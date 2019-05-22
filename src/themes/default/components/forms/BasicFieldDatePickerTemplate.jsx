@@ -59,7 +59,7 @@ function CustomOverlay({ classNames, selectedDay, children, ...props }) {
     return (
         <div
             className={classNames.overlayWrapper}
-            style={{ 'zIndex': 9998, 'position': 'fixed' }}
+            style={{ 'zIndex': 9998 }}
             {...props}
         >
             <div className={classNames.overlay}>

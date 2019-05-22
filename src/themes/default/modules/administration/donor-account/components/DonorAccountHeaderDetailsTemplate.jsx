@@ -8,7 +8,8 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
         isDonorAccountType,
         isContributionType,
         isContributionSettingType,
-        isActivityAndHistoryType
+        isActivityAndHistoryType,
+        isGrantType
     } = donorAccountHeaderDetailsViewStore;
 
     return (
@@ -26,6 +27,9 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
 
                     {isActivityAndHistoryType &&
                         renderActivityAndHistory(donorAccount, rootStore)}
+
+                    {isGrantType &&
+                        renderGrant(donorAccount, rootStore)}
                 </React.Fragment >
                 : null}
         </React.Fragment >
@@ -127,6 +131,25 @@ function renderContributionSetting(donorAccount, rootStore) {
 }
 
 function renderActivityAndHistory(donorAccount, rootStore) {
+    return (
+        <div className="f-row">
+            <div className="form__group f-col f-col-lrg-3">
+                Donor Name:
+                <a
+                    className="btn btn--xsml btn--ghost"
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
+                    <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
+                </a>
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                Available Balance:
+                <strong>${donorAccount.availableBalance}</strong>
+            </div>
+        </div>
+    )
+}
+
+function renderGrant(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">

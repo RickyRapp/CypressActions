@@ -33,6 +33,8 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
         }
         else if (this.isActivityAndHistoryType) {
         }
+        else if (this.isGrantType) {
+        }
 
         return embeds.join(',');
     }
@@ -51,6 +53,10 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
 
     @computed get isActivityAndHistoryType() {
         return this.type === 'activity-and-history';
+    }
+
+    @computed get isGrantType() {
+        return this.type === 'grant';
     }
 }
 

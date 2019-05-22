@@ -20,10 +20,15 @@ class CharityService extends BaseService {
     return response || null;
   }
 
-
   async findDocuments(filter) {
     const url = this.routeService.findDocuments(filter);
     const response = await this.apiClient.get(url);
+    return response.data || null;
+  }
+
+  async search(filter) {
+    const url = this.routeService.search(filter);
+    const response = await this.apiClient.get(url, filter);
     return response.data || null;
   }
 }

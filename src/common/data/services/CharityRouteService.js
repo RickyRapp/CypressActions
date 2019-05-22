@@ -34,6 +34,10 @@ class CharityRouteService extends BaseRouteService {
   review(resource) {
     return this.uriTemplateService.parse(this.base + 'review/{id}').expand(resource);
   }
+
+  search(filter) {
+    return super.find(this.base + 'search/{?id,searchQuery,page,rpp,sort,embed,fields,exceptId}', filter);
+  }
 }
 
 export default CharityRouteService;

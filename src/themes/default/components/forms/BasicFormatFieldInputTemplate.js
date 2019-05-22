@@ -9,7 +9,9 @@ const BasicFormatFieldInputTemplate = defaultTemplate(({ field, t, label = null,
     format,
     mask,
     prefix,
-    suffix
+    suffix,
+    decimalScale,
+    fixedDecimalScale
   } = props;
 
   return (
@@ -28,6 +30,8 @@ const BasicFormatFieldInputTemplate = defaultTemplate(({ field, t, label = null,
         disabled={field.disabled}
         prefix={prefix}
         suffix={suffix}
+        decimalScale={decimalScale}
+        fixedDecimalScale={fixedDecimalScale}
       />
       {renderIf(isSome(field.error))(
         <p className="type--tiny type--color--error">{field.error}</p>

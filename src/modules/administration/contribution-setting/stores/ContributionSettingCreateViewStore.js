@@ -16,11 +16,7 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
             name: 'contribution setting',
             actions: {
                 create: async contributionSetting => {
-                    try {
-                        return await contributionSettingService.createContributionSetting(userId, contributionSetting);
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await contributionSettingService.createContributionSetting(userId, contributionSetting);
                 }
             },
             FormClass: ContributionSettingCreateForm,

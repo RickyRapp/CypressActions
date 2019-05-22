@@ -115,10 +115,16 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
 
     @action.bound renderLink(item) {
         if (item.contributionId) {
-            return <a onClick={() => this.rootStore.routerStore.navigate('master.app.administration.contribution.details', { userId: item.donorAccountId, contributionId: item.contributionId })}>Contribution</a>
+            return <a onClick={() => this.rootStore.routerStore.navigate('master.app.administration.contribution.details', { id: item.contributionId })}>Contribution</a>
         }
         else if (item.fundTransferId) {
             return <a onClick={() => this.rootStore.routerStore.navigate('master.app.administration.fund-transfer.list')}>Fund Transfer</a>
+        }
+        else if (item.grantId) {
+            return <a onClick={() => alert('Redirect to grant detail page')}>Grant</a>
+        }
+        else if (item.feeId) {
+            return <a onClick={() => alert('Navigate to fee detail page?')}>Fee</a>
         }
         return null;
     }

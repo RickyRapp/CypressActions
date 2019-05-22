@@ -18,11 +18,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             name: 'fund transfer',
             actions: {
                 create: async fundTransfer => {
-                    try {
-                        return await fundTransferService.create(fundTransfer);
-                    } catch (errorResponse) {
-                        return errorResponse;
-                    }
+                    return await fundTransferService.create(fundTransfer);
                 }
             },
             FormClass: FundTransferCreateForm

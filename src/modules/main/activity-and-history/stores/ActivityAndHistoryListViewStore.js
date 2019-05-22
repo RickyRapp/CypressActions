@@ -118,6 +118,12 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
         else if (item.fundTransferId) {
             return <a onClick={() => this.rootStore.routerStore.navigate('master.app.main.fund-transfer.list')}>Fund Transfer</a>
         }
+        else if (item.grantId) {
+            return <a onClick={() => alert('Redirect to grant detail page')}>Grant</a>
+        }
+        else if (item.feeId) {
+            return <a onClick={() => alert('Navigate to fee detail page?')}>Fee</a>
+        }
         return null;
     }
 

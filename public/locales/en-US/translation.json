@@ -259,5 +259,25 @@
         "EXTRABOOKLETPERCENTAGE": "Extra Booklet Percentage",
         "BLANKBOOKLETMAX ": "Blank Booklet Max",
         "NOTIFICATIONLIMITREMAINDERAMOUNT": "Low Balance Remainder"
+    },
+    "GRANTCREATEFORM": {
+        "CHARITYID": "Charity",
+        "AMOUNT": "Amount",
+        "DESCRIPTION": "Description",
+        "DESCRIPTIONTOOLTIP": "This field can be used for your record-keeping or to message The Donors' Fund (It will not appear on the payment being submitted to the charity)",
+        "GRANTPURPOSETYPEID": "Purpose",
+        "GRANTACKNOWLEDGMENTTYPEID": "Share Your Information",
+        "ADDITIONALINFORMATION": "Additional Information",
+        "GRANTTYPEID": "Schedule",
+        "RECURRINGORFUTURE": "Schedule Payment",
+        "STARTDATE": "Start Date",
+        "ENDDATE": "End Date",
+        "FUTUREDATE": "Future Date",
+        "CHARITYEVENTATTENDING": "Attending",
+        "PURPOSECHARITYEVENTATTENDING": "The IRS prohibits using donor-advised funds to pay for tickets to attend a charity event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
+        "PURPOSECHARITYEVENTNOTATTENDING": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
+        "PURPOSEMEMBERSHIP": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
+        "PURPOSENONBINDINGPLEDGE": "Donor-advised funds can be used for a non-binding pledge. However, the IRS prohibits grants from a donor-advised fund from being used for a legally binding pledge.",
+        "PURPOSEOTHER": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below."
     }
 }
