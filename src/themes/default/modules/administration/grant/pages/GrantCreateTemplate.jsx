@@ -5,6 +5,7 @@ import { BasicInput, BasicTextArea, BaasicFieldDropdown, BasicFormatFieldInput, 
 import { EditFormLayout, PageContentHeader } from 'core/layouts';
 import { DonorAccountHeaderDetails } from 'modules/administration/donor-account/components'
 import { getFormattedAddress } from 'core/utils'
+import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 function GrantCreateTemplate({ grantCreateViewStore, t }) {
@@ -120,10 +121,25 @@ function GrantCreateTemplate({ grantCreateViewStore, t }) {
     
                             <div className="f-row">
                         <div className="form__group f-col f-col-lrg-6">
-                            <BasicFormatFieldInput field={form.$('amount')} decimalScale={2} fixedDecimalScale={true} thousandSeparator={true} prefix={'$'} />
+                            <BasicFormatFieldInput field={form.$('amount')} decimalScale={2}  thousandSeparator={true} prefix={'$'} />
                         </div>
-                        <div className="form__group f-col f-col-lrg-6">
-                            <BasicInput field={form.$('description')} />
+                        {form.$('amount').value &&
+                            <div className="form__group f-col f-col-lrg-6">
+                                <div className="inputgroup">
+                                    <label>Total</label>
+                                    <NumberFormat
+                                        className={"input input--text input--med padd--top--tny input--disabled"}
+                                        value={Number(form.$('amount').value) + Number(form.$('amount').value) * donorAccount.grantFee/100} //TODO: api call on server to check fee amount
+                                        decimalScale={2} 
+                                        fixedDecimalScale={true} 
+                                        thousandSeparator={true} 
+                                        prefix={'$'}
+                                        displayType={'text'}
+                                    />
+                                </div>
+                            </div>}
+                        <div className="form__group f-col f-col-lrg-12">
+                            <BasicTextArea field={form.$('description')} />
                         </div>
                     </div>
 
