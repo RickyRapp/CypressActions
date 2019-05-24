@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, otherId, minimumAmount, donorAccount) {
+function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, oneTimeId, monthlyId, annualId, minimumAmount, donorAccount) {
     const scheduleTypeAmountRule = `required|numeric|min:${minimumAmount}`;
     const withoutScheduleTypeAmountRule = `required|numeric|min:${minimumAmount}|max:${((donorAccount.availableBalance + donorAccount.lineOfCredit) / (1 + donorAccount.grantFee / 100)).toFixed(2)}`;
 
@@ -86,33 +86,65 @@ function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, othe
         {
             name: 'grantScheduleTypeId',
             label: 'GRANTCREATEFORM.GRANTSCHEDULETYPEID',
-            rules: 'string'
+            rules: 'required_if:recurringOrFuture,true|string'
+        },
+        {
+            name: 'name',
+            label: 'GRANTCREATEFORM.GRANTSCHEDULEDNAME',
+            rules: `string`
         },
         {
             name: 'futureDate',
             label: 'GRANTCREATEFORM.FUTUREDATE',
-            rules: 'string'
+            rules: `required_if:grantScheduleTypeId,${oneTimeId}|date`
         },
         {
             name: 'startDate',
             label: 'GRANTCREATEFORM.STARTDATE',
-            rules: 'string'
+            rules: `required_if:grantScheduleTypeId,${monthlyId}|required_if:grantScheduleTypeId,${annualId}|date`
         },
         {
             name: 'endDate',
             label: 'GRANTCREATEFORM.ENDDATE',
-            rules: 'string'
+            rules: 'date',
+            observers: [{
+                key: 'value', // can be any prop
+                call: ({ form, field }) => {
+                    form.$('numberOfPayments').set('disabled', field.value);
+                    form.$('noEndDate').set('disabled', field.value);
+                    form.$('numberOfPayments').set('value', '');
+                    form.$('noEndDate').set('value', '');
+                },
+            }],
         },
         {
-            name: 'duration',
-            label: 'GRANTCREATEFORM.duration',
-            rules: 'numeric'
+            name: 'numberOfPayments',
+            label: 'GRANTCREATEFORM.NUMBEROFPAYMENTS',
+            rules: 'numeric',
+            observers: [{
+                key: 'value', // can be any prop
+                call: ({ form, field }) => {
+                    form.$('endDate').set('disabled', field.value);
+                    form.$('noEndDate').set('disabled', field.value);
+                    form.$('endDate').set('value', '');
+                    form.$('noEndDate').set('value', '');
+                },
+            }],
         },
         {
-            name: 'ongoing',
-            label: 'GRANTCREATEFORM.ENDDATE',
+            name: 'noEndDate',
+            label: 'GRANTCREATEFORM.NOENDDATE',
             rules: 'boolean',
-            type: 'checkbox'
+            type: 'checkbox',
+            observers: [{
+                key: 'value', // can be any prop
+                call: ({ form, field }) => {
+                    form.$('endDate').set('disabled', field.value);
+                    form.$('numberOfPayments').set('disabled', field.value);
+                    form.$('endDate').set('value', '');
+                    form.$('numberOfPayments').set('value', '');
+                },
+            }],
         }
     ]
 }

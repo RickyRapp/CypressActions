@@ -1,5 +1,5 @@
 import React from 'react';
-import { BasicTextArea, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox, BaasicFieldAsyncDropdown, BasicFieldDatePicker } from 'core/components';
+import { BasicInput, BasicTextArea, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox, BaasicFieldAsyncDropdown, BasicFieldDatePicker } from 'core/components';
 import { getFormattedAddress, defaultTemplate } from 'core/utils'
 import NumberFormat from 'react-number-format';
 import {
@@ -25,9 +25,9 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
         fundNameAndAddressId,
         fundNameId,
         donorAccount,
-        futureId,
-        recurringMonthlyId,
-        recurringAnnualId,
+        oneTimeId,
+        monthlyId,
+        annualId,
         totalAmount,
         calculateFee
     } = grantCreateViewStore;
@@ -120,20 +120,28 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
 
                     {grantScheduleTypeDropdownStore.value &&
                         <React.Fragment>
-                            {grantScheduleTypeDropdownStore.value.id === futureId &&
-                                <div className="f-row">
+                            <div className="f-row">
+                                <div className="form__group f-col f-col-lrg-6">
+                                    <BasicInput field={form.$('name')} />
+                                </div>
+                                {grantScheduleTypeDropdownStore.value.id === oneTimeId &&
                                     <div className="form__group f-col f-col-lrg-6">
                                         <BasicFieldDatePicker field={form.$('futureDate')} />
-                                    </div>
-                                </div>}
-
-                            {(grantScheduleTypeDropdownStore.value.id === recurringMonthlyId || grantScheduleTypeDropdownStore.value.id === recurringAnnualId) &&
+                                    </div>}
+                            </div>
+                            {(grantScheduleTypeDropdownStore.value.id === monthlyId || grantScheduleTypeDropdownStore.value.id === annualId) &&
                                 <div className="f-row">
-                                    <div className="form__group f-col f-col-lrg-6">
+                                    <div className="form__group f-col f-col-lrg-3">
                                         <BasicFieldDatePicker field={form.$('startDate')} />
                                     </div>
-                                    <div className="form__group f-col f-col-lrg-6">
-                                        <BasicFieldDatePicker field={form.$('endDate')} />
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} />
+                                    </div>
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <BasicCheckBox field={form.$('noEndDate')} />
+                                    </div>
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <BasicInput field={form.$('numberOfPayments')} />
                                     </div>
                                 </div>}
                         </React.Fragment>}

@@ -18,8 +18,11 @@ class BasicFieldDatePickerTemplate extends React.Component {
     }
     render() {
         const { field } = this;
-        const { t } = this.props;
-        const inputProps = { className: isSome(field.error) ? "input input--med input--text input--date input--invalid" : "input--date input input--med input--text" };
+        const { t, isClearable } = this.props;
+        const inputProps = {
+            className: isSome(field.error) ? "input input--med input--text input--date input--invalid" : "input--date input input--med input--text",
+            disabled: field.disabled
+        };
 
         return (
             <div className="inputgroup">
@@ -42,6 +45,10 @@ class BasicFieldDatePickerTemplate extends React.Component {
                     value={!this.withoutYear ? `${field.value ? formatDate(field.value) : ''}` : `${field.value ? formatDate(typeof field.value !== "string" ? field.value.setFullYear(2000) : field.value, "MMMM D") : ''}`}
                     placeholder={!this.withoutYear ? `${formatDate(new Date())}` : `${formatDate(new Date(), "MMMM D")}`}
                 />
+                {isClearable &&
+                    <div>
+                        <span onClick={() => this.handleDayChange("")}>Clear</span>
+                    </div>}
                 {renderIf(isSome(field.error))(<p className="type--tny type--color--error">{t(field.error)}</p>)}
             </div>
         )
