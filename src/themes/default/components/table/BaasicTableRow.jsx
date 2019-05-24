@@ -57,7 +57,7 @@ function renderRow(item, column) {
   }
 
   if (column.type === 'currency') {
-    itemValue = <NumberFormat value={itemValue} displayType={'text'} thousandSeparator={true} prefix={column.format ? column.format : '$'} />
+    itemValue = <NumberFormat value={itemValue} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={column.format ? column.format : '$'} />
   }
 
   if (column.type === 'lookup' && column.lookup) {

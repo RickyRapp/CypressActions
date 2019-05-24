@@ -1,10 +1,9 @@
 import { action, observable } from 'mobx';
-import { GrantService, LookupService, DonorAccountService, CharityService } from "common/data";
+import { GrantService, LookupService, CharityService } from "common/data";
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
-import { GrantListFilter } from 'modules/administration/grant/models';
-import { ModalParams } from 'core/models';
+import { GrantListFilter } from 'modules/main/grant/models';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
-import { getDonorNameDropdown, getCharityNameDropdown } from 'core/utils';
+import { getCharityNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
 class GrantListViewStore extends BaseListViewStore {
@@ -18,9 +17,6 @@ class GrantListViewStore extends BaseListViewStore {
 
         let filter = new GrantListFilter()
         if (rootStore.routerStore.routerState.queryParams) {
-            if (rootStore.routerStore.routerState.queryParams.donorAccountId) {
-                filter.donorAccountId = rootStore.routerStore.routerState.queryParams.donorAccountId;
-            }
             if (rootStore.routerStore.routerState.queryParams.charityId) {
                 filter.charityId = rootStore.routerStore.routerState.queryParams.charityId;
             }
@@ -30,19 +26,13 @@ class GrantListViewStore extends BaseListViewStore {
             name: 'grant',
             routes: {
                 create: () => {
-                    this.findDonorModalParams.open();
-                },
-                charityEdit: (charityId) => {
-                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId })
-                },
-                donorAccountEdit: (userId) => {
-                    this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId })
+                    this.rootStore.routerStore.navigate('master.app.main.grant.create')
                 }
             },
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,grantPurposeMember,charity';
+                    params.embed = 'createdByCoreUser,grantPurposeMember,charity';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await grantService.find(params);
@@ -55,11 +45,6 @@ class GrantListViewStore extends BaseListViewStore {
             }
         });
 
-        this.findDonorModalParams = new ModalParams({
-            onClose: this.onClose
-        });
-
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
         this.donationStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'donation-status');
         this.grantPurposeTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-purpose-type');
@@ -77,21 +62,8 @@ class GrantListViewStore extends BaseListViewStore {
             new TableViewStore(this.queryUtility, {
                 columns: [
                     {
-                        key: 'donorAccount.coreUser',
-                        title: 'Donor Account',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }],
-                        onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id)
-                    },
-                    {
                         key: 'charity.name',
-                        title: 'Charity',
-                        onClick: grant => this.routes.charityEdit(grant.charity.id)
+                        title: 'Charity'
                     },
                     {
                         key: 'amount',
@@ -143,39 +115,6 @@ class GrantListViewStore extends BaseListViewStore {
     }
 
     @action.bound async setFilterDropdownStores() {
-        this.donorAccountSearchDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true,
-                placeholder: 'Choose Donor',
-                initFetch: false
-            },
-            {
-                fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
-                    if (term && term !== '') {
-                        options.searchQuery = term;
-                    }
-
-                    let response = await this.donorAccountService.search(options);
-                    return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
-                },
-                onChange: (option) => this.queryUtility.filter.donorAccountId = (option ? option.id : null)
-            }
-        );
-
-        if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
-            const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
-            let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
-            let donorSearchs = [];
-            donorSearchs.push(defaultSearchDonor);
-            this.donorAccountSearchDropdownStore.items = donorSearchs;
-        }
-
         this.charitySearchDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
@@ -207,14 +146,6 @@ class GrantListViewStore extends BaseListViewStore {
             let charitySearchs = [];
             charitySearchs.push(defaultCharity);
             this.charitySearchDropdownStore.items = charitySearchs;
-        }
-    }
-
-    @action.bound async onChangeSearchDonor(option) {
-        if (option) {
-            this.rootStore.routerStore.navigate('master.app.administration.grant.create', {
-                userId: option.id
-            })
         }
     }
 }

@@ -7,7 +7,7 @@ class GrantRouteService extends BaseRouteService {
         super();
         this.base = 'grant/';
         this.uriTemplateService = uritemplate;
-        this.queryParams = 'donorAccountId,amountRangeMin,amountRangeMax,senderDonorAccountId,recipientDonorAccountId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,searchFields';
+        this.queryParams = 'donorAccountId,amountRangeMin,amountRangeMax,charityId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,searchFields';
     }
 
     find(filter) {

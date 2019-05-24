@@ -268,7 +268,7 @@
         "GRANTPURPOSETYPEID": "Purpose",
         "GRANTACKNOWLEDGMENTTYPEID": "Share Your Information",
         "ADDITIONALINFORMATION": "Additional Information",
-        "GRANTTYPEID": "Schedule",
+        "GRANTSCHEDULETYPEID": "Schedule",
         "RECURRINGORFUTURE": "Schedule Payment",
         "STARTDATE": "Start Date",
         "ENDDATE": "End Date",

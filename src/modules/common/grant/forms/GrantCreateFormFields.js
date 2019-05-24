@@ -1,6 +1,9 @@
 import moment from 'moment';
 
 function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, otherId, minimumAmount, donorAccount) {
+    const scheduleTypeAmountRule = `required|numeric|min:${minimumAmount}`;
+    const withoutScheduleTypeAmountRule = `required|numeric|min:${minimumAmount}|max:${((donorAccount.availableBalance + donorAccount.lineOfCredit) / (1 + donorAccount.grantFee / 100)).toFixed(2)}`;
+
     return [
         {
             name: 'charityId',
@@ -15,7 +18,10 @@ function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, othe
         {
             name: 'amount',
             label: 'GRANTCREATEFORM.AMOUNT',
-            rules: `required|numeric|min:${minimumAmount}|max:${donorAccount.availableBalance}`
+            rules: withoutScheduleTypeAmountRule,
+            options: {
+                validateOnChange: true
+            }
         },
         {
             name: 'description',
@@ -64,11 +70,22 @@ function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, othe
             label: 'GRANTCREATEFORM.RECURRINGORFUTURE',
             rules: 'boolean',
             type: 'checkbox',
-            value: false
+            value: false,
+            observers: [{
+                key: 'value', // can be any prop
+                call: ({ form, field }) => {
+                    if (field.value === true) {
+                        form.$('amount').set('rules', scheduleTypeAmountRule)
+                    }
+                    else {
+                        form.$('amount').set('rules', withoutScheduleTypeAmountRule)
+                    }
+                },
+            }],
         },
         {
-            name: 'grantTypeId',
-            label: 'GRANTCREATEFORM.GRANTTYPEID',
+            name: 'grantScheduleTypeId',
+            label: 'GRANTCREATEFORM.GRANTSCHEDULETYPEID',
             rules: 'string'
         },
         {

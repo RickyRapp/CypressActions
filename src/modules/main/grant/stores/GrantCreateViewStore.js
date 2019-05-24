@@ -22,7 +22,7 @@ class GrantCreateViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore)
 
-        this.userId = rootStore.routerStore.routerState.params.userId;
+        this.userId = rootStore.authStore.user.id;
         this.grantService = new GrantService(rootStore.app.baasic.apiClient);
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
@@ -58,7 +58,7 @@ class GrantCreateViewStore extends BaseViewStore {
     }
 
     @action.bound async initializeForm() {
-        const fields = GrantCreateFormFields(this.inMemoryOf, this.inHonorOf, this.sponsorAFriendId, this.otherId, 0, this.donorAccount);
+        const fields = GrantCreateFormFields(this.inMemoryOf, this.inHonorOf, this.sponsorAFriendId, this.otherId, this.donorAccount.grantMinimumAmount, this.donorAccount);
         this.form = new FormBase({
             onSuccess: async (form) => {
                 this.form.setFieldsDisabled(true);

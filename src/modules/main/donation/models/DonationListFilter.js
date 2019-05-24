@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { FilterParams } from 'core/models';
 
-class GrantListFilter extends FilterParams {
+class DonationListFilter extends FilterParams {
     @observable donorAccountId;
     @observable charityId;
     @observable amountRangeMin;
@@ -26,4 +26,4 @@ class GrantListFilter extends FilterParams {
     }
 }
 
-export default GrantListFilter;
+export default DonationListFilter;

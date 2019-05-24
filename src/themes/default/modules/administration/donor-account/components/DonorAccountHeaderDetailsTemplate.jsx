@@ -1,5 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
+import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore, rootStore }) {
@@ -65,7 +66,6 @@ function renderDonorAccount(donorAccount, rootStore) {
     )
 }
 
-
 function renderContribution(donorAccount, rootStore) {
     return (
         <div className="f-row">
@@ -79,7 +79,7 @@ function renderContribution(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <strong>${donorAccount.availableBalance}</strong>
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Initial Contribution:
@@ -116,7 +116,7 @@ function renderContributionSetting(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <strong>${donorAccount.availableBalance}</strong>
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Initial Contribution:
@@ -143,7 +143,7 @@ function renderActivityAndHistory(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <strong>${donorAccount.availableBalance}</strong>
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
         </div>
     )
@@ -162,7 +162,15 @@ function renderGrant(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <strong>${donorAccount.availableBalance}</strong>
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                Line Of Credit:
+                <NumberFormat value={donorAccount.lineOfCredit} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
+                Grant Fee:
+                <NumberFormat value={donorAccount.grantFee} displayType={'text'} thousandSeparator={true} suffix={'%'} />
             </div>
         </div>
     )

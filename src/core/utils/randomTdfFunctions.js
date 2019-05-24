@@ -7,7 +7,7 @@ function getDonorNameDropdown(val) {
     }
     fullName += ` ${val.coreUser.lastName}`;
 
-    fullName += ` - {${val.accountNumber}}`
+    fullName += ` - {${val.accountNumber}} - `
 
     if (val.donorAccountAddresses) {
         fullName += getFormattedPrimaryAddress(val.donorAccountAddresses);
@@ -32,4 +32,23 @@ function getFormattedAddress(val) {
     return fullAddress;
 }
 
-export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress };
+function getCharityNameDropdown(val) {
+    let fullName = `${val.name}`
+    fullName += ` - {${formatCharityTaxId(val.taxId)}} - `;
+
+    if (val.charityAddresses) {
+        fullName += getFormattedPrimaryAddress(val.charityAddresses);
+    }
+    return fullName;
+}
+
+function formatCharityTaxId(val) {
+    if (val) {
+        if (val.length > 3) {
+            return [val.slice(0, 2), '-', val.slice(2)].join(''); //inserts '-' on 3rd place in taxId
+        }
+    }
+    return '';
+}
+
+export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown };

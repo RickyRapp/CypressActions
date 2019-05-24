@@ -17,7 +17,7 @@ class CharityEditViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
-        this.fileStreamRouteService = new FileStreamRouteService(rootStore.app.baasic.apiClient);
+        this.fileStreamRouteService = new FileStreamRouteService();
         this.fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
         this.id = rootStore.routerStore.routerState.params.id;
         this.rootStore = rootStore;

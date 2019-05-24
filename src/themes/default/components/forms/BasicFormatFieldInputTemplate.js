@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderIf, isSome, defaultTemplate } from 'core/utils';
 import NumberFormat from 'react-number-format';
+import _ from 'lodash';
 
 const BasicFormatFieldInputTemplate = defaultTemplate(({ field, t, label = null, ...props }) => {
   const {
@@ -11,15 +12,25 @@ const BasicFormatFieldInputTemplate = defaultTemplate(({ field, t, label = null,
     prefix,
     suffix,
     decimalScale,
-    fixedDecimalScale
+    fixedDecimalScale,
+    onBlur,
+    onValueChange
   } = props;
+
+  const onChange = (value) => {
+    field.sync(value);
+    if (onValueChange && _.isFunction(onValueChange)) {
+      onValueChange(value);
+    }
+  }
 
   return (
     <div className="inputgroup">
       <label htmlFor={field.id}>{label ? label : t(field.label)} </label>
       <NumberFormat
         className={field.disabled ? "input input--med input--text input--disabled" : "input input--med input--text"}
-        onValueChange={({ value }) => field.sync(value)}
+        onValueChange={({ value }) => onChange(value)}
+        onBlur={() => onBlur ? onBlur() : null}
         type={field.type}
         value={field.value}
         thousandSeparator={thousandSeparator}

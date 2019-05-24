@@ -36,7 +36,7 @@ import { Home } from 'modules/common/public/pages'
           {
             name: 'master.app.main',
             pattern: '',
-            isPrivate: true,
+            isPrivate: true
           }
         ]
       },
