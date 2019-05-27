@@ -11,7 +11,7 @@ const renderGrantPurposeType = (item, grantPurposeTypeModels) => {
         return (
             <React.Fragment>
                 {base}
-                <span className='icomoon medium icon-cog' data-tip data-for={`purpose_${item.id}`} />
+                <span className='icomoon tiny icon-cog' data-tip data-for={`purpose_${item.id}`} />
                 <ReactTooltip type='info' effect='solid' place="right" id={`purpose_${item.id}`}>
                     <span>{`${item.grantPurposeMember.firstName} ${item.grantPurposeMember.lastName}`}</span>
                 </ReactTooltip>
@@ -21,7 +21,7 @@ const renderGrantPurposeType = (item, grantPurposeTypeModels) => {
         return (
             <React.Fragment>
                 {base}
-                <span className='icomoon medium icon-cog' data-tip data-for={`purpose_${item.id}`} />
+                <span className='icomoon tiny icon-cog' data-tip data-for={`purpose_${item.id}`} />
                 <ReactTooltip type='info' effect='solid' place="right" id={`purpose_${item.id}`}>
                     <span>{item.additionalInformation}</span>
                 </ReactTooltip>

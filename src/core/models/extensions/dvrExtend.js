@@ -1,4 +1,5 @@
-import _ from "lodash";
+import _ from 'lodash';
+import moment from 'moment'
 
 export default ({ validator, form }) => {
   const form2 = form;
@@ -40,7 +41,7 @@ export default ({ validator, form }) => {
         }
         return false;
       },
-      message: 'The :attribute date is not valid.'
+      message: 'The :attribute date is not valid. It must be after :after date.'
     }
   };
 
@@ -58,20 +59,20 @@ function leapYear(year) {
 }
 
 function isValidDate(inDate) {
-  var valid = true;
+  const valid = true;
 
   // reformat if supplied as mm.dd.yyyy (period delimiter)
   if (typeof inDate === 'string') {
-    var pos = inDate.indexOf('.');
+    const pos = inDate.indexOf('.');
     if ((pos > 0 && pos <= 6)) {
       inDate = inDate.replace(/\./g, '-');
     }
   }
 
-  var testDate = new Date(inDate);
-  var yr = testDate.getFullYear();
-  var mo = testDate.getMonth();
-  var day = testDate.getDate();
+  const testDate = new Date(inDate);
+  const yr = testDate.getFullYear();
+  const mo = testDate.getMonth();
+  const day = testDate.getDate();
 
   var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { renderIf, isSome } from 'core/utils';
 
-const BasicInputTemplate = defaultTemplate(({ field, t, label = null }) => {
+const BasicInputTemplate = defaultTemplate(({ field, t, label = null, tooltip = null }) => {
   return (
     <div className="inputgroup">
-      <label htmlFor={field.id}>{label ? t(label) : t(field.label)} </label>
+      <label htmlFor={field.id}>{label ? t(label) : t(field.label)} </label>{tooltip}
       <input className={field.disabled ? "input input--med input--text input--disabled" : "input input--med input--text"} {...field.bind()} />
       {renderIf(isSome(field.error))(
         <p className="type--tiny type--color--error">{field.error}</p>

@@ -92,7 +92,6 @@ class MediaUploadCreateViewStore extends BaseViewStore {
     }
 
     @action.bound async onSubmit() {
-        debugger;
         for (let index = 0; index < this.files.length; index++) {
             const file = this.files[index];
             try {

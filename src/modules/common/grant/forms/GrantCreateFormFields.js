@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { isSome } from 'core/utils';
 
 function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, oneTimeId, monthlyId, annualId, minimumAmount, donorAccount) {
     const scheduleTypeAmountRule = `required|numeric|min:${minimumAmount}`;
@@ -39,20 +40,14 @@ function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, oneT
             rules: 'required|string'
         },
         {
-            name: 'grantPurposeMember',
-            label: 'GRANTCREATEFORM.GRANTPURPOSEMEMBER',
-            fields: [
-                {
-                    name: 'firstName',
-                    label: 'FIRSTNAME',
-                    rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
-                },
-                {
-                    name: 'lastName',
-                    label: 'LASTNAME',
-                    rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
-                },
-            ]
+            name: 'firstName',
+            label: 'FIRSTNAME',
+            rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
+        },
+        {
+            name: 'lastName',
+            label: 'LASTNAME',
+            rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
         },
         {
             name: 'charityEventAttending',
@@ -94,57 +89,31 @@ function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, oneT
             rules: `string`
         },
         {
-            name: 'futureDate',
-            label: 'GRANTCREATEFORM.FUTUREDATE',
-            rules: `required_if:grantScheduleTypeId,${oneTimeId}|date`
-        },
-        {
-            name: 'startDate',
+            name: 'startFutureDate',
             label: 'GRANTCREATEFORM.STARTDATE',
-            rules: `required_if:grantScheduleTypeId,${monthlyId}|required_if:grantScheduleTypeId,${annualId}|date`
+            rules: `required_if:grantScheduleTypeId,${monthlyId}|required_if:grantScheduleTypeId,${annualId}|date|after:${moment().format('MM/DD/YYYY')}`,
+            options: {
+                validateOnChange: true
+            }
         },
         {
             name: 'endDate',
             label: 'GRANTCREATEFORM.ENDDATE',
-            rules: 'date',
-            observers: [{
-                key: 'value', // can be any prop
-                call: ({ form, field }) => {
-                    form.$('numberOfPayments').set('disabled', field.value);
-                    form.$('noEndDate').set('disabled', field.value);
-                    form.$('numberOfPayments').set('value', '');
-                    form.$('noEndDate').set('value', '');
-                },
-            }],
+            rules: `date|after:${moment().format('MM/DD/YYYY')}`,
+            options: {
+                validateOnChange: true
+            }
         },
         {
             name: 'numberOfPayments',
             label: 'GRANTCREATEFORM.NUMBEROFPAYMENTS',
-            rules: 'numeric',
-            observers: [{
-                key: 'value', // can be any prop
-                call: ({ form, field }) => {
-                    form.$('endDate').set('disabled', field.value);
-                    form.$('noEndDate').set('disabled', field.value);
-                    form.$('endDate').set('value', '');
-                    form.$('noEndDate').set('value', '');
-                },
-            }],
+            rules: 'numeric'
         },
         {
             name: 'noEndDate',
             label: 'GRANTCREATEFORM.NOENDDATE',
             rules: 'boolean',
-            type: 'checkbox',
-            observers: [{
-                key: 'value', // can be any prop
-                call: ({ form, field }) => {
-                    form.$('endDate').set('disabled', field.value);
-                    form.$('numberOfPayments').set('disabled', field.value);
-                    form.$('endDate').set('value', '');
-                    form.$('numberOfPayments').set('value', '');
-                },
-            }],
+            type: 'checkbox'
         }
     ]
 }

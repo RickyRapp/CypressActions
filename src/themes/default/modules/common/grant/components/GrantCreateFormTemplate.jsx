@@ -7,6 +7,7 @@ import {
     SponsorAFriendPurposeType, NonBindingPledgePurposeType, MembershipPurposeType
 } from 'themes/modules/common/grant/components';
 import _ from 'lodash';
+import ReactTooltip from 'react-tooltip'
 
 function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
     const {
@@ -31,6 +32,15 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
         totalAmount,
         calculateFee
     } = grantCreateViewStore;
+
+
+    const scheduleGrantTooltip =
+        <React.Fragment>
+            <span className='icomoon tiny icon-cog' data-tip data-for={'scheduledGrant'} />
+            <ReactTooltip type='info' effect='solid' place="right" id={'scheduledGrant'}>
+                <span>{t('GRANTCREATEFORM.SCHEDULENAMETOOLTIP')}</span>
+            </ReactTooltip>
+        </React.Fragment>
 
     return (
         <React.Fragment>
@@ -63,13 +73,13 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
             {grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value &&
                 <React.Fragment>
                     {grantPurposeTypeDropdownStore.value.id === inMemoryOfId &&
-                        <InMemoryOfEventPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
+                        <InMemoryOfEventPurposeType fieldFirstName={form.$('firstName')} fieldLastName={form.$('lastName')} t={t} />}
 
                     {grantPurposeTypeDropdownStore.value.id === inHonorOfId &&
-                        <InHonorOfEventPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
+                        <InHonorOfEventPurposeType fieldFirstName={form.$('firstName')} fieldLastName={form.$('lastName')} t={t} />}
 
                     {grantPurposeTypeDropdownStore.value.id === sponsorAFriendId &&
-                        <SponsorAFriendPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
+                        <SponsorAFriendPurposeType fieldFirstName={form.$('firstName')} fieldLastName={form.$('lastName')} t={t} />}
 
                     {grantPurposeTypeDropdownStore.value.id === otherId &&
                         <OtherPurposeType field={form.$('additionalInformation')} t={t} />}
@@ -109,8 +119,7 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                 </div>
             </div>
 
-            {
-                form.$('recurringOrFuture').value === true &&
+            {form.$('recurringOrFuture').value === true &&
                 <React.Fragment>
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-6">
@@ -122,33 +131,34 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                         <React.Fragment>
                             <div className="f-row">
                                 <div className="form__group f-col f-col-lrg-6">
-                                    <BasicInput field={form.$('name')} />
+                                    <BasicInput field={form.$('name')} tooltip={scheduleGrantTooltip} />
                                 </div>
-                                {grantScheduleTypeDropdownStore.value.id === oneTimeId &&
-                                    <div className="form__group f-col f-col-lrg-6">
-                                        <BasicFieldDatePicker field={form.$('futureDate')} />
-                                    </div>}
+                                <div className="form__group f-col f-col-lrg-6">
+                                    <BasicFieldDatePicker field={form.$('startFutureDate')} before={new Date()} after={form.$('endDate').value !== '' ? form.$('endDate').value : null} />
+                                </div>
+                                {(grantScheduleTypeDropdownStore.value.id === monthlyId || grantScheduleTypeDropdownStore.value.id === annualId) &&
+                                    <React.Fragment>
+                                        {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
+                                            <div className="form__group f-col f-col-lrg-4">
+                                                <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} before={form.$('startFutureDate').value !== '' ? form.$('startFutureDate').value : new Date()} />
+                                            </div>}
+
+                                        {!(form.$('endDate').value && form.$('endDate').value !== '') && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
+                                            <div className="form__group f-col f-col-lrg-4">
+                                                <BasicCheckBox field={form.$('noEndDate')} />
+                                            </div>}
+
+                                        {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('endDate').value && form.$('endDate').value !== '') &&
+                                            <div className="form__group f-col f-col-lrg-4">
+                                                <BasicInput field={form.$('numberOfPayments')} />
+                                            </div>}
+                                    </React.Fragment>}
                             </div>
-                            {(grantScheduleTypeDropdownStore.value.id === monthlyId || grantScheduleTypeDropdownStore.value.id === annualId) &&
-                                <div className="f-row">
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicFieldDatePicker field={form.$('startDate')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicCheckBox field={form.$('noEndDate')} />
-                                    </div>
-                                    <div className="form__group f-col f-col-lrg-3">
-                                        <BasicInput field={form.$('numberOfPayments')} />
-                                    </div>
-                                </div>}
                         </React.Fragment>}
-                </React.Fragment>
-            }
+                </React.Fragment>}
         </React.Fragment >
     )
 };
+
 
 export default defaultTemplate(GrantCreateFormTemplate);

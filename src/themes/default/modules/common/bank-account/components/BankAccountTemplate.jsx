@@ -44,7 +44,7 @@ function BankAccountTemplate({ form, imgPreview, title = 'Bank Account Informati
                 <div className="form__group f-col f-col-lrg-6">
                     {imgPreview &&
                         <React.Fragment>
-                            <span className='icomoon medium icon-cog' data-tip data-for={`imgPreview_${form.$('accountNumber').value}`} onClick={() => window.open(imgPreview, '_blank')} />
+                            <span className='icomoon tiny icon-cog' data-tip data-for={`imgPreview_${form.$('accountNumber').value}`} onClick={() => window.open(imgPreview, '_blank')} />
                             <ReactTooltip type='info' effect='solid' place="right" id={`imgPreview_${form.$('accountNumber').value}`}>
                                 <img src={imgPreview} width="300" height="300" />
                             </ReactTooltip>

@@ -25,7 +25,7 @@ const CreateLoginTemplate = defaultTemplate(({ coreUserfields, sendWelcomeEmailF
                 <BasicCheckBox field={sendWelcomeEmailField} />
                 {sendWelcomeEmailField.value === true &&
                     <span>
-                        <span className='icomoon medium icon-cog' data-tip='sendWelcomeEmail' />
+                        <span className='icomoon tiny icon-cog' data-tip='sendWelcomeEmail' />
                         <ReactTooltip type='info' effect='solid'>
                             {emailAddressField.value && emailAddressField.isValid ?
                                 <span>Verification Email Will Be Sent On {emailAddressField.value}</span> :

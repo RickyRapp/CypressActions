@@ -1,28 +1,44 @@
 import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import { isSome, renderIf } from 'core/utils';
+import { isSome, renderIf, defaultTemplate } from 'core/utils';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 import PropTypes from 'prop-types';
 import 'react-day-picker/lib/style.css';
-import { defaultTemplate } from 'core/utils';
+import moment from 'moment';
 
 class BasicFieldDatePickerTemplate extends React.Component {
     constructor(props) {
         super(props);
         this.handleDayChange = this.handleDayChange.bind(this);
         this.field = props.field;
-        this.withoutYear = props.withoutYear ? props.withoutYear : false;
     }
     handleDayChange(day) {
-        this.field.set(day);
+        this.field.set("value", day);
+        console.log(this.field.value instanceof moment)
     }
     render() {
         const { field } = this;
-        const { t, isClearable } = this.props;
+        const { t, isClearable, before, after } = this.props;
+
         const inputProps = {
             className: isSome(field.error) ? "input input--med input--text input--date input--invalid" : "input--date input input--med input--text",
             disabled: field.disabled
         };
+
+        const modifiers = {
+            disabled: [
+                {
+                    before: before
+                },
+                {
+                    after: after
+                }
+            ]
+        };
+
+        const dayPickerPropsTemplate = {
+            modifiers: modifiers
+        }
 
         return (
             <div className="inputgroup">
@@ -31,21 +47,19 @@ class BasicFieldDatePickerTemplate extends React.Component {
                 </div>
                 <DayPickerInput
                     overlayComponent={CustomOverlay}
-                    dayPickerProps={!this.withoutYear ? { todayButton: t('TODAY') } :
-                        {
-                            captionElement: <MonthWithoutYear />,
-                            month: field.value ? new Date(field.value) : ""
-                        }
+                    dayPickerProps={
+                        dayPickerPropsTemplate
                     }
                     keepFocus={false}
                     inputProps={inputProps}
                     formatDate={formatDate}
                     parseDate={parseDate}
                     onDayChange={this.handleDayChange}
-                    value={!this.withoutYear ? `${field.value ? formatDate(field.value) : ''}` : `${field.value ? formatDate(typeof field.value !== "string" ? field.value.setFullYear(2000) : field.value, "MMMM D") : ''}`}
-                    placeholder={!this.withoutYear ? `${formatDate(new Date())}` : `${formatDate(new Date(), "MMMM D")}`}
+                    value={`${field.value ? formatDate(field.value) : ''}`}
+                    placeholder={`${formatDate(new Date())}`}
+                    disabledDays={{ daysOfWeek: [0] }}
                 />
-                {isClearable &&
+                {isClearable && field.value &&
                     <div>
                         <span onClick={() => this.handleDayChange("")}>Clear</span>
                     </div>}
@@ -75,16 +89,5 @@ function CustomOverlay({ classNames, selectedDay, children, ...props }) {
         </div>
     );
 }
-
-// Used for showing month name in caption element
-function MonthWithoutYear({ date }) {
-    let month = formatDate(date, "MMMM");
-    return (
-        <div className="DayPicker-Caption">
-            <div>{month}</div>
-        </div>
-    );
-}
-
 
 export default defaultTemplate(BasicFieldDatePickerTemplate);
