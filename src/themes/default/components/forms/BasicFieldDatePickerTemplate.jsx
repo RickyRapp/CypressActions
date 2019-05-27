@@ -14,7 +14,6 @@ class BasicFieldDatePickerTemplate extends React.Component {
     }
     handleDayChange(day) {
         this.field.set("value", day);
-        console.log(this.field.value instanceof moment)
     }
     render() {
         const { field } = this;

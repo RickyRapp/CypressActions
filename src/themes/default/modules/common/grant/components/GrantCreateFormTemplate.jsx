@@ -73,13 +73,13 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
             {grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value &&
                 <React.Fragment>
                     {grantPurposeTypeDropdownStore.value.id === inMemoryOfId &&
-                        <InMemoryOfEventPurposeType fieldFirstName={form.$('firstName')} fieldLastName={form.$('lastName')} t={t} />}
+                        <InMemoryOfEventPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
 
                     {grantPurposeTypeDropdownStore.value.id === inHonorOfId &&
-                        <InHonorOfEventPurposeType fieldFirstName={form.$('firstName')} fieldLastName={form.$('lastName')} t={t} />}
+                        <InHonorOfEventPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
 
                     {grantPurposeTypeDropdownStore.value.id === sponsorAFriendId &&
-                        <SponsorAFriendPurposeType fieldFirstName={form.$('firstName')} fieldLastName={form.$('lastName')} t={t} />}
+                        <SponsorAFriendPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
 
                     {grantPurposeTypeDropdownStore.value.id === otherId &&
                         <OtherPurposeType field={form.$('additionalInformation')} t={t} />}

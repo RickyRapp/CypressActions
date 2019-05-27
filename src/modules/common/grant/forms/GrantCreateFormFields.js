@@ -40,14 +40,20 @@ function GrantCreateFormFields(inMemoryOfId, inHonorOfId, sponsorAFriendId, oneT
             rules: 'required|string'
         },
         {
-            name: 'firstName',
-            label: 'FIRSTNAME',
-            rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
-        },
-        {
-            name: 'lastName',
-            label: 'LASTNAME',
-            rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
+            name: 'grantPurposeMember',
+            label: 'GRANTCREATEFORM.GRANTPURPOSEMEMBER',
+            fields: [
+                {
+                    name: 'firstName',
+                    label: 'FIRSTNAME',
+                    rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
+                },
+                {
+                    name: 'lastName',
+                    label: 'LASTNAME',
+                    rules: `required_if:grantPurposeTypeId,${inMemoryOfId}|required_if:grantPurposeTypeId,${inHonorOfId}|required_if:grantPurposeTypeId,${sponsorAFriendId}|string`
+                },
+            ]
         },
         {
             name: 'charityEventAttending',
