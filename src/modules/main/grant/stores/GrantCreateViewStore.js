@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import { GrantCreateFormFields } from 'modules/common/grant/forms';
-import { GrantService, DonorAccountService, LookupService, CharityService, FeeService } from "common/data";
+import { GrantService, DonorAccountService, LookupService, CharityService, FeeService, GrantScheduledPaymentService } from "common/data";
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { FormBase } from 'core/components';
 import { getCharityNameDropdown } from 'core/utils';
@@ -24,6 +24,7 @@ class GrantCreateViewStore extends BaseViewStore {
 
         this.userId = rootStore.authStore.user.id;
         this.grantService = new GrantService(rootStore.app.baasic.apiClient);
+        this.grantScheduledPaymentService = new GrantScheduledPaymentService(rootStore.app.baasic.apiClient);
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
         this.feeService = new FeeService(rootStore.app.baasic.apiClient);
@@ -58,28 +59,42 @@ class GrantCreateViewStore extends BaseViewStore {
     }
 
     @action.bound async initializeForm() {
-        const fields = GrantCreateFormFields(this.inMemoryOf, this.inHonorOf, this.sponsorAFriendId, this.otherId, this.donorAccount.grantMinimumAmount, this.donorAccount);
+        const fields = GrantCreateFormFields(this.inMemoryOf, this.inHonorOf, this.sponsorAFriendId, this.oneTimeId, this.monthlyId, this.annualId, this.donorAccount.grantMinimumAmount, this.donorAccount);
         this.form = new FormBase({
             onSuccess: async (form) => {
-                this.form.setFieldsDisabled(true);
+                this.loaderStore.suspend();
                 const item = form.values();
                 if (!(item.grantPurposeTypeId === this.inMemoryOfId || item.grantPurposeTypeId === this.inHonorOfId || item.grantPurposeTypeId === this.sponsorAFriendId)) {
                     item.grantPurposeMember = null;
                 }
-                let response = null;
-                try {
-                    response = await this.grantService.create(item);
-                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    this.rootStore.routerStore.navigate('master.app.administration.grant.list');
-                } catch (errorResponse) {
-                    this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-                    this.form.setFieldsDisabled(false);
-                    return;
+
+                if (item.recurringOrFuture) {
+                    let response = null;
+                    try {
+                        response = await this.grantScheduledPaymentService.create(item);
+                        this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+                        this.rootStore.routerStore.navigate('master.app.main.grant.list');
+                    } catch (errorResponse) {
+                        this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+                        this.loaderStore.resume();
+                        return;
+                    }
                 }
+                else {
+                    let response = null;
+                    try {
+                        response = await this.grantService.create(item);
+                        this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+                        this.rootStore.routerStore.navigate('master.app.main.grant.list');
+                    } catch (errorResponse) {
+                        this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+                        this.loaderStore.resume();
+                        return;
+                    }
+                }
+                this.loaderStore.resume();
             }
         }, fields);
-
-        // this.form.$('amount').observe(({ form, field, change }) => { this.calculateFee() })
     }
 
     @action.bound async setStores() {
@@ -211,6 +226,18 @@ class GrantCreateViewStore extends BaseViewStore {
 
     @computed get recurringAnnualId() {
         return this.grantScheduleTypes ? _.find(this.grantScheduleTypes, { abrv: 'recurring-annual' }).id : null;
+    }
+
+    @computed get oneTimeId() {
+        return this.grantScheduleTypes ? _.find(this.grantScheduleTypes, { abrv: 'one-time' }).id : null;
+    }
+
+    @computed get monthlyId() {
+        return this.grantScheduleTypes ? _.find(this.grantScheduleTypes, { abrv: 'monthly' }).id : null;
+    }
+
+    @computed get annualId() {
+        return this.grantScheduleTypes ? _.find(this.grantScheduleTypes, { abrv: 'annual' }).id : null;
     }
 }
 

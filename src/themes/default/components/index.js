@@ -39,6 +39,7 @@ export { default as NumericRangeFilterTemplate } from './filters/NumericRangeFil
 export { default as DateRangeFilterTemplate } from './filters/DateRangeFilterTemplate';
 export { default as DropdownAsyncFilterTemplate } from './filters/DropdownAsyncFilterTemplate';
 export { default as DropdownFilterTemplate } from './filters/DropdownFilterTemplate';
+export { default as ThreeStateToggleFilterTemplate } from './filters/ThreeStateToggleFilterTemplate';
 
 export { default as BaasicFieldSelectTemplate } from './select/BaasicFieldSelectTemplate';
 export { default as BaasicPageSizeSelectTemplate } from './select/BaasicPageSizeSelectTemplate';

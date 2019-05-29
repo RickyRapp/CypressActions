@@ -12,11 +12,11 @@ class CharityRouteService extends BaseRouteService {
   }
 
   donation(filter) {
-    return super.find(this.base + `donation/{?${this.queryParams}}`, filter);
+    return super.find(this.base + 'donation/{?charityId,done,dateCreatedStartDate,dateCreatedEndDate,amountRangeMin,amountRangeMax,page,rpp,sort,embed,searchFields}', filter);
   }
 
   findDocuments(filter) {
-    return super.find(this.base + `documents/{?id,page,rpp,sort,embed,searchFields}`, filter);
+    return super.find(this.base + 'documents/{?id,page,rpp,sort,embed,searchFields}', filter);
   }
 
   get(id, options) {

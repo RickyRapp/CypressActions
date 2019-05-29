@@ -2,12 +2,12 @@ import { action, observable } from 'mobx';
 import { FilterParams } from 'core/models';
 
 class DonationListFilter extends FilterParams {
-    @observable donorAccountId;
     @observable charityId;
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
+    @observable done;
 
     constructor() {
         super();
@@ -17,8 +17,7 @@ class DonationListFilter extends FilterParams {
 
     @action reset() {
         super.reset();
-        this.donorAccountId = null;
-        this.charityId = null;
+        this.done = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.dateCreatedStartDate = null;

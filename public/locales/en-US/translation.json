@@ -283,5 +283,11 @@
         "PURPOSENONBINDINGPLEDGE": "Donor-advised funds can be used for a non-binding pledge. However, the IRS prohibits grants from a donor-advised fund from being used for a legally binding pledge.",
         "PURPOSEOTHER": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below.",
         "SCHEDULENAMETOOLTIP": "Enter The Name Of Scheduled Payment So You Easily Identify Later Which Grants Are Coming From This Scheduler."
+    },
+    "GRANTREVIEWFORM": {
+        "AMOUNT": "Amount",
+        "PAYMENTTYPEID": "Payment Type",
+        "PAYMENTNUMBER": "Payment Number",
+        "ATTOF": "Att Of"
     }
 }

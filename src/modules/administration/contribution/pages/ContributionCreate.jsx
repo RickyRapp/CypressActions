@@ -8,7 +8,7 @@ import { setCurrentView } from 'core/utils';
 @observer
 class ContributionCreate extends React.Component {
     render() {
-        return <ContributionCreateTemplate {...this.props} />;
+        return <ContributionCreateTemplate {...this.props} />
     }
 }
 

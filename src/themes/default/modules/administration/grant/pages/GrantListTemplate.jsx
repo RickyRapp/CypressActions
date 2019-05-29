@@ -1,9 +1,10 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, isSome } from 'core/utils';
 import { DropdownAsyncFilter, BaasicTable, BaasicModal, TableFilter } from 'core/components';
 import { ListLayout } from 'core/layouts';
 import { ListFilterTemplate } from 'themes/modules/common/grant/components';
 import { DonorAccountSearch } from 'modules/administration/donor-account/components';
+import { GrantReview } from 'modules/administration/grant/components';
 
 function GrantListTemplate({ grantListViewStore }) {
     const {
@@ -14,7 +15,10 @@ function GrantListTemplate({ grantListViewStore }) {
         findDonorModalParams,
         onChangeSearchDonor,
         donorAccountSearchDropdownStore,
-        charitySearchDropdownStore
+        charitySearchDropdownStore,
+        reviewGrantModalParams,
+        reviewId,
+        onAfterReviewGrant
     } = grantListViewStore;
 
     return (
@@ -41,6 +45,7 @@ function GrantListTemplate({ grantListViewStore }) {
                     <BaasicTable
                         tableStore={tableStore}
                         loading={loaderStore.loading}
+                        actionsComponent={renderActions}
                     />
                 </React.Fragment>}
             <BaasicModal modalParams={findDonorModalParams} >
@@ -55,7 +60,37 @@ function GrantListTemplate({ grantListViewStore }) {
                     </div>
                 </div>
             </BaasicModal>
+            <BaasicModal modalParams={reviewGrantModalParams} >
+                <div className="col col-sml-12 card card--form card--primary card--lrg">
+                    <GrantReview onAfterReview={onAfterReviewGrant} id={reviewId} />
+                </div>
+            </BaasicModal>
         </ListLayout>
+    );
+}
+
+function renderActions({ item, actions, actionsConfig }) {
+    if (!isSome(actions))
+        return null;
+
+    let { onReview } = actions;
+    if (!isSome(onReview))
+        return null;
+
+    //review config
+    let reviewTitle = 'review' // default
+
+    return (
+        <td className="table__body--data right">
+            {isSome(onReview) ? (
+                <i
+                    className="material-icons align--v--middle"
+                    onClick={() => onReview(item)}
+                >
+                    {reviewTitle}
+                </i>
+            ) : null}
+        </td>
     );
 }
 

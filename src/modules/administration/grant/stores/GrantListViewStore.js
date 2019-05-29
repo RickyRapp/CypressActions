@@ -12,6 +12,7 @@ class GrantListViewStore extends BaseListViewStore {
     donationStatusModels = null;
     @observable charitySearchDropdownStore = null;
     @observable donorAccountSearchDropdownStore = null;
+    @observable reviewId = null;
 
     constructor(rootStore) {
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
@@ -57,6 +58,11 @@ class GrantListViewStore extends BaseListViewStore {
 
         this.findDonorModalParams = new ModalParams({
             onClose: this.onClose
+        });
+
+        this.reviewGrantModalParams = new ModalParams({
+            onClose: this.onClose,
+            notifyOutsideClick: false
         });
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
@@ -129,9 +135,20 @@ class GrantListViewStore extends BaseListViewStore {
                     },
                 ],
                 actions: {
+                    onReview: grant => this.onReviewClick(grant.id),
                 },
             })
         );
+    }
+
+    @action.bound async onReviewClick(id) {
+        this.reviewId = id;
+        this.reviewGrantModalParams.open();
+    }
+
+    @action.bound async onAfterReviewGrant() {
+        this.queryUtility._reloadCollection();
+        this.reviewGrantModalParams.close();
     }
 
     @action.bound async loadLookups() {

@@ -17,6 +17,7 @@ export { default as NumericRangeFilter } from './filters/NumericRangeFilter';
 export { default as DateRangeFilter } from './filters/DateRangeFilter';
 export { default as DropdownAsyncFilter } from './filters/DropdownAsyncFilter';
 export { default as DropdownFilter } from './filters/DropdownFilter';
+export { default as ThreeStateToggleFilter } from './filters/ThreeStateToggleFilter';
 
 export { default as FormBase } from './FormBase';
 

@@ -9,42 +9,27 @@ class DonationListViewStore extends BaseListViewStore {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
 
         let filter = new DonationListFilter()
-        if (rootStore.routerStore.routerState.queryParams) {
-            if (rootStore.routerStore.routerState.queryParams.charityId) {
-                filter.charityId = rootStore.routerStore.routerState.queryParams.charityId;
-            }
-        }
+        filter.charityId = rootStore.authStore.user.id;
 
         super(rootStore, {
             name: 'donation',
-            routes: {
-            },
             actions: {
                 find: async params => {
-                    this.loaderStore.suspend();
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await charityService.donation(params);
-                    this.loaderStore.resume();
                     return response;
                 }
             },
             queryConfig: {
-                filter: filter
+                filter: filter,
+                disableUpdateQueryParams: true
             }
         });
 
-        this.load();
-    }
-
-    @action.bound async load() {
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: [
-                    {
-                        key: 'charityName',
-                        title: 'Name'
-                    },
                     {
                         key: 'donorName',
                         title: 'Donor'
@@ -53,6 +38,12 @@ class DonationListViewStore extends BaseListViewStore {
                         key: 'amount',
                         title: 'Amount',
                         type: 'currency'
+                    },
+                    {
+                        key: 'done',
+                        title: 'Done',
+                        type: 'function',
+                        function: (item) => item.done ? 'Yes' : 'No'
                     },
                     {
                         key: 'dateCreated',
@@ -64,22 +55,12 @@ class DonationListViewStore extends BaseListViewStore {
                         key: 'type',
                         title: 'Details',
                         type: 'function',
-                        function: this.renderLink
+                        function: (item) => item.grantId ? 'Grant' : ''
                     },
                 ],
-                actions: {
-                },
             })
         );
     }
-
-    @action.bound renderLink(item) {
-        if (item.grantId) {
-            return 'Grant'
-        }
-        return null;
-    }
-
 }
 
 export default DonationListViewStore;

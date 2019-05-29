@@ -14,8 +14,16 @@ class GrantRouteService extends BaseRouteService {
         return super.find(this.base + `{?${this.queryParams}}`, filter);
     }
 
+    get(id, options) {
+        return super.get(this.base + '{id}/{?embed}', id, options);
+    }
+
     create(resource) {
         return super.create(this.base, resource);
+    }
+
+    review(resource) {
+        return this.uriTemplateService.parse(this.base + 'review/{id}').expand(resource);
     }
 }
 

@@ -79,7 +79,6 @@ class ContributionListViewStore extends BaseListViewStore {
         let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
         let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
 
-
         const renderPaymentType = (item) => {
             if (item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'ach' }).id || item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'wire-transfer' }).id) {
                 return `${_.find(this.paymentTypeModels, { id: item.paymentTypeId }).name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;

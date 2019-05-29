@@ -10,7 +10,8 @@ function GrantCreateTemplate({ grantCreateViewStore }) {
     const {
         form,
         loaderStore: { loading },
-        userId } = grantCreateViewStore;
+        userId
+    } = grantCreateViewStore;
 
     return (
         <React.Fragment>
