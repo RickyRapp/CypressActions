@@ -9,14 +9,14 @@ function BaasicFieldAsyncDropdownTemplate({ store, t, field, label = null }) {
     options,
     onChange,
     loading,
-    value
+    items,
   } = store;
 
   return (
     <div className="inputgroup">
       <label htmlFor={field.id}>{label ? label : t(field.label)} </label>
       <AsyncSelect
-        value={value}
+        value={isSome(field) ? _.filter(items, function (x) { return _.includes(field.value, x.id) }) : null}
         defaultValue={defaultValue}
         onChange={onChange}
         placeholder={field.placeholder}
@@ -30,10 +30,6 @@ function BaasicFieldAsyncDropdownTemplate({ store, t, field, label = null }) {
         defaultOptions={options.initFetch} //  tells the control to immediately fire the remote request, described by your loadOptions
         loadOptions={(input, callback) => {
           store.onFilter({ value: input }).then(() => {
-            if (field) {
-              store._value = field.value;
-              onChange(store.value);
-            }
             callback(store.items);
           });
         }}

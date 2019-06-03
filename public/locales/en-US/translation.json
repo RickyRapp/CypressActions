@@ -289,5 +289,8 @@
         "PAYMENTTYPEID": "Payment Type",
         "PAYMENTNUMBER": "Payment Number",
         "ATTOF": "Att Of"
+    },
+    "GRANTUPDATEFORM": {
+        "AMOUNTCHANGE": "Amount Change Will Result In Refund Previous Transaction And Initiating New Transaction With New Amount."
     }
 }

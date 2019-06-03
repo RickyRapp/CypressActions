@@ -30,15 +30,14 @@ class GrantListViewStore extends BaseListViewStore {
         super(rootStore, {
             name: 'grant',
             routes: {
-                create: () => {
-                    this.findDonorModalParams.open();
-                },
-                charityEdit: (charityId) => {
-                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId })
-                },
-                donorAccountEdit: (userId) => {
-                    this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId })
-                }
+                create: () =>
+                    this.findDonorModalParams.open(),
+                charityEdit: (charityId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId }),
+                donorAccountEdit: (userId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
+                edit: (grantId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.grant.edit', { id: grantId })
             },
             actions: {
                 find: async params => {
@@ -136,7 +135,12 @@ class GrantListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onReview: grant => this.onReviewClick(grant.id),
+                    onEdit: grant => this.routes.edit(grant.id),
                 },
+                actionsConfig: {
+                    onReviewConfig: { statuses: _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id }) },
+                    onEditConfig: { statuses: _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id }) }
+                }
             })
         );
     }
@@ -208,6 +212,7 @@ class GrantListViewStore extends BaseListViewStore {
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
+                    options.charityAddressPrimary = true;
 
                     let response = await this.charityService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });

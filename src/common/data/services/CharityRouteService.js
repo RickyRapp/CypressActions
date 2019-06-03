@@ -40,7 +40,7 @@ class CharityRouteService extends BaseRouteService {
   }
 
   search(filter) {
-    return super.find(this.base + 'search/{?id,searchQuery,page,rpp,sort,embed,fields,exceptId}', filter);
+    return super.find(this.base + 'search/{?id,charityAddressPrimary,searchQuery,page,rpp,sort,embed,fields,exceptId}', filter);
   }
 }
 

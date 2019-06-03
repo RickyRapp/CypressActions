@@ -73,12 +73,39 @@ function renderActions({ item, actions, actionsConfig }) {
     if (!isSome(actions))
         return null;
 
-    let { onReview } = actions;
-    if (!isSome(onReview))
+    let { onReview, onEdit } = actions;
+    if (!isSome(onReview) && !isSome(onEdit))
         return null;
+
+    const { onReviewConfig, onEditConfig } = actionsConfig;
 
     //review config
     let reviewTitle = 'review' // default
+    if (isSome(onReviewConfig)) {
+        if (onReviewConfig.title) {
+            reviewTitle = onReviewConfig.title;
+        }
+
+        if (onReviewConfig.statuses) {
+            if (!_.includes(onReviewConfig.statuses, item.donationStatusId)) {
+                onReview = null
+            }
+        }
+    }
+
+    //edit config
+    let editTitle = 'edit' // default
+    if (isSome(onEditConfig)) {
+        if (onEditConfig.title) {
+            editTitle = onEditConfig.title;
+        }
+
+        if (onEditConfig.statuses) {
+            if (!_.includes(onEditConfig.statuses, item.donationStatusId)) {
+                onEdit = null
+            }
+        }
+    }
 
     return (
         <td className="table__body--data right">
@@ -88,6 +115,14 @@ function renderActions({ item, actions, actionsConfig }) {
                     onClick={() => onReview(item)}
                 >
                     {reviewTitle}
+                </i>
+            ) : null}
+            {isSome(onEdit) ? (
+                <i
+                    className="material-icons align--v--middle"
+                    onClick={() => onEdit(item)}
+                >
+                    {editTitle}
                 </i>
             ) : null}
         </td>

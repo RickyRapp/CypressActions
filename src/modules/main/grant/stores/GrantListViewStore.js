@@ -130,6 +130,7 @@ class GrantListViewStore extends BaseListViewStore {
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
+                    options.charityAddressPrimary = true;
 
                     let response = await this.charityService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });

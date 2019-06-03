@@ -11,7 +11,7 @@ function ThreeStateToggleFilterTemplate(
         noTitle = "No",
         neutralTitle = "0",
         yesValue = true,
-        falseValue = false,
+        noValue = false,
         neutralValue = null
     }) {
 
@@ -37,8 +37,8 @@ function ThreeStateToggleFilterTemplate(
                     className=""
                     type="radio"
                     name={name}
-                    checked={queryUtility.filter[name] === falseValue}
-                    onChange={() => queryUtility.filter[name] = falseValue} />{noTitle}
+                    checked={queryUtility.filter[name] === noValue}
+                    onChange={() => queryUtility.filter[name] = noValue} />{noTitle}
                 <label></label>
             </div>
         </div>
