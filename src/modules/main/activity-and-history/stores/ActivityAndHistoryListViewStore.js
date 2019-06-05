@@ -9,7 +9,6 @@ import _ from 'lodash';
 class ActivityAndHistoryListViewStore extends BaseListViewStore {
     @observable paymentTransactionTypes = null;
     @observable paymentTransactionStatuses = null;
-    @observable paymentTransactionStatusReasons = null;
     @observable loaded = false;
     @observable donorAccountSearchDropdownStore = null;
     @observable paymentTransactionStatusDropdownStore = null;
@@ -39,7 +38,6 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
         this.rootStore = rootStore;
         this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
         this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
-        this.paymentTransactionStatusReasonLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status-reason');
 
         this.load();
     }
@@ -72,13 +70,6 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
                         title: 'Status',
                         type: 'lookup',
                         lookup: this.paymentTransactionStatuses
-                    },
-                    {
-                        key: 'paymentTransactionStatusReasonId',
-                        title: 'Reason',
-                        type: 'lookup',
-                        defaultValue: '-',
-                        lookup: this.paymentTransactionStatusReasons
                     },
                     {
                         key: 'done',
@@ -133,9 +124,6 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
 
         const paymentTransactionStatusModel = await this.paymentTransactionStatusLookup.getAll();
         this.paymentTransactionStatuses = paymentTransactionStatusModel.data;
-
-        const paymentTransactionStatusReasonModel = await this.paymentTransactionStatusReasonLookup.getAll();
-        this.paymentTransactionStatusReasons = paymentTransactionStatusReasonModel.data;
     }
 
     @action.bound async setStores() {

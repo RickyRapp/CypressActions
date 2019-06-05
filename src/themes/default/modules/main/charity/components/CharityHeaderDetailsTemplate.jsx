@@ -1,5 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
+import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 function CharityHeaderDetailsTemplate({ charityHeaderDetailsViewStore, rootStore }) {
@@ -24,20 +25,12 @@ function renderCharity(charity, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
-                {/* TODO: */}
                 Balance:
+                <NumberFormat value={charity.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                {/* TODO: */}
                 Balance On Hold:
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
-                {/* TODO: */}
-                <a
-                    className="btn btn--xsml btn--ghost"
-                    onClick={() => alert('TODO')}>
-                    Activity And History
-                </a>
+                <NumberFormat value={charity.reservedBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
         </div>
     )

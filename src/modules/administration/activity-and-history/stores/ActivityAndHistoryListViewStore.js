@@ -5,12 +5,12 @@ import { ActivityAndHistoryListFilter } from 'modules/common/activity-and-histor
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { getDonorNameDropdown } from 'core/utils';
 import NumberFormat from 'react-number-format';
+import ReactTooltip from 'react-tooltip'
 import _ from 'lodash';
 
 class ActivityAndHistoryListViewStore extends BaseListViewStore {
     @observable paymentTransactionTypes = null;
     @observable paymentTransactionStatuses = null;
-    @observable paymentTransactionStatusReasons = null;
     @observable loaded = false;
     @observable donorAccountSearchDropdownStore = null;
     @observable paymentTransactionStatusDropdownStore = null;
@@ -41,7 +41,6 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
         this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
-        this.paymentTransactionStatusReasonLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status-reason');
 
         this.load();
     }
@@ -72,15 +71,8 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
                     {
                         key: 'paymentTransactionStatusId',
                         title: 'Status',
-                        type: 'lookup',
-                        lookup: this.paymentTransactionStatuses
-                    },
-                    {
-                        key: 'paymentTransactionStatusReasonId',
-                        title: 'Reason',
-                        type: 'lookup',
-                        defaultValue: '-',
-                        lookup: this.paymentTransactionStatusReasons
+                        type: 'function',
+                        function: this.renderStatus
                     },
                     {
                         key: 'done',
@@ -113,6 +105,27 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
         return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} />;
     }
 
+    @action.bound renderStatus(item) {
+        debugger;
+        const itemValue = _.find(this.paymentTransactionStatuses, { id: item.paymentTransactionStatusId }).name;
+
+        let description = null;
+        if (item.description && item.description !== '') {
+            description = item.description;
+        }
+        return (
+            <React.Fragment>
+                {itemValue}
+                {description &&
+                    <React.Fragment>
+                        <span className='icomoon tiny icon-cog' data-tip data-for={`description_${item.id}`} />
+                        <ReactTooltip type='info' effect='solid' place="right" id={`description_${item.id}`}>
+                            <p>{description}</p>
+                        </ReactTooltip>
+                    </React.Fragment>}
+            </React.Fragment>);
+    }
+
     @action.bound renderLink(item) {
         if (item.contributionId) {
             return <a onClick={() => this.rootStore.routerStore.navigate('master.app.administration.contribution.details', { id: item.contributionId })}>Contribution</a>
@@ -135,9 +148,6 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
 
         const paymentTransactionStatusModel = await this.paymentTransactionStatusLookup.getAll();
         this.paymentTransactionStatuses = paymentTransactionStatusModel.data;
-
-        const paymentTransactionStatusReasonModel = await this.paymentTransactionStatusReasonLookup.getAll();
-        this.paymentTransactionStatusReasons = paymentTransactionStatusReasonModel.data;
     }
 
     @action.bound async setStores() {

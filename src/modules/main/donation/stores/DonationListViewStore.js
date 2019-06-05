@@ -27,11 +27,13 @@ class DonationListViewStore extends BaseListViewStore {
             }
         });
 
+        this.id = filter.charityId;
+
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: [
                     {
-                        key: 'donorName',
+                        key: 'donor',
                         title: 'Donor'
                     },
                     {

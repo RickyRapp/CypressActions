@@ -145,6 +145,10 @@ function renderActivityAndHistory(donorAccount, rootStore) {
                 Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
+            <div className="form__group f-col f-col-lrg-3">
+                Balance On Hold:
+                <NumberFormat value={donorAccount.balanceOnHold} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+            </div>
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { DropdownAsyncFilter, BaasicTable, TableFilter, NumericRangeFilter, DateRangeFilter, ThreeStateToggleFilter } from 'core/components';
+import { BaasicTable, TableFilter, NumericRangeFilter, DateRangeFilter, ThreeStateToggleFilter } from 'core/components';
+import { CharityHeaderDetails } from 'modules/main/charity/components';
+import { PageContentHeader } from 'core/layouts';
 import { ListLayout } from 'core/layouts';
 
 function DonationListTemplate({ donationListViewStore }) {
@@ -8,10 +10,12 @@ function DonationListTemplate({ donationListViewStore }) {
         loaderStore,
         queryUtility,
         tableStore,
+        id
     } = donationListViewStore;
 
     return (
         <ListLayout loading={loaderStore.loading}>
+            <PageContentHeader><CharityHeaderDetails userId={id} type='charity' /></PageContentHeader>
             <div className="spc--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
                     <div className="f-row">
