@@ -23,6 +23,7 @@ class GrantReviewViewStore extends BaseViewStore {
     }
 
     @action.bound async load() {
+        this.loaderStore.suspend();
         let params = {};
         params.embed = ['donorAccount,coreUser,charity,charityAddresses,address,bankAccount,grantPurposeMember'];
         this.grant = await this.grantService.get(this.id, params);
@@ -30,6 +31,7 @@ class GrantReviewViewStore extends BaseViewStore {
         await this.loadLookups();
         await this.initializeForm();
         await this.setStores();
+        this.loaderStore.resume();
     }
 
     @action.bound async loadLookups() {
@@ -63,10 +65,10 @@ class GrantReviewViewStore extends BaseViewStore {
                 }
 
                 try {
-                    response = await this.grantService.review(item);
+                    const response = await this.grantService.review(item);
                     this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    if (_.isFunction(onAfterReview)) {
-                        onAfterReview();
+                    if (_.isFunction(this.onAfterReview)) {
+                        this.onAfterReview();
                     }
                 } catch (errorResponse) {
                     this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);

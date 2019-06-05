@@ -12,7 +12,7 @@ class GrantListViewStore extends BaseListViewStore {
     donationStatusModels = null;
     @observable charitySearchDropdownStore = null;
     @observable donorAccountSearchDropdownStore = null;
-    @observable reviewId = null;
+    @observable grantId = null;
 
     constructor(rootStore) {
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
@@ -60,8 +60,13 @@ class GrantListViewStore extends BaseListViewStore {
         });
 
         this.reviewGrantModalParams = new ModalParams({
-            onClose: this.onClose,
-            notifyOutsideClick: false
+            notifyOutsideClick: false,
+            onClose: () => { this.grantId = null; this.onClose }
+        });
+
+        this.detailsGrantModalParams = new ModalParams({
+            notifyOutsideClick: true,
+            onClose: () => { this.grantId = null; this.onClose }
         });
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
@@ -134,8 +139,9 @@ class GrantListViewStore extends BaseListViewStore {
                     },
                 ],
                 actions: {
-                    onReview: grant => this.onReviewClick(grant.id),
+                    onReview: grant => { this.grantId = grant.id; this.reviewGrantModalParams.open(); },
                     onEdit: grant => this.routes.edit(grant.id),
+                    onDetails: grant => { this.grantId = grant.id; this.detailsGrantModalParams.open(); }
                 },
                 actionsConfig: {
                     onReviewConfig: { statuses: _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id }) },
@@ -143,11 +149,6 @@ class GrantListViewStore extends BaseListViewStore {
                 }
             })
         );
-    }
-
-    @action.bound async onReviewClick(id) {
-        this.reviewId = id;
-        this.reviewGrantModalParams.open();
     }
 
     @action.bound async onAfterReviewGrant() {

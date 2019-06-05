@@ -1,7 +1,8 @@
 import React from 'react';
 import { defaultTemplate, isSome } from 'core/utils';
-import { BaasicTable, TableFilter, Export } from 'core/components';
+import { BaasicTable, TableFilter, Export, BaasicModal } from 'core/components';
 import { ListLayout } from 'core/layouts';
+import { ContributionDetails } from 'modules/common/contribution/pages';
 import { ListFilterTemplate } from 'themes/modules/common/contribution/components';
 import moment from 'moment';
 import _ from 'lodash';
@@ -18,6 +19,8 @@ function ContributionListTemplate({ contributionListViewStore }) {
         contributionService,
         selectedExportColumnsName,
         additionalExportColumnsName,
+        detailsContributionModalParams,
+        contributionId
     } = contributionListViewStore;
 
     return (
@@ -47,6 +50,11 @@ function ContributionListTemplate({ contributionListViewStore }) {
                             actionsComponent={renderActions}
                         />
                     </ListLayout>
+                    <BaasicModal modalParams={detailsContributionModalParams} >
+                        <div className="col col-sml-12 card card--form card--primary card--lrg">
+                            <ContributionDetails id={contributionId} />
+                        </div>
+                    </BaasicModal>
                 </React.Fragment>}
         </React.Fragment>
     );

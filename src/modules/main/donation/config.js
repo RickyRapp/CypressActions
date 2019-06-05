@@ -12,7 +12,7 @@ import { DonationList } from 'modules/main/donation/pages'
                         name: 'master.app.main.donation.list',
                         pattern: '',
                         component: DonationList,
-                        authorization: 'theDonorsFundCharitySection.read',
+                        authorization: 'theDonorsFundCharitySection.update',
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     }
                 ]

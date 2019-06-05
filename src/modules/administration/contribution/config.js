@@ -28,12 +28,6 @@ import { ContributionSettingList } from 'modules/administration/contribution-set
                         authorization: 'theDonorsFundAdministrationSection.update'
                     },
                     {
-                        name: 'master.app.administration.contribution.details',
-                        pattern: 'details/:id',
-                        component: ContributionDetails,
-                        authorization: 'theDonorsFundAdministrationSection.read'
-                    },
-                    {
                         name: 'master.app.administration.contribution.setting',
                         pattern: ':userId/setting',
                         component: ContributionSettingList,

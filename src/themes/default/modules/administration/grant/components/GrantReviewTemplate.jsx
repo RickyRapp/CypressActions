@@ -2,12 +2,14 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BaasicFieldDropdown, BaasicButton, BasicInput } from 'core/components';
 import { AddressTemplate } from 'themes/modules/common/address/components';
+import { Loader } from 'core/components';
 import NumberFormat from 'react-number-format';
 import ReactTooltip from 'react-tooltip'
 import _ from 'lodash';
 
 function GrantReviewTemplate({ grantReviewViewStore }) {
     const {
+        loaderStore,
         paymentTypeDropdownStore,
         grant,
         checkId,
@@ -18,6 +20,9 @@ function GrantReviewTemplate({ grantReviewViewStore }) {
 
     return (
         <React.Fragment>
+            {loaderStore.loading &&
+                <Loader />}
+
             {form &&
                 <React.Fragment>
                     <div className="f-row">

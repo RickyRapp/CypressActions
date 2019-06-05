@@ -5,6 +5,7 @@ import { ListLayout } from 'core/layouts';
 import { ListFilterTemplate } from 'themes/modules/common/grant/components';
 import { DonorAccountSearch } from 'modules/administration/donor-account/components';
 import { GrantReview } from 'modules/administration/grant/components';
+import { GrantDetails } from 'modules/common/grant/pages';
 
 function GrantListTemplate({ grantListViewStore }) {
     const {
@@ -17,7 +18,8 @@ function GrantListTemplate({ grantListViewStore }) {
         donorAccountSearchDropdownStore,
         charitySearchDropdownStore,
         reviewGrantModalParams,
-        reviewId,
+        detailsGrantModalParams,
+        grantId,
         onAfterReviewGrant
     } = grantListViewStore;
 
@@ -62,7 +64,12 @@ function GrantListTemplate({ grantListViewStore }) {
             </BaasicModal>
             <BaasicModal modalParams={reviewGrantModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
-                    <GrantReview onAfterReview={onAfterReviewGrant} id={reviewId} />
+                    <GrantReview onAfterReview={onAfterReviewGrant} id={grantId} />
+                </div>
+            </BaasicModal>
+            <BaasicModal modalParams={detailsGrantModalParams} >
+                <div className="col col-sml-12 card card--form card--primary card--lrg">
+                    <GrantDetails id={grantId} />
                 </div>
             </BaasicModal>
         </ListLayout>
@@ -73,11 +80,11 @@ function renderActions({ item, actions, actionsConfig }) {
     if (!isSome(actions))
         return null;
 
-    let { onReview, onEdit } = actions;
-    if (!isSome(onReview) && !isSome(onEdit))
+    let { onReview, onEdit, onDetails } = actions;
+    if (!isSome(onReview) && !isSome(onEdit) && !isSome(onDetails))
         return null;
 
-    const { onReviewConfig, onEditConfig } = actionsConfig;
+    const { onReviewConfig, onEditConfig, onDetailsConfig } = actionsConfig;
 
     //review config
     let reviewTitle = 'review' // default
@@ -107,6 +114,20 @@ function renderActions({ item, actions, actionsConfig }) {
         }
     }
 
+    //details config
+    let detailsTitle = 'details' // default
+    if (isSome(onDetailsConfig)) {
+        if (onDetailsConfig.title) {
+            editTitle = onEditConfig.title;
+        }
+
+        if (onDetailsConfig.statuses) {
+            if (!_.includes(onDetailsConfig.statuses, item.donationStatusId)) {
+                onDetails = null
+            }
+        }
+    }
+
     return (
         <td className="table__body--data right">
             {isSome(onReview) ? (
@@ -123,6 +144,14 @@ function renderActions({ item, actions, actionsConfig }) {
                     onClick={() => onEdit(item)}
                 >
                     {editTitle}
+                </i>
+            ) : null}
+            {isSome(onDetails) ? (
+                <i
+                    className="material-icons align--v--middle"
+                    onClick={() => onDetails(item)}
+                >
+                    {detailsTitle}
                 </i>
             ) : null}
         </td>

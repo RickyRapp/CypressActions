@@ -9,10 +9,10 @@ class ContributionDetailsViewStore extends BaseViewStore {
     @observable contribution = null;
     @observable paymentTypes = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { id }) {
         super(rootStore);
 
-        this.id = rootStore.routerStore.routerState.params.id;
+        this.id = id;
         this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
 
@@ -20,10 +20,11 @@ class ContributionDetailsViewStore extends BaseViewStore {
     }
 
     @action.bound async load() {
+        this.loaderStore.suspend();
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser'];
+        params.embed = ['payerInformation,address,emailAddress,phoneNumber,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser'];
         let model = await this.contributionService.get(this.id, params);
         if (model.json && JSON.parse(model.json).paymentTypeInformations) {
             _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {
@@ -31,6 +32,7 @@ class ContributionDetailsViewStore extends BaseViewStore {
             });
         }
         this.contribution = model;
+        this.loaderStore.resume();
     }
 
     @action.bound async loadLookups() {

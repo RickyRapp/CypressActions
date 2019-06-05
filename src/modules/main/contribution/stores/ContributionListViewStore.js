@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 import { ContributionService, LookupService, DonorAccountService } from "common/data";
 import { ContributionListFilter } from 'modules/main/contribution/models';
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
+import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseListViewStore {
@@ -10,6 +11,7 @@ class ContributionListViewStore extends BaseListViewStore {
     contributionStatuses = null;
     paymentTypeModels = null;
     @observable loaded = false;
+    @observable contributionId = false;
 
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
@@ -25,11 +27,7 @@ class ContributionListViewStore extends BaseListViewStore {
                     }),
                 create: () => {
                     this.rootStore.routerStore.navigate('master.app.main.contribution.create')
-                },
-                details: (contributionId) =>
-                    this.rootStore.routerStore.navigate('master.app.main.contribution.details', {
-                        id: contributionId
-                    }),
+                }
             },
             actions: {
                 find: async params => {
@@ -55,6 +53,11 @@ class ContributionListViewStore extends BaseListViewStore {
 
         this.selectedExportColumnsName = ['Amount'];
         this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
+
+        this.detailsContributionModalParams = new ModalParams({
+            onClose: () => { this.contributionId = null; this.onClose },
+            notifyOutsideClick: true
+        });
 
         this.load();
     }
@@ -121,7 +124,7 @@ class ContributionListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
-                    onDetails: contribution => this.routes.details(contribution.id, contribution.donorAccountId)
+                    onDetails: contribution => { this.contributionId = contribution.id; this.detailsContributionModalParams.open(); }
                 },
                 actionsConfig: {
                     onEditConfig: { minutes: this.minutes, title: 'edit', permissions: this.permissions, statuses: availableStatuesForEdit },

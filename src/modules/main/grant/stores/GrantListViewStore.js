@@ -4,6 +4,7 @@ import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/sto
 import { GrantListFilter } from 'modules/main/grant/models';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
 import { getCharityNameDropdown } from 'core/utils';
+import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
 class GrantListViewStore extends BaseListViewStore {
@@ -11,6 +12,7 @@ class GrantListViewStore extends BaseListViewStore {
     donationStatusModels = null;
     @observable charitySearchDropdownStore = null;
     @observable donorAccountSearchDropdownStore = null;
+    @observable grantId = null;
 
     constructor(rootStore) {
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
@@ -48,6 +50,11 @@ class GrantListViewStore extends BaseListViewStore {
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
         this.donationStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'donation-status');
         this.grantPurposeTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-purpose-type');
+
+        this.detailsGrantModalParams = new ModalParams({
+            notifyOutsideClick: true,
+            onClose: () => { this.grantId = null; this.onClose }
+        });
 
         this.load();
     }
@@ -101,6 +108,7 @@ class GrantListViewStore extends BaseListViewStore {
                     },
                 ],
                 actions: {
+                    onDetails: grant => { this.grantId = grant.id; this.detailsGrantModalParams.open(); }
                 },
             })
         );

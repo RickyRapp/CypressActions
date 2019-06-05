@@ -2,18 +2,23 @@ import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BaasicDropdown, BaasicButton } from 'core/components';
 import { renderIf, isSome } from 'core/utils';
+import { Loader } from 'core/components';
 import _ from 'lodash';
 
-function ContributionReviewTemplate(
-    {
+function ContributionReviewTemplate({ contributionReviewViewStore }) {
+    const {
+        loaderStore,
         contributionStatusDropdownStore,
         onReview,
         contribution,
         dropdownError
-    }) {
+    } = contributionReviewViewStore;
 
     return (
         <React.Fragment>
+            {loaderStore.loading &&
+                <Loader />}
+
             {contribution &&
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">

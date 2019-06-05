@@ -3,6 +3,7 @@ import { defaultTemplate, isSome } from 'core/utils';
 import { ListLayout, PageContentHeader } from 'core/layouts';
 import { BaasicTable, TableFilter, Export, DropdownAsyncFilter, BaasicModal } from 'core/components';
 import { DonorAccountSearch, DonorAccountHeaderDetails } from 'modules/administration/donor-account/components';
+import { ContributionDetails } from 'modules/common/contribution/pages';
 import { ContributionReview } from 'modules/administration/contribution/components';
 import { ListFilterTemplate } from 'themes/modules/common/contribution/components';
 import _ from 'lodash';
@@ -23,8 +24,9 @@ function ContributionListTemplate({ contributionListViewStore }) {
         findDonorModalParams,
         onChangeSearchDonor,
         reviewContributionModalParams,
+        detailsContributionModalParams,
         onAfterReviewContribution,
-        reviewId
+        contributionId
     } = contributionListViewStore;
 
     return (
@@ -78,7 +80,12 @@ function ContributionListTemplate({ contributionListViewStore }) {
                     </BaasicModal>
                     <BaasicModal modalParams={reviewContributionModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">
-                            <ContributionReview onAfterReview={onAfterReviewContribution} id={reviewId} />
+                            <ContributionReview onAfterReview={onAfterReviewContribution} id={contributionId} />
+                        </div>
+                    </BaasicModal>
+                    <BaasicModal modalParams={detailsContributionModalParams} >
+                        <div className="col col-sml-12 card card--form card--primary card--lrg">
+                            <ContributionDetails id={contributionId} />
                         </div>
                     </BaasicModal>
                 </React.Fragment>}

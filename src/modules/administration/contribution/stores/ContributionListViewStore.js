@@ -12,7 +12,7 @@ class ContributionListViewStore extends BaseListViewStore {
     contributionStatuses = null;
     paymentTypeModels = null;
     @observable loaded = false;
-    @observable reviewId = null;
+    @observable contributionId = null;
     @observable donorAccountSearchDropdownStore = null;
 
     constructor(rootStore) {
@@ -30,11 +30,7 @@ class ContributionListViewStore extends BaseListViewStore {
                     }),
                 create: () => {
                     this.findDonorModalParams.open();
-                },
-                details: (contributionId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.contribution.details', {
-                        id: contributionId,
-                    }),
+                }
             },
             actions: {
                 find: async params => {
@@ -65,7 +61,12 @@ class ContributionListViewStore extends BaseListViewStore {
         });
 
         this.reviewContributionModalParams = new ModalParams({
-            onClose: this.onClose,
+            onClose: () => { this.contributionId = null; this.onClose },
+            notifyOutsideClick: true
+        });
+
+        this.detailsContributionModalParams = new ModalParams({
+            onClose: () => { this.contributionId = null; this.onClose },
             notifyOutsideClick: true
         });
 
@@ -154,8 +155,8 @@ class ContributionListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onEdit: contribution => this.routes.edit(contribution.id),
-                    onReview: contribution => this.onReviewClick(contribution.id),
-                    onDetails: contribution => this.routes.details(contribution.id)
+                    onReview: contribution => { this.contributionId = contribution.id; this.reviewContributionModalParams.open(); },
+                    onDetails: contribution => { this.contributionId = contribution.id; this.detailsContributionModalParams.open(); }
                 },
                 actionsConfig: {
                     onEditConfig: { statuses: availableStatuesForEdit },
@@ -167,14 +168,10 @@ class ContributionListViewStore extends BaseListViewStore {
         this.loaded = true;
     }
 
-    @action.bound async onReviewClick(id) {
-        this.reviewId = id;
-        this.reviewContributionModalParams.open();
-    }
-
     @action.bound async onAfterReviewContribution() {
         this.queryUtility._reloadCollection();
         this.reviewContributionModalParams.close();
+        this.contributionId = null;
     }
 
     @action.bound async onChangeSearchDonor(option) {
