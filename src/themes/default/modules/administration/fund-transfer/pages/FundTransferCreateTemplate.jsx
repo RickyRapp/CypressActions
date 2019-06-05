@@ -2,6 +2,7 @@ import React from 'react';
 import { defaultTemplate, renderIf, isSome } from 'core/utils';
 import { BaasicFieldAsyncDropdown, BasicInput } from 'core/components';
 import { EditFormLayout } from 'core/layouts';
+import NumberFormat from 'react-number-format';
 
 function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
     const {
@@ -23,8 +24,12 @@ function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
                 <div className="form__group f-col f-col-lrg-6 spc--top--med">
                     {senderDonorAccount &&
                         <div>
-                            {senderDonorAccount.coreUser.firstName}
-                            ${senderDonorAccount.availableBalance}
+                            <div>
+                                {senderDonorAccount.coreUser.firstName}
+                            </div>
+                            <div>
+                                <NumberFormat value={senderDonorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                            </div>
                         </div>}
                 </div>
             </div>
@@ -40,7 +45,7 @@ function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
                                 {recipientDonorAccount.coreUser.firstName}
                             </div>
                             <div>
-                                ${recipientDonorAccount.availableBalance}
+                                <NumberFormat value={recipientDonorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                             </div>
                         </div>}
                 </div>

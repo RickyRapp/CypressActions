@@ -60,7 +60,6 @@ class GrantListViewStore extends BaseListViewStore {
         });
 
         this.reviewGrantModalParams = new ModalParams({
-            notifyOutsideClick: false,
             onClose: () => { this.grantId = null; this.onClose }
         });
 
