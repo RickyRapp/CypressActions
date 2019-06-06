@@ -16,7 +16,7 @@ function BaasicFieldAsyncDropdownTemplate({ store, t, field, label = null }) {
     <div className="inputgroup">
       <label htmlFor={field.id}>{label ? label : t(field.label)} </label>
       <AsyncSelect
-        value={isSome(field) ? _.filter(items, function (x) { return _.includes(field.value, x.id) }) : null}
+        value={isSome(field) ? _.filter(items, function (x) { return _.includes(options.multi ? _.map(field.value, 'id') : field.value, x.id) }) : null}
         defaultValue={defaultValue}
         onChange={onChange}
         placeholder={field.placeholder}

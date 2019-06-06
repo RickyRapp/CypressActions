@@ -18,9 +18,8 @@ function AddressCreateTemplate({ addressCreateViewStore, title, children }) {
                     <div className="form__group f-col f-col-lrg-4">
                         {children}
                     </div>}
-
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
         </EditFormContent>
     );
 }

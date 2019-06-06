@@ -24,7 +24,8 @@ class BaseEditViewStore extends BaseViewStore {
 
   constructor(
     rootStore,
-    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate, onAfterUpdate, setValues = false } //setValues is used for form.set('value', item), because form.update(item) does not work properly with nested child (3 nested row)
+    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate, onAfterUpdate,
+      setValues = false, loader = false } //setValues is used for form.set('value', item), because form.update(item) does not work properly with nested child (3 nested row)
   ) {
     super(rootStore);
 
@@ -35,6 +36,7 @@ class BaseEditViewStore extends BaseViewStore {
     this.onAfterCreate = onAfterCreate;
     this.onAfterUpdate = onAfterUpdate;
     this.setValues = setValues;
+    this.loader = loader;
     this.form =
       form ||
       new FormClass({
@@ -99,17 +101,17 @@ class BaseEditViewStore extends BaseViewStore {
   async updateResource(resource) {
     if (!this.actions.update) return;
 
-    this.form.setFieldsDisabled(true);
+    this.loader ? this.loaderStore.suspend() : this.form.setFieldsDisabled(true);
     try {
       const response = await this.actions.update({
         id: this.id,
         ...resource
       });
       this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-      this.form.setFieldsDisabled(false);
+      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
       this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-      this.form.setFieldsDisabled(false);
+      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
       return;
     }
 
@@ -125,15 +127,15 @@ class BaseEditViewStore extends BaseViewStore {
   async createResource(resource) {
     if (!this.actions.create) return;
 
-    this.form.setFieldsDisabled(true);
+    this.loader ? this.loaderStore.suspend() : this.form.setFieldsDisabled(true);
     let response = null;
     try {
       response = await this.actions.create(resource);
       this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-      this.form.setFieldsDisabled(false);
+      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
       this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-      this.form.setFieldsDisabled(false);
+      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
       return;
     }
 

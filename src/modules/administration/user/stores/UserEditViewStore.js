@@ -42,7 +42,8 @@ class UserEditViewStore extends BaseEditViewStore {
           return userService.disapprove(user);
         }
       },
-      FormClass: UserEditForm
+      FormClass: UserEditForm,
+      setValues: true
     });
     this.roleMultiSelectStore = new BaasicDropdownStore(
       {
@@ -77,8 +78,7 @@ class UserEditViewStore extends BaseEditViewStore {
 
   @action.bound
   setUserRoles(roles) {
-    this.item.roles = roles;
-    this.form.update(this.item);
+    this.form.$('roles').set('value', roles);
   }
 
   @action.bound

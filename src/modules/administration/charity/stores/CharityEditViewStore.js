@@ -25,9 +25,11 @@ class CharityEditViewStore extends BaseViewStore {
     }
 
     @action.bound async load() {
+        this.loaderStore.suspend();
         await this.loadLookups();
         await this.initializeForm();
         await this.setStores();
+        this.loaderStore.resume();
     }
 
     @action.bound async loadLookups() {
@@ -43,9 +45,9 @@ class CharityEditViewStore extends BaseViewStore {
     @action.bound async initializeForm() {
         this.form = new CharityUpdateForm({
             onSuccess: async form => {
+                this.loaderStore.suspend();
                 const item = form.values();
                 try {
-                    this.form.setFieldsDisabled(true);
                     if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
                         item.contactInformation = null;
                     }
@@ -63,18 +65,18 @@ class CharityEditViewStore extends BaseViewStore {
                         }
                     } catch (errorReponse) {
                         this.rootStore.notificationStore.showMessageFromResponse(errorReponse, 6000);
-                        this.form.setFieldsDisabled(false);
+                        this.loaderStore.resume();
                         return;
                     }
                     const response = await this.charityService.update({ id: this.id, ...item });
                     this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    this.form.setFieldsDisabled(false);
                     await this.getResource(this.id);
                 } catch (errorResponse) {
                     this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-                    this.form.setFieldsDisabled(false);
+                    this.loaderStore.resume();
                     return;
                 }
+                this.loaderStore.resume();
             },
             onError(form) {
                 alert('### see console');

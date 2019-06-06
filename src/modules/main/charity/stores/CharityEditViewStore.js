@@ -17,7 +17,6 @@ class CharityEditViewStore extends BaseEditViewStore {
     constructor(rootStore) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         const fileStreamRouteService = new FileStreamRouteService(rootStore.app.baasic.apiClient);
-        const fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
         const userId = rootStore.authStore.user.id;
 
         super(rootStore, {
@@ -31,7 +30,7 @@ class CharityEditViewStore extends BaseEditViewStore {
                     if (!(item.emailAddress && item.emailAddress.email)) {
                         item.emailAddress = null;
                     }
-                    
+
                     return await charityService.update({ id: this.id, ...item });
                 },
                 get: async id => {
@@ -51,9 +50,9 @@ class CharityEditViewStore extends BaseEditViewStore {
             },
             FormClass: CharityUpdateForm,
             goBack: false,
-            setValues: true
+            setValues: true,
+            loader: true
         });
-
 
         this.rootStore = rootStore;
         this.load();
