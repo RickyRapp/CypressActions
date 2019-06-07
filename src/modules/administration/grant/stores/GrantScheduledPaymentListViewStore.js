@@ -1,23 +1,23 @@
 import { action, observable } from 'mobx';
-import { GrantService, LookupService, DonorAccountService, CharityService } from "common/data";
+import { GrantScheduledPaymentService, LookupService, DonorAccountService, CharityService } from "common/data";
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
-import { GrantListFilter } from 'modules/administration/grant/models';
+import { GrantScheduledPaymentListFilter } from 'modules/administration/grant/models';
 import { ModalParams } from 'core/models';
-import { renderGrantPurposeType } from 'modules/common/grant/components';
+import { renderGrantPurposeType, renderGrantScheduleType } from 'modules/common/grant/components';
 import { getDonorNameDropdown, getCharityNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
-class GrantListViewStore extends BaseListViewStore {
+class GrantScheduledPaymentListViewStore extends BaseListViewStore {
     grantPurposeTypeModels = null;
-    donationStatusModels = null;
+    grantScheduleTypeModels = null;
     @observable charitySearchDropdownStore = null;
     @observable donorAccountSearchDropdownStore = null;
     @observable grantId = null;
 
     constructor(rootStore) {
-        const grantService = new GrantService(rootStore.app.baasic.apiClient);
+        const grantScheduledPaymentService = new GrantScheduledPaymentService(rootStore.app.baasic.apiClient);
 
-        let filter = new GrantListFilter()
+        let filter = new GrantScheduledPaymentListFilter()
         if (rootStore.routerStore.routerState.queryParams) {
             if (rootStore.routerStore.routerState.queryParams.donorAccountId) {
                 filter.donorAccountId = rootStore.routerStore.routerState.queryParams.donorAccountId;
@@ -30,24 +30,18 @@ class GrantListViewStore extends BaseListViewStore {
         super(rootStore, {
             name: 'grant',
             routes: {
-                create: () =>
-                    this.findDonorModalParams.open(),
                 charityEdit: (charityId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId }),
                 donorAccountEdit: (userId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
-                edit: (grantId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.grant.edit', { id: grantId }),
-                grantScheduledPaymentEdit: (grantScheduledPaymentName) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.grant.scheduled.list', null, { name: grantScheduledPaymentName })
             },
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,grantPurposeMember,charity,grantScheduledPayment';
+                    params.embed = 'createdByCoreUser,donorAccount,coreUser,charity';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
-                    const response = await grantService.find(params);
+                    const response = await grantScheduledPaymentService.find(params);
                     this.loaderStore.resume();
                     return response;
                 }
@@ -57,23 +51,11 @@ class GrantListViewStore extends BaseListViewStore {
             }
         });
 
-        this.findDonorModalParams = new ModalParams({
-            onClose: this.onClose
-        });
-
-        this.reviewGrantModalParams = new ModalParams({
-            onClose: () => { this.grantId = null; this.onClose }
-        });
-
-        this.detailsGrantModalParams = new ModalParams({
-            notifyOutsideClick: true,
-            onClose: () => { this.grantId = null; this.onClose }
-        });
-
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
-        this.donationStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'donation-status');
+        this.grantScheduleTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-schedule-type');
         this.grantPurposeTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-purpose-type');
+        this.grantScheduledPaymentService = grantScheduledPaymentService;
 
         this.load();
     }
@@ -98,6 +80,16 @@ class GrantListViewStore extends BaseListViewStore {
                         onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id)
                     },
                     {
+                        key: 'name',
+                        title: 'Name'
+                    },
+                    {
+                        key: 'done',
+                        title: 'Done',
+                        type: 'function',
+                        function: (item) => item.done ? 'Yes' : 'No'
+                    },
+                    {
                         key: 'charity.name',
                         title: 'Charity (click on row)',
                         onClick: grant => this.routes.charityEdit(grant.charity.id)
@@ -106,6 +98,12 @@ class GrantListViewStore extends BaseListViewStore {
                         key: 'amount',
                         title: 'Amount',
                         type: 'currency'
+                    },
+                    {
+                        key: 'dateCreated',
+                        title: 'Date Created',
+                        type: 'date',
+                        format: 'YYYY-MM-DD HH:mm'
                     },
                     {
                         key: 'createdByCoreUser',
@@ -120,62 +118,27 @@ class GrantListViewStore extends BaseListViewStore {
                         }]
                     },
                     {
-                        key: 'donationStatusId',
-                        title: 'Status',
-                        type: 'lookup',
-                        lookup: this.donationStatusModels
-                    },
-                    {
-                        key: 'grantPurposeTypeId',
-                        title: 'Purpose',
+                        key: 'grantScheduleTypeId',
+                        title: 'Type',
                         type: 'function',
-                        function: (item) => renderGrantPurposeType(item, this.grantPurposeTypeModels)
-                    },
-                    {
-                        key: 'grantScheduledPayment.name',
-                        title: 'Part Of (click on row)',
-                        onClick: grant => this.routes.grantScheduledPaymentEdit(grant.grantScheduledPayment.name)
-                    },
-                    {
-                        key: 'dateCreated',
-                        title: 'Date Created',
-                        type: 'date',
-                        format: 'YYYY-MM-DD HH:mm'
+                        function: (item) => renderGrantScheduleType(item, this.grantScheduleTypeModels)
                     },
                 ],
                 actions: {
-                    onReview: grant => { this.grantId = grant.id; this.reviewGrantModalParams.open(); },
-                    onEdit: grant => this.routes.edit(grant.id),
-                    onDetails: grant => { this.grantId = grant.id; this.detailsGrantModalParams.open(); }
+                    onCancel: grantScheduledPayment => this.onCancel(grantScheduledPayment.id, grantScheduledPayment.name)
                 },
                 actionsRender: {
-                    renderEdit: this.renderEdit,
-                    renderReview: this.renderReview
+                    renderCancel: (grantScheduledPayment) => !grantScheduledPayment.done
                 }
             })
         );
     }
 
-    @action.bound renderEdit(grant) {
-        const statusesForEdit = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        return _.some(statusesForEdit, (item) => { return item === grant.donationStatusId });
-    }
-
-    @action.bound renderReview(grant) {
-        const statusesForReview = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        return _.some(statusesForReview, (item) => { return item === grant.donationStatusId });
-    }
-
-    @action.bound async onAfterReviewGrant() {
-        this.queryUtility._reloadCollection();
-        this.reviewGrantModalParams.close();
-    }
-
     @action.bound async loadLookups() {
-        let donationStatusModels = await this.donationStatusLookup.getAll();
-        this.donationStatusModels = donationStatusModels.data;
+        const grantScheduleTypeModels = await this.grantScheduleTypeLookup.getAll();
+        this.grantScheduleTypeModels = grantScheduleTypeModels.data;
 
-        let grantPurposeTypeModels = await this.grantPurposeTypeLookup.getAll();
+        const grantPurposeTypeModels = await this.grantPurposeTypeLookup.getAll();
         this.grantPurposeTypeModels = grantPurposeTypeModels.data;
     }
 
@@ -248,13 +211,23 @@ class GrantListViewStore extends BaseListViewStore {
         }
     }
 
-    @action.bound async onChangeSearchDonor(option) {
-        if (option) {
-            this.rootStore.routerStore.navigate('master.app.administration.grant.create', {
-                userId: option.id
-            })
-        }
+    @action.bound async onCancel(id, name) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to cancel: ${name} - scheduled grant?`,
+            async () => {
+                this.loaderStore.suspend();
+                let response = null;
+                try {
+                    response = await this.grantScheduledPaymentService.cancel(id);
+                    await this.queryUtility._reloadCollection();
+                } catch (error) {
+                    response = error;
+                }
+                this.rootStore.notificationStore.showMessageFromResponse(response);
+                this.loaderStore.resume();
+            }
+        );
     }
 }
 
-export default GrantListViewStore;
+export default GrantScheduledPaymentListViewStore;

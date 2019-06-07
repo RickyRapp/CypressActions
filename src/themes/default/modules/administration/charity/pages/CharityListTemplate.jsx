@@ -94,7 +94,7 @@ function CharityListTemplate({ charityListViewStore }) {
     );
 }
 
-function renderActions({ item, actions, actionsConfig }) {
+function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions))
         return null;
 
@@ -102,7 +102,7 @@ function renderActions({ item, actions, actionsConfig }) {
     if (!isSome(onEdit) && !isSome(onReview))
         return null;
 
-    const { onEditConfig, onReviewConfig } = actionsConfig;
+    const { onEditConfig, onReviewConfig } = actionsRender;
 
     //edit config
     let editTitle = 'edit' // default

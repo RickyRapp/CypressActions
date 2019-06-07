@@ -1,8 +1,10 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter } from 'core/components';
+import { BaasicTable, TableFilter, BaasicModal } from 'core/components';
 import { ListLayout } from 'core/layouts';
 import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/activity-and-history/components';
+import { GrantDetails } from 'modules/common/grant/pages';
+import { ContributionDetails } from 'modules/common/contribution/pages';
 import _ from 'lodash';
 
 function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
@@ -12,6 +14,8 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         tableStore,
         paymentTransactionStatusDropdownStore,
         loaded,
+        detailsModalParams,
+        paymentTransaction
     } = activityAndHistoryListViewStore;
 
     return (
@@ -31,6 +35,15 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                         tableStore={tableStore}
                         loading={loaderStore.loading}
                     />}
+                {paymentTransaction &&
+                    <BaasicModal modalParams={detailsModalParams} >
+                        <div className="col col-sml-12 card card--form card--primary card--lrg">
+                            {paymentTransaction.grantId &&
+                                <GrantDetails id={paymentTransaction.grantId} />}
+                            {paymentTransaction.contributionId &&
+                                <ContributionDetails id={paymentTransaction.contributionId} />}
+                        </div>
+                    </BaasicModal>}
             </ListLayout>
         </React.Fragment>
     );

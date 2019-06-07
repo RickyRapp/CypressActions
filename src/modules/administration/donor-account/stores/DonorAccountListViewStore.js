@@ -31,7 +31,7 @@ class DonorAccountListViewStore extends BaseListViewStore {
                 columns: [
                     {
                         key: 'fullName',
-                        title: 'Name',
+                        title: 'Name (click on row)',
                         onClick: donorAccount => this.routes.edit(donorAccount.id)
                     },
                     {

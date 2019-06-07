@@ -63,7 +63,6 @@ function ContributionListTemplate({ contributionListViewStore }) {
                         <BaasicTable
                             tableStore={tableStore}
                             loading={loaderStore.loading}
-                            actionsComponent={renderActions}
                         />
                     </ListLayout>
                     <BaasicModal modalParams={findDonorModalParams} >
@@ -90,88 +89,6 @@ function ContributionListTemplate({ contributionListViewStore }) {
                     </BaasicModal>
                 </React.Fragment>}
         </React.Fragment>
-    );
-}
-
-function renderActions({ item, actions, actionsConfig }) {
-    if (!isSome(actions))
-        return null;
-
-    let { onEdit, onReview, onDetails } = actions;
-    if (!isSome(onEdit) && !isSome(onReview) && !isSome(onDetails))
-        return null;
-
-    const { onEditConfig, onReviewConfig } = actionsConfig;
-
-    //edit config
-    let editTitle = 'edit' // default
-    if (isSome(onEditConfig)) {
-        if (onEditConfig.title) {
-            editTitle = onEditConfig.title;
-        }
-
-        if (onEditConfig.minutes) {
-            if (moment().local().isAfter(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(onEditConfig.minutes, 'minutes'))) {
-                onEdit = null;
-            }
-            else {
-                editTitle += ' until ' + moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(onEditConfig.minutes, 'minutes').format('HH:mm:ss');
-            }
-        }
-        if (onEditConfig.statuses) {
-            if (!_.includes(onEditConfig.statuses, item.contributionStatusId)) {
-                onEdit = null
-            }
-        }
-    }
-    else {
-        onEdit = null;
-    }
-
-    //review config
-    let reviewTitle = 'review' // default
-    if (isSome(onReviewConfig)) {
-        if (onReviewConfig.title) {
-            reviewTitle = onEditConfig.title;
-        }
-
-        if (onReviewConfig.statuses) {
-            if (!_.includes(onReviewConfig.statuses, item.contributionStatusId)) {
-                onReview = null
-            }
-        }
-    }
-    else {
-        onReview = null;
-    }
-
-    return (
-        <td className="table__body--data right">
-            {isSome(onEdit) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onEdit(item)}
-                >
-                    {editTitle}
-                </i>
-            ) : null}
-            {isSome(onReview) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onReview(item)}
-                >
-                    {reviewTitle}
-                </i>
-            ) : null}
-            {isSome(onDetails) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onDetails(item)}
-                >
-                    details
-                </i>
-            ) : null}
-        </td>
     );
 }
 

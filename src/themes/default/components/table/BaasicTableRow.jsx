@@ -10,7 +10,7 @@ function BaasicTableRowTemplate({
   columns,
   actions,
   actionsComponent,
-  actionsConfig,
+  actionsRender,
   onRowClick
 }) {
   const rowProps = {};
@@ -27,7 +27,7 @@ function BaasicTableRowTemplate({
     <tr {...rowProps}>
       {columns.map(column => renderRow(item, column))}
       {isSome(actions) ? (
-        <wrap.component actions={actions} item={item} actionsConfig={actionsConfig} />
+        <wrap.component actions={actions} item={item} actionsRender={actionsRender} />
       ) : null}
     </tr>
   );

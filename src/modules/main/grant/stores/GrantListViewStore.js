@@ -63,8 +63,6 @@ class GrantListViewStore extends BaseListViewStore {
         await this.loadLookups();
         await this.setFilterDropdownStores();
 
-        const renderGrantPurposeTypeField = (item) => renderGrantPurposeType(item, this.grantPurposeTypeModels);
-
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: [
@@ -82,6 +80,7 @@ class GrantListViewStore extends BaseListViewStore {
                         title: 'Created By',
                         type: 'object',
                         separator: ' ',
+                        defaultValue: 'System',
                         additionalColumns: [{
                             key: 'firstName'
                         }, {
@@ -98,7 +97,7 @@ class GrantListViewStore extends BaseListViewStore {
                         key: 'grantPurposeTypeId',
                         title: 'Purpose',
                         type: 'function',
-                        function: renderGrantPurposeTypeField
+                        function: (item) => renderGrantPurposeType(item, this.grantPurposeTypeModels)
                     },
                     {
                         key: 'dateCreated',

@@ -75,7 +75,7 @@ class CharityListViewStore extends BaseListViewStore {
                 columns: [
                     {
                         key: 'name',
-                        title: 'Name',
+                        title: 'Name (click on row)',
                         onClick: charity => this.routes.edit(charity.id)
                     },
                     {

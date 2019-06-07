@@ -7,7 +7,7 @@ function HomeTemplate(props) {
     if (props.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) {
       route = 'master.app.administration.home.overview';
     }
-    else if (props.rootStore.authStore.hasPermission('theDonorsFundCharitySection.read')) {
+    else if (props.rootStore.authStore.hasPermission('theDonorsFundCharitySection.update')) {
       route = 'master.app.main.charity.profile';
     }
     else {

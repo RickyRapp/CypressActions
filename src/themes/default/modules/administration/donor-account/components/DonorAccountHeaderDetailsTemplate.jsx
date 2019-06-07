@@ -70,12 +70,11 @@ function renderContribution(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">
-                Donor Name:
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-                </a>
+                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
@@ -107,12 +106,11 @@ function renderContributionSetting(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">
-                Donor Name:
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-                </a>
+                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
@@ -134,12 +132,11 @@ function renderActivityAndHistory(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">
-                Donor Name:
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-                </a>
+                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
@@ -157,12 +154,11 @@ function renderGrant(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-3">
-                Donor Name:
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <strong>{donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}</strong>
-                </a>
+                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:

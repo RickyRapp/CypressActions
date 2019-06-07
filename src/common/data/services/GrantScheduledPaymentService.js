@@ -7,6 +7,13 @@ class GrantScheduledPaymentService extends BaseService {
         super(apiClient, new GrantScheduledPaymentRouteService());
         this.apiClient = apiClient;
     }
+
+    async cancel(id) {
+        const url = this.routeService.cancel(id);
+        debugger;
+        const response = await this.apiClient.put(url, id);
+        return response || null;
+    }
 }
 
 export default GrantScheduledPaymentService;

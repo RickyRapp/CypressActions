@@ -14,7 +14,7 @@ function hasAction(actions) {
 function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect = false, ...otherProps }) {
   const {
     data,
-    config: { columns, actions, actionsConfig },
+    config: { columns, actions, actionsRender },
     queryUtility
   } = tableStore;
   actionsComponent = actionsComponent || BaasicTableActions;
@@ -75,7 +75,7 @@ function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect 
                   item={item}
                   columns={columns}
                   actions={actions}
-                  actionsConfig={actionsConfig}
+                  actionsRender={actionsRender}
                   actionsComponent={actionsComponent}
                   {...otherProps}
                 />

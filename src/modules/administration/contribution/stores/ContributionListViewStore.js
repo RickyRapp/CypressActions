@@ -4,6 +4,7 @@ import { ContributionListFilter } from 'modules/administration/contribution/mode
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { ModalParams } from 'core/models';
 import { getDonorNameDropdown } from 'core/utils';
+import moment from 'moment';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseListViewStore {
@@ -75,9 +76,6 @@ class ContributionListViewStore extends BaseListViewStore {
     @action.bound async load() {
         await this.loadLookups();
         await this.setFilterDropdownStores();
-
-        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
-        let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
 
         const renderPaymentType = (item) => {
             if (item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'ach' }).id || item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'wire-transfer' }).id) {
@@ -157,14 +155,26 @@ class ContributionListViewStore extends BaseListViewStore {
                     onReview: contribution => { this.contributionId = contribution.id; this.reviewContributionModalParams.open(); },
                     onDetails: contribution => { this.contributionId = contribution.id; this.detailsContributionModalParams.open(); }
                 },
-                actionsConfig: {
-                    onEditConfig: { statuses: availableStatuesForEdit },
-                    onReviewConfig: { statuses: availableStatuesForReview }
+                actionsRender: {
+                    renderEdit: this.renderEdit,
+                    renderReview: this.renderReview
                 }
             })
         );
 
         this.loaded = true;
+    }
+
+    @action.bound renderEdit(contribution) {
+        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
+        if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
+            return moment().local().isAfter(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
+        }
+    }
+
+    @action.bound renderReview(contribution) {
+        let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
+        return _.some(availableStatuesForReview, (item) => { return item === contribution.contributionStatusId });
     }
 
     @action.bound async onAfterReviewContribution() {

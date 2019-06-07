@@ -1,9 +1,12 @@
 import React from 'react';
 import { action, observable } from 'mobx';
-import { ActivityAndHistoryService, LookupService } from "common/data";
+import { ActivityAndHistoryService, LookupService, DonorAccountService } from "common/data";
 import { ActivityAndHistoryListFilter } from 'modules/common/activity-and-history/models';
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
+import { getDonorNameDropdown } from 'core/utils';
+import { ModalParams } from 'core/models';
 import NumberFormat from 'react-number-format';
+import ReactTooltip from 'react-tooltip'
 import _ from 'lodash';
 
 class ActivityAndHistoryListViewStore extends BaseListViewStore {
@@ -12,11 +15,17 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
     @observable loaded = false;
     @observable donorAccountSearchDropdownStore = null;
     @observable paymentTransactionStatusDropdownStore = null;
+    @observable paymentTransaction = null;
 
     constructor(rootStore) {
         const activityAndHistoryService = new ActivityAndHistoryService(rootStore.app.baasic.apiClient);
         let filter = new ActivityAndHistoryListFilter();
-        //filter.donorAccountId is handled on server side
+        if (rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            filter.donorAccountId = rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.donorAccountId : null;
+        }
+        else {
+            filter.donorAccountId = rootStore.authStore.user.id;
+        }
 
         super(rootStore, {
             name: 'activity and history',
@@ -30,22 +39,28 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: filter,
-                disableUpdateQueryParams: true
-            }
+                filter: filter
+            },
+            autoInit: false
         });
 
         this.rootStore = rootStore;
+        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
         this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
+
+        this.detailsModalParams = new ModalParams({
+            notifyOutsideClick: true,
+            onClose: () => { this.paymentTransaction = null; this.onClose }
+        });
 
         this.load();
     }
 
     @action.bound async load() {
         await this.loadLookups();
-        await this.setStores();
         await this.loadData()
+        await this.setStores();
         this.loaded = true;
     }
 
@@ -68,8 +83,8 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
                     {
                         key: 'paymentTransactionStatusId',
                         title: 'Status',
-                        type: 'lookup',
-                        lookup: this.paymentTransactionStatuses
+                        type: 'function',
+                        function: this.renderStatus
                     },
                     {
                         key: 'done',
@@ -80,10 +95,14 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
                         key: 'details',
                         title: 'Details',
                         type: 'function',
-                        function: this.renderLink
+                        function: this.renderText
                     },
                 ],
                 actions: {
+                    onDetails: paymentTransaction => { this.paymentTransaction = paymentTransaction; this.detailsModalParams.open(); }
+                },
+                actionsRender: {
+                    renderDetails: (paymentTransaction) => paymentTransaction.contributionId || paymentTransaction.grantId
                 },
             })
         );
@@ -102,18 +121,38 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
         return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} />;
     }
 
-    @action.bound renderLink(item) {
+    @action.bound renderStatus(item) {
+        const itemValue = _.find(this.paymentTransactionStatuses, { id: item.paymentTransactionStatusId }).name;
+
+        let description = null;
+        if (item.description && item.description !== '') {
+            description = item.description;
+        }
+        return (
+            <React.Fragment>
+                {itemValue}
+                {description &&
+                    <React.Fragment>
+                        <span className='icomoon tiny icon-cog' data-tip data-for={`description_${item.id}`} />
+                        <ReactTooltip type='info' effect='solid' place="right" id={`description_${item.id}`}>
+                            <p>{description}</p>
+                        </ReactTooltip>
+                    </React.Fragment>}
+            </React.Fragment>);
+    }
+
+    @action.bound renderText(item) {
         if (item.contributionId) {
-            return <a onClick={() => this.rootStore.routerStore.navigate('master.app.main.contribution.details', { id: item.contributionId })}>Contribution</a>
+            return 'Contribution';
         }
         else if (item.fundTransferId) {
-            return <a onClick={() => this.rootStore.routerStore.navigate('master.app.main.fund-transfer.list')}>Fund Transfer</a>
+            return 'Fund Transfer';
         }
         else if (item.grantId) {
-            return <a onClick={() => alert('Redirect to grant detail page')}>Grant</a>
+            return 'Grant';
         }
         else if (item.feeId) {
-            return <a onClick={() => alert('Navigate to fee detail page?')}>Fee</a>
+            return 'Fee';
         }
         return null;
     }
@@ -127,6 +166,40 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
     }
 
     @action.bound async setStores() {
+        this.donorAccountSearchDropdownStore = new BaasicDropdownStore(
+            {
+                multi: false,
+                textField: 'name',
+                dataItemKey: 'id',
+                clearable: true,
+                placeholder: 'Choose Donor',
+                initFetch: false
+            },
+            {
+                fetchFunc: async (term) => {
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    if (term && term !== '') {
+                        options.searchQuery = term;
+                    }
+
+                    let response = await this.donorAccountService.search(options);
+                    return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
+                },
+                onChange: this.onDonorFilterSearch
+            }
+        );
+
+        if (this.queryUtility.filter.donorAccountId) {
+            let params = {};
+            params.embed = ['coreUser,donorAccountAddresses,address'];
+            const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
+            let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
+            let donorSearchs = [];
+            donorSearchs.push(defaultSearchDonor);
+            this.donorAccountSearchDropdownStore.items = donorSearchs;
+            this.queryUtility._reloadCollection();
+        }
+
         this.paymentTransactionStatusDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
@@ -140,6 +213,11 @@ class ActivityAndHistoryListViewStore extends BaseListViewStore {
             },
             _.map(_.orderBy(this.paymentTransactionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
         );
+    }
+
+    @action.bound async onDonorFilterSearch(option) {
+        this.queryUtility.filter.donorAccountId = option ? option.id : null;
+        this.queryUtility._reloadCollection();
     }
 }
 

@@ -69,7 +69,7 @@ class DonorNoteListViewStore extends BaseListViewStore {
                     onDelete: note => this.delete(note),
                     onSort: column => this.queryUtility.changeOrder(column.key)
                 },
-                actionsConfig: {
+                actionsRender: {
                     onDeleteConfig: { 'title': 'delete', 'permissions': this.permissions }
                 }
             })

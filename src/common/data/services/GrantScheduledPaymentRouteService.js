@@ -7,7 +7,7 @@ class GrantScheduledPaymentRouteService extends BaseRouteService {
         super();
         this.base = 'grant-scheduled-payment/';
         this.uriTemplateService = uritemplate;
-        this.queryParams = 'donorAccountId,amountRangeMin,amountRangeMax,charityId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,searchFields';
+        this.queryParams = 'donorAccountId,amountRangeMin,amountRangeMax,charityId,dateCreatedStartDate,dateCreatedEndDate,name,SearchPhrase,page,rpp,sort,embed,searchFields';
     }
 
     find(filter) {
@@ -16,6 +16,10 @@ class GrantScheduledPaymentRouteService extends BaseRouteService {
 
     create(resource) {
         return super.create(this.base, resource);
+    }
+
+    cancel(resource) {
+        return super.cancel(this.base + 'cancel/{id}', resource);
     }
 }
 

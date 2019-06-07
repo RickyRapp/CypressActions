@@ -47,7 +47,6 @@ function GrantListTemplate({ grantListViewStore }) {
                     <BaasicTable
                         tableStore={tableStore}
                         loading={loaderStore.loading}
-                        actionsComponent={renderActions}
                     />
                 </React.Fragment>}
             <BaasicModal modalParams={findDonorModalParams} >
@@ -73,88 +72,6 @@ function GrantListTemplate({ grantListViewStore }) {
                 </div>
             </BaasicModal>
         </ListLayout>
-    );
-}
-
-function renderActions({ item, actions, actionsConfig }) {
-    if (!isSome(actions))
-        return null;
-
-    let { onReview, onEdit, onDetails } = actions;
-    if (!isSome(onReview) && !isSome(onEdit) && !isSome(onDetails))
-        return null;
-
-    const { onReviewConfig, onEditConfig, onDetailsConfig } = actionsConfig;
-
-    //review config
-    let reviewTitle = 'review' // default
-    if (isSome(onReviewConfig)) {
-        if (onReviewConfig.title) {
-            reviewTitle = onReviewConfig.title;
-        }
-
-        if (onReviewConfig.statuses) {
-            if (!_.includes(onReviewConfig.statuses, item.donationStatusId)) {
-                onReview = null
-            }
-        }
-    }
-
-    //edit config
-    let editTitle = 'edit' // default
-    if (isSome(onEditConfig)) {
-        if (onEditConfig.title) {
-            editTitle = onEditConfig.title;
-        }
-
-        if (onEditConfig.statuses) {
-            if (!_.includes(onEditConfig.statuses, item.donationStatusId)) {
-                onEdit = null
-            }
-        }
-    }
-
-    //details config
-    let detailsTitle = 'details' // default
-    if (isSome(onDetailsConfig)) {
-        if (onDetailsConfig.title) {
-            editTitle = onEditConfig.title;
-        }
-
-        if (onDetailsConfig.statuses) {
-            if (!_.includes(onDetailsConfig.statuses, item.donationStatusId)) {
-                onDetails = null
-            }
-        }
-    }
-
-    return (
-        <td className="table__body--data right">
-            {isSome(onReview) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onReview(item)}
-                >
-                    {reviewTitle}
-                </i>
-            ) : null}
-            {isSome(onEdit) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onEdit(item)}
-                >
-                    {editTitle}
-                </i>
-            ) : null}
-            {isSome(onDetails) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onDetails(item)}
-                >
-                    {detailsTitle}
-                </i>
-            ) : null}
-        </td>
     );
 }
 

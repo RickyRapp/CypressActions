@@ -24,6 +24,11 @@ class BaseRouteService {
     return this.uriTemplateService.parse(route).expand(resource);
   }
 
+  cancel(route, resource) {
+    const params = getParams({ id: resource });
+    return this.uriTemplateService.parse(route).expand(params);
+  }
+
   delete(route, resource) {
     return this.uriTemplateService.parse(route).expand(resource);
   }

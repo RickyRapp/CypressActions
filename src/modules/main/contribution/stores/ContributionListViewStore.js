@@ -3,6 +3,7 @@ import { ContributionService, LookupService, DonorAccountService } from "common/
 import { ContributionListFilter } from 'modules/main/contribution/models';
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { ModalParams } from 'core/models';
+import moment from 'moment';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseListViewStore {
@@ -66,8 +67,6 @@ class ContributionListViewStore extends BaseListViewStore {
         await this.loadLookups();
         await this.setFilterDropdownStores();
 
-        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
-
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: [
@@ -126,13 +125,19 @@ class ContributionListViewStore extends BaseListViewStore {
                     onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
                     onDetails: contribution => { this.contributionId = contribution.id; this.detailsContributionModalParams.open(); }
                 },
-                actionsConfig: {
-                    onEditConfig: { minutes: this.minutes, title: 'edit', permissions: this.permissions, statuses: availableStatuesForEdit },
+                actionsRender: {
+                    renderEdit: this.renderEdit
                 }
             })
         );
-
         this.loaded = true;
+    }
+
+    @action.bound renderEdit(contribution) {
+        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
+        if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
+            return moment().local().isAfter(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
+        }
     }
 
     @action.bound async loadLookups() {

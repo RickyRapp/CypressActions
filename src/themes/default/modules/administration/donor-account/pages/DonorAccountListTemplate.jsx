@@ -37,40 +37,13 @@ function DonorAccountListTemplate({ donorAccountListViewStore }) {
                             placeholder="Emails (separate by ,)"
                         />
                     </div>
-                    {/* TODO: three state toggle switch
-                    <div className="pos--rel display--ib  spc--right--sml">
-                        <DropdownFilter
-                            queryUtility={queryUtility}
-                            name="lastName"
-                            placeholder="Last Name"
-                        />
-                    </div> */}
                 </TableFilter>
             </div>
             <BaasicTable
                 tableStore={tableStore}
                 loading={loaderStore.loading}
-                actionsComponent={renderActions}
             />
         </ListLayout>
-    );
-}
-
-function renderActions({ item, actions }) {
-    if (!isSome(actions)) return null;
-
-    const { onEdit } = actions;
-    if (!isSome(onEdit))
-        return null;
-
-    return (
-        <td className="table__body--data right">
-            {isSome(onEdit) ? (
-                <i className="material-icons align--v--middle" onClick={() => onEdit(item)} >
-                    edit
-                </i>
-            ) : null}
-        </td>
     );
 }
 
