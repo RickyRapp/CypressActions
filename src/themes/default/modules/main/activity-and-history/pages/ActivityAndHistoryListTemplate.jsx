@@ -13,7 +13,6 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         loaderStore,
         tableStore,
         paymentTransactionStatusDropdownStore,
-        loaded,
         detailsModalParams,
         paymentTransaction
     } = activityAndHistoryListViewStore;
@@ -25,12 +24,13 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                     <TableFilter queryUtility={queryUtility}>
                         <React.Fragment>
                             <div className="f-row">
-                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} paymentTransactionStatusDropdownStore={paymentTransactionStatusDropdownStore} />
+                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility}
+                                    paymentTransactionStatusDropdownStore={paymentTransactionStatusDropdownStore} />
                             </div>
                         </React.Fragment>
                     </TableFilter>
                 </div>
-                {loaded &&
+                {tableStore &&
                     <BaasicTable
                         tableStore={tableStore}
                         loading={loaderStore.loading}

@@ -1,11 +1,20 @@
 import _ from 'lodash';
 
-function getDonorNameDropdown(val) {
-    let fullName = `${val.coreUser.firstName}`
-    if (val.coreUser.json && JSON.parse(val.coreUser.json).middleName) {
-        fullName += ` (${JSON.parse(val.coreUser.json).middleName})`
+function getDonorName(val, middleName = true) {
+    let fullName = null;
+    if (val && val.coreUser) {
+        fullName = `${val.coreUser.firstName}`
+        if (middleName && val.coreUser.json && JSON.parse(val.coreUser.json).middleName) {
+            fullName += ` (${JSON.parse(val.coreUser.json).middleName})`
+        }
+        fullName += ` ${val.coreUser.lastName}`;
     }
-    fullName += ` ${val.coreUser.lastName}`;
+
+    return fullName;
+}
+
+function getDonorNameDropdown(val) {
+    let fullName = getDonorName(val, true);
 
     fullName += ` - {${val.accountNumber}} - `
 
@@ -51,4 +60,4 @@ function formatCharityTaxId(val) {
     return '';
 }
 
-export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown };
+export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName };

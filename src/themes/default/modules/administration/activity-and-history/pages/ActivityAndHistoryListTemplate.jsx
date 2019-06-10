@@ -15,7 +15,6 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         tableStore,
         donorAccountSearchDropdownStore,
         paymentTransactionStatusDropdownStore,
-        loaded,
         detailsModalParams,
         paymentTransaction
     } = activityAndHistoryListViewStore;
@@ -44,7 +43,7 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                         </React.Fragment>
                     </TableFilter>
                 </div>
-                {loaded && queryUtility.filter.donorAccountId &&
+                {tableStore && 
                     <BaasicTable
                         tableStore={tableStore}
                         loading={loaderStore.loading}

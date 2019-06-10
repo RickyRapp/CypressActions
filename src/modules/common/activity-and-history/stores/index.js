@@ -1,1 +1,1 @@
-export { default as ActivityAndHistoryListViewStore } from './ActivityAndHistoryListViewStore'
+export { default as BaseActivityAndHistoryListViewStore } from './BaseActivityAndHistoryListViewStore'
