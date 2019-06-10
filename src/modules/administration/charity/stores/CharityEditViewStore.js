@@ -1,53 +1,24 @@
-import { action, observable, runInAction } from 'mobx';
+import { observable } from 'mobx';
 import { CharityUpdateForm } from 'modules/administration/charity/forms';
-import { CharityService, LookupService, AddressService, FileStreamRouteService, FileStreamService } from "common/data";
-import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
+import { CharityService, FileStreamService, FileStreamRouteService } from "common/data";
+import { BaseCharityEditViewStore } from 'modules/common/charity/stores';
 import _ from 'lodash';
 
-class CharityEditViewStore extends BaseViewStore {
-    @observable charityTypeDropdownStore = null;
-    @observable charityStatusDropdownStore = null;
-    @observable hasLogin = false;
-    @observable hasContactInformation = false;
-    @observable hasBankAccount = false;
+class CharityEditViewStore extends BaseCharityEditViewStore {
     @observable charity = null;
-    @observable form = null;
     @observable imgPreview = null;
 
     constructor(rootStore) {
-        super(rootStore);
-        this.charityService = new CharityService(rootStore.app.baasic.apiClient);
-        this.fileStreamRouteService = new FileStreamRouteService();
-        this.fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
-        this.id = rootStore.routerStore.routerState.params.id;
-        this.rootStore = rootStore;
-        this.load();
-    }
+        const charityService = new CharityService(rootStore.app.baasic.apiClient);
+        const fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
+        const fileStreamRouteService = new FileStreamRouteService();
+        const userId = rootStore.routerStore.routerState.params.id;
 
-    @action.bound async load() {
-        this.loaderStore.suspend();
-        await this.loadLookups();
-        await this.initializeForm();
-        await this.setStores();
-        this.loaderStore.resume();
-    }
-
-    @action.bound async loadLookups() {
-        this.charityTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'charity-type');
-        let charityTypeModels = await this.charityTypeLookupService.getAll();
-        this.charityType = _.orderBy(charityTypeModels.data, ['sortOrder'], ['asc']);
-
-        this.charityStatusLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'charity-Status');
-        let charityStatusModels = await this.charityStatusLookupService.getAll();
-        this.charityStatus = _.orderBy(charityStatusModels.data, ['sortOrder'], ['asc']);
-    }
-
-    @action.bound async initializeForm() {
-        this.form = new CharityUpdateForm({
-            onSuccess: async form => {
-                this.loaderStore.suspend();
-                const item = form.values();
-                try {
+        const editViewStore = {
+            name: 'charity',
+            id: userId,
+            actions: {
+                update: async item => {
                     if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
                         item.contactInformation = null;
                     }
@@ -60,93 +31,45 @@ class CharityEditViewStore extends BaseViewStore {
 
                     try {
                         if (this.form.$('bankAccount.image').files) {
-                            const fileResponse = await this.fileStreamService.createBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
+                            const fileResponse = await fileStreamService.createBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
                             item.bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
                         }
-                    } catch (errorReponse) {
-                        this.rootStore.notificationStore.showMessageFromResponse(errorReponse, 6000);
-                        this.loaderStore.resume();
+                    } catch (errorResponse) {
+                        this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
                         return;
                     }
-                    const response = await this.charityService.update({ id: this.id, ...item });
+                    const response = await charityService.update({ id: this.id, ...item });
                     this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    await this.getResource(this.id);
-                } catch (errorResponse) {
-                    this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-                    this.loaderStore.resume();
-                    return;
+                    await this.getResources(this.id)
+                },
+                get: async id => {
+                    let params = {};
+                    params.embed = ['charityAddresses,address,coreUser,coreMembership,contactInformation,address,emailAddress,phoneNumber,bankAccount'];
+                    const response = await charityService.get(id, params);
+
+                    this.charity = response;
+                    if (this.charity && this.charity.bankAccount) {
+                        if (this.charity.bankAccount.coreMediaVaultEntryId) {
+                            this.imgPreview = await fileStreamRouteService.getPreview(this.charity.bankAccount.coreMediaVaultEntryId)
+                        }
+                    }
+
+                    return this.charity;
                 }
-                this.loaderStore.resume();
             },
-            onError(form) {
-                alert('### see console');
-                console.log('Form Errors', form.errors());
-            },
-        });
-
-        await this.getResource(this.id);
-    }
-
-    @action.bound async getResource(id, updateForm = true) {
-        let params = {};
-        params.embed = ['charityAddresses,address,coreUser,coreMembership,contactInformation,address,emailAddress,phoneNumber,bankAccount'];
-        const response = await this.charityService.get(id, params);
-
-        this.charity = response;
-        if (this.charity && this.charity.bankAccount) {
-            if (this.charity.bankAccount.coreMediaVaultEntryId) {
-                this.imgPreview = await this.fileStreamRouteService.getPreview(this.charity.bankAccount.coreMediaVaultEntryId)
-            }
+            FormClass: CharityUpdateForm,
+            goBack: false,
+            setValues: true,
+            loader: true
         }
-        if (updateForm) {
-            this.form.set('value', this.charity)
-        }
-    }
 
-    @action.bound async setStores() {
-        this.charityTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Charity Type',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: false
-            },
-            {
-                onChange: (option) => this.form.$('charityTypeId').set('value', option ? option.id : null)
-            },
-            _.map(this.charityType, e => { return { 'id': e.id, 'name': e.name } })
-        );
+        const config = {};
+        config.editViewStore = editViewStore;
+        config.userId = userId;
 
-        this.charityStatusDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Set Charity Status',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: false
-            },
-            {
-                onChange: (option) => this.form.$('charityStatusId').set('value', option ? option.id : null)
-            },
-            _.map(this.charityStatus, e => { return { 'id': e.id, 'name': e.name } })
-        );
-    }
+        super(rootStore, config);
 
-    @action.bound async onMarkPrimaryAddress(addressId) {
-        this.addressService = new AddressService(this.rootStore.app.baasic.apiClient);
-        try {
-            const response = await this.addressService.markPrimary('charity/mark-primary', this.id, addressId);
-            this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-            await this.getResource(this.id, false);
-        } catch (errorResponse) {
-            this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-            return;
-        }
-    }
-
-    @action.bound async onAfterAddressCreate() {
-        await this.getResource(this.id, false);
+        this.load();
     }
 }
 

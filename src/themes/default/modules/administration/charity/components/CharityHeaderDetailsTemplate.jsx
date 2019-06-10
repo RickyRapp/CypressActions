@@ -28,11 +28,11 @@ function renderCharity(charity, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.user.edit', { id: charity.id })}>
-                    Login Info
-                </a>
+                    <i className="icomoon icon-login-key align--v--middle spc--right--tny"></i>
+                    {charity.name}
+                </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Balance:
@@ -43,11 +43,11 @@ function renderCharity(charity, rootStore) {
                 <NumberFormat value={charity.reservedBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.files', { id: charity.id })}>
-                    Files
-                </a>
+                    <i className="icomoon icon-common-file-text align--v--middle spc--right--tny"></i>
+                    Documents
+                </span>
             </div>
         </div>
     )
@@ -57,11 +57,11 @@ function renderFiles(charity, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
-                <a
-                    className="btn btn--xsml btn--ghost"
+                <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charity.id })}>
+                    <i className="icomoon icon-house-1 align--v--middle spc--right--tny"></i>
                     {charity.name} - {charity.taxId}
-                </a>
+                </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Balance:

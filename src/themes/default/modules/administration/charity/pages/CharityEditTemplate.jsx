@@ -78,6 +78,14 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                 <div className="f-row card card--sml card--primary">
                                     <BankAccountTemplate form={form.$('bankAccount')} imgPreview={imgPreview} />
                                 </div>
+                                <div>
+                            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                            <BaasicButton
+                                className="btn btn--med btn--primary display--ib"
+                                label={t('Cancel')}
+                                onClick={() => rootStore.routerStore.goBack()}
+                            />
+                        </div>
                             </EditFormContent>
                         </div>
 
@@ -101,16 +109,6 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                             ></AddressCreate>
                         </div>
                     </div>
-                    <PageFooter>
-                        <div>
-                            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                            <BaasicButton
-                                className="btn btn--med btn--primary display--ib"
-                                label={t('Cancel')}
-                                onClick={() => rootStore.routerStore.goBack()}
-                            />
-                        </div>
-                    </PageFooter>
                 </React.Fragment>}
         </Page>
     );

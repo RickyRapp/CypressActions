@@ -27,7 +27,7 @@ function BankAccountTemplate({ form, imgPreview, title = 'Bank Account Informati
                     <BasicFormatFieldInput field={form.$('routingNumber')} format="###-###-###" mask="*" />
                 </div>
                 {form.has('image') &&
-                    <div className="form__group f-col f-col-lrg-6">
+                    <div className="form__group f-col f-col-lrg-5">
                         <div className="f-row">
                             <div className="form__group f-col f-col-lrg-6">
                                 <input
@@ -41,10 +41,10 @@ function BankAccountTemplate({ form, imgPreview, title = 'Bank Account Informati
                             </div>
                         </div>
                     </div>}
-                <div className="form__group f-col f-col-lrg-6">
+                <div className="form__group f-col f-col-lrg-1">
                     {imgPreview &&
                         <React.Fragment>
-                            <span className='icomoon tiny icon-cog' data-tip data-for={`imgPreview_${form.$('accountNumber').value}`} onClick={() => window.open(imgPreview, '_blank')} />
+                            <span className='icomoon sml icon-official-building-3' data-tip data-for={`imgPreview_${form.$('accountNumber').value}`} onClick={() => window.open(imgPreview, '_blank')} />
                             <ReactTooltip type='info' effect='solid' place="right" id={`imgPreview_${form.$('accountNumber').value}`}>
                                 <img src={imgPreview} width="300" height="300" />
                             </ReactTooltip>

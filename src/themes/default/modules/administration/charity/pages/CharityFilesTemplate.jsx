@@ -15,18 +15,17 @@ function CharityFilesTemplate({ charityFilesViewStore }) {
 
     return (
         <Page loading={loaderStore.loading}>
-            <React.Fragment>
-                <PageContentHeader><CharityHeaderDetails userId={id} type='files' /></PageContentHeader>
-                <div className="f-row">
-                    <div className="form__group f-col f-col-lrg-6">
-                        <DocumentCreate onRefresh={onRefresh} uploadFunc={uploadFunc} />
-                    </div>
-                    <div className="form__group f-col f-col-lrg-6" key={refresh}>
-                        <DocumentList id={id} />
-                    </div>
+            <PageContentHeader>
+                <CharityHeaderDetails userId={id} type='files' /></PageContentHeader>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6 card">
+                    <DocumentCreate onRefresh={onRefresh} uploadFunc={uploadFunc} />
                 </div>
-            </React.Fragment>
-        </Page >
+                <div className="form__group f-col f-col-lrg-6" key={refresh}>
+                    <DocumentList id={id} />
+                </div>
+            </div>
+        </Page>
     );
 };
 

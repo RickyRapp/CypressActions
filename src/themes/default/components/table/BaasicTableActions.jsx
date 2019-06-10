@@ -72,7 +72,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
       ) : null}
       {isSome(onDetails) ? (
         <i
-          className="icomoon icon-common-file-text align--v--middle spc--right--sml"
+          className="icomoon icon-task-list-to-do align--v--middle spc--right--sml"
           onClick={() => onDetails(item)}
           title="Details"
         >
