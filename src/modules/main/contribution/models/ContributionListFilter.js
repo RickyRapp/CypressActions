@@ -13,16 +13,8 @@ class ContributionListFilter extends FilterParams {
     @observable exportLimit;
     @observable exportFields;
 
-    constructor(rootStore) {
+    constructor() {
         super();
-
-        if (rootStore.authStore.hasPermission('theDonorsFundDonorSection.read')) {
-            this.donorAccountId = rootStore.authStore.user.id;
-        }
-        else {
-            //TODO:
-            //reporter role, fetch user id from local storage
-        }
 
         this.reset();
     }

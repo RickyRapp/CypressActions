@@ -1,25 +1,18 @@
 import { action, observable } from 'mobx';
-import { ContributionService, LookupService, DonorAccountService } from "common/data";
+import { ContributionService } from "common/data";
 import { ContributionListFilter } from 'modules/main/contribution/models';
-import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
-import { ModalParams } from 'core/models';
+import { BaseContributionListViewStore } from 'modules/common/contribution/stores';
 import moment from 'moment';
 import _ from 'lodash';
 
-class ContributionListViewStore extends BaseListViewStore {
-    paymentTypeDropdownStore = null;
-    contributionStatusDropdownStore = null;
-    contributionStatuses = null;
-    paymentTypeModels = null;
-    @observable loaded = false;
-    @observable contributionId = false;
-
+class ContributionListViewStore extends BaseContributionListViewStore {
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
-        let filter = new ContributionListFilter(rootStore);
+
+        let filter = new ContributionListFilter();
         filter.donorAccountId = rootStore.authStore.user.id;
 
-        super(rootStore, {
+        const listViewStore = {
             name: 'contribution',
             routes: {
                 edit: (contributionId) =>
@@ -43,94 +36,68 @@ class ContributionListViewStore extends BaseListViewStore {
                 filter: filter,
                 disableUpdateQueryParams: true
             }
-        });
+        }
 
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        this.contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
-        this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
-        this.contributionService = contributionService;
+        const config = {
+            listViewStore: listViewStore,
+            setSelectedExportColumnsName: [],
+            setAdditionalExportColumnsName: []
+        }
+
+        super(rootStore, config);
 
         this.minutes = 15;
+        this.columns = [
+            {
+                key: 'amount',
+                title: 'Amount',
+                type: 'currency'
+            },
+            {
+                key: 'confirmationNumber',
+                title: 'Conf. Number'
+            },
+            {
+                key: 'contributionStatusId',
+                title: 'Status',
+                type: 'function',
+                function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name
+            },
+            {
+                key: 'paymentTypeId',
+                title: 'Payment Type',
+                type: 'function',
+                function: (item) => _.find(this.paymentTypes, { id: item.paymentTypeId }).name
+            },
+            {
+                key: 'payerInformation',
+                title: 'Payer Name',
+                type: 'function',
+                function: (item) => `${item.payerInformation.firstName} ${item.payerInformation.lastName}`
+            },
+            {
+                key: 'createdByCoreUser',
+                title: 'Created By',
+                type: 'function',
+                function: (item) => item.createdByCoreUser ? `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` : 'System'
+            },
+            {
+                key: 'dateUpdated',
+                title: 'Date Updated',
+                type: 'date',
+                format: 'YYYY-MM-DD HH:mm'
+            },
+        ];
 
-        this.selectedExportColumnsName = ['Amount'];
-        this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
+        this.setActions = {
+            onEdit: (contribution) => this.routes.edit(contribution.id),
+        }
 
-        this.detailsContributionModalParams = new ModalParams({
-            onClose: () => { this.contributionId = null; this.onClose },
-            notifyOutsideClick: true
-        });
+        this.setRenderActions = {
+            renderEdit: this.renderEdit,
+        }
 
         this.load();
-    }
-
-    @action.bound async load() {
-        await this.loadLookups();
-        await this.setFilterDropdownStores();
-
-        this.setTableStore(
-            new TableViewStore(this.queryUtility, {
-                columns: [
-                    {
-                        key: 'amount',
-                        title: 'Amount',
-                        type: 'currency'
-                    },
-                    {
-                        key: 'confirmationNumber',
-                        title: 'Conf. Number'
-                    },
-                    {
-                        key: 'contributionStatusId',
-                        title: 'Status',
-                        type: 'lookup',
-                        lookup: this.contributionStatuses
-                    },
-                    {
-                        key: 'paymentTypeId',
-                        title: 'Payment Type',
-                        type: 'lookup',
-                        lookup: this.paymentTypeModels
-                    },
-                    {
-                        key: 'payerInformation',
-                        title: 'Payer Name',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'createdByCoreUser',
-                        title: 'Created By',
-                        type: 'object',
-                        separator: ' ',
-                        defaultValue: 'System',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'dateUpdated',
-                        title: 'Date Updated',
-                        type: 'date',
-                        format: 'YYYY-MM-DD HH:mm'
-                    },
-                ],
-                actions: {
-                    onEdit: contribution => this.routes.edit(contribution.id, contribution.donorAccountId),
-                    onDetails: contribution => { this.contributionId = contribution.id; this.detailsContributionModalParams.open(); }
-                },
-                actionsRender: {
-                    renderEdit: this.renderEdit
-                }
-            })
-        );
-        this.loaded = true;
     }
 
     @action.bound renderEdit(contribution) {
@@ -138,44 +105,6 @@ class ContributionListViewStore extends BaseListViewStore {
         if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
             return moment().local().isAfter(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
         }
-    }
-
-    @action.bound async loadLookups() {
-        let paymentTypeModels = await this.paymentTypeLookup.getAll();
-        this.paymentTypeModels = paymentTypeModels.data;
-
-        let contributionStatusModels = await this.contributionStatusLookup.getAll();
-        this.contributionStatuses = contributionStatusModels.data;
-    }
-
-    @action.bound async setFilterDropdownStores() {
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Payment Type',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.paymentTypeIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.paymentTypeModels, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
-
-        this.contributionStatusDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Contribution Status',
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.contributionStatusIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.contributionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
     }
 }
 

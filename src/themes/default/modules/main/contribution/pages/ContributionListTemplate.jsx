@@ -12,49 +12,48 @@ function ContributionListTemplate({ contributionListViewStore }) {
         queryUtility,
         loaderStore,
         tableStore,
-        loaded,
         routes: { create },
         contributionStatusDropdownStore,
         paymentTypeDropdownStore,
         contributionService,
         selectedExportColumnsName,
         additionalExportColumnsName,
-        detailsContributionModalParams,
+        detailsModalParams,
         contributionId
     } = contributionListViewStore;
 
     return (
         <React.Fragment>
-            {loaded &&
-                <React.Fragment>
-                    <ListLayout onCreate={create} loading={loaderStore.loading}>
-                        <div className="spc--bottom--sml">
-                            <TableFilter queryUtility={queryUtility}>
-                                <div className="f-row">
-                                    <ListFilterTemplate
-                                        queryUtility={queryUtility}
-                                        paymentTypeDropdownStore={paymentTypeDropdownStore}
-                                        contributionStatusDropdownStore={contributionStatusDropdownStore} />
-                                </div>
-                            </TableFilter>
-                            <Export
-                                queryUtility={queryUtility}
-                                selectedExportColumnsName={selectedExportColumnsName}
-                                additionalExportColumnsName={additionalExportColumnsName}
-                                service={contributionService}
-                            />
-                        </div>
+            <React.Fragment>
+                <ListLayout onCreate={create} loading={loaderStore.loading}>
+                    <div className="spc--bottom--sml">
+                        <TableFilter queryUtility={queryUtility}>
+                            <div className="f-row">
+                                <ListFilterTemplate
+                                    queryUtility={queryUtility}
+                                    paymentTypeDropdownStore={paymentTypeDropdownStore}
+                                    contributionStatusDropdownStore={contributionStatusDropdownStore} />
+                            </div>
+                        </TableFilter>
+                        <Export
+                            queryUtility={queryUtility}
+                            selectedExportColumnsName={selectedExportColumnsName}
+                            additionalExportColumnsName={additionalExportColumnsName}
+                            service={contributionService}
+                        />
+                    </div>
+                    {tableStore &&
                         <BaasicTable
                             tableStore={tableStore}
                             loading={loaderStore.loading}
-                        />
-                    </ListLayout>
-                    <BaasicModal modalParams={detailsContributionModalParams} >
-                        <div className="col col-sml-12 card card--form card--primary card--lrg">
-                            <ContributionDetails id={contributionId} />
-                        </div>
-                    </BaasicModal>
-                </React.Fragment>}
+                        />}
+                </ListLayout>
+                <BaasicModal modalParams={detailsModalParams} >
+                    <div className="col col-sml-12 card card--form card--primary card--lrg">
+                        <ContributionDetails id={contributionId} />
+                    </div>
+                </BaasicModal>
+            </React.Fragment>
         </React.Fragment>
     );
 }

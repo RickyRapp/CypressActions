@@ -1,18 +1,14 @@
 import { action, observable } from 'mobx';
-import { ContributionService, LookupService, DonorAccountService } from "common/data";
+import { ContributionService, DonorAccountService } from "common/data";
 import { ContributionListFilter } from 'modules/administration/contribution/models';
-import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
+import { BaseContributionListViewStore } from 'modules/common/contribution/stores';
+import { BaasicDropdownStore } from "core/stores";
 import { ModalParams } from 'core/models';
 import { getDonorNameDropdown } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 
-class ContributionListViewStore extends BaseListViewStore {
-    paymentTypeDropdownStore = null;
-    contributionStatusDropdownStore = null;
-    contributionStatuses = null;
-    paymentTypeModels = null;
-    @observable loaded = false;
+class ContributionListViewStore extends BaseContributionListViewStore {
     @observable contributionId = null;
     @observable donorAccountSearchDropdownStore = null;
 
@@ -22,7 +18,7 @@ class ContributionListViewStore extends BaseListViewStore {
         let filter = new ContributionListFilter();
         filter.donorAccountId = rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.donorAccountId : null;
 
-        super(rootStore, {
+        const listViewStore = {
             name: 'contribution',
             routes: {
                 edit: (contributionId) =>
@@ -47,122 +43,87 @@ class ContributionListViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter
             }
-        });
+        }
+
+        const config = {
+            listViewStore: listViewStore,
+            setSelectedExportColumnsName: [],
+            setAdditionalExportColumnsName: []
+        }
+
+        super(rootStore, config);
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        this.contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
-        this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
         this.contributionService = contributionService;
-
-        this.selectedExportColumnsName = ['Amount', 'Payment Type'];
-        this.additionalExportColumnsName = ['Payer Name', 'Status', 'Created By', 'Date Created'];
 
         this.findDonorModalParams = new ModalParams({
             onClose: this.onClose
         });
 
-        this.reviewContributionModalParams = new ModalParams({
+        this.reviewModalParams = new ModalParams({
             onClose: () => { this.contributionId = null; this.onClose }
         });
 
-        this.detailsContributionModalParams = new ModalParams({
-            onClose: () => { this.contributionId = null; this.onClose },
-            notifyOutsideClick: true
-        });
+        this.columns = [
+            {
+                key: 'donorAccount.coreUser',
+                title: 'Donor Name',
+                type: 'function',
+                function: (item) => `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}`
+            },
+            {
+                key: 'amount',
+                title: 'Amount',
+                type: 'currency'
+            },
+            {
+                key: 'confirmationNumber',
+                title: 'Conf. Number'
+            },
+            {
+                key: 'contributionStatusId',
+                title: 'Status',
+                type: 'function',
+                function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name
+            },
+            {
+                key: 'paymentTypeId',
+                title: 'Payment Type',
+                type: 'function',
+                function: this.renderPaymentType
+            },
+            {
+                key: 'payerInformation',
+                title: 'Payer Name',
+                type: 'function',
+                function: (item) => `${item.payerInformation.firstName} ${item.payerInformation.lastName}`
+            },
+            {
+                key: 'createdByCoreUser',
+                title: 'Created By',
+                type: 'function',
+                function: (item) => item.createdByCoreUser ? `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` : 'System'
+            },
+            {
+                key: 'dateUpdated',
+                title: 'Date Updated',
+                type: 'date',
+                format: 'YYYY-MM-DD HH:mm'
+            },
+        ];
 
-        this.load();
-    }
-
-    @action.bound async load() {
-        await this.loadLookups();
-        await this.setFilterDropdownStores();
-
-        const renderPaymentType = (item) => {
-            if (item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'ach' }).id || item.paymentTypeId === _.find(this.paymentTypeModels, { abrv: 'wire-transfer' }).id) {
-                return `${_.find(this.paymentTypeModels, { id: item.paymentTypeId }).name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;
-            }
-            else
-                return _.find(this.paymentTypeModels, { id: item.paymentTypeId }).name;
+        this.setActions = {
+            onEdit: (contribution) => this.routes.edit(contribution.id),
+            onReview: (contribution) => { this.contributionId = contribution.id; this.reviewModalParams.open(); }
         }
 
-        this.setTableStore(
-            new TableViewStore(this.queryUtility, {
-                columns: [
-                    {
-                        key: 'donorAccount.coreUser',
-                        title: 'Donor Name',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'amount',
-                        title: 'Amount',
-                        type: 'currency'
-                    },
-                    {
-                        key: 'confirmationNumber',
-                        title: 'Conf. Number'
-                    },
-                    {
-                        key: 'contributionStatusId',
-                        title: 'Status',
-                        type: 'lookup',
-                        lookup: this.contributionStatuses
-                    },
-                    {
-                        key: 'paymentTypeId',
-                        title: 'Payment Type',
-                        type: 'function',
-                        function: renderPaymentType
-                    },
-                    {
-                        key: 'payerInformation',
-                        title: 'Payer Name',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'createdByCoreUser',
-                        title: 'Created By',
-                        type: 'object',
-                        separator: ' ',
-                        defaultValue: 'System',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'dateUpdated',
-                        title: 'Date Updated',
-                        type: 'date',
-                        format: 'YYYY-MM-DD HH:mm'
-                    },
-                ],
-                actions: {
-                    onEdit: contribution => this.routes.edit(contribution.id),
-                    onReview: contribution => { this.contributionId = contribution.id; this.reviewContributionModalParams.open(); },
-                    onDetails: contribution => { this.contributionId = contribution.id; this.detailsContributionModalParams.open(); }
-                },
-                actionsRender: {
-                    renderEdit: this.renderEdit,
-                    renderReview: this.renderReview
-                }
-            })
-        );
+        this.setRenderActions = {
+            renderEdit: this.renderEdit,
+            renderReview: this.renderReview
+        }
 
-        this.loaded = true;
+        this.load();
+        this.setAdditionalStores();
     }
 
     @action.bound renderEdit(contribution) {
@@ -170,6 +131,14 @@ class ContributionListViewStore extends BaseListViewStore {
         if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
             return moment().local().isAfter(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
         }
+    }
+
+    @action.bound renderPaymentType = (item) => {
+        if (item.paymentTypeId === _.find(this.paymentTypes, { abrv: 'ach' }).id || item.paymentTypeId === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
+            return `${_.find(this.paymentTypes, { id: item.paymentTypeId }).name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;
+        }
+        else
+            return _.find(this.paymentTypes, { id: item.paymentTypeId }).name;
     }
 
     @action.bound renderReview(contribution) {
@@ -191,43 +160,7 @@ class ContributionListViewStore extends BaseListViewStore {
         }
     }
 
-    @action.bound async loadLookups() {
-        let paymentTypeModels = await this.paymentTypeLookup.getAll();
-        this.paymentTypeModels = paymentTypeModels.data;
-
-        let contributionStatusModels = await this.contributionStatusLookup.getAll();
-        this.contributionStatuses = contributionStatusModels.data;
-    }
-
-    @action.bound async setFilterDropdownStores() {
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Payment Type',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.paymentTypeIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.paymentTypeModels, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
-
-        this.contributionStatusDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Contribution Status',
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.contributionStatusIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.contributionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
-
+    @action.bound async setAdditionalStores() {
         this.donorAccountSearchDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
@@ -247,7 +180,7 @@ class ContributionListViewStore extends BaseListViewStore {
                     let response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onDonorFilterSearch
+                onChange: (option) => this.queryUtility.filter.donorAccountId = (option ? option.id : null)
             }
         );
 
@@ -260,11 +193,6 @@ class ContributionListViewStore extends BaseListViewStore {
             donorSearchs.push(defaultSearchDonor);
             this.donorAccountSearchDropdownStore.items = donorSearchs;
         }
-    }
-
-
-    @action.bound async onDonorFilterSearch(option) {
-        this.queryUtility.filter.donorAccountId = (option ? option.id : null)
     }
 }
 

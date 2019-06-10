@@ -1,6 +1,6 @@
 import React from 'react';
 import AsyncSelect from 'react-select/lib/Async';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, isSome } from 'core/utils';
 
 function BaasicAsyncDropdownTemplate({ store }) {
   const {
@@ -9,12 +9,13 @@ function BaasicAsyncDropdownTemplate({ store }) {
     onChange,
     loading,
     value,
-    initFetch
+    initFetch,
+    items
   } = store;
 
   return (
     <AsyncSelect
-      value={value}
+      value={isSome(value) ? _.filter(items, function (x) { return _.includes(options.multi ? _.map(value, 'id') : value, x.id) }) : null}
       defaultValue={defaultValue}
       onChange={onChange}
       placeholder={options.placeholder}

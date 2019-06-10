@@ -72,7 +72,7 @@ function renderContribution(donorAccount, rootStore) {
             <div className="form__group f-col f-col-lrg-3">
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                    <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
                     {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
                 </span>
             </div>
@@ -89,14 +89,12 @@ function renderContribution(donorAccount, rootStore) {
                 </strong>
             </div>
             <div className="form__group f-col f-col-lrg-3">
-                Settings:
-                <strong>
-                    <a
-                        className="btn btn--xsml btn--ghost"
-                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>
-                        <strong>Open</strong>
-                    </a>
-                </strong>
+                <span
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>
+                    <i className="icomoon icon-settings-slider align--v--middle spc--right--tny"></i>
+                    Settings
+                </span>
+
             </div>
         </div>
     )
@@ -108,7 +106,7 @@ function renderContributionSetting(donorAccount, rootStore) {
             <div className="form__group f-col f-col-lrg-3">
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                    <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
                     {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
                 </span>
             </div>
