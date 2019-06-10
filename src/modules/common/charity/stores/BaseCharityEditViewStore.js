@@ -41,7 +41,7 @@ class BaseCharityEditViewStore extends BaseEditViewStore {
             {
                 onChange: (option) => this.form.$('charityTypeId').set('value', option ? option.id : null)
             },
-            _.map(this.charityType, e => { return { 'id': e.id, 'name': e.name } })
+            _.map(this.charityType, e => { return { id: e.id, name: e.name } })
         );
 
         this.charityStatusDropdownStore = new BaasicDropdownStore(
