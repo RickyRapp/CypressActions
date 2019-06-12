@@ -14,7 +14,7 @@ class DonorNoteListViewStore extends BaseListViewStore {
             actions: {
                 find: async params => {
                     if (!userId) {
-                        return;
+                        return [];
                     }
                     params.id = rootStore.routerStore.routerState.params.userId;
                     const response = await donorNoteService.find(params);

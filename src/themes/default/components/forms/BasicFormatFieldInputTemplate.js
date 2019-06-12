@@ -3,7 +3,7 @@ import { renderIf, isSome, defaultTemplate } from 'core/utils';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
-const BasicFormatFieldInputTemplate = defaultTemplate(({ field, t, label = null, ...props }) => {
+const BasicFormatFieldInputTemplate = defaultTemplate(({ field, label = null, ...props }) => {
   const {
     thousandSeparator,
     decimalSeparator,
@@ -26,7 +26,7 @@ const BasicFormatFieldInputTemplate = defaultTemplate(({ field, t, label = null,
 
   return (
     <div className="inputgroup">
-      <label htmlFor={field.id}>{label ? label : t(field.label)} </label>
+      <label htmlFor={field.id}>{label ? label : field.label} </label>
       <NumberFormat
         className={field.disabled ? "input input--med input--text input--disabled" : "input input--med input--text"}
         onValueChange={({ value }) => onChange(value)}

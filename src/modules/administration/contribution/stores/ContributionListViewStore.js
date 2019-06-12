@@ -21,13 +21,16 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         const listViewStore = {
             name: 'contribution',
             routes: {
-                edit: (contributionId) =>
+                edit: (donorAccountId, contributionId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.contribution.edit', {
-                        id: contributionId,
+                        userId: donorAccountId,
+                        id: contributionId
                     }),
                 create: () => {
                     this.findDonorModalParams.open();
-                }
+                },
+                donorAccountEdit: (userId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
             },
             actions: {
                 find: async params => {
@@ -69,7 +72,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
                 key: 'donorAccount.coreUser',
                 title: 'Donor Name',
                 type: 'function',
-                function: (item) => `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}`
+                function: (item) => `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}`,
+                onClick: item => this.routes.donorAccountEdit(item.donorAccountId)
             },
             {
                 key: 'amount',
@@ -113,7 +117,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         ];
 
         this.setActions = {
-            onEdit: (contribution) => this.routes.edit(contribution.id),
+            onEdit: (contribution) => this.routes.edit(contribution.donorAccountId, contribution.id),
             onReview: (contribution) => { this.contributionId = contribution.id; this.reviewModalParams.open(); }
         }
 
@@ -128,9 +132,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
 
     @action.bound renderEdit(contribution) {
         let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
-        if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
-            return moment().local().isAfter(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
-        }
+        return _.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId });
     }
 
     @action.bound renderPaymentType = (item) => {
@@ -146,9 +148,9 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         return _.some(availableStatuesForReview, (item) => { return item === contribution.contributionStatusId });
     }
 
-    @action.bound async onAfterReviewContribution() {
+    @action.bound async onAfterReview() {
         this.queryUtility._reloadCollection();
-        this.reviewContributionModalParams.close();
+        this.reviewModalParams.close();
         this.contributionId = null;
     }
 

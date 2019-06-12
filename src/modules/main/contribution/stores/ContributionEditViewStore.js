@@ -1,210 +1,68 @@
-import { action, observable, computed } from 'mobx';
-import { ContributionService, ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
-import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
-import { ModalParams } from 'core/models';
-import { FormBase } from 'core/components';
-import { ContributionEditFormFields } from 'modules/common/contribution/forms';
+import { action } from 'mobx';
+import { ContributionService } from "common/data";
+import { ContributionEditForm } from 'modules/common/contribution/forms';
+import { BaseContributionEditViewStore } from 'modules/common/contribution/stores';
 import moment from 'moment';
 import _ from 'lodash';
 
-class ContributionCreateViewStore extends BaseViewStore {
-    @observable paymentTypes = null;
-    @observable bankAccounts = null;
-    @observable donorAccount = null;
-    @observable showStockAndMutualFundsContactInfo = false;
-    @observable paymentTypeDropdownStore = null;
-    @observable bankAccountDropdownStore = null;
-    @observable contributionStatuses = null;
-    @observable form = null;
-    contribution = null;
-
+class ContributionEditViewStore extends BaseContributionEditViewStore {
     constructor(rootStore) {
-        super(rootStore);
+        const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
+        const userId = rootStore.routerStore.routerState.params.userId;
+        const id = rootStore.routerStore.routerState.params.id;
 
-        this.rootStore = rootStore;
-        this.contributionId = rootStore.routerStore.routerState.params.id;
-        this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
-        this.contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
+        const editViewStore = {
+            name: 'contribution',
+            id: id,
+            actions: {
+                update: async item => {
+                    const response = await contributionService.update({ id: this.id, ...item });
+                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+                    await this.getResources(this.id)
+                },
+                get: async id => {
+                    let params = {};
+                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers'];
+                    let model = await contributionService.get(id, params);
+                    if (model.json && JSON.parse(model.json).paymentTypeInformations) {
+                        _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {
+                            model[key] = value;
+                        });
+                    }
 
-        this.addBankAccountModalParams = new ModalParams({
-            onClose: this.onClose
-        });
-
-        this.onAddBankAccount = async () => {
-            this.addBankAccountModalParams.close();
-            await this.getBankAccounts();
-            await this.setStores();
-            let lastBankAccount = _.orderBy(this.bankAccounts, ['dateCreated'], ['desc'])[0];
-            this.onChangeBankAccount({ id: lastBankAccount.id, name: lastBankAccount.name });
+                    this.contribution = model;
+                    return this.contribution;
+                }
+            },
+            FormClass: ContributionEditForm,
+            goBack: false,
+            setValues: true,
+            loader: true
         }
 
-        this.load();
+        const config = {};
+        config.editViewStore = editViewStore;
+        config.userId = userId;
+        config.id = id;
+
+        super(rootStore, config);
+
+        this.additionalActions.additionalValidateBeforeEditing = this.additionalValidateBeforeEditing;
+        this.additionalActions.additionalSetFormDefaults = this.additionalSetFormDefaults;
+        this.rootStore = rootStore;
     }
 
-    @action.bound async load() {
-        await this.loadLookups();
-        await this.initialize();
-
-        if (!(this.contribution.contributionStatusId === this.pendingId || this.contribution.contributionStatusId === this.inProcessId)) {
-            this.rootStore.routerStore.navigate('master.app.main.contribution.list')
-            this.rootStore.notificationStore.warning('Contribution Can be Edited Only In Pending Or In Process Status.', 6000);
-            return;
-        }
+    @action.bound additionalValidateBeforeEditing() {
         if (moment().local().isAfter(moment.utc(this.contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))) {
             this.rootStore.notificationStore.warning('Time Expired For Editing.', 6000);
             this.rootStore.routerStore.navigate('master.app.main.contribution.list');
             return;
         }
-
-        await this.getDonorAccount();
-        await this.initializeForm();
-        await this.getBankAccounts();
-        await this.setStores();
-        this.form.$('payerInformation').each(field => field.set('disabled', this.form.$('bankAccountId').value !== ''))
     }
 
-    @action.bound async initialize() {
-        let params = {};
-        params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus'];
-        let model = await this.contributionService.get(this.contributionId, params);
-        if (model.json && JSON.parse(model.json).paymentTypeInformations) {
-            _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {
-                model[key] = value;
-            });
-        }
-        this.contribution = model;
-    }
-
-    @action.bound async initializeForm() {
-        const minimumAmount = this.donorAccount.initialContribution ? this.donorAccount.contributionMinimumAdditional : this.donorAccount.contributionMinimumInitial;
-        const fields = ContributionEditFormFields(this.contribution, this.achId, this.checkId, this.chaseQuickPayId, this.stockAndMutualFundsId, minimumAmount, this.donorAccount);
-        this.form = new FormBase({
-            onSuccess: async (form) => {
-                const item = form.values();
-                try {
-                    const response = await this.contributionService.update({ id: this.contributionId, ...item });
-                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    await this.load();
-                } catch (errorResponse) {
-                    this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
-                }
-            }
-        }, fields);
-        this.form.$('bankAccountId').observe(({ form, field, change }) => { form.$('payerInformation').each(field => field.set('disabled', form.$('bankAccountId').value !== '')) })
-    }
-
-    @action.bound async setStores() {
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Payment Type',
-                name: 'PaymentType',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: false
-            },
-            {
-                onChange: this.onChangePaymentType
-            },
-            this.paymentTypes
-        );
-
-        this.bankAccountDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                placeholder: 'Choose Bank Account',
-                name: 'BankAccount',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: this.onChangeBankAccount
-            },
-            _.map(this.bankAccounts, e => { return { 'id': e.id, 'name': e.name } })
-        );
-    }
-
-    @action.bound async onChangePaymentType(option) {
-        if (option && option.id && option.name) {
-            this.form.$('paymentTypeId').set('value', option.id);
-        }
-        this.form.$('checkNumber').clear();
-        this.form.$('bankAccountId').clear();
-        this.form.$('payerInformation').reset();
-    }
-
-    @action.bound async onChangeBankAccount(option) {
-        if (option && option.id) {
-            this.form.$('bankAccountId').set('value', option.id);
-            let donorBankAccount = _.find(this.bankAccounts, function (donorBankAccount) { return (donorBankAccount.id === option.id) });
-            this.form.$('payerInformation').set('value', donorBankAccount.thirdPartyAccountHolder);
-        }
-        else {
-            this.form.$('bankAccountId').clear();
-            if (this.form.$('paymentTypeId').value === this.wireTransferId) {
-                this.form.$('payerInformation').reset();
-            }
-        }
-    }
-
-    @action.bound async onChangeShowStockAndMutualFundsContactInfo(event) {
-        this.showStockAndMutualFundsContactInfo = event.target.checked;
-    }
-
-    @action.bound async getDonorAccount() {
-        this.donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
-        let params = {};
-        params.embed = ['coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber,contributionSettings'];
-        this.donorAccount = await this.donorAccountService.get(this.contribution.donorAccountId, params)
-    }
-
-    @action.bound async getBankAccounts() {
-        this.bankAccountService = new BankAccountService(this.rootStore.app.baasic.apiClient);
-        let params = {};
-        params.embed = 'bankAccount,thirdPartyAccountHolder,address,emailAddress,phoneNumber'
-        params.orderBy = 'dateCreated';
-        params.orderDirection = 'asc';
-        this.bankAccounts = (await this.bankAccountService.find(this.contribution.donorAccountId, params)).item;
-    }
-
-    @action.bound async loadLookups() {
-        this.paymentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'payment-type');
-        let paymentTypesModels = await this.paymentTypeLookupService.getAll();
-        this.paymentTypes = _.orderBy(paymentTypesModels.data, ['sortOrder'], ['asc']);
-
-        this.contributionStatusLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'contribution-status');
-        let contributionStatusModels = await this.contributionStatusLookupService.getAll();
-        this.contributionStatuses = _.orderBy(contributionStatusModels.data, ['sortOrder'], ['asc']);
-    }
-
-    @computed get pendingId() {
-        return this.contributionStatuses ? _.find(this.contributionStatuses, { abrv: 'pending' }).id : null;
-    }
-
-    @computed get inProcessId() {
-        return this.contributionStatuses ? _.find(this.contributionStatuses, { abrv: 'in-process' }).id : null;
-    }
-
-    @computed get achId() {
-        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'ach' }).id : null;
-    }
-
-    @computed get wireTransferId() {
-        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id : null;
-    }
-
-    @computed get chaseQuickPayId() {
-        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'chase-quickpay' }).id : null;
-    }
-
-    @computed get stockAndMutualFundsId() {
-        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'stock-and-mutual-funds' }).id : null;
-    }
-
-    @computed get checkId() {
-        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'check' }).id : null;
+    @action.bound additionalSetFormDefaults() {
+        this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.contribution.donorAccount.initialContribution ? this.contribution.donorAccount.contributionMinimumAdditional : this.contribution.donorAccount.contributionMinimumInitial}`);
     }
 }
 
-export default ContributionCreateViewStore;
+export default ContributionEditViewStore;

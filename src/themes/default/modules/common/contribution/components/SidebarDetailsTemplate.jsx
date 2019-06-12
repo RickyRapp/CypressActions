@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import _ from 'lodash';
 
-function SidebarDetailsTemplate({ contribution, contributionStatuses, reviewContributionModalParams }) {
+function SidebarDetailsTemplate({ contribution, contributionStatuses, reviewModalParams }) {
     return (
         <React.Fragment >
             <h4>Details</h4>
@@ -11,7 +11,12 @@ function SidebarDetailsTemplate({ contribution, contributionStatuses, reviewCont
                 <div className="form__group f-col f-col-lrg-12">
                     <div>Status:</div>
                     <strong>{_.find(contributionStatuses, { id: contribution.contributionStatusId }).name}</strong>
-                    <a className="btn btn--xsml btn--tertiary" onClick={() => reviewContributionModalParams.open()}>Review</a>
+                    <i
+                        className="icomoon icon-check-double align--v--middle spc--left--tny"
+                        onClick={() => reviewModalParams.open()}
+                        title="Review"
+                    >
+                    </i>
                 </div>
                 <div className="form__group f-col f-col-lrg-12">
                     <div>Conf. Number:</div>

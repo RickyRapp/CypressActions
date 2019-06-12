@@ -29,14 +29,17 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     userId,
     onChangeMakeAsRecurringPayment,
     usedSettingTypeIds,
-    contributionSettingType
+    contributionSettingType,
+    syncBankAccounts
   } = contributionCreateViewStore;
 
   return (
     <React.Fragment>
       {form &&
         <EditFormLayout form={form} isEdit={false} loading={loading}>
-          <PageContentHeader><DonorAccountHeaderDetails userId={userId} type='contribution' /></PageContentHeader>
+          <PageContentHeader>
+            <DonorAccountHeaderDetails userId={userId} type='contribution' />
+          </PageContentHeader>
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
               {paymentTypeDropdownStore &&
@@ -44,45 +47,42 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
             </div>
           </div>
 
-          {paymentTypeDropdownStore &&
+          {form.$('paymentTypeId').value === achId &&
+            <AchTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} addBankAccountModalParams={addBankAccountModalParams} syncBankAccounts={syncBankAccounts} />}
+
+          {form.$('paymentTypeId').value === wireTransferId &&
+            <WireTransferTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} addBankAccountModalParams={addBankAccountModalParams} syncBankAccounts={syncBankAccounts} />}
+
+          {form.$('paymentTypeId').value === checkId &&
+            <CheckTemplate field={form.$('checkNumber')} />}
+
+          {form.$('paymentTypeId').value === stockAndMutualFundsId &&
+            <StockAndMutualFundsTemplate form={form} showStockAndMutualFundsContactInfo={showStockAndMutualFundsContactInfo} onChangeShowStockAndMutualFundsContactInfo={onChangeShowStockAndMutualFundsContactInfo} />}
+
+          {form.$('paymentTypeId').value === chaseQuickPayId &&
+            <ChaseQuickPayTemplate form={form} />}
+
+          <PayerInformationTemplate form={form} />
+
+          <div className="f-row">
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicFormatFieldInput field={form.$('amount')} thousandSeparator={true} prefix={'$'} fixedDecimalScale={true} decimalScale={2} />
+            </div>
+            <div className="form__group f-col f-col-lrg-6">
+              <BasicInput field={form.$('description')} />
+            </div>
+          </div>
+
+          {form.$('paymentTypeId').value === achId && form.$('bankAccountId').value && form.$('amount').value &&
             <React.Fragment>
-              {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === achId &&
-                <AchTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} />}
-
-              {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === wireTransferId &&
-                <WireTransferTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} />}
-
-              {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === checkId &&
-                <CheckTemplate field={form.$('checkNumber')} />}
-
-              {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === stockAndMutualFundsId &&
-                <StockAndMutualFundsTemplate form={form} showStockAndMutualFundsContactInfo={showStockAndMutualFundsContactInfo} onChangeShowStockAndMutualFundsContactInfo={onChangeShowStockAndMutualFundsContactInfo} />}
-
-              {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === chaseQuickPayId &&
-                <ChaseQuickPayTemplate form={form} />}
-
-              <PayerInformationTemplate form={form} />
-
-              <div className="f-row">
-                <div className="form__group f-col f-col-lrg-6">
-                  <BasicFormatFieldInput field={form.$('amount')} thousandSeparator={true} prefix={'$'} />
-                </div>
-                <div className="form__group f-col f-col-lrg-6">
-                  <BasicInput field={form.$('description')} />
-                </div>
-              </div>
-
-              {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === achId && form.$('bankAccountId').value && form.$('amount').value &&
-                <React.Fragment>
-                  <BasicCheckBox field={form.$('makeAsRecurringPayment')} onChange={onChangeMakeAsRecurringPayment} />
-                  {form.$('makeAsRecurringPayment').value === true &&
-                    <ContributionSetting
-                      form={form}
-                      usedSettingTypeIds={usedSettingTypeIds}
-                      contributionSettingType={contributionSettingType}
-                      bankAccountSettingDropdownStore={bankAccountSettingDropdownStore}
-                      contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />}
-                </React.Fragment>}
+              <BasicCheckBox field={form.$('makeAsRecurringPayment')} onChange={onChangeMakeAsRecurringPayment} />
+              {form.$('makeAsRecurringPayment').value === true &&
+                <ContributionSetting
+                  form={form}
+                  usedSettingTypeIds={usedSettingTypeIds}
+                  contributionSettingType={contributionSettingType}
+                  bankAccountSettingDropdownStore={bankAccountSettingDropdownStore}
+                  contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />}
             </React.Fragment>}
         </EditFormLayout>}
       <BaasicModal modalParams={addBankAccountModalParams} >

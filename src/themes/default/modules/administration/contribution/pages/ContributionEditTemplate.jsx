@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
-import { AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate } from 'themes/modules/common/contribution/components';
-import { SidebarDetailsTemplate } from 'themes/modules/main/contribution/components';
+import { BasicInput, BaasicFieldDropdown, BaasicModal, BasicFormatFieldInput } from 'core/components';
+import { AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate, CheckTemplate } from 'themes/modules/common/contribution/components';
+import { SidebarDetailsTemplate } from 'themes/modules/common/contribution/components';
 import { EditFormLayout, PageContentHeader, PageContentSidebar } from 'core/layouts';
 import { BankAccountCreate } from 'modules/common/bank-account/pages';
 import { ContributionReview } from 'modules/administration/contribution/components';
@@ -18,9 +18,9 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     paymentTypeDropdownStore,
     addBankAccountModalParams,
     onAddBankAccount,
-    reviewContributionModalParams,
+    reviewModalParams,
     contributionStatuses,
-    onAfterReviewContribution,
+    onAfterReview,
     showStockAndMutualFundsContactInfo,
     onChangeShowStockAndMutualFundsContactInfo,
     contribution,
@@ -28,7 +28,8 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     achId,
     wireTransferId,
     stockAndMutualFundsId,
-    checkId
+    checkId,
+    syncBankAccounts
   } = contributionEditViewStore;
 
   return (
@@ -37,9 +38,13 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
         <React.Fragment>
           <EditFormLayout form={form} isEdit={true} loading={loading}>
             {contribution &&
-              <PageContentHeader><DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' /></PageContentHeader>}
+              <PageContentHeader>
+                <DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' />
+              </PageContentHeader>}
             {contribution && contributionStatuses &&
-              <PageContentSidebar><SidebarDetailsTemplate contribution={contribution} contributionStatuses={contributionStatuses} reviewContributionModalParams={reviewContributionModalParams} /></PageContentSidebar>}
+              <PageContentSidebar>
+                <SidebarDetailsTemplate contribution={contribution} contributionStatuses={contributionStatuses} reviewModalParams={reviewModalParams} />
+              </PageContentSidebar>}
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-6">
                 {paymentTypeDropdownStore &&
@@ -47,28 +52,28 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
               </div>
             </div>
 
-            {paymentTypeDropdownStore &&
+            {form.$('paymentTypeId').value &&
               <React.Fragment>
-                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === achId &&
-                  <AchTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} />}
+                {form.$('paymentTypeId').value === achId && bankAccountDropdownStore &&
+                  <AchTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} addBankAccountModalParams={addBankAccountModalParams} syncBankAccounts={syncBankAccounts} />}
 
-                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === wireTransferId &&
-                  <WireTransferTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} />}
+                {form.$('paymentTypeId').value === wireTransferId && bankAccountDropdownStore &&
+                  <WireTransferTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} addBankAccountModalParams={addBankAccountModalParams} syncBankAccounts={syncBankAccounts} />}
 
-                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === checkId &&
+                {form.$('paymentTypeId').value === checkId &&
                   <CheckTemplate field={form.$('checkNumber')} />}
 
-                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === stockAndMutualFundsId &&
+                {form.$('paymentTypeId').value === stockAndMutualFundsId &&
                   <StockAndMutualFundsTemplate form={form} showStockAndMutualFundsContactInfo={showStockAndMutualFundsContactInfo} onChangeShowStockAndMutualFundsContactInfo={onChangeShowStockAndMutualFundsContactInfo} />}
 
-                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.id === chaseQuickPayId &&
+                {form.$('paymentTypeId').value === chaseQuickPayId &&
                   <ChaseQuickPayTemplate form={form} />}
 
                 <PayerInformationTemplate form={form} />
 
                 <div className="f-row">
                   <div className="form__group f-col f-col-lrg-6">
-                    <BasicInput field={form.$('amount')} />
+                    <BasicFormatFieldInput field={form.$('amount')} thousandSeparator={true} prefix={'$'} fixedDecimalScale={true} decimalScale={2} />
                   </div>
                   <div className="form__group f-col f-col-lrg-6">
                     <BasicInput field={form.$('description')} />
@@ -77,14 +82,12 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
               </React.Fragment>}
           </EditFormLayout>
           <BaasicModal modalParams={addBankAccountModalParams} >
-            <div className="col col-sml-12 card card--form card--primary card--lrg">
-              {contribution &&
-                <BankAccountCreate onAfterCreate={onAddBankAccount} userId={contribution.donorAccountId} />}
-            </div>
+            {contribution &&
+              <BankAccountCreate onAfterCreate={onAddBankAccount} userId={contribution.donorAccountId} />}
           </BaasicModal>
-          <BaasicModal modalParams={reviewContributionModalParams} >
+          <BaasicModal modalParams={reviewModalParams} >
             <div className="col col-sml-12 card card--form card--primary card--lrg">
-              <ContributionReview onAfterReview={onAfterReviewContribution} id={form.$('id').value} />
+              <ContributionReview onAfterReview={onAfterReview} id={form.$('id').value} />
             </div>
           </BaasicModal>
         </React.Fragment>}

@@ -51,6 +51,7 @@ class BaseEditViewStore extends BaseViewStore {
         onError(form) {
           alert('### see console');
           console.log('Form Errors', form.errors());
+          console.log('Form Values', form.values());
         },
 
       });
@@ -78,11 +79,12 @@ class BaseEditViewStore extends BaseViewStore {
     const item = await this.actions.get(id);
     runInAction(() => {
       this.item = item;
-
+      debugger;
       if (updateForm) {
         this.updateForm();
       }
     });
+
   }
 
   @action.bound

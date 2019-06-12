@@ -7,7 +7,7 @@ function DonorAccountSearchTemplate({ donorAccountSearchViewStore, children }) {
     const {
         donorAccountDropdownStore
     } = donorAccountSearchViewStore;
-    debugger;
+
     return (
         <React.Fragment>
             <BaasicAsyncDropdown store={donorAccountDropdownStore} />

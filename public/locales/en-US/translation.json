@@ -3,6 +3,8 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CREATE": "Create",
+    "ADD": "Add",
+    "SYNC": "Sync",
     "COREUSER": {
         "PREFIXTYPEID": "Prefix"
     },
@@ -27,7 +29,9 @@
         "ACCOUNTNUMBER": "Account Number",
         "ROUTINGNUMBER": "Routing Number",
         "DESCRIPTION": "Description",
-        "UPLOADIMAGE": "Upload Image"
+        "UPLOADIMAGE": "Upload Image",
+        "IMAGE": "Image",
+        "THIRDPARTYBANKACCOUNT": "Third Party Bank Account"
     },
     "FIRSTNAME": "First Name",
     "MIDDLENAME": "Middle Name",
@@ -39,9 +43,9 @@
     "ISAPPROVED": "Is Approved",
     "CONTRIBUTIONCREATEFORM": {
         "AMOUNT": "Amount",
-        "PAYMENTTYPEID": "Payment Type Id",
+        "PAYMENTTYPEID": "Payment Type",
         "DESCRIPTION": "Description",
-        "BANKACCOUNTID": "Bank Account Id",
+        "BANKACCOUNTID": "Bank Account",
         "CHECKNUMBER": "Check Number",
         "PAYERINFORMATION": {
             "FIRSTNAME": "First Name",
@@ -84,9 +88,9 @@
     },
     "CONTRIBUTIONEDITFORM": {
         "AMOUNT": "Amount",
-        "PAYMENTTYPEID": "Payment Type Id",
+        "PAYMENTTYPEID": "Payment Type",
         "DESCRIPTION": "Description",
-        "BANKACCOUNTID": "Bank Account Id",
+        "BANKACCOUNTID": "Bank Account",
         "CHECKNUMBER": "Check Number",
         "PAYERINFORMATION": {
             "FIRSTNAME": "First Name",

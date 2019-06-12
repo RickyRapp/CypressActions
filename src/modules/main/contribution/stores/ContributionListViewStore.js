@@ -103,8 +103,9 @@ class ContributionListViewStore extends BaseContributionListViewStore {
     @action.bound renderEdit(contribution) {
         let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
         if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
-            return moment().local().isAfter(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
+            return moment().local().isBefore(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
         }
+        return false;
     }
 }
 

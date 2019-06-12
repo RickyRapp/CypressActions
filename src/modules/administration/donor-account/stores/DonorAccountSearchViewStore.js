@@ -32,7 +32,6 @@ class DonorAccountSearchViewStore extends BaseViewStore {
                 onChange: onChange
             }
         );
-        console.log(donorAccountId)
         this.setDefaultSearch(donorAccountId);
     }
 

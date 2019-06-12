@@ -2,7 +2,7 @@ import React from 'react';
 import { renderIf, isSome, defaultTemplate } from 'core/utils';
 import NumberFormat from 'react-number-format';
 
-const BasicFormatFakeInputTemplate = defaultTemplate(({ field, t, label = null, ...props }) => {
+const BasicFormatFakeInputTemplate = defaultTemplate(({ field, label = null, ...props }) => {
     const {
         thousandSeparator,
         decimalSeparator,
@@ -14,7 +14,7 @@ const BasicFormatFakeInputTemplate = defaultTemplate(({ field, t, label = null, 
 
     return (
         <div className="inputgroup">
-            <label htmlFor={field.id}>{label ? t(label) : t(field.label)} </label>
+            <label htmlFor={field.id}>{label ? label : field.label} </label>
             <NumberFormat
                 className={"input input--text input--med padd--top--tny input--disabled"}
                 type={field.type}

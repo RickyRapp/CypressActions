@@ -42,7 +42,7 @@ class BasicFieldDatePickerTemplate extends React.Component {
         return (
             <div className="inputgroup">
                 <div>
-                    <label htmlFor={field.id}>{t(field.label)}</label>
+                    <label htmlFor={field.id}>{field.label}</label>
                 </div>
                 <DayPickerInput
                     overlayComponent={CustomOverlay}
@@ -62,7 +62,7 @@ class BasicFieldDatePickerTemplate extends React.Component {
                     <div>
                         <span onClick={() => this.handleDayChange("")}>Clear</span>
                     </div>}
-                {renderIf(isSome(field.error))(<p className="type--tny type--color--error">{t(field.error)}</p>)}
+                {renderIf(isSome(field.error))(<p className="type--tny type--color--error">{field.error}</p>)}
             </div>
         )
     }

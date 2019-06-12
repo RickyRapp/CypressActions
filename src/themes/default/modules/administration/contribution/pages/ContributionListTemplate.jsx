@@ -24,7 +24,7 @@ function ContributionListTemplate({ contributionListViewStore }) {
         onChangeSearchDonor,
         reviewModalParams,
         detailsModalParams,
-        onAfterReviewContribution,
+        onAfterReview,
         contributionId
     } = contributionListViewStore;
 
@@ -81,7 +81,7 @@ function ContributionListTemplate({ contributionListViewStore }) {
                 </BaasicModal>
                 <BaasicModal modalParams={reviewModalParams} >
                     <div className="col col-sml-12 card card--form card--primary card--lrg">
-                        <ContributionReview onAfterReview={onAfterReviewContribution} id={contributionId} />
+                        <ContributionReview onAfterReview={onAfterReview} id={contributionId} />
                     </div>
                 </BaasicModal>
                 <BaasicModal modalParams={detailsModalParams} >

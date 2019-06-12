@@ -1,2 +1,2 @@
-export { default as ContributionCreateFormFields } from './ContributionCreateFormFields'
-export { default as ContributionEditFormFields } from './ContributionEditFormFields'
+export { default as ContributionEditForm } from './ContributionEditForm'
+export { default as ContributionCreateForm } from './ContributionCreateForm'
