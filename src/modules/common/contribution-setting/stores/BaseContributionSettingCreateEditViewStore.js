@@ -1,33 +1,21 @@
 import { action, observable } from 'mobx';
-import { ContributionSettingCreateForm } from 'modules/administration/contribution-setting/forms';
 import { ContributionSettingService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import _ from 'lodash';
 
-class ContributionSettingCreateViewStore extends BaseEditViewStore {
+class BaseContributionSettingCreateEditViewStore extends BaseEditViewStore {
     @observable contributionSettingType = null;
     @observable bankAccountDropdownStore = null;
 
-    constructor(rootStore, onAfterCreate, bankAccounts, contributionSettingType) {
-        const contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
-        let userId = rootStore.routerStore.routerState.params.userId;
+    constructor(rootStore, config) {
+        super(rootStore, config.editCreateViewStore)
 
-        super(rootStore, {
-            name: 'contribution setting',
-            actions: {
-                create: async contributionSetting => {
-                    return await contributionSettingService.createContributionSetting(userId, contributionSetting);
-                }
-            },
-            FormClass: ContributionSettingCreateForm,
-            onAfterCreate: onAfterCreate,
-            goBack: false,
-            autoInit: false
-        });
-
-        this.contributionSettingType = contributionSettingType;
-        this.bankAccounts = bankAccounts;
-        this.userId = userId;
+        this.contributionSettingType = config.contributionSettingType;
+        this.bankAccounts = config.bankAccounts;
+        this.userId = config.userId;
+        if (!config.id) {
+            this.form.$('donorAccountId').set('value', config.userId);
+        }
         this.load();
     }
 
@@ -40,22 +28,20 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
             {
                 multi: false,
                 placeholder: 'Choose Bank Account',
-                name: 'BankAccount',
                 textField: 'name',
                 dataItemKey: 'id',
                 isClearable: false
             },
             {
-                onChange: this.onChangeBankAccount
+                onChange: (option) => option ? this.form.$('bankAccountId').set('value', option.id) : this.form.$('bankAccountId').clear()
             },
-            _.map(this.bankAccounts, e => { return { 'id': e.id, 'name': e.name } })
+            _.map(this.bankAccounts, e => { return { id: e.id, name: e.name } })
         );
 
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
                 placeholder: 'Choose Setting',
-                name: 'ContributionSettingTypeId',
                 textField: 'name',
                 dataItemKey: 'id',
                 isClearable: true
@@ -65,15 +51,6 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
             },
             this.contributionSettingType
         );
-    }
-
-    @action.bound async onChangeBankAccount(option) {
-        if (option && option.id) {
-            this.form.$('bankAccountId').set('value', option.id);
-        }
-        else {
-            this.form.$('bankAccountId').clear();
-        }
     }
 
     @action.bound async onChangeContributionSetting(option) {
@@ -94,4 +71,4 @@ class ContributionSettingCreateViewStore extends BaseEditViewStore {
     }
 }
 
-export default ContributionSettingCreateViewStore;
+export default BaseContributionSettingCreateEditViewStore;

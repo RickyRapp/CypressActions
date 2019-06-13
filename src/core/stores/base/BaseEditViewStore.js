@@ -79,7 +79,6 @@ class BaseEditViewStore extends BaseViewStore {
     const item = await this.actions.get(id);
     runInAction(() => {
       this.item = item;
-      debugger;
       if (updateForm) {
         this.updateForm();
       }

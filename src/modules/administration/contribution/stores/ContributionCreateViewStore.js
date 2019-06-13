@@ -14,7 +14,6 @@ class ContributionCreateViewStore extends BaseContributionCreateViewStore {
                 create: async item => {
                     let contributionCreate = false;
                     let response = null;
-
                     response = await this.contributionService.createContribution(this.userId, item)
                     this.rootStore.notificationStore.showMessageFromResponse(response);
                     contributionCreate = true;

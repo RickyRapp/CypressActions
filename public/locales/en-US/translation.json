@@ -124,6 +124,14 @@
         "TRANSACTIONID": "Transaction ID",
         "MEMO": "Memo"
     },
+    "CONTRIBUTIONSETTINGFORM": {
+        "AMOUNT": "Amount",
+        "BANKACCOUNTID": "Bank Account",
+        "CONTRIBUTIONSETTINGTYPEID": "Type",
+        "ENABLED": "Enabled",
+        "STARTDATE": "Start Date",
+        "LOWBALANCEAMOUNT": "Low Balance Amount"
+    },
     "CHARITYCREATEFORM": {
         "CHARITYSTATUSID": "Status",
         "CHARITYTYPEID": "Type",

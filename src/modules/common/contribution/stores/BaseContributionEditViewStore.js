@@ -22,7 +22,7 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
 
         this.rootStore = rootStore;
         this.userId = config.userId;
-        this.contributionId = rootStore.routerStore.routerState.params.id;
+        this.id = config.id;
         this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         this.contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
         this.paymentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'payment-type');
@@ -59,6 +59,11 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
         }
     }
 
+    async updateResource(resource) {
+        await super.updateResource(resource);
+        await this.getResource(this.id)
+    }
+
     @action.bound async load() {
         await this.fetch([
             this.loadLookups(),
@@ -90,7 +95,6 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
 
     @action.bound async syncBankAccounts() {
         await this.getBankAccounts();
-        debugger;
         let selectedBankAccount = _.find(this.bankAccounts, { id: this.form.$('bankAccountId').value });
         if (selectedBankAccount)
             this.onChangeBankAccount({ id: selectedBankAccount.id, name: selectedBankAccount.name });

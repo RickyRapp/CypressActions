@@ -101,7 +101,8 @@ const ContributionSetting = ({ form, usedSettingTypeIds, contributionSettingType
           lowBalanceAmountField={form.$('settingLowBalanceAmount')}
           startDateField={form.$('settingStartDate')}
           bankAccountDropdownStore={bankAccountSettingDropdownStore}
-          contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />
+          contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore}
+          contributionSettingType={contributionSettingType} />
       </div>
       {usedSettingTypeIds && usedSettingTypeIds.length > 0 &&
         <div className="form__group f-col f-col-lrg-6">

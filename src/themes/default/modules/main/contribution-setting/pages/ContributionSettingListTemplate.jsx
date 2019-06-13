@@ -7,14 +7,15 @@ import _ from 'lodash';
 function ContributionSettingListTemplate({ contributionSettingListViewStore }) {
     const {
         contributionSettings,
-        load,
+        loaderStore: { loading },
         bankAccounts,
+        load,
         contributionSettingType,
         availableContributionSettingType
     } = contributionSettingListViewStore;
 
     return (
-        <Page>
+        <Page loading={loading}>
             {contributionSettings && contributionSettingType &&
                 <div className="f-row">
                     {contributionSettings.map((setting, i) =>

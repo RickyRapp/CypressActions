@@ -15,14 +15,8 @@ class ContributionSettingRouteService extends BaseRouteService {
     return super.get(this.base + '{id}/{?embed}', id, options);
   }
 
-  createContributionSetting(id) {
-    const params = getParams({ id: id });
-    return this.uriTemplateService.parse(this.base + '{id}/').expand(params);
-  }
-
-  updateContributionSetting(id) {
-    const params = getParams({ id: id });
-    return this.uriTemplateService.parse(this.base + '{id}/').expand(params);
+  create(resource) {
+    return super.create(this.base, resource);
   }
 
   update(resource) {

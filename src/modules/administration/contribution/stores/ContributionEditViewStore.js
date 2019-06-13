@@ -18,7 +18,6 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
                 update: async item => {
                     const response = await contributionService.update({ id: this.id, ...item });
                     this.rootStore.notificationStore.showMessageFromResponse(response);
-                    await this.getResources(this.id)
                 },
                 get: async id => {
                     let params = {};

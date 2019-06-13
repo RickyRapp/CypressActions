@@ -92,7 +92,6 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
 
     @action.bound async syncBankAccounts() {
         await this.getBankAccounts();
-        debugger;
         let selectedBankAccount = _.find(this.bankAccounts, { id: this.form.$('bankAccountId').value });
         if (selectedBankAccount)
             this.onChangeBankAccount({ id: selectedBankAccount.id, name: selectedBankAccount.name });

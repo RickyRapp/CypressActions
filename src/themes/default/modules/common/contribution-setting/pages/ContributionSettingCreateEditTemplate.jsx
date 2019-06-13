@@ -4,14 +4,14 @@ import { EditFormContent, BaasicFormControls } from 'core/components';
 import { ContributionSettingCreateFormFieldsTemplate } from 'themes/modules/common/contribution-setting/components';
 import _ from 'lodash';
 
-function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore }) {
+function ContributionSettingCreateEditTemplate({ contributionSettingCreateViewStore }) {
     const {
         form,
         loading,
         bankAccountDropdownStore,
-        contributionSettingTypeDropdownStore
+        contributionSettingTypeDropdownStore,
+        contributionSettingType
     } = contributionSettingCreateViewStore;
-
 
     return (
         <EditFormContent form={form} loading={loading}>
@@ -23,7 +23,8 @@ function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore 
                 lowBalanceAmountField={form.$('lowBalanceAmount')}
                 startDateField={form.$('startDate')}
                 bankAccountDropdownStore={bankAccountDropdownStore}
-                contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />
+                contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore}
+                contributionSettingType={contributionSettingType} />
 
             {form.$('contributionSettingTypeId').value &&
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
@@ -31,4 +32,4 @@ function ContributionSettingCreateTemplate({ contributionSettingCreateViewStore 
     );
 }
 
-export default defaultTemplate(ContributionSettingCreateTemplate);
+export default defaultTemplate(ContributionSettingCreateEditTemplate);

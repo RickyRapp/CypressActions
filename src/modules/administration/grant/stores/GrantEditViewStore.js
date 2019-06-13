@@ -131,7 +131,6 @@ class GrantEditViewStore extends BaseViewStore {
             }
         );
 
-        debugger;
         if (this.grant.charityId) {
             let params = {};
             params.embed = ['charityAddresses,address'];

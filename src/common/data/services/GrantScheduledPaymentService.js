@@ -10,7 +10,6 @@ class GrantScheduledPaymentService extends BaseService {
 
     async cancel(id) {
         const url = this.routeService.cancel(id);
-        debugger;
         const response = await this.apiClient.put(url, id);
         return response || null;
     }

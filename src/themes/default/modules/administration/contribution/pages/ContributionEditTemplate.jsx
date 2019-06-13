@@ -42,8 +42,11 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
                 <DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' />
               </PageContentHeader>}
             {contribution && contributionStatuses &&
-              <PageContentSidebar>
-                <SidebarDetailsTemplate contribution={contribution} contributionStatuses={contributionStatuses} reviewModalParams={reviewModalParams} />
+              <PageContentSidebar >
+                <SidebarDetailsTemplate
+                  contribution={contribution}
+                  contributionStatuses={contributionStatuses}
+                  reviewModalParams={reviewModalParams} />
               </PageContentSidebar>}
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-6">

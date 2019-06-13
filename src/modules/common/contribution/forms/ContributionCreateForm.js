@@ -214,7 +214,7 @@ export default class ContributionCreateForm extends FormBase {
                 {
                     name: 'settingStartDate',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGSTARTDATE'),
-                    rules: `date|after_override:' + ${moment(new Date).add(1, 'days').format('MM/DD/YYYY')}`
+                    rules: `date|after:' + ${moment(new Date).add(1, 'days').format('MM/DD/YYYY')}`
                 },
                 {
                     name: 'settingLowBalanceAmount',

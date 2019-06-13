@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker, BasicFormatFieldInput } from 'core/components';
 import _ from 'lodash';
 
 function ContributionSettingCreateFormFields({
@@ -11,6 +11,7 @@ function ContributionSettingCreateFormFields({
     lowBalanceAmountField,
     startDateField,
     bankAccountDropdownStore,
+    contributionSettingType,
     contributionSettingTypeDropdownStore
 }) {
     const styles = {
@@ -30,16 +31,16 @@ function ContributionSettingCreateFormFields({
                                 <BaasicFieldDropdown field={contributionSettingTypeIdField} store={contributionSettingTypeDropdownStore} />}
                         </div>
                         <div className="form__group f-col f-col-lrg-12">
-                            <BasicInput field={amountField} />
+                            <BasicFormatFieldInput field={amountField} thousandSeparator={true} prefix={'$'} fixedDecimalScale={true} decimalScale={2} />
                         </div>
                         <div className="form__group f-col f-col-lrg-12">
                             {bankAccountDropdownStore &&
                                 <BaasicFieldDropdown field={bankAccountIdField} store={bankAccountDropdownStore} />}
                         </div>
-                        {contributionSettingTypeIdField.value &&
-                            (contributionSettingTypeDropdownStore.value.abrv === 'low-balance' ?
+                        {contributionSettingType && contributionSettingTypeIdField.value &&
+                            (_.find(contributionSettingType, { id: contributionSettingTypeIdField.value }).abrv === 'low-balance' ?
                                 <div className="form__group f-col f-col-lrg-12">
-                                    <BasicInput field={lowBalanceAmountField} />
+                                    <BasicFormatFieldInput field={lowBalanceAmountField} thousandSeparator={true} prefix={'$'} fixedDecimalScale={true} decimalScale={2} />
                                 </div>
                                 :
                                 <div className="form__group f-col f-col-lrg-12">
