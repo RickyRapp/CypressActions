@@ -1,19 +1,14 @@
-import { action, observable } from 'mobx';
-import { GrantService, LookupService, DonorAccountService, CharityService } from "common/data";
-import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
+import { action } from 'mobx';
+import { GrantService, DonorAccountService } from "common/data";
+import { BaasicDropdownStore } from "core/stores";
 import { GrantListFilter } from 'modules/administration/grant/models';
 import { ModalParams } from 'core/models';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
-import { getDonorNameDropdown, getCharityNameDropdown } from 'core/utils';
+import { BaseGrantListViewStore } from 'modules/common/grant/stores';
+import { getDonorNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
-class GrantListViewStore extends BaseListViewStore {
-    grantPurposeTypeModels = null;
-    donationStatusModels = null;
-    @observable charitySearchDropdownStore = null;
-    @observable donorAccountSearchDropdownStore = null;
-    @observable grantId = null;
-
+class GrantListViewStore extends BaseGrantListViewStore {
     constructor(rootStore) {
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
 
@@ -27,7 +22,7 @@ class GrantListViewStore extends BaseListViewStore {
             }
         }
 
-        super(rootStore, {
+        const listViewStore = {
             name: 'grant',
             routes: {
                 create: () =>
@@ -55,110 +50,87 @@ class GrantListViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter
             }
-        });
+        }
+
+        const config = {
+            listViewStore: listViewStore
+        }
+
+        super(rootStore, config);
+
+        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
 
         this.findDonorModalParams = new ModalParams({
             onClose: this.onClose
         });
 
-        this.reviewGrantModalParams = new ModalParams({
+        this.reviewModalParams = new ModalParams({
             onClose: () => { this.grantId = null; this.onClose }
         });
 
-        this.detailsGrantModalParams = new ModalParams({
-            notifyOutsideClick: true,
-            onClose: () => { this.grantId = null; this.onClose }
-        });
+        this.setColumns = [
+            {
+                key: 'donorAccount.coreUser',
+                title: 'DONORACCOUNT(CLICKONROW)',
+                type: 'function',
+                function: (item) => { return `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}` },
+                onClick: (item) => this.routes.donorAccountEdit(item.donorAccount.id)
+            },
+            {
+                key: 'charity.name',
+                title: 'CHARITY(CLICKONROW)',
+                onClick: (item) => this.routes.charityEdit(item.charity.id)
+            },
+            {
+                key: 'amount',
+                title: 'AMOUNT',
+                type: 'currency'
+            },
+            {
+                key: 'createdByCoreUser',
+                title: 'BY',
+                type: 'function',
+                function: (item) => { return item.createdByCoreUser ? `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` : 'System' },
+            },
+            {
+                key: 'donationStatusId',
+                title: 'STATUS',
+                type: 'function',
+                function: (item) => _.find(this.donationStatusModels, { id: item.donationStatusId }).name
+            },
+            {
+                key: 'grantPurposeTypeId',
+                title: 'PURPOSE',
+                type: 'function',
+                function: (item) => renderGrantPurposeType(item, this.grantPurposeTypeModels)
+            },
+            {
+                key: 'grantScheduledPayment.name',
+                title: 'PARTOF(CLICKONROW)',
+                onClick: grant => this.routes.grantScheduledPaymentEdit(grant.grantScheduledPayment.name)
+            },
+            {
+                key: 'dateCreated',
+                title: 'DATECREATED',
+                type: 'date',
+                format: 'YYYY-MM-DD HH:mm'
+            },
+        ];
 
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        this.charityService = new CharityService(rootStore.app.baasic.apiClient);
-        this.donationStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'donation-status');
-        this.grantPurposeTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-purpose-type');
+        this.setActions = {
+            onReview: (item) => { this.grantId = item.id; this.reviewModalParams.open(); }
+        };
+
+        this.setRenderActions = {
+            renderReview: this.renderReview
+        }
 
         this.load();
     }
 
-    @action.bound async load() {
-        await this.loadLookups();
-        await this.setFilterDropdownStores();
-
-        this.setTableStore(
-            new TableViewStore(this.queryUtility, {
-                columns: [
-                    {
-                        key: 'donorAccount.coreUser',
-                        title: 'Donor Account (click on row)',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }],
-                        onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id)
-                    },
-                    {
-                        key: 'charity.name',
-                        title: 'Charity (click on row)',
-                        onClick: grant => this.routes.charityEdit(grant.charity.id)
-                    },
-                    {
-                        key: 'amount',
-                        title: 'Amount',
-                        type: 'currency'
-                    },
-                    {
-                        key: 'createdByCoreUser',
-                        title: 'Created By',
-                        type: 'object',
-                        separator: ' ',
-                        defaultValue: 'System',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'donationStatusId',
-                        title: 'Status',
-                        type: 'lookup',
-                        lookup: this.donationStatusModels
-                    },
-                    {
-                        key: 'grantPurposeTypeId',
-                        title: 'Purpose',
-                        type: 'function',
-                        function: (item) => renderGrantPurposeType(item, this.grantPurposeTypeModels)
-                    },
-                    {
-                        key: 'grantScheduledPayment.name',
-                        title: 'Part Of (click on row)',
-                        onClick: grant => this.routes.grantScheduledPaymentEdit(grant.grantScheduledPayment.name)
-                    },
-                    {
-                        key: 'dateCreated',
-                        title: 'Date Created',
-                        type: 'date',
-                        format: 'YYYY-MM-DD HH:mm'
-                    },
-                ],
-                actions: {
-                    onReview: grant => { this.grantId = grant.id; this.reviewGrantModalParams.open(); },
-                    onEdit: grant => this.routes.edit(grant.id),
-                    onDetails: grant => { this.grantId = grant.id; this.detailsGrantModalParams.open(); }
-                },
-                actionsRender: {
-                    renderEdit: this.renderEdit,
-                    renderReview: this.renderReview
-                }
-            })
-        );
-    }
-
-    @action.bound renderEdit(grant) {
-        const statusesForEdit = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        return _.some(statusesForEdit, (item) => { return item === grant.donationStatusId });
+    setStores() {
+        super.setStores();
+        this.setAdditionalStores();
     }
 
     @action.bound renderReview(grant) {
@@ -168,18 +140,10 @@ class GrantListViewStore extends BaseListViewStore {
 
     @action.bound async onAfterReviewGrant() {
         this.queryUtility._reloadCollection();
-        this.reviewGrantModalParams.close();
+        this.reviewModalParams.close();
     }
 
-    @action.bound async loadLookups() {
-        let donationStatusModels = await this.donationStatusLookup.getAll();
-        this.donationStatusModels = donationStatusModels.data;
-
-        let grantPurposeTypeModels = await this.grantPurposeTypeLookup.getAll();
-        this.grantPurposeTypeModels = grantPurposeTypeModels.data;
-    }
-
-    @action.bound async setFilterDropdownStores() {
+    @action.bound async setAdditionalStores() {
         this.donorAccountSearchDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
@@ -211,40 +175,6 @@ class GrantListViewStore extends BaseListViewStore {
             let donorSearchs = [];
             donorSearchs.push(defaultSearchDonor);
             this.donorAccountSearchDropdownStore.items = donorSearchs;
-        }
-
-        this.charitySearchDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true,
-                placeholder: 'Choose Charity',
-                initFetch: false
-            },
-            {
-                fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'charityAddresses,address' };
-                    if (term && term !== '') {
-                        options.searchQuery = term;
-                    }
-                    options.charityAddressPrimary = true;
-
-                    let response = await this.charityService.search(options);
-                    return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });
-                },
-                onChange: (option) => this.queryUtility.filter.charityId = (option ? option.id : null)
-            }
-        );
-
-        if (this.queryUtility.filter.charityId) {
-            let params = {};
-            params.embed = ['charityAddresses,address'];
-            const charity = await this.charityService.get(this.queryUtility.filter.charityId, params);
-            let defaultCharity = { id: charity.id, name: getCharityNameDropdown(charity) }
-            let charitySearchs = [];
-            charitySearchs.push(defaultCharity);
-            this.charitySearchDropdownStore.items = charitySearchs;
         }
     }
 

@@ -60,17 +60,6 @@ function renderRow(item, column) {
     itemValue = <NumberFormat value={itemValue} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={column.format ? column.format : '$'} />
   }
 
-  if (column.type === 'lookup' && column.lookup) {
-    if (itemValue) {
-      itemValue = _.find(column.lookup, { id: itemValue }).name;
-    }
-    else {
-      if (column.defaultValue) {
-        itemValue = column.defaultValue;
-      }
-    }
-  }
-
   if (column.type === 'function' && column.function && _.isFunction(column.function)) {
     itemValue = column.function(item);
   }

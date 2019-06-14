@@ -91,14 +91,14 @@ class CharityListViewStore extends BaseListViewStore {
                     {
                         key: 'charityStatusId',
                         title: 'Status',
-                        type: 'lookup',
-                        lookup: this.charityStatuses
+                        type: 'function',
+                        function: (item) => _.find(this.charityStatuses, { id: item.charityStatusId }).name
                     },
                     {
                         key: 'charityTypeId',
                         title: 'Type',
-                        type: 'lookup',
-                        lookup: this.charityTypes
+                        type: 'function',
+                        function: (item) => _.find(this.charityTypes, { id: item.charityTypeId }).name
                     },
                     {
                         key: 'emailAddress.email',

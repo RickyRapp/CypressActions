@@ -7,17 +7,17 @@ import { GrantDetails } from 'modules/common/grant/pages';
 
 function GrantListTemplate({ grantListViewStore }) {
     const {
-        loaderStore,
+        loaderStore: { loading },
         queryUtility,
         tableStore,
         routes: { create },
         charitySearchDropdownStore,
-        detailsGrantModalParams,
+        detailsModalParams,
         grantId
     } = grantListViewStore;
 
     return (
-        <ListLayout onCreate={create} loading={loaderStore.loading}>
+        <ListLayout onCreate={create} loading={loading}>
             {tableStore &&
                 <React.Fragment>
                     <div className="spc--bottom--sml">
@@ -31,10 +31,10 @@ function GrantListTemplate({ grantListViewStore }) {
                     </div>
                     <BaasicTable
                         tableStore={tableStore}
-                        loading={loaderStore.loading}
+                        loading={loading}
                     />
                 </React.Fragment>}
-            <BaasicModal modalParams={detailsGrantModalParams} >
+            <BaasicModal modalParams={detailsModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
                     <GrantDetails id={grantId} />
                 </div>
