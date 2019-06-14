@@ -1,6 +1,7 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
-export default class DonorNotePostForm extends FormBase {
+export default class DonorNoteCreateEditForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -9,13 +10,12 @@ export default class DonorNotePostForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'donorAccountId',
+                    name: 'id',
                     rules: 'string'
                 },
                 {
                     name: 'note',
-                    label: 'Note',
-                    placeholder: 'Enter Note',
+                    label: localizationService.t('DONORNOTECREATEEDITFORM.NOTE'),
                     rules: 'required|string'
                 }
             ]

@@ -1,15 +1,16 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import { BaasicTable } from 'core/components';
-import { DonorNoteEdit, DonorNoteCreate } from 'modules/administration/donor-note/pages';
+import { DonorNoteCreateEdit } from 'modules/administration/donor-note/pages';
 
-function DonorNoteListTemplate({ donorNoteListViewStore }) {
+function DonorNoteListTemplate({ donorNoteListViewStore, t }) {
     const {
         loaderStore,
         tableStore,
         editNoteId,
-        onAfterEditCreate,
-        onCancelEdit
+        onAfterCreateEdit,
+        onCancelEdit,
+        userId
     } = donorNoteListViewStore;
 
     return (
@@ -19,15 +20,14 @@ function DonorNoteListTemplate({ donorNoteListViewStore }) {
                 loading={loaderStore.loading}
                 hidePageSizeSelect={true}
             />
-            {editNoteId && <DonorNoteEdit
-                id={editNoteId}
-                title='Edit New Note'
-                onAfterUpdate={onAfterEditCreate}
-                onCancelEdit={onCancelEdit} />}
 
-            {!editNoteId && <DonorNoteCreate
-                title='Add New Note'
-                onAfterCreate={onAfterEditCreate} />}
+            <DonorNoteCreateEdit
+                key={editNoteId}
+                id={editNoteId}
+                userId={userId}
+                title={editNoteId ? t('EDITNEWNOTE') : t('ADDNEWNOTE')}
+                onAfterCreateEdit={onAfterCreateEdit}
+                onCancelEdit={onCancelEdit} />
         </React.Fragment>
     );
 }

@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { localizationService } from 'core/services'
 import _ from 'lodash';
 
 class NotificationStore {
@@ -75,7 +76,7 @@ class NotificationStore {
 }
 
 function showToast(message, options) {
-  return toast(message, options);
+  return toast(localizationService.t(message), options);
 }
 
 export default NotificationStore;

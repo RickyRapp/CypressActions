@@ -1,5 +1,6 @@
 import { action, observable, computed } from 'mobx';
-import { LookupService, BankAccountService } from "common/data";
+import { LookupService, BankAccountService, ContributionSettingService } from "common/data";
+import { ContributionSettingListFilter } from 'modules/common/contribution-setting/models';
 import { BaseViewStore } from "core/stores";
 import _ from 'lodash';
 
@@ -9,12 +10,22 @@ class BaseContributionSettingListViewStore extends BaseViewStore {
     @observable bankAccounts = null;
     @observable availableContributionSettingType = null;
 
-    constructor(rootStore, config) {
+    constructor(rootStore, { userId }) {
         super(rootStore);
-        this.find = config.listViewStore.find;
-        this.userId = config.userId;
+        this.userId = userId;
         this.bankAccountService = new BankAccountService(rootStore.app.baasic.apiClient);
+        this.contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
         this.contributionSettingTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'contribution-setting-type');
+
+        this.filter = new ContributionSettingListFilter();
+        this.filter.donorAccountId = userId;
+        this.load();
+    }
+
+    @action.bound async find(params) {
+        _.assign(params, this.filter);
+        let response = await this.contributionSettingService.find(params)
+        this.contributionSettings = response.item;
     }
 
     @action.bound async load() {
@@ -23,7 +34,7 @@ class BaseContributionSettingListViewStore extends BaseViewStore {
             this.loadLookups(),
             this.getBankAccounts()
         ])
-        await this.getAvailableContributionSettingType();
+        this.getAvailableContributionSettingType();
     }
 
     @action.bound async loadLookups() {
@@ -40,7 +51,7 @@ class BaseContributionSettingListViewStore extends BaseViewStore {
         this.bankAccounts = (await this.bankAccountService.find(params)).item;
     }
 
-    @action.bound async getAvailableContributionSettingType() {
+    @action.bound getAvailableContributionSettingType() {
         this.availableContributionSettingType = null;
         let usedSettingTypeIds = _.map(this.contributionSettings, function (x) { return x.contributionSettingTypeId; });
         let availableContributionSettingType = [];

@@ -1,8 +1,7 @@
 import React from 'react';
-import { isSome } from 'core/utils';
-import ReactTooltip from 'react-tooltip'
+import { isSome, defaultTemplate } from 'core/utils';
 
-function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
+function BaasicTableActionsTemplate({ item, actions, actionsRender, t }) {
   if (!isSome(actions))
     return null;
 
@@ -13,7 +12,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
   const { renderEdit, renderReview, renderDelete, renderDetails, renderCancel } = actionsRender;
 
   //edit config
-  let editTitle = 'edit' // default
+  let editTitle = t('EDIT') // default
   if (renderEdit && _.isFunction(renderEdit)) {
     if (!renderEdit(item)) {
       onEdit = null;
@@ -21,7 +20,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
   }
 
   //review config
-  let reviewTitle = 'review' // default
+  let reviewTitle = t('REVIEW') // default
   if (renderReview && _.isFunction(renderReview)) {
     if (!renderReview(item)) {
       onReview = null;
@@ -29,7 +28,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
   }
 
   //delete config
-  let deleteTitle = 'delete' // default
+  let deleteTitle = t('DELETE') // default
   if (renderDelete && _.isFunction(renderDelete)) {
     if (!renderDelete(item)) {
       onDelete = null;
@@ -37,7 +36,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
   }
 
   //details config
-  let detailsTitle = 'details' // default
+  let detailsTitle = t('DETAILS') // default
   if (renderDetails && _.isFunction(renderDetails)) {
     if (!renderDetails(item)) {
       onDetails = null;
@@ -45,7 +44,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
   }
 
   //cancel config
-  let cancelTitle = 'cancel' // default
+  let cancelTitle = t('CANCEL') // default
   if (renderCancel && _.isFunction(renderCancel)) {
     if (!renderCancel(item)) {
       onCancel = null;
@@ -58,7 +57,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
         <i
           className="icomoon icon-check-double align--v--middle spc--right--sml"
           onClick={() => onReview(item)}
-          title="Review"
+          title={reviewTitle}
         >
         </i>
       ) : null}
@@ -66,7 +65,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
         <i
           className="icomoon icon-pencil-write align--v--middle spc--right--sml"
           onClick={() => onEdit(item)}
-          title="Edit"
+          title={editTitle}
         >
         </i>
       ) : null}
@@ -74,7 +73,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
         <i
           className="icomoon icon-task-list-to-do align--v--middle spc--right--sml"
           onClick={() => onDetails(item)}
-          title="Details"
+          title={detailsTitle}
         >
         </i>
       ) : null}
@@ -82,7 +81,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
         <i
           className="icomoon icon-bin align--v--middle spc--right--sml"
           onClick={() => onDelete(item)}
-          title="Delete"
+          title={deleteTitle}
         >
         </i>
       ) : null}
@@ -90,7 +89,7 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
         <i
           className="icomoon icon-remove align--v--middle spc--right--sml"
           onClick={() => onCancel(item)}
-          title="Cancel"
+          title={cancelTitle}
         >
         </i>
       ) : null}
@@ -98,4 +97,4 @@ function BaasicTableActionsTemplate({ item, actions, actionsRender }) {
   );
 }
 
-export default BaasicTableActionsTemplate;
+export default defaultTemplate(BaasicTableActionsTemplate);

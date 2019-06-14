@@ -16,7 +16,7 @@ class DonorNoteListViewStore extends BaseListViewStore {
                     if (!userId) {
                         return [];
                     }
-                    params.id = rootStore.routerStore.routerState.params.userId;
+                    params.id = userId;
                     const response = await donorNoteService.find(params);
                     return response;
                 },
@@ -39,27 +39,24 @@ class DonorNoteListViewStore extends BaseListViewStore {
             delete: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.delete')
         }
 
+        this.userId = userId
+
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: [
                     {
                         key: 'note',
-                        title: 'Note'
+                        title: 'NOTE'
                     },
                     {
                         key: 'createdByCoreUser',
-                        title: 'By',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
+                        title: 'BY',
+                        type: 'function',
+                        function: (item) => { return `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` }
                     },
                     {
                         key: 'dateCreated',
-                        title: 'Date Created',
+                        title: 'DATECREATED',
                         type: 'date',
                         format: 'YYYY-MM-DD HH:mm:ss'
                     }
@@ -70,32 +67,30 @@ class DonorNoteListViewStore extends BaseListViewStore {
                     onSort: column => this.queryUtility.changeOrder(column.key)
                 },
                 actionsRender: {
-                    onDeleteConfig: { 'title': 'delete', 'permissions': this.permissions }
+                    onDeleteConfig: { permissions: this.permissions }
                 }
             })
         );
     }
 
-    @action.bound
-    async onAfterEditCreate() {
+    @action.bound onAfterCreateEdit() {
         this.editNoteId = null;
-        this.queryUtility.fetch();
+        this.queryUtility._reloadCollection();
     }
 
-    @action.bound
-    async onCancelEdit() {
+    @action.bound onCancelEdit() {
         this.editNoteId = null;
     }
 
     @action.bound
     async delete(note) {
         this.rootStore.modalStore.showConfirm(
-            'Are you sure you want to delete note?',
+            'AREYOUSUREYOUWANTTODELETENOTE',
             async () => {
                 this.loaderStore.suspend();
                 await this.actions.delete(note);
                 this.queryUtility.fetch();
-                this.rootStore.notificationStore.success('Successfully deleted note');
+                this.rootStore.notificationStore.success('SUCCESSFULLYDELETED');
                 this.loaderStore.resume();
             }
         );

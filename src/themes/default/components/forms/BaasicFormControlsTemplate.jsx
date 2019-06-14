@@ -5,7 +5,7 @@ import { defaultTemplate } from 'core/utils';
 import { BaasicButton } from 'core/components';
 
 const BaasicFormControlsTemplate = defaultTemplate(
-  ({ form, controls = null }) => (
+  ({ form, controls = null, t }) => (
     <React.Fragment>
       {(!controls || controls.onSubmit) && (
         <BaasicButton
@@ -19,7 +19,7 @@ const BaasicFormControlsTemplate = defaultTemplate(
               ? 'synchronize-arrows-1 rotate'
               : ''
           }
-          label="Save"
+          label={t("SAVE")}
         />
       )}
 

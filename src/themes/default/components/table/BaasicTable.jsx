@@ -11,7 +11,7 @@ function hasAction(actions) {
   return actions && (actions.onEdit || actions.onDelete);
 }
 
-function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect = false, ...otherProps }) {
+function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect = false, t, ...otherProps }) {
   const {
     data,
     config: { columns, actions, actionsRender },
@@ -56,13 +56,13 @@ function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect 
                     key={column.key}
                     className="table__head--data"
                   >
-                    <div>{column.title}</div>
+                    <div>{t(column.title)}</div>
                   </th>
                 );
               })}
               {renderIf(hasAction(actions))(
                 <th className="table__head--data right">
-                  <div>Actions</div>
+                  <div>{t("ACTIONS")}</div>
                 </th>
               )}
             </tr>
@@ -88,7 +88,7 @@ function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect 
       {!hidePageSizeSelect && <BaasicPageSizeSelect
         queryUtility={queryUtility}
         options={pageSizeOptions}
-        placeholder="Select page size"
+        placeholder={t("SELECTPAGESIZE")}
       />}
     </div>
   );

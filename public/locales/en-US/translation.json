@@ -5,6 +5,11 @@
     "CREATE": "Create",
     "ADD": "Add",
     "SYNC": "Sync",
+    "SUCCESSFULLYDELETED": "Successfully Deleted.",
+    "DATECREATED": "Date Created",
+    "By": "By",
+    "ACTIONS": "Actions",
+    "SELECTPAGESIZE": "Select Page Size",
     "COREUSER": {
         "PREFIXTYPEID": "Prefix"
     },
@@ -304,5 +309,11 @@
     },
     "GRANTUPDATEFORM": {
         "AMOUNTCHANGE": "Amount Change Will Result In Refund Previous Transaction And Initiating New Transaction With New Amount."
+    },
+    "ADDNEWNOTE": "Add New Note",
+    "EDITNEWNOTE": "Edit New Note",
+    "AREYOUSUREYOUWANTTODELETENOTE": "Are You Sure You Want To Delete Note?",
+    "DONORNOTECREATEEDITFORM": {
+        "NOTE": "Note"
     }
 }
