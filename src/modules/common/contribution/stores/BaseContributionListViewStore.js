@@ -44,7 +44,7 @@ class BaseContributionListViewStore extends BaseListViewStore {
 
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
-                columns: this.columns,
+                columns: this.setColumns,
                 actions: _.merge(this.defaultActions, this.setActions),
                 actionsRender: _.merge(this.defaultRenderActions, this.setRenderActions)
             })

@@ -1,24 +1,23 @@
 import { action, observable } from 'mobx';
 import { FundTransferService, DonorAccountService } from "common/data";
-import { BaseListViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
+import { BaasicDropdownStore } from 'core/stores';
 import { getDonorNameDropdown } from 'core/utils';
 import { FundTransferListFilter } from 'modules/administration/fund-transfer/models';
+import { BaseFundTransferListViewStore } from 'modules/common/fund-transfer/stores';
 import _ from 'lodash';
 
-class FundTransferListViewStore extends BaseListViewStore {
+class FundTransferListViewStore extends BaseFundTransferListViewStore {
     @observable recipientDonorAccountSearchDropdownStore = null;
     @observable senderDonorAccountSearchDropdownStore = null;
 
     constructor(rootStore) {
         const fundTransferService = new FundTransferService(rootStore.app.baasic.apiClient);
-
         let filter = new FundTransferListFilter()
-        //TODO: add filter for donor account id (both sender and recipient)
-        if (rootStore.routerStore.routerState.params.donorAccountId) {
-            filter.donorAccountId = rootStore.routerStore.routerState.params.donorAccountId;
+        if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.senderDonorAccountId) {
+            filter.senderDonorAccountId = rootStore.routerStore.routerState.queryParams.senderDonorAccountId;
         }
 
-        super(rootStore, {
+        const listViewStore = {
             name: 'fund transfer',
             routes: {
                 create: () => {
@@ -35,15 +34,53 @@ class FundTransferListViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: filter,
-                disableUpdateQueryParams: true
+                filter: filter
             }
-        });
+        };
 
-        this.permissions = {
-            employeeRead: rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read'),
-            employeeCreate: rootStore.authStore.hasPermission('theDonorsFundSection.create')
-        }
+        const setColumns = [
+            {
+                key: 'amount',
+                title: 'AMOUNT',
+                type: 'currency',
+            },
+            {
+                key: 'senderDonorAccount.coreUser',
+                title: 'SENDER',
+                type: 'function',
+                function: (item) => { return `${item.senderDonorAccount.coreUser.firstName} ${item.senderDonorAccount.coreUser.lastName}` }
+            },
+            {
+                key: 'recipientDonorAccount.coreUser',
+                title: 'RECIPIENT',
+                type: 'function',
+                function: (item) => { return `${item.recipientDonorAccount.coreUser.firstName} ${item.recipientDonorAccount.coreUser.lastName}` }
+            },
+            {
+                key: 'description',
+                title: 'DESCRIPTION'
+            },
+            {
+                key: 'createdByCoreUser',
+                title: 'BY',
+                type: 'object',
+                type: 'function',
+                function: (item) => { return `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` }
+            },
+            {
+                key: 'dateCreated',
+                title: 'DATECREATED',
+                type: 'date',
+                format: 'YYYY-MM-DD HH:mm'
+            },
+        ];
+
+        const config = {
+            listViewStore: listViewStore,
+            setColumns: setColumns
+        };
+
+        super(rootStore, config);
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.senderDonorAccountSearchDropdownStore = new BaasicDropdownStore(
@@ -58,6 +95,7 @@ class FundTransferListViewStore extends BaseListViewStore {
             {
                 fetchFunc: async (term) => {
                     let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    options.exceptId = this.queryUtility.filter.recipientDonorAccountId;
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -65,9 +103,13 @@ class FundTransferListViewStore extends BaseListViewStore {
                     const response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onChangeSenderDonorAccountSearch
+                onChange: (option) => this.queryUtility.filter.senderDonorAccountId = (option ? option.id : null)
             }
         );
+
+        if (this.queryUtility.filter.senderDonorAccountId) {
+            this.setSenderDropdownStore(this.queryUtility.filter.senderDonorAccountId, true)
+        }
 
         this.recipientDonorAccountSearchDropdownStore = new BaasicDropdownStore(
             {
@@ -81,6 +123,7 @@ class FundTransferListViewStore extends BaseListViewStore {
             {
                 fetchFunc: async (term) => {
                     let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    options.exceptId = this.queryUtility.filter.senderDonorAccountId;
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -88,75 +131,72 @@ class FundTransferListViewStore extends BaseListViewStore {
                     const response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onChangeRecipientDonorAccountSearch
+                onChange: (option) => this.queryUtility.filter.recipientDonorAccountId = (option ? option.id : null)
             }
         );
-
-        this.setTableStore(
-            new TableViewStore(this.queryUtility, {
-                columns: [
-                    {
-                        key: 'amount',
-                        title: 'Amount',
-                        type: 'currency'
-                    },
-                    {
-                        key: 'senderDonorAccount.coreUser',
-                        title: 'Sender',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'recipientDonorAccount.coreUser',
-                        title: 'recipient',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'description',
-                        title: 'Description'
-                    },
-                    {
-                        key: 'createdByCoreUser',
-                        title: 'Created By',
-                        type: 'object',
-                        separator: ' ',
-                        additionalColumns: [{
-                            key: 'firstName'
-                        }, {
-                            key: 'lastName'
-                        }]
-                    },
-                    {
-                        key: 'dateCreated',
-                        title: 'Date Created',
-                        type: 'date',
-                        format: 'YYYY-MM-DD HH:mm'
-                    },
-                ],
-                actions: {
-                },
-            })
-        );
     }
 
-    @action.bound async onChangeSenderDonorAccountSearch(option) {
-        this.queryUtility.filter.senderDonorAccountId = (option ? option.id : null)
+    @action.bound async switchDonorAccountsFromFilter() {
+        if (this.queryUtility.filter.senderDonorAccountId && this.queryUtility.filter.recipientDonorAccountId) {
+            const senderId = this.queryUtility.filter.senderDonorAccountId;
+            const recipientId = this.queryUtility.filter.recipientDonorAccountId;
+
+            this.queryUtility.filter.senderDonorAccountId = null;
+            this.queryUtility.filter.recipientDonorAccountId = null;
+
+            const params = {};
+            params.embed = ['coreUser,donorAccountAddresses,address'];
+            const senderDonorAccount = await this.donorAccountService.get(recipientId, params);
+            let defaultSenderSearchDonor = { id: senderDonorAccount.id, name: getDonorNameDropdown(senderDonorAccount) }
+            let donorSearchs = [];
+            donorSearchs.push(defaultSenderSearchDonor);
+            this.senderDonorAccountSearchDropdownStore.items = donorSearchs;
+            this.queryUtility.filter.senderDonorAccountId = recipientId;
+
+            const recipientDonorAccount = await this.donorAccountService.get(senderId, params);
+            let defaultRecipientSearchDonor = { id: recipientDonorAccount.id, name: getDonorNameDropdown(recipientDonorAccount) }
+            donorSearchs = [];
+            donorSearchs.push(defaultRecipientSearchDonor);
+            this.recipientDonorAccountSearchDropdownStore.items = donorSearchs;
+            this.queryUtility.filter.recipientDonorAccountId = senderId;
+        }
     }
 
-    @action.bound async onChangeRecipientDonorAccountSearch(option) {
-        this.queryUtility.filter.recipientDonorAccountId = (option ? option.id : null)
+    @action.bound async setSenderDropdownStore(donorAccountId, initSet = false) {
+        if (initSet || (!this.queryUtility.filter.senderDonorAccountId && this.queryUtility.filter.recipientDonorAccountId)) {
+            const recipientId = donorAccountId;
+
+            this.queryUtility.filter.recipientDonorAccountId = null;
+
+            const params = {};
+            params.embed = ['coreUser,donorAccountAddresses,address'];
+            const senderDonorAccount = await this.donorAccountService.get(recipientId, params);
+            let defaultsenderSearchDonor = { id: senderDonorAccount.id, name: getDonorNameDropdown(senderDonorAccount) }
+            const donorSearchs = [];
+            donorSearchs.push(defaultsenderSearchDonor);
+            this.senderDonorAccountSearchDropdownStore.items = donorSearchs;
+            this.queryUtility.filter.senderDonorAccountId = recipientId;
+
+        }
     }
+
+    @action.bound async setRecipientDropdownStore(donorAccountId) {
+        if (this.queryUtility.filter.senderDonorAccountId && !this.queryUtility.filter.recipientDonorAccountId) {
+            const senderId = donorAccountId;
+
+            this.queryUtility.filter.senderDonorAccountId = null;
+
+            const params = {};
+            params.embed = ['coreUser,donorAccountAddresses,address'];
+            const recipientDonorAccount = await this.donorAccountService.get(senderId, params);
+            let defaultRecipientSearchDonor = { id: recipientDonorAccount.id, name: getDonorNameDropdown(recipientDonorAccount) }
+            const donorSearchs = [];
+            donorSearchs.push(defaultRecipientSearchDonor);
+            this.recipientDonorAccountSearchDropdownStore.items = donorSearchs;
+            this.queryUtility.filter.recipientDonorAccountId = senderId;
+        }
+    }
+
 }
 
 export default FundTransferListViewStore;

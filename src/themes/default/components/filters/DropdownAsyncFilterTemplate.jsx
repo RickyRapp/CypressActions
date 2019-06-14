@@ -23,7 +23,7 @@ function DropdownAsyncFilterTemplate({ store, queryUtility, name }) {
             isMulti={options.multi}
             isClearable={options.clearable}
             isLoading={loading}
-            cacheOptions={true}
+            cacheOptions={false}
             getOptionLabel={option => option[options.textField]}
             getOptionValue={option => option[options.dataItemKey]}
             defaultOptions={options.initFetch} //  tells the control to immediately fire the remote request, described by your loadOptions

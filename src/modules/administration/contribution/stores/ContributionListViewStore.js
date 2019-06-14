@@ -67,7 +67,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             onClose: () => { this.contributionId = null; this.onClose }
         });
 
-        this.columns = [
+        this.setColumns = [
             {
                 key: 'donorAccount.coreUser',
                 title: 'Donor Name',
