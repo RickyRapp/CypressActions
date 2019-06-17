@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class CharityUpdateForm extends FormBase {
     constructor(hooks) {
@@ -10,103 +11,103 @@ export default class CharityUpdateForm extends FormBase {
             fields: [
                 {
                     name: 'name',
-                    label: 'CHARITYUPDATEFORM.NAME',
+                    label: localizationService.t('CHARITYUPDATEFORM.NAME'),
                     rules: 'required|string',
                 },
                 {
                     name: 'taxId',
-                    label: 'CHARITYUPDATEFORM.TAXID',
+                    label: localizationService.t('CHARITYUPDATEFORM.TAXID'),
                     rules: 'required|string|digits:9',
                 },
                 {
                     name: 'charityStatusId',
-                    label: 'CHARITYUPDATEFORM.CHARITYSTATUSID',
+                    label: localizationService.t('CHARITYUPDATEFORM.CHARITYSTATUSID'),
                     rules: 'required|string',
                 },
                 {
                     name: 'charityTypeId',
-                    label: 'CHARITYUPDATEFORM.CHARITYTYPEID',
+                    label: localizationService.t('CHARITYUPDATEFORM.CHARITYTYPEID'),
                     rules: 'required|string',
                 },
                 {
                     name: 'dba',
-                    label: 'CHARITYUPDATEFORM.DBA',
+                    label: localizationService.t('CHARITYUPDATEFORM.DBA'),
                     rules: 'string',
                 },
                 {
                     name: 'emailAddress',
-                    label: 'CHARITYUPDATEFORM.EMAILADDRESS',
+                    label: localizationService.t('CHARITYUPDATEFORM.EMAILADDRESS'),
                     fields: [
                         {
                             name: 'email',
-                            label: 'CHARITYUPDATEFORM.EMAILADDRESS.EMAIL',
+                            label: localizationService.t('CHARITYUPDATEFORM.EMAILADDRESS.EMAIL'),
                             rules: 'required|email|string',
                         },
                     ]
                 },
                 {
                     name: 'contactInformation',
-                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION',
+                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION'),
                     fields: [
                         {
                             name: 'firstName',
-                            label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.FIRSTNAME',
+                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.FIRSTNAME'),
                             rules: 'required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                         },
                         {
                             name: 'lastName',
-                            label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.LASTNAME',
+                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.LASTNAME'),
                             rules: 'required_with:contactInformation.firstName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                         },
                         {
                             name: 'address',
-                            label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS',
+                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS'),
                             fields: [
                                 {
                                     name: 'addressLine1',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE1',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE1'),
                                     rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                                 {
                                     name: 'addressLine2',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE2',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE2'),
                                     rules: 'string',
                                 },
                                 {
                                     name: 'city',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.CITY',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.CITY'),
                                     rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                                 {
                                     name: 'state',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.STATE',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.STATE'),
                                     rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                                 {
                                     name: 'zipCode',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ZIPCODE',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ZIPCODE'),
                                     rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                             ]
                         },
                         {
                             name: 'emailAddress',
-                            label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.EMAILADDRESS',
+                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.EMAILADDRESS'),
                             fields: [
                                 {
                                     name: 'email',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.EMAILADDRESS.EMAIL',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.EMAILADDRESS.EMAIL'),
                                     rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.phoneNumber.number|string',
                                 },
                             ]
                         },
                         {
                             name: 'phoneNumber',
-                            label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.PHONENUMBER',
+                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.PHONENUMBER'),
                             fields: [
                                 {
                                     name: 'number',
-                                    label: 'CHARITYUPDATEFORM.CONTACTINFORMATION.PHONENUMBER.NUMBER',
+                                    label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.PHONENUMBER.NUMBER'),
                                     rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|string',
                                 },
                             ]
@@ -115,31 +116,31 @@ export default class CharityUpdateForm extends FormBase {
                 },
                 {
                     name: 'bankAccount',
-                    label: 'CHARITYUPDATEFORM.BANKACCOUNT',
+                    label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT'),
                     fields: [
                         {
                             name: 'name',
-                            label: 'CHARITYUPDATEFORM.BANKACCOUNT.NAME',
+                            label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT.NAME'),
                             rules: 'required_with:bankAccount.accountNumber|required_with:bankAccount.routingNumber|required_with:bankAccount.description|string'
                         },
                         {
                             name: 'accountNumber',
-                            label: 'CHARITYUPDATEFORM.BANKACCOUNT.ACCOUNTNUMBER',
+                            label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT.ACCOUNTNUMBER'),
                             rules: 'required_with:bankAccount.name|required_with:bankAccount.routingNumber|required_with:bankAccount.description|string'
                         },
                         {
                             name: 'routingNumber',
-                            label: 'CHARITYUPDATEFORM.BANKACCOUNT.ROUTINGNUMBER',
+                            label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT.ROUTINGNUMBER'),
                             rules: 'required_with:bankAccount.name|required_with:bankAccount.accountNumber|required_with:bankAccount.description|string|digits:9'
                         },
                         {
                             name: 'description',
-                            label: 'CHARITYUPDATEFORM.BANKACCOUNT.DESCRIPTION',
+                            label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT.DESCRIPTION'),
                             rules: 'string'
                         },
                         {
                             name: 'image',
-                            label: 'CHARITYUPDATEFORM.BANKACCOUNT.UPLOADIMAGE',
+                            label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT.UPLOADIMAGE'),
                             type: 'file',
                         }
                     ]

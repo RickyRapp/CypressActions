@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class CharityCreateForm extends FormBase {
     constructor(hooks) {
@@ -10,84 +11,79 @@ export default class CharityCreateForm extends FormBase {
             fields: [
                 {
                     name: 'charityStatusId',
-                    label: 'CHARITYCREATEFORM.CHARITYSTATUSID',
+                    label: localizationService.t('CHARITYCREATEFORM.CHARITYSTATUSID'),
                     rules: 'required|string',
                 },
                 {
                     name: 'charityTypeId',
-                    label: 'CHARITYCREATEFORM.CHARITYTYPEID',
+                    label: localizationService.t('CHARITYCREATEFORM.CHARITYTYPEID'),
                     rules: 'required|string',
                 },
                 {
                     name: 'dba',
-                    label: 'CHARITYCREATEFORM.DBA',
+                    label: localizationService.t('CHARITYCREATEFORM.DBA'),
                     rules: 'string',
                 },
                 {
                     name: 'name',
-                    label: 'CHARITYCREATEFORM.NAME',
+                    label: localizationService.t('CHARITYCREATEFORM.NAME'),
                     rules: 'required|string',
                 },
                 {
                     name: 'taxId',
-                    label: 'CHARITYCREATEFORM.TAXID',
+                    label: localizationService.t('CHARITYCREATEFORM.TAXID'),
                     rules: 'required|string|digits:9',
                 },
                 {
                     name: 'suggestedById',
-                    label: 'CHARITYCREATEFORM.SUGGESTEDBYID',
+                    label: localizationService.t('CHARITYCREATEFORM.SUGGESTEDBYID'),
                     rules: 'string',
                 },
                 {
                     name: 'hasLogin',
-                    label: 'CHARITYCREATEFORM.HASLOGIN',
+                    label: localizationService.t('CHARITYCREATEFORM.HASLOGIN'),
                     rules: 'boolean',
                     value: false,
                     type: 'checkbox'
                 },
                 {
                     name: 'sendWelcomeEmail',
-                    label: 'CHARITYCREATEFORM.SENDWELCOMEEMAIL',
+                    label: localizationService.t('CHARITYCREATEFORM.SENDWELCOMEEMAIL'),
                     rules: 'boolean',
                     value: false,
                     type: 'checkbox'
                 },
                 {
                     name: 'isApproved',
-                    label: 'CHARITYCREATEFORM.ISAPPROVED',
+                    label: localizationService.t('CHARITYCREATEFORM.ISAPPROVED'),
                     rules: 'boolean',
                     value: false,
                     type: 'checkbox'
                 },
                 {
                     name: 'coreUser',
-                    label: 'CHARITYCREATEFORM.COREUSER',
+                    label: localizationService.t('CHARITYCREATEFORM.COREUSER'),
                     fields: [
                         {
                             name: 'userName',
-                            label: 'CHARITYCREATEFORM.COREUSER.USERNAME',
+                            label: localizationService.t('CHARITYCREATEFORM.COREUSER.USERNAME'),
                             rules: 'required_if:hasLogin,true|string',
                         },
                         {
                             name: 'coreMembership',
-                            label: 'CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP',
+                            label: localizationService.t('CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP'),
                             fields: [
                                 {
                                     name: 'password',
-                                    label: 'CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.PASSWORD',
+                                    label: localizationService.t('CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.PASSWORD'),
                                     rules: ['required_if:hasLogin,true', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
                                     type: 'password'
                                 },
                                 {
                                     name: 'confirmPassword',
-                                    label: 'CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.CONFIRMPASSWORD',
+                                    label: localizationService.t('CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.CONFIRMPASSWORD'),
                                     rules: 'required_if:hasLogin,true|string|same:coreUser.coreMembership.password',
                                     type: 'password'
-                                },
-                                {
-                                    name: 'email',
-                                    label: 'CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.EMAIL',
-                                    rules: 'required_if:hasLogin,true|email|string',
                                 }
                             ]
                         }
@@ -95,116 +91,116 @@ export default class CharityCreateForm extends FormBase {
                 },
                 {
                     name: 'address',
-                    label: 'CHARITYCREATEFORM.ADDRESS',
+                    label: localizationService.t('CHARITYCREATEFORM.ADDRESS'),
                     fields: [
                         {
                             name: 'addressLine1',
-                            label: 'CHARITYCREATEFORM.ADDRESS.ADDRESSLINE1',
+                            label: localizationService.t('CHARITYCREATEFORM.ADDRESS.ADDRESSLINE1'),
                             rules: 'required|string',
                         },
                         {
                             name: 'addressLine2',
-                            label: 'CHARITYCREATEFORM.ADDRESS.ADDRESSLINE2',
+                            label: localizationService.t('CHARITYCREATEFORM.ADDRESS.ADDRESSLINE2'),
                             rules: 'string',
                         },
                         {
                             name: 'city',
-                            label: 'CHARITYCREATEFORM.ADDRESS.CITY',
+                            label: localizationService.t('CHARITYCREATEFORM.ADDRESS.CITY'),
                             rules: 'required|string',
                         },
                         {
                             name: 'state',
-                            label: 'CHARITYCREATEFORM.ADDRESS.STATE',
+                            label: localizationService.t('CHARITYCREATEFORM.ADDRESS.STATE'),
                             rules: 'required|string',
                         },
                         {
                             name: 'zipCode',
-                            label: 'CHARITYCREATEFORM.ADDRESS.ZIPCODE',
+                            label: localizationService.t('CHARITYCREATEFORM.ADDRESS.ZIPCODE'),
                             rules: 'required|string',
                         },
                     ]
                 },
                 {
                     name: 'emailAddress',
-                    label: 'CHARITYCREATEFORM.EMAILADDRESS',
+                    label: localizationService.t('CHARITYCREATEFORM.EMAILADDRESS'),
                     fields: [
                         {
                             name: 'email',
-                            label: 'CHARITYCREATEFORM.EMAILADDRESS.EMAIL',
+                            label: localizationService.t('CHARITYCREATEFORM.EMAILADDRESS.EMAIL'),
                             rules: 'required|email|string',
                         },
                     ]
                 },
                 {
                     name: 'hasContact',
-                    label: 'CHARITYCREATEFORM.HASCONTACT',
+                    label: localizationService.t('CHARITYCREATEFORM.HASCONTACT'),
                     rules: 'boolean',
                     value: false,
                     type: 'checkbox'
                 },
                 {
                     name: 'contactInformation',
-                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION',
+                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION'),
                     fields: [
                         {
                             name: 'firstName',
-                            label: 'CHARITYCREATEFORM.CONTACTINFORMATION.FIRSTNAME',
+                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.FIRSTNAME'),
                             rules: 'required_if:hasContact,true|string',
                         },
                         {
                             name: 'lastName',
-                            label: 'CHARITYCREATEFORM.CONTACTINFORMATION.LASTNAME',
+                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.LASTNAME'),
                             rules: 'required_if:hasContact,true|string',
                         },
                         {
                             name: 'address',
-                            label: 'CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS',
+                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS'),
                             fields: [
                                 {
                                     name: 'addressLine1',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE1',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE1'),
                                     rules: 'required_if:hasContact,true|string',
                                 },
                                 {
                                     name: 'addressLine2',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE2',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE2'),
                                     rules: 'string',
                                 },
                                 {
                                     name: 'city',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.CITY',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.CITY'),
                                     rules: 'required_if:hasContact,true|string',
                                 },
                                 {
                                     name: 'state',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.STATE',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.STATE'),
                                     rules: 'required_if:hasContact,true|string',
                                 },
                                 {
                                     name: 'zipCode',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.ZIPCODE',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.ADDRESS.ZIPCODE'),
                                     rules: 'required_if:hasContact,true|string',
                                 },
                             ]
                         },
                         {
                             name: 'emailAddress',
-                            label: 'CHARITYCREATEFORM.CONTACTINFORMATION.EMAILADDRESS',
+                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.EMAILADDRESS'),
                             fields: [
                                 {
                                     name: 'email',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.EMAILADDRESS.EMAIL',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.EMAILADDRESS.EMAIL'),
                                     rules: 'required_if:hasContact,true|email|string',
                                 },
                             ]
                         },
                         {
                             name: 'phoneNumber',
-                            label: 'CHARITYCREATEFORM.CONTACTINFORMATION.PHONENUMBER',
+                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.PHONENUMBER'),
                             fields: [
                                 {
                                     name: 'number',
-                                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.PHONENUMBER.NUMBER',
+                                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.PHONENUMBER.NUMBER'),
                                     rules: 'required_if:hasContact,true|string',
                                 },
                             ]
@@ -213,31 +209,31 @@ export default class CharityCreateForm extends FormBase {
                 },
                 {
                     name: 'bankAccount',
-                    label: 'CHARITYCREATEFORM.CONTACTINFORMATION.BANKACCOUNT',
+                    label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.BANKACCOUNT'),
                     fields: [
                         {
                             name: 'name',
-                            label: 'CHARITYCREATEFORM.BANKACCOUNT.NAME',
+                            label: localizationService.t('CHARITYCREATEFORM.BANKACCOUNT.NAME'),
                             rules: 'required|string'
                         },
                         {
                             name: 'accountNumber',
-                            label: 'CHARITYCREATEFORM.BANKACCOUNT.ACCOUNTNUMBER',
+                            label: localizationService.t('CHARITYCREATEFORM.BANKACCOUNT.ACCOUNTNUMBER'),
                             rules: 'required|string'
                         },
                         {
                             name: 'routingNumber',
-                            label: 'CHARITYCREATEFORM.BANKACCOUNT.ROUTINGNUMBER',
+                            label: localizationService.t('CHARITYCREATEFORM.BANKACCOUNT.ROUTINGNUMBER'),
                             rules: 'required|string|digits:9'
                         },
                         {
                             name: 'description',
-                            label: 'CHARITYCREATEFORM.BANKACCOUNT.DESCRIPTION',
+                            label: localizationService.t('CHARITYCREATEFORM.BANKACCOUNT.DESCRIPTION'),
                             rules: 'string'
                         },
                         {
                             name: 'image',
-                            label: 'CHARITYCREATEFORM.BANKACCOUNT.UPLOADIMAGE',
+                            label: localizationService.t('CHARITYCREATEFORM.BANKACCOUNT.UPLOADIMAGE'),
                             type: 'file',
                         }
                     ]

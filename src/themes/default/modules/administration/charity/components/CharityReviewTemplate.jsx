@@ -24,8 +24,8 @@ function CharityReviewTemplate(
                     </div>
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
-                            <label htmlFor={charity.amount}>Amount</label>
-                            <strong>${charity.amount}</strong>
+                            <label htmlFor={charity.taxId}>Tax Id</label>
+                            <strong>${charity.taxId}</strong>
                         </div>
                     </div>
                 </div>}

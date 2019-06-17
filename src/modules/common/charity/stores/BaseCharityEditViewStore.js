@@ -14,6 +14,11 @@ class BaseCharityEditViewStore extends BaseEditViewStore {
         this.rootStore = rootStore;
     }
 
+    async updateResource(resource) {
+        await super.updateResource(resource);
+        await this.getResource(this.id)
+    }
+
     @action.bound async load() {
         await this.loadLookups();
         await this.setStores();

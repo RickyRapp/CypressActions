@@ -40,7 +40,6 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
                     }
                     const response = await charityService.update({ id: this.id, ...item });
                     this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    await this.getResources(this.id)
                 },
                 get: async id => {
                     let params = {};

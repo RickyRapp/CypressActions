@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class AddressCreateForm extends FormBase {
     constructor(hooks) {
@@ -10,32 +11,32 @@ export default class AddressCreateForm extends FormBase {
             fields: [
                 {
                     name: 'addressLine1',
-                    label: 'ADDRESS.ADDRESSLINE1',
+                    label: localizationService.t('ADDRESS.ADDRESSLINE1'),
                     rules: 'required|string',
                 },
                 {
                     name: 'addressLine2',
-                    label: 'ADDRESS.ADDRESSLINE2',
+                    label: localizationService.t('ADDRESS.ADDRESSLINE2'),
                     rules: 'string',
                 },
                 {
                     name: 'city',
-                    label: 'ADDRESS.CITY',
+                    label: localizationService.t('ADDRESS.CITY'),
                     rules: 'required|string',
                 },
                 {
                     name: 'state',
-                    label: 'ADDRESS.STATE',
+                    label: localizationService.t('ADDRESS.STATE'),
                     rules: 'required|string',
                 },
                 {
                     name: 'zipCode',
-                    label: 'ADDRESS.ZIPCODE',
+                    label: localizationService.t('ADDRESS.ZIPCODE'),
                     rules: 'required|string',
                 },
                 {
                     name: 'description',
-                    label: 'ADDRESS.DESCRIPTION',
+                    label: localizationService.t('ADDRESS.DESCRIPTION'),
                     rules: 'string',
                 },
             ]

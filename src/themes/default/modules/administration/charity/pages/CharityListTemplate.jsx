@@ -82,7 +82,6 @@ function CharityListTemplate({ charityListViewStore }) {
                     <BaasicTable
                         tableStore={tableStore}
                         loading={loaderStore.loading}
-                        actionsComponent={renderActions}
                     />}
             </ListLayout>
             <BaasicModal modalParams={reviewCharityModalParams} >
@@ -91,54 +90,6 @@ function CharityListTemplate({ charityListViewStore }) {
                 </div>
             </BaasicModal>
         </React.Fragment>
-    );
-}
-
-function renderActions({ item, actions, actionsRender }) {
-    if (!isSome(actions))
-        return null;
-
-    let { onEdit, onReview } = actions;
-    if (!isSome(onEdit) && !isSome(onReview))
-        return null;
-
-    const { onEditConfig, onReviewConfig } = actionsRender;
-
-    //edit config
-    let editTitle = 'edit' // default
-    if (isSome(onEditConfig)) {
-        if (onEditConfig.title) {
-            editTitle = onEditConfig.title;
-        }
-    }
-
-    //review config
-    let reviewTitle = 'review' // default
-    if (isSome(onReviewConfig)) {
-        if (onReviewConfig.title) {
-            reviewTitle = onEditConfig.title;
-        }
-    }
-
-    return (
-        <td className="table__body--data right">
-            {isSome(onEdit) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onEdit(item)}
-                >
-                    {editTitle}
-                </i>
-            ) : null}
-            {isSome(onReview) ? (
-                <i
-                    className="material-icons align--v--middle"
-                    onClick={() => onReview(item)}
-                >
-                    {reviewTitle}
-                </i>
-            ) : null}
-        </td>
     );
 }
 
