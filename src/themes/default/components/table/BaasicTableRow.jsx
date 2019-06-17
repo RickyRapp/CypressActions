@@ -2,7 +2,6 @@ import React from 'react';
 import { isSome, renderIf } from 'core/utils';
 import _ from 'lodash';
 import moment from 'moment';
-import 'moment-timezone';
 import NumberFormat from 'react-number-format';
 
 function BaasicTableRowTemplate({
@@ -59,7 +58,12 @@ function renderRow(item, column) {
     }
 
     if (render && itemValue) {
-      itemValue = moment(itemValue).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(column.format);
+      if (column.withoutTimeZone) {
+        itemValue = moment.utc(itemValue).format(column.format);
+      }
+      else {
+        itemValue = moment(itemValue).format(column.format);
+      }
     }
     else {
       itemValue = column.default;

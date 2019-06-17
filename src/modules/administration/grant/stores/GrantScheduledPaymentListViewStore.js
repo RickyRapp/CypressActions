@@ -93,7 +93,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 key: 'startFutureDate',
                 title: 'STARTDATE',
                 type: 'date',
-                format: 'YYYY-MM-DD'
+                format: 'YYYY-MM-DD',
+                withoutTimeZone: true
             },
             {
                 key: 'nextDate',
@@ -101,7 +102,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 type: 'date',
                 renderIf: (item) => item.grantScheduleTypeId !== _.find(this.grantScheduleTypeModels, { abrv: 'one-time' }).id,
                 default: '',
-                format: 'YYYY-MM-DD'
+                format: 'YYYY-MM-DD',
+                withoutTimeZone: true
             },
             {
                 key: 'dateCreated',
