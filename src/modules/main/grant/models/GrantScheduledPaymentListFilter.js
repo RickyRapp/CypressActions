@@ -1,8 +1,9 @@
 import { action, observable } from 'mobx';
 import { FilterParams } from 'core/models';
 
-class GrantListFilter extends FilterParams {
+class GrantScheduledPaymentListFilter extends FilterParams {
     @observable donorAccountId;
+    @observable name;
     @observable charityId;
     @observable amountRangeMin;
     @observable amountRangeMax;
@@ -17,6 +18,7 @@ class GrantListFilter extends FilterParams {
 
     @action reset() {
         super.reset();
+        this.name = null;
         this.charityId = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
@@ -25,4 +27,4 @@ class GrantListFilter extends FilterParams {
     }
 }
 
-export default GrantListFilter;
+export default GrantScheduledPaymentListFilter;

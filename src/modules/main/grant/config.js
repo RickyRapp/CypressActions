@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantList, GrantCreate, GrantEdit } from 'modules/main/grant/pages'
+import { GrantList, GrantCreate, GrantEdit, GrantScheduledPaymentList } from 'modules/main/grant/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -29,6 +29,13 @@ import { GrantList, GrantCreate, GrantEdit } from 'modules/main/grant/pages'
                         authorization: 'theDonorsFundGrantSection.update',
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     },
+                    {
+                        name: 'master.app.main.grant.scheduled.list',
+                        pattern: '/scheduled',
+                        component: GrantScheduledPaymentList,
+                        authorization: 'theDonorsFundGrantSection.read',
+                        withoutAuthorization: 'theDonorsFundAdministrationSection.read'
+                    }
                 ]
             }
         ],
@@ -40,6 +47,11 @@ import { GrantList, GrantCreate, GrantEdit } from 'modules/main/grant/pages'
                         title: 'Grants',
                         route: 'master.app.main.grant.list',
                         order: 7
+                    },
+                    {
+                        title: 'Scheduled Grants',
+                        route: 'master.app.main.grant.scheduled.list',
+                        order: 8
                     }
                 ]
             }

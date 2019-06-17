@@ -32,12 +32,6 @@ import { GrantList, GrantCreate, GrantEdit, GrantScheduledPaymentList, GrantSche
                         pattern: '/scheduled',
                         component: GrantScheduledPaymentList,
                         authorization: 'theDonorsFundAdministrationSection.update'
-                    },
-                    {
-                        name: 'master.app.administration.grant.scheduled.edit',
-                        pattern: '/scheduled/edit/:id',
-                        component: GrantScheduledPaymentEdit,
-                        authorization: 'theDonorsFundAdministrationSection.update'
                     }
                 ]
             }

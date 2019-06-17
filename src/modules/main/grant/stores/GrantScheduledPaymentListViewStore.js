@@ -1,7 +1,6 @@
 import { observable } from 'mobx';
-import { GrantScheduledPaymentService, DonorAccountService } from "common/data";
-import { BaasicDropdownStore } from "core/stores";
-import { GrantScheduledPaymentListFilter } from 'modules/administration/grant/models';
+import { GrantScheduledPaymentService } from "common/data";
+import { GrantScheduledPaymentListFilter } from 'modules/main/grant/models';
 import { renderGrantScheduleType } from 'modules/common/grant/components';
 import { BaseGrantScheduledPaymentListViewStore } from 'modules/common/grant/stores';
 import _ from 'lodash';
@@ -17,10 +16,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
         const grantScheduledPaymentService = new GrantScheduledPaymentService(rootStore.app.baasic.apiClient);
 
         let filter = new GrantScheduledPaymentListFilter()
+        filter.donorAccountId = rootStore.authStore.user.id;
         if (rootStore.routerStore.routerState.queryParams) {
-            if (rootStore.routerStore.routerState.queryParams.donorAccountId) {
-                filter.donorAccountId = rootStore.routerStore.routerState.queryParams.donorAccountId;
-            }
             if (rootStore.routerStore.routerState.queryParams.charityId) {
                 filter.charityId = rootStore.routerStore.routerState.queryParams.charityId;
             }
@@ -29,15 +26,11 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
         const listViewStore = {
             name: 'scheduled grant',
             routes: {
-                charityEdit: (charityId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId }),
-                donorAccountEdit: (userId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
             },
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,charity';
+                    params.embed = 'createdByCoreUser,charity';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await grantScheduledPaymentService.find(params);
@@ -46,7 +39,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 }
             },
             queryConfig: {
-                filter: filter
+                filter: filter,
+                disableUpdateQueryParams: true
             }
         };
 
@@ -57,13 +51,6 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
         super(rootStore, config);
 
         this.setColumns = [
-            {
-                key: 'donorAccount.coreUser',
-                title: 'Donor Account (click on row)',
-                type: 'function',
-                function: (item) => { return `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}` },
-                onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id)
-            },
             {
                 key: 'name',
                 title: 'NAME'
@@ -119,44 +106,6 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
 
         this.setRenderActions = {
             renderCancel: (item) => !item.done
-        }
-
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-    }
-
-    async setFilterDropdownStores() {
-        super.setFilterDropdownStores();
-        this.donorAccountSearchDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true,
-                placeholder: 'Choose Donor',
-                initFetch: false
-            },
-            {
-                fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
-                    if (term && term !== '') {
-                        options.searchQuery = term;
-                    }
-
-                    let response = await this.donorAccountService.search(options);
-                    return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
-                },
-                onChange: (option) => this.queryUtility.filter.donorAccountId = (option ? option.id : null)
-            }
-        );
-
-        if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
-            const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
-            let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
-            let donorSearchs = [];
-            donorSearchs.push(defaultSearchDonor);
-            this.donorAccountSearchDropdownStore.items = donorSearchs;
         }
     }
 }

@@ -53,7 +53,18 @@ function renderRow(item, column) {
   let itemValue = getColumnValue(item, column.key);
 
   if (column.type === 'date') {
-    itemValue = moment(itemValue).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(column.format);
+    let render = true;
+    if (column.renderIf && _.isFunction(column.renderIf)) {
+      render = column.renderIf(item);
+    }
+
+    if (render && itemValue) {
+      itemValue = moment(itemValue).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(column.format);
+    }
+    else {
+      itemValue = column.default;
+    }
+
   }
 
   if (column.type === 'currency') {
