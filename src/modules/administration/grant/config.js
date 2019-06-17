@@ -23,7 +23,7 @@ import { GrantList, GrantCreate, GrantEdit, GrantScheduledPaymentList, GrantSche
                     },
                     {
                         name: 'master.app.administration.grant.edit',
-                        pattern: '/edit/:id',
+                        pattern: ':userId/edit/:id',
                         component: GrantEdit,
                         authorization: 'theDonorsFundAdministrationSection.update'
                     },

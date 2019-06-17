@@ -6,7 +6,7 @@ function OtherPurposeType({ field, t }) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-12">
-                {t("GRANTCREATEFORM.PURPOSEOTHER")}
+                {t("GRANTCREATEEDITFORM.PURPOSEOTHER")}
             </div>
             <div className="form__group f-col f-col-lrg-12">
                 <BasicTextArea field={field} />
@@ -23,11 +23,11 @@ const CharityEventPurposeType = defaultTemplate(({ field, t }) => {
             </div>
             {field.value === true ?
                 <div className="form__group f-col f-col-lrg-12">
-                    {t("GRANTCREATEFORM.PURPOSECHARITYEVENTATTENDING")}
+                    {t("GRANTCREATEEDITFORM.PURPOSECHARITYEVENTATTENDING")}
                 </div>
                 :
                 <div className="form__group f-col f-col-lrg-12">
-                    {t("GRANTCREATEFORM.PURPOSECHARITYEVENTNOTATTENDING")}
+                    {t("GRANTCREATEEDITFORM.PURPOSECHARITYEVENTNOTATTENDING")}
                 </div>}
         </div>
     )
@@ -77,7 +77,7 @@ function MembershipPurposeType({ t }) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-12">
-                {t("GRANTCREATEFORM.PURPOSEMEMBERSHIP")}
+                {t("GRANTCREATEEDITFORM.PURPOSEMEMBERSHIP")}
             </div>
         </div>
     )
@@ -87,7 +87,7 @@ function NonBindingPledgePurposeType({ t }) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-12">
-                {t("GRANTCREATEFORM.PURPOSENONBINDINGPLEDGE")}
+                {t("GRANTCREATEEDITFORM.PURPOSENONBINDINGPLEDGE")}
             </div>
         </div>
     )

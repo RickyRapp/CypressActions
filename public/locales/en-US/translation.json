@@ -277,7 +277,7 @@
         "BLANKBOOKLETMAX ": "Blank Booklet Max",
         "NOTIFICATIONLIMITREMAINDERAMOUNT": "Low Balance Remainder"
     },
-    "GRANTCREATEFORM": {
+    "GRANTCREATEEDITFORM": {
         "CHARITYID": "Charity",
         "AMOUNT": "Amount",
         "DESCRIPTION": "Description",

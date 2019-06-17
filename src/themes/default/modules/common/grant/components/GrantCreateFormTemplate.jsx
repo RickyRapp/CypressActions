@@ -26,7 +26,6 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
         fundNameAndAddressId,
         fundNameId,
         donorAccount,
-        oneTimeId,
         monthlyId,
         annualId,
         totalAmount,
@@ -36,7 +35,7 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
 
     const scheduleGrantTooltip =
         <React.Fragment>
-            <span className='icomoon tiny icon-cog' data-tip data-for={'scheduledGrant'} />
+            <span className='icomoon icon-style-two-pin-information' data-tip data-for={'scheduledGrant'} />
             <ReactTooltip type='info' effect='solid' place="right" id={'scheduledGrant'}>
                 <span>{t('GRANTCREATEFORM.SCHEDULENAMETOOLTIP')}</span>
             </ReactTooltip>
@@ -57,7 +56,7 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                     </div>
                     {form.$('grantAcknowledgmentTypeId').value &&
-                        <div className="form__group f-col f-col-lrg-6 spc--top--med">
+                        <div className="form__group f-col f-col-lrg-6 spc--top--sml">
                             {form.$('grantAcknowledgmentTypeId').value === fundNameAndAddressId && `${donorAccount.fundName} - ${getFormattedAddress(_.find(donorAccount.donorAccountAddresses, { primary: true }).address)}`}
                             {form.$('grantAcknowledgmentTypeId').value === fundNameId && donorAccount.fundName}
                         </div>}

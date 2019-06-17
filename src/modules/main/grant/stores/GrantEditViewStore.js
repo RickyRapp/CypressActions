@@ -30,7 +30,7 @@ class GrantEditViewStore extends BaseGrantEditViewStore {
             },
             FormClass: GrantEditForm,
             goBack: false,
-            onAfterUpdate: () => rootStore.routerStore.navigate('master.app.administration.grant.list'),
+            onAfterUpdate: () => rootStore.routerStore.navigate('master.app.main.grant.list'),
             loader: true
         }
 

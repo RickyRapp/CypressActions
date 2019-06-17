@@ -1,8 +1,9 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { GrantService } from "common/data";
 import { GrantListFilter } from 'modules/main/grant/models';
 import { BaseGrantListViewStore } from 'modules/common/grant/stores';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
+import moment from 'moment';
 import _ from 'lodash';
 
 class GrantListViewStore extends BaseGrantListViewStore {
@@ -16,7 +17,8 @@ class GrantListViewStore extends BaseGrantListViewStore {
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
 
         let filter = new GrantListFilter()
-        filter.donorAccountId = rootStore.authStore.user.id;
+        const userId = rootStore.authStore.user.id;
+        filter.donorAccountId = userId;
 
         if (rootStore.routerStore.routerState.queryParams) {
             if (rootStore.routerStore.routerState.queryParams.charityId) {
@@ -27,12 +29,10 @@ class GrantListViewStore extends BaseGrantListViewStore {
         const listViewStore = {
             name: 'grant',
             routes: {
-                create: () => {
-                    this.rootStore.routerStore.navigate('master.app.main.grant.create')
-                },
-                edit: (grantId) => {
-                    this.rootStore.routerStore.navigate('master.app.main.grant.edit', { id: grantId })
-                },
+                create: () =>
+                    this.rootStore.routerStore.navigate('master.app.main.grant.create'),
+                edit: (grantId, donorAccountId) =>
+                    this.rootStore.routerStore.navigate('master.app.main.grant.edit', { id: grantId, userId: donorAccountId }),
                 grantScheduledPaymentEdit: (grantScheduledPaymentName) =>
                     this.rootStore.routerStore.navigate('master.app.main.grant.scheduled.list', null, { name: grantScheduledPaymentName })
             },
@@ -48,7 +48,8 @@ class GrantListViewStore extends BaseGrantListViewStore {
                 }
             },
             queryConfig: {
-                filter: filter
+                filter: filter,
+                disableUpdateQueryParams: true
             }
         }
 
@@ -90,7 +91,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
             {
                 key: 'grantScheduledPayment.name',
                 title: 'PARTOF(CLICKONROW)',
-                onClick: grant => this.routes.grantScheduledPaymentEdit(grant.grantScheduledPayment.name)
+                onClick: (item) => this.routes.grantScheduledPaymentEdit(item.grantScheduledPayment.name)
             },
             {
                 key: 'dateCreated',
@@ -100,7 +101,19 @@ class GrantListViewStore extends BaseGrantListViewStore {
             },
         ];
 
+        this.setRenderActions = {
+            renderEdit: this.renderEdit,
+        }
+
         this.load();
+    }
+
+    @action.bound renderEdit(grant) {
+        const statusesForEdit = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
+        if (_.some(statusesForEdit, (item) => { return item === grant.donationStatusId })) {
+            return moment().local().isBefore(moment.utc(grant.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
+        }
+        return false;
     }
 }
 

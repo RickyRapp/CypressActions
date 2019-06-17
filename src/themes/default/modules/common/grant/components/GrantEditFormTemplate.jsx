@@ -1,5 +1,5 @@
 import React from 'react';
-import { BasicInput, BasicTextArea, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox, BaasicFieldAsyncDropdown, BasicFieldDatePicker } from 'core/components';
+import { BasicTextArea, BaasicFieldDropdown, BasicFormatFieldInput, BaasicFieldAsyncDropdown } from 'core/components';
 import { getFormattedAddress, defaultTemplate } from 'core/utils'
 import NumberFormat from 'react-number-format';
 import {
@@ -12,7 +12,6 @@ import ReactTooltip from 'react-tooltip'
 function GrantEditFormTemplate({ grantEditViewStore, t }) {
     const {
         form,
-        grant,
         grantPurposeTypeDropdownStore,
         grantAcknowledgmentTypeDropdownStore,
         charityDropdownStore,
@@ -32,7 +31,7 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
 
     const amountChange =
         <React.Fragment>
-            <span className='icomoon tiny icon-cog' data-tip data-for={'amountChange'} />
+            <span className='icomoon icon-style-two-pin-information' data-tip data-for={'amountChange'} />
             <ReactTooltip type='info' effect='solid' place="right" id={'amountChange'}>
                 <span>{t('GRANTUPDATEFORM.AMOUNTCHANGE')}</span>
             </ReactTooltip>
@@ -52,7 +51,7 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                     </div>
-                    {form.$('grantAcknowledgmentTypeId').value &&
+                    {form.$('grantAcknowledgmentTypeId').value && donorAccount &&
                         <div className="form__group f-col f-col-lrg-6 spc--top--med">
                             {form.$('grantAcknowledgmentTypeId').value === fundNameAndAddressId && `${donorAccount.fundName} - ${getFormattedAddress(_.find(donorAccount.donorAccountAddresses, { primary: true }).address)}`}
                             {form.$('grantAcknowledgmentTypeId').value === fundNameId && donorAccount.fundName}
@@ -96,7 +95,7 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
                 </div>
                 <div className="form__group f-col f-col-lrg-6">
                     <div className="inputgroup">
-                        <label>Total Amount</label>{Number(form.$('amount').value) !== grant.amount && amountChange}
+                        <label>Total Amount</label>{Number(form.$('amount').value) !== form.$('amount').get('default') && amountChange}
                         <NumberFormat
                             className={"input input--text input--med padd--top--tny input--disabled"}
                             value={totalAmount} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} displayType={'text'}

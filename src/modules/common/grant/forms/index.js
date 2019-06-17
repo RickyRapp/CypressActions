@@ -1,2 +1,2 @@
-export { default as GrantCreateFormFields } from './GrantCreateFormFields'
-export { default as GrantUpdateFormFields } from './GrantUpdateFormFields'
+export { default as GrantCreateForm } from './GrantCreateForm'
+export { default as GrantEditForm } from './GrantEditForm'

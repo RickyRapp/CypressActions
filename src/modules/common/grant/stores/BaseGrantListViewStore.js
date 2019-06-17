@@ -27,12 +27,8 @@ class BaseGrantListViewStore extends BaseListViewStore {
         });
 
         this.defaultActions = {
-            onEdit: (item) => this.routes.edit(item.id),
+            onEdit: (item) => this.routes.edit(item.id, item.donorAccountId),
             onDetails: (item) => { this.grantId = item.id; this.detailsModalParams.open(); }
-        };
-
-        this.defaultRenderActions = {
-            renderEdit: this.renderEdit
         };
 
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
@@ -48,14 +44,9 @@ class BaseGrantListViewStore extends BaseListViewStore {
             new TableViewStore(this.queryUtility, {
                 columns: this.setColumns,
                 actions: _.merge(this.defaultActions, this.setActions),
-                actionsRender: _.merge(this.defaultRenderActions, this.setRenderActions)
+                actionsRender: this.setRenderActions
             })
         );
-    }
-
-    @action.bound renderEdit(grant) {
-        const statusesForEdit = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        return _.some(statusesForEdit, (item) => { return item === grant.donationStatusId });
     }
 
     @action.bound async loadLookups() {

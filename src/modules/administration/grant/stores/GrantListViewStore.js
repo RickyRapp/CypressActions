@@ -6,6 +6,7 @@ import { ModalParams } from 'core/models';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
 import { BaseGrantListViewStore } from 'modules/common/grant/stores';
 import { getDonorNameDropdown } from 'core/utils';
+import moment from 'moment';
 import _ from 'lodash';
 
 class GrantListViewStore extends BaseGrantListViewStore {
@@ -31,8 +32,8 @@ class GrantListViewStore extends BaseGrantListViewStore {
                     this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId }),
                 donorAccountEdit: (userId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
-                edit: (grantId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.grant.edit', { id: grantId }),
+                edit: (grantId, userId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.grant.edit', { userId: userId, id: grantId }),
                 grantScheduledPaymentEdit: (grantScheduledPaymentName) =>
                     this.rootStore.routerStore.navigate('master.app.administration.grant.scheduled.list', null, { name: grantScheduledPaymentName })
             },
@@ -122,7 +123,8 @@ class GrantListViewStore extends BaseGrantListViewStore {
         };
 
         this.setRenderActions = {
-            renderReview: this.renderReview
+            renderReview: this.renderReview,
+            renderEdit: this.renderEdit,
         }
 
         this.load();
@@ -136,6 +138,14 @@ class GrantListViewStore extends BaseGrantListViewStore {
     @action.bound renderReview(grant) {
         const statusesForReview = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
         return _.some(statusesForReview, (item) => { return item === grant.donationStatusId });
+    }
+
+    @action.bound renderEdit(grant) {
+        const statusesForEdit = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
+        if (_.some(statusesForEdit, (item) => { return item === grant.donationStatusId })) {
+            return moment().local().isBefore(moment.utc(grant.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
+        }
+        return false;
     }
 
     @action.bound async onAfterReviewGrant() {
