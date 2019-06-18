@@ -3,10 +3,12 @@ import { AddressTemplate } from 'themes/modules/common/address/components';
 import { EmailAddressTemplate } from 'themes/modules/common/email-address/components';
 import { PhoneNumberTemplate } from 'themes/modules/common/phone-number/components';
 import { BasicInput } from 'core/components';
+import { defaultTemplate } from 'core/utils';
 
 function NonMemberTemplate({
     form,
     title = null,
+    clearable = false,
     firstNameColumn = 4,
     lastNameColumn = 4,
     emailColumn = 4,
@@ -18,14 +20,18 @@ function NonMemberTemplate({
     cityColumn = 3,
     stateColumn = 3,
     zipCodeColumn = 3,
-    addressDescriptionColumn = 4
+    addressDescriptionColumn = 4,
+    t
 }) {
 
     return (
         <React.Fragment>
             {title &&
                 <div className="form__group f-col f-col-lrg-12">
-                    <h5>{title}</h5>
+                    <h5>{title}
+                        {clearable && !form.isEmpty &&
+                            <span className='icomoon sml icon-remove' onClick={() => form.clear()} title={t('CLEAR')} />
+                        }</h5>
                 </div>}
             <div className={`form__group f-col f-col-lrg-${firstNameColumn}`}>
                 <BasicInput field={form.$('firstName')} />
@@ -50,4 +56,4 @@ function NonMemberTemplate({
     );
 }
 
-export default NonMemberTemplate;
+export default defaultTemplate(NonMemberTemplate);

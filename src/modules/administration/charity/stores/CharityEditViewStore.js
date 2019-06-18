@@ -22,12 +22,6 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
                     if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
                         item.contactInformation = null;
                     }
-                    if (!(item.emailAddress && item.emailAddress.email)) {
-                        item.emailAddress = null;
-                    }
-                    if (!(item.bankAccount && item.bankAccount.name)) {
-                        item.bankAccount = null;
-                    }
 
                     try {
                         if (this.form.$('bankAccount.image').files) {
@@ -35,11 +29,11 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
                             item.bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
                         }
                     } catch (errorResponse) {
-                        this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+                        this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
                         return;
                     }
                     const response = await charityService.update({ id: this.id, ...item });
-                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+                    this.rootStore.notificationStore.showMessageFromResponse(response);
                 },
                 get: async id => {
                     let params = {};

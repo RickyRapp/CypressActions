@@ -3,9 +3,12 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CREATE": "Create",
+    "FILTER": "Filter",
+    "CLEAR": "Clear",
     "ADD": "Add",
     "SYNC": "Sync",
-    "SUCCESSFULLYDELETED": "Successfully Deleted.",
+    "REVIEW": "Review",
+    "SUCCESSFULLYDELETED": "Successfully Deleted",
     "DATECREATED": "Date Created",
     "BY": "By",
     "STARTDATE": "Start Date",
@@ -314,6 +317,7 @@
     "ADDNEWNOTE": "Add New Note",
     "EDITNEWNOTE": "Edit New Note",
     "AREYOUSUREYOUWANTTODELETENOTE": "Are You Sure You Want To Delete Note?",
+    "AREYOUSUREYOUWANTTODELETEFILE": "Are You Sure You Want To Delete File?",
     "AREYOUSUREYOUWANTTOCANCEL": "Are You Sure You Want To Cancel?",
     "DONORNOTECREATEEDITFORM": {
         "NOTE": "Note"

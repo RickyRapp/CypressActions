@@ -1,23 +1,17 @@
-import { action, observable } from 'mobx';
-import { CharityService, LookupService } from "common/data";
+import { action } from 'mobx';
+import { CharityService } from "common/data";
 import { CharityListFilter } from 'modules/administration/charity/models';
-import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
-import { getFormattedPrimaryAddress } from 'core/utils';
+import { BaseCharityListViewStore } from 'modules/common/charity/stores';
 import { ModalParams } from 'core/models';
+import { formatCharityTaxId, getFormattedPrimaryAddress } from 'core/utils';
 import _ from 'lodash';
 
-class CharityListViewStore extends BaseListViewStore {
-    @observable charityTypeDropdownStore = null;
-    @observable charityStatusDropdownStore = null;
-    charityStatuses = null;
-    charityTypes = null;
-    @observable reviewId = null;
-
+class CharityListViewStore extends BaseCharityListViewStore {
     constructor(rootStore) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         let filter = new CharityListFilter();
 
-        super(rootStore, {
+        const listViewStore = {
             name: 'contribution',
             routes: {
                 edit: (charityId) =>
@@ -42,77 +36,63 @@ class CharityListViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter
             }
-        });
+        };
 
+        const config = {
+            listViewStore: listViewStore
+        }
+
+        super(rootStore, config);
         this.charityService = charityService;
-        this.charityStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'charity-status');
-        this.charityTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'charity-type');
 
-        this.selectedExportColumnsName = ['Name', 'Charity Type'];
-        this.additionalExportColumnsName = ['Charity Status'];
+        this.setColumns = [
+            {
+                key: 'name',
+                title: 'Name (click on row)',
+                onClick: charity => this.routes.edit(charity.id)
+            },
+            {
+                key: 'taxId',
+                title: 'Tax ID',
+                type: 'function',
+                function: (item) => formatCharityTaxId(item.taxId)
+            },
+            {
+                key: 'charityAddresses',
+                title: 'Address',
+                type: 'function',
+                function: (item) => item ? getFormattedPrimaryAddress(item.charityAddresses) : ''
+            },
+            {
+                key: 'charityStatusId',
+                title: 'Status',
+                type: 'function',
+                function: (item) => _.find(this.charityStatuses, { id: item.charityStatusId }).name
+            },
+            {
+                key: 'charityTypeId',
+                title: 'Type',
+                type: 'function',
+                function: (item) => _.find(this.charityTypes, { id: item.charityTypeId }).name
+            },
+            {
+                key: 'emailAddress.email',
+                title: 'Email Address',
+            },
+        ];
+
+        this.setActions = {
+            onEdit: charity => this.routes.edit(charity.id),
+            onReview: charity => this.onReviewClick(charity.id),
+        }
+
+        this.setSelectedExportColumnsName = ['Name', 'Charity Type'];
+        this.setAdditionalExportColumnsName = ['Charity Status'];
 
         this.reviewCharityModalParams = new ModalParams({
             onClose: this.onClose,
             notifyOutsideClick: true
         });
-
-        this.load();
-    }
-
-    @action.bound async load() {
-        await this.loadLookups();
-        await this.setFilterDropdownStores();
-
-        const renderAddress = (item) => {
-            if (item && item.charityAddresses && item.charityAddresses.length > 0)
-                return getFormattedPrimaryAddress(item.charityAddresses)
-            else
-                return null;
-        }
-
-        this.setTableStore(
-            new TableViewStore(this.queryUtility, {
-                columns: [
-                    {
-                        key: 'name',
-                        title: 'Name (click on row)',
-                        onClick: charity => this.routes.edit(charity.id)
-                    },
-                    {
-                        key: 'taxId',
-                        title: 'Tax ID'
-                    },
-                    {
-                        key: 'charityAddresses',
-                        title: 'Address',
-                        type: 'function',
-                        function: renderAddress
-                    },
-                    {
-                        key: 'charityStatusId',
-                        title: 'Status',
-                        type: 'function',
-                        function: (item) => _.find(this.charityStatuses, { id: item.charityStatusId }).name
-                    },
-                    {
-                        key: 'charityTypeId',
-                        title: 'Type',
-                        type: 'function',
-                        function: (item) => _.find(this.charityTypes, { id: item.charityTypeId }).name
-                    },
-                    {
-                        key: 'emailAddress.email',
-                        title: 'Email Address',
-                    },
-                ],
-                actions: {
-                    onEdit: charity => this.routes.edit(charity.id),
-                    onReview: charity => this.onReviewClick(charity.id),
-                }
-            })
-        );
-
-        this.loaded = true;
     }
 
     @action.bound async onReviewClick(id) {
@@ -123,44 +103,6 @@ class CharityListViewStore extends BaseListViewStore {
     @action.bound async onAfterReviewCharity() {
         this.queryUtility._reloadCollection();
         this.reviewCharityModalParams.close();
-    }
-
-    @action.bound async loadLookups() {
-        let charityTypeModels = await this.charityTypeLookup.getAll();
-        this.charityTypes = charityTypeModels.data;
-
-        let charityStatusModels = await this.charityStatusLookup.getAll();
-        this.charityStatuses = charityStatusModels.data;
-    }
-
-    @action.bound async setFilterDropdownStores() {
-        this.charityTypeDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Charity Type',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.charityTypeIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.charityTypes, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
-
-        this.charityStatusDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Charity Status',
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.charityStatusIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.charityStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
     }
 }
 

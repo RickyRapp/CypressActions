@@ -26,7 +26,10 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
 
     return (
         <Page loading={loading}>
-            <PageContentHeader><CharityHeaderDetails userId={id} type='charity' /></PageContentHeader>
+            <PageContentHeader>
+                <CharityHeaderDetails userId={id} type='charity' />
+            </PageContentHeader>
+
             {form &&
                 <React.Fragment>
                     <div className="f-row">
@@ -68,6 +71,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                     <NonMemberTemplate
                                         form={form.$('contactInformation')}
                                         title="Contact Informations"
+                                        clearable={true}
                                         firstNameColumn={6} lastNameColumn={6}
                                         addressLine1Column={6} addressLine2Column={6} cityColumn={4} stateColumn={4} zipCodeColumn={4}
                                         emailColumn={6}
@@ -78,6 +82,8 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                 <div className="f-row card card--sml card--primary">
                                     <BankAccountTemplate form={form.$('bankAccount')} imgPreview={imgPreview} />
                                 </div>
+
+                                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                             </EditFormContent>
                         </div>
 
@@ -101,16 +107,6 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                             ></AddressCreate>
                         </div>
                     </div>
-                    <PageFooter>
-                        <div>
-                            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                            <BaasicButton
-                                className="btn btn--med btn--primary display--ib"
-                                label={t('Cancel')}
-                                onClick={() => rootStore.routerStore.goBack()}
-                            />
-                        </div>
-                    </PageFooter>
                 </React.Fragment>}
         </Page>
     );

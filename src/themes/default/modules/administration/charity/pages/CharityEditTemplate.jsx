@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, BasicFormatFieldInput, BasicCheckBox } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, BasicFormatFieldInput } from 'core/components';
 import { NonMemberTemplate } from 'themes/modules/common/non-member/components';
 import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/components';
-import { Page, PageFooter, PageContentHeader } from 'core/layouts';
+import { Page, PageContentHeader } from 'core/layouts';
 import { BankAccountTemplate } from 'themes/modules/common/bank-account/components';
 import { AddressEdit, AddressCreate } from 'modules/common/address/pages';
 import { CharityHeaderDetails } from 'modules/administration/charity/components';
@@ -26,7 +26,10 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
 
     return (
         <Page loading={loading}>
-            <PageContentHeader><CharityHeaderDetails userId={id} type='charity' /></PageContentHeader>
+            <PageContentHeader>
+                <CharityHeaderDetails userId={id} type='charity' />
+            </PageContentHeader>
+
             {form &&
                 <React.Fragment>
                     <div className="f-row">
@@ -68,6 +71,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                     <NonMemberTemplate
                                         form={form.$('contactInformation')}
                                         title="Contact Informations"
+                                        clearable={true}
                                         firstNameColumn={6} lastNameColumn={6}
                                         addressLine1Column={6} addressLine2Column={6} cityColumn={4} stateColumn={4} zipCodeColumn={4}
                                         emailColumn={6}
@@ -78,19 +82,18 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                 <div className="f-row card card--sml card--primary">
                                     <BankAccountTemplate form={form.$('bankAccount')} imgPreview={imgPreview} />
                                 </div>
-                                <div>
-                            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                            <BaasicButton
-                                className="btn btn--med btn--primary display--ib"
-                                label={t('Cancel')}
-                                onClick={() => rootStore.routerStore.goBack()}
-                            />
-                        </div>
+
+                                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                                <BaasicButton
+                                    className="btn btn--med btn--primary display--ib"
+                                    label={t('Cancel')}
+                                    onClick={() => rootStore.routerStore.goBack()}
+                                />
                             </EditFormContent>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-6">
-                            {charity && charity.charityAddresses && charity.charityAddresses.sort((x, y) => { return (x.primary === y.primary) ? 0 : x.primary ? -1 : 1; }).map((charityAddress, i) =>
+                            {charity && charity.charityAddresses && charity.charityAddresses.sort((x, y) => { return (x.primary === y.primary) ? 0 : x.primary ? -1 : 1; }).map((charityAddress) =>
                                 <React.Fragment key={charityAddress.id} >
                                     <AddressEdit
                                         id={charityAddress.addressId}

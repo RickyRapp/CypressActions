@@ -6,7 +6,7 @@ function BaasicConfirmModalTemplate({ modalParams, t }) {
   return (
     <BaasicModal modalParams={modalParams}>
       <YesNoView
-        message={t(modalParams.data.message)}
+        message={modalParams.data.message}
         onConfirm={modalParams.onConfirm}
         onCancel={modalParams.onCancel}
         loading={modalParams.loading}

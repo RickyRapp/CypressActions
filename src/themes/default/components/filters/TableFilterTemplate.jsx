@@ -24,13 +24,13 @@ function TableFilter({ queryUtility, filterStore, children, t }) {
               className="btn btn--med btn--tertiary spc--right--tny"
               onClick={() => queryUtility.fetch()}
             >
-              FILTER
+              {t('FILTER')}
             </button>
             <button
               className="btn btn--med btn--ghost"
               onClick={() => queryUtility.filter.reset()}
             >
-              CLEAR
+              {t('CLEAR')}
             </button>
           </div>
         </div>

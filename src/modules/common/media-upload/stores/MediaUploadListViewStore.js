@@ -4,6 +4,7 @@ import { CharityService, FileStreamRouteService, FileStreamService } from "commo
 import { CharityListFilter } from 'modules/administration/charity/models';
 import { BaseListViewStore, TableViewStore } from "core/stores";
 import NumberFormat from 'react-number-format';
+import { localizationService } from 'core/services'
 import _ from 'lodash';
 
 class MediaUploadListViewStore extends BaseListViewStore {
@@ -89,11 +90,11 @@ class MediaUploadListViewStore extends BaseListViewStore {
     @action.bound
     async deleteConfirm(coreMediaVaultEntry) {
         this.rootStore.modalStore.showConfirm(
-            `Are you sure you want to delete: ${coreMediaVaultEntry.fileName}?`,
+            `${localizationService.t('AREYOUSUREYOUWANTTODELETEFILE')} ${coreMediaVaultEntry.fileName}`,
             async () => {
                 await this.fileStreamService.deleteFile(coreMediaVaultEntry.id);
                 await this.queryUtility._reloadCollection();
-                this.rootStore.notificationStore.success(`Successfully deleted: ${coreMediaVaultEntry.fileName}`);
+                this.rootStore.notificationStore.success(`${localizationService.t('SUCCESSFULLYDELETED')} ${coreMediaVaultEntry.fileName}`);
             }
         );
     }

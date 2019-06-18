@@ -25,9 +25,11 @@ function getDonorNameDropdown(val) {
 }
 
 function getFormattedPrimaryAddress(val) {
-    var primaryAddress = _.find(val, { primary: true }).address;
-    if (primaryAddress) {
-        return getFormattedAddress(primaryAddress);
+    if (val) {
+        var primaryAddress = _.find(val, { primary: true }).address;
+        if (primaryAddress) {
+            return getFormattedAddress(primaryAddress);
+        }
     }
     return '';
 }
@@ -60,4 +62,4 @@ function formatCharityTaxId(val) {
     return '';
 }
 
-export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName };
+export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName, formatCharityTaxId };
