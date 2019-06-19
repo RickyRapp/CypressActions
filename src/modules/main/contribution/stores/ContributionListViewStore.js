@@ -25,10 +25,12 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             },
             actions: {
                 find: async params => {
+                    this.loaderStore.suspend();
                     params.embed = 'coreUser,payerInformation,address,bankAccount,createdByCoreUser,paymentType,contributionStatus';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await contributionService.find(params);
+                    this.loaderStore.resume();
                     return response;
                 }
             },

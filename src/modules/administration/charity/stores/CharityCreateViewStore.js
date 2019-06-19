@@ -45,6 +45,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
             },
             FormClass: CharityCreateForm,
             goBack: false,
+            loader: true,
             onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: response.data.response }),
         });
 
@@ -79,7 +80,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
             {
                 onChange: (option) => this.form.$('charityTypeId').set('value', option ? option.id : null)
             },
-            _.map(this.charityType, e => { return { 'id': e.id, 'name': e.name } })
+            _.map(this.charityType, e => { return { id: e.id, name: e.name } })
         );
 
         this.charityStatusDropdownStore = new BaasicDropdownStore(
@@ -93,7 +94,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
             {
                 onChange: (option) => this.form.$('charityStatusId').set('value', option ? option.id : null)
             },
-            _.map(this.charityStatus, e => { return { 'id': e.id, 'name': e.name } })
+            _.map(this.charityStatus, e => { return { id: e.id, name: e.name } })
         );
 
         this.suggestedByIdDropdownStore = new BaasicDropdownStore(

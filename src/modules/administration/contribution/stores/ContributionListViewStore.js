@@ -125,8 +125,10 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             renderEdit: this.renderEdit,
             renderReview: this.renderReview
         }
+    }
 
-        this.load();
+    setStores() {
+        super.setStores();
         this.setAdditionalStores();
     }
 

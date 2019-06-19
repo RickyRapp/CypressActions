@@ -10,7 +10,7 @@ import _ from 'lodash';
 function ContributionListTemplate({ contributionListViewStore }) {
     const {
         queryUtility,
-        loaderStore,
+        loaderStore: { loading },
         tableStore,
         routes: { create },
         contributionStatusDropdownStore,
@@ -25,7 +25,7 @@ function ContributionListTemplate({ contributionListViewStore }) {
     return (
         <React.Fragment>
             <React.Fragment>
-                <ListLayout onCreate={create} loading={loaderStore.loading}>
+                <ListLayout onCreate={create} loading={loading}>
                     <div className="spc--bottom--sml">
                         <TableFilter queryUtility={queryUtility}>
                             <div className="f-row">
@@ -45,7 +45,7 @@ function ContributionListTemplate({ contributionListViewStore }) {
                     {tableStore &&
                         <BaasicTable
                             tableStore={tableStore}
-                            loading={loaderStore.loading}
+                            loading={loading}
                         />}
                 </ListLayout>
                 <BaasicModal modalParams={detailsModalParams} >
