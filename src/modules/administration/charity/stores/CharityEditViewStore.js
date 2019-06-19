@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import { CharityUpdateForm } from 'modules/administration/charity/forms';
 import { CharityService, FileStreamService, FileStreamRouteService } from "common/data";
 import { BaseCharityEditViewStore } from 'modules/common/charity/stores';
+import { bankAccountPath, charityPath, formatCharityTaxId, isErrorCode } from 'core/utils';
 import _ from 'lodash';
 
 class CharityEditViewStore extends BaseCharityEditViewStore {
@@ -12,7 +13,7 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         const fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
         const fileStreamRouteService = new FileStreamRouteService();
-        const userId = rootStore.routerStore.routerState.params.id;
+        const userId = rootStore.routerStore.routerState.params.userId;
 
         const editViewStore = {
             name: 'charity',
@@ -25,15 +26,17 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
 
                     try {
                         if (this.form.$('bankAccount.image').files) {
-                            const fileResponse = await fileStreamService.createBankAccountImage(this.form.$('bankAccount.image').files[0], this.id);
+                            const fileResponse = await fileStreamService.create(
+                                this.form.$('bankAccount.image').files[0],
+                                charityPath + formatCharityTaxId(item.taxId) + '/' + bankAccountPath + this.form.$('bankAccount.image').files[0].name
+                            );
                             item.bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
                         }
                     } catch (errorResponse) {
                         this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
                         return;
                     }
-                    const response = await charityService.update({ id: this.id, ...item });
-                    this.rootStore.notificationStore.showMessageFromResponse(response);
+                    return await charityService.update({ id: this.id, ...item });
                 },
                 get: async id => {
                     let params = {};

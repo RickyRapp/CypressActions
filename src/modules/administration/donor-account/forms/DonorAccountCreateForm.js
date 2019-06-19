@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class DonorAccountCreateForm extends FormBase {
     constructor(hooks) {
@@ -10,18 +11,18 @@ export default class DonorAccountCreateForm extends FormBase {
             fields: [
                 {
                     name: 'isCompany',
-                    label: 'DONORACCOUNTCREATEFORM.ISCOMPANY',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.ISCOMPANY'),
                     rules: 'boolean',
                     type: 'checkbox'
                 },
                 {
                     name: 'accountTypeId',
-                    label: 'DONORACCOUNTCREATEFORM.ACCOUNTTYPEID',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.ACCOUNTTYPEID'),
                     rules: 'required|string',
                 },
                 {
                     name: 'fundName',
-                    label: 'DONORACCOUNTCREATEFORM.FUNDNAME',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.FUNDNAME'),
                     rules: 'required|string',
                 },
                 {
@@ -30,7 +31,7 @@ export default class DonorAccountCreateForm extends FormBase {
                 },
                 {
                     name: 'securityPin',
-                    label: 'DONORACCOUNTCREATEFORM.SECURITYPIN',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.SECURITYPIN'),
                     rules: 'required|numeric|digits:4',
                     options: {
                         validateOnChange: true
@@ -38,18 +39,18 @@ export default class DonorAccountCreateForm extends FormBase {
                 },
                 {
                     name: 'deliveryMethodTypeId',
-                    label: 'DONORACCOUNTCREATEFORM.DELIVERYMETHODTYPEID',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.DELIVERYMETHODTYPEID'),
                     rules: 'required|string',
                 },
                 {
                     name: 'sendWelcomeEmail',
-                    label: 'SENDWELCOMEEMAIL',
+                    label: localizationService.t('SENDWELCOMEEMAIL'),
                     rules: 'boolean',
                     type: 'checkbox'
                 },
                 {
                     name: 'isApproved',
-                    label: 'ISAPPROVED',
+                    label: localizationService.t('ISAPPROVED'),
                     rules: 'boolean',
                     type: 'checkbox'
                 },
@@ -58,27 +59,27 @@ export default class DonorAccountCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'prefixTypeId',
-                            label: 'DONORACCOUNTCREATEFORM.COREUSER.PREFIXTYPEID',
+                            label: localizationService.t('DONORACCOUNTCREATEFORM.COREUSER.PREFIXTYPEID'),
                             rules: 'string',
                         },
                         {
                             name: 'firstName',
-                            label: 'FIRSTNAME',
+                            label: localizationService.t('FIRSTNAME'),
                             rules: 'required_if:isCompany,false|string',
                         },
                         {
                             name: 'middleName',
-                            label: 'MIDDLENAME',
+                            label: localizationService.t('MIDDLENAME'),
                             rules: 'string',
                         },
                         {
                             name: 'lastName',
-                            label: 'LASTNAME',
+                            label: localizationService.t('LASTNAME'),
                             rules: 'required_if:isCompany,false|string',
                         },
                         {
                             name: 'userName',
-                            label: 'USERNAME',
+                            label: localizationService.t('USERNAME'),
                             rules: 'required|string',
                         },
                         {
@@ -86,12 +87,12 @@ export default class DonorAccountCreateForm extends FormBase {
                             fields: [
                                 {
                                     name: 'password',
-                                    label: 'PASSWORD',
+                                    label: localizationService.t('PASSWORD'),
                                     rules: 'required|string',
                                 },
                                 {
                                     name: 'confirmPassword',
-                                    label: 'CONFIRMPASSWORD',
+                                    label: localizationService.t('CONFIRMPASSWORD'),
                                     rules: 'required|string|same:coreUser.coreMembership.password',
                                 },
                             ]
@@ -103,27 +104,27 @@ export default class DonorAccountCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'name',
-                            label: 'COMPANYPROFILE.NAME',
+                            label: localizationService.t('COMPANYPROFILE.NAME'),
                             rules: 'required_if:isCompany,true|string',
                         },
                         {
                             name: 'dba',
-                            label: 'COMPANYPROFILE.DBA',
+                            label: localizationService.t('COMPANYPROFILE.DBA'),
                             rules: 'string',
                         },
                         {
                             name: 'website',
-                            label: 'COMPANYPROFILE.WEBSITE',
+                            label: localizationService.t('COMPANYPROFILE.WEBSITE'),
                             rules: 'string',
                         },
                         {
                             name: 'businessTypeId',
-                            label: 'COMPANYPROFILE.BUSINESSTYPEID',
+                            label: localizationService.t('COMPANYPROFILE.BUSINESSTYPEID'),
                             rules: 'required_if:isCompany,true|string',
                         },
                         {
                             name: 'hasCompanyContact',
-                            label: 'COMPANYPROFILE.HASCOMPANYCONTACT',
+                            label: localizationService.t('COMPANYPROFILE.HASCOMPANYCONTACT'),
                             rules: 'boolean',
                             type: 'checkbox'
                         },
@@ -132,12 +133,12 @@ export default class DonorAccountCreateForm extends FormBase {
                             fields: [
                                 {
                                     name: 'firstName',
-                                    label: 'FIRSTNAME',
+                                    label: localizationService.t('FIRSTNAME'),
                                     rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                 },
                                 {
                                     name: 'lastName',
-                                    label: 'LASTNAME',
+                                    label: localizationService.t('LASTNAME'),
                                     rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                 },
                                 {
@@ -145,27 +146,27 @@ export default class DonorAccountCreateForm extends FormBase {
                                     fields: [
                                         {
                                             name: 'addressLine1',
-                                            label: 'ADDRESS.ADDRESSLINE1',
+                                            label: localizationService.t('ADDRESS.ADDRESSLINE1'),
                                             rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                         },
                                         {
                                             name: 'addressLine2',
-                                            label: 'ADDRESS.ADDRESSLINE2',
+                                            label: localizationService.t('ADDRESS.ADDRESSLINE2'),
                                             rules: 'string',
                                         },
                                         {
                                             name: 'city',
-                                            label: 'ADDRESS.CITY',
+                                            label: localizationService.t('ADDRESS.CITY'),
                                             rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                         },
                                         {
                                             name: 'state',
-                                            label: 'ADDRESS.STATE',
+                                            label: localizationService.t('ADDRESS.STATE'),
                                             rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                         },
                                         {
                                             name: 'zipCode',
-                                            label: 'ADDRESS.ZIPCODE',
+                                            label: localizationService.t('ADDRESS.ZIPCODE'),
                                             rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                         },
                                     ]
@@ -175,7 +176,7 @@ export default class DonorAccountCreateForm extends FormBase {
                                     fields: [
                                         {
                                             name: 'email',
-                                            label: 'EMAILADDRESS.EMAIL',
+                                            label: localizationService.t('EMAILADDRESS.EMAIL'),
                                             rules: 'required_if:companyProfile.hasCompanyContact,true|email|string',
                                         },
                                     ]
@@ -185,7 +186,7 @@ export default class DonorAccountCreateForm extends FormBase {
                                     fields: [
                                         {
                                             name: 'number',
-                                            label: 'PHONENUMBER.NUMBER',
+                                            label: localizationService.t('PHONENUMBER.NUMBER'),
                                             rules: 'required_if:companyProfile.hasCompanyContact,true|numeric',
                                             options: {
                                                 validateOnChange: true
@@ -202,27 +203,27 @@ export default class DonorAccountCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'addressLine1',
-                            label: 'ADDRESS.ADDRESSLINE1',
+                            label: localizationService.t('ADDRESS.ADDRESSLINE1'),
                             rules: 'required|string',
                         },
                         {
                             name: 'addressLine2',
-                            label: 'ADDRESS.ADDRESSLINE2',
+                            label: localizationService.t('ADDRESS.ADDRESSLINE2'),
                             rules: 'string',
                         },
                         {
                             name: 'city',
-                            label: 'ADDRESS.CITY',
+                            label: localizationService.t('ADDRESS.CITY'),
                             rules: 'required|string',
                         },
                         {
                             name: 'state',
-                            label: 'ADDRESS.STATE',
+                            label: localizationService.t('ADDRESS.STATE'),
                             rules: 'required|string',
                         },
                         {
                             name: 'zipCode',
-                            label: 'ADDRESS.ZIPCODE',
+                            label: localizationService.t('ADDRESS.ZIPCODE'),
                             rules: 'required|string',
                         },
                     ]
@@ -232,7 +233,7 @@ export default class DonorAccountCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'email',
-                            label: 'EMAILADDRESS.EMAIL',
+                            label: localizationService.t('EMAILADDRESS.EMAIL'),
                             rules: 'required|email',
                         },
                     ]
@@ -242,7 +243,7 @@ export default class DonorAccountCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'number',
-                            label: 'PHONENUMBER.NUMBER',
+                            label: localizationService.t('PHONENUMBER.NUMBER'),
                             rules: 'required|numeric',
                             options: {
                                 validateOnChange: true
@@ -252,58 +253,58 @@ export default class DonorAccountCreateForm extends FormBase {
                 },
                 {
                     name: 'initialContribution',
-                    label: 'DONORACCOUNTCREATEFORM.INITIALCONTRIBUTION',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.INITIALCONTRIBUTION'),
                     rules: 'boolean',
                     type: 'checkbox'
                 },
                 {
                     name: 'contributionMinimumInitial',
-                    label: 'DONORACCOUNTCREATEFORM.CONTRIBUTIONMINIMUMINITIAL',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.CONTRIBUTIONMINIMUMINITIAL'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'contributionMinimumAdditional',
-                    label: 'DONORACCOUNTCREATEFORM.CONTRIBUTIONMINIMUMADDITIONAL',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.CONTRIBUTIONMINIMUMADDITIONAL'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'grantMinimumAmount',
-                    label: 'DONORACCOUNTCREATEFORM.GRANTMINIMUMAMOUNT',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.GRANTMINIMUMAMOUNT'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'grantFee',
-                    label: 'DONORACCOUNTCREATEFORM.GRANTFEE',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.GRANTFEE'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'certificateDeduction',
-                    label: 'DONORACCOUNTCREATEFORM.CERTIFICATEDEDUCTION',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.CERTIFICATEDEDUCTION'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'certificateFee',
-                    label: 'DONORACCOUNTCREATEFORM.CERTIFICATEFEE',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.CERTIFICATEFEE'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'lineOfCredit',
-                    label: 'DONORACCOUNTCREATEFORM.LINEOFCREDIT',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.LINEOFCREDIT'),
                     rules: 'required|numeric|min:0',
                 },
                 {
                     name: 'extraBookletPercentage',
-                    label: 'DONORACCOUNTCREATEFORM.EXTRABOOKLETPERCENTAGE',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.EXTRABOOKLETPERCENTAGE'),
                     rules: 'numeric|min:0',
                 },
                 {
                     name: 'blankBookletMax',
-                    label: 'DONORACCOUNTCREATEFORM.BLANKBOOKLETMAX',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.BLANKBOOKLETMAX'),
                     rules: 'numeric|min:0',
                 },
                 {
                     name: 'notificationLimitRemainderAmount',
-                    label: 'DONORACCOUNTCREATEFORM.NOTIFICATIONLIMITREMAINDERAMOUNT',
+                    label: localizationService.t('DONORACCOUNTCREATEFORM.NOTIFICATIONLIMITREMAINDERAMOUNT'),
                     rules: 'numeric',
                 },
             ]

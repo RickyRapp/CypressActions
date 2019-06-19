@@ -32,6 +32,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
             },
             FormClass: DonorAccountCreateForm,
             goBack: false,
+            loader: true,
             onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: response.data.response }),
         });
         this.form.$('isCompany').set('value', '');

@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import { localizationService } from 'core/services'
+import { isErrorCode, isSuccessCode } from 'core/utils'
 import _ from 'lodash';
 
 class NotificationStore {
@@ -8,7 +9,7 @@ class NotificationStore {
   }
 
   showMessageFromResponse(response, autoClose = 5000) {
-    if (this.isErrorCode(response.statusCode)) {
+    if (isErrorCode(response.statusCode)) {
       if (response.data) {
         if (_.isObject(response.data)) {
           let message = response.data.message;
@@ -22,7 +23,7 @@ class NotificationStore {
         }
       }
     }
-    else if (this.isSuccessCode(response.statusCode)) {
+    else if (isSuccessCode(response.statusCode)) {
       if (response.data) {
         if (_.isObject(response.data)) {
           let message = response.data.message;
@@ -37,15 +38,6 @@ class NotificationStore {
       }
     }
   }
-
-  isErrorCode(statusCode) {
-    return statusCode >= 400 && statusCode < 506;
-  }
-
-  isSuccessCode(statusCode) {
-    return statusCode >= 200 && statusCode < 207;
-  }
-
 
   success(message, options = { autoClose: 6000 }) {
     return showToast(message, {

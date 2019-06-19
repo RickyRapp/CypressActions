@@ -20,6 +20,10 @@ export default class CharityCreateForm extends FormBase {
                     rules: 'required|string',
                 },
                 {
+                    name: 'activationUrl',
+                    rules: 'required|string'
+                },
+                {
                     name: 'dba',
                     label: localizationService.t('CHARITYCREATEFORM.DBA'),
                     rules: 'string',
@@ -54,6 +58,13 @@ export default class CharityCreateForm extends FormBase {
                     type: 'checkbox'
                 },
                 {
+                    name: 'notifyAdministrators',
+                    label: localizationService.t('CHARITYCREATEFORM.NOTIFYADMINISTRATORS'),
+                    rules: 'boolean',
+                    value: false,
+                    type: 'checkbox'
+                },
+                {
                     name: 'isApproved',
                     label: localizationService.t('CHARITYCREATEFORM.ISAPPROVED'),
                     rules: 'boolean',
@@ -76,14 +87,12 @@ export default class CharityCreateForm extends FormBase {
                                 {
                                     name: 'password',
                                     label: localizationService.t('CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.PASSWORD'),
-                                    rules: ['required_if:hasLogin,true', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
-                                    type: 'password'
+                                    rules: ['required_if:hasLogin,true', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/']
                                 },
                                 {
                                     name: 'confirmPassword',
                                     label: localizationService.t('CHARITYCREATEFORM.COREUSER.COREMEMBERSHIP.CONFIRMPASSWORD'),
-                                    rules: 'required_if:hasLogin,true|string|same:coreUser.coreMembership.password',
-                                    type: 'password'
+                                    rules: 'required_if:hasLogin,true|string|same:coreUser.coreMembership.password'
                                 }
                             ]
                         }

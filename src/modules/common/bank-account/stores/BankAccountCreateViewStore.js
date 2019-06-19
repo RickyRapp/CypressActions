@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 import { BaseEditViewStore } from "core/stores";
 import { BankAccountService, DonorAccountService, FileStreamService } from "common/data";
 import { DonorAccountBankAccountCreateForm } from "modules/common/bank-account/forms";
+import { donorPath, bankAccountPath } from "core/utils"
 import _ from 'lodash';
 
 class BankAccountCreateViewStore extends BaseEditViewStore {
@@ -14,10 +15,10 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
             name: 'bank account',
             actions: {
                 create: async bankAccount => {
+                    let params = {};
+                    params.embed = ['coreUser,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
+                    const donorAccount = await donorAccountService.get(userId, params);
                     if (!bankAccount.thirdParty) {
-                        let params = {};
-                        params.embed = ['coreUser,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
-                        const donorAccount = await donorAccountService.get(userId, params);
                         bankAccount.thirdPartyAccountHolder.firstName = donorAccount.coreUser.firstName;
                         bankAccount.thirdPartyAccountHolder.lastName = donorAccount.coreUser.lastName;
                         var primaryDonorAccountAddress = _.find(donorAccount.donorAccountAddresses, { primary: true })
@@ -28,8 +29,12 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                         bankAccount.thirdPartyAccountHolder.phoneNumber = primaryDonorAccountPhoneNumber.phoneNumber;
                     }
                     if (this.form.$('image').files) {
-                        const response = await fileStreamService.createDonorAccountBankAccountImage(this.form.$('image').files[0], userId)
-                        bankAccount.coreMediaVaultEntryId = response.data.id;
+                        const fileResponse = await fileStreamService.create(
+                            this.form.$('image').files[0],
+                            donorPath + donorAccount.accountNumber + '/' + bankAccountPath + this.form.$('image').files[0].name
+                        );
+                        // const response = await fileStreamService.createDonorAccountBankAccountImage(this.form.$('image').files[0], userId)
+                        bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
                     }
                     return await bankAccountService.createBankAccount(userId, bankAccount);
                 }

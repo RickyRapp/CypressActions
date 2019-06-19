@@ -8,39 +8,42 @@ class FileStreamService extends BaseService {
         super(apiClient, new FileStreamRouteService());
         this.apiClient = apiClient;
         this.uriTemplateService = uritemplate;
-        this.charityPath = 'charity/';
-        this.bankAccountPath = 'bank-account/';
-        this.documentPath = 'documents/';
     }
 
     //TODO: create update method because charity must have bank account image upon creating
 
-    async createBankAccountImage(file, userId, embed = null) {
-        let formData = new FormData();
-        formData.append('file', file, file.name);
-        const url = this.uriTemplateService.parse(this.routeService.rootBase + userId + "/" + this.bankAccountPath + file.name + '{?embed}').expand({ embed: embed });
-        return await this.create(url, formData);
-    }
+    // async createBankAccountImage(file, userId, embed = null) {
+    //     let formData = new FormData();
+    //     formData.append('file', file, file.name);
+    //     const url = this.uriTemplateService.parse(this.routeService.rootBase + userId + "/" + this.bankAccountPath + file.name + '{?embed}').expand({ embed: embed });
+    //     return await this.create(url, formData);
+    // }
 
-    async tdfCreateCharityBankAccountImage(file, userId, embed = null) {
-        let formData = new FormData();
-        formData.append('file', file, file.name);
-        const url = this.uriTemplateService.parse(this.routeService.base + this.charityPath + this.bankAccountPath + file.name + '{?userId,embed}').expand({ userId: userId, embed: embed });
-        return await this.create(url, formData);
-    }
+    // async tdfCreateCharityBankAccountImage(file, userId, embed = null) {
+    //     let formData = new FormData();
+    //     formData.append('file', file, file.name);
+    //     const url = this.uriTemplateService.parse(this.routeService.base + this.charityPath + this.bankAccountPath + file.name + '{?userId,embed}').expand({ userId: userId, embed: embed });
+    //     return await this.create(url, formData);
+    // }
 
-    async createDonorAccountBankAccountImage(file, userId, embed = null) {
-        let formData = new FormData();
-        formData.append('file', file, file.name);
-        const url = this.uriTemplateService.parse(this.routeService.rootBase + userId + "/" + this.bankAccountPath + file.name + '{?embed}').expand({ embed: embed });
-        return await this.create(url, formData);
-    }
+    // async createDonorAccountBankAccountImage(file, userId, embed = null) {
+    //     let formData = new FormData();
+    //     formData.append('file', file, file.name);
+    //     const url = this.uriTemplateService.parse(this.routeService.rootBase + userId + "/" + this.bankAccountPath + file.name + '{?embed}').expand({ embed: embed });
+    //     return await this.create(url, formData);
+    // }
 
-    async tdfCreateCharityDocument(file, userId, embed = null) {
-        let formData = new FormData();
-        formData.append('file', file, file.name);
-        const url = this.uriTemplateService.parse(this.routeService.base + this.charityPath + this.documentPath + file.name + '{?userId,embed}').expand({ userId: userId, embed: embed });
-        return await this.create(url, formData);
+    // async tdfCreateCharityDocument(file, userId, embed = null) {
+    //     let formData = new FormData();
+    //     formData.append('file', file, file.name);
+    //     const url = this.uriTemplateService.parse(this.routeService.base + this.charityPath + this.documentPath + file.name + '{?userId,embed}').expand({ userId: userId, embed: embed });
+    //     return await this.create(url, formData);
+    // }
+
+    async deleteBatch(resource) {
+        const url = this.routeService.deleteBatch();
+        const response = await this.apiClient.delete(url, null, resource);
+        return response.data || null;
     }
 
     async deleteFile(id) {
@@ -49,7 +52,14 @@ class FileStreamService extends BaseService {
         return response.data || null;
     }
 
-    async create(url, formData) {
+    async create(file, path, embed) {
+        let formData = new FormData();
+        formData.append('file', file, file.name);
+        const url = this.uriTemplateService.parse(this.routeService.base + path + '/{?embed}').expand({ embed: embed });
+        return await this.post(url, formData);
+    }
+
+    async post(url, formData) {
         var req = {
             method: 'POST',
             url: url,

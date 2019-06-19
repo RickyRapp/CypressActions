@@ -20,7 +20,7 @@ class CharityRouteService extends BaseRouteService {
   }
 
   get(id, options) {
-    return super.get(this.base + '{id}/{?embed}', id, options);
+    return super.get(this.base + '{id}/{?embed,fields}', id, options);
   }
 
   create() {

@@ -30,7 +30,7 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
             name: 'scheduled grant',
             routes: {
                 charityEdit: (charityId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId }),
+                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { userId: charityId }),
                 donorAccountEdit: (userId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
             },

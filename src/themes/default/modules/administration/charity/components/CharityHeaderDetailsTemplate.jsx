@@ -44,7 +44,7 @@ function renderCharity(charity, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 <span
-                    onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.files', { id: charity.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.files', { userId: charity.id })}>
                     <i className="icomoon icon-common-file-text align--v--middle spc--right--tny"></i>
                     Documents
                 </span>
@@ -58,7 +58,7 @@ function renderFiles(charity, rootStore) {
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
                 <span
-                    onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charity.id })}>
+                    onClick={() => rootStore.routerStore.navigate('master.app.administration.charity.edit', { userId: charity.id })}>
                     <i className="icomoon icon-house-1 align--v--middle spc--right--tny"></i>
                     {charity.name} - {charity.taxId}
                 </span>

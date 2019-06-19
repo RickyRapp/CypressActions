@@ -22,13 +22,13 @@ import { CharityCreate, CharityList, CharityEdit, CharityFiles } from 'modules/a
                     },
                     {
                         name: 'master.app.administration.charity.edit',
-                        pattern: 'edit/:id',
+                        pattern: ':userId/edit',
                         component: CharityEdit,
                         authorization: 'theDonorsFundAdministrationSection.edit'
                     },
                     {
                         name: 'master.app.administration.charity.files',
-                        pattern: 'files/:id',
+                        pattern: ':userId/files',
                         component: CharityFiles,
                         authorization: 'theDonorsFundAdministrationSection.edit'
                     }

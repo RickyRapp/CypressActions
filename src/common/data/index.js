@@ -15,6 +15,7 @@ export { default as FileStreamService } from './services/FileStreamService';
 export { default as GrantService } from './services/GrantService';
 export { default as FeeService } from './services/FeeService';
 export { default as GrantScheduledPaymentService } from './services/GrantScheduledPaymentService';
+export { default as CharityDocumentService } from './services/CharityDocumentService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -33,3 +34,4 @@ export { default as FileStreamRouteService } from './services/FileStreamRouteSer
 export { default as GrantRouteService } from './services/GrantRouteService';
 export { default as FeeRouteService } from './services/FeeRouteService';
 export { default as GrantScheduledPaymentRouteService } from './services/GrantScheduledPaymentRouteService';
+export { default as CharityDocumentRouteService } from './services/CharityDocumentRouteService';

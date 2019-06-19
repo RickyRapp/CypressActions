@@ -8,6 +8,8 @@
     "ADD": "Add",
     "SYNC": "Sync",
     "REVIEW": "Review",
+    "REMOVE": "Remove",
+    "LOGIN": "Login",
     "SUCCESSFULLYDELETED": "Successfully Deleted",
     "DATECREATED": "Date Created",
     "BY": "By",
@@ -150,6 +152,7 @@
         "SUGGESTEDBYID": "Suggested By",
         "HASLOGIN": "Create Login",
         "SENDWELCOMEEMAIL": "Send Welcome Email",
+        "NOTIFYADMINISTRATORS": "Notify Administrators",
         "ISAPPROVED": "Is Approved",
         "HASCONTACT": "Has Contact",
         "COREUSER": {

@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { CharityCreateForm } from 'modules/administration/charity/forms';
 import { CharityService, LookupService, DonorAccountService, FileStreamService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { getDonorNameDropdown } from 'core/utils';
+import { getDonorNameDropdown, bankAccountPath, charityPath, formatCharityTaxId, isErrorCode } from 'core/utils';
 import _ from 'lodash';
 
 class CharityCreateViewStore extends BaseEditViewStore {
@@ -13,7 +13,6 @@ class CharityCreateViewStore extends BaseEditViewStore {
     constructor(rootStore) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         const fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
-        let newCharityId = null;
 
         super(rootStore, {
             name: 'charity',
@@ -32,22 +31,37 @@ class CharityCreateViewStore extends BaseEditViewStore {
                         this.rootStore.notificationStore.error('Please, Upload Image For Bank Account.')
                         return;
                     }
-
-                    const response = await charityService.create(charity);
-                    newCharityId = response.data.response;
+                    let fileId = null;
                     try {
-                        const fileResponse = await fileStreamService.tdfCreateCharityBankAccountImage(this.form.$('bankAccount.image').files[0], newCharityId);
-                        return response;
+                        const fileResponse = await fileStreamService.create(
+                            this.form.$('bankAccount.image').files[0],
+                            charityPath + formatCharityTaxId(charity.taxId) + '/' + bankAccountPath + this.form.$('bankAccount.image').files[0].name
+                        );
+                        fileId = fileResponse.data.id;
                     } catch (errorReponse) {
                         return errorReponse;
                     }
+                    charity.bankAccount.coreMediaVaultEntryId = fileId;
+                    let charityResponse = null
+                    try {
+                        charityResponse = await charityService.create(charity);
+                    } catch (errorReponse) {
+                        charityResponse = errorReponse;
+                    }
+                    if (charityResponse && charityResponse.statusCode && isErrorCode(charityResponse.statusCode)) {
+                        await fileStreamService.deleteFile(fileId);
+                        return;
+                    }
+                    return charityResponse;
                 }
             },
             FormClass: CharityCreateForm,
             goBack: false,
             loader: true,
-            onAfterCreate: (response) => rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: response.data.response }),
+            onAfterCreate: (response) => response && response.data ? rootStore.routerStore.navigate('master.app.administration.charity.edit', { userId: response.data.response }) : null,
         });
+
+        this.form.$('activationUrl').set('value', `${window.location.origin}/account-activation?activationToken={activationToken}`);
 
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.load();

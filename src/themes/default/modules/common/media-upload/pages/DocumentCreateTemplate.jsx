@@ -1,9 +1,10 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, converter } from 'core/utils';
 import Dropzone from 'react-dropzone'
 
-function DocumentCreateTemplate({ mediaUploadCreateViewStore }) {
+function DocumentCreateTemplate({ mediaUploadCreateViewStore, t }) {
     const {
+        userId,
         onDropFile,
         maxSize,
         isMultiple,
@@ -48,7 +49,6 @@ function DocumentCreateTemplate({ mediaUploadCreateViewStore }) {
 
     const preview = files.map(file => (
         <div key={file.name}>
-            {file.name} - {file.size} bytes {isRemoveEnabled ? <button onClick={() => removeFile(file)}>Remove</button> : null}
             {isThumbnailEnabled && file.preview &&
                 <div style={thumb} >
                     <div style={thumbInner}>
@@ -58,6 +58,15 @@ function DocumentCreateTemplate({ mediaUploadCreateViewStore }) {
                         />
                     </div>
                 </div>}
+            {file.name} - {converter(file.size, 'B', 'MB')} MB {isRemoveEnabled ?
+                <i
+                    className="icomoon icon-remove align--v--middle spc--right--sml"
+                    onClick={() => removeFile(file)}
+                    title={t('REMOVE')}
+                >
+                </i>
+                :
+                null}
         </div>
     ));
 

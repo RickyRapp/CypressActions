@@ -6,23 +6,25 @@ import { DocumentList, DocumentCreate } from 'modules/common/media-upload/pages'
 
 function CharityFilesTemplate({ charityFilesViewStore }) {
     const {
-        id,
-        loaderStore,
+        userId,
+        loaderStore: { loading },
         onRefresh,
         refresh,
-        uploadFunc
+        path,
+        onAfterFileUpload
     } = charityFilesViewStore;
 
     return (
-        <Page loading={loaderStore.loading}>
+        <Page loading={loading}>
             <PageContentHeader>
-                <CharityHeaderDetails userId={id} type='files' /></PageContentHeader>
+                <CharityHeaderDetails userId={userId} type='files' /></PageContentHeader>
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-6 card">
-                    <DocumentCreate onRefresh={onRefresh} uploadFunc={uploadFunc} />
+                    {path &&
+                        <DocumentCreate onRefresh={onRefresh} userId={userId} path={path} onAfterFileUpload={onAfterFileUpload} />}
                 </div>
                 <div className="form__group f-col f-col-lrg-6" key={refresh}>
-                    <DocumentList id={id} />
+                    <DocumentList userId={userId} />
                 </div>
             </div>
         </Page>

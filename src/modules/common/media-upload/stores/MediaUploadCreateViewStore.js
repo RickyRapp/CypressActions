@@ -1,29 +1,26 @@
 import { action, observable } from 'mobx';
 import { BaseViewStore } from 'core/stores';
 import { FileStreamService } from 'common/data';
-import { imageJpg, imageJpeg, imagePng, imageGif, applicationMSWord, applicationMSExcel, applicationPDF } from "core/utils"
+import { imageJpg, imageJpeg, imagePng, imageGif, applicationMSWord, applicationMSExcel, applicationPDF, isErrorCode } from "core/utils"
 import _ from 'lodash'
 
 class MediaUploadCreateViewStore extends BaseViewStore {
     @observable files = [];
 
-    constructor(rootStore, { onRefresh, uploadFunc }) {
+    constructor(rootStore, { onRefresh, userId, path, onAfterFileUpload, setAcceptFileExtensions }) {
         super(rootStore);
         this.rootStore = rootStore;
-        this.id = rootStore.routerStore.routerState.params.id;
+        this.userId = userId;
+        this.path = path;
+        this.onAfterFileUpload = onAfterFileUpload;
         this.maxSize = 1048576;
         this.isMultiple = true;
         this.isRemoveEnabled = true;
         this.isThumbnailEnabled = true;
-        this.acceptFileExtensions = 'image/gif,image/jpg,image/jpeg,image/png,application/msword,application/vnd.ms-excel,application/pdf' //example
+        this.setAcceptFileExtensions
+        this.acceptFileExtensions = setAcceptFileExtensions ? setAcceptFileExtensions : [imageJpg, imageJpeg, imagePng, imageGif, applicationMSWord, applicationMSExcel, applicationPDF]
         this.onRefresh = onRefresh;
-        this.uploadFunc = uploadFunc;
         this.fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
-
-        this.imageExtensions = [imageJpeg, imageJpg, imagePng, imageGif];
-        this.applicationMSWord = applicationMSWord;
-        this.applicationMSExcel = applicationMSExcel;
-        this.applicationPDF = applicationPDF;
     }
 
     @action.bound onDropFile(acceptedFiles) {
@@ -53,7 +50,7 @@ class MediaUploadCreateViewStore extends BaseViewStore {
     }
 
     @action isInAcceptFileExtensions(acceptedFiles) {
-        return _.difference(this.acceptFileExtensions, _.map(acceptedFiles, file => { return { type: file.type } })).length === 0;
+        return (_.map(acceptedFiles, file => { return file.type })).every(type => this.acceptFileExtensions.includes(type));
     }
 
     @action resolveThumbnailPreview(acceptedFiles) {
@@ -71,13 +68,13 @@ class MediaUploadCreateViewStore extends BaseViewStore {
         else {
             //custom thumbnails
             switch (file.type) {
-                case this.applicationMSWord:
+                case applicationMSWord:
                     return null;
                     break;
-                case this.applicationMSExcel:
+                case applicationMSExcel:
                     return null;
                     break;
-                case this.applicationPDF:
+                case applicationPDF:
                     return null;
                     break;
                 default:
@@ -88,26 +85,39 @@ class MediaUploadCreateViewStore extends BaseViewStore {
     }
 
     @action isImage(file) {
-        return _.includes(this.imageExtensions, file.type);
+        return _.includes([imageJpeg, imageJpg, imagePng, imageGif], file.type);
     }
 
     @action.bound async onSubmit() {
+        let fileEntries = [];
         for (let index = 0; index < this.files.length; index++) {
             const file = this.files[index];
             try {
-                if (_.isFunction(this.uploadFunc)) {
-                    await this.fileStreamService[this.uploadFunc.name](file, this.id)
-                    this.rootStore.notificationStore.success("File Uploaded Successfully: " + file.name);
-                }
+                const fileResponse = await this.fileStreamService.create(file, this.path + file.name);
+                fileEntries.push(fileResponse.data);
+                this.rootStore.notificationStore.success("File Uploaded Successfully: " + file.name);
             } catch (errorResponse) {
                 this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
             }
         }
 
-        this.files = [];
-        if (_.isFunction(this.uploadFunc)) {
-            this.onRefresh()
+        if (this.onAfterFileUpload && _.isFunction(this.onAfterFileUpload)) {
+            const response = await this.onAfterFileUpload(fileEntries);
+            if (isErrorCode(response.statusCode)) {
+                let filesForDelete = [];
+                _.forEach(fileEntries, function (file) {
+                    filesForDelete.push({
+                        id: file.id,
+                        fileFormat: file.fileExtension
+                    })
+                });
+                this.fileStreamService.deleteBatch(filesForDelete)
+            }
+            this.rootStore.notificationStore.showMessageFromResponse(response);
         }
+
+        this.files = [];
+        this.onRefresh()
     }
 }
 

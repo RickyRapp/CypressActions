@@ -62,4 +62,24 @@ function formatCharityTaxId(val) {
     return '';
 }
 
-export { getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName, formatCharityTaxId };
+function isErrorCode(statusCode) {
+    return statusCode >= 400 && statusCode < 506;
+}
+
+function isSuccessCode(statusCode) {
+    return statusCode >= 200 && statusCode < 207;
+}
+
+function converter(fileSize, from, to) {
+    let convertedFileSize = null;
+    if (from === 'B' && to === 'MB') {
+        convertedFileSize = Math.round(fileSize / (1024 * 1024) * 1000) / 1000;
+    }
+
+    return convertedFileSize;
+}
+
+export {
+    getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName, formatCharityTaxId,
+    isErrorCode, isSuccessCode, converter
+};

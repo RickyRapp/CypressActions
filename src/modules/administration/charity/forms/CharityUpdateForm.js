@@ -18,6 +18,7 @@ export default class CharityUpdateForm extends FormBase {
                     name: 'taxId',
                     label: localizationService.t('CHARITYUPDATEFORM.TAXID'),
                     rules: 'required|string|digits:9',
+                    disabled: true
                 },
                 {
                     name: 'charityStatusId',
@@ -142,6 +143,10 @@ export default class CharityUpdateForm extends FormBase {
                             name: 'image',
                             label: localizationService.t('CHARITYUPDATEFORM.BANKACCOUNT.UPLOADIMAGE'),
                             type: 'file',
+                        },
+                        {
+                            name: 'coreMediaVaultEntryId',
+                            rules: 'required|string',
                         }
                     ]
                 }

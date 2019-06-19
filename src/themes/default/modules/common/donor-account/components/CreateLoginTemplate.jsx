@@ -3,14 +3,11 @@ import { BasicInput, BasicCheckBox } from 'core/components';
 import ReactTooltip from 'react-tooltip'
 import { defaultTemplate } from 'core/utils';
 
-const CreateLoginTemplate = defaultTemplate(({ coreUserfields, sendWelcomeEmailField, isApprovedField, emailAddressField }) => {
+function CreateLoginTemplate({ coreUserfields, sendWelcomeEmailField, isApprovedField, emailAddressField, notifyAdministratorsField, t }) {
     return (
-        //TODO: why below not working when changing sendWelcomeEmailField, it's not observable
-        //function CreateLoginTemplate({ coreUserfields, sendWelcomeEmailField, isApprovedField, emailAddressField }) {
-        //return ( 
         <React.Fragment>
             <div className="form__group f-col f-col-lrg-12">
-                <h5>Login</h5>
+                <h5>{t('LOGIN')}</h5>
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 <BasicInput field={coreUserfields.$('userName')} />
@@ -22,24 +19,28 @@ const CreateLoginTemplate = defaultTemplate(({ coreUserfields, sendWelcomeEmailF
                 <BasicInput field={coreUserfields.$('coreMembership.confirmPassword')} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
+                <BasicCheckBox field={isApprovedField} />
+            </div>
+            <div className="form__group f-col f-col-lrg-3">
                 <BasicCheckBox field={sendWelcomeEmailField} />
                 {sendWelcomeEmailField.value === true &&
                     <span>
-                        <span className='icomoon tiny icon-cog' data-tip='sendWelcomeEmail' />
-                        <ReactTooltip type='info' effect='solid'>
+                        <span className='icomoon icon-alert-circle' data-tip='sendWelcomeEmail' />
+                        <ReactTooltip type='info' place='right' effect='solid' >
                             {emailAddressField.value && emailAddressField.isValid ?
                                 <span>Verification Email Will Be Sent On {emailAddressField.value}</span> :
                                 <span>Please Add An Email Address</span>}
                         </ReactTooltip>
                     </span>}
             </div>
-            <div className="form__group f-col f-col-lrg-3">
-                <BasicCheckBox field={isApprovedField} />
-            </div>
+            {notifyAdministratorsField &&
+                <div className="form__group f-col f-col-lrg-3">
+                    <BasicCheckBox field={notifyAdministratorsField} />
+                </div>}
         </React.Fragment>
     );
-});
+};
 
-export default CreateLoginTemplate;
+export default defaultTemplate(CreateLoginTemplate);
 
 

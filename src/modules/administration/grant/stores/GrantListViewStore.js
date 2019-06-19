@@ -29,7 +29,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
                 create: () =>
                     this.findDonorModalParams.open(),
                 charityEdit: (charityId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { id: charityId }),
+                    this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { userId: charityId }),
                 donorAccountEdit: (userId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
                 edit: (grantId, userId) =>

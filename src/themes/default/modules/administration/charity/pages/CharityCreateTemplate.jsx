@@ -79,6 +79,7 @@ function CharityCreateTemplate({ charityCreateViewStore }) {
                         sendWelcomeEmailField={form.$('sendWelcomeEmail')}
                         isApprovedField={form.$('isApproved')}
                         emailAddressField={form.$('emailAddress.email')}
+                        notifyAdministratorsField={form.$('notifyAdministrators')}
                     />
                 </div>}
 

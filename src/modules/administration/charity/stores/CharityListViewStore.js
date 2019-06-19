@@ -16,7 +16,7 @@ class CharityListViewStore extends BaseCharityListViewStore {
             routes: {
                 edit: (charityId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.charity.edit', {
-                        id: charityId,
+                        userId: charityId,
                     }),
                 create: () => {
                     this.rootStore.routerStore.navigate('master.app.administration.charity.create')

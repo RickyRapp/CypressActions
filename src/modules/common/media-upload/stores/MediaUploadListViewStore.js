@@ -5,13 +5,13 @@ import { CharityListFilter } from 'modules/administration/charity/models';
 import { BaseListViewStore, TableViewStore } from "core/stores";
 import NumberFormat from 'react-number-format';
 import { localizationService } from 'core/services'
+import { converter } from 'core/utils';
 import _ from 'lodash';
 
 class MediaUploadListViewStore extends BaseListViewStore {
-    constructor(rootStore) {
+    constructor(rootStore, { userId }) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         let filter = new CharityListFilter();
-        const id = rootStore.routerStore.routerState.params.id;
 
 
         super(rootStore, {
@@ -25,7 +25,7 @@ class MediaUploadListViewStore extends BaseListViewStore {
                     this.loaderStore.suspend();
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
-                    params.id = id;
+                    params.id = userId;
                     const response = await charityService.findDocuments(params);
                     this.loaderStore.resume();
                     return response;
@@ -44,7 +44,7 @@ class MediaUploadListViewStore extends BaseListViewStore {
 
     @action.bound async load() {
         const renderSize = (item) => {
-            return <NumberFormat value={Math.round(item.coreMediaVaultEntry.fileSize / (1024 * 1024) * 1000) / 1000} displayType={'text'} thousandSeparator={true} suffix={'MB'} />;
+            return <NumberFormat value={converter(item.coreMediaVaultEntry.fileSize, 'B', 'MB')} displayType={'text'} thousandSeparator={true} suffix={'MB'} />;
         }
 
         const downloadLink = (id) => this.fileStreamRouteService.getDownloadLink(id);

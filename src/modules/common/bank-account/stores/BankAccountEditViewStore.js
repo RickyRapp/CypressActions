@@ -1,9 +1,9 @@
 import { action, observable } from 'mobx';
 import { BaseViewStore } from "core/stores";
 import { isSome } from "core/utils";
-import { BankAccountService, FileStreamRouteService, FileStreamService } from "common/data";
+import { BankAccountService, FileStreamRouteService, FileStreamService, DonorAccountService } from "common/data";
 import { BankAccountForm } from "modules/common/bank-account/forms";
-import { UnhandledErrorMessage } from "core/utils"
+import { UnhandledErrorMessage, donorPath, bankAccountPath } from "core/utils"
 import _ from 'lodash';
 
 class BankAccountEditViewStore extends BaseViewStore {
@@ -13,6 +13,7 @@ class BankAccountEditViewStore extends BaseViewStore {
 
     constructor(rootStore, { id, onAfterUpdate, item = null }) {
         super(rootStore);
+        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.bankAccountService = new BankAccountService(rootStore.app.baasic.apiClient);
         this.fileStreamRouteService = new FileStreamRouteService(rootStore.app.baasic.apiClient);
         this.fileStreamService = new FileStreamService(rootStore.app.baasic.apiClient);
@@ -27,8 +28,10 @@ class BankAccountEditViewStore extends BaseViewStore {
 
     @action.bound
     async load() {
+        // const donorAccount = await this.donorAccountService.get(this.id);
         await this.initializeForm();
     }
+
     @action.bound async initializeForm() {
         this.form = new BankAccountForm({
             onSuccess: async form => {
@@ -37,8 +40,12 @@ class BankAccountEditViewStore extends BaseViewStore {
 
                 try {
                     if (this.form.$('image').files) {
-                        const fileResponse = await this.fileStreamService.createBankAccountImage(this.form.$('image').files[0], this.id);
-                        item.coreMediaVaultEntryId = fileResponse.data.id;
+                        // const fileResponse = await this.fileStreamService.create(
+                        //     this.form.$('image').files[0],
+                        //     donorPath + accountNumber + '/' + bankAccountPath + this.form.$('image').files[0].name
+                        // );
+                        // item.coreMediaVaultEntryId = fileResponse.data.id;
+                        alert('todo: image upload')
                     }
                 } catch ({ data }) {
                     if (data) {

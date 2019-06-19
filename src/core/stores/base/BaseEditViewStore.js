@@ -108,10 +108,10 @@ class BaseEditViewStore extends BaseViewStore {
         id: this.id,
         ...resource
       });
-      this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+      this.rootStore.notificationStore.showMessageFromResponse(response);
       this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
-      this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+      this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
       this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
       return;
     }
@@ -132,10 +132,10 @@ class BaseEditViewStore extends BaseViewStore {
     let response = null;
     try {
       response = await this.actions.create(resource);
-      this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+      this.rootStore.notificationStore.showMessageFromResponse(response);
       this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
     } catch (errorResponse) {
-      this.rootStore.notificationStore.showMessageFromResponse(errorResponse, 6000);
+      this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
       this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
       return;
     }

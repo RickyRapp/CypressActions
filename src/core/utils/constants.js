@@ -7,6 +7,10 @@ const passwordRequirements = [
 
 const apiUrl = ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/";
 const http = 'http://';
+const charityPath = 'charity/';
+const donorPath = 'donor/';
+const bankAccountPath = 'bank-account/';
+const documentPath = 'documents/';
 
 const UnhandledErrorMessage = 'Something Went Wrong. Please Contact Support Or Try Again.';
 
@@ -22,6 +26,10 @@ export {
   passwordRequirements,
   apiUrl,
   http,
+  donorPath,
+  charityPath,
+  bankAccountPath,
+  documentPath,
   UnhandledErrorMessage,
   imageJpeg,
   imageJpg,
