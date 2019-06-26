@@ -70,29 +70,23 @@ export default class GrantCreateForm extends FormBase {
                     rules: `string`
                 },
                 {
-                    name: 'recurringOrFuture',
-                    label: localizationService.t('GRANTCREATEEDITFORM.RECURRINGORFUTURE'),
-                    rules: 'boolean',
-                    type: 'checkbox',
-                    value: false
-                },
-                {
                     name: 'grantScheduleTypeId',
                     label: localizationService.t('GRANTCREATEEDITFORM.GRANTSCHEDULETYPEID'),
-                    rules: 'required_if:recurringOrFuture,true|string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'name',
                     label: localizationService.t('GRANTCREATEEDITFORM.GRANTSCHEDULEDNAME'),
-                    rules: `string`
+                    rules: 'string'
                 },
                 {
                     name: 'startFutureDate',
                     label: localizationService.t('GRANTCREATEEDITFORM.STARTDATE'),
-                    rules: `date|after:${moment().format('MM/DD/YYYY')}`,
+                    rules: `date|after_or_equal:${moment().format('MM/DD/YYYY')}`,
                     options: {
                         validateOnChange: true
-                    }
+                    },
+                    related: ['amount']
                 },
                 {
                     name: 'endDate',

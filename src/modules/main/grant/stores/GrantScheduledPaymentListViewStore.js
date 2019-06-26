@@ -52,6 +52,11 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
 
         this.setColumns = [
             {
+                key: 'charity.name',
+                title: 'Charity (click on row)',
+                onClick: grant => this.routes.charityEdit(grant.charity.id)
+            },
+            {
                 key: 'name',
                 title: 'NAME'
             },
@@ -59,11 +64,6 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 key: 'done',
                 title: 'DONE',
                 type: 'bool'
-            },
-            {
-                key: 'charity.name',
-                title: 'Charity (click on row)',
-                onClick: grant => this.routes.charityEdit(grant.charity.id)
             },
             {
                 key: 'amount',

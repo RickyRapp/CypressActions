@@ -26,6 +26,11 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
         this.feeService = new FeeService(rootStore.app.baasic.apiClient);
+        this.grantPurposeTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'grant-purpose-type');
+        this.grantAcknowledgmentTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'grant-acknowledgment-type');
+        this.grantScheduleTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'grant-schedule-type');
+        this.feeTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'fee-type');
+
         this.rootStore = rootStore;
     }
 
@@ -40,20 +45,16 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound async loadLookups() {
-        const grantPurposeTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'grant-purpose-type');
-        const grantPurposeTypeModels = await grantPurposeTypeLookupService.getAll();
+        const grantPurposeTypeModels = await this.grantPurposeTypeLookupService.getAll();
         this.grantPurposeTypes = _.orderBy(grantPurposeTypeModels.data, ['sortOrder'], ['asc']);
 
-        const grantAcknowledgmentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'grant-acknowledgment-type');
-        const grantAcknowledgmentTypeModels = await grantAcknowledgmentTypeLookupService.getAll();
+        const grantAcknowledgmentTypeModels = await this.grantAcknowledgmentTypeLookupService.getAll();
         this.grantAcknowledgmentTypes = _.orderBy(grantAcknowledgmentTypeModels.data, ['sortOrder'], ['asc']);
 
-        const grantScheduleTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'grant-schedule-type');
-        const grantScheduleTypeModels = await grantScheduleTypeLookupService.getAll();
+        const grantScheduleTypeModels = await this.grantScheduleTypeLookupService.getAll();
         this.grantScheduleTypes = _.orderBy(grantScheduleTypeModels.data, ['sortOrder'], ['asc']);
 
-        const feeTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'fee-type');
-        const feeTypeModels = await feeTypeLookupService.getAll();
+        const feeTypeModels = await this.feeTypeLookupService.getAll();
         this.feeTypes = _.orderBy(feeTypeModels.data, ['sortOrder'], ['asc']);
     }
 
@@ -148,6 +149,14 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
         else {
             this.totalAmount = 0;
         }
+    }
+
+    @computed get isFutureGrant() {
+        if ((this.form.$('startFutureDate').value ? this.form.$('startFutureDate').value.toLocaleDateString() : null) > (new Date()).toLocaleDateString() &&
+            this.form.$('grantScheduleTypeId').value === this.oneTimeId) {
+            return true;
+        }
+        return false;
     }
 
     @computed get inMemoryOfId() {

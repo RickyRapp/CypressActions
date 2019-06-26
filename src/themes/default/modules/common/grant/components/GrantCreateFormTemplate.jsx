@@ -8,6 +8,7 @@ import {
 } from 'themes/modules/common/grant/components';
 import _ from 'lodash';
 import ReactTooltip from 'react-tooltip'
+import moment from 'moment'
 
 function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
     const {
@@ -26,18 +27,20 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
         fundNameAndAddressId,
         fundNameId,
         donorAccount,
+        oneTimeId,
         monthlyId,
         annualId,
+        isFutureGrant,
         totalAmount,
-        calculateFee
+        calculateFee,
+        onStartFutureDateChange
     } = grantCreateViewStore;
-
 
     const scheduleGrantTooltip =
         <React.Fragment>
             <span className='icomoon icon-style-two-pin-information' data-tip data-for={'scheduledGrant'} />
             <ReactTooltip type='info' effect='solid' place="right" id={'scheduledGrant'}>
-                <span>{t('GRANTCREATEFORM.SCHEDULENAMETOOLTIP')}</span>
+                <span>{t('GRANTCREATEEDITFORM.SCHEDULENAMETOOLTIP')}</span>
             </ReactTooltip>
         </React.Fragment>
 
@@ -97,7 +100,8 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                 <div className="form__group f-col f-col-lrg-6">
                     <BasicFormatFieldInput field={form.$('amount')} decimalScale={2} onBlur={calculateFee} thousandSeparator={true} prefix={'$'} />
                 </div>
-                {(!form.$('recurringOrFuture').value || form.$('recurringOrFuture').value === false) &&
+                {(form.$('grantScheduleTypeId').value === oneTimeId &&
+                    (form.$('startFutureDate').value ? form.$('startFutureDate').value.toLocaleDateString() : null) === (new Date()).toLocaleDateString()) &&
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label>Total Amount</label>
@@ -112,49 +116,55 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                 </div>
             </div>
 
-            <div className="f-row">
-                <div className="form__group f-col f-col-lrg-4">
-                    <BasicCheckBox field={form.$('recurringOrFuture')} />
-                </div>
-            </div>
 
-            {form.$('recurringOrFuture').value === true &&
-                <React.Fragment>
-                    <div className="f-row">
+            <React.Fragment>
+                <div className="f-row">
+                    {grantScheduleTypeDropdownStore &&
                         <div className="form__group f-col f-col-lrg-6">
                             <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} />
-                        </div>
-                    </div>
+                        </div>}
 
                     {form.$('grantScheduleTypeId').value &&
                         <React.Fragment>
-                            <div className="f-row">
-                                <div className="form__group f-col f-col-lrg-6">
-                                    <BasicInput field={form.$('name')} tooltip={scheduleGrantTooltip} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-6">
-                                    <BasicFieldDatePicker field={form.$('startFutureDate')} before={new Date()} after={form.$('endDate').value !== '' ? form.$('endDate').value : null} />
-                                </div>
-                                {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId) &&
-                                    <React.Fragment>
-                                        {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
-                                            <div className="form__group f-col f-col-lrg-4">
-                                                <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} before={form.$('startFutureDate').value !== '' ? form.$('startFutureDate').value : new Date()} />
-                                            </div>}
-
-                                        {!(form.$('endDate').value && form.$('endDate').value !== '') && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
-                                            <div className="form__group f-col f-col-lrg-4">
-                                                <BasicCheckBox field={form.$('noEndDate')} />
-                                            </div>}
-
-                                        {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('endDate').value && form.$('endDate').value !== '') &&
-                                            <div className="form__group f-col f-col-lrg-4">
-                                                <BasicInput field={form.$('numberOfPayments')} />
-                                            </div>}
-                                    </React.Fragment>}
+                            <div className="form__group f-col f-col-lrg-6">
+                                <BasicFieldDatePicker
+                                    field={form.$('startFutureDate')}
+                                    before={new Date()}
+                                    after={form.$('endDate').value !== '' ? form.$('endDate').value : null}
+                                    todayButton={t('TODAY')}
+                                    onChange={onStartFutureDateChange}
+                                />
                             </div>
+                            {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId) &&
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <div className="f-row">
+                                        {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId) &&
+                                            <div className="form__group f-col f-col-lrg-6">
+                                                <BasicInput field={form.$('name')} tooltip={scheduleGrantTooltip} />
+                                            </div>}
+                                        <div className="form__group f-col f-col-lrg-12">
+                                            <div className="f-row">
+                                                {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
+                                                    <div className="form__group f-col f-col-lrg-4">
+                                                        <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} before={form.$('startFutureDate').value !== '' ? form.$('startFutureDate').value : new Date()} />
+                                                    </div>}
+
+                                                {!(form.$('endDate').value && form.$('endDate').value !== '') && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
+                                                    <div className="form__group f-col f-col-lrg-4">
+                                                        <BasicCheckBox field={form.$('noEndDate')} />
+                                                    </div>}
+
+                                                {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('endDate').value && form.$('endDate').value !== '') &&
+                                                    <div className="form__group f-col f-col-lrg-4">
+                                                        <BasicInput field={form.$('numberOfPayments')} />
+                                                    </div>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
                         </React.Fragment>}
-                </React.Fragment>}
+                </div>
+            </React.Fragment>
         </React.Fragment >
     )
 };

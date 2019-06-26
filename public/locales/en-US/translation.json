@@ -16,6 +16,7 @@
     "STARTDATE": "Start Date",
     "ACTIONS": "Actions",
     "SELECTPAGESIZE": "Select Page Size",
+    "TODAY": "Select Today",
     "COREUSER": {
         "PREFIXTYPEID": "Prefix"
     },

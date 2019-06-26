@@ -7,7 +7,6 @@ class GrantEditViewStore extends BaseGrantEditViewStore {
     constructor(rootStore) {
         const id = rootStore.routerStore.routerState.params.id;
         const userId = rootStore.routerStore.routerState.params.userId;
-        console.log(userId)
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
 
         const editViewStore = {
@@ -42,6 +41,11 @@ class GrantEditViewStore extends BaseGrantEditViewStore {
         super(rootStore, config);
 
         this.load();
+    }
+
+    setFormDefaults() {
+        super.setFormDefaults();
+        this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}`);
     }
 }
 

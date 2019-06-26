@@ -65,8 +65,9 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id)
             },
             {
-                key: 'name',
-                title: 'NAME'
+                key: 'charity.name',
+                title: 'Charity (click on row)',
+                onClick: grant => this.routes.charityEdit(grant.charity.id)
             },
             {
                 key: 'done',
@@ -74,9 +75,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 type: 'bool'
             },
             {
-                key: 'charity.name',
-                title: 'Charity (click on row)',
-                onClick: grant => this.routes.charityEdit(grant.charity.id)
+                key: 'name',
+                title: 'NAME'
             },
             {
                 key: 'amount',

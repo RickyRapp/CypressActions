@@ -42,6 +42,29 @@ export default ({ validator, form }) => {
         return false;
       },
       message: 'The :attribute date is not valid. It must be after :after date.'
+    },
+    after_or_equal: {
+      function: (value, req, attribute) => {
+        let date1 = '';
+
+        if (isValidDate(req)) {
+          date1 = req;
+        }
+        else if (form2.$(req)) {
+          date1 = form2.$(req).value;
+        }
+
+        var date2 = value;
+
+        if (!isValidDate(date1)) { return false; }
+        if (!isValidDate(date2)) { return false; }
+
+        if (new Date(date1).getTime() <= new Date(date2).getTime()) {
+          return true;
+        }
+        return false;
+      },
+      message: 'The :attribute date is not valid. It must be after or equal :after_or_equal date.'
     }
   };
 

@@ -61,7 +61,6 @@ class BaseGrantEditViewStore extends BaseEditViewStore {
         //Rules
         this.form.$('grantPurposeMember.firstName').set('rules', this.form.$('grantPurposeMember.firstName').rules + `|required_if:grantPurposeTypeId,${this.inMemoryOfId}|required_if:grantPurposeTypeId,${this.inHonorOfId}|required_if:grantPurposeTypeId,${this.sponsorAFriendId}`);
         this.form.$('grantPurposeMember.lastName').set('rules', this.form.$('grantPurposeMember.lastName').rules + `|required_if:grantPurposeTypeId,${this.inMemoryOfId}|required_if:grantPurposeTypeId,${this.inHonorOfId}|required_if:grantPurposeTypeId,${this.sponsorAFriendId}`);
-        this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}`)
         this.form.$('amount').set('default', this.form.$('amount').value)
     }
 

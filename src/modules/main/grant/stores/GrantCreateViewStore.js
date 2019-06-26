@@ -19,11 +19,13 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
                         item.grantPurposeMember = null;
                     }
 
-                    if (item.recurringOrFuture) {
+                    if (item.grantScheduleTypeId === this.monthlyId ||
+                        item.grantScheduleTypeId === this.annualId ||
+                        this.isFutureGrant) {
                         try {
                             const response = await grantScheduledPaymentService.create(item);
                             rootStore.notificationStore.showMessageFromResponse(response);
-                            rootStore.routerStore.navigate('master.app.main.grant.list');
+                            rootStore.routerStore.navigate('master.app.main.grant.scheduled.list');
                         } catch (errorResponse) {
                             rootStore.notificationStore.showMessageFromResponse(errorResponse);
                             return;
@@ -56,14 +58,10 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
         this.load();
     }
 
-    setFormDefaults() {
-        super.setFormDefaults();
-        this.onRecurringOrFutureChange(this.form.$('recurringOrFuture').value);
-    }
-
-    @action.bound onRecurringOrFutureChange(option) {
-        this.form.$('recurringOrFuture').set('value', option);
-        if (this.form.$('recurringOrFuture').value === true) {
+    @action.bound onStartFutureDateChange() {
+        if (this.form.$('grantScheduleTypeId').value === this.monthlyId ||
+            this.form.$('grantScheduleTypeId').value === this.annualId ||
+            this.isFutureGrant) {
             this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}`)
         }
         else {

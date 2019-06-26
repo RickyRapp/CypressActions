@@ -3,6 +3,7 @@ import { LookupService, CharityService, GrantScheduledPaymentService } from "com
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { getDonorNameDropdown, getCharityNameDropdown } from 'core/utils';
 import _ from 'lodash';
+import { localizationService } from 'core/services'
 
 class BaseGrantScheduledPaymentListViewStore extends BaseListViewStore {
     grantPurposeTypeModels = null;
@@ -91,7 +92,7 @@ class BaseGrantScheduledPaymentListViewStore extends BaseListViewStore {
 
     @action.bound async onCancel(id, name) {
         this.rootStore.modalStore.showConfirm(
-            'AREYOUSUREYOUWANTTOCANCEL',
+            localizationService.t('AREYOUSUREYOUWANTTOCANCEL'),
             async () => {
                 this.loaderStore.suspend();
                 let response = null;

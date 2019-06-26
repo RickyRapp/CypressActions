@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
 import { GrantCreateForm } from 'modules/common/grant/forms';
 import { BaseGrantCreateViewStore } from 'modules/common/grant/stores';
 import { GrantService, GrantScheduledPaymentService } from "common/data";
@@ -19,12 +19,14 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
                         item.grantPurposeMember = null;
                     }
 
-                    if (item.recurringOrFuture) {
+                    if (item.grantScheduleTypeId === this.monthlyId ||
+                        item.grantScheduleTypeId === this.annualId ||
+                        this.isFutureGrant) {
                         let response = null;
                         try {
                             response = await grantScheduledPaymentService.create(item);
                             is.rootStore.notificationStore.showMessageFromResponse(response);
-                            rootStore.routerStore.navigate('master.app.administration.grant.list');
+                            rootStore.routerStore.navigate('master.app.administration.grant.scheduled.list');
                         } catch (errorResponse) {
                             rootStore.notificationStore.showMessageFromResponse(errorResponse);
                             this.loaderStore.resume();
@@ -61,14 +63,10 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
         this.load();
     }
 
-    setFormDefaults() {
-        super.setFormDefaults();
-        this.onRecurringOrFutureChange(this.form.$('recurringOrFuture').value);
-    }
-
-    @action.bound onRecurringOrFutureChange(option) {
-        this.form.$('recurringOrFuture').set('value', option);
-        if (this.form.$('recurringOrFuture').value === true) {
+    @action.bound onStartFutureDateChange() {
+        if (this.form.$('grantScheduleTypeId').value === this.monthlyId ||
+            this.form.$('grantScheduleTypeId').value === this.annualId ||
+            this.isFutureGrant) {
             this.form.$('amount').set('rules', `required|numeric|min:${this.minimumAmount}`)
         }
         else {

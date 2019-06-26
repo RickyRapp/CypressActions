@@ -43,6 +43,11 @@ class GrantEditViewStore extends BaseGrantEditViewStore {
 
         this.load();
     }
+
+    setFormDefaults() {
+        super.setFormDefaults();
+        this.form.$('amount').set('rules', 'required|numeric|min:0');
+    }
 }
 
 export default GrantEditViewStore;

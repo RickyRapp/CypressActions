@@ -11,13 +11,19 @@ class BasicFieldDatePickerTemplate extends React.Component {
         super(props);
         this.handleDayChange = this.handleDayChange.bind(this);
         this.field = props.field;
+        if (props.onChange) {
+            this.onChange = props.onChange;
+        }
     }
     handleDayChange(day) {
         this.field.set("value", day);
+        if (this.onChange) {
+            this.onChange();
+        }
     }
     render() {
         const { field } = this;
-        const { t, isClearable, before, after } = this.props;
+        const { t, isClearable, before, after, todayButton } = this.props;
 
         const inputProps = {
             className: isSome(field.error) ? "input input--med input--text input--date input--invalid" : "input--date input input--med input--text",
@@ -36,7 +42,8 @@ class BasicFieldDatePickerTemplate extends React.Component {
         };
 
         const dayPickerPropsTemplate = {
-            modifiers: modifiers
+            modifiers: modifiers,
+            todayButton: todayButton ? todayButton : null,
         }
 
         return (

@@ -58,6 +58,7 @@ function renderRow(item, column) {
     }
 
     if (render && itemValue) {
+      debugger;
       if (column.withoutTimeZone) {
         itemValue = moment.utc(itemValue).format(column.format);
       }
