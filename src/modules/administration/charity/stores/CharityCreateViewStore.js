@@ -121,7 +121,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }

@@ -9,16 +9,6 @@ export default class UserEditForm extends FormBase {
     return {
       fields: [
         {
-          name: 'firstName',
-          label: 'Last name',
-          rules: 'required'
-        },
-        {
-          name: 'lastName',
-          label: 'Last name',
-          rules: 'required'
-        },
-        {
           name: 'displayName',
           label: 'Display name',
           placeholder: 'Enter display name',

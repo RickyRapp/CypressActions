@@ -183,43 +183,24 @@ export default class ContributionCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'makeAsRecurringPayment',
-                    label: localizationService.t('CONTRIBUTIONCREATEFORM.MAKEASRECURRINGPAYMENT'),
-                    rules: 'boolean',
-                    value: false,
-                    type: 'checkbox'
-                },
-                {
                     name: 'settingAmount',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGAMOUNT'),
-                    rules: 'required_if:makeAsRecurringPayment,true|string'
+                    rules: 'required_with:contributionSettingTypeId|string'
                 },
                 {
                     name: 'settingBankAccountId',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGBANKACCOUNTID'),
-                    rules: 'required_if:makeAsRecurringPayment,true|string'
+                    rules: 'required_with:contributionSettingTypeId|string'
                 },
                 {
                     name: 'contributionSettingTypeId',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.CONTRIBUTIONSETTINGTYPEID'),
-                    rules: 'required_if:makeAsRecurringPayment,true|string'
-                },
-                {
-                    name: 'settingEnabled',
-                    label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGENABLED'),
-                    rules: 'boolean',
-                    value: false,
-                    type: 'checkbox'
+                    rules: 'string'
                 },
                 {
                     name: 'settingStartDate',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGSTARTDATE'),
                     rules: `date|after:' + ${moment(new Date).add(1, 'days').format('MM/DD/YYYY')}`
-                },
-                {
-                    name: 'settingLowBalanceAmount',
-                    label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGLOWBALANCEAMOUNT'),
-                    rules: 'string'
                 }
             ]
         }

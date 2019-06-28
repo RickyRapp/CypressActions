@@ -94,7 +94,7 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     options.exceptId = this.queryUtility.filter.recipientDonorAccountId;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -122,7 +122,7 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     options.exceptId = this.queryUtility.filter.senderDonorAccountId;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -145,7 +145,7 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
             this.queryUtility.filter.recipientDonorAccountId = null;
 
             const params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
+            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
             const senderDonorAccount = await this.donorAccountService.get(recipientId, params);
             let defaultSenderSearchDonor = { id: senderDonorAccount.id, name: getDonorNameDropdown(senderDonorAccount) }
             let donorSearchs = [];
@@ -169,7 +169,7 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
             this.queryUtility.filter.recipientDonorAccountId = null;
 
             const params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
+            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
             const senderDonorAccount = await this.donorAccountService.get(recipientId, params);
             let defaultsenderSearchDonor = { id: senderDonorAccount.id, name: getDonorNameDropdown(senderDonorAccount) }
             const donorSearchs = [];
@@ -187,7 +187,7 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
             this.queryUtility.filter.senderDonorAccountId = null;
 
             const params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
+            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
             const recipientDonorAccount = await this.donorAccountService.get(senderId, params);
             let defaultRecipientSearchDonor = { id: recipientDonorAccount.id, name: getDonorNameDropdown(recipientDonorAccount) }
             const donorSearchs = [];

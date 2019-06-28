@@ -176,7 +176,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -190,7 +190,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
 
         if (this.queryUtility.filter.donorAccountId) {
             let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
+            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
             const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

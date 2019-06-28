@@ -2,12 +2,17 @@ import _ from 'lodash';
 
 function getDonorName(val, middleName = true) {
     let fullName = null;
-    if (val && val.coreUser) {
-        fullName = `${val.coreUser.firstName}`
-        if (middleName && val.coreUser.json && JSON.parse(val.coreUser.json).middleName) {
-            fullName += ` (${JSON.parse(val.coreUser.json).middleName})`
+    if (val) {
+        if (val.companyProfile) {
+            fullName = `${val.companyProfile.name}`
         }
-        fullName += ` ${val.coreUser.lastName}`;
+        else if (val.coreUser) {
+            fullName = `${val.coreUser.firstName}`
+            if (middleName && val.coreUser.json && JSON.parse(val.coreUser.json).middleName) {
+                fullName += ` (${JSON.parse(val.coreUser.json).middleName})`
+            }
+            fullName += ` ${val.coreUser.lastName}`;
+        }
     }
 
     return fullName;

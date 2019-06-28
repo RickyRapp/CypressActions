@@ -136,7 +136,7 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
                 isClearable: false
             },
             {
-                onChange: this.onChangeSettingBankAccount
+                onChange: (option) => this.form.$('settingBankAccountId').set('value', option ? option.id : null)
             },
             _.map(this.bankAccounts, e => { return { id: e.id, name: e.name } })
         );
@@ -180,7 +180,6 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
             this.form.$('estimatedValue').set('rules', this.form.$('estimatedValue').rules + `|required_if:paymentTypeId,${this.stockAndMutualFundsId}`);
             this.form.$('transactionId').set('rules', this.form.$('transactionId').rules + `|required_if:paymentTypeId,${this.chaseQuickPayId}`);
             this.form.$('settingStartDate').set('rules', this.form.$('settingStartDate').rules + `|required_if:contributionSettingTypeId,${this.oneTimeId}|required_if:contributionSettingTypeId,${this.weeklyId}|required_if:contributionSettingTypeId,${this.monthlyId}|required_if:contributionSettingTypeId,${this.everyTwoWeeksId}|required_if:contributionSettingTypeId,${this.everyTwoMonthsId}|required_if:contributionSettingTypeId,${this.everySixMonthsId}`);
-            this.form.$('settingLowBalanceAmount').set('rules', this.form.$('settingLowBalanceAmount').rules + `|required_if:contributionSettingTypeId,${this.lowBalanceAmountId}`);
 
             //Default Values
             this.form.$('payerInformation.firstName').set('default', this.donorAccount.coreUser.firstName);
@@ -226,21 +225,11 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
         this.showStockAndMutualFundsContactInfo = event.target.checked;
     }
 
-    @action.bound async onChangeMakeAsRecurringPayment(event) {
-        this.form.$('makeAsRecurringPayment').set('value', event.target.checked);
-
-        if (this.form.$('makeAsRecurringPayment').value === true) {
-            this.form.$('settingBankAccountId').set('value', this.form.$('bankAccountId').value);
-            this.form.$('settingAmount').set('value', this.form.$('amount').value);
-        }
-    }
-
-    @action.bound async onChangeSettingBankAccount(option) {
-        this.form.$('settingBankAccountId').set('value', option ? option.id : null);
-    }
-
     @action.bound async onChangeContributionSetting(option) {
         this.form.$('contributionSettingTypeId').set('value', option ? option.id : null);
+
+        this.form.$('settingBankAccountId').set('value', this.form.$('bankAccountId').value);
+        this.form.$('settingAmount').set('value', this.form.$('amount').value);
     }
 
     @computed get pendingId() {
@@ -269,10 +258,6 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
 
     @computed get checkId() {
         return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'check' }).id : null;
-    }
-
-    @computed get lowBalanceAmountId() {
-        return this.contributionSettingType ? _.find(this.contributionSettingType, { abrv: 'low-balance' }).id : null;
     }
 
     @computed get oneTimeId() {

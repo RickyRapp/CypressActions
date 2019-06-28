@@ -1,8 +1,9 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicFieldDropdown, EditFormContent, BaasicFormControls } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, EditFormContent, BaasicFormControls, BasicCheckBox } from 'core/components';
 import { NonMemberTemplate } from 'themes/modules/common/non-member/components';
 import { DonorAccountSettingsTemplate } from 'themes/modules/administration/donor-account/components';
+import { http } from 'core/utils'
 
 function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
     const {
@@ -13,6 +14,21 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
         deliveryMethodTypeDropdownStore,
         premiumId
     } = donorAccountEditViewStore;
+
+    let webSite = form && form.$('isCompany').value && form.$('companyProfile.website').value ? form.$('companyProfile.website').value : null;
+    if (webSite) {
+        if (!webSite.includes(http)) {
+            webSite = http + webSite;
+        }
+    }
+
+    const companyWebSiteTooltip =
+        <React.Fragment>
+            <span
+                className='icomoon icon-hyperlink-3'
+                data-tip data-for={'companyWebSite'}
+                onClick={() => webSite ? window.open(webSite, "_blank") : null} />
+        </React.Fragment>
 
     return (
         <React.Fragment>
@@ -31,7 +47,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                                     <BasicInput field={form.$('companyProfile.dba')} />
                                 </div>
                                 <div className="form__group f-col f-col-lrg-4">
-                                    <BasicInput field={form.$('companyProfile.website')} />
+                                    <BasicInput field={form.$('companyProfile.website')} tooltip={companyWebSiteTooltip} />
                                 </div>
                             </React.Fragment>}
 
@@ -65,7 +81,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 
                         {form.$('isCompany').value &&
                             <React.Fragment>
-                                <NonMemberTemplate form={form.$('companyProfile.contactPerson')} title="Contact Informations" />
+                                <NonMemberTemplate form={form.$('companyProfile.contactPerson')} title="Contact Informations" clearable={true} />
                             </React.Fragment>}
 
                         <DonorAccountSettingsTemplate

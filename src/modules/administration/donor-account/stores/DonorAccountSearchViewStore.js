@@ -21,7 +21,7 @@ class DonorAccountSearchViewStore extends BaseViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -38,7 +38,7 @@ class DonorAccountSearchViewStore extends BaseViewStore {
     @action.bound async setDefaultSearch(donorAccountId) {
         if (donorAccountId) {
             let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address'];
+            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
             const donorAccount = await this.donorAccountService.get(donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

@@ -128,7 +128,6 @@ class BaseGrantEditViewStore extends BaseEditViewStore {
         let params = {};
         params.embed = 'donorAccountAddresses,address'
         this.donorAccount = await this.donorAccountService.get(this.userId, params);
-        console.log(this.donorAccount)
     }
 
     @action.bound async calculateFee() {

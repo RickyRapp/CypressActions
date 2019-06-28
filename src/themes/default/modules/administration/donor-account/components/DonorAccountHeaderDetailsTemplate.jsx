@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate, getDonorName } from 'core/utils';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
@@ -39,30 +39,44 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
 
 function renderDonorAccount(donorAccount, rootStore) {
     return (
-        <div className="f-row">
-            <div className="form__group f-col f-col-lrg-3">
-                <a className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.administration.user.edit', { id: donorAccount.id })}>
-                    Login Info
-                </a>
+        <React.Fragment>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.user.edit', { id: donorAccount.id })}>
+                        <i className="icomoon icon-login-key align--v--middle spc--right--tny"></i>
+                        Login Info
+                </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.activity-and-history', null, { donorAccountId: donorAccount.id })}>
+                        <i className="icomoon icon-accounting-invoice-hand align--v--middle spc--right--tny"></i>
+                        Activity And History
+                </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.list', null, { donorAccountId: donorAccount.id })}>
+                        <i className="icomoon icon-cash-payment-bills align--v--middle spc--right--tny"></i>
+                        Contributions
+                </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-settings-slider align--v--middle spc--right--tny"></i>
+                        Contribution Settings
+                </span>
+                </div>
             </div>
-            <div className="form__group f-col f-col-lrg-3">
-                <a className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.administration.activity-and-history', null, { donorAccountId: donorAccount.id })}>
-                    Activity And History
-                </a>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-2">
+                    Available Balance:
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                </div>
             </div>
-            <div className="form__group f-col f-col-lrg-3">
-                <a
-                    className="btn btn--xsml btn--ghost"
-                    onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.list', null, { donorAccountId: donorAccount.id })}>
-                    Contributions
-                </a>
-            </div>
-            <div className="form__group f-col f-col-lrg-3">
-                <a className="btn btn--xsml btn--ghost" onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>Contribution Settings</a>
-            </div>
-        </div>
+        </React.Fragment>
     )
 }
 
@@ -73,7 +87,7 @@ function renderContribution(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
-                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                    {getDonorName(donorAccount)}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
@@ -107,7 +121,7 @@ function renderContributionSetting(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
-                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                    {getDonorName(donorAccount)}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
@@ -133,7 +147,7 @@ function renderActivityAndHistory(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
-                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                    {getDonorName(donorAccount)}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">
@@ -155,7 +169,7 @@ function renderGrant(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
-                    {donorAccount.coreUser.firstName} {donorAccount.coreUser.lastName}
+                    {getDonorName(donorAccount)}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-3">

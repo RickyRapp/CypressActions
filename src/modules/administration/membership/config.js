@@ -4,7 +4,6 @@ import { PublicLayout, MainLayout } from 'core/layouts';
 import {
   Login,
   RegisterPublic,
-  ActivationConfirm,
   RegistrationSuccess,
   PasswordChange,
   PasswordRecovery,
@@ -63,11 +62,6 @@ import {
         pattern: '/user-preferences',
         component: [MainLayout, UserPreferences],
         isPrivate: true
-      },
-      {
-        name: 'master.app.administration.membership.activation-confirm',
-        pattern: '/account-activation',
-        component: ActivationConfirm
       },
       {
         name: 'master.app.administration.membership.registration-success',

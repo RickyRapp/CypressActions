@@ -7,43 +7,40 @@ import _ from 'lodash';
 class ContributionCreateViewStore extends BaseContributionCreateViewStore {
     constructor(rootStore) {
         const userId = rootStore.routerStore.routerState.params.userId;
+        let contributionCreate = false;
 
         const createViewStore = {
             name: 'contribution',
             actions: {
                 create: async item => {
-                    let contributionCreate = false;
                     let response = null;
-                    response = await this.contributionService.createContribution(this.userId, item)
-                    this.rootStore.notificationStore.showMessageFromResponse(response);
-                    contributionCreate = true;
 
-                    if (item.makeAsRecurringPayment === true) {
-                        try {
-                            const contributionSetting = {
-                                amount: item.settingAmount,
-                                bankAccountId: item.settingBankAccountId,
-                                contributionSettingTypeId: item.contributionSettingTypeId,
-                                startDate: item.settingStartDate,
-                                enabled: item.settingEnabled,
-                                lowBalanceAmount: item.settingLowBalanceAmount,
-                            }
-                            const responseSetting = await this.contributionSettingService.createContributionSetting(this.userId, contributionSetting);
-                            this.rootStore.notificationStore.showMessageFromResponse(responseSetting);
-                        } catch (errorResponse) {
-                            if (contributionCreate) {
-                                this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
-                            }
+                    if (item.contributionSettingTypeId) {
+                        const contributionSetting = {
+                            donorAccountId: this.userId,
+                            amount: item.settingAmount,
+                            bankAccountId: item.settingBankAccountId,
+                            contributionSettingTypeId: item.contributionSettingTypeId,
+                            startDate: item.settingStartDate,
+                            enabled: true,
+                            lowBalanceAmount: item.settingLowBalanceAmount,
                         }
+                        response = await this.contributionSettingService.create(contributionSetting);
                     }
-
-                    this.rootStore.routerStore.navigate('master.app.administration.contribution.list')
+                    else {
+                        response = await this.contributionService.createContribution(this.userId, item);
+                        contributionCreate = true;
+                    }
+                    return response;
                 }
             },
             FormClass: ContributionCreateForm,
             goBack: false,
             setValues: true,
-            loader: true
+            loader: true,
+            onAfterCreate: () => contributionCreate ?
+                rootStore.routerStore.navigate('master.app.administration.contribution.list') :
+                rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: this.userId })
         }
 
         const config = {};
@@ -52,7 +49,6 @@ class ContributionCreateViewStore extends BaseContributionCreateViewStore {
 
         super(rootStore, config);
 
-        this.rootStore = rootStore;
         this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         this.contributionSettingService = new ContributionSettingService(rootStore.app.baasic.apiClient);
 

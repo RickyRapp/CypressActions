@@ -2,6 +2,7 @@ import { moduleBuilder, moduleProviderFactory } from 'core/providers';
 import { MainLayout, PublicLayout } from 'core/layouts';
 import { resolveApplicationUser } from 'core/utils';
 import { Home } from 'modules/common/public/pages'
+import { ActivationConfirm } from 'modules/administration/membership/pages';
 
 (function () {
   moduleProviderFactory.application.register({
@@ -51,19 +52,21 @@ import { Home } from 'modules/common/public/pages'
 
           try {
             await authStore.initialize();
-
           } catch (ex) {
             return Promise.reject(ex);
           }
-
-          await resolveApplicationUser(routerStore);
         },
         children: [
           {
             name: 'master.public.home',
             pattern: '',
             component: Home
-          }
+          },
+          {
+            name: 'master.public.membership.activation-confirm',
+            pattern: '/account-activation',
+            component: ActivationConfirm
+          },
         ]
       }
     ]

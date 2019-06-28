@@ -23,6 +23,11 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                     if (!donorAccount.companyProfileId) {
                         donorAccount.companyProfile = null;
                     }
+                    else {
+                        if (!donorAccount.companyProfile.contactPerson.firstName || donorAccount.companyProfile.contactPerson.firstName === '') {
+                            donorAccount.companyProfile.contactPerson = null;
+                        }
+                    }
                     return await donorAccountService.update({ id: this.id, ...donorAccount });
                 },
                 get: async id => {
@@ -35,14 +40,14 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                             response.coreUser.prefixTypeId = (JSON.parse(response.coreUser.json)).prefixTypeId;
                         }
                         response.isCompany = isSome(response.companyProfileId)
-
                     }
                     return response;
                 }
             },
             FormClass: DonorAccountEditForm,
             goBack: false,
-            setValues: true
+            setValues: true,
+            onAfterUpdate: () => this.getResource(this.id)
         });
 
         this.deliveryMethodTypeLookupService = new LookupService(rootStore.app.baasic.apiClient, 'delivery-method-type');

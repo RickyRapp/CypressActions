@@ -22,7 +22,7 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
     }
 
     getComponentsEmbeds() {
-        let embeds = ['coreUser,donorAccountAddresses,address'];
+        let embeds = ['coreUser,companyProfile'];
 
         if (this.isDonorAccountType) {
         }

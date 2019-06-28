@@ -36,7 +36,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     options.exceptId = this.recipientDonorAccount ? this.recipientDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -59,7 +59,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address' };
+                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
                     options.exceptId = this.senderDonorAccount ? this.senderDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;

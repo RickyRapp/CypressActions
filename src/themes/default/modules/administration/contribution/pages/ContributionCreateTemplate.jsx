@@ -27,7 +27,6 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
     bankAccountSettingDropdownStore,
     contributionSettingTypeDropdownStore,
     userId,
-    onChangeMakeAsRecurringPayment,
     usedSettingTypeIds,
     contributionSettingType,
     syncBankAccounts
@@ -75,14 +74,13 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
 
           {form.$('paymentTypeId').value === achId && form.$('bankAccountId').value && form.$('amount').value &&
             <React.Fragment>
-              <BasicCheckBox field={form.$('makeAsRecurringPayment')} onChange={onChangeMakeAsRecurringPayment} />
-              {form.$('makeAsRecurringPayment').value === true &&
-                <ContributionSetting
-                  form={form}
-                  usedSettingTypeIds={usedSettingTypeIds}
-                  contributionSettingType={contributionSettingType}
-                  bankAccountSettingDropdownStore={bankAccountSettingDropdownStore}
-                  contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />}
+              Set As Scheduled Payment (Optional)
+              <ContributionSetting
+                form={form}
+                usedSettingTypeIds={usedSettingTypeIds}
+                contributionSettingType={contributionSettingType}
+                bankAccountSettingDropdownStore={bankAccountSettingDropdownStore}
+                contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore} />
             </React.Fragment>}
         </EditFormLayout>}
       <BaasicModal modalParams={addBankAccountModalParams} >
@@ -99,15 +97,14 @@ const ContributionSetting = ({ form, usedSettingTypeIds, contributionSettingType
     <div className="f-row">
       <div className="form__group f-col f-col-lrg-6">
         <ContributionSettingCreateFormFieldsTemplate
-          enabledField={form.$('settingEnabled')}
           amountField={form.$('settingAmount')}
           bankAccountIdField={form.$('settingBankAccountId')}
           contributionSettingTypeIdField={form.$('contributionSettingTypeId')}
-          lowBalanceAmountField={form.$('settingLowBalanceAmount')}
           startDateField={form.$('settingStartDate')}
           bankAccountDropdownStore={bankAccountSettingDropdownStore}
           contributionSettingTypeDropdownStore={contributionSettingTypeDropdownStore}
-          contributionSettingType={contributionSettingType} />
+          contributionSettingType={contributionSettingType}
+          hideUntilSettingIsSelected={true} />
       </div>
       {usedSettingTypeIds && usedSettingTypeIds.length > 0 &&
         <div className="form__group f-col f-col-lrg-6">

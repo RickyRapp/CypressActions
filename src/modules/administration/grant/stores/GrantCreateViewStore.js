@@ -10,47 +10,35 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
         const userId = rootStore.routerStore.routerState.params.userId;
         const grantService = new GrantService(rootStore.app.baasic.apiClient);
         const grantScheduledPaymentService = new GrantScheduledPaymentService(rootStore.app.baasic.apiClient);
+        let grantCreate = false;
 
         const createViewStore = {
             name: 'grant',
             actions: {
                 create: async item => {
+                    let response = null;
+
                     if (!(item.grantPurposeTypeId === this.inMemoryOfId || item.grantPurposeTypeId === this.inHonorOfId || item.grantPurposeTypeId === this.sponsorAFriendId)) {
                         item.grantPurposeMember = null;
                     }
 
-                    if (item.grantScheduleTypeId === this.monthlyId ||
-                        item.grantScheduleTypeId === this.annualId ||
-                        this.isFutureGrant) {
-                        let response = null;
-                        try {
-                            response = await grantScheduledPaymentService.create(item);
-                            is.rootStore.notificationStore.showMessageFromResponse(response);
-                            rootStore.routerStore.navigate('master.app.administration.grant.scheduled.list');
-                        } catch (errorResponse) {
-                            rootStore.notificationStore.showMessageFromResponse(errorResponse);
-                            this.loaderStore.resume();
-                            return;
-                        }
+                    if (item.grantScheduleTypeId === this.monthlyId || item.grantScheduleTypeId === this.annualId || this.isFutureGrant) {
+                        response = await grantScheduledPaymentService.create(item);
                     }
                     else {
-                        let response = null;
-                        try {
-                            response = await grantService.create(item);
-                            rootStore.notificationStore.showMessageFromResponse(response);
-                            rootStore.routerStore.navigate('master.app.administration.grant.list');
-                        } catch (errorResponse) {
-                            rootStore.notificationStore.showMessageFromResponse(errorResponse);
-                            this.loaderStore.resume();
-                            return;
-                        }
+                        response = await grantService.create(item);
+                        grantCreate = true;
                     }
+                    return response;
                 }
             },
             FormClass: GrantCreateForm,
             goBack: false,
             setValues: true,
-            loader: true
+            loader: true,
+            onAfterCreate: () => grantCreate ?
+                rootStore.routerStore.navigate('master.app.administration.grant.list') :
+                rootStore.routerStore.navigate('master.app.administration.grant.scheduled.list')
         }
 
         const config = {};

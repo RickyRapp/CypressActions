@@ -38,7 +38,7 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
 
     const scheduleGrantTooltip =
         <React.Fragment>
-            <span className='icomoon icon-style-two-pin-information' data-tip data-for={'scheduledGrant'} />
+            <span className='icomoon icon-question-circle' data-tip data-for={'scheduledGrant'} />
             <ReactTooltip type='info' effect='solid' place="right" id={'scheduledGrant'}>
                 <span>{t('GRANTCREATEEDITFORM.SCHEDULENAMETOOLTIP')}</span>
             </ReactTooltip>
@@ -135,31 +135,31 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                                     onChange={onStartFutureDateChange}
                                 />
                             </div>
-                            {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId) &&
+                            {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId || isFutureGrant) &&
                                 <div className="form__group f-col f-col-lrg-12">
                                     <div className="f-row">
-                                        {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId) &&
-                                            <div className="form__group f-col f-col-lrg-6">
-                                                <BasicInput field={form.$('name')} tooltip={scheduleGrantTooltip} />
-                                            </div>}
-                                        <div className="form__group f-col f-col-lrg-12">
-                                            <div className="f-row">
-                                                {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
-                                                    <div className="form__group f-col f-col-lrg-4">
-                                                        <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} before={form.$('startFutureDate').value !== '' ? form.$('startFutureDate').value : new Date()} />
-                                                    </div>}
-
-                                                {!(form.$('endDate').value && form.$('endDate').value !== '') && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
-                                                    <div className="form__group f-col f-col-lrg-4">
-                                                        <BasicCheckBox field={form.$('noEndDate')} />
-                                                    </div>}
-
-                                                {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('endDate').value && form.$('endDate').value !== '') &&
-                                                    <div className="form__group f-col f-col-lrg-4">
-                                                        <BasicInput field={form.$('numberOfPayments')} />
-                                                    </div>}
-                                            </div>
+                                        <div className="form__group f-col f-col-lrg-6">
+                                            <BasicInput field={form.$('name')} tooltip={scheduleGrantTooltip} />
                                         </div>
+                                        {(form.$('grantScheduleTypeId').value === monthlyId || form.$('grantScheduleTypeId').value === annualId) &&
+                                            <div className="form__group f-col f-col-lrg-12">
+                                                <div className="f-row">
+                                                    {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
+                                                        <div className="form__group f-col f-col-lrg-4">
+                                                            <BasicFieldDatePicker field={form.$('endDate')} isClearable={true} before={form.$('startFutureDate').value !== '' ? form.$('startFutureDate').value : new Date()} />
+                                                        </div>}
+
+                                                    {!(form.$('endDate').value && form.$('endDate').value !== '') && !(form.$('numberOfPayments').value && form.$('numberOfPayments').value !== '') &&
+                                                        <div className="form__group f-col f-col-lrg-4">
+                                                            <BasicCheckBox field={form.$('noEndDate')} />
+                                                        </div>}
+
+                                                    {!(form.$('noEndDate').value && form.$('noEndDate').value === true) && !(form.$('endDate').value && form.$('endDate').value !== '') &&
+                                                        <div className="form__group f-col f-col-lrg-4">
+                                                            <BasicInput field={form.$('numberOfPayments')} />
+                                                        </div>}
+                                                </div>
+                                            </div>}
                                     </div>
                                 </div>}
                         </React.Fragment>}
