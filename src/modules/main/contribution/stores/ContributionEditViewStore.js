@@ -11,6 +11,43 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
         const userId = rootStore.routerStore.routerState.params.userId;
         const id = rootStore.routerStore.routerState.params.id;
 
+        const fields = [
+            'id',
+            'donorAccountId',
+            'dateCreated',
+            'dateUpdated',
+            'amount',
+            'confirmationNumber',
+            'contributionStatusId',
+            'paymentTypeId',
+            'payerInformation',
+            'payerInformation.name',
+            'payerInformation.address',
+            'payerInformation.address.addressLine1',
+            'payerInformation.address.addressLine2',
+            'payerInformation.address.city',
+            'payerInformation.address.state',
+            'payerInformation.address.zipCode',
+            'payerInformation.emailAddress',
+            'payerInformation.emailAddress.email',
+            'payerInformation.phoneNumber',
+            'payerInformation.phoneNumber.number',
+            'donorAccount',
+            'donorAccount.id',
+            'donorAccount.donorName',
+            'donorAccount.coreUser',
+            'donorAccount.coreUser.firstName',
+            'donorAccount.coreUser.lastName',
+            'donorAccount.companyProfile',
+            'donorAccount.companyProfile.name',
+            'bankAccount',
+            'bankAccount.accountNumber',
+            'createdByCoreUser',
+            'createdByCoreUser.userId',
+            'createdByCoreUser.firstName',
+            'createdByCoreUser.lastName'
+        ];
+
         const editViewStore = {
             name: 'contribution',
             id: id,
@@ -22,7 +59,23 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser,companyProfile,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers'];
+                    params.embed = [
+                        'payerInformation',
+                        'payerInformation.address',
+                        'payerInformation.emailAddress',
+                        'payerInformation.phoneNumber',
+                        'bankAccount',
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile',
+                        'donorAccount.donorAccountAddresses',
+                        'donorAccount.donorAccountAddresses.address',
+                        'donorAccount.donorAccountEmailAddresses',
+                        'donorAccount.donorAccountEmailAddresses.emailAddress',
+                        'donorAccount.donorAccountPhoneNumbers',
+                        'donorAccount.donorAccountPhoneNumbers.phoneNumber'
+                    ];
+                    params.fields = fields;
                     let model = await contributionService.get(id, params);
                     if (model.json && JSON.parse(model.json).paymentTypeInformations) {
                         _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {

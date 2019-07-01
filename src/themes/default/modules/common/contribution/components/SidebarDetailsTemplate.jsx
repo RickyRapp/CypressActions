@@ -32,11 +32,12 @@ function SidebarDetailsTemplate({ contribution, contributionStatuses, reviewModa
                 </div>
                 <div className="form__group f-col f-col-lrg-12">
                     <div>Created By:</div>
-                    {contribution.createdByCoreUser ?
-                        <strong>{`${contribution.createdByCoreUser.firstName} ${contribution.createdByCoreUser.lastName}`}</strong>
-                        :
-                        <strong>System</strong>
-                    }
+                    <strong>
+                        {contribution.createdByCoreUser ?
+                            (contribution.createdByCoreUser.userId === contribution.donorAccountId ? contribution.donorAccount.donorName : `${contribution.createdByCoreUser.firstName} ${contribution.createdByCoreUser.lastName}`)
+                            :
+                            'System'
+                        }</strong>
                 </div>
             </div>
         </React.Fragment >

@@ -41,7 +41,11 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             'donorAccount.companyProfile',
             'donorAccount.companyProfile.name',
             'bankAccount',
-            'bankAccount.accountNumber'
+            'bankAccount.acountNumber',
+            'createdByCoreUser',
+            'createdByCoreUser.userId',
+            'createdByCoreUser.firstName',
+            'createdByCoreUser.lastName'
         ];
 
         const editViewStore = {
@@ -54,7 +58,8 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['payerInformation',
+                    params.embed = [
+                        'payerInformation',
                         'payerInformation.address',
                         'payerInformation.emailAddress',
                         'payerInformation.phoneNumber',
