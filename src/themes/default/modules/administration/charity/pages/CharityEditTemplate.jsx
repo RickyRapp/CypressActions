@@ -72,7 +72,7 @@ function CharityEditTemplate({ charityEditViewStore, t }) {
                                         form={form.$('contactInformation')}
                                         title="Contact Informations"
                                         clearable={true}
-                                        firstNameColumn={6} lastNameColumn={6}
+                                        nameColumn={6}
                                         addressLine1Column={6} addressLine2Column={6} cityColumn={4} stateColumn={4} zipCodeColumn={4}
                                         emailColumn={6}
                                         numberColumn={6}

@@ -47,15 +47,10 @@ export default class GrantCreateForm extends FormBase {
                     label: localizationService.t('GRANTCREATEEDITFORM.GRANTPURPOSEMEMBER'),
                     fields: [
                         {
-                            name: 'firstName',
-                            label: localizationService.t('FIRSTNAME'),
+                            name: 'name',
+                            label: localizationService.t('GRANTCREATEEDITFORM.GRANTPURPOSEMEMBER.NAME'),
                             rules: 'string'
-                        },
-                        {
-                            name: 'lastName',
-                            label: localizationService.t('LASTNAME'),
-                            rules: 'string'
-                        },
+                        }
                     ]
                 },
                 {

@@ -142,7 +142,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                             <NonMemberTemplate
                                                 form={form.$('companyProfile.contactPerson')}
                                                 title="Contact Informations"
-                                                firstNameColumn={3} lastNameColumn={3}
+                                                nameColumn={3}
                                                 addressLine1Column={3} addressLine2Column={3} cityColumn={2} stateColumn={2} zipCodeColumn={2}
                                                 emailColumn={3}
                                                 numberColumn={3}

@@ -65,7 +65,9 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 
                         {form.$('isCompany').value &&
                             <React.Fragment>
-                                <NonMemberTemplate form={form.$('companyProfile.contactPerson')} title="Contact Informations" />
+                                <NonMemberTemplate
+                                    form={form.$('companyProfile.contactPerson')}
+                                    title="Contact Informations" />
                             </React.Fragment>}
 
                         <DonorAccountSettingsTemplate

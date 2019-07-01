@@ -44,21 +44,16 @@ export default class DonorAccountBankAccountCreateForm extends FormBase {
                 {
                     name: 'thirdPartyAccountHolder',
                     label: localizationService.t('BANKACCOUNT.ACCOUNTHOLDER'),
-                    fields:
-                        [{
-                            name: 'firstName',
-                            label: localizationService.t('FIRSTNAME'),
-                            rules: 'string'
-                        },
+                    fields: [
                         {
-                            name: 'lastName',
-                            label: localizationService.t('LASTNAME'),
+                            name: 'name',
+                            label: localizationService.t('NAME'),
                             rules: 'string'
                         },
                         {
                             name: 'address',
-                            fields:
-                                [{
+                            fields: [
+                                {
                                     name: 'addressLine1',
                                     label: localizationService.t('ADDRESS.ADDRESSLINE1'),
                                     rules: 'string'
@@ -83,27 +78,29 @@ export default class DonorAccountBankAccountCreateForm extends FormBase {
                                     label: localizationService.t('ADDRESS.ZIPCODE'),
                                     rules: 'string'
                                 }
-                                ]
+                            ]
                         },
                         {
                             name: 'emailAddress',
-                            fields:
-                                [{
+                            fields: [
+                                {
                                     name: 'email',
                                     label: localizationService.t('EMAILADDRESS.EMAIL'),
                                     rules: 'email'
-                                }]
+                                }
+                            ]
                         },
                         {
                             name: 'phoneNumber',
-                            fields:
-                                [{
+                            fields: [
+                                {
                                     name: 'number',
                                     label: localizationService.t('PHONENUMBER.NUMBER'),
                                     rules: 'string'
-                                }]
+                                }
+                            ]
                         }
-                        ]
+                    ]
                 }
             ]
         };

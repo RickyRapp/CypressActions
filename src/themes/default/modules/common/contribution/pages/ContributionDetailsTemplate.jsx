@@ -145,12 +145,8 @@ function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
                             <h5>Payer Information</h5>
                         </div>
                         <div className="form__group f-col f-col-lrg-3">
-                            <strong>First Name</strong>
-                            {contribution.payerInformation.firstName}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <strong>Last Name</strong>
-                            {contribution.payerInformation.lastName}
+                            <strong>Name</strong>
+                            {contribution.payerInformation.name}
                         </div>
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Address Line 1</strong>

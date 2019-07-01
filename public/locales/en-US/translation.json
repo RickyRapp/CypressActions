@@ -12,11 +12,19 @@
     "LOGIN": "Login",
     "SUCCESSFULLYDELETED": "Successfully Deleted",
     "DATECREATED": "Date Created",
+    "DATEUPDATED": "Date Updated",
     "BY": "By",
     "STARTDATE": "Start Date",
+    "NAME": "Name",
     "ACTIONS": "Actions",
     "SELECTPAGESIZE": "Select Page Size",
     "TODAY": "Select Today",
+    "DONORNAME": "Donor Name",
+    "AMOUNT": "Amount",
+    "CONFIRMATIONNUMBER": "Conf. Number",
+    "STATUS": "Status",
+    "PAYMENTTYPE": "Payment Type",
+    "PAYERNAME": "Payer Name",
     "COREUSER": {
         "PREFIXTYPEID": "Prefix"
     },
@@ -43,7 +51,8 @@
         "DESCRIPTION": "Description",
         "UPLOADIMAGE": "Upload Image",
         "IMAGE": "Image",
-        "THIRDPARTYBANKACCOUNT": "Third Party Bank Account"
+        "THIRDPARTYBANKACCOUNT": "Third Party Bank Account",
+        "THIRDPARTYACCOUNTHOLDERNAME": "Name"
     },
     "FIRSTNAME": "First Name",
     "MIDDLENAME": "Middle Name",
@@ -60,8 +69,7 @@
         "BANKACCOUNTID": "Bank Account",
         "CHECKNUMBER": "Check Number",
         "PAYERINFORMATION": {
-            "FIRSTNAME": "First Name",
-            "LASTNAME": "Last Name",
+            "NAME": "Name",
             "ADDRESS": {
                 "ADDRESSLINE1": "Address line 1",
                 "ADDRESSLINE2": "Address line 2",
@@ -105,8 +113,7 @@
         "BANKACCOUNTID": "Bank Account",
         "CHECKNUMBER": "Check Number",
         "PAYERINFORMATION": {
-            "FIRSTNAME": "First Name",
-            "LASTNAME": "Last Name",
+            "NAME": "Name",
             "ADDRESS": {
                 "ADDRESSLINE1": "Address line 1",
                 "ADDRESSLINE2": "Address line 2",
@@ -174,8 +181,7 @@
             "EMAIL": "Email Address"
         },
         "CONTACTINFORMATION": {
-            "FIRSTNAME": "First Name",
-            "LASTNAME": "Last Name",
+            "NAME": "Name",
             "ADDRESS": {
                 "ADDRESSLINE1": "Address line 1",
                 "ADDRESSLINE2": "Address line 2",
@@ -210,8 +216,7 @@
         },
         "HASCONTACT": "Has Contact",
         "CONTACTINFORMATION": {
-            "FIRSTNAME": "First Name",
-            "LASTNAME": "Last Name",
+            "NAME": "Name",
             "ADDRESS": {
                 "ADDRESSLINE1": "Address line 1",
                 "ADDRESSLINE2": "Address line 2",

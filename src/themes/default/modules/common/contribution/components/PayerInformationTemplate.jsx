@@ -2,16 +2,14 @@ import React from 'react';
 import { BasicInput } from 'core/components';
 
 function PayerInformationTemplate({ form }) {
+
     return (
         <div className="f-row card card--sml">
             <div className="form__group f-col f-col-lrg-12">
                 <h5>Payer Information</h5>
             </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('payerInformation.firstName')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={form.$('payerInformation.lastName')} />
+            <div className="form__group f-col f-col-lrg-12">
+                <BasicInput field={form.$('payerInformation.name')} />
             </div>
             <div className="form__group f-col f-col-lrg-6">
                 <BasicInput field={form.$('payerInformation.address.addressLine1')} />

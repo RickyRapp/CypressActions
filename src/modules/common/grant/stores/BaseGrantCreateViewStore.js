@@ -129,8 +129,7 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound setFormDefaults() {
         //Rules
-        this.form.$('grantPurposeMember.firstName').set('rules', this.form.$('grantPurposeMember.firstName').rules + `|required_if:grantPurposeTypeId,${this.inMemoryOfId}|required_if:grantPurposeTypeId,${this.inHonorOfId}|required_if:grantPurposeTypeId,${this.sponsorAFriendId}`);
-        this.form.$('grantPurposeMember.lastName').set('rules', this.form.$('grantPurposeMember.lastName').rules + `|required_if:grantPurposeTypeId,${this.inMemoryOfId}|required_if:grantPurposeTypeId,${this.inHonorOfId}|required_if:grantPurposeTypeId,${this.sponsorAFriendId}`);
+        this.form.$('grantPurposeMember.name').set('rules', this.form.$('grantPurposeMember.name').rules + `|required_if:grantPurposeTypeId,${this.inMemoryOfId}|required_if:grantPurposeTypeId,${this.inHonorOfId}|required_if:grantPurposeTypeId,${this.sponsorAFriendId}`);
         this.form.$('startFutureDate').set('rules', this.form.$('startFutureDate').rules + `|required_if:grantScheduleTypeId,${this.monthlyId}|required_if:grantScheduleTypeId,${this.annualId}`);
 
         //Values

@@ -8,6 +8,32 @@ class ContributionDetailsViewStore extends BaseViewStore {
     @observable contribution = null;
     @observable paymentTypes = null;
 
+    fields = [
+        'id',
+        'amount',
+        'description',
+        'dateCreated',
+        'dateUpdated',
+        'paymentTypeId',
+        'contributionStatusId',
+        'confirmationNumber',
+        'json',
+        'bankAccount',
+        'bankAccount.name',
+        'payerInformation',
+        'payerInformation.name',
+        'payerInformation.address',
+        'payerInformation.address.addressLine1',
+        'payerInformation.address.addressLine2',
+        'payerInformation.address.city',
+        'payerInformation.address.state',
+        'payerInformation.address.zipCode',
+        'payerInformation.emailAddress',
+        'payerInformation.emailAddress.email',
+        'payerInformation.phoneNumber',
+        'payerInformation.phoneNumber.number'
+    ]
+
     constructor(rootStore, { id }) {
         super(rootStore);
 
@@ -23,7 +49,8 @@ class ContributionDetailsViewStore extends BaseViewStore {
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['payerInformation,address,emailAddress,phoneNumber,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser'];
+        params.embed = ['bankAccount,payerInformation,payerInformation.address,payerInformation.emailAddress,payerInformation.phoneNumber'];
+        params.fields = this.fields;
         let model = await this.contributionService.get(this.id, params);
         if (model.json && JSON.parse(model.json).paymentTypeInformations) {
             _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {

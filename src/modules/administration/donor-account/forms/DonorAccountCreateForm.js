@@ -132,13 +132,8 @@ export default class DonorAccountCreateForm extends FormBase {
                             name: 'contactPerson',
                             fields: [
                                 {
-                                    name: 'firstName',
-                                    label: localizationService.t('FIRSTNAME'),
-                                    rules: 'required_if:companyProfile.hasCompanyContact,true|string',
-                                },
-                                {
-                                    name: 'lastName',
-                                    label: localizationService.t('LASTNAME'),
+                                    name: 'name',
+                                    label: localizationService.t('NAME'),
                                     rules: 'required_if:companyProfile.hasCompanyContact,true|string',
                                 },
                                 {

@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class EmailAddressCreateForm extends FormBase {
     constructor(hooks) {
@@ -10,12 +11,12 @@ export default class EmailAddressCreateForm extends FormBase {
             fields: [
                 {
                     name: 'email',
-                    label: 'EMAILADDRESS.EMAIL',
+                    label: localizationService.t('EMAILADDRESS.EMAIL'),
                     rules: 'required|email',
                 },
                 {
                     name: 'description',
-                    label: 'EMAILADDRESS.DESCRIPTION',
+                    label: localizationService.t('EMAILADDRESS.DESCRIPTION'),
                     rules: 'string',
                 },
             ]

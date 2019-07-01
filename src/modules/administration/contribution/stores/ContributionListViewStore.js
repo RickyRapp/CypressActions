@@ -4,13 +4,26 @@ import { ContributionListFilter } from 'modules/administration/contribution/mode
 import { BaseContributionListViewStore } from 'modules/common/contribution/stores';
 import { BaasicDropdownStore } from "core/stores";
 import { ModalParams } from 'core/models';
-import { getDonorNameDropdown } from 'core/utils';
+import { getDonorNameDropdown, getDonorName } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseContributionListViewStore {
     @observable contributionId = null;
     @observable donorAccountSearchDropdownStore = null;
+
+    additionalFields = [
+        'donorAccount',
+        'donorAccount.id',
+        'donorAccount.donorName',
+        'donorAccount.coreUser',
+        'donorAccount.coreUser.firstName',
+        'donorAccount.coreUser.lastName',
+        'donorAccount.companyProfile',
+        'donorAccount.companyProfile.name',
+        'bankAccount',
+        'bankAccount.accountNumber'
+    ];
 
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
@@ -35,9 +48,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'donorAccount,coreUser,payerInformation,address,bankAccount,createdByCoreUser,paymentType,contributionStatus';
-                    params.orderBy = 'dateCreated';
-                    params.orderDirection = 'desc';
+                    params.embed = 'donorAccount,donorAccount.coreUser,donorAccount.companyProfile,payerInformation,bankAccount,createdByCoreUser';
+                    params.fields = _.union(this.fields, this.additionalFields);
                     const response = await contributionService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -70,49 +82,55 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         this.setColumns = [
             {
                 key: 'donorAccount.coreUser',
-                title: 'Donor Name',
+                title: 'DONORNAME',
                 type: 'function',
-                function: (item) => `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}`,
+                function: (item) => getDonorName(item.donorAccount),
                 onClick: item => this.routes.donorAccountEdit(item.donorAccountId)
             },
             {
                 key: 'amount',
-                title: 'Amount',
-                type: 'currency'
+                title: 'AMOUNT',
+                type: 'currency',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'confirmationNumber',
-                title: 'Conf. Number'
+                title: 'CONFIRMATIONNUMBER',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'contributionStatusId',
-                title: 'Status',
+                title: 'STATUS',
                 type: 'function',
-                function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name
+                function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name,
+                onHeaderClick: (column) => this.queryUtility.changeOrder('contributionStatus.sortOrder')
             },
             {
                 key: 'paymentTypeId',
-                title: 'Payment Type',
+                title: 'PAYMENTTYPE',
                 type: 'function',
                 function: this.renderPaymentType
             },
             {
-                key: 'payerInformation',
-                title: 'Payer Name',
-                type: 'function',
-                function: (item) => `${item.payerInformation.firstName} ${item.payerInformation.lastName}`
+                key: 'payerInformation.name',
+                title: 'PAYERNAME',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'createdByCoreUser',
-                title: 'Created By',
+                title: 'BY',
                 type: 'function',
-                function: (item) => item.createdByCoreUser ? `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` : 'System'
+                function: (item) => item.createdByCoreUser ?
+                    (item.createdByCoreUser.userId === item.donorAccountId ? item.donorAccount.donorName : `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}`)
+                    :
+                    'System'
             },
             {
                 key: 'dateUpdated',
-                title: 'Date Updated',
+                title: 'DATEUPDATED',
                 type: 'date',
-                format: 'YYYY-MM-DD HH:mm'
+                format: 'YYYY-MM-DD HH:mm',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
         ];
 

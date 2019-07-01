@@ -9,10 +9,7 @@ function ContactInformationTemplate({ field }) {
                 <h5>Contact Information</h5>
             </div>
             <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={field.$('firstName')} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={field.$('lastName')} />
+                <BasicInput field={field.$('name')} />
             </div>
 
             <AddressTemplate field={field.$('address')} />

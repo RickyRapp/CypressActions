@@ -2,10 +2,18 @@ import { action, observable } from 'mobx';
 import { ContributionService } from "common/data";
 import { ContributionListFilter } from 'modules/main/contribution/models';
 import { BaseContributionListViewStore } from 'modules/common/contribution/stores';
+import { getDonorName } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseContributionListViewStore {
+
+    additionalFields = [
+        'donorAccount',
+        'donorAccount.id',
+        'donorAccount.donorName'
+    ];
+
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
 
@@ -26,9 +34,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'coreUser,payerInformation,address,bankAccount,createdByCoreUser,paymentType,contributionStatus';
-                    params.orderBy = 'dateCreated';
-                    params.orderDirection = 'desc';
+                    params.embed = 'donorAccount,donorAccount.coreUser,,donorAccount.companyProfile,payerInformation,bankAccount,createdByCoreUser';
+                    params.fields = _.join(_.union(this.fields, this.additionalFields), ',');
                     const response = await contributionService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -52,40 +59,43 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         this.setColumns = [
             {
                 key: 'amount',
-                title: 'Amount',
+                title: 'AMOUNT',
                 type: 'currency'
             },
             {
                 key: 'confirmationNumber',
-                title: 'Conf. Number'
+                title: 'CONFIRMATIONNUMBER'
             },
             {
                 key: 'contributionStatusId',
-                title: 'Status',
+                title: 'STATUS',
                 type: 'function',
                 function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name
             },
             {
                 key: 'paymentTypeId',
-                title: 'Payment Type',
+                title: 'PAYMENTTYPE',
                 type: 'function',
                 function: (item) => _.find(this.paymentTypes, { id: item.paymentTypeId }).name
             },
             {
                 key: 'payerInformation',
-                title: 'Payer Name',
+                title: 'PAYERNAME',
                 type: 'function',
-                function: (item) => `${item.payerInformation.firstName} ${item.payerInformation.lastName}`
+                function: (item) => item.payerInformation.name
             },
             {
                 key: 'createdByCoreUser',
-                title: 'Created By',
+                title: 'BY',
                 type: 'function',
-                function: (item) => item.createdByCoreUser ? `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` : 'System'
+                function: (item) => item.createdByCoreUser ?
+                    (item.createdByCoreUser.userId === item.donorAccountId ? item.donorAccount.donorName : `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}`)
+                    :
+                    'System'
             },
             {
                 key: 'dateUpdated',
-                title: 'Date Updated',
+                title: 'DATEUPDATED',
                 type: 'date',
                 format: 'YYYY-MM-DD HH:mm'
             },

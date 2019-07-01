@@ -62,11 +62,8 @@ function BankAccountTemplate({ form, imgPreview, title = 'Bank Account Informati
                         <div className="form__group f-col f-col-lrg-12">
                             Account Holder Information
                             <div className="f-row">
-                                <div className="form__group f-col f-col-lrg-6">
-                                    <BasicInput field={form.$('thirdPartyAccountHolder.firstName')} />
-                                </div>
-                                <div className="form__group f-col f-col-lrg-6">
-                                    <BasicInput field={form.$('thirdPartyAccountHolder.lastName')} />
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <BasicInput field={form.$('thirdPartyAccountHolder.name')} />
                                 </div>
 
                                 <AddressTemplate field={form.$('thirdPartyAccountHolder.address')} />

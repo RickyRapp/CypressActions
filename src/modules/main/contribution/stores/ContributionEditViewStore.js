@@ -22,7 +22,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers'];
+                    params.embed = ['payerInformation,address,emailAddress,phoneNumber,paymentType,bankAccount,createdByCoreUser,contributionStatus,donorAccount,coreUser,companyProfile,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers'];
                     let model = await contributionService.get(id, params);
                     if (model.json && JSON.parse(model.json).paymentTypeInformations) {
                         _.forOwn(JSON.parse(model.json).paymentTypeInformations, function (value, key) {

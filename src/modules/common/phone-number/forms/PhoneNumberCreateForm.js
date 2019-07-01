@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class PhoneNumberCreateForm extends FormBase {
     constructor(hooks) {
@@ -10,12 +11,12 @@ export default class PhoneNumberCreateForm extends FormBase {
             fields: [
                 {
                     name: 'number',
-                    label: 'PHONENUMBER.NUMBER',
+                    label: localizationService.t('PHONENUMBER.NUMBER'),
                     rules: 'required|string',
                 },
                 {
                     name: 'description',
-                    label: 'PHONENUMBER.DESCRIPTION',
+                    label: localizationService.t('PHONENUMBER.DESCRIPTION'),
                     rules: 'string',
                 },
             ]

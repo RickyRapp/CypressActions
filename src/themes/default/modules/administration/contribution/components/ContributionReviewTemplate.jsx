@@ -24,7 +24,7 @@ function ContributionReviewTemplate({ contributionReviewViewStore }) {
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
                             <label htmlFor={contribution.donorAccount.coreUser.firstName}>Donor Name</label>
-                            <strong>{`${contribution.donorAccount.coreUser.firstName} ${contribution.donorAccount.coreUser.lastName}`}</strong>
+                            <strong>{contribution.donorAccount.donorName}</strong>
                         </div>
                     </div>
                     <div className="form__group f-col f-col-lrg-6">

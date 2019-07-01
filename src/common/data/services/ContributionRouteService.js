@@ -5,7 +5,7 @@ class ContributionRouteService extends BaseRouteService {
   constructor() {
     super();
     this.base = 'contribution/';
-    this.queryParams = 'donorAccountId,confirmationNumber,amountRangeMin,amountRangeMax,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,searchFields';
+    this.queryParams = 'donorAccountId,confirmationNumber,amountRangeMin,amountRangeMax,dateCreatedStartDate,dateCreatedEndDate,paymentTypeIds,contributionStatusIds,page,rpp,sort,embed,fields,searchFields';
   }
 
   find(filter) {
@@ -13,7 +13,7 @@ class ContributionRouteService extends BaseRouteService {
   }
 
   get(id, options) {
-    return super.get(this.base + '{id}/{?embed}', id, options);
+    return super.get(this.base + '{id}/{?embed,fields}', id, options);
   }
 
   createContribution(id) {

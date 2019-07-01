@@ -16,11 +16,16 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
             actions: {
                 create: async bankAccount => {
                     let params = {};
-                    params.embed = ['coreUser,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
+                    params.embed = ['coreUser,companyProfile,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
                     const donorAccount = await donorAccountService.get(userId, params);
                     if (!bankAccount.thirdParty) {
-                        bankAccount.thirdPartyAccountHolder.firstName = donorAccount.coreUser.firstName;
-                        bankAccount.thirdPartyAccountHolder.lastName = donorAccount.coreUser.lastName;
+                        if (donorAccount.companyProfile) {
+                            bankAccount.thirdPartyAccountHolder.name = donorAccount.companyProfile.name;
+                        }
+                        else {
+                            bankAccount.thirdPartyAccountHolder.firstName = donorAccount.coreUser.firstName;
+                            bankAccount.thirdPartyAccountHolder.lastName = donorAccount.coreUser.lastName;
+                        }
                         var primaryDonorAccountAddress = _.find(donorAccount.donorAccountAddresses, { primary: true })
                         bankAccount.thirdPartyAccountHolder.address = primaryDonorAccountAddress.address;
                         var primaryDonorAccountEmailAddress = _.find(donorAccount.donorAccountEmailAddresses, { primary: true })
@@ -33,7 +38,6 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                             this.form.$('image').files[0],
                             donorPath + donorAccount.accountNumber + '/' + bankAccountPath + this.form.$('image').files[0].name
                         );
-                        // const response = await fileStreamService.createDonorAccountBankAccountImage(this.form.$('image').files[0], userId)
                         bankAccount.coreMediaVaultEntryId = fileResponse.data.id;
                     }
                     return await bankAccountService.createBankAccount(userId, bankAccount);

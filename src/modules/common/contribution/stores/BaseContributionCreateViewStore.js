@@ -2,6 +2,7 @@ import { action, observable, computed } from 'mobx';
 import { ContributionService, ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
+import { getDonorName } from 'core/utils';
 import _ from 'lodash';
 
 class BaseContributionCreateViewStore extends BaseEditViewStore {
@@ -71,12 +72,13 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
 
         let contributionSettingTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'contribution-setting-type');
         let contributionSettingTypeModels = await contributionSettingTypeLookupService.getAll();
+        _.remove(contributionSettingTypeModels.data, function (item) { return item.abrv === 'low-balance' });
         this.contributionSettingType = _.orderBy(contributionSettingTypeModels.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async getDonorAccount() {
         let params = {};
-        params.embed = ['coreUser,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber,contributionSettings'];
+        params.embed = ['coreUser,companyProfile,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber,contributionSettings'];
         this.donorAccount = await this.donorAccountService.get(this.userId, params)
     }
 
@@ -182,16 +184,14 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
             this.form.$('settingStartDate').set('rules', this.form.$('settingStartDate').rules + `|required_if:contributionSettingTypeId,${this.oneTimeId}|required_if:contributionSettingTypeId,${this.weeklyId}|required_if:contributionSettingTypeId,${this.monthlyId}|required_if:contributionSettingTypeId,${this.everyTwoWeeksId}|required_if:contributionSettingTypeId,${this.everyTwoMonthsId}|required_if:contributionSettingTypeId,${this.everySixMonthsId}`);
 
             //Default Values
-            this.form.$('payerInformation.firstName').set('default', this.donorAccount.coreUser.firstName);
-            this.form.$('payerInformation.lastName').set('default', this.donorAccount.coreUser.lastName);
+            this.form.$('payerInformation.name').set('default', getDonorName(this.donorAccount));
             this.form.$('payerInformation.address').set('default', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
             this.form.$('payerInformation.emailAddress').set('default', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
             this.form.$('payerInformation.phoneNumber').set('default', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
 
             //Values
             this.form.$('donorAccountId').set('value', this.donorAccount.id);
-            this.form.$('payerInformation.firstName').set('value', this.donorAccount.coreUser.firstName);
-            this.form.$('payerInformation.lastName').set('value', this.donorAccount.coreUser.lastName);
+            this.form.$('payerInformation.name').set('value', getDonorName(this.donorAccount));
             this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
             this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
             this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);

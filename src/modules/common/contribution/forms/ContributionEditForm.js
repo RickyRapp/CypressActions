@@ -47,13 +47,8 @@ export default class ContributionEditForm extends FormBase {
                     label: localizationService.t('CONTRIBUTIONEDITFORM.PAYERINFORMATION'),
                     fields: [
                         {
-                            name: 'firstName',
-                            label: localizationService.t('CONTRIBUTIONEDITFORM.PAYERINFORMATION.FIRSTNAME'),
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'lastName',
-                            label: localizationService.t('CONTRIBUTIONEDITFORM.PAYERINFORMATION.LASTNAME'),
+                            name: 'name',
+                            label: localizationService.t('CONTRIBUTIONEDITFORM.PAYERINFORMATION.NAME'),
                             rules: 'required|string'
                         },
                         {

@@ -9,8 +9,7 @@ function NonMemberTemplate({
     form,
     title = null,
     clearable = false,
-    firstNameColumn = 4,
-    lastNameColumn = 4,
+    nameColumn = 4,
     emailColumn = 4,
     emailDescriptionColumn = 4,
     numberColumn = 4,
@@ -33,11 +32,9 @@ function NonMemberTemplate({
                             <span className='icomoon sml icon-remove' onClick={() => form.clear()} title={t('CLEAR')} />
                         }</h5>
                 </div>}
-            <div className={`form__group f-col f-col-lrg-${firstNameColumn}`}>
-                <BasicInput field={form.$('firstName')} />
-            </div>
-            <div className={`form__group f-col f-col-lrg-${lastNameColumn}`}>
-                <BasicInput field={form.$('lastName')} />
+
+            <div className={`form__group f-col f-col-lrg-${nameColumn}`}>
+                <BasicInput field={form.$('name')} />
             </div>
 
             <AddressTemplate

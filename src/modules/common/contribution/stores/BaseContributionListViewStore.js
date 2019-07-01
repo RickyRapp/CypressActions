@@ -11,6 +11,21 @@ class BaseContributionListViewStore extends BaseListViewStore {
     @observable paymentTypes = null;
     @observable contributionId = null;
 
+    fields = [
+        'id',
+        'donorAccountId',
+        'dateUpdated',
+        'amount',
+        'confirmationNumber',
+        'contributionStatusId',
+        'paymentTypeId',
+        'payerInformation',
+        'payerInformation.name',
+        'createdByCoreUser',
+        'createdByCoreUser.userId',
+        'createdByCoreUser.firstName',
+        'createdByCoreUser.lastName'
+    ]
     setColumns = null;
     setActions = null;
     setRenderActions = null;

@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { localizationService } from 'core/services'
 
 export default class BankAccountForm extends FormBase {
     constructor(hooks) {
@@ -10,31 +11,27 @@ export default class BankAccountForm extends FormBase {
             fields: [
                 {
                     name: 'name',
-                    label: 'name',
-                    placeholder: 'Enter name',
+                    label: localizationService.t('BANKACCOUNT.NAME'),
                     rules: 'required|string'
                 },
                 {
                     name: 'accountNumber',
-                    label: 'Account Number',
-                    placeholder: 'Enter Account Number',
+                    label: localizationService.t('BANKACCOUNT.ACCOUNTNUMBER'),
                     rules: 'required|string'
                 },
                 {
                     name: 'routingNumber',
-                    label: 'Routing Number',
-                    placeholder: 'Enter Routing Number',
+                    label: localizationService.t('BANKACCOUNT.ROUTINGNUMBER'),
                     rules: 'required|string|digits:9'
                 },
                 {
                     name: 'description',
-                    label: 'Description',
-                    placeholder: 'Enter Description',
+                    label: localizationService.t('BANKACCOUNT.DESCRIPTION'),
                     rules: 'string'
                 },
                 {
                     name: 'image',
-                    label: 'Image',
+                    label: localizationService.t('BANKACCOUNT.IMAGE'),
                     type: 'file'
                 },
                 {
@@ -43,86 +40,70 @@ export default class BankAccountForm extends FormBase {
                 },
                 {
                     name: 'thirdParty',
-                    label: 'Third Party Bank Account',
+                    label: localizationService.t('BANKACCOUNT.THIRDPARTYBANKACCOUNT'),
                     rules: 'boolean',
                     value: false,
                     type: 'checkbox'
                 },
                 {
                     name: 'thirdPartyAccountHolder',
-                    label: 'Account Holder',
-                    fields:
-                        [{
-                            name: 'firstName',
-                            label: 'First Name',
-                            placeholder: 'Enter First Name',
-                            rules: 'string'
-                        },
+                    fields: [
                         {
-                            name: 'lastName',
-                            label: 'Last Name',
-                            placeholder: 'Enter Last Name',
+                            name: 'name',
+                            label: localizationService.t('BANKACCOUNT.THIRDPARTYACCOUNTHOLDERNAME'),
                             rules: 'string'
                         },
                         {
                             name: 'address',
-                            label: 'Address Information',
-                            fields:
-                                [{
+                            fields: [
+                                {
                                     name: 'addressLine1',
-                                    label: 'Address Line 1',
-                                    placeholder: 'Enter Address Line 1',
+                                    label: localizationService.t('ADDRESS.ADDRESSLINE1'),
                                     rules: 'string'
                                 },
                                 {
                                     name: 'addressLine2',
-                                    label: 'Address Line 2',
-                                    placeholder: 'Enter Address Line 2',
+                                    label: localizationService.t('ADDRESS.ADDRESSLINE2'),
                                     rules: 'string'
                                 },
                                 {
                                     name: 'city',
-                                    label: 'City',
-                                    placeholder: 'Enter City',
+                                    label: localizationService.t('ADDRESS.CITY'),
                                     rules: 'string'
                                 },
                                 {
                                     name: 'state',
-                                    label: 'State',
-                                    placeholder: 'Enter State',
+                                    label: localizationService.t('ADDRESS.STATE'),
                                     rules: 'string'
                                 },
                                 {
                                     name: 'zipCode',
-                                    label: 'Zip Code',
-                                    placeholder: 'Enter Zip Code',
+                                    label: localizationService.t('ADDRESS.ZIPCODE'),
                                     rules: 'string'
                                 }
-                                ]
+                            ]
                         },
                         {
                             name: 'emailAddress',
-                            label: 'Email Address Information',
-                            fields:
-                                [{
+                            fields: [
+                                {
                                     name: 'email',
-                                    label: 'Email',
-                                    placeholder: 'Enter Email',
+                                    label: localizationService.t('EMAILADDRESS.EMAIL'),
                                     rules: 'email'
-                                }]
+                                }
+                            ]
                         },
                         {
                             name: 'phoneNumber',
-                            label: 'Phone Number Information',
-                            fields:
-                                [{
+                            fields: [
+                                {
                                     name: 'number',
-                                    label: 'Phone Number',
-                                    placeholder: 'Enter Phone Number',
+                                    label: localizationService.t('PHONENUMBER.NUMBER'),
                                     rules: 'string'
-                                }]
+                                }
+                            ]
                         }
-                        ]
+                    ]
                 }
             ]
         };

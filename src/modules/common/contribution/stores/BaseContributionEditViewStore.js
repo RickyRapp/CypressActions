@@ -2,7 +2,7 @@ import { action, observable, computed, reaction } from 'mobx';
 import { ContributionService, ContributionSettingService, BankAccountService, LookupService, DonorAccountService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
-import moment from 'moment';
+import { getDonorName } from 'core/utils';
 import _ from 'lodash';
 
 class BaseContributionEditViewStore extends BaseEditViewStore {
@@ -144,9 +144,9 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
             this.form.$('estimatedValue').set('rules', this.form.$('estimatedValue').rules + `|required_if:paymentTypeId,${this.stockAndMutualFundsId}`);
             this.form.$('transactionId').set('rules', this.form.$('transactionId').rules + `|required_if:paymentTypeId,${this.chaseQuickPayId}`);
 
+            console.log(this.contribution.donorAccount)
             //Default Values
-            this.form.$('payerInformation.firstName').set('default', this.contribution.donorAccount.coreUser.firstName);
-            this.form.$('payerInformation.lastName').set('default', this.contribution.donorAccount.coreUser.lastName);
+            this.form.$('payerInformation.name').set('default', getDonorName(this.contribution.donorAccount));
             this.form.$('payerInformation.address').set('default', _.find(this.contribution.donorAccount.donorAccountAddresses, { primary: true }).address);
             this.form.$('payerInformation.emailAddress').set('default', _.find(this.contribution.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
             this.form.$('payerInformation.phoneNumber').set('default', _.find(this.contribution.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);

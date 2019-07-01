@@ -94,14 +94,9 @@ export default class DonorAccountEditForm extends FormBase {
                             name: 'contactPerson',
                             fields: [
                                 {
-                                    name: 'firstName',
-                                    label: localizationService.t('FIRSTNAME'),
-                                    rules: 'required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
-                                },
-                                {
-                                    name: 'lastName',
-                                    label: localizationService.t('LASTNAME'),
-                                    rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
+                                    name: 'name',
+                                    label: localizationService.t('NAME'),
+                                    rules: 'required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
                                 },
                                 {
                                     name: 'address',
@@ -109,7 +104,7 @@ export default class DonorAccountEditForm extends FormBase {
                                         {
                                             name: 'addressLine1',
                                             label: localizationService.t('ADDRESS.ADDRESSLINE1'),
-                                            rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
+                                            rules: 'required_with:companyProfile.contactPerson.name|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
                                         },
                                         {
                                             name: 'addressLine2',
@@ -118,17 +113,17 @@ export default class DonorAccountEditForm extends FormBase {
                                         {
                                             name: 'city',
                                             label: localizationService.t('ADDRESS.CITY'),
-                                            rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
+                                            rules: 'required_with:companyProfile.contactPerson.name|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
                                         },
                                         {
                                             name: 'state',
                                             label: localizationService.t('ADDRESS.STATE'),
-                                            rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
+                                            rules: 'required_with:companyProfile.contactPerson.name|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
                                         },
                                         {
                                             name: 'zipCode',
                                             label: localizationService.t('ADDRESS.ZIPCODE'),
-                                            rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
+                                            rules: 'required_with:companyProfile.contactPerson.name|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.emailAddress.email|required_with:companyProfile.contactPerson.phoneNumber.number|string'
                                         },
                                     ]
                                 },
@@ -138,7 +133,7 @@ export default class DonorAccountEditForm extends FormBase {
                                         {
                                             name: 'email',
                                             label: localizationService.t('EMAILADDRESS.EMAIL'),
-                                            rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.phoneNumber.number|string'
+                                            rules: 'required_with:companyProfile.contactPerson.name|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.phoneNumber.number|string'
                                         },
                                     ]
                                 },
@@ -148,7 +143,7 @@ export default class DonorAccountEditForm extends FormBase {
                                         {
                                             name: 'number',
                                             label: localizationService.t('PHONENUMBER.NUMBER'),
-                                            rules: 'required_with:companyProfile.contactPerson.firstName|required_with:companyProfile.contactPerson.lastName|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|string',
+                                            rules: 'required_with:companyProfile.contactPerson.name|required_with:companyProfile.contactPerson.address.addressLine1|required_with:companyProfile.contactPerson.address.addressLine2|required_with:companyProfile.contactPerson.address.city|required_with:companyProfile.contactPerson.address.state|required_with:companyProfile.contactPerson.address.zipCode|required_with:companyProfile.contactPerson.emailAddress.email|string',
                                             options: {
                                                 validateOnChange: true
                                             }

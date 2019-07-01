@@ -152,13 +152,8 @@ export default class CharityCreateForm extends FormBase {
                     label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION'),
                     fields: [
                         {
-                            name: 'firstName',
-                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.FIRSTNAME'),
-                            rules: 'required_if:hasContact,true|string',
-                        },
-                        {
-                            name: 'lastName',
-                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.LASTNAME'),
+                            name: 'name',
+                            label: localizationService.t('CHARITYCREATEFORM.CONTACTINFORMATION.NAME'),
                             rules: 'required_if:hasContact,true|string',
                         },
                         {

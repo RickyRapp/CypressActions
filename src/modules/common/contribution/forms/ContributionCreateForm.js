@@ -44,13 +44,8 @@ export default class ContributionCreateForm extends FormBase {
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.PAYERINFORMATION'),
                     fields: [
                         {
-                            name: 'firstName',
-                            label: localizationService.t('CONTRIBUTIONCREATEFORM.PAYERINFORMATION.FIRSTNAME'),
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'lastName',
-                            label: localizationService.t('CONTRIBUTIONCREATEFORM.PAYERINFORMATION.LASTNAME'),
+                            name: 'name',
+                            label: localizationService.t('CONTRIBUTIONCREATEFORM.PAYERINFORMATION.NAME'),
                             rules: 'required|string'
                         },
                         {

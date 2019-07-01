@@ -81,7 +81,14 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 
                         {form.$('isCompany').value &&
                             <React.Fragment>
-                                <NonMemberTemplate form={form.$('companyProfile.contactPerson')} title="Contact Informations" clearable={true} />
+                                <NonMemberTemplate
+                                    form={form.$('companyProfile.contactPerson')}
+                                    title="Contact Informations"
+                                    nameColumn={6}
+                                    addressLine1Column={6} addressLine2Column={4} cityColumn={3} stateColumn={3} zipCodeColumn={2}
+                                    emailColumn={6}
+                                    numberColumn={6}
+                                    clearable={true} />
                             </React.Fragment>}
 
                         <DonorAccountSettingsTemplate
