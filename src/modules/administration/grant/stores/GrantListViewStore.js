@@ -89,7 +89,10 @@ class GrantListViewStore extends BaseGrantListViewStore {
                 key: 'createdByCoreUser',
                 title: 'BY',
                 type: 'function',
-                function: (item) => { return item.createdByCoreUser ? `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}` : 'System' },
+                function: (item) => item.createdByCoreUser ?
+                    (item.createdByCoreUser.userId === item.donorAccountId ? item.donorAccount.donorName : `${item.createdByCoreUser.firstName} ${item.createdByCoreUser.lastName}`)
+                    :
+                    'System'
             },
             {
                 key: 'donationStatusId',

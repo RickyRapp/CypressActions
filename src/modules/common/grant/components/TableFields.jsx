@@ -12,9 +12,9 @@ const renderGrantPurposeType = (item, grantPurposeTypeModels) => {
         return (
             <React.Fragment>
                 {base}
-                <span className='icomoon icon-style-two-pin-information' data-tip data-for={`purpose_${item.id}`} />
+                <span className='icomoon icon-alert-circle' data-tip data-for={`purpose_${item.id}`} />
                 <ReactTooltip type='info' effect='solid' id={`purpose_${item.id}`}>
-                    <span>{`${item.grantPurposeMember.firstName} ${item.grantPurposeMember.lastName}`}</span>
+                    <span>{item.grantPurposeMember.name}</span>
                 </ReactTooltip>
             </React.Fragment>);
     }
@@ -22,9 +22,18 @@ const renderGrantPurposeType = (item, grantPurposeTypeModels) => {
         return (
             <React.Fragment>
                 {base}
-                <span className='icomoon icon-style-two-pin-information' data-tip data-for={`purpose_${item.id}`} />
+                <span className='icomoon icon-alert-circle' data-tip data-for={`purpose_${item.id}`} />
                 <ReactTooltip type='info' effect='solid' id={`purpose_${item.id}`}>
                     <span>{item.additionalInformation}</span>
+                </ReactTooltip>
+            </React.Fragment>);
+    else if (item.grantPurposeTypeId === _.find(grantPurposeTypeModels, { abrv: 'charity-event' }).id)
+        return (
+            <React.Fragment>
+                {base}
+                <span className='icomoon icon-alert-circle' data-tip data-for={`purpose_${item.id}`} />
+                <ReactTooltip type='info' effect='solid' id={`purpose_${item.id}`}>
+                    <span>{item.charityEventAttending ? 'Attending' : 'Not Attending'}</span>
                 </ReactTooltip>
             </React.Fragment>);
     else
