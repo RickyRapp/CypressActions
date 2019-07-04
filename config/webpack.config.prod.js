@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
@@ -149,29 +150,31 @@ module.exports = merge(commonConfig({ env: env }), {
       chunks: ['common', 'polyfills', 'commonModules', 'appModules', 'app'],
       chunksSortMode: 'manual',
     }),
-    // // Minify the code.
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     //warnings: false,
-    //     // Disabled because of an issue with Uglify breaking seemingly valid code:
-    //     // https://github.com/facebookincubator/create-react-app/issues/2376
-    //     // Pending further investigation:
-    //     // https://github.com/mishoo/UglifyJS2/issues/2011
-    //     comparisons: false,
-    //     warnings: true,
-    //     reduce_vars: true
-    //   },
-    //   mangle: {
-    //     safari10: true,
-    //   },
-    //   output: {
-    //     comments: false,
-    //     // Turned on because emoji and regex is not minified properly using default
-    //     // https://github.com/facebookincubator/create-react-app/issues/2488
-    //     ascii_only: true,
-    //   },
-    //   sourceMap: shouldUseSourceMap,
-    // }),
+    // Minify the code.
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        compress: {
+          //warnings: false,
+          // disabled because of an issue with uglify breaking seemingly valid code:
+          // https://github.com/facebookincubator/create-react-app/issues/2376
+          // pending further investigation:
+          // https://github.com/mishoo/uglifyjs2/issues/2011
+          comparisons: false,
+          warnings: true,
+          reduce_vars: true
+        },
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          comments: false,
+          // turned on because emoji and regex is not minified properly using default
+          // https://github.com/facebookincubator/create-react-app/issues/2488
+          ascii_only: true,
+        },
+        sourcemap: shouldUseSourceMap,
+      }
+    }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,
