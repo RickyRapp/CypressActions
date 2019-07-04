@@ -36,7 +36,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
         this.columns = [
             {
                 key: 'amount',
-                title: 'Amount',
+                title: 'Debit/Credit',
                 type: 'function',
                 function: this.renderAmount
             },
