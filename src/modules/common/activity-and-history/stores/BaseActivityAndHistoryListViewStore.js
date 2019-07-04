@@ -112,14 +112,14 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
     @action.bound setStores() {
         this.paymentTransactionStatusDropdownStore = new BaasicDropdownStore(
             {
-                multi: false,
+                multi: true,
                 placeholder: 'Choose Payment Transaction Status',
                 textField: 'name',
                 dataItemKey: 'id',
                 isClearable: true
             },
             {
-                onChange: (option) => this.queryUtility.filter.paymentTransactionStatusId = (option ? option.id : null)
+                onChange: (options) => this.queryUtility.filter.paymentTransactionStatusIds = (options ? _.map(options, item => { return item.id }) : null)
             },
             _.map(_.orderBy(this.paymentTransactionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
         );

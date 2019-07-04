@@ -10,7 +10,7 @@ class ActivityAndHistoryRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,done,paymentTransactionTypeId,paymentTransactionStatusId,amountRangeMin,amountRangeMax,page,rpp,sort,embed,fields,searchFields}', filter);
+        return super.find(this.base + '/{?donorAccountId,done,paymentTransactionTypeIds,paymentTransactionStatusIds,done,amountRangeMin,amountRangeMax,page,rpp,sort,embed,fields,searchFields}', filter);
     }
 }
 

@@ -81,10 +81,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
 
         this.setColumns = [
             {
-                key: 'donorAccount.coreUser',
+                key: 'donorAccount.donorName',
                 title: 'DONORNAME',
-                type: 'function',
-                function: (item) => getDonorName(item.donorAccount),
                 onClick: item => this.routes.donorAccountEdit(item.donorAccountId)
             },
             {

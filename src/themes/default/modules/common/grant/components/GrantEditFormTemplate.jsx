@@ -63,31 +63,42 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
                     {grantPurposeTypeDropdownStore &&
                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />}
                 </div>
+
+                {form.$('grantPurposeTypeId').value === inMemoryOfId &&
+                    <div className="form__group f-col f-col-lrg-6">
+                        <InMemoryOfEventPurposeType fieldName={form.$('grantPurposeMember.name')} t={t} />
+                    </div>}
+
+                {form.$('grantPurposeTypeId').value === inHonorOfId &&
+                    <div className="form__group f-col f-col-lrg-6">
+                        <InHonorOfEventPurposeType fieldName={form.$('grantPurposeMember.name')} t={t} />
+                    </div>}
+
+                {form.$('grantPurposeTypeId').value === sponsorAFriendId &&
+                    <div className="form__group f-col f-col-lrg-6">
+                        <SponsorAFriendPurposeType fieldName={form.$('grantPurposeMember.name')} t={t} />
+                    </div>}
+
+                {form.$('grantPurposeTypeId').value === otherId &&
+                    <div className="form__group f-col f-col-lrg-12">
+                        <OtherPurposeType field={form.$('additionalInformation')} t={t} />
+                    </div>}
+
+                {form.$('grantPurposeTypeId').value === charityEventId &&
+                    <div className="form__group f-col f-col-lrg-12">
+                        <CharityEventPurposeType field={form.$('charityEventAttending')} t={t} />
+                    </div>}
+
+                {form.$('grantPurposeTypeId').value === membershipId &&
+                    <div className="form__group f-col f-col-lrg-6 spc--top--sml">
+                        <MembershipPurposeType t={t} />
+                    </div>}
+
+                {form.$('grantPurposeTypeId').value === nonBindingPledgeId &&
+                    <div className="form__group f-col f-col-lrg-12">
+                        <NonBindingPledgePurposeType t={t} />
+                    </div>}
             </div>
-
-            {form.$('grantPurposeTypeId').value &&
-                <React.Fragment>
-                    {form.$('grantPurposeTypeId').value === inMemoryOfId &&
-                        <InMemoryOfEventPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
-
-                    {form.$('grantPurposeTypeId').value === inHonorOfId &&
-                        <InHonorOfEventPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
-
-                    {form.$('grantPurposeTypeId').value === sponsorAFriendId &&
-                        <SponsorAFriendPurposeType fieldFirstName={form.$('grantPurposeMember.firstName')} fieldLastName={form.$('grantPurposeMember.lastName')} t={t} />}
-
-                    {form.$('grantPurposeTypeId').value === otherId &&
-                        <OtherPurposeType field={form.$('additionalInformation')} t={t} />}
-
-                    {form.$('grantPurposeTypeId').value === charityEventId &&
-                        <CharityEventPurposeType field={form.$('charityEventAttending')} t={t} />}
-
-                    {form.$('grantPurposeTypeId').value === membershipId &&
-                        <MembershipPurposeType t={t} />}
-
-                    {form.$('grantPurposeTypeId').value === nonBindingPledgeId &&
-                        <NonBindingPledgePurposeType t={t} />}
-                </React.Fragment>}
 
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-6">

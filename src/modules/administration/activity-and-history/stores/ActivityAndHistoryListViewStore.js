@@ -38,9 +38,14 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
         this.columns = [
             {
                 key: 'amount',
-                title: 'Amount',
+                title: 'Debit/Credit',
                 type: 'function',
                 function: this.renderAmount
+            },
+            {
+                key: 'userBalance',
+                title: 'Current Balance',
+                type: 'currency'
             },
             {
                 key: 'dateCreated',
@@ -64,7 +69,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                 title: 'Details',
                 type: 'function',
                 function: this.renderText
-            },
+            }
         ];
 
         this.rootStore = rootStore;

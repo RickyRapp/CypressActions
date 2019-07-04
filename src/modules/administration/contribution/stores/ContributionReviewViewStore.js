@@ -21,7 +21,7 @@ class ContributionReviewViewStore extends BaseViewStore {
         this.loaderStore.suspend();
         let params = {};
         params.embed = ['donorAccount', 'donorAccount.coreUser', 'donorAccount.companyProfile'];
-        params.fields = ['amount', 'donorAccount', 'donorAccount.donorName', 'contributionStatusId']
+        params.fields = ['id', 'amount', 'donorAccount', 'donorAccount.donorName', 'contributionStatusId']
         let model = await this.contributionService.get(this.id, params);
         this.contribution = model;
 

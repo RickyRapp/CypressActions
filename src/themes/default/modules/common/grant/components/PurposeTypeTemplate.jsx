@@ -33,41 +33,32 @@ const CharityEventPurposeType = defaultTemplate(({ field, t }) => {
     )
 });
 
-function InMemoryOfEventPurposeType({ fieldFirstName, fieldLastName }) {
+function InMemoryOfEventPurposeType({ fieldName }) {
     return (
         <div className="f-row">
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={fieldFirstName} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={fieldLastName} />
+            <div className="form__group f-col f-col-lrg-12">
+                <BasicInput field={fieldName} />
             </div>
         </div>
     )
 }
 
 
-function InHonorOfEventPurposeType({ fieldFirstName, fieldLastName }) {
+function InHonorOfEventPurposeType({ fieldName }) {
     return (
         <div className="f-row">
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={fieldFirstName} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={fieldLastName} />
+            <div className="form__group f-col f-col-lrg-12">
+                <BasicInput field={fieldName} />
             </div>
         </div>
     )
 }
 
-function SponsorAFriendPurposeType({ fieldFirstName, fieldLastName }) {
+function SponsorAFriendPurposeType({ fieldName }) {
     return (
         <div className="f-row">
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={fieldFirstName} />
-            </div>
-            <div className="form__group f-col f-col-lrg-6">
-                <BasicInput field={fieldLastName} />
+            <div className="form__group f-col f-col-lrg-12">
+                <BasicInput field={fieldName} />
             </div>
         </div>
     )

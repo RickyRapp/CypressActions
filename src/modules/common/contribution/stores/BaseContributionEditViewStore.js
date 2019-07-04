@@ -144,7 +144,6 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
             this.form.$('estimatedValue').set('rules', this.form.$('estimatedValue').rules + `|required_if:paymentTypeId,${this.stockAndMutualFundsId}`);
             this.form.$('transactionId').set('rules', this.form.$('transactionId').rules + `|required_if:paymentTypeId,${this.chaseQuickPayId}`);
 
-            console.log(this.contribution.donorAccount)
             //Default Values
             this.form.$('payerInformation.name').set('default', getDonorName(this.contribution.donorAccount));
             this.form.$('payerInformation.address').set('default', _.find(this.contribution.donorAccount.donorAccountAddresses, { primary: true }).address);

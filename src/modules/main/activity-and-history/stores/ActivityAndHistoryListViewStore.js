@@ -41,6 +41,11 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                 function: this.renderAmount
             },
             {
+                key: 'userBalance',
+                title: 'Current Balance',
+                type: 'currency'
+            },
+            {
                 key: 'dateCreated',
                 title: 'Date Created',
                 type: 'date',

@@ -26,7 +26,7 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
             },
             actions: {
                 find: async params => {
-                    params.embed = 'senderDonorAccount,recipientDonorAccount,coreUser,createdByCoreUser';
+                    params.embed = 'senderDonorAccount,recipientDonorAccount,coreUser,companyProfile,createdByCoreUser';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await fundTransferService.find(params);
@@ -45,16 +45,12 @@ class FundTransferListViewStore extends BaseFundTransferListViewStore {
                 type: 'currency',
             },
             {
-                key: 'senderDonorAccount.coreUser',
-                title: 'SENDER',
-                type: 'function',
-                function: (item) => { return `${item.senderDonorAccount.coreUser.firstName} ${item.senderDonorAccount.coreUser.lastName}` }
+                key: 'senderDonorAccount.donorName',
+                title: 'SENDER'
             },
             {
-                key: 'recipientDonorAccount.coreUser',
-                title: 'RECIPIENT',
-                type: 'function',
-                function: (item) => { return `${item.recipientDonorAccount.coreUser.firstName} ${item.recipientDonorAccount.coreUser.lastName}` }
+                key: 'recipientDonorAccount.donorName',
+                title: 'RECIPIENT'
             },
             {
                 key: 'description',

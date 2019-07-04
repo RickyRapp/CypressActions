@@ -40,7 +40,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,grantPurposeMember,charity,grantScheduledPayment';
+                    params.embed = 'createdByCoreUser,donorAccount,coreUser,companyProfile,grantPurposeMember,charity,grantScheduledPayment';
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await grantService.find(params);
@@ -71,10 +71,8 @@ class GrantListViewStore extends BaseGrantListViewStore {
 
         this.setColumns = [
             {
-                key: 'donorAccount.coreUser',
-                title: 'DONORACCOUNT(CLICKONROW)',
-                type: 'function',
-                function: (item) => { return `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}` },
+                key: 'donorAccount.donorName',
+                title: 'DONORNAME',
                 onClick: (item) => this.routes.donorAccountEdit(item.donorAccount.id)
             },
             {

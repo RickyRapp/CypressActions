@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumericRangeFilter, DateRangeFilter, DropdownFilter } from 'core/components';
+import { NumericRangeFilter, DateRangeFilter, DropdownFilter, ThreeStateToggleFilter } from 'core/components';
 
 function ActivityAndHistoryFilterBaseTemplate({ queryUtility, paymentTransactionStatusDropdownStore }) {
     return (
@@ -8,13 +8,10 @@ function ActivityAndHistoryFilterBaseTemplate({ queryUtility, paymentTransaction
                 {paymentTransactionStatusDropdownStore &&
                     <DropdownFilter
                         queryUtility={queryUtility}
-                        name="paymentTransactionStatusId"
+                        name="paymentTransactionStatusIds"
                         store={paymentTransactionStatusDropdownStore}
                     />}
             </div>
-            {/*
-                                    add support for three-state checkbox 
-                                */}
             <div className="f-col f-col-lrg-4 pos--rel spc--right--sml">
                 <NumericRangeFilter
                     queryUtility={queryUtility}
@@ -29,6 +26,13 @@ function ActivityAndHistoryFilterBaseTemplate({ queryUtility, paymentTransaction
                     queryUtility={queryUtility}
                     nameMin="dateCreatedStartDate"
                     nameMax="dateCreatedEndDate"
+                />
+            </div>
+            <div className="f-col f-col-lrg-3">
+                <ThreeStateToggleFilter
+                    queryUtility={queryUtility}
+                    name="done"
+                    title="Done Transaction"
                 />
             </div>
         </React.Fragment>

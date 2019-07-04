@@ -44,7 +44,6 @@ export default class GrantCreateForm extends FormBase {
                 },
                 {
                     name: 'grantPurposeMember',
-                    label: localizationService.t('GRANTCREATEEDITFORM.GRANTPURPOSEMEMBER'),
                     fields: [
                         {
                             name: 'name',

@@ -307,6 +307,9 @@
         "GRANTSCHEDULEDNAME": "Name For Scheduled Payment",
         "FUTUREDATE": "Future Date",
         "CHARITYEVENTATTENDING": "Attending",
+        "GRANTPURPOSEMEMBER": {
+            "NAME": "Name"
+        },
         "PURPOSECHARITYEVENTATTENDING": "The IRS prohibits using donor-advised funds to pay for tickets to attend a charity event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
         "PURPOSECHARITYEVENTNOTATTENDING": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
         "PURPOSEMEMBERSHIP": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
