@@ -62,7 +62,7 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
         else if (item.paymentTransactionTypeId === debitId) {
             amount = `-${item.amount}`
         }
-        return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} />;
+        return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />;
     }
 
     @action.bound renderStatus(item) {
@@ -94,6 +94,9 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
         }
         else if (item.grantId) {
             return 'Grant';
+        }
+        else if (item.bookletOrderId) {
+            return 'Booklet Order';
         }
         else if (item.feeId) {
             return 'Fee';

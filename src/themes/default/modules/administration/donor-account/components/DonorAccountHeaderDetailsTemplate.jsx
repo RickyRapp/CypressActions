@@ -73,7 +73,7 @@ function renderDonorAccount(donorAccount, rootStore) {
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-2">
                     Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
                 </div>
             </div>
         </React.Fragment>
@@ -92,7 +92,7 @@ function renderContribution(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Initial Contribution:
@@ -126,7 +126,7 @@ function renderContributionSetting(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Initial Contribution:
@@ -152,11 +152,11 @@ function renderActivityAndHistory(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Balance On Hold:
-                <NumberFormat value={donorAccount.balanceOnHold} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.balanceOnHold} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
         </div>
     )
@@ -174,15 +174,15 @@ function renderGrant(donorAccount, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Line Of Credit:
-                <NumberFormat value={donorAccount.lineOfCredit} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={donorAccount.lineOfCredit} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-3">
                 Grant Fee:
-                <NumberFormat value={donorAccount.grantFee} displayType={'text'} thousandSeparator={true} suffix={'%'} />
+                <NumberFormat value={donorAccount.grantFee} displayType={'text'} thousandSeparator={true} suffix={'%'} decimalScale={2} fixedDecimalScale={true} />
             </div>
         </div>
     )
