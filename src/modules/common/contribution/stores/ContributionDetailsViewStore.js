@@ -7,6 +7,8 @@ class ContributionDetailsViewStore extends BaseViewStore {
     @observable contributionStatuses = null;
     @observable contribution = null;
     @observable paymentTypes = null;
+    @observable paymentTransactionStatuses = null;
+    @observable paymentTransactionTypes = null;
 
     fields = [
         'id',
@@ -31,15 +33,28 @@ class ContributionDetailsViewStore extends BaseViewStore {
         'payerInformation.emailAddress',
         'payerInformation.emailAddress.email',
         'payerInformation.phoneNumber',
-        'payerInformation.phoneNumber.number'
+        'payerInformation.phoneNumber.number',
+        'contributionTransactions',
+        'contributionTransactions.id',
+        'contributionTransactions.dateCreated',
+        'contributionTransactions.paymentTransaction',
+        'contributionTransactions.paymentTransaction.id',
+        'contributionTransactions.paymentTransaction.amount',
+        'contributionTransactions.paymentTransaction.description',
+        'contributionTransactions.paymentTransaction.userBalance',
+        'contributionTransactions.paymentTransaction.paymentTransactionStatusId',
+        'contributionTransactions.paymentTransaction.paymentTransactionTypeId',
     ]
 
-    constructor(rootStore, { id }) {
+    constructor(rootStore, { id, highlightId }) {
         super(rootStore);
 
         this.id = id;
+        this.highlightId = highlightId;
         this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
+        this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
+        this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
 
         this.load();
     }
@@ -49,7 +64,7 @@ class ContributionDetailsViewStore extends BaseViewStore {
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['bankAccount,payerInformation,payerInformation.address,payerInformation.emailAddress,payerInformation.phoneNumber'];
+        params.embed = ['bankAccount,payerInformation,payerInformation.address,payerInformation.emailAddress,payerInformation.phoneNumber,contributionTransaction,contributionTransactions,contributionTransactions.paymentTransaction'];
         params.fields = this.fields;
         let model = await this.contributionService.get(this.id, params);
         if (model.json && JSON.parse(model.json).paymentTypeInformations) {
@@ -62,8 +77,14 @@ class ContributionDetailsViewStore extends BaseViewStore {
     }
 
     @action.bound async loadLookups() {
-        let paymentTypeModels = await this.paymentTypeLookup.getAll();
+        const paymentTypeModels = await this.paymentTypeLookup.getAll();
         this.paymentTypes = _.orderBy(paymentTypeModels.data, ['sortOrder'], ['asc']);
+
+        const paymentTransactionStatusModels = await this.paymentTransactionStatusLookup.getAll();
+        this.paymentTransactionStatuses = _.orderBy(paymentTransactionStatusModels.data, ['sortOrder'], ['asc']);
+
+        const paymentTransactionTypeModels = await this.paymentTransactionTypeLookup.getAll();
+        this.paymentTransactionTypes = _.orderBy(paymentTransactionTypeModels.data, ['sortOrder'], ['asc']);
     }
 }
 

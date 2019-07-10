@@ -6,12 +6,17 @@ import _ from 'lodash';
 
 class GrantDetailsViewStore extends BaseViewStore {
     @observable grant = null;
+    @observable paymentTransactionStatuses = null;
+    @observable paymentTransactionTypes = null;
 
-    constructor(rootStore, { id }) {
+    constructor(rootStore, { id, highlightId }) {
         super(rootStore);
 
         this.id = id;
+        this.highlightId = highlightId;
         this.grantService = new GrantService(rootStore.app.baasic.apiClient);
+        this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
+        this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
 
         this.load();
     }
@@ -21,13 +26,18 @@ class GrantDetailsViewStore extends BaseViewStore {
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['charity,donorAccount,coreUser,grantPurposeMember'];
+        params.embed = ['charity,donorAccount,coreUser,grantPurposeMember,grantDonorAccountTransactions,paymentTransaction,fee'];
         let model = await this.grantService.get(this.id, params);
         this.grant = model;
         this.loaderStore.resume();
     }
 
     @action.bound async loadLookups() {
+        const paymentTransactionStatusModels = await this.paymentTransactionStatusLookup.getAll();
+        this.paymentTransactionStatuses = _.orderBy(paymentTransactionStatusModels.data, ['sortOrder'], ['asc']);
+
+        const paymentTransactionTypeModels = await this.paymentTransactionTypeLookup.getAll();
+        this.paymentTransactionTypes = _.orderBy(paymentTransactionTypeModels.data, ['sortOrder'], ['asc']);
     }
 }
 

@@ -19,6 +19,8 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         paymentTransaction
     } = activityAndHistoryListViewStore;
 
+    console.log(paymentTransaction)
+
     return (
         <React.Fragment>
             <ListLayout loading={loaderStore.loading}>
@@ -43,7 +45,7 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                         </React.Fragment>
                     </TableFilter>
                 </div>
-                {tableStore && 
+                {tableStore &&
                     <BaasicTable
                         tableStore={tableStore}
                         loading={loaderStore.loading}
@@ -52,9 +54,11 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                     <BaasicModal modalParams={detailsModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">
                             {paymentTransaction.grantId &&
-                                <GrantDetails id={paymentTransaction.grantId} />}
+                                <GrantDetails id={paymentTransaction.grantId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.contributionId &&
-                                <ContributionDetails id={paymentTransaction.contributionId} />}
+                                <ContributionDetails id={paymentTransaction.contributionId} highlightId={paymentTransaction.id} />}
+                            {paymentTransaction.bookletOrderId &&
+                                <div>TODO</div>}
                         </div>
                     </BaasicModal>}
             </ListLayout>

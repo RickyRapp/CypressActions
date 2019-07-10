@@ -1,13 +1,19 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
 import moment from 'moment';
+import _ from 'lodash';
 import { Loader } from 'core/components';
+import NumberFormat from 'react-number-format';
+import ReactTooltip from 'react-tooltip'
 
 function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
     const {
         loaderStore,
         contribution,
         paymentTypes,
+        paymentTransactionStatuses,
+        paymentTransactionTypes,
+        highlightId
     } = contributionDetailsViewStore;
 
     const achId = paymentTypes ? _.find(paymentTypes, { abrv: 'ach' }).id : null;
@@ -176,6 +182,48 @@ function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
                             <strong>Number</strong>
                             {contribution.payerInformation.phoneNumber.number}
                         </div>
+                    </div>
+                    <div className="f-row">
+                        <div className="form__group f-col f-col-lrg-12">
+                            <strong>Payment Transactions</strong>
+                        </div>
+
+                        {contribution.contributionTransactions.sort(function (a, b) { return new Date(a.dateCreated) - new Date(b.dateCreated) }).map(item => {
+                            return (
+                                <div className="form__group f-col f-col-lrg-12" key={item.id} style={item.paymentTransaction.id === highlightId ? { backgroundColor: 'lightgray' } : null}>
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <strong>Date Created</strong>
+                                        {moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}
+                                    </div>
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <strong>Amount</strong>
+                                        {_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount}
+                                        {item.paymentTransaction.description &&
+                                            <React.Fragment>
+                                                <span className='icomoon tiny icon-alert-circle' data-tip data-for={`description_${item.paymentTransaction.id}`} />
+                                                <ReactTooltip type='info' effect='solid' place="right" id={`description_${item.paymentTransaction.id}`}>
+                                                    <p>{item.paymentTransaction.description}</p>
+                                                </ReactTooltip>
+                                            </React.Fragment>}
+                                    </div>
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <strong>Balance</strong>
+                                        {item.paymentTransaction.userBalance}
+                                    </div>
+                                    <div className="form__group f-col f-col-lrg-3">
+                                        <strong>Status</strong>
+                                        {_.find(paymentTransactionStatuses, { id: item.paymentTransaction.paymentTransactionStatusId }).name}
+                                        {item.paymentTransaction.id === highlightId &&
+                                            <span className="spc--left--lrg">
+                                                <span className='icomoon tiny icon-question-circle' data-tip data-for={`highlightId_${item.paymentTransaction.id}`} />
+                                                <ReactTooltip type='info' effect='solid' place="right" id={`highlightId_${item.paymentTransaction.id}`}>
+                                                    <p>Selected Transaction</p>
+                                                </ReactTooltip>
+                                            </span>}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </React.Fragment>}
         </React.Fragment>

@@ -33,7 +33,7 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
             onDetails: paymentTransaction => { this.paymentTransaction = paymentTransaction; this.detailsModalParams.open(); }
         };
         this.defaultRenderActions = {
-            renderDetails: (paymentTransaction) => paymentTransaction.contributionId || paymentTransaction.grantId
+            renderDetails: (paymentTransaction) => paymentTransaction.contributionId || paymentTransaction.grantId || paymentTransaction.feeId || paymentTransaction.bookletOrderId
         };
     }
 
@@ -77,7 +77,7 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
                 {itemValue}
                 {description &&
                     <React.Fragment>
-                        <span className='icomoon tiny icon-cog' data-tip data-for={`description_${item.id}`} />
+                        <span className='icomoon tiny icon-alert-circle' data-tip data-for={`description_${item.id}`} />
                         <ReactTooltip type='info' effect='solid' place="right" id={`description_${item.id}`}>
                             <p>{description}</p>
                         </ReactTooltip>
@@ -92,10 +92,10 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
         else if (item.fundTransferId) {
             return 'Fund Transfer';
         }
-        else if (item.grantId) {
+        else if (item.grantId && !item.feeId) {
             return 'Grant';
         }
-        else if (item.bookletOrderId) {
+        else if (item.bookletOrderId && !item.feeId) {
             return 'Booklet Order';
         }
         else if (item.feeId) {
