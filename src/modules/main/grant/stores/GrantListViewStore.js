@@ -62,7 +62,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
         this.setColumns = [
             {
                 key: 'charity.name',
-                title: 'CHARITY(CLICKONROW)',
+                title: 'CHARITY',
                 onClick: (item) => this.routes.charityEdit(item.charity.id)
             },
             {
@@ -93,7 +93,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
             },
             {
                 key: 'grantScheduledPayment.name',
-                title: 'PARTOF(CLICKONROW)',
+                title: 'PARTOF',
                 onClick: (item) => this.routes.grantScheduledPaymentEdit(item.grantScheduledPayment.name)
             },
             {

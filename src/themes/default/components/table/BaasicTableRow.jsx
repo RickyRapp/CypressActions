@@ -111,9 +111,10 @@ function renderRow(item, column) {
     itemValue = baseItem;
   }
 
+  let icon = 'icomoon icon-hyperlink-3 align--v--middle spc--right--sml';
   return (
     <td key={column.key} className="table__body--data">
-      <div {...rowProps}>{itemValue}</div>
+      <div {...rowProps}>{itemValue}  {itemValue && rowProps.onClick && <i className={icon} title="Link"></i>} </div>
     </td>
   );
 }

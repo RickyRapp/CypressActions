@@ -101,7 +101,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
                 title: 'STATUS',
                 type: 'function',
                 function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name,
-                onHeaderClick: (column) => this.queryUtility.changeOrder('contributionStatus.sortOrder')
+                // onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'paymentTypeId',

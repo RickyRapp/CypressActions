@@ -1,4 +1,6 @@
+import React from 'react'
 import _ from 'lodash';
+import NumberFormat from 'react-number-format';
 
 function getDonorName(val, middleName = true) {
     let fullName = null;
@@ -67,6 +69,29 @@ function formatCharityTaxId(val) {
     return '';
 }
 
+function formatDenomination(item, longer = false) {
+    if (item) {
+        const totalCert = <NumberFormat
+            value={item.value * item.certificateAmount}
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix={'$'}
+            decimalScale={longer ? 2 : 0}
+            fixedDecimalScale={true} />;
+
+        const oneCert = <NumberFormat
+            value={item.value}
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix={'$'}
+            decimalScale={longer ? 2 : 0}
+            fixedDecimalScale={true} />;
+
+        return <span>{oneCert} ({item.certificateAmount} {longer ? 'certificates' : 'cert.'} - {totalCert})</span>
+    }
+    return '';
+}
+
 function isErrorCode(statusCode) {
     return statusCode >= 400 && statusCode < 506;
 }
@@ -86,5 +111,5 @@ function converter(fileSize, from, to) {
 
 export {
     getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName, formatCharityTaxId,
-    isErrorCode, isSuccessCode, converter
+    isErrorCode, isSuccessCode, converter, formatDenomination
 };

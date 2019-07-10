@@ -7,6 +7,11 @@ import {
 import { isSome, renderIf, defaultTemplate } from 'core/utils';
 import { BaasicTableActions } from 'core/components';
 
+const sortDirection = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
 function hasAction(actions) {
   return actions && (actions.onEdit || actions.onDelete);
 }
@@ -50,13 +55,19 @@ function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect 
                   );
                 }
 
+                let icon = 'icomoon icon-hyperlink align--v--middle spc--right--sml';
+                const ascIcon = 'icomoon icon-arrow-down-1 align--v--middle spc--right--sml'
+                const descIcon = 'icomoon icon-arrow-up-1 align--v--middle spc--right--sml'
+                if (queryUtility && queryUtility.filter && queryUtility.filter && queryUtility.filter.orderBy === column.key) {
+                  icon = queryUtility.filter.orderDirection === sortDirection.asc ? descIcon : ascIcon
+                }
                 return (
                   <th
                     {...headerProps}
                     key={column.key}
                     className="table__head--data"
                   >
-                    <div>{t(column.title)}</div>
+                    <div>{t(column.title)}{column.titleTooltip && column.titleTooltip}  {headerProps.onClick && <i className={icon} title="Sort"></i>}</div>
                   </th>
                 );
               })}

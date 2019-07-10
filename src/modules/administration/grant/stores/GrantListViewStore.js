@@ -77,7 +77,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
             },
             {
                 key: 'charity.name',
-                title: 'CHARITY(CLICKONROW)',
+                title: 'CHARITY',
                 onClick: (item) => this.routes.charityEdit(item.charity.id)
             },
             {
@@ -108,7 +108,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
             },
             {
                 key: 'grantScheduledPayment.name',
-                title: 'PARTOF(CLICKONROW)',
+                title: 'PARTOF',
                 onClick: grant => this.routes.grantScheduledPaymentEdit(grant.grantScheduledPayment.name)
             },
             {

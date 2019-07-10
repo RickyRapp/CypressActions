@@ -24,6 +24,9 @@
     "AMOUNT": "Amount",
     "CONFIRMATIONNUMBER": "Conf. Number",
     "STATUS": "Status",
+    "CLEAN/USED/CANCELED": "Clean/Used/Canceled",
+    "COUNT": "Count",
+    "ASSIGNEDON": "Assigned On",
     "PAYMENTTYPE": "Payment Type",
     "PAYERNAME": "Payer Name",
     "COREUSER": {
