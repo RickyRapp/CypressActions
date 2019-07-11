@@ -23,6 +23,8 @@ class BookletListViewStore extends BaseBookletListViewStore {
 
         const listViewStore = {
             routes: {
+                create: () =>
+                    this.rootStore.routerStore.navigate('master.app.administration.booklet.create'),
             },
             actions: {
                 find: async params => {

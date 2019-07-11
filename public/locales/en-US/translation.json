@@ -337,5 +337,11 @@
     "AREYOUSUREYOUWANTTOCANCEL": "Are You Sure You Want To Cancel?",
     "DONORNOTECREATEEDITFORM": {
         "NOTE": "Note"
+    },
+    "BOOKLETCREATEFORM": {
+        "ITEMS": {
+            "COUNT": "Booklet Count",
+            "DENOMINATIONTYPE": "Denomination"
+        }
     }
 }

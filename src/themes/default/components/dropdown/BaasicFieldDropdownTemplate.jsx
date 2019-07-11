@@ -17,7 +17,7 @@ function BaasicFieldDropdownTemplate({ store, field, label = null, t }) {
             <Select
                 value={_.find(items, { id: field.value }) ? _.find(items, { id: field.value }) : null}
                 inputId={field.name ? field.name : options.name}
-                onChange={onChange}
+                onChange={(option) => { field.sync(option.id); onChange(option); }}
                 options={items}
                 isMulti={options.multi}
                 placeholder={field.placeholder ? field.placeholder : options.placeholder}
@@ -28,6 +28,7 @@ function BaasicFieldDropdownTemplate({ store, field, label = null, t }) {
                 classNamePrefix={options.classNamePrefix}
                 autoFocus={options.autoFocus}
                 isDisabled={field.disabled}
+                isOptionDisabled={option => option.disabled}
                 getOptionLabel={option => option[options.textField]}
                 getOptionValue={option => option[options.dataItemKey]}
             />
