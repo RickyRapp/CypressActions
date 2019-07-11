@@ -37,9 +37,7 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,charity';
-                    params.orderBy = 'dateCreated';
-                    params.orderDirection = 'desc';
+                    params.embed = 'createdByCoreUser,donorAccount,coreUser,charity,companyProfile';
                     const response = await grantScheduledPaymentService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -59,15 +57,17 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
         this.setColumns = [
             {
                 key: 'donorAccount.coreUser',
-                title: 'Donor Account (click on row)',
+                title: 'DONOR',
                 type: 'function',
                 function: (item) => { return `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}` },
-                onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id)
+                onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id),
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'charity.name',
-                title: 'Charity (click on row)',
-                onClick: grant => this.routes.charityEdit(grant.charity.id)
+                title: 'CHARITY',
+                onClick: grant => this.routes.charityEdit(grant.charity.id),
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'done',
@@ -76,12 +76,14 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
             },
             {
                 key: 'name',
-                title: 'NAME'
+                title: 'NAME',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'amount',
                 title: 'AMOUNT',
-                type: 'currency'
+                type: 'currency',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'grantScheduleTypeId',
@@ -94,7 +96,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 title: 'STARTDATE',
                 type: 'date',
                 format: 'YYYY-MM-DD',
-                withoutTimeZone: true
+                withoutTimeZone: true,
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'nextDate',
@@ -103,13 +106,15 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
                 renderIf: (item) => item.grantScheduleTypeId !== _.find(this.grantScheduleTypeModels, { abrv: 'one-time' }).id,
                 default: '',
                 format: 'YYYY-MM-DD',
-                withoutTimeZone: true
+                withoutTimeZone: true,
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'dateCreated',
                 title: 'DATECREATED',
                 type: 'date',
-                format: 'YYYY-MM-DD HH:mm'
+                format: 'YYYY-MM-DD HH:mm',
+                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
                 key: 'createdByCoreUser',
