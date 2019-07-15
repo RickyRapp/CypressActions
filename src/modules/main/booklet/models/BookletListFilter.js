@@ -22,7 +22,6 @@ class BookletListFilter extends FilterParams {
         this.bookletStatusIds = null;
         this.codes = null;
         this.denominationTypeIds = null;
-        this.donorAccountId = null;
     }
 }
 

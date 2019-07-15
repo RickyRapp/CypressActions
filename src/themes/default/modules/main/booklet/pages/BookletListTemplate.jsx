@@ -10,27 +10,17 @@ function BookletListTemplate({ bookletListViewStore }) {
         queryUtility,
         loaderStore: { loading },
         tableStore,
-        routes: { create },
         bookletStatusDropdownStore,
-        denominationTypeDropdownStore,
-        donorAccountSearchDropdownStore
+        denominationTypeDropdownStore
     } = bookletListViewStore;
 
     return (
         <React.Fragment>
             <React.Fragment>
-                <ListLayout onCreate={create} loading={loading}>
+                <ListLayout loading={loading}>
                     <div className="spc--bottom--sml">
                         <TableFilter queryUtility={queryUtility}>
                             <div className="f-row">
-                                <div className="f-col f-col-lrg-3 input--multiselect">
-                                    {donorAccountSearchDropdownStore &&
-                                        <DropdownAsyncFilter
-                                            queryUtility={queryUtility}
-                                            name="donorAccountId"
-                                            store={donorAccountSearchDropdownStore}
-                                        />}
-                                </div>
                                 <BookletListFilterTemplate
                                     queryUtility={queryUtility}
                                     bookletStatusDropdownStore={bookletStatusDropdownStore}

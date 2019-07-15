@@ -4,7 +4,7 @@ class BookletRouteService extends BaseRouteService {
   constructor() {
     super();
     this.base = 'booklet/';
-    this.queryParams = 'bookletStatusIds,denominationTypeIds,codes,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields';
+    this.queryParams = 'donorAccountId,bookletStatusIds,denominationTypeIds,codes,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields';
   }
 
   find(filter) {

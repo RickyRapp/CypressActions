@@ -26,7 +26,7 @@ function BookletCreateTemplate({ bookletCreateViewStore, t }) {
                             <div className="form__group f-col f-col-lrg-2">
                                 <BasicInput field={item.$('count')} />
                             </div>
-                            <div className="form__group f-col f-col-lrg-6">
+                            <div className="form__group f-col f-col-lrg-8">
                                 {denominationTypeDropdownStore &&
                                     <BaasicFieldDropdown field={item.$('denominationTypeId')} store={denominationTypeDropdownStore} />}
                             </div>
