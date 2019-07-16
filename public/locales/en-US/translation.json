@@ -6,6 +6,7 @@
     "FILTER": "Filter",
     "CLEAR": "Clear",
     "ADD": "Add",
+    "ADDANOTHER": "Add Another",
     "SYNC": "Sync",
     "REVIEW": "Review",
     "REMOVE": "Remove",
@@ -339,6 +340,14 @@
         "NOTE": "Note"
     },
     "BOOKLETCREATEFORM": {
+        "ITEMS": {
+            "COUNT": "Booklet Count",
+            "DENOMINATIONTYPE": "Denomination"
+        }
+    },
+    "BOOKLETORDERCREATEFORM": {
+        "SENDNOTIFICATIONEMAIL": "Notify Donor",
+        "DELIVERYMETHODTYPEID": "Delivery Type",
         "ITEMS": {
             "COUNT": "Booklet Count",
             "DENOMINATIONTYPE": "Denomination"

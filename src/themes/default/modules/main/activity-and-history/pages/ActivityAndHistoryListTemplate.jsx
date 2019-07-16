@@ -38,7 +38,6 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                 {paymentTransaction &&
                     <BaasicModal modalParams={detailsModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">
-                            {console.log(paymentTransaction)}
                             {paymentTransaction.grantId &&
                                 <GrantDetails id={paymentTransaction.grantId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.contributionId &&

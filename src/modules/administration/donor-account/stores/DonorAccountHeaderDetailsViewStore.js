@@ -35,6 +35,8 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
         }
         else if (this.isGrantType) {
         }
+        else if (this.isBookletOrderType) {
+        }
 
         return embeds.join(',');
     }
@@ -57,6 +59,10 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
 
     @computed get isGrantType() {
         return this.type === 'grant';
+    }
+
+    @computed get isBookletOrderType() {
+        return this.type === 'booklet-order';
     }
 }
 

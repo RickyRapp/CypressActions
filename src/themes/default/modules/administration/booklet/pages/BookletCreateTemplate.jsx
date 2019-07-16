@@ -13,10 +13,6 @@ function BookletCreateTemplate({ bookletCreateViewStore, t }) {
         refresh
     } = bookletCreateViewStore;
 
-    if (form) {
-        console.log(form.values())
-    }
-
     return (
         <React.Fragment>
             {form &&

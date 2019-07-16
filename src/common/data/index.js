@@ -17,6 +17,7 @@ export { default as FeeService } from './services/FeeService';
 export { default as GrantScheduledPaymentService } from './services/GrantScheduledPaymentService';
 export { default as CharityDocumentService } from './services/CharityDocumentService';
 export { default as BookletService } from './services/BookletService';
+export { default as BookletOrderService } from './services/BookletOrderService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -37,3 +38,4 @@ export { default as FeeRouteService } from './services/FeeRouteService';
 export { default as GrantScheduledPaymentRouteService } from './services/GrantScheduledPaymentRouteService';
 export { default as CharityDocumentRouteService } from './services/CharityDocumentRouteService';
 export { default as BookletRouteService } from './services/BookletRouteService';
+export { default as BookletOrderRouteService } from './services/BookletOrderRouteService';
