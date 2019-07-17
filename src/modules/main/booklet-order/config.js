@@ -13,21 +13,21 @@ import { BookletOrderList, BookletOrderCreate } from 'modules/main/booklet-order
                         name: 'master.app.main.booklet-order.list',
                         pattern: '',
                         component: BookletOrderList,
-                        authorization: 'theDonorsFundDonorSection.read',
+                        authorization: 'theDonorsFundBookletOrderSection.read',
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     },
                     {
                         name: 'master.app.main.booklet-order.create',
                         pattern: 'create',
                         component: BookletOrderCreate,
-                        authorization: 'theDonorsFundDonorSection.create',
+                        authorization: 'theDonorsFundBookletOrderSection.create',
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     },
                     // {
                     //     name: 'master.app.administration.booklet-order.edit',
                     //     pattern: 'edit/:id',
-                    //     component: ContributionEdit,
-                    //     authorization: 'theDonorsFundAdministrationSection.update'
+                    //     authorization: 'theDonorsFundBookletOrderSection.create',
+                    //     withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     // }
                 ]
             }
