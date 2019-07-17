@@ -67,12 +67,12 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
             {
                 onChange: () => {
                     const disabledDenominationTypeIds = _.map(this.form.$('bookletOrderItems').value, e => { return e.denominationTypeId });
-                    var newItems = _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true), disabled: _.includes(disabledDenominationTypeIds, item.id) } })
+                    var newItems = _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: item.available ? _.includes(disabledDenominationTypeIds, item.id) : true } })
                     this.denominationTypeDropdownStore.setItems(newItems)
                     this.refresh = this.refresh + 1;
                 }
             },
-            _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true), disabled: false } })
+            _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: !item.available, mostCommon: item.mostCommon } })
         );
 
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(
@@ -115,6 +115,16 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
 
     @computed get expresMailDeliveryMethodTypeId() {
         return this.deliveryMethodTypes ? _.find(this.deliveryMethodTypes, { abrv: 'express-mail' }).id : null;
+    }
+
+    @computed get mostCommonDenominations() {
+        if (this.denominationTypes) {
+            const disabledDenominationTypeIds = _.map(this.form.$('bookletOrderItems').value, e => { return e.denominationTypeId });
+            return _.filter(this.denominationTypes, function (item) {
+                return item.mostCommon && item.available && !_.includes(disabledDenominationTypeIds, item.id);
+            });
+        }
+        return [];
     }
 
     @computed get totalAndFee() {

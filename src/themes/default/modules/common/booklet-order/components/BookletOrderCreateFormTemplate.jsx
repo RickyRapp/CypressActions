@@ -14,6 +14,7 @@ function BookletOrderCreateFormTemplate(
         refresh,
         onDel,
         donorAccount,
+        mostCommonDenominations,
         t
     }) {
     return (
@@ -42,9 +43,25 @@ function BookletOrderCreateFormTemplate(
                         <div className="form__group f-col f-col-lrg-2">
                             <BasicInput field={item.$('count')} />
                         </div>
-                        <div className="form__group f-col f-col-lrg-8">
+                        <div className="form__group f-col f-col-lrg-6">
                             {denominationTypeDropdownStore &&
                                 <BaasicFieldDropdown field={item.$('denominationTypeId')} store={denominationTypeDropdownStore} />}
+                            {(!item.$('count').value || !item.$('denominationTypeId').value) && mostCommonDenominations && mostCommonDenominations.length > 0 &&
+                                <div>
+                                    Most Common Denominations:
+                                    {mostCommonDenominations.map(denomination => {
+                                        return <button
+                                            key={denomination.id}
+                                            className="btn btn--tny btn--rounded"
+                                            onClick={() => {
+                                                item.$('denominationTypeId').set('value', denomination.id);
+                                                denominationTypeDropdownStore.onChange(denomination);
+                                            }}>
+                                            <NumberFormat value={denomination.value} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                        </button>
+                                    })}
+                                </div>
+                            }
                         </div>
 
                         <div className="form__group f-col f-col-lrg-2">

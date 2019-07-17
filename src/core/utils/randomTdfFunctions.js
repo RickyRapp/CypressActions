@@ -69,7 +69,7 @@ function formatCharityTaxId(val) {
     return '';
 }
 
-function formatDenomination(item, longer = false) {
+function formatDenomination(item, longer = false, formatNotAvailable = false) {
     if (item) {
         const totalCert = <NumberFormat
             value={item.value * item.certificateAmount}
@@ -87,7 +87,9 @@ function formatDenomination(item, longer = false) {
             decimalScale={longer ? 2 : 0}
             fixedDecimalScale={true} />;
 
-        return <span>{oneCert} ({item.certificateAmount} {longer ? 'certificates' : 'cert.'} - {totalCert})</span>
+        const notAvailable = "Out Of Stock.";
+
+        return <span>{oneCert} ({item.certificateAmount} {longer ? 'certificates' : 'cert.'} - {totalCert}) {formatNotAvailable && !item.available ? notAvailable : null}</span>
     }
     return '';
 }

@@ -16,7 +16,8 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
     refresh,
     expresMailDeliveryMethodTypeId,
     totalAndFee,
-    donorAccount
+    donorAccount,
+    mostCommonDenominations
   } = bookletOrderCreateViewStore;
 
   return (
@@ -35,6 +36,7 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
             expresMailDeliveryMethodTypeId={expresMailDeliveryMethodTypeId}
             totalAndFee={totalAndFee}
             donorAccount={donorAccount}
+            mostCommonDenominations={mostCommonDenominations}
           />
         </EditFormLayout>}
     </React.Fragment >
