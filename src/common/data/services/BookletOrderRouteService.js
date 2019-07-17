@@ -4,7 +4,7 @@ class BookletOrderRouteService extends BaseRouteService {
   constructor() {
     super();
     this.base = 'booklet-order/';
-    this.queryParams = 'donorAccountId,bookletOrderStatusIds,denominationTypeIds,codes,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields';
+    this.queryParams = 'donorAccountId,confirmationNumber,amountRangeMin,amountRangeMax,dateCreatedStartDate,dateCreatedEndDate,bookletOrderStatusIds,deliveryMethodTypeIds,page,rpp,sort,embed,fields';
   }
 
   find(filter) {

@@ -1,9 +1,10 @@
 import React from 'react';
-import { defaultTemplate, isSome } from 'core/utils';
+import { defaultTemplate } from 'core/utils';
 import { ListLayout, PageContentHeader } from 'core/layouts';
-import { BaasicTable, TableFilter, Export, DropdownAsyncFilter, BaasicModal } from 'core/components';
+import { BaasicTable, TableFilter, BaasicModal, DropdownAsyncFilter } from 'core/components';
 import { DonorAccountSearch, DonorAccountHeaderDetails } from 'modules/administration/donor-account/components';
 import { BookletOrderDetails } from 'modules/common/booklet-order/pages';
+import { BookletOrderListTableFilter } from 'themes/modules/common/booklet-order/components';
 import _ from 'lodash';
 
 function BookletOrderListTemplate({ bookletOrderListViewStore }) {
@@ -12,12 +13,13 @@ function BookletOrderListTemplate({ bookletOrderListViewStore }) {
         loaderStore: { loading },
         tableStore,
         routes: { create },
-        bookletOrderStatusDropdownStore,
-        deliveryMethodTypeDropdownStore,
         detailsModalParams,
         bookletOrderId,
         findDonorModalParams,
-        onChangeSearchDonor
+        onChangeSearchDonor,
+        bookletOrderStatusDropdownStore,
+        deliveryMethodTypeDropdownStore,
+        donorAccountSearchDropdownStore
     } = bookletOrderListViewStore;
 
     return (
@@ -29,54 +31,19 @@ function BookletOrderListTemplate({ bookletOrderListViewStore }) {
                     <div className="spc--bottom--sml">
                         <TableFilter queryUtility={queryUtility}>
                             <div className="f-row">
-                                {/* <div className="f-col f-col-lrg-3 input--multiselect">
+                                <div className="f-col f-col-lrg-3 input--multiselect">
                                     {donorAccountSearchDropdownStore &&
                                         <DropdownAsyncFilter
                                             queryUtility={queryUtility}
                                             name="donorAccountId"
                                             store={donorAccountSearchDropdownStore}
                                         />}
-                                </div> */}
-                                {/* <div className="f-col f-col-lrg-2 pos--rel spc--right--sml">
-                                    <InputFilter
-                                        queryUtility={queryUtility}
-                                        name="confirmationNumber"
-                                        placeholder="Confirmation Number"
-                                        type="number"
-                                    />
                                 </div>
-                                <div className="f-col f-col-lrg-4 pos--rel spc--right--sml">
-                                    <NumericRangeFilter
-                                        queryUtility={queryUtility}
-                                        nameMin="amountRangeMin"
-                                        nameMax="amountRangeMax"
-                                        minPlaceholder="Min"
-                                        maxPlaceholder="Max"
-                                    />
-                                </div>
-                                <div className="f-col f-col-lrg-3">
-                                    <DateRangeFilter
-                                        queryUtility={queryUtility}
-                                        nameMin="dateCreatedStartDate"
-                                        nameMax="dateCreatedEndDate"
-                                    />
-                                </div>
-                                <div className="f-col f-col-lrg-3 input--multiselect">
-                                    {bookletOrderStatusDropdownStore &&
-                                        <DropdownFilter
-                                            queryUtility={queryUtility}
-                                            name="bookletOrderStatusIds"
-                                            store={bookletOrderStatusDropdownStore}
-                                        />}
-                                </div>
-                                <div className="f-col f-col-lrg-3 input--multiselect">
-                                    {deliveryMethodTypeDropdownStore &&
-                                        <DropdownFilter
-                                            queryUtility={queryUtility}
-                                            name="deliveryMethodTypeIds"
-                                            store={deliveryMethodTypeDropdownStore}
-                                        />}
-                                </div> */}
+                                <BookletOrderListTableFilter
+                                    queryUtility={queryUtility}
+                                    bookletOrderStatusDropdownStore={bookletOrderStatusDropdownStore}
+                                    deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore}
+                                />
                             </div>
                         </TableFilter>
                         {/* <Export

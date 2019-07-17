@@ -6,8 +6,8 @@ import _ from 'lodash';
 
 class BaseBookletOrderListViewStore extends BaseListViewStore {
     @observable deliveryMethodTypeDropdownStore = null;
-    @observable bookletStatusDropdownStore = null;
-    @observable bookletStatuses = null;
+    @observable bookletOrderStatusDropdownStore = null;
+    @observable bookletOrderStatuses = null;
     @observable deliveryMethodTypes = null;
     @observable bookletOrderId = null;
 
@@ -87,7 +87,7 @@ class BaseBookletOrderListViewStore extends BaseListViewStore {
             _.map(_.orderBy(this.deliveryMethodTypes, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
         );
 
-        this.bookletStatusDropdownStore = new BaasicDropdownStore(
+        this.bookletOrderStatusDropdownStore = new BaasicDropdownStore(
             {
                 multi: true,
                 placeholder: 'Choose Booklet Status',
@@ -96,9 +96,9 @@ class BaseBookletOrderListViewStore extends BaseListViewStore {
                 isClearable: true
             },
             {
-                onChange: (options) => this.queryUtility.filter.bookletStatusIds = (options ? _.map(options, item => { return item.id }) : null)
+                onChange: (options) => this.queryUtility.filter.bookletOrderStatusIds = (options ? _.map(options, item => { return item.id }) : null)
             },
-            _.map(_.orderBy(this.bookletStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
+            _.map(_.orderBy(this.bookletOrderStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
         );
     }
 }

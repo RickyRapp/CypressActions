@@ -21,7 +21,6 @@ class BookletOrderListFilter extends FilterParams {
 
     @action reset() {
         super.reset();
-        this.donorAccountId = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;

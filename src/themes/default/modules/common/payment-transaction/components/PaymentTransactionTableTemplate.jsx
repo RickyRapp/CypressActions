@@ -26,28 +26,6 @@ function PaymentTransactionTableTemplate({
                 {_.orderBy(models, ['dateCreated'], ['desc']).map(item => {
                     if (item.paymentTransaction && item.fee) {
                         return <React.Fragment key={item.paymentTransaction.id}>
-                            <tr key={item.paymentTransaction.id} style={item.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
-                                <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
-                                <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
-                                <td className="table__body--data"><NumberFormat value={item.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
-                                <td className="table__body--data">
-                                    {_.find(paymentTransactionStatuses, { id: item.paymentTransaction.paymentTransactionStatusId }).name}
-                                    {item.paymentTransaction.description &&
-                                        <React.Fragment>
-                                            <span className='icomoon tiny icon-alert-circle' data-tip data-for={`description_${item.paymentTransaction.id}`} />
-                                            <ReactTooltip type='info' effect='solid' place="top" id={`description_${item.paymentTransaction.id}`}>
-                                                <p>{item.paymentTransaction.description}</p>
-                                            </ReactTooltip>
-                                        </React.Fragment>}
-                                    {item.paymentTransaction.id === highlightId &&
-                                        <span className="spc--left--lrg">
-                                            <span className='icomoon tiny icon-question-circle' data-tip data-for={`highlightId_${item.paymentTransaction.id}`} />
-                                            <ReactTooltip type='info' effect='solid' place="top" id={`highlightId_${item.paymentTransaction.id}`}>
-                                                <p>Selected Transaction</p>
-                                            </ReactTooltip>
-                                        </span>}
-                                </td>
-                            </tr>
                             <tr key={item.fee.paymentTransaction.id} style={item.fee.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
                                 <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
                                 <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.fee.paymentTransaction.paymentTransactionTypeId ? item.fee.paymentTransaction.amount : '-' + item.fee.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
@@ -65,6 +43,28 @@ function PaymentTransactionTableTemplate({
                                         <span className="spc--left--lrg">
                                             <span className='icomoon tiny icon-question-circle' data-tip data-for={`highlightId_${item.fee.paymentTransaction.id}`} />
                                             <ReactTooltip type='info' effect='solid' place="top" id={`highlightId_${item.fee.paymentTransaction.id}`}>
+                                                <p>Selected Transaction</p>
+                                            </ReactTooltip>
+                                        </span>}
+                                </td>
+                            </tr>
+                            <tr key={item.paymentTransaction.id} style={item.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
+                                <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
+                                <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                                <td className="table__body--data"><NumberFormat value={item.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                                <td className="table__body--data">
+                                    {_.find(paymentTransactionStatuses, { id: item.paymentTransaction.paymentTransactionStatusId }).name}
+                                    {item.paymentTransaction.description &&
+                                        <React.Fragment>
+                                            <span className='icomoon tiny icon-alert-circle' data-tip data-for={`description_${item.paymentTransaction.id}`} />
+                                            <ReactTooltip type='info' effect='solid' place="top" id={`description_${item.paymentTransaction.id}`}>
+                                                <p>{item.paymentTransaction.description}</p>
+                                            </ReactTooltip>
+                                        </React.Fragment>}
+                                    {item.paymentTransaction.id === highlightId &&
+                                        <span className="spc--left--lrg">
+                                            <span className='icomoon tiny icon-question-circle' data-tip data-for={`highlightId_${item.paymentTransaction.id}`} />
+                                            <ReactTooltip type='info' effect='solid' place="top" id={`highlightId_${item.paymentTransaction.id}`}>
                                                 <p>Selected Transaction</p>
                                             </ReactTooltip>
                                         </span>}

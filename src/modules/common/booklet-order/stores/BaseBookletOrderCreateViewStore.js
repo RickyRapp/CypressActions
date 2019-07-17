@@ -52,7 +52,7 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound async getDonorAccount() {
         let params = {};
-        params.embed = ['coreUser,companyProfile'];
+        params.embed = ['coreUser,companyProfile,donorAccountEmailAddresses,emailAddress'];
         this.donorAccount = await this.donorAccountService.get(this.userId, params)
     }
 
@@ -115,6 +115,34 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
 
     @computed get expresMailDeliveryMethodTypeId() {
         return this.deliveryMethodTypes ? _.find(this.deliveryMethodTypes, { abrv: 'express-mail' }).id : null;
+    }
+
+    @computed get totalAndFee() {
+        let _totalAndFee = {};
+        let totala = 0;
+        if (this.form && this.form.has('bookletOrderItems')) {
+            _.forEach(this.form.$('bookletOrderItems').values(), item => {
+                const denomination = _.find(this.denominationTypes, { id: item.denominationTypeId });
+                if (denomination)
+                    totala = totala + (denomination.value * denomination.certificateAmount * item.count);
+            })
+        }
+
+        _totalAndFee.total = totala;
+
+        if (this.donorAccount) {
+            totala = totala + totala * (this.donorAccount.certificateFee / 100)
+        }
+
+        if (this.form && this.form.has('deliveryMethodTypeId')) {
+            const deliveryMethodTypeId = this.form.$('deliveryMethodTypeId').values();
+            if (deliveryMethodTypeId === this.expresMailDeliveryMethodTypeId)
+                totala = totala + 25;
+        }
+
+        _totalAndFee.totalWithFee = totala;
+
+        return _totalAndFee;
     }
 }
 

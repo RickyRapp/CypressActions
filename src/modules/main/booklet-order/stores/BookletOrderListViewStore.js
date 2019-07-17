@@ -1,10 +1,7 @@
-import { action, observable } from 'mobx';
+import { observable } from 'mobx';
 import { BookletOrderService, DonorAccountService } from "common/data";
 import { BookletOrderListFilter } from 'modules/administration/booklet-order/models';
 import { BaseBookletOrderListViewStore } from 'modules/common/booklet-order/stores';
-import { BaasicDropdownStore } from "core/stores";
-import { ModalParams } from 'core/models';
-import { getDonorNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
 class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
@@ -19,15 +16,12 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         const bookletOrderService = new BookletOrderService(rootStore.app.baasic.apiClient);
 
         let filter = new BookletOrderListFilter();
-        filter.donorAccountId = rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.donorAccountId : null;
+        filter.donorAccountId = rootStore.authStore.user.id;
 
         const listViewStore = {
             routes: {
                 create: () => {
-                    this.findDonorModalParams.open();
-                },
-                donorAccountEdit: (userId) => {
-                    this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId });
+                    this.rootStore.routerStore.navigate('master.app.main.booklet-order.create')
                 }
             },
             actions: {
@@ -41,7 +35,8 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
                 }
             },
             queryConfig: {
-                filter: filter
+                filter: filter,
+                disableUpdateQueryParams: true
             }
         }
 
@@ -56,16 +51,7 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.bookletOrderService = bookletOrderService;
 
-        this.findDonorModalParams = new ModalParams({
-            onClose: this.onClose
-        });
-
         this.setColumns = [
-            {
-                key: 'donorAccount.donorName',
-                title: 'DONORNAME',
-                onClick: item => this.routes.donorAccountEdit(item.donorAccountId)
-            },
             {
                 key: 'amount',
                 title: 'AMOUNT',
@@ -113,55 +99,6 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
 
     setStores() {
         super.setStores();
-        this.setAdditionalStores();
-    }
-
-    @action.bound renderReview(bookletOrder) {
-        let availableStatuesForReview = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
-        return _.some(availableStatuesForReview, (item) => { return item === bookletOrder.bookletOrderStatusId });
-    }
-
-    @action.bound async onChangeSearchDonor(option) {
-        if (option) {
-            this.rootStore.routerStore.navigate('master.app.administration.booklet-order.create', {
-                userId: option.id
-            })
-        }
-    }
-
-    @action.bound async setAdditionalStores() {
-        this.donorAccountSearchDropdownStore = new BaasicDropdownStore(
-            {
-                multi: false,
-                textField: 'name',
-                dataItemKey: 'id',
-                clearable: true,
-                placeholder: 'Choose Donor',
-                initFetch: false
-            },
-            {
-                fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
-                    if (term && term !== '') {
-                        options.searchQuery = term;
-                    }
-
-                    let response = await this.donorAccountService.search(options);
-                    return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
-                },
-                onChange: option => this.queryUtility.filter.donorAccountId = (option ? option.id : null)
-            }
-        );
-
-        if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
-            const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
-            let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
-            let donorSearchs = [];
-            donorSearchs.push(defaultSearchDonor);
-            this.donorAccountSearchDropdownStore.items = donorSearchs;
-        }
     }
 }
 

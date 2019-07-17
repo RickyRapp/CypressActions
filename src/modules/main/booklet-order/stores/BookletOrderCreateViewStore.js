@@ -1,13 +1,13 @@
 import { action } from 'mobx';
 import { BookletOrderService } from "common/data";
-import { BookletOrderCreateForm } from 'modules/administration/booklet-order/forms';
+import { BookletOrderCreateForm } from 'modules/main/booklet-order/forms';
 import { BaseBookletOrderCreateViewStore } from 'modules/common/booklet-order/stores';
 import _ from 'lodash';
 
 class BookletOrderCreateViewStore extends BaseBookletOrderCreateViewStore {
     constructor(rootStore) {
         const bookletOrderService = new BookletOrderService(rootStore.app.baasic.apiClient);
-        const userId = rootStore.routerStore.routerState.params.userId;
+        const userId = rootStore.authStore.user.id;
 
         const createViewStore = {
             name: 'booklet order',
