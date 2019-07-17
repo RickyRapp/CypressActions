@@ -1,7 +1,8 @@
-import { observable } from 'mobx';
-import { BookletOrderService, DonorAccountService } from "common/data";
-import { BookletOrderListFilter } from 'modules/administration/booklet-order/models';
+import { observable, action } from 'mobx';
+import { BookletOrderService } from "common/data";
+import { BookletOrderListFilter } from 'modules/main/booklet-order/models';
 import { BaseBookletOrderListViewStore } from 'modules/common/booklet-order/stores';
+import moment from 'moment';
 import _ from 'lodash';
 
 class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
@@ -22,7 +23,11 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
             routes: {
                 create: () => {
                     this.rootStore.routerStore.navigate('master.app.main.booklet-order.create')
-                }
+                },
+                edit: (bookletOrderId) =>
+                    this.rootStore.routerStore.navigate('master.app.main.booklet-order.edit', {
+                        id: bookletOrderId
+                    }),
             },
             actions: {
                 find: async params => {
@@ -47,9 +52,6 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         }
 
         super(rootStore, config);
-
-        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
-        this.bookletOrderService = bookletOrderService;
 
         this.setColumns = [
             {
@@ -89,11 +91,24 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         ];
 
         this.setActions = {
-            onReview: (bookletOrder) => { this.bookletOrderId = bookletOrder.id; this.reviewModalParams.open(); }
+            onReview: (bookletOrder) => { this.bookletOrderId = bookletOrder.id; this.reviewModalParams.open(); },
+            onEdit: (bookletOrder) => this.routes.edit(bookletOrder.id)
         }
 
         this.setRenderActions = {
-            renderReview: this.renderReview
+            renderReview: this.renderReview,
+            renderEdit: this.renderEdit
+        }
+    }
+
+    @action.bound renderEdit(bookletOrder) {
+        if (moment().local().isAfter(moment.utc(bookletOrder.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))) {
+            return false;
+        }
+
+        let availableStatuesForEdit = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' }), function (o) { return o.id });
+        if (!_.some(availableStatuesForEdit, (item) => { return item === bookletOrder.bookletOrderStatusId })) {
+            return false;
         }
     }
 

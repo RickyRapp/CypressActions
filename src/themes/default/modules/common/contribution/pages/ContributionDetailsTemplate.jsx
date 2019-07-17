@@ -3,9 +3,7 @@ import { defaultTemplate } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 import { Loader } from 'core/components';
-import NumberFormat from 'react-number-format';
-import { PaymentTransactionTableRowTemplate } from 'themes/modules/common/payment-transaction/components';
-import ReactTooltip from 'react-tooltip'
+import { PaymentTransactionTableTemplate } from 'themes/modules/common/payment-transaction/components';
 
 function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
     const {

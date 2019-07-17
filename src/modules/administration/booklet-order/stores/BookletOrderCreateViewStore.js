@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { BookletOrderService } from "common/data";
-import { BookletOrderCreateForm } from 'modules/administration/booklet-order/forms';
+import { BookletOrderCreateForm } from 'modules/common/booklet-order/forms';
 import { BaseBookletOrderCreateViewStore } from 'modules/common/booklet-order/stores';
 import _ from 'lodash';
 
@@ -27,6 +27,11 @@ class BookletOrderCreateViewStore extends BaseBookletOrderCreateViewStore {
         super(rootStore, config);
 
         this.load();
+    }
+
+    setFormDefaults() {
+        super.setFormDefaults();
+        this.form.$('checkOrderUrl').set('value', `${window.location.origin}/app/administration/booklet-order/?confirmationNumber={confirmationNumber}`)
     }
 }
 

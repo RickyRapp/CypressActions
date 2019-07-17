@@ -352,5 +352,12 @@
             "COUNT": "Booklet Count",
             "DENOMINATIONTYPE": "Denomination"
         }
+    },
+    "BOOKLETORDEREDITFORM": {
+        "DELIVERYMETHODTYPEID": "Delivery Method",
+        "ITEMS": {
+            "COUNT": "Booklet Count",
+            "DENOMINATIONTYPE": "Denomination"
+        }
     }
 }

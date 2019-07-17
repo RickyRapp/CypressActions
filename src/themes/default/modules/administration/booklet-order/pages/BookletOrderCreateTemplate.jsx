@@ -17,13 +17,14 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
     expresMailDeliveryMethodTypeId,
     totalAndFee,
     donorAccount,
-    mostCommonDenominations
+    mostCommonDenominations,
+    isEdit
   } = bookletOrderCreateViewStore;
 
   return (
     <React.Fragment>
       {form &&
-        <EditFormLayout form={form} isEdit={false} loading={loading}>
+        <EditFormLayout form={form} isEdit={isEdit} loading={loading}>
           <PageContentHeader>
             <DonorAccountHeaderDetails userId={userId} type='booklet-order' />
           </PageContentHeader>

@@ -26,6 +26,11 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
                 create: () => {
                     this.findDonorModalParams.open();
                 },
+                edit: (donorAccountId, bookletOrderId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.booklet-order.edit', {
+                        userId: donorAccountId,
+                        id: bookletOrderId
+                    }),
                 donorAccountEdit: (userId) => {
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId });
                 }
@@ -103,11 +108,20 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         ];
 
         this.setActions = {
-            onReview: (bookletOrder) => { this.bookletOrderId = bookletOrder.id; this.reviewModalParams.open(); }
+            onReview: (bookletOrder) => { this.bookletOrderId = bookletOrder.id; this.reviewModalParams.open(); },
+            onEdit: (bookletOrder) => this.routes.edit(bookletOrder.donorAccountId, bookletOrder.id)
         }
 
         this.setRenderActions = {
-            renderReview: this.renderReview
+            renderReview: this.renderReview,
+            renderEdit: this.renderEdit
+        }
+    }
+
+    @action.bound renderEdit(bookletOrder) {
+        let availableStatuesForEdit = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' }), function (o) { return o.id });
+        if (!_.some(availableStatuesForEdit, (item) => { return item === bookletOrder.bookletOrderStatusId })) {
+            return false;
         }
     }
 

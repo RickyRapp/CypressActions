@@ -28,8 +28,8 @@ function PaymentTransactionTableTemplate({
                         return <React.Fragment key={item.paymentTransaction.id}>
                             <tr key={item.fee.paymentTransaction.id} style={item.fee.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
                                 <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
-                                <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.fee.paymentTransaction.paymentTransactionTypeId ? item.fee.paymentTransaction.amount : '-' + item.fee.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
-                                <td className="table__body--data"><NumberFormat value={item.fee.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                                <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.fee.paymentTransaction.paymentTransactionTypeId ? item.fee.paymentTransaction.amount : '-' + item.fee.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                                <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={item.fee.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
                                 <td className="table__body--data">
                                     {_.find(paymentTransactionStatuses, { id: item.fee.paymentTransaction.paymentTransactionStatusId }).name}
                                     {item.fee.paymentTransaction.description &&
@@ -50,8 +50,8 @@ function PaymentTransactionTableTemplate({
                             </tr>
                             <tr key={item.paymentTransaction.id} style={item.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
                                 <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
-                                <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
-                                <td className="table__body--data"><NumberFormat value={item.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                                <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                                <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={item.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
                                 <td className="table__body--data">
                                     {_.find(paymentTransactionStatuses, { id: item.paymentTransaction.paymentTransactionStatusId }).name}
                                     {item.paymentTransaction.description &&
@@ -75,8 +75,8 @@ function PaymentTransactionTableTemplate({
                     else if (item.paymentTransaction) {
                         return <tr key={item.paymentTransaction.id} style={item.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
                             <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
-                            <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
-                            <td className="table__body--data"><NumberFormat value={item.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                            <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.paymentTransaction.paymentTransactionTypeId ? item.paymentTransaction.amount : '-' + item.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                            <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={item.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
                             <td className="table__body--data">
                                 {_.find(paymentTransactionStatuses, { id: item.paymentTransaction.paymentTransactionStatusId }).name}
                                 {item.paymentTransaction.description &&
@@ -99,8 +99,8 @@ function PaymentTransactionTableTemplate({
                     else {
                         return <tr key={item.fee.paymentTransaction.id} style={item.fee.paymentTransaction.id === highlightId ? { backgroundColor: 'khaki' } : null}>
                             <td className="table__body--data">{moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}</td>
-                            <td className="table__body--data"><NumberFormat value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.fee.paymentTransaction.paymentTransactionTypeId ? item.fee.paymentTransaction.amount : '-' + item.fee.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
-                            <td className="table__body--data"><NumberFormat value={item.fee.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                            <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={_.find(paymentTransactionTypes, { abrv: 'credit' }).id === item.fee.paymentTransaction.paymentTransactionTypeId ? item.fee.paymentTransaction.amount : '-' + item.fee.paymentTransaction.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                            <td className="table__body--data"><NumberFormat decimalScale={2} fixedDecimalScale={true} value={item.fee.paymentTransaction.userBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
                             <td className="table__body--data">
                                 {_.find(paymentTransactionStatuses, { id: item.fee.paymentTransaction.paymentTransactionStatusId }).name}
                                 {item.fee.paymentTransaction.description &&

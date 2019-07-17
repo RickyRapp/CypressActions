@@ -5,6 +5,7 @@ import { ListLayout } from 'core/layouts';
 import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/activity-and-history/components';
 import { GrantDetails } from 'modules/common/grant/pages';
 import { ContributionDetails } from 'modules/common/contribution/pages';
+import { BookletOrderDetails } from 'modules/common/booklet-order/pages';
 import _ from 'lodash';
 
 function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
@@ -43,7 +44,7 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                             {paymentTransaction.contributionId &&
                                 <ContributionDetails id={paymentTransaction.contributionId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.bookletOrderId &&
-                                <div>TODO</div>}
+                                <BookletOrderDetails id={paymentTransaction.bookletOrderId} highlightId={paymentTransaction.id} />}
                         </div>
                     </BaasicModal>}
             </ListLayout>

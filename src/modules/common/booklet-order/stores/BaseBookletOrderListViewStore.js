@@ -31,6 +31,9 @@ class BaseBookletOrderListViewStore extends BaseListViewStore {
     setAdditionalExportColumnsName = null;
 
     constructor(rootStore, config) {
+        const confirmationNumber = rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.confirmationNumber : null;
+        config.listViewStore.queryConfig.filter.confirmationNumber = confirmationNumber;
+
         super(rootStore, config.listViewStore);
 
         this.bookletOrderStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'booklet-order-status');

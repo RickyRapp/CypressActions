@@ -4,34 +4,54 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { formatDenomination } from 'core/utils';
 import _ from 'lodash';
 
-class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
+class BaseBookletOrderEditViewStore extends BaseEditViewStore {
     @observable donorAccount = null;
     @observable denominationTypes = null;
     @observable accountTypes = null;
     @observable deliveryMethodTypes = null;
-    @observable applicationDefaultSetting = null;
+    @observable bookletOrderStatuses = null;
     @observable deliveryMethodTypeDropdownStore = null;
     @observable refresh = 1;
+    @observable bookletOrder = null;
 
     additionalActions = {};
 
     constructor(rootStore, config) {
-        super(rootStore, config.createViewStore);
+        super(rootStore, config.editViewStore);
 
         this.rootStore = rootStore;
+        this.id = config.id;
         this.userId = config.userId;
         this.bookletOrderService = new BookletOrderService(rootStore.app.baasic.apiClient);
         this.donorAccountService = new DonorAccountService(this.rootStore.app.baasic.apiClient);
         this.denominationTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'denomination-type');
+        this.bookletOrderStatusLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'booklet-order-status');
         this.accountTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'account-type');
         this.deliveryMethodTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'delivery-method-type');
-        this.applicationDefaultSettingLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'application-default-setting');
+    }
+
+    async getResource(id, updateForm = true) {
+        await super.getResource(id, updateForm);
+        let arra = this.bookletOrder.bookletOrderItems.map(value => { return { count: value.count, denominationTypeId: value.denominationTypeId } })
+        this.form.$('bookletOrderItems').add(arra);
+        await this.load();
+        if (await this.validateBeforeEditing()) {
+            await this.setFormDefaults();
+        }
+    }
+
+    @action.bound async validateBeforeEditing() {
+        if (this.bookletOrder.bookletOrderStatusId !== this.bookletOrderPendingStatusId) {
+            await this.rootStore.routerStore.goBack();
+            this.rootStore.notificationStore.warning('Booklet Order Can be Edited Only In Pending Status.');
+            return false;
+        }
+        return true;
     }
 
     @action.bound async load() {
         await this.getDonorAccount();
         await this.loadLookups();
-        this.setFormDefaults();
         this.setStores();
     }
 
@@ -51,8 +71,8 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
         let deliveryMethodTypesModels = await this.deliveryMethodTypeLookupService.getAll();
         this.deliveryMethodTypes = _.orderBy(deliveryMethodTypesModels.data, ['sortOrder'], ['asc']);
 
-        let applicationDefaultSettingModel = await this.applicationDefaultSettingLookupService.getAll();
-        this.applicationDefaultSetting = applicationDefaultSettingModel.data[0];
+        let bookletOrderStatusesModels = await this.bookletOrderStatusLookupService.getAll();
+        this.bookletOrderStatuses = _.orderBy(bookletOrderStatusesModels.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async getDonorAccount() {
@@ -71,13 +91,11 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
             },
             {
                 onChange: () => {
-                    const disabledDenominationTypeIds = _.map(this.form.$('bookletOrderItems').value, e => { return e.denominationTypeId });
-                    var newItems = _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: item.available ? _.includes(disabledDenominationTypeIds, item.id) : true } })
-                    this.denominationTypeDropdownStore.setItems(newItems)
+                    this.denominationTypeDropdownStore.setItems(this.setDenominationDropdownStoreItems())
                     this.refresh = this.refresh + 1;
                 }
             },
-            _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: !item.available } })
+            this.setDenominationDropdownStoreItems()
         );
 
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(
@@ -94,11 +112,13 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
         );
     }
 
+    @action.bound setDenominationDropdownStoreItems() {
+        const disabledDenominationTypeIds = _.map(this.form.$('bookletOrderItems').value, e => { return e.denominationTypeId });
+        var newItems = _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: item.available ? _.includes(disabledDenominationTypeIds, item.id) : true } });
+        return newItems;
+    }
+
     @action.bound setFormDefaults() {
-        if (this.donorAccount) {
-            //Rules
-            this.form.$('donorAccountId').set('value', this.userId);
-        }
     }
 
     @action.bound onDel(item) {
@@ -119,6 +139,10 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
 
     @computed get expresMailDeliveryMethodTypeId() {
         return this.deliveryMethodTypes ? _.find(this.deliveryMethodTypes, { abrv: 'express-mail' }).id : null;
+    }
+
+    @computed get bookletOrderPendingStatusId() {
+        return this.bookletOrderStatuses ? _.find(this.bookletOrderStatuses, { abrv: 'pending' }).id : null;
     }
 
     @computed get mostCommonDenominations() {
@@ -150,9 +174,8 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
 
         if (this.form && this.form.has('deliveryMethodTypeId')) {
             const deliveryMethodTypeId = this.form.$('deliveryMethodTypeId').values();
-
             if (deliveryMethodTypeId === this.expresMailDeliveryMethodTypeId)
-                totala = totala + this.applicationDefaultSetting.expressMailFeeAmount;
+                totala = totala + 25;
         }
 
         _totalAndFee.totalWithFee = totala;
@@ -161,4 +184,4 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
     }
 }
 
-export default BaseBookletOrderCreateViewStore;
+export default BaseBookletOrderEditViewStore;
