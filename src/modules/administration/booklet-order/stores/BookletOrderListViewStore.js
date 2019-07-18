@@ -120,9 +120,10 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
 
     @action.bound renderEdit(bookletOrder) {
         let availableStatuesForEdit = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' }), function (o) { return o.id });
-        if (!_.some(availableStatuesForEdit, (item) => { return item === bookletOrder.bookletOrderStatusId })) {
-            return false;
+        if (_.some(availableStatuesForEdit, (item) => { return item === bookletOrder.bookletOrderStatusId })) {
+            return true;
         }
+        return false;
     }
 
     setStores() {
