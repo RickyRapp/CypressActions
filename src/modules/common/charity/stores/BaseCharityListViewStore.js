@@ -6,9 +6,11 @@ import _ from 'lodash';
 class BaseCharityListViewStore extends BaseListViewStore {
     @observable charityTypeDropdownStore = null;
     @observable charityStatusDropdownStore = null;
-    charityStatuses = null;
-    charityTypes = null;
+    @observable charityStatuses = null;
+    @observable charityTypes = null;
     @observable reviewId = null;
+
+
 
     setColumns = null;
     setActions = null;
@@ -43,10 +45,10 @@ class BaseCharityListViewStore extends BaseListViewStore {
 
     @action.bound async loadLookups() {
         let charityTypeModels = await this.charityTypeLookup.getAll();
-        this.charityTypes = charityTypeModels.data;
+        this.charityTypes = _.orderBy(charityTypeModels.data, ['sortOrder'], ['asc']);
 
         let charityStatusModels = await this.charityStatusLookup.getAll();
-        this.charityStatuses = charityStatusModels.data;
+        this.charityStatuses = _.orderBy(charityStatusModels.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async setStores() {
@@ -61,7 +63,7 @@ class BaseCharityListViewStore extends BaseListViewStore {
             {
                 onChange: (options) => this.queryUtility.filter.charityTypeIds = (options ? _.map(options, item => { return item.id }) : null)
             },
-            _.map(_.orderBy(this.charityTypes, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
+            _.map(this.charityTypes, item => { return { id: item.id, name: item.name } })
         );
 
         this.charityStatusDropdownStore = new BaasicDropdownStore(
@@ -75,7 +77,7 @@ class BaseCharityListViewStore extends BaseListViewStore {
             {
                 onChange: (options) => this.queryUtility.filter.charityStatusIds = (options ? _.map(options, item => { return item.id }) : null)
             },
-            _.map(_.orderBy(this.charityStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
+            _.map(this.charityStatuses, item => { return { id: item.id, name: item.name } })
         );
     }
 }

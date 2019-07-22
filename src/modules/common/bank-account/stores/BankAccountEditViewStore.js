@@ -90,7 +90,7 @@ class BankAccountEditViewStore extends BaseViewStore {
         }
         else {
             let params = {};
-            params.embed = params.embed = ['thirdPartyAccountHolder,address,emailAddress,phoneNumber'];
+            params.embed = params.embed = ['thirdPartyAccountHolder', 'thirdPartyAccountHolder.address', 'thirdPartyAccountHolder.emailAddress', 'thirdPartyAccountHolder.phoneNumber'];
             const response = await this.bankAccountService.get(id, params);
             this.bankAccount = response;
         }

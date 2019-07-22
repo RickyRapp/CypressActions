@@ -4,16 +4,11 @@ import { BookletOrderListFilter } from 'modules/administration/booklet-order/mod
 import { BaseBookletOrderListViewStore } from 'modules/common/booklet-order/stores';
 import { BaasicDropdownStore } from "core/stores";
 import { ModalParams } from 'core/models';
-import { getDonorNameDropdown } from 'core/utils';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 
 class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
     @observable donorAccountSearchDropdownStore = null;
-
-    additionalFields = [
-        'donorAccount',
-        'donorAccount.donorName'
-    ];
 
     constructor(rootStore) {
         const bookletOrderService = new BookletOrderService(rootStore.app.baasic.apiClient);
@@ -39,7 +34,21 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = 'donorAccount,donorAccount.coreUser,donorAccount.companyProfile,createdByCoreUser';
-                    params.fields = _.union(this.fields, this.additionalFields);
+                    params.fields = [
+                        'id',
+                        'donorAccountId',
+                        'dateUpdated',
+                        'amount',
+                        'bookletOrderStatusId',
+                        'confirmationNumber',
+                        'bookletOrderStatusId',
+                        'donorAccount',
+                        'donorAccount.donorName',
+                        'createdByCoreUser',
+                        'createdByCoreUser.userId',
+                        'createdByCoreUser.firstName',
+                        'createdByCoreUser.lastName'
+                    ]
                     const response = await bookletOrderService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -120,10 +129,7 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
 
     @action.bound renderEdit(bookletOrder) {
         let availableStatuesForEdit = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' }), function (o) { return o.id });
-        if (_.some(availableStatuesForEdit, (item) => { return item === bookletOrder.bookletOrderStatusId })) {
-            return true;
-        }
-        return false;
+        return _.some(availableStatuesForEdit, (item) => { return item === bookletOrder.bookletOrderStatusId });
     }
 
     setStores() {
@@ -132,7 +138,7 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
     }
 
     @action.bound renderReview(bookletOrder) {
-        let availableStatuesForReview = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
+        let availableStatuesForReview = _.map(_.filter(this.bookletOrderStatuses, function (x) { return x.abrv === 'pending' }), function (o) { return o.id });
         return _.some(availableStatuesForReview, (item) => { return item === bookletOrder.bookletOrderStatusId });
     }
 
@@ -156,7 +162,8 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -169,8 +176,7 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         );
 
         if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
+            let params = getDonorAccountDropdownOptions;
             const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

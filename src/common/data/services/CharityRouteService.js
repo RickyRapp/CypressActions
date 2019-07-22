@@ -4,7 +4,7 @@ class CharityRouteService extends BaseRouteService {
   constructor() {
     super();
     this.base = 'charity/';
-    this.queryParams = 'nameOrTaxId,address,emails,charityStatusIds,charityTypeIds,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,searchFields';
+    this.queryParams = 'nameOrTaxId,address,emails,charityStatusIds,charityTypeIds,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields';
   }
 
   find(filter) {
@@ -12,11 +12,11 @@ class CharityRouteService extends BaseRouteService {
   }
 
   donation(filter) {
-    return super.find(this.base + 'donation/{?charityId,done,dateCreatedStartDate,dateCreatedEndDate,amountRangeMin,amountRangeMax,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(this.base + 'donation/{?charityId,done,dateCreatedStartDate,dateCreatedEndDate,amountRangeMin,amountRangeMax,page,rpp,sort,embed,fields}', filter);
   }
 
   findDocuments(filter) {
-    return super.find(this.base + 'documents/{?id,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(this.base + 'documents/{?id,page,rpp,sort,embed,fields}', filter);
   }
 
   get(id, options) {

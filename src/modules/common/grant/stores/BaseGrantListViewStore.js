@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { LookupService, CharityService } from "common/data";
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
 import { ModalParams } from 'core/models';
-import { getCharityNameDropdown } from 'core/utils';
+import { getCharityNameDropdown, getCharityDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 
 class BaseGrantListViewStore extends BaseListViewStore {
@@ -69,11 +69,10 @@ class BaseGrantListViewStore extends BaseListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'charityAddresses,address' };
+                    let options = getCharityDropdownOptions;
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
-                    options.charityAddressPrimary = true;
 
                     let response = await this.charityService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });
@@ -83,8 +82,7 @@ class BaseGrantListViewStore extends BaseListViewStore {
         );
 
         if (this.queryUtility.filter.charityId) {
-            let params = {};
-            params.embed = ['charityAddresses,address'];
+            let params = getCharityDropdownOptions;
             const charity = await this.charityService.get(this.queryUtility.filter.charityId, params);
             let defaultCharity = { id: charity.id, name: getCharityNameDropdown(charity) }
             let charitySearchs = [];

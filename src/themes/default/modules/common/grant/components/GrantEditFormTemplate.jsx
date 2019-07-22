@@ -106,7 +106,7 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
                 </div>
                 <div className="form__group f-col f-col-lrg-6">
                     <div className="inputgroup">
-                        <label>Total Amount</label>{Number(form.$('amount').value) !== form.$('amount').get('default') && amountChange}
+                        <label>Total Amount With Fee</label>{Number(form.$('amount').value) !== form.$('amount').get('default') && amountChange}
                         <NumberFormat
                             className={"input input--text input--med padd--top--tny input--disabled"}
                             value={totalAmount} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} displayType={'text'}

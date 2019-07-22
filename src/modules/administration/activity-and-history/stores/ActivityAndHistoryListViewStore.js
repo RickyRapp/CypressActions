@@ -3,7 +3,7 @@ import { ActivityAndHistoryService, DonorAccountService } from "common/data";
 import { ActivityAndHistoryListFilter } from 'modules/common/activity-and-history/models';
 import { BaasicDropdownStore } from "core/stores";
 import { BaseActivityAndHistoryListViewStore } from "modules/common/activity-and-history/stores";
-import { getDonorNameDropdown, getDonorName } from 'core/utils';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 
 class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStore {
@@ -17,6 +17,20 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
             name: 'activity and history',
             actions: {
                 find: async params => {
+                    params.fields = [
+                        'id',
+                        'amount',
+                        'userBalance',
+                        'dateCreated',
+                        'paymentTransactionStatusId',
+                        'done',
+                        'paymentTransactionTypeId',
+                        'contributionId',
+                        'grantId',
+                        'fundTransferId',
+                        'feeId',
+                        'bookletOrderId'
+                    ];
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await activityAndHistoryService.find(params);
@@ -90,7 +104,8 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -103,8 +118,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
         );
 
         if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
+            let params = getDonorAccountDropdownOptions;
             const donorAccount = await this.donorAccountService.get(this.rootStore.routerStore.routerState.queryParams.donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

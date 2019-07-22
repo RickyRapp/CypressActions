@@ -1,7 +1,7 @@
 import { action, observable, computed } from 'mobx';
 import { GrantService, DonorAccountService, LookupService, CharityService, FeeService, GrantScheduledPaymentService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { getCharityNameDropdown } from 'core/utils';
+import { getCharityNameDropdown, getCharityDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 
 class BaseGrantCreateViewStore extends BaseEditViewStore {
@@ -108,7 +108,7 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'charityAddresses,address' };
+                    let options = getCharityDropdownOptions;
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -123,7 +123,22 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound async getDonorAccount() {
         let params = {};
-        params.embed = 'donorAccountAddresses,address'
+        params.embed = ['donorAccountAddresses', 'donorAccountAddresses.address'];
+        params.fields = [
+            'id',
+            'availableBalance',
+            'lineOfCredit',
+            'grantFee',
+            'fundName',
+            'donorAccountAddresses',
+            'donorAccountAddresses.primary',
+            'donorAccountAddresses.address',
+            'donorAccountAddresses.address.addressLine1',
+            'donorAccountAddresses.address.addressLine2',
+            'donorAccountAddresses.address.city',
+            'donorAccountAddresses.address.state',
+            'donorAccountAddresses.address.zipCode'
+        ];
         this.donorAccount = await this.donorAccountService.get(this.userId, params);
     }
 

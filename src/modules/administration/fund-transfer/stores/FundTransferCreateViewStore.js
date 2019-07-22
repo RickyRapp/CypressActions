@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { FundTransferCreateForm } from 'modules/administration/fund-transfer/forms';
 import { FundTransferService, DonorAccountService } from "common/data";
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { getDonorNameDropdown } from 'core/utils';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 
 class FundTransferCreateViewStore extends BaseEditViewStore {
@@ -36,7 +36,8 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+                    options.fields.push('availableBalance');
                     options.exceptId = this.recipientDonorAccount ? this.recipientDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -59,7 +60,8 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+                    options.fields.push('availableBalance');
                     options.exceptId = this.senderDonorAccount ? this.senderDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -68,7 +70,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                     const response = await this.donorAccountService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
                 },
-                onChange: this.onChangerecipientDonorAccount
+                onChange: this.onChangeRecipientDonorAccount
             }
         );
     }
@@ -76,8 +78,14 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
     @action.bound async onChangeSenderDonorAccount(option) {
         if (option) {
             this.form.$('senderDonorAccountId').set('value', option.id);
-            let params = {};
-            params.embed = ['coreUser'];
+            let params = {
+                embed: 'coreUser,companyProfile',
+                fields: [
+                    'id',
+                    'availableBalance',
+                    'donorName'
+                ]
+            }
             const response = await this.donorAccountService.get(option.id, params);
             this.senderDonorAccount = response;
             this.form.$('amount').set('rules', `required|numeric|min:0|max:${this.senderDonorAccount.availableBalance}`)
@@ -89,11 +97,17 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
         }
     }
 
-    @action.bound async onChangerecipientDonorAccount(option) {
+    @action.bound async onChangeRecipientDonorAccount(option) {
         if (option) {
             this.form.$('recipientDonorAccountId').set('value', option.id);
-            let params = {};
-            params.embed = ['coreUser'];
+            let params = {
+                embed: 'coreUser,companyProfile',
+                fields: [
+                    'id',
+                    'availableBalance',
+                    'donorName'
+                ]
+            }
             const response = await this.donorAccountService.get(option.id, params);
             this.recipientDonorAccount = response;
         }

@@ -11,22 +11,7 @@ class BaseBookletListViewStore extends BaseListViewStore {
     @observable bookletStatuses = null;
     @observable bookletId = null;
 
-    fields = [
-        'id',
-        'donorAccountId',
-        'dateUpdated',
-        'dateCreated',
-        'code',
-        'denominationTypeId',
-        'bookletStatusId',
-        'dateAssigned',
-        'createdByCoreUser',
-        'createdByCoreUser.userId',
-        'createdByCoreUser.firstName',
-        'createdByCoreUser.lastName',
-        'certificates',
-        'certificates.certificateStatusId',
-    ];
+
     setColumns = null;
     setActions = null;
     setRenderActions = null;

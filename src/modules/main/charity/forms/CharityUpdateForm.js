@@ -55,14 +55,9 @@ export default class CharityUpdateForm extends FormBase {
                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION'),
                     fields: [
                         {
-                            name: 'firstName',
-                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.FIRSTNAME'),
-                            rules: 'required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
-                        },
-                        {
-                            name: 'lastName',
-                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.LASTNAME'),
-                            rules: 'required_with:contactInformation.firstName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
+                            name: 'name',
+                            label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.NAME'),
+                            rules: 'required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                         },
                         {
                             name: 'address',
@@ -71,7 +66,7 @@ export default class CharityUpdateForm extends FormBase {
                                 {
                                     name: 'addressLine1',
                                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ADDRESSLINE1'),
-                                    rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
+                                    rules: 'required_with:contactInformation.name|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                                 {
                                     name: 'addressLine2',
@@ -81,17 +76,17 @@ export default class CharityUpdateForm extends FormBase {
                                 {
                                     name: 'city',
                                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.CITY'),
-                                    rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
+                                    rules: 'required_with:contactInformation.name|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                                 {
                                     name: 'state',
                                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.STATE'),
-                                    rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
+                                    rules: 'required_with:contactInformation.name|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                                 {
                                     name: 'zipCode',
                                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.ADDRESS.ZIPCODE'),
-                                    rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
+                                    rules: 'required_with:contactInformation.name|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.addressLine2|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.emailAddress.email|required_with:contactInformation.phoneNumber.number|string',
                                 },
                             ]
                         },
@@ -102,7 +97,7 @@ export default class CharityUpdateForm extends FormBase {
                                 {
                                     name: 'email',
                                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.EMAILADDRESS.EMAIL'),
-                                    rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.phoneNumber.number|string',
+                                    rules: 'required_with:contactInformation.name|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.phoneNumber.number|string',
                                 },
                             ]
                         },
@@ -113,7 +108,7 @@ export default class CharityUpdateForm extends FormBase {
                                 {
                                     name: 'number',
                                     label: localizationService.t('CHARITYUPDATEFORM.CONTACTINFORMATION.PHONENUMBER.NUMBER'),
-                                    rules: 'required_with:contactInformation.firstName|required_with:contactInformation.lastName|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|string',
+                                    rules: 'required_with:contactInformation.name|required_with:contactInformation.address.addressLine1|required_with:contactInformation.address.city|required_with:contactInformation.address.state|required_with:contactInformation.address.zipCode|required_with:contactInformation.emailAddress.email|string',
                                 },
                             ]
                         },

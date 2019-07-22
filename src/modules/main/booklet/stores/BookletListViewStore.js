@@ -18,7 +18,22 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = 'certificates';
-                    params.fields = _.union(this.fields, this.additionalFields);
+                    params.fields = [
+                        'id',
+                        'donorAccountId',
+                        'dateUpdated',
+                        'dateCreated',
+                        'code',
+                        'denominationTypeId',
+                        'bookletStatusId',
+                        'dateAssigned',
+                        'createdByCoreUser',
+                        'createdByCoreUser.userId',
+                        'createdByCoreUser.firstName',
+                        'createdByCoreUser.lastName',
+                        'certificates',
+                        'certificates.certificateStatusId',
+                    ];
                     const response = await bookletService.find(params);
                     this.loaderStore.resume();
                     return response;

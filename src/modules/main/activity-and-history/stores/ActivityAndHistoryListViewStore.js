@@ -16,6 +16,20 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
             name: 'activity and history',
             actions: {
                 find: async params => {
+                    params.fields = [
+                        'id',
+                        'amount',
+                        'userBalance',
+                        'dateCreated',
+                        'paymentTransactionStatusId',
+                        'done',
+                        'paymentTransactionTypeId',
+                        'contributionId',
+                        'grantId',
+                        'fundTransferId',
+                        'feeId',
+                        'bookletOrderId'
+                    ];
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
                     const response = await activityAndHistoryService.find(params);

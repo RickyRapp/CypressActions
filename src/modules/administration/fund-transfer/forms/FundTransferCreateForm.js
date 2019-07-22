@@ -17,7 +17,7 @@ export default class FundTransferCreateForm extends FormBase {
 
             labels: {
                 'senderDonorAccountId': 'Sender Donor',
-                'recipientDonorAccountId': 'recipient Donor',
+                'recipientDonorAccountId': 'Recipient Donor',
                 'description': 'Description',
                 'amount': 'Amount',
             },

@@ -10,6 +10,7 @@ class GrantReviewViewStore extends BaseViewStore {
     @observable paymentTypeDropdownStore = null;
     @observable grant = null;
     @observable availablePaymentTypes = null;
+    @observable paymentTypes = null;
     @observable form = null;
     @observable grantPurposeTypes = null;
 
@@ -25,19 +26,50 @@ class GrantReviewViewStore extends BaseViewStore {
     @action.bound async load() {
         this.loaderStore.suspend();
         let params = {};
-        params.embed = ['donorAccount,coreUser,charity,charityAddresses,address,bankAccount,grantPurposeMember'];
+        params.embed = [
+            'donorAccount',
+            'donorAccount.coreUser',
+            'donorAccount.companyProfile',
+            'charity',
+            'charity.charityAddresses',
+            'charity.charityAddresses.address',
+            'charity.bankAccount',
+            'grantPurposeMember'
+        ];
+        params.fields = [
+            'id',
+            'amount',
+            'dateCreated',
+            'description',
+            'grantPurposeTypeId',
+            'confirmationNumber',
+            'donorAccount',
+            'donorAccount.donorName',
+            'charity',
+            'charity.name',
+            'charity.charityAddresses',
+            'charity.charityAddresses.primary',
+            'charity.charityAddresses.address',
+            'charity.charityAddresses.address.id',
+            'charity.charityAddresses.address.addressLine1',
+            'charity.charityAddresses.address.addressLine2',
+            'charity.charityAddresses.address.city',
+            'charity.charityAddresses.address.state',
+            'charity.charityAddresses.address.zipCode',
+        ];
         this.grant = await this.grantService.get(this.id, params);
 
         await this.loadLookups();
         await this.initializeForm();
-        await this.setStores();
+        this.setStores();
         this.loaderStore.resume();
     }
 
     @action.bound async loadLookups() {
         const paymentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'payment-type');
-        const paymentTypes = await paymentTypeLookupService.getAll();
-        this.availablePaymentTypes = this.getAvailablePaymentTypes(paymentTypes.data);
+        const paymentTypeModels = await paymentTypeLookupService.getAll();
+        this.paymentTypes = paymentTypeModels.data;
+        this.availablePaymentTypes = this.getAvailablePaymentTypes(this.paymentTypes);
 
         const grantPurposeTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'grant-purpose-type');
         const grantPurposeTypes = await grantPurposeTypeLookupService.getAll();
@@ -85,7 +117,7 @@ class GrantReviewViewStore extends BaseViewStore {
         }, fields);
     }
 
-    @action.bound async setStores() {
+    @action.bound setStores() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore(
             {
                 multi: false,
@@ -100,28 +132,28 @@ class GrantReviewViewStore extends BaseViewStore {
         );
     }
 
-    getAvailablePaymentTypes(paymentTypes) {
-        let billPay = _.find(paymentTypes, { abrv: 'bill-pay' });
-        let check = _.find(paymentTypes, { abrv: 'check' });
-        let ach = _.find(paymentTypes, { abrv: 'ach' });
+    @action.bound getAvailablePaymentTypes(paymentTypes) {
+        const billPay = _.find(paymentTypes, { id: this.billPayId });
+        const check = _.find(paymentTypes, { id: this.checkId });
 
         let availablePaymentTypes = [billPay, check];
         if (this.grant.charity.bankAccount) {
+            const ach = _.find(paymentTypes, { id: this.achId });
             availablePaymentTypes.push(ach);
         }
         return _.orderBy(availablePaymentTypes, ['sortOrder'], ['asc']);
     }
 
     @computed get checkId() {
-        return this.availablePaymentTypes ? _.find(this.availablePaymentTypes, { abrv: 'check' }).id : null;
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'check' }).id : null;
     }
 
     @computed get achId() {
-        return this.availablePaymentTypes ? _.find(this.availablePaymentTypes, { abrv: 'ach' }).id : null;
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'ach' }).id : null;
     }
 
     @computed get billPayId() {
-        return this.availablePaymentTypes ? _.find(this.availablePaymentTypes, { abrv: 'bill-pay' }).id : null;
+        return this.paymentTypes ? _.find(this.paymentTypes, { abrv: 'bill-pay' }).id : null;
     }
 }
 

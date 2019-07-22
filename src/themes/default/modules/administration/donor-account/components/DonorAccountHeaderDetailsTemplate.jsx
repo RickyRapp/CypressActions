@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultTemplate, getDonorName } from 'core/utils';
+import { defaultTemplate, } from 'core/utils';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
@@ -91,7 +91,7 @@ function renderContribution(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
-                    {getDonorName(donorAccount)}
+                    {donorAccount.donorName}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -125,7 +125,7 @@ function renderContributionSetting(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
-                    {getDonorName(donorAccount)}
+                    {donorAccount.donorName}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -151,7 +151,7 @@ function renderActivityAndHistory(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
-                    {getDonorName(donorAccount)}
+                    {donorAccount.donorName}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -173,7 +173,7 @@ function renderGrant(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
-                    {getDonorName(donorAccount)}
+                    {donorAccount.donorName}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -199,7 +199,7 @@ function renderBookletOrder(donorAccount, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
-                    {getDonorName(donorAccount)}
+                    {donorAccount.donorName}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">

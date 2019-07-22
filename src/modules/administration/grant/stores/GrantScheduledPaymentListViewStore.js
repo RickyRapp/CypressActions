@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { GrantScheduledPaymentService, DonorAccountService } from "common/data";
 import { BaasicDropdownStore } from "core/stores";
+import { getDonorAccountDropdownOptions } from "core/utils";
 import { GrantScheduledPaymentListFilter } from 'modules/administration/grant/models';
 import { renderGrantScheduleType } from 'modules/common/grant/components';
 import { BaseGrantScheduledPaymentListViewStore } from 'modules/common/grant/stores';
@@ -144,7 +145,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }

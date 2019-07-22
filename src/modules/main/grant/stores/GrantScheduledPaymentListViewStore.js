@@ -53,7 +53,7 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
         this.setColumns = [
             {
                 key: 'charity.name',
-                title: 'Charity (click on row)',
+                title: 'Charity',
                 onClick: grant => this.routes.charityEdit(grant.charity.id)
             },
             {

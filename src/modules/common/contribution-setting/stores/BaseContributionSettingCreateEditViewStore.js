@@ -33,7 +33,6 @@ class BaseContributionSettingCreateEditViewStore extends BaseEditViewStore {
                 isClearable: false
             },
             {
-                onChange: (option) => option ? this.form.$('bankAccountId').set('value', option.id) : this.form.$('bankAccountId').clear()
             },
             _.map(this.bankAccounts, e => { return { id: e.id, name: e.name } })
         );
@@ -55,7 +54,6 @@ class BaseContributionSettingCreateEditViewStore extends BaseEditViewStore {
 
     @action.bound async onChangeContributionSetting(option) {
         if (option && option.id) {
-            this.form.$('contributionSettingTypeId').set('value', option.id);
             if (option.abrv === 'low-balance') {
                 this.form.$('lowBalanceAmount').set('rules', 'required|numeric');
                 this.form.$('startDate').set('rules', 'date');
@@ -64,9 +62,6 @@ class BaseContributionSettingCreateEditViewStore extends BaseEditViewStore {
                 this.form.$('lowBalanceAmount').set('rules', 'numeric');
                 this.form.$('startDate').set('rules', 'required|date');
             }
-        }
-        else {
-            this.form.$('contributionSettingTypeId').clear();
         }
     }
 }

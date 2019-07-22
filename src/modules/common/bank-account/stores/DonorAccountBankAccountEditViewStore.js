@@ -16,7 +16,13 @@ class DonorAccountBankAccountEditViewStore extends BaseViewStore {
     @action.bound
     async getResource() {
         let params = {};
-        params.embed = ['donorAccountBankAccounts,thirdPartyAccountHolder,address,emailAddress,phoneNumber']
+        params.embed = [
+            'donorAccountBankAccounts',
+            'thirdPartyAccountHolder',
+            'thirdPartyAccountHolder.address',
+            'thirdPartyAccountHolder.emailAddress',
+            'thirdPartyAccountHolder.phoneNumber',
+        ];
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
         params.donorAccountId = this.userId;

@@ -68,10 +68,10 @@ class BaseContributionListViewStore extends BaseListViewStore {
 
     @action.bound async loadLookups() {
         let paymentTypeModels = await this.paymentTypeLookup.getAll();
-        this.paymentTypes = paymentTypeModels.data;
+        this.paymentTypes = _.orderBy(paymentTypeModels.data, ['sortOrder'], ['asc']);
 
         let contributionStatusModels = await this.contributionStatusLookup.getAll();
-        this.contributionStatuses = contributionStatusModels.data;
+        this.contributionStatuses = _.orderBy(contributionStatusModels.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async setStores() {
@@ -86,7 +86,7 @@ class BaseContributionListViewStore extends BaseListViewStore {
             {
                 onChange: (options) => this.queryUtility.filter.paymentTypeIds = (options ? _.map(options, item => { return item.id }) : null)
             },
-            _.map(_.orderBy(this.paymentTypes, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
+            _.map(this.paymentTypes, item => { return { id: item.id, name: item.name } })
         );
 
         this.contributionStatusDropdownStore = new BaasicDropdownStore(
@@ -100,7 +100,7 @@ class BaseContributionListViewStore extends BaseListViewStore {
             {
                 onChange: (options) => this.queryUtility.filter.contributionStatusIds = (options ? _.map(options, item => { return item.id }) : null)
             },
-            _.map(_.orderBy(this.contributionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
+            _.map(this.contributionStatuses, item => { return { id: item.id, name: item.name } })
         );
     }
 }

@@ -23,8 +23,7 @@ class BaseFundTransferListViewStore extends BaseListViewStore {
                 columns: this.setColumns,
                 actions: _.merge(this.defaultActions, this.setActions),
                 actionsRender: _.merge(this.defaultRenderActions, this.setRenderActions)
-            })
-        );
+            }));
     }
 }
 

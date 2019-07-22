@@ -7,11 +7,11 @@ class DonorAccountRouteService extends BaseRouteService {
   }
 
   find(filter) {
-    return super.find(this.base + '{?firstName,lastName,emails,page,rpp,sort,embed,fields,searchFields}', filter);
+    return super.find(this.base + '{?firstName,lastName,emails,page,rpp,sort,embed,fields,fields}', filter);
   }
 
   get(id, options) {
-    return super.get(this.base + '{id}/{?embed}', id, options);
+    return super.get(this.base + '{id}/{?embed,fields}', id, options);
   }
 
   getSettings(id) {

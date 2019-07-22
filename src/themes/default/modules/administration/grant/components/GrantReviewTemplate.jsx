@@ -35,7 +35,7 @@ function GrantReviewTemplate({ grantReviewViewStore }) {
                         <div className="form__group f-col f-col-lrg-6">
                             <div className="inputgroup">
                                 <label>Donor Name</label>
-                                <strong>{`${grant.donorAccount.coreUser.firstName} ${grant.donorAccount.coreUser.lastName}`}</strong>
+                                <strong>{grant.donorAccount.donorName}</strong>
                             </div>
                         </div>
                         <div className="form__group f-col f-col-lrg-6">

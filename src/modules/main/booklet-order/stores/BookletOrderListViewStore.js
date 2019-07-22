@@ -8,11 +8,6 @@ import _ from 'lodash';
 class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
     @observable donorAccountSearchDropdownStore = null;
 
-    additionalFields = [
-        'donorAccount',
-        'donorAccount.donorName'
-    ];
-
     constructor(rootStore) {
         const bookletOrderService = new BookletOrderService(rootStore.app.baasic.apiClient);
 
@@ -33,7 +28,21 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = 'donorAccount,donorAccount.coreUser,donorAccount.companyProfile,createdByCoreUser';
-                    params.fields = _.union(this.fields, this.additionalFields);
+                    params.fields = [
+                        'id',
+                        'donorAccountId',
+                        'dateUpdated',
+                        'amount',
+                        'bookletOrderStatusId',
+                        'confirmationNumber',
+                        'bookletOrderStatusId',
+                        'donorAccount',
+                        'donorAccount.donorName',
+                        'createdByCoreUser',
+                        'createdByCoreUser.userId',
+                        'createdByCoreUser.firstName',
+                        'createdByCoreUser.lastName'
+                    ]
                     const response = await bookletOrderService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -91,12 +100,10 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         ];
 
         this.setActions = {
-            onReview: (bookletOrder) => { this.bookletOrderId = bookletOrder.id; this.reviewModalParams.open(); },
             onEdit: (bookletOrder) => this.routes.edit(bookletOrder.id)
         }
 
         this.setRenderActions = {
-            renderReview: this.renderReview,
             renderEdit: this.renderEdit
         }
     }

@@ -24,12 +24,7 @@ function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
                 <div className="form__group f-col f-col-lrg-6 spc--top--med">
                     {senderDonorAccount &&
                         <div>
-                            <div>
-                                {senderDonorAccount.coreUser.firstName}
-                            </div>
-                            <div>
-                                <NumberFormat value={senderDonorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-                            </div>
+                            {senderDonorAccount.donorName}: <NumberFormat value={senderDonorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                         </div>}
                 </div>
             </div>
@@ -41,12 +36,7 @@ function FundTransferCreateTemplate({ fundTransferCreateViewStore }) {
                 <div className="form__group f-col f-col-lrg-6 spc--top--med">
                     {recipientDonorAccount &&
                         <div>
-                            <div>
-                                {recipientDonorAccount.coreUser.firstName}
-                            </div>
-                            <div>
-                                <NumberFormat value={recipientDonorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-                            </div>
+                            {recipientDonorAccount.donorName}: <NumberFormat value={recipientDonorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                         </div>}
                 </div>
             </div>

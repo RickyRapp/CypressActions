@@ -3,7 +3,7 @@ import { defaultTemplate } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 import { Loader } from 'core/components';
-import { PaymentTransactionTableRowTemplate } from 'themes/modules/common/payment-transaction/components';
+import { PaymentTransactionTableTemplate } from 'themes/modules/common/payment-transaction/components';
 
 function GrantDetailsTemplate({ grantDetailsViewStore }) {
     const {

@@ -44,7 +44,7 @@ class BaseContributionSettingListViewStore extends BaseViewStore {
 
     @action.bound async getBankAccounts() {
         let params = {};
-        params.embed = 'bankAccount'
+        params.fields = ['id', 'name'];
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
         params.donorAccountId = this.userId;

@@ -39,10 +39,11 @@ function DonorAccountListTemplate({ donorAccountListViewStore }) {
                     </div>
                 </TableFilter>
             </div>
-            <BaasicTable
-                tableStore={tableStore}
-                loading={loaderStore.loading}
-            />
+            {tableStore &&
+                <BaasicTable
+                    tableStore={tableStore}
+                    loading={loaderStore.loading}
+                />}
         </ListLayout>
     );
 }

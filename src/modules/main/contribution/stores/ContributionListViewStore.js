@@ -8,11 +8,24 @@ import _ from 'lodash';
 
 class ContributionListViewStore extends BaseContributionListViewStore {
 
-    additionalFields = [
+    fields = [
+        'id',
+        'donorAccountId',
+        'dateUpdated',
+        'amount',
+        'confirmationNumber',
+        'contributionStatusId',
+        'paymentTypeId',
         'donorAccount',
         'donorAccount.id',
-        'donorAccount.donorName'
-    ];
+        'donorAccount.donorName',
+        'payerInformation',
+        'payerInformation.name',
+        'createdByCoreUser',
+        'createdByCoreUser.userId',
+        'createdByCoreUser.firstName',
+        'createdByCoreUser.lastName'
+    ]
 
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
@@ -35,7 +48,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = 'donorAccount,donorAccount.coreUser,,donorAccount.companyProfile,payerInformation,bankAccount,createdByCoreUser';
-                    params.fields = _.join(_.union(this.fields, this.additionalFields), ',');
+                    params.fields = this.fields;
                     const response = await contributionService.find(params);
                     this.loaderStore.resume();
                     return response;

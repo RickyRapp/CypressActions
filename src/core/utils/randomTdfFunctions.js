@@ -111,7 +111,49 @@ function converter(fileSize, from, to) {
     return convertedFileSize;
 }
 
+const getDonorAccountDropdownOptions = {
+    page: 1,
+    rpp: 15,
+    embed: 'coreUser,companyProfile,donorAccountAddresses,donorAccountAddresses.address',
+    fields: [
+        'id',
+        'accountNumber',
+        'coreUser',
+        'coreUser.firstName',
+        'coreUser.lastName',
+        'coreUser.json',
+        'companyProfile',
+        'companyProfile.name',
+        'donorAccountAddresses',
+        'donorAccountAddresses.primary',
+        'donorAccountAddresses.address',
+        'donorAccountAddresses.address.addressLine1',
+        'donorAccountAddresses.address.addressLine2',
+        'donorAccountAddresses.address.city',
+        'donorAccountAddresses.address.state',
+        'donorAccountAddresses.address.zipCode'
+    ]
+};
+
+const getCharityDropdownOptions = {
+    page: 1,
+    rpp: 15,
+    embed: ['charityAddresses,charityAddresses.address'],
+    fields: [
+        'name',
+        'taxId',
+        'charityAddresses',
+        'charityAddresses.primary',
+        'charityAddresses.address',
+        'charityAddresses.address.addressLine1',
+        'charityAddresses.address.addressLine2',
+        'charityAddresses.address.city',
+        'charityAddresses.address.state',
+        'charityAddresses.address.zipCode'
+    ]
+}
+
 export {
     getDonorNameDropdown, getFormattedAddress, getFormattedPrimaryAddress, getCharityNameDropdown, getDonorName, formatCharityTaxId,
-    isErrorCode, isSuccessCode, converter, formatDenomination
+    isErrorCode, isSuccessCode, converter, formatDenomination, getDonorAccountDropdownOptions, getCharityDropdownOptions
 };

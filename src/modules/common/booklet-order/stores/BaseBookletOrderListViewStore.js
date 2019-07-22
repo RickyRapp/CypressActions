@@ -11,19 +11,6 @@ class BaseBookletOrderListViewStore extends BaseListViewStore {
     @observable deliveryMethodTypes = null;
     @observable bookletOrderId = null;
 
-    fields = [
-        'id',
-        'donorAccountId',
-        'dateUpdated',
-        'amount',
-        'bookletOrderStatusId',
-        'confirmationNumber',
-        'bookletOrderStatusId',
-        'createdByCoreUser',
-        'createdByCoreUser.userId',
-        'createdByCoreUser.firstName',
-        'createdByCoreUser.lastName'
-    ]
     setColumns = null;
     setActions = null;
     setRenderActions = null;

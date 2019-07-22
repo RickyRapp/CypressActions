@@ -5,7 +5,7 @@ import { GrantListFilter } from 'modules/administration/grant/models';
 import { ModalParams } from 'core/models';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
 import { BaseGrantListViewStore } from 'modules/common/grant/stores';
-import { getDonorNameDropdown } from 'core/utils';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -40,9 +40,39 @@ class GrantListViewStore extends BaseGrantListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,companyProfile,grantPurposeMember,charity,grantScheduledPayment';
-                    params.orderBy = 'dateCreated';
-                    params.orderDirection = 'desc';
+                    params.embed = [
+                        'createdByCoreUser',
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile',
+                        'grantPurposeMember',
+                        'charity',
+                        'grantScheduledPayment'
+                    ];
+                    params.fields = [
+                        'id',
+                        'amount',
+                        'dateCreated',
+                        'grantStatusId',
+                        'confirmationNumber',
+                        'description',
+                        'donationStatusId',
+                        'grantPurposeTypeId',
+                        'grantPurposeMember',
+                        'grantPurposeMember.name',
+                        'grantScheduledPayment',
+                        'grantScheduledPayment.name',
+                        'createdByCoreUser',
+                        'createdByCoreUser.firstName',
+                        'createdByCoreUser.lastName',
+                        'donorAccount',
+                        'donorAccountId',
+                        'donorAccount.id',
+                        'donorAccount.donorName',
+                        'charity',
+                        'charity.id',
+                        'charity.name',
+                    ];
                     const response = await grantService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -143,10 +173,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
 
     @action.bound renderEdit(grant) {
         const statusesForEdit = _.map(_.filter(this.donationStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        if (_.some(statusesForEdit, (item) => { return item === grant.donationStatusId })) {
-            return moment().local().isBefore(moment.utc(grant.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
-        }
-        return false;
+        return _.some(statusesForEdit, (item) => { return item === grant.donationStatusId });
     }
 
     @action.bound async onAfterReviewGrant() {
@@ -166,7 +193,8 @@ class GrantListViewStore extends BaseGrantListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -179,8 +207,7 @@ class GrantListViewStore extends BaseGrantListViewStore {
         );
 
         if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
+            let params = getDonorAccountDropdownOptions;
             const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

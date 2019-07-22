@@ -78,13 +78,45 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
 
     @action.bound async getDonorAccount() {
         let params = {};
-        params.embed = ['coreUser,companyProfile,donorAccountAddresses,donorAccountEmailAddresses,donorAccountPhoneNumbers,address,emailAddress,phoneNumber,contributionSettings'];
+        params.embed = [
+            'coreUser',
+            'companyProfile',
+            'donorAccountAddresses',
+            'donorAccountAddresses.address',
+            'donorAccountEmailAddresses',
+            'donorAccountEmailAddresses.emailAddress',
+            'donorAccountPhoneNumbers',
+            'donorAccountPhoneNumbers.phoneNumber',
+            'contributionSettings'
+        ];
+        params.fields = [
+            'id',
+            'donorName',
+            'donorAccountAddresses',
+            'donorAccountAddresses.primary',
+            'donorAccountAddresses.address',
+            'donorAccountAddresses.address.addressLine1',
+            'donorAccountAddresses.address.addressLine2',
+            'donorAccountAddresses.address.state',
+            'donorAccountAddresses.address.city',
+            'donorAccountAddresses.address.zipCode',
+            'donorAccountEmailAddresses',
+            'donorAccountEmailAddresses.primary',
+            'donorAccountEmailAddresses.emailAddress',
+            'donorAccountEmailAddresses.emailAddress.email',
+            'donorAccountPhoneNumbers',
+            'donorAccountPhoneNumbers.primary',
+            'donorAccountPhoneNumbers.phoneNumber',
+            'donorAccountPhoneNumbers.phoneNumber.number',
+            'contributionSettings',
+            'contributionSettings.contributionSettingTypeId'
+        ]
         this.donorAccount = await this.donorAccountService.get(this.userId, params)
     }
 
     @action.bound async getBankAccounts() {
         let params = {};
-        params.embed = 'bankAccount,thirdPartyAccountHolder,address,emailAddress,phoneNumber'
+        params.embed = ['thirdPartyAccountHolder', 'thirdPartyAccountHolder.address', 'thirdPartyAccountHolder.emailAddress', 'thirdPartyAccountHolder.phoneNumber']
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
         params.donorAccountId = this.userId;
@@ -184,14 +216,14 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
             this.form.$('settingStartDate').set('rules', this.form.$('settingStartDate').rules + `|required_if:contributionSettingTypeId,${this.oneTimeId}|required_if:contributionSettingTypeId,${this.weeklyId}|required_if:contributionSettingTypeId,${this.monthlyId}|required_if:contributionSettingTypeId,${this.everyTwoWeeksId}|required_if:contributionSettingTypeId,${this.everyTwoMonthsId}|required_if:contributionSettingTypeId,${this.everySixMonthsId}`);
 
             //Default Values
-            this.form.$('payerInformation.name').set('default', getDonorName(this.donorAccount));
+            this.form.$('payerInformation.name').set('default', this.donorAccount.donorName);
             this.form.$('payerInformation.address').set('default', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
             this.form.$('payerInformation.emailAddress').set('default', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
             this.form.$('payerInformation.phoneNumber').set('default', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);
 
             //Values
             this.form.$('donorAccountId').set('value', this.donorAccount.id);
-            this.form.$('payerInformation.name').set('value', getDonorName(this.donorAccount));
+            this.form.$('payerInformation.name').set('value', this.donorAccount.donorName);
             this.form.$('payerInformation.address').set('value', _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address);
             this.form.$('payerInformation.emailAddress').set('value', _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
             this.form.$('payerInformation.phoneNumber').set('value', _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);

@@ -13,6 +13,46 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
     constructor(rootStore, { userId }) {
         const donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
+        const fields = [
+            'id',
+            'accountTypeId',
+            'blankBookletMax',
+            'securityPin',
+            'certificateDeduction',
+            'certificateFee',
+            'contributionMinimumAdditional',
+            'contributionMinimumInitial',
+            'deliveryMethodTypeId',
+            'extraBookletPercentage',
+            'grantFee',
+            'grantMinimumAmount',
+            'howDidYouHearAboutUsId',
+            'initialContribution',
+            'fundName',
+            'lineOfCredit',
+            'coreUser',
+            'coreUser.firstName',
+            'coreUser.lastName',
+            'coreUser.json',
+            'companyProfileId',
+            'companyProfile',
+            'companyProfile.name',
+            'companyProfile.DBA',
+            'companyProfile.website',
+            'companyProfile.businessTypeId',
+            'companyProfile.contactPerson',
+            'companyProfile.contactPerson.name',
+            'companyProfile.contactPerson.address',
+            'companyProfile.contactPerson.address.addressLine1',
+            'companyProfile.contactPerson.address.addressLine2',
+            'companyProfile.contactPerson.address.city',
+            'companyProfile.contactPerson.address.state',
+            'companyProfile.contactPerson.address.zipCode',
+            'companyProfile.contactPerson.emailAddress',
+            'companyProfile.contactPerson.emailAddress.email',
+            'companyProfile.contactPerson.phoneNumber',
+            'companyProfile.contactPerson.phoneNumber.number',
+        ];
 
         super(rootStore, {
             name: 'donor account',
@@ -24,7 +64,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                         donorAccount.companyProfile = null;
                     }
                     else {
-                        if (!donorAccount.companyProfile.contactPerson.firstName || donorAccount.companyProfile.contactPerson.firstName === '') {
+                        if (!donorAccount.companyProfile.contactPerson.name || donorAccount.companyProfile.contactPerson.name === '') {
                             donorAccount.companyProfile.contactPerson = null;
                         }
                     }
@@ -32,7 +72,8 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['coreUser,companyProfile,contactPerson,address,emailAddress,phoneNumber'];
+                    params.embed = ['coreUser,companyProfile,companyProfile.contactPerson,companyProfile.contactPerson.address,companyProfile.contactPerson.emailAddress,companyProfile.contactPerson.phoneNumber'];
+                    params.fields = fields;
                     const response = await donorAccountService.get(id, params);
                     if (isSome(response)) {
                         if (isSome(response.coreUser) && isSome(response.coreUser.json)) {

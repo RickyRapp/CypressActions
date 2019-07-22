@@ -15,30 +15,37 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
 
     @action.bound
     async getResource() {
-        let embeds = this.getComponentsEmbeds();
+        const options = this.getComponentsEmbeds();
         let params = {};
-        params.embed = embeds;
+        params.embed = options.embeds;
+        params.fields = options.fields;
         this.donorAccount = await this.donorAccountService.get(this.userId, params)
     }
 
     getComponentsEmbeds() {
         let embeds = ['coreUser,companyProfile'];
+        let fields = ['id', 'donorName', 'availableBalance']
 
         if (this.isDonorAccountType) {
         }
         else if (this.isContributionType) {
+            fields.push(['initialContribution', 'contributionMinimumAdditional', 'contributionMinimumInitial']);
         }
         else if (this.isContributionSettingType) {
+            fields.push(['initialContribution', 'contributionMinimumAdditional', 'contributionMinimumInitial']);
             embeds.push('contributionSetting');
         }
         else if (this.isActivityAndHistoryType) {
+            fields.push(['balanceOnHold']);
         }
         else if (this.isGrantType) {
+            fields.push(['lineOfCredit', 'grantFee']);
         }
         else if (this.isBookletOrderType) {
+            fields.push(['lineOfCredit', 'certificateFee', 'certificateDeduction']);
         }
 
-        return embeds.join(',');
+        return { embeds: embeds.join(','), fields: fields.join(',') };
     }
 
     @computed get isDonorAccountType() {

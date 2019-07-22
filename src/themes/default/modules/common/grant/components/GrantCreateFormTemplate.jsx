@@ -116,7 +116,7 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                     (form.$('startFutureDate').value ? form.$('startFutureDate').value.toLocaleDateString() : null) === (new Date()).toLocaleDateString()) &&
                     <div className="form__group f-col f-col-lrg-6">
                         <div className="inputgroup">
-                            <label>Total Amount</label>
+                            <label>Total Amount With Fee</label>
                             <NumberFormat
                                 className={"input input--text input--med padd--top--tny input--disabled"}
                                 value={totalAmount} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} displayType={'text'}

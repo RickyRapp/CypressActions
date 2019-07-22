@@ -26,7 +26,47 @@ class GrantDetailsViewStore extends BaseViewStore {
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['charity,donorAccount,coreUser,grantPurposeMember,grantDonorAccountTransactions,paymentTransaction,fee'];
+        params.embed = [
+            'charity',
+            'donorAccount',
+            'donorAccount.coreUser',
+            'donorAccount.companyProfile',
+            'grantPurposeMember',
+            'grantDonorAccountTransactions',
+            'grantDonorAccountTransactions.paymentTransaction',
+            'grantDonorAccountTransactions.fee',
+            'grantDonorAccountTransactions.fee.paymentTransaction'
+        ];
+        params.fields = [
+            'dateCreated',
+            'description',
+            'dateUpdated',
+            'amount',
+            'charity',
+            'charity.name',
+            'donorAccount',
+            'donorAccount.donorName',
+            'grantPurposeMember',
+            'grantPurposeMember.name',
+            'grantDonorAccountTransactions',
+            'grantDonorAccountTransactions.id',
+            'grantDonorAccountTransactions.paymentTransaction',
+            'grantDonorAccountTransactions.paymentTransaction.id',
+            'grantDonorAccountTransactions.paymentTransaction.amount',
+            'grantDonorAccountTransactions.paymentTransaction.dateCreated',
+            'grantDonorAccountTransactions.paymentTransaction.userBalance',
+            'grantDonorAccountTransactions.paymentTransaction.paymentTransactionStatusId',
+            'grantDonorAccountTransactions.paymentTransaction.paymentTransactionTypeId',
+            'grantDonorAccountTransactions.fee',
+            'grantDonorAccountTransactions.fee.id',
+            'grantDonorAccountTransactions.fee.paymentTransaction',
+            'grantDonorAccountTransactions.fee.paymentTransaction.id',
+            'grantDonorAccountTransactions.fee.paymentTransaction.amount',
+            'grantDonorAccountTransactions.fee.paymentTransaction.dateCreated',
+            'grantDonorAccountTransactions.fee.paymentTransaction.userBalance',
+            'grantDonorAccountTransactions.fee.paymentTransaction.paymentTransactionStatusId',
+            'grantDonorAccountTransactions.fee.paymentTransaction.paymentTransactionTypeId',
+        ];
         let model = await this.grantService.get(this.id, params);
         this.grant = model;
         this.loaderStore.resume();

@@ -4,15 +4,21 @@ import { ContributionListFilter } from 'modules/administration/contribution/mode
 import { BaseContributionListViewStore } from 'modules/common/contribution/stores';
 import { BaasicDropdownStore } from "core/stores";
 import { ModalParams } from 'core/models';
-import { getDonorNameDropdown, getDonorName } from 'core/utils';
-import moment from 'moment';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 
 class ContributionListViewStore extends BaseContributionListViewStore {
     @observable contributionId = null;
     @observable donorAccountSearchDropdownStore = null;
 
-    additionalFields = [
+    fields = [
+        'id',
+        'donorAccountId',
+        'dateUpdated',
+        'amount',
+        'confirmationNumber',
+        'contributionStatusId',
+        'paymentTypeId',
         'donorAccount',
         'donorAccount.id',
         'donorAccount.donorName',
@@ -22,8 +28,14 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         'donorAccount.companyProfile',
         'donorAccount.companyProfile.name',
         'bankAccount',
-        'bankAccount.accountNumber'
-    ];
+        'bankAccount.accountNumber',
+        'payerInformation',
+        'payerInformation.name',
+        'createdByCoreUser',
+        'createdByCoreUser.userId',
+        'createdByCoreUser.firstName',
+        'createdByCoreUser.lastName'
+    ]
 
     constructor(rootStore) {
         const contributionService = new ContributionService(rootStore.app.baasic.apiClient);
@@ -49,7 +61,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = 'donorAccount,donorAccount.coreUser,donorAccount.companyProfile,payerInformation,bankAccount,createdByCoreUser';
-                    params.fields = _.union(this.fields, this.additionalFields);
+                    params.fields = this.fields;
                     const response = await contributionService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -192,7 +204,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -205,8 +218,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         );
 
         if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
+            let params = getDonorAccountDropdownOptions;
             const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

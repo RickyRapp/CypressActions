@@ -7,6 +7,7 @@ import { formatCharityTaxId, getFormattedPrimaryAddress } from 'core/utils';
 import _ from 'lodash';
 
 class CharityListViewStore extends BaseCharityListViewStore {
+
     constructor(rootStore) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         let filter = new CharityListFilter();
@@ -25,9 +26,24 @@ class CharityListViewStore extends BaseCharityListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'charityStatus,charityType,charityAddresses,address,emailAddress';
-                    params.orderBy = 'dateCreated';
-                    params.orderDirection = 'desc';
+                    params.embed = 'charityAddresses,charityAddresses.address,emailAddress';
+                    params.fields = [
+                        'id',
+                        'name',
+                        'taxId',
+                        'charityStatusId',
+                        'charityTypeId',
+                        'emailAddress',
+                        'emailAddress.email',
+                        'charityAddresses',
+                        'charityAddresses.primary',
+                        'charityAddresses.address',
+                        'charityAddresses.address.addressLine1',
+                        'charityAddresses.address.addressLine2',
+                        'charityAddresses.address.city',
+                        'charityAddresses.address.state',
+                        'charityAddresses.address.zipCode'
+                    ];
                     const response = await charityService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -48,7 +64,7 @@ class CharityListViewStore extends BaseCharityListViewStore {
         this.setColumns = [
             {
                 key: 'name',
-                title: 'Name (click on row)',
+                title: 'Name',
                 onClick: charity => this.routes.edit(charity.id)
             },
             {

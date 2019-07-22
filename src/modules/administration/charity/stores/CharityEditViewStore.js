@@ -15,12 +15,45 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
         const fileStreamRouteService = new FileStreamRouteService();
         const userId = rootStore.routerStore.routerState.params.userId;
 
+        const fields = [
+            'id',
+            'name',
+            'dba',
+            'taxId',
+            'charityTypeId',
+            'charityStatusId',
+            'emailAddress',
+            'emailAddress.email',
+            'contactInformation',
+            'contactInformation.name',
+            'contactInformation.address',
+            'contactInformation.address.addressLine1',
+            'contactInformation.address.addressLine2',
+            'contactInformation.address.city',
+            'contactInformation.address.state',
+            'contactInformation.address.zipCode',
+            'contactInformation.emailAddress',
+            'contactInformation.emailAddress.email',
+            'contactInformation.phoneNumber',
+            'contactInformation.phoneNumber.number',
+            'bankAccount',
+            'bankAccount.name',
+            'bankAccount.description',
+            'bankAccount.accountNumber',
+            'bankAccount.routingNumber',
+            'bankAccount.coreMediaVaultEntryId',
+            'charityAddresses',
+            'charityAddresses.id',
+            'charityAddresses.addressId',
+            'charityAddresses.primary'
+        ];
+
         const editViewStore = {
             name: 'charity',
             id: userId,
             actions: {
                 update: async item => {
-                    if (!(item.contactInformation && item.contactInformation.firstName && item.contactInformation.lastName)) {
+                    if (!(item.contactInformation && item.contactInformation.name)) {
                         item.contactInformation = null;
                     }
 
@@ -40,7 +73,16 @@ class CharityEditViewStore extends BaseCharityEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['charityAddresses,address,coreUser,coreMembership,contactInformation,address,emailAddress,phoneNumber,bankAccount'];
+                    params.embed = [
+                        'charityAddresses',
+                        'emailAddress',
+                        'contactInformation',
+                        'contactInformation.address',
+                        'contactInformation.emailAddress',
+                        'contactInformation.phoneNumber',
+                        'bankAccount'
+                    ];
+                    params.fields = fields;
                     const response = await charityService.get(id, params);
 
                     this.charity = response;

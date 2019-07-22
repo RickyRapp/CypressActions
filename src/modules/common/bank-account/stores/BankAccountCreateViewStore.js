@@ -16,16 +16,41 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
             actions: {
                 create: async bankAccount => {
                     let params = {};
-                    params.embed = ['coreUser,companyProfile,donorAccountAddresses,address,donorAccountEmailAddresses,emailAddress,donorAccountPhoneNumbers,phoneNumber'];
+                    params.embed = [
+                        'coreUser',
+                        'companyProfile',
+                        'donorAccountAddresses',
+                        'donorAccountAddresses.address',
+                        'donorAccountEmailAddresses',
+                        'donorAccountEmailAddressesemailAddress',
+                        'donorAccountPhoneNumbers',
+                        'donorAccountPhoneNumbers.phoneNumber'
+                    ];
+
+                    params.fields = [
+                        'id',
+                        'donorName',
+                        'accountNumber',
+                        'donorAccountAddresses',
+                        'donorAccountAddresses.primary',
+                        'donorAccountAddresses.address',
+                        'donorAccountAddresses.address.addressLine1',
+                        'donorAccountAddresses.address.addressLine2',
+                        'donorAccountAddresses.address.state',
+                        'donorAccountAddresses.address.city',
+                        'donorAccountAddresses.address.zipCode',
+                        'donorAccountEmailAddresses',
+                        'donorAccountEmailAddresses.primary',
+                        'donorAccountEmailAddresses.emailAddress',
+                        'donorAccountEmailAddresses.emailAddress.email',
+                        'donorAccountPhoneNumbers',
+                        'donorAccountPhoneNumbers.primary',
+                        'donorAccountPhoneNumbers.phoneNumber',
+                        'donorAccountPhoneNumbers.phoneNumber.number',
+                    ];
                     const donorAccount = await donorAccountService.get(userId, params);
                     if (!bankAccount.thirdParty) {
-                        if (donorAccount.companyProfile) {
-                            bankAccount.thirdPartyAccountHolder.name = donorAccount.companyProfile.name;
-                        }
-                        else {
-                            bankAccount.thirdPartyAccountHolder.firstName = donorAccount.coreUser.firstName;
-                            bankAccount.thirdPartyAccountHolder.lastName = donorAccount.coreUser.lastName;
-                        }
+                        bankAccount.thirdPartyAccountHolder.name = donorAccount.donorName;
                         var primaryDonorAccountAddress = _.find(donorAccount.donorAccountAddresses, { primary: true })
                         bankAccount.thirdPartyAccountHolder.address = primaryDonorAccountAddress.address;
                         var primaryDonorAccountEmailAddress = _.find(donorAccount.donorAccountEmailAddresses, { primary: true })

@@ -4,18 +4,12 @@ import { BookletService, DonorAccountService } from "common/data";
 import { BookletListFilter } from 'modules/administration/booklet/models';
 import { BaseBookletListViewStore } from 'modules/common/booklet/stores';
 import ReactTooltip from 'react-tooltip'
-import { formatDenomination, getDonorNameDropdown } from 'core/utils';
+import { formatDenomination, getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import { BaasicDropdownStore } from "core/stores";
 import _ from 'lodash';
 
 class BookletListViewStore extends BaseBookletListViewStore {
     @observable donorAccountSearchDropdownStore = null;
-
-    additionalFields = [
-        'donorAccount',
-        'donorAccount.id',
-        'donorAccount.donorName'
-    ];
 
     constructor(rootStore) {
         const bookletService = new BookletService(rootStore.app.baasic.apiClient);
@@ -31,7 +25,25 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = 'certificates,donorAccount,donorAccount.coreUser,donorAccount.companyProfile';
-                    params.fields = _.union(this.fields, this.additionalFields);
+                    params.fields = [
+                        'id',
+                        'donorAccountId',
+                        'dateUpdated',
+                        'dateCreated',
+                        'code',
+                        'denominationTypeId',
+                        'bookletStatusId',
+                        'dateAssigned',
+                        'donorAccount',
+                        'donorAccount.id',
+                        'donorAccount.donorName',
+                        'createdByCoreUser',
+                        'createdByCoreUser.userId',
+                        'createdByCoreUser.firstName',
+                        'createdByCoreUser.lastName',
+                        'certificates',
+                        'certificates.certificateStatusId',
+                    ];
                     const response = await bookletService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -130,7 +142,8 @@ class BookletListViewStore extends BaseBookletListViewStore {
             },
             {
                 fetchFunc: async (term) => {
-                    let options = { page: 1, rpp: 15, embed: 'coreUser,donorAccountAddresses,address,companyProfile' };
+                    let options = getDonorAccountDropdownOptions;
+
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
@@ -143,8 +156,7 @@ class BookletListViewStore extends BaseBookletListViewStore {
         );
 
         if (this.queryUtility.filter.donorAccountId) {
-            let params = {};
-            params.embed = ['coreUser,donorAccountAddresses,address,companyProfile'];
+            let params = getDonorAccountDropdownOptions;
             const donorAccount = await this.donorAccountService.get(this.queryUtility.filter.donorAccountId, params);
             let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];

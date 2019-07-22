@@ -86,7 +86,7 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
 
     @action.bound async getBankAccounts() {
         let params = {};
-        params.embed = 'bankAccount,thirdPartyAccountHolder,address,emailAddress,phoneNumber'
+        params.embed = ['thirdPartyAccountHolder', 'thirdPartyAccountHolder.address', 'thirdPartyAccountHolder.emailAddress', 'thirdPartyAccountHolder.phoneNumber']
         params.orderBy = 'dateCreated';
         params.orderDirection = 'asc';
         params.donorAccountId = this.userId;
@@ -145,7 +145,7 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
             this.form.$('transactionId').set('rules', this.form.$('transactionId').rules + `|required_if:paymentTypeId,${this.chaseQuickPayId}`);
 
             //Default Values
-            this.form.$('payerInformation.name').set('default', getDonorName(this.contribution.donorAccount));
+            this.form.$('payerInformation.name').set('default', this.contribution.donorAccount.donorName);
             this.form.$('payerInformation.address').set('default', _.find(this.contribution.donorAccount.donorAccountAddresses, { primary: true }).address);
             this.form.$('payerInformation.emailAddress').set('default', _.find(this.contribution.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress);
             this.form.$('payerInformation.phoneNumber').set('default', _.find(this.contribution.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber);

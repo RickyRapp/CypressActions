@@ -22,7 +22,17 @@ class GrantEditViewStore extends BaseGrantEditViewStore {
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = 'grantPurposeMember'
+                    params.embed = ['grantPurposeMember'];
+                    params.fields = [
+                        'id',
+                        'charityId',
+                        'donorAccountId',
+                        'grantPurposeTypeId',
+                        'grantAcknowledgmentTypeId',
+                        'amount',
+                        'grantPurposeMember',
+                        'grantPurposeMember.name',
+                    ]
                     const grant = await grantService.get(id, params);
                     return grant;
                 }
