@@ -7,6 +7,12 @@ class BookletOrderService extends BaseService {
     super(apiClient, new BookletOrderRouteService());
     this.apiClient = apiClient;
   }
+
+  async review(resource) {
+    const url = this.routeService.review(resource);
+    const response = await this.apiClient.post(url, resource);
+    return response || null;
+  }
 }
 
 export default BookletOrderService;

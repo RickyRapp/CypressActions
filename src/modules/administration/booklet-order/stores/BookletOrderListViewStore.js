@@ -28,6 +28,9 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
                     }),
                 donorAccountEdit: (userId) => {
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId });
+                },
+                review: (id) => {
+                    this.rootStore.routerStore.navigate('master.app.administration.booklet-order.review', { id: id });
                 }
             },
             actions: {
@@ -117,7 +120,7 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
         ];
 
         this.setActions = {
-            onReview: (bookletOrder) => { this.bookletOrderId = bookletOrder.id; this.reviewModalParams.open(); },
+            onReview: (bookletOrder) => this.routes.review(bookletOrder.id),
             onEdit: (bookletOrder) => this.routes.edit(bookletOrder.donorAccountId, bookletOrder.id)
         }
 

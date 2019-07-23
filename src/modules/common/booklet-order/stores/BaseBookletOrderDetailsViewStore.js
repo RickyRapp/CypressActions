@@ -76,7 +76,16 @@ class BookletOrderDetailsViewStore extends BaseViewStore {
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['bookletOrderItems,bookletOrderItems.denominationType,bookletOrderItems.bookletOrderItemBooklets,bookletOrderItems.bookletOrderItemBooklets.booklet,bookletOrderTransactions,bookletOrderTransactions.fee,bookletOrderTransactions.paymentTransaction,bookletOrderTransactions.fee.paymentTransaction,'];
+        params.embed = [
+            'bookletOrderItems',
+            'bookletOrderItems.denominationType',
+            'bookletOrderItems.bookletOrderItemBooklets',
+            'bookletOrderItems.bookletOrderItemBooklets.booklet',
+            'bookletOrderTransactions',
+            'bookletOrderTransactions.fee',
+            'bookletOrderTransactions.paymentTransaction',
+            'bookletOrderTransactions.fee.paymentTransaction'
+        ];
         params.fields = this.fields;
         this.bookletOrder = await this.bookletOrderService.get(this.id, params);
         this.loaderStore.resume();

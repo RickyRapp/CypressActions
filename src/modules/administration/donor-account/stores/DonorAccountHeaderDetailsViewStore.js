@@ -1,30 +1,35 @@
 import { action, observable, computed } from 'mobx';
-import { DonorAccountService } from "common/data";
+import { DonorAccountService, LookupService } from "common/data";
 import { BaseViewStore } from 'core/stores';
 
 class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
     @observable donorAccount = null;
+    @observable accountTypes = null;
 
     constructor(rootStore, userId, type) {
         super(rootStore);
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.type = type;
         this.userId = userId;
-        this.getResource();
+        this.load();
     }
 
     @action.bound
-    async getResource() {
+    async load() {
+        this.accountTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'account-type');
+        let accountTypesModels = await this.accountTypeLookupService.getAll();
+        this.accountTypes = _.orderBy(accountTypesModels.data, ['sortOrder'], ['asc']);
+
         const options = this.getComponentsEmbeds();
         let params = {};
         params.embed = options.embeds;
         params.fields = options.fields;
-        this.donorAccount = await this.donorAccountService.get(this.userId, params)
+        this.donorAccount = await this.donorAccountService.get(this.userId, params);
     }
 
     getComponentsEmbeds() {
         let embeds = ['coreUser,companyProfile'];
-        let fields = ['id', 'donorName', 'availableBalance']
+        let fields = ['id', 'donorName', 'availableBalance', 'accountTypeId']
 
         if (this.isDonorAccountType) {
         }

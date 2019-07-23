@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletOrderList, BookletOrderCreate, BookletOrderEdit } from 'modules/administration/booklet-order/pages'
+import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderReview } from 'modules/administration/booklet-order/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -24,6 +24,12 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit } from 'modules/
                         name: 'master.app.administration.booklet-order.edit',
                         pattern: ':userId/edit/:id',
                         component: BookletOrderEdit,
+                        authorization: 'theDonorsFundAdministrationSection.update'
+                    },
+                    {
+                        name: 'master.app.administration.booklet-order.review',
+                        pattern: 'review/:id',
+                        component: BookletOrderReview,
                         authorization: 'theDonorsFundAdministrationSection.update'
                     }
                 ]

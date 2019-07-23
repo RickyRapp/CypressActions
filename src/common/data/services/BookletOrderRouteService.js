@@ -24,7 +24,7 @@ class BookletOrderRouteService extends BaseRouteService {
   }
 
   review(resource) {
-    return this.uriTemplateService.parse(this.base + 'review/{id}').expand(resource);
+    return this.uriTemplateService.parse(this.base + 'review').expand(resource);
   }
 }
 

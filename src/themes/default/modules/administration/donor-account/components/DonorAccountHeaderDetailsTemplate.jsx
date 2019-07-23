@@ -11,7 +11,8 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
         isContributionSettingType,
         isActivityAndHistoryType,
         isGrantType,
-        isBookletOrderType
+        isBookletOrderType,
+        accountTypes
     } = donorAccountHeaderDetailsViewStore;
 
     return (
@@ -19,29 +20,29 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
             {donorAccount ?
                 <React.Fragment >
                     {isDonorAccountType &&
-                        renderDonorAccount(donorAccount, rootStore)}
+                        renderDonorAccount(donorAccount, rootStore, accountTypes)}
 
                     {isContributionType &&
-                        renderContribution(donorAccount, rootStore)}
+                        renderContribution(donorAccount, rootStore, accountTypes)}
 
                     {isContributionSettingType &&
-                        renderContributionSetting(donorAccount, rootStore)}
+                        renderContributionSetting(donorAccount, rootStore, accountTypes)}
 
                     {isActivityAndHistoryType &&
-                        renderActivityAndHistory(donorAccount, rootStore)}
+                        renderActivityAndHistory(donorAccount, rootStore, accountTypes)}
 
                     {isGrantType &&
-                        renderGrant(donorAccount, rootStore)}
+                        renderGrant(donorAccount, rootStore, accountTypes)}
 
                     {isBookletOrderType &&
-                        renderBookletOrder(donorAccount, rootStore)}
+                        renderBookletOrder(donorAccount, rootStore, accountTypes)}
                 </React.Fragment >
                 : null}
         </React.Fragment >
     );
 }
 
-function renderDonorAccount(donorAccount, rootStore) {
+function renderDonorAccount(donorAccount, rootStore, accountTypes) {
     return (
         <React.Fragment>
             <div className="f-row">
@@ -84,7 +85,7 @@ function renderDonorAccount(donorAccount, rootStore) {
     )
 }
 
-function renderContribution(donorAccount, rootStore) {
+function renderContribution(donorAccount, rootStore, accountTypes) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -92,6 +93,10 @@ function renderContribution(donorAccount, rootStore) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
                     {donorAccount.donorName}
+                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
+                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -118,7 +123,7 @@ function renderContribution(donorAccount, rootStore) {
     )
 }
 
-function renderContributionSetting(donorAccount, rootStore) {
+function renderContributionSetting(donorAccount, rootStore, accountTypes) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -126,6 +131,10 @@ function renderContributionSetting(donorAccount, rootStore) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
                     {donorAccount.donorName}
+                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
+                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -144,7 +153,7 @@ function renderContributionSetting(donorAccount, rootStore) {
     )
 }
 
-function renderActivityAndHistory(donorAccount, rootStore) {
+function renderActivityAndHistory(donorAccount, rootStore, accountTypes) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -152,6 +161,10 @@ function renderActivityAndHistory(donorAccount, rootStore) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
                     {donorAccount.donorName}
+                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
+                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -166,7 +179,7 @@ function renderActivityAndHistory(donorAccount, rootStore) {
     )
 }
 
-function renderGrant(donorAccount, rootStore) {
+function renderGrant(donorAccount, rootStore, accountTypes) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -174,6 +187,10 @@ function renderGrant(donorAccount, rootStore) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
                     {donorAccount.donorName}
+                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
+                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -192,7 +209,7 @@ function renderGrant(donorAccount, rootStore) {
     )
 }
 
-function renderBookletOrder(donorAccount, rootStore) {
+function renderBookletOrder(donorAccount, rootStore, accountTypes) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -200,6 +217,10 @@ function renderBookletOrder(donorAccount, rootStore) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
                     {donorAccount.donorName}
+                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
+                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                        <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">

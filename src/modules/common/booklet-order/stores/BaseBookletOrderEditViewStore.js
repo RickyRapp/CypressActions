@@ -56,6 +56,9 @@ class BaseBookletOrderEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound async loadLookups() {
+        let accountTypesModels = await this.accountTypeLookupService.getAll();
+        this.accountTypes = _.orderBy(accountTypesModels.data, ['sortOrder'], ['asc']);
+
         let denominationTypesModels = await this.denominationTypeLookupService.getAll();
         if (this.donorAccount.accountTypeId === this.basicAccountTypeId) {
             this.denominationTypes = _.filter(this.denominationTypes, function (item) { return item.abrv !== 'blank' });
@@ -64,9 +67,6 @@ class BaseBookletOrderEditViewStore extends BaseEditViewStore {
             this.denominationTypes
         }
         this.denominationTypes = _.orderBy(denominationTypesModels.data, ['sortOrder'], ['asc']);
-
-        let accountTypesModels = await this.accountTypeLookupService.getAll();
-        this.accountTypes = _.orderBy(accountTypesModels.data, ['sortOrder'], ['asc']);
 
         let deliveryMethodTypesModels = await this.deliveryMethodTypeLookupService.getAll();
         this.deliveryMethodTypes = _.orderBy(deliveryMethodTypesModels.data, ['sortOrder'], ['asc']);
