@@ -7,6 +7,12 @@ class BookletService extends BaseService {
     super(apiClient, new BookletRouteService());
     this.apiClient = apiClient;
   }
+
+  async inventory() {
+    const url = this.routeService.inventory();
+    const response = await this.apiClient.get(url);
+    return response.data || null;
+  }
 }
 
 export default BookletService;

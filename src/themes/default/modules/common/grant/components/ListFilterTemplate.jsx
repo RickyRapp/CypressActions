@@ -4,7 +4,7 @@ import { InputFilter, NumericRangeFilter, DateRangeFilter, DropdownAsyncFilter }
 function ListFilterTemplate({ queryUtility, charitySearchDropdownStore }) {
     return (
         <React.Fragment>
-            <div className="f-col f-col-lrg-4 input--multiselect">
+            <div className="f-col f-col-lrg-3 input--multiselect">
                 {charitySearchDropdownStore &&
                     <DropdownAsyncFilter
                         queryUtility={queryUtility}

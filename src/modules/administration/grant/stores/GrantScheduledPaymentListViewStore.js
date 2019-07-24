@@ -38,7 +38,7 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'createdByCoreUser,donorAccount,coreUser,charity,companyProfile';
+                    params.embed = ['createdByCoreUser', 'donorAccount', 'donorAccount.coreUser', 'charity', 'donorAccount.companyProfile'];
                     const response = await grantScheduledPaymentService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -57,10 +57,8 @@ class GrantScheduledPaymentListViewStore extends BaseGrantScheduledPaymentListVi
 
         this.setColumns = [
             {
-                key: 'donorAccount.coreUser',
+                key: 'donorAccount.donorName',
                 title: 'DONOR',
-                type: 'function',
-                function: (item) => { return `${item.donorAccount.coreUser.firstName} ${item.donorAccount.coreUser.lastName}` },
                 onClick: grant => this.routes.donorAccountEdit(grant.donorAccount.id),
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },

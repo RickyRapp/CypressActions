@@ -28,7 +28,7 @@ class BookletListViewStore extends BaseBookletListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'certificates,donorAccount,donorAccount.coreUser,donorAccount.companyProfile';
+                    params.embed = ['certificates', 'donorAccount', 'donorAccount.coreUser', 'donorAccount.companyProfile'];
                     params.fields = [
                         'id',
                         'donorAccountId',

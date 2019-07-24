@@ -11,6 +11,10 @@ class BookletRouteService extends BaseRouteService {
     return super.find(this.base + `{?${this.queryParams}}`, filter);
   }
 
+  inventory() {
+    return this.base + 'inventory';
+  }
+
   get(id, options) {
     return super.get(this.base + '{id}/{?embed,fields}', id, options);
   }

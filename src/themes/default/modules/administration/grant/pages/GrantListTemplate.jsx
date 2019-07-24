@@ -30,7 +30,7 @@ function GrantListTemplate({ grantListViewStore }) {
                     <div className="spc--bottom--sml">
                         <TableFilter queryUtility={queryUtility}>
                             <div className="f-row">
-                                <div className="f-col f-col-lrg-4 input--multiselect">
+                                <div className="f-col f-col-lrg-3 input--multiselect">
                                     {donorAccountSearchDropdownStore &&
                                         <DropdownAsyncFilter
                                             queryUtility={queryUtility}
@@ -54,9 +54,12 @@ function GrantListTemplate({ grantListViewStore }) {
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-12">
                             <span>Please select donor</span>
-                            <DonorAccountSearch
-                                onChange={onChangeSearchDonor}
-                            />
+                            <DonorAccountSearch onChange={onChangeSearchDonor}>
+                                {queryUtility.filter.donorAccountId &&
+                                    <div>
+                                        Use Donor From Filter, Click <strong><span onClick={() => onChangeSearchDonor({ id: queryUtility.filter.donorAccountId })}>Here</span></strong>
+                                    </div>}
+                            </DonorAccountSearch>
                         </div>
                     </div>
                 </div>

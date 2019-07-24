@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletList, BookletCreate, BookletDetails } from 'modules/administration/booklet/pages'
+import { BookletList, BookletCreate, BookletDetails, BookletInventory } from 'modules/administration/booklet/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -25,6 +25,12 @@ import { BookletList, BookletCreate, BookletDetails } from 'modules/administrati
                         pattern: 'details/:id',
                         component: BookletDetails,
                         authorization: 'theDonorsFundAdministrationSection.update'
+                    },
+                    {
+                        name: 'master.app.administration.booklet.inventory',
+                        pattern: 'inventory',
+                        component: BookletInventory,
+                        authorization: 'theDonorsFundAdministrationSection.read'
                     }
                 ]
             }
