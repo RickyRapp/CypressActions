@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletList, BookletCreate } from 'modules/administration/booklet/pages'
+import { BookletList, BookletCreate, BookletDetails } from 'modules/administration/booklet/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -19,6 +19,12 @@ import { BookletList, BookletCreate } from 'modules/administration/booklet/pages
                         pattern: 'create',
                         component: BookletCreate,
                         authorization: 'theDonorsFundAdministrationSection.create'
+                    },
+                    {
+                        name: 'master.app.administration.booklet.details',
+                        pattern: 'details/:id',
+                        component: BookletDetails,
+                        authorization: 'theDonorsFundAdministrationSection.update'
                     }
                 ]
             }

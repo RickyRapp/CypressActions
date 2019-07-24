@@ -18,8 +18,12 @@ class BookletListViewStore extends BaseBookletListViewStore {
 
         const listViewStore = {
             routes: {
-                create: () =>
-                    this.rootStore.routerStore.navigate('master.app.administration.booklet.create'),
+                create: () => {
+                    this.rootStore.routerStore.navigate('master.app.administration.booklet.create')
+                },
+                details: (id) => {
+                    this.rootStore.routerStore.navigate('master.app.administration.booklet.details', { id: id });
+                }
             },
             actions: {
                 find: async params => {
@@ -43,7 +47,10 @@ class BookletListViewStore extends BaseBookletListViewStore {
                         'createdByCoreUser.lastName',
                         'certificates',
                         'certificates.certificateStatusId',
+                        'certificates.isActive'
                     ];
+                    params.orderBy = params.orderBy || 'code';
+                    params.orderDirection = params.orderDirection || 'desc';
                     const response = await bookletService.find(params);
                     this.loaderStore.resume();
                     return response;
@@ -66,7 +73,7 @@ class BookletListViewStore extends BaseBookletListViewStore {
             <React.Fragment>
                 <span className='icomoon tiny icon-question-circle' data-tip data-for={'count'} />
                 <ReactTooltip type='info' effect='solid' place="top" id={'count'}>
-                    <p>CLEAN / USED / CANCELED</p>
+                    <p>CLEAN / USED / CANCELED | ACTIVE</p>
                 </ReactTooltip>
             </React.Fragment>
 
@@ -112,7 +119,8 @@ class BookletListViewStore extends BaseBookletListViewStore {
                     const clean = _.filter(item.certificates, { certificateStatusId: this.cleanCertificateStatusId }).length;
                     const used = _.filter(item.certificates, { certificateStatusId: this.usedCertificateStatusId }).length;
                     const canceled = _.filter(item.certificates, { certificateStatusId: this.canceledCertificateStatusId }).length;
-                    return `${clean} / ${used} / ${canceled}`;
+                    const active = _.filter(item.certificates, { isActive: true }).length;
+                    return `${clean} / ${used} / ${canceled} | ${active}`;
                 }
             },
             {

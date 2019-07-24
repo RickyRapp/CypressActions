@@ -72,13 +72,34 @@ function renderDonorAccount(donorAccount, rootStore, accountTypes) {
                         onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: donorAccount.id })}>
                         <i className="icomoon icon-settings-slider align--v--middle spc--right--tny"></i>
                         Contribution Settings
-                </span>
+                    </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    Available Balance:
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
                 </div>
             </div>
             <div className="f-row">
                 <div className="form__group f-col f-col-lrg-2">
-                    Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.create', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-navigation-right-circle-1 align--v--middle spc--right--tny"></i>
+                        Create Contribution
+                    </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.grant.create', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-navigation-right-circle-1 align--v--middle spc--right--tny"></i>
+                        Create Grant
+                    </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.booklet-order.create', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-navigation-right-circle-1 align--v--middle spc--right--tny"></i>
+                        Create Booklet Order
+                    </span>
                 </div>
             </div>
         </React.Fragment>
@@ -117,7 +138,6 @@ function renderContribution(donorAccount, rootStore, accountTypes) {
                     <i className="icomoon icon-settings-slider align--v--middle spc--right--tny"></i>
                     Settings
                 </span>
-
             </div>
         </div>
     )
@@ -155,27 +175,52 @@ function renderContributionSetting(donorAccount, rootStore, accountTypes) {
 
 function renderActivityAndHistory(donorAccount, rootStore, accountTypes) {
     return (
-        <div className="f-row">
-            <div className="form__group f-col f-col-lrg-2">
-                <span
-                    onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
-                    <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
-                    {donorAccount.donorName}
-                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
-                        <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
-                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
-                        <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
-                </span>
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
-                Available Balance:
+        <React.Fragment>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
+                        {donorAccount.donorName}
+                        {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                            <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
+                        {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                            <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
+                    </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
-                Balance On Hold:
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    Balance On Hold:
                 <NumberFormat value={donorAccount.balanceOnHold} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                </div>
             </div>
-        </div>
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.create', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-navigation-right-circle-1 align--v--middle spc--right--tny"></i>
+                        Create Contribution
+            </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.grant.create', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-navigation-right-circle-1 align--v--middle spc--right--tny"></i>
+                        Create Grant
+            </span>
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    <span
+                        onClick={() => rootStore.routerStore.navigate('master.app.administration.booklet-order.create', { userId: donorAccount.id })}>
+                        <i className="icomoon icon-navigation-right-circle-1 align--v--middle spc--right--tny"></i>
+                        Create Booklet Order
+            </span>
+                </div>
+            </div>
+        </React.Fragment>
     )
 }
 

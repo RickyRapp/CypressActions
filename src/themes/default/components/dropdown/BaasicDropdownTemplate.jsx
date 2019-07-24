@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import { defaultTemplate } from 'core/utils';
 
-function BaasicDropdownTemplate({ store }) {
+function BaasicDropdownTemplate({ store, onChangeOverride, valueOverride }) {
     const {
         options,
         onChange,
@@ -12,8 +12,8 @@ function BaasicDropdownTemplate({ store }) {
 
     return (
         <Select
-            value={value}
-            onChange={onChange}
+            value={_.find(items, { id: valueOverride || value }) ? _.find(items, { id: valueOverride || value }) : null}
+            onChange={onChangeOverride || onChange}
             options={items}
             isMulti={options.multi}
             placeholder={options.placeholder}

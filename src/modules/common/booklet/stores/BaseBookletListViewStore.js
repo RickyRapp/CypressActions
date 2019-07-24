@@ -31,7 +31,7 @@ class BaseBookletListViewStore extends BaseListViewStore {
         });
 
         this.defaultActions = {
-            onDetails: booklet => { this.bookletId = booklet.id; this.detailsModalParams.open(); }
+            onDetails: booklet => this.routes.details(booklet.id)
         };
 
         this.load();
