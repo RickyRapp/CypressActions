@@ -118,10 +118,6 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
             return false;
         }
     }
-
-    setStores() {
-        super.setStores();
-    }
 }
 
 

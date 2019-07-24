@@ -11,7 +11,6 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
     @observable deliveryMethodTypes = null;
     @observable applicationDefaultSetting = null;
     @observable deliveryMethodTypeDropdownStore = null;
-    @observable refresh = 1;
 
     additionalActions = {};
 
@@ -36,6 +35,9 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound async loadLookups() {
+        let accountTypesModels = await this.accountTypeLookupService.getAll();
+        this.accountTypes = _.orderBy(accountTypesModels.data, ['sortOrder'], ['asc']);
+
         let denominationTypesModels = await this.denominationTypeLookupService.getAll();
         if (this.donorAccount.accountTypeId === this.basicAccountTypeId) {
             this.denominationTypes = _.filter(this.denominationTypes, function (item) { return item.abrv !== 'blank' });
@@ -44,9 +46,6 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
             this.denominationTypes
         }
         this.denominationTypes = _.orderBy(denominationTypesModels.data, ['sortOrder'], ['asc']);
-
-        let accountTypesModels = await this.accountTypeLookupService.getAll();
-        this.accountTypes = _.orderBy(accountTypesModels.data, ['sortOrder'], ['asc']);
 
         let deliveryMethodTypesModels = await this.deliveryMethodTypeLookupService.getAll();
         this.deliveryMethodTypes = _.orderBy(deliveryMethodTypesModels.data, ['sortOrder'], ['asc']);
@@ -71,13 +70,10 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
             },
             {
                 onChange: () => {
-                    const disabledDenominationTypeIds = _.map(this.form.$('bookletOrderItems').value, e => { return e.denominationTypeId });
-                    var newItems = _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: item.available ? _.includes(disabledDenominationTypeIds, item.id) : true } })
-                    this.denominationTypeDropdownStore.setItems(newItems)
-                    this.refresh = this.refresh + 1;
+                    this.denominationTypeDropdownStore.setItems(this.denominations)
                 }
             },
-            _.map(this.denominationTypes, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: !item.available } })
+            this.denominations
         );
 
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(
@@ -102,11 +98,25 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound onDel(item) {
-        if (item.$('denominationTypeId').value) {
-            _.find(this.denominationTypeDropdownStore.items, { id: item.$('denominationTypeId').value }).disabled = false;
-        }
         item.del();
-        this.refresh = this.refresh + 1
+        this.denominationTypeDropdownStore.setItems(this.denominations)
+    }
+
+    @computed get denominations() {
+        let denominations = this.denominationTypes;
+        if (this.donorAccount.accountTypeId === this.basicAccountTypeId) {
+            denominations = _.filter(denominations, function (item) { return item.abrv !== 'blank' });
+        }
+        else {
+            denominations
+        }
+
+        const selectedDenominations = _.map(this.form.$('bookletOrderItems').values(), 'denominationTypeId');
+
+        return denominations ?
+            _.map(denominations, item => { return { id: item.id, name: formatDenomination(item, true, true), disabled: !item.available || _.includes(selectedDenominations, item.id) } })
+            :
+            null;
     }
 
     @computed get basicAccountTypeId() {
@@ -144,7 +154,7 @@ class BaseBookletOrderCreateViewStore extends BaseEditViewStore {
 
         _totalAndFee.total = totala;
 
-        if (this.donorAccount) {
+        if (this.donorAccount && this.donorAccount.accountTypeId === this.basicAccountTypeId) {
             totala = totala + totala * (this.donorAccount.certificateFee / 100)
         }
 

@@ -18,6 +18,7 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
     totalAndFee,
     donorAccount,
     mostCommonDenominations,
+    premiumAccountTypeId,
     isEdit
   } = bookletOrderCreateViewStore;
 
@@ -38,6 +39,7 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
             totalAndFee={totalAndFee}
             donorAccount={donorAccount}
             mostCommonDenominations={mostCommonDenominations}
+            premiumAccountTypeId={premiumAccountTypeId}
           />
         </EditFormLayout>}
     </React.Fragment >
