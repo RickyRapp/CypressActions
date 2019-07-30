@@ -1,5 +1,3 @@
-export { default as GrantDetailsViewStore } from './GrantDetailsViewStore'
-export { default as BaseGrantListViewStore } from './BaseGrantListViewStore'
-export { default as BaseGrantCreateViewStore } from './BaseGrantCreateViewStore'
-export { default as BaseGrantEditViewStore } from './BaseGrantEditViewStore'
+export { default as GrantRegularDetailsViewStore } from './GrantRegularDetailsViewStore'
+export { default as GrantCombinedDetailsViewStore } from './GrantCombinedDetailsViewStore'
 export { default as BaseGrantScheduledPaymentListViewStore } from './BaseGrantScheduledPaymentListViewStore'

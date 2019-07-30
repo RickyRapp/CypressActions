@@ -5,7 +5,7 @@ import { ListLayout } from 'core/layouts';
 import { ListFilterTemplate } from 'themes/modules/common/grant/components';
 import { DonorAccountSearch } from 'modules/administration/donor-account/components';
 import { GrantReview } from 'modules/administration/grant/components';
-import { GrantDetails } from 'modules/common/grant/pages';
+import { GrantRegularDetails } from 'modules/common/grant/pages';
 
 function GrantListTemplate({ grantListViewStore }) {
     const {
@@ -19,7 +19,6 @@ function GrantListTemplate({ grantListViewStore }) {
         charitySearchDropdownStore,
         reviewModalParams,
         detailsModalParams,
-        grantId,
         onAfterReview
     } = grantListViewStore;
 
@@ -66,12 +65,12 @@ function GrantListTemplate({ grantListViewStore }) {
             </BaasicModal>
             <BaasicModal modalParams={reviewModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
-                    <GrantReview onAfterReview={onAfterReview} id={grantId} />
+                    <GrantReview onAfterReview={onAfterReview} id={reviewModalParams.data} />
                 </div>
             </BaasicModal>
             <BaasicModal modalParams={detailsModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
-                    <GrantDetails id={grantId} />
+                    <GrantRegularDetails id={detailsModalParams.data} />
                 </div>
             </BaasicModal>
         </ListLayout>

@@ -52,6 +52,7 @@ class BaseEditViewStore extends BaseViewStore {
           alert('### see console');
           console.log('Form Errors', form.errors());
           console.log('Form Values', form.values());
+          console.log('Form Rules', form.get('rules'));
         },
 
       });

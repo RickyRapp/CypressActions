@@ -140,6 +140,7 @@ const getCharityDropdownOptions = {
     rpp: 15,
     embed: ['charityAddresses,charityAddresses.address'],
     fields: [
+        'id',
         'name',
         'taxId',
         'charityAddresses',

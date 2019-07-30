@@ -31,7 +31,7 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
 
     const amountChange =
         <React.Fragment>
-            <span className='icomoon icon-style-two-pin-information' data-tip data-for={'amountChange'} />
+            <span className='icomoon icon-alert-circle' data-tip data-for={'amountChange'} />
             <ReactTooltip type='info' effect='solid' place="right" id={'amountChange'}>
                 <span>{t('GRANTUPDATEFORM.AMOUNTCHANGE')}</span>
             </ReactTooltip>
@@ -66,17 +66,17 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
 
                 {form.$('grantPurposeTypeId').value === inMemoryOfId &&
                     <div className="form__group f-col f-col-lrg-6">
-                        <InMemoryOfEventPurposeType fieldName={form.$('grantPurposeMember.name')} t={t} />
+                        <InMemoryOfEventPurposeType fieldName={form.$('grantPurposeMemberName')} t={t} />
                     </div>}
 
                 {form.$('grantPurposeTypeId').value === inHonorOfId &&
                     <div className="form__group f-col f-col-lrg-6">
-                        <InHonorOfEventPurposeType fieldName={form.$('grantPurposeMember.name')} t={t} />
+                        <InHonorOfEventPurposeType fieldName={form.$('grantPurposeMemberName')} t={t} />
                     </div>}
 
                 {form.$('grantPurposeTypeId').value === sponsorAFriendId &&
                     <div className="form__group f-col f-col-lrg-6">
-                        <SponsorAFriendPurposeType fieldName={form.$('grantPurposeMember.name')} t={t} />
+                        <SponsorAFriendPurposeType fieldName={form.$('grantPurposeMemberName')} t={t} />
                     </div>}
 
                 {form.$('grantPurposeTypeId').value === otherId &&
@@ -106,7 +106,7 @@ function GrantEditFormTemplate({ grantEditViewStore, t }) {
                 </div>
                 <div className="form__group f-col f-col-lrg-6">
                     <div className="inputgroup">
-                        <label>Total Amount With Fee</label>{Number(form.$('amount').value) !== form.$('amount').get('default') && amountChange}
+                        <label>Total Amount With Fee</label>{Number(form.$('amount').value) !== Number(form.$('amount').get('default')) && amountChange}
                         <NumberFormat
                             className={"input input--text input--med padd--top--tny input--disabled"}
                             value={totalAmount} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} displayType={'text'}
