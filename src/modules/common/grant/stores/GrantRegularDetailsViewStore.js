@@ -11,7 +11,7 @@ class GrantRegularDetailsViewStore extends BaseViewStore {
 
     constructor(rootStore, { id, highlightId }) {
         super(rootStore);
-        debugger;
+
         this.id = id;
         this.highlightId = highlightId;
         this.grantDonorAccountService = new GrantDonorAccountService(rootStore.app.baasic.apiClient);

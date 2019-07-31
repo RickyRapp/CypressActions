@@ -21,7 +21,6 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
             id: id,
             actions: {
                 update: async item => {
-                    debugger;
                     return await bookletOrderService.review(item);
                 },
                 get: async id => {

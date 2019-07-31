@@ -9,7 +9,6 @@ function PaymentTransactionTableTemplate({
     paymentTransactionTypes,
     models
 }) {
-    debugger;
     return (
         <table className="table w--100">
             <thead className="table__head">

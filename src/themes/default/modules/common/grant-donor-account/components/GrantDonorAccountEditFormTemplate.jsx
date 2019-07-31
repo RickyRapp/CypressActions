@@ -36,6 +36,21 @@ function GrantDonorAccountEditFormTemplate({ grantDonorAccountEditViewStore, t }
                 </div>
             </div>
 
+            <div className="f-row">
+                <div className="form__group f-col f-col-lrg-6">
+                    <BasicFormatFieldInput field={form.$('amount')} decimalScale={2} onBlur={calculateFee} thousandSeparator={true} prefix={'$'} />
+                </div>
+                <div className="form__group f-col f-col-lrg-6">
+                    <div className="inputgroup">
+                        <label>Total Amount With Fee</label>{Number(form.$('amount').value) !== Number(form.$('amount').get('default')) && amountChange}
+                        <NumberFormat
+                            className={"input input--text input--med padd--top--tny input--disabled"}
+                            value={totalAmount} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} displayType={'text'}
+                        />
+                    </div>
+                </div>
+            </div>
+
             {grantAcknowledgmentTypeDropdownStore &&
                 <div className="f-row">
                     <div className="form__group f-col f-col-lrg-6">
@@ -59,22 +74,11 @@ function GrantDonorAccountEditFormTemplate({ grantDonorAccountEditViewStore, t }
                 <GrantDonorAccountPurposeTypeTemplate viewStore={grantDonorAccountEditViewStore} />}
 
             <div className="f-row">
-                <div className="form__group f-col f-col-lrg-6">
-                    <BasicFormatFieldInput field={form.$('amount')} decimalScale={2} onBlur={calculateFee} thousandSeparator={true} prefix={'$'} />
-                </div>
-                <div className="form__group f-col f-col-lrg-6">
-                    <div className="inputgroup">
-                        <label>Total Amount With Fee</label>{Number(form.$('amount').value) !== Number(form.$('amount').get('default')) && amountChange}
-                        <NumberFormat
-                            className={"input input--text input--med padd--top--tny input--disabled"}
-                            value={totalAmount} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} displayType={'text'}
-                        />
-                    </div>
-                </div>
                 <div className="form__group f-col f-col-lrg-12">
                     <BasicTextArea field={form.$('grant.description')} />
                 </div>
             </div>
+
         </React.Fragment >
     )
 };

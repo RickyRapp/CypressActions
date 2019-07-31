@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantList, GrantScheduledPaymentList } from 'modules/administration/grant/pages'
-import { GrantCombinedDetails } from 'modules/common/grant/pages'
+import { GrantList, GrantCombinedList, GrantScheduledPaymentList } from 'modules/administration/grant/pages'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -17,9 +16,9 @@ import { GrantCombinedDetails } from 'modules/common/grant/pages'
                         authorization: 'theDonorsFundAdministrationSection.read'
                     },
                     {
-                        name: 'master.app.administration.grant.details',
-                        pattern: 'details/:id',
-                        component: GrantCombinedDetails,
+                        name: 'master.app.administration.grant.combined-list',
+                        pattern: 'combined-list/:id',
+                        component: GrantCombinedList,
                         authorization: 'theDonorsFundAdministrationSection.read'
                     },
                     {
