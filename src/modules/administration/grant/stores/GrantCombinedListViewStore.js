@@ -41,9 +41,11 @@ class GrantCombinedListViewStore extends BaseListViewStore {
             },
             actions: {
                 find: async params => {
+
                     this.loaderStore.suspend();
                     params.embed = [
                         'grant',
+                        'grant.grantStatus',
                         'grant.charity',
                         'createdByCoreUser',
                         'donorAccount',
@@ -99,11 +101,6 @@ class GrantCombinedListViewStore extends BaseListViewStore {
             onClose: () => { this.onClose }
         });
 
-        this.load();
-    }
-
-    @action.bound async load() {
-        await this.loadLookups();
         this.setStores();
 
         this.setTableStore(
@@ -136,18 +133,10 @@ class GrantCombinedListViewStore extends BaseListViewStore {
                     onDetails: (item) => this.detailsModalParams.open(item.id)
                 },
                 actionsRender: {
-                    renderEdit: this.renderEdit,
+                    renderEdit: (item) => item.grant.grantStatus.abrv === 'pending',
                 }
             })
         );
-    }
-
-    @action.bound async loadLookups() {
-        const grantStatusModels = await this.grantStatusLookup.getAll();
-        this.grantStatusModels = grantStatusModels.data;
-
-        const grantPurposeTypeModels = await this.grantPurposeTypeLookup.getAll();
-        this.grantPurposeTypeModels = grantPurposeTypeModels.data;
     }
 
     @action.bound async setStores() {
@@ -183,11 +172,6 @@ class GrantCombinedListViewStore extends BaseListViewStore {
             donorSearchs.push(defaultSearchDonor);
             this.donorAccountSearchDropdownStore.items = donorSearchs;
         }
-    }
-
-    @action.bound renderEdit(grantDonorAccount) {
-        const statusesForEdit = _.map(_.filter(this.grantStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        return _.some(statusesForEdit, (item) => { return item === grantDonorAccount.grant.grantStatusId });
     }
 }
 

@@ -39,12 +39,10 @@ class GrantDonorAccountEditViewStore extends BaseGrantDonorAccountEditViewStore 
         config.userId = userId;
 
         super(rootStore, config);
-
-        this.load();
     }
 
-    setFormDefaults() {
-        super.setFormDefaults();
+    async load() {
+        await super.load();
         this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}`);
     }
 }

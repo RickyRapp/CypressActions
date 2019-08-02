@@ -17,22 +17,19 @@ function GrantDonorAccountListTemplate({ grantDonorAccountListViewStore }) {
 
     return (
         <ListLayout onCreate={create} loading={loading}>
-            {tableStore &&
-                <React.Fragment>
-                    <div className="spc--bottom--sml">
-                        <TableFilter queryUtility={queryUtility}>
-                            <div className="f-row">
-                                <ListFilterTemplate
-                                    queryUtility={queryUtility}
-                                    charitySearchDropdownStore={charitySearchDropdownStore} />
-                            </div>
-                        </TableFilter>
+            <div className="spc--bottom--sml">
+                <TableFilter queryUtility={queryUtility}>
+                    <div className="f-row">
+                        <ListFilterTemplate
+                            queryUtility={queryUtility}
+                            charitySearchDropdownStore={charitySearchDropdownStore} />
                     </div>
-                    <BaasicTable
-                        tableStore={tableStore}
-                        loading={loading}
-                    />
-                </React.Fragment>}
+                </TableFilter>
+            </div>
+            <BaasicTable
+                tableStore={tableStore}
+                loading={loading}
+            />
             <BaasicModal modalParams={detailsModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
                     <GrantRegularDetails id={detailsModalParams.data} />

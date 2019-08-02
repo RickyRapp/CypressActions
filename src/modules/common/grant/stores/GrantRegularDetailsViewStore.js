@@ -6,8 +6,6 @@ import _ from 'lodash';
 
 class GrantRegularDetailsViewStore extends BaseViewStore {
     @observable grantDonorAccount = null;
-    @observable paymentTransactionStatuses = null;
-    @observable paymentTransactionTypes = null;
 
     constructor(rootStore, { id, highlightId }) {
         super(rootStore);
@@ -22,37 +20,30 @@ class GrantRegularDetailsViewStore extends BaseViewStore {
             notifyOutsideClick: true
         });
 
+        this.params = {
+            embed: [
+                'grant',
+                'grant.charity',
+                'createdByCoreUser',
+                'donorAccount',
+                'donorAccount.coreUser',
+                'donorAccount.companyProfile',
+                'grantDonorAccountTransactions',
+                'grantDonorAccountTransactions.paymentTransaction',
+                'grantDonorAccountTransactions.paymentTransaction.paymentTransactionStatus',
+                'grantDonorAccountTransactions.paymentTransaction.paymentTransactionType',
+                'grantDonorAccountTransactions.fee',
+                'grantDonorAccountTransactions.fee.paymentTransaction',
+                'grantDonorAccountTransactions.fee.paymentTransaction.paymentTransactionStatus',
+                'grantDonorAccountTransactions.fee.paymentTransaction.paymentTransactionType',
+            ]
+        };
+
         this.load();
     }
 
     @action.bound async load() {
-        this.loaderStore.suspend();
-        await this.loadLookups();
-
-        let params = {};
-        params.embed = [
-            'grant',
-            'grant.charity',
-            'createdByCoreUser',
-            'donorAccount',
-            'donorAccount.coreUser',
-            'donorAccount.companyProfile',
-            'grantDonorAccountTransactions',
-            'grantDonorAccountTransactions.paymentTransaction',
-            'grantDonorAccountTransactions.fee',
-            'grantDonorAccountTransactions.fee.paymentTransaction'
-        ];
-
-        this.grantDonorAccount = await this.grantDonorAccountService.get(this.id, params);
-        this.loaderStore.resume();
-    }
-
-    @action.bound async loadLookups() {
-        const paymentTransactionStatusModels = await this.paymentTransactionStatusLookup.getAll();
-        this.paymentTransactionStatuses = _.orderBy(paymentTransactionStatusModels.data, ['sortOrder'], ['asc']);
-
-        const paymentTransactionTypeModels = await this.paymentTransactionTypeLookup.getAll();
-        this.paymentTransactionTypes = _.orderBy(paymentTransactionTypeModels.data, ['sortOrder'], ['asc']);
+        this.grantDonorAccount = await this.grantDonorAccountService.get(this.id, this.params);
     }
 }
 

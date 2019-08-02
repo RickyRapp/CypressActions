@@ -19,29 +19,26 @@ function GrantCombinedListTemplate({ grantCombinedListViewStore }) {
 
     return (
         <ListLayout onCreate={create} loading={loading}>
-            {tableStore &&
-                <React.Fragment>
-                    <div className="spc--bottom--sml">
-                        <TableFilter queryUtility={queryUtility}>
-                            <div className="f-row">
-                                <div className="f-col f-col-lrg-3 input--multiselect">
-                                    {donorAccountSearchDropdownStore &&
-                                        <DropdownAsyncFilter
-                                            queryUtility={queryUtility}
-                                            name="donorAccountId"
-                                            store={donorAccountSearchDropdownStore}
-                                        />}
-                                </div>
-                                <ListFilterTemplate
-                                    queryUtility={queryUtility} />
-                            </div>
-                        </TableFilter>
+            <div className="spc--bottom--sml">
+                <TableFilter queryUtility={queryUtility}>
+                    <div className="f-row">
+                        <div className="f-col f-col-lrg-3 input--multiselect">
+                            {donorAccountSearchDropdownStore &&
+                                <DropdownAsyncFilter
+                                    queryUtility={queryUtility}
+                                    name="donorAccountId"
+                                    store={donorAccountSearchDropdownStore}
+                                />}
+                        </div>
+                        <ListFilterTemplate
+                            queryUtility={queryUtility} />
                     </div>
-                    <BaasicTable
-                        tableStore={tableStore}
-                        loading={loading}
-                    />
-                </React.Fragment>}
+                </TableFilter>
+            </div>
+            <BaasicTable
+                tableStore={tableStore}
+                loading={loading}
+            />
             <BaasicModal modalParams={detailsModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
                     <GrantRegularDetails id={detailsModalParams.data} />

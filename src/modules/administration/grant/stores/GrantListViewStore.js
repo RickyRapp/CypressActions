@@ -1,6 +1,6 @@
 import React from 'react';
 import { action, observable, computed } from 'mobx';
-import { GrantService, DonorAccountService, CharityService, LookupService } from "common/data";
+import { GrantService, DonorAccountService, CharityService } from "common/data";
 import { GrantListFilter } from 'modules/administration/grant/models';
 import { ModalParams } from 'core/models';
 import { BaseListViewStore, TableViewStore, BaasicDropdownStore } from 'core/stores';
@@ -9,9 +9,6 @@ import _ from 'lodash';
 import NumberFormat from 'react-number-format';
 
 class GrantListViewStore extends BaseListViewStore {
-    @observable grantPurposeTypeModels = null;
-    @observable grantStatusModels = null;
-    @observable grantTypeModels = null;
     @observable charitySearchDropdownStore = null;
     @observable donorAccountSearchDropdownStore = null;
 
@@ -48,6 +45,8 @@ class GrantListViewStore extends BaseListViewStore {
                 find: async params => {
                     this.loaderStore.suspend();
                     params.embed = [
+                        'grantType',
+                        'grantStatus',
                         'grantDonorAccounts',
                         'grantDonorAccounts.createdByCoreUser',
                         'grantDonorAccounts.donorAccount',
@@ -92,9 +91,6 @@ class GrantListViewStore extends BaseListViewStore {
         this.rootStore = rootStore;
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
-        this.grantStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-status');
-        this.grantPurposeTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-purpose-type');
-        this.grantTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'grant-type');
 
         this.findDonorModalParams = new ModalParams({
             onClose: this.onClose
@@ -109,11 +105,6 @@ class GrantListViewStore extends BaseListViewStore {
             onClose: () => { this.onClose }
         });
 
-        this.load();
-    }
-
-    @action.bound async load() {
-        await this.loadLookups();
         this.setStores();
 
         this.setTableStore(
@@ -131,16 +122,12 @@ class GrantListViewStore extends BaseListViewStore {
                         function: (item) => <NumberFormat value={_.sumBy(item.grantDonorAccounts, 'amount')} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix='$' />
                     },
                     {
-                        key: 'grantStatusId',
-                        title: 'STATUS',
-                        type: 'function',
-                        function: (item) => _.find(this.grantStatusModels, { id: item.grantStatusId }).name
+                        key: 'grantStatus.name',
+                        title: 'STATUS'
                     },
                     {
-                        key: 'grantTypeId',
-                        title: 'TYPE',
-                        type: 'function',
-                        function: (item) => _.find(this.grantTypeModels, { id: item.grantTypeId }).name
+                        key: 'grantType.name',
+                        title: 'TYPE'
                     },
                     {
                         key: 'dateCreated',
@@ -152,25 +139,14 @@ class GrantListViewStore extends BaseListViewStore {
                 actions: {
                     onReview: (item) => { this.reviewModalParams.open(item.id); },
                     onEdit: (item) => this.routes.edit(item.grantDonorAccounts[0].id, item.grantDonorAccounts[0].donorAccountId),
-                    onDetails: (item) => item.grantTypeId === this.regularGrantTypeId ? this.detailsModalParams.open(item.grantDonorAccounts[0].id) : this.routes.details(item.id)
+                    onDetails: (item) => item.grantType.abrv === 'regular' ? this.detailsModalParams.open(item.grantDonorAccounts[0].id) : this.routes.details(item.id)
                 },
                 actionsRender: {
-                    renderReview: this.renderReview,
-                    renderEdit: this.renderEdit,
+                    renderReview: (item) => item.grantStatus.abrv === 'pending',
+                    renderEdit: (item) => item.grantStatus.abrv === 'pending' && item.grantType.abrv === 'regular',
                 }
             })
         );
-    }
-
-    @action.bound async loadLookups() {
-        let grantStatusModels = await this.grantStatusLookup.getAll();
-        this.grantStatusModels = grantStatusModels.data;
-
-        let grantPurposeTypeModels = await this.grantPurposeTypeLookup.getAll();
-        this.grantPurposeTypeModels = grantPurposeTypeModels.data;
-
-        let grantTypeModels = await this.grantTypeLookup.getAll();
-        this.grantTypeModels = grantTypeModels.data;
     }
 
     @action.bound async setStores() {
@@ -240,19 +216,6 @@ class GrantListViewStore extends BaseListViewStore {
         }
     }
 
-    @action.bound renderReview(grant) {
-        const statusesForReview = _.map(_.filter(this.grantStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        return _.some(statusesForReview, (item) => { return item === grant.grantStatusId });
-    }
-
-    @action.bound renderEdit(grant) {
-        const statusesForEdit = _.map(_.filter(this.grantStatusModels, function (o) { return o.abrv === 'pending'; }), function (x) { return x.id });
-        if (_.some(statusesForEdit, (item) => { return item === grant.grantStatusId })) {
-            return grant.grantTypeId === this.regularGrantTypeId;
-        }
-        return false;
-    }
-
     @action.bound async onAfterReviewGrant() {
         this.queryUtility._reloadCollection();
         this.reviewModalParams.close();
@@ -260,10 +223,6 @@ class GrantListViewStore extends BaseListViewStore {
 
     @action.bound onChangeSearchDonor(option) {
         this.rootStore.routerStore.navigate('master.app.administration.grant-donor-account.create', { userId: option.id });
-    }
-
-    @computed get regularGrantTypeId() {
-        return this.grantTypeModels ? _.find(this.grantTypeModels, { abrv: 'regular' }).id : null;
     }
 }
 

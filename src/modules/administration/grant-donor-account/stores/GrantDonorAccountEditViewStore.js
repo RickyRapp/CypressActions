@@ -22,7 +22,7 @@ class GrantDonorAccountEditViewStore extends BaseGrantDonorAccountEditViewStore 
                 },
                 get: async id => {
                     let params = {};
-                    params.embed = ['grant', 'grant'];
+                    params.embed = ['grant', 'grant.charity'];
                     // params.fields = [
                     //     'id',
                     //     'charityId',
@@ -48,12 +48,11 @@ class GrantDonorAccountEditViewStore extends BaseGrantDonorAccountEditViewStore 
         config.userId = userId;
 
         super(rootStore, config);
-
-        this.load();
+        this.isAdministratorOrEmployeeRole = rootStore.authStore.user.roles.includes('Administrators', 'Employees')
     }
 
-    setFormDefaults() {
-        super.setFormDefaults();
+    async load() {
+        await super.load();
         this.form.$('amount').set('rules', 'required|numeric|min:0');
     }
 }

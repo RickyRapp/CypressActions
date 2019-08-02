@@ -24,30 +24,27 @@ function GrantListTemplate({ grantListViewStore }) {
 
     return (
         <ListLayout onCreate={create} loading={loading}>
-            {tableStore &&
-                <React.Fragment>
-                    <div className="spc--bottom--sml">
-                        <TableFilter queryUtility={queryUtility}>
-                            <div className="f-row">
-                                <div className="f-col f-col-lrg-3 input--multiselect">
-                                    {donorAccountSearchDropdownStore &&
-                                        <DropdownAsyncFilter
-                                            queryUtility={queryUtility}
-                                            name="donorAccountId"
-                                            store={donorAccountSearchDropdownStore}
-                                        />}
-                                </div>
-                                <ListFilterTemplate
+            <div className="spc--bottom--sml">
+                <TableFilter queryUtility={queryUtility}>
+                    <div className="f-row">
+                        <div className="f-col f-col-lrg-3 input--multiselect">
+                            {donorAccountSearchDropdownStore &&
+                                <DropdownAsyncFilter
                                     queryUtility={queryUtility}
-                                    charitySearchDropdownStore={charitySearchDropdownStore} />
-                            </div>
-                        </TableFilter>
+                                    name="donorAccountId"
+                                    store={donorAccountSearchDropdownStore}
+                                />}
+                        </div>
+                        <ListFilterTemplate
+                            queryUtility={queryUtility}
+                            charitySearchDropdownStore={charitySearchDropdownStore} />
                     </div>
-                    <BaasicTable
-                        tableStore={tableStore}
-                        loading={loading}
-                    />
-                </React.Fragment>}
+                </TableFilter>
+            </div>
+            <BaasicTable
+                tableStore={tableStore}
+                loading={loading}
+            />
             <BaasicModal modalParams={findDonorModalParams} >
                 <div className="col col-sml-12 card card--form card--primary card--lrg">
                     <div className="f-row">
@@ -73,7 +70,7 @@ function GrantListTemplate({ grantListViewStore }) {
                     <GrantRegularDetails id={detailsModalParams.data} />
                 </div>
             </BaasicModal>
-        </ListLayout>
+        </ListLayout >
     );
 }
 

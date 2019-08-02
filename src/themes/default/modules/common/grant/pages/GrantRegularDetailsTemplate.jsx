@@ -3,13 +3,11 @@ import { defaultTemplate } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 import { Loader } from 'core/components';
-import { PaymentTransactionTableTemplate } from 'themes/modules/common/payment-transaction/components';
+import { PaymentTransactionList } from 'modules/common/payment-transaction/pages';
 
 function GrantRegularDetailsTemplate({ grantDetailsViewStore }) {
     const {
         grantDonorAccount,
-        paymentTransactionStatuses,
-        paymentTransactionTypes,
         highlightId,
         loaderStore: { loading },
     } = grantDetailsViewStore;
@@ -64,10 +62,8 @@ function GrantRegularDetailsTemplate({ grantDetailsViewStore }) {
                         </div>
                     </div>
 
-                    <PaymentTransactionTableTemplate
-                        paymentTransactionStatuses={paymentTransactionStatuses}
-                        paymentTransactionTypes={paymentTransactionTypes}
-                        models={grantDonorAccount.grantDonorAccountTransactions}
+                    <PaymentTransactionList
+                        items={grantDonorAccount.grantDonorAccountTransactions}
                         highlightId={highlightId}
                     />
                 </React.Fragment>}

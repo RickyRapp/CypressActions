@@ -15,6 +15,7 @@ class BaseGrantDonorAccountEditViewStore extends BaseEditViewStore {
     @observable charityDropdownStore = null;
     @observable donorAccount = null;
     @observable totalAmount = 0;
+    initFetchCharitySearch = true;
 
     constructor(rootStore, config) {
         super(rootStore, config.editViewStore)
@@ -29,40 +30,35 @@ class BaseGrantDonorAccountEditViewStore extends BaseEditViewStore {
         this.grantAcknowledgmentTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'grant-acknowledgment-type');
         this.feeTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'fee-type');
         this.applicationDefaultSettingLookupService = new LookupService(rootStore.app.baasic.apiClient, 'application-default-setting');
+
+        this.setStores();
+        this.load();
     }
 
     async getResource(id, updateForm = true) {
         await super.getResource(id, updateForm);
-        await this.load();
+        if (this.initFetchCharitySearch) {
+            this.charityDropdownStore.filterAsync();
+            this.calculateFee();
+            this.form.$('amount').set('default', this.form.$('amount').value);
+        }
     }
 
     @action.bound async load() {
-        await this.loadLookups();
-        await this.getDonorAccount();
-
-        await this.setStores();
-        await this.setFormDefaults();
-        await this.calculateFee();
-    }
-
-    @action.bound async loadLookups() {
         const grantPurposeTypeModels = await this.grantPurposeTypeLookupService.getAll();
         this.grantPurposeTypes = _.orderBy(grantPurposeTypeModels.data, ['sortOrder'], ['asc']);
+        this.grantPurposeTypeDropdownStore.setItems(this.grantPurposeTypes)
+        this.form.$('grant.grantPurposeMemberName').set('rules', this.form.$('grant.grantPurposeMemberName').rules + `|required_if:grant.grantPurposeTypeId,${this.inMemoryOfId}|required_if:grant.grantPurposeTypeId,${this.inHonorOfId}|required_if:grant.grantPurposeTypeId,${this.sponsorAFriendId}`);
 
         const grantAcknowledgmentTypeModels = await this.grantAcknowledgmentTypeLookupService.getAll();
         this.grantAcknowledgmentTypes = _.orderBy(grantAcknowledgmentTypeModels.data, ['sortOrder'], ['asc']);
+        this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
 
         const feeTypeModels = await this.feeTypeLookupService.getAll();
         this.feeTypes = _.orderBy(feeTypeModels.data, ['sortOrder'], ['asc']);
 
         const applicationDefaultSettingModels = await this.applicationDefaultSettingLookupService.getAll();
         this.applicationDefaultSetting = applicationDefaultSettingModels.data[0];
-    }
-
-    @action.bound setFormDefaults() {
-        //Rules
-        this.form.$('grant.grantPurposeMemberName').set('rules', this.form.$('grant.grantPurposeMemberName').rules + `|required_if:grant.grantPurposeTypeId,${this.inMemoryOfId}|required_if:grant.grantPurposeTypeId,${this.inHonorOfId}|required_if:grant.grantPurposeTypeId,${this.sponsorAFriendId}`);
-        this.form.$('amount').set('default', this.form.$('amount').value)
     }
 
     @action.bound async setStores() {
@@ -73,9 +69,6 @@ class BaseGrantDonorAccountEditViewStore extends BaseEditViewStore {
                 dataItemKey: 'id',
                 isClearable: false
             },
-            {
-            },
-            this.grantPurposeTypes
         );
 
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(
@@ -85,9 +78,6 @@ class BaseGrantDonorAccountEditViewStore extends BaseEditViewStore {
                 dataItemKey: 'id',
                 isClearable: false
             },
-            {
-            },
-            this.grantAcknowledgmentTypes
         );
 
         this.charityDropdownStore = new BaasicDropdownStore(
@@ -104,21 +94,16 @@ class BaseGrantDonorAccountEditViewStore extends BaseEditViewStore {
                     if (term && term !== '') {
                         options.searchQuery = term;
                     }
+                    if (this.initFetchCharitySearch) {
+                        this.initFetchCharitySearch = false;
+                        options.id = this.form.$('grant.charityId').value;
+                    }
 
                     let response = await this.charityService.search(options);
                     return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });
                 }
             }
         );
-
-        if (this.form.$('grant.charityId').value) {
-            let params = getCharityDropdownOptions;
-            const charity = await this.charityService.get(this.form.$('grant.charityId').value, params);
-            let defaultSearchCharity = { id: charity.id, name: getCharityNameDropdown(charity) }
-            let charitySearchs = [];
-            charitySearchs.push(defaultSearchCharity);
-            this.charityDropdownStore.items = charitySearchs;
-        }
     }
 
     @action.bound async getDonorAccount() {
