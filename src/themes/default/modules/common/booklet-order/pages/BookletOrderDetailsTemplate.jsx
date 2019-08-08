@@ -108,18 +108,21 @@ function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
                         </tbody>
                     </table>
 
-                    <div className="f-row">
-                        <div className="form__group f-col f-col-lrg-12">
-                            <strong>Payment Transactions</strong>
-                        </div>
-                    </div>
+                    {bookletOrder.bookletOrderTransactions && bookletOrder.bookletOrderTransactions.length > 0 &&
+                        <React.Fragment>
+                            <div className="f-row">
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <strong>Payment Transactions</strong>
+                                </div>
+                            </div>
 
-                    <PaymentTransactionTableTemplate
-                        highlightId={highlightId}
-                        paymentTransactionStatuses={paymentTransactionStatuses}
-                        paymentTransactionTypes={paymentTransactionTypes}
-                        models={bookletOrder.bookletOrderTransactions}
-                    />
+                            <PaymentTransactionTableTemplate
+                                highlightId={highlightId}
+                                paymentTransactionStatuses={paymentTransactionStatuses}
+                                paymentTransactionTypes={paymentTransactionTypes}
+                                models={bookletOrder.bookletOrderTransactions}
+                            />
+                        </React.Fragment>}
                 </React.Fragment>}
         </React.Fragment>
     );

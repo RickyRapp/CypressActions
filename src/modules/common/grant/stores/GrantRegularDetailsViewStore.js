@@ -1,18 +1,18 @@
 import { action, observable } from 'mobx';
-import { GrantDonorAccountService, LookupService } from "common/data";
+import { GrantService, LookupService } from "common/data";
 import { BaseViewStore } from "core/stores";
 import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
 class GrantRegularDetailsViewStore extends BaseViewStore {
-    @observable grantDonorAccount = null;
+    @observable grant = null;
 
     constructor(rootStore, { id, highlightId }) {
         super(rootStore);
 
         this.id = id;
         this.highlightId = highlightId;
-        this.grantDonorAccountService = new GrantDonorAccountService(rootStore.app.baasic.apiClient);
+        this.grantService = new GrantService(rootStore.app.baasic.apiClient);
         this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
         this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
 
@@ -22,8 +22,8 @@ class GrantRegularDetailsViewStore extends BaseViewStore {
 
         this.params = {
             embed: [
-                'grant',
-                'grant.charity',
+                'donation',
+                'donation.charity',
                 'createdByCoreUser',
                 'donorAccount',
                 'donorAccount.coreUser',
@@ -43,7 +43,7 @@ class GrantRegularDetailsViewStore extends BaseViewStore {
     }
 
     @action.bound async load() {
-        this.grantDonorAccount = await this.grantDonorAccountService.get(this.id, this.params);
+        this.grant = await this.grantService.get(this.id, this.params);
     }
 }
 

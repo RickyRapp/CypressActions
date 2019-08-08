@@ -92,6 +92,9 @@ class BaseContributionCreateViewStore extends BaseEditViewStore {
         params.fields = [
             'id',
             'donorName',
+            'initialContribution',
+            'contributionMinimumAdditional',
+            'contributionMinimumInitial',
             'donorAccountAddresses',
             'donorAccountAddresses.primary',
             'donorAccountAddresses.address',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter, DropdownAsyncFilter, BaasicModal } from 'core/components';
+import { BaasicTable, TableFilter, DropdownAsyncFilter, BaasicModal, DropdownFilter, ThreeStateToggleFilter } from 'core/components';
 import { ListLayout, PageContentHeader } from 'core/layouts';
 import { DonorAccountHeaderDetails } from 'modules/administration/donor-account/components'
 import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/activity-and-history/components';
@@ -39,7 +39,22 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                                 </div>
                             </div>
                             <div className="f-row">
-                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} paymentTransactionStatusDropdownStore={paymentTransactionStatusDropdownStore} />
+                                <div className="f-col f-col-lrg-3 input--multiselect">
+                                    {paymentTransactionStatusDropdownStore &&
+                                        <DropdownFilter
+                                            queryUtility={queryUtility}
+                                            name="paymentTransactionStatusIds"
+                                            store={paymentTransactionStatusDropdownStore}
+                                        />}
+                                </div>
+                                <div className="f-col f-col-lrg-2">
+                                    <ThreeStateToggleFilter
+                                        queryUtility={queryUtility}
+                                        name="done"
+                                        title="Done Transaction"
+                                    />
+                                </div>
+                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} />
                             </div>
                         </React.Fragment>
                     </TableFilter>

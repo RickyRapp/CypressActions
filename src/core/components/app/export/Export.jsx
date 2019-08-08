@@ -71,13 +71,12 @@ class Export extends React.Component {
     }
 
     @action.bound async onExportClick() {
-        var f = new ContributionListFilter();
-        _.extend(f, this.props.queryUtility.filter)
+        let f = this.props.queryUtility.filter;
         f.exportFields = _.map(this.exportFieldsDropdownStore.value, item => { return item.id });
         f.exportLimit = this.exportLimitDropdownStore.value.id;
-        let response = await this.props.service.export(f);
+        const response = await this.props.service.export(f);
         if (response) {
-            let blob = new Blob([response.content], { type: `${response.contentType}; ${response.encoding}` });
+            const blob = new Blob([response.content], { type: `${response.contentType}; ${response.encoding}` });
             this.saveData(blob, response.fileName);
         }
         else {

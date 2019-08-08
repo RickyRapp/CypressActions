@@ -19,7 +19,7 @@ function BookletDetailsRowTemplate({ item, certificateStatusDropdownStore, saveR
                 <BaasicDropdown
                     store={certificateStatusDropdownStore}
                     onChangeOverride={event => item.certificateStatusId = event.id}
-                    valueOverride={item.certificateStatusId}
+                    valueOverride={_.find(certificateStatusDropdownStore.items, { id: item.certificateStatusId })}
                 />
             </td>
             <td className="table__body--data">

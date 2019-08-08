@@ -7,7 +7,6 @@ import { formatCharityTaxId, getFormattedPrimaryAddress } from 'core/utils';
 import _ from 'lodash';
 
 class CharityListViewStore extends BaseCharityListViewStore {
-
     constructor(rootStore) {
         const charityService = new CharityService(rootStore.app.baasic.apiClient);
         let filter = new CharityListFilter();
@@ -55,7 +54,9 @@ class CharityListViewStore extends BaseCharityListViewStore {
         };
 
         const config = {
-            listViewStore: listViewStore
+            listViewStore: listViewStore,
+            setSelectedExportColumnsName: ['Type'],
+            setAdditionalExportColumnsName: ['Date Created']
         }
 
         super(rootStore, config);
@@ -101,9 +102,6 @@ class CharityListViewStore extends BaseCharityListViewStore {
             onEdit: charity => this.routes.edit(charity.id),
             onReview: charity => this.onReviewClick(charity.id),
         }
-
-        this.setSelectedExportColumnsName = ['Name', 'Charity Type'];
-        this.setAdditionalExportColumnsName = ['Charity Status'];
 
         this.reviewCharityModalParams = new ModalParams({
             onClose: this.onClose,

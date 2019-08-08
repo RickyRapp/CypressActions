@@ -4,21 +4,19 @@ import moment from 'moment';
 import _ from 'lodash';
 
 const renderGrantPurposeType = (item, grantPurposeTypeModels) => {
-    let base = _.find(grantPurposeTypeModels, { id: item.grantPurposeTypeId }).name;
+    let base = item.grantPurposeType.name;
 
-    if (item.grantPurposeTypeId === _.find(grantPurposeTypeModels, { abrv: 'in-memory-of' }).id ||
-        item.grantPurposeTypeId === _.find(grantPurposeTypeModels, { abrv: 'in-honor-of' }).id ||
-        item.grantPurposeTypeId === _.find(grantPurposeTypeModels, { abrv: 'sponsor-a-friend' }).id) {
+    if (item.grantPurposeType.abrv === 'in-memory-of' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'sponsor-a-friend') {
         return (
             <React.Fragment>
                 {base}
                 <span className='icomoon icon-alert-circle' data-tip data-for={`purpose_${item.id}`} />
                 <ReactTooltip type='info' effect='solid' id={`purpose_${item.id}`}>
-                    <span>{item.grantPurposeMemberName}</span>
+                    <span>{item.purposeMemberName}</span>
                 </ReactTooltip>
             </React.Fragment>);
     }
-    else if (item.grantPurposeTypeId === _.find(grantPurposeTypeModels, { abrv: 'other' }).id)
+    else if (item.grantPurposeType.abrv === 'other')
         return (
             <React.Fragment>
                 {base}
@@ -27,7 +25,7 @@ const renderGrantPurposeType = (item, grantPurposeTypeModels) => {
                     <span>{item.additionalInformation}</span>
                 </ReactTooltip>
             </React.Fragment>);
-    else if (item.grantPurposeTypeId === _.find(grantPurposeTypeModels, { abrv: 'charity-event' }).id)
+    else if (item.grantPurposeType.abrv === 'charity-event')
         return (
             <React.Fragment>
                 {base}

@@ -25,8 +25,7 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                     <TableFilter queryUtility={queryUtility}>
                         <React.Fragment>
                             <div className="f-row">
-                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility}
-                                    paymentTransactionStatusDropdownStore={paymentTransactionStatusDropdownStore} />
+                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} />
                             </div>
                         </React.Fragment>
                     </TableFilter>

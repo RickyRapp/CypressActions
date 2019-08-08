@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'mobx';
-import { DonorAccountService, LookupService } from "common/data";
+import { DonorAccountService } from "common/data";
 import { BaseViewStore } from 'core/stores';
 
 class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
@@ -16,10 +16,6 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
 
     @action.bound
     async load() {
-        this.accountTypeLookupService = new LookupService(this.rootStore.app.baasic.apiClient, 'account-type');
-        let accountTypesModels = await this.accountTypeLookupService.getAll();
-        this.accountTypes = _.orderBy(accountTypesModels.data, ['sortOrder'], ['asc']);
-
         const options = this.getComponentsEmbeds();
         let params = {};
         params.embed = options.embeds;
@@ -28,8 +24,8 @@ class DonorAccountHeaderDetailsViewStore extends BaseViewStore {
     }
 
     getComponentsEmbeds() {
-        let embeds = ['coreUser,companyProfile'];
-        let fields = ['id', 'donorName', 'availableBalance', 'accountTypeId']
+        let embeds = ['coreUser', 'companyProfile', 'accountType'];
+        let fields = ['id', 'donorName', 'presentBalance', 'availableBalance', 'accountType', 'accountType.abrv', 'accountType.name']
 
         if (this.isDonorAccountType) {
         }

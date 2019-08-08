@@ -79,8 +79,9 @@ class MediaUploadListViewStore extends BaseListViewStore {
                     }
                 ],
                 actions: {
-                    onDelete: document => this.routes.delete(document.coreMediaVaultEntry),
-                }
+                    onDelete: item => this.routes.delete(item.coreMediaVaultEntry),
+                },
+                actionsRender: {}
             })
         );
 

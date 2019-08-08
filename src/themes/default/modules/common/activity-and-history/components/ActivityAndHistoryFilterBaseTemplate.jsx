@@ -1,17 +1,9 @@
 import React from 'react';
-import { NumericRangeFilter, DateRangeFilter, DropdownFilter, ThreeStateToggleFilter } from 'core/components';
+import { NumericRangeFilter, DateRangeFilter } from 'core/components';
 
-function ActivityAndHistoryFilterBaseTemplate({ queryUtility, paymentTransactionStatusDropdownStore }) {
+function ActivityAndHistoryFilterBaseTemplate({ queryUtility }) {
     return (
         <React.Fragment>
-            <div className="f-col f-col-lrg-3 input--multiselect">
-                {paymentTransactionStatusDropdownStore &&
-                    <DropdownFilter
-                        queryUtility={queryUtility}
-                        name="paymentTransactionStatusIds"
-                        store={paymentTransactionStatusDropdownStore}
-                    />}
-            </div>
             <div className="f-col f-col-lrg-4 pos--rel spc--right--sml">
                 <NumericRangeFilter
                     queryUtility={queryUtility}
@@ -26,13 +18,6 @@ function ActivityAndHistoryFilterBaseTemplate({ queryUtility, paymentTransaction
                     queryUtility={queryUtility}
                     nameMin="dateCreatedStartDate"
                     nameMax="dateCreatedEndDate"
-                />
-            </div>
-            <div className="f-col f-col-lrg-3">
-                <ThreeStateToggleFilter
-                    queryUtility={queryUtility}
-                    name="done"
-                    title="Done Transaction"
                 />
             </div>
         </React.Fragment>

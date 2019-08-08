@@ -46,12 +46,6 @@ function BookletOrderListTemplate({ bookletOrderListViewStore }) {
                                 />
                             </div>
                         </TableFilter>
-                        {/* <Export
-                            queryUtility={queryUtility}
-                            selectedExportColumnsName={selectedExportColumnsName}
-                            additionalExportColumnsName={additionalExportColumnsName}
-                            service={bookletOrderService}
-                        /> */}
                     </div>
                     {tableStore &&
                         <BaasicTable

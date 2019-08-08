@@ -7,12 +7,6 @@ class GrantService extends BaseService {
         super(apiClient, new GrantRouteService());
         this.apiClient = apiClient;
     }
-
-    async review(resource) {
-        const url = this.routeService.review(resource);
-        const response = await this.apiClient.put(url, resource);
-        return response || null;
-    }
 }
 
 export default GrantService;

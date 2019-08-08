@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { FilterParams } from 'core/models';
 
 class GrantCombinedListFilter extends FilterParams {
-    @observable grantId;
+    @observable donationId;
     @observable donorAccountId;
     @observable amountRangeMin;
     @observable amountRangeMax;

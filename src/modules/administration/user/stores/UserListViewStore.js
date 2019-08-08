@@ -65,7 +65,8 @@ class UserListViewStore extends BaseListViewStore {
           onApprove: user => this.approveUser(user),
           onDisapprove: user => this.disapproveUser(user),
           onSort: column => this.queryUtility.changeOrder(column.key)
-        }
+        },
+        actionsRender: {}
       })
     );
   }

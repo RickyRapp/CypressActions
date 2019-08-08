@@ -41,6 +41,7 @@ class RoleListViewStore extends BaseListViewStore {
           onDelete: this.deleteResource,
           onSort: column => this.queryUtility.changeOrder(column.key)
         },
+        actionsRender: {},
         onRowClick: item => this.routes.edit(item.id)
       })
     );

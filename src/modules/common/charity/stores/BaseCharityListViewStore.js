@@ -15,8 +15,6 @@ class BaseCharityListViewStore extends BaseListViewStore {
     setColumns = null;
     setActions = null;
     setRenderActions = null;
-    setSelectedExportColumnsName = null;
-    setAdditionalExportColumnsName = null;
 
     constructor(rootStore, config) {
         super(rootStore, config.listViewStore);
@@ -24,8 +22,8 @@ class BaseCharityListViewStore extends BaseListViewStore {
         this.charityStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'charity-status');
         this.charityTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'charity-type');
 
-        this.selectedExportColumnsName = _.union(['Amount', 'Payment Type'], this.setSelectedExportColumnsName);
-        this.additionalExportColumnsName = _.union(['Payer Name', 'Status', 'Created By', 'Date Created'], this.setAdditionalExportColumnsName);
+        this.selectedExportColumnsName = _.union(['Name'], config.setSelectedExportColumnsName);
+        this.additionalExportColumnsName = _.union(['Status'], config.setAdditionalExportColumnsName);
 
         this.load();
     }

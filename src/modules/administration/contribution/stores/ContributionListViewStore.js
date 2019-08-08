@@ -17,8 +17,12 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         'dateUpdated',
         'amount',
         'confirmationNumber',
-        'contributionStatusId',
-        'paymentTypeId',
+        'contributionStatus',
+        'contributionStatus.name',
+        'contributionStatus.abrv',
+        'paymentType',
+        'paymentType.name',
+        'paymentType.abrv',
         'donorAccount',
         'donorAccount.id',
         'donorAccount.donorName',
@@ -60,7 +64,16 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'donorAccount,donorAccount.coreUser,donorAccount.companyProfile,payerInformation,bankAccount,createdByCoreUser';
+                    params.embed = [
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile',
+                        'payerInformation',
+                        'bankAccount',
+                        'createdByCoreUser',
+                        'paymentType',
+                        'contributionStatus'
+                    ];
                     params.fields = this.fields;
                     const response = await contributionService.find(params);
                     this.loaderStore.resume();
@@ -109,14 +122,11 @@ class ContributionListViewStore extends BaseContributionListViewStore {
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
-                key: 'contributionStatusId',
-                title: 'STATUS',
-                type: 'function',
-                function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name,
-                // onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
+                key: 'contributionStatus.name',
+                title: 'STATUS'
             },
             {
-                key: 'paymentTypeId',
+                key: 'paymentType.name',
                 title: 'PAYMENTTYPE',
                 type: 'function',
                 function: this.renderPaymentType
@@ -150,8 +160,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         }
 
         this.setRenderActions = {
-            renderEdit: this.renderEdit,
-            renderReview: this.renderReview
+            renderEdit: (item) => item.contributionStatus.abrv === 'pending' || item.paymentType.abrv === 'in-process',
+            renderReview: (item) => item.contributionStatus.abrv === 'pending' || item.paymentType.abrv === 'in-process' || item.paymentType.abrv === 'funded'
         }
     }
 
@@ -160,22 +170,13 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         this.setAdditionalStores();
     }
 
-    @action.bound renderEdit(contribution) {
-        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
-        return _.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId });
-    }
-
     @action.bound renderPaymentType = (item) => {
-        if (item.paymentTypeId === _.find(this.paymentTypes, { abrv: 'ach' }).id || item.paymentTypeId === _.find(this.paymentTypes, { abrv: 'wire-transfer' }).id) {
-            return `${_.find(this.paymentTypes, { id: item.paymentTypeId }).name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;
+        debugger;
+        if (item.paymentType.abrv === 'ach' || item.paymentType.abrv === 'wire-transfer') {
+            return `${item.paymentType.name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;
         }
         else
-            return _.find(this.paymentTypes, { id: item.paymentTypeId }).name;
-    }
-
-    @action.bound renderReview(contribution) {
-        let availableStatuesForReview = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' || x.abrv === 'funded' }), function (o) { return o.id });
-        return _.some(availableStatuesForReview, (item) => { return item === contribution.contributionStatusId });
+            return item.paymentType.name;
     }
 
     @action.bound async onAfterReview() {

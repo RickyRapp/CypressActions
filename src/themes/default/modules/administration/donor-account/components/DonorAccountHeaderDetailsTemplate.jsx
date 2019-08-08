@@ -11,8 +11,7 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
         isContributionSettingType,
         isActivityAndHistoryType,
         isGrantType,
-        isBookletOrderType,
-        accountTypes
+        isBookletOrderType
     } = donorAccountHeaderDetailsViewStore;
 
     return (
@@ -20,29 +19,29 @@ function DonorAccountHeaderDetailsTemplate({ donorAccountHeaderDetailsViewStore,
             {donorAccount ?
                 <React.Fragment >
                     {isDonorAccountType &&
-                        renderDonorAccount(donorAccount, rootStore, accountTypes)}
+                        renderDonorAccount(donorAccount, rootStore)}
 
                     {isContributionType &&
-                        renderContribution(donorAccount, rootStore, accountTypes)}
+                        renderContribution(donorAccount, rootStore)}
 
                     {isContributionSettingType &&
-                        renderContributionSetting(donorAccount, rootStore, accountTypes)}
+                        renderContributionSetting(donorAccount, rootStore)}
 
                     {isActivityAndHistoryType &&
-                        renderActivityAndHistory(donorAccount, rootStore, accountTypes)}
+                        renderActivityAndHistory(donorAccount, rootStore)}
 
                     {isGrantType &&
-                        renderGrant(donorAccount, rootStore, accountTypes)}
+                        renderGrant(donorAccount, rootStore)}
 
                     {isBookletOrderType &&
-                        renderBookletOrder(donorAccount, rootStore, accountTypes)}
+                        renderBookletOrder(donorAccount, rootStore)}
                 </React.Fragment >
                 : null}
         </React.Fragment >
     );
 }
 
-function renderDonorAccount(donorAccount, rootStore, accountTypes) {
+function renderDonorAccount(donorAccount, rootStore) {
     return (
         <React.Fragment>
             <div className="f-row">
@@ -75,6 +74,10 @@ function renderDonorAccount(donorAccount, rootStore, accountTypes) {
                     </span>
                 </div>
                 <div className="form__group f-col f-col-lrg-2">
+                    Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
                     Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
                 </div>
@@ -106,7 +109,7 @@ function renderDonorAccount(donorAccount, rootStore, accountTypes) {
     )
 }
 
-function renderContribution(donorAccount, rootStore, accountTypes) {
+function renderContribution(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -114,11 +117,15 @@ function renderContribution(donorAccount, rootStore, accountTypes) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
                     {donorAccount.donorName}
-                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'basic' &&
                         <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
-                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'premium' &&
                         <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Available Balance:
@@ -143,7 +150,7 @@ function renderContribution(donorAccount, rootStore, accountTypes) {
     )
 }
 
-function renderContributionSetting(donorAccount, rootStore, accountTypes) {
+function renderContributionSetting(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -151,11 +158,15 @@ function renderContributionSetting(donorAccount, rootStore, accountTypes) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle spc--right--tny"></i>
                     {donorAccount.donorName}
-                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'basic' &&
                         <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
-                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'premium' &&
                         <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Available Balance:
@@ -173,7 +184,7 @@ function renderContributionSetting(donorAccount, rootStore, accountTypes) {
     )
 }
 
-function renderActivityAndHistory(donorAccount, rootStore, accountTypes) {
+function renderActivityAndHistory(donorAccount, rootStore) {
     return (
         <React.Fragment>
             <div className="f-row">
@@ -182,19 +193,19 @@ function renderActivityAndHistory(donorAccount, rootStore, accountTypes) {
                         onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                         <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
                         {donorAccount.donorName}
-                        {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                        {donorAccount.accountType.abrv === 'basic' &&
                             <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
-                        {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                        {donorAccount.accountType.abrv === 'premium' &&
                             <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                     </span>
                 </div>
                 <div className="form__group f-col f-col-lrg-2">
-                    Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                    Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
                 </div>
                 <div className="form__group f-col f-col-lrg-2">
-                    Balance On Hold:
-                <NumberFormat value={donorAccount.balanceOnHold} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                    Available Balance:
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
                 </div>
             </div>
             <div className="f-row">
@@ -224,7 +235,7 @@ function renderActivityAndHistory(donorAccount, rootStore, accountTypes) {
     )
 }
 
-function renderGrant(donorAccount, rootStore, accountTypes) {
+function renderGrant(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -232,11 +243,15 @@ function renderGrant(donorAccount, rootStore, accountTypes) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
                     {donorAccount.donorName}
-                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'basic' &&
                         <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
-                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'premium' &&
                         <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Available Balance:
@@ -254,7 +269,7 @@ function renderGrant(donorAccount, rootStore, accountTypes) {
     )
 }
 
-function renderBookletOrder(donorAccount, rootStore, accountTypes) {
+function renderBookletOrder(donorAccount, rootStore) {
     return (
         <div className="f-row">
             <div className="form__group f-col f-col-lrg-2">
@@ -262,11 +277,15 @@ function renderBookletOrder(donorAccount, rootStore, accountTypes) {
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: donorAccount.id })}>
                     <i className="icomoon icon-style-two-pin-user align--v--middle"></i>
                     {donorAccount.donorName}
-                    {_.find(accountTypes, { abrv: 'basic' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'basic' &&
                         <i className="icomoon icon-tags align--v--middle spc--left--tny" title="Basic"></i>}
-                    {_.find(accountTypes, { abrv: 'premium' }).id === donorAccount.accountTypeId &&
+                    {donorAccount.accountType.abrv === 'premium' &&
                         <i className="icomoon icon-tags-double align--v--middle spc--left--tny" title="Premium"></i>}
                 </span>
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Available Balance:

@@ -19,7 +19,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                     params.fields = [
                         'id',
                         'amount',
-                        'userBalance',
+                        'currentBalance',
                         'dateCreated',
                         'paymentTransactionStatusId',
                         'done',
@@ -55,7 +55,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                 function: this.renderAmount
             },
             {
-                key: 'userBalance',
+                key: 'currentBalance',
                 title: 'Current Balance',
                 type: 'currency'
             },

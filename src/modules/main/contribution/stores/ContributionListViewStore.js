@@ -68,6 +68,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
 
         super(rootStore, config);
 
+        this.contributionService = contributionService;
         this.minutes = 15;
         this.setColumns = [
             {

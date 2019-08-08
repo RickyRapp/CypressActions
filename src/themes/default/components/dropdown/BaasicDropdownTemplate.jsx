@@ -12,7 +12,7 @@ function BaasicDropdownTemplate({ store, onChangeOverride, valueOverride }) {
 
     return (
         <Select
-            value={_.find(items, { id: valueOverride || value }) ? _.find(items, { id: valueOverride || value }) : null}
+            value={valueOverride || value}
             onChange={onChangeOverride || onChange}
             options={items}
             isMulti={options.multi}

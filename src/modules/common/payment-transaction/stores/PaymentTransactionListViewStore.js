@@ -62,13 +62,19 @@ class PaymentTransactionListViewStore extends BaseListViewStore {
                         type: 'currency'
                     },
                     {
-                        key: 'userBalance',
+                        key: 'currentBalance',
                         title: 'BALANCE',
                         type: 'currency'
                     },
                     {
                         key: 'paymentTransactionStatus.name',
                         title: 'STATUS',
+                    },
+                    {
+                        key: 'paymentTransaction.done',
+                        title: 'DONE',
+                        type: 'function',
+                        function: (item) => item.done ? 'Yes' : 'No'
                     }
                 ],
                 actions: {

@@ -74,8 +74,8 @@ class BookletInventoryViewStore extends BaseListViewStore {
                         }
                     }
                 ],
-                actions: {
-                }
+                actions: {},
+                actionsRender: {}
             })
         );
     }

@@ -55,13 +55,13 @@ function ContributionListTemplate({ contributionListViewStore }) {
                             queryUtility={queryUtility}
                             selectedExportColumnsName={selectedExportColumnsName}
                             additionalExportColumnsName={additionalExportColumnsName}
-                            service={contributionService}
+                            exportApi={contributionService.export}
                         />
                     </div>
                     {tableStore &&
                         <BaasicTable
                             tableStore={tableStore}
-                        // loading={loading}
+                            loading={loading}
                         />}
                 </ListLayout>
                 <BaasicModal modalParams={findDonorModalParams} >

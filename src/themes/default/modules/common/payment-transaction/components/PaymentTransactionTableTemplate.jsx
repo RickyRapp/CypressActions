@@ -4,7 +4,6 @@ import { PaymentTransactionTableRowTemplate } from "themes/modules/common/paymen
 import { defaultTemplate } from 'core/utils';
 
 function PaymentTransactionTableTemplate({
-    highlightId,
     paymentTransactionStatuses,
     paymentTransactionTypes,
     models
@@ -22,7 +21,6 @@ function PaymentTransactionTableTemplate({
             <tbody className="table__body">
                 {_.orderBy(models, ['dateCreated'], ['desc']).map(item => {
                     return <PaymentTransactionTableRowTemplate
-                        highlightId={highlightId}
                         paymentTransactionStatuses={paymentTransactionStatuses}
                         paymentTransactionTypes={paymentTransactionTypes}
                         item={item}

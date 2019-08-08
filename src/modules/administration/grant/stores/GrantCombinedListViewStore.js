@@ -1,6 +1,6 @@
 import React from 'react';
-import { action, observable, computed } from 'mobx';
-import { GrantDonorAccountService, DonorAccountService, CharityService, LookupService } from "common/data";
+import { action, observable } from 'mobx';
+import { GrantService, DonorAccountService, LookupService } from "common/data";
 import { GrantCombinedListFilter } from 'modules/administration/grant/models';
 import { ModalParams } from 'core/models';
 import { BaseListViewStore, TableViewStore, BaasicDropdownStore } from 'core/stores';
@@ -15,10 +15,10 @@ class GrantCombinedListViewStore extends BaseListViewStore {
     @observable donorAccountSearchDropdownStore = null;
 
     constructor(rootStore) {
-        const grantDonorAccountService = new GrantDonorAccountService(rootStore.app.baasic.apiClient);
+        const grantService = new GrantService(rootStore.app.baasic.apiClient);
 
         let filter = new GrantCombinedListFilter()
-        filter.grantId = rootStore.routerStore.routerState.params.id;
+        filter.donationId = rootStore.routerStore.routerState.params.id;
         if (rootStore.routerStore.routerState.queryParams) {
             if (rootStore.routerStore.routerState.queryParams.donorAccountId) {
                 filter.donorAccountId = rootStore.routerStore.routerState.queryParams.donorAccountId;
@@ -33,7 +33,7 @@ class GrantCombinedListViewStore extends BaseListViewStore {
                 donorAccountEdit: (userId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
                 edit: (grantDonorAccountId, userId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.grant-donor-account.edit', { userId: userId, id: grantDonorAccountId }),
+                    this.rootStore.routerStore.navigate('master.app.administration.grant.edit', { userId: userId, id: grantDonorAccountId }),
                 details: (id) =>
                     this.rootStore.routerStore.navigate('master.app.administration.grant.details', { id: id }),
                 grantScheduledPaymentEdit: (grantScheduledPaymentName) =>
@@ -44,9 +44,9 @@ class GrantCombinedListViewStore extends BaseListViewStore {
 
                     this.loaderStore.suspend();
                     params.embed = [
-                        'grant',
-                        'grant.grantStatus',
-                        'grant.charity',
+                        'donation',
+                        'donation.donationStatus',
+                        'donation.charity',
                         'createdByCoreUser',
                         'donorAccount',
                         'donorAccount.coreUser',
@@ -76,7 +76,7 @@ class GrantCombinedListViewStore extends BaseListViewStore {
                     //     'charity.id',
                     //     'charity.name',
                     // ];
-                    const response = await grantDonorAccountService.find(params);
+                    const response = await grantService.find(params);
                     this.loaderStore.resume();
                     return response;
                 }
@@ -133,7 +133,7 @@ class GrantCombinedListViewStore extends BaseListViewStore {
                     onDetails: (item) => this.detailsModalParams.open(item.id)
                 },
                 actionsRender: {
-                    renderEdit: (item) => item.grant.grantStatus.abrv === 'pending',
+                    renderEdit: (item) => item.donation.donationStatus.abrv === 'pending',
                 }
             })
         );

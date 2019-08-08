@@ -4,7 +4,6 @@ import { DropdownAsyncFilter, BaasicTable, BaasicModal, TableFilter } from 'core
 import { ListLayout } from 'core/layouts';
 import { ListFilterTemplate } from 'themes/modules/common/grant/components';
 import { DonorAccountSearch } from 'modules/administration/donor-account/components';
-import { GrantReview } from 'modules/administration/grant/components';
 import { GrantRegularDetails } from 'modules/common/grant/pages';
 
 function GrantListTemplate({ grantListViewStore }) {
@@ -17,9 +16,7 @@ function GrantListTemplate({ grantListViewStore }) {
         onChangeSearchDonor,
         donorAccountSearchDropdownStore,
         charitySearchDropdownStore,
-        reviewModalParams,
         detailsModalParams,
-        onAfterReview
     } = grantListViewStore;
 
     return (
@@ -58,11 +55,6 @@ function GrantListTemplate({ grantListViewStore }) {
                             </DonorAccountSearch>
                         </div>
                     </div>
-                </div>
-            </BaasicModal>
-            <BaasicModal modalParams={reviewModalParams} >
-                <div className="col col-sml-12 card card--form card--primary card--lrg">
-                    <GrantReview onAfterReview={onAfterReview} id={reviewModalParams.data} />
                 </div>
             </BaasicModal>
             <BaasicModal modalParams={detailsModalParams} >

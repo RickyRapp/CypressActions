@@ -3,16 +3,13 @@ import { defaultTemplate } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 import { Loader } from 'core/components';
-import { PaymentTransactionTableTemplate } from 'themes/modules/common/payment-transaction/components';
+import { PaymentTransactionList } from 'modules/common/payment-transaction/pages';
 
 function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
     const {
         loaderStore,
         contribution,
         paymentTypes,
-        paymentTransactionStatuses,
-        paymentTransactionTypes,
-        highlightId
     } = contributionDetailsViewStore;
 
     const achId = paymentTypes ? _.find(paymentTypes, { abrv: 'ach' }).id : null;
@@ -182,18 +179,19 @@ function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
                             {contribution.payerInformation.phoneNumber.number}
                         </div>
                     </div>
-                    <div className="f-row">
-                        <div className="form__group f-col f-col-lrg-12">
-                            <strong>Payment Transactions</strong>
-                        </div>
-                    </div>
 
-                    <PaymentTransactionTableTemplate
-                        highlightId={highlightId}
-                        paymentTransactionStatuses={paymentTransactionStatuses}
-                        paymentTransactionTypes={paymentTransactionTypes}
-                        models={contribution.contributionTransactions}
-                    />
+                    {contribution.contributionTransactions && contribution.contributionTransactions.length > 0 &&
+                        <React.Fragment>
+                            <div className="f-row">
+                                <div className="form__group f-col f-col-lrg-12">
+                                    <strong>Payment Transactions</strong>
+                                </div>
+                            </div>
+
+                            <PaymentTransactionList
+                                items={contribution.contributionTransactions}
+                            />
+                        </React.Fragment>}
                 </React.Fragment>}
         </React.Fragment>
     );

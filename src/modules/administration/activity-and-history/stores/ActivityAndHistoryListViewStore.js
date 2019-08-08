@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { ActivityAndHistoryService, DonorAccountService } from "common/data";
 import { ActivityAndHistoryListFilter } from 'modules/common/activity-and-history/models';
 import { BaasicDropdownStore } from "core/stores";
@@ -12,24 +12,32 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
 
     constructor(rootStore) {
         const activityAndHistoryService = new ActivityAndHistoryService(rootStore.app.baasic.apiClient);
+        let filter = new ActivityAndHistoryListFilter();
+        filter.embed = 'createdByCoreUser';
+        filter.orderBy = 'dateCreated';
+        filter.orderDirection = 'desc';
 
         const listViewStore = {
             name: 'activity and history',
             actions: {
                 find: async params => {
-                    params.fields = [
-                        'id',
-                        'amount',
-                        'userBalance',
-                        'dateCreated',
-                        'paymentTransactionStatusId',
-                        'done',
-                        'paymentTransactionTypeId',
-                        'contributionId',
-                        'grantId',
-                        'fundTransferId',
-                        'feeId',
-                        'bookletOrderId'
+                    // params.fields = [
+                    //     'id',
+                    //     'amount',
+                    //     'currentBalance',
+                    //     'dateCreated',
+                    //     'paymentTransactionStatusId',
+                    //     'done',
+                    //     'paymentTransactionTypeId',
+                    //     'contributionId',
+                    //     'grantId',
+                    //     'fundTransferId',
+                    //     'feeId',
+                    //     'bookletOrderId'
+                    // ];
+                    params.embeds = [
+                        'paymentTransactionStatus',
+                        'paymentTransactionType',
                     ];
                     params.orderBy = 'dateCreated';
                     params.orderDirection = 'desc';
@@ -38,7 +46,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                 }
             },
             queryConfig: {
-                filter: new ActivityAndHistoryListFilter()
+                filter: filter
             },
             autoInit: false
         };
@@ -57,7 +65,7 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                 function: this.renderAmount
             },
             {
-                key: 'userBalance',
+                key: 'currentBalance',
                 title: 'Current Balance',
                 type: 'currency'
             },
@@ -129,7 +137,8 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
     }
 
     @action.bound onDonorFilterSearch(option) {
-        this.queryUtility.filter.donorAccountId = option ? option.id : null;
+        this.queryUtility.filter.donorAccountId = option ? option.id : null
+
         this.queryUtility._reloadCollection();
     }
 }

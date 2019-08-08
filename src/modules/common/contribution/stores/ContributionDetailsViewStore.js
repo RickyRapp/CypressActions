@@ -40,10 +40,15 @@ class ContributionDetailsViewStore extends BaseViewStore {
         'contributionTransactions.paymentTransaction',
         'contributionTransactions.paymentTransaction.id',
         'contributionTransactions.paymentTransaction.amount',
+        'contributionTransactions.paymentTransaction.done',
         'contributionTransactions.paymentTransaction.description',
-        'contributionTransactions.paymentTransaction.userBalance',
-        'contributionTransactions.paymentTransaction.paymentTransactionStatusId',
-        'contributionTransactions.paymentTransaction.paymentTransactionTypeId',
+        'contributionTransactions.paymentTransaction.currentBalance',
+        'contributionTransactions.paymentTransaction.dateCreated',
+        'contributionTransactions.paymentTransaction.paymentTransactionStatus',
+        'contributionTransactions.paymentTransaction.paymentTransactionStatus.name',
+        'contributionTransactions.paymentTransaction.paymentTransactionType',
+        'contributionTransactions.paymentTransaction.paymentTransactionType.name',
+        'contributionTransactions.paymentTransaction.paymentTransactionType.type',
     ]
 
     constructor(rootStore, { id, highlightId }) {
@@ -64,7 +69,17 @@ class ContributionDetailsViewStore extends BaseViewStore {
         await this.loadLookups();
 
         let params = {};
-        params.embed = ['bankAccount,payerInformation,payerInformation.address,payerInformation.emailAddress,payerInformation.phoneNumber,contributionTransaction,contributionTransactions,contributionTransactions.paymentTransaction'];
+        params.embed = [
+            'bankAccount',
+            'payerInformation',
+            'payerInformation.address',
+            'payerInformation.emailAddress',
+            'payerInformation.phoneNumber',
+            'contributionTransactions',
+            'contributionTransactions.paymentTransaction',
+            'contributionTransactions.paymentTransaction.paymentTransactionStatus',
+            'contributionTransactions.paymentTransaction.paymentTransactionType'
+        ];
         params.fields = this.fields;
         let model = await this.contributionService.get(this.id, params);
         if (model.json && JSON.parse(model.json).paymentTypeInformations) {
@@ -79,12 +94,6 @@ class ContributionDetailsViewStore extends BaseViewStore {
     @action.bound async loadLookups() {
         const paymentTypeModels = await this.paymentTypeLookup.getAll();
         this.paymentTypes = _.orderBy(paymentTypeModels.data, ['sortOrder'], ['asc']);
-
-        const paymentTransactionStatusModels = await this.paymentTransactionStatusLookup.getAll();
-        this.paymentTransactionStatuses = _.orderBy(paymentTransactionStatusModels.data, ['sortOrder'], ['asc']);
-
-        const paymentTransactionTypeModels = await this.paymentTransactionTypeLookup.getAll();
-        this.paymentTransactionTypes = _.orderBy(paymentTransactionTypeModels.data, ['sortOrder'], ['asc']);
     }
 }
 
