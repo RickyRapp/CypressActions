@@ -18,8 +18,8 @@ function BookletDetailsRowTemplate({ item, certificateStatusDropdownStore, saveR
             <td className="table__body--data">
                 <BaasicDropdown
                     store={certificateStatusDropdownStore}
-                    onChangeOverride={event => item.certificateStatusId = event.id}
-                    valueOverride={_.find(certificateStatusDropdownStore.items, { id: item.certificateStatusId })}
+                    onChangeOverride={event => item.certificateStatus = event}
+                    valueOverride={item.certificateStatus}
                 />
             </td>
             <td className="table__body--data">
@@ -36,7 +36,7 @@ function BookletDetailsRowTemplate({ item, certificateStatusDropdownStore, saveR
                             {
                                 id: item.id,
                                 note: item.note,
-                                certificateStatusId: item.certificateStatusId,
+                                certificateStatusId: item.certificateStatus.id,
                                 isActive: item.isActive
                             }
                         )}>

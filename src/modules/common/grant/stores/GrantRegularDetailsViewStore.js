@@ -13,8 +13,6 @@ class GrantRegularDetailsViewStore extends BaseViewStore {
         this.id = id;
         this.highlightId = highlightId;
         this.grantService = new GrantService(rootStore.app.baasic.apiClient);
-        this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
-        this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
 
         this.detailsModalParams = new ModalParams({
             notifyOutsideClick: true

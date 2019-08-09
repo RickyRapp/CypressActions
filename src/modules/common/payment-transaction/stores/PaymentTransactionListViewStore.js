@@ -11,16 +11,19 @@ class PaymentTransactionListViewStore extends BaseListViewStore {
         filter.orderBy = 'dateCreated';
         filter.orderDirection = 'desc';
         filter.pageSize = 5;
-
+        debugger;
         super(rootStore, {
             name: 'payment-transactions',
             routes: {
             },
             actions: {
                 find: async params => {
-                    let paymentTransactions = _.map(items, 'paymentTransaction');
+                    let paymentTransactions = [];
 
                     _.forEach(items, function (item) {
+                        if (item.paymentTransaction) {
+                            paymentTransactions.push(item.paymentTransaction);
+                        }
                         if (item.fee)
                             paymentTransactions.push(item.fee.paymentTransaction);
                     });

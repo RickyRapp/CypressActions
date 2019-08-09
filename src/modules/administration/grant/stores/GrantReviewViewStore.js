@@ -34,8 +34,7 @@ class GrantReviewViewStore extends BaseEditViewStore {
                         item.bankAccountId = null;
                     }
 
-                    const response = await donationService.review(item);
-                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
+                    return await donationService.review(item);
                 },
                 get: async id => {
                     let params = {};
@@ -56,6 +55,7 @@ class GrantReviewViewStore extends BaseEditViewStore {
                         'charity',
                         'charity.name',
                         'charity.bankAccount',
+                        'charity.bankAccount.id',
                         'charity.bankAccount.name',
                         'charity.charityAddresses',
                         'charity.charityAddresses.primary',
@@ -74,7 +74,7 @@ class GrantReviewViewStore extends BaseEditViewStore {
             },
             FormClass: GrantReviewPut,
             goBack: false,
-            onAfterUpdate: () => onAfterReview,
+            onAfterUpdate: onAfterReview,
             loader: true
         });
 
@@ -114,6 +114,7 @@ class GrantReviewViewStore extends BaseEditViewStore {
                 dataItemKey: 'id'
             },
             {
+                onChange: (item) => item.id === this.achId && this.form.$('bankAccountId').set('value', this.item.charity.bankAccount.id)
             },
             _.map(this.availablePaymentTypes, e => { return { id: e.id, name: e.name } })
         );

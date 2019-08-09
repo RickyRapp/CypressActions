@@ -3,7 +3,7 @@ import { defaultTemplate, formatDenomination } from 'core/utils';
 import moment from 'moment';
 import _ from 'lodash';
 import { Loader } from 'core/components';
-import { PaymentTransactionTableTemplate } from 'themes/modules/common/payment-transaction/components';
+import { PaymentTransactionList } from 'modules/common/payment-transaction/pages';
 import NumberFormat from 'react-number-format';
 
 function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
@@ -116,11 +116,8 @@ function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
                                 </div>
                             </div>
 
-                            <PaymentTransactionTableTemplate
-                                highlightId={highlightId}
-                                paymentTransactionStatuses={paymentTransactionStatuses}
-                                paymentTransactionTypes={paymentTransactionTypes}
-                                models={bookletOrder.bookletOrderTransactions}
+                            <PaymentTransactionList
+                                items={bookletOrder.bookletOrderTransactions}
                             />
                         </React.Fragment>}
                 </React.Fragment>}

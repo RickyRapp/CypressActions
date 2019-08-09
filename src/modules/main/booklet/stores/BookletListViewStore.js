@@ -17,22 +17,30 @@ class BookletListViewStore extends BaseBookletListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'certificates';
+                    params.embed = ['bookletStatus', 'denominationType', 'certificates', 'certificates.certificateStatus'];
                     params.fields = [
                         'id',
                         'donorAccountId',
                         'dateUpdated',
                         'dateCreated',
                         'code',
-                        'denominationTypeId',
-                        'bookletStatusId',
+                        'denominationType',
+                        'denominationType.name',
+                        'denominationType.value',
+                        'denominationType.certificateAmount',
+                        'denominationType.available',
+                        'bookletStatus',
+                        'bookletStatus.name',
                         'dateAssigned',
                         'createdByCoreUser',
                         'createdByCoreUser.userId',
                         'createdByCoreUser.firstName',
                         'createdByCoreUser.lastName',
                         'certificates',
-                        'certificates.certificateStatusId',
+                        'certificates.isActive',
+                        'certificates.certificateStatus',
+                        'certificates.certificateStatus.name',
+                        'certificates.certificateStatus.abrv',
                     ];
                     const response = await bookletService.find(params);
                     this.loaderStore.resume();
@@ -56,7 +64,7 @@ class BookletListViewStore extends BaseBookletListViewStore {
             <React.Fragment>
                 <span className='icomoon tiny icon-question-circle' data-tip data-for={'count'} />
                 <ReactTooltip type='info' effect='solid' place="top" id={'count'}>
-                    <p>CLEAN / USED / CANCELED</p>
+                    <p>CLEAN / USED / CANCELED | ACTIVE</p>
                 </ReactTooltip>
             </React.Fragment>
 
@@ -67,13 +75,10 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
-                key: 'denominationTypeId',
+                key: 'denominationType.name',
                 title: 'DENOMINATION',
                 type: 'function',
-                function: (item) => {
-                    const value = _.find(this.denominationTypes, { id: item.denominationTypeId });
-                    return formatDenomination(value);
-                }
+                function: (item) => { return formatDenomination(item.denominationType) }
             },
             {
                 key: 'dateAssigned',
@@ -83,10 +88,8 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
-                key: 'bookletStatusId',
+                key: 'bookletStatus.name',
                 title: 'STATUS',
-                type: 'function',
-                function: (item) => _.find(this.bookletStatuses, { id: item.bookletStatusId }).name,
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
@@ -95,10 +98,11 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 titleTooltip: countTooltip,
                 type: 'function',
                 function: (item) => {
-                    const clean = _.filter(item.certificates, { certificateStatusId: this.cleanCertificateStatusId }).length;
-                    const used = _.filter(item.certificates, { certificateStatusId: this.usedCertificateStatusId }).length;
-                    const canceled = _.filter(item.certificates, { certificateStatusId: this.canceledCertificateStatusId }).length;
-                    return `${clean} / ${used} / ${canceled}`;
+                    const clean = _.filter(item.certificates, { certificateStatus: { abrv: 'clean' } }).length;
+                    const used = _.filter(item.certificates, { certificateStatus: { abrv: 'used' } }).length;
+                    const canceled = _.filter(item.certificates, { certificateStatus: { abrv: 'canceled' } }).length;
+                    const active = _.filter(item.certificates, { isActive: true }).length;
+                    return `${clean} / ${used} / ${canceled} | ${active}`;
                 }
             },
             {

@@ -32,9 +32,9 @@ function BookletCreateTemplate({ bookletDetailsViewStore }) {
             bookletOrder = booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder;
         }
 
-        clean = _.filter(booklet.certificates, { certificateStatusId: cleanCertificateStatusId }).length;
-        used = _.filter(booklet.certificates, { certificateStatusId: usedCertificateStatusId }).length;
-        canceled = _.filter(booklet.certificates, { certificateStatusId: canceledCertificateStatusId }).length;
+        clean = _.filter(booklet.certificates, { certificateStatus: { abrv: 'clean' } }).length;
+        used = _.filter(booklet.certificates, { certificateStatus: { abrv: 'used' } }).length;
+        canceled = _.filter(booklet.certificates, { certificateStatus: { abrv: 'canceled' } }).length;
         active = _.filter(booklet.certificates, { isActive: true }).length;
     }
 
@@ -53,11 +53,11 @@ function BookletCreateTemplate({ bookletDetailsViewStore }) {
                         </ReactTooltip>
                     </div>
                     <div className="form__group f-col f-col-lrg-3">
-                        <strong>Denomination:</strong> {formatDenomination(_.find(denominationTypes, { id: booklet.denominationTypeId }), true)}
+                        <strong>Denomination:</strong> {formatDenomination(booklet.denominationType, true)}
                     </div>
                     <div className="form__group f-col f-col-lrg-2">
                         <strong>Donor: {booklet.donorAccount ?
-                            <span>{booklet.donorAccount.donorName} {_.find(accountTypes, { id: bookletOrder.accountTypeId }).name}</span> : 'N/A'}
+                            <span>{booklet.donorAccount.donorName} {bookletOrder.accountType.name}</span> : 'N/A'}
                         </strong>
                     </div>
                     <div className="form__group f-col f-col-lrg-3">

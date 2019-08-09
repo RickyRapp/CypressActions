@@ -212,6 +212,7 @@ class DonationListViewStore extends BaseListViewStore {
     }
 
     @action.bound async onAfterReview() {
+        debugger;
         this.queryUtility._reloadCollection();
         this.reviewModalParams.close();
     }

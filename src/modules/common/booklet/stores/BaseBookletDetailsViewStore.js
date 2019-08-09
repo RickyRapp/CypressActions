@@ -16,8 +16,14 @@ class BookletDetailsViewStore extends BaseViewStore {
         'id',
         'dateCreated',
         'dateAssigned',
-        'bookletStatusId',
-        'denominationTypeId',
+        'bookletStatus',
+        'bookletStatus.name',
+        'bookletStatus.abrv',
+        'denominationType',
+        'denominationType.name',
+        'denominationType.value',
+        'denominationType.certificateAmount',
+        'denominationType.available',
         'code',
         'donorAccountId',
         'donorAccount',
@@ -28,18 +34,22 @@ class BookletDetailsViewStore extends BaseViewStore {
         'certificates',
         'certificates.id',
         'certificates.code',
-        'certificates.certificateStatusId',
+        'certificates.certificateStatus',
+        'certificates.certificateStatus.id',
+        'certificates.certificateStatus.name',
+        'certificates.certificateStatus.abrv',
         'certificates.barcode',
         'certificates.note',
         'certificates.isActive',
-        'bookletOrderItemBooklets',
         'bookletOrderItemBooklets',
         'bookletOrderItemBooklets.bookletOrderItem',
         'bookletOrderItemBooklets.bookletOrderItem.id',
         'bookletOrderItemBooklets.bookletOrderItem.bookletOrder',
         'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.deduction',
         'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.feeCharge',
-        'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.accountTypeId',
+        'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.accountType',
+        'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.accountType.name',
+        'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.accountType.abrv',
     ]
 
     constructor(rootStore, { id }) {
@@ -87,7 +97,10 @@ class BookletDetailsViewStore extends BaseViewStore {
             'bookletOrderItemBooklets',
             'bookletOrderItemBooklets.bookletOrderItem',
             'bookletOrderItemBooklets.bookletOrderItem.bookletOrder',
+            'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.accountType',
             'certificates',
+            'certificates.certificateStatus',
+            'denominationType',
             'donorAccount',
             'donorAccount.coreUser',
             'donorAccount.companyProfile',
@@ -127,9 +140,8 @@ class BookletDetailsViewStore extends BaseViewStore {
                 isClearable: false
             },
             {
-                onChange: () => { }
             },
-            _.map(_.filter(this.certificateStatuses, function (item) { return item.abrv !== 'used' }), item => { return { id: item.id, name: item.name } })
+            _.map(_.filter(this.certificateStatuses, function (item) { return item.abrv !== 'used' }), item => { return { id: item.id, name: item.name, abrv: item.abrv } })
         );
     }
 

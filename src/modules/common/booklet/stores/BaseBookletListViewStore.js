@@ -1,7 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import { LookupService } from "common/data";
 import { BaasicDropdownStore, BaseListViewStore, TableViewStore } from "core/stores";
-import { ModalParams } from 'core/models';
 import { formatDenomination } from 'core/utils';
 import _ from 'lodash';
 
@@ -15,8 +14,6 @@ class BaseBookletListViewStore extends BaseListViewStore {
     setColumns = null;
     setActions = null;
     setRenderActions = null;
-    setSelectedExportColumnsName = null;
-    setAdditionalExportColumnsName = null;
 
     constructor(rootStore, config) {
         super(rootStore, config.listViewStore);
@@ -24,15 +21,6 @@ class BaseBookletListViewStore extends BaseListViewStore {
         this.bookletStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'booklet-status');
         this.denominationTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'denomination-type');
         this.certificateStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'certificate-status');
-
-        this.detailsModalParams = new ModalParams({
-            onClose: () => { this.bookletId = null; this.onClose },
-            notifyOutsideClick: true
-        });
-
-        this.defaultActions = {
-            onDetails: booklet => this.routes.details(booklet.id)
-        };
 
         this.load();
     }
@@ -89,18 +77,6 @@ class BaseBookletListViewStore extends BaseListViewStore {
             },
             _.map(_.orderBy(this.bookletStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
         );
-    }
-
-    @computed get usedCertificateStatusId() {
-        return this.certificateStatuses ? _.find(this.certificateStatuses, { abrv: 'used' }).id : null;
-    }
-
-    @computed get cleanCertificateStatusId() {
-        return this.certificateStatuses ? _.find(this.certificateStatuses, { abrv: 'clean' }).id : null;
-    }
-
-    @computed get canceledCertificateStatusId() {
-        return this.certificateStatuses ? _.find(this.certificateStatuses, { abrv: 'canceled' }).id : null;
     }
 }
 

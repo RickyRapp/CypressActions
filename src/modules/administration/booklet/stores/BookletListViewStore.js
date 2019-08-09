@@ -6,6 +6,7 @@ import { BaseBookletListViewStore } from 'modules/common/booklet/stores';
 import ReactTooltip from 'react-tooltip'
 import { formatDenomination, getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
 import { BaasicDropdownStore } from "core/stores";
+import { ModalParams } from 'core/models';
 import _ from 'lodash';
 
 class BookletListViewStore extends BaseBookletListViewStore {
@@ -28,15 +29,21 @@ class BookletListViewStore extends BaseBookletListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = ['certificates', 'donorAccount', 'donorAccount.coreUser', 'donorAccount.companyProfile'];
+                    params.embed = [
+                        'bookletStatus',
+                        'denominationType',
+                        'certificates',
+                        'certificates.certificateStatus',
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile'
+                    ];
                     params.fields = [
                         'id',
                         'donorAccountId',
                         'dateUpdated',
                         'dateCreated',
                         'code',
-                        'denominationTypeId',
-                        'bookletStatusId',
                         'dateAssigned',
                         'donorAccount',
                         'donorAccount.id',
@@ -46,8 +53,17 @@ class BookletListViewStore extends BaseBookletListViewStore {
                         'createdByCoreUser.firstName',
                         'createdByCoreUser.lastName',
                         'certificates',
-                        'certificates.certificateStatusId',
-                        'certificates.isActive'
+                        'certificates.isActive',
+                        'certificates.certificateStatus',
+                        'certificates.certificateStatus.name',
+                        'certificates.certificateStatus.abrv',
+                        'denominationType',
+                        'denominationType.name',
+                        'denominationType.value',
+                        'denominationType.certificateAmount',
+                        'denominationType.available',
+                        'bookletStatus',
+                        'bookletStatus.name'
                     ];
                     params.orderBy = params.orderBy || 'code';
                     params.orderDirection = params.orderDirection || 'desc';
@@ -69,6 +85,11 @@ class BookletListViewStore extends BaseBookletListViewStore {
         this.bookletService = bookletService;
         this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
 
+        this.detailsModalParams = new ModalParams({
+            onClose: () => { this.bookletId = null; this.onClose },
+            notifyOutsideClick: true
+        });
+
         const countTooltip =
             <React.Fragment>
                 <span className='icomoon tiny icon-question-circle' data-tip data-for={'count'} />
@@ -84,13 +105,10 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
-                key: 'denominationTypeId',
+                key: 'denominationType.name',
                 title: 'DENOMINATION',
                 type: 'function',
-                function: (item) => {
-                    const value = _.find(this.denominationTypes, { id: item.denominationTypeId });
-                    return formatDenomination(value);
-                }
+                function: (item) => { return formatDenomination(item.denominationType) }
             },
             {
                 key: 'donorAccount.donorName',
@@ -104,10 +122,8 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
-                key: 'bookletStatusId',
+                key: 'bookletStatus.name',
                 title: 'STATUS',
-                type: 'function',
-                function: (item) => _.find(this.bookletStatuses, { id: item.bookletStatusId }).name,
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
@@ -116,9 +132,9 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 titleTooltip: countTooltip,
                 type: 'function',
                 function: (item) => {
-                    const clean = _.filter(item.certificates, { certificateStatusId: this.cleanCertificateStatusId }).length;
-                    const used = _.filter(item.certificates, { certificateStatusId: this.usedCertificateStatusId }).length;
-                    const canceled = _.filter(item.certificates, { certificateStatusId: this.canceledCertificateStatusId }).length;
+                    const clean = _.filter(item.certificates, { certificateStatus: { abrv: 'clean' } }).length;
+                    const used = _.filter(item.certificates, { certificateStatus: { abrv: 'used' } }).length;
+                    const canceled = _.filter(item.certificates, { certificateStatus: { abrv: 'canceled' } }).length;
                     const active = _.filter(item.certificates, { isActive: true }).length;
                     return `${clean} / ${used} / ${canceled} | ${active}`;
                 }
@@ -133,6 +149,7 @@ class BookletListViewStore extends BaseBookletListViewStore {
         ];
 
         this.setActions = {
+            onDetails: booklet => this.routes.details(booklet.id)
         }
     }
 

@@ -27,15 +27,23 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'donorAccount,donorAccount.coreUser,donorAccount.companyProfile,createdByCoreUser';
+                    params.embed = [
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile',
+                        'createdByCoreUser',
+                        'bookletOrderStatus',
+                        'bookletOrderStatus'
+                    ];
                     params.fields = [
                         'id',
                         'donorAccountId',
                         'dateUpdated',
                         'amount',
-                        'bookletOrderStatusId',
                         'confirmationNumber',
-                        'bookletOrderStatusId',
+                        'bookletOrderStatus',
+                        'bookletOrderStatus.name',
+                        'bookletOrderStatus.abrv',
                         'donorAccount',
                         'donorAccount.donorName',
                         'createdByCoreUser',
@@ -75,10 +83,8 @@ class BookletOrderListViewStore extends BaseBookletOrderListViewStore {
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {
-                key: 'bookletOrderStatusId',
-                title: 'STATUS',
-                type: 'function',
-                function: (item) => _.find(this.bookletOrderStatuses, { id: item.bookletOrderStatusId }).name,
+                key: 'bookletOrderStatus.name',
+                title: 'STATUS'
                 // onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {

@@ -87,7 +87,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
 
         const config = {
             listViewStore: listViewStore,
-            setSelectedExportColumnsName: [],
+            setSelectedExportColumnsName: ['Payment Type'],
             setAdditionalExportColumnsName: []
         }
 

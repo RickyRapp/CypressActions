@@ -38,7 +38,7 @@ class BaseContributionListViewStore extends BaseListViewStore {
         this.contributionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'contribution-status');
         this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
 
-        this.selectedExportColumnsName = _.union(['Amount', 'Payment Type'], config.setSelectedExportColumnsName);
+        this.selectedExportColumnsName = _.union(['Amount'], config.setSelectedExportColumnsName);
         this.additionalExportColumnsName = _.union(['Payer Name', 'Status', 'Created By', 'Date Created'], config.setAdditionalExportColumnsName);
 
         this.detailsModalParams = new ModalParams({
