@@ -12,10 +12,15 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         'id',
         'donorAccountId',
         'dateUpdated',
+        'dateCreated',
         'amount',
         'confirmationNumber',
-        'contributionStatusId',
-        'paymentTypeId',
+        'contributionStatus',
+        'contributionStatus.name',
+        'contributionStatus.abrv',
+        'paymentType',
+        'paymentType.name',
+        'paymentType.abrv',
         'donorAccount',
         'donorAccount.id',
         'donorAccount.donorName',
@@ -47,7 +52,16 @@ class ContributionListViewStore extends BaseContributionListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'donorAccount,donorAccount.coreUser,,donorAccount.companyProfile,payerInformation,bankAccount,createdByCoreUser';
+                    params.embed = [
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile',
+                        'payerInformation',
+                        'bankAccount',
+                        'createdByCoreUser',
+                        'contributionStatus',
+                        'paymentType'
+                    ];
                     params.fields = this.fields;
                     const response = await contributionService.find(params);
                     this.loaderStore.resume();
@@ -81,16 +95,12 @@ class ContributionListViewStore extends BaseContributionListViewStore {
                 title: 'CONFIRMATIONNUMBER'
             },
             {
-                key: 'contributionStatusId',
-                title: 'STATUS',
-                type: 'function',
-                function: (item) => _.find(this.contributionStatuses, { id: item.contributionStatusId }).name
+                key: 'contributionStatus.name',
+                title: 'STATUS'
             },
             {
-                key: 'paymentTypeId',
-                title: 'PAYMENTTYPE',
-                type: 'function',
-                function: (item) => _.find(this.paymentTypes, { id: item.paymentTypeId }).name
+                key: 'paymentType.name',
+                title: 'PAYMENTTYPE'
             },
             {
                 key: 'payerInformation',
@@ -126,10 +136,9 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         this.load();
     }
 
-    @action.bound renderEdit(contribution) {
-        let availableStatuesForEdit = _.map(_.filter(this.contributionStatuses, function (x) { return x.abrv === 'pending' || x.abrv === 'in-process' }), function (o) { return o.id });
-        if (_.some(availableStatuesForEdit, (item) => { return item === contribution.contributionStatusId })) {
-            return moment().local().isBefore(moment.utc(contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
+    @action.bound renderEdit(item) {
+        if (item.contributionStatus.abrv === 'pending') {
+            return moment().local().isBefore(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'));
         }
         return false;
     }

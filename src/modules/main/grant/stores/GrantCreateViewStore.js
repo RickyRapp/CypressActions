@@ -23,6 +23,7 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
                     }
 
                     if (item.grantScheduleTypeId === this.monthlyId || item.grantScheduleTypeId === this.annualId || this.isFutureGrant) {
+                        item.charityId = item.donation.charityId;
                         response = await grantScheduledPaymentService.create(item);
                     }
                     else {

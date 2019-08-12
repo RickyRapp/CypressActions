@@ -17,6 +17,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             'dateCreated',
             'dateUpdated',
             'amount',
+            'json',
             'confirmationNumber',
             'contributionStatusId',
             'paymentTypeId',

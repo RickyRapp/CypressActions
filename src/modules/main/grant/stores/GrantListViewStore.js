@@ -18,6 +18,8 @@ class GrantList extends BaseListViewStore {
         let filter = new GrantListFilter()
         const userId = rootStore.authStore.user.id;
         filter.donorAccountId = userId;
+        filter.orderBy = 'dateCreated';
+        filter.orderDirection = 'desc';
 
         if (rootStore.routerStore.routerState.queryParams) {
             if (rootStore.routerStore.routerState.queryParams.charityId) {
@@ -48,8 +50,6 @@ class GrantList extends BaseListViewStore {
                         'grantPurposeType',
                         'donation.charity'
                     ];
-                    params.orderBy = params.orderBy || 'dateCreated';
-                    params.orderDirection = params.orderDirection || 'desc';
                     return await grantService.find(params);
                 }
             },
@@ -67,7 +67,8 @@ class GrantList extends BaseListViewStore {
                     {
                         key: 'amount',
                         title: 'AMOUNT',
-                        type: 'currency'
+                        type: 'currency',
+                        onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
                     },
                     {
                         key: 'donation.donationStatus.name',
@@ -88,7 +89,8 @@ class GrantList extends BaseListViewStore {
                         key: 'dateCreated',
                         title: 'DATECREATED',
                         type: 'date',
-                        format: 'YYYY-MM-DD HH:mm'
+                        format: 'YYYY-MM-DD HH:mm',
+                        onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
                     },
                     {
                         key: 'createdByCoreUser',

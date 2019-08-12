@@ -22,7 +22,7 @@ class BankAccountCreateViewStore extends BaseEditViewStore {
                         'donorAccountAddresses',
                         'donorAccountAddresses.address',
                         'donorAccountEmailAddresses',
-                        'donorAccountEmailAddressesemailAddress',
+                        'donorAccountEmailAddresses.emailAddress',
                         'donorAccountPhoneNumbers',
                         'donorAccountPhoneNumbers.phoneNumber'
                     ];

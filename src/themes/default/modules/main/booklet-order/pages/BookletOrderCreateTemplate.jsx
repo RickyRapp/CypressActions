@@ -14,12 +14,16 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
     refresh,
     expresMailDeliveryMethodTypeId,
     totalAndFee,
+    donorAccount,
+    mostCommonDenominations,
+    premiumAccountTypeId,
+    isEdit
   } = bookletOrderCreateViewStore;
 
   return (
     <React.Fragment>
       {form &&
-        <EditFormLayout form={form} isEdit={false} loading={loading}>
+        <EditFormLayout form={form} isEdit={isEdit} loading={loading}>
           <BookletOrderCreateFormTemplate
             form={form}
             deliveryMethodTypeDropdownStore={deliveryMethodTypeDropdownStore}
@@ -28,6 +32,9 @@ function BookletOrderCreateTemplate({ bookletOrderCreateViewStore, t }) {
             refresh={refresh}
             expresMailDeliveryMethodTypeId={expresMailDeliveryMethodTypeId}
             totalAndFee={totalAndFee}
+            donorAccount={donorAccount}
+            mostCommonDenominations={mostCommonDenominations}
+            premiumAccountTypeId={premiumAccountTypeId}
           />
         </EditFormLayout>}
     </React.Fragment >

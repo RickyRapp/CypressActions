@@ -16,7 +16,7 @@ export default class GrantEditForm extends FormBase {
                     fields: [
                         {
                             name: 'charityId',
-                            label: localizationService.t('GRANTCREATEEDITFORM.GRANT.CHARITYID'),
+                            label: localizationService.t('GRANTCREATEEDITFORM.CHARITYID'),
                             rules: 'required|string'
                         }
                     ]

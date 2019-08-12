@@ -20,6 +20,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             'confirmationNumber',
             'contributionStatusId',
             'paymentTypeId',
+            'json',
             'payerInformation',
             'payerInformation.name',
             'payerInformation.address',
