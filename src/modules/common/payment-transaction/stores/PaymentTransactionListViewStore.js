@@ -1,7 +1,7 @@
-import { action, observable } from 'mobx';
-import { LookupService } from "common/data";
+import React from 'react';
 import { PaymentTransactionListFilter } from 'modules/common/payment-transaction/models';
-import { BaseListViewStore, TableViewStore } from 'core/stores';
+import { BaseListViewStore } from 'core/stores';
+import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 class PaymentTransactionListViewStore extends BaseListViewStore {
@@ -11,7 +11,19 @@ class PaymentTransactionListViewStore extends BaseListViewStore {
         filter.orderBy = 'dateCreated';
         filter.orderDirection = 'desc';
         filter.pageSize = 5;
-        debugger;
+
+        const renderAmount = (item) => {
+            let amount = null;
+            if (item.paymentTransactionType.abrv === 'credit') {
+                amount = item.amount;
+            }
+            else if (item.paymentTransactionType.abrv === 'debit') {
+                amount = `-${item.amount}`
+            }
+            console.log(amount)
+            return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+        }
+
         super(rootStore, {
             name: 'payment-transactions',
             routes: {
@@ -62,7 +74,8 @@ class PaymentTransactionListViewStore extends BaseListViewStore {
                     {
                         key: 'amount',
                         title: 'AMOUNT',
-                        type: 'currency'
+                        type: 'function',
+                        function: renderAmount
                     },
                     {
                         key: 'currentBalance',

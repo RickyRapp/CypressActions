@@ -4,19 +4,13 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Loader } from 'core/components';
 import { PaymentTransactionList } from 'modules/common/payment-transaction/pages';
+import { getFormattedAddress } from 'core/utils';
 
-function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
+function ContributionDetailsTemplate({ contributionDetailsViewStore, t }) {
     const {
         loaderStore,
-        contribution,
-        paymentTypes,
+        contribution
     } = contributionDetailsViewStore;
-
-    const achId = paymentTypes ? _.find(paymentTypes, { abrv: 'ach' }).id : null;
-    const wireTransferId = paymentTypes ? _.find(paymentTypes, { abrv: 'wire-transfer' }).id : null;
-    const chaseQuickPayId = paymentTypes ? _.find(paymentTypes, { abrv: 'chase-quickpay' }).id : null;
-    const checkId = paymentTypes ? _.find(paymentTypes, { abrv: 'check' }).id : null;
-    const stockAndMutualFundsId = paymentTypes ? _.find(paymentTypes, { abrv: 'stock-and-mutual-funds' }).id : null;
 
     return (
         <React.Fragment>
@@ -25,51 +19,58 @@ function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
 
             {contribution &&
                 <React.Fragment>
+                    <h5 className="display--ib spc--top--sml">{t('DETAILS')}</h5>
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-3">
-                            <strong>Payment Type</strong>
-                            {_.find(paymentTypes, { id: contribution.paymentTypeId }).name}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
                             <strong>Amount</strong>
-                            {contribution.amount}
+                            <div>{contribution.amount}</div>
+                        </div>
+
+                        <div className="form__group f-col f-col-lrg-3">
+                            <strong>Payment Type</strong>
+                            <div>{contribution.paymentType.name}</div>
+                        </div>
+
+                        <div className="form__group f-col f-col-lrg-3">
+                            <strong>Status</strong>
+                            <div>{contribution.contributionStatus.name}</div>
                         </div>
 
                         {contribution.description &&
                             <div className="form__group f-col f-col-lrg-3">
                                 <strong>Description</strong>
-                                {contribution.description}
+                                <div>{contribution.description}</div>
                             </div>}
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Date Created</strong>
-                            {moment(contribution.dateCreated).format('YYYY-MM-DD HH:mm:ss')}
+                            <div>{moment(contribution.dateCreated).format('YYYY-MM-DD HH:mm')}</div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Date Updated</strong>
-                            {moment(contribution.dateUpdated).format('YYYY-MM-DD HH:mm:ss')}
+                            <div>{moment(contribution.dateUpdated).format('YYYY-MM-DD HH:mm')}</div>
                         </div>
 
-                        {(contribution.paymentTypeId === achId || contribution.paymentTypeId === wireTransferId && contribution.bankAccountId) &&
+                        {(contribution.paymentType.abrv === 'ach' || contribution.paymentType.abrv === 'wire-transfer' && contribution.bankAccountId) &&
                             <div className="form__group f-col f-col-lrg-3">
                                 <strong>Bank Account </strong>
-                                {contribution.bankAccount.name}
+                                <div>{contribution.bankAccount.name}</div>
                             </div>}
 
-                        {contribution.paymentTypeId === checkId &&
+                        {contribution.paymentType.abrv === 'check' &&
                             <div className="form__group f-col f-col-lrg-3">
                                 <strong>Check Number </strong>
-                                {contribution.checkNumber}
+                                <div>{contribution.checkNumber}</div>
                             </div>}
                     </div>
 
-                    {contribution.paymentTypeId === stockAndMutualFundsId &&
+                    {contribution.paymentType.abrv === 'stock-and-mutual-funds' &&
                         <React.Fragment>
                             <div className="f-row">
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Financial Institution </strong>
-                                    {contribution.financialInstitution}
+                                    <div>{contribution.financialInstitution}</div>
                                 </div>
                             </div>
                             {(contribution.financialInstitutionAddressLine1 || contribution.financialInstitutionPhoneNumber) &&
@@ -80,29 +81,29 @@ function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
                                                 <React.Fragment>
                                                     <div className="form__group f-col f-col-lrg-3">
                                                         <strong>Financial Institution Address Line 1</strong>
-                                                        {contribution.financialInstitutionAddressLine1}
+                                                        <div>{contribution.financialInstitutionAddressLine1}</div>
                                                     </div>
                                                     <div className="form__group f-col f-col-lrg-3">
                                                         <strong>Financial Institution  Address Line 1</strong>
-                                                        {contribution.financialInstitutionAddressLine2}
+                                                        <div>{contribution.financialInstitutionAddressLine2}</div>
                                                     </div>
                                                     <div className="form__group f-col f-col-lrg-3">
                                                         <strong>Financial Institution City</strong>
-                                                        {contribution.financialInstitutionCity}
+                                                        <div>{contribution.financialInstitutionCity}</div>
                                                     </div>
                                                     <div className="form__group f-col f-col-lrg-3">
                                                         <strong>Financial Institution State</strong>
-                                                        {contribution.financialInstitutionState}
+                                                        <div>{contribution.financialInstitutionState}</div>
                                                     </div>
                                                     <div className="form__group f-col f-col-lrg-3">
                                                         <strong>Financial Institution Zip Code</strong>
-                                                        {contribution.financialInstitutionZipCode}
+                                                        <div>{contribution.financialInstitutionZipCode}</div>
                                                     </div>
                                                 </React.Fragment>}
                                             {contribution.financialInstitutionPhoneNumber &&
                                                 <div className="form__group f-col f-col-lrg-3">
                                                     <strong>Financial Institution Phone Number</strong>
-                                                    {contribution.financialInstitutionPhoneNumber}
+                                                    <div>{contribution.financialInstitutionPhoneNumber}</div>
                                                 </div>
                                             }
                                         </React.Fragment>}
@@ -110,88 +111,63 @@ function ContributionDetailsTemplate({ contributionDetailsViewStore }) {
                             <div className="f-row">
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Account Number</strong>
-                                    {contribution.accountNumber}
+                                    <div>{contribution.accountNumber}</div>
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Security Type</strong>
-                                    {contribution.securityType}
+                                    <div>{contribution.securityType}</div>
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Security Symbol</strong>
-                                    {contribution.securitySymbol}
+                                    <div>{contribution.securitySymbol}</div>
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Number Of Shares</strong>
-                                    {contribution.numberOfShares}
+                                    <div>{contribution.numberOfShares}</div>
                                 </div>
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Estimated Value</strong>
-                                    {contribution.estimatedValue}
+                                    <div>{contribution.estimatedValue}</div>
                                 </div>
                             </div>
                         </React.Fragment>}
-                    {contribution.paymentTypeId === chaseQuickPayId &&
+
+                    {contribution.paymentType.abrv === 'chase-quickpay' &&
                         <div className="f-row">
                             <div className="form__group f-col f-col-lrg-3">
                                 <strong>Transaction Id</strong>
-                                {contribution.transactionId}
+                                <div>{contribution.transactionId}</div>
                             </div>
                             {contribution.memo &&
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Memo</strong>
-                                    {contribution.memo}
+                                    <div>{contribution.memo}</div>
                                 </div>}
                         </div>}
+
+                    <h5 className="display--ib spc--top--sml">{t('PAYERINFORMATION')}</h5>
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-3">
-                            <h5>Payer Information</h5>
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
                             <strong>Name</strong>
-                            {contribution.payerInformation.name}
+                            <div>{contribution.payerInformation.name}</div>
                         </div>
                         <div className="form__group f-col f-col-lrg-3">
-                            <strong>Address Line 1</strong>
-                            {contribution.payerInformation.address.addressLine1}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <strong>Address Line 2</strong>
-                            {contribution.payerInformation.address.addressLine2}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <strong>City</strong>
-                            {contribution.payerInformation.address.city}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <strong>State</strong>
-                            {contribution.payerInformation.address.state}
-                        </div>
-                        <div className="form__group f-col f-col-lrg-3">
-                            <strong>Zip Code</strong>
-                            {contribution.payerInformation.address.zipCode}
+                            <strong>Address</strong>
+                            <div>{getFormattedAddress(contribution.payerInformation.address)}</div>
                         </div>
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Email</strong>
-                            {contribution.payerInformation.emailAddress.email}
+                            <div>{contribution.payerInformation.emailAddress.email}</div>
                         </div>
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Number</strong>
-                            {contribution.payerInformation.phoneNumber.number}
+                            <div>{contribution.payerInformation.phoneNumber.number}</div>
                         </div>
                     </div>
 
                     {contribution.contributionTransactions && contribution.contributionTransactions.length > 0 &&
-                        <React.Fragment>
-                            <div className="f-row">
-                                <div className="form__group f-col f-col-lrg-12">
-                                    <strong>Payment Transactions</strong>
-                                </div>
-                            </div>
-
-                            <PaymentTransactionList
-                                items={contribution.contributionTransactions}
-                            />
-                        </React.Fragment>}
+                        <PaymentTransactionList
+                            items={contribution.contributionTransactions} />}
                 </React.Fragment>}
         </React.Fragment>
     );

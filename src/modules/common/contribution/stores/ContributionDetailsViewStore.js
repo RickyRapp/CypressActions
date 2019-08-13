@@ -16,8 +16,12 @@ class ContributionDetailsViewStore extends BaseViewStore {
         'description',
         'dateCreated',
         'dateUpdated',
-        'paymentTypeId',
-        'contributionStatusId',
+        'paymentType',
+        'paymentType.name',
+        'paymentType.abrv',
+        'contributionStatus',
+        'contributionStatus.name',
+        'contributionStatus.abrv',
         'confirmationNumber',
         'json',
         'bankAccount',
@@ -48,7 +52,7 @@ class ContributionDetailsViewStore extends BaseViewStore {
         'contributionTransactions.paymentTransaction.paymentTransactionStatus.name',
         'contributionTransactions.paymentTransaction.paymentTransactionType',
         'contributionTransactions.paymentTransaction.paymentTransactionType.name',
-        'contributionTransactions.paymentTransaction.paymentTransactionType.type',
+        'contributionTransactions.paymentTransaction.paymentTransactionType.abrv',
     ]
 
     constructor(rootStore, { id, highlightId }) {
@@ -58,8 +62,6 @@ class ContributionDetailsViewStore extends BaseViewStore {
         this.highlightId = highlightId;
         this.contributionService = new ContributionService(rootStore.app.baasic.apiClient);
         this.paymentTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-type');
-        this.paymentTransactionStatusLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-status');
-        this.paymentTransactionTypeLookup = new LookupService(rootStore.app.baasic.apiClient, 'payment-transaction-type');
 
         this.load();
     }
@@ -70,6 +72,8 @@ class ContributionDetailsViewStore extends BaseViewStore {
 
         let params = {};
         params.embed = [
+            'paymentType',
+            'contributionStatus',
             'bankAccount',
             'payerInformation',
             'payerInformation.address',

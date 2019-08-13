@@ -29,6 +29,8 @@
     "COUNT": "Count",
     "ASSIGNEDON": "Assigned On",
     "PAYMENTTYPE": "Payment Type",
+    "PAYERINFORMATION": "Payer Information",
+    "PAYMENTTRANSACTIONS": "Payment Transactions",
     "PAYERNAME": "Payer Name",
     "COREUSER": {
         "PREFIXTYPEID": "Prefix"

@@ -160,8 +160,8 @@ class ContributionListViewStore extends BaseContributionListViewStore {
         }
 
         this.setRenderActions = {
-            renderEdit: (item) => item.contributionStatus.abrv === 'pending' || item.paymentType.abrv === 'in-process',
-            renderReview: (item) => item.contributionStatus.abrv === 'pending' || item.paymentType.abrv === 'in-process' || item.paymentType.abrv === 'funded'
+            renderEdit: (item) => item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process',
+            renderReview: (item) => item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process' || item.contributionStatus.abrv === 'funded'
         }
     }
 
@@ -171,7 +171,6 @@ class ContributionListViewStore extends BaseContributionListViewStore {
     }
 
     @action.bound renderPaymentType = (item) => {
-        debugger;
         if (item.paymentType.abrv === 'ach' || item.paymentType.abrv === 'wire-transfer') {
             return `${item.paymentType.name}${item.bankAccount !== null ? ' ...' + item.bankAccount.accountNumber : ''}`;
         }
