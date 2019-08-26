@@ -31,15 +31,15 @@ function renderCharity(charity, rootStore) {
                 <span
                     onClick={() => rootStore.routerStore.navigate('master.app.administration.user.edit', { id: charity.id })}>
                     <i className="icomoon icon-login-key align--v--middle spc--right--tny"></i>
-                    {charity.name}
+                    Login Info
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                Balance:
+                Present Balance:
                 <NumberFormat value={charity.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                Balance On Hold:
+                Reserved
                 <NumberFormat value={charity.reservedBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
