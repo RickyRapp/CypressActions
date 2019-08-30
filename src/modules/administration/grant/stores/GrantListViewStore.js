@@ -5,7 +5,7 @@ import { GrantListFilter } from 'modules/administration/grant/models';
 import { renderGrantPurposeType } from 'modules/common/grant/components';
 import { ModalParams } from 'core/models';
 import { BaseListViewStore, TableViewStore, BaasicDropdownStore } from 'core/stores';
-import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions, getCharityDropdownOptions, getCharityNameDropdown } from 'core/utils';
 import _ from 'lodash';
 
 class GrantListViewStore extends BaseListViewStore {
@@ -184,8 +184,12 @@ class GrantListViewStore extends BaseListViewStore {
                         options.searchQuery = term;
                     }
 
-                    let response = await this.donorAccountService.search(options);
-                    return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
+                    try {
+                        let response = await this.donorAccountService.search(options);
+                        return _.map(response.item, x => { return { id: x.id, name: getDonorNameDropdown(x) } });
+                    } catch (ex) {
+                        this.rootStore.notificationStore.showMessageFromResponse(ex);
+                    }
                 },
                 onChange: (option) => this.queryUtility.filter.donorAccountId = (option ? option.id : null)
             }
@@ -216,8 +220,12 @@ class GrantListViewStore extends BaseListViewStore {
                         options.searchQuery = term;
                     }
 
-                    let response = await this.charityService.search(options);
-                    return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });
+                    try {
+                        let response = await this.charityService.search(options);
+                        return _.map(response.item, x => { return { id: x.id, name: getCharityNameDropdown(x) } });
+                    } catch (ex) {
+                        this.rootStore.notificationStore.showMessageFromResponse(ex);
+                    }
                 },
                 onChange: (option) => this.queryUtility.filter.charityId = (option ? option.id : null)
             }
@@ -242,7 +250,11 @@ class GrantListViewStore extends BaseListViewStore {
             'AREYOUSUREYOUWANTTOCANCELGRANT',
             async () => {
                 this.loaderStore.suspend();
-                await this.actions.cancel(grantId);
+                try {
+                    await this.actions.cancel(grantId);
+                } catch (ex) {
+                    this.rootStore.notificationStore.showMessageFromResponse(ex);
+                }
                 this.queryUtility.fetch();
                 this.rootStore.notificationStore.success('SUCCESSFULLYCANCELED');
                 this.loaderStore.resume();

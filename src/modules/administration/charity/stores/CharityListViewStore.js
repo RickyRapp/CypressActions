@@ -25,13 +25,15 @@ class CharityListViewStore extends BaseCharityListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = 'charityAddresses,charityAddresses.address,emailAddress';
+                    params.embed = ['charityType', 'charityStatus', 'charityAddresses', 'charityAddresses.address', 'emailAddress'];
                     params.fields = [
                         'id',
                         'name',
                         'taxId',
-                        'charityStatusId',
-                        'charityTypeId',
+                        'charityStatus',
+                        'charityStatus.name',
+                        'charityType',
+                        'charityType.name',
                         'emailAddress',
                         'emailAddress.email',
                         'charityAddresses',
@@ -81,16 +83,12 @@ class CharityListViewStore extends BaseCharityListViewStore {
                 function: (item) => item ? getFormattedPrimaryAddress(item.charityAddresses) : ''
             },
             {
-                key: 'charityStatusId',
-                title: 'Status',
-                type: 'function',
-                function: (item) => _.find(this.charityStatuses, { id: item.charityStatusId }).name
+                key: 'charityStatus.name',
+                title: 'Status'
             },
             {
-                key: 'charityTypeId',
-                title: 'Type',
-                type: 'function',
-                function: (item) => _.find(this.charityTypes, { id: item.charityTypeId }).name
+                key: 'charityType.name',
+                title: 'Type'
             },
             {
                 key: 'emailAddress.email',

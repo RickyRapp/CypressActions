@@ -49,7 +49,7 @@ class BaseEditViewStore extends BaseViewStore {
           }
         },
         onError(form) {
-          alert('### see console');
+          rootStore.notificationStore.error("Testing Purpose - Check console.")
           console.log('Form Errors', form.errors());
           console.log('Form Values', form.values());
           console.log('Form Rules', form.get('rules'));

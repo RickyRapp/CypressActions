@@ -39,10 +39,14 @@ class BaseListViewStore extends BaseViewStore {
 
         this.tableStore.suspend();
 
-        const response = await this.actions.find(filter);
-        this.tableStore.setData(response);
+        try {
+          const response = await this.actions.find(filter);
+          this.tableStore.setData(response);
 
-        this.tableStore.resume();
+          this.tableStore.resume();
+        } catch (ex) {
+          this.rootStore.notificationStore.showMessageFromResponse(ex);
+        }
       },
       queryConfig || {}
     );
