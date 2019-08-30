@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicTable, TableFilter, DropdownAsyncFilter, BaasicModal, DropdownFilter, ThreeStateToggleFilter } from 'core/components';
+import { BaasicTable, TableFilter, DropdownAsyncFilter, BaasicModal, InputFilter, ThreeStateToggleFilter } from 'core/components';
 import { ListLayout, PageContentHeader } from 'core/layouts';
 import { DonorAccountHeaderDetails } from 'modules/administration/donor-account/components'
 import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/activity-and-history/components';
@@ -15,9 +15,9 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         loaderStore,
         tableStore,
         donorAccountSearchDropdownStore,
-        paymentTransactionStatusDropdownStore,
         detailsModalParams,
-        paymentTransaction
+        paymentTransaction,
+        paymentTransactionTypes
     } = activityAndHistoryListViewStore;
 
     return (
@@ -39,20 +39,24 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                                 </div>
                             </div>
                             <div className="f-row">
-                                <div className="f-col f-col-lrg-3 input--multiselect">
-                                    {paymentTransactionStatusDropdownStore &&
-                                        <DropdownFilter
+                                <div className="f-col f-col-lrg-2">
+                                    {paymentTransactionTypes &&
+                                        <ThreeStateToggleFilter
                                             queryUtility={queryUtility}
-                                            name="paymentTransactionStatusIds"
-                                            store={paymentTransactionStatusDropdownStore}
+                                            name="paymentTransactionTypeIds"
+                                            yesTitle="Credit"
+                                            noTitle="Debit"
+                                            yesValue={_.find(paymentTransactionTypes, { abrv: 'credit' }).id}
+                                            noValue={_.find(paymentTransactionTypes, { abrv: 'debit' }).id}
                                         />}
                                 </div>
                                 <div className="f-col f-col-lrg-2">
-                                    <ThreeStateToggleFilter
-                                        queryUtility={queryUtility}
-                                        name="done"
-                                        title="Done Transaction"
-                                    />
+                                    Pending Transactions
+                                    <input
+                                        type={'checkbox'}
+                                        value={queryUtility.filter['pending'] || ''}
+                                        checked={queryUtility.filter['pending']}
+                                        onChange={e => { queryUtility.filter['pending'] = e.target.checked; }} />
                                 </div>
                                 <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} />
                             </div>

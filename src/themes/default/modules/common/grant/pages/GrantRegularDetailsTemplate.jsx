@@ -18,37 +18,51 @@ function GrantRegularDetailsTemplate({ grantDetailsViewStore }) {
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Donor</strong>
-                            {grant.donorAccount.donorName}
+                            <div>
+                                {grant.donorAccount.donorName}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Charity</strong>
-                            {grant.donation.charity.name}
+                            <div>
+                                {grant.donation.charity.name}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Amount</strong>
-                            {grant.amount}
+                            <div>
+                                {grant.amount}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Confirmation Number</strong>
-                            {grant.confirmationNumber}
+                            <div>
+                                {grant.confirmationNumber}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Description</strong>
-                            {grant.description}
+                            <div>
+                                {grant.description}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Date Created</strong>
-                            {moment(grant.dateCreated).format('YYYY-MM-DD HH:mm:ss')}
+                            <div>
+                                {moment(grant.dateCreated).format('YYYY-MM-DD HH:mm')}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Date Updated</strong>
-                            {moment(grant.dateUpdated).format('YYYY-MM-DD HH:mm:ss')}
+                            <div>
+                                {moment(grant.dateUpdated).format('YYYY-MM-DD HH:mm')}
+                            </div>
                         </div>
                     </div>
 

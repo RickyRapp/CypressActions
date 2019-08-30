@@ -3,7 +3,7 @@ import { defaultTemplate } from 'core/utils';
 import { BaasicTable, TableFilter, BaasicModal } from 'core/components';
 import { ListLayout } from 'core/layouts';
 import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/activity-and-history/components';
-import { GrantDetails } from 'modules/common/grant/pages';
+import { GrantRegularDetails } from 'modules/common/grant/pages';
 import { ContributionDetails } from 'modules/common/contribution/pages';
 import { BookletOrderDetails } from 'modules/common/booklet-order/pages';
 import _ from 'lodash';
@@ -13,7 +13,6 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         queryUtility,
         loaderStore,
         tableStore,
-        paymentTransactionStatusDropdownStore,
         detailsModalParams,
         paymentTransaction
     } = activityAndHistoryListViewStore;
@@ -23,11 +22,17 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
             <ListLayout loading={loaderStore.loading}>
                 <div className="spc--bottom--sml">
                     <TableFilter queryUtility={queryUtility}>
-                        <React.Fragment>
-                            <div className="f-row">
-                                <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} />
+                        <div className="f-row">
+                            <div className="f-col f-col-lrg-2">
+                                Pending Transactions
+                                    <input
+                                    type={'checkbox'}
+                                    value={queryUtility.filter['pending'] || ''}
+                                    checked={queryUtility.filter['pending']}
+                                    onChange={e => { queryUtility.filter['pending'] = e.target.checked; }} />
                             </div>
-                        </React.Fragment>
+                            <ActivityAndHistoryFilterBaseTemplate queryUtility={queryUtility} />
+                        </div>
                     </TableFilter>
                 </div>
                 {tableStore &&
@@ -39,7 +44,7 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                     <BaasicModal modalParams={detailsModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">
                             {paymentTransaction.grantId &&
-                                <GrantDetails id={paymentTransaction.grantId} highlightId={paymentTransaction.id} />}
+                                <GrantRegularDetails id={paymentTransaction.grantId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.contributionId &&
                                 <ContributionDetails id={paymentTransaction.contributionId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.bookletOrderId &&

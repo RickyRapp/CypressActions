@@ -12,7 +12,6 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
     @observable showStockAndMutualFundsContactInfo = false;
     @observable paymentTypeDropdownStore = null;
     @observable bankAccountDropdownStore = null;
-    @observable contributionStatuses = null;
     @observable contribution = null;
 
     additionalActions = {};
@@ -79,9 +78,6 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
     @action.bound async loadLookups() {
         let paymentTypesModels = await this.paymentTypeLookupService.getAll();
         this.paymentTypes = _.orderBy(paymentTypesModels.data, ['sortOrder'], ['asc']);
-
-        let contributionStatusModels = await this.contributionStatusLookupService.getAll();
-        this.contributionStatuses = _.orderBy(contributionStatusModels.data, ['sortOrder'], ['asc']);
     }
 
     @action.bound async getBankAccounts() {
@@ -153,7 +149,7 @@ class BaseContributionEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound async validateBeforeEditing() {
-        if (!(this.contribution.contributionStatusId === this.pendingId || this.contribution.contributionStatusId === this.inProcessId)) {
+        if (this.contribution.contributionStatus.abrv !== 'pending' && this.contribution.contributionStatus.abrv !== 'in-process') {
             await this.rootStore.routerStore.goBack();
             this.rootStore.notificationStore.warning('Contribution Can be Edited Only In Pending Or In Process Status.');
             return false;

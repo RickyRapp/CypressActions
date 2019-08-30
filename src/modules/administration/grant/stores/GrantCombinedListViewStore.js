@@ -51,6 +51,7 @@ class GrantCombinedListViewStore extends BaseListViewStore {
                         'donorAccount',
                         'donorAccount.coreUser',
                         'donorAccount.companyProfile',
+                        'grantStatus',
                     ];
                     // params.fields = [
                     //     'id',
@@ -120,6 +121,10 @@ class GrantCombinedListViewStore extends BaseListViewStore {
                     {
                         key: 'confirmationNumber',
                         title: 'CONFIRMATIONNUMBER'
+                    },
+                    {
+                        key: 'grantStatus.name',
+                        title: 'STATUS'
                     },
                     {
                         key: 'dateCreated',

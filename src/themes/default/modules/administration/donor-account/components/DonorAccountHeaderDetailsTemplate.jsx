@@ -53,6 +53,14 @@ function renderDonorAccount(donorAccount, rootStore) {
                 </span>
                 </div>
                 <div className="form__group f-col f-col-lrg-2">
+                    Available Balance:
+                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
                     <span
                         onClick={() => rootStore.routerStore.navigate('master.app.administration.activity-and-history', null, { donorAccountId: donorAccount.id })}>
                         <i className="icomoon icon-accounting-invoice-hand align--v--middle spc--right--tny"></i>
@@ -73,16 +81,6 @@ function renderDonorAccount(donorAccount, rootStore) {
                         Contribution Settings
                     </span>
                 </div>
-                <div className="form__group f-col f-col-lrg-2">
-                    Present Balance:
-                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-                </div>
-                <div className="form__group f-col f-col-lrg-2">
-                    Available Balance:
-                <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-                </div>
-            </div>
-            <div className="f-row">
                 <div className="form__group f-col f-col-lrg-2">
                     <span
                         onClick={() => rootStore.routerStore.navigate('master.app.administration.contribution.create', { userId: donorAccount.id })}>
@@ -124,19 +122,17 @@ function renderContribution(donorAccount, rootStore) {
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                Present Balance:
-                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
                 Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
                 Initial Contribution:
                 <strong>
-                    {donorAccount.initialContribution ?
-                        `Yes - Additional $${donorAccount.contributionMinimumAdditional}` :
-                        `No - Initial $${donorAccount.contributionMinimumInitial}`}
+                    {donorAccount.initialContribution ? `Yes - $${donorAccount.contributionMinimumAdditional}` : `No - $${donorAccount.contributionMinimumInitial}`}
                 </strong>
             </div>
             <div className="form__group f-col f-col-lrg-2">
@@ -175,9 +171,7 @@ function renderContributionSetting(donorAccount, rootStore) {
             <div className="form__group f-col f-col-lrg-2">
                 Initial Contribution:
                 <strong>
-                    {donorAccount.initialContribution ?
-                        `Yes - Additional $${donorAccount.contributionMinimumAdditional}` :
-                        `No - Initial $${donorAccount.contributionMinimumInitial}`}
+                    {donorAccount.initialContribution ? `Yes - $${donorAccount.contributionMinimumAdditional}` : `No - $${donorAccount.contributionMinimumInitial}`}
                 </strong>
             </div>
         </div>
@@ -200,12 +194,12 @@ function renderActivityAndHistory(donorAccount, rootStore) {
                     </span>
                 </div>
                 <div className="form__group f-col f-col-lrg-2">
-                    Present Balance:
-                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-                </div>
-                <div className="form__group f-col f-col-lrg-2">
                     Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+                </div>
+                <div className="form__group f-col f-col-lrg-2">
+                    Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
                 </div>
             </div>
             <div className="f-row">
@@ -250,12 +244,12 @@ function renderGrant(donorAccount, rootStore) {
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                Present Balance:
-                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
                 Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Line Of Credit:
@@ -284,12 +278,12 @@ function renderBookletOrder(donorAccount, rootStore) {
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                Present Balance:
-                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
                 Available Balance:
                 <NumberFormat value={donorAccount.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
+            </div>
+            <div className="form__group f-col f-col-lrg-2">
+                Present Balance:
+                <NumberFormat value={donorAccount.presentBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Line Of Credit:

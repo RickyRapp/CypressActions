@@ -152,10 +152,10 @@ class BookletDetailsViewStore extends BaseViewStore {
                 this.loaderStore.suspend();
                 await this.saveRowChanges({
                     bookletId: this.booklet.id,
-                    id: null,
+                    id: '',
                     isActive: active,
-                    certificateStatusId: null,
-                    note: null
+                    certificateStatusId: '',
+                    note: ''
                 });
 
                 await this.getResource();
@@ -171,10 +171,10 @@ class BookletDetailsViewStore extends BaseViewStore {
                 this.loaderStore.suspend();
                 await this.saveRowChanges({
                     bookletId: this.booklet.id,
-                    id: null,
-                    isActive: null,
+                    id: '',
+                    isActive: '',
                     certificateStatusId: statusId,
-                    note: null
+                    note: ''
                 });
 
                 await this.getResource();

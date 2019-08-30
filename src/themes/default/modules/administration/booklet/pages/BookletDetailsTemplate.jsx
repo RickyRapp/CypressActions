@@ -11,12 +11,9 @@ function BookletCreateTemplate({ bookletDetailsViewStore }) {
     const {
         booklet,
         loaderStore: { loading },
-        denominationTypes,
-        accountTypes,
         saveRowChanges,
         certificateStatusDropdownStore,
         cleanCertificateStatusId,
-        usedCertificateStatusId,
         canceledCertificateStatusId,
         isActiveConfirm,
         certificateStatusIdConfirm
@@ -61,7 +58,7 @@ function BookletCreateTemplate({ bookletDetailsViewStore }) {
                         </strong>
                     </div>
                     <div className="form__group f-col f-col-lrg-3">
-                        <strong>Assigned On:</strong> {booklet.dateAssigned ? moment(booklet.dateAssigned).format('YYYY-MM-DD HH:mm:ss') : 'N/A'}
+                        <strong>Assigned On:</strong> {booklet.dateAssigned ? moment(booklet.dateAssigned).format('YYYY-MM-DD HH:mm') : 'N/A'}
                     </div>
                     <div className="form__group f-col f-col-lrg-2">
                         <button className="btn btn--sml btn--tertiary spc--right--tny" onClick={() => isActiveConfirm(true)}>

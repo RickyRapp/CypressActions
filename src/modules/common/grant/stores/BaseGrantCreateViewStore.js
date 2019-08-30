@@ -70,8 +70,7 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
                 dataItemKey: 'id',
                 isClearable: false
             },
-            {
-            },
+            {},
             this.grantPurposeTypes
         );
 
@@ -82,8 +81,7 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
                 dataItemKey: 'id',
                 isClearable: false
             },
-            {
-            },
+            {},
             this.grantAcknowledgmentTypes
         );
 
@@ -94,8 +92,7 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
                 dataItemKey: 'id',
                 isClearable: false
             },
-            {
-            },
+            {},
             this.grantScheduleTypes
         );
 
@@ -127,6 +124,7 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
         params.fields = [
             'id',
             'availableBalance',
+            'initialContribution',
             'lineOfCredit',
             'grantFee',
             'grantMinimumAmount',

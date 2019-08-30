@@ -4,7 +4,7 @@ import { DonationService, DonorAccountService, CharityService } from "common/dat
 import { DonationListFilter } from 'modules/administration/donation/models';
 import { ModalParams } from 'core/models';
 import { BaseListViewStore, TableViewStore, BaasicDropdownStore } from 'core/stores';
-import { getDonorNameDropdown, getDonorAccountDropdownOptions } from 'core/utils';
+import { getDonorNameDropdown, getDonorAccountDropdownOptions, getCharityNameDropdown, getCharityDropdownOptions } from 'core/utils';
 import _ from 'lodash';
 import NumberFormat from 'react-number-format';
 
@@ -32,8 +32,8 @@ class DonationListViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.navigate('master.app.administration.charity.edit', { userId: charityId }),
                 donorAccountEdit: (userId) =>
                     this.rootStore.routerStore.navigate('master.app.administration.donor-account.edit', { userId: userId }),
-                edit: (grantDonorAccountId, userId) =>
-                    this.rootStore.routerStore.navigate('master.app.administration.grant-donor-account.edit', { userId: userId, id: grantDonorAccountId }),
+                edit: (grantId, userId) =>
+                    this.rootStore.routerStore.navigate('master.app.administration.grant-donor-account.edit', { userId: userId, id: grantId }),
                 details: (id) =>
                     this.rootStore.routerStore.navigate('master.app.administration.grant.combined-list', { id: id })
             },

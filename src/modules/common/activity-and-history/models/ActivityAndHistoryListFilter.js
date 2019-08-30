@@ -12,6 +12,8 @@ class ActivityAndHistoryListFilter extends FilterParams {
     @observable exportFields;
     @observable done;
     @observable paymentTransactionStatusIds;
+    @observable paymentTransactionTypeIds;
+    @observable pending;
 
     constructor() {
         super();
@@ -31,6 +33,8 @@ class ActivityAndHistoryListFilter extends FilterParams {
         this.exportFields = null;
         this.done = null;
         this.paymentTransactionStatusIds = null;
+        this.paymentTransactionTypeIds = null;
+        this.pending = null;
     }
 }
 

@@ -86,17 +86,20 @@ class BookletOrderDetailsViewStore extends BaseViewStore {
         let params = {};
         params.embed = [
             'bookletOrderItems',
+            'accountType',
+            'deliveryMethodType',
             'bookletOrderItems.denominationType',
             'bookletOrderItems.bookletOrderItemBooklets',
             'bookletOrderItems.bookletOrderItemBooklets.booklet',
             'bookletOrderTransactions',
-            'bookletOrderTransactions.fee',
             'bookletOrderTransactions.paymentTransaction',
             'bookletOrderTransactions.paymentTransaction.paymentTransactionStatus',
             'bookletOrderTransactions.paymentTransaction.paymentTransactionType',
-            'bookletOrderTransactions.fee.paymentTransaction',
-            'bookletOrderTransactions.fee.paymentTransaction.paymentTransactionStatus',
-            'bookletOrderTransactions.fee.paymentTransaction.paymentTransactionType'
+            'bookletOrderTransactions.donorAccountFee',
+            'bookletOrderTransactions.donorAccountFee.fee',
+            'bookletOrderTransactions.donorAccountFee.fee.paymentTransaction',
+            'bookletOrderTransactions.donorAccountFee.fee.paymentTransaction.paymentTransactionStatus',
+            'bookletOrderTransactions.donorAccountFee.fee.paymentTransaction.paymentTransactionType'
         ];
         // params.fields = this.fields;
         this.bookletOrder = await this.bookletOrderService.get(this.id, params);

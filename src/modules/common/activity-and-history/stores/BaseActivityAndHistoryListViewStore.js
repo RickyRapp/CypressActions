@@ -39,7 +39,6 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
 
     @action.bound async loadData(callback = null) {
         await this.loadLookups();
-        this.setStores();
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
                 columns: this.columns,
@@ -110,22 +109,6 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
 
         const paymentTransactionStatusModel = await this.paymentTransactionStatusLookup.getAll();
         this.paymentTransactionStatuses = paymentTransactionStatusModel.data;
-    }
-
-    @action.bound setStores() {
-        this.paymentTransactionStatusDropdownStore = new BaasicDropdownStore(
-            {
-                multi: true,
-                placeholder: 'Choose Payment Transaction Status',
-                textField: 'name',
-                dataItemKey: 'id',
-                isClearable: true
-            },
-            {
-                onChange: (options) => this.queryUtility.filter.paymentTransactionStatusIds = (options ? _.map(options, item => { return item.id }) : null)
-            },
-            _.map(_.orderBy(this.paymentTransactionStatuses, ['sortOrder'], ['asc']), item => { return { id: item.id, name: item.name } })
-        );
     }
 }
 

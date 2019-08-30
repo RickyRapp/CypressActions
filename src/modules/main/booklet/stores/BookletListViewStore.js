@@ -17,7 +17,7 @@ class BookletListViewStore extends BaseBookletListViewStore {
             actions: {
                 find: async params => {
                     this.loaderStore.suspend();
-                    params.embed = ['bookletStatus', 'denominationType', 'certificates', 'certificates.certificateStatus'];
+                    params.embed = ['denominationType', 'certificates', 'certificates.certificateStatus'];
                     params.fields = [
                         'id',
                         'donorAccountId',
@@ -29,8 +29,6 @@ class BookletListViewStore extends BaseBookletListViewStore {
                         'denominationType.value',
                         'denominationType.certificateAmount',
                         'denominationType.available',
-                        'bookletStatus',
-                        'bookletStatus.name',
                         'dateAssigned',
                         'createdByCoreUser',
                         'createdByCoreUser.userId',
@@ -85,11 +83,6 @@ class BookletListViewStore extends BaseBookletListViewStore {
                 title: 'ASSIGNEDON',
                 type: 'date',
                 format: 'YYYY-MM-DD HH:mm',
-                onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
-            },
-            {
-                key: 'bookletStatus.name',
-                title: 'STATUS',
                 onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
             },
             {

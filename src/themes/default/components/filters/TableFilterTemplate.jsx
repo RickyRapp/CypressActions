@@ -8,7 +8,7 @@ function TableFilter({ queryUtility, filterStore, children, t }) {
       <div className="display--ib">{/*  TODO: ask designer why without this div, previous button from baasic-pager is on top of table */}
       </div>
       <button
-        className="btn btn--med btn--secondary push"
+        className="btn btn--sml btn--secondary push"
         onClick={filterStore.toggleFilterVisibility}
       >
         <span className=" icomoon tiny icon-filter-1 align--v--middle spc--right--tny" />
@@ -16,7 +16,7 @@ function TableFilter({ queryUtility, filterStore, children, t }) {
       </button>
       {!filterStore.filterVisible ? null : (
         <div className="clearfix">
-          <h5 className="spc--top--med">{t('Filters')}</h5>
+          <h5 className="spc--top--tny">{t('Filters')}</h5>
           <div className="separator separator--primary spc--top--sml spc--bottom--sml" />
           <div className="spc--bottom--sml">{children}</div>
           <div className="col-sml-12 spc--top--sml spc--bottom--sml">

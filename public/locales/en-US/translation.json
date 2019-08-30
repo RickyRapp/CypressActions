@@ -12,6 +12,7 @@
     "REMOVE": "Remove",
     "LOGIN": "Login",
     "SUCCESSFULLYDELETED": "Successfully Deleted",
+    "SUCCESSFULLYCANCELED": "Successfully Canceled",
     "DATECREATED": "Date Created",
     "DATEUPDATED": "Date Updated",
     "BY": "By",
@@ -73,6 +74,7 @@
         "AMOUNT": "Amount",
         "PAYMENTTYPEID": "Payment Type",
         "DESCRIPTION": "Description",
+        "NOTIFYEMAIL": "Send Email To Donor",
         "BANKACCOUNTID": "Bank Account",
         "CHECKNUMBER": "Check Number",
         "PAYERINFORMATION": {
@@ -336,6 +338,7 @@
     "ADDNEWNOTE": "Add New Note",
     "EDITNEWNOTE": "Edit New Note",
     "AREYOUSUREYOUWANTTODELETENOTE": "Are You Sure You Want To Delete Note?",
+    "AREYOUSUREYOUWANTTOCANCELGRANT": "Are You Sure You Want To Cancel Grant?",
     "AREYOUSUREYOUWANTTODELETEFILE": "Are You Sure You Want To Delete File?",
     "AREYOUSUREYOUWANTTOCANCEL": "Are You Sure You Want To Cancel?",
     "DONORNOTECREATEEDITFORM": {

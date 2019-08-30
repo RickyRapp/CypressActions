@@ -17,7 +17,10 @@ export default class ContributionCreateForm extends FormBase {
                 {
                     name: 'amount',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.AMOUNT'),
-                    rules: 'required|numeric'
+                    rules: 'required|numeric',
+                    options: {
+                        validateOnChange: true
+                    }
                 },
                 {
                     name: 'description',

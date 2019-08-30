@@ -4,7 +4,7 @@ import { PaymentTransactionListTemplate } from 'themes/modules/common/payment-tr
 import { setCurrentView } from 'core/utils';
 import { PaymentTransactionListViewStore } from 'modules/common/payment-transaction/stores';
 
-@setCurrentView((rootStore, props) => new PaymentTransactionListViewStore(rootStore, { items: props.items }), 'paymentTransactionListViewStore')
+@setCurrentView((rootStore, props) => new PaymentTransactionListViewStore(rootStore, { items: props.items, highlightId: props.highlightId }), 'paymentTransactionListViewStore')
 @observer
 class PaymentTransactionList extends React.Component {
     render() {

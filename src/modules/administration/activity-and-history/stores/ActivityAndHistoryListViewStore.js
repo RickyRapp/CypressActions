@@ -13,42 +13,20 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
     constructor(rootStore) {
         const activityAndHistoryService = new ActivityAndHistoryService(rootStore.app.baasic.apiClient);
         let filter = new ActivityAndHistoryListFilter();
-        filter.embed = 'createdByCoreUser';
         filter.orderBy = 'dateCreated';
         filter.orderDirection = 'desc';
+        filter.embed = ['paymentTransactionStatus', 'paymentTransactionType'];
 
         const listViewStore = {
             name: 'activity and history',
             actions: {
                 find: async params => {
-                    // params.fields = [
-                    //     'id',
-                    //     'amount',
-                    //     'currentBalance',
-                    //     'dateCreated',
-                    //     'paymentTransactionStatusId',
-                    //     'done',
-                    //     'paymentTransactionTypeId',
-                    //     'contributionId',
-                    //     'grantId',
-                    //     'fundTransferId',
-                    //     'feeId',
-                    //     'bookletOrderId'
-                    // ];
-                    params.embeds = [
-                        'paymentTransactionStatus',
-                        'paymentTransactionType',
-                    ];
-                    params.orderBy = 'dateCreated';
-                    params.orderDirection = 'desc';
-                    const response = await activityAndHistoryService.find(params);
-                    return response;
+                    return await activityAndHistoryService.find(params);
                 }
             },
             queryConfig: {
-                filter: filter
-            },
-            autoInit: false
+                filter: new ActivityAndHistoryListFilter()
+            }
         };
 
         const config = {
@@ -65,8 +43,13 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                 function: this.renderAmount
             },
             {
-                key: 'currentBalance',
-                title: 'Current Balance',
+                key: 'availableBalance',
+                title: 'Available Balance',
+                type: 'currency'
+            },
+            {
+                key: 'presentBalance',
+                title: 'Present Balance',
                 type: 'currency'
             },
             {

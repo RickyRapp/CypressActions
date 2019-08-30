@@ -17,10 +17,12 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             'dateCreated',
             'dateUpdated',
             'amount',
-            'confirmationNumber',
-            'contributionStatusId',
-            'paymentTypeId',
             'json',
+            'confirmationNumber',
+            'contributionStatus',
+            'contributionStatus.name',
+            'contributionStatus.abrv',
+            'paymentTypeId',
             'payerInformation',
             'payerInformation.name',
             'payerInformation.address',
@@ -54,18 +56,18 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             id: id,
             actions: {
                 update: async item => {
-                    const response = await contributionService.update({ id: this.id, ...item });
-                    this.rootStore.notificationStore.showMessageFromResponse(response, 6000);
-                    await this.getResources(this.id)
+                    return await contributionService.update({ id: this.id, ...item });
                 },
                 get: async id => {
                     let params = {};
                     params.embed = [
+                        'contributionStatus',
                         'payerInformation',
                         'payerInformation.address',
                         'payerInformation.emailAddress',
                         'payerInformation.phoneNumber',
                         'bankAccount',
+                        'createdByCoreUser',
                         'donorAccount',
                         'donorAccount.coreUser',
                         'donorAccount.companyProfile',
@@ -89,7 +91,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
                 }
             },
             FormClass: ContributionEditForm,
-            goBack: false,
+            goBack: true,
             setValues: true,
             loader: true
         }
@@ -109,6 +111,12 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
     @action.bound additionalValidateBeforeEditing() {
         if (moment().local().isAfter(moment.utc(this.contribution.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))) {
             this.rootStore.notificationStore.warning('Time Expired For Editing.', 6000);
+            this.rootStore.routerStore.navigate('master.app.main.contribution.list');
+            return;
+        }
+
+        if (this.contribution.contributionStatus.abrv !== 'pending') {
+            this.rootStore.notificationStore.warning('Contribution Can Ber Edited Only In Pending Status.');
             this.rootStore.routerStore.navigate('master.app.main.contribution.list');
             return;
         }

@@ -18,7 +18,7 @@ class CharityHeaderDetailsViewStore extends BaseViewStore {
         let embeds = this.getComponentsEmbeds();
         let params = {};
         params.embed = embeds;
-        params.fields = 'id,name,taxId,availableBalance,reservedBalance'
+        params.fields = 'id,name,taxId,balance'
         this.charity = await this.charityService.get(this.userId, params)
     }
 

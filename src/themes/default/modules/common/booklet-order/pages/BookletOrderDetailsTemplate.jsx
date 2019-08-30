@@ -10,12 +10,7 @@ function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
     const {
         loaderStore,
         bookletOrder,
-        paymentTransactionStatuses,
-        paymentTransactionTypes,
         highlightId,
-        deliveryMethodTypes,
-        denominationTypes,
-        accountTypes
     } = bookletOrderDetailsViewStore;
 
     return (
@@ -28,50 +23,68 @@ function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
                     <div className="f-row">
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Amount</strong>
-                            <NumberFormat value={bookletOrder.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                            <div>
+                                <NumberFormat value={bookletOrder.amount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Confirmation Number</strong>
-                            {bookletOrder.confirmationNumber}
+                            <div>
+                                {bookletOrder.confirmationNumber}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Delivery Method</strong>
-                            {_.find(deliveryMethodTypes, { id: bookletOrder.deliveryMethodTypeId }).name}
+                            <div>
+                                {bookletOrder.deliveryMethodType.name}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Tracking Number</strong>
-                            {bookletOrder.trackingNumber}
+                            <div>
+                                {bookletOrder.trackingNumber || 'N/A'}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Account Type</strong>
-                            {_.find(accountTypes, { id: bookletOrder.accountTypeId }).name}
+                            <div>
+                                {bookletOrder.accountType.name}
+                            </div>
                         </div>
 
-                        {_.find(accountTypes, { abrv: 'basic' }).id === bookletOrder.accountTypeId &&
+                        {bookletOrder.accountType.abrv === 'basic' &&
                             <React.Fragment>
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Deduction</strong>
-                                    {bookletOrder.deduction}
+                                    <div>
+                                        {bookletOrder.deduction}
+                                    </div>
                                 </div>
 
                                 <div className="form__group f-col f-col-lrg-3">
                                     <strong>Fee Charge</strong>
-                                    {bookletOrder.feeCharge}
+                                    <div>
+                                        {bookletOrder.feeCharge}
+                                    </div>
                                 </div>
                             </React.Fragment>}
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Date Created</strong>
-                            {moment(bookletOrder.dateCreated).format('YYYY-MM-DD HH:mm:ss')}
+                            <div>
+                                {moment(bookletOrder.dateCreated).format('YYYY-MM-DD HH:mm')}
+                            </div>
                         </div>
 
                         <div className="form__group f-col f-col-lrg-3">
                             <strong>Date Updated</strong>
-                            {moment(bookletOrder.dateUpdated).format('YYYY-MM-DD HH:mm:ss')}
+                            <div>
+                                {moment(bookletOrder.dateUpdated).format('YYYY-MM-DD HH:mm')}
+                            </div>
                         </div>
                     </div>
 
@@ -92,8 +105,7 @@ function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
                         </thead>
                         <tbody className="table__body">
                             {_.sortBy(bookletOrder.bookletOrderItems, ['denominationType.sortOrder']).map(item => {
-                                const denominationType = _.find(denominationTypes, { id: item.denominationTypeId });
-
+                                const denominationType = item.denominationType;
                                 return (<tr key={item.id}>
                                     <td className="table__body--data">{formatDenomination(denominationType, false)}</td>
                                     <td className="table__body--data">{item.count}</td>
@@ -118,6 +130,7 @@ function BookletOrderDetailsTemplate({ bookletOrderDetailsViewStore }) {
 
                             <PaymentTransactionList
                                 items={bookletOrder.bookletOrderTransactions}
+                                highlightId={highlightId}
                             />
                         </React.Fragment>}
                 </React.Fragment>}

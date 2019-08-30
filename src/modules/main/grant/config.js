@@ -12,7 +12,7 @@ import { GrantScheduledPaymentList, GrantList, GrantCreate, GrantEdit } from 'mo
                         name: 'master.app.main.grant.list',
                         pattern: '',
                         component: GrantList,
-                        authorization: 'theDonorsFundGrantSection.read',
+                        authorization: ['theDonorsFundGrantSection.read', 'theDonorsFundGrantSection.update'],
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     },
                     {
@@ -33,7 +33,7 @@ import { GrantScheduledPaymentList, GrantList, GrantCreate, GrantEdit } from 'mo
                         name: 'master.app.main.grant.scheduled.list',
                         pattern: '/scheduled',
                         component: GrantScheduledPaymentList,
-                        authorization: 'theDonorsFundGrantSection.read',
+                        authorization: 'theDonorsFundGrantSection.update',
                         withoutAuthorization: 'theDonorsFundAdministrationSection.read'
                     }
                 ]

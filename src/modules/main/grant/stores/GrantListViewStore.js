@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import { GrantService, CharityService } from "common/data";
+import { GrantService, CharityService, DonorAccountService } from "common/data";
 import { GrantListFilter } from 'modules/main/grant/models';
 import { ModalParams } from 'core/models';
 import { BaseListViewStore, BaasicDropdownStore } from 'core/stores';
@@ -30,8 +30,15 @@ class GrantList extends BaseListViewStore {
         super(rootStore, {
             name: 'grant',
             routes: {
-                create: () =>
-                    this.rootStore.routerStore.navigate('master.app.main.grant.create'),
+                create: () => {
+                    if (this.donorAccount.initialContribution) {
+                        this.rootStore.routerStore.navigate('master.app.main.grant.create');
+                    }
+                    else {
+                        this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
+                        this.rootStore.routerStore.navigate('master.app.main.contribution.create');
+                    }
+                },
                 edit: (grantId, donorAccountId) =>
                     this.rootStore.routerStore.navigate('master.app.main.grant.edit', { id: grantId, userId: donorAccountId }),
                 grantScheduledPaymentEdit: (grantScheduledPaymentName) =>
@@ -48,7 +55,8 @@ class GrantList extends BaseListViewStore {
                         'donation',
                         'donation.donationStatus',
                         'grantPurposeType',
-                        'donation.charity'
+                        'donation.charity',
+                        'grantStatus'
                     ];
                     return await grantService.find(params);
                 }
@@ -61,8 +69,7 @@ class GrantList extends BaseListViewStore {
                 columns: [
                     {
                         key: 'donation.charity.name',
-                        title: 'CHARITY',
-                        onClick: (item) => this.routes.charityEdit(item.grant.charity.id)
+                        title: 'CHARITY'
                     },
                     {
                         key: 'amount',
@@ -71,7 +78,7 @@ class GrantList extends BaseListViewStore {
                         onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
                     },
                     {
-                        key: 'donation.donationStatus.name',
+                        key: 'grantStatus.name',
                         title: 'STATUS'
                     },
                     {
@@ -107,12 +114,13 @@ class GrantList extends BaseListViewStore {
                     onDetails: (item) => this.detailsModalParams.open(item.id)
                 },
                 actionsRender: {
-                    renderEdit: (item) => item.donation.donationStatus.abrv === 'pending' && moment().local().isBefore(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))
+                    renderEdit: (item) => item.grantStatus.abrv === 'pending' && moment().local().isBefore(moment.utc(item.dateCreated, 'YYYY-MM-DD HH:mm:ss').local().add(15, 'minutes'))
                 }
             }
         });
 
         this.charityService = new CharityService(rootStore.app.baasic.apiClient);
+        this.donorAccountService = new DonorAccountService(rootStore.app.baasic.apiClient);
 
         this.detailsModalParams = new ModalParams({
             notifyOutsideClick: true,
@@ -120,7 +128,14 @@ class GrantList extends BaseListViewStore {
         });
 
         this.setStores();
+        this.getDonorAccount();
+    }
 
+    @action.bound async getDonorAccount() {
+        let params = {
+            fields: ['initialContribution']
+        };
+        this.donorAccount = await this.donorAccountService.get(this.rootStore.authStore.user.id, params)
     }
 
     @action.bound async setStores() {
@@ -130,8 +145,7 @@ class GrantList extends BaseListViewStore {
                 textField: 'name',
                 dataItemKey: 'id',
                 clearable: true,
-                placeholder: 'Choose Charity',
-                // initFetch: true
+                placeholder: 'Choose Charity'
             },
             {
                 fetchFunc: async (term) => {
@@ -156,15 +170,6 @@ class GrantList extends BaseListViewStore {
                 onChange: (option) => this.queryUtility.filter.charityId = (option ? option.id : null)
             }
         );
-
-        // if (this.queryUtility.filter.charityId) {
-        //     let params = getCharityDropdownOptions;
-        //     const charity = await this.charityService.get(this.queryUtility.filter.charityId, params);
-        //     let defaultCharity = { id: charity.id, name: getCharityNameDropdown(charity) }
-        //     let charitySearchs = [];
-        //     charitySearchs.push(defaultCharity);
-        //     this.charitySearchDropdownStore.items = charitySearchs;
-        // }
     }
 }
 

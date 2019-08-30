@@ -17,8 +17,8 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'fund transfer',
             actions: {
-                create: async fundTransfer => {
-                    return await fundTransferService.create(fundTransfer);
+                create: async (item) => {
+                    return await fundTransferService.create(item);
                 }
             },
             FormClass: FundTransferCreateForm
@@ -37,7 +37,6 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             {
                 fetchFunc: async (term) => {
                     let options = getDonorAccountDropdownOptions;
-                    options.fields.push('availableBalance');
                     options.exceptId = this.recipientDonorAccount ? this.recipientDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -61,7 +60,6 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             {
                 fetchFunc: async (term) => {
                     let options = getDonorAccountDropdownOptions;
-                    options.fields.push('availableBalance');
                     options.exceptId = this.senderDonorAccount ? this.senderDonorAccount.id : null;
                     if (term && term !== '') {
                         options.searchQuery = term;
@@ -83,6 +81,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                 fields: [
                     'id',
                     'availableBalance',
+                    'presentBalance',
                     'donorName'
                 ]
             }
@@ -105,6 +104,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                 fields: [
                     'id',
                     'availableBalance',
+                    'presentBalance',
                     'donorName'
                 ]
             }

@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
 import { BasicInput, BasicFormatFieldInput, BaasicFieldDropdown, BaasicModal } from 'core/components';
-import { AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate, ChaseQuickPayTemplate, PayerInformationTemplate } from 'themes/modules/common/contribution/components';
+import {
+  AchTemplate, WireTransferTemplate, StockAndMutualFundsTemplate,
+  ChaseQuickPayTemplate, PayerInformationTemplate, CheckTemplate
+} from 'themes/modules/common/contribution/components';
 import { SidebarDetailsTemplate } from 'themes/modules/common/contribution/components';
 import { EditFormLayout, PageContentSidebar } from 'core/layouts';
 import { BankAccountCreate } from 'modules/common/bank-account/pages';
@@ -16,7 +19,6 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     paymentTypeDropdownStore,
     addBankAccountModalParams,
     onAddBankAccount,
-    contributionStatuses,
     showStockAndMutualFundsContactInfo,
     onChangeShowStockAndMutualFundsContactInfo,
     contribution,
@@ -33,8 +35,10 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
       {form &&
         <React.Fragment>
           <EditFormLayout form={form} isEdit={true} loading={loading}>
-            {contribution && contributionStatuses &&
-              <PageContentSidebar><SidebarDetailsTemplate contribution={contribution} contributionStatuses={contributionStatuses} /></PageContentSidebar>}
+            {contribution &&
+              <PageContentSidebar>
+                <SidebarDetailsTemplate contribution={contribution} />
+              </PageContentSidebar>}
             <div className="f-row">
               <div className="form__group f-col f-col-lrg-6">
                 {paymentTypeDropdownStore &&
@@ -43,16 +47,26 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
             </div>
 
             {form.$('paymentTypeId').value === achId && bankAccountDropdownStore &&
-              <AchTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} addBankAccountModalParams={addBankAccountModalParams} syncBankAccounts={syncBankAccounts} />}
+              <AchTemplate field={form.$('bankAccountId')}
+                bankAccountDropdownStore={bankAccountDropdownStore}
+                addBankAccountModalParams={addBankAccountModalParams}
+                syncBankAccounts={syncBankAccounts} />}
 
             {form.$('paymentTypeId').value === wireTransferId && bankAccountDropdownStore &&
-              <WireTransferTemplate field={form.$('bankAccountId')} bankAccountDropdownStore={bankAccountDropdownStore} addBankAccountModalParams={addBankAccountModalParams} syncBankAccounts={syncBankAccounts} />}
+              <WireTransferTemplate
+                field={form.$('bankAccountId')}
+                bankAccountDropdownStore={bankAccountDropdownStore}
+                addBankAccountModalParams={addBankAccountModalParams}
+                syncBankAccounts={syncBankAccounts} />}
 
             {form.$('paymentTypeId').value === checkId &&
               <CheckTemplate field={form.$('checkNumber')} />}
 
             {form.$('paymentTypeId').value === stockAndMutualFundsId &&
-              <StockAndMutualFundsTemplate form={form} showStockAndMutualFundsContactInfo={showStockAndMutualFundsContactInfo} onChangeShowStockAndMutualFundsContactInfo={onChangeShowStockAndMutualFundsContactInfo} />}
+              <StockAndMutualFundsTemplate
+                form={form}
+                showStockAndMutualFundsContactInfo={showStockAndMutualFundsContactInfo}
+                onChangeShowStockAndMutualFundsContactInfo={onChangeShowStockAndMutualFundsContactInfo} />}
 
             {form.$('paymentTypeId').value === chaseQuickPayId &&
               <ChaseQuickPayTemplate form={form} />}
@@ -69,7 +83,7 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
             </div>
 
           </EditFormLayout>
-          <BaasicModal modalParams={addBankAccountModalParams} >
+          <BaasicModal modalParams={addBankAccountModalParams}>
             {contribution &&
               <BankAccountCreate onAfterCreate={onAddBankAccount} userId={contribution.donorAccountId} />}
           </BaasicModal>

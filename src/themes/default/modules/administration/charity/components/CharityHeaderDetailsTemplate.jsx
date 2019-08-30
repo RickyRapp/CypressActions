@@ -35,12 +35,8 @@ function renderCharity(charity, rootStore) {
                 </span>
             </div>
             <div className="form__group f-col f-col-lrg-2">
-                Present Balance:
-                <NumberFormat value={charity.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
-                Reserved
-                <NumberFormat value={charity.reservedBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                Balance:
+                <NumberFormat value={charity.balance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 <span
@@ -65,11 +61,7 @@ function renderFiles(charity, rootStore) {
             </div>
             <div className="form__group f-col f-col-lrg-2">
                 Balance:
-                <NumberFormat value={charity.availableBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-            </div>
-            <div className="form__group f-col f-col-lrg-2">
-                Balance On Hold:
-                <NumberFormat value={charity.reservedBalance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <NumberFormat value={charity.balance} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </div>
         </div>
     )

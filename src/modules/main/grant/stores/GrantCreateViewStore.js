@@ -61,6 +61,14 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
             this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}|max:${((this.donorAccount.availableBalance + this.donorAccount.lineOfCredit) / (1 + this.donorAccount.grantFee / 100)).toFixed(2)}`)
         }
     }
+
+    async getDonorAccount() {
+        await super.getDonorAccount();
+        if (!this.donorAccount.initialContribution) {
+            this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
+            this.rootStore.routerStore.navigate('master.app.main.contribution.create');
+        }
+    }
 }
 
 export default GrantCreateViewStore;

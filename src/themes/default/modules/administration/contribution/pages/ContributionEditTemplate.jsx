@@ -19,7 +19,6 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
     addBankAccountModalParams,
     onAddBankAccount,
     reviewModalParams,
-    contributionStatuses,
     onAfterReview,
     showStockAndMutualFundsContactInfo,
     onChangeShowStockAndMutualFundsContactInfo,
@@ -41,11 +40,10 @@ function ContributionEditTemplate({ contributionEditViewStore }) {
               <PageContentHeader>
                 <DonorAccountHeaderDetails userId={contribution.donorAccountId} type='contribution' />
               </PageContentHeader>}
-            {contribution && contributionStatuses &&
+            {contribution &&
               <PageContentSidebar >
                 <SidebarDetailsTemplate
                   contribution={contribution}
-                  contributionStatuses={contributionStatuses}
                   reviewModalParams={reviewModalParams} />
               </PageContentSidebar>}
             <div className="f-row">

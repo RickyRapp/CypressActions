@@ -19,7 +19,9 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             'amount',
             'json',
             'confirmationNumber',
-            'contributionStatusId',
+            'contributionStatus',
+            'contributionStatus.name',
+            'contributionStatus.abrv',
             'paymentTypeId',
             'payerInformation',
             'payerInformation.name',
@@ -42,7 +44,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             'donorAccount.companyProfile',
             'donorAccount.companyProfile.name',
             'bankAccount',
-            'bankAccount.acountNumber',
+            'bankAccount.accountNumber',
             'createdByCoreUser',
             'createdByCoreUser.userId',
             'createdByCoreUser.firstName',
@@ -54,12 +56,12 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
             id: id,
             actions: {
                 update: async item => {
-                    const response = await contributionService.update({ id: this.id, ...item });
-                    this.rootStore.notificationStore.showMessageFromResponse(response);
+                    return await contributionService.update({ id: this.id, ...item });
                 },
                 get: async id => {
                     let params = {};
                     params.embed = [
+                        'contributionStatus',
                         'payerInformation',
                         'payerInformation.address',
                         'payerInformation.emailAddress',
@@ -89,7 +91,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
                 }
             },
             FormClass: ContributionEditForm,
-            goBack: false,
+            goBack: true,
             setValues: true,
             loader: true
         }
@@ -109,7 +111,7 @@ class ContributionEditViewStore extends BaseContributionEditViewStore {
 
         this.onAfterReview = async () => {
             this.reviewModalParams.close();
-            await this.getResources(id)
+            await this.rootStore.routerStore.goBack();
             this.load();
         }
     }

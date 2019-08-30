@@ -52,7 +52,8 @@ class GrantListViewStore extends BaseListViewStore {
                         'createdByCoreUser',
                         'donorAccount',
                         'donorAccount.coreUser',
-                        'donorAccount.companyProfile'
+                        'donorAccount.companyProfile',
+                        'grantStatus'
                     ];
                     // params.fields = [
                     //     'id',
@@ -81,6 +82,9 @@ class GrantListViewStore extends BaseListViewStore {
                     const response = await grantService.find(params);
                     this.loaderStore.resume();
                     return response;
+                },
+                cancel: async grantId => {
+                    return await grantService.cancel(grantId);
                 }
             },
             queryConfig: {
@@ -123,7 +127,7 @@ class GrantListViewStore extends BaseListViewStore {
                         onHeaderClick: (column) => this.queryUtility.changeOrder(column.key)
                     },
                     {
-                        key: 'donation.donationStatus.name',
+                        key: 'grantStatus.name',
                         title: 'STATUS'
                     },
                     {
@@ -151,10 +155,12 @@ class GrantListViewStore extends BaseListViewStore {
                 ],
                 actions: {
                     onEdit: (item) => this.routes.edit(item.id, item.donorAccount.id),
-                    onDetails: (item) => this.detailsModalParams.open(item.id)
+                    onDetails: (item) => this.detailsModalParams.open(item.id),
+                    onCancel: (item) => this.cancelGrant(item.id),
                 },
                 actionsRender: {
-                    renderEdit: (item) => item.donation.donationStatus.abrv === 'pending',
+                    renderEdit: (item) => item.grantStatus.abrv === 'pending',
+                    renderCancel: (item) => item.grantStatus.abrv === 'pending'
                 }
             })
         );
@@ -229,6 +235,19 @@ class GrantListViewStore extends BaseListViewStore {
 
     @action.bound onChangeSearchDonor(option) {
         this.rootStore.routerStore.navigate('master.app.administration.grant.create', { userId: option.id });
+    }
+
+    @action.bound async cancelGrant(grantId) {
+        this.rootStore.modalStore.showConfirm(
+            'AREYOUSUREYOUWANTTOCANCELGRANT',
+            async () => {
+                this.loaderStore.suspend();
+                await this.actions.cancel(grantId);
+                this.queryUtility.fetch();
+                this.rootStore.notificationStore.success('SUCCESSFULLYCANCELED');
+                this.loaderStore.resume();
+            }
+        );
     }
 }
 
