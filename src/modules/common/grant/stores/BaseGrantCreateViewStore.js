@@ -180,13 +180,20 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
         }
     }
 
+    @computed get isOneTimeGrant() {
+        return this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('startFutureDate').value && this.form.$('startFutureDate').value.toLocaleDateString() === (new Date()).toLocaleDateString();
+    }
+
     @computed get isFutureGrant() {
-        if (this.form.$('grantScheduleTypeId').value === this.monthlyId ||
-            this.form.$('grantScheduleTypeId').value === this.annualId ||
-            (this.form.$('grantScheduleTypeId').value === this.oneTimeId && (this.form.$('startFutureDate').value ? this.form.$('startFutureDate').value.toLocaleDateString() : null) > (new Date()).toLocaleDateString())) {
-            return true;
-        }
-        return false;
+        return this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('startFutureDate').value && this.form.$('startFutureDate').value.toLocaleDateString() > (new Date()).toLocaleDateString();
+    }
+
+    @computed get isMonthlyGrant() {
+        return this.form.$('grantScheduleTypeId').value === this.monthlyId && (this.form.$('endDate').value || this.form.$('numberOfPayments').value || this.form.$('noEndDate').value);
+    }
+
+    @computed get isAnnualGrant() {
+        return this.form.$('grantScheduleTypeId').value === this.annualId && (this.form.$('endDate').value || this.form.$('numberOfPayments').value || this.form.$('noEndDate').value);
     }
 
     @computed get inMemoryOfId() {

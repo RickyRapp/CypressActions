@@ -14,8 +14,10 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
         fundNameAndAddressId,
         fundNameId,
         donorAccount,
-        oneTimeId,
+        isOneTimeGrant,
         isFutureGrant,
+        isMonthlyGrant,
+        isAnnualGrant,
         totalAmount,
         onChangeAmount
     } = grantCreateViewStore;
@@ -33,14 +35,13 @@ function GrantCreateFormTemplate({ grantCreateViewStore, t }) {
                 <React.Fragment>
                     <GrantScheduledPaymentCreateFormTemplate createViewStore={grantCreateViewStore} />
 
-                    {form.$('startFutureDate').value && (!isFutureGrant || isFutureGrant && (form.$('endDate').value || form.$('numberOfPayments').value || form.$('noEndDate').value)) &&
+                    {(isOneTimeGrant || isFutureGrant || isMonthlyGrant || isAnnualGrant) &&
                         <React.Fragment>
                             <div className="f-row">
                                 <div className="form__group f-col f-col-lrg-6">
                                     <BasicFormatFieldInput field={form.$('amount')} decimalScale={2} onBlur={onChangeAmount} thousandSeparator={true} prefix={'$'} />
                                 </div>
-                                {(form.$('grantScheduleTypeId').value === oneTimeId &&
-                                    (form.$('startFutureDate').value ? form.$('startFutureDate').value.toLocaleDateString() : null) === (new Date()).toLocaleDateString()) &&
+                                {isOneTimeGrant &&
                                     <div className="form__group f-col f-col-lrg-6">
                                         <div className="inputgroup">
                                             <label>Total Amount With Fee</label>

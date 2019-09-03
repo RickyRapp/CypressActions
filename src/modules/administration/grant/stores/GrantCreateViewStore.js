@@ -22,7 +22,9 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
                         item.purposeMemberName = null;
                     }
 
-                    if (item.grantScheduleTypeId === this.monthlyId || item.grantScheduleTypeId === this.annualId || this.isFutureGrant) {
+                    if (item.grantScheduleTypeId === this.monthlyId ||
+                        item.grantScheduleTypeId === this.annualId ||
+                        (this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('grantScheduleTypeId').value > (new Date()).toLocaleDateString())) {
                         item.charityId = item.donation.charityId;
                         response = await grantScheduledPaymentService.create(item);
                     }
@@ -54,9 +56,9 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
     }
 
     @action.bound onStartFutureDateChange() {
-        if (this.form.$('grantScheduleTypeId').value === this.monthlyId ||
+        if ((this.form.$('grantScheduleTypeId').value === this.monthlyId ||
             this.form.$('grantScheduleTypeId').value === this.annualId ||
-            this.isFutureGrant) {
+            (this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('grantScheduleTypeId').value > (new Date()).toLocaleDateString()))) {
             this.form.$('amount').set('rules', `required|numeric|min:${this.minimumAmount}`)
         }
         else {

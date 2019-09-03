@@ -4,7 +4,7 @@ import { BaasicTable, TableFilter, DropdownAsyncFilter, BaasicModal, InputFilter
 import { ListLayout, PageContentHeader } from 'core/layouts';
 import { DonorAccountHeaderDetails } from 'modules/administration/donor-account/components'
 import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/activity-and-history/components';
-import { GrantDetails } from 'modules/common/grant/pages';
+import { GrantRegularDetails } from 'modules/common/grant/pages';
 import { ContributionDetails } from 'modules/common/contribution/pages';
 import { BookletOrderDetails } from 'modules/common/booklet-order/pages';
 import _ from 'lodash';
@@ -72,7 +72,7 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                     <BaasicModal modalParams={detailsModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">
                             {paymentTransaction.grantId &&
-                                <GrantDetails id={paymentTransaction.grantId} highlightId={paymentTransaction.id} />}
+                                <GrantRegularDetails id={paymentTransaction.grantId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.contributionId &&
                                 <ContributionDetails id={paymentTransaction.contributionId} highlightId={paymentTransaction.id} />}
                             {paymentTransaction.bookletOrderId &&

@@ -11,6 +11,7 @@ function GrantScheduledPaymentCreateFormTemplate(
             onStartFutureDateChange,
             monthlyId,
             annualId,
+            oneTimeId,
             isFutureGrant,
             form },
         t }
@@ -43,7 +44,9 @@ function GrantScheduledPaymentCreateFormTemplate(
                         />
                     </div>
 
-                    {isFutureGrant &&
+                    {(form.$('grantScheduleTypeId').value === monthlyId ||
+                        form.$('grantScheduleTypeId').value === annualId ||
+                        isFutureGrant) &&
                         <div className="form__group f-col f-col-lrg-12">
                             <div className="f-row">
                                 <div className="form__group f-col f-col-lrg-6">
