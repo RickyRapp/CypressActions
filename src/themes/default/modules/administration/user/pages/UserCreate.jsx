@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/utils';
-import { BasicInput, BaasicButton } from 'core/components';
+import { BasicInput, BaasicFieldAsyncDropdown } from 'core/components';
 import { EditFormLayout, PageHeader } from 'core/layouts';
 
-const UserCreateTemplate = function({ userCreateViewStore }) {
+const UserCreateTemplate = function ({ userCreateViewStore }) {
   const {
     form,
     titleDropdownStore,
     languageDropdownStore,
-    roleMultiselectStore,
+    roleDropdownStore,
     loading
   } = userCreateViewStore;
 
@@ -29,8 +29,7 @@ const UserCreateTemplate = function({ userCreateViewStore }) {
           <BasicInput field={form.$('confirmPassword')} />
         </div>
         <div className="form__group f-col f-col-lrg-6">
-          {/* <BaasicFieldDropdown classNames="input--multiselect" field={form.$('roles')}
-                                            store={roleMultiselectStore}/> */}
+          <BaasicFieldAsyncDropdown classNames="input--multiselect" field={form.$('roles')} store={roleDropdownStore} />
         </div>
       </div>
     </EditFormLayout>

@@ -1,6 +1,7 @@
 export { default as MainLayout } from './MainLayout';
 export { default as PublicLayout } from './PublicLayout';
 export { default as MasterLayout } from './MasterLayout';
+export { default as ScanLayout } from './ScanLayout';
 
 export { default as PageNavigation } from './page/PageNavigation';
 export { default as PageHeader } from './page/PageHeader';

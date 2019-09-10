@@ -20,8 +20,10 @@ export default class RootStore {
 
   initialState = new RouterState('master.public.home');
   initialMainState = new RouterState('master.app.main.home.overview');
+  initialMainDonorAccountState = new RouterState('master.app.main.donor.account.edit');
   initialMainCharityState = new RouterState('master.app.main.charity.profile');
   initialAdministrationState = new RouterState('master.app.administration.home.overview');
+  initialScannerState = new RouterState('master.scan.scanner.config');
 
   get app() {
     return this.applicationStore.app;

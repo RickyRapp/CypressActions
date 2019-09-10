@@ -52,7 +52,8 @@ class UserCreateViewStore extends BaseEditViewStore {
 
           const response = await roleService.find(options);
           return response.data.item;
-        }
+        },
+        onChange: (option) => this.form.$('roles').set('value', option)
       }
     );
   }

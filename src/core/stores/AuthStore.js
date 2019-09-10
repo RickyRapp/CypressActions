@@ -51,6 +51,29 @@ class AuthStore {
     return this.rootStore.initialState;
   }
 
+  getRoleInitialRedirect() {
+    if (this.isAuthenticated) {
+      if (this.isAdministratorRole) { //administrator
+        return this.rootStore.initialAdministrationState;
+      }
+      else if (this.isEmployeeRole) { //employee
+        return this.rootStore.initialAdministrationState;
+      }
+      else if (this.isUserRole) { //donor
+        return this.rootStore.initialMainDonorAccountState;
+      }
+      else if (this.isCharityRole) { //charity
+        return this.rootStore.initialMainCharityState;
+      }
+      else if (this.isScannerRole) { //scanner
+        return this.rootStore.initialScannerState;
+      }
+      return this.rootStore.initialState;
+    }
+
+    return this.rootStore.initialState;
+  }
+
   @action updateAccessToken(token) {
     this.token = isTokenValid(token) ? token : null;
   }
@@ -153,7 +176,7 @@ class AuthStore {
     });
   }
 
-  @computed get isAministratorRole() {
+  @computed get isAdministratorRole() {
     return _.includes(this.user.roles, 'Administrators');
   }
 
@@ -163,6 +186,10 @@ class AuthStore {
 
   @computed get isUserRole() {
     return _.includes(this.user.roles, 'Users');
+  }
+
+  @computed get isScannerRole() {
+    return _.includes(this.user.roles, 'Scanners');
   }
 
   @computed get isReporterRole() {

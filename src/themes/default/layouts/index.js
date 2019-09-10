@@ -1,6 +1,7 @@
 export { default as MainLayoutTemplate } from './core/MainLayout';
 export { default as PublicLayoutTemplate } from './core/PublicLayout';
 export { default as MasterLayoutTemplate } from './core/MasterLayout';
+export { default as ScanLayoutTemplate } from './core/ScanLayout';
 
 export { default as PageTemplate } from './page/PageTemplate';
 export { default as PageHeaderTemplate } from './page/PageHeaderTemplate';

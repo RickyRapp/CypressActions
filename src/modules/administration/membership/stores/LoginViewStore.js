@@ -35,17 +35,8 @@ class LoginViewStore extends BaseViewStore {
       await this.store.login({ username, password });
       //You can set here where it will redirect after successful login. Check roles and redirect where it needs to go.
       await resolveApplicationUser(this.rootStore.routerStore);
-      if (this.rootStore.authStore.hasPermission('theDonorsFundAdministrationSection.read')) { //administrator,employee
-        this.rootStore.authStore.setSignInRedirect(this.rootStore.initialAdministrationState);
-      }
-      else if (this.rootStore.authStore.hasPermission('theDonorsFundCharitySection.read')) { //charity
-        this.rootStore.authStore.setSignInRedirect(this.rootStore.initialCharityState);
-      }
-      else { //donor, reporter
-        this.rootStore.authStore.setSignInRedirect(this.rootStore.initialMainState);
-      }
 
-      const redirectState = this.rootStore.authStore.getSignInRedirect();
+      const redirectState = this.rootStore.authStore.getRoleInitialRedirect();
       this.rootStore.routerStore.navigate(redirectState);
     } catch ({ statusCode, data }) {
       if (statusCode === 400) {
