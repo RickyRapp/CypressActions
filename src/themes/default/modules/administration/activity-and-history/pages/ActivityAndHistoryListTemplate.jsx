@@ -7,6 +7,7 @@ import { ActivityAndHistoryFilterBaseTemplate } from 'themes/modules/common/acti
 import { GrantRegularDetails } from 'modules/common/grant/pages';
 import { ContributionDetails } from 'modules/common/contribution/pages';
 import { BookletOrderDetails } from 'modules/common/booklet-order/pages';
+import moment from 'moment';
 import _ from 'lodash';
 
 function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
@@ -17,7 +18,9 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
         donorAccountSearchDropdownStore,
         detailsModalParams,
         paymentTransaction,
-        paymentTransactionTypes
+        paymentTransactionTypes,
+        pendingTransactions,
+        renderAmount
     } = activityAndHistoryListViewStore;
 
     return (
@@ -63,11 +66,64 @@ function ActivityAndHistoryListTemplate({ activityAndHistoryListViewStore }) {
                         </React.Fragment>
                     </TableFilter>
                 </div>
-                {tableStore &&
-                    <BaasicTable
-                        tableStore={tableStore}
-                        loading={loaderStore.loading}
-                    />}
+                <div className="f-row spc--bottom--med">
+                    <div className="f-col f-col-lrg-6">
+                        Transactions
+                        {tableStore &&
+                            <BaasicTable
+                                tableStore={tableStore}
+                                loading={loaderStore.loading}
+                            />}
+                    </div>
+                    <div className="f-col f-col-lrg-6">
+                        Pending Transactions
+                        {pendingTransactions &&
+                            <div className="row">
+                                <div className="col col-med-12 card card--clear">
+                                    <table className="table w--100">
+                                        <thead className="table__head">
+                                            <tr>
+                                                <th className="table__head--data">
+                                                    Date
+                                    </th>
+                                                <th className="table__head--data">
+                                                    Description
+                                    </th>
+                                                <th className="table__head--data">
+                                                    Debit/Credit
+                                    </th>
+                                                <th className="table__head--data">
+                                                    Balance
+                                    </th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody className="table__body">
+                                            {pendingTransactions.map(item => {
+                                                return (
+                                                    <tr>
+                                                        <td className="table__body--data">
+                                                            {moment(item.dateCreated).format('YYYY-MM-DD HH:mm')}
+                                                        </td>
+                                                        <td className="table__body--data">
+                                                            {item.description}
+                                                        </td>
+                                                        <td className="table__body--data">
+                                                            {renderAmount(item)}
+                                                        </td>
+                                                        <td className="table__body--data">
+                                                            -
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
                 {paymentTransaction &&
                     <BaasicModal modalParams={detailsModalParams} >
                         <div className="col col-sml-12 card card--form card--primary card--lrg">

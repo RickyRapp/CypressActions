@@ -11,6 +11,7 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
     @observable paymentTransactionTypes = null;
     @observable paymentTransactionStatuses = null;
     @observable paymentTransactionStatusDropdownStore = null;
+    @observable pendingTransactions = null;
 
     columns = null;
     setActions = null;
@@ -52,13 +53,11 @@ class BaseActivityAndHistoryListViewStore extends BaseListViewStore {
     }
 
     @action.bound renderAmount(item) {
-        const creditId = _.find(this.paymentTransactionTypes, { abrv: 'credit' }).id;
-        const debitId = _.find(this.paymentTransactionTypes, { abrv: 'debit' }).id;
         let amount = null;
-        if (item.paymentTransactionTypeId === creditId) {
+        if (item.paymentTransactionType.abrv === 'credit') {
             amount = `${item.amount}`;
         }
-        else if (item.paymentTransactionTypeId === debitId) {
+        else if (item.paymentTransactionType.abrv === 'debit') {
             amount = `-${item.amount}`
         }
         return <NumberFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />;

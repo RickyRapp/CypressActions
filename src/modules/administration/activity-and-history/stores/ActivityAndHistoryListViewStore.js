@@ -12,16 +12,30 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
 
     constructor(rootStore) {
         const activityAndHistoryService = new ActivityAndHistoryService(rootStore.app.baasic.apiClient);
-        let filter = new ActivityAndHistoryListFilter();
-        filter.orderBy = 'dateCreated';
-        filter.orderDirection = 'desc';
-        filter.embed = ['paymentTransactionStatus', 'paymentTransactionType'];
 
         const listViewStore = {
             name: 'activity and history',
             actions: {
                 find: async params => {
-                    return await activityAndHistoryService.find(params);
+                    params.embed = [
+                        'donorAccount',
+                        'donorAccount.coreUser',
+                        'donorAccount.companyProfile',
+                        'charity',
+                        'paymentTransaction',
+                        'paymentTransaction.paymentTransactionStatus',
+                        'paymentTransaction.paymentTransactionType'
+                    ];
+
+                    const transactions = await activityAndHistoryService.find(params);
+
+                    if (params.donorAccountId) {
+                        this.pendingTransactions = await activityAndHistoryService.findDonorPendingTransactions(params);
+                    }
+                    else {
+                        this.pendingTransactions = null;
+                    }
+                    return transactions;
                 }
             },
             queryConfig: {
@@ -37,43 +51,25 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
 
         this.columns = [
             {
-                key: 'amount',
-                title: 'Debit/Credit',
-                type: 'function',
-                function: this.renderAmount
-            },
-            {
-                key: 'availableBalance',
-                title: 'Available Balance',
-                type: 'currency'
-            },
-            {
-                key: 'presentBalance',
-                title: 'Present Balance',
-                type: 'currency'
-            },
-            {
                 key: 'dateCreated',
-                title: 'Date Created',
+                title: 'CREATED',
                 type: 'date',
                 format: 'YYYY-MM-DD HH:mm'
             },
             {
-                key: 'paymentTransactionStatusId',
-                title: 'Status',
-                type: 'function',
-                function: this.renderStatus
+                key: 'paymentTransaction.description',
+                title: 'DESCRIPTION'
             },
             {
-                key: 'done',
-                title: 'Done',
-                type: 'bool',
+                key: 'paymentTransaction.amount',
+                title: 'Debit/Credit',
+                type: 'function',
+                function: (item) => this.renderAmount(item.paymentTransaction)
             },
             {
-                key: 'details',
-                title: 'Details',
-                type: 'function',
-                function: this.renderText
+                key: 'paymentTransaction.presentBalance',
+                title: 'BALANCE',
+                type: 'currency'
             }
         ];
 
