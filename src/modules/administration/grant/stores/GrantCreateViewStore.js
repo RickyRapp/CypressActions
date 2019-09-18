@@ -24,7 +24,7 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
 
                     if (item.grantScheduleTypeId === this.monthlyId ||
                         item.grantScheduleTypeId === this.annualId ||
-                        (this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('grantScheduleTypeId').value > (new Date()).toLocaleDateString())) {
+                        (item.grantScheduleTypeId === this.oneTimeId && item.startFutureDate > (new Date()).toLocaleDateString())) {
                         item.charityId = item.donation.charityId;
                         response = await grantScheduledPaymentService.create(item);
                     }

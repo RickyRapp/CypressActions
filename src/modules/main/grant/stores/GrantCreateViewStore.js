@@ -24,7 +24,7 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
 
                     if (item.grantScheduleTypeId === this.monthlyId ||
                         item.grantScheduleTypeId === this.annualId ||
-                        (this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('grantScheduleTypeId').value > (new Date()).toLocaleDateString())) {
+                        (item.grantScheduleTypeId === this.oneTimeId && item.startFutureDate > (new Date()).toLocaleDateString())) {
                         item.charityId = item.donation.charityId;
                         response = await grantScheduledPaymentService.create(item);
                     }
@@ -50,17 +50,18 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
 
         super(rootStore, config);
 
+        this.minimumAmount = 0;
         this.load();
     }
 
     @action.bound onStartFutureDateChange() {
-        if (item.grantScheduleTypeId === this.monthlyId ||
-            item.grantScheduleTypeId === this.annualId ||
-            (this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('grantScheduleTypeId').value > (new Date()).toLocaleDateString())) {
-            this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}`)
+        if ((this.form.$('grantScheduleTypeId').value === this.monthlyId ||
+            this.form.$('grantScheduleTypeId').value === this.annualId ||
+            (this.form.$('grantScheduleTypeId').value === this.oneTimeId && this.form.$('grantScheduleTypeId').value > (new Date()).toLocaleDateString()))) {
+            this.form.$('amount').set('rules', `required|numeric|min:${this.minimumAmount}`)
         }
         else {
-            this.form.$('amount').set('rules', `required|numeric|min:${this.donorAccount.grantMinimumAmount}|max:${((this.donorAccount.availableBalance + this.donorAccount.lineOfCredit) / (1 + this.donorAccount.grantFee / 100)).toFixed(2)}`)
+            this.form.$('amount').set('rules', `required|numeric|min:${this.minimumAmount}|max:${((this.donorAccount.availableBalance + this.donorAccount.lineOfCredit) / (1 + this.donorAccount.grantFee / 100)).toFixed(2)}`)
         }
     }
 

@@ -22,13 +22,13 @@ import { DonationList } from 'modules/main/donation/pages'
         menu: [
             {
                 title: 'Application',
-                subMenu: [
-                    {
-                        title: 'Donations',
-                        route: 'master.app.main.donation.list',
-                        order: 7
-                    }
-                ]
+                // subMenu: [
+                //     {
+                //         title: 'Donations',
+                //         route: 'master.app.main.donation.list',
+                //         order: 7
+                //     }
+                // ]
             }
         ]
     })

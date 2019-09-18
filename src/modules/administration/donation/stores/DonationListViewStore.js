@@ -47,7 +47,15 @@ class DonationListViewStore extends BaseListViewStore {
                         'grants.donorAccount.companyProfile',
                         'charity',
                         'donationType',
-                        'donationStatus'
+                        'donationStatus',
+                        'sessions',
+                        'sessions.sessionCertificates',
+                        'sessions.sessionCertificates.certificate',
+                        'sessions.sessionCertificates.certificate.booklet',
+                        'sessions.sessionCertificates.certificate.booklet.denominationType',
+                        'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets',
+                        'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
+                        'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder'
                     ];
                     // params.fields = [
                     //     'id',
@@ -114,7 +122,23 @@ class DonationListViewStore extends BaseListViewStore {
                         key: 'amount',
                         title: 'AMOUNT',
                         type: 'function',
-                        function: (item) => <NumberFormat value={_.sumBy(item.grants, 'amount')} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix='$' />
+                        function: (item) => {
+                            if (item.donationType.abrv === 'certificate') {
+                                const session = item.sessions[0];
+                                let totalDeductedAmount = 0;
+
+                                for (let i = 0; i < session.sessionCertificates.length; i++) {
+                                    const sessionCertificate = session.sessionCertificates[i];
+                                    const denominationTypeValue = sessionCertificate.certificate.booklet.denominationType.value;
+                                    const deduction = sessionCertificate.certificate.booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder.deduction;
+                                    totalDeductedAmount = totalDeductedAmount + (denominationTypeValue - (denominationTypeValue * (deduction / 100)));
+                                }
+                                return <NumberFormat value={totalDeductedAmount} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix='$' />
+                            }
+                            else {
+                                return <NumberFormat value={_.sumBy(item.grants, 'amount')} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix='$' />
+                            }
+                        }
                     },
                     {
                         key: 'donationStatus.name',
