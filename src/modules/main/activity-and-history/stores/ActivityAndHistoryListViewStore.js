@@ -24,7 +24,6 @@ class ActivityAndHistoryListViewStore extends BaseActivityAndHistoryListViewStor
                     ];
 
                     const transactions = await activityAndHistoryService.find(params);
-                    debugger;
                     this.pendingTransactions = await activityAndHistoryService.findDonorPendingTransactions({ donorAccountId: rootStore.authStore.user.id });
                     return transactions;
                 }

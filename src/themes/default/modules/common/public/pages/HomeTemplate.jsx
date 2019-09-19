@@ -1,7 +1,6 @@
 import React from 'react';
 
 function HomeTemplate(props) {
-  debugger;
   return (
     <div>
       {props.rootStore.authStore.isAuthenticated ?
