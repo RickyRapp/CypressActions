@@ -1,28 +1,31 @@
-import { BaseViewStore } from 'core/stores';
-import jQuery from 'jquery';
-window.jQuery = window.$ = jQuery;
-require('signalr');
+import { action, observable } from 'mobx';
+import { BaseEditViewStore } from 'core/stores';
+import { SessionService } from "common/data";
+import { ScannerConnectionCreateForm } from 'modules/administration/scanner/forms';
+import _ from 'lodash';
 
-class ScannerConfigViewStore extends BaseViewStore {
+class ScannerConfigViewStore extends BaseEditViewStore {
     constructor(rootStore) {
-        super(rootStore);
+        const sessionService = new SessionService(rootStore.app.baasic.apiClient);
+
+        super(rootStore, {
+            name: 'scanner configuration',
+            actions: {
+                create: async (item) => {
+                    return await sessionService.createScannerConnection(item);
+                }
+            },
+            FormClass: ScannerConnectionCreateForm,
+            goBack: false,
+            onAfterCreate: (response) => this.saveScannerIdAndRedirect(response.data.response)
+        });
 
         this.rootStore = rootStore;
-        this.loadS();
     }
 
-    async loadS() {
-        const response = await this.rootStore.app.baasic.apiClient.get("http://api.thedonorsfund.local/signalr/hubs");
-        eval(response.data);
-        $.connection.hub.url = "http://api.thedonorsfund.local/signalr";
-        var chat = $.connection.chatHub;
-        // Create a function that the hub can call back to display messages.
-        chat.client.newConnection = function (name) {
-            alert(name);
-        };
-
-        // Start the connection.
-        $.connection.hub.start();
+    @action.bound saveScannerIdAndRedirect(scannerId) {
+        localStorage.setItem('scannerId', scannerId);
+        this.rootStore.routerStore.goTo('master.app.scanner.info.start')
     }
 }
 

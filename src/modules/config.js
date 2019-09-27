@@ -10,7 +10,6 @@ import { ActivationConfirm } from 'modules/administration/membership/pages';
       {
         name: 'master.app',
         pattern: '/app',
-        component: [MainLayout],
         beforeEnter: async (fromState, toState, routerStore) => {
           const { applicationStore, authStore } = routerStore.rootStore;
           applicationStore.register(ApplicationSettings.appId);
@@ -33,11 +32,22 @@ import { ActivationConfirm } from 'modules/administration/membership/pages';
             name: 'master.app.administration',
             pattern: '/administration',
             isPrivate: true,
+            component: [MainLayout],
+
           },
           {
             name: 'master.app.main',
             pattern: '',
-            isPrivate: true
+            isPrivate: true,
+            component: [MainLayout],
+
+          },
+          {
+            name: 'master.app.scanner',
+            pattern: '/scanning',
+            isPrivate: true,
+            component: [ScanLayout],
+
           }
         ]
       },
@@ -73,24 +83,24 @@ import { ActivationConfirm } from 'modules/administration/membership/pages';
           },
         ]
       },
-      {
-        name: 'master.scan',
-        pattern: '/scan',
-        component: [ScanLayout],
-        beforeEnter: async (fromState, toState, routerStore) => {
-          const { applicationStore, authStore } = routerStore.rootStore;
-          applicationStore.register(ApplicationSettings.appId);
+      // {
+      //   name: 'master.session',
+      //   pattern: '/session',
+      //   component: [ScanLayout],
+      //   beforeEnter: async (fromState, toState, routerStore) => {
+      //     const { applicationStore, authStore } = routerStore.rootStore;
+      //     applicationStore.register(ApplicationSettings.appId);
 
-          try {
-            await authStore.initialize();
+      //     try {
+      //       await authStore.initialize();
 
-          } catch (ex) {
-            return Promise.reject(ex);
-          }
+      //     } catch (ex) {
+      //       return Promise.reject(ex);
+      //     }
 
-          await resolveApplicationUser(routerStore);
-        }
-      },
+      //     await resolveApplicationUser(routerStore);
+      //   }
+      // },
     ]
   });
 })();

@@ -68,7 +68,7 @@ class NotificationStore {
 }
 
 function showToast(message, options) {
-  return toast(localizationService.t(message), options);
+  return toast(message, options);
 }
 
 export default NotificationStore;

@@ -63,5 +63,6 @@ export { default as BaasicFieldDropdown } from './dropdown/BaasicFieldDropdown';
 export { default as BaasicPager } from './BaasicPager';
 
 export { default as Export } from './app/export/Export';
+export { default as SessionNotificationHub } from './app/hubs/SessionNotificationHub';
 
 export * from './empty-state';

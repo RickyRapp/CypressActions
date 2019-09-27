@@ -17,6 +17,7 @@ class GrantCreateViewStore extends BaseGrantCreateViewStore {
             actions: {
                 create: async item => {
                     let response = null;
+                    item.accountTypeId = this.donorAccount.accountTypeId;
 
                     if (!(item.grantPurposeTypeId === this.inMemoryOfId || item.grantPurposeTypeId === this.inHonorOfId || item.grantPurposeTypeId === this.sponsorAFriendId)) {
                         item.purposeMemberName = null;

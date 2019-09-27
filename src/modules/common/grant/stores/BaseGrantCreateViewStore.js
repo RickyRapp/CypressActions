@@ -123,20 +123,14 @@ class BaseGrantCreateViewStore extends BaseEditViewStore {
         params.embed = ['donorAccountAddresses', 'donorAccountAddresses.address'];
         params.fields = [
             'id',
+            'accountTypeId',
             'availableBalance',
             'initialContribution',
             'lineOfCredit',
             'grantFee',
             'grantMinimumAmount',
             'fundName',
-            'donorAccountAddresses',
-            'donorAccountAddresses.primary',
-            'donorAccountAddresses.address',
-            'donorAccountAddresses.address.addressLine1',
-            'donorAccountAddresses.address.addressLine2',
-            'donorAccountAddresses.address.city',
-            'donorAccountAddresses.address.state',
-            'donorAccountAddresses.address.zipCode'
+            'donorAccountAddresses'
         ];
         this.donorAccount = await this.donorAccountService.get(this.userId, params);
     }

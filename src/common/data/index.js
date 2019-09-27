@@ -21,6 +21,7 @@ export { default as BookletOrderService } from './services/BookletOrderService';
 export { default as CertificateService } from './services/CertificateService';
 export { default as GrantDonorAccountService } from './services/GrantDonorAccountService';
 export { default as DonationService } from './services/DonationService';
+export { default as SessionService } from './services/SessionService';
 
 //route services
 export { default as DonorAccountRouteService } from './services/DonorAccountRouteService';
@@ -45,3 +46,4 @@ export { default as BookletOrderRouteService } from './services/BookletOrderRout
 export { default as CertificateRouteService } from './services/CertificateRouteService';
 export { default as GrantDonorAccountRouteService } from './services/GrantDonorAccountRouteService';
 export { default as DonationRouteService } from './services/DonationRouteService';
+export { default as SessionRouteService } from './services/SessionRouteService';

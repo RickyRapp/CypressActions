@@ -1,1 +1,5 @@
-export { default as ScannerConfigViewStore } from './ScannerConfigViewStore';
+export { default as ScanningViewStore } from './ScanningViewStore'
+export { default as ScannerConfigViewStore } from './ScannerConfigViewStore'
+export { default as SessionInfoViewStore } from './SessionInfoViewStore'
+export { default as ScanningProcessStartViewStore } from './ScanningProcessStartViewStore'
+export { default as ScanningProcessFinishedViewStore } from './ScanningProcessFinishedViewStore'
