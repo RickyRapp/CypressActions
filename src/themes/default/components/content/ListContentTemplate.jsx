@@ -6,13 +6,12 @@ import shouldRenderContentChildren from './shouldRenderContentChildren';
 function ListContentTemplate({ children }) {
   return (
     <React.Fragment>
-      {shouldRenderContentChildren(children) ? (
-        children
-      ) : (
-        <div className="card card--med card--primary">{children}</div>
-      )}
+      {shouldRenderContentChildren(children)
+        ? children
+        : <div className="card card--med card--primary">{children}</div>
+      }
     </React.Fragment>
-  );
+  )
 }
 
 export default defaultTemplate(ListContentTemplate);

@@ -1,0 +1,97 @@
+/*------------------------------------*\
+    # components.wizard
+\*------------------------------------*/
+
+$wizard-navigation-width: 250px;
+
+.wizard {
+    display: flex;
+    /*wizard margin + header-height*/
+    height: calc(100vh - 108px);
+    margin: $spacer;
+
+    &__nav {
+        width: $wizard-navigation-width;
+        min-width: $wizard-navigation-width;
+
+        padding: calc($unit * 2);
+        border-top-left-radius: $global-radial;
+        border-bottom-left-radius: $global-radial;
+
+        &__item {
+            position: relative;
+            cursor: pointer;
+            
+            &:not(:first-child) {
+                margin-top: calc($unit * 3);
+
+                &::before {
+                    content:"";
+                    position: absolute;
+                    top: calc($unit * -3);
+                    left: 20px;
+                    
+                    width: 2px;
+                    height: calc($unit * 3);
+                    
+                    background-color: $grey-2;
+                }
+            }
+
+            &.active {
+                .wizard__nav__item__icon {
+                    color: $white;
+                    background-color: $color-tertiary;
+                }
+
+                .wizard__nav__item__label {
+                    color: $color-tertiary;
+                }
+
+                &::before {
+                    background-color: $color-tertiary;
+                }
+            }
+
+            &__icon {
+                display: inline-block;
+                padding: calc($unit * 2);
+                
+                font-size: 18px !important;
+                color: $grey-4;
+                vertical-align: middle;
+                
+                border-radius: $global-rounded;
+                background-color: $grey-1;
+            }
+
+            &__label {
+                display: inline-block;
+                
+                width: calc(100% - 60px);
+                margin-left: calc($unit * 2);
+                
+                color: $grey-4;
+                font-weight: $type-weight-medium;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    &__content {
+        width: calc(100% - $wizard-navigation-width);
+        padding-left: calc($unit * 3);
+        
+        border-left: 1px solid $grey-2;
+        border-top-right-radius: $global-radial;
+        border-bottom-right-radius: $global-radial;
+        
+        &__form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            height: 100%;
+        }
+    }
+}

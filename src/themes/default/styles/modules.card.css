@@ -3,83 +3,114 @@
 \*------------------------------------*/
 
 .card {
-  border: 1px solid $grey-2;
-  border-radius: $global-radial;
+    border: 1px solid $grey-2;
+    border-radius: $global-radial;
 
-  /*card like placeholder (empty wrapper)*/
-  &--clear {
-    overflow: hidden;
-    padding: 0;
-  }
-
-  /*classic width card without padding (need modifier like "card--sml")*/
-  &--primary {
-    position: relative;
-    margin-bottom: calc($unit * 2);
-
-    color: $color-text-dark;
-    background-color: $white;
-  }
-
-  &--secondary {
-    position: relative;
-    margin-bottom: calc($unit * 2);
-
-    color: $color-text;
-    background-color: $color-secondary;
-  }
-
-  /*Dashboard quick links*/
-  &--link {
-    display: block;
-    margin-bottom: calc($unit * 2);
-    padding: calc($unit * 1.5) calc($unit * 2);
-    overflow: hidden;
-
-    background-color: $white;
-
-    @mixin type-scale $type-small, 0.75;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    transition: all 200ms ease-in-out;
-    cursor: pointer;
-
-    .icomoon {
-      transition: 200ms ease-in-out;
+    /*card like placeholder (empty wrapper)*/
+    &--clear {
+        overflow: hidden;
+        padding: 0;
     }
 
-    &:hover {
-      color: $color-primary;
-
-      .icomoon {
-        color: $color-primary;
-      }
+    /*classic card without padding (need modifier like "card--sml")*/
+    &--primary {
+        position: relative;
+        margin-bottom: calc($unit * 2);
+        
+        color: $color-text-dark;
+        background-color: $white;
     }
-  }
 
-  /*card padding size*/
-  &--sml {
-    padding: $unit;
-  }
+    &--secondary {
+        position: relative;
+        margin-bottom: calc($unit * 2); 
 
-  &--med {
-    padding: calc($unit * 2);
-  }
+        color: $color-text;
+        background-color: $color-secondary;
+    }
+    
+    /*Dashboard quick links*/
+    &--link {
+        display: block;
+        margin-bottom: calc($unit * 2);
+        padding: calc($unit * 1.5) calc($unit * 2);
+        overflow: hidden;
+       
+        background-color: $white;
+        
+        @mixin type-scale $type-small, 0.75;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        
+        transition: all 200ms ease-in-out;
+        cursor: pointer;
 
-  &--lrg {
-    padding: calc($unit * 4);
-  }
+        .icomoon {
+            transition: 200ms ease-in-out;
+        }
+        
+        &:hover {
+            color: $color-tertiary;
+            border-color: $color-tertiary;
 
-  &--xlrg {
-    padding: calc($unit * 6);
-  }
+            .icomoon {
+                color: $color-tertiary;
+            }
+        }
+    }
+    
+    &--borderleft {
+        border: 1px solid $grey-2;
+        border-left: 2px solid $color-tertiary;
+        border-top-right-radius: $global-radial;
+        border-bottom-right-radius: $global-radial;
+        
+        padding: $unit;
+        padding-left: calc($unit * 2);
+    }
 
-  /*set max width for cards which consist forms*/
-  &--form {
-    display: block;
-    max-width: 760px;
-    /*if "row" missing*/
-    clear: both;
-  }
+    /*card padding size*/
+    &--sml {
+        padding: $unit;
+    }
+
+    &--med {
+        padding: calc($unit * 2);
+    }
+
+    &--lrg {
+        padding: calc($unit * 4);
+    }
+
+    &--xlrg {
+        padding: calc($unit * 6);
+    }
+
+    /*set max width for cards which consist forms*/
+    &--form {
+        display: block;
+        max-width: 760px;
+        /*if "row" missing*/
+        clear: both;
+    }
+
+    &--wide {
+        display: block;
+        max-width: 1024px;
+        /*if "row" missing*/
+        clear: both;
+    }
+
+    &--xwide {
+        display: block;
+        max-width: 1600px;
+        /*if "row" missing*/
+        clear: both;
+        
+        /*override kendo table border*/
+        &.k-widget.k-grid {
+            border: 1px solid $grey-2;
+
+        }
+    }
 }

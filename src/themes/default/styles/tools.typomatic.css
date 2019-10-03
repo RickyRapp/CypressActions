@@ -10,8 +10,8 @@
  * does not take parameters
  */
 @define-mixin typomatic-init {
-  font-size: calc($base-font-size / 16 * 100%);
-  line-height: calc($base-line-height / $base-font-size);
+    font-size: calc($base-font-size / 16 * 100%);
+    line-height: calc($base-line-height / $base-font-size);
 }
 
 /**
@@ -23,6 +23,6 @@
  * $baselines (1 is default) - number of baselines
  */
 @define-mixin type-scale $scale: $base-font-size, $baselines: 1 {
-  font-size: calc($(scale) * 1px);
-  line-height: calc($base-line-height * $(baselines) * 1px);
+    font-size: calc($(scale) * 1px);
+    line-height: calc($base-line-height * $(baselines) * 1px);
 }

@@ -3,9 +3,9 @@
 \*------------------------------------*/
 
 .radial {
-  border-radius: $global-radial;
+    border-radius: $global-radial;
 }
 
 .rounded {
-  border-radius: $global-rounded;
+    border-radius: $global-rounded;
 }

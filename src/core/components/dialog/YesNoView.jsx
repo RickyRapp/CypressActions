@@ -3,7 +3,7 @@ import { defaultTemplate } from 'core/utils';
 import { YesNoViewTemplate } from 'themes/components';
 
 function YesNoView(props) {
-  return <YesNoViewTemplate {...props} />;
+  return <YesNoViewTemplate {...props} />
 }
 
 export default defaultTemplate(YesNoView);

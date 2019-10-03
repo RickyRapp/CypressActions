@@ -2,50 +2,61 @@
     # components.modal
 \*------------------------------------*/
 
+
 .modal {
-  &__overlay {
-    z-index: 13;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    background-color: rgba(0, 0, 0, 0.75);
-  }
-
-  &__content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /*align to center*/
-    right: auto;
-    bottom: auto;
-
-    overflow: visible;
-    padding: calc($unit * 4);
-    border: none;
-    border-radius: $global-radial;
-
-    outline: none;
-    background: $white;
-
-    /*Make modal sit to center of page*/
-    transform: translate(-50%, -50%);
-  }
-
-  &__icon {
-    &--close {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-
-      cursor: pointer;
-      color: $grey-3;
-
-      &:hover {
-        color: $color-primary;
-      }
+    &__overlay {
+        z-index: 13;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        
+        background-color: rgba(0, 0, 0, 0.75);
+        overflow-y: auto;
     }
-  }
+
+    &__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /*align to center*/
+        right: auto;
+        bottom: auto;
+        
+        max-height: calc(100% - 24px);
+        overflow-y: auto;
+        
+        margin-top: calc($unit * 2);
+        margin-bottom: calc($unit * 2);
+        padding: calc($unit * 4);
+        border: none;
+        border-radius: $global-radial;
+        
+        outline: none;
+        background: $white;
+        
+        /*Make modal sit to center of page*/
+        transform: translate(-50%, -50%);
+        
+    }
+
+    &__icon {
+
+        &--close {
+            position: absolute;
+            right: $unit;
+            top: $unit;
+            
+            font-weight: $type-weight-bold !important;
+
+            cursor: pointer;
+            color: $grey-3;
+
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
 }
+

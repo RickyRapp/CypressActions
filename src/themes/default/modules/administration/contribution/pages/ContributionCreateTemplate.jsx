@@ -41,8 +41,7 @@ function ContributionCreateTemplate({ contributionCreateViewStore }) {
           </PageContentHeader>
           <div className="f-row">
             <div className="form__group f-col f-col-lrg-6">
-              {paymentTypeDropdownStore &&
-                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />}
+              <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
             </div>
           </div>
 

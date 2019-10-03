@@ -7,5 +7,54 @@
       -make halftransparent to see through
 */
 .k-loading-image {
-  background-color: rgba(240, 240, 240, 0.8);
+    background-color: rgba(255,255,255,0.3);
+}
+
+/*
+    treeview search
+        -when searched item is selected in treeview toggle color of the text (item)
+*/
+.rc-tree-node-selected .rc-tree-title {
+    color: $white;
+}
+
+/*
+    Override kendo uploader
+        -change text for icon in upload box component
+*/
+.k-widget.k-upload .k-dropzone {
+    flex-direction: column;
+ 
+    div.k-button.k-upload-button {
+        margin: 12px auto;
+
+        &:after {
+            position: relative;
+            display: block !important;
+            opacity: 1 !important;
+            width: 100%;
+            height: 42px;
+            content: "\e952";
+            font-family: "icomoon";
+            font-size: 32px;
+        }
+
+        span {
+            opacity: 0;
+            display: none;
+        }
+    }
+
+    /*margin on hint tekst*/
+    .k-dropzone-hint {
+        margin-bottom: calc($unit * 2);
+    }
+    
+    /*
+        -upload status block
+           -Treba zakomentirati kad Vlatka pokusa rjesiti
+    */
+    .k-upload-status.k-upload-status-total {
+        display: none;
+    }
 }

@@ -3,15 +3,15 @@
 \*------------------------------------*/
 
 .pos {
-  &--rel {
-    position: relative;
-  }
+	&--rel {
+		position: relative;
+	}
 
-  &--fix {
-    position: fixed;
-  }
-
-  &--abs {
-    position: absolute;
-  }
+	&--fix {
+		position: fixed;
+	}
+	
+	&--abs {
+		position: absolute;
+	}
 }

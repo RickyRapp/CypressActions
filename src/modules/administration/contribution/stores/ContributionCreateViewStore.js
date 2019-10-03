@@ -11,36 +11,34 @@ class ContributionCreateViewStore extends BaseContributionCreateViewStore {
 
         const createViewStore = {
             name: 'contribution',
+            id: undefined,
             actions: {
-                create: async item => {
+                create: async newContribution => {
                     let response = null;
 
-                    if (item.contributionSettingTypeId) {
+                    if (newContribution.contributionSettingTypeId) {
                         const contributionSetting = {
                             donorAccountId: this.userId,
-                            amount: item.settingAmount,
-                            bankAccountId: item.settingBankAccountId,
-                            contributionSettingTypeId: item.contributionSettingTypeId,
-                            startDate: item.settingStartDate,
+                            amount: newContribution.settingAmount,
+                            bankAccountId: newContribution.settingBankAccountId,
+                            contributionSettingTypeId: newContribution.contributionSettingTypeId,
+                            startDate: newContribution.settingStartDate,
                             enabled: true,
-                            lowBalanceAmount: item.settingLowBalanceAmount,
+                            lowBalanceAmount: newContribution.settingLowBalanceAmount,
                         }
                         response = await this.contributionSettingService.create(contributionSetting);
                     }
                     else {
-                        response = await this.contributionService.createContribution(this.userId, item);
+                        response = await this.contributionService.createContribution(this.userId, newContribution);
                         contributionCreate = true;
                     }
                     return response;
                 }
             },
             FormClass: ContributionCreateForm,
-            goBack: false,
-            setValues: true,
-            loader: true,
-            onAfterCreate: () => contributionCreate ?
-                rootStore.routerStore.navigate('master.app.administration.contribution.list') :
-                rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: this.userId })
+            // onAfterCreate: () => contributionCreate ?
+            //     rootStore.routerStore.navigate('master.app.administration.contribution.list') :
+            //     rootStore.routerStore.navigate('master.app.administration.contribution.setting', { userId: this.userId })
         }
 
         const config = {};

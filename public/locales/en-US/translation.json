@@ -364,5 +364,2203 @@
             "COUNT": "Booklet Count",
             "DENOMINATIONTYPE": "Denomination"
         }
+    },
+    "CORE": {
+        "DATE_FORMAT": {
+            "short": "MM/DD/YYYY",
+            "full": "LLL",
+            "full-time-offset": "LTS Z",
+            "kendo-input-short": "M/d/y",
+            "kendo-input-medium": "M/d/y hh:mm"
+        }
+    },
+    "HEADER": {
+        "MENU_VERSION": "SELECT MENU VERSION",
+        "USER_MENU": {
+            "CHANGE_PASSWORD": "Change Password",
+            "LOGOUT": "Logout"
+        }
+    },
+    "CREATE_WIZARD": {
+        "STEPS": {
+            "COMPANY": "Company",
+            "ROOT": "Root",
+            "CENTRAL": "Central",
+            "APPLICATION": "Application",
+            "SHOP": "Shop",
+            "CASH_REGISTER": "Cash register",
+            "NEXT_BUTTON": "Next",
+            "PREVIOUS_BUTTON": "Previous",
+            "FINISH_BUTTON": "Finish",
+            "GO_TO_DASHBOARD": "Dashboard",
+            "GO_TO_SHOP": "Continue"
+        },
+        "COMPANY": {
+            "TITLE": "Create company",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter company name",
+            "ADDRESS_LABEL": "Address",
+            "ADDRESS_PLACEHOLDER": "Enter company address",
+            "DESCRIPTION_LABEL": "Description",
+            "DESCRIPTION_PLACEHOLDER": "Enter company description",
+            "COPY_SETTINGS_CHECKBOX_LABEL": "Copy settings",
+            "COPY_COMPANY_LABEL": "Choose company to copy from",
+            "COPY_COMPANY_PLACEHOLDER": "Select a company"
+        },
+        "ROOT": {
+            "TITLE": "Create root",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter root name",
+            "ADDRESS_LABEL": "Address",
+            "ADDRESS_PLACEHOLDER": "Enter root address",
+            "DESCRIPTION_LABEL": "Description",
+            "DESCRIPTION_PLACEHOLDER": "Enter root description",
+            "AFFILIATE_URL_LABEL": "Affiliate URL",
+            "AFFILIATE_URL_PLACEHOLDER": "Enter affiliate url",
+            "AFFILIATE_URL_WEB_LABEL": "Web affiliate URL",
+            "AFFILIATE_URL_WEB_PLACEHOLDER": "Enter web affiliate url"
+        },
+        "CENTRAL": {
+            "TITLE": "Create central",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter central name",
+            "ADDRESS_LABEL": "Address",
+            "ADDRESS_PLACEHOLDER": "Enter central address",
+            "DESCRIPTION_LABEL": "Description",
+            "DESCRIPTION_PLACEHOLDER": "Enter central description",
+            "CONTACT_LABEL": "Contact",
+            "CONTACT_PLACEHOLDER": "Enter central contact",
+            "ACTIVE_LABEL": "Active"
+        },
+        "APPLICATION": {
+            "TITLE": "Create application",
+            "NAME_LABEL": "Application name",
+            "NAME_PLACEHOLDER": "Enter application name",
+            "ADDRESS_LABEL": "Address",
+            "ADDRESS_PLACEHOLDER": "Enter application address",
+            "DESCRIPTION_LABEL": "Description",
+            "DESCRIPTION_PLACEHOLDER": "Enter application description",
+            "CONTACT_LABEL": "Contact",
+            "CONTACT_PLACEHOLDER": "Enter application contact",
+            "ACTIVE_LABEL": "Active",
+            "CURRENCY_LABEL": "Currency",
+            "CURRENCY_PLACEHOLDER": "Select a currency",
+            "PAYMENT_TYPE_LABEL": "Payment type",
+            "PAYMENT_TYPE_PLACEHOLDER": "Select a payment type",
+            "CENTRAL_LABEL": "Central",
+            "CENTRAL_PLACEHOLDER": "Select central"
+        },
+        "SHOP": {
+            "TITLE": "Create shop",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter shop name",
+            "ADDRESS_LABEL": "Address",
+            "ADDRESS_PLACEHOLDER": "Enter shop address",
+            "DESCRIPTION_LABEL": "Description",
+            "DESCRIPTION_PLACEHOLDER": "Enter shop description",
+            "CONTACT_LABEL": "Contact",
+            "CONTACT_PLACEHOLDER": "Enter shop contact",
+            "ACTIVE_LABEL": "Active",
+            "SHOP_TYPE_LABEL": "Shop type",
+            "SHOP_TYPE_PLACEHOLDER": "Select shop type",
+            "PAYMENT_METHOD_LABEL": "Payment method",
+            "PAYMENT_METHOD_PLACEHOLDER": "Select payment method",
+            "ADD_CASH_REGISTER": "Add cash register"
+        },
+        "CASH_REGISTER": {
+            "TITLE": "Create cash register",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter shop name",
+            "ACTIVE_LABEL": "Active",
+            "CASH_REGISTER_TYPE_LABEL": "Shop type",
+            "CASH_REGISTER_TYPE_PLACEHOLDER": "Select shop type",
+            "PAYMENT_METHOD_LABEL": "Payment method",
+            "PAYMENT_METHOD_PLACEHOLDER": "Select payment method",
+            "HEX_IDS": "Hex Ids",
+            "CREATE_BUTTON": "Create",
+            "CREATE_AND_CONTINUE_BUTTON": "Create and continue"
+        }
+    },
+    "ERROR_MESSAGES": {
+        "REQUIRED": "The [:attribute] field is required.",
+        "ACCEPTED": "The [:attribute] must be accepted.",
+        "AFTER": "The [:attribute] must be after [:after].",
+        "AFTER_OR_EQUAL": "The [:attribute] must be equal or after [:after_or_equal].",
+        "ALPHA": "The [:attribute] field must contain only alphabetic characters.",
+        "ALPHA_DASH": "The [:attribute] field may only contain alpha-numeric characters, as well as dashes and underscores.",
+        "ALPHA_NUM": "The [:attribute] field must be alphanumeric.",
+        "BEFORE": "The [:attribute] must be before [:before].",
+        "BEFORE_OR_EQUAL": "The [:attribute] must be equal or before [:before_or_equal].",
+        "BETWEEN": "The [:attribute] field must be between [:min] and [:max].",
+        "CONFIRMED": "The [:attribute] confirmation does not match.",
+        "DATE": "The [:attribute] is not a valid date format.",
+        "DEF": "The [:attribute] attribute has errors.",
+        "DIFFERENT": "The [:attribute] and [:different] must be different.",
+        "DIGITS": "The [:attribute] must be [:digits] digits.",
+        "EMAIL": "The [:attribute] format is invalid.",
+        "IN": "The selected [:attribute] is invalid.",
+        "INTEGER": "The [:attribute] must be an integer.",
+        "MAX": {
+            "NUMERIC": "The [:attribute] may not be greater than [:max].",
+            "STRING": "The [:attribute] may not be greater than [:max] characters."
+        },
+        "MIN": {
+            "NUMERIC": "The [:attribute] must be at least [:min].",
+            "STRING": "The [:attribute] must be at least [:min] characters."
+        },
+        "NOT_IN": "The selected [:attribute] is invalid.",
+        "NUMERIC": "The [:attribute] must be a number.",
+        "PRESENT": "The [:attribute] field must be present (but can be empty).",
+        "REGEX": "The [:attribute] format is invalid.",
+        "REQUIRED_IF": "The [:attribute] field is required.",
+        "REQUIRED_UNLESS": "The [:attribute] field is required when [:other] is not [:value].",
+        "REQUIRED_WITH": "The [:attribute] field is required when [:field] is not empty.",
+        "REQUIRED_WITH_ALL": "The [:attribute] field is required when [:fields] are not empty.",
+        "REQUIRED_WITHOUT": "The [:attribute] field is required when [:field] is empty.",
+        "REQUIRED_WITHOUT_ALL": "The [:attribute] field is required when [:fields] are empty.",
+        "SAME": "The [:attribute] and [:same] fields must match.",
+        "SIZE": {
+            "NUMERIC": "The [:attribute] must be [:size].",
+            "STRING": "The [:attribute] must be [:size] characters."
+        },
+        "STRING": "The [:attribute] must be a string.",
+        "URL": "The [:attribute] format is invalid.",
+        "CUSTOM": {
+            "AFTER_DATE": "END TIME cannot be before START TIME.",
+            "BEFORE_DATE": "START TIME cannot be after END TIME.",
+            "MIN_DATE": "Invalid date.",
+            "MAX_DATE": "Invalid date.",
+            "BEFORE_OR_EQUAL": "The [:attribute] must be equal or before [:before_or_equal_date]",
+            "LESS_THAN": "FROM value cannot be greater than or equal to TO value.",
+            "GREATER_THAN": "TO value cannot be less than or equal to FROM value.",
+            "ORG_STRUCT_REGEX": "Name can only contain alphanumeric characters, spaces, -, _, and ."
+        },
+        "REQUIIRED_WITH_ALL": "ERROR_MESSAGES.REQUIIRED_WITH_ALL"
+    },
+    "BREADCRUMBS": {
+        "CREATE": "Create",
+        "EDIT": "Edit",
+        "SETTINGS": "Settings",
+        "LANGUAGE": "Localization"
+    },
+    "MODAL": {
+        "YES_NO_CONFIRM_LABEL": "YES",
+        "YES_NO_CANCEL_LABEL": "NO"
+    },
+    "LIST_LAYOUT": {
+        "SETTINGS_BUTTON": "Settings",
+        "CREATE_BUTTON": "Create New",
+        "BACK_BUTTON": "Back",
+        "SAVE_BUTTON": "Save",
+        "CONFIRM_DELETE": "Are you sure you want to delete selected resource?",
+        "CONFIRM_BATCH_DELETE": "Are you sure you want to delete selected resources?",
+        "CONFIRM_BATCH_UPDATE": "Are you sure you want to update selected resources?",
+        "SUCCESS_DELETE": "Successfully removed selected resource",
+        "SUCCESS_BATCH_DELETE": "Successfully removed selected resources",
+        "SUCCESS_BATCH_UPDATE": "Successfully updated selected resources",
+        "ERROR_DELETE": "Error occurred while trying to remove selected resource",
+        "ERROR_BATCH_DELETE": "Error occurred while trying to remove selected resources",
+        "ERROR_BATCH_UPDATE": "Error occurred while trying to update selected resources"
+    },
+    "EDIT_LAYOUT": {
+        "NEW": "New"
+    },
+    "EDIT_FORM_LAYOUT": {
+        "BREADCRUMB_CREATE": "Create",
+        "BREADCRUMB_EDIT": "Edit",
+        "SUCCESS_CREATE": "Successfully created resource",
+        "ERROR_CREATE": "Error occurred while trying to create resource",
+        "SUCCESS_UPDATE": "Successfully updated selected resource",
+        "ERROR_UPDATE": "Error occurred while trying to update selected resource",
+        "CANCEL": "Cancel",
+        "LANGUAGES": "Translation",
+        "DELETE": "Delete"
+    },
+    "APPLICATION_EDIT_LAYOUT": {
+        "EMPTY_STATE_TITLE": "Application Not Selected",
+        "EMPTY_STATE_DESCRIPTION": "Select an application from the application selector."
+    },
+    "ITEM_SETTINGS": {
+        "SUCCESS_CREATE": "Successfully created resource settings",
+        "ERROR_CREATE": "Errror occurred while trying to create resource settings",
+        "SUCCESS_UPDATE": "Successfully updated resource settings",
+        "ERROR_UPDATE": "Error occurred while trying to update resource settings"
+    },
+    "LANGUAGE_EDIT_LAYOUT": {
+        "BREADCRUMB": "Language",
+        "LANGUAGE_COLUMN": "Language",
+        "SUCCESS_UPDATE": "Successfully updated resource language",
+        "ERROR_UPDATE": "Error occurred while trying to update resource language"
+    },
+    "FORM_CONTROLS": {
+        "SAVE_BUTTON": "Save"
+    },
+    "LIST_SELECT_LAYOUT": {
+        "EMPTY_MESSAGE": "Please select application"
+    },
+    "APPLICATION_DROPDOWN_PLACEHOLDER": "Select application",
+    "LOGIN": {
+        "TITLE": "Welcome to Portal",
+        "DESCRIPTION": "Login to administration with your credentials. If you have problem with login, contact support.",
+        "FORGOT_PASSWORD_BUTTON": "Forgot Password?",
+        "SIGNIN_BUTTON": "Sign In",
+        "USERNAME_LABEL": "USERNAME",
+        "USERNAME_PLACEHOLDER": "Enter user name",
+        "PASSWORD_LABEL": "PASSWORD",
+        "PASSWORD_PLACEHOLDER": "Enter password",
+        "INVALID_CREDENTIALS": "Invalid username or password"
+    },
+    "PASSWORD_RECOVERY": {
+        "TITLE": "FORGOT YOUR PASSWORD?",
+        "DESCRIPTION": "Enter your signup username or e-mail, and we'll send you a link to reset your password.",
+        "RESET_BUTTON": "Reset Password",
+        "CANCEL_BUTTON": "Cancel",
+        "USERNAME_LABEL": "USERNAME",
+        "USERNAME_PLACEHOLDER": "Please enter username or email"
+    },
+    "COMPANY": {
+        "EDIT": {
+            "TITLE": "Company",
+            "NAME_LABEL": "COMPANY NAME",
+            "NAME_PLACEHOLDER": "Enter company name",
+            "ADDRESS_LABEL": "ADDRESS",
+            "ADDRESS_PLACEHOLDER": "Enter company address",
+            "DESCRIPTION_LABEL": "DESCRIPTION",
+            "DESCRIPTION_PLACEHOLDER": "Enter company description"
+        },
+        "LIST": {
+            "TITLE": "Companies",
+            "COLUMNS": {
+                "NAME": "Name"
+            }
+        },
+        "DROPDOWN": {
+            "PLACEHOLDER": "Select company"
+        }
+    },
+    "COMPANY_ROOT_CONFIGURATION": {
+        "TITLE": "Root Configuration",
+        "NAME_LABEL": "ROOT NAME",
+        "NAME_PLACEHOLDER": "Enter root name",
+        "ADDRESS_LABEL": "ADDRESS",
+        "ADDRESS_PLACEHOLDER": "Enter root address",
+        "AFFILIATE_URL_LABEL": "AFFILIATE URL",
+        "AFFILIATE_URL_PLACEHOLDER": "Enter affiliate URL",
+        "AFFILIATE_URL_WEB_LABEL": "AFFILIATE URL WEB",
+        "AFFILIATE_URL_WEB_PLACEHOLDER": "Enter affiliate URL Web",
+        "COMPANY_LABEL": "COMPANY",
+        "COMPANY_PLACEHOLDER": "Select company",
+        "DESCRIPTION_LABEL": "DESCRIPTION",
+        "DESCRIPTION_PLACEHOLDER": "Enter company description",
+        "SUCCESS_CREATE": "Successfully created root",
+        "FAIL_CREATE": "Failed to create a root",
+        "SUCCESS_UPDATE": "Successfully updated selected root",
+        "FAIL_UPDATE": "Failed to update a root",
+        "SUCCESS_DELETE": "Successfully deleted selected root",
+        "FAIL_DELETE": "Failed to delete selected root",
+        "EMPTY_STATE": {
+            "TITLE": "Root not selected",
+            "DESCRIPTION": "Please select a root from the sidebar."
+        },
+        "DELETE_CONFIRMATION": "Are you sure you want to delete this root?"
+    },
+    "CENTRAL_CONFIGURATION": {
+        "TITLE": "Central Configuration",
+        "NAME_LABEL": "CENTRAL NAME",
+        "NAME_PLACEHOLDER": "Enter central name",
+        "ADDRESS_LABEL": "ADDRESS",
+        "ADDRESS_PLACEHOLDER": "Enter central address",
+        "CONTACT_LABEL": "CONTACT",
+        "CONTACT_PLACEHOLDER": "Enter central contact",
+        "COMPANY_ROOT_LABEL": "ROOT",
+        "COMPANY_ROOT_PLACEHOLDER": "Select root",
+        "DESCRIPTION_LABEL": "DESCRIPTION",
+        "DESCRIPTION_PLACEHOLDER": "Enter central description",
+        "ACTIVE_LABEL": "ACTIVE",
+        "SUCCESS_CREATE": "Successfully created central",
+        "FAIL_CREATE": "Failed to create a central",
+        "SUCCESS_UPDATE": "Successfully updated selected central",
+        "FAIL_UPDATE": "Failed to update a central",
+        "SUCCESS_DELETE": "Successfully deleted selected central",
+        "FAIL_DELETE": "Failed to delete selected central",
+        "EMPTY_STATE": {
+            "TITLE": "Central not selected",
+            "DESCRIPTION": "Please select a central from the sidebar."
+        },
+        "DELETE_CONFIRMATION": "Are you sure you want to delete this central?"
+    },
+    "APPLICATION_CONFIGURATION": {
+        "TITLE": "Application Configuration",
+        "GENERAL_SECTION": "General",
+        "AVAILABLEON_SECTION": "Available on",
+        "CHECKBOX_SECTION": "Checkboxes",
+        "CARDSETTINGSSECTION": "Card Settings",
+        "CHECKSETTINGSSECTION": "Check Settings",
+        "FINAL_FORM_SECTION": "Final Form",
+        "CENTRALID_LABEL": "Central",
+        "CENTRALID_PLACEHOLDER": "Select Central",
+        "NAME_LABEL": "Name",
+        "NAME_PLACEHOLDER": "Enter Name",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Enter Description",
+        "ADDRESS_LABEL": "Address",
+        "ADDRESS_PLACEHOLDER": "Enter Address",
+        "CONTACT_LABEL": "Contact",
+        "CONTACT_PLACEHOLDER": "Enter Contact",
+        "CURRENCYID_LABEL": "Currency",
+        "CURRENCYID_PLACEHOLDER": "Select Currency",
+        "USERACCOUNTPAYMENTTYPEID_LABEL": "Payment Type",
+        "USERACCOUNTPAYMENTTYPEID_PLACEHOLDER": "Select Payment Type",
+        "ISACTIVE_LABEL": "Active",
+        "BETTINGSLIPMESSAGE_LABEL": "Message On Betting Slip",
+        "BETTINGSLIPMESSAGE_PLACEHOLDER": "Enter Message On Betting Slip",
+        "TERMSANDCONDITIONSID_LABEL": "AGB",
+        "TERMSANDCONDITIONSID_PLACEHOLDER": "Select AGB",
+        "ISAPPLICATIONWIDEPLAYERENABLED_LABEL": "Global player",
+        "ISGLOBALADMINOPTIONENABLED_LABEL": "Global admin",
+        "WEBADDRESS_LABEL": "Print URL",
+        "WEBADDRESS_PLACEHOLDER": "Enter Print URL",
+        "ISAVAILABLEINSHOP_LABEL": "Shop",
+        "ISAVAILABLEONTERMINAL_LABEL": "Terminal",
+        "ISAVAILABLEONINTERNET_LABEL": "Web",
+        "ISAVAILABLEONMOBILE_LABEL": "Mobile",
+        "ISTERMINALTERMSANDCONDITIONSACTIVE_LABEL": "AGB Message Active",
+        "TERMINALTERMSANDCONDITIONSMESSAGE_LABEL": "Terminal AGB Message",
+        "TERMINALTERMSANDCONDITIONSMESSAGE_PLACEHOLDER": "Enter Terminal AGB Message",
+        "ISROFUSCSRPVVALIDATIONENABLED_LABEL": "ROFUS CSRP Validation",
+        "ISSAFEFTPDKENABLED_LABEL": "Safe FTP DK",
+        "ISBETTINGTICKETBUYBACKENABLED_LABEL": "Cashout",
+        "ISUSERCARDENABLEDONLINE_LABEL": "User Card Enable online",
+        "SUCCESS_CREATE": "Successfully created application",
+        "FAIL_CREATE": "Failed to create an application",
+        "SUCCESS_UPDATE": "Successfully updated selected application",
+        "FAIL_UPDATE": "Failed to update an application",
+        "SUCCESS_DELETE": "Successfully deleted selected application",
+        "FAIL_DELETE": "Failed to delete selected application",
+        "EMPTY_STATE": {
+            "TITLE": "Application not selected",
+            "DESCRIPTION": "Please select an application from the sidebar."
+        }
+    },
+    "SHOP_CONFIGURATION": {
+        "TITLE": "Shop Configuration",
+        "GENERAL_SECTION": "General Info",
+        "PRINTSETTINGS_SECTION": "Print Settings",
+        "SUCCESS_UPDATE": "Successfully saved.",
+        "FAIL_UPDATE": "Save failed.",
+        "SUCCESS_DELETE": "Successfully deleted.",
+        "FAIL_DELETE": "Delete failed.",
+        "DELETE_CONFIRMATION": "Are you sure you want to delete this shop?",
+        "APPLICATIONID_LABEL": "Application",
+        "APPLICATIONID_PLACEHOLDER": "Select Application",
+        "NAME_LABEL": "Name",
+        "NAME_PLACEHOLDER": "Enter Name",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Enter Description",
+        "ISACTIVE_LABEL": "Active",
+        "SHOPTYPEID_LABEL": "Shop Type",
+        "SHOPTYPEID_PLACEHOLDER": "Select Shop Type",
+        "USERCARDTYPEID_LABEL": "User Card Type",
+        "USERCARDTYPEID_PLACEHOLDER": "Select User Card Type",
+        "PAYMENT_LABEL": "Payment",
+        "PAYMENT_PLACEHOLDER": "Enter Payment",
+        "PAYOUT_LABEL": "Payout",
+        "PAYOUT_PLACEHOLDER": "Enter Payout",
+        "CASHREGISTERACCOUNTINGREPORT_LABEL": "Cash Register Accounting Report (Days)",
+        "CASHREGISTERACCOUNTINGREPORT_PLACEHOLDER": "Enter Cash Register Accounting Report (Days)",
+        "ISMANUALTRANSACTIONSONCASHREGISTERENABLED_LABEL": "Manual Transaction On Cash Register",
+        "ISREQUIREDPINFORPAYOUTENABLED_LABEL": "Required Pin For Payout",
+        "ISTURNOFFLIMITUPDATEENABLED_LABEL": "Turn Off Limit Update",
+        "ISLOCKTERMINALENABLED_LABEL": "Lock Terminal",
+        "ISLOGINWITHOUTPINENABLED_LABEL": "Login Without Pin",
+        "NUMBEROFSYSTEMCOMBINATIONS_LABEL": "Number Of System Combinations",
+        "NUMBEROFSYSTEMCOMBINATIONS_PLACEHOLDER": "Enter Number Of System Combinations",
+        "PRINTSETTINGS_ADDRESS": "Address",
+        "PRINTSETTINGS_COMPANY": "Company",
+        "PRINTSETTINGS_LOGO": "Logo",
+        "PRINTSETTINGS_SYSTEMCOMBINATIONS": "System Combinations",
+        "PRINTSETTINGS_TELEPHONENUMBER": "Telephone Number"
+    },
+    "CASH_REGISTER_CONFIGURATION": {
+        "TITLE": "Cash Register Configuration",
+        "DELETE_CONFIRMATION": "Are you sure you want to delete this cash register?",
+        "SUCCESS_DELETE": "Deleted Successfully.",
+        "FAIL_DELETE": "Delete Failed.",
+        "SHOPID_LABEL": "Shop",
+        "SUCCESS_UPDATE": "Saved Successfully.",
+        "FAIL_UPDATE": "Save Failed",
+        "SHOPID_PLACEHOLDER": "Select Shop",
+        "CASHREGISTERTYPEID_LABEL": "Cash Register Type",
+        "CASHREGISTERTYPEID_PLACEHOLDER": "Select Cash Register Type",
+        "NAME_LABEL": "Name",
+        "NAME_PLACEHOLDER": "Name",
+        "HARDWARECODE_LABEL": "Hardware Code",
+        "HARDWARECODE_PLACEHOLDER": "Hardware Code",
+        "PRINTERTYPEID_LABEL": "Printer Type",
+        "PRINTERTYPEID_PLACEHOLDER": "Select Printer Type",
+        "PRINTERPORTTYPEID_LABEL": "Port",
+        "PRINTERPORTTYPEID_PLACEHOLDER": "Port",
+        "OMRTYPEID_LABEL": "OMR Type",
+        "OMRTYPEID_PLACEHOLDER": "Select OMR Type",
+        "OMRPORTTYPEID_LABEL": "Port",
+        "OMRPORTTYPEID_PLACEHOLDER": "Port",
+        "CODEPAGEID_LABEL": "Code Page",
+        "CODEPAGEID_PLACEHOLDER": "Select Code Page",
+        "CCTALKCOINTYPEID_LABEL": "CCTalk Coin Type",
+        "CCTALKCOINTYPEID_PLACEHOLDER": "Select CCTalk Coin Type",
+        "TEAMVIEWERID_LABEL": "TeamViewer ID",
+        "TEAMVIEWERID_PLACEHOLDER": "Enter TeamViewer ID",
+        "CASHREGISTERVERSION_LABEL": "Cash Register Version",
+        "CASHREGISTERVERSION_PLACEHOLDER": "Enter Cash Register Version",
+        "BALANCE_LABEL": "Balance",
+        "BALANCE_PLACEHOLDER": "Enter Balance",
+        "ISDEMO_LABEL": "Demo",
+        "ISANONYMOUSPAYMENTENABLED_LABEL": "Anonymous Payment",
+        "ISDEPOSITUSERCARDPAYMENTENABLED_LABEL": "Deposit Card",
+        "ISUSERCARDWITHOUTDEPOSITPAYMENTENABLED_LABEL": "Cards Without Deposit",
+        "ISHEXENABLED_LABEL": "Hex",
+        "ISSPORTLIVEENABLED_LABEL": "Sport Live",
+        "ISSPORTLIVEANONYMOUSENABLED_LABEL": "Sport Live Anonymous",
+        "ISSPORTBETTINGENABLED_LABEL": "Sport Betting",
+        "ISFISCALIZATIONENABLED_LABEL": "Fiscalization",
+        "ISGAINPAYOUTENABLED_LABEL": "Paybet",
+        "ISUSERCARDPAYOUTENABLED_LABEL": "PayAccount",
+        "ISCANCELBETENABLED_LABEL": "Bet Cancelling",
+        "ACCOUNTINGREPORT_LABEL": "Accounting Report",
+        "ISREADVOUCHERENABLED_LABEL": "Read Voucher",
+        "ISCREATEVOUCHERENABLED_LABEL": "Create Voucher",
+        "ISONLYCASHREGISTERPAYMENTENABLED_LABEL": "Ticket Before",
+        "CASHREGISTERCLOSURETYPEID_LABEL": "Cash Register Closure Type",
+        "CASHREGISTERCLOSURETYPEID_PLACEHOLDER": "Select Cash Register Closure Type"
+    },
+    "ORGANIZATIONAL_STRUCTURE_LIMIT": {
+        "LIST": {
+            "TITLE": "Organizational Structure Limits",
+            "COLUMNS": {
+                "DEFINITION": "Definition",
+                "VALUE": "Value",
+                "CATEGORY": "Category"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Organizational Structure Limits",
+            "LIMIT_DEFINITION_LABEL": "LIMIT DEFINITION",
+            "LIMIT_DEFINITION_PLACEHOLDER": "Select limit definition",
+            "LIMIT_CATEGORY_LABEL": "LIMIT CATEGORY",
+            "LIMIT_CATEGORY_PLACEHOLDER": "Select limit category",
+            "VALUE_LABEL": "VALUE",
+            "VALUE_PLACEHOLDER": "Enter value for limit",
+            "MAXSTAKEPERDAYSHOP_LABEL": "Max Stake Per Day Shop",
+            "MAXSTAKEPERWEEKSHOP_LABEL": "Max Stake Per Week Shop",
+            "MAXSTAKEPERMONTHSHOP_LABEL": "Max Stake Per Month Shop",
+            "MAXSTAKEONBETSPERMONTHUSER_LABEL": "Max Stake On Bets Per Month User",
+            "MAXSTAKEPEREVENTSHOP_LABEL": "Max Stake Per Event Shop",
+            "MAXSTAKEPEREVENTSHOPPERCENTAGE_LABEL": "Max Stake Per Event Shop Percentage",
+            "MAXSTAKEPERBETTINGTYPESHOP_LABEL": "Max Stake Per Betting Type Shop",
+            "MAXSTAKEPERBETTINGTYPEUSER_LABEL": "Max Stake Per Betting Type User",
+            "MAXSTAKEPERTRANSACTION_LABEL": "Max Stake Per Transaction",
+            "MAXNUMBEROFEVENTSPERBETSLIP_LABEL": "Max Number Of Events Per Bet Slip",
+            "BETSLIPCANCELTIME_LABEL": "Bet Slip Cancel Time",
+            "LIVEBETSLIPCANCELTIME_LABEL": "Live Bet Slip Cancel Time",
+            "WINNINGBETSLIPPAYOUTEXPIRYTIME_LABEL": "Winning Bet Slip Payout Expiry Time",
+            "SUBMITLIVEBETSLIPDELAYTIME_LABEL": "Submit Live Bet Slip Delay Time",
+            "MAXSTAKEPERBETSLIP_LABEL": "Max Stake Per Bet Slip",
+            "MAXNUMBEROFSYSTEMCOMBINATIONS_LABEL": "Max Number Of System Combinations",
+            "MAXSTAKEPERLIVEBETSLIP_LABEL": "Max Stake Per Live Bet Slip",
+            "MAXSTAKEPERSYSTEMBETSLIP_LABEL": "Max Stake Per System Bet Slip",
+            "MAXSTAKEPERSYSTEMLIVEBETSLIP_LABEL": "Max Stake Per System Live Bet Slip",
+            "MINSTAKEPERBETSLIP_LABEL": "Min Stake Per Bet Slip",
+            "MINSTAKEPERLIVEBETSLIP_LABEL": "Min Stake Per Live Bet Slip",
+            "MINSTAKEPERCOMBINATION_LABEL": "Min Stake Per Combination",
+            "MAXGAINPERBETSLIP_LABEL": "Max Gain Per Bet Slip",
+            "MAXGAINPERBETSLIPFORSYSTEMCOMBINATION_LABEL": "Max Gain Per Bet Slip For System Combination",
+            "MAXGAINPERBETSLIPFORLIVESYSTEMCOMBINATION_LABEL": "Max Gain Per Bet Slip For Live System Combination",
+            "MAXSTAKEPEREVENTUSERPERCENTAGE_LABEL": "Max Stake Per Event User Percentage",
+            "MAXSTAKEPERBETTINGTYPEUSERPERCENTAGE_LABEL": "Max Stake Per Betting Type User Percentage",
+            "SUCCESS_UPDATE": "Successfully updated",
+            "FAIL_UPDATE": "Update failed"
+        },
+        "EMPTY_STATE": {
+            "TITLE": "Nothing selected",
+            "DESCRIPTION": "Please select a company, root, central or an application from the sidebar."
+        },
+        "APPLICATION_EMPTY_STATE": {
+            "TITLE": "Nothing selected",
+            "DESCRIPTION": "Please select an application, shop or cash register from the sidebar."
+        }
+    },
+    "LIMIT_DEFINITION": {
+        "LIST": {
+            "TITLE": "Limit Definition",
+            "COLUMNS": {
+                "NAME": "Name",
+                "LIMIT_VALUE_TYPE": "Limit value type"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Limit Definition",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name",
+            "LIMIT_VALUE_TYPE_LABEL": "LIMIT VALUE TYPE",
+            "LIMIT_VALUE_TYPE_PLACEHOLDER": "Select limit value type"
+        },
+        "LANGUAGE": {
+            "TITLE": "Limit Definition Localization",
+            "BREADCRUMB_TITLE": "Language",
+            "LANGUAGE_COLUMN": "LANGUAGE",
+            "NAME_COLUMN": "LIMIT DEFINITION NAME",
+            "NAME_LABEL": "LIMIT DEFINITION NAME",
+            "NAME_PLACEHOLDER": "Enter limit definition name"
+        }
+    },
+    "ORGANIZATIONAL_STRUCTURE_SETTINGS": {
+        "BONUS_SETTING": {
+            "LIST": {
+                "TITLE": "Bonus Settings"
+            },
+            "BATCH_LIST": {
+                "COLUMNS": {
+                    "LIMIT_NAME": "Limit Name",
+                    "FROM": "From",
+                    "TO": "To",
+                    "VALUE": "Value",
+                    "ACTIVE": "Active"
+                }
+            },
+            "EDIT": {
+                "BETTINGBONUSCATEGORYID_LABEL": "Limit Name",
+                "BETTINGBONUSCATEGORYID_PLACEHOLDER": "Select Limit Name",
+                "NUMBEROFEVENTSFROM_LABEL": "From",
+                "NUMBEROFEVENTSTO_LABEL": "To",
+                "VALUE_LABEL": "Value",
+                "ISACTIVE_LABEL": "Active"
+            }
+        },
+        "TAX_SETTING": {
+            "LIST": {
+                "TITLE": "Tax Settings"
+            },
+            "BATCH_LIST": {
+                "COLUMNS": {
+                    "LIMIT_NAME": "Limit Name",
+                    "PAYFROM": "Pay From",
+                    "PAYTO": "Pay To",
+                    "VALUE": "Value",
+                    "FREETAX": "Free Tax",
+                    "ACTIVE": "Active"
+                }
+            },
+            "EDIT": {
+                "BETTINGTAXCATEGORYID_LABEL": "Tax Category",
+                "BETTINGTAXCATEGORYID_PLACEHOLDER": "Select Tax Category",
+                "PAYFROM_LABEL": "Pay From",
+                "PAYTO_LABEL": "Pay To",
+                "VALUE_LABEL": "Value",
+                "FREETAX_LABEL": "Free Tax",
+                "ISACTIVE_LABEL": "Active"
+            }
+        },
+        "BETSLIPREPEAT_SETTING": {
+            "LIST": {
+                "TITLE": "Bet Slip Repeat Settings"
+            },
+            "BATCH_LIST": {
+                "COLUMNS": {
+                    "LIMIT_NAME": "Type",
+                    "PAYFROM": "Pay From",
+                    "PAYTO": "Pay To",
+                    "QUOTEFROM": "Quote From",
+                    "QUOTETO": "Quote To",
+                    "COUNTFROM": "Count From",
+                    "COUNTTO": "Count To",
+                    "VALUE": "Value",
+                    "ACTIVE": "Active"
+                }
+            },
+            "EDIT": {
+                "BETSLIPREPEATSETTINGID_LABEL": "Bet Slip Repeat Type",
+                "BETSLIPREPEATSETTINGID_PLACEHOLDER": "Select Bet Slip Repeat Type",
+                "PAYFROM_LABEL": "Pay From",
+                "PAYTO_LABEL": "Pay To",
+                "QUOTEFROM_LABEL": "Quote From",
+                "QUOTETO_LABEL": "Quote To",
+                "COUNTFROM_LABEL": "Count From",
+                "COUNTTO_LABEL": "Count To",
+                "VALUE_LABEL": "Value",
+                "FREETAX_LABEL": "Free Tax",
+                "ISACTIVE_LABEL": "Active"
+            }
+        },
+        "DEPOSITINFO_SETTING": {
+            "LIST": {
+                "TITLE": "Deposit Info Settings"
+            },
+            "BATCH_LIST": {
+                "COLUMNS": {
+                    "LIMIT_NAME": "Type",
+                    "VALUEFROM": "Value From",
+                    "VALUETO": "Value To",
+                    "ACTIVE": "Active"
+                }
+            },
+            "EDIT": {
+                "DEPOSITINFOTYPEID_LABEL": "Deposit Info Type",
+                "DEPOSITINFOTYPEID_PLACEHOLDER": "Select Deposit Info Type",
+                "VALUEFROM_LABEL": "Value From",
+                "VALUETO_LABEL": "Value To",
+                "ISACTIVE_LABEL": "Active"
+            }
+        },
+        "EMPTY_STATE": {
+            "SELECT_CENTRAL_TITLE": "Central not selected",
+            "SELECT_CENTRAL_DESCRIPTION": "Please select a central",
+            "SELECT_APPLICATION_SHOP_TITLE": "Application/Shop not selected",
+            "SELECT_APPLICATION_SHOP_DESCRIPTION": "Please select an Application/Shop"
+        },
+        "EDIT": {
+            "CENTRALID_LABEL": "Central",
+            "CENTRALID_PLACEHOLDER": "Select Central",
+            "SHOPID_LABEL": "Shop",
+            "SHOPID_PLACEHOLDER": "Select Shop",
+            "CREATE_SUCCESS": "Successfully created.",
+            "CREATE_FAIL": "Create failed"
+        }
+    },
+    "ORGANIZATION_USERS": {
+        "SUCCESS_APPROVE": "User approved successfully",
+        "SUCCESS_DISAPPROVE": "User disapproved successfully",
+        "SUCCESS_LOCK": "User locked successfully",
+        "SUCCESS_UNLOCK": "User unlocked successfully",
+        "ERROR_APPROVE": "Error occured while trying to approve user",
+        "ERROR_DISAPPROVE": "Error occured while trying to disapprove user",
+        "ERROR_LOCK": "Error occured while trying to lock user",
+        "ERROR_UNLOCK": "Error occured while trying to unlock user",
+        "LIST": {
+            "TITLE": "Organization Users",
+            "COLUMNS": {
+                "USERNAME": "User Name",
+                "NAME": "Name",
+                "EMAIL": "Email",
+                "APPROVED": "Approved"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Organization Users",
+            "USERNAME_LABEL": "USERNAME",
+            "USERNAME_PLACEHOLDER": "Enter username",
+            "EMAIL_LABEL": "EMAIL",
+            "EMAIL_PLACEHOLDER": "Enter email",
+            "PASSWORD_LABEL": "PASSWORD",
+            "PASSWORD_PLACEHOLDER": "Enter password",
+            "CONFIRM_PASSWORD_LABEL": "CONFIRM PASSWORD",
+            "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password",
+            "ROLES_LABEL": "ROLES",
+            "ROLES_PLACEHOLDER": "Select user roles",
+            "SEND_EMAIL_NOTIFICATION_LABEL": "Send email notification"
+        },
+        "EDIT": {
+            "TITLE": "Organization Users",
+            "USERNAME_LABEL": "USERNAME",
+            "USERNAME_PLACEHOLDER": "Enter username",
+            "EMAIL_LABEL": "EMAIL",
+            "EMAIL_PLACEHOLDER": "Enter email",
+            "ROLES_LABEL": "ROLES",
+            "TIME_ZONE_LABEL": "Time zone",
+            "LANGUAGE_LABEL": "Language",
+            "TIME_ZONE_PLACEHOLDER": "Select time zone",
+            "LANGUAGE_PLACEHOLDER": "Select language",
+            "ROLES_PLACEHOLDER": "Select user roles",
+            "SEND_PASSWORD_RESET_EMAIL_BUTTON": "Send password reset mail",
+            "CHANGE_PASSWORD_BUTTON": "Change Password",
+            "DISAPPROVE_BUTTON": "Disapprove",
+            "APPROVE_BUTTON": "Approve",
+            "LOCK_BUTTON": "Lock",
+            "UNLOCK_BUTTON": "Unlock"
+        },
+        "PASSWORD_CHANGE": {
+            "TITLE": "Organization Users Password Change",
+            "PASSWORD_LABEL": "New password",
+            "PASSWORD_PLACEHOLDER": "Enter a new password here",
+            "CONFIRM_PASSWORD_LABEL": "Confirm a new password",
+            "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm a new password",
+            "SEND_MAIL_NOTIFICATION_LABEL": "Send email notification",
+            "SUCCESS_MESSAGE": "User password successfully changed"
+        }
+    },
+    "ORGANIZATION_ROLES": {
+        "LIST": {
+            "TITLE": "Organization Roles",
+            "COLUMNS": {
+                "NAME": "Name",
+                "DESCRIPTION": "Description"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Organization Roles",
+            "NAME_LABEL": "ROLE NAME",
+            "NAME_PLACEHOLDER": "Enter role name",
+            "DESCRIPTION_LABEL": "DESCRIPTION",
+            "DESCRIPTION_PLACEHOLDER": "Enter role description"
+        }
+    },
+    "USER_BLOCK_HISTORY": {
+        "LIST": {
+            "TITLE": "User Block History",
+            "COLUMNS": {
+                "USER": "User",
+                "USER_BLOCK_TYPE": "User Block Type",
+                "PERIOD": "Period",
+                "TIME": "Time",
+                "FIRST_NAME": "First Name",
+                "LAST_NAME": "Last Name"
+            },
+            "FILTER": {
+                "START_DATE": "Block Start",
+                "END_DATE": "Block End",
+                "USER": "Select User",
+                "LOCK_TYPE": "Select Lock Type"
+            }
+        },
+        "EDIT": {
+            "TITLE": "User Block History",
+            "BLOCK_DATE_LABEL": "BLOCK DATE",
+            "BLOCK_DATE_PLACEHOLDER": "Enter block date",
+            "USER_BLOCK_TYPE_LABEL": "USER BLOCK TYPE",
+            "USER_BLOCK_TYPE_PLACEHOLDER": "Select user block type",
+            "APPLICATION_USER_LABEL": "USER",
+            "APPLICATION_USER_PLACEHOLDER": "Select user"
+        }
+    },
+    "PASSWORD_CHANGE": {
+        "TITLE": "Change Password",
+        "NEW_PASSWORD_LABEL": "NEW PASSWORD",
+        "NEW_PASSWORD_PLACEHOLDER": "Please enter new password",
+        "CONFIRM_PASSWORD_LABEL": "CONFIRM PASSWORD",
+        "CONFIRM_PASSWORD_PLACEHOLDER": "Please enter confirm password"
+    },
+    "APPLICATION_USER_DOCUMENTS": {
+        "LIST": {
+            "TITLE": "Application User Document File List View"
+        }
+    },
+    "BETTING_TYPE": {
+        "OVERVIEW_TAB": "Overview",
+        "PREVIEW_TAB": "Preview",
+        "LIST": {
+            "TITLE": "Betting Types",
+            "COLUMNS": {
+                "NAME": "Name",
+                "DESCRIPTION": "Description",
+                "BETTING_SLIP": "Betting slip",
+                "OFFER_LIST": "Offer list"
+            },
+            "COMPANY_DROPDOWN_PLACEHOLDER": "Select Company",
+            "FILTER": {
+                "ACTIVE": "Active",
+                "PREMATCH": "PreMatch",
+                "LIVE": "Live"
+            }
+        },
+        "BATCH_LIST": {
+            "TITLE": "Betting Types",
+            "COLUMNS": {
+                "NAME": "Name",
+                "SPORT": "For Sports",
+                "DESCRIPTION": "Description",
+                "MIN_KEY": "Min. Key",
+                "MAX_KEY": "Max. Key",
+                "SORT": "Sort",
+                "KEY_CASH_REGISTER": "Key Cash Register",
+                "ACTIVE": "Active",
+                "LIVE": "Live",
+                "SHOP": "Shop",
+                "TERMINAL": "Terminal",
+                "WEB": "Web",
+                "NUMBER_OF_WINS": "Res. Number"
+            },
+            "SPORT_SELECTOR": {
+                "SPORT_DROPDOWN_PLACEHOLDER": "Select sports",
+                "SAVE": "Save",
+                "CANCEL": "Cancel"
+            },
+            "EMPTY_STATE": {
+                "SELECT_COMPANY_TITLE": "Select a company",
+                "SELECT_COMPANY_DESCRIPTION": "Please select a company first."
+            }
+        },
+        "EDIT": {
+            "TITLE": "Betting Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name",
+            "DESCRIPTION_LABEL": "DESCRIPTION",
+            "DESCRIPTION_PLACEHOLDER": "Enter description"
+        },
+        "SETTINGS": {
+            "TITLE": "Betting Type Settings",
+            "MIN_KEY_LABEL": "Min. Key",
+            "MAX_KEY_LABEL": "Max. Key",
+            "SORTING_LABEL": "Sorting",
+            "KEY_CASH_REGISTER_LABEL": "Key Cash Register",
+            "NUMBER_OF_WINS_LABEL": "Number Of Wins",
+            "ACTIVE_LABEL": "Active",
+            "SHOP_LABEL": "Shop",
+            "TERMINAL_LABEL": "Terminal",
+            "WEB_LABEL": "Web",
+            "LIVE_LABEL": "Live",
+            "SELECT_COMPANY": "Select a company",
+            "SELECT_BETTING_TYPE": "Select a betting type",
+            "FILTER_BETTING_TYPES_LABEL": "Betting types",
+            "FILTER_BETTING_TYPES_PLACEHOLDER": "Filter by betting types",
+            "EMPTY_STATE": {
+                "COMPANY_TITLE": "Select a company",
+                "COMPANY_DESCRIPTION": "Please select a company",
+                "BETTING_TYPE_TITLE": "Select a betting type",
+                "BETTING_TYPE_DESCRIPTION": "Please select a betting type."
+            }
+        },
+        "LANGUAGE": {
+            "TITLE": "Betting Type Localization"
+        }
+    },
+    "COUNTRY": {
+        "LIST": {
+            "TITLE": "Countries",
+            "COLUMNS": {
+                "NAME": "Name"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Country",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter country name"
+        }
+    },
+    "EVENT_CHANGE_TYPE": {
+        "LIST": {
+            "TITLE": "Event Change Types",
+            "COLUMNS": {
+                "NAME": "Name"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Event Change",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter event change name"
+        }
+    },
+    "LIMIT_CATEGORY": {
+        "LIST": {
+            "TITLE": "Limit Categories",
+            "COLUMNS": {
+                "NAME": "Name"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Limit Category",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter limit category name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Limit Category Localization",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter limit category name"
+        }
+    },
+    "USER_BLOCK_TYPE": {
+        "LIST": {
+            "TITLE": "User Block Types",
+            "COLUMNS": {
+                "NAME": "Name"
+            }
+        },
+        "EDIT": {
+            "TITLE": "User Block Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter user block type name"
+        },
+        "LANGUAGE": {
+            "TITLE": "User Block Type Localization",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter user block type name"
+        }
+    },
+    "CURRENCY": {
+        "LIST": {
+            "TITLE": "Currencies",
+            "COLUMNS": {
+                "NAME": "Name",
+                "MINOR_UNIT": "Minor Unit",
+                "ISO": "ISO",
+                "EXCHANGE_RATE_FROM_EURO": "Exchange Rate From Euro",
+                "ONLINE_PAYMENT": "Online Payment",
+                "FIXED_EURO": "Fixed Euro"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Currency",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter currency name",
+            "MINOR_UNIT_LABEL": "MINOR UNIT",
+            "MINOR_UNIT_PLACEHOLDER": "Enter minor unit",
+            "ISO_LABEL": "ISO",
+            "ISO_PLACEHOLDER": "Enter ISO",
+            "EXCHANGE_RATE_FROM_EURO_LABEL": "EXCHANGE RATE FROM EURO",
+            "EXCHANGE_RATE_FROM_EURO_PLACEHOLDER": "Enter exchange rate from euro",
+            "ONLINE_PAYMENT_LABEL": "ONLINE PAYMENT",
+            "FIXED_EURO_LABEL": "FIXED EURO"
+        }
+    },
+    "EMPTY_STATE": {
+        "ACTIONS": {
+            "CREATE": "Create New",
+            "BACK": "Back"
+        }
+    },
+    "EVENT_COVERED_FROM_TYPE": {
+        "LIST": {
+            "TITLE": "Event Covered From Types",
+            "COLUMNS": {
+                "NAME": "Name"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Event Covered From Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter event covered from type name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Event Covered From Type Localization"
+        }
+    },
+    "TOURNAMENT_SEASON": {
+        "LIST": {
+            "TITLE": "Tournament Seasons",
+            "COLUMNS": {
+                "NAME": "Name",
+                "START_TIME": "Start",
+                "END_TIME": "End",
+                "TOURNAMENT": "Tournament"
+            },
+            "FILTER": {
+                "DATE_FROM": "From",
+                "DATE_TO": "To",
+                "TOURNAMENT_DROPDOWN_PLACEHOLDER": "Select tournament",
+                "TOURNAMENT_DROPDOWN_LABEL": "Tournament"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Tournament Seasons",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter tournament season name",
+            "START_TIME_LABEL": "START TIME",
+            "END_TIME_LABEL": "END TIME",
+            "TOURNAMENT_LABEL": "TOURNAMENT",
+            "TOURNAMENT_PLACEHOLDER": "Select tournament"
+        }
+    },
+    "TOURNAMENT_GROUP": {
+        "LIST": {
+            "TITLE": "Tournament Groups",
+            "COLUMNS": {
+                "NAME": "Name",
+                "TOURNAMENT_SEASON_NAME": "Tournament Season Name",
+                "TOURNAMENT_NAME": "Tournament Name"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Tournament Group",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter Name",
+            "TOURNAMENT_SEASON_LABEL": "Tournament Season",
+            "TOURNAMENT_SEASON_PLACEHOLDER": "Select Tournament Season"
+        }
+    },
+    "CASH_REGISTER_TYPE": {
+        "LIST": {
+            "TITLE": "Cash Register Types",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no cash register types",
+                "APPLICATION_TITLE": "Select application to view cash register types",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Cash Register Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter cash register name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Cash Register Type Localization"
+        }
+    },
+    "USER_MONITOR_TYPE": {
+        "LIST": {
+            "TITLE": "User Monitor Types",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no user monitor types",
+                "APPLICATION_TITLE": "Select application to view user monitor types",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "User Monitor Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter user monitor type name"
+        },
+        "LANGUAGE": {
+            "TITLE": "User Monitor Type Localization"
+        }
+    },
+    "BETTING_ACCOUNT_TYPE": {
+        "LIST": {
+            "TITLE": "Betting Account Types",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no betting account types",
+                "APPLICATION_TITLE": "Select application to view betting account types",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Betting Account Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter user betting account name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Betting Account Type Localization"
+        }
+    },
+    "USER_MONITOR_HISTORY": {
+        "LIST": {
+            "TITLE": "User Monitor History",
+            "COLUMNS": {
+                "USERNAME": "User",
+                "USER_MONITOR_TYPE": "Monitor Type",
+                "MONITOR_START_DATE": "Start Date"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no user monitor history entries",
+                "APPLICATION_TITLE": "Select application to view user monitor history",
+                "ACTION": "Create New"
+            },
+            "FILTER": {
+                "USER": "USER",
+                "MONITOR_TYPE": "MONITOR TYPE",
+                "START_DATE": "START DATE",
+                "END_DATE": "END DATE",
+                "USER_DROPDOWN_DEFAULT": "Select user",
+                "MONITOR_TYPE_DROPDOWN_DEFAULT": "Select monitor type"
+            }
+        },
+        "EDIT": {
+            "TITLE": "User Monitor History",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter user monitor history",
+            "USER_LABEL": "USER",
+            "USER_PLACEHOLDER": "Please select user",
+            "MONITOR_START_DATE_LABEL": "MONITOR START DATE",
+            "DESCRIPTION_LABEL": "DESCRIPTION",
+            "DESCRIPTION_PLACEHOLDER": "User Monitor History Description",
+            "USER_MONITOR_TYPE_LABEL": "USER MONITOR TYPE",
+            "USER_MONITOR_TYPE_PLACEHOLDER": "Please select user monitor type"
+        }
+    },
+    "LANGUAGE": {
+        "LIST": {
+            "TITLE": "Languages",
+            "COLUMNS": {
+                "NAME": "Name",
+                "ISO": "ISO",
+                "CULTURE": "Culture"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Language",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter language name",
+            "ISO_LABEL": "ISO",
+            "ISO_PLACEHOLDER": "Enter ISO",
+            "CULTURE_LABEL": "CULTURE",
+            "CULTURE_PLACEHOLDER": "Enter culture"
+        }
+    },
+    "PLAYER": {
+        "LIST": {
+            "TITLE": "Players",
+            "COLUMNS": {
+                "FIRST_NAME": "First Name",
+                "LAST_NAME": "Last Name",
+                "SPORT": "Sport"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Player",
+            "FIRST_NAME_LABEL": "FIRST NAME",
+            "FIRST_NAME_PLACEHOLDER": "Enter players first name",
+            "LAST_NAME_LABEL": "LAST NAME",
+            "LAST_NAME_PLACEHOLDER": "Enter players last name",
+            "SPORT_LABEL": "SPORT",
+            "SPORT_PLACEHOLDER": "Select sport"
+        },
+        "TEAM": {
+            "LIST": {
+                "TITLE": "Player Teams",
+                "COLUMNS": {
+                    "TEAM": "Team",
+                    "SHIRT_NUMBER": "Shirt Number"
+                }
+            },
+            "EDIT": {
+                "TITLE": "Player Team",
+                "TEAM_LABEL": "TEAM",
+                "TEAM_PLACEHOLDER": "Select team",
+                "SHIRT_NUMBER_LABEL": "SHIRT NUMBER",
+                "SHIRT_NUMBER_PLACEHOLDER": "Enter shirt number"
+            }
+        }
+    },
+    "TEAM": {
+        "LIST": {
+            "TITLE": "Teams",
+            "COLUMNS": {
+                "NAME": "Name",
+                "SPORT": "Sport"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Team",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter team name",
+            "SPORT_LABEL": "SPORT",
+            "SPORT_PLACEHOLDER": "Select sport",
+            "SPORT_CATEGORY_LABEL": "SPORT CATEGORY",
+            "SPORT_CATEGORY_PLACEHOLDER": "Select sport category"
+        },
+        "LANGUAGE": {
+            "TITLE": "Team Localization",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter team name"
+        },
+        "PLAYER": {
+            "BREADCRUMB_TITLE": "Players",
+            "LIST": {
+                "TITLE": "Team Players",
+                "COLUMNS": {
+                    "FIRST_NAME": "First Name",
+                    "LAST_NAME": "Last Name",
+                    "SHIRT_NUMBER": "Shirt Number"
+                }
+            },
+            "EDIT": {
+                "TITLE": "Team Player",
+                "PLAYER_LABEL": "PLAYER",
+                "PLAYER_PLACEHOLDER": "Select player",
+                "SHIRT_NUMBER_LABEL": "SHIRT NUMBER",
+                "SHIRT_NUMBER_PLACEHOLDER": "Enter shirt number"
+            }
+        },
+        "TOURNAMENT": {
+            "BREADCRUMB_TITLE": "Tournaments",
+            "LIST": {
+                "TITLE": "Team Tournaments",
+                "COLUMNS": {
+                    "TOURNAMENT": "Tournament"
+                }
+            },
+            "EDIT": {
+                "TITLE": "Team Tournament",
+                "TOURNAMENT_LABEL": "TOURNAMENT",
+                "TOURNAMENT_PLACEHOLDER": "Select tournament"
+            }
+        }
+    },
+    "TOURNAMENT": {
+        "OVERVIEW_TAB": "Overview",
+        "PREVIEW_TAB": "Preview",
+        "LIST": {
+            "TITLE": "Tournaments",
+            "COLUMNS": {
+                "NAME": "Name",
+                "SPORT_CATEGORY": "Sport Category"
+            },
+            "SPORT_DROPDOWN_PLACEHOLDER": "Sport",
+            "SPORT_CATEGORY_DROPDOWN_PLACEHOLDER": "Sport Category",
+            "SPORT_DROPDOWN_DEFAULT_ITEM": "Select a sport...",
+            "SPORT_DROPDOWN_LABEL": "Sport",
+            "SPORT_CATEGORY_DROPDOWN_DEFAULT_ITEM": "Select a sport category...",
+            "SPORT_CATEGORY_DROPDOWN_LABEL": "Sport category",
+            "SETTINGS_BUTTON": "Settings",
+            "BETTING_TYPE_SELECTOR": {
+                "SAVE": "Save",
+                "CANCEL": "Cancel",
+                "LISTBOX_COLUMN_NAME": "Betting type"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Tournament",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter tournament name",
+            "SPORT_CATEGORY_LABEL": "SPORT CATEGORY",
+            "SPORT_CATEGORY_PLACEHOLDER": "Select sport category"
+        },
+        "LANGUAGE": {
+            "TITLE": "Tournament Localization",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter tournament name"
+        },
+        "SETTINGS": {
+            "TITLE": "Tournament Settings",
+            "COMPANY_DROPDOWN_PLACEHOLDER": "Select Company",
+            "EDIT": {
+                "SORT_LABEL": "SORTING",
+                "SORT_PLACEHOLDER": "Enter tournament sorting",
+                "ACTIVE_LABEL": "ACTIVE",
+                "SHOP_LABEL": "SHOP",
+                "TERMINAL_LABEL": "TERMINAL",
+                "WEB_LABEL": "WEB"
+            },
+            "LIST": {
+                "COLUMNS": {
+                    "COMPANY": "Company",
+                    "SPORT": "Sport",
+                    "SPORT_CATEGORY": "Sport Category",
+                    "TOURNAMENT": "Tournament",
+                    "SORT": "Sort",
+                    "ACTIVE": "Active",
+                    "SHOP": "Shop",
+                    "TERMINAL": "Terminal",
+                    "INTERNET": "Internet",
+                    "MAX_GAIN": "Max gain",
+                    "MAX_STAKE_PER_EVENT": "Max stake per event",
+                    "MAX_STAKE_PER_BET_SLIP": "Max stake per bet slip",
+                    "MAX_LOSS_PER_BETTING_TYPE_TIP": "Max loss per betting type tip",
+                    "MAX_NUMBER_OF_EVENTS_FROM_TOURNAMENT_BET_SLIP": "Max number of events from tournament per bet slip",
+                    "MIN_NUMBER_OF_EVENTS_FROM_TOURNAMENT_SHOP": "Min number of events from tournament per shop",
+                    "MIN_NUMBER_OF_EVENTS_FROM_TOURNAMENT_TERMINAL": "Min number of events from tournament per terminal",
+                    "MIN_NUMBER_OF_EVENTS_FROM_TOURNAMENT_WEB": "Min number of events from tournament per web"
+                },
+                "SELECT_COMPANY_TITLE": "Select a company",
+                "SELECT_COMPANY_DESCRIPTION": "You have to select a company first",
+                "EMPTY_STATE": {
+                    "TITLE": "Select a company",
+                    "DESCRIPTION": "You have to select a company in order to see the settings"
+                }
+            }
+        },
+        "TEAM": {
+            "BREADCRUMB_TITLE": "Teams",
+            "LIST": {
+                "TITLE": "Tournament Teams",
+                "COLUMNS": {
+                    "TEAM": "Team"
+                },
+                "EMPTY_TITLE": "No teams",
+                "EMPTY_DESCRIPTION": "There are no teams in this tournament",
+                "EMPTY_ACTION_LABEL": "Consider adding a team"
+            },
+            "CREATE": {
+                "TITLE": "Add Tournament Team",
+                "TEAM_LABEL": "TEAM",
+                "TEAM_PLACEHOLDER": "Select team"
+            }
+        }
+    },
+    "SPORT": {
+        "LIST": {
+            "TITLE": "Sports",
+            "COLUMNS": {
+                "NAME": "Name",
+                "CATEGORIES": "Sport Categories"
+            },
+            "EDIT_BUTTON_TITLE": "Edit",
+            "SETTINGS_BUTTON_TITLE": "Settings",
+            "CATEGORIES_BUTTON_TITLE": "Categories",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete"
+        },
+        "BATCH_LIST": {
+            "TITLE": "Sports",
+            "COLUMNS": {
+                "NAME": "Name",
+                "COMPANY": "Company",
+                "SORT": "Sorting",
+                "LIVE": "Live",
+                "ACTIVE": "Active",
+                "SHOP": "Shop",
+                "TERMINAL": "Terminal",
+                "INTERNET": "Internet"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Sport",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter sport name",
+            "BETTING_TYPES_LABEL": "Please select betting types for this sport"
+        },
+        "LANGUAGE": {
+            "TITLE": "Sport Localization",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter sport name"
+        },
+        "SETTINGS": {
+            "TITLE": "Sport Settings",
+            "COMPANY_DROPDOWN_PLACEHOLDER": "Select Company",
+            "SORT_LABEL": "SORTING",
+            "SORT_PLACEHOLDER": "Enter sport sorting",
+            "SHOP_LABEL": "SHOP",
+            "TERMINAL_LABEL": "TERMINAL",
+            "WEB_LABEL": "WEB",
+            "LIVE_LABEL": "LIVE",
+            "EMPTY_STATE": {
+                "SELECT_COMPANY_TITLE": "Select a company",
+                "SELECT_COMPANY_DESCRIPTION": "You have to select a company first."
+            }
+        }
+    },
+    "SPORT_CATEGORY": {
+        "BREADCRUMB_TITLE": "Categories",
+        "LIST": {
+            "TITLE": "Sport Categories",
+            "COLUMNS": {
+                "NAME": "Name",
+                "SPORT": "Sport"
+            },
+            "SETTINGS": "Settings"
+        },
+        "EDIT": {
+            "TITLE": "Sport Category",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter sport category name",
+            "SPORT_LABEL": "SPORT",
+            "SPORT_PLACEHOLDER": "Select sport"
+        },
+        "SETTINGS": {
+            "TITLE": "Sport Category Settings",
+            "COMPANY": "Company",
+            "SPORT_CATEGORY": "Sport category",
+            "COMPANY_DROPDOWN_LABEL": "Company",
+            "COMPANY_DROPDOWN_PLACEHOLDER": "Select a company",
+            "SORT_LABEL": "Sorting",
+            "SORT_PLACEHOLDER": "Enter sport category sorting",
+            "SPORT_CATEGORY_DROPDOWN_LABEL": "Sport category",
+            "CREATE": {
+                "SETTING_EXIST_TITLE": "Already exist",
+                "SETTING_EXIST_DESCRIPTION": "Sport category setting already exist.",
+                "SELECT_OPTIONS_TITLE": "Please select options",
+                "SELECT_OPTIONS_DESCRIPTION": "Please select company and sport category.",
+                "COMPANY_DROPDOWN_LABEL": "Select Company",
+                "SPORT_CATEGORY_DROPDOWN_LABEL": "Select Sport Category"
+            },
+            "EMPTY_STATE": {
+                "SELECT_COMPANY_TITLE": "Select a company",
+                "SELECT_COMPANY_DESCRIPTION": "You have to select a company first.",
+                "LIST_TITLE": "No data",
+                "LIST_DESCRIPTION": "Please choose another company",
+                "LIST_CALL_TO_ACTION": "Create"
+            }
+        },
+        "LANGUAGE": {
+            "TITLE": "Sport Localization",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter sport category name"
+        }
+    },
+    "hello": "Hello",
+    "world": "World",
+    "select-language": "Choose language",
+    "NOTIFICATIONS": {
+        "SUCCESS": "Success",
+        "ERROR": "Error"
+    },
+    "SHOP": {
+        "LIST": {
+            "TITLE": "Shops"
+        }
+    },
+    "USER": {
+        "LIST": {
+            "TITLE": "Users",
+            "COLUMNS": {
+                "USERNAME": "Username",
+                "EMAIL": "Email",
+                "APPROVED": "Approved",
+                "LOCKED_OUT": "Locked Out",
+                "FIRST_NAME": "First name",
+                "LAST_NAME": "Last name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No users",
+                "ACTION": "Create new user",
+                "APPLICATION_TITLE": "Select an application",
+                "APPLICATION_DESCRIPTION": "Please select an application first."
+            }
+        },
+        "EDIT": {
+            "TITLE": "User details",
+            "USERNAME_LABEL": "USERNAME",
+            "USERNAME_PLACEHOLDER": "Enter username",
+            "EMAIL_LABEL": "EMAIL",
+            "EMAIL_PLACEHOLDER": "Enter email",
+            "ROLES_LABEL": "ROLES",
+            "ROLES_PLACEHOLDER": "Select user roles",
+            "SHOP_PLACEHOLDER": "Select shop",
+            "TAB_LABEL": {
+                "DETAILS": "User details",
+                "IDENTIFICATION_DOCUMENT": "Identification Documents",
+                "PERMISSIONS": "Permissions",
+                "ORGANIZATIONAL_STRUCTURE_LIMITS": "Limits",
+                "USER_ACCOUNTS": "Accounts",
+                "ORGANIZATIONAL_STRUCTURE_SETTINGS": "Tax/Bonus"
+            }
+        },
+        "ORGANIZATIONAL_STRUCTURE_SETTINGS_TAB_LABEL": {
+            "BONUS_SETTING": "Bonus",
+            "TAX_SETTING": "Tax",
+            "BETSLIPREPEAT_SETTING": "Bet Slip Repeat",
+            "DEPOSITINFO_SETTING": "Deposit Info"
+        },
+        "USER_PROFILE_FIELDS": {
+            "FIRST_NAME_LABEL": "FIRST NAME",
+            "LAST_NAME_LABEL": "LAST NAME",
+            "BIRTHDAY_LABEL": "DATE OF BIRTH",
+            "STREET_LABEL": "ADDRESS",
+            "HOUSE_NUMBER_LABEL": "HOUSE NUMBER",
+            "ZIP_LABEL": "ZIP",
+            "CITY_LABEL": "CITY",
+            "COUNTRY_LABEL": "COUNTRY",
+            "REGION_LABEL": "REGION",
+            "LANGUAGE_LABEL": "LANGUAGE",
+            "TELEPHONE_LABEL": "TELEPHONE",
+            "MOBILE_PHONE_LABEL": "MOBILE PHONE",
+            "EMAIL_LABEL": "EMAIL"
+        },
+        "CREATE": {
+            "USER_CREATE_SUCCESS": "Successfully created new user",
+            "USER_CREATE_ERROR": "Errror occurred while trying to create user",
+            "PROFILE_CREATE_ERROR": "Errror occurred while trying to create user profile",
+            "TITLE": "User",
+            "USERNAME_LABEL": "USERNAME",
+            "USERNAME_PLACEHOLDER": "Enter username",
+            "EMAIL_LABEL": "EMAIL",
+            "EMAIL_PLACEHOLDER": "Enter email",
+            "CONFIRM_EMAIL_LABEL": "CONFIRM EMAIL",
+            "CONFIRM_EMAIL_PLACEHOLDER": "Enter confirm email",
+            "PASSWORD_LABEL": "PASSWORD",
+            "PASSWORD_PLACEHOLDER": "Enter Password",
+            "CONFIRM_PASSWORD_LABEL": "CONFIRM PASSWORD",
+            "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
+            "ROLES_LABEL": "ROLES",
+            "ROLES_PLACEHOLDER": "Select user roles",
+            "SHOP_LABEL": "Shop",
+            "SHOP_PLACEHOLDER": "Select shop"
+        },
+        "PASSWORD_CHANGE": {
+            "TITLE": "User",
+            "PASSWORD_LABEL": "NEW PASSWORD",
+            "PASSWORD_PLACEHOLDER": "Enter new password",
+            "CONFIRM_PASSWORD_LABEL": "CONFIRM PASSWORD",
+            "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
+            "SEND_PASSWORD_CHANGE_EMAIL_LABEL": "Send email notification"
+        },
+        "TEAM_FAVORITE": {
+            "LIST": {
+                "TITLE": "User Team Favorites",
+                "COLUMNS": {
+                    "USERNAME": "Username",
+                    "USER": "User",
+                    "TEAM": "Team"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Create User Team Favorite",
+                "USER_LABEL": "Username",
+                "TEAM_LABEL": "Team",
+                "USER_PLACEHOLDER": "Select application user",
+                "TEAM_PLACEHOLDER": "Select team"
+            }
+        },
+        "PLAYER_FAVORITE": {
+            "LIST": {
+                "TITLE": "User Player Favorites",
+                "COLUMNS": {
+                    "USERNAME": "Username",
+                    "USER": "User",
+                    "PLAYER": "Player"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Create User Player Favorite",
+                "USER_LABEL": "Username",
+                "PLAYER_LABEL": "Player",
+                "USER_PLACEHOLDER": "Select application user",
+                "PLAYER_PLACEHOLDER": "Select player"
+            }
+        },
+        "TOURNAMENT_FAVORITE": {
+            "LIST": {
+                "TITLE": "User Tournament Favorites",
+                "COLUMNS": {
+                    "USERNAME": "Username",
+                    "USER": "User",
+                    "TOURNAMENT": "Tournament"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Create User Tournament Favorite",
+                "USER_LABEL": "Username",
+                "TOURNAMENT_LABEL": "Tournament",
+                "USER_PLACEHOLDER": "Select application user",
+                "TOURNAMENT_PLACEHOLDER": "Select tournament"
+            }
+        },
+        "IDENTIFICATION_DOCUMENT": {
+            "LIST": {
+                "TITLE": "User Identification Documents",
+                "DELETE": "Delete",
+                "PREVIEW_FILE": "Preview file",
+                "EMPTY_STATE": {
+                    "TITLE": "No identification documents",
+                    "DESCRIPTION": "Please upload user document files"
+                }
+            },
+            "PREVIEW": {
+                "TITLE": "User Identification documents preview"
+            },
+            "COLUMNS": {
+                "FILENAME": "File name",
+                "SENDING_TIME": "Sending time",
+                "IS_CHECKED": "Is reviewed",
+                "IS_VALID": "Is valid"
+            },
+            "FILE": {
+                "UPLOAD_ERROR": "Error uploading user files",
+                "DELETE_ERROR": "Error deleting user files",
+                "UPLOAD_BUTTON": "Upload document"
+            },
+            "VALIDATE": {
+                "VALIDATE_ERROR": "Unable to validate user",
+                "VALIDATED_SUCCESS": "User successfully validated",
+                "REJECTED_SUCCESS": "User successfulyy rejected"
+            },
+            "SAVE_STATUS_IDENTIFICATION_BUTTON": "Save status identification",
+            "SEND_EMAIL_DOCUMENT_VALID_BUTTON": "Send Approval",
+            "SEND_EMAIL_DOCUMENT_NOT_VALID_BUTTON": "Send Rejection"
+        },
+        "USER_ACCOUNTS": {
+            "LIST": {
+                "COLUMNS": {
+                    "NAME": "Name",
+                    "PAYMENT": "Payment",
+                    "PAYOUT": "Payout",
+                    "CURRENCY": "Currency",
+                    "ENABLED": "Enabled",
+                    "BALANCE": "Balance"
+                }
+            }
+        }
+    },
+    "ROLE": {
+        "LIST": {
+            "TITLE": "Roles",
+            "COLUMNS": {
+                "NAME": "Name",
+                "DESCRIPTION": "Description"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No roles",
+                "ACTION": "Create new role",
+                "APPLICATION_TITLE": "Select an application",
+                "APPLICATION_DESCRIPTION": "Please select an application first."
+            }
+        },
+        "EDIT": {
+            "TITLE": "Role",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter role name",
+            "DESCRIPTION_LABEL": "DESCRIPTION",
+            "DESCRIPTION_PLACEHOLDER": "Enter role description"
+        }
+    },
+    "TERMINAL": {
+        "TITLE": "Terminals",
+        "LIST": {
+            "TITLE": "Terminals"
+        },
+        "EMPTY_STATE": {
+            "TITLE": "No terminals",
+            "DESCRIPTION": "No terminals",
+            "APPLICATION_TITLE": "Select an application",
+            "APPLICATION_DESCRIPTION": "Please select an application first."
+        }
+    },
+    "BET_STATUS": {
+        "LIST": {
+            "TITLE": "Bet Statuses",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no bet statuses",
+                "APPLICATION_TITLE": "Select application to view bet statuses",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Bet Status",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Bet Status Localization"
+        }
+    },
+    "BET_SLIP_STATUS": {
+        "LIST": {
+            "TITLE": "Bet Slip Statuses",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no bet slip statuses",
+                "APPLICATION_TITLE": "Select application to view bet slip statuses",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Bet Slip Status",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Bet Slip Status Localization"
+        }
+    },
+    "CCTALK_COIN_TYPE": {
+        "LIST": {
+            "TITLE": "CCTalk Coin Types",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no coin types",
+                "APPLICATION_TITLE": "Select application to view coin types",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "CCTalkt Coin Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "CCTalk Coin Type Localization"
+        }
+    },
+    "PORT": {
+        "LIST": {
+            "TITLE": "Ports",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no ports",
+                "APPLICATION_TITLE": "Select application to view ports",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Port",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Port Localization"
+        }
+    },
+    "PRINTER": {
+        "LIST": {
+            "TITLE": "Printers",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no printers",
+                "APPLICATION_TITLE": "Select application to view printers",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Printer",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "Printer Translations"
+        }
+    },
+    "OMR": {
+        "LIST": {
+            "TITLE": "OMRS",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no omrs",
+                "APPLICATION_TITLE": "Select application to view omrs",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "OMR",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "OMR Localization"
+        }
+    },
+    "COUNTRY_REGION": {
+        "LIST": {
+            "COUNTRY_DROPDOWN_DEFAULT_ITEM": "All countries",
+            "TITLE": "Country Regions",
+            "COLUMNS": {
+                "NAME": "Name",
+                "COUNTRY": "Country"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Country Region",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name",
+            "COUNTRY_LABEL": "COUNTRY",
+            "COUNTRY_PLACEHOLDER": "Select country"
+        }
+    },
+    "USER_LOCK_TYPE": {
+        "LIST": {
+            "TITLE": "User Lock Types",
+            "EDIT_BUTTON_TITLE": "Edit",
+            "TRANSLATIONS_BUTTON_TITLE": "Translations",
+            "DELETE_BUTTON_TITLE": "Delete",
+            "COLUMNS": {
+                "NAME": "Name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "There are no user lock types",
+                "APPLICATION_TITLE": "Select application to view user lock types",
+                "ACTION": "Create New"
+            }
+        },
+        "EDIT": {
+            "TITLE": "User Lock Type",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name"
+        },
+        "LANGUAGE": {
+            "TITLE": "User Lock Type Localization"
+        }
+    },
+    "ROUND_DEFINITION": {
+        "LIST": {
+            "TITLE": "Rounds",
+            "ACTIVE_STATUS": "Active",
+            "INACTIVE_STATUS": "Inactive",
+            "COLUMNS": {
+                "WEEK_ID": "Week Id",
+                "WEEK_NAMES": "Week Names",
+                "FROM": "From",
+                "TO": "To",
+                "STATUS": "Active"
+            },
+            "FILTER": {
+                "ACTIVE": "Active",
+                "FROM": "From",
+                "TO": "To"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Round",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter name",
+            "FROM_LABEL": "FROM",
+            "TO_LABEL": "TO",
+            "STATUS_LABEL": "Active",
+            "WEEKLY_ID_LABEL": "WEEKLY ID"
+        }
+    },
+    "GRID": {
+        "LOADING": "Loading...",
+        "FILTERS_BUTTON": "Filters",
+        "FILTERS_TITLE": "Filters",
+        "SEARCH_INPUT": "Search",
+        "PAGING": {
+            "ITEMS_PER_PAGE": "items per page",
+            "ITEMS_COUNT": "items"
+        },
+        "ACTIONS_COLUMN": "Actions",
+        "FILTER": {
+            "SEARCH_BUTTON": "Search",
+            "CLEAR_BUTTON": "Clear"
+        }
+    },
+    "PERMISSIONS": {
+        "LIST": {
+            "TITLE": "Permissions",
+            "EMPTY_STATE": {
+                "SELECT_GROUP_TITLE": "Select section group",
+                "SELECT_GROUP_DESCRIPTION": "Select section group from the left",
+                "NO_ACCESS_SECTIONS_TITLE": "This group is empty",
+                "NO_ACCESS_SECTIONS_DESCRIPTION": "Consider adding access sections to this group",
+                "NO_ACCESS_SECTIONS_ACTION": "Add access sections"
+            }
+        }
+    },
+    "SECTION_GROUP": {
+        "LIST": {
+            "TITLE": "Section groups",
+            "COLUMNS": {
+                "NAME": "Name",
+                "ABRV": "Abrv"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit section group",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Enter a name",
+                "ACCESS_SECTIONS_LABEL": "Access sections",
+                "ACCESS_SECTIONS_PLACEHOLDER": "Select access sections"
+            }
+        }
+    },
+    "LISTBOX": {
+        "LEFT_HEADER": "All",
+        "RIGHT_HEADER": "Selected"
+    },
+    "BETTING_OFFER_SUBCATEGORY": {
+        "LIST": {
+            "TITLE": "Betting Offer Subcategories",
+            "COLUMNS": {
+                "SUBCATEGORY_NAME": "Subcategory",
+                "CATEGORY_NAME": "Category"
+            },
+            "BETTING_OFFER_CATEGORY_DROPDOWN_LABEL": "Betting offer category",
+            "BETTING_OFFER_CATEGORY_DROPDOWN_PLACEHOLDER": "Select a Betting Offer Category"
+        },
+        "CREATE": {
+            "TITLE": "Create a Betting Offer Subcategory",
+            "NAME_INPUT_FIELD_LABEL": "Name",
+            "NAME_INPUT_FIELD_PLACEHOLDER": "Enter a Betting Offer Subcategory name",
+            "BETTING_OFFER_CATEGORY_DROPDOWN_LABEL": "Betting Offer Category",
+            "BETTING_OFFER_CATEGORY_DROPDOWN_PLACEHOLDER": "Select a Betting Offer Category"
+        },
+        "EDIT": {
+            "TITLE": "Betting Offer Subcategory"
+        },
+        "LOCALIZATION": {
+            "TITLE": "Betting Offer Subcategory Localization"
+        }
+    },
+    "BETTING_OFFER_CATEGORY": {
+        "LIST": {
+            "TITLE": "Betting Offer Categories",
+            "COLUMNS": {
+                "CATEGORY_NAME": "Category"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Betting Offer Category",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Enter a category name"
+            }
+        },
+        "LOCALIZATION": {
+            "TITLE": "Betting Offer Category Localization"
+        }
+    },
+    "USER_LOGOUT_DURATION": {
+        "LIST": {
+            "TITLE": "User Logout Durations",
+            "COLUMNS": {
+                "ENVIRONMENT_NAME": "Environment Name",
+                "ROLE_NAME": "Role Name",
+                "SESSION_EXPIRATION": "Session Expiration"
+            }
+        },
+        "EDIT": {
+            "TITLE": "User Logout Duration",
+            "SESSION_EXPIRATION_LABEL": "Session expiration",
+            "SESSION_EXPIRATION_PLACEHOLDER": "Session expiration",
+            "FAIL_UPDATE": "Failed to update selected resource",
+            "FAIL_UPDATE_LARGE_NUMBER": "Entered number is too large"
+        }
+    },
+    "SESSION": {
+        "EXPIRE_TITLE": "Session expired",
+        "EXPIRE_MESSAGE": "Your session has expired, to continue your work enter password or click",
+        "EXPIRE_MESSAGE_HERE": "here",
+        "EXPIRE_MESSAGE_AFTER_HERE": "to login with different user",
+        "EXPIRE_LOGIN_BUTTON_LABEL": "Login",
+        "PASSWORD_PLACEHOLDER": "Password",
+        "PASSWORD_LABEL": "Password"
+    },
+    "MENU": {
+        "PIN_TO_SIDE": "Pin to side",
+        "V1": {
+            "LANGUAGE_CHANGE": "Language Change",
+            "CONTACT": "Contact",
+            "PASSWORD_CHANGE": "Password Change",
+            "EXIT": "Exit",
+            "WEEKLY_LONG_TERM_OFFER": "Weekly/Long term offer",
+            "SPORTS_OFFER": "Sports Offer",
+            "BET_STATUS": "Bet Status",
+            "BET_SLIP_STATUS": "Bet Slip Status",
+            "RISK_MANAGEMENT": "Risk Management",
+            "CREATING_OFFER": "Creating offer",
+            "CHANGE_START_TIME_OF_EVENTS": "Change start time of events",
+            "IMPORT_EVENTS": "Import Events",
+            "LIVE_OFFER": "Live Offer",
+            "BETRADAR_LSPORTS_JOIN": "Betradar/LSports Join",
+            "CHANGE_FEED": "Change Feed",
+            "ROUNDS_PERIOD": "Rounds Period",
+            "SPORTS": "Sports",
+            "COUNTRIES": "Countries",
+            "LEAGUES": "Leagues",
+            "TEAM": "Team",
+            "PLAYER": "Player",
+            "TIPS_TYPES": "Tips Types",
+            "LEAGUE_STATISTIC": "League Statistic",
+            "BETS_BET_SLIPS": "Bets bet slips",
+            "SHOP_MONITORING": "Shop Monitoring",
+            "CASHOUT_REPORT": "Cashout Report",
+            "LIMITS": "Limits",
+            "BLOCK_EVENTS_BETTING_TYPES_BETTING_TYPE_OPTIONS": "Block events, betting types, betting type options",
+            "PAYMENT_PER_EVENT": "Payment per event",
+            "PAYMENTS_ON_ALL_EVENTS": "Payments on all events",
+            "PAYMENT_PER_DAY_SHOP": "Payment per day (shop)",
+            "FINANCES": "Finances",
+            "VOUCHER": "Voucher",
+            "CASH_REGISTER_TRANSACTIONS": "Cash Register Transactions",
+            "USER_TRANSACTIONS": "User Transactions",
+            "USER_ACCOUNTS": "User Accounts",
+            "PAYMENT_MANAGER_SAFE_CHARGE": "Payment manager safe charge",
+            "PAYMENT_MANAGER_WIRECARD": "Payment manager wirecard",
+            "USER_ACCOUNTS_DEPOSIT_WITHDRAW": "User accounts deposit withdraw",
+            "SENDING_MESSAGES": "Sending messages",
+            "MESSAGES": "Messages",
+            "EMAIL_SETTINGS": "Email settings",
+            "MESSAGE_SETTINGS": "Message Settings",
+            "SETTINGS_BY_LANGUAGE": "Settings by language",
+            "DEFAULT_WEB_LIMITS": "Default web limits",
+            "ADMIN_SESSION": "Admin session",
+            "PAYMENT_METHODS": "Payment methods",
+            "BLOCK_LEAGUES_AND_BETTING_TYPES": "Block leagues and betting types",
+            "KEY_FOR_BETTING_SLIP_BUYBACK": "Key for betting slip buy-back",
+            "IP_LOCATOR": "IP Locator",
+            "BONUS": "Bonus",
+            "TERMS_AND_CONDITIONS": "Terms and conditions",
+            "DB_MAINTENANCE": "DB Maintenance",
+            "BETRADAR_SERVICE": "Betradar Service",
+            "ADMIN_AUTHORIZATION": "Admin Authorization",
+            "COMPANY": "Company",
+            "ROOT": "Root",
+            "CENTRAL": "Central",
+            "APPLICATION": "Application",
+            "PAYMENT_CHANNEL": "Payment Channel",
+            "ACTIVE_PAYMENT_CHANNEL": "Active Payment Channel",
+            "USERS": "Users",
+            "USER_LOCKS": "User Locks",
+            "ATTEMPT_TO_CREATE_DOUBLE_ACCOUNT": "Attempt to create double account",
+            "CREATING_USER_CARDS": "Creating user cards",
+            "CUSTOMER_CARD_CHANGE": "Customer card change",
+            "CLIENTS_DATA_CHANGE": "Clients data change",
+            "INFO_ON_ROLES": "Info on roles"
+        },
+        "V2": {
+            "ORGANIZATION": "Organization",
+            "COMPANY": "Company settings",
+            "ROOT": "Root settings",
+            "CENTRAL": "Central settings",
+            "ORGANIZATION_APPLICATION": "Application settings",
+            "ORGANIZATIONAL_STRUCTURE_LIMITS": "Organizational Structure Limits",
+            "LIMITS": "Limits",
+            "LIMIT_DEFINITION": "Limit Definition",
+            "BLOCK": "Block",
+            "EVENTS": "Block Events",
+            "BLOCK_BETTING_TYPES": "Block Betting Types",
+            "BLOCK_BETTING_TYPE_OPTIONS": "Block Betting Type Options",
+            "LEAGUES": "Block Leagues",
+            "APPLICATION_USER_DOCUMENT_VIEW": "Application User Documents",
+            "SPORT": "Sport",
+            "SPORTS": "Sports",
+            "TOURNAMENTS": "Tournaments",
+            "TEAMS": "Teams",
+            "TAX_BONUS": "Tax/Bonus",
+            "BONUS_SETTING": "Bonus Settings",
+            "TAX_SETTING": "Tax Settings",
+            "BETSLIPREPEAT_SETTING": "Bet Slip Repeat Settings",
+            "DEPOSITINFO_SETTING": "Deposit Info Settings",
+            "PLAYERS": "Players",
+            "STATISTICS": "Statistics",
+            "ORGANIZATION_USERS": "Organization Users",
+            "ORGANIZATION_ROLES": "Organization Roles",
+            "APPLICATION_USER_DOCUMENT_FILES": "User Documents",
+            "SETTINGS": "Settings",
+            "PAYMENT_METHODS": "Payment Methods",
+            "EMAIL_SETTINGS": "Email Settings",
+            "PERMISSIONS": "Permissions",
+            "TERMS_AND_CONDITIONS": "Terms and Conditions",
+            "IP_LOCATOR": "IP Locator",
+            "PLATFORM_SETTINGS": "Platform Settings",
+            "ORGANIZATION_PERMISSIONS_MAIN": "Organization Permissions",
+            "ORGANIZATION_PERMISSIONS": "Permissions",
+            "ORGANIZATION_SECTION_GROUPS": "Section Groups",
+            "LOCALIZATION": "Localization",
+            "LOOKUPS": "Lookups",
+            "COUNTRIES": "Countries",
+            "BETTING_TYPES": "Betting Types",
+            "EVENT_CHANGE_TYPES": "Event Change Types",
+            "LIMIT_CATEGORIES": "Limit Categories",
+            "USER_BLOCK_TYPES": "User Block Types",
+            "CURRENCIES": "Currencies",
+            "EVENT_COVERED_FROM_TYPES": "Event Covered From Types",
+            "TOURNAMENT_SEASON": "Tournament Seasons",
+            "BETTING_TYPE_OPTIONS": "Betting Type Options",
+            "BETTING_OFFER": "Betting Offer",
+            "REPORTS": "Reports",
+            "MESSAGES": "Messages",
+            "APPLICATION": "Application",
+            "BETTING_OFFER_MANAGEMENT": "Betting Offer Management",
+            "BET_STATUSES": "Bet Statuses",
+            "BET_SLIP_STATUSES": "Bet Slip Statuses",
+            "RISK_MANAGEMENT": "Risk Management",
+            "OFFER_CATEGORIES": "Offer Categories",
+            "BETTING_OFFER_SUBCATEGORIES": "Offer Subcategories",
+            "SPORT_OFFER_TABLES": "Offer Tables",
+            "CHANGES_IN_EVENT_START_TIME_DATA": "Changes in event start time data",
+            "IMPORT_EVENTS": "Import Events",
+            "LIVE_SPORTS_OFFER": "Live Sports Offer",
+            "BR_LS_JOIN": "BR/LS Join",
+            "CHANGE_FEED": "Change Feed",
+            "ROUNDS": "Rounds",
+            "BETS": "Bets",
+            "TRANSACTIONS": "Transactions",
+            "PAYMENTS": "Payments",
+            "BETTING_SLIPS_DATA": "Betting Slips Data",
+            "BETTING_SLIPS_DETAILS": "Betting Slips Details",
+            "STATISTIC_FOR_BETS": "Statistic for Bets",
+            "CASHOUT_REPORT": "Cashout Report",
+            "OVERALL_TRANSACTIONS": "Overall Transactions",
+            "CASH_REGISTER_TRANSACTIONS": "Cash Register Transactions",
+            "USER_TRANSACTIONS": "User Transactions",
+            "USER_ACCOUNTS": "User Accounts",
+            "USER_TEAM_FAVORITES": "Team Favorites",
+            "USER_PLAYER_FAVORITES": "Player Favorites",
+            "USER_TOURNAMENT_FAVORITES": "Tournament Favorites",
+            "PAYMENT_PER_EVENT_DATA": "Payment per event data",
+            "PAYMENT_FOR_ALL_EVENTS_DATA": "Payment for all events data",
+            "PAYMENT_PER_DAY_DATA": "Payment per day data",
+            "SHOP": "Shop",
+            "VOUCHERS": "Vouchers",
+            "BONUS": "Bonus",
+            "PAYMENT_CHANNEL": "Payment channel",
+            "ACTIVE_PAYMENT_CHANNEL": "Active payment channel",
+            "KEY_FOR_BETTING_SLIP_BUYBACK": "Key for betting slip buy-back",
+            "PAYMENT_MANAGEMENT": "Payment management",
+            "ROLES": "Roles",
+            "USERS": "Users",
+            "TERMINAL": "Terminals",
+            "CASH_REGISTER": "Cash Register",
+            "USER_DETAILS": "User Details",
+            "USER_BLOCK_HISTORY": "User Block History",
+            "LOGGING_HISTORY": "Logging History",
+            "DOUBLE_ACCOUNT_HISTORY": "Double Account History",
+            "USER_CARD_DATA": "User Card Data",
+            "CREATE_USER_CARD": "Create User Card",
+            "USER_CHANGE_HISTORY": "User Change History",
+            "CASH_REGISTER_TYPES": "Cash Register Types",
+            "USER_MONITOR_TYPES": "User Monitor Types",
+            "LANGUAGES": "Languages",
+            "SPORT_CATEGORIES": "Categories",
+            "CCTALK_COIN_TYPES": "CCTalk Coin Types",
+            "OMRS": "OMRs",
+            "PORTS": "Ports",
+            "PRINTERS": "Printers",
+            "COUNTRY_REGION": "Country Regions",
+            "USER_LOCK_TYPES": "User Lock Types",
+            "USER_MONITOR_HISTORY": "User Monitor History",
+            "USER_LOGOUT_DURATION": "User Logout Duration",
+            "BETTING_ACCOUNT_TYPES": "Betting Account Types",
+            "USER_DOUBLE_ACCOUNT_DETECTION": "User Double Account Detection",
+            "TOURNAMENT_GROUP": "Tournament Groups"
+        }
+    },
+    "User": "User",
+    "Status": "Status",
+    "Shop": "Shop",
+    "Stake": "Stake",
+    "Gain": "Gain",
+    "SuperAdmin": "SuperAdmin",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Select an application": "Select an application",
+    "Submit": "Submit",
+    "Are you sure you want to send password reset mail?": "Are you sure you want to send password reset mail?",
+    "YES": "YES",
+    "NO": "NO",
+    "Are you sure you want to disapprove user?": "Are you sure you want to disapprove user?",
+    "Are you sure you want to lock user?": "Are you sure you want to lock user?",
+    "USER_DOUBLE_ACCOUNT_DETECTION": {
+        "LIST": {
+            "FILTER": {
+                "START_DATE": "Start Date",
+                "END_DATE": "End Date",
+                "USER": "User"
+            },
+            "TITLE": "User Double Account Detection",
+            "COLUMNS": {
+                "USER": "User",
+                "FIRST_NAME": "First Name",
+                "LAST_NAME": "Last Name",
+                "DOB": "DOB",
+                "CHANGES_TIME": "Changes Time"
+            }
+        }
     }
 }

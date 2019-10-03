@@ -3,41 +3,61 @@
 \*------------------------------------*/
 
 @font-face {
-  font-family: 'icomoon';
-  src: url('~/fonts/icomoon.eot?dgwhti');
-  src: url('~/fonts/icomoon.eot?dgwhti#iefix') format('embedded-opentype'),
-    url('~/fonts/icomoon.ttf?dgwhti') format('truetype'),
-    url('~/fonts/icomoon.woff?dgwhti') format('woff'),
-    url('~/fonts/icomoon.svg?dgwhti#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("~/fonts/icomoon.eot?dgwhti");
+  src: url("~/fonts/icomoon.eot?dgwhti#iefix") format("embedded-opentype"),
+      url("~/fonts/icomoon.ttf?dgwhti") format("truetype"),
+      url("~/fonts/icomoon.woff?dgwhti") format("woff"),
+      url("~/fonts/icomoon.svg?dgwhti#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
-[class^='icon-'],
-[class*=' icon-'] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+[class^="icon-"],
+[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: "icomoon" !important;
+    speak: none;
+    font-size: 18px;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .icomoon {
+  /*custom icons*/
   &.hamburger {
-    margin: calc($unit * 2);
     float: left;
+    margin: calc($unit * 2);
+    
     font-size: 25px;
     cursor: pointer;
   }
 
+  &.treeview {
+    display: inline-block;
+    
+    font-size: 10px;
+    color: $color-tertiary;
+    
+    transform: scale(-1, 1);
+    transition: all 250ms ease-out;
+
+    &.is-collapsed {
+      transform: scale(1, 1);
+    }
+  }
+
+  /*icon sizes*/ 
+  &.xtiny {
+    font-size: 12px;
+  }
+  
   &.tiny {
     font-size: 14px;
   }
@@ -58,6 +78,32 @@
     font-size: calc($unit * 6);
   }
 
+  &.huge {
+    font-size: calc($unit * 10);
+  }
+
+  &.notify {
+      margin-right: $unit;
+      font-size: calc($unit * 3.5);
+      vertical-align: middle;
+  }
+    
+  /*used for colapse sections*/
+  &--expand {
+    display: inline-block;
+    margin-right: $unit;
+    
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 240ms ease-in-out;
+
+    &:hover {
+      color: $color-tertiary;
+    }
+  }
+
   &.notify {
     margin-right: $unit;
     font-size: calc($unit * 3.5);
@@ -70,375 +116,535 @@
     margin-right: $unit;
     animation: rotate 2s linear infinite;
   }
+
+  &.mirror {
+    transform: scaleX(-1);
+    display: inline-block;
+    margin-right: 1px;
+  }
+  
+  &.rotate-half {
+    transform: rotate(90deg);
+    color: $color-tertiary;
+  }
 }
 
-/*mapping icons */
+/*
+    mapping icons 
+*/
+.icon-card-game-dice:before {
+  content: "\e9ab";
+}
+.icon-check-1:before {
+  content: "\e9aa";
+}
+.icon-floppy-disk:before {
+  content: "\e9a9";
+}
+.icon-synchronize-arrow-1:before {
+  content: "\e9a8";
+}
+.icon-resize-expand:before {
+  content: "\e9a5";
+}
+.icon-rotate-horizontal:before {
+  content: "\e9a6";
+}
+.icon-rotate-vertical:before {
+  content: "\e9a7";
+}
+.icon-building-1-light:before {
+  content: "\e9a1";
+}
+.icon-task-list-to-do-light:before {
+  content: "\e9a2";
+}
+.icon-tags-double-light:before {
+  content: "\e9a3";
+}
+.icon-official-building-3-light:before {
+  content: "\e9a4";
+}
+.icon-swimming-diving:before {
+  content: "\e97d";
+}
+.icon-sports-car:before {
+  content: "\e97e";
+}
+.icon-skiing-snowboard:before {
+  content: "\e97f";
+}
+.icon-ski-jumping:before {
+  content: "\e980";
+}
+.icon-skiing-bobsled:before {
+  content: "\e981";
+}
+.icon-skiing-chest-slide:before {
+  content: "\e982";
+}
+.icon-skating:before {
+  content: "\e983";
+}
+.icon-shooting-rifle-person-aim:before {
+  content: "\e984";
+}
+.icon-shipment-truck-2:before {
+  content: "\e985";
+}
+.icon-sailing-boat-person:before {
+  content: "\e986";
+}
+.icon-olympics-torch:before {
+  content: "\e987";
+}
+.icon-martial-arts-sumo:before {
+  content: "\e988";
+}
+.icon-martial-arts-karate:before {
+  content: "\e989";
+}
+.icon-martial-arts-kimono:before {
+  content: "\e98a";
+}
+.icon-martial-arts-fencing:before {
+  content: "\e98b";
+}
+.icon-gymnastics-horse:before {
+  content: "\e98c";
+}
+.icon-gymnastics-ribbon-person-1:before {
+  content: "\e98d";
+}
+.icon-gymnastics-trampoline:before {
+  content: "\e98e";
+}
+.icon-fitness-weightlift:before {
+  content: "\e98f";
+}
+.icon-dog:before {
+  content: "\e990";
+}
+.icon-canoe-person-1:before {
+  content: "\e991";
+}
+.icon-canoe-person:before {
+  content: "\e992";
+}
+.icon-canoe:before {
+  content: "\e993";
+}
+.icon-cat-cat-ball:before {
+  content: "\e994";
+}
+.icon-biking-helmet-person:before {
+  content: "\e995";
+}
+.icon-biking-person:before {
+  content: "\e996";
+}
+.icon-bicycle-sports-1:before {
+  content: "\e997";
+}
+.icon-bicycle:before {
+  content: "\e998";
+}
+.icon-athletics-team-running:before {
+  content: "\e999";
+}
+.icon-athletics-running:before {
+  content: "\e99a";
+}
+.icon-archery-bow:before {
+  content: "\e99b";
+}
+.icon-vintage-car-4:before {
+  content: "\e99c";
+}
+.icon-video-game-xbox-controller:before {
+  content: "\e99d";
+}
+.icon-ticket-pay-cash:before {
+  content: "\e99e";
+}
+.icon-tennis-ball:before {
+  content: "\e99f";
+}
+.icon-target-center:before {
+  content: "\e9a0";
+}
+.icon-approve:before {
+  content: "\e97c";
+}
+.icon-arrow-button-right-1:before {
+  content: "\e97b";
+}
 .icon-check-2-some:before {
-  content: '\e97a';
+  content: "\e97a";
 }
 .icon-check-2-empty:before {
-  content: '\e900';
+  content: "\e900";
 }
 .icon-check-2:before {
-  content: '\e901';
+  content: "\e901";
 }
 .icon-touch-password-lock:before {
-  content: '\e902';
+  content: "\e902";
 }
 .icon-email-action-lock:before {
-  content: '\e903';
+  content: "\e903";
 }
 .icon-check-double:before {
-  content: '\e904';
+  content: "\e904";
 }
 .icon-disable:before {
-  content: '\e905';
+  content: "\e905";
 }
 .icon-pin:before {
-  content: '\e906';
+  content: "\e906";
 }
 .icon-pin-2:before {
-  content: '\e907';
+  content: "\e907";
 }
 .icon-pin-2-2:before {
-  content: '\e908';
+  content: "\e908";
 }
 .icon-nautic-sports-sailing-person:before {
-  content: '\e909';
+  content: "\e909";
 }
 .icon-sea-transport-sailing-boat:before {
-  content: '\e90a';
+  content: "\e90a";
 }
 .icon-sport-curling:before {
-  content: '\e90b';
+  content: "\e90b";
 }
 .icon-sport-horse-riding:before {
-  content: '\e90c';
+  content: "\e90c";
 }
 .icon-swimming-pool-person:before {
-  content: '\e90d';
+  content: "\e90d";
 }
 .icon-pool-player:before {
-  content: '\e90e';
+  content: "\e90e";
 }
 .icon-chess-figures:before {
-  content: '\e90f';
+  content: "\e90f";
 }
 .icon-nautic-sports-surfing-water:before {
-  content: '\e910';
+  content: "\e910";
 }
 .icon-golf-hole-1:before {
-  content: '\e911';
+  content: "\e911";
 }
 .icon-golf-player:before {
-  content: '\e912';
+  content: "\e912";
 }
 .icon-athletics-jumping-person:before {
-  content: '\e913';
+  content: "\e913";
 }
 .icon-athletics-javelin-throwing:before {
-  content: '\e914';
+  content: "\e914";
 }
 .icon-athletics-pole-vault:before {
-  content: '\e915';
+  content: "\e915";
 }
 .icon-baseball-bat-ball:before {
-  content: '\e916';
+  content: "\e916";
 }
 .icon-baseball-player:before {
-  content: '\e917';
+  content: "\e917";
 }
 .icon-boxing-boxer:before {
-  content: '\e918';
+  content: "\e918";
 }
 .icon-boxing-glove:before {
-  content: '\e919';
+  content: "\e919";
 }
 .icon-bowling-set:before {
-  content: '\e91a';
+  content: "\e91a";
 }
 .icon-skiing-cross-country:before {
-  content: '\e91b';
+  content: "\e91b";
 }
 .icon-skiing-slide-down:before {
-  content: '\e91c';
+  content: "\e91c";
 }
 .icon-cricket-bat-ball:before {
-  content: '\e91d';
+  content: "\e91d";
 }
 .icon-badminton-shuttlecock-racquet:before {
-  content: '\e91e';
+  content: "\e91e";
 }
 .icon-badminton-shuttlecock:before {
-  content: '\e91f';
+  content: "\e91f";
 }
 .icon-badminton-player:before {
-  content: '\e920';
+  content: "\e920";
 }
 .icon-volleyball-ball:before {
-  content: '\e921';
+  content: "\e921";
 }
 .icon-volleyball-smash:before {
-  content: '\e922';
+  content: "\e922";
 }
 .icon-bicycle-sports:before {
-  content: '\e923';
+  content: "\e923";
 }
 .icon-swimming-waterpolo:before {
-  content: '\e924';
+  content: "\e924";
 }
 .icon-american-football-run-ball:before {
-  content: '\e925';
+  content: "\e925";
 }
 .icon-american-football-ball-1:before {
-  content: '\e926';
+  content: "\e926";
 }
 .icon-sports-car-convertible:before {
-  content: '\e927';
+  content: "\e927";
 }
 .icon-car-tool-steering-wheel:before {
-  content: '\e928';
+  content: "\e928";
 }
 .icon-basketball-hoop:before {
-  content: '\e929';
+  content: "\e929";
 }
 .icon-basketball-ball-dribble-player:before {
-  content: '\e92a';
+  content: "\e92a";
 }
 .icon-basketball-ball:before {
-  content: '\e92b';
+  content: "\e92b";
 }
 .icon-tennis-racquet:before {
-  content: '\e92c';
+  content: "\e92c";
 }
 .icon-tennis-player:before {
-  content: '\e92d';
+  content: "\e92d";
 }
 .icon-hockey-puck-stick:before {
-  content: '\e92e';
+  content: "\e92e";
 }
 .icon-sport-hockey:before {
-  content: '\e92f';
+  content: "\e92f";
 }
 .icon-soccer-player-kick:before {
-  content: '\e930';
+  content: "\e930";
 }
 .icon-soccer-ball:before {
-  content: '\e931';
+  content: "\e931";
 }
 .icon-soccer-field:before {
-  content: '\e932';
+  content: "\e932";
 }
 .icon-award-trophy-star-1:before {
-  content: '\e933';
+  content: "\e933";
 }
 .icon-multiple-users-1:before {
-  content: '\e934';
+  content: "\e934";
 }
 .icon-multiple-users-2:before {
-  content: '\e935';
+  content: "\e935";
 }
 .icon-task-list-to-do:before {
-  content: '\e936';
+  content: "\e936";
 }
 .icon-tags-double:before {
-  content: '\e937';
+  content: "\e937";
 }
 .icon-official-building-3:before {
-  content: '\e938';
+  content: "\e938";
 }
 .icon-accounting-invoice-hand:before {
-  content: '\e939';
+  content: "\e939";
 }
 .icon-style-two-pin-information:before {
-  content: '\e93a';
+  content: "\e93a";
 }
 .icon-key-lock-1:before {
-  content: '\e93b';
+  content: "\e93b";
 }
 .icon-cog:before {
-  content: '\e93c';
+  content: "\e93c";
 }
 .icon-cog-double-2:before {
-  content: '\e93d';
+  content: "\e93d";
 }
 .icon-messages-bubble-square-menu:before {
-  content: '\e93e';
+  content: "\e93e";
 }
 .icon-cash-payment-bills:before {
-  content: '\e93f';
+  content: "\e93f";
 }
 .icon-browser-page-account:before {
-  content: '\e940';
+  content: "\e940";
 }
 .icon-tags-settings:before {
-  content: '\e941';
+  content: "\e941";
 }
 .icon-ticket-basketball-game:before {
-  content: '\e942';
+  content: "\e942";
 }
 .icon-style-two-pin-user:before {
-  content: '\e943';
+  content: "\e943";
 }
 .icon-common-file-text:before {
-  content: '\e944';
+  content: "\e944";
 }
 .icon-translate:before {
-  content: '\e945';
+  content: "\e945";
 }
 .icon-arrow-down-1:before {
-  content: '\e946';
+  content: "\e946";
 }
 .icon-arrow-left-1:before {
-  content: '\e947';
+  content: "\e947";
 }
 .icon-arrow-right-1:before {
-  content: '\e948';
+  content: "\e948";
 }
 .icon-arrow-up-1:before {
-  content: '\e949';
+  content: "\e949";
 }
 .icon-people-man-1:before {
-  content: '\e94a';
+  content: "\e94a";
 }
 .icon-people-man-beard-1:before {
-  content: '\e94b';
+  content: "\e94b";
 }
 .icon-building-1:before {
-  content: '\e94c';
+  content: "\e94c";
 }
 .icon-building-modern:before {
-  content: '\e94d';
+  content: "\e94d";
 }
 .icon-email-action-unread:before {
-  content: '\e94e';
+  content: "\e94e";
 }
 .icon-messages-bubble-typing-1:before {
-  content: '\e94f';
+  content: "\e94f";
 }
 .icon-download-arrow-1:before {
-  content: '\e950';
+  content: "\e950";
 }
 .icon-download-bottom:before {
-  content: '\e951';
+  content: "\e951";
 }
 .icon-upload-bottom:before {
-  content: '\e952';
+  content: "\e952";
 }
 .icon-upload-thick-box:before {
-  content: '\e953';
+  content: "\e953";
 }
 .icon-print-text:before {
-  content: '\e954';
+  content: "\e954";
 }
 .icon-search:before {
-  content: '\e955';
+  content: "\e955";
 }
 .icon-filter-1:before {
-  content: '\e956';
+  content: "\e956";
 }
 .icon-pencil-write:before {
-  content: '\e957';
+  content: "\e957";
 }
 .icon-stopwatch:before {
-  content: '\e958';
+  content: "\e958";
 }
 .icon-time-clock-circle:before {
-  content: '\e959';
+  content: "\e959";
 }
 .icon-add:before {
-  content: '\e95a';
+  content: "\e95a";
 }
 .icon-login-1:before {
-  content: '\e95b';
+  content: "\e95b";
 }
 .icon-login-3:before {
-  content: '\e95c';
+  content: "\e95c";
 }
 .icon-login-key:before {
-  content: '\e95d';
+  content: "\e95d";
 }
 .icon-logout-1:before {
-  content: '\e95e';
+  content: "\e95e";
 }
 .icon-remove:before {
-  content: '\e95f';
+  content: "\e95f";
 }
 .icon-lock-unlock-1:before {
-  content: '\e960';
+  content: "\e960";
 }
 .icon-navigation-down-circle:before {
-  content: '\e961';
+  content: "\e961";
 }
 .icon-navigation-left-circle-1:before {
-  content: '\e962';
+  content: "\e962";
 }
 .icon-navigation-right-circle-1:before {
-  content: '\e963';
+  content: "\e963";
 }
 .icon-navigation-up-circle:before {
-  content: '\e964';
+  content: "\e964";
 }
 .icon-lock-1:before {
-  content: '\e965';
+  content: "\e965";
 }
 .icon-house-1:before {
-  content: '\e966';
+  content: "\e966";
 }
 .icon-tags:before {
-  content: '\e967';
+  content: "\e967";
 }
 .icon-alarm-bell:before {
-  content: '\e968';
+  content: "\e968";
 }
 .icon-attachment:before {
-  content: '\e969';
+  content: "\e969";
 }
 .icon-hyperlink:before {
-  content: '\e96a';
+  content: "\e96a";
 }
 .icon-hyperlink-3:before {
-  content: '\e96b';
+  content: "\e96b";
 }
 .icon-synchronize-arrows-1:before {
-  content: '\e96c';
+  content: "\e96c";
 }
 .icon-alarm-bell-ring:before {
-  content: '\e96d';
+  content: "\e96d";
 }
 .icon-calendar-date:before {
-  content: '\e96e';
+  content: "\e96e";
 }
 .icon-bin:before {
-  content: '\e96f';
+  content: "\e96f";
 }
 .icon-hierarchy-4:before {
-  content: '\e970';
+  content: "\e970";
 }
 .icon-hierarchy-6:before {
-  content: '\e971';
+  content: "\e971";
 }
 .icon-settings-slider:before {
-  content: '\e972';
+  content: "\e972";
 }
 .icon-delete-1:before {
-  content: '\e973';
+  content: "\e973";
 }
 .icon-power-button:before {
-  content: '\e974';
+  content: "\e974";
 }
 .icon-pie-line-graph:before {
-  content: '\e975';
+  content: "\e975";
 }
 .icon-pie-line-graph-desktop:before {
-  content: '\e976';
+  content: "\e976";
 }
 .icon-graph-stats-ascend:before {
-  content: '\e977';
+  content: "\e977";
 }
 .icon-alert-circle:before {
-  content: '\e978';
+  content: "\e978";
 }
 .icon-question-circle:before {
-  content: '\e979';
+  content: "\e979";
 }

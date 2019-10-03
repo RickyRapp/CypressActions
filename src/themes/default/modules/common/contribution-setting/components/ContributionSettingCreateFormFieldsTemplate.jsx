@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicFieldDropdown, BasicCheckBox, BasicFieldDatePicker, BasicFormatFieldInput } from 'core/components';
+import { BaasicFieldDropdown, BasicCheckBox, DatePickerField, BasicFormatFieldInput } from 'core/components';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -46,9 +46,7 @@ function ContributionSettingCreateFormFields({
                                     </div>
                                     :
                                     <div className="form__group f-col f-col-lrg-12">
-                                        <BasicFieldDatePicker
-                                            field={startDateField}
-                                            before={moment().add(1, 'days').toDate()} />
+                                        <DatePickerField field={startDateField} />
                                     </div>)}
                             <div className="form__group f-col f-col-lrg-12">
                                 <BasicFormatFieldInput

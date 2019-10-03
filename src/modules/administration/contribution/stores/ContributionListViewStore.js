@@ -187,7 +187,7 @@ class ContributionListViewStore extends BaseContributionListViewStore {
     @action.bound async onChangeSearchDonor(option) {
         if (option) {
             this.rootStore.routerStore.navigate('master.app.administration.contribution.create', {
-                userId: option.id
+                userId: _.isString(option) ? option : option.id
             })
         }
     }

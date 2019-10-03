@@ -3,121 +3,181 @@
 \*------------------------------------*/
 
 .rc-tree {
-  overflow: auto;
+    overflow: auto;
 
-  padding: 0 calc($unit * 2);
-  padding-bottom: calc($unit * 4);
+    padding: $unit calc($unit * 2) calc($unit * 4) calc($unit * 2);
 
-  .rc-tree-title {
-    font-size: 16px !important;
-    font-family: 'IBM Plex Sans';
-  }
-
-  li {
-    /*spacing between elements*/
-
-    margin-bottom: $unit !important;
-
-    ul {
-      margin-top: 3px !important;
+    .rc-tree-title {
+        font-size: 16px !important;
+        font-family: 'IBM Plex Sans';
     }
 
-    /*style of icons*/
+    li {
+        /*spacing between elements*/
+        /* margin-bottom: $unit !important; */
 
-    .rc-tree-switcher {
-      margin-top: 5px;
-      vertical-align: sub !important;
+        border-left: dotted 1px $grey-5;
+        padding: 1px 0 1px 20px;
+        margin-left: 9px;
+        position: relative;
 
-      &.rc-tree-switcher_close {
-        background-image: none;
-        background: none;
+        &::before {
+            content: "";
+            width: 13px;
+            height: 1px;
+            border-bottom: dotted 1px $grey-5;
+            position: absolute;
+            top: 15px;
+            left: 0;
 
-        &:before {
-          content: '';
-          display: inline-block;
-
-          width: 12px;
-          height: 12px;
-
-          vertical-align: top;
-          border-right: 3px solid $grey-8;
-          border-bottom: 3px solid $grey-8;
-          transform: rotate(-45deg) scale(0.65);
         }
-      }
 
-      &.rc-tree-switcher_open {
-        background-image: none;
-        background: none;
-
-        &:before {
-          content: '';
-          display: block;
-
-          width: 12px;
-          height: 12px;
-
-          vertical-align: top;
-          border-right: 3px solid $grey-8;
-          border-bottom: 3px solid $grey-8;
-          transform: rotate(45deg) scale(0.65);
+        &:last-child {
+            &::after {
+                content: "";
+                position: absolute;
+                width: 2px;
+                height: 11px;
+                background: $white;
+                left: -1px;
+                bottom: 0px;
+            }
         }
-      }
-    }
-    .rc-tree-checkbox {
-      margin: 8px 3px !important;
-      margin-right: 8px !important;
 
-      &.rc-tree-checkbox-checked {
-      }
-    }
-    .rc-tree-iconEle {
-      margin-right: $unit !important;
-    }
-  }
-}
-
-ul.rc-tree {
-  li {
-    span.rc-tree-checkbox {
-      font-family: 'icomoon' !important;
-      speak: none;
-      font-size: 13px;
-      font-style: normal;
-      font-weight: normal;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      background-image: none;
-
-      /* Better Font Rendering =========== */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-
-      &:before {
-        content: '\e900';
-      }
-
-      &.rc-tree-checkbox-checked {
-        color: $color-tertiary;
-
-        &:before {
-          content: '\e901';
+        ul {
+            margin-top: 3px !important;
         }
-      }
 
-      /*checkbox third state (some selected)*/
-      &.rc-tree-checkbox-indeterminate {
-        color: $color-tertiary;
-
-        &:before {
-          content: '\e97a';
+        /*make selected item tall enough*/
+        .rc-tree-node-content-wrapper {
+            height: unset;
         }
-      }
+
+        /*style of icons*/
+
+        .rc-tree-switcher {
+            margin-top: 5px;
+            vertical-align: sub !important;
+            line-height: 15px !important;
+
+            &.rc-tree-switcher_close {
+                background-image: none;
+                background: none;
+
+                &:before {
+                    content:"";
+                    display: inline-block;
+
+                    width: 12px;
+                    height: 12px;
+
+                    vertical-align: top;
+                    border-right: 3px solid $grey-8;
+                    border-bottom: 3px solid $grey-8;
+                    transform: rotate(-45deg) scale(0.65);
+                }
+            }
+
+            &.rc-tree-switcher_open {
+                background-image: none;
+                background: none;
+
+                &:before {
+                    content:"";
+                    display: block;
+
+                    width: 12px;
+                    height: 12px;
+
+                    vertical-align: top;
+                    border-right: 3px solid $grey-8;
+                    border-bottom: 3px solid $grey-8;
+                    transform: rotate(45deg) scale(0.65);
+                }
+            }
+        }
+
+        .rc-tree-checkbox {
+            margin: 8px 3px !important;
+            margin-right: 8px !important;
+            speak: none;
+
+            font-family: "icomoon" !important;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+
+            background-image: none !important;
+
+            /* Better Font Rendering =========== */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            &:before {
+                content: "\e900"; /*empty checkbox*/
+            }
+
+            &.rc-tree-checkbox-checked {
+                color: $color-tertiary;
+
+                &:before {
+                    content: "\e901"; /*checked checkbox*/
+                }
+            }
+
+            /*checkbox third state (some selected)*/
+            &.rc-tree-checkbox-indeterminate {
+                color: $color-tertiary;
+
+                &:before {
+                    content: "\e97a"; /*3th state checkbox*/
+                }
+            }
+            &.rc-tree-checkbox-disabled {
+                display: none;
+            }
+        }
+
+        .rc-tree-iconEle {
+            margin-right: $unit !important;
+        }
+
+        /*highlight searched string in treeview*/
+        &.filter-node {
+            & > .rc-tree-node-content-wrapper {
+                color: $color-tertiary !important;
+            }
+        }
     }
-    /*make selected item tall enough*/
-    .rc-tree-node-content-wrapper {
-      height: unset;
+
+    /*selected item in treeview*/
+    .rc-tree-treenode-switcher-open,
+    .rc-tree-treenode-switcher-close {
+        .rc-tree-node-selected {
+            background-color: $color-tertiary;
+            border-color: color($color-tertiary blackness(5%));
+            border-radius: $global-rounded;
+            color: $white;
+            padding: 0 calc($unit * 1.5);
+        }
     }
-  }
+
+    span.rc-tree-switcher.rc-tree-switcher-noop {
+        display: none;
+    }
+
+    > li {
+        border: none;
+        padding: 0;
+        margin-left: 0;
+
+        &:before,
+        &:after {
+            content: "";
+            display: none;
+        }
+    }
 }

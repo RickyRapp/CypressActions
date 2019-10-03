@@ -64,19 +64,14 @@ function ContributionListTemplate({ contributionListViewStore }) {
                             loading={loading}
                         />}
                 </ListLayout>
-                <BaasicModal modalParams={findDonorModalParams} >
-                    <div className="col col-sml-12 card card--form card--primary card--lrg">
-                        <div className="f-row">
-                            <div className="form__group f-col f-col-lrg-12">
-                                <span>Please select donor</span>
-                                <DonorAccountSearch onChange={onChangeSearchDonor} >
-                                    {queryUtility.filter.donorAccountId &&
-                                        <div>
-                                            Use Donor From Filter, <strong><span onClick={() => onChangeSearchDonor({ id: queryUtility.filter.donorAccountId })}>Click Here</span></strong>
-                                        </div>}
-                                </DonorAccountSearch>
-                            </div>
-                        </div>
+                <BaasicModal modalParams={findDonorModalParams}>
+                    <div >
+                        <DonorAccountSearch onChange={onChangeSearchDonor} >
+                            {queryUtility.filter.donorAccountId &&
+                                <div>
+                                    Use Donor From Filter, <strong><span onClick={() => onChangeSearchDonor({ id: queryUtility.filter.donorAccountId })}>Click Here</span></strong>
+                                </div>}
+                        </DonorAccountSearch>
                     </div>
                 </BaasicModal>
                 <BaasicModal modalParams={reviewModalParams} >

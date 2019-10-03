@@ -6,195 +6,127 @@
 $custom: 15;
 
 .padd {
-  /* PADDING TOP */
-  &--top {
-    &--tny {
-      padding-top: $unit;
+    /* PADDING TOP */
+    &--top {
+        &--xtny {
+            padding-top: calc($unit / 2);
+        }
+
+        &--tny {
+            padding-top: $unit;
+        }
+
+        &--xsml {
+            padding-top: calc($unit * 1.5);
+        }
+
+        &--sml {
+            padding-top: calc($unit * 2);
+        }
+
+        &--med {
+            padding-top: calc($unit * 4);
+        }
+
+        &--lrg {
+            padding-top: calc($unit * 6);
+        }
     }
 
-    &--xsml {
-      padding-top: calc($unit * 1.5);
+    /* PADDING RIGHT */
+    &--right {
+        &--tny {
+            padding-right: $unit;
+        }
+
+        &--xsml {
+            padding-right: calc($unit * 1.5);
+        }
+
+        &--sml {
+            padding-right: calc($unit * 2);
+        }
+
+        &--med {
+            padding-right: calc($unit * 4);
+        }
+
+        &--lrg {
+            padding-right: calc($unit * 6);
+        }
     }
 
-    &--sml {
-      padding-top: calc($unit * 2);
+    /* PADDING BOTTOM */
+    &--bottom {
+        &--tny {
+            padding-bottom: $unit;
+        }
+
+        &--xsml {
+            padding-bottom: calc($unit * 1.5);
+        }
+
+        &--sml {
+            padding-bottom: calc($unit * 2);
+        }
+
+        &--med {
+            padding-bottom: calc($unit * 4);
+        }
+
+        &--lrg {
+            padding-bottom: calc($unit * 6);
+        }
     }
 
-    &--med {
-      padding-top: calc($unit * 4);
+    /* PADDING LEFT */
+    &--left {
+        &--tny {
+            padding-left: $unit;
+        }
+
+        &--xsml {
+            padding-left: calc($unit * 1.5);
+        }
+
+        &--sml {
+            padding-left: calc($unit * 2);
+        }
+
+        &--med {
+            padding-left: calc($unit * 4);
+        }
+
+        &--lrg {
+            padding-left: calc($unit * 6);
+        }
     }
 
-    &--lrg {
-      padding-top: calc($unit * 6);
-    }
-
-    &--xlrg {
-      padding-top: calc($unit * 8);
-    }
-
-    &--xxlrg {
-      padding-top: calc($unit * 10);
-    }
-
-    &--xxxlrg {
-      padding-top: calc($unit * 12);
-    }
-
-    &--huge {
-      padding-top: calc($unit * $custom);
-    }
-  }
-
-  /* PADDING RIGHT */
-  &--right {
-    &--tny {
-      padding-right: $unit;
-    }
-
-    &--xsml {
-      padding-right: calc($unit * 1.5);
-    }
-
-    &--sml {
-      padding-right: calc($unit * 2);
-    }
-
-    &--med {
-      padding-right: calc($unit * 4);
-    }
-
-    &--lrg {
-      padding-right: calc($unit * 6);
-    }
-
-    &--xlrg {
-      padding-right: calc($unit * 8);
-    }
-
-    &--xxlrg {
-      padding-right: calc($unit * 10);
-    }
-
-    &--xxxlrg {
-      padding-right: calc($unit * 12);
-    }
-
-    &--huge {
-      padding-right: calc($unit * $custom);
-    }
-    &--icon {
-      padding-right: 32px;
-    }
-  }
-
-  /* PADDING BOTTOM */
-  &--bottom {
-    &--tny {
-      padding-bottom: $unit;
-    }
-
-    &--xsml {
-      padding-bottom: calc($unit * 1.5);
-    }
-
-    &--sml {
-      padding-bottom: calc($unit * 2);
-    }
-
-    &--med {
-      padding-bottom: calc($unit * 4);
-    }
-
-    &--lrg {
-      padding-bottom: calc($unit * 6);
-    }
-
-    &--xlrg {
-      padding-bottom: calc($unit * 8);
-    }
-
-    &--xxlrg {
-      padding-bottom: calc($unit * 10);
-    }
-
-    &--xxxlrg {
-      padding-bottom: calc($unit * 12);
-    }
-
-    &--huge {
-      padding-bottom: calc($unit * $custom);
-    }
-
-    &--reset {
-      padding-bottom: 0 !important;
-    }
-  }
-
-  /* PADDING LEFT */
-  &--left {
-    &--tny {
-      padding-left: $unit;
-    }
-
-    &--xsml {
-      padding-left: calc($unit * 1.5);
-    }
-
-    &--sml {
-      padding-left: calc($unit * 2);
-    }
-
-    &--med {
-      padding-left: calc($unit * 4);
-    }
-
-    &--lrg {
-      padding-left: calc($unit * 6);
-    }
-
-    &--xlrg {
-      padding-left: calc($unit * 8);
-    }
-
-    &--xxlrg {
-      padding-left: calc($unit * 10);
-    }
-
-    &--xxxlrg {
-      padding-left: calc($unit * 12);
-    }
-
-    &--huge {
-      padding-left: calc($unit * $custom);
-    }
-  }
-  /*You can use spacers by axis*/
-  /* 
+    /*You can use spacers by axis*/
+    /* 
        ---------------------------------
        --   x-axis ->  left & right   --
        --   y-axis ->  top & bottom   --  
        ---------------------------------
     */
-  &--x {
+    &--x {
+        &--sml{
+            padding-left: calc($unit * 2);
+            padding-right: calc($unit * 2);
+        }
+    }
+
+    &--y{
+        &--sml {
+            padding-top: calc($unit * 2);
+            padding-bottom: calc($unit * 2);
+        }
+    }
+    
+    /*
+        padding all around element
+    */
     &--sml {
-      padding-left: calc($unit * 2);
-      padding-right: calc($unit * 2);
+        padding: calc($unit * 2);
     }
-  }
-
-  &--y {
-    &--tny {
-      padding-top: $unit;
-      padding-bottom: $unit;
-    }
-
-    &--sml {
-      padding-top: calc($unit * 2);
-      padding-bottom: calc($unit * 2);
-    }
-  }
-
-  &--sml {
-    padding: calc($unit * 2);
-  }
 }

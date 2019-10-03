@@ -25,3 +25,5 @@ export { default as renderIf } from './templates/renderIf';
 
 export { default as defaultTemplate } from './hoc/defaultTemplate';
 export * from './layout';
+
+export { default as dateFormatter } from './date/dateFormatter';

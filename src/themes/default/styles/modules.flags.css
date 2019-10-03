@@ -2,39 +2,40 @@
     # modules.flags
 \*------------------------------------*/
 .flag {
-  display: inline-block;
-  width: $spacer;
-  height: 18px;
-  margin-right: $unit;
+    display: inline-block;
+    width: $spacer;
+    height: calc($unit * 3);
+    margin-right: $unit;
+    
+    vertical-align: middle;
+    background-size: cover;
 
-  vertical-align: middle;
-  background-size: cover;
+    &-al {
+        background-image: url("~/flags/flag_al.svg");
+    }
 
-  &-al {
-    background-image: url('~/flags/flag_al.svg');
-  }
+    &-de {
+        background-image: url("~/flags/flag_de.svg");
+    }
 
-  &-de {
-    background-image: url('~/flags/flag_de.svg');
-  }
+    &-en {
+        background-image: url("~/flags/flag_en.svg");
+    }
 
-  &-en {
-    background-image: url('~/flags/flag_en.svg');
-  }
+    &-fr {
+        background-image: url("~/flags/flag_fr.svg");
+    }
 
-  &-fr {
-    background-image: url('~/flags/flag_fr.svg');
-  }
+    &-hr {
+        background-image: url("~/flags/flag_hr.svg");
+    }
 
-  &-hr {
-    background-image: url('~/flags/flag_hr.svg');
-  }
+    &-it {
+        background-image: url("~/flags/flag_it.svg");
+    }
 
-  &-it {
-    background-image: url('~/flags/flag_it.svg');
-  }
-
-  &-tr {
-    background-image: url('~/flags/flag_tr.svg');
-  }
+    &-tr {
+        background-image: url("~/flags/flag_tr.svg");
+    }
 }
+

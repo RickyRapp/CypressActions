@@ -1,125 +1,157 @@
 import _ from 'lodash';
 import { merge } from 'lodash';
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, computed, runInAction, reaction, autorun } from 'mobx';
+import { filterBy } from '@progress/kendo-data-query';
 import { LoaderStore } from 'core/stores';
 
 class BaasicDropdownStore {
-  @observable.ref items = [];
-  @observable _value = null;
-
-  filterTimeout = null;
+  @observable.ref originalItems = [];
+  @observable.ref filteredItems = [];
+  @observable.ref value = null;
+  @observable filterTerm;
   loaderStore = new LoaderStore();
+  initValueLoaderStore = new LoaderStore();
+
+  @computed get loading() {
+    return this.loaderStore.loading || this.initValueLoaderStore.loading;
+  }
+
+  @computed get items() {
+    let items = this.filteredItems.length > 0 ? this.filteredItems : this.originalItems;
+    if (_.isString(this.value)) {
+      return items.slice();
+    }
+    else if (_.isArray(this.value)) {
+      return [
+        ...items,
+        ..._.map(this.value, v => ({
+          ...v,
+          hideInDropdown: true
+        }))
+      ];
+    }
+    else if (_.isObject(this.value)) {
+      return [
+        ...items,
+        {
+          ...this.value,
+          hideInDropdown: true
+        }
+      ];
+    }
+
+    return items.slice();
+  }
 
   options = {
     placeholder: null,
     filterable: false,
-    textField: 'label',
-    dataItemKey: 'value',
+    textField: 'name',
+    dataItemKey: 'id',
     filterDebounce: 500,
     multi: false,
+    autoClose: false,
     defaultItem: null,
-    clearable: true,
+    initFetch: true,
+    virtualized: false,
+    virtual: null,
     disabled: false,
-    initFetch: true
+    popupSettings: {
+      animate: false
+    }
   };
 
   actions = {
     onFilter: this.defaultFilter,
     fetchFunc: null,
-    onChange: selected => selected,
-    onOpen: () => { }
+    initValueFunc: null,
+    onChange: (selected) => selected,
+    onOpen: (event) => {
+    },
+    onClose: (event) => {
+    }
   };
 
   constructor(options = null, actions = null, initialState = null) {
     if (options) merge(this.options, options);
     if (actions) merge(this.actions, actions);
-    if (initialState) this.items = initialState;
-
+    if (initialState) this.originalItems = initialState;
     this.onOpen = this.onOpen.bind(this);
-
-    this.onFilter = this.onFilter.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.filterAsync = this.filterAsync.bind(this);
-    this.filterInMemory = this.filterInMemory.bind(this);
 
     if (this.actions.fetchFunc && this.options.initFetch) {
       this.onFilter();
+      this.actions.onFilter();
     }
-  }
 
-  @computed get loading() {
-    return this.loaderStore.loading;
-  }
-  @computed get value() {
-    const { _value, options } = this;
+    if (this.actions.initValueFunc) {
+      this.initValueLoaderStore.suspend();
+      this.actions.initValueFunc()
+        .then((value) => {
+          this.setValue(value);
+          this.initValueLoaderStore.resume();
+        })
+        .catch((error) => {
+          this.initValueLoaderStore.resume();
+        })
+    }
 
-    const resolveValue = val => {
-      return _.isString(val) ? _.find(this.items, i => i[options.dataItemKey] === val) : val;
-    };
-
-    return options.multi ? _.map(_value, i => resolveValue(i)) : resolveValue(_value);
-  }
-
-  @computed get defaultValue() {
-    const { options, items } = this;
-
-    const item =
-      !_.isNull(options.defaultItem) && !_.isUndefined(options.defaultItem)
-        ? options.defaultItem
-        : _.find(items, i => i.default === true);
-
-    return item
-      ? {
-        ...item,
-        [options.textField]: t(item[options.textField]),
-        [options.dataItemKey]: item[options.dataItemKey] || null
-      }
-      : undefined;
-  }
-
-  set value(value) {
-    runInAction(() => {
-      this._value = value;
+    reaction(() => this.filterTerm, term => {
+      //console.log("filter reaction");
+      this.actions.onFilter(term);
+    }, {
+      delay: this.options.filterDebounce,
+      // fireImmediately: true
     });
   }
 
   @action.bound
-  async defaultFilter(filterTerm) {
-    return this.actions.fetchFunc
-      ? this.filterAsync(filterTerm)
-      : this.filterInMemory(filterTerm);
+  setValue(value) {
+    this.value = value;
+  }
+
+  @action.bound
+  defaultFilter(filterTerm) {
+    return this.actions.fetchFunc ? this.filterAsync(filterTerm) : this.filterInMemory(filterTerm);
   }
 
   @action.bound
   filterInMemory(filterTerm) {
-    const items = _.filter(
-      this.items.slice(),
-      i => filterTerm && i[this.options.textField] === filterTerm
-    );
-    this.setItems(items);
+    const items = _.filter(this.originalItems.slice(), i => {
+      if (filterTerm) {
+        return i[this.options.textField].toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1;
+      }
+      return true;
+    });
+
+    this.setFilteredItems(items);
+
+    return Promise.resolve();
   }
 
   @action.bound
   async filterAsync(filterTerm) {
-    const { options, actions } = this;
+    if (filterTerm == "") {
+      filterTerm = undefined;
+    }
 
     this.setLoading(true);
-    const response = await actions.fetchFunc(filterTerm);
-
+    const response = await this.actions.fetchFunc(filterTerm);
     runInAction(() => {
       const items = _.map(response, t => ({
-        [options.textField]: t[options.textField],
-        [options.dataItemKey]: t[options.dataItemKey]
+        ...t,
+        [this.options.textField]: t[this.options.textField],
+        [this.options.dataItemKey]: t[this.options.dataItemKey],
       }));
 
       this.setItems(items);
       this.setLoading(false);
     });
+    return response;
   }
 
   @action.bound
   setLoading(value) {
-    if (value === true) {
+    if (value) {
       this.loaderStore.suspend();
     } else {
       this.loaderStore.resume();
@@ -128,35 +160,53 @@ class BaasicDropdownStore {
 
   @action.bound
   setItems(items) {
-    this.items = items;
+    this.originalItems = items;
   }
 
-  onFilter(event) {
-    const { actions, options } = this;
+  @action.bound
+  setFilteredItems(items) {
+    this.filteredItems = items;
+  }
 
-    clearTimeout(this.filterTimeout);
-    return new Promise(resolve => {
-      this.filterTimeout = setTimeout(() => {
-        let filterValue = null;
-
-        if (event && event.value && event.value !== '') {
-          filterValue = event.value;
-        }
-
-        actions.onFilter(filterValue).then(() => {
-          resolve();
-        });
-      }, options.filterDebounce);
-    });
+  @action.bound
+  onFilter(value) {
+    this.filterTerm = value;
+    // this.actions.onFilter(value);
   }
 
   onChange(value) {
-    this.value = value;
-    this.actions.onChange(value);
+    this.setValue(value);
+
+    let returnValue = null;
+    if (!_.isNil(value)) {
+      if (this.options.multi) {
+        returnValue = value;
+      } else {
+        returnValue = value[this.options.dataItemKey];
+      }
+    }
+    this.actions.onChange(returnValue);
   }
 
-  onOpen(value) {
-    this.actions.onOpen(value);
+  @action.bound
+  onOpen(event) {
+    this.actions.onOpen(event);
+  }
+
+  @action.bound
+  onClose(event) {
+    this.actions.onClose(event);
+  }
+
+  has(itemOrId) {
+    if (!itemOrId) return false;
+
+    const keyName = this.options.dataItemKey;
+    if (_.isString(itemOrId)) {
+      return _.some(this.items, i => i[keyName] === itemOrId);
+    }
+
+    return _.some(this.items, i => i[keyName] === itemOrId[keyName]);
   }
 }
 

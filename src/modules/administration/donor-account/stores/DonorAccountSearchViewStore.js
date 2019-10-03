@@ -12,12 +12,9 @@ class DonorAccountSearchViewStore extends BaseViewStore {
 
         this.donorAccountDropdownStore = new BaasicDropdownStore(
             {
-                multi: false,
                 textField: 'name',
                 dataItemKey: 'id',
-                clearable: false,
-                placeholder: 'Select Donor',
-                initFetch: false
+                placeholder: 'Select Donor'
             },
             {
                 fetchFunc: async (term) => {
@@ -38,13 +35,12 @@ class DonorAccountSearchViewStore extends BaseViewStore {
 
     @action.bound async setDefaultSearch(donorAccountId) {
         if (donorAccountId) {
-            let params = getDonorAccountDropdownOptions;
-            const donorAccount = await this.donorAccountService.get(donorAccountId, params);
-            let defaultSearchDonor = { id: donorAccount.id, name: getDonorNameDropdown(donorAccount) }
             let donorSearchs = [];
-            donorSearchs.push(defaultSearchDonor);
-            this.donorAccountDropdownStore.items = donorSearchs;
-            this.donorAccountDropdownStore._value = donorAccountId;
+            const params = getDonorAccountDropdownOptions;
+            const donorAccount = await this.donorAccountService.get(donorAccountId, params);
+            donorSearchs.push({ id: donorAccount.id, name: getDonorNameDropdown(donorAccount) });
+            this.donorAccountDropdownStore.setItems(donorSearchs);
+            this.donorAccountDropdownStore.setValue(donorAccountId);
         }
     }
 }

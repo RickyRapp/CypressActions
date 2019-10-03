@@ -3,22 +3,73 @@
 \*------------------------------------*/
 
 .form {
-  &__group {
-    position: relative;
-    margin-bottom: calc($unit * 2);
+    &__group {
+        position: relative;
+        margin-bottom: calc($unit * 2);
+        /*used in*/
+        &--inline {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            flex-direction: column;
 
-    &__label {
-      display: block;
-      margin-bottom: calc($unit / 2);
 
-      @mixin type-scale $type-tiny, 1;
-      font-weight: $type-weight-medium;
-      word-break: break-all;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+            padding-bottom: calc($unit * 2);
+            border-bottom: 1px solid $grey-2;
 
-      color: $grey-6;
-      opacity: 0.7;
+            /*make inputs the same width*/
+            input {
+                width: 200px;
+                /*if label is too long*/
+                min-width: 200px;
+                text-align: right;
+            }
+
+            .form__group__label {
+                display: flex;
+                align-items: center;
+                
+                margin-bottom: 0;
+            }
+
+            .flex {
+                display: flex; 
+                justify-content: space-between;
+            }
+        }
+        
+        &--last {
+            margin-bottom: 0;
+        }
+
+        &__label {
+            display: block;
+            margin-bottom: calc($unit / 2);
+                                
+            @mixin type-scale $type-tiny, 0.6;
+            font-weight: $type-weight-medium;
+            word-break: break-all;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            
+            color: $grey-6;
+            opacity: 0.7;
+
+            &--inline {
+                display: inline-block;
+            }
+
+            &--lowercase {
+                font-size: 14px;
+                text-transform: none;
+                letter-spacing: 0.1px;
+                color: $grey-8;
+            }
+        }
+        
+        /*e.g. checkbox because label is next to input not above it*/
+        &--nolabel {
+            padding-top: 17px;
+        }
     }
-  }
 }

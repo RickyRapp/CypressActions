@@ -1,7 +1,7 @@
-import React from 'react';
-import { inject } from 'mobx-react';
+import React from "react";
+import { inject } from "mobx-react";
 import { defaultTemplate } from 'core/utils';
-import { BaasicConfirmModalTemplate } from 'themes/components';
+import { BaasicConfirmModalTemplate } from "themes/components";
 
 function BaasicConfirmModal(props) {
   return <BaasicConfirmModalTemplate {...props} />;

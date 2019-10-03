@@ -1,64 +1,79 @@
 import _ from 'lodash';
-import { action, runInAction, observable, computed } from 'mobx';
+import { action, runInAction, observable, computed, when } from 'mobx';
+import MobxReactFormDevTools from 'mobx-react-form-devtools';
+
 import { BaseViewStore } from 'core/stores';
 
 class BaseEditViewStore extends BaseViewStore {
   id = null;
   name = null;
   form = null;
-  goBack = null;
-  onAfterCreate = null;
-  onAfterUpdate = null;
 
   @observable item = null;
+  @observable itemInitialized = false;
+  @observable localizationVisible = false;
 
   // actions should not be passed in view but only used within view store
   _actions = null;
   get actions() {
-    return this._actions
-      ? typeof this._actions === 'function'
-        ? this._actions()
-        : this._actions
-      : {};
+    return this._actions ? (typeof this._actions === 'function' ? this._actions() : this._actions) : {};
   }
 
-  constructor(
-    rootStore,
-    { name, id, actions, form, FormClass, crumbs, autoInit = true, goBack = true, onAfterCreate, onAfterUpdate,
-      setValues = false, loader = false } //setValues is used for form.set('value', item), because form.update(item) does not work properly with nested child (3 nested row)
-  ) {
+  _errorActions = null;
+  get errorActions() {
+    return this._errorActions ? (typeof this._errorActions === 'function' ? this._errorActions() : this._errorActions) : {};
+  }
+
+  constructor(rootStore, { name, id, actions, errorActions, form, FormClass, crumbs, autoInit = true, localization = false, title }) {
     super(rootStore);
 
     this.id = id;
     this.name = name;
+    this.localization = localization;
     this._actions = actions;
-    this.goBack = goBack;
-    this.onAfterCreate = onAfterCreate;
-    this.onAfterUpdate = onAfterUpdate;
-    this.setValues = setValues;
-    this.loader = loader;
-    this.form =
-      form ||
-      new FormClass({
-        onSuccess: form => {
-          const item = form.values();
-          if (this.isEdit) {
-            return this.updateResource(item);
-          } else {
-            return this.createResource(item);
-          }
-        },
-        onError(form) {
-          rootStore.notificationStore.error("Testing Purpose - Check console.")
-          console.log('Form Errors', form.errors());
-          console.log('Form Values', form.values());
-          console.log('Form Rules', form.get('rules'));
-        },
+    this._errorActions = errorActions;
+    this.form = form || new FormClass({
+      onSuccess: (form) => {
+        const item = form.values();
+        if (this.isEdit) {
+          return this.updateResource(item);
+        } else {
+          return this.createResource(item);
+        }
+      }
+    });
 
-      });
+    if (process.env.NODE_ENV !== 'production') {
+      MobxReactFormDevTools.register({ [this.name]: this.form });
+      MobxReactFormDevTools.select(this.name);
+      // MobxReactFormDevTools.open(true);
+    }
+
+    // if (this.localization) {
+    //     const localizableFields = this.form.getLocalizeFields();
+    //     if (localizableFields.length === 0) {
+    //         this.localization = false;
+    //     } else {
+    //         this.translationStore = new TranslationStore(rootStore, localizableFields);
+    //     }
+    // }
+
+    // const { navigationTitle } = this.rootStore.routerStore.transitionData;
+    // if (navigationTitle || (this.isEdit && title)) {
+    //   this.rootStore.viewStore.setNavigationOptions({
+    //     title: navigationTitle || title
+    //   });
+    // }
+    // else if (!this.isEdit) {
+    //   this.rootStore.viewStore.setNavigationOptions({
+    //     title: 'EDIT_LAYOUT.NEW'
+    //   });
+    // }
 
     if (autoInit) {
-      this.fetch([this.initialize()]);
+      this.fetch([
+        this.initialize()
+      ]);
     }
   }
 
@@ -75,27 +90,30 @@ class BaseEditViewStore extends BaseViewStore {
     }
   }
 
+  @action
+  setItem(item) {
+    this.item = item;
+    this.itemInitialized = true;
+  }
+
   @action.bound
   async getResource(id, updateForm = true) {
     const item = await this.actions.get(id);
     runInAction(() => {
-      this.item = item;
+      this.setItem(item);
       if (updateForm) {
         this.updateForm();
       }
     });
-
   }
 
   @action.bound
   updateForm() {
     if (this.item) {
-      if (this.setValues) {
-        this.form.set('value', this.item);
-      }
-      else {
-        this.form.update(this.item);
-      }
+      this.form.update(this.item);
+      // if(this.translationStore) {
+      //     this.translationStore.update(this.form.values());
+      // }
     }
   }
 
@@ -103,25 +121,25 @@ class BaseEditViewStore extends BaseViewStore {
   async updateResource(resource) {
     if (!this.actions.update) return;
 
-    this.loader ? this.loaderStore.suspend() : this.form.setFieldsDisabled(true);
+    this.form.setFieldsDisabled(true);
     try {
-      const response = await this.actions.update({
+      // if (this.translationStore) {
+      //     this.translationStore.applyMetadata(resource);
+      // }
+
+      await this.actions.update({
         id: this.id,
         ...resource
       });
-      this.rootStore.notificationStore.showMessageFromResponse(response);
-      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
-    } catch (errorResponse) {
-      this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
-      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
-      return;
-    }
 
-    if (this.onAfterUpdate) {
-      this.onAfterUpdate();
-    }
-    if (this.goBack === true) {
+      this.form.setFieldsDisabled(false);
+
       await this.rootStore.routerStore.goBack();
+      await setTimeout(() => this.notifySuccessUpdate(this.name), 10);
+    }
+    catch (err) {
+      this.form.setFieldsDisabled(false);
+      return this.onUpdateError(err);
     }
   }
 
@@ -129,46 +147,60 @@ class BaseEditViewStore extends BaseViewStore {
   async createResource(resource) {
     if (!this.actions.create) return;
 
-    this.loader ? this.loaderStore.suspend() : this.form.setFieldsDisabled(true);
-    let response = null;
+    this.form.setFieldsDisabled(true);
     try {
-      response = await this.actions.create(resource);
-      this.rootStore.notificationStore.showMessageFromResponse(response);
-      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
-    } catch (errorResponse) {
-      this.rootStore.notificationStore.showMessageFromResponse(errorResponse);
-      this.loader ? this.loaderStore.resume() : this.form.setFieldsDisabled(false);
-      return;
-    }
+      // if (this.translationStore) {
+      //     this.translationStore.applyMetadata(resource);
+      // }
 
-    if (this.onAfterCreate) {
-      this.onAfterCreate(response);
-      this.form.clear();
-    }
-    if (this.goBack === true) {
+      await this.actions.create(resource);
+
+      this.form.setFieldsDisabled(false);
+
       await this.rootStore.routerStore.goBack();
+      await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+    }
+    catch (err) {
+      this.form.setFieldsDisabled(false);
+      return this.onCreateError(err);
     }
   }
 
   @action.bound
   notifySuccessCreate(name) {
-    this.rootStore.notificationStore.success(
-      `Successfully created ${_.toLower(name)}.`
-    );
+    this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
+  }
+
+  onCreateError(error) {
+    if (!this.errorActions.onCreateError) {
+      throw error;
+    }
+
+    return this.errorActions.onCreateError(error)
   }
 
   @action.bound
   notifySuccessUpdate(name) {
-    this.rootStore.notificationStore.success(
-      `Successfully updated ${_.toLower(name)}.`
-    );
+    this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE', name);
   }
 
-  @action.bound
-  notifyErrorResponse(message) {
-    this.rootStore.notificationStore.error(
-      message
-    );
+  // @action.bound toggleLocalizationVisibility() {
+  //     if (!this.localization) {
+  //         this.localizationVisible = false;
+  //     }
+
+  //     this.localizationVisible = !this.localizationVisible;
+  //     if (this.localizationVisible) {
+  //         this.translationStore.update(this.form.values());
+  //     }
+  // }
+
+  onUpdateError(error) {
+    if (!this.errorActions.onUpdateError) {
+      throw error;
+    }
+
+    return this.errorActions.onUpdateError(error);
   }
 }
 

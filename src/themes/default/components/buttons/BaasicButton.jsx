@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/utils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { defaultTemplate } from "core/utils";
 
-const iconName = name => (name ? 'icon-' + name : '');
+const iconName = name => (name ? "icon-" + name : "");
 
-const BaasicButtonTemplate = defaultTemplate(
-  ({
+const BaasicButtonTemplate = function (
+  {
     onlyIcon = false,
     disabled = false,
     content = null,
-    type = 'button',
+    type = "button",
     className,
     onClick,
     label,
     rotate = false,
-    icon
-  }) => (
+    icon,
+    t
+  }) {
+  return (
     <button
       type={type}
       disabled={disabled}
@@ -25,11 +27,11 @@ const BaasicButtonTemplate = defaultTemplate(
       {content || (
         <span>
           <span className={`icomoon ${iconName(icon)}`} />
-          {!onlyIcon && <b>{label}</b>}
+          {!onlyIcon && t(label)}
         </span>
       )}
     </button>
-  )
-);
+  );
+}
 
-export default BaasicButtonTemplate;
+export default defaultTemplate(BaasicButtonTemplate);

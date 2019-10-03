@@ -3,50 +3,18 @@
 \*------------------------------------*/
 
 @define-mixin clearfix {
-  &:after {
-    content: '';
-    clear: both;
-    display: block;
-    height: 0;
-    visibility: hidden;
-    font-size: 0;
-  }
+    &:after {
+        content: "";
+        clear: both;
+        display: block;
+        height: 0;
+        
+        font-size: 0;
+        visibility: hidden;
+    }
 }
 
 .clearfix {
-  @mixin clearfix;
+    /*define clearfix like this wherever you need */
+    @mixin clearfix;
 }
-
-.group {
-  overflow: hidden;
-}
-
-/*Clearfix for each side*/
-.clear {
-  &--left {
-    clear: left;
-  }
-
-  &--right {
-    clear: right;
-  }
-
-  &--both {
-    clear: both;
-  }
-}
-
-/*clearfix for IE6 & above*/
-/*
-
-// IE6
-* html .clearfix { 
-    zoom: 1;
-}
-    
-// IE7
-*:first-child+html .clearfix { 
-    zoom: 1;
-} 
-
-*/

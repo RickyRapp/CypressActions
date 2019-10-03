@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultTemplate } from 'core/utils';
-import { BaasicAsyncDropdown } from 'core/components';
+import { BaasicDropdown } from 'core/components';
 import _ from 'lodash';
 
 function DonorAccountSearchTemplate({ donorAccountSearchViewStore, children }) {
@@ -10,7 +10,7 @@ function DonorAccountSearchTemplate({ donorAccountSearchViewStore, children }) {
 
     return (
         <React.Fragment>
-            <BaasicAsyncDropdown store={donorAccountDropdownStore} />
+            <BaasicDropdown store={donorAccountDropdownStore} />
             {children &&
                 <div>
                     {children}

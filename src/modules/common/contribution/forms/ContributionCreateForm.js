@@ -17,6 +17,7 @@ export default class ContributionCreateForm extends FormBase {
                 {
                     name: 'amount',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.AMOUNT'),
+                    placeholder: localizationService.t('CONTRIBUTIONCREATEFORM.AMOUNT'),
                     rules: 'required|numeric',
                     options: {
                         validateOnChange: true
@@ -25,21 +26,25 @@ export default class ContributionCreateForm extends FormBase {
                 {
                     name: 'description',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.DESCRIPTION'),
+                    placeholder: localizationService.t('CONTRIBUTIONCREATEFORM.DESCRIPTION'),
                     rules: 'string'
                 },
                 {
                     name: 'paymentTypeId',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.PAYMENTTYPEID'),
+                    placeholder: localizationService.t('CONTRIBUTIONCREATEFORM.PAYMENTTYPEID'),
                     rules: 'required|string'
                 },
                 {
                     name: 'bankAccountId',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.BANKACCOUNTID'),
+                    placeholder: localizationService.t('CONTRIBUTIONCREATEFORM.BANKACCOUNTID'),
                     rules: 'string'
                 },
                 {
                     name: 'checkNumber',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.CHECKNUMBER'),
+                    placeholder: localizationService.t('CONTRIBUTIONCREATEFORM.CHECKNUMBER'),
                     rules: 'string'
                 },
                 {
@@ -197,8 +202,9 @@ export default class ContributionCreateForm extends FormBase {
                 },
                 {
                     name: 'settingStartDate',
+                    type: 'date',
                     label: localizationService.t('CONTRIBUTIONCREATEFORM.SETTINGSTARTDATE'),
-                    rules: `date|after:${moment(new Date).add(1, 'days').format('MM/DD/YYYY')}`
+                    rules: `min_date:${moment().add(1, 'days').format('MM/DD/YYYY')}`
                 }
             ]
         }

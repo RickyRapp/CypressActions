@@ -5,16 +5,7 @@ import { BaasicButtonTemplate } from 'themes/components';
 
 class BaasicButton extends Component {
   render() {
-    const {
-      type,
-      onClick,
-      disabled,
-      content,
-      className,
-      label,
-      icon,
-      rotate
-    } = this.props;
+    const { type, onClick, disabled, content, className, label, icon, rotate, onlyIcon } = this.props;
 
     return (
       <BaasicButtonTemplate
@@ -26,6 +17,7 @@ class BaasicButton extends Component {
         onClick={onClick}
         label={label}
         icon={icon}
+        onlyIcon={onlyIcon}
       />
     );
   }
@@ -39,17 +31,19 @@ BaasicButton.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   icon: PropTypes.string,
-  rotate: PropTypes.bool
+  rotate: PropTypes.bool,
+  onlyIcon: PropTypes.bool
 };
 
 BaasicButton.defaultProps = {
   type: 'button',
-  onClick: () => {},
+  onClick: () => { },
   className: 'btn btn--med',
   disabled: false,
   content: null,
   label: 'Button',
-  rotate: false
+  rotate: false,
+  onlyIcon: false
 };
 
 export default BaasicButton;

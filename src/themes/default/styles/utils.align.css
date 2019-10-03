@@ -3,52 +3,44 @@
 \*------------------------------------*/
 
 .align {
-  /* Horizontal align */
-  &--h {
-    &--center {
-      margin-left: auto;
-      margin-right: auto;
-    }
+	/* Horizontal align */
+	&--h {
+		&--center {
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+	}
+	
+	/* Vertical align */
+	&--v {
+		&--top {
+			vertical-align: top;
+		}
 
-    &--left {
-      margin-right: auto;
-    }
+		&--middle {
+			vertical-align: middle;
+		}
 
-    &--right {
-      margin-left: auto;
-    }
-  }
+		&--sub {
+			vertical-align: sub;
+		}
 
-  /* Vertical align */
-  &--v {
-    &--top {
-      vertical-align: top;
-    }
+		&--bottom {
+			vertical-align: bottom;
+		}
+		
+		&--baseline {
+			vertical-align: baseline;
+		}
 
-    &--middle {
-      vertical-align: middle;
-    }
+		&--text-top {
+			vertical-align: text-top;
+		}
 
-    &--sub {
-      vertical-align: sub;
-    }
-
-    &--bottom {
-      vertical-align: bottom;
-    }
-
-    &--baseline {
-      vertical-align: baseline;
-    }
-
-    &--text-top {
-      vertical-align: text-top;
-    }
-
-    &--neg {
-      &--3 {
-        vertical-align: calc(-$unit / 3);
-      }
-    }
-  }
+		&--neg {
+			&--3 {
+				vertical-align: calc(-$unit / 3);
+			}
+		}
+	}
 }

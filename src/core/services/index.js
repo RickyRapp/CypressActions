@@ -5,3 +5,4 @@ export { default as PermissionService } from './PermissionService';
 export { default as authServiceFactory } from './authServiceFactory';
 export { default as localizationService } from './localizationService';
 export { default as baasicAppFactory } from './baasicAppFactory';
+export { default as validatorService } from './validatorService';

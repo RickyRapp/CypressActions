@@ -3,93 +3,87 @@
 \*------------------------------------*/
 
 .w {
-  &--50 {
-    width: 50%;
-
-    &--px {
-      width: 50px;
-    }
-  }
-
-  &--80 {
-    width: 80%;
-
-    &--px {
-      width: 80px;
-    }
-  }
-
-  &--100 {
-    width: 100%;
-
-    &--px {
-      width: 100px;
-    }
-
-    &--from {
-      &-med {
-        @media (--screen-from-med) {
-          width: 100%;
+    &--40 {
+        &--vw {
+            &--min {
+                min-width: 40vw;
+            }
         }
-      }
+    }
+    &--80 {
+        width: 80%;
     }
 
-    &--to {
-      &-lrg {
-        @media (--screen-to-lrg) {
-          width: 100%;
+    &--100 {
+        width: 100%;
+
+        &--px {
+            width: 100px;
         }
-      }
+
+        &--from {
+            &-med {
+                @media (--screen-from-med) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &--to {
+            &-lrg {
+                @media (--screen-to-lrg) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &--min {
+            min-width: 100px;
+        }
+    }
+    
+    &--160 {
+        &--px {
+            width: 160px;
+        }
+    }
+    &--200 {
+        &--px {
+            width: 200px;
+        }
+    }
+    &--250 {
+        &--px {
+            width: 250px;
+        }
     }
 
-    &--min {
-      min-width: 100px;
+    &--400 {
+        &--px {
+            width: 400px;
+        }
     }
-  }
-  &--120 {
-    &--min {
-      min-width: 120px;
-    }
-  }
-  &--160 {
-    &--px {
-      width: 160px;
-    }
-  }
-  &--200 {
-    &--px {
-      width: 200px;
-    }
-  }
-  &--250 {
-    &--px {
-      width: 250px;
-    }
-  }
-  &--300 {
+
     &--500 {
-      min-width: 300px;
-      max-width: 500px;
+        &--px {
+            /*kendo override must have important to work*/
+            width: 500px !important;
+        }
+
+        &--max {
+            max-width: 500px;
+        }
     }
 
-    &--1200 {
-      min-width: 300px;
-      max-width: 1200px;
+    &--760 {
+        &--max {
+            max-width: 760px;
+        }
     }
-  }
-  &--400 {
-    &--px {
-      width: 400px;
+
+    &--1024 {
+        &--max {
+            max-width: 1024px;
+        }
     }
-  }
-  &--760 {
-    &--max {
-      max-width: 760px;
-    }
-  }
-  &--1024 {
-    &--max {
-      max-width: 1024px;
-    }
-  }
 }

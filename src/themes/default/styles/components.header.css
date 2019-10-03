@@ -3,79 +3,146 @@
 \*------------------------------------*/
 
 .header {
-  &__logo {
-    width: calc($unit * 17);
-    float: left;
-    margin: calc($unit / 2) calc($unit / 2) 0 $unit;
-    cursor: pointer;
-  }
-
-  &__profile {
-    position: relative;
-    margin-right: calc($unit * 2);
-    padding: $unit;
-
-    cursor: pointer;
-    border-radius: $global-radial;
-    background-color: $color-secondary-light;
-    transition: all 200ms ease-in-out;
-
-    &:hover {
-      background-color: color($color-secondary-light blackness(+10%));
-      color: $white;
+    &__logo {
+        float: left;
+        width: calc($unit * 17);
+        margin: calc($unit / 2) calc($unit / 2) 0 $unit;
+        cursor: pointer;
     }
 
-    &:focus {
-      background-color: color($color-secondary blackness(+15%));
-      outline: none;
-    }
+    &__profile {
+        position: relative;
+        margin-right: calc($unit * 2);
+        padding: $unit;
 
-    &__dropdown {
-      z-index: 3;
-      opacity: 0;
-      visibility: hidden;
-
-      position: absolute;
-      top: calc(100% + $unit / 2);
-      right: 0;
-
-      width: calc($unit * 30);
-
-      @mixin type-scale $type-xsmall, 1;
-      text-align: left;
-
-      border-radius: $global-radial;
-      background-color: $white;
-      box-shadow: 0 1px $unit $grey-7;
-
-      transform: translateY(calc(-$unit * 2));
-      transition: transform 200ms ease-in-out;
-
-      &.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-
-      &__item {
-        padding: $unit calc($unit * 2);
-        color: $color-text-dark;
-        transition: all 250ms ease-out;
+        cursor: pointer;
+        border-radius: $global-radial;
+        background-color: $color-secondary-light;
+        transition: all 200ms ease-in-out;
 
         &:hover {
-          background-color: $grey-2;
+            background-color: color($color-secondary-light blackness(+10%));
+            color: $white;
         }
-      }
+
+        &:focus {
+            background-color: color($color-secondary blackness(+15%));
+            outline: none;
+        }
+
+        &__dropdown {
+            z-index: 3;
+            opacity: 0;
+            visibility: hidden;
+
+            position: absolute;
+            top: calc(100% + $unit / 2);
+            right: 0;
+
+            width: calc($unit * 40);
+
+            @mixin type-scale $type-xsmall, 1.2;
+            text-align: left;
+
+            border-radius: $global-radial;
+            background-color: $white;
+            box-shadow: 0 1px $unit $grey-7;
+
+            transform: translateY(calc(-$unit * 2));
+            transition: transform 200ms ease-in-out;
+
+            &.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            &__item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                padding: $unit calc($unit * 2);
+                color: $color-text-dark;
+                transition: all 250ms ease-out;
+
+                &:hover {
+                    background-color: $grey-2;
+                }
+            }
+        }
+
+        &__img {
+            border-radius: $global-rounded;
+            margin-left: calc($unit / 2);
+        }
     }
 
-    &__img {
-      border-radius: $global-rounded;
-      margin-left: calc($unit / 2);
+    &__language {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
     }
-  }
 
-  &__language {
-    position: relative;
-    cursor: pointer;
-  }
+    /*Dropdown for selecting company and application*/
+    &__dropdown {
+        display: inline-flex;
+        margin-left: calc(($unit * 22) - 2px);
+        margin-top: -9px;
+        
+        &__icon {
+            padding: 16px 9px;
+            
+            color: $grey-2;
+            background-color: #3d486d;
+
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        /* override kendo styles just for header input for company/application select */
+        & .k-dropdown.input--dropdown {
+            width: 310px;
+
+            .k-dropdown-wrap {
+                border: none;
+                border-radius: 0;
+                
+                color: $grey-2;
+                background-color: #3d486d;
+
+                .k-input {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: flex-start;
+                    
+                    height: 53px;
+                    color: $white;
+                    
+                    span:nth-child(1) {
+                        white-space: normal;
+                        word-break: break-all;
+                        font-size: 14px;
+                        font-weight: $type-weight-bold;
+                    }
+
+                    span:nth-child(2) {
+                        white-space: normal;
+                        word-break: break-all;
+                        font-size: 12px;
+                    }
+                }
+
+                &.k-state-focused {
+                    border: none !important;
+                    background-color: #535f88;
+                    
+                    box-shadow: none;
+                    animation: none;
+
+                }
+            }
+        }
+    }
 }

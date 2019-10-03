@@ -3,38 +3,42 @@
 \*------------------------------------*/
 
 .tabs {
-  &--primary {
-    &__item {
-      position: relative;
-      display: inline-block;
-      padding: calc($spacer / 2) $spacer;
+    &--primary {
+        margin: -$unit calc($unit * -2);
 
-      color: $grey-5;
-      letter-spacing: 0.7px;
-      font-weight: $type-weight-regular;
-      transition: all 200ms ease-in-out;
-      cursor: pointer;
+        &__item {
+            position: relative;
+            display: inline-block;
+            padding: calc($spacer / 2) $spacer;
 
-      &:hover {
-        color: $color-tertiary;
+            color: $grey-4;
+            letter-spacing: 0.7px;
+            font-weight: $type-weight-medium;
+            transition: all 200ms ease-in-out;
+            cursor: pointer;
 
-        &:after {
-          content: '';
-          display: block;
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          left: 0;
+            &:hover {
+                color: $color-tertiary;
 
-          height: calc($unit / 2);
-          background-color: $color-tertiary;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    
+                    display: block;
+                    height: calc($unit / 2);
+                    
+                    background-color: $color-tertiary;
+                }
+            }
+            
+            &.active {
+                font-weight: $type-weight-medium;
+                color: $white;
+                background-color: $color-tertiary;
+            }
         }
-      }
-      &.active {
-        color: $white;
-        background-color: $color-tertiary;
-        font-weight: $type-weight-medium;
-      }
     }
-  }
 }

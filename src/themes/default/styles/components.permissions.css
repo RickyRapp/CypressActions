@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    # components.permissions
+\*------------------------------------*/
+
+.permission {
+    width: 100%;
+    min-width: 1200px;
+    
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    &__thead {
+
+        &__item {
+            overflow: hidden;
+            
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        /*make table header always visible*/
+        tr:nth-child(1) th{
+            z-index: 10;
+            
+            position: sticky;
+            top: 0;
+            
+            padding: $unit 0;
+
+            background-color: $white;
+            box-shadow: inset 0 -2px 0 -1px $grey-3;
+        }
+    }
+
+    &__tbody {
+        th {
+            text-align: left;
+            padding: calc($unit / 2) $unit;
+        }
+        
+        td {
+            padding: calc($unit / 2) $unit;
+            text-align: center;
+        }
+    }
+
+    &__title {
+        padding: calc($unit * 2);
+        background-color: $color-secondary-light;
+
+        font-weight: $type-weight-semibold;
+        text-align: left !important;
+        
+        color: $white;
+    }
+}

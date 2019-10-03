@@ -3,15 +3,14 @@
 \*------------------------------------*/
 
 /*Create consistant typography*/
-.highcharts-title,
-.highcharts-axis-title {
-  fill: $grey-6 !important;
-
-  font-weight: $type-weight-semibold;
-  font-family: $ff-sans;
+.highcharts-title, .highcharts-axis-title {
+	fill: $grey-6 !important;
+	
+	font-weight: $type-weight-semibold;
+	font-family: $ff-sans;
 }
 
 /*Hide highcharts credits*/
 .highcharts-credits {
-  display: none;
+    display: none;
 }

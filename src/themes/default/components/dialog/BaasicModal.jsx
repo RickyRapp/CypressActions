@@ -1,27 +1,20 @@
-import React from 'react';
-import Modal from 'react-modal';
-import { defaultTemplate } from 'core/utils';
-import { Loader } from 'core/components';
-import { NotifyOutsideClick } from 'core/components';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
+import React from "react";
+import Modal from "react-modal";
+import { defaultTemplate } from "core/utils";
 
 function BaasicModalTemplate({ modalParams, children, ...other }) {
   return (
-    <Modal isOpen={modalParams.isOpen} style={customStyles} {...other}>
-      <NotifyOutsideClick action={modalParams.notifyOutsideClick}>
-        <button onClick={modalParams.close}>close</button>
-        {modalParams.loading ? <Loader /> : children}
-      </NotifyOutsideClick>
+    <Modal
+      className="modal__content"
+      overlayClassName="modal__overlay"
+      isOpen={modalParams.isOpen}
+      {...other}
+    >
+      <span
+        className="icomoon icon-remove modal__icon--close"
+        onClick={modalParams.close}
+      />
+      {React.cloneElement(children, { modalParams })}
     </Modal>
   );
 }

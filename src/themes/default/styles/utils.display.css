@@ -3,210 +3,67 @@
 \*------------------------------------*/
 
 .display {
-  &--b {
-    display: block;
 
-    /*Responsive display util for showing block element*/
-    &--from {
-      &--sml {
-        @media (--screen-from-sml) {
-          display: block;
+	&--b {
+		display: block;
+
+        /*Responsive display util for showing block element*/
+        &--from {
+            &--sml {
+                @media (--screen-from-sml) {
+                    display: block;
+                }
+            }
         }
-      }
 
-      &--med {
-        @media (--screen-from-med) {
-          display: block;
+        &--to{
+            &--sml{
+                @media (--screen-to-sml){
+                    display: block;
+                }
+            }
         }
-      }
+	}
 
-      &--lrg {
-        @media (--screen-from-lrg) {
-          display: block;
+	&--ib {
+		display: inline-block;
+
+        /*Responsive display util for showing inline element*/
+        &--from {
+            &--sml {
+                @media (--screen-from-sml) {
+                    display: inline-block;
+                }
+            }
         }
-      }
 
-      &--xlrg {
-        @media (--screen-from-xlrg) {
-          display: block;
+        &--to{
+            &--sml{
+                @media (--screen-to-sml){
+                    display: inline-block;
+                }
+            }
         }
-      }
+	}
 
-      &--xxlrg {
-        @media (--screen-from-xxlrg) {
-          display: block;
+	&--none {
+		display: none;
+
+        /*Responsive display util for hiding element (remove from UI "display: none;")*/
+        &--from {
+            &--sml {
+                @media (--screen-from-sml) {
+                    display: none;
+                }
+            }
         }
-      }
-    }
 
-    &--to {
-      &--sml {
-        @media (--screen-to-sml) {
-          display: block;
+        &--to{
+            &--sml {
+                @media (--screen-to-sml) {
+                    display: none;
+                }
+            }
         }
-      }
-
-      &--med {
-        @media (--screen-to-med) {
-          display: block;
-        }
-      }
-
-      &--lrg {
-        @media (--screen-to-lrg) {
-          display: block;
-        }
-      }
-
-      &--xlrg {
-        @media (--screen-to-xlrg) {
-          display: block;
-        }
-      }
-
-      &--xxlrg {
-        @media (--screen-to-xxlrg) {
-          display: block;
-        }
-      }
-    }
-  }
-
-  &--ib {
-    display: inline-block;
-
-    /*Responsive display util for showing inline element*/
-    &--from {
-      &--sml {
-        @media (--screen-from-sml) {
-          display: inline-block;
-        }
-      }
-
-      &--med {
-        @media (--screen-from-med) {
-          display: inline-block;
-        }
-      }
-
-      &--lrg {
-        @media (--screen-from-lrg) {
-          display: inline-block;
-        }
-      }
-
-      &--xlrg {
-        @media (--screen-from-xlrg) {
-          display: inline-block;
-        }
-      }
-
-      &--xxlrg {
-        @media (--screen-from-xxlrg) {
-          display: inline-block;
-        }
-      }
-    }
-
-    &--to {
-      &--sml {
-        @media (--screen-to-sml) {
-          display: inline-block;
-        }
-      }
-
-      &--med {
-        @media (--screen-to-med) {
-          display: inline-block;
-        }
-      }
-
-      &--lrg {
-        @media (--screen-to-lrg) {
-          display: inline-block;
-        }
-      }
-
-      &--xlrg {
-        @media (--screen-to-xlrg) {
-          display: inline-block;
-        }
-      }
-
-      &--xxlrg {
-        @media (--screen-to-xxlrg) {
-          display: inline-block;
-        }
-      }
-    }
-  }
-
-  &--none {
-    display: none;
-
-    /*Responsive display util for hiding element (remove from UI "display: none;")*/
-    &--from {
-      &--sml {
-        @media (--screen-from-sml) {
-          display: none;
-        }
-      }
-
-      &--med {
-        @media (--screen-from-med) {
-          display: none;
-        }
-      }
-
-      &--lrg {
-        @media (--screen-from-lrg) {
-          display: none;
-        }
-      }
-
-      &--xlrg {
-        @media (--screen-from-xlrg) {
-          display: none;
-        }
-      }
-
-      &--xxlrg {
-        @media (--screen-from-xxlrg) {
-          display: none;
-        }
-      }
-    }
-
-    &--to {
-      &--sml {
-        @media (--screen-to-sml) {
-          display: none;
-        }
-      }
-
-      &--med {
-        @media (--screen-to-med) {
-          display: none;
-        }
-      }
-
-      &--lrg {
-        @media (--screen-to-lrg) {
-          display: none;
-        }
-      }
-
-      &--xlrg {
-        @media (--screen-to-xlrg) {
-          display: none;
-        }
-      }
-
-      &--xxlrg {
-        @media (--screen-to-xxlrg) {
-          display: none;
-        }
-      }
-    }
-  }
+	}
 }

@@ -3,41 +3,41 @@
 \*------------------------------------*/
 
 .pull {
-  float: left;
+	float: left;
 
-  &--to {
-    &--sml {
-      @media (--screen-to-sml) {
-        float: left;
-      }
-    }
-  }
+	&--to {
+		&--sml {
+			@media (--screen-to-sml) {
+		    	float: left;
+			}	
+		}
+	}
 
-  &--from {
-    &--tny {
-      @media (--screen-from-sml) {
-        float: left;
-      }
+    &--from {
+        &--tny {
+            @media (--screen-from-sml) {
+                float: left;
+            }
+        }
     }
-  }
 }
 
 .push {
-  float: right;
+	float: right;
 
-  &--to {
-    &--sml {
-      @media (--screen-to-sml) {
-        float: right;
-      }
-    }
-  }
+    &--to {
+		&--sml {
+			@media (--screen-to-sml) {
+		    	float: right;
+			}	
+		}
+	}
 
-  &--from {
-    &--med {
-      @media (--screen-from-med) {
-        float: left;
-      }
+    &--from {
+        &--med {
+            @media (--screen-from-med) {
+                float: left;
+            }
+        }
     }
-  }
 }
