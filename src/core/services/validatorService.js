@@ -1,4 +1,4 @@
-import Validator from "validatorjs";
+import Validator from 'validatorjs';
 import _ from 'lodash';
 import { localizationService } from 'core/services';
 import { validationErrors } from 'core/utils/validation';

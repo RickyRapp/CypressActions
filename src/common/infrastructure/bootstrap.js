@@ -1,18 +1,30 @@
-import { moduleProviderFactory, moduleBuilder } from 'core/providers';
+import _ from 'lodash';
+import { moduleProviderFactory } from 'core/providers';
 
 class BaasicBootstrap {
-  run(context) {
-    moduleBuilder.setGlobalContext(context);
+	run() {
+		return this.getConfigurations(['common', 'application']);
+	}
 
-    const { rootStore } = context;
-    let modules = ['common', 'application'];
+	getConfigurations(moduleNames) {
+		const modules = moduleProviderFactory.find(moduleNames);
 
-    const routes = moduleBuilder.buildRoutes(modules);
-    const stores = moduleBuilder.buildStores(['common']);
+		let routes = [];
+		let menus = [];
+		let stores = [];
 
-    rootStore.initializeRoutes(routes);
-    rootStore.initializeStores(stores);
-  }
+		_.each(modules, (module) => {
+			routes = [...routes, ...module.getRoutes()];
+			menus = [...menus, ...module.getMenus()];
+			stores = [...stores, ...module.getStores()];
+		});
+		
+		return {
+			routes,
+			menus,
+			stores
+		};
+	}
 }
 
 export default new BaasicBootstrap();

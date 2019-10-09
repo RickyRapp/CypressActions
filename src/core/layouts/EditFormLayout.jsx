@@ -4,15 +4,17 @@ import { inject } from 'mobx-react';
 import { EditFormLayoutTemplate } from 'themes/layouts';
 
 const EditFormLayout = function(props) {
-  return <EditFormLayoutTemplate {...props} />;
+    return <EditFormLayoutTemplate {...props} />;
 };
 
 EditFormLayout.propTypes = {
-  loading: PropTypes.bool,
-  form: PropTypes.object.isRequired,
-  isEdit: PropTypes.bool.isRequired
+    store: PropTypes.object,    
+    loading: PropTypes.bool,
+    layoutFooterVisible: PropTypes.bool,
 };
 
-export default inject((i, props) => ({
-  rootStore: i.rootStore
+export default inject(
+    // eslint-disable-next-line
+    (i, props) => ({
+    rootStore: i.rootStore,
 }))(EditFormLayout);

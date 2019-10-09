@@ -1,0 +1,23 @@
+/*------------------------------------*\
+    # utils.display
+\*------------------------------------*/
+
+.u {
+	&-display {
+		&--i {
+			display: inline;
+		}
+
+		&--b {
+			display: block;
+		}
+
+		&--ib {
+			display: inline-block;
+		}
+
+		&--none {
+			display: none;
+		}
+	}
+}

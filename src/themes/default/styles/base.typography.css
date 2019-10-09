@@ -7,7 +7,8 @@
  */
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
-    font-weight: $type-weight-bold;
+    font-family: $ff-sans;
+    font-weight: $type-weight-regular;
 }
 
 h1 {
@@ -16,21 +17,14 @@ h1 {
 
 h2 {
     @mixin type-scale $type-xlarge, 1.5;
-    font-variant-ligatures: none;
 }
 
 h3 {
     @mixin type-scale $type-large, 1.25;
-    font-weight: 600;
-    letter-spacing: 1px;
 }
 
 h4, h5, h6 {
     @mixin type-scale $type-medium, 1;
-    font-weight: 500;
-    letter-spacing: 0.8;
-    opacity: 0.8;
-    font-weight: 600;
 }
 
 /**
@@ -60,50 +54,39 @@ dl dd {}
  * Anchors
  */
 a {
-    color: $color-text-dark;
+    color: $color-primary;
     text-decoration: none;
-    transition: all 200ms ease-in-out;
-
-    &.anchor .icomoon {
-        color: $color-tertiary;
-        vertical-align: middle;
-        margin-right: $unit;
-    }
+    cursor: pointer;
+    text-decoration-skip-ink: auto; /* Ensure that underlines don’t pass through descenders. */
 }
-
 a:link {}
 a:hover {
-    color: $color-tertiary;
-    cursor: pointer;
+    color: color($color-primary lightness(+20));
 }
-
 a:focus {
     outline: 0;
-    color: color($color-tertiary lightness(+20%));
+    color: color($color-primary lightness(+30));
 }
-
 a:visited {}
 
 /**
  * Typographic details
  */
 hr {
+    border-top: 1px solid #bfbfbf;
 }
-
 em {}
-
 b, strong {
     font-weight: bold
 }
-
 address {}
 small {}
 pre {}
-code {}
+code {
+    background-color: color($color-text lightness(+80%));
+    padding: calc($unit / 2);
+    color: $color-secondary;
+}
 sub {}
 sup {}
 strike {}
-
-* {
-    font-variant-ligatures: none;
-}

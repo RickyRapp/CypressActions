@@ -1,90 +1,92 @@
 import React from 'react';
-import { translate } from 'core/utils';
-import { NotifyOutsideClick, Gravatar } from 'core/components';
+import PropTypes from 'prop-types';
+
+import {
+    NotifyOutsideClick,
+    Gravatar
+} from 'core/components';
 import logo from 'themes/assets/img/logo.svg';
-import userLogo from 'themes/assets/img/user.svg';
-import { defaultTemplate } from 'core/utils';
+import {defaultTemplate} from 'core/hoc';
 
-function HeaderTemplate({ rootStore, routerStore }) {
-  const {
-    viewStore: {
-      toggleProfileMenu,
-      setProfileMenu,
-      profileMenuOpen,
-      toggleMainMenuVisibility
-    },
-    menuStore
-  } = rootStore;
-  return (
-    <header className="layout__header">
-      <img
-        className="header__logo"
-        src={logo}
-        alt="logo"
-        width={32}
-        height={32}
-        onClick={() => routerStore.goTo(routerStore.rootStore.initialState)}
-      />
+function HeaderTemplate({ rootStore, routerStore, t }) {
+    const {
+        viewStore: {
+            toggleProfileMenu,
+            setProfileMenu,
+            profileMenuOpen,
+        },
+    } = rootStore;
 
-      <div className="display--ib push">
-        <NotifyOutsideClick action={e => setProfileMenu(false)}>
-          <div className="header__profile">
-            <div onClick={toggleProfileMenu}>
-              {rootStore.authStore.user ? (
-                <div>
-                  <img
-                    alt={`Gravatar for ${rootStore.authStore.user.email}`}
-                    src={userLogo}
-                    height="30"
-                    width="30"
-                    className="header__profile__img"
-                  />
-                  {/* <Gravatar
-                    className="header__profile__img"
-                    email={rootStore.authStore.user.email}
-                  /> */}
-                  <span>
-                    {/* {rootStore.authStore.user.displayName} */}
-                    <span className="k-icon k-i-arrow-s type--color--negative" />
-                  </span>
-                </div>
-              ) : null}
+    return (
+        <header className="layout__header header">
+            <img
+                className='header__logo'
+                src={logo}
+                alt='logo'
+                onClick={() =>
+                    routerStore.goTo('master.app.main.dashboard')
+                }
+            />
+            
+            {/* 
+                uncomment this if you need to debug session expiration modal
+                
+                <button onClick={()=>{
+                    rootStore.authStore.token = null;
+                }}>Invalidate token</button> 
+                <button type='button' onClick={clearToken}>CLEAR</button>
+            */}
+
+            {/*<button type="button" onClick={clearToken}>CLEAR</button>*/}
+            <div className="header__profile">
+                <NotifyOutsideClick action={() => setProfileMenu(false)}>
+                    <div>
+                        <div onClick={toggleProfileMenu}>
+                            {rootStore.userStore.user ? (
+                                <div>
+                                    <Gravatar
+                                        className='header__profile__img'
+                                        email={
+                                            rootStore.userStore.user.email
+                                        }
+                                    />
+                                    <span className="header__profile__name">
+                                        <span>{rootStore.userStore.user.displayName}</span>
+                                        <i className="k-icon k-i-arrow-s type--color--negative header__profile__icon"></i>
+                                    </span>
+                                </div>
+                            ) : null}
+                        </div>
+                        <div className={'header__profile__dropdown' + (profileMenuOpen ? ' active' : '')}>
+                            <ul>
+                                <li className='header__profile__dropdown__item'
+                                    onClick={() => {
+                                        // membershipStore.viewStore.routes.userPreferences();
+                                        routerStore.goTo('master.app.main.user-profile.password-change');
+                                        toggleProfileMenu();
+                                    }}> Change password
+                                </li>
+                                <li className='header__profile__dropdown__item'
+                                    onClick={() => {
+                                        rootStore.viewStore.logout();
+                                        toggleProfileMenu();
+                                    }}> {t('HEADER.USER_MENU.LOGOUT')}
+                                </li>
+                            </ul>
+                        </div>
+                     </div>
+                </NotifyOutsideClick>
+
             </div>
-            <div
-              className={
-                'header__profile__dropdown' + (profileMenuOpen ? ' active' : '')
-              }
-            >
-              <ul>
-                <li
-                  className="header__profile__dropdown__item"
-                  onClick={() => {
-                    // membershipStore.viewStore.routes.userPreferences();
-                    routerStore.goTo('master.app.membership.password-change');
-                    toggleProfileMenu();
-                  }}
-                >
-                  {' '}
-                  Change password
-                </li>
 
-                <li
-                  className="header__profile__dropdown__item"
-                  onClick={() => {
-                    rootStore.viewStore.logout();
-                    toggleProfileMenu();
-                  }}
-                >
-                  {' '}
-                  Log off
-                </li>
-              </ul>
-            </div>
-          </div>
-        </NotifyOutsideClick>
-      </div>
-    </header>
-  );
+        </header>
+    );
 }
+
+HeaderTemplate.propTypes = {
+    rootStore: PropTypes.object,
+    routerStore: PropTypes.object,
+    t: PropTypes.func
+};
 
 export default defaultTemplate(HeaderTemplate);

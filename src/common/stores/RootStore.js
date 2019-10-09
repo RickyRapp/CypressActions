@@ -1,173 +1,114 @@
 import _ from 'lodash';
-import { RouterState } from 'mobx-state-router';
-import { action, observable, computed } from 'mobx';
-import { AppStore, ApplicationStore } from 'common/stores';
-import { Router } from 'core/stores';
+import {RouterState, HistoryAdapter} from 'mobx-state-router';
+
+import {history} from 'common/utils';
+import {ApplicationStore, AppStore} from 'common/stores';
+import {EventHandler, cacheService} from 'core/services';
+import {moduleBuilder} from 'core/providers';
+import {getDefaultRouteDataMap} from 'core/utils';
 
 import {
-  AuthStore,
-  ErrorStore,
-  MainViewStore,
-  LocalizationStore,
-  MenuStore,
-  NotificationStore,
-  ModalStore
+    AuthStore,
+    ErrorStore,
+    MainViewStore,
+    MenuStore,
+    NotificationStore,
+    BaasicMessageStore,
+    ModalStore,
+    UserStore,
+    PermissionStore,
+    RouterStore,
+    TimeZoneStore,
+    LocalizationStore
 } from 'core/stores';
 
-export default class RootStore {
-  routerStore = null;
-  routerMaps = null;
+export default class RootStore {    
+    eventHandler = new EventHandler();
+    initialState = new RouterState('master.app.main.dashboard');
 
-  initialState = new RouterState('master.public.home');
-  initialMainState = new RouterState('master.app.main.home.overview');
-  initialMainDonorAccountState = new RouterState('master.app.main.donor.account.edit');
-  initialMainCharityState = new RouterState('master.app.main.charity.profile');
-  initialAdministrationState = new RouterState('master.app.administration.home.overview');
-  initialScannerState = new RouterState('master.app.scanner.info.config');
-
-  get app() {
-    return this.applicationStore.app;
-  }
-
-  @computed get breadcrumbs() {
-    const activeMenuItem = this.menuStore.activeMenuItem;
-    if (!activeMenuItem) return [];
-
-    let menuBreadcrumbs = _.map(activeMenuItem.path, menuItem => ({
-      title: menuItem.title,
-      route: menuItem.route
-    }));
-
-    const { routes, routerState } = this.routerStore;
-    const activeRoute = _.find(routes, { name: routerState.routeName });
-
-    let crumbs = [];
-    // append only crumbs whose route isn't prefix of active menu item route
-    const data = this.routerStore.routeDataMap.get(activeRoute.name);
-    if (data.crumbs && data.crumbs.length > 0) {
-      crumbs = _.filter(
-        data.crumbs,
-        c =>
-          c.title &&
-          c.title !== '' &&
-          !_.startsWith(activeMenuItem.route, c.route)
-      );
+    get application() {
+        return this.applicationStore.app;
     }
 
-    return [...menuBreadcrumbs, ...crumbs];
-  }
+    constructor(configuration) {
+        this.configuration = configuration;      
 
-  getBaasicApp() {
-    return this.applicationStore.applicationExists
-      ? this.applicationStore.app.baasic
-      : null;
-  }
+        const moduleContext = { rootStore: this };
+        const { routes, routerMaps } = moduleBuilder.buildRoutes(configuration.routes, moduleContext);
+        moduleBuilder.buildStores(configuration.stores, moduleContext);
 
-  constructor() {
-    this.errorStore = new ErrorStore(this);
-    this.appStore = new AppStore(this);
-    this.authStore = new AuthStore(this);
-    this.localizationStore = new LocalizationStore(this);
-    this.menuStore = new MenuStore(this);
-    this.notificationStore = new NotificationStore(this);
-    this.viewStore = new MainViewStore(this);
-    this.applicationStore = new ApplicationStore(this);
-    this.modalStore = new ModalStore(this);
-  }
+        this.routerStore = new RouterStore(this, [...routes], new RouterState('master.not-found'));
+        this.routerStore.routeDataMap = getDefaultRouteDataMap(routes);
+        this.routerMaps = routerMaps;
 
-  @action initializeRoutes({ routes, routerMaps }) {
-    this.routerMaps = routerMaps;
-    const routeDataMap = createRouteDataMap(routes);
-    this.routerStore = new Router(
-      this,
-      routes,
-      new RouterState('master.not-found')
-    );
-    this.routerStore.routeDataMap = routeDataMap;
+        this.errorStore = new ErrorStore(this);
+        this.appStore = new AppStore(this);
+        this.userStore = new UserStore(this);
+        this.authStore = new AuthStore(this);
+        this.permissionStore = new PermissionStore(this);
+        this.localizationStore = new LocalizationStore(this);
+        this.menuStore = new MenuStore(this);
+        this.notificationStore = new NotificationStore(this);
+        this.viewStore = new MainViewStore(this);
+        this.baasicMessageStore = new BaasicMessageStore(this);
+        this.applicationStore = new ApplicationStore(this);
+        this.modalStore = new ModalStore(this);
+        this.timeZoneStore = new TimeZoneStore(this);
 
-    var self = this;
-    this.routerStore.setErrorHandler(error => {
-      self.errorStore.setError({
-        title: error && error.message ? error.message : null,
-        description: error && error.stack ? error.stack : null
-      });
-      return self.routerStore.navigate('master.error');
-    });
-
-    const currentPath = this.routerStore.historyAdapter.history.location
-      .pathname;
-    if (currentPath === '' || currentPath === '/') {
-      this.routerStore.navigate(this.initialState);
-    }
-  }
-
-  initializeStores(store) {
-    const { app, ...other } = store;
-
-    if (app) {
-      this.applicationStore.extend(app);
+        this.createApplicationService = this.createApplicationService.bind(this);
     }
 
-    Object.assign(this, other);
-  }
+    setupRouter() {
+        var self = this;
+        this.routerStore.setErrorHook(error => {
+            self.errorStore.setError({
+                title: error && error.message ? error.message : null,
+                description: error && error.stack ? error.stack : null
+            });
+            return self.routerStore.goTo(new RouterState('error', { type: 'router' }));
+        });
 
-  initializeMenus(menus, toState) {
-    this.menuStore.setMenu(menus, toState);
-  }
+        this.historyAdapter = new HistoryAdapter(this.routerStore, history);
+        this.historyAdapter.observeRouterStateChanges();
 
-  getLoginRoute() {
-    return new RouterState('master.public.membership.login');
-  }
+        const currentPath = this.historyAdapter.history.location.pathname;
 
-  getAppRoute() {
-    if (this.authStore.isAministratorRole || this.authStore.isEmployeeRole) {
-      return new RouterState('master.app.administration.home');
-    }
-    else {
-      return new RouterState('master.app.main.home');
-    }
-  }
-}
-
-function createRouteDataMap(routes) {
-  const dataMap = observable.map();
-
-  _.each(routes, route => {
-    // set default back for common pages
-    // create -> list
-    // edit -> list
-    // settings -> list
-    // language -> list
-    let goBack = route.data.back;
-    if (!goBack) {
-      const routeName = route.name;
-      if (
-        _.endsWith(routeName, '.create') ||
-        _.endsWith(routeName, '.edit') ||
-        _.endsWith(routeName, '.settings') ||
-        _.endsWith(routeName, '.language')
-      ) {
-        const parts = _.split(routeName, '.');
-        const listRoute =
-          _.join(_.take(parts, parts.length - 1), '.') + '.list';
-        if (_.some(routes, r => r.name === listRoute)) {
-          goBack = listRoute;
+        //TODO check if neccessary isAuthenticated
+        if ((currentPath === '' || currentPath === '/') && this.authStore.isAuthenticated) {
+            this.routerStore.goTo('master.app.main.dashboard');
         }
-      }
     }
 
-    const { data } = route;
-    if (data && data.title && (!data.crumbs || data.crumbs.length === 0)) {
-      // set page breadcrumb as page title if not breadcrumb defined
-      data.crumbs = [{ title: data.title }];
+    navigateLogin() {
+        // clear storage here
+        cacheService.clear();
+        return this.routerStore.goTo('master.app.membership.login');
     }
 
-    const routeData = _.merge({}, route.data, {
-      back: goBack,
-      crumbs: data.crumbs
-    });
-    dataMap.set(route.name, routeData);
-  });
+    createApplicationService(Type) {
+        return new Type(this.application.baasic.apiClient);
+    }
 
-  return dataMap;
+    async routeChange({ fromState, toState, options }) {
+        const { authStore, permissionStore } = this;
+        if (fromState && fromState.routeName === 'master.app.membership.login' && toState.routeName === 'error') {
+            return Promise.reject(this.initialState);
+        }
+
+        if (options.isPublic === false) {
+            if (!authStore.isAuthenticated && toState.routeName !== 'master.app.membership.login') {
+                authStore.setSignInRedirect(toState);
+                return Promise.reject(new RouterState('master.app.membership.login'));
+            }
+
+            if (
+                (options.authorization.length > 0 && _.some(options.authorization, a => !permissionStore.hasPermission(a)))
+                || !permissionStore.hasPermission()
+            ) {
+                return Promise.reject(new RouterState('unauthorized'));
+            }
+        }
+
+        return Promise.resolve();
+    }
 }

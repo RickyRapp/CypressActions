@@ -1,47 +1,61 @@
+import _ from 'lodash';
+
 class BaseService {
-  apiClient = null;
-  routeService = null;
+    apiClient = null;
 
-  constructor(apiClient, routeService) {
-    this.apiClient = apiClient;
-    this.routeService = routeService;
+    constructor(apiClient, routeService) {
+        this.apiClient = apiClient;
+        this.routeService = routeService;
 
-    this.find = this.find.bind(this);
-    this.get = this.get.bind(this);
-    this.create = this.create.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
-  }
+        this.find = this.find.bind(this);
+        this.get = this.get.bind(this);
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
+        this.batchDelete = this.batchDelete.bind(this);
+        this.batchUpdate = this.batchUpdate.bind(this);
+    }
 
-  async find(filter) {
-    const url = this.routeService.find(filter);
-    const response = await this.apiClient.get(url);
-    return response.data || null;
-  }
+    find(filter) {
+        const url = this.routeService.find(filter);
+        return this.apiClient.get(url);
+    }
 
-  async get(id, options = {}) {
-    const url = this.routeService.get(id, options);
-    const response = await this.apiClient.get(url);
-    return response.data || null;
-  }
+    get(id, options = { }) {
+        const url = this.routeService.get(id, options);
+        return this.apiClient.get(url);
+    }
 
-  async create(resource) {
-    var url = this.routeService.create();
-    const response = await this.apiClient.post(url, resource);
-    return response || null;
-  }
+    create(resource) {
+        const url = this.routeService.create();
+        return this.apiClient.post(url, resource);
+    }
 
-  async update(resource) {
-    const url = this.routeService.update(resource);
-    const response = await this.apiClient.put(url, resource);
-    return response || null;
-  }
+    update(resource) {
+        const url = this.routeService.update(resource);
+        return this.apiClient.put(url, resource);
+    }
 
-  async delete(resource) {
-    const url = this.routeService.delete(resource);
-    const response = await this.apiClient.delete(url, resource);
-    return response.data || null;
-  }
+    delete(resource) {
+        const url = this.routeService.delete(resource);
+        return this.apiClient.delete(url, null, resource);
+    }
+
+    batchDelete(resources) {
+        const url = this.routeService.batchDelete(resources);
+        const ids = resources ? _.map(resources, (r) => r.id) : [];
+        return this.apiClient.delete(url, null, ids);
+    }
+
+    batchUpdate(resources) {
+        const url = this.routeService.batchUpdate(resources);
+        return this.apiClient.put(url, resources)
+    }
+
+    batchCreate(resources) {
+        const url = this.routeService.batchCreate(resources);
+        return this.apiClient.post(url, resources)
+    }
 }
 
 export default BaseService;

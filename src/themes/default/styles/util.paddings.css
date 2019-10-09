@@ -1,0 +1,183 @@
+﻿/*------------------------------------*\
+    # util.paddings
+\*------------------------------------*/
+
+/** 
+* you can use custom multiplyer for huge spacing
+* $custom: 15;
+
+* You can use spacers by axis 
+---------------------------------
+--   x-axis ->  left & right   --
+--   y-axis ->  top & bottom   --  
+---------------------------------
+*/
+
+.u {
+    &-padd {
+        &--top {
+            &--tny {
+                padding-top: $unit;
+            }
+
+            &--xsml {
+                padding-top: calc($unit * 1.5);
+            }
+
+            &--sml {
+                padding-top: calc($unit * 2);
+            }
+
+            &--med {
+                padding-top: calc($unit * 4);
+            }
+
+            &--lrg {
+                padding-top: calc($unit * 6);
+            }
+
+            &--xlrg {
+                padding-top: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                padding-top: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                padding-top: calc($unit * 12);
+            }
+        }
+
+        &--right {
+            &--tny {
+                padding-right: $unit;
+            }
+
+            &--xsml {
+                padding-right: calc($unit * 1.5);
+            }
+
+            &--sml {
+                padding-right: calc($unit * 2);
+            }
+
+            &--med {
+                padding-right: calc($unit * 4);
+            }
+
+            &--lrg {
+                padding-right: calc($unit * 6);
+            }
+
+            &--xlrg {
+                padding-right: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                padding-right: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                padding-right: calc($unit * 12);
+            }
+        }
+
+        &--bottom {
+            &--tny {
+                padding-bottom: $unit;
+            }
+
+            &--xsml {
+                padding-bottom: calc($unit * 1.5);
+            }
+
+            &--sml {
+                padding-bottom: calc($unit * 2);
+            }
+
+            &--med {
+                padding-bottom: calc($unit * 4);
+            }
+
+            &--lrg {
+                padding-bottom: calc($unit * 6);
+            }
+
+            &--xlrg {
+                padding-bottom: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                padding-bottom: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                padding-bottom: calc($unit * 12);
+            }
+        }
+
+        &--left {
+            &--tny {
+                padding-left: $unit;
+            }
+
+            &--xsml {
+                padding-left: calc($unit * 1.5);
+            }
+
+            &--sml {
+                padding-left: calc($unit * 2);
+            }
+
+            &--med {
+                padding-left: calc($unit * 4);
+            }
+
+            &--lrg {
+                padding-left: calc($unit * 6);
+            }
+
+            &--xlrg {
+                padding-left: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                padding-left: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                padding-left: calc($unit * 12);
+            }
+        }
+
+        &--x {
+            &--sml {
+                padding: inherit calc($unit * 2); 
+            }
+            &--med {
+                padding: inherit calc($unit * 4); 
+            }
+            &--lrg {
+                padding: inherit calc($unit * 6); 
+            }
+            &--xlrg {
+                padding: inherit calc($unit * 8); 
+            }
+        }
+        &--y {
+            &--sml {
+                padding: calc($unit * 2) inherit; 
+            }
+            &--med {
+                padding: calc($unit * 4) inherit; 
+            }
+            &--lrg {
+                padding: calc($unit * 6) inherit; 
+            }
+            &--xlrg {
+                padding: calc($unit * 8) inherit; 
+            }
+        }
+    }
+}

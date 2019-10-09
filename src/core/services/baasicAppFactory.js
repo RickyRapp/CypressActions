@@ -3,16 +3,16 @@ import { baasicOptions } from 'common/infrastructure';
 import { baasicKeyHandler } from 'core/utils';
 
 class BaasicAppFactory {
-  constructor(options) {
-    this.options = options;
-  }
+    constructor(options) {
+        this.options = options;
+    }
 
-  create(apiKey) {
-    return new BaasicApp(apiKey, {
-      storageHandler: { keyGenerator: baasicKeyHandler },
-      ...this.options
-    });
-  }
+    create(apiKey) {
+        return new BaasicApp(apiKey, {
+            storageHandler: { keyGenerator: baasicKeyHandler },
+            ...this.options
+        });
+    }    
 }
 
 const baasicAppFactory = new BaasicAppFactory(baasicOptions);

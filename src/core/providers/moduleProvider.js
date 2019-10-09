@@ -1,47 +1,57 @@
 import _ from 'lodash';
-import { routeProvider, menuProvider, storeProvider } from 'core/providers';
 
 class ModuleProvider {
-  configurations = [];
+	name = null;
+	configurations = [];
 
-  register(config) {
-    this.configurations.push(config);
-  }
+	constructor(name) {
+		this.name = name;
+	}
 
-  getRouteConfiguration(context) {
-    const items = [];
-    _.each(this.configurations, config => {
-      if (config.routes) {
-        const routes = _.isFunction(config.routes)
-          ? config.routes(context)
-          : config.routes;
-        items.push(...routes);
-      }
-    });
-    return items;
-  }
+	register(config) {
+		this.configurations.push(config);
+	}
 
-  getMenuConfiguration(context) {
-    const items = [];
-    _.each(this.configurations, config => {
-      if (config.menu) {
-        items.push(
-          _.isFunction(config.menu) ? config.menu(context) : config.menu
-        );
-      }
-    });
-    return items;
-  }
+	getRoutes() {
+		const items = [];
+		_.each(this.configurations, (config) => {
+			if (config.routes) {
+				const routes = _.isFunction(config.routes) 
+                    ? (ctx) => config.routes(ctx) 
+                    : config.routes;
+				items.push(...routes);
+			}
+		});
+		return items;
+	}
 
-  getStoreConfiguration(context) {
-    const items = [];
-    _.each(this.configurations, config => {
-      if (config.storeFactory) {
-        items.push(config.storeFactory);
-      }
-    });
-    return items;
-  }
+	getMenus() {
+		const items = [];
+		_.each(this.configurations, (config) => {
+			if (config.menu) {
+				items.push(
+                    _.isFunction(config.menu) 
+                        ? (ctx) => config.menu(ctx) 
+                        : config.menu
+                );
+			}
+		});
+		return items;
+	}
+
+	getStores() {
+		const items = [];
+		_.each(this.configurations, (config) => {
+			if (config.moduleStore) {
+				items.push(
+                    _.isFunction(config.moduleStore) 
+                        ? (ctx) => config.moduleStore(ctx) 
+                        : config.moduleStore
+                );
+			}
+		});
+		return items;
+	}
 }
 
 export default ModuleProvider;

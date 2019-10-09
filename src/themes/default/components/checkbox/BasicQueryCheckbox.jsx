@@ -1,6 +1,9 @@
-import React from "react";
-import { BasicCheckbox } from "core/components";
-import { defaultTemplate } from "core/utils";
+import React from 'react';
+
+import PropTypes from 'prop-types';
+
+import { BasicCheckbox } from 'core/components';
+import { defaultTemplate } from 'core/hoc';
 
 function BasicQueryCheckboxTemplate({
     id,
@@ -11,11 +14,11 @@ function BasicQueryCheckboxTemplate({
     checked
 }) {
     const handleChange =
-        onChange || (e => queryUtility.filter.toggle(propertyName));
+        onChange || (() => queryUtility.filter.toggle(propertyName));
     const value = checked || !!queryUtility.filter[propertyName];
     return (
         <BasicCheckbox
-            type="checkbox"
+            type='checkbox'
             id={id}
             onChange={handleChange}
             checked={value}
@@ -23,5 +26,15 @@ function BasicQueryCheckboxTemplate({
         />
     );
 }
+
+BasicQueryCheckboxTemplate.propTypes = {
+    id: PropTypes.string,
+    queryUtility: PropTypes.object,
+    propertyName: PropTypes.string,
+    label: PropTypes.string,
+    onChange: PropTypes.func,
+    checked: PropTypes.bool,
+    t: PropTypes.func
+};
 
 export default defaultTemplate(BasicQueryCheckboxTemplate);

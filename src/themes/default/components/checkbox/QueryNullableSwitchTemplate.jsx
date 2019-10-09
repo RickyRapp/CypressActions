@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NullableSwitch } from 'core/components';
-import { defaultTemplate } from 'core/utils';
+import {defaultTemplate} from 'core/hoc';
 
 function QueryNullableSwitchTemplate({ queryUtility, propertyName, ...props }) {
     return (

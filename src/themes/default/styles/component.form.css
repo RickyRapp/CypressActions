@@ -1,0 +1,35 @@
+/*------------------------------------*\
+    # component.form
+\*------------------------------------*/
+
+.form {
+    &__group {
+        position: relative;
+        margin-bottom: calc($unit * 2);
+
+        &__label {
+            display: block;
+            margin-bottom: calc($unit / 2);
+            color: $grey-6;
+        }
+
+        &__link {
+
+            &--reset-pass {
+                background-image: svg-load('postcss-svg/password-key.svg', fill: $color-primary);
+
+                &:hover {
+                    background-image: svg-load('postcss-svg/password-key.svg', fill: color($color-primary lightness(+20)));
+                }
+            }
+
+            &--email-pass {
+                background-image: svg-load('postcss-svg/email-lock.svg', fill: $color-primary);
+
+                &:hover {
+                    background-image: svg-load('postcss-svg/email-lock.svg', fill: color($color-primary lightness(+20)));
+                }
+            }
+        }
+    }
+}

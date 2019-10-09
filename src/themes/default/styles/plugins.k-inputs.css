@@ -28,16 +28,16 @@
 
         .k-dropdown-wrap {
             padding: $unit 0;
-            border-radius: $global-radial;
+            border-radius: $radius-base;
 
             color: $grey-2;
             background-image: none;
-            background-color: $color-secondary-light;
+            background-color: $color-secondary;
             
             transition: all 250ms ease-out;
 
             &:hover {
-                background-color: color($color-secondary-light blackness(+10%));
+                background-color: color($color-secondary blackness(+10%));
             }
 
             .k-input {
@@ -58,7 +58,7 @@
 
         .k-dropdown-wrap {
             padding: $unit 0;
-            border-radius: $global-radial;
+            border-radius: $radius-base;
 
             color: $grey-2;
             background-image: none;
@@ -93,9 +93,9 @@
         .k-dropdown-wrap {
             padding: 3px;
             border: 1px solid $grey-3;
-            border-radius: $global-radial;
+            border-radius: $radius-base;
 
-            background-color: $white;
+            background-color: white;
             background-image: none;
 
             &.k-state-focused {
@@ -107,7 +107,7 @@
             }
             
             .k-input {
-                color: $black;
+                color: black;
             }
         }
 
@@ -132,28 +132,28 @@
 
 .version-switch {
     .k-widget.k-switch {
-        background-color: $color-secondary-light;
+        background-color: $color-secondary;
 
         .k-switch-container {
-            background-color: $color-secondary-light;
+            background-color: $color-secondary;
 
             .k-switch-label-on {
                 top: 16px;
                 left: 7px;
-                color: $white;
+                color: white;
             }
 
             .k-switch-label-off {
                 top: 16px;
                 right: 11px;
-                color: $white;
+                color: white;
             }
         }
     }
 
     & .k-switch-on {
         & .k-switch-handle {
-            background-color: $color-quaternary;
+            background-color: $color-secondary;
             border-color: $color-secondary;
         }
     }
@@ -168,7 +168,7 @@
             /*spacing for clear button*/
             padding-right: 22px;
             border: 1px solid $grey-3;
-            border-radius: $global-radial;
+            border-radius: $radius-base;
 
             .k-clear-value {
                 top: 7px;
@@ -211,7 +211,7 @@
 .k-datepicker {
     .k-picker-wrap {
         border: 1px solid $grey-3;
-        border-radius: $global-radial;
+        border-radius: $radius-base;
 
         &.k-state-focused {
             border: 1px solid $grey-3;
@@ -225,13 +225,13 @@
     }
     
     .k-select {
-        background-color: $lavender;
+        background-color: $color-primary;
         background-image: none;
     }
 
     &:hover {
         .k-select {
-            background-color: $lavender;
+            background-color: $color-primary;
             background-image: none;
         }
     }
@@ -268,13 +268,13 @@
 .k-daterangepicker {
     .k-dateinput-wrap {
         border: 1px solid $grey-3;
-        border-radius: $global-radial;
+        border-radius: $radius-base;
 
         &.k-state-focused {
             border: 1px solid $grey-3;
         }
 
-        .k-dateinput .k-dateinput-wrap .k-input, 
+        .k-dateinput .k-dateinput-wrap .k-input,  
         .k-input {
             height: unset;
             padding: 8px;
@@ -282,14 +282,14 @@
     }
 
     .k-select {
-        background-color: $lavender;
+        background-color: $color-primary;
         background-image: none;
     }
 
     &:hover {
         .k-select {
             background-image: none;
-            background-color: $lavender;
+            background-color: $color-primary;
         }
     }
     /*width of inputs*/
@@ -453,7 +453,7 @@
 
         .k-numeric-wrap {
             border: 1px solid $grey-3;
-            border-radius: $global-radial;
+            border-radius: $radius-base;
         }
 
         /*

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate } from "core/utils";
+import { defaultTemplate } from 'core/hoc';
 
-const BasicCheckboxTemplate = function ({ id, label, checked, value, onChange, t, disabled, ...other }) {
+const BasicCheckboxTemplate = function ({ id, label, checked, onChange, t, disabled }) {
     return (
         <React.Fragment>
             <input
@@ -10,11 +10,11 @@ const BasicCheckboxTemplate = function ({ id, label, checked, value, onChange, t
                 checked={checked}
                 onChange={onChange}
                 disabled={disabled}
-                type="checkbox"
-                className="input input--check"
+                type='checkbox'
+                className='input input--check'
             />
-            <label className="check" htmlFor={id} />
-            <label className="spc--left--tny label" htmlFor={id}>
+            <label className='check' htmlFor={id} />
+            <label className='spc--left--tny label' htmlFor={id}>
                 {t(label)}
             </label>
         </React.Fragment>
@@ -26,7 +26,8 @@ BasicCheckboxTemplate.propTypes = {
     checked: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string,
+    t: PropTypes.func
 };
 
 BasicCheckboxTemplate.defaultProps = {

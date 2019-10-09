@@ -1,0 +1,43 @@
+/*------------------------------------*\
+    # component.inputgroup
+\*------------------------------------*/
+
+.inputgroup {
+    display: table;
+    position: relative;
+    border-collapse: collapse;
+    width: 100%;
+
+    &--main {
+        display: table-cell;
+        width: 100%;
+        z-index: 2; 
+        position: relative;
+
+        .input {
+            border-radius: $radius-base 0 0 $radius-base;
+        }
+    }
+
+    &--aside {
+        display: table-cell;
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+        position: relative;
+        z-index: 3;
+ 
+        .btn {
+            border-radius: 0 $radius-base $radius-base 0;
+            margin-left: -1px;
+        }
+
+        &--secondary {
+            
+            .btn {
+                border-radius: 0;
+                margin-left: -1px;
+            }
+        }
+    }
+}

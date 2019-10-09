@@ -11,5 +11,5 @@ export default {
         }
         return true;
     },
-    message: "ERROR_MESSAGES.CUSTOM.GREATER_THAN"
+    message: 'ERROR_MESSAGES.CUSTOM.GREATER_THAN'
 };

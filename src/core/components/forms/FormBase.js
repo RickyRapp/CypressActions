@@ -51,6 +51,7 @@ var uriFormat = new RegExp(
 
 const customRules = {
     array_required: {
+        // eslint-disable-next-line
         rule: (value, req, attr, form) => {
             return Array.isArray(value) && value.length > 0
         },
@@ -65,6 +66,7 @@ const customRules = {
     less_than: lessThan,
     org_struct_regex: organizationalStructureNameRegex,
     url: {
+        // eslint-disable-next-line
         rule: (value, req, attr, form) => {
             if(value.indexOf(' ') !== -1) {
                 return false;
@@ -109,7 +111,7 @@ class FormBase extends Form {
             this.add({ key: 'languageMetadata', fields: [] });
         }
     }
-
+    // eslint-disable-next-line
     update(obj, convertNullToEmptyString = false){
         this.set('value', obj);
         this.set('initial', obj);
@@ -180,7 +182,9 @@ class FieldBase extends Field {
 
     @computed get localizedError() {
         let err = this.error;
-        return err ? err.replace(/\[[^\]]+\]/g, function (match, value, a, b, c, str) {
+        return err ? err.replace(/\[[^\]]+\]/g, function 
+            // eslint-disable-next-line
+            (match, value, a, b, c, str) {
             return localizationService.t(_.trim(match, '[]'));
         }) : null;
     }

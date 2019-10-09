@@ -16,16 +16,16 @@ $z-depth-6: 0 0px 38px rgba(0,0,0,0.2), 0 3px 4px rgba(0,0,0,0.1);
 /*tested on #efefef background and #fff box*/
 
 /*really close*/
-$shadow-tny: 0 1px 8px 0px $grey-4;
+$shadow-tny: 0 1px 8px 0px $grey-3;
 
 /*//close/**/
-$shadow-sml: 0 1px 15px -3px $grey-4;
+$shadow-sml: 0 1px 15px -3px $grey-3;
 
 /*//regular/**/
-$shadow-base: 0 2px 26px -4px $grey-4;
+$shadow-base: 0 2px 26px -4px color(black a(50%));
 
 /*//smooth/**/
-$shadow-med: 0 2px 36px -6px $grey-4;
+$shadow-med: 0 2px 36px -6px $grey-3;
 
 /*//apple like/**/
-$shadow-lrg: -1px 2px 50px -14px $grey-4;
+$shadow-lrg: -1px 2px 50px -14px $grey-3;

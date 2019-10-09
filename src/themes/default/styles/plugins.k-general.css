@@ -15,7 +15,7 @@
         -when searched item is selected in treeview toggle color of the text (item)
 */
 .rc-tree-node-selected .rc-tree-title {
-    color: $white;
+    color: white;
 }
 
 /*

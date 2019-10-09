@@ -1,100 +1,68 @@
 import React from 'react';
-import { isSome, defaultTemplate } from 'core/utils';
+import _ from 'lodash';
+import { isSome } from 'core/utils';
+import { GridCell } from '@progress/kendo-react-grid';
 
-function BaasicTableActionsTemplate({ item, actions, actionsRender, t }) {
-  if (!isSome(actions))
-    return null;
+class CommandCell extends GridCell {
+    render() {
+        const {
+            rowType,
+            dataItem,
+            actions,
+            items,
+            actionsComponent,
+            t
+        } = this.props;
 
-  let { onEdit, onReview, onDetails, onDelete, onCancel } = actions;
-  if (!isSome(onReview) && !isSome(onEdit) && !isSome(onDetails) && !isSome(onDelete) && !isSome(onCancel))
-    return null;
+        if (actionsComponent) {
+            const wrap = { component: actionsComponent };
+            return (
+                <wrap.component
+                    actions={actions}
+                    item={dataItem}
+                    items={items}
+                    t={t}
+                />
+            );
+        }
 
-  const { renderEdit, renderReview, renderDelete, renderDetails, renderCancel } = actionsRender;
+        const iconItems = items || [
+            {
+                title: 'Edit',
+                icon: 'icomoon icon-pencil-write',
+                action: actions.onEdit
+            },
+            {
+                title: 'Delete',
+                icon: 'icomoon icon-bin',
+                action: actions.onDelete
+            }
+        ];
+        if (!_.some(iconItems, i => isSome(i.action))) {
+            return null;
+        }
 
-  //edit config
-  let editTitle = t('EDIT') // default
-  if (renderEdit && _.isFunction(renderEdit)) {
-    if (!renderEdit(item)) {
-      onEdit = null;
+        if (rowType !== 'data') {
+            return null;
+        }
+
+        return (
+            <td className='table__body--data right'>
+                {_.map(iconItems, (item, idx) => {
+                    return item.action ? (
+                        <span
+                            key={item.title}
+                            className={`${item.icon} align--v--middle ${
+                                idx !== 0 ? ' spc--left--sml ' : ''
+                            }btn--grey`}
+                            title={item.title}
+                            onClick={() => item.action(dataItem)}
+                        />
+                    ) : null;
+                })}
+            </td>
+        );
     }
-  }
-
-  //review config
-  let reviewTitle = t('REVIEW') // default
-  if (renderReview && _.isFunction(renderReview)) {
-    if (!renderReview(item)) {
-      onReview = null;
-    }
-  }
-
-  //delete config
-  let deleteTitle = t('DELETE') // default
-  if (renderDelete && _.isFunction(renderDelete)) {
-    if (!renderDelete(item)) {
-      onDelete = null;
-    }
-  }
-
-  //details config
-  let detailsTitle = t('DETAILS') // default
-  if (renderDetails && _.isFunction(renderDetails)) {
-    if (!renderDetails(item)) {
-      onDetails = null;
-    }
-  }
-
-  //cancel config
-  let cancelTitle = t('CANCEL') // default
-  if (renderCancel && _.isFunction(renderCancel)) {
-    if (!renderCancel(item)) {
-      onCancel = null;
-    }
-  }
-
-  return (
-    <td className="table__body--data right">
-      {isSome(onReview) ? (
-        <i
-          className="icomoon icon-check-double align--v--middle spc--right--sml"
-          onClick={() => onReview(item)}
-          title={reviewTitle}
-        >
-        </i>
-      ) : null}
-      {isSome(onEdit) ? (
-        <i
-          className="icomoon icon-pencil-write align--v--middle spc--right--sml"
-          onClick={() => onEdit(item)}
-          title={editTitle}
-        >
-        </i>
-      ) : null}
-      {isSome(onDetails) ? (
-        <i
-          className="icomoon icon-task-list-to-do align--v--middle spc--right--sml"
-          onClick={() => onDetails(item)}
-          title={detailsTitle}
-        >
-        </i>
-      ) : null}
-      {isSome(onDelete) ? (
-        <i
-          className="icomoon icon-bin align--v--middle spc--right--sml"
-          onClick={() => onDelete(item)}
-          title={deleteTitle}
-        >
-        </i>
-      ) : null}
-      {isSome(onCancel) ? (
-        <i
-          className="icomoon icon-remove align--v--middle spc--right--sml"
-          onClick={() => onCancel(item)}
-          title={cancelTitle}
-        >
-        </i>
-      ) : null}
-    </td>
-  );
 }
 
-export default defaultTemplate(BaasicTableActionsTemplate);
+export default CommandCell;

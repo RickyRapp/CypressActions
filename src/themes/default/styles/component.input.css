@@ -1,0 +1,240 @@
+/*------------------------------------*\
+    # component.input
+\*------------------------------------*/
+
+.input {
+    /**
+     * Input base
+     */
+    display: inline-block;
+    width: 100%;
+
+    vertical-align: middle;
+    cursor: pointer;
+    touch-action: manipulation;
+    appearance: none;
+    transition: border-color 200ms;
+    -webkit-appearance: none;
+    border-radius: $radius-base;
+    background-color: white;
+
+    /**
+     * Input base project styling
+     */
+    font-family: $ff-sans;
+    border: 1px solid color(white blackness(+30%));
+
+    &::placeholder {
+        color: color(white blackness(+60%));
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    &:invalid {
+        border: 1px solid $color-warning;
+    }
+
+    &:focus {
+        outline: 0;
+        border-color: color($color-secondary lightness(+40%));
+    }
+
+    &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+
+    /**
+     * Input sizes
+     */
+    &--sml {
+        height: calc($unit * 6);
+        line-height: calc($unit * 6);
+        padding: 0 calc($unit * 2);
+    }
+
+    &--med {
+        height: calc($unit * 6);
+        line-height: calc($unit * 6);
+        padding: 0 calc($unit * 2);
+    }
+
+    &--lrg {
+        height: calc($unit * 8);
+        line-height: calc($unit * 8);
+        padding: 0 calc($unit * 3);
+    }
+
+    /**
+     * Input types
+     */
+    &--text {
+        width: 100%;
+    }
+
+    &--textarea {
+         width: 100%;
+         max-width: 100%;
+    }
+
+    &--select, 
+    &--date, 
+    &--search,
+    &--time,
+    &--currency {
+        padding-right: calc($unit * 6);
+
+        background-repeat: no-repeat;
+        background-size: calc($unit * 3) calc($unit * 3);
+        background-position: calc(100% - $unit * 2) center;
+        vertical-align: middle;
+    }
+
+    &--date {
+        background-image: svg-load('postcss-svg/defaults/icon--calendar.svg', fill: color($color-primary a(0.5)));
+    }
+
+    &--search {
+        background-image: svg-load('postcss-svg/defaults/icon--search.svg', fill: color($color-primary a(0.5)));
+    }
+
+    &--select {
+        background-image: svg-load('postcss-svg/defaults/icon--arrow-down.svg', fill: color($color-primary a(0.5)));
+    }
+
+    &--time {
+        background-image: svg-load('postcss-svg/defaults/icon--clock.svg', fill: color($color-primary a(0.5)));
+    }
+
+    &--currency {
+        background-image: svg-load('postcss-svg/defaults/icon--currency.svg', fill: color($color-primary a(0.5)));
+    }
+    
+    &--check,
+    &--radio {
+        opacity: 0;
+        position: absolute;
+
+        & + label {
+            position: relative;
+            cursor: pointer;
+            &:before {
+                content: '';
+                float: left;
+                
+                width: calc($unit * 3);
+                height: calc($unit * 3);
+                margin-top: calc($unit / 2);
+                margin-right: calc($unit * 2);
+                padding: $unit;
+
+                border: 2px solid color(white blackness(+30%));
+
+                transition: all 300ms ease-out;
+            }
+
+            &:after {
+                content: "";
+                opacity: 0;
+                position: absolute;
+                left: -27px;
+                top: 4px;
+                display: inline-block;
+
+                width: calc($unit * 2);
+                height: calc($unit * 2);
+
+                transition: all 300ms ease-out;
+                transform: rotate(-35deg);
+                transform-origin: center;
+                background-image: svg-load('postcss-svg/defaults/icon--check.svg', fill: #ffffff);
+            }
+        }
+
+        &:checked {
+            & + label {
+                &:before {
+                    background-color: $color-primary;
+                    border: 2px solid $color-primary;
+
+                }
+                &:after {
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+            }
+        }
+
+        &:focus {
+            & + label {
+                &:before {
+                    box-shadow: 0 0 15px -2px rgba(0,0,0,0.4);
+                }
+            }
+        }
+    }
+
+    &--check {
+        &:checked {
+            & + label {
+                &:after {
+                    opacity: 1;
+                    transform: rotate(0deg);
+                    background-image: svg-load('postcss-svg/defaults/icon--check.svg', fill: #ffffff);
+                }
+            }
+        }
+    }
+
+    &--radio {
+        & + label {
+            position: relative;
+            &:before {
+                border-radius: 50%;
+            }
+
+            &:after {
+                content: "";
+                opacity: 0;
+                display: inline-block;
+                position: absolute;
+                top: 6px;
+                left: -25px;
+
+                width: calc($unit * 1.25);
+                height: calc($unit * 1.25);
+                
+                background-color: #fff;
+                border-radius:$radius-full;
+                transform: scale(0);
+                transition: all 300ms ease-out;
+
+            }
+        }
+
+        &:checked {
+            & + label {
+                &:after {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        }
+
+        &:focus {
+            & + label {
+                &:before {
+                    box-shadow: $z-depth-1;
+                }
+            }
+        }
+    }
+
+    &--warning {
+        border: 1px solid $color-warning;
+    }
+}

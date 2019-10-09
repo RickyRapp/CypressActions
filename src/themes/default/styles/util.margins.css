@@ -1,0 +1,183 @@
+/*------------------------------------*\
+    # util.margins
+\*------------------------------------*/
+
+/** 
+* you can use custom multiplyer for huge spacing
+* $custom: 15;
+
+* You can use spacers by axis 
+---------------------------------
+--   x-axis ->  left & right   --
+--   y-axis ->  top & bottom   --  
+---------------------------------
+*/
+
+.u {
+    &-mar {
+        &--top {
+            &--tny {
+                margin-top: $unit;
+            }
+
+            &--xsml {
+                margin-top: calc($unit * 1.5);
+            }
+
+            &--sml {
+                margin-top: calc($unit * 2);
+            }
+
+            &--med {
+                margin-top: calc($unit * 4);
+            }
+
+            &--lrg {
+                margin-top: calc($unit * 6);
+            }
+
+            &--xlrg {
+                margin-top: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                margin-top: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                margin-top: calc($unit * 12);
+            }
+        }
+
+        &--right {
+            &--tny {
+                margin-right: $unit;
+            }
+
+            &--xsml {
+                margin-right: calc($unit * 1.5);
+            }
+
+            &--sml {
+                margin-right: calc($unit * 2);
+            }
+
+            &--med {
+                margin-right: calc($unit * 4);
+            }
+
+            &--lrg {
+                margin-right: calc($unit * 6);
+            }
+
+            &--xlrg {
+                margin-right: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                margin-right: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                margin-right: calc($unit * 12);
+            }
+        }
+
+        &--bottom {
+            &--tny {
+                margin-bottom: $unit;
+            }
+
+            &--xsml {
+                margin-bottom: calc($unit * 1.5);
+            }
+
+            &--sml {
+                margin-bottom: calc($unit * 2);
+            }
+
+            &--med {
+                margin-bottom: calc($unit * 4);
+            }
+
+            &--lrg {
+                margin-bottom: calc($unit * 6);
+            }
+
+            &--xlrg {
+                margin-bottom: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                margin-bottom: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                margin-bottom: calc($unit * 12);
+            }
+        }
+
+        &--left {
+            &--tny {
+                margin-left: $unit;
+            }
+
+            &--xsml {
+                margin-left: calc($unit * 1.5);
+            }
+
+            &--sml {
+                margin-left: calc($unit * 2);
+            }
+
+            &--med {
+                margin-left: calc($unit * 4);
+            }
+
+            &--lrg {
+                margin-left: calc($unit * 6);
+            }
+
+            &--xlrg {
+                margin-left: calc($unit * 8);
+            }
+
+            &--xxlrg {
+                margin-left: calc($unit * 10);
+            }
+
+            &--xxxlrg {
+                margin-left: calc($unit * 12);
+            }
+        }
+
+        &--x {
+            &--sml {
+                margin: inherit calc($unit * 2); 
+            }
+            &--med {
+                margin: inherit calc($unit * 4); 
+            }
+            &--lrg {
+                margin: inherit calc($unit * 6); 
+            }
+            &--xlrg {
+                margin: inherit calc($unit * 8); 
+            }
+        }
+        &--y {
+            &--sml {
+                margin: calc($unit * 2) inherit; 
+            }
+            &--med {
+                margin: calc($unit * 4) inherit; 
+            }
+            &--lrg {
+                margin: calc($unit * 6) inherit; 
+            }
+            &--xlrg {
+                margin: calc($unit * 8) inherit; 
+            }
+        }
+    }
+}    

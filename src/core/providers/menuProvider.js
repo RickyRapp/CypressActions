@@ -1,32 +1,28 @@
-import { isSome, buildAuthorizedMenu } from 'core/utils';
+import _ from 'lodash';
+import { 
+	isSome, 
+	buildAuthorizedMenu 
+} from 'core/utils';
 
 class MenuProvider {
-  menus = [];
+	menus = [];
 
-  buildMenus(menus, context) {
-    this.menus = menus;
-    this.context = context;
+	initialize(menus, context) {
+		this.menus = [...menus];
+		this.context = context;
 
-    const rootStore = this.context.rootStore;
-    const {
-      routerStore: {
-        routerStore: { routes }
-      },
-      authStore: { hasPermission }
-    } = rootStore;
+		const rootStore = this.context.rootStore;
 
-    if (menus.length > 0 && !isSome(routes)) {
-      throw new Error(
-        'Menu provider requires that root store routes are initialized - initialize RouteProvider'
-      );
-    }
+		if (menus.length > 0 && !isSome(rootStore.routerStore.routes)) {
+			throw new Error('Menu provider requires that root store routes are initialized - initialize RouteProvider');
+		}
+		
+		return this.buildMenu(rootStore, _.cloneDeep(menus), rootStore.routerStore.routes);
+	}
 
-    return buildAuthorizedMenu(menus, routes, hasPermission);
-  }
-
-  refresh() {
-    return this.initialize(this.menus, this.context);
-  }
+	buildMenu(rootStore, menu, routes) {
+		return buildAuthorizedMenu(menu, routes, rootStore.permissionStore.hasPermission);
+	}
 }
 
 export default new MenuProvider();

@@ -1,0 +1,82 @@
+/*------------------------------------*\
+    # components.modal
+\*------------------------------------*/
+
+
+.modal {
+    &__overlay {
+        z-index: 13;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        
+        background-color: rgba(0, 0, 0, 0.75);
+        overflow-y: auto;
+    }
+
+    &__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /*align to center*/
+        right: auto;
+        bottom: auto;
+        
+        max-height: calc(100% - 24px);
+        overflow-y: auto;
+        
+        margin-top: calc($unit * 2);
+        margin-bottom: calc($unit * 2);
+        padding: calc($unit * 4);
+        border: none;
+        border-radius: $radius-med;
+        
+        outline: none;
+        background: white;
+        
+        /*Make modal sit to center of page*/
+        transform: translate(-50%, -50%);
+        
+    }
+
+    &__icon {
+
+        &--close {
+            position: absolute;
+            right: calc($unit * 2);
+            top: calc($unit * 2);
+            
+            font-weight: $type-weight-bold !important;
+
+            cursor: pointer;
+            color: $grey-3;
+
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
+
+/*override of react modal window*/
+.ReactModal {
+    &__Content {
+        opacity: 0;
+
+        @media (--screen-to-lrg) {
+            width: 90%;
+        }
+
+        &--after-open {
+            opacity: 1;
+            transition: all 250ms ease-in-out;
+
+        }   
+
+        &--before-close {
+            opacity: 0;
+        }
+    }
+}

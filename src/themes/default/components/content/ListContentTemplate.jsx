@@ -1,17 +1,21 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
-import { Content } from 'core/layouts';
+import PropTypes from 'prop-types';
+import { defaultTemplate } from 'core/hoc';
 import shouldRenderContentChildren from './shouldRenderContentChildren';
 
 function ListContentTemplate({ children }) {
-  return (
-    <React.Fragment>
-      {shouldRenderContentChildren(children)
-        ? children
-        : <div className="card card--med card--primary">{children}</div>
-      }
-    </React.Fragment>
-  )
+    return (
+        <React.Fragment>
+            {shouldRenderContentChildren(children)
+                ? children
+                : <div className='card card--med card--primary'>{children}</div>
+            }
+        </React.Fragment>
+    )
 }
+
+ListContentTemplate.propTypes = {
+    children: PropTypes.any
+};
 
 export default defaultTemplate(ListContentTemplate);

@@ -6,6 +6,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const paths = require('./paths');
 
 const commonConfig = require('./webpack.config.common');
@@ -92,6 +93,7 @@ module.exports = merge(commonConfig(), {
       chunks: ['common', 'polyfills', 'hotDevClient', 'commonModules', 'appModules', 'app'],
       chunksSortMode: 'manual',
     }),
+    //new BundleAnalyzerPlugin(), // uncomment to see bundle graph
     // Add module names to factory functions so they appear in browser profiler.
     new webpack.NamedModulesPlugin(),
     // This is necessary to emit hot updates (currently CSS only):

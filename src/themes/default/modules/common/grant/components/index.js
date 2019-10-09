@@ -1,5 +1,0 @@
-export { default as ListFilterTemplate } from './ListFilterTemplate'
-export { default as GrantCreateFormTemplate } from './GrantCreateFormTemplate'
-export { default as GrantEditFormTemplate } from './GrantEditFormTemplate'
-export { default as GrantPurposeTypeTemplate } from './GrantPurposeTypeTemplate'
-export { default as GrantScheduledPaymentCreateFormTemplate } from './GrantScheduledPaymentCreateFormTemplate'

@@ -14,8 +14,9 @@ $base-font-size:   16;
 * Default type scale ratio: 1.333;
 */
 $type-tiny:     12;
-$type-xsmall:   13;
+$type-xsmall:   12;
 $type-small:    14;
+$type-xsmall:   13;
 $type-base:     $base-font-size; 
 $type-medium:   19;
 $type-large:    23;
@@ -27,16 +28,18 @@ $type-huge:     56;
 /**
 * Type weights
 */
+$type-weight-thin:       100;
+$type-weight-light:      300;
 $type-weight-regular:    400;
 $type-weight-medium:  	 500;
-$type-weight-semibold:	 600;
 $type-weight-bold:       700;
+$type-weight-extra-bold: 800;
 
 /**
 * Font stacks
 */
 $ff-sans: 	'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 
-			"Segoe UI", "Oxygen", 
+			"Segoe UI", "Roboto", "Oxygen", 
 			"Ubuntu", "Cantarell", "Fira Sans", 
 			"Droid Sans", "Helvetica Neue", 
 			sans-serif, Helvetica, Arial, sans-serif;

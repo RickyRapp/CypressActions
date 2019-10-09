@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate } from 'core/hoc';
 import { Navigation } from 'core/components';
-import { TabMenuLayout } from "core/layouts";
 
 const PageNavigationTemplate = function ({ title, hideNavigation, children }) {
-    return (
-        <div className="content__header">
+    return(
+        <div className='content__header'>
             <Navigation title={title} overrideDefaultContent={hideNavigation}>
                 {children}
             </Navigation>
@@ -16,7 +15,7 @@ const PageNavigationTemplate = function ({ title, hideNavigation, children }) {
 
 PageNavigationTemplate.propTypes = {
     title: PropTypes.string,
-
+    children: PropTypes.any,
     hideNavigation: PropTypes.bool
 };
 

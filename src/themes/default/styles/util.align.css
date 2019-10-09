@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    # utils.align
+\*------------------------------------*/
+.u {
+	&-align {
+		/* Horizontal align */
+		&--h {
+			&--center {
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			&--left {
+				margin-right: auto;
+			}
+
+			&--right {
+				margin-left: auto;
+			}
+		}
+		
+		/* Vertical align */
+		&--v {
+			&--top {
+				vertical-align: top;
+			}
+
+			&--middle {
+				vertical-align: middle;
+			}
+			
+			&--bottom {
+				vertical-align: bottom;
+			}
+			
+			&--baseline {
+				vertical-align: baseline;
+			}
+		}
+	}
+}

@@ -13,5 +13,5 @@ export default {
         }
         return true;
     },
-    message: "ERROR_MESSAGES.CUSTOM.BEFORE_DATE"
+    message: 'ERROR_MESSAGES.CUSTOM.BEFORE_DATE'
 };

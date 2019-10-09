@@ -1,0 +1,45 @@
+/*------------------------------------*\
+    # component.nav
+\*------------------------------------*/
+
+.nav {
+    &--primary {
+       
+    }
+
+    &--secondary { 
+
+        &__item {
+            position: relative;
+            display: block;
+            padding: calc($unit * 2) calc($unit * 4);
+
+            font-weight: $type-weight-regular;
+            color: color(white a(50%));
+            transition: all 250ms ease-out;
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 5px;
+                background-color: transparent;
+            }
+
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                color: $color-primary;
+                background-color: color(white a(10%));
+                
+                &:before {
+                    background-color: $color-primary;
+                }
+            }
+        }
+    }
+}

@@ -30,7 +30,7 @@ const alias = {
     'react-native': 'react-native-web',
     'themes': paths.appSrc + '/themes/' + themeName,
     'core': paths.appSrc + '/core',
-    'agency': paths.appSrc + '/agency/modules'
+    'application': paths.appSrc + '/application/modules'
 };
 
 // This is the common configuration.
@@ -48,8 +48,8 @@ module.exports = function (options) {
             // We ship a few polyfills by default:
             polyfills: require.resolve('./polyfills'),
             // Finally, this is your app's code:
-            commonModules: glob.sync("./src/config.js", { ignore: ['./src/agency/**/config.js'] }),
-            appModules: glob.sync("./src/modules/**/config.js"),
+            commonModules: glob.sync("./src/config.js", {ignore: ['./src/application/**/config.js']}),
+            appModules: glob.sync("./src/themes/" + themeName + "/application/**/config.js"),
             app: paths.appIndexJs,
             // We include the app code last so that if there is a runtime error during
             // initialization, it doesn't blow up the WebpackDevServer client, and
@@ -194,5 +194,5 @@ module.exports = function (options) {
             tls: 'empty',
             child_process: 'empty'
         },
-  };
+    };
 }

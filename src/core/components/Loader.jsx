@@ -2,7 +2,7 @@ import React from 'react';
 import { LoaderTemplate } from 'themes/components';
 
 function Loader() {
-  return <LoaderTemplate />;
+    return <LoaderTemplate />
 }
 
 export default Loader;

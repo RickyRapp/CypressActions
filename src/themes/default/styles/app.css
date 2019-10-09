@@ -1,22 +1,24 @@
 /**
-* Title: SharePoint
+* Title: Gator
 * Author/s: Mono
-* CSS build platform: Gulp
-* CSS development build command: gulp styles
-* CSS production build command: gulp styles
+* CSS build platform: Webpack
+* Node modules instalation: npm i
+* Node version: 10.14.1 or higher
+* Project development build command: npm start
+
 * CSS processor: PostCSS
 * CSS processor usage: autoprefixing, nesting, variables, minification, pxtorem, color functions
 * CSS name convention: BEM
+
 * Global indentation: 4 spaces
 * Global units: px
 * Global prefix: none
+
 * Browser support: IE9+, last 3 versions of modern browsers, Android 4+, iOS6+
-* Additional notes: Some properties with pixel units (depending on the whitelist in Gulpfile) are being recalculated to REM units
 */
 
 /**
-* Import: vars
-* Description: variables
+* Vars .......... postcss-simple-vars plugin for defining variables to use accross the project 
 */
 @import "vars.globals.css";
 @import "vars.typography.css";
@@ -25,118 +27,80 @@
 @import "vars.shadows.css";
 
 /**
-* Import: tools
-* Description: tools like typomatic and other mixins / libraries
+* Tools .......... typography mixin, floted grid and clearfix
 */
-@import "tools.typomatic.css";
-@import "tools.bubba.css";
-@import "tools.clearing.css";
-@import "tools.ricky.css";
+@import "tool.typomatic.css";
+@import "tool.bubba.css";
+/* @import "tool.ricky.css"; */
 
 /**
-* Import: generic
-* Description: normalize or reset CSS, box sizing
+* Generic .......... normalize or reset CSS, box sizing
 */
-@import "../../../../node_modules/normalize.css/normalize.css";
+@import "normalize.css/normalize.css";
 @import "generic.boxsizing.css";
 
 /**
-* Import: base
-* Description: base structural stylings for setting the body, typography
-* and other base styles (no classes should be added here)
+* Base .......... base structural stylings for setting the body, typography and other base styles (no classes should be added here)
 */
 @import "base.globals.css";
 @import "base.typography.css";
 
 /**
-* Import: modules
-* Description: cross project reusable modules
+* Components .......... resuable components for all projects
 */
-@import "modules.animations.css";
-@import "modules.btn.css";
-@import "modules.input.css";
-@import "modules.layout.css";
-@import "modules.card.css";
-@import "modules.table.css";
-@import "modules.animations.css";
-@import "modules.form.css";
-@import "modules.emptystate.css";
-@import "modules.notifications.css";
-@import "modules.tabs.css";
-@import "modules.messages.css";
-@import "modules.breadcrumbs.css";
-@import "modules.flags.css";
-@import "modules.pin.css";
-@import "modules.list.css";
-@import "modules.listbox.css";
-
-/* @import modules.anchor.css; */
+@import "component.container.css";
+@import "component.content.css";
+@import "component.section.css";
+@import "component.table.css";
+@import "component.btn.css";
+@import "component.input.css";
+@import "component.nav.css";
+@import "component.layout.css";
+@import "component.header.css";
+@import "component.card.css";
+@import "component.inputgroup.css";
+@import "component.filter.css";
+@import "component.form.css";
+@import "component.breadcrumbs.css";
+@import "component.loader.css";
+@import "component.modal.css";
 
 /**
-* Import: components
-* Description: specific website/app components
+* Views .......... specific website/app views (example: 404 view, login view)
 */
-@import "components.header.css";
-@import "components.loader.css";
-@import "components.modal.css";
-@import "components.treeview.css";
-@import "components.content.css";
-@import "components.permissions.css";
-@import "components.finder.css";
-@import "components.wizard.css";
-/* @import components.footer.css; */
+@import "view.404.css";
+@import "view.login.css";
 
 /**
-* Import: views
-* Description: specific website/app views (example: 404 view, login view)
+* Utils .......... reusable utilities such as floats, spacers etc.
 */
-/* @import view.login.css; */
- @import "view.404.css";
+@import "util.display.css";
+@import "util.width.css";
+@import "util.floats.css";
+@import "util.margins.css";
+@import "util.paddings.css";
+@import "util.position.css";
+@import "util.grid.css";
+@import "util.grid-offset.css";
+@import "util.clearing.css";
+@import "util.type.css";
+@import "util.separator.css";
+@import "util.icons.css";
+@import "util.align.css";
+@import "util.anchor.css";
+@import "util.radius.css";
+@import "util.visibility.css";
 
 /**
-* Import: utils
-* Description: reusable utilities such as floats, spacers etc.
-*/
-@import "utils.grid.css";
-@import "utils.f-grid.css";
-@import "utils.grid-offset.css";
-@import "utils.spacers.css";
-@import "utils.width.css";
-@import "utils.type.css";
-@import "utils.floats.css";
-@import "utils.separator.css";
-@import "utils.display.css";
-@import "utils.padders.css";
-@import "utils.opacity.css";
-@import "utils.align.css";
-@import "utils.position.css";
-@import "utils.scrollbar.css";
-@import "utils.cursor.css";
-
-/* @import utils.floats.css; */
-/* @import utils.visibility.css; */
-
-/**
-* Import: plugins
-* Description: 3rd party code, external plugin CSS etc
+* Plugins .......... 3rd party code, external plugin CSS etc
 * Note: when importing code from a 3rd party it should be stripped off
 * any vendor prefixes since autoprefixer will use project specific vendor prefixes
 */
-@import "plugins.fontface.css";
-@import "plugins.toastify.css";
-@import "plugins.modal.css";
-@import "plugins.highcharts.css";
-@import "plugins.icomoon.css";
-@import "plugins.icomoon-sports.css";
-@import "plugins.treeview.css";
+@import "plugin.fontface.css";
 @import "plugins.k-general.css";
 @import "plugins.k-inputs.css";
 @import "plugins.k-table.css";
 
 /**
-* Import: shame
-* Description: CSS shame file
-* Note: to be avoided, exists only if REALLY necessary or legacy code
+* Shame .......... CSS shame file, to be avoided, exists only if REALLY necessary or legacy code.
 */
-
-/* @import shame.css; */

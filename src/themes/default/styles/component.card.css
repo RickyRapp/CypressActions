@@ -1,0 +1,20 @@
+/*------------------------------------*\
+    # component.card
+\*------------------------------------*/
+
+.card {
+
+    &--primary {
+        background-color: white;
+        box-shadow: $shadow-base;
+        border-radius: $radius-med;
+    }
+
+    &--med {
+        padding: calc($unit * 4);
+    }
+
+    &--lrg {
+        padding: calc($unit * 6);  
+    }
+}

@@ -1,0 +1,25 @@
+/*------------------------------------*\
+    # utils.anchor
+\*------------------------------------*/
+
+.u {
+	&-anchor {
+		&--negative {
+			color: #ffffff;
+			text-decoration: underline;
+
+			transition: all 250ms ease-out;
+
+			&:hover {
+				color: color(#ffffff a(0.6));
+			}
+			&:focus {
+				outline: 0;
+				color: color($color-secondary lightness(+10));
+			}
+			&:visited {
+				color: color($color-secondary lightness(+20));
+			}
+		}
+	}
+}

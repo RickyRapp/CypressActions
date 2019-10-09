@@ -13,7 +13,7 @@ class DateFormatter {
 
     map(format) {
         return format && format !== ''
-            ? localizationService.t("CORE.DATE_FORMAT." + format)
+            ? localizationService.t('CORE.DATE_FORMAT.' + format)
             : null;
     }
 }

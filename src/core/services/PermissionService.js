@@ -1,45 +1,39 @@
-import { isSome } from 'core/utils';
 import _ from 'lodash';
 
 class PermissionService {
-  constructor(baasicApp) {
-    this.baasicApp = baasicApp;
-  }
+     hasPermission(user, authorization) {         
+        var hasPermission = false;
 
-  hasPermission(authorization) {
-    const user = this.baasicApp.getUser();
-    if (!isSome(user) || !isSome(user.user)) {
-      return false;
+        if (user) {
+            if (user.permissions) {
+                if (authorization) {
+                    var tokens = _.split(authorization, '.');
+                    if (tokens.length > 0) {
+                        var section = _.toLower(tokens[0]);
+
+                        var sectionPermissions = _.find(user.permissions, (value, key) => _.toLower(key) === section);
+                        if (sectionPermissions) {
+                            if (tokens.length > 1) {
+                                var action = _.toLower(tokens[1]);
+                                for (var i = 0; i < sectionPermissions.length; i++) {
+                                    if (_.toLower(sectionPermissions[i]) === action) {
+                                        hasPermission = true;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                hasPermission = true;
+                            }
+                        }
+                    }
+                } else {
+                    hasPermission = true;
+                }
+            }
+        }
+
+        return hasPermission;
     }
-    return this.appUserHasPermission(authorization);
-  }
-
-  appUserHasPermission(authorization) {
-    if (authorization) {
-      return checkPermission(this.baasicApp.membershipModule.permissions, authorization);
-    }
-
-    const { user } = this.baasicApp.getUser();
-    if (user.apiKey) {
-      return (
-        user.apiKey.toLowerCase() === this.baasicApp.getApiKey().toLowerCase()
-      );
-    }
-
-    return false;
-  }
-}
-
-function firstCharToLowerCase(text) {
-  return text.replace(/^./, function (char) {
-    return char.toLowerCase();
-  });
-}
-
-function checkPermission(permissionService, authorization) {
-  authorization = firstCharToLowerCase(authorization);
-  var fullPermission = authorization.split('.')[0] + '.full';
-  return (permissionService.hasPermission(authorization) || permissionService.hasPermission(fullPermission));
 }
 
 export default PermissionService;

@@ -1,1 +1,0 @@
-export { default as ContributionDetailsTemplate } from './ContributionDetailsTemplate'

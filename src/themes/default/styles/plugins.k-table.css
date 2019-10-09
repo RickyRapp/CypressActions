@@ -8,7 +8,7 @@ $table-width: 1024px;
 .k-widget {
     table {
         .k-grid-header {
-            background-color: color($grey-10 lightness(+15%));
+            background-color: transparent; 
 
             .k-header {
                 &:first-child {
@@ -21,10 +21,10 @@ $table-width: 1024px;
                     font-weight: $type-weight-bold;
                     letter-spacing: 0.1250em;
                     text-transform: uppercase;
-                    color: $white;
+                    color: $color-primary;
 
                     .k-icon {
-                        color: $white;
+                        color: $color-primary;
                     }
                 }
             }
@@ -35,7 +35,7 @@ $table-width: 1024px;
                 transition: all 250ms ease-out;
 
                 &.k-alt {
-                    background-color: color($grey-10 lightness(+45%));
+                    background-color: transparent;
                 }
             }
         }
@@ -54,8 +54,8 @@ $table-width: 1024px;
         
         table {
             td {
-                @mixin type-scale $type-tiny, 0.75;
-                color: $color-text-dark;
+                @mixin type-scale $type-small, 0.75;
+                color: $color-text;
             }
         }
 
@@ -64,7 +64,7 @@ $table-width: 1024px;
     /*toolbar for batch actions*/
     .k-header.k-grid-toolbar {
         min-width: $table-width;
-        background-color: $color-secondary-light;
+        background-color: $color-secondary;
 
         .sticky--left {
             position: sticky;
@@ -82,8 +82,13 @@ $table-width: 1024px;
 
     /*padding in table data - table spacing*/
     &.k-grid {
-        table td {
-            padding: $unit calc($unit * 2); 
+        table td,
+        table th {
+            padding: calc($unit * 3) calc($unit * 2); 
+        }
+
+        table th.k-sorted {
+            background-color: white;
         }
     }
 }
@@ -96,7 +101,7 @@ $table-width: 1024px;
 .k-grid tbody tr.k-state-hover,
 .k-grid tbody tr:hover,
 .k-grid tbody tr.k-alt:hover {
-    background-color: color($grey-10 lightness(+40%));
+    background-color: transparent;
 }
 
 /*cursor pointer on clickable table <td> element*/
@@ -122,7 +127,7 @@ $table-width: 1024px;
     }
 
     .k-pager-nav {
-        border-radius: $global-rounded;
+        border-radius: $radius-full;
 
         &:hover {
             background-color: color($grey-10 a(0.2));
@@ -133,12 +138,12 @@ $table-width: 1024px;
     .k-pager-numbers {
         & .k-state-selected {
             background-color: $grey-10;
-            border-radius: $global-rounded;
+            border-radius: $radius-full;
         }
 
         & .k-link {
             color: $grey-10;
-            border-radius: $global-rounded;
+            border-radius: $radius-full;
 
             &:hover,
             &:focus {
@@ -146,14 +151,18 @@ $table-width: 1024px;
             }
 
             &.k-state-selected {
-                color: $white !important;
+                color: white !important;
             }
         }
     }
     
-    /*stle for table */
+    /*style for table */
     &.k-grid-pager.k-widget {
-        background-color: color($grey-10 lightness(+35%));
+        background-color: transparent;
+    }
+
+    &.k-grid-pager {
+        padding-top: calc($unit * 3);
     }
 } 
 
@@ -184,12 +193,12 @@ $table-width: 1024px;
     padding: 0 calc($unit * 1);
     
     box-sizing: border-box;
-    border-radius: $global-radial;
+    border-radius: $radius-base;
     
     line-height: calc($unit * 4);
     vertical-align: middle;
     
-    background-color: $white;
+    background-color: white;
     touch-action: manipulation;
     transition: all 250ms ease-out;
 
@@ -206,4 +215,29 @@ $table-width: 1024px;
 */
 .k-grid .k-master-row + .k-detail-row {
     background-color: $grey-1 !important;
+}
+
+/* Table borders*/
+
+.k-grid-header,
+.k-grid-header th,
+.k-header, 
+.k-grid-header-wrap, 
+.k-grouping-header, 
+.k-grouping-header 
+.k-group-indicator, 
+.k-grid td, 
+.k-grid-footer, 
+.k-grid-footer-wrap, 
+.k-grid-content-locked, 
+.k-grid-footer-locked, 
+.k-grid-header-locked, 
+.k-filter-row>td, 
+.k-filter-row>th {
+    border-color: transparent;
+    border-bottom: 1px solid $grey-2;
+}
+
+col.k-sorted, th.k-sorted {
+    background-color: white;
 }

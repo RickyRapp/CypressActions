@@ -1,0 +1,9 @@
+/*------------------------------------*\
+    # component.breadcrumbs
+\*------------------------------------*/
+
+.breadcrumbs {
+    @mixin type-scale $type-small, 0.75;
+    color: $grey-5;
+    margin-bottom: calc($unit * 2);
+}

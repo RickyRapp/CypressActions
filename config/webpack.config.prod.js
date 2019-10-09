@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
@@ -94,37 +94,37 @@ module.exports = merge(commonConfig({ env: env }), {
           {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract(
-              Object.assign(
-                {
-                  fallback: {
-                    loader: require.resolve('style-loader'),
-                    options: {
-                      hmr: false,
+                Object.assign(
+                  {
+                    fallback: {
+                      loader: require.resolve('style-loader'),
+                      options: {
+                        hmr: false,
+                      },
                     },
+                    use: [
+                      {
+                        loader: require.resolve('css-loader'),
+                        options: {
+                          importLoaders: 1,
+                          minimize: true,
+                          sourceMap: shouldUseSourceMap,
+                        },
+                      },
+                      {
+                        loader: require.resolve('postcss-loader'),
+                        options: {
+                          // Necessary for external CSS imports to work
+                          // https://github.com/facebookincubator/create-react-app/issues/2677
+                          ident: 'postcss',
+                          // Note: postcss configuration is in postcss.config.js in root of project (plugins etc)
+                        },
+                      },
+                    ],
                   },
-                  use: [
-                    {
-                      loader: require.resolve('css-loader'),
-                      options: {
-                        importLoaders: 1,
-                        minimize: true,
-                        sourceMap: shouldUseSourceMap,
-                      },
-                    },
-                    {
-                      loader: require.resolve('postcss-loader'),
-                      options: {
-                        // Necessary for external CSS imports to work
-                        // https://github.com/facebookincubator/create-react-app/issues/2677
-                        ident: 'postcss',
-                        // Note: postcss configuration is in postcss.config.js in root of project (plugins etc)
-                      },
-                    },
-                  ],
-                },
-                extractTextPluginOptions
-              )
-            ),
+                  extractTextPluginOptions
+                )
+              ),
           }
         ],
       },

@@ -1,0 +1,62 @@
+/*------------------------------------*\
+    # utils.icon
+\*------------------------------------*/
+
+.u {
+    &-icon {
+        display: inline-block;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        vertical-align: middle;
+
+        background-size: cover; 
+
+        &--sml {
+            width: calc($unit * 3);
+            height: calc($unit * 3);
+        }
+
+        &--med {
+            width: calc($unit * 4);
+            height: calc($unit * 4);
+        }
+
+        &--lrg {
+            width: calc($unit * 6);
+            height: calc($unit * 6);
+        }
+
+        &--close {
+            background-image: svg-load('postcss-svg/close.svg', fill: $grey-4);
+        }
+
+        &--edit {
+             background-image: svg-load('postcss-svg/edit.svg', fill: $grey-4);
+        }
+
+        &--approved {
+             background-image: svg-load('postcss-svg/check-on.svg', fill: $grey-4);
+        }
+
+        &--unapproved {
+             background-image: svg-load('postcss-svg/check-off.svg', fill: $grey-4);
+        }
+
+        &--locked {
+            background-image: svg-load('postcss-svg/lock.svg', fill: $grey-4);
+        }
+
+        &--unlocked {
+            background-image: svg-load('postcss-svg/unlock.svg', fill: $grey-4);
+        }
+
+        &--reset-pass {
+            background-image: svg-load('postcss-svg/password-key.svg', fill: $grey-4);
+        }
+
+        &--email-pass {
+            background-image: svg-load('postcss-svg/email-lock.svg', fill: $grey-4);
+        }
+    }
+}

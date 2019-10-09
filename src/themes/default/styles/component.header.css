@@ -1,0 +1,59 @@
+/*------------------------------------*\
+    # component.header
+\*------------------------------------*/
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: $color-secondary;
+    align-items: center;
+    z-index: 99;
+
+    padding: 0 calc($unit * 4);
+
+    &__logo {
+        height: 28px;
+    }
+
+    &__profile {
+        position: relative;
+        margin-left: auto;
+        color: white;
+        cursor: pointer;
+
+        &__img {
+            border-radius: $radius-full;
+        }
+
+        &__dropdown {
+            position: absolute;
+            top: calc($unit * 6);
+            right: 0;
+            display: none;
+            background-color: white;
+            color: $color-text;
+            border-radius: $radius-base;
+            box-shadow: $shadow-sml;
+            padding: $unit 0;
+            width: 100%;
+            min-width: 200px;
+
+            &.active {
+                display: block;   
+            }
+
+            &__item {
+                padding: $unit calc($unit * 2);
+            }
+        }
+
+        &__name {
+            padding: 0 calc($unit * 2);
+        }
+
+        &__icon {
+            margin-left: calc($unit * 1);
+        }
+    }
+}

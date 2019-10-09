@@ -1,108 +1,57 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { defaultTemplate } from 'core/hoc';
+import { BaasicTableLoader } from 'core/components';
+import { Grid, GridNoRecords } from '@progress/kendo-react-grid';
 import {
-  BaasicTableRow,
-  BaasicPager,
-  BaasicPageSizeSelect
-} from 'core/components';
-import { isSome, renderIf, defaultTemplate } from 'core/utils';
-import { BaasicTableActions } from 'core/components';
+    getSortingParams,
+    getPagingProps,
+    defaultRenderActions,
+    defaultRenderColumns,
+    defaultRenderNoRecords,
+    defaultRenderBatchActionsToolbar
+} from 'core/components/table/utils';
 
-const sortDirection = {
-  asc: 'asc',
-  desc: 'desc'
+const BaasicTableTemplate = function({ tableStore, loading, actionsComponent, noRecordsComponent, authorization, t, ...otherProps }) {
+    const { isBatchSelect, data, config: { columns, actions, ...otherStoreFields } } = tableStore;
+    const isLoading = !_.isNil(loading) ? loading : tableStore.loading;
+    return (
+        <div>
+            <Grid
+                data={data.slice()}
+                {...otherProps}
+                {...otherStoreFields}
+                {...getSortingParams(tableStore)}
+                {...getPagingProps(tableStore)}
+            >
+                {
+                    <GridNoRecords>
+                        {isLoading ? 'Loading...' : defaultRenderNoRecords(noRecordsComponent)}
+                    </GridNoRecords>
+                }
+                {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization) : null}
+                {defaultRenderColumns({ t, columns})}
+                {defaultRenderActions({ actions, actionsComponent, authorization, t })}
+            </Grid>
+            {isLoading ? <BaasicTableLoader /> : null}
+        </div>
+    )
 };
 
-function hasAction(actions) {
-  return actions && (actions.onEdit || actions.onDelete);
-}
+BaasicTableTemplate.propTypes = {
+    tableStore: PropTypes.object.isRequired,
+    loading: PropTypes.bool,
+    actionsComponent: PropTypes.any,
+    noRecordsComponent: PropTypes.any,
+    scrollable: PropTypes.string,
+    editField: PropTypes.string,
+    authorization: PropTypes.any,
+    t: PropTypes.func
+};
 
-function BaasicTableTemplate({ tableStore, actionsComponent, hidePageSizeSelect = false, t, ...otherProps }) {
-  const {
-    data,
-    config: { columns, actions, actionsRender },
-    queryUtility
-  } = tableStore;
-  actionsComponent = actionsComponent || BaasicTableActions;
-  const pageSizeOptions = [
-    { value: '25', label: '25' },
-    { value: '50', label: '50' },
-    { value: '100', label: '100' }
-  ];
-
-  return (
-    <div className="row">
-      <div className="col col-med-12 card card--clear">
-        <table className="table w--100">
-          <thead className="table__head">
-            <tr>
-              {columns.map(column => {
-                const headerProps = {};
-                if (column.permissions && !column.permissions.read) {
-                  return false;
-                }
-
-                if (column.onHeaderClick) {
-                  headerProps.onClick = () => column.onHeaderClick(column);
-                } else if (isSome(actions) && isSome(actions.onSort)) {
-                  headerProps.onClick = () => actions.onSort(column);
-                }
-
-                if (column.header) {
-                  return (
-                    <React.Fragment key={column.key}>
-                      <column.header {...headerProps} column={column} />
-                    </React.Fragment>
-                  );
-                }
-
-                let icon = 'icomoon icon-hyperlink align--v--middle spc--right--sml';
-                const ascIcon = 'icomoon icon-arrow-down-1 align--v--middle spc--right--sml'
-                const descIcon = 'icomoon icon-arrow-up-1 align--v--middle spc--right--sml'
-                if (queryUtility && queryUtility.filter && queryUtility.filter && queryUtility.filter.orderBy === column.key) {
-                  icon = queryUtility.filter.orderDirection === sortDirection.asc ? descIcon : ascIcon
-                }
-                return (
-                  <th
-                    {...headerProps}
-                    key={column.key}
-                    className="table__head--data"
-                  >
-                    <div>{t(column.title)}{column.titleTooltip && column.titleTooltip}  {headerProps.onClick && <i className={icon} title="Sort"></i>}</div>
-                  </th>
-                );
-              })}
-              {renderIf(hasAction(actions))(
-                <th className="table__head--data right">
-                  <div>{t("ACTIONS")}</div>
-                </th>
-              )}
-            </tr>
-          </thead>
-          <tbody className="table__body">
-            {data.map(item => {
-              return (
-                <BaasicTableRow
-                  key={item.id}
-                  item={item}
-                  columns={columns}
-                  actions={actions}
-                  actionsRender={actionsRender}
-                  actionsComponent={actionsComponent}
-                  {...otherProps}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <BaasicPager queryUtility={queryUtility} />
-      {!hidePageSizeSelect && <BaasicPageSizeSelect
-        queryUtility={queryUtility}
-        options={pageSizeOptions}
-        placeholder={t("SELECTPAGESIZE")}
-      />}
-    </div>
-  );
-}
+BaasicTableTemplate.defaultProps = {
+    scrollable: 'none'
+};
 
 export default defaultTemplate(BaasicTableTemplate);

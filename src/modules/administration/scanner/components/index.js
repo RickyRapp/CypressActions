@@ -1,5 +1,0 @@
-export { default as StepCounter } from './StepCounter'
-export { default as ChooseLanguage } from './ChooseLanguage'
-export { default as SessionInfo } from './SessionInfo'
-export { default as ScanningProcessStart } from './ScanningProcessStart'
-export { default as ScanningProcessFinished } from './ScanningProcessFinished'

@@ -1,9 +1,17 @@
 import React from 'react';
-import { defaultTemplate } from 'core/utils';
+import PropTypes from 'prop-types';
 import { SearchFilterTemplate } from 'themes/components';
 
-function SearchFilter(props) {
-  return <SearchFilterTemplate {...props} />;
-}
+const SearchFilter = function(props) {
+    return <SearchFilterTemplate {...props} />
+};
 
-export default defaultTemplate(SearchFilter);
+SearchFilter.propTypes = {
+    queryUtility: PropTypes.object,
+    propertyName: PropTypes.string,
+    className: PropTypes.string,
+    placeholder: PropTypes.string,
+    clearVisible: PropTypes.bool
+};
+
+export default SearchFilter;

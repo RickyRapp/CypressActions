@@ -1,5 +1,5 @@
-import 'themes/styles/app.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'themes/styles/app.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,25 +13,23 @@ import { RootStore } from 'common/stores';
 import Modal from 'react-modal';
 
 function startApplication() {
-  const context = {
-    rootStore: new RootStore()
-  };
-  bootstrap.run(context);
+	const configuration = bootstrap.run();
 
-  renderApp(context);
-  registerServiceWorker();
+	const rootStore = new RootStore(configuration);
+	renderApp({ rootStore });
+	registerServiceWorker();
 }
 
 function renderApp({ rootStore }) {
-  Modal.setAppElement('#root');
-  ReactDOM.render(
-    <I18nextProvider i18n={localizationService}>
-      <Provider rootStore={rootStore}>
-        <App />
-      </Provider>
-    </I18nextProvider>,
-    document.getElementById('root')
-  );
+	Modal.setAppElement('#root')
+	ReactDOM.render(
+		<I18nextProvider i18n={localizationService}>
+			<Provider rootStore={rootStore}>
+				<App />
+			</Provider>
+		</I18nextProvider>,
+		document.getElementById('root')
+	);
 }
 
 startApplication();

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { defaultTemplate } from 'core/utils';
-import { DateRangePicker } from "core/components";
-import { QueryUtility } from "core/utils";
-import { DateRangeQueryPickerStore } from 'core/stores';
+import {defaultTemplate} from 'core/hoc';
+import {DateRangePicker} from 'core/components';
+import {QueryUtility} from 'core/utils';
+import {DateRangeQueryPickerStore} from 'core/stores';
 
-class DateRangeQueryPickerTemplate extends React.Component {
+class DateRangeQueryPickerTemplate extends React.Component{
     constructor(props) {
         super();
 
@@ -16,8 +16,8 @@ class DateRangeQueryPickerTemplate extends React.Component {
         this.toPropertyName = props.toPropertyName;
         this.t = props.t;
         this.errors = null;
-
-        let val = {
+        
+        let val = { 
             start: this.queryUtility.filter[this.fromPropertyName] ? new Date(this.queryUtility.filter[this.fromPropertyName]) : null,
             end: this.queryUtility.filter[this.toPropertyName] ? new Date(this.queryUtility.filter[this.toPropertyName]) : null,
         }
@@ -32,10 +32,10 @@ class DateRangeQueryPickerTemplate extends React.Component {
 
         let start = null;
         if (value.start)
-            start = moment(value.start).format("YYYY-MM-DD");
+            start = moment(value.start).format('YYYY-MM-DD');
         let end = null;
         if (value.end)
-            end = moment(value.end).format("YYYY-MM-DD");
+            end = moment(value.end).format('YYYY-MM-DD');
 
         // if start later than end
         // ------------------------------------------------------
@@ -52,8 +52,8 @@ class DateRangeQueryPickerTemplate extends React.Component {
         this.queryUtility.filter.set(this.toPropertyName, end);
     }
 
-    render() {
-        return (<DateRangePicker value={this.store.value} onChange={this.onValueChange} t={this.t} errors={this.store.errors} />);
+    render(){
+        return (<DateRangePicker value={this.store.value} onChange={this.onValueChange} t={this.t} errors={this.store.errors}/>);
     }
 }
 
@@ -61,7 +61,8 @@ DateRangeQueryPickerTemplate.propTypes = {
     queryUtility: PropTypes.instanceOf(QueryUtility),
     store: PropTypes.instanceOf(DateRangeQueryPickerStore),
     fromPropertyName: PropTypes.string,
-    toPropertyName: PropTypes.string
+    toPropertyName: PropTypes.string,
+    t: PropTypes.func
 };
 
 export default defaultTemplate(DateRangeQueryPickerTemplate);

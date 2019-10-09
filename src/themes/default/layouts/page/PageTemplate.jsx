@@ -1,23 +1,21 @@
-import React from "react";
-import _ from 'lodash';
-import { Loadable } from "core/components";
+import React from 'react';
 import { PageNavigation, PageHeader, PageFooter, TabMenuLayout, Content } from 'core/layouts';
 import { getPageObject } from 'core/utils';
-import { defaultTemplate } from 'core/utils';
+import { defaultTemplate } from 'core/hoc';
+import { PropTypes } from 'prop-types';
 
-function PageTemplate({ children, rootStore, loading = false, isError = false, empty = false, emptyRenderer = null }) {
+function PageTemplate({ children, rootStore, loading = false, isError = false, empty=false, emptyRenderer=null }) {
     const { header, footer, navigation, content } = getPageObject(children);
 
     // we should hide whole content when user or application is being resolved
-    let coreResolving = rootStore.applicationStore.resolving;
-    let resolving = loading || rootStore.applicationStore.resolving;
+    let coreResolving = rootStore.userStore.resolving;
 
     return (
-        <div className="content">
+        <div className='container'>
             {
                 !coreResolving &&
                 <React.Fragment>
-                    <PageNavigation {...(navigation ? navigation[0].props : {})} />
+                    <PageNavigation {...(navigation ? navigation[0].props : {})}/>
                     <TabMenuLayout />
                 </React.Fragment>
             }
@@ -44,12 +42,9 @@ const MainContent = defaultTemplate(({ loading, header, footer, content, isError
             {/* can't wrap header and footer in Content so hide them while loading (because loader needs content__main as parent) */}
             {!loading ? <PageHeader {...(header ? header[0].props : {})} /> : null}
 
-            <div className="content__main">
-                <Content isError={isError} empty={false} loading={loading}> {/*when loading main content don't show empty (for now)*/}
+                <Content isError={isError} loading={loading}> {/*when loading main content don't show empty (for now)*/}
                     {content.sidebar}
-
-                    <div className="content__main__content">
-                        <div className="content">
+                        <div>
                             {
                                 content.header &&
                                 <div className="content__header">
@@ -58,11 +53,7 @@ const MainContent = defaultTemplate(({ loading, header, footer, content, isError
                             }
 
                             <div className="content__main">
-                                <div className="content__main__content">
-                                    <div className="padd--sml">
-                                        {content.children}
-                                    </div>
-                                </div>
+                                {content.children}
                             </div>
 
                             {
@@ -72,13 +63,21 @@ const MainContent = defaultTemplate(({ loading, header, footer, content, isError
                                 </div>
                             }
                         </div>
-                    </div>
+
                 </Content>
-            </div>
 
             {!loading ? <PageFooter {...(footer ? footer[0].props : {})} /> : null}
         </React.Fragment>
     )
 });
+
+PageTemplate.propTypes = {
+    children: PropTypes.any,
+    rootStore: PropTypes.object,
+    loading: PropTypes.bool,
+    isError: PropTypes.bool,
+    empty: PropTypes.bool,
+    emptyRenderer: PropTypes.any
+}
 
 export default defaultTemplate(PageTemplate);

@@ -1,6 +1,3 @@
 {
-  "appId": "thedonorsfund",
-  "appUrl": "api.thedonorsfund.staging.mono-software.com",
-  "appVersion": "",
-  "useSSL": false
+    "test": "test-prod"
 }

@@ -1,0 +1,16 @@
+/*------------------------------------*\
+    # components.separator
+    * use separators exclusively on <
+    *div> elements
+\*------------------------------------*/
+
+
+.u {
+
+    &-separator {
+
+        &--primary {
+            border-bottom: 1px solid color($color-text lightness(+55%));
+        }
+    }
+}

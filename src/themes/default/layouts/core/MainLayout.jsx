@@ -1,37 +1,37 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Loader, Menu } from 'core/components';
-import { defaultTemplate } from 'core/utils';
+import { Header, Loader, Menu, SessionExpireModal } from 'core/components';
+import { defaultTemplate } from 'core/hoc';
 import { BaasicConfirmModal } from 'core/components';
 
 function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
-  if (!initialized) return <Loader />;
+    if (!initialized) return <Loader />;
 
-  const {
-    rootStore: { menuStore }
-  } = viewStore;
+    const {
+        rootStore: { menuStore }
+    } = viewStore;
 
-  return (
-    <div>
-      <div className="layout">
-        <Header />
-        <Menu />
-        <div
-          className={
-            'layout__content' +
-            (menuStore.secondaryMenuVisible ? ' active' : '')
-          }
-        >
-          {render(props)}
+    return (
+        <div>
+            <div className='layout'>
+                <Header />
+                <Menu />
+                <div
+                    style={{ overflow: 'auto' }} //TODO: designer
+                    className={'layout__content' + (menuStore.secondaryMenuVisible ? ' active' : '')}>{render(props)}
+                </div>
+
+                <BaasicConfirmModal />
+                <SessionExpireModal />
+            </div>
         </div>
-        <BaasicConfirmModal />
-      </div>
-    </div>
-  );
+    );
 }
 
 MainLayoutTemplate.propTypes = {
-  render: PropTypes.func
+    render: PropTypes.func,
+    initialized: PropTypes.bool,
+    viewStore: PropTypes.any
 };
 
 export default defaultTemplate(MainLayoutTemplate);

@@ -1,0 +1,16 @@
+/*------------------------------------*\
+    # component.content
+\*------------------------------------*/
+
+.content {
+    max-width: 1440px;
+    padding: calc($unit * 4);
+
+    &__header {
+    	padding-bottom: calc($unit * 4);
+    }
+
+    &__footer {
+    	padding: calc($unit * 4) 0;
+    }
+}

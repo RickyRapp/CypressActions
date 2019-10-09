@@ -1,0 +1,48 @@
+/*------------------------------------*\
+    # component.table
+\*------------------------------------*/
+
+.table {
+	display: table;
+
+	&--primary {
+		table-layout: fixed;
+		width: 100%;
+		border-collapse: collapse;
+
+		&__thead {
+			display: table-header-group;
+		}
+
+		&__tbody {
+			display: table-row-group;
+		}
+
+		&__tfoot {
+			display: table-footer-group;
+		}
+
+		&__tr {
+			display: table-row;
+		}
+
+		&__th {
+			display: table-cell;
+			padding: calc($unit * 2);
+			border: 1px solid $grey-2;
+			text-align: left;
+		}
+
+		&__td {
+			display: table-cell;
+			padding: calc($unit * 2);
+			border: 1px solid $grey-2;
+			text-align: left;
+			font-weight: $type-weight-regular;
+		}
+	}
+
+	&__icons {
+		text-align: right;
+	}
+}

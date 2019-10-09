@@ -1,58 +1,31 @@
 import _ from 'lodash';
 import {
-  routeProvider,
-  menuProvider,
-  storeProvider,
-  moduleProviderFactory
+	routeProvider,
+	menuProvider,
+	storeProvider
 } from 'core/providers';
 
 class ModuleBuilder {
-  globalContext = null;
+	buildRoutes(routes, ctx = {}) {
+        const ctxRoutes = buildConfiguration(routes, ctx);  
+		return routeProvider.initialize(ctxRoutes, ctx);
+	}
 
-  setGlobalContext(context) {
-    this.globalContext = context;
-  }
+	buildMenus(menus, ctx = {}) {
+		const ctxMenus = buildConfiguration(menus, ctx);  
+		return menuProvider.initialize(ctxMenus, ctx);
+	}
 
-  buildRoutes(moduleNames, ctx = {}) {
-    const fullContext = { ...ctx, ...this.globalContext };
-    const routeConfigs = getModulesConfigs(
-      moduleNames,
-      'getRouteConfiguration',
-      fullContext
-    );
-    return routeProvider.buildRoutes(routeConfigs, fullContext);
-  }
-
-  buildMenus(moduleNames, ctx = {}) {
-    const fullContext = { ...ctx, ...this.globalContext };
-    const menuConfigs = getModulesConfigs(
-      moduleNames,
-      'getMenuConfiguration',
-      fullContext
-    );
-    return menuProvider.buildMenus(menuConfigs, fullContext);
-  }
-
-  buildStores(moduleNames, ctx = {}) {
-    const fullContext = { ...ctx, ...this.globalContext };
-    const storeFactoryConfigs = getModulesConfigs(
-      moduleNames,
-      'getStoreConfiguration',
-      fullContext
-    );
-    return storeProvider.buildStores(storeFactoryConfigs, fullContext);
-  }
+	buildStores(stores, ctx = {}) {
+		const ctxStores = buildConfiguration(stores, ctx);  
+		return storeProvider.initialize(ctxStores, ctx);
+	}
 }
 
-function getModulesConfigs(moduleNames, configName, context) {
-  const modules = moduleProviderFactory.find(moduleNames);
-
-  let configs = [];
-  _.each(modules, module => {
-    configs = [...configs, ...module[configName](context)];
-  });
-
-  return configs;
+function buildConfiguration(items, ctx) {
+    return _.map(items, 
+        item => _.isFunction(item) ? item(ctx) : item
+    );
 }
 
 const moduleBuilder = new ModuleBuilder();

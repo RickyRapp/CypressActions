@@ -15,7 +15,7 @@ class DateRangePicker extends React.Component {
 }
 
 class DateRangePickerViewStore{
-    constructor(props, componentProps){
+    constructor(props, componentProps){ // eslint-disable-line
         const {t, required, } = componentProps;
         this.componentProps = componentProps;
 
@@ -31,14 +31,15 @@ class DateRangePickerViewStore{
         this.fromError = (e && e.fromError) ? e.fromError : null;
         this.toError = (e && e.toError) ? e.toError : null;
     }
-
-    d1 = cProps =><CustomDateInput label={this.t("DATE_RANGE.START")} error={this.fromError} required={this.required} {...cProps}/>
-    d2 = cProps => <CustomDateInput label={this.t("DATE_RANGE.END")} error={this.toError} required={this.required} {...cProps} />
     
+     /* eslint-disable */
+    d1 = cProps =><CustomDateInput label={this.t('DATE_RANGE.START')} error={this.fromError} required={this.required} {...cProps}/>
+    d2 = cProps => <CustomDateInput label={this.t('DATE_RANGE.END')} error={this.toError} required={this.required} {...cProps} />
+    /* eslint-enable */
 }
 
 const CustomDateInput = function(props) {
-    const {t, label, error, required, ...other} = props;
+    const {label, error, required, ...other} = props;
     
     return (
         <div className="display--ib align--v--top">
@@ -51,6 +52,12 @@ const CustomDateInput = function(props) {
     )
 };
 
+CustomDateInput.propTypes = {
+    label: PropTypes.string,
+    error: PropTypes.string,
+    required: PropTypes.bool,
+    t: PropTypes.func.isRequired,
+};
 
 DateRangePicker.propTypes = {
     value: PropTypes.shape({
