@@ -23,6 +23,13 @@
 
 /*make style for language selection dropdown in header*/
 .k-dropdown {
+    
+    &.k-header {
+        border-bottom: 0px;
+    }
+    .k-input {
+        font-size: 16px;
+    }
     &.language-select {
         width: 120px;
 
@@ -42,6 +49,7 @@
 
             .k-input {
                 color: $grey-2;
+
 
                 img {
                     display: inline-block;
@@ -99,8 +107,8 @@
             background-image: none;
 
             &.k-state-focused {
-                border: 1px solid $grey-3;
-                box-shadow: 0 0 5px 0px $color-tertiary;
+                border: 1px solid $color-primary;
+                box-shadow: none;
                 outline: 0;
                 
                 animation: shadow 1s alternate infinite;
@@ -118,11 +126,18 @@
 }
 
 /*in dropdown hovered and selected item (changed color)*/
+
+.k-list .k-item:hover {
+    background-color: color($color-primary a(10%)); 
+}
+
+
 .k-list .k-item.k-state-selected, 
 .k-list .k-item:hover.k-state-selected, 
 .k-list-optionlabel.k-state-selected, 
 .k-list-optionlabel:hover.k-state-selected {
-    background-color: $color-tertiary;
+    background-color: color($color-primary a(25%));
+    color: $color-text;
 }
 
 /*version switch in header override*/
@@ -177,7 +192,7 @@
 
         &.k-state-focused {
             outline: 0;
-            box-shadow: 0 0 5px 0px $color-tertiary;
+            box-shadow: none;
             animation: shadow 1s alternate infinite;
 
             .k-multiselect-wrap {
@@ -221,17 +236,18 @@
         .k-input {
             height: unset;
             padding: 7px;
+            padding-right: 24px;
         }
     }
     
     .k-select {
-        background-color: $color-primary;
+        background-color: white;
         background-image: none;
     }
 
     &:hover {
         .k-select {
-            background-color: $color-primary;
+            background-color: white;
             background-image: none;
         }
     }
@@ -247,10 +263,10 @@
 
             /*input icon*/
             .k-select {
-                background-color: #fadddd; /*light red*/
+                background-color: $color-primary;
 
                 .k-icon {
-                    color: #e87979; /*semilight red*/
+                    color: $color-primary;
                 } 
             } 
         }
@@ -261,7 +277,7 @@
 .k-calendar-container {
     .k-calendar-navigation:after, 
     .k-calendar-navigation:before {
-        box-shadow: 0 0 6em 3em #ddeafa; /*light blue*/
+        box-shadow: none;
     }
 }
 
@@ -321,6 +337,7 @@
 .k-calendar {
     .k-calendar-navigation {
         background-color: color($color-tertiary lightness(+40%));
+        background-color: $grey-2;
     }
 
     .k-state-selected {
@@ -390,7 +407,7 @@
 }
 /* fix position of placeholder in input*/
 .k-textbox-container > .k-label {
-    top: calc(1.07143em + -5px);
+    top: calc(1.07143em - 10px);
 }
 
 /*
@@ -398,6 +415,13 @@
 */
 .k-list-container.w--auto {
     width: auto !important;
+}
+
+.k-list-container {
+    
+    .k-item {
+        font-size: 16px;
+    }
 }
 
 /*
@@ -489,3 +513,6 @@
     }
 }
 
+.k-popup, .k-column-menu .k-menu:not(.k-context-menu), .k-menu-group, .k-menu.k-context-menu {
+    background-color: white;
+}

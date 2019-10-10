@@ -111,10 +111,16 @@
         color: $grey-4;
         opacity: 0.8;
         transition: all 250ms ease-in-out;
+        box-shadow: none;
 
         &:hover {
             color: $grey-5;
             opacity: 1;
+            box-shadow: none;
+        }
+
+        &:focus {
+            box-shadow: none;
         }
     }
 

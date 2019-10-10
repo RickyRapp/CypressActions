@@ -29,14 +29,14 @@ import { noApplicationRedirectPromise } from 'core/utils';
                         beforeEnter: (fromState, toState, routerStore) => {
                             return noApplicationRedirectPromise(routerStore.rootStore, 'master.app.main.role.list');
                         }
-                    },                    
+                    },
                 ]
             }
         ],
         menu: [
             {
-                title: 'Administration',
-                icon: 'test icon',
+                title: 'MENU.ADMINISTRATION',
+                authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
                         title: 'MENU.ROLES',

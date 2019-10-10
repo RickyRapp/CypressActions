@@ -39,5 +39,14 @@
                 margin-left: -1px;
             }
         }
+
+        &--special {
+            padding-left: calc($unit * 4);
+
+            .btn {
+                border-radius: $radius-base;
+                margin-left: -1px;
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject } from 'mobx-react';
-import {PropTypes} from 'prop-types';
+import { PropTypes } from 'prop-types';
 
 function withAuth(Component) {
     @inject(i => ({
@@ -9,19 +9,19 @@ function withAuth(Component) {
     class AuthComponent extends React.Component {
         render() {
             const { permissionStore, authorization, ...otherProps } = this.props;
-            return authorization ? 
-            permissionStore.hasPermission(authorization)
-                ? <Component {...otherProps} />
-                : null
-            : <Component {...otherProps} />;
+            return authorization ?
+                permissionStore.hasPermission(authorization)
+                    ? <Component {...otherProps} />
+                    : null
+                : <Component {...otherProps} />;
         }
-    }    
+    }
 
     AuthComponent.propTypes = {
         permissionStore: PropTypes.object,
-        authorization: PropTypes.any  
+        authorization: PropTypes.any
     };
-    
+
     return AuthComponent;
 }
 

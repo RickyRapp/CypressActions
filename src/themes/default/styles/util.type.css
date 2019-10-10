@@ -115,6 +115,10 @@
             color: $color-warning;
         }
 
+        &--error {
+            color: $color-warning;
+        }
+
         &--success {
             color: $color-success;
         }

@@ -1,6 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 
-import {Home} from 'application/dashboard/pages';
+import { Home } from 'application/dashboard/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,7 +9,13 @@ import {Home} from 'application/dashboard/pages';
                 name: 'master.app.main.dashboard',
                 pattern: '',
                 component: Home,
-            },            
+            },
+        ],
+        menu: [
+            {
+                title: 'MENU.DASHBOARD',
+                route: 'master.app.main.dashboard'
+            }
         ]
     });
 })();

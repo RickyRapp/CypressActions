@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    # components.empty-state
+\*------------------------------------*/
+
+.empty-state {
+
+    &__img {
+
+        &--lrg {
+            max-width: 360px;
+        }
+    }
+
+    &__title {
+        @mixin type-scale $type-huge, 1.75;
+        font-weight: $type-weight-bold;
+    }
+}

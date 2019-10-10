@@ -3,6 +3,8 @@
 \*------------------------------------*/
 
 $aside-width: 210px;
+$aside-sml-width: 64px;
+$aside-secondary-width: 300px;
 $header-height: 72px;
 
 .layout {
@@ -13,6 +15,7 @@ $header-height: 72px;
         right: 0;
         left: 0;
         height: $header-height;
+        z-index: 6;
     }
 
     &__aside {
@@ -20,15 +23,76 @@ $header-height: 72px;
         top: $header-height;
         left: 0;
         bottom: 0;
-        width: $aside-width;
+        width: 0;
         background-color: $color-tertiary;
+        z-index: 9;
+
+        @media (--screen-from-sml) {
+            width: $aside-width;
+        }
+
+        &--secondary {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: $color-secondary;
+            z-index: 99;
+
+            @media (--screen-from-sml) {
+                top: $header-height;
+                left: $aside-width;
+                width: $aside-secondary-width;
+            }
+        }
+
+
+        &.is-collapsed {
+
+            @media (--screen-from-sml) {
+                width: $aside-sml-width;
+
+                .nav__text {
+                    display: none;
+                }
+
+                .nav--secondary {
+                    display: none;
+                }
+            }
+        }
     }
 
     &__content {
         position: fixed;
         top: $header-height;
         right: 0;
-        left: $aside-width;
+        left: 0;
         bottom: 0;
+        overflow: hidden;
+        overflow-y: auto; 
+        z-index: 5;
+
+        &.is-collapsed {
+
+            @media (--screen-from-sml) {
+                left: $aside-sml-width;
+            }
+
+        }
+
+        @media (--screen-from-sml) {
+            left: $aside-width;
+        }
     }
+
+    &--error {
+        height: 100vh;
+        padding-top: 10vh;
+        
+        background-color: $grey-1;
+    }
+
+
 }

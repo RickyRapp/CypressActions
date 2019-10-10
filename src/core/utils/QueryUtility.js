@@ -274,11 +274,11 @@ class QueryUtility {
     };
 
     @action.bound resetFilter(fetch = true) {
+        this.filter.reset();
+
         if (this.onResetFilter) {
             this.onResetFilter(this.filter);
         }
-
-        this.filter.reset();
 
         if (fetch)
             this.fetch();

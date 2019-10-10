@@ -19,7 +19,7 @@
 
         &--clear {
             position: absolute; 
-            right: calc($unit * 2);
+            right: calc($unit * 7);
             top: 4px;
             cursor: pointer;
         }

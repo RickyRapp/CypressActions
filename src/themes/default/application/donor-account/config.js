@@ -12,7 +12,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         name: 'master.app.main.donor-account.list',
                         pattern: '',
                         component: DonorAccountList,
-                        authorization: 'theDonorsFundDonorSection.read',
+                        authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "DONORACCOUNT.LIST.TITLE"
                         }
@@ -30,7 +30,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         name: 'master.app.main.donor-account.create',
                         pattern: '/create',
                         component: DonorAccountCreate,
-                        authorization: 'theDonorsFundDonorSection.create',
+                        authorization: 'theDonorsFundAdministrationSection.create',
                         data: {
                             title: "DONORACCOUNT.CREATE.TITLE"
                         }
@@ -40,13 +40,12 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
         ],
         menu: [
             {
-                title: 'Administration',
-                icon: 'test icon for administration',
+                title: 'MENU.ADMINISTRATION',
+                authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
-                        title: 'MENU.DONORACCOUNTS',
+                        title: 'MENU.DONOR_ACCOUNTS',
                         order: 1,
-                        icon: 'donor account icon',
                         route: 'master.app.main.donor-account.list'
                     },
                 ]

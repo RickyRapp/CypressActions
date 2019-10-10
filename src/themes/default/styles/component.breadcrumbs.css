@@ -6,4 +6,18 @@
     @mixin type-scale $type-small, 0.75;
     color: $grey-5;
     margin-bottom: calc($unit * 2);
+
+    &__item {
+    	text-decoration: underline;
+    	cursor: pointer;
+
+    	&.disabled {
+    		text-decoration: none;
+    		cursor: default;
+    	}
+    }
+
+    &__spacer {
+    	margin: 0 calc($unit * 1);
+    }
 }

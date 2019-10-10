@@ -132,8 +132,8 @@
         "EMPTY_MESSAGE": "There is no information about selected item"
     },
     "LOGIN": {
-        "TITLE": "Welcome to Portal",
-        "DESCRIPTION": "Login to administration with your credentials. If you have problem with login, contact support.",
+        "TITLE": "The Donors Fund",
+        "DESCRIPTION": "Login to app with your credentials. If you have problem with login, contact support.",
         "FORGOT_PASSWORD_BUTTON": "Forgot Password?",
         "SIGNIN_BUTTON": "Sign In",
         "USERNAME_LABEL": "Username",
@@ -295,7 +295,16 @@
         "ROLES": "Roles",
         "PERMISSIONS": "Permissions",
         "APPLICATION": "Application",
-        "DONORACCOUNTS": "Donors"
+        "ADMINISTRATION": "Administration",
+        "DASHBOARD": "Dashboard",
+        "DONOR_ACCOUNTS": "Donors",
+        "ACTIVITY_AND_HISTORY": {
+            "TITLE": "Activity and history",
+            "DONOR_VIEW": "Activity donor",
+            "CHARITY_VIEW": "Activity charity",
+            "ADMINISTRATOR_DONOR_VIEW": "Donor",
+            "ADMINISTRATOR_CHARITY_VIEW": "Charity"
+        }
     },
     "GRID": {
         "FILTERS_TITLE": "Filters",
@@ -527,6 +536,26 @@
                 "USE_PRIMARY_EMAIL_ADDRESS": "Use my primary email address",
                 "USE_PRIMARY_PHONE_NUMBER": "Use my primary phone number"
             }
+        }
+    },
+    "ACTIVITY_AND_HISTORY": {
+        "LIST": {
+            "TITLE": "Activity and history",
+            "SELECT_DONOR": "Select donor",
+            "SELECT_CHARITY": "Select charity",
+            "COLUMNS": {
+                "DATE_CREATED_LABEL": "Date created",
+                "PAYMENT_DESCRIPTION_LABEL": "Description",
+                "PAYMENT_AMOUNT_LABEL": "Amount",
+                "PRESENT_BALANCE_LABEL": "Balance",
+                "DONOR_NAME_LABEL": "Donor",
+                "CHARITY_NAME_LABEL": "Charity"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No activities"
+            },
+            "DONOR": "Donor",
+            "CHARITY": "Charity"
         }
     }
 }

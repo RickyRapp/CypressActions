@@ -3,11 +3,44 @@
 \*------------------------------------*/
 
 .nav {
-    &--primary {
-       
-    }
 
-    &--secondary { 
+    &--primary { 
+
+        &__close {
+            position: absolute;
+            top: calc($unit * 2);
+            right: calc($unit * 2);
+
+            @media (--screen-from-sml) {
+                display: none;
+            }
+        }
+
+        @media (--screen-to-sml) {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: $color-tertiary;
+            z-index: 10;
+
+            padding: calc($unit * 8) 0 calc($unit * 6) 0;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: opacity 250ms ease-in-out;
+
+            &.is-open {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        &__icon {
+            float: right;
+        }
 
         &__item {
             position: relative;
@@ -16,7 +49,8 @@
 
             font-weight: $type-weight-regular;
             color: color(white a(50%));
-            transition: all 250ms ease-out;
+            transition: color, background-color 250ms ease-out;
+            cursor: pointer;
 
             &:before {
                 content: '';
@@ -29,17 +63,192 @@
                 background-color: transparent;
             }
 
+            .u-icon {
+                &--dashboard {
+                    background-image: svg-load('postcss-svg/dashboard.svg', fill: color(white a(60%))); 
+                }
+
+                &--administration {
+                    background-image: svg-load('postcss-svg/cog.svg', fill: color(white a(60%)));
+                }
+
+                &--tickets {
+                    background-image: svg-load('postcss-svg/ticket.svg', fill: color(white a(60%)));
+                }
+
+                &--turnovers {
+                    background-image: svg-load('postcss-svg/turnover.svg', fill: color(white a(60%)));
+                }
+
+                &--work-orders {
+                    background-image: svg-load('postcss-svg/checklist.svg', fill: color(white a(60%)));
+                }
+
+                &--violation-reports {
+                    background-image: svg-load('postcss-svg/violation.svg', fill: color(white a(60%)));
+                }
+
+                &--profile {
+                    background-image: svg-load('postcss-svg/profile.svg', fill: white);
+                }
+
+                &--mail {
+                    background-image: svg-load('postcss-svg/mail.svg', fill: white);
+                }
+            } 
+
             &:hover,
             &:focus,
             &:active,
-            &.active {
+            &.active,
+            &.selected {
                 color: $color-primary;
                 background-color: color(white a(10%));
                 
                 &:before {
                     background-color: $color-primary;
                 }
+
+                .u-icon {
+                    &--dashboard {
+                        background-image: svg-load('postcss-svg/dashboard.svg', fill: color(white a(100%))); 
+                    }
+
+                    &--administration {
+                        background-image: svg-load('postcss-svg/cog.svg', fill: color(white a(100%)));
+                    }
+
+                    &--tickets {
+                        background-image: svg-load('postcss-svg/ticket.svg', fill: color(white a(100%)));
+                    }
+
+                    &--turnovers {
+                        background-image: svg-load('postcss-svg/turnover.svg', fill: color(white a(100%)));
+                    }
+
+                    &--work-orders {
+                        background-image: svg-load('postcss-svg/checklist.svg', fill: color(white a(100%)));
+                    }
+
+                    &--violation-reports {
+                        background-image: svg-load('postcss-svg/violation.svg', fill: color(white a(100%)));
+                    }
+                }
+
             }
         }
+
+        &__collapse {
+            margin: 0 auto;
+            text-align: center;
+            cursor: pointer;
+
+            position: absolute;
+            bottom: calc($unit * 4);
+            left: 0;
+            right: 0;
+
+            i {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &--secondary { 
+
+        &__item {
+            position: relative;
+            display: block;
+            padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 8);
+
+            font-weight: $type-weight-regular;
+            color: color(white a(50%));
+            transition: color, background-color 250ms ease-out;
+            cursor: pointer;
+            background-color: color(white a(5%));
+
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                color: $color-primary;
+                background-color: color(white a(10%));
+            }
+        }
+    }
+
+    &--tertiary {
+
+        &__back {
+            position: absolute;
+            top: calc($unit * 4);
+            left: calc($unit * 4);
+
+            @media (--screen-from-sml) {
+                display: none;
+            }
+        }
+
+        @media (--screen-to-sml) {
+            padding: calc($unit * 12) 0 calc($unit * 6) 0;
+        }
+
+        &__item {
+            position: relative;
+            display: block;
+            padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 4);
+
+            font-weight: $type-weight-regular;
+            color: color(white a(50%));
+            transition: color, background-color 250ms ease-out;
+            cursor: pointer;
+
+            @media (--screen-from-sml) {
+                padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 8);
+            }
+
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                color: $color-primary;
+                background-color: color(white a(10%));
+            }
+        }
+    }
+}
+
+.is-collapsed {
+
+    .nav--primary__collapse {
+
+        i {
+            transform: rotate(0deg);
+        }
+
+        &[aria-label-expand]:hover:after {
+
+            @media (--screen-from-sml) {
+                @mixin type-scale $type-small, 1;
+                content: attr(aria-label-expand);
+                position: absolute;
+                right: 0;
+                top: calc(50% - $unit * 3);
+                padding: $unit;
+                display: block;
+                background-color: black;
+                color: white;
+                white-space: nowrap;
+                transform: translateX(90%);
+                border-radius: $radius-base;
+            }
+        }
+    }
+
+    .nav--primary__icon {
+        /*position: absolute;
+        top: calc($unit * 2);
+        right: $unit;*/
+        display: none;
     }
 }

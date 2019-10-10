@@ -17,7 +17,7 @@ import { noApplicationRedirectPromise } from 'core/utils';
                         data: {
                             title: "USER.LIST.TITLE"
                         }
-                    },                    
+                    },
                     {
                         name: 'master.app.main.user.create',
                         pattern: '/create',
@@ -39,14 +39,14 @@ import { noApplicationRedirectPromise } from 'core/utils';
                             return noApplicationRedirectPromise(routerStore.rootStore, 'master.app.main.user.list');
                         }
                     },
-                    
+
                 ]
             }
         ],
         menu: [
             {
-                title: 'Administration',
-                icon: 'test icon for administration',
+                title: 'MENU.ADMINISTRATION',
+                authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
                         title: 'MENU.USERS',

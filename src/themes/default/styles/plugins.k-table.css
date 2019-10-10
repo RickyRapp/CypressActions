@@ -56,6 +56,17 @@ $table-width: 1024px;
             td {
                 @mixin type-scale $type-small, 0.75;
                 color: $color-text;
+
+                &.right {
+                    text-align: right;
+                }
+
+                &.table--clickable {
+
+                    &:hover {
+                        color: $color-primary;
+                    }
+                }
             }
         }
 
@@ -84,7 +95,7 @@ $table-width: 1024px;
     &.k-grid {
         table td,
         table th {
-            padding: calc($unit * 3) calc($unit * 2); 
+            padding: calc($unit * 2) calc($unit * 2); 
         }
 
         table th.k-sorted {
@@ -101,11 +112,11 @@ $table-width: 1024px;
 .k-grid tbody tr.k-state-hover,
 .k-grid tbody tr:hover,
 .k-grid tbody tr.k-alt:hover {
-    background-color: transparent;
+    background-color: color($color-primary a(5%));
 }
 
 /*cursor pointer on clickable table <td> element*/
-.c-poiner {
+.c-pointer {
     cursor: pointer;
 }
 
@@ -152,6 +163,7 @@ $table-width: 1024px;
 
             &.k-state-selected {
                 color: white !important;
+                background-color: $color-primary;
             }
         }
     }

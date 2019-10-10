@@ -64,6 +64,7 @@
 @import "component.breadcrumbs.css";
 @import "component.loader.css";
 @import "component.modal.css";
+@import "component.empty-state.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
@@ -90,16 +91,19 @@
 @import "util.anchor.css";
 @import "util.radius.css";
 @import "util.visibility.css";
+@import "util.rotate.css";
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc
 * Note: when importing code from a 3rd party it should be stripped off
 * any vendor prefixes since autoprefixer will use project specific vendor prefixes
 */
-@import "plugin.fontface.css";
+@import "plugins.fontface.css";
 @import "plugins.k-general.css";
 @import "plugins.k-inputs.css";
 @import "plugins.k-table.css";
+@import "plugins.k-datepicker.css";
+@import "plugins.toastify.css";
 
 /**
 * Shame .......... CSS shame file, to be avoided, exists only if REALLY necessary or legacy code.

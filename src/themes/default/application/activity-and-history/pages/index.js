@@ -1,0 +1,2 @@
+export { default as DonorActivityAndHistoryListTemplate } from './DonorActivityAndHistoryListTemplate'
+export { default as CharityActivityAndHistoryListTemplate } from './CharityActivityAndHistoryListTemplate'

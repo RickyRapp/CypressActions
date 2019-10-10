@@ -8,22 +8,39 @@
     justify-content: flex-start;
     background-color: $color-secondary;
     align-items: center;
-    z-index: 99;
 
-    padding: 0 calc($unit * 4);
+    padding: 0 calc($unit * 2);
+
+    @media (--screen-from-sml) {
+        padding: 0 calc($unit * 4);
+    }
 
     &__logo {
         height: 28px;
     }
 
+    &__hamburger {
+        display: inline-block;
+        margin-right: calc($unit * 4);
+
+        @media (--screen-from-sml) {
+            display: none;
+        }
+    }
+
+    &__options {
+        margin-left: auto;
+    }
+
     &__profile {
         position: relative;
-        margin-left: auto;
         color: white;
         cursor: pointer;
+        display: inline-block;
 
         &__img {
             border-radius: $radius-full;
+            border: 1px solid color(white a(25%));
         }
 
         &__dropdown {
@@ -49,11 +66,20 @@
         }
 
         &__name {
-            padding: 0 calc($unit * 2);
-        }
+            padding: 0 calc($unit * 1);
 
-        &__icon {
-            margin-left: calc($unit * 1);
+            @media (--screen-from-sml) {
+                padding: 0 calc($unit * 2);
+            }
+        
+            span {
+                display: none;
+                margin-right: calc($unit * 1);
+
+                @media (--screen-from-sml) {
+                    display: inline-block;
+                }
+            }
         }
     }
 }

@@ -12,7 +12,17 @@
 
         background-size: cover; 
 
+        &--tny {
+            width: calc($unit * 1.5); 
+            height: calc($unit * 1.5);
+        }
+
         &--sml {
+            width: calc($unit * 2.5);
+            height: calc($unit * 2.5);
+        }
+
+        &--xmed {
             width: calc($unit * 3);
             height: calc($unit * 3);
         }
@@ -31,20 +41,40 @@
             background-image: svg-load('postcss-svg/close.svg', fill: $grey-4);
         }
 
+        &--back {
+            background-image: svg-load('postcss-svg/arrow-left.svg', fill: $grey-4);
+        }
+
+        &--menu {
+            background-image: svg-load('postcss-svg/menu.svg', fill: white);
+        }
+
         &--edit {
-             background-image: svg-load('postcss-svg/edit.svg', fill: $grey-4);
+             background-image: svg-load('postcss-svg/edit.svg', fill: $color-primary);
+        }
+
+        &--delete {
+             background-image: svg-load('postcss-svg/delete.svg', fill: $color-warning);
+        }
+
+        &--preview {
+             background-image: svg-load('postcss-svg/eye.svg', fill: $color-note);
         }
 
         &--approved {
-             background-image: svg-load('postcss-svg/check-on.svg', fill: $grey-4);
+             background-image: svg-load('postcss-svg/check-on.svg', fill: $color-success);
         }
 
         &--unapproved {
-             background-image: svg-load('postcss-svg/check-off.svg', fill: $grey-4);
+             background-image: svg-load('postcss-svg/check-off.svg', fill: $color-warning);
+
+             &--secondary {
+                background-image: svg-load('postcss-svg/check-off.svg', fill: $grey-3);
+             }
         }
 
         &--locked {
-            background-image: svg-load('postcss-svg/lock.svg', fill: $grey-4);
+            background-image: svg-load('postcss-svg/lock.svg', fill: $color-warning);
         }
 
         &--unlocked {
@@ -58,5 +88,26 @@
         &--email-pass {
             background-image: svg-load('postcss-svg/email-lock.svg', fill: $grey-4);
         }
+
+        &--arrow-right {
+            background-image: svg-load('postcss-svg/arrow-right.svg', fill: $grey-4);
+        }
+
+        &--arrow-left {
+            background-image: svg-load('postcss-svg/arrow-left-s.svg', fill: $grey-4);
+        }
+
+        &--arrow-down {
+            background-image: svg-load('postcss-svg/arrow-down.svg', fill: $grey-4);
+        }
+
+        &--circle-right {
+            background-image: svg-load('postcss-svg/circle-right.svg', fill: $grey-4);
+        }
     }
+}
+
+
+.Toastify__toast--default {
+    color: red;
 }
