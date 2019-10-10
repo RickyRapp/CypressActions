@@ -1,10 +1,8 @@
 import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ActivityAndHistoryService } from 'application/activity-and-history/services';
 import { applicationContext } from 'core/utils';
 import { ActivityAndHistoryListFilter } from 'application/activity-and-history/models';
-import { DonorAccountService } from 'application/donor-account/services';
-import _ from 'lodash'
 
 @applicationContext
 class SettledPaymentTransactionViewStore extends BaseListViewStore {

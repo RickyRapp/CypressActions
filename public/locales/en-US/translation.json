@@ -298,6 +298,7 @@
         "ADMINISTRATION": "Administration",
         "DASHBOARD": "Dashboard",
         "DONOR_ACCOUNTS": "Donors",
+        "CHARITIES": "Charities",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity and history",
             "DONOR_VIEW": "Activity donor",
@@ -556,6 +557,54 @@
             },
             "DONOR": "Donor",
             "CHARITY": "Charity"
+        }
+    },
+    "CHARITY": {
+        "LIST": {
+            "TITLE": "Charities",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "TAX_ID_LABEL": "Tax id",
+                "DATE_CREATED_LABEL": "Date created",
+                "BALANCE_LABEL": "Balance"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No charities",
+                "ACTION": "Create new charity"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add charity",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "TAX_ID_LABEL": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "CHARITY_TYPE_LABEL": "Type",
+                "CHARITY_TYPE_PLACEHOLDER": "Type",
+                "CHARITY_STATUS_LABEL": "Status",
+                "CHARITY_STATUS_PLACEHOLDER": "Status"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit charity",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "TAX_ID_LABEL": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "DBA_LABEL": "DBA",
+                "DBA_PLACEHOLDER": "DBA",
+                "CHARITY_TYPE_LABEL": "Type",
+                "CHARITY_TYPE_PLACEHOLDER": "Type",
+                "CHARITY_STATUS_LABEL": "Status",
+                "CHARITY_STATUS_PLACEHOLDER": "Status"
+            }
         }
     }
 }

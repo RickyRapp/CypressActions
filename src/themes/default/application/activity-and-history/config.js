@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'application/activity-and-history/pages';
-import _ from 'lodash';
 
 (function () {
     moduleProviderFactory.application.register({

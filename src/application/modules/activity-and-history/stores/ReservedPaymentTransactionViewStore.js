@@ -3,7 +3,6 @@ import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ActivityAndHistoryService } from 'application/activity-and-history/services';
 import { applicationContext } from 'core/utils';
 import { ActivityAndHistoryListFilter } from 'application/activity-and-history/models';
-import _ from 'lodash'
 
 @applicationContext
 class ReservedPaymentTransactionViewStore extends BaseListViewStore {

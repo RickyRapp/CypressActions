@@ -12,12 +12,6 @@ class CharityService extends BaseService {
         const response = await this.apiClient.get(url, filter);
         return response.data || null;
     }
-
-    async findDonorPendingTransactions(donorAccountId) {
-        const url = this.routeService.findDonorPendingTransactions(donorAccountId);
-        const response = await this.apiClient.get(url);
-        return response || null;
-    }
 }
 
 export default CharityService;

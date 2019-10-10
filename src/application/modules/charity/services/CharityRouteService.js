@@ -6,15 +6,15 @@ class CharityRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,name,taxId,charityId,page,rpp,sort,embed,fields}', filter);
+    }
+
+    get(id, options) {
+        return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
     search(filter) {
         return super.find(this.base + '/search/{?id,searchQuery,page,rpp,sort,embed,fields,exceptId}', filter);
-    }
-
-    findDonorPendingTransactions(donorAccountId) {
-        return super.find(this.base + '/donor-pending-transactions/{donorAccountId}', donorAccountId);
     }
 }
 
