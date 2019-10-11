@@ -11,8 +11,10 @@ const DonorActivityAndHistoryListTemplate = function ({ donorActivityAndHistoryV
     return (
         <Page>
             <ListContent>
-                <div className="col col-sml-12 col-med-6 col-lrg-3">
-                    <AuthDropdownContent store={donorAccountDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
+                <div className="u-mar--bottom--sml">
+                    <div className="col col-sml-12 col-med-6 col-lrg-3">
+                        <AuthDropdownContent store={donorAccountDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
+                    </div>
                 </div>
                 {(id || donorAccountDropdownStore.value) ?
                     <React.Fragment>

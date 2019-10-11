@@ -1,8 +1,8 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import {BaseViewStore} from "core/stores";
-import {ModalParams} from 'core/models';
+import { BaseViewStore } from "core/stores";
+import { ModalParams } from 'core/models';
 import { HeaderTemplate } from 'themes/components';
 
 @inject((i) => ({
@@ -10,6 +10,7 @@ import { HeaderTemplate } from 'themes/components';
     routerStore: i.rootStore.routerStore,
     appStore: i.rootStore.appStore,
     viewStore: i.rootStore.viewStore,
+    menuStore: i.rootStore.menuStore,
     // localizationStore: i.rootStore.localizationStore
     headerViewStore: new HeaderViewStore(i.rootStore)
 }))

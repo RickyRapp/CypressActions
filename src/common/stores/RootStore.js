@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import {RouterState, HistoryAdapter} from 'mobx-state-router';
+import { RouterState, HistoryAdapter } from 'mobx-state-router';
 
-import {history} from 'common/utils';
-import {ApplicationStore, AppStore} from 'common/stores';
-import {EventHandler, cacheService} from 'core/services';
-import {moduleBuilder} from 'core/providers';
-import {getDefaultRouteDataMap} from 'core/utils';
+import { history } from 'common/utils';
+import { ApplicationStore, AppStore } from 'common/stores';
+import { EventHandler, cacheService } from 'core/services';
+import { moduleBuilder } from 'core/providers';
+import { getDefaultRouteDataMap } from 'core/utils';
 
 import {
     AuthStore,
@@ -22,7 +22,7 @@ import {
     LocalizationStore
 } from 'core/stores';
 
-export default class RootStore {    
+export default class RootStore {
     eventHandler = new EventHandler();
     initialState = new RouterState('master.app.main.dashboard');
 
@@ -31,7 +31,7 @@ export default class RootStore {
     }
 
     constructor(configuration) {
-        this.configuration = configuration;      
+        this.configuration = configuration;
 
         const moduleContext = { rootStore: this };
         const { routes, routerMaps } = moduleBuilder.buildRoutes(configuration.routes, moduleContext);

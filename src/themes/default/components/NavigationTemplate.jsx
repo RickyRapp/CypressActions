@@ -17,7 +17,7 @@ const NavigationOptions = defaultTemplate(({ options, t }) => {
     }
 
     if (options.title && options.title !== '') {
-        return <span className='type--wgt--regular'>: {t(options.title)}</span>
+        return <span className='type--wgt--regular'>{t(options.title)}</span>
     }
 
     return null;
@@ -26,36 +26,44 @@ const NavigationOptions = defaultTemplate(({ options, t }) => {
 function NavigationTemplate({ title, navigationOptions, breadcrumbs, routerStore, t, overrideDefaultContent, children }) {
     const lastIndex = breadcrumbs.length - 1;
     return !overrideDefaultContent ? (
-        <div className='row'>
-            <div className='col col-sml-8'>
-                <div className='breadcrumbs'>
-                    {_.map(breadcrumbs, (breadcrumb, index) => {
-                        const isLast = index === lastIndex;
-                        const navigate =
-                            breadcrumb.route && !isLast
-                                ? () => routerStore.goTo(breadcrumb.route)
-                                : null;
+        <React.Fragment>
+            <div className='row'>
+                <div className="col col-sml-12">
+                    <div className='breadcrumbs'>
+                        {_.map(breadcrumbs, (breadcrumb, index) => {
+                            const isLast = index === lastIndex;
+                            const navigate =
+                                breadcrumb.route && !isLast
+                                    ? () => routerStore.goTo(breadcrumb.route)
+                                    : null;
 
-                        const breadcrumbTitle = t(breadcrumb.title);
-                        return (
-                            <span className={'breadcrumbs__item' + (!navigate ? ' disabled' : '')} key={index} {...(navigate ? { onClick: navigate } : {})}>
-                                {breadcrumbTitle} {isLast ? '' : <span className='icomoon icon-arrow-right-1' /> }
-                            </span>
-                        );
-                    })}
+                            const breadcrumbTitle = t(breadcrumb.title);
+                            return (
+                                <span className={'breadcrumbs__item' + (!navigate ? ' disabled' : '')} key={index} {...(navigate ? { onClick: navigate } : {})}>
+                                    {breadcrumbTitle}{isLast ? '' : <span className='breadcrumbs__spacer u-icon u-icon--tny u-icon--arrow-right' />}
+                                </span>
+                            );
+                        })}
+                    </div>
                 </div>
-                <h2 className='display--ib'>
-                    {t(title)}
-
-                    <NavigationOptions options={navigationOptions} />
-                </h2>   
             </div>
-            {children ?
-                <div className="col col-sml-4 type--right">
-                    {renderChildren(children)}
-                </div> : null
-            }
-        </div>
+            <div className="content__header">
+                <div className="row">
+                    <div className='col col-sml-8'>
+                        <h2>
+                            {t(title)}
+
+                            <NavigationOptions options={navigationOptions} />
+                        </h2>
+                    </div>
+                    {children ?
+                        <div className="col col-sml-4 type--right">
+                            {renderChildren(children)}
+                        </div> : null
+                    }
+                </div>
+            </div>
+        </React.Fragment>
     ) : renderChildren(children);
 }
 

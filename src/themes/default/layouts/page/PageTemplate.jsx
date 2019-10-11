@@ -4,7 +4,7 @@ import { getPageObject } from 'core/utils';
 import { defaultTemplate } from 'core/hoc';
 import { PropTypes } from 'prop-types';
 
-function PageTemplate({ children, rootStore, loading = false, isError = false, empty=false, emptyRenderer=null }) {
+function PageTemplate({ children, rootStore, loading = false, isError = false, empty = false, emptyRenderer = null }) {
     const { header, footer, navigation, content } = getPageObject(children);
 
     // we should hide whole content when user or application is being resolved
@@ -15,7 +15,7 @@ function PageTemplate({ children, rootStore, loading = false, isError = false, e
             {
                 !coreResolving &&
                 <React.Fragment>
-                    <PageNavigation {...(navigation ? navigation[0].props : {})}/>
+                    <PageNavigation {...(navigation ? navigation[0].props : {})} />
                     <TabMenuLayout />
                 </React.Fragment>
             }
@@ -42,29 +42,29 @@ const MainContent = defaultTemplate(({ loading, header, footer, content, isError
             {/* can't wrap header and footer in Content so hide them while loading (because loader needs content__main as parent) */}
             {!loading ? <PageHeader {...(header ? header[0].props : {})} /> : null}
 
-                <Content isError={isError} loading={loading}> {/*when loading main content don't show empty (for now)*/}
-                    {content.sidebar}
+            <Content isError={isError} loading={loading}> {/*when loading main content don't show empty (for now)*/}
+                {content.sidebar}
+                <React.Fragment>
+                    {
+                        content.header &&
                         <div>
-                            {
-                                content.header &&
-                                <div className="content__header">
-                                    {content.header}
-                                </div>
-                            }
-
-                            <div className="content__main">
-                                {content.children}
-                            </div>
-
-                            {
-                                content.footer &&
-                                <div className="content__footer">
-                                    {content.footer}
-                                </div>
-                            }
+                            {content.header}
                         </div>
+                    }
 
-                </Content>
+                    <div className="content__main">
+                        {content.children}
+                    </div>
+
+                    {
+                        content.footer &&
+                        <div className="content__footer">
+                            {content.footer}
+                        </div>
+                    }
+                </React.Fragment>
+
+            </Content>
 
             {!loading ? <PageFooter {...(footer ? footer[0].props : {})} /> : null}
         </React.Fragment>

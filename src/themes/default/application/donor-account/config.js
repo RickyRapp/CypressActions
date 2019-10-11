@@ -36,7 +36,20 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         }
                     }
                 ]
-            }
+            },
+            {
+                name: 'master.app.main.profile',
+                pattern: '/profile/:id',
+                component: DonorAccountEdit,
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                data: {
+                    title: "DONORACCOUNT.EDIT.TITLE"
+                },
+                beforeEnter: function (fromState, toState, routerStore) {
+                    toState.params.id = routerStore.rootStore.userStore.applicationUser.id
+                    return Promise.resolve();
+                }
+            },
         ],
         menu: [
             {
@@ -47,9 +60,15 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         title: 'MENU.DONOR_ACCOUNTS',
                         order: 1,
                         route: 'master.app.main.donor-account.list'
-                    },
+                    }
                 ]
-            }
+            },
+            {
+                title: 'MENU.DONOR_ACCOUNT_EDIT',
+                route: 'master.app.main.profile',
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                icon: 'profile'
+            },
         ]
     });
 })();

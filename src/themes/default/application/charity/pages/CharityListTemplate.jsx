@@ -18,7 +18,7 @@ const CharityListTemplate = function ({ charityViewStore }) {
     return (
         <ApplicationListLayout store={charityViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="spc--bottom--sml">
+                <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <SearchFilter
@@ -38,11 +38,13 @@ const CharityListTemplate = function ({ charityViewStore }) {
                         </div>
                     </TableFilter>
                 </div>
-                <BaasicTable
-                    authorization={authorization}
-                    tableStore={tableStore}
-                    actionsComponent={renderActions}
-                />
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
+                </div>
             </Content>
         </ApplicationListLayout>
     )

@@ -13,7 +13,7 @@ import {
     defaultRenderBatchActionsToolbar
 } from 'core/components/table/utils';
 
-const BaasicTableTemplate = function({ tableStore, loading, actionsComponent, noRecordsComponent, authorization, t, ...otherProps }) {
+const BaasicTableTemplate = function ({ tableStore, loading, actionsComponent, noRecordsComponent, authorization, t, ...otherProps }) {
     const { isBatchSelect, data, config: { columns, actions, ...otherStoreFields } } = tableStore;
     const isLoading = !_.isNil(loading) ? loading : tableStore.loading;
     return (
@@ -31,7 +31,7 @@ const BaasicTableTemplate = function({ tableStore, loading, actionsComponent, no
                     </GridNoRecords>
                 }
                 {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization) : null}
-                {defaultRenderColumns({ t, columns})}
+                {defaultRenderColumns({ t, columns })}
                 {defaultRenderActions({ actions, actionsComponent, authorization, t })}
             </Grid>
             {isLoading ? <BaasicTableLoader /> : null}

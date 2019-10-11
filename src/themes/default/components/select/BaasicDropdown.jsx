@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as _ from 'lodash';
-import {DropDownList, MultiSelect} from '@progress/kendo-react-dropdowns';
-import {defaultTemplate} from 'core/hoc';
+import { DropDownList, MultiSelect } from '@progress/kendo-react-dropdowns';
+import { defaultTemplate } from 'core/hoc';
 
 const BaasicDropdownTemplate = function (props) {
     const { store, t, placeholder, className, warningClassName, ...assignProps } = props;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {defaultTemplate} from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 
 function getThumbClassName(value) {
     switch (value) {
@@ -22,8 +22,8 @@ function NullableSwitchTemplate({ value, onChange, label, t }) {
     return (
         <div>
             <div>
-                { 
-                    label && 
+                {
+                    label &&
                     (
                         <label className='form__group__label'>
                             {t(label)}
@@ -39,7 +39,7 @@ function NullableSwitchTemplate({ value, onChange, label, t }) {
 
                 <input type='radio' id={noneId} name={noneId} checked={_.isNil(value)} onChange={() => onChange(null)} />
                 <label htmlFor={noneId}>|</label>
-                
+
                 <input type='radio' id={offId} name={offId} checked={value === false} onChange={() => onChange(false)} />
                 <label className='input--treeway__label--last' htmlFor={offId}><i className='icomoon icon-remove padd--top--xtny display--ib'></i></label>
 

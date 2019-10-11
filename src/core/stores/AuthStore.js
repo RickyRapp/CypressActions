@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { observable, action, computed, observe } from 'mobx';
-import {ModalParams} from 'core/models';
 
 class AuthStore {
     rootStore;
@@ -12,34 +11,23 @@ class AuthStore {
     constructor(rootStore) {
         this.rootStore = rootStore;
 
-        this.sessionExpireModal = new ModalParams({
-            onClose: () => this.rootStore.navigateLogin() // in case users clicks 'x' to close popup, still redirect to login
-        });
-
         // sync local token with baasic app token
         observe(this, 'isAuthenticated',
             async (
                 // eslint-disable-next-line
                 { oldValue, newValue }
-                ) => {
+            ) => {
                 if (!newValue) {
                     //TODO change to resolveUser - remove user
                     const { userStore } = this.rootStore;
-                    const user = userStore.user;
                     userStore.removeUser();
 
                     this.rootStore.permissionStore.resetPermissions();
 
                     const currentRoute = this.rootStore.routerStore.routerState;
                     if (!currentRoute.isPublic) {
-                        // show login popup
-                        this.sessionExpireModal.open({
-                            user: user
-                        });
+                        this.rootStore.navigateLogin();
                     }
-                }
-                else {
-                    this.sessionExpireModal.close();
                 }
             }
         );
@@ -95,7 +83,7 @@ function isTokenValid(token) {
         (token.expireTime === undefined
             || token.expireTime === null
             || (token.expireTime - new Date().getTime()) > 0
-    );
+        );
 }
 
 export default AuthStore;

@@ -80,6 +80,14 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key: 'isThirdPartyAccount',
+                    title: 'BANK_ACCOUNT.LIST.COLUMNS.IS_THIRD_PARTY_ACCOUNT_LABEL',
+                    format: {
+                        type: 'boolean',
+                        value: 'yes-no'
+                    }
+                },
+                {
                     key: 'accountHolder.address',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.ACCOUNT_HOLDER_ADDRESS_LABEL',
                     format: {

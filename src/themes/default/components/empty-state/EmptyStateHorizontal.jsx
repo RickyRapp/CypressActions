@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {defaultTemplate} from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 
 const EmptyStateHorizontalTemplate = function (props) {
-    const {t, image, title, actionLabel, callToAction, callToActionLabel, description, icon} = props;
+    const { t, image, title, actionLabel, callToAction, callToActionLabel, description, icon } = props;
 
     return (
         <div className='emptystate--horizontal'>

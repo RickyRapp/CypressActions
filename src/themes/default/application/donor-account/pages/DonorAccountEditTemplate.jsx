@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import {
     BasicInput,
     BaasicFieldDropdown,
@@ -69,9 +69,10 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                             </div>
                             <div className="u-mar--bottom--sml">
                                 {item &&
-                                    <AccountSettingsPartialForm
+                                    <AuthAccountSettingsPartialFormContent
                                         form={form}
                                         isPremiumAccount={isPremiumAccount}
+                                        authorization='theDonorsFundAdministrationSection.update'
                                     />}
                             </div>
                         </div>
@@ -99,6 +100,8 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
         </Page >
     )
 }
+
+const AuthAccountSettingsPartialFormContent = withAuth(AccountSettingsPartialForm);
 
 DonorAccountEditTemplate.propTypes = {
     donorAccountEditViewStore: PropTypes.object.isRequired,

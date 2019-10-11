@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { 
-	isSome, 
-	buildAuthorizedMenu 
+import {
+	isSome,
+	buildAuthorizedMenu
 } from 'core/utils';
 
 class MenuProvider {
@@ -16,12 +16,12 @@ class MenuProvider {
 		if (menus.length > 0 && !isSome(rootStore.routerStore.routes)) {
 			throw new Error('Menu provider requires that root store routes are initialized - initialize RouteProvider');
 		}
-		
+
 		return this.buildMenu(rootStore, _.cloneDeep(menus), rootStore.routerStore.routes);
 	}
 
 	buildMenu(rootStore, menu, routes) {
-		return buildAuthorizedMenu(menu, routes, rootStore.permissionStore.hasPermission);
+		return buildAuthorizedMenu(menu, routes, rootStore);
 	}
 }
 

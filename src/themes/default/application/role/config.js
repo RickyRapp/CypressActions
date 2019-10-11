@@ -40,7 +40,7 @@ import { noApplicationRedirectPromise } from 'core/utils';
                 subMenu: [
                     {
                         title: 'MENU.ROLES',
-                        order: 2,
+                        order: 4,
                         route: 'master.app.main.role.list'
                     },
                 ]

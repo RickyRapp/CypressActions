@@ -29,10 +29,10 @@ class MenuItem {
             this,
             ...(this.parent ? _.reverse([...this.parent.path]) : [])
         ]);
-            
-        this.depth = this.path.length;        
 
-        if (json.subMenu) {            
+        this.depth = this.path.length;
+
+        if (json.subMenu) {
             this.subMenu = _.map(json.subMenu, item => {
                 return new MenuItem({
                     ...item,
@@ -40,7 +40,7 @@ class MenuItem {
                     parent: this
                 });
             });
-        }        
+        }
 
         this.equals = this.equals.bind(this);
         this.isActiveByPath = this.isActiveByPath.bind(this);
@@ -68,7 +68,7 @@ class MenuItem {
     }
 
     isActiveByPath(path) {
-        if (path.length < this.path.length) return false;       
+        if (path.length < this.path.length) return false;
         return _.every(this.path, (p, idx) => p.equals(path[idx]));
     }
 }

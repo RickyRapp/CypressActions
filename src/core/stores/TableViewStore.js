@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {action, computed, observable} from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { LoaderStore } from 'core/stores';
 
 const DefaultConfig = {
@@ -7,7 +7,7 @@ const DefaultConfig = {
     actions: {},
     batchActions: {},
     // eslint-disable-next-line
-    onDataChange: () => { 
+    onDataChange: () => {
     }
 };
 
@@ -18,7 +18,7 @@ class TableViewStore {
 
     constructor(queryUtility, config = {}) {
         this.queryUtility = queryUtility;
-        
+
         this.config = _.assign({}, DefaultConfig, config);
         if (!this.config.columns || this.config.columns.length === 0) {
             throw new Error('TableViewStore columns are not defined.');
@@ -63,7 +63,7 @@ class TableViewStore {
     }
 
     @computed get hasErroredItems() {
-        return _.some(this.data, item => item.errorField && item.errorField.length>0);
+        return _.some(this.data, item => item.errorField && item.errorField.length > 0);
     }
 
     @action.bound setData(data, mapper = (i) => i) {
@@ -73,14 +73,14 @@ class TableViewStore {
         this.data = items;
 
         this.setExpandedRows();
-        
+
         if (data.item) {
             this.queryUtility.handleResponse(data);
         }
 
         this.dataInitialized = true;
         this.config.onDataChange();
-    }    
+    }
 
     @computed get loading() {
         return this.loaderStore.loading;
@@ -112,19 +112,19 @@ class TableViewStore {
         this.expandedRows.push(id);
     }
 
-    @action.bound removeFromExpanded(id){
-        _.remove(this.expandedRows, (function(n) {
+    @action.bound removeFromExpanded(id) {
+        _.remove(this.expandedRows, (function (n) {
             return n == id;
         }));
     }
 
-    @action.bound setExpandedRows(){
-        if(this.expandedRows.length < 1){ 
+    @action.bound setExpandedRows() {
+        if (this.expandedRows.length < 1) {
             return;
         }
 
-        this.data.forEach((item)=>{
-            item[this.config.expandField] = this.expandedRows.find(function(element) {
+        this.data.forEach((item) => {
+            item[this.config.expandField] = this.expandedRows.find(function (element) {
                 return element == item.id;
             });
         });

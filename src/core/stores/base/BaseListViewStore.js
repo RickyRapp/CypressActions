@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import {action, observable} from 'mobx';
-import {QueryUtility} from 'core/utils';
-import {BaseViewStore, TableViewStore} from 'core/stores';
+import { action, observable } from 'mobx';
+import { QueryUtility } from 'core/utils';
+import { BaseViewStore, TableViewStore } from 'core/stores';
 
 class BaseListViewStore extends BaseViewStore {
     @observable isReady = observable.box(false);
@@ -24,7 +24,7 @@ class BaseListViewStore extends BaseViewStore {
         this.authorization = compileAuthorization(authorization || rootStore.routerStore.getCurrentRoute().authorization);
 
         const { navigationTitle } = this.rootStore.routerStore.transitionData;
-        if(navigationTitle || title){
+        if (navigationTitle || title) {
             this.rootStore.viewStore.setNavigationOptions({
                 title: navigationTitle || title
             });
@@ -39,7 +39,6 @@ class BaseListViewStore extends BaseViewStore {
 
             const response = await this.actions.find(filter);
             this.tableStore.setData(response);
-            
             this.tableStore.resume();
         }, queryConfig || {});
 
@@ -55,9 +54,9 @@ class BaseListViewStore extends BaseViewStore {
         }
     }
 
-    hasEditPermissions(){
+    hasEditPermissions() {
         let hasPermission = false;
-        if(this.authorization && this.authorization.edit) {
+        if (this.authorization && this.authorization.edit) {
             hasPermission = this.hasPermission(this.authorization.edit);
         } else {
             hasPermission = true;
@@ -66,8 +65,8 @@ class BaseListViewStore extends BaseViewStore {
         return hasPermission;
     }
 
-    hasPermission(authorization){
-        if(this.rootStore.permissionStore.hasPermission(authorization)){
+    hasPermission(authorization) {
+        if (this.rootStore.permissionStore.hasPermission(authorization)) {
             return true;
         }
 
@@ -78,10 +77,10 @@ class BaseListViewStore extends BaseViewStore {
     setTableStore(tableStore) {
         const primaryColumn = _.first(tableStore.config.columns);
         if (!primaryColumn.onClick && !primaryColumn.disableClick && this.routes.edit) {
-            if(this.hasEditPermissions())
+            if (this.hasEditPermissions())
                 primaryColumn.onClick = (item) => this.routes.edit(item.id);
-        } else if(primaryColumn.onClick && primaryColumn.authorization){
-            if(!this.hasPermission(primaryColumn.authorization)){
+        } else if (primaryColumn.onClick && primaryColumn.authorization) {
+            if (!this.hasPermission(primaryColumn.authorization)) {
                 delete primaryColumn.onClick;
             }
         }
@@ -93,7 +92,7 @@ class BaseListViewStore extends BaseViewStore {
     @action.bound
     deleteResource(resource) {
         if (!this.actions.find || !this.actions.delete) return;
-        
+
         const { modalStore, notificationStore } = this.rootStore;
 
         modalStore.showConfirm(
@@ -161,12 +160,12 @@ class BaseListViewStore extends BaseViewStore {
         var originalDataItem = this.tableStore.originalData.find(obj => {
             return obj.id == dataItem.id
         })
-        
-        if(originalDataItem && originalDataItem[field] != dataItem[field])
+
+        if (originalDataItem && originalDataItem[field] != dataItem[field])
             dataItem['isDirty'] = true;
         else
             dataItem['isDirty'] = false;
-        
+
         this.tableStore.updateDataItems();
     }
 

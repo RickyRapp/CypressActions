@@ -72,28 +72,16 @@
                     background-image: svg-load('postcss-svg/cog.svg', fill: color(white a(60%)));
                 }
 
-                &--tickets {
-                    background-image: svg-load('postcss-svg/ticket.svg', fill: color(white a(60%)));
-                }
-
-                &--turnovers {
-                    background-image: svg-load('postcss-svg/turnover.svg', fill: color(white a(60%)));
-                }
-
-                &--work-orders {
-                    background-image: svg-load('postcss-svg/checklist.svg', fill: color(white a(60%)));
-                }
-
-                &--violation-reports {
-                    background-image: svg-load('postcss-svg/violation.svg', fill: color(white a(60%)));
-                }
-
                 &--profile {
-                    background-image: svg-load('postcss-svg/profile.svg', fill: white);
+                    background-image: svg-load('postcss-svg/profile.svg', fill: color(white a(60%)));
                 }
 
-                &--mail {
-                    background-image: svg-load('postcss-svg/mail.svg', fill: white);
+                &--users {
+                    background-image: svg-load('postcss-svg/users.svg', fill: color(white a(60%)));
+                }
+
+                &--activity {
+                    background-image: svg-load('postcss-svg/archive.svg', fill: color(white a(60%)));
                 }
             } 
 
@@ -118,20 +106,16 @@
                         background-image: svg-load('postcss-svg/cog.svg', fill: color(white a(100%)));
                     }
 
-                    &--tickets {
-                        background-image: svg-load('postcss-svg/ticket.svg', fill: color(white a(100%)));
+                    &--profile {
+                        background-image: svg-load('postcss-svg/profile.svg', fill: color(white a(100%)));
+                    }
+    
+                    &--users {
+                        background-image: svg-load('postcss-svg/users.svg', fill: color(white a(100%)));
                     }
 
-                    &--turnovers {
-                        background-image: svg-load('postcss-svg/turnover.svg', fill: color(white a(100%)));
-                    }
-
-                    &--work-orders {
-                        background-image: svg-load('postcss-svg/checklist.svg', fill: color(white a(100%)));
-                    }
-
-                    &--violation-reports {
-                        background-image: svg-load('postcss-svg/violation.svg', fill: color(white a(100%)));
+                    &--activity {
+                        background-image: svg-load('postcss-svg/archive.svg', fill: color(white a(100%)));
                     }
                 }
 

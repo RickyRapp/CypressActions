@@ -1,13 +1,13 @@
 import React from 'react';
-import {defaultTemplate} from 'core/hoc';
-import {renderIf, isSome} from 'core/utils';
+import { defaultTemplate } from 'core/hoc';
+import { renderIf, isSome } from 'core/utils';
 
 const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, disabled }) => {
     const { placeholder, ...otherProps } = field.bind();
 
-    if(otherProps.value && typeof otherProps.value === 'string')
+    if (otherProps.value && typeof otherProps.value === 'string')
         otherProps.value = otherProps.value.replace(/\s+/g, ' ');
-    if(otherProps.value == null)
+    if (otherProps.value == null)
         otherProps.value = '';
 
     const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
@@ -21,9 +21,9 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, disabl
             {!showLabel ? requiredMark : null}
             <input
                 className={"input input--med input--text" + (field.touched && !field.isValid ? " input--warning" : '')} {...otherProps}
-                disabled={disabled || otherProps.disabled} placeholder={t(placeholder)}/>
-            {renderIf(isSome(field.localizedError))(<p
-                className="type--tiny type--color--error">{field.localizedError}</p>)}
+                disabled={disabled || otherProps.disabled} placeholder={t(placeholder)} autoComplete={field.initialSetup.autoComplete === 'off' ? 'new-password' : null} />
+            {renderIf(isSome(field.localizedError))(<div
+                className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}
         </div>
     )
 });

@@ -21,10 +21,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                             'coreUser',
                             'companyProfile',
                             'accountType'
-                            // 'companyProfile.contactPerson',
-                            // 'companyProfile.contactPerson.address',
-                            // 'companyProfile.contactPerson.emailAddress',
-                            // 'companyProfile.contactPerson.phoneNumber'
                         ]
                     });
                     if (response) {
@@ -42,6 +38,8 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             FormClass: DonorAccountEditForm,
         });
 
+        this.rootStore = rootStore;
+
         this.prefixTypeDropdownStore = new BaasicDropdownStore(null, null,
             {
                 onChange: (prefixTypeId) => {
@@ -56,7 +54,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                     this.form.set({ deliveryMethodTypeId: deliveryMethodTypeId });
                 }
             });
-
     }
 
     @action.bound
@@ -121,16 +118,18 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
         try {
             // fetch resolves all promises, not only GET requests
-            this.fetch([
-                await service.updateGeneralData({
-                    id: this.id,
-                    ...generalData
-                }),
-                await service.updateAccountSettingsData({
+            let promises = [];
+            promises.push(service.updateGeneralData({
+                id: this.id,
+                ...generalData
+            }));
+            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+                promises.push(service.updateAccountSettingsData({
                     id: this.id,
                     ...accountSettingsData
-                }),
-            ]);
+                }));
+            }
+            await this.fetch(promises);
             this.rootStore.notificationStore.success('DONORACCOUNT.EDIT.SUCCESS');
             await this.rootStore.routerStore.goBack();
         }

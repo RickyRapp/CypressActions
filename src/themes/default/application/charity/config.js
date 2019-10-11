@@ -45,7 +45,7 @@ import { CharityList, CharityCreate, CharityEdit } from 'application/charity/pag
                 subMenu: [
                     {
                         title: 'MENU.CHARITIES',
-                        order: 1,
+                        order: 2,
                         route: 'master.app.main.charity.list'
                     },
                 ]

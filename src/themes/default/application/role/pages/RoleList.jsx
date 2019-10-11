@@ -14,14 +14,16 @@ function RoleListTemplate({ listViewStore }) {
 
     return (
         <ApplicationListLayout store={listViewStore}>
-            <Content  emptyRenderer={renderEmpty()} >
-                <div className='spc--bottom--sml'>
-                    <TableFilter queryUtility={queryUtility}/>
+            <Content emptyRenderer={renderEmpty()} >
+                <div className="u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} />
                 </div>
-                <BaasicTable
-                    tableStore={tableStore}
-                    loading={tableLoading}
-                />
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        tableStore={tableStore}
+                        loading={tableLoading}
+                    />
+                </div>
             </Content>
         </ApplicationListLayout>
     )

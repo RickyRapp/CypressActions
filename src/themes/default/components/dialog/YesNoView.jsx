@@ -16,12 +16,12 @@ function YesNoViewTemplate({
 }) {
     return (
         <div>
-            <span className='type--base w--500--max w--100 padd--right--med spc--top--med'>
+            <span className='type--base w--500--max w--100 u-padd--right--med u-mar--top--med'>
                 {t(message)}
             </span>
-            <div className='spc--top--med'>
+            <div className='u-mar--top--med'>
                 <BaasicButton
-                    className='btn btn--med btn--primary spc--right--sml display--ib'
+                    className='btn btn--base btn--primary u-mar--right--sml'
                     onClick={onConfirm}
                     disabled={loading}
                     rotate
@@ -33,7 +33,7 @@ function YesNoViewTemplate({
                     label={t(yesLabel)}
                 />
                 <BaasicButton
-                    className='btn btn--med btn--ghost'
+                    className='btn btn--base btn--ghost'
                     onClick={onCancel}
                     disabled={loading}
                     label={t(noLabel)}

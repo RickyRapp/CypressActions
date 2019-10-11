@@ -15,7 +15,6 @@ export default class MenuStore {
             (this.selectedPath && this.selectedPath.length > 0)
         );
     }
-
     @computed get secondaryMenu() {
         const path =
             this.selectedPath.length === 0
@@ -25,18 +24,24 @@ export default class MenuStore {
         const parent = _.find(this.menu, (item) => item.isActiveByPath(path));
         return parent ? parent.subMenu : [];
     }
-
+    @computed get terniaryMenuVisible() {
+        return (
+            (this.selectedPath && this.selectedPath.length > 1)
+        );
+    }
     @computed get terniaryMenu() {
-        if (this.selectedPath.length !== 2) return [];
+        const path =
+            this.selectedPath.length === 1
+                ? this.activePath
+                : this.selectedPath;
 
-        const parent = _.find(this.secondaryMenu, (item) => item.isActiveByPath(this.selectedPath));
+        const parent = _.find(this.secondaryMenu, (item) => item.isActiveByPath(path));
         return parent ? parent.subMenu : [];
     }
 
     @computed get tabMenu() {
         const parent = _.find(this.secondaryMenu, (item) => item.isActiveByPath(this.activePath));
         const activeSecondaryItems = parent ? parent.subMenu : [];
-
         const terniaryActive = _.find(activeSecondaryItems, (item) => item.isActiveByPath(this.activePath));
         return terniaryActive ? terniaryActive.subMenu : [];
     }
@@ -47,12 +52,12 @@ export default class MenuStore {
 
     @action.bound setMenu(menu, toState) {
         this.rawMenu = menu;
-
         this.menu = [];
-
         const menuItems = [];
         _.each(menu, (value, idx) => { // eslint-disable-line
-            const menuItem = new MenuItem({ title: value.title, subMenu: value.subMenu });
+
+            const menuItem = new MenuItem({ title: value.title, subMenu: value.subMenu, route: value.route ? value.route : undefined });
+
             if (value.icon) {
                 menuItem.icon = value.icon;
             }
@@ -68,12 +73,11 @@ export default class MenuStore {
             i => i.menuItem
         );
         this.syncMenuRoute(toState);
-        
+
     }
 
-    syncMenuRoute(toState){        
+    syncMenuRoute(toState) {
         if (!this.menu || this.menu.length === 0) return;
-
         const activeRoute = _.find(this.rootStore.routerStore.routes, {
             name: toState.routeName
         });
@@ -98,18 +102,43 @@ export default class MenuStore {
     @observable menu = null;
     @observable activePath = [];
     @observable selectedPath = [];
+    @observable isCollapsed = window.innerWidth > 1024 ? false : true;
+    @observable isOpen = false;
+
+    //toggle collapse, closes menu on collapse 
+    @action.bound toggleCollapse() {
+        this.isCollapsed = !this.isCollapsed;
+        if (this.isCollapsed) {
+            this.closeMenu();
+        }
+        this.isOpen = false;
+    }
+
+    //Expands menu when secondary menu opens
+    @action.bound menuExpand() {
+        if (this.isCollapsed && this.secondaryMenu.length > 0) {
+            this.isCollapsed = false;
+        }
+    }
+
+    //toggles menu open/close is-open, for mobile
+    @action.bound toggleMenuOpen() {
+        this.isOpen = !this.isOpen;
+        this.isCollapsed = false;
+    }
 
     @action selectMenuItem = item => {
         const route = item.getRoute();
-        
         // if middle menu item is set, route is null so just update path (which should reveal next level menu but not navigate), else navigate to route
         if (route !== null) {
-            this.setSelectedPath([]);
-            this.setActivePath(item.path);            
+            //sets selected path to primary menu item
+            this.setSelectedPath(item.path[0].path);
+            this.setActivePath(item.path);
             this.rootStore.routerStore.goTo(route);
         } else {
             this.setSelectedPath(item.path);
         }
+        this.menuExpand()
     };
 
     @action closeMenu = () => {

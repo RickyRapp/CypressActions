@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import {defaultTemplate} from 'core/hoc';
-import {BaasicDropdown} from 'core/components';
-import {isSome, renderIf} from 'core/utils';
+import { defaultTemplate } from 'core/hoc';
+import { BaasicDropdown } from 'core/components';
+import { isSome, renderIf } from 'core/utils';
 
-const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, itemRender, valueRender, t}) {
+const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, itemRender, valueRender, t }) {
     function onChange(event) {
         const value = event.target.value;
-        if(value) {
+        if (value) {
             if (store.options.multi) {
                 field.set(value);
-                if(value.length === 0) {
+                if (value.length === 0) {
                     field.showErrors(true);
                 }
             } else {
@@ -43,9 +43,9 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
                 valueRender={valueRender}
             />
             {(!field.isValid || field.hasError) &&
-            renderIf(isSome(field.localizedError))(
-                <p className='type--tiny type--color--error'>{field.localizedError}</p>
-            )}
+                renderIf(isSome(field.localizedError))(
+                    <div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>
+                )}
         </div>
     );
 };

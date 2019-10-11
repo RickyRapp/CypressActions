@@ -8,14 +8,16 @@ import { Home } from 'application/dashboard/pages';
             {
                 name: 'master.app.main.dashboard',
                 pattern: '',
-                component: Home,
+                authorization: '',
+                component: Home
             },
         ],
         menu: [
             {
                 title: 'MENU.DASHBOARD',
-                route: 'master.app.main.dashboard'
-            }
+                route: 'master.app.main.dashboard',
+                icon: 'dashboard'
+            },
         ]
     });
 })();

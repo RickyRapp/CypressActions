@@ -45,12 +45,12 @@ function getSortingParams(tableStore) {
             dir: tableStore.orderDirection || 'asc'
         });
     }
-    
+
     return {
         sortable: true,
         sort: sort,
         onSortChange: (e) => {
-            if(e.sort.length > 0 && !isSortable(e.sort[0].field)){
+            if (e.sort.length > 0 && !isSortable(e.sort[0].field)) {
                 return;
             }
             tableStore.setSort(e.sort.length > 0 ? e.sort[0].field : null);
@@ -58,7 +58,7 @@ function getSortingParams(tableStore) {
     }
 
     // will return false only if [sort: false] property specified in column configuration
-    function isSortable(columnKey){
+    function isSortable(columnKey) {
         const allColumns = tableStore.config.columns;
         const col = allColumns.find(column => {
             return column.key === columnKey
@@ -68,8 +68,8 @@ function getSortingParams(tableStore) {
     }
 }
 
-function defaultRenderColumns({ t, columns}) {
-    return defaultRenderColumnsTemplate({ t, columns});
+function defaultRenderColumns({ t, columns }) {
+    return defaultRenderColumnsTemplate({ t, columns });
 }
 
 function defaultRenderActions({ actions, actionsComponent, authorization, t }) {

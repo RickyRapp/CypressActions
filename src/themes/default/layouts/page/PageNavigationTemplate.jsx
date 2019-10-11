@@ -4,8 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import { Navigation } from 'core/components';
 
 const PageNavigationTemplate = function ({ title, hideNavigation, children }) {
-    return(
-        <div className='content__header'>
+    return (
+        <div>
             <Navigation title={title} overrideDefaultContent={hideNavigation}>
                 {children}
             </Navigation>

@@ -6,8 +6,8 @@ import { isSome, renderIf } from 'core/utils';
 import { DatePicker } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-const DatePickerFieldTemplate = function({ field, t, ...otherProps }) {
-    const {value, onChange, ...otherFieldProps} = field.bind();
+const DatePickerFieldTemplate = function ({ field, t, ...otherProps }) {
+    const { value, onChange, ...otherFieldProps } = field.bind();
 
     const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
 
@@ -15,8 +15,8 @@ const DatePickerFieldTemplate = function({ field, t, ...otherProps }) {
         'input--warning': !field.isValid && field.touched && !field.isDirty
     });
     const maxValue = field.rules && field.rules.indexOf('before_or_equal_date') !== -1 ? field.rules.substring(field.rules.indexOf('before_or_equal_date')).split(':')[1] : null;
-    
-    if(maxValue){
+
+    if (maxValue) {
         otherFieldProps.max = new Date(maxValue);
     }
     return (
@@ -31,7 +31,7 @@ const DatePickerFieldTemplate = function({ field, t, ...otherProps }) {
                 onChange={onChange}
             />
             {renderIf(isSome(field.localizedError))(
-                <p className='type--tiny type--color--error'>{field.localizedError}</p>
+                <div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>
             )}
         </div>
     );

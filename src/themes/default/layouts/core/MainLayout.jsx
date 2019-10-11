@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Loader, Menu, SessionExpireModal } from 'core/components';
+import { Header, Loader, Menu } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicConfirmModal } from 'core/components';
 
@@ -17,12 +17,9 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
                 <Header />
                 <Menu />
                 <div
-                    style={{ overflow: 'auto' }} //TODO: designer
-                    className={'layout__content' + (menuStore.secondaryMenuVisible ? ' active' : '')}>{render(props)}
+                    className={'layout__content' + (menuStore.isCollapsed ? ' is-collapsed' : '') + (menuStore.secondaryMenuVisible ? ' active' : '')}>{render(props)}
                 </div>
-
                 <BaasicConfirmModal />
-                <SessionExpireModal />
             </div>
         </div>
     );

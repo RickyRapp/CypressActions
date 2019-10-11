@@ -2,23 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { SearchFilter } from 'core/components';
+import _ from 'lodash';
 
-const TableFilterTemplate = function(props) {
-    const {queryUtility, filterStore, t, children} = props;
-    // const hideFilter = (!children || React.Children.count(children) === 0) || props.showClear;
+const TableFilterTemplate = function (props) {
+    const { queryUtility, filterStore, t, children, renderAdditionalComponents } = props;
     const clearVisible = (children != null || React.Children.count(children) > 0) || props.showClear;
     return (
         <React.Fragment>
-        <div className='filter--table__wrap'>
-            <div className='filter--table u-mar--bottom--sml'>
-                <SearchFilter
-                    className='input input--sml input--search'
-                    queryUtility={queryUtility}
-                    clearVisible={clearVisible}
-                />
+            <div className="row">
+                {renderFilter(filterStore, queryUtility, children, t)}
+                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml col--v--center ">
+                    <SearchFilter
+                        className='input input--sml input--search'
+                        queryUtility={queryUtility}
+                        clearVisible={clearVisible}
+                    />
+                </div>
+                {_.isFunction(renderAdditionalComponents) ? renderAdditionalComponents() : null}
             </div>
-        </div>
-            {renderFilter(filterStore, queryUtility, children, t)}
         </React.Fragment>
     );
 };
@@ -28,47 +29,19 @@ TableFilterTemplate.propTypes = {
     filterStore: PropTypes.object.isRequired,
     showClear: PropTypes.bool,
     t: PropTypes.any,
-    children: PropTypes.any
+    children: PropTypes.any,
+    renderAdditionalComponents: PropTypes.func
 };
 
 TableFilterTemplate.defaultProps = {
     showClear: false
 };
 
-function renderFilter(filterStore, queryUtility, filters, t) {
+function renderFilter(filterStore, queryUtility, filters) {
     if (!filters || React.Children.count(filters) === 0) return null;
     return (
         <React.Fragment>
-            <button
-                className='btn btn--sml btn--secondary push'
-                onClick={filterStore.toggleFilterVisibility}
-            >
-                <span className=' icomoon tiny icon-filter-1 align--v--middle spc--right--tny' />
-                <span className='align--v--bottom'>{t('GRID.FILTERS_BUTTON')}</span>
-            </button>
-            {!filterStore.filterVisible ? null : (
-                <div className='u-group'>
-                    <h5 className='spc--top--sml'>{t('GRID.FILTERS_TITLE')}</h5>
-                    <div className='separator separator--primary spc--top--tny spc--bottom--sml' />
-                    <div>
-                        {filters}
-                    </div>
-                    <div className='col-sml-12 spc--top--sml spc--bottom--sml'>
-                        <button
-                            className='btn btn--sml btn--tertiary spc--right--tny'
-                            onClick={() => queryUtility.fetch()}
-                        >
-                        <span className='align--v--bottom' >{t('GRID.FILTER.SEARCH_BUTTON')}</span>
-                        </button>
-                        <button
-                            className='btn btn--sml btn--ghost'
-                            onClick={() => queryUtility.resetFilter()}
-                        >
-                            {t('GRID.FILTER.CLEAR_BUTTON')}
-                        </button>
-                    </div>
-                </div>
-            )}
+            {filters}
         </React.Fragment>
     );
 }

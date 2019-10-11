@@ -12,14 +12,16 @@ const SettledPaymentTransactionTemplate = function ({ settledPaymentTransactionV
 
     return (
         <React.Fragment>
-            <div className="spc--bottom--sml">
+            <div className="u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} >
                 </TableFilter>
             </div>
-            <BaasicTable
-                authorization={authorization}
-                tableStore={tableStore}
-            />
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                />
+            </div>
         </React.Fragment>
     )
 }

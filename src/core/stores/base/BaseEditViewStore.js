@@ -34,7 +34,7 @@ class BaseEditViewStore extends BaseViewStore {
         this.form = form || new FormClass({
             onSuccess: (form) => {
                 const item = form.values();
-                if (this.isEdit) {
+                if (this.isEdit && !this.actions.create) {
                     return this.updateResource(item);
                 } else {
                     return this.createResource(item);
@@ -61,11 +61,6 @@ class BaseEditViewStore extends BaseViewStore {
         if (navigationTitle || (this.isEdit && title)) {
             this.rootStore.viewStore.setNavigationOptions({
                 title: navigationTitle || title
-            });
-        }
-        else if (!this.isEdit) {
-            this.rootStore.viewStore.setNavigationOptions({
-                title: 'EDIT_LAYOUT.NEW'
             });
         }
 

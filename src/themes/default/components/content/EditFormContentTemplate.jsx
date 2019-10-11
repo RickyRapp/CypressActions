@@ -8,12 +8,12 @@ function EditFormContentTemplate({ form, children }) {
         <React.Fragment>
             {shouldRenderContentChildren(children)
                 ? children
-                : (<form onSubmit={form.onSubmit} className='u-group'>
-                    { children ? (
-                        <div className='col col-sml-12 card card--form card--primary card--med'>
+                : (<form onSubmit={form.onSubmit}>
+                    {children ? (
+                        <React.Fragment>
                             {children}
-                        </div>
-                        ) : null
+                        </React.Fragment>
+                    ) : null
                     }
                 </form>
                 )

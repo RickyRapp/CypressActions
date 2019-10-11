@@ -6,7 +6,7 @@ class RouteProvider {
     routing = null;
 
     //eslint-disable-next-line
-    initialize(routes, ctx) { 
+    initialize(routes, ctx) {
         this.routes = routes;
         routes.sort((a, b) => this.getRouteLevel(a) - this.getRouteLevel(b));
         const merged = this.mergeRoutes([], routes);
@@ -41,7 +41,7 @@ class RouteProvider {
                 path = parts[0];
             }
             return path;
-        }     
+        }
 
         var parts = route.name.split('.');
         path = getCurrentPath(path, parts);
@@ -51,8 +51,8 @@ class RouteProvider {
             const element = root[i];
             if (element.name !== path) {
                 continue;
-            }        
-            
+            }
+
             match = true;
 
             if (this.hasChildren(route)) {

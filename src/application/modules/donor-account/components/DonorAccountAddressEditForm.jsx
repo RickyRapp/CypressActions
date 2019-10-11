@@ -12,14 +12,14 @@ class DonorAccountEmailAddressEditForm extends Component {
         const { formAddress } = modalParams.data;
 
         return (
-            <section className='w--400--px'>
+            <section className='w--600--px'>
                 <form className='form' onSubmit={formAddress.onSubmit}>
                     <h3 className="u-mar--bottom--med">{formAddress.$('id').value ? t('ADDRESS.EDIT.TITLE') : t('ADDRESS.CREATE.TITLE')}</h3>
                     <div className="row">
-                        <div className="form__group col col-lrg-3">
+                        <div className="form__group col col-lrg-6">
                             <BasicInput field={formAddress.$('addressLine1')} />
                         </div>
-                        <div className="form__group col col-lrg-3">
+                        <div className="form__group col col-lrg-6">
                             <BasicInput field={formAddress.$('addressLine2')} />
                         </div>
                         <div className="form__group col col-lrg-3">

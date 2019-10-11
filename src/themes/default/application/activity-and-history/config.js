@@ -10,9 +10,9 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
                 children: [
                     {
                         name: 'master.app.main.activity-and-history.donor-view',
-                        pattern: '/donor/:id',
+                        pattern: '/overview/:id',
                         component: DonorActivityAndHistoryList,
-                        authorization: 'theDonorsFundDonorSection.update',
+                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         },
@@ -23,9 +23,9 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
                     },
                     {
                         name: 'master.app.main.activity-and-history.charity-view',
-                        pattern: '/charity/:id',
+                        pattern: '/overview/:id',
                         component: CharityActivityAndHistoryList,
-                        authorization: 'theDonorsFundCharitySection.update',
+                        authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Charities') },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.CHARITY"
                         },
@@ -38,7 +38,7 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
                         name: 'master.app.main.activity-and-history.admin-donor-view',
                         pattern: '/donor',
                         component: DonorActivityAndHistoryList,
-                        authorization: 'theDonorsFundAdministrationSection.update',
+                        authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         }
@@ -47,7 +47,7 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
                         name: 'master.app.main.activity-and-history.admin-charity-view',
                         pattern: '/charity',
                         component: CharityActivityAndHistoryList,
-                        authorization: 'theDonorsFundAdministrationSection.update',
+                        authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.CHARITY"
                         }
@@ -58,32 +58,34 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
         menu: [
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.TITLE',
+                authorization: 'theDonorsFundAdministrationSection.read',
+                icon: 'activity',
                 subMenu: [
                     {
                         title: 'MENU.ACTIVITY_AND_HISTORY.ADMINISTRATOR_DONOR_VIEW',
                         order: 1,
-                        route: 'master.app.main.activity-and-history.admin-donor-view',
-                        authorization: 'theDonorsFundAdministrationSection.read'
+                        route: 'master.app.main.activity-and-history.admin-donor-view'
                     },
                     {
                         title: 'MENU.ACTIVITY_AND_HISTORY.ADMINISTRATOR_CHARITY_VIEW',
                         order: 2,
-                        route: 'master.app.main.activity-and-history.admin-charity-view',
-                        authorization: 'theDonorsFundAdministrationSection.read'
-                    },
-                    {
-                        title: 'MENU.ACTIVITY_AND_HISTORY.DONOR_VIEW',
-                        order: 3,
-                        route: 'master.app.main.activity-and-history.donor-view',
-                        authorization: 'theDonorsFundDonorSection.read'
-                    },
-                    {
-                        title: 'MENU.ACTIVITY_AND_HISTORY.CHARITY_VIEW',
-                        order: 4,
-                        route: 'master.app.main.activity-and-history.charity-view',
-                        authorization: 'theDonorsFundCharitySection.read'
+                        route: 'master.app.main.activity-and-history.admin-charity-view'
                     }
                 ]
+            },
+            {
+                title: 'MENU.ACTIVITY_AND_HISTORY.DONOR_VIEW',
+                order: 1,
+                route: 'master.app.main.activity-and-history.donor-view',
+                authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Users') },
+                icon: 'activity'
+            },
+            {
+                title: 'MENU.ACTIVITY_AND_HISTORY.CHARITY_VIEW',
+                order: 1,
+                route: 'master.app.main.activity-and-history.charity-view',
+                authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Charities') },
+                icon: 'activity'
             }
         ]
     });

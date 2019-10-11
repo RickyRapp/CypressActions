@@ -3,6 +3,16 @@ import { RouterState } from 'mobx-state-router';
 import { flattenArray } from 'core/utils';
 import _ from 'lodash';
 
+const suffixDictionary = {
+    '.list': '',
+    '.edit': 'BREADCRUMBS.EDIT',
+    '.create': 'BREADCRUMBS.CREATE',
+    '.language': 'BREADCRUMBS.LANGUAGE',
+    '.localization': 'BREADCRUMBS.LANGUAGE',
+    '.settings': 'BREADCRUMBS.SETTINGS',
+    '.preview': 'BREADCRUMBS.PREVIEW'
+}
+
 export default function flattenRoutes(routes) {
     var flatRoutes = getFlatRoutes(routes);
     return {
@@ -53,10 +63,10 @@ class StateRoute {
         this.name = route.name;
         this.parent = route.parent;
         this.isPublic = route.isPublic || false;
-        
+
         this.pattern = _.reduce(parentOptions, (prev, current) => joinPaths(prev, current.pattern), '');
         this.authorization = _.filter(
-            _.map(parentOptions, p => p.authorization), 
+            _.map(parentOptions, p => p.authorization),
             f => !_.isNil(f) && f !== ''
         );
 
@@ -76,15 +86,15 @@ class StateRoute {
                     prev.crumbs = [...prev.crumbs, ...crumbs];
                 } else if (optionLength - 1 === idx) {
                     prev.crumbs = [...prev.crumbs,
-                        {
-                            title: getBreadcrumbTitle(route.name),
-                            route: route.name
-                        }
+                    {
+                        title: getBreadcrumbTitle(route.data.breadcrumb || route.name),
+                        route: route.name
+                    }
                     ];
                 }
 
                 // NOTICE: add more properties here if you want to support them in data property
-                if(current.data.type) {
+                if (current.data.type) {
                     prev.type = current.data.type;
                 }
             }
@@ -116,13 +126,13 @@ class StateRoute {
                 // if same state and same params don't initiaze any beforeEnter actions
                 return Promise.resolve();
             }
-         
+
             try {
                 await this.fireEvent('beforeEnter', fromState, toState, routerStore.rootStore.routerStore, parentOptions);
 
-                await rootStore.routeChange({ 
-                    fromState, 
-                    toState, 
+                await rootStore.routeChange({
+                    fromState,
+                    toState,
                     options: {
                         authorization: this.authorization,
                         pattern: this.pattern,
@@ -134,7 +144,7 @@ class StateRoute {
                 return Promise.reject(ex);
             }
 
-           return Promise.resolve();
+            return Promise.resolve();
         }
     }
 
@@ -164,12 +174,12 @@ class StateRoute {
         fromState,
         toState,
         routerStore,
-        parentOptions  
+        parentOptions
     ) {
         const routeChanged = fromState.routeName !== toState.routeName;
 
         let hookCondition = false;
-        for (let i = 0; i < parentOptions.length; i++) {            
+        for (let i = 0; i < parentOptions.length; i++) {
             const routeOptions = parentOptions[i];
             const hook = routeOptions[name];
             // if there is no hook defined for route options, continue
@@ -179,8 +189,7 @@ class StateRoute {
                 hookCondition = routeOptions.hookCondition(fromState, toState, routerStore);
             }
 
-            if (routeChanged || hookCondition) 
-            {
+            if (routeChanged || hookCondition) {
                 const skipRoutePrefix = getSkipRoutePrefix(fromState, toState);
                 if (hookCondition || !skipRoutePrefix || !_.startsWith(skipRoutePrefix, routeOptions.name)) {
                     try {
@@ -194,7 +203,7 @@ class StateRoute {
                 }
             }
         }
-        
+
         return Promise.resolve();
     }
 }
@@ -228,8 +237,9 @@ function renderComponent(Component, props = {}) {
 
 function renderParentComponent({ Parent, component }) {
     return (props) => <Parent {...props} render={renderProps => {
-        return renderComponent(component, renderProps)}
-    }/>
+        return renderComponent(component, renderProps)
+    }
+    } />
 }
 
 function joinPaths(a, b) {
@@ -268,20 +278,15 @@ function getSkipRoutePrefix(fromState, toState) {
 }
 
 function getBreadcrumbTitle(routeName) {
-    const predicate = (suffix) => _.endsWith(routeName, suffix);
-
+    const suffix = routeName.substring(routeName.lastIndexOf("."));
     let breadcrumb;
-    if (predicate('.list')) {
-        breadcrumb = '';
-    } else if (predicate('.edit')) {
-        breadcrumb = 'BREADCRUMBS.EDIT';
-    } else if (predicate('.create')) {
-        breadcrumb = 'BREADCRUMBS.CREATE';
-    } else if (predicate('.language') || predicate('.localization')) {
-        breadcrumb = 'BREADCRUMBS.LANGUAGE';
-    } else if (predicate('.settings')) {
-        breadcrumb = 'BREADCRUMBS.SETTINGS'
+
+    if (suffixDictionary[suffix]) {
+        breadcrumb = suffixDictionary[suffix];
+    } else if (!routeName.includes('.')) {
+        breadcrumb = routeName;
     }
+
     return breadcrumb;
 }
 

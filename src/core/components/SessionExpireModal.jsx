@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {action, observable} from 'mobx';
-import {observer, inject} from 'mobx-react';
-import {BaasicModal} from 'core/components';
-import {SessionExpireModalTemplate} from 'themes/components';
-import {BaseViewStore} from "core/stores";
+import { action, observable } from 'mobx';
+import { observer, inject } from 'mobx-react';
+import { BaasicModal } from 'core/components';
+import { SessionExpireModalTemplate } from 'themes/components';
+import { BaseViewStore } from "core/stores";
 
 @inject(i => ({
     modalParams: i.rootStore.authStore.sessionExpireModal,
@@ -15,7 +15,7 @@ class SessionExpireModal extends Component {
     render() {
         return (
             <BaasicModal modalParams={this.props.modalParams}>
-                <SessionExpireModalTemplate sessionExpireViewStore={this.props.sessionExpireViewStore}/>
+                <SessionExpireModalTemplate sessionExpireViewStore={this.props.sessionExpireViewStore} />
             </BaasicModal>
         );
     }
@@ -65,12 +65,12 @@ class SessionExpireModalViewStore extends BaseViewStore {
         this.loaderStore.suspend();
         try {
             // await this.loginStore.login({username: this.modalParams.data.user.email, password: formValues.password});
-            await this.loginStore.login({username: this.user.email, password: this.passwordInputValue});
+            await this.loginStore.login({ username: this.user.email, password: this.passwordInputValue });
             // close the modal if login is valid
             this.modalParams.close();
         }
-        catch(err) {
-            if(err.statusCode === 400) {
+        catch (err) {
+            if (err.statusCode === 400) {
                 this.error = "Invalid credentials";
             }
         }

@@ -17,7 +17,7 @@ class PermissionStore {
         })
     }
 
-    hasPermission = (authorization) => {        
+    hasPermission = (authorization) => {
         let self = this;
         const permissionFunc = (policy) => {
             if (authorizationValid(policy) && _.has(self.permissions, policy)) {
@@ -37,7 +37,7 @@ class PermissionStore {
         let authorized = true;
         if (authorization) {
             if (typeof authorization === 'function') {
-                return authorization();
+                return authorization(null, this.rootStore);
             }
 
             let requestedAuthorization;

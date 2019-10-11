@@ -298,11 +298,12 @@
         "ADMINISTRATION": "Administration",
         "DASHBOARD": "Dashboard",
         "DONOR_ACCOUNTS": "Donors",
+        "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
         "ACTIVITY_AND_HISTORY": {
-            "TITLE": "Activity and history",
-            "DONOR_VIEW": "Activity donor",
-            "CHARITY_VIEW": "Activity charity",
+            "TITLE": "Activity",
+            "DONOR_VIEW": "Activity",
+            "CHARITY_VIEW": "Activity",
             "ADMINISTRATOR_DONOR_VIEW": "Donor",
             "ADMINISTRATOR_CHARITY_VIEW": "Charity"
         }
@@ -347,7 +348,7 @@
             }
         },
         "EDIT": {
-            "TITLE": "Donor details",
+            "TITLE": "Details",
             "SUCCESS": "Successfully updated",
             "FIRST_NAME_LABEL": "First name",
             "LAST_NAME_LABEL": "Last name",
@@ -498,7 +499,8 @@
                 "ROUTING_NUMBER_LABEL": "Routing number",
                 "ACCOUNT_HOLDER_ADDRESS_LABEL": "Address",
                 "ACCOUNT_HOLDER_EMAIL_ADDRESS_LABEL": "Email address",
-                "ACCOUNT_HOLDER_PHONE_NUMBER_LABEL": "Phone number"
+                "ACCOUNT_HOLDER_PHONE_NUMBER_LABEL": "Phone number",
+                "IS_THIRD_PARTY_ACCOUNT_LABEL": "Third party"
             },
             "EMPTY_STATE": {
                 "TITLE": "No bank accounts",
@@ -533,9 +535,9 @@
                 "EDIT": "Edit",
                 "CREATE": "Create",
                 "DELETE": "Delete",
-                "USE_PRIMARY_ADDRESS": "Use my primary address",
-                "USE_PRIMARY_EMAIL_ADDRESS": "Use my primary email address",
-                "USE_PRIMARY_PHONE_NUMBER": "Use my primary phone number"
+                "USE_PRIMARY_ADDRESS": "Use primary",
+                "USE_PRIMARY_EMAIL_ADDRESS": "Use primary",
+                "USE_PRIMARY_PHONE_NUMBER": "Use primary"
             }
         }
     },

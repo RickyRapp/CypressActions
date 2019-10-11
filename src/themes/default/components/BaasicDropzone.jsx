@@ -3,37 +3,40 @@ import PropTypes from 'prop-types';
 import { Upload } from '@progress/kendo-react-upload';
 import { defaultTemplate } from 'core/hoc';
 
-function BaasicDropzoneTemplate({acceptFiles, onFilesDrop, loading}){
+function BaasicDropzoneTemplate({ acceptFiles, onFilesDrop, loading, multiple = true, disabled = false }) {
      return <React.Fragment>
-          <div className='w--100'>
-               <Upload 
-                    multiple={true}
+          <div>
+               <Upload
+                    multiple={multiple}
                     batch={false}
-                    restrictions={{allowedExtensions: [acceptFiles]}}
+                    restrictions={{ allowedExtensions: acceptFiles }}
                     onAdd={onFilesDrop}
+                    disabled={disabled}
                     withCredentials={false}>
                </Upload>
                {loading ? <div className='loader--overlay'>
                     <div className='center'>
                          <div className='lds-ring'>
-                         <div></div>
-                         <div></div>
-                         <div></div>
-                         <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
                          </div>
                          <div>Uploading...</div>
                     </div>
                </div>
-               : null}
-               
+                    : null}
+
           </div>
-          </React.Fragment>
+     </React.Fragment>
 }
 
 BaasicDropzoneTemplate.propTypes = {
      acceptFiles: PropTypes.array,
      onFilesDrop: PropTypes.func,
-     loading: PropTypes.bool      
- };
+     loading: PropTypes.bool,
+     disabled: PropTypes.bool,
+     multiple: PropTypes.bool
+};
 
 export default defaultTemplate(BaasicDropzoneTemplate);

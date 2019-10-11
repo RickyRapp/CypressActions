@@ -29,12 +29,12 @@ class CommandCell extends GridCell {
         const iconItems = items || [
             {
                 title: 'Edit',
-                icon: 'icomoon icon-pencil-write',
+                icon: 'u-icon u-icon--sml u-icon--edit',
                 action: actions.onEdit
             },
             {
                 title: 'Delete',
-                icon: 'icomoon icon-bin',
+                icon: 'u-icon u-icon--sml u-icon--delete',
                 action: actions.onDelete
             }
         ];
@@ -47,17 +47,18 @@ class CommandCell extends GridCell {
         }
 
         return (
-            <td className='table__body--data right'>
+            <td className='right'>
                 {_.map(iconItems, (item, idx) => {
                     return item.action ? (
-                        <span
-                            key={item.title}
-                            className={`${item.icon} align--v--middle ${
-                                idx !== 0 ? ' spc--left--sml ' : ''
-                            }btn--grey`}
-                            title={item.title}
-                            onClick={() => item.action(dataItem)}
-                        />
+                        <button key={idx} type="button" className="btn btn--icon" onClick={() => item.action(dataItem)}>
+                            <i
+                                className={`${item.icon} align--v--middle ${
+                                    idx !== 0 ? ' spc--left--sml ' : ''
+                                    }`}
+                                title={item.title}
+
+                            />
+                        </button>
                     ) : null;
                 })}
             </td>

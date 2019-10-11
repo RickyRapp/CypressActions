@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {defaultTemplate} from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 
 const EmptyStateVerticalTemplate = function (props) {
-    const {t, image, title, actionLabel, callToAction, callToActionLabel, description, icon} = props;
+    const { t, image, title, actionLabel, callToAction, callToActionLabel, description, icon } = props;
     return (
         <div className='emptystate--vertical'>
             {image && <div className='emptystate--vertical__image'>

@@ -11,9 +11,7 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
     const minValue = field.rules && field.rules.indexOf('min') !== -1 ? parseInt((/min:(\d+)/).exec(field.rules)[1]) : undefined;
 
     let type = 'n2';
-    if (field.extra && field.extra.type)
-        type = field.extra.type;
-    else if (field.type == 'integer')
+    if (field.type == 'integer')
         type = 'n0';
 
     const value = field.value === '' ? null : field.value;
@@ -33,8 +31,8 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
                 defaultValue={null}
                 value={value}
             />
-            {renderIf(isSome(field.localizedError))(<p
-                className="type--tiny type--color--error">{field.localizedError}</p>)}
+            {renderIf(isSome(field.localizedError))(<div
+                className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}
         </React.Fragment>
     )
 });

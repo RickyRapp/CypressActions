@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {inject, observer} from 'mobx-react';
-import {RouterView} from 'mobx-state-router';
-import {ToastContainer} from 'react-toastify';
-import {PropTypes} from 'prop-types';
-import {Loader} from 'core/components';
+import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
+import { RouterView } from 'mobx-state-router';
+import { ToastContainer } from 'react-toastify';
+import { PropTypes } from 'prop-types';
+import { Loader } from 'core/components';
 
 import '@progress/kendo-theme-default/dist/all.css';
 
@@ -20,11 +20,11 @@ export default class App extends Component {
 
     render() {
         const { routerStore, routerMaps, appStore } = this.props;
-        if (!appStore.initialized) return <Loader/>;
+        if (!appStore.initialized) return <Loader />;
 
         return (
             <React.Fragment>
-                <RouterView routerStore={routerStore} viewMap={routerMaps}/>
+                <RouterView routerStore={routerStore} viewMap={routerMaps} />
                 <ToastContainer
                     position='bottom-right'
                     autoClose={5000}

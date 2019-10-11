@@ -30,6 +30,7 @@
 * Tools .......... typography mixin, floted grid and clearfix
 */
 @import "tool.typomatic.css";
+@import "tool.animation.css";
 @import "tool.bubba.css";
 /* @import "tool.ricky.css"; */
 
@@ -65,6 +66,7 @@
 @import "component.loader.css";
 @import "component.modal.css";
 @import "component.empty-state.css";
+
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)

@@ -18,17 +18,17 @@ class DynamicDropdownTemplate extends React.Component {
     render() {
         const { store, children, AnchorElement } = this.props; // eslint-disable-line
 
-        const Anchor = 
-        // eslint-disable-next-line
-        (props, ref) => (
-            <div ref={(div) => { this.anchor = div; }}>
-                <AnchorElement {...props} />
-            </div>
-        );
+        const Anchor =
+            // eslint-disable-next-line
+            (props, ref) => (
+                <div ref={(div) => { this.anchor = div; }}>
+                    <AnchorElement {...props} />
+                </div>
+            );
 
         return (
             <div>
-                <Anchor 
+                <Anchor
                     store={store}
                     onClick={this.onAnchorClick}
                     reference={this.anchor}
@@ -41,9 +41,9 @@ class DynamicDropdownTemplate extends React.Component {
                 >
                     <NotifyOutsideClick action={() => store.setVisible(false)}>
                         {children}
-                    </NotifyOutsideClick>  
+                    </NotifyOutsideClick>
                 </Popup>
-            </div>          
+            </div>
         )
     }
 }

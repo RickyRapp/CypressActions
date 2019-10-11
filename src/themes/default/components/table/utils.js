@@ -26,9 +26,10 @@ const LocalizedCell = defaultTemplate(({ onClick, className, dataItem, field, ic
 
 function defaultRenderColumnsTemplate({ t, columns }) {
     return columns.map(({ key = null, title = null, cell = null, icon = null, onClick = null, innerColumns = null, format, ...otherProps }, idx) => {
-        const defaultCell = cell ? cell : (props) => <LocalizedCell onClick={onClick} icon={icon} {...props} format={format} />;
+        const defaultCell = cell ? cell : (props) => <LocalizedCell onClick={onClick} icon={icon} {...props}
+            format={format} />;
         return <GridColumn
-            className={onClick ? "c-poiner" : ""}
+            className={onClick ? "c-pointer table--clickable" : ""}
             key={key || idx}
             field={key}
             title={t(title)}

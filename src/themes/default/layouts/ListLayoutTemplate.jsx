@@ -6,7 +6,7 @@ import { Page, PageNavigation } from "core/layouts";
 import { defaultTemplate } from 'core/hoc';
 import { getPageObject } from 'core/utils';
 
-const ListLayoutTemplate = function({
+const ListLayoutTemplate = function ({
     title,
     onCreate,
     children,
@@ -28,10 +28,10 @@ const ListLayoutTemplate = function({
             {navigation
                 ? navigation
                 : (<PageNavigation>
-                        {createFunc && 
-                        <BaasicButton authorization={auth ? auth.create : null} t={t} 
-                            className="btn btn--med btn--primary push spc--top--tny" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={createFunc}></BaasicButton> }
-                  </PageNavigation>)
+                    {createFunc &&
+                        <BaasicButton authorization={auth ? auth.create : null} t={t}
+                            className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={createFunc}></BaasicButton>}
+                </PageNavigation>)
             }
             {header}
             {content.header}

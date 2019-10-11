@@ -18,7 +18,7 @@ const DonorAccountListTemplate = function ({ donorAccountViewStore }) {
     return (
         <ApplicationListLayout store={donorAccountViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="spc--bottom--sml">
+                <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <SearchFilter
@@ -52,11 +52,13 @@ const DonorAccountListTemplate = function ({ donorAccountViewStore }) {
                         </div>
                     </TableFilter>
                 </div>
-                <BaasicTable
-                    authorization={authorization}
-                    tableStore={tableStore}
-                    actionsComponent={renderActions}
-                />
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
+                </div>
             </Content>
         </ApplicationListLayout>
     )

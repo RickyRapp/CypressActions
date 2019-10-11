@@ -5,13 +5,12 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
 
 const BaasicFormControlsTemplate = function (props) {
-    const { form, onSubmit, controls, t, authorization } = props;
+    const { form, onSubmit, controls, t } = props;
 
     return (
         <React.Fragment>
             {(!controls || controls.onSubmit) && (
                 <BaasicButton
-                    authorization={authorization ? authorization.update : null}
                     type='submit'
                     className="btn btn--base btn--primary u-mar--right--sml"
                     onClick={onSubmit || form.onSubmit}

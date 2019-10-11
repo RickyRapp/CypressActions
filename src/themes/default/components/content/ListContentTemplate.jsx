@@ -8,7 +8,7 @@ function ListContentTemplate({ children }) {
         <React.Fragment>
             {shouldRenderContentChildren(children)
                 ? children
-                : <div className='card card--med card--primary'>{children}</div>
+                : <div>{children}</div>
             }
         </React.Fragment>
     )
