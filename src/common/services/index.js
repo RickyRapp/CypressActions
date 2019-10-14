@@ -12,3 +12,6 @@ export { default as PhoneNumberRouteService } from './PhoneNumberRouteService'
 
 export { default as BankAccountService } from './BankAccountService'
 export { default as BankAccountRouteService } from './BankAccountRouteService'
+
+export { default as CharityFileStreamService } from './CharityFileStreamService'
+export { default as CharityFileStreamRouteService } from './CharityFileStreamRouteService'

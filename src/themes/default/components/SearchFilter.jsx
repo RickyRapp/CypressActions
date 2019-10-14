@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {defaultTemplate} from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 
 class SearchFilterTemplate extends React.Component {
     constructor(props) {
@@ -38,36 +38,38 @@ class SearchFilterTemplate extends React.Component {
         } = this.props;
 
         return <React.Fragment>
-            <div className='iputgroup'>
+            <div className='inputgroup'>
                 <div className='inputgroup--main'>
                     <input className={className} type="text" placeholder={placeholder}
-                       value={queryUtility.filter[propertyName] || ""}
-                       onChange={this.onChange}
-                       onKeyPress={this.onKeyPress}/>
+                        value={queryUtility.filter[propertyName] || ""}
+                        onChange={this.onChange}
+                        onKeyPress={this.onKeyPress} />
                     {queryUtility.filter[propertyName] && queryUtility.filter[propertyName] !== '' &&
-                    <span className='filter__btn--clear' onClick={this.onInlineReset}>
-                        <i className='u-icon u-icon--sml u-icon--close'/>
-                    </span>
-                }
+                        <span className='filter__btn--clear' onClick={this.onInlineReset}>
+                            <i className='u-icon u-icon--sml u-icon--close' />
+                        </span>
+                    }
                 </div>
-                {clearVisible &&
-                <div className="inputgroup--aside inputgroup--aside--secondary">
-                    <button className='btn btn--sml btn--ghost' onClick={() => queryUtility.resetFilter()}>
-                        {t('GRID.FILTER.CLEAR_BUTTON')}
-                    </button>
-                </div>}
+
                 <div className="inputgroup--aside">
                     <button className='btn btn--sml btn--primary spc--right--sml' onClick={() => queryUtility.fetch()}>
-                        <i className='icomoon icon-search tiny align--v--baseline spc--right--tny'/>
+                        <i className='icomoon icon-search tiny align--v--baseline spc--right--tny' />
                         <span className='align--v--bottom'>
                             {t('GRID.FILTER.SEARCH_BUTTON')}
                         </span>
                     </button>
-                    
+
                 </div>
-                
+                {clearVisible &&
+                    <div className="inputgroup--aside inputgroup--aside--special">
+                        <button className='btn btn--sml btn--ghost' onClick={() => queryUtility.resetFilter()}>
+                            {t('GRID.FILTER.CLEAR_BUTTON')}
+                        </button>
+                    </div>
+                }
+
             </div>
-            
+
         </React.Fragment>;
     }
 }

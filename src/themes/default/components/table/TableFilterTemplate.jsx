@@ -11,7 +11,7 @@ const TableFilterTemplate = function (props) {
         <React.Fragment>
             <div className="row">
                 {renderFilter(filterStore, queryUtility, children, t)}
-                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml col--v--center ">
+                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml col--v--center">
                     <SearchFilter
                         className='input input--sml input--search'
                         queryUtility={queryUtility}

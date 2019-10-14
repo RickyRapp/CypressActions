@@ -519,7 +519,8 @@
                 "ACCOUNT_NUMBER_FIELD": "Account number",
                 "ROUTING_NUMBER_FIELD": "Routing number",
                 "DESCRIPTION_FIELD": "Description",
-                "THIRD_PARTY_BANK_ACCOUNT_FIELD": "Third party account?"
+                "THIRD_PARTY_BANK_ACCOUNT_FIELD": "Third party account?",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD": "Account holder name"
             }
         },
         "EDIT": {
@@ -529,7 +530,8 @@
                 "ACCOUNT_NUMBER_FIELD": "Account number",
                 "ROUTING_NUMBER_FIELD": "Routing number",
                 "DESCRIPTION_FIELD": "Description",
-                "THIRD_PARTY_BANK_ACCOUNT_FIELD": "Third party account?"
+                "THIRD_PARTY_BANK_ACCOUNT_FIELD": "Third party account?",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD": "Account holder name"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -587,10 +589,14 @@
                 "NAME_PLACEHOLDER": "Name",
                 "TAX_ID_LABEL": "Tax Id",
                 "TAX_ID_PLACEHOLDER": "Tax Id",
+                "DBA_LABEL": "DBA",
+                "DBA_PLACEHOLDER": "DBA",
                 "CHARITY_TYPE_LABEL": "Type",
                 "CHARITY_TYPE_PLACEHOLDER": "Type",
                 "CHARITY_STATUS_LABEL": "Status",
-                "CHARITY_STATUS_PLACEHOLDER": "Status"
+                "CHARITY_STATUS_PLACEHOLDER": "Status",
+                "CONTACT_INFORMATION_NAME_LABEL": "Name",
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name"
             }
         },
         "EDIT": {
@@ -605,7 +611,9 @@
                 "CHARITY_TYPE_LABEL": "Type",
                 "CHARITY_TYPE_PLACEHOLDER": "Type",
                 "CHARITY_STATUS_LABEL": "Status",
-                "CHARITY_STATUS_PLACEHOLDER": "Status"
+                "CHARITY_STATUS_PLACEHOLDER": "Status",
+                "CONTACT_INFORMATION_NAME_LABEL": "Name",
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name"
             }
         }
     }

@@ -6,7 +6,7 @@ class EmailAddressRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,page,rpp,sort,embed,searchFields}', filter);
+        return super.find(this.base + '/{?donorAccountId,charityId,page,rpp,sort,embed,searchFields}', filter);
     }
 
     get(id, options) {

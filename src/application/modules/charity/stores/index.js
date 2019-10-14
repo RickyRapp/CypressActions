@@ -1,3 +1,7 @@
 export { default as CharityViewStore } from './CharityViewStore'
 export { default as CharityEditViewStore } from './CharityEditViewStore'
 export { default as CharityCreateViewStore } from './CharityCreateViewStore'
+export { default as CharityAddressViewStore } from './CharityAddressViewStore'
+export { default as CharityEmailAddressViewStore } from './CharityEmailAddressViewStore'
+export { default as CharityPhoneNumberViewStore } from './CharityPhoneNumberViewStore'
+export { default as CharityBankAccountEditViewStore } from './CharityBankAccountEditViewStore'

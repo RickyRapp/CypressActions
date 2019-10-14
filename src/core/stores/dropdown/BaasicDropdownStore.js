@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import {merge} from 'lodash';
-import {observable, action, computed, runInAction, reaction } from 'mobx';
-import {LoaderStore} from 'core/stores';
+import { merge } from 'lodash';
+import { observable, action, computed, runInAction, reaction } from 'mobx';
+import { LoaderStore } from 'core/stores';
 
 class BaasicDropdownStore {
     @observable.ref originalItems = [];
@@ -116,7 +116,7 @@ class BaasicDropdownStore {
     @action.bound
     filterInMemory(filterTerm) {
         const items = _.filter(this.originalItems.slice(), i => {
-            if(filterTerm) {
+            if (filterTerm) {
                 return i[this.options.textField].toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1;
             }
             return true;
@@ -129,10 +129,10 @@ class BaasicDropdownStore {
 
     @action.bound
     async filterAsync(filterTerm) {
-        if(filterTerm == ''){
+        if (filterTerm == '') {
             filterTerm = undefined;
         }
-        
+
         this.setLoading(true);
         const response = await this.actions.fetchFunc(filterTerm);
         runInAction(() => {

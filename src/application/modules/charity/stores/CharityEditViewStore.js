@@ -1,6 +1,6 @@
 import { action, runInAction } from 'mobx';
 import { CharityEditForm } from 'application/charity/forms';
-import { BaseEditViewStore } from 'core/stores';
+import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { CharityService } from 'application/charity/services';
 import { LookupService } from 'common/services';
@@ -13,43 +13,51 @@ class CharityEditViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'charity',
             id: id,
-            Form: CharityEditForm,
+            autoInit: false,
             actions: () => {
                 const service = new CharityService(rootStore.application.baasic.apiClient);
                 return {
-                    get: async (id, opts) => {
-                        const response = await service.get(id, opts);
+                    get: async (id) => {
+                        const params = {
+                            embed: [
+                                'emailAddress',
+                                'contactInformation',
+                                'contactInformation.emailAddress',
+                                'contactInformation.phoneNumber'
+                            ]
+                        }
+                        const response = await service.get(id, params);
                         return response.data;
                     },
                     update: async (resource) => {
-                        const response = await service.update(resource);
-                        return response.data;
+                        return await service.update(
+                            {
+                                id: id,
+                                ...resource
+                            });
                     }
                 }
             },
             FormClass: CharityEditForm,
         });
 
-        // this.charityTypeDropdownStore = new BaasicDropdownStore(null, null,
-        //     {
-        //         onChange: (charityTypeId) => {
-        //             this.item.charityTypeId = charityTypeId;
-        //             this.form.set({ charityTypeId: charityTypeId });
-        //         }
-        //     });
+        this.rootStore = rootStore;
 
-        // this.charityStatusDropdownStore = new BaasicDropdownStore(null, null,
-        //     {
-        //         onChange: (charityStatusId) => {
-        //             this.item.charityStatusId = charityStatusId;
-        //             this.form.set({ charityStatusId: charityStatusId });
-        //         }
-        //     });
+        this.charityTypeDropdownStore = new BaasicDropdownStore(null, null,
+            {
+                onChange: (charityTypeId) => {
+                    this.item.charityTypeId = charityTypeId;
+                    this.form.set({ charityTypeId: charityTypeId });
+                }
+            });
 
-        // this.fetch([
-        //     this.fetchCharityTypes(),
-        //     this.fetchCharityStatuses()
-        // ]);
+        this.charityStatusDropdownStore = new BaasicDropdownStore(null, null,
+            {
+                onChange: (charityStatusId) => {
+                    this.item.charityStatusId = charityStatusId;
+                    this.form.set({ charityStatusId: charityStatusId });
+                }
+            });
     }
 
     @action.bound
@@ -57,27 +65,48 @@ class CharityEditViewStore extends BaseEditViewStore {
         if (!initialLoad) {
             this.rootStore.routerStore.goBack();
         }
+        else {
+            this.form.clear();
+            await this.fetch([
+                this.fetchCharityTypes(),
+                this.fetchCharityStatuses()
+            ]);
+            await this.fetch([
+                this.getResource(this.id)
+            ]);
+        }
+    }
+
+    @action.bound
+    async getResource(id) {
+        await super.getResource(id);
+
+        runInAction(() => {
+            this.form.$('charityStatusId').set(this.item.charityStatusId);
+            this.form.$('charityTypeId').set(this.item.charityTypeId);
+            this.form.validate();
+        });
     }
 
     @action.bound
     async fetchCharityTypes() {
         this.charityTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-type');
         const response = await service.getAll();
         runInAction(() => {
-            this.prefixTypeDropdownStore.setItems(response.data);
-            this.prefixTypeDropdownStore.setLoading(false);
+            this.charityTypeDropdownStore.setItems(response.data);
+            this.charityTypeDropdownStore.setLoading(false);
         });
     }
 
     @action.bound
     async fetchCharityStatuses() {
-        this.prefixTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
+        this.charityStatusDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-status');
         const response = await service.getAll();
         runInAction(() => {
-            this.deliveryMethodTypeDropdownStore.setItems(response.data);
-            this.deliveryMethodTypeDropdownStore.setLoading(false);
+            this.charityStatusDropdownStore.setItems(response.data);
+            this.charityStatusDropdownStore.setLoading(false);
         });
     }
 }

@@ -1,7 +1,7 @@
 import { FormBase } from 'core/components';
-import { donorAccountAddressFormProperties, donorAccountEmailAddressFormProperties, donorAccountPhoneNumberFormProperties } from 'application/donor-account/forms';
+import { charityAddressFormProperties, charityEmailAddressFormProperties } from 'application/charity/forms';
 
-export const donorAccountBankAccountFormProperties = {
+export const charityBankAccountFormProperties = {
     fields: [
         {
             name: 'id',
@@ -27,42 +27,32 @@ export const donorAccountBankAccountFormProperties = {
             label: 'BANK_ACCOUNT.EDIT.FIELDS.DESCRIPTION_FIELD',
         },
         {
-            name: 'isThirdPartyAccount',
-            label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_BANK_ACCOUNT_FIELD',
-            rules: 'boolean',
-            type: 'checkbox'
-        },
-        {
             name: 'accountHolder',
             fields: [
                 {
                     name: 'name',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD',
-                    rules: 'string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'address',
-                    ...donorAccountAddressFormProperties
+                    ...charityAddressFormProperties
                 },
                 {
                     name: 'emailAddress',
-                    ...donorAccountEmailAddressFormProperties
-                },
-                {
-                    name: 'phoneNumber',
-                    ...donorAccountPhoneNumberFormProperties
+                    ...charityEmailAddressFormProperties
                 }
             ]
         }
     ]
 }
 
-export default class DonorAccountBankAccountEditForm extends FormBase {
+export default class CharityBankAccountEditForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
 
     setup() {
-        return donorAccountBankAccountFormProperties;
+        return charityBankAccountFormProperties;
     }
 }

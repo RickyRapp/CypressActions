@@ -3,4 +3,4 @@ export { default as DonorAccountSettingsEditForm, donorAccountSettingsFormProper
 export { default as DonorAccountEmailAddressEditForm, donorAccountEmailAddressFormProperties } from './DonorAccountEmailAddressEditForm'
 export { default as DonorAccountAddressEditForm, donorAccountAddressFormProperties } from './DonorAccountAddressEditForm'
 export { default as DonorAccountPhoneNumberEditForm, donorAccountPhoneNumberFormProperties } from './DonorAccountPhoneNumberEditForm'
-export { default as DonorAccountBankAccountEditForm } from './DonorAccountBankAccountEditForm'
+export { default as DonorAccountBankAccountEditForm, donorAccountBankAccountFormProperties } from './DonorAccountBankAccountEditForm'

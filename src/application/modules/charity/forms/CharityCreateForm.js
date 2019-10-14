@@ -1,5 +1,10 @@
 import { FormBase } from 'core/components';
-import { donorAccountAddressFormProperties, donorAccountEmailAddressFormProperties, donorAccountPhoneNumberFormProperties } from 'application/donor-account/forms';
+import {
+    donorAccountAddressFormProperties,
+    donorAccountEmailAddressFormProperties,
+    donorAccountPhoneNumberFormProperties,
+    donorAccountBankAccountFormProperties
+} from 'application/donor-account/forms';
 
 export default class CharityCreateForm extends FormBase {
     constructor(hooks) {
@@ -19,7 +24,7 @@ export default class CharityCreateForm extends FormBase {
                     name: 'taxId',
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.TAX_ID_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'required|string|size:10'
                 },
                 {
                     name: 'dba',
@@ -31,13 +36,13 @@ export default class CharityCreateForm extends FormBase {
                     name: 'charityTypeId',
                     label: 'CHARITY.CREATE.FIELDS.CHARITY_TYPE_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_TYPE_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'charityStatusId',
                     label: 'CHARITY.CREATE.FIELDS.CHARITY_STATUS_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_STATUS_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'address',
@@ -48,8 +53,27 @@ export default class CharityCreateForm extends FormBase {
                     ...donorAccountEmailAddressFormProperties
                 },
                 {
-                    name: 'phoneNumber',
-                    ...donorAccountPhoneNumberFormProperties
+                    name: 'contactInformation',
+                    fields: [
+                        {
+                            name: 'name',
+                            label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NAME_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'emailAddress',
+                            ...donorAccountEmailAddressFormProperties
+                        },
+                        {
+                            name: 'phoneNumber',
+                            ...donorAccountPhoneNumberFormProperties
+                        },
+                    ]
+                },
+                {
+                    name: 'bankAccount',
+                    ...donorAccountBankAccountFormProperties
                 }
             ],
         };

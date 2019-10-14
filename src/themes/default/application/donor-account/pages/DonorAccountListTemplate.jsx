@@ -37,17 +37,17 @@ const DonorAccountListTemplate = function ({ donorAccountViewStore }) {
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <QueryNullableSwitch
+                                queryUtility={queryUtility}
+                                propertyName='accountTypeId'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <SearchFilter
                                 className='input input--sml input--search'
                                 queryUtility={queryUtility}
                                 propertyName='emails'
                                 placeholder="Emails"
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-2 u-mar--bottom--sml">
-                            <QueryNullableSwitch
-                                queryUtility={queryUtility}
-                                propertyName='accountTypeId'
                             />
                         </div>
                     </TableFilter>

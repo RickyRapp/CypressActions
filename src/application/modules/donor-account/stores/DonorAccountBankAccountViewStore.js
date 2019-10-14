@@ -162,15 +162,6 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async markPrimary(bankAccount) {
-        this.loaderStore.suspend();
-        await this.bankAccountService.markPrimary(bankAccount);
-        this.rootStore.notificationStore.success('Successfully marked primary');
-        await this.queryUtility.fetch();
-        this.loaderStore.resume();
-    }
-
-    @action.bound
     async useDonorContactInformations(value, type) {
         if (type === 'address') {
             if (this.addresses.length === 0) {

@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import { charityEmailAddressFormProperties, charityPhoneNumberFormProperties } from 'application/charity/forms';
 
 export default class CharityEditForm extends FormBase {
     constructor(hooks) {
@@ -18,7 +19,7 @@ export default class CharityEditForm extends FormBase {
                     name: 'taxId',
                     label: 'CHARITY.EDIT.FIELDS.TAX_ID_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.TAX_ID_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'dba',
@@ -30,13 +31,35 @@ export default class CharityEditForm extends FormBase {
                     name: 'charityTypeId',
                     label: 'CHARITY.EDIT.FIELDS.CHARITY_TYPE_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.CHARITY_TYPE_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'charityStatusId',
                     label: 'CHARITY.EDIT.FIELDS.CHARITY_STATUS_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.CHARITY_STATUS_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'required|string'
+                },
+                {
+                    name: 'emailAddress',
+                    ...charityEmailAddressFormProperties
+                },
+                {
+                    name: 'contactInformation',
+                    fields: [
+                        {
+                            name: 'name',
+                            label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'emailAddress',
+                            ...charityEmailAddressFormProperties
+                        },
+                        {
+                            name: 'phoneNumber',
+                            ...charityPhoneNumberFormProperties
+                        }
+                    ]
                 }
             ],
         };
