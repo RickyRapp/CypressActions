@@ -15,3 +15,6 @@ export { default as BankAccountRouteService } from './BankAccountRouteService'
 
 export { default as CharityFileStreamService } from './CharityFileStreamService'
 export { default as CharityFileStreamRouteService } from './CharityFileStreamRouteService'
+
+export { default as DonorAccountFileStreamService } from './DonorAccountFileStreamService'
+export { default as DonorAccountFileStreamRouteService } from './DonorAccountFileStreamRouteService'

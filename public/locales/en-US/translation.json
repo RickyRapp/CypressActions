@@ -328,7 +328,7 @@
     "NO": "NO",
     "Are you sure you want to disapprove user?": "Are you sure you want to disapprove user?",
     "Are you sure you want to lock user?": "Are you sure you want to lock user?",
-    "DONORACCOUNT": {
+    "DONOR_ACCOUNT": {
         "LIST": {
             "TITLE": "Donors",
             "COLUMNS": {
@@ -360,10 +360,27 @@
             "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder"
         },
         "CREATE": {
-            "USER_CREATE_SUCCESS": "Successfully created new user",
-            "USER_CREATE_ERROR": "Errror occurred while trying to create user",
-            "PROFILE_CREATE_ERROR": "Errror occurred while trying to create user profile",
-            "TITLE": "Donor"
+            "TITLE": "Create",
+            "SUCCESS": "Successfully created",
+            "FIRST_NAME_LABEL": "First name",
+            "LAST_NAME_LABEL": "Last name",
+            "MIDDLE_NAME_LABEL": "Middle name",
+            "FUND_NAME_LABEL": "Fund name",
+            "PREFIX_TYPE_LABEL": "Prefix",
+            "DELIVERY_METHOD_TYPE_LABEL": "Delivery Method",
+            "BLANK_BOOKLET_MAX_LABEL": "Open certificate max amount",
+            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
+            "HOW_DID_YOU_HEAR_ABOUT_US_LABEL": "How did you hear about us?",
+            "ACCOUNT_TYPE_LABEL": "Type",
+            "CONTACT_INFO_FIELDS": {
+                "TITLE": "Contact info"
+            },
+            "LOGIN_FORM_FIELDS": {
+                "TITLE": "Login info",
+                "USERNAME_LABEL": "Username/Email",
+                "PASSWORD_LABEL": "Password",
+                "CONFIRM_PASSWORD_LABEL": "Confirm password"
+            }
         },
         "ACCOUNT_SETTINGS_FIELDS": {
             "TITLE": "Account settings details",
@@ -500,7 +517,8 @@
                 "ACCOUNT_HOLDER_ADDRESS_LABEL": "Address",
                 "ACCOUNT_HOLDER_EMAIL_ADDRESS_LABEL": "Email address",
                 "ACCOUNT_HOLDER_PHONE_NUMBER_LABEL": "Phone number",
-                "IS_THIRD_PARTY_ACCOUNT_LABEL": "Third party"
+                "IS_THIRD_PARTY_ACCOUNT_LABEL": "Third party",
+                "IMAGE_LABEL": "Image"
             },
             "EMPTY_STATE": {
                 "TITLE": "No bank accounts",
@@ -596,7 +614,13 @@
                 "CHARITY_STATUS_LABEL": "Status",
                 "CHARITY_STATUS_PLACEHOLDER": "Status",
                 "CONTACT_INFORMATION_NAME_LABEL": "Name",
-                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name"
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name",
+                "LOGIN_FORM_FIELDS": {
+                    "TITLE": "Login info",
+                    "USERNAME_LABEL": "Username/Email",
+                    "PASSWORD_LABEL": "Password",
+                    "CONFIRM_PASSWORD_LABEL": "Confirm password"
+                }
             }
         },
         "EDIT": {

@@ -50,10 +50,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                 </Content>
             </ListContent>
             <BaasicModal modalParams={addressModal}>
-                {/* <CharityAddressEditForm /> */}
-                <div>
-                    asdasd
-                </div>
+                <CharityAddressEditForm />
             </BaasicModal>
         </div>
     )

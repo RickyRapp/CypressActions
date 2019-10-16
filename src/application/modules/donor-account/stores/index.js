@@ -4,3 +4,4 @@ export { default as DonorAccountAddressViewStore } from './DonorAccountAddressVi
 export { default as DonorAccountEmailAddressViewStore } from './DonorAccountEmailAddressViewStore'
 export { default as DonorAccountPhoneNumberViewStore } from './DonorAccountPhoneNumberViewStore'
 export { default as DonorAccountBankAccountViewStore } from './DonorAccountBankAccountViewStore'
+export { default as DonorAccountCreateViewStore } from './DonorAccountCreateViewStore'

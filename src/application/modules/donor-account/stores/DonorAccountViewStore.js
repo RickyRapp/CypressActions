@@ -48,21 +48,21 @@ class DonorAccountViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'donorName',
-                    title: 'DONORACCOUNT.LIST.COLUMNS.DONORNAME',
+                    title: 'DONOR_ACCOUNT.LIST.COLUMNS.DONORNAME',
                     onClick: item => this.routes.edit(item.id),
                     authorization: this.authorization.update
                 },
                 {
                     key: 'accountNumber',
-                    title: 'DONORACCOUNT.LIST.COLUMNS.ACCOUNTNUMBER'
+                    title: 'DONOR_ACCOUNT.LIST.COLUMNS.ACCOUNTNUMBER'
                 },
                 {
                     key: 'accountType.name',
-                    title: 'DONORACCOUNT.LIST.COLUMNS.ACCOUNTTYPE'
+                    title: 'DONOR_ACCOUNT.LIST.COLUMNS.ACCOUNTTYPE'
                 },
                 {
                     key: 'presentBalance',
-                    title: 'DONORACCOUNT.LIST.COLUMNS.PRESENTBALANCE',
+                    title: 'DONOR_ACCOUNT.LIST.COLUMNS.PRESENTBALANCE',
                     format: {
                         type: 'currency',
                         value: '$'

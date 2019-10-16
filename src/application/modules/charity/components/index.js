@@ -1,4 +1,5 @@
 export { default as CharityAddressListTable } from './CharityAddressListTable'
+export { default as CharityAddressEditForm } from './CharityAddressEditForm'
 export { default as CharityEmailAddressListTable } from './CharityEmailAddressListTable'
 export { default as CharityPhoneNumberListTable } from './CharityPhoneNumberListTable'
 export { default as CharityBankAccountListTable } from './CharityBankAccountListTable'

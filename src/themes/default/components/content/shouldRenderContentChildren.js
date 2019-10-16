@@ -9,6 +9,6 @@ export default function shouldRenderContentChildren(children) {
                 || child.props.error
         }
     }
-    
+
     return false;
 }

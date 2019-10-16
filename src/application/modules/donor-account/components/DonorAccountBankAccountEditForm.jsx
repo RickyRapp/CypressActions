@@ -3,13 +3,22 @@ import PropTypes from 'prop-types';
 import {
     BasicInput,
     BaasicButton,
-    BasicFieldCheckbox
+    BasicFieldCheckbox,
+    BaasicDropzone
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
 class DonorAccountBankAccountEditForm extends Component {
     render() {
-        const { modalParams, useDonorContactInformations, t } = this.props;
+        const { modalParams,
+            useDonorContactInformations,
+            t,
+            uploadTypes,
+            uploadLoading,
+            image,
+            onAttachmentDrop,
+            currentImage
+        } = this.props;
         const { formBankAccount } = modalParams.data;
 
         return (
@@ -103,6 +112,23 @@ class DonorAccountBankAccountEditForm extends Component {
                         }
                     </div>
 
+                    <div className="row">
+                        <div className="col col-sml-12 col-lrg-3">
+                            <label className="form__group__label" >Bank account image</label>
+
+                            {!image && currentImage && imgPreview({ image: currentImage })}
+
+                            <BaasicDropzone
+                                acceptFiles={uploadTypes}
+                                loading={uploadLoading}
+                                onFilesDrop={onAttachmentDrop}
+                                multiple={false}
+                            />
+
+                            {image && imgPreview({ image })}
+                        </div>
+                    </div>
+
                     <BaasicButton
                         className='btn btn--base btn--primary'
                         type='submit'
@@ -117,7 +143,53 @@ class DonorAccountBankAccountEditForm extends Component {
 DonorAccountBankAccountEditForm.propTypes = {
     modalParams: PropTypes.object.isRequired,
     useDonorContactInformations: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    uploadTypes: PropTypes.array.isRequired,
+    uploadLoading: PropTypes.bool.isRequired,
+    image: PropTypes.string.isRequired,
+    onAttachmentDrop: PropTypes.func.isRequired,
+    currentImage: PropTypes.string.isRequired
+};
+
+const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginTop: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: 'border-box'
+};
+
+const thumbInner = {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden'
+};
+
+const img = {
+    display: 'block',
+    width: 'auto',
+    height: '100%'
+};
+
+function imgPreview({ image }) {
+    return (
+        <div style={thumb} >
+            <div style={thumbInner}>
+                <img
+                    src={image}
+                    style={img}
+                />
+            </div>
+        </div>
+    )
+}
+
+imgPreview.propTypes = {
+    image: PropTypes.any
 };
 
 export default defaultTemplate(DonorAccountBankAccountEditForm);

@@ -4,13 +4,14 @@ import { BankAccountService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { CharityBankAccountEditForm } from 'application/charity/forms';
-import { CharityFileStreamService } from 'common/services';
+import { CharityFileStreamService, CharityFileStreamRouteService } from 'common/services';
 
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {
     attachment = null;
     uploadTypes = null;
     @observable image = null;
+    @observable currentImage = null;
     @observable uploadLoading = false;
     uploadTypes = ['.png', '.jpg', '.jpeg'];
     bankAccountService = null;
@@ -24,9 +25,15 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                 return {
                     get: async (id) => {
                         const params = {
-                            embed: ['accountHolder', 'accountHolder.address', 'accountHolder.emailAddress']
+                            embed: ['accountHolder', 'accountHolder.address', 'accountHolder.emailAddress', 'coreMediaVaultEntry']
                         }
                         const response = await service.get(id, params);
+                        if (response && response.data) {
+                            if (response.data.coreMediaVaultEntryId) {
+                                const service = new CharityFileStreamRouteService();
+                                this.currentImage = service.getPreview(response.data.coreMediaVaultEntryId)
+                            }
+                        }
                         return response.data;
                     },
                     update: async (resource) => {
@@ -53,7 +60,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     async insertImage() {
         if (this.attachment != null) {
             try {
-                var service = new CharityFileStreamService(this.rootStore.application.baasic.apiClient);
+                const service = new CharityFileStreamService(this.rootStore.application.baasic.apiClient);
                 this.uploadLoading = true;
                 const response = await service.uploadCharityBankAccount(this.attachment, this.charityId);
                 this.uploadLoading = false;
@@ -67,7 +74,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         return null;
     }
 
-    @action.bound async onAttachmentDrop(item) {
+    @action.bound onAttachmentDrop(item) {
         this.attachment = item.affectedFiles[0].getRawFile();
         const binaryData = [];
         binaryData.push(this.attachment);

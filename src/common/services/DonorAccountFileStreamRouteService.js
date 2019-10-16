@@ -1,8 +1,8 @@
 import { BaseRouteService } from 'core/services';
 
-class CharityFileStreamRouteService extends BaseRouteService {
+class DonorAccountFileStreamRouteService extends BaseRouteService {
     constructor() {
-        super('charity-file-streams');
+        super('donor-file-streams');
     }
 
     find(filter) {
@@ -21,8 +21,8 @@ class CharityFileStreamRouteService extends BaseRouteService {
         return super.create(this.base, resource);
     }
 
-    uploadCharityBankAccount(charityId, filename) {
-        return super.create(this.base + '/{charityId}/bank-account/{filename}/{?embed}', { charityId: charityId, filename: filename });
+    uploadDonorAccountBankAccount(donorAccountId, bankAccountId, filename) {
+        return super.create(this.base + '/{donorAccountId}/bank-account/{id}/{filename}/{?embed}', { donorAccountId: donorAccountId, id: bankAccountId, filename: filename });
     }
 
     update(resource) {
@@ -34,4 +34,4 @@ class CharityFileStreamRouteService extends BaseRouteService {
     }
 }
 
-export default CharityFileStreamRouteService;
+export default DonorAccountFileStreamRouteService;

@@ -24,6 +24,10 @@ class AddressRouteService extends BaseRouteService {
     createDonorAccountAddress(resource) {
         return super.create(this.base + '/donor-account/{donorAccountId}', resource);
     }
+
+    createCharityAddress(resource) {
+        return super.create(this.base + '/charity/{charityId}', resource);
+    }
 }
 
 export default AddressRouteService;

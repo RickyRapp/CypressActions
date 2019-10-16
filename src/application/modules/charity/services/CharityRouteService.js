@@ -24,6 +24,10 @@ class CharityRouteService extends BaseRouteService {
     search(filter) {
         return super.find(this.base + '/search/{?id,searchQuery,page,rpp,sort,embed,fields,exceptId}', filter);
     }
+
+    taxIdExists(taxId) {
+        return super.get(this.base + '/tax-id/{taxId}/exists/', null, { taxId: taxId });
+    }
 }
 
 export default CharityRouteService;

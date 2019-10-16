@@ -6,4 +6,4 @@ export { default as organizationalStructureNameRegex } from './organizationalStr
 export { default as beforeDate } from './beforeDate';
 export { default as lessThan } from './lessThan';
 export { default as greaterThan } from './greaterThan';
-export {default as beforeOrEqualDate} from './beforeOrEqualDate';
+export { default as beforeOrEqualDate } from './beforeOrEqualDate';

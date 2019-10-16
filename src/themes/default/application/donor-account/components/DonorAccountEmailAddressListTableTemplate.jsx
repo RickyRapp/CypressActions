@@ -29,12 +29,14 @@ const DonorAccountEmailAddressListTableTemplate = function ({ donorAccountEmailA
             <ListContent>
                 <h3 className="u-mar--bottom--tny">
                     {t('EMAIL_ADDRESS.LIST.TITLE')}
-                    {!maxEmailAddressesEntered &&
+                    {maxEmailAddressesEntered ?
+                        <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
+                        :
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--locked u-icon--sml'
-                            label='EMAIL_ADDRESS.LIST.BUTTON.CREATE'
+                            icon='u-icon u-icon--unlocked u-icon--sml'
+                            label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openEmailAddressModal()}>
                         </BaasicButton>}

@@ -30,11 +30,6 @@ export const charityBankAccountFormProperties = {
             name: 'accountHolder',
             fields: [
                 {
-                    name: 'name',
-                    label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD',
-                    rules: 'required|string'
-                },
-                {
                     name: 'address',
                     ...charityAddressFormProperties
                 },

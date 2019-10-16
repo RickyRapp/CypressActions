@@ -1,4 +1,5 @@
 export { default as DonorAccountEditForm } from './DonorAccountEditForm'
+export { default as DonorAccountCreateForm } from './DonorAccountCreateForm'
 export { default as DonorAccountSettingsEditForm, donorAccountSettingsFormProperties } from './DonorAccountSettingsEditForm'
 export { default as DonorAccountEmailAddressEditForm, donorAccountEmailAddressFormProperties } from './DonorAccountEmailAddressEditForm'
 export { default as DonorAccountAddressEditForm, donorAccountAddressFormProperties } from './DonorAccountAddressEditForm'

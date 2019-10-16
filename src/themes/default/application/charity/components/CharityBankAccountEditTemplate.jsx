@@ -14,7 +14,8 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
         uploadTypes,
         uploadLoading,
         image,
-        onAttachmentDrop
+        onAttachmentDrop,
+        currentImage
     } = charityBankAccountEditViewStore;
 
     return (
@@ -35,9 +36,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
                         <BasicInput field={form.$('routingNumber')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('name')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('accountHolder').$('address.addressLine1')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
@@ -56,18 +54,18 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
                         <BasicInput field={form.$('accountHolder').$('emailAddress').$('email')} />
                     </div>
                     <div className="col col-sml-12 col-lrg-3">
-                        <div className="card card--form card--primary card--med u-mar--bottom--med">
-                            <label className="form__group__label" >Bank account image</label>
+                        <label className="form__group__label" >Bank account image</label>
 
-                            <div className="buildings__item__img" style={{ backgroundImage: `url(${image ? image : require('themes/assets/img/building-default.svg')})`, }}></div>
+                        {!image && currentImage && imgPreview({ image: currentImage })}
 
-                            <BaasicDropzone
-                                acceptFiles={uploadTypes}
-                                loading={uploadLoading}
-                                onFilesDrop={onAttachmentDrop}
-                                multiple={false}
-                            />
-                        </div>
+                        <BaasicDropzone
+                            acceptFiles={uploadTypes}
+                            loading={uploadLoading}
+                            onFilesDrop={onAttachmentDrop}
+                            multiple={false}
+                        />
+
+                        {image && imgPreview({ image })}
                     </div>
                 </div>
 
@@ -90,6 +88,47 @@ function renderEditLayoutFooterContent({ form }) {
 
 renderEditLayoutFooterContent.propTypes = {
     form: PropTypes.any
+};
+
+const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginTop: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: 'border-box'
+};
+
+const thumbInner = {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden'
+};
+
+const img = {
+    display: 'block',
+    width: 'auto',
+    height: '100%'
+};
+
+function imgPreview({ image }) {
+    return (
+        <div style={thumb} >
+            <div style={thumbInner}>
+                <img
+                    src={image}
+                    style={img}
+                />
+            </div>
+        </div>
+    )
+}
+
+imgPreview.propTypes = {
+    image: PropTypes.any
 };
 
 export default defaultTemplate(CharityBankAccountEditTemplate);

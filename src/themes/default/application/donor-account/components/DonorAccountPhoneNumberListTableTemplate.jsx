@@ -29,11 +29,13 @@ const DonorAccountPhoneNumberListTableTemplate = function ({ donorAccountPhoneNu
             <ListContent>
                 <h3 className="u-mar--bottom--tny">
                     {t('PHONE_NUMBER.LIST.TITLE')}
-                    {!maxPhoneNumbersEntered &&
+                    {maxPhoneNumbersEntered ?
+                        <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
+                        :
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--locked u-icon--sml'
+                            icon='u-icon u-icon--unlocked u-icon--sml'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openPhoneNumberModal()}>

@@ -65,7 +65,7 @@ const DonorAccountListTemplate = function ({ donorAccountViewStore }) {
 };
 
 function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='DONORACCOUNT.LIST.EMPTY_STATE.TITLE' actionLabel='DONORACCOUNT.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
+    return <EmptyState image={EmptyIcon} title='DONOR_ACCOUNT.LIST.EMPTY_STATE.TITLE' actionLabel='DONOR_ACCOUNT.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
 
 DonorAccountListTemplate.propTypes = {
@@ -86,7 +86,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
-                        label='DONORACCOUNT.LIST.BUTTON.EDIT'
+                        label='DONOR_ACCOUNT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
                     </BaasicButton>

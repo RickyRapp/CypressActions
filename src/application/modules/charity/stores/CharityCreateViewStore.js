@@ -5,6 +5,10 @@ import { applicationContext } from 'core/utils';
 import { CharityService } from 'application/charity/services';
 import { LookupService, CharityFileStreamService } from 'common/services';
 
+const ErrorType = {
+    Unique: 0
+};
+
 @applicationContext
 class CharityCreateViewStore extends BaseEditViewStore {
     attachment = null;
@@ -15,19 +19,22 @@ class CharityCreateViewStore extends BaseEditViewStore {
 
     constructor(rootStore) {
         const id = rootStore.routerStore.routerState.params.id;
+        const service = new CharityService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'charity',
             id: id,
             autoInit: false,
             actions: () => {
-                const service = new CharityService(rootStore.application.baasic.apiClient);
                 return {
-                    get: async (id, opts) => {
-                        const response = await service.get(id, opts);
-                        return response.data;
-                    },
                     create: async (resource) => {
+                        await this.fetch([
+                            this.usernameExists(resource.coreUser.username),
+                            this.taxIdExists(resource.taxId),
+                        ])
+                        if (!this.form.isValid) {
+                            throw { type: ErrorType.Unique };
+                        }
                         try {
                             const response = await service.create(resource);
                             await this.insertImage(response.data.response);
@@ -38,24 +45,23 @@ class CharityCreateViewStore extends BaseEditViewStore {
                     }
                 }
             },
+            errorActions: {
+                onCreateError: ({ type }) => {
+                    switch (type) {
+                        case ErrorType.Unique:
+                            break;
+                        default:
+                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            break;
+                    }
+                }
+            },
             FormClass: CharityCreateForm,
         });
 
-        this.charityTypeDropdownStore = new BaasicDropdownStore(null, null,
-            {
-                onChange: (charityTypeId) => {
-                    this.item.charityTypeId = charityTypeId;
-                    this.form.set({ charityTypeId: charityTypeId });
-                }
-            });
-
-        this.charityStatusDropdownStore = new BaasicDropdownStore(null, null,
-            {
-                onChange: (charityStatusId) => {
-                    this.item.charityStatusId = charityStatusId;
-                    this.form.set({ charityStatusId: charityStatusId });
-                }
-            });
+        this.service = service;
+        this.charityTypeDropdownStore = new BaasicDropdownStore();
+        this.charityStatusDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound
@@ -68,9 +74,52 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 this.fetchCharityTypes(),
                 this.fetchCharityStatuses()
             ]);
-            await this.fetch([
-                this.getResource(this.id)
-            ]);
+        }
+    }
+
+    @action.bound
+    onBlurUsername(event) {
+        this.usernameExists(event.target ? event.target.value : null)
+    }
+
+    @action.bound
+    async usernameExists(username) {
+        if (this.form.$('coreUser.username').isValid) {
+            try {
+                const response = await this.rootStore.application.baasic.membershipModule.user.exists(username);
+                if (response.statusCode === 204) {
+                    this.form.$('coreUser.username').invalidate('Username already exists.')
+                    return;
+                }
+            } catch (err) {
+                if (err.statusCode === 404) {
+                    this.form.$('coreUser.username').resetValidation();
+                    return;
+                }
+            }
+        }
+    }
+
+    @action.bound
+    onBlurTaxId(event) {
+        this.taxIdExists(event.target ? event.target.value : null)
+    }
+
+    @action.bound
+    async taxIdExists(taxId) {
+        if (this.form.$('taxId').isValid) {
+            try {
+                const response = await this.service.taxIdExists(taxId);
+                if (response.statusCode === 204) {
+                    this.form.$('taxId').invalidate('Tax Id already exists.')
+                    return;
+                }
+            } catch (err) {
+                if (err.statusCode === 404) {
+                    this.form.$('taxId').resetValidation();
+                    return;
+                }
+            }
         }
     }
 

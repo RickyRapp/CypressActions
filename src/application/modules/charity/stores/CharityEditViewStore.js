@@ -43,19 +43,17 @@ class CharityEditViewStore extends BaseEditViewStore {
 
         this.rootStore = rootStore;
 
-        this.charityTypeDropdownStore = new BaasicDropdownStore(null, null,
+        this.charityTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (charityTypeId) => {
                     this.item.charityTypeId = charityTypeId;
-                    this.form.set({ charityTypeId: charityTypeId });
                 }
             });
 
-        this.charityStatusDropdownStore = new BaasicDropdownStore(null, null,
+        this.charityStatusDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (charityStatusId) => {
                     this.item.charityStatusId = charityStatusId;
-                    this.form.set({ charityStatusId: charityStatusId });
                 }
             });
     }

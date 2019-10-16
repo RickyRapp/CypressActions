@@ -12,7 +12,7 @@ class AccountSettingsPartialForm extends Component {
         const { form, t, isPremiumAccount } = this.props;
         return (
             <React.Fragment>
-                <h3 className="u-mar--bottom--med">{t('DONORACCOUNT.ACCOUNT_SETTINGS_FIELDS.TITLE')}</h3>
+                <h3 className="u-mar--bottom--med">{t('DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-lrg-3">
                         <NumericInputField field={form.$('lineOfCredit')} />
@@ -44,7 +44,7 @@ class AccountSettingsPartialForm extends Component {
                     {isPremiumAccount &&
                         <React.Fragment>
                             <div className="form__group col col-lrg-3">
-                                <BasicInput field={form.$('extraBookletPercentage')} />
+                                <NumericInputField field={form.$('extraBookletPercentage')} />
                             </div>
                         </React.Fragment>
                     }

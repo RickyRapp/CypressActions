@@ -49,10 +49,6 @@ export default class CharityCreateForm extends FormBase {
                     ...donorAccountAddressFormProperties
                 },
                 {
-                    name: 'emailAddress',
-                    ...donorAccountEmailAddressFormProperties
-                },
-                {
                     name: 'contactInformation',
                     fields: [
                         {
@@ -74,7 +70,36 @@ export default class CharityCreateForm extends FormBase {
                 {
                     name: 'bankAccount',
                     ...donorAccountBankAccountFormProperties
-                }
+                },
+                {
+                    name: 'coreUser',
+                    fields: [
+                        {
+                            name: 'username',
+                            label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_LABEL',
+                            rules: 'required|email',
+                            autoComplete: 'off'
+                        },
+                        {
+                            name: 'coreMembership',
+                            fields: [
+                                {
+                                    name: 'password',
+                                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
+                                    rules: ['required', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
+                                    type: 'password',
+                                    autoComplete: 'off'
+                                },
+                                {
+                                    name: 'confirmPassword',
+                                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_LABEL',
+                                    rules: 'required|string|same:coreUser.coreMembership.password',
+                                    type: 'password'
+                                }
+                            ]
+                        }
+                    ]
+                },
             ],
         };
     }

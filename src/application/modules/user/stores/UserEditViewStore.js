@@ -1,12 +1,12 @@
-import {action, observable, runInAction} from 'mobx';
-import {UserEditForm} from 'application/user/forms';
-import {applicationContext} from 'core/utils';
-import {BaasicDropdownStore, BaseEditViewStore} from 'core/stores';
-import {ModalParams} from 'core/models';
+import { action, observable, runInAction } from 'mobx';
+import { UserEditForm } from 'application/user/forms';
+import { applicationContext } from 'core/utils';
+import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
+import { ModalParams } from 'core/models';
 
 @applicationContext
 class UserEditViewStore extends BaseEditViewStore {
-    @observable userProfile = null;    
+    @observable userProfile = null;
 
     passwordChangeForm = null;
     lockConfirm = null;
@@ -41,13 +41,13 @@ class UserEditViewStore extends BaseEditViewStore {
 
                 return response.data.role;
             },
-            onChange: (roles)=>{
+            onChange: (roles) => {
                 this.item.roles = roles;
                 this.form.set({ roles: roles });
             }
         });
-   
-    }    
+
+    }
 
     @action.bound
     async onInit({ initialLoad }) {
@@ -114,7 +114,7 @@ class UserEditViewStore extends BaseEditViewStore {
     async getUserProfile(id) {
         try {
             const response = await this.rootStore.application.baasic.userProfileModule.profile.get(id);
-                        
+
             const { firstName, lastName, email, ...profile } = response.data; // eslint-disable-line
 
             runInAction(() => {
@@ -122,7 +122,7 @@ class UserEditViewStore extends BaseEditViewStore {
             });
         }
         catch (err) {
-            if(err.statusCode !== 404){
+            if (err.statusCode !== 404) {
                 this.rootStore.notificationStore.error(err.data.message, err);
             }
         }
@@ -142,8 +142,8 @@ class UserEditViewStore extends BaseEditViewStore {
     async toggleLock() {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to ${
-                this.item.isLockedOut ? 'unlock' : 'lock'
-                } user?`,
+            this.item.isLockedOut ? 'unlock' : 'lock'
+            } user?`,
             async () => {
                 if (this.item.isLockedOut) {
                     await this.rootStore.application.baasic.membershipModule.user.unlock(this.item);
@@ -153,8 +153,8 @@ class UserEditViewStore extends BaseEditViewStore {
                 await this.getResource(this.item.id);
                 this.rootStore.notificationStore.success(
                     `Successfully ${
-                        this.item.isLockedOut ? 'locked' : 'unlocked'
-                        } user`
+                    this.item.isLockedOut ? 'locked' : 'unlocked'
+                    } user`
                 );
             }
         );
@@ -164,8 +164,8 @@ class UserEditViewStore extends BaseEditViewStore {
     async toggleApprove() {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to ${
-                this.item.isApproved ? 'disapprove' : 'approve'
-                } user?`,
+            this.item.isApproved ? 'disapprove' : 'approve'
+            } user?`,
             async () => {
                 this.loaderStore.suspend();
                 if (this.item.isApproved) {
@@ -177,8 +177,8 @@ class UserEditViewStore extends BaseEditViewStore {
                 await this.getResource(this.item.id);
                 this.rootStore.notificationStore.success(
                     `Successfully ${
-                        this.item.isApproved ? 'approved' : 'disapproved'
-                        } user`
+                    this.item.isApproved ? 'approved' : 'disapproved'
+                    } user`
                 );
                 this.loaderStore.resume();
             }

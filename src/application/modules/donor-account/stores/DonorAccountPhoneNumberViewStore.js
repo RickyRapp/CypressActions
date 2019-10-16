@@ -78,6 +78,7 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
 
     @action.bound
     openPhoneNumberModal(phoneNumber) {
+        this.formPhoneNumber.clear();
         if (phoneNumber) {
             this.formPhoneNumber.update(phoneNumber);
         }

@@ -16,12 +16,6 @@ export default class CharityEditForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'taxId',
-                    label: 'CHARITY.EDIT.FIELDS.TAX_ID_LABEL',
-                    placeholder: 'CHARITY.EDIT.FIELDS.TAX_ID_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
                     name: 'dba',
                     label: 'CHARITY.EDIT.FIELDS.DBA_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.DBA_PLACEHOLDER',
@@ -38,10 +32,6 @@ export default class CharityEditForm extends FormBase {
                     label: 'CHARITY.EDIT.FIELDS.CHARITY_STATUS_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.CHARITY_STATUS_PLACEHOLDER',
                     rules: 'required|string'
-                },
-                {
-                    name: 'emailAddress',
-                    ...charityEmailAddressFormProperties
                 },
                 {
                     name: 'contactInformation',

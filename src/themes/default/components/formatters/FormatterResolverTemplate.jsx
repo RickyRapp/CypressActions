@@ -17,7 +17,7 @@ function FormatterResolver({ item, field, format }) {
                 case 'yes-no':
                     return <span>{_.get(item, field) ? 'Yes' : 'No'}</span>
                 default:
-                    return () => { };
+                    return null;
             }
         case 'address':
             return <Address value={_.get(item, field)} format={format.value} />
@@ -25,6 +25,11 @@ function FormatterResolver({ item, field, format }) {
             return <PhoneNumber value={_.get(item, field)} />
         case 'routing-number':
             return <span>{_.get(item, field)}</span>
+        case 'image':
+            if (_.get(item, field)) {
+                return <span onClick={() => window.open(format.fetch(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab
+            }
+            return null;
         default:
             return () => { };
     }

@@ -7,3 +7,4 @@ export { default as DonorAccountEmailAddressEditForm } from './DonorAccountEmail
 export { default as DonorAccountAddressEditForm } from './DonorAccountAddressEditForm'
 export { default as DonorAccountPhoneNumberEditForm } from './DonorAccountPhoneNumberEditForm'
 export { default as DonorAccountBankAccountEditForm } from './DonorAccountBankAccountEditForm'
+export { default as ContactInfoForm } from './ContactInfoForm'

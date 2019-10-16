@@ -36,6 +36,12 @@ class DonorAccountService extends BaseService {
     const response = await this.apiClient.get(url, filter);
     return response.data || null;
   }
+
+  async fundNameExists(fundName) {
+    const url = this.routeService.fundNameExists(fundName);
+    const response = await this.apiClient.get(url);
+    return response || null;
+  }
 }
 
 export default DonorAccountService;

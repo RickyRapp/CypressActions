@@ -1,53 +1,62 @@
 import _ from "lodash";
-import {Form, Field} from "mobx-react-form";
+import { Form, Field } from "mobx-react-form";
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from "validatorjs";
 import moment from 'moment';
-import {computed} from 'mobx';
-import {validatorService, localizationService} from 'core/services';
-import { afterDate, beforeDate, minDate, maxDate, beforeOrEqualDate, lessThan, greaterThan, organizationalStructureNameRegex } from 'core/utils/validation';
+import { computed } from 'mobx';
+import { validatorService, localizationService } from 'core/services';
+import {
+    afterDate,
+    beforeDate,
+    minDate,
+    maxDate,
+    beforeOrEqualDate,
+    lessThan,
+    greaterThan,
+    organizationalStructureNameRegex
+} from 'core/utils/validation';
 
 var uriFormat = new RegExp(
     "^" +
-      // protocol identifier (optional)
-      // short syntax // still required
-      "(?:(?:(?:https?):)?\\/\\/)?" +
-      // user:pass BasicAuth (optional)
-      "(?:\\S+(?::\\S*)?@)?" +
-      "(?:" +
-        // IP address exclusion
-        // private & local networks
-        "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
-        "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
-        "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})" +
-        // IP address dotted notation octets
-        // excludes loopback network 0.0.0.0
-        // excludes reserved space >= 224.0.0.0
-        // excludes network & broacast addresses
-        // (first & last IP address of each class)
-        "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
-        "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
-        "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
-      "|" +
-        // host & domain names, may end with dot
-        // can be replaced by a shortest alternative
-        // (?![-_])(?:[-\\w\\u00a1-\\uffff]{0,63}[^-_]\\.)+
-        "(?:" +
-          "(?:" +
-            "[a-z0-9\\u00a1-\\uffff]" +
-            "[a-z0-9\\u00a1-\\uffff_-]{0,62}" +
-          ")?" +
-          "[a-z0-9\\u00a1-\\uffff]\\." +
-        ")+" +
-        // TLD identifier name, may end with dot
-        "(?:[a-z\\u00a1-\\uffff]{2,}\\.?)" +
-      ")" +
-      // port number (optional)
-      "(?::\\d{2,5})?" +
-      // resource path (optional)
-      "(?:[/?#]\\S*)?" +
+    // protocol identifier (optional)
+    // short syntax // still required
+    "(?:(?:(?:https?):)?\\/\\/)?" +
+    // user:pass BasicAuth (optional)
+    "(?:\\S+(?::\\S*)?@)?" +
+    "(?:" +
+    // IP address exclusion
+    // private & local networks
+    "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
+    "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
+    "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})" +
+    // IP address dotted notation octets
+    // excludes loopback network 0.0.0.0
+    // excludes reserved space >= 224.0.0.0
+    // excludes network & broacast addresses
+    // (first & last IP address of each class)
+    "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
+    "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
+    "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
+    "|" +
+    // host & domain names, may end with dot
+    // can be replaced by a shortest alternative
+    // (?![-_])(?:[-\\w\\u00a1-\\uffff]{0,63}[^-_]\\.)+
+    "(?:" +
+    "(?:" +
+    "[a-z0-9\\u00a1-\\uffff]" +
+    "[a-z0-9\\u00a1-\\uffff_-]{0,62}" +
+    ")?" +
+    "[a-z0-9\\u00a1-\\uffff]\\." +
+    ")+" +
+    // TLD identifier name, may end with dot
+    "(?:[a-z\\u00a1-\\uffff]{2,}\\.?)" +
+    ")" +
+    // port number (optional)
+    "(?::\\d{2,5})?" +
+    // resource path (optional)
+    "(?:[/?#]\\S*)?" +
     "$", "i"
-  );
+);
 
 const customRules = {
     array_required: {
@@ -68,7 +77,7 @@ const customRules = {
     url: {
         // eslint-disable-next-line
         rule: (value, req, attr, form) => {
-            if(value.indexOf(' ') !== -1) {
+            if (value.indexOf(' ') !== -1) {
                 return false;
             }
 
@@ -86,13 +95,13 @@ class FormBase extends Form {
                 plugins: {
                     dvr: dvr({
                         package: validatorjs,
-                        extend: ({form, validator}) => {
+                        extend: ({ form, validator }) => {
                             // add custom rules
                             Object.keys(customRules).forEach(key => {
-                                validator.register( key, 
-                                                    (value,req,attr)=>customRules[key].rule(value,req,attr,form), 
-                                                    localizationService.t(customRules[key].message)
-                                                  )
+                                validator.register(key,
+                                    (value, req, attr) => customRules[key].rule(value, req, attr, form),
+                                    localizationService.t(customRules[key].message)
+                                )
                             });
                         }
                     })
@@ -112,22 +121,22 @@ class FormBase extends Form {
         }
     }
     // eslint-disable-next-line
-    update(obj, convertNullToEmptyString = false){
+    update(obj, convertNullToEmptyString = false) {
         this.set('value', obj);
         this.set('initial', obj);
     }
 
-    submit(obj){
+    submit(obj) {
         // trim all inputs on submit
         const vals = this.values();
         const valKeys = Object.keys(vals);
 
-        valKeys.forEach(vk=>{
-            if(typeof vals[vk] === "string"){
+        valKeys.forEach(vk => {
+            if (typeof vals[vk] === "string") {
                 vals[vk] = vals[vk].trim();
-                if(vals[vk] === "true")
+                if (vals[vk] === "true")
                     vals[vk] = true;
-                else if(vals[vk] === "false")
+                else if (vals[vk] === "false")
                     vals[vk] = false;
             }
         })
@@ -182,7 +191,7 @@ class FieldBase extends Field {
 
     @computed get localizedError() {
         let err = this.error;
-        return err ? err.replace(/\[[^\]]+\]/g, function 
+        return err ? err.replace(/\[[^\]]+\]/g, function
             // eslint-disable-next-line
             (match, value, a, b, c, str) {
             return localizationService.t(_.trim(match, '[]'));

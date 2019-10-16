@@ -94,7 +94,12 @@ class CharityAddressViewStore extends BaseListViewStore {
 
     @action.bound
     openAddressModal(address) {
-        this.formAddress.update(address);
+        if (address) {
+            this.formAddress.update(address);
+        }
+        else {
+            this.formAddress.clear();
+        }
         this.addressModal.open({
             formAddress: this.formAddress
         });
@@ -118,7 +123,7 @@ class CharityAddressViewStore extends BaseListViewStore {
     async createAddressAsync(entity) {
         try {
             await this.addressService.createCharityAddress({
-                donorAccountId: this.donorAccountId,
+                charityId: this.charityId,
                 ...entity
             });
 

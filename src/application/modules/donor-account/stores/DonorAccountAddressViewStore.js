@@ -94,7 +94,10 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
 
     @action.bound
     openAddressModal(address) {
-        this.formAddress.update(address);
+        this.formAddress.clear();
+        if (address) {
+            this.formAddress.update(address);
+        }
         this.addressModal.open({
             formAddress: this.formAddress
         });

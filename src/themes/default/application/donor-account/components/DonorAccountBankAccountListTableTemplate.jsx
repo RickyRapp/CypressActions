@@ -20,7 +20,12 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
         authorization,
         bankAccountModal,
         openBankAccountModal,
-        useDonorContactInformations
+        useDonorContactInformations,
+        uploadTypes,
+        uploadLoading,
+        image,
+        onAttachmentDrop,
+        currentImage
     } = donorAccountBankAccountViewStore;
 
     return (
@@ -31,7 +36,7 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
                     <BaasicButton
                         authorization={authorization ? authorization.create : null}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--locked u-icon--sml'
+                        icon='u-icon u-icon--unlocked u-icon--sml'
                         label='BANK_ACCOUNT.LIST.BUTTON.CREATE'
                         onlyIcon={true}
                         onClick={() => openBankAccountModal()}>
@@ -48,7 +53,14 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
                 </Content>
             </ListContent>
             <BaasicModal modalParams={bankAccountModal}>
-                <DonorAccountBankAccountEditForm useDonorContactInformations={useDonorContactInformations} />
+                <DonorAccountBankAccountEditForm
+                    useDonorContactInformations={useDonorContactInformations}
+                    uploadTypes={uploadTypes}
+                    uploadLoading={uploadLoading}
+                    image={image}
+                    onAttachmentDrop={onAttachmentDrop}
+                    currentImage={currentImage}
+                />
             </BaasicModal>
         </div>
     )

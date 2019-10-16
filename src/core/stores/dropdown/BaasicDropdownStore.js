@@ -184,6 +184,7 @@ class BaasicDropdownStore {
                 returnValue = value[this.options.dataItemKey];
             }
         }
+
         this.actions.onChange(returnValue);
     }
 

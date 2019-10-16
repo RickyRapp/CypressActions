@@ -40,18 +40,16 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
         this.rootStore = rootStore;
 
-        this.prefixTypeDropdownStore = new BaasicDropdownStore(null, null,
+        this.prefixTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (prefixTypeId) => {
                     this.item.prefixTypeId = prefixTypeId;
-                    this.form.set({ prefixTypeId: prefixTypeId });
                 }
             });
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null, null,
+        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (deliveryMethodTypeId) => {
                     this.item.deliveryMethodTypeId = deliveryMethodTypeId;
-                    this.form.set({ deliveryMethodTypeId: deliveryMethodTypeId });
                 }
             });
     }
@@ -117,24 +115,21 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
         try {
-            // fetch resolves all promises, not only GET requests
-            let promises = [];
-            promises.push(service.updateGeneralData({
+            await service.updateGeneralData({
                 id: this.id,
                 ...generalData
-            }));
+            });
             if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                promises.push(service.updateAccountSettingsData({
+                await service.updateAccountSettingsData({
                     id: this.id,
                     ...accountSettingsData
-                }));
+                });
             }
-            await this.fetch(promises);
-            this.rootStore.notificationStore.success('DONORACCOUNT.EDIT.SUCCESS');
+            this.rootStore.notificationStore.success('DONOR_ACCOUNT.EDIT.SUCCESS');
             await this.rootStore.routerStore.goBack();
         }
         catch (err) {
-            this.rootStore.notificationStore.error('DONORACCOUNT.EDIT.ERROR', err);
+            this.rootStore.notificationStore.error('DONOR_ACCOUNT.EDIT.ERROR', err);
         }
     }
 

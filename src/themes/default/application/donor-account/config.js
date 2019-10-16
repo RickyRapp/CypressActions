@@ -14,7 +14,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         component: DonorAccountList,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
-                            title: "DONORACCOUNT.LIST.TITLE"
+                            title: "DONOR_ACCOUNT.LIST.TITLE"
                         }
                     },
                     {
@@ -23,7 +23,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         component: DonorAccountEdit,
                         authorization: 'theDonorsFundDonorSection.update',
                         data: {
-                            title: "DONORACCOUNT.EDIT.TITLE"
+                            title: "DONOR_ACCOUNT.EDIT.TITLE"
                         }
                     },
                     {
@@ -32,7 +32,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                         component: DonorAccountCreate,
                         authorization: 'theDonorsFundAdministrationSection.create',
                         data: {
-                            title: "DONORACCOUNT.CREATE.TITLE"
+                            title: "DONOR_ACCOUNT.CREATE.TITLE"
                         }
                     }
                 ]
@@ -43,7 +43,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                 component: DonorAccountEdit,
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 data: {
-                    title: "DONORACCOUNT.EDIT.TITLE"
+                    title: "DONOR_ACCOUNT.EDIT.TITLE"
                 },
                 beforeEnter: function (fromState, toState, routerStore) {
                     toState.params.id = routerStore.rootStore.userStore.applicationUser.id

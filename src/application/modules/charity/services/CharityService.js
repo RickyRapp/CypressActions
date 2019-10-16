@@ -12,6 +12,12 @@ class CharityService extends BaseService {
         const response = await this.apiClient.get(url, filter);
         return response.data || null;
     }
+
+    async taxIdExists(taxId) {
+        const url = this.routeService.taxIdExists(taxId);
+        const response = await this.apiClient.get(url);
+        return response || null;
+    }
 }
 
 export default CharityService;

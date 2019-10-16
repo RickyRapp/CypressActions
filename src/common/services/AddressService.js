@@ -12,6 +12,11 @@ class AddressService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
+    createCharityAddress(resource) {
+        const url = this.routeService.createCharityAddress(resource);
+        return this.apiClient.post(url, resource);
+    }
+
     markPrimary(resource) {
         const url = this.routeService.markPrimary(resource);
         return this.apiClient.put(url, resource);

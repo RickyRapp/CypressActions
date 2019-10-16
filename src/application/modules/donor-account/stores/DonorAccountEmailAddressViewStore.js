@@ -78,6 +78,7 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
 
     @action.bound
     openEmailAddressModal(emailAddress) {
+        this.formEmailAddress.clear();
         if (emailAddress) {
             this.formEmailAddress.update(emailAddress);
         }

@@ -11,22 +11,23 @@ import {
 import { Page } from 'core/layouts';
 import {
     AccountSettingsPartialForm,
-    DonorAccountAddressListTable,
-    DonorAccountEmailAddressListTable,
-    DonorAccountPhoneNumberListTable,
-    DonorAccountBankAccountListTable
+    ContactInfoForm
 } from 'application/donor-account/components';
+import { CreateLoginForm } from 'common/components';
 
-function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
+function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
     const {
         form,
         prefixTypeDropdownStore,
-        item,
         loaderStore,
-        deliveryMethodTypeDropdownStore
-    } = donorAccountEditViewStore;
+        deliveryMethodTypeDropdownStore,
+        accountTypeDropdownStore,
+        howDidYouHearAboutUsDropdownStore,
+        onBlurUsername,
+        onBlurFundName
+    } = donorAccountCreateViewStore;
 
-    let isPremiumAccount = item && item.accountType.abrv === 'premium';
+    const isPremium = accountTypeDropdownStore.value && accountTypeDropdownStore.value.abrv === 'premium';
 
     return (
         <Page loading={loaderStore.loading} >
@@ -37,63 +38,65 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                             <div className="u-mar--bottom--sml">
                                 <h3 className="u-mar--bottom--med">General Data</h3>
                                 <div className="row">
+                                    <div className="form__group col col-lrg-2">
+                                        <BaasicFieldDropdown field={form.$('accountTypeId')} store={accountTypeDropdownStore} />
+                                    </div>
                                     <div className="form__group col col-lrg-1">
-                                        <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
+                                        <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('firstName')} />
+                                        <BasicInput field={form.$('coreUser.firstName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('middleName')} />
+                                        <BasicInput field={form.$('coreUser.middleName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('lastName')} />
+                                        <BasicInput field={form.$('coreUser.lastName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('fundName')} />
+                                        <BasicInput
+                                            field={form.$('fundName')}
+                                            onBlur={onBlurFundName}
+                                        />
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />
                                     </div>
-                                    {isPremiumAccount &&
+                                    <div className="form__group col col-lrg-3">
+                                        <BaasicFieldDropdown field={form.$('howDidYouHearAboutUsId')} store={howDidYouHearAboutUsDropdownStore} />
+                                    </div>
+                                    {isPremium &&
                                         <div className="form__group col col-lrg-3">
                                             <NumericInputField field={form.$('notificationLimitRemainderAmount')} />
                                         </div>}
-                                    {isPremiumAccount &&
+                                    {isPremium &&
                                         <div className="form__group col col-lrg-3">
                                             <NumericInputField field={form.$('blankBookletMax')} />
                                         </div>}
                                 </div>
                             </div>
                             <div className="u-mar--bottom--sml">
-                                {item &&
-                                    <AuthAccountSettingsPartialFormContent
-                                        form={form}
-                                        isPremiumAccount={isPremiumAccount}
-                                        authorization='theDonorsFundAdministrationSection.update'
-                                    />}
+                                <AuthAccountSettingsPartialFormContent
+                                    form={form}
+                                    isPremiumAccount={isPremium}
+                                    authorization='theDonorsFundAdministrationSection.update'
+                                />
+                            </div>
+                            <div className="u-mar--bottom--sml">
+                                <ContactInfoForm form={form} />
+                            </div>
+                            <div className="u-mar--bottom--sml">
+                                <CreateLoginForm
+                                    form={form}
+                                    title='DONOR_ACCOUNT.CREATE.LOGIN_FORM_FIELDS.TITLE'
+                                    onBlurUsername={onBlurUsername}
+                                />
                             </div>
                         </div>
                     </div>
 
                     {renderEditLayoutFooterContent({ form })}
                 </EditFormContent>
-
-                {item &&
-                    <div className="row">
-                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                            <DonorAccountBankAccountListTable />
-                        </div>
-                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                            <DonorAccountAddressListTable />
-                        </div>
-                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                            <DonorAccountEmailAddressListTable />
-                        </div>
-                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                            <DonorAccountPhoneNumberListTable />
-                        </div>
-                    </div>}
             </div>
         </Page >
     )
@@ -101,8 +104,8 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 
 const AuthAccountSettingsPartialFormContent = withAuth(AccountSettingsPartialForm);
 
-DonorAccountEditTemplate.propTypes = {
-    donorAccountEditViewStore: PropTypes.object.isRequired,
+DonorAccountCreateTemplate.propTypes = {
+    donorAccountCreateViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
@@ -116,4 +119,4 @@ renderEditLayoutFooterContent.propTypes = {
     form: PropTypes.any
 };
 
-export default defaultTemplate(DonorAccountEditTemplate);
+export default defaultTemplate(DonorAccountCreateTemplate);
