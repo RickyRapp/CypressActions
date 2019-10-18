@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {BaasicButtonTemplate} from 'themes/components';
+import { BaasicButtonTemplate } from 'themes/components';
 
 class BaasicButton extends Component {
     render() {
-        const { type, onClick, disabled, content, className, label, icon, rotate, onlyIcon } = this.props;
+        const { type, onClick, disabled, content, className, label, icon, rotate, onlyIcon, authorization } = this.props;
 
         return (
             <BaasicButtonTemplate
@@ -18,6 +18,7 @@ class BaasicButton extends Component {
                 label={label}
                 icon={icon}
                 onlyIcon={onlyIcon}
+                authorization={authorization}
             />
         );
     }
@@ -37,7 +38,7 @@ BaasicButton.propTypes = {
 
 BaasicButton.defaultProps = {
     type: 'button',
-    onClick: () => {},
+    onClick: () => { },
     className: 'btn btn--med',
     disabled: false,
     content: null,

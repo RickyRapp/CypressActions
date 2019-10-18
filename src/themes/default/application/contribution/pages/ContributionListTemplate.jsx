@@ -90,7 +90,7 @@ function renderActions({ item, actions, authorization }) {
                 ) : null}
                 {isSome(onReview) ? (
                     <BaasicButton
-                        authorization={'theDonorsFundAdministrationSection.update'}
+                        authorization='theDonorsFundAdministrationSection.update'
                         className="btn btn--icon"
                         icon='u-icon u-icon--approved u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.REVIEW'

@@ -662,7 +662,8 @@
             "BUTTON": {
                 "EDIT": "Edit",
                 "CREATE": "Create",
-                "DELETE": "Delete"
+                "DELETE": "Delete",
+                "REVIEW": "Review"
             }
         },
         "CREATE": {

@@ -4,14 +4,14 @@ import { PropTypes } from 'prop-types';
 
 const iconName = name => (name ? '' + name : '');
 
-const BaasicButtonTemplate = function(
+const BaasicButtonTemplate = function (
     {
         onClick,
         authorization,
         ...otherProps
-    }){
-    return (        
-        <AuthContent authorization={authorization} onAction={onClick} {...otherProps}/>
+    }) {
+    return (
+        <AuthContent authorization={authorization} onAction={onClick} {...otherProps} />
     );
 }
 
@@ -31,9 +31,9 @@ function DefaultContent({
     onAction,
     label,
     icon,
-    t  }){
-    return onAction ? 
-    <button
+    t }) {
+    return onAction ?
+        <button
             type={type}
             disabled={disabled}
             onClick={onAction}
