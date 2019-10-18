@@ -154,7 +154,8 @@ export default class MenuStore {
 function findActiveMenuItem(menu, route) {
     let bestMatch = {
         difference: 0,
-        item: null
+        item: null,
+        partsLength: 0
     };
 
     for (let i = 0; i < menu.length; i++) {
@@ -168,10 +169,15 @@ function findActiveMenuItem(menu, route) {
                 // find menu item that has 'closest' route match to specified route
                 // e.g. master.platform.main.user.create doesn't have menu definition
                 // so its closest match would be master.platform.main.user.list
-                const difference = getDifference(menuRoute, route);
-                if (difference >= 0 && difference <= bestMatch.difference) {
+                // addition: also check which route has more route parts equals
+                const differenceAndLength = getDifference(menuRoute, route);
+                if (differenceAndLength.difference >= 0
+                    && differenceAndLength.difference <= bestMatch.difference
+                    && bestMatch.partsLength <= differenceAndLength.partsLength
+                ) {
                     bestMatch.item = item;
-                    bestMatch.difference = difference;
+                    bestMatch.difference = differenceAndLength.difference;
+                    bestMatch.partsLength = differenceAndLength.partsLength;
                 }
             }
         }
@@ -194,5 +200,8 @@ function getDifference(menuRoute, route) {
     const diff = routeParts.length - menuParts.length;
     if (diff < 0) return -1;
 
-    return _.difference(menuParts.slice(0, -1), routeParts.slice(0, -(diff + 1))).length;
+    return {
+        difference: _.difference(menuParts.slice(0, -1), routeParts.slice(0, -(diff + 1))).length,
+        partsLength: menuParts.slice(0, -1).length
+    };
 }

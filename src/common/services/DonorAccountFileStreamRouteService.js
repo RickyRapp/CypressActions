@@ -6,7 +6,7 @@ class DonorAccountFileStreamRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?searchQuery,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

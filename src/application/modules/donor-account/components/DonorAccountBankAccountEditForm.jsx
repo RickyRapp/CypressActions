@@ -45,6 +45,11 @@ class DonorAccountBankAccountEditForm extends Component {
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-6">
+                            <BasicInput field={formBankAccount.$('accountHolder').$('name')} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="form__group col col-sml-12 col-lrg-6">
                             <BasicInput field={formBankAccount.$('accountHolder').$('address.addressLine1')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
@@ -146,9 +151,9 @@ DonorAccountBankAccountEditForm.propTypes = {
     t: PropTypes.func,
     uploadTypes: PropTypes.array.isRequired,
     uploadLoading: PropTypes.bool.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     onAttachmentDrop: PropTypes.func.isRequired,
-    currentImage: PropTypes.string.isRequired
+    currentImage: PropTypes.string
 };
 
 const thumb = {

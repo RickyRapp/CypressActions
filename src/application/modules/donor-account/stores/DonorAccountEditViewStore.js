@@ -146,7 +146,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchDeliveryMethodTypes() {
-        this.prefixTypeDropdownStore.setLoading(true);
+        this.deliveryMethodTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
         const response = await service.getAll();
         runInAction(() => {

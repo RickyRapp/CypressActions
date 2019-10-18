@@ -18,12 +18,11 @@ class CharityCreateViewStore extends BaseEditViewStore {
     uploadTypes = ['.png', '.jpg', '.jpeg'];
 
     constructor(rootStore) {
-        const id = rootStore.routerStore.routerState.params.id;
         const service = new CharityService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'charity',
-            id: id,
+            id: undefined,
             autoInit: false,
             actions: () => {
                 return {

@@ -42,7 +42,7 @@ class DonorAccountRouteService extends BaseRouteService {
   }
 
   search(filter) {
-    return super.find(this.base + '/search/{?id,searchQuery,page,rpp,sort,embed,fields,exceptId}', filter);
+    return super.find(this.base + '/search/{?id,search,page,rpp,sort,embed,fields,exceptId}', filter);
   }
 
   fundNameExists(fundName) {

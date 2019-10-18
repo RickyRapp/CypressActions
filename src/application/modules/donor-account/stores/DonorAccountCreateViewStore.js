@@ -55,7 +55,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
-                onChange: (accountTypeId) => {
+                onChange: () => {
                     this.setFormDefaultValues();
                 }
             });

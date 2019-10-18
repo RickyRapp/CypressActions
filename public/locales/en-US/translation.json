@@ -300,6 +300,7 @@
         "DONOR_ACCOUNTS": "Donors",
         "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
+        "CONTRIBUTIONS": "Contributions",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -638,6 +639,95 @@
                 "CHARITY_STATUS_PLACEHOLDER": "Status",
                 "CONTACT_INFORMATION_NAME_LABEL": "Name",
                 "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name"
+            }
+        }
+    },
+    "CONTRIBUTION": {
+        "LIST": {
+            "TITLE": "Contributions",
+            "SELECT_DONOR": "Select donor",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
+                "PAYMENT_TYPE_NAME_LABEL": "Payment type",
+                "PAYER_INFORMATION_NAME_LABEL": "Payer"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No contributions",
+                "ACTION": "Create new contribution"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add contribution",
+            "FIELDS": {
+                "PAYMENT_TYPE_LABEL": "Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "BANK_ACCOUNT_LABEL": "Bank account",
+                "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
+                "CHECK_NUMBER_LABEL": "Check number",
+                "CHECK_NUMBER_PLACEHOLDER": "Check number",
+                "FINANCIAL_INSTITUTION_LABEL": "Financial institution",
+                "FINANCIAL_INSTITUTION_PLACEHOLDER": "Financial institution",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "FINANCIAL_INSTITUTION_CITY_LABEL": "City",
+                "FINANCIAL_INSTITUTION_CITY_PLACEHOLDER": "City",
+                "FINANCIAL_INSTITUTION_STATE_LABEL": "State",
+                "FINANCIAL_INSTITUTION_STATE_PLACEHOLDER": "State",
+                "FINANCIAL_INSTITUTION_ZIP_CODE_LABEL": "Zip code",
+                "FINANCIAL_INSTITUTION_ZIP_CODE_PLACEHOLDER": "Zip code",
+                "FINANCIAL_INSTITUTION_PHONE_NUMBER_LABEL": "Phone number",
+                "FINANCIAL_INSTITUTION_PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "SECURITY_TYPE_LABEL": "Security type",
+                "SECURITY_TYPE_PLACEHOLDER": "Security type",
+                "SECURITY_SYMBOL_LABEL": "Security symbol",
+                "SECURITY_SYMBOL_PLACEHOLDER": "Security symbol",
+                "NUMBER_OF_SHARES_LABEL": "Number of shares",
+                "NUMBER_OF_SHARES_PLACEHOLDER": "Number of shares",
+                "ESTIMATED_VALUE_LABEL": "Estimated value",
+                "ESTIMATED_VALUE_PLACEHOLDER": "Estimated value",
+                "TRANSACTION_ID_LABEL": "Transaction Id",
+                "TRANSACTION_ID_PLACEHOLDER": "Transaction Id",
+                "MEMO_LABEL": "Memo",
+                "MEMO_PLACEHOLDER": "Memo",
+                "PAYER_INFORMATION_TITLE": "Payer info",
+                "PAYER_INFORMATION_NAME_LABEL": "Payer name",
+                "PAYER_INFORMATION_NAME_PLACEHOLDER": "Payer name",
+                "USE_PRIMARY_CONTACT_INFO_LABEL": "Use primary contact info",
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "SETTING_TYPE_LABEL": "Setting",
+                "SETTING_TYPE_PLACEHOLDER": "Setting",
+                "SETTING_START_DATE_LABEL": "Date",
+                "SETTING_START_DATE_PLACEHOLDER": "Date"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit contribution",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name"
+            }
+        },
+        "REVIEW": {
+            "TITLE": "Review",
+            "FIELDS": {
+                "STATUS_LABEL": "Status",
+                "STATUS_PLACEHOLDER": "Status",
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount"
             }
         }
     }

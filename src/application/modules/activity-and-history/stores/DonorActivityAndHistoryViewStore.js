@@ -25,7 +25,7 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
                     const response = await donorAccountService.search({
                         pageNumber: 1,
                         pageSize: 10,
-                        searchQuery: searchQuery,
+                        search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
                             'coreUser',

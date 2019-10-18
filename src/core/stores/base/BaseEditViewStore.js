@@ -23,7 +23,7 @@ class BaseEditViewStore extends BaseViewStore {
         return this._errorActions ? (typeof this._errorActions === 'function' ? this._errorActions() : this._errorActions) : {};
     }
 
-    constructor(rootStore, { name, id, actions, errorActions, form, FormClass, autoInit = true, localization = true, title }) {
+    constructor(rootStore, { name, id, actions, errorActions, form, FormClass, autoInit = true, localization = true, title, onAfterAction }) {
         super(rootStore);
 
         this.id = id;
@@ -31,6 +31,7 @@ class BaseEditViewStore extends BaseViewStore {
         this.localization = localization;
         this._actions = actions;
         this._errorActions = errorActions;
+        this.onAfterAction = onAfterAction;
         this.form = form || new FormClass({
             onSuccess: (form) => {
                 const item = form.values();
@@ -128,8 +129,13 @@ class BaseEditViewStore extends BaseViewStore {
 
             this.form.setFieldsDisabled(false);
 
-            await this.rootStore.routerStore.goBack();
-            await setTimeout(() => this.notifySuccessUpdate(this.name), 10);
+            if (this.onAfterAction) {
+                this.onAfterAction();
+            }
+            else {
+                await this.rootStore.routerStore.goBack();
+                await setTimeout(() => this.notifySuccessUpdate(this.name), 10);
+            }
         }
         catch (err) {
             this.form.setFieldsDisabled(false);
@@ -151,8 +157,13 @@ class BaseEditViewStore extends BaseViewStore {
 
             this.form.setFieldsDisabled(false);
 
-            await this.rootStore.routerStore.goBack();
-            await setTimeout(() => this.notifySuccessCreate(), 10);
+            if (this.onAfterAction) {
+                this.onAfterAction();
+            }
+            else {
+                await this.rootStore.routerStore.goBack();
+                await setTimeout(() => this.notifySuccessCreate(), 10);
+            }
         }
         catch (err) {
             this.form.setFieldsDisabled(false);

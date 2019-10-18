@@ -25,7 +25,7 @@ class CharityActivityAndHistoryViewStore extends BaseViewStore {
                     const response = await charityService.search({
                         pageNumber: 1,
                         pageSize: 10,
-                        searchQuery: searchQuery,
+                        search: searchQuery,
                         sort: 'name|asc',
                         embed: [
                             'charityAddresses',

@@ -38,7 +38,7 @@ export const donorAccountBankAccountFormProperties = {
                 {
                     name: 'name',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD',
-                    rules: 'string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'address',

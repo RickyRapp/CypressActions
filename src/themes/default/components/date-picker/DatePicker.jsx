@@ -11,6 +11,7 @@ const DatePickerTemplate = function ({
     onChange,
     format = 'kendo-input-short',
     max,
+    min,
     ...otherProps
 }) {
     return (
@@ -20,6 +21,7 @@ const DatePickerTemplate = function ({
                     {...otherProps}
                     value={value}
                     max={max}
+                    min={min}
                     format={dateFormatter.map(format)}
                     onChange={(result) => {
                         let value = moment(result.value).format('YYYY-MM-DD');
@@ -29,7 +31,11 @@ const DatePickerTemplate = function ({
                             onChange(new Date())
                     }}
                 />
-                <BaasicButton onClick={onChange} className="btn btn--icon datepicker__btn" icon='u-icon u-icon--unapproved--secondary u-icon--sml' label="DATEPICKER.CLEAR_BUTTON" onlyIcon value={null} />
+                <BaasicButton
+                    onClick={onChange}
+                    className="btn btn--icon datepicker__btn" icon='u-icon u-icon--unapproved--secondary u-icon--sml' label="DATEPICKER.CLEAR_BUTTON"
+                    onlyIcon
+                    value={null} />
             </div>
         </React.Fragment>
     );

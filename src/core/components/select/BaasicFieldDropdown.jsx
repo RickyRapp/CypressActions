@@ -1,15 +1,23 @@
-import React, {Component} from 'react';
-import {observer} from 'mobx-react';
+import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
-import {BaasicFieldDropdownTemplate} from 'themes/components';
+import { BaasicFieldDropdownTemplate } from 'themes/components';
 
 @observer
 class BaasicFieldDropdown extends Component {
     render() {
-        const { field, store, multi, className, itemRender, valueRender } = this.props;
+        const { field, store, multi, className, itemRender, valueRender, additionalLabel } = this.props;
         return (
-            <BaasicFieldDropdownTemplate store={store} field={field} multi={multi} className={className} itemRender={itemRender} valueRender={valueRender} />
+            <BaasicFieldDropdownTemplate
+                store={store}
+                field={field}
+                multi={multi}
+                className={className}
+                itemRender={itemRender}
+                valueRender={valueRender}
+                additionalLabel={additionalLabel}
+            />
         );
     }
 }
@@ -20,7 +28,8 @@ BaasicFieldDropdown.propTypes = {
     multi: PropTypes.bool,
     className: PropTypes.string,
     itemRender: PropTypes.any,
-    valueRender: PropTypes.any
+    valueRender: PropTypes.any,
+    additionalLabel: PropTypes.any
 };
 
 export default BaasicFieldDropdown;

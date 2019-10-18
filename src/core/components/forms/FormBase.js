@@ -197,6 +197,35 @@ class FieldBase extends Field {
             return localizationService.t(_.trim(match, '[]'));
         }) : null;
     }
+
+    setRequired(isRequired) {
+        if (this.rules) {
+            if (isRequired) {
+                if (this.rules.indexOf('required|') !== -1 || this.rules.indexOf('|required') !== -1 || this.rules.indexOf('required') !== -1) {
+                    return;
+                }
+                else {
+                    this.set('rules', this.rules + '|required');
+                }
+            }
+            else {
+                if (this.rules.indexOf('required|') !== -1) {
+                    this.set('rules', this.rules.replace('required|', ''));
+                }
+                else if (this.rules.indexOf('|required') !== -1) {
+                    this.set('rules', this.rules.replace('|required', ''));
+                }
+                else if (this.rules.indexOf('required') !== -1) {
+                    this.set('rules', this.rules.replace('required', ''));
+                }
+            }
+        }
+        else {
+            if (isRequired) {
+                this.rules.set('rules', 'required');
+            }
+        }
+    }
 }
 
 export default FormBase;

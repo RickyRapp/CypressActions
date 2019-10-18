@@ -6,7 +6,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdown } from 'core/components';
 import { isSome, renderIf } from 'core/utils';
 
-const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, itemRender, valueRender, t }) {
+const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, itemRender, valueRender, additionalLabel = null, t }) {
     function onChange(event) {
         const value = event.target.value;
         if (value) {
@@ -29,7 +29,7 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
 
     return (
         <div>
-            <div className='form__group__label'>{t(field.label)}{requiredMark}</div>
+            <div className='form__group__label'>{t(field.label)}{requiredMark}{additionalLabel}</div>
             <BaasicDropdown
                 {...field.bind()}
                 store={store}
@@ -57,6 +57,7 @@ BaasicFieldDropdownTemplate.propTypes = {
     className: PropTypes.string,
     itemRender: PropTypes.any,
     valueRender: PropTypes.any,
+    additionalLabel: PropTypes.any,
     t: PropTypes.any
 };
 
