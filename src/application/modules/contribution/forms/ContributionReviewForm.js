@@ -1,6 +1,4 @@
 import { FormBase } from 'core/components';
-import { donorAccountAddressFormProperties, donorAccountEmailAddressFormProperties, donorAccountPhoneNumberFormProperties } from 'application/donor-account/forms';
-import moment from 'moment';
 
 export default class ContributionReviewForm extends FormBase {
     constructor(hooks) {

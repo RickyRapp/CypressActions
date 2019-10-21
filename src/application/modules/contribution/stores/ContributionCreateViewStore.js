@@ -40,7 +40,6 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
             FormClass: ContributionCreateForm,
         });
 
-        debugger
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore({
             defaultItem: { id: '', name: '-' }
         })
@@ -68,7 +67,6 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
 
     @action.bound
     async fetchContributionSettingTypes() {
-        debugger
         this.contributionSettingTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
         const response = await service.getAll();

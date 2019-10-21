@@ -13,7 +13,7 @@ const BasicCheckboxTemplate = function ({ id, label, value, onChange, t, disable
                 type='checkbox'
                 className='input input--check'
             />
-            <label htmlFor={id}>
+            <label className="form__group__label" htmlFor={id}>
                 {t(label)}
             </label>
         </React.Fragment>

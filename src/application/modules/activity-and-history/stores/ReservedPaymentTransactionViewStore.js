@@ -27,14 +27,10 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                     find: async (params) => {
                         if (params.donorAccountId) {
                             params.embed = [
-                                'donorAccount',
-                                'donorAccount.coreUser',
-                                'donorAccount.companyProfile',
-                                'paymentTransaction',
-                                'paymentTransaction.paymentTransactionStatus',
-                                'paymentTransaction.paymentTransactionType'
+                                "charity"
                             ];
                             const response = await service.findDonorPendingTransactions(params);
+
                             if (response.data) {
                                 return response.data;
                             }
@@ -61,20 +57,12 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'paymentTransaction.description',
+                    key: 'description',
                     title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.PAYMENT_DESCRIPTION_LABEL'
                 },
                 {
-                    key: 'paymentTransaction.amount',
+                    key: 'amount',
                     title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.PAYMENT_AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
-                    }
-                },
-                {
-                    key: 'paymentTransaction.presentBalance',
-                    title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
                     format: {
                         type: 'currency',
                         value: '$'

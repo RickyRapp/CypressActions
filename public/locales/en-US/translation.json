@@ -301,6 +301,7 @@
         "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
         "CONTRIBUTIONS": "Contributions",
+        "GRANTS": "Grants",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -716,11 +717,79 @@
             }
         },
         "EDIT": {
-            "TITLE": "Edit contribution",
+            "TITLE": "Edit contribution"
+        },
+        "REVIEW": {
+            "TITLE": "Review",
             "FIELDS": {
-                "NAME_LABEL": "Name",
-                "NAME_PLACEHOLDER": "Name"
+                "STATUS_LABEL": "Status",
+                "STATUS_PLACEHOLDER": "Status",
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount"
             }
+        }
+    },
+    "GRANT": {
+        "LIST": {
+            "TITLE": "Grants",
+            "SELECT_DONOR": "Select donor",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "GRANT_STATUS_NAME_LABEL": "Status",
+                "DONATION_CHARITY_LABEL": "Charity",
+                "GRANT_PURPOSE_TYPE_LABEL": "Payer"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No grants",
+                "ACTION": "Create new grant"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "REVIEW": "Review"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add grant",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "CHARITY_LABEL": "Charity",
+                "CHARITY_PLACEHOLDER": "Charity",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Purpose",
+                "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Acknowlegment",
+                "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Acknowlegment",
+                "GRANT_SCHEDULE_TYPE_LABEL": "Schedule",
+                "GRANT_SCHEDULE_TYPE_PLACEHOLDER": "Schedule",
+                "START_FUTURE_DATE_LABEL": "Date",
+                "START_FUTURE_DATE_PLACEHOLDER": "Date",
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "NUMBER_OF_PAYMENTS_LABEL": "Payments",
+                "NUMBER_OF_PAYMENTS_PLACEHOLDER": "Payments",
+                "END_DATE_LABEL": "End date",
+                "END_DATE_PLACEHOLDER": "End date",
+                "NO_END_DATE_LABEL": "No end date",
+                "NO_END_DATE_PLACEHOLDER": "No end date",
+                "ADDITIONAL_INFORMATION_LABEL": "Additional",
+                "ADDITIONAL_INFORMATION_PLACEHOLDER": "Additional",
+                "MEMBERSHIP_LABEL": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
+                "PURPOSE_MEMBER_NAME_LABEL": "Name",
+                "PURPOSE_MEMBER_NAME_PLACEHOLDER": "Name",
+                "NON_BINDING_PLEDGE_LABEL": "Donor-advised funds can be used for a non-binding pledge. However, the IRS prohibits grants from a donor-advised fund from being used for a legally binding pledge.",
+                "CHARITY_EVENT_LABEL": "Attending",
+                "CHARITY_EVENT_ATTENDING_MESSAGE": "The IRS prohibits using donor-advised funds to pay for tickets to attend a charity event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
+                "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
+                "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below."
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit grant"
         },
         "REVIEW": {
             "TITLE": "Review",

@@ -12,9 +12,9 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { ContributionReview } from 'application/contribution/components'
+import { GrantReview } from 'application/grant/components'
 
-const ContributionListTemplate = function ({ contributionViewStore, t }) {
+const GrantistTemplate = function ({ grantViewStore, t }) {
     const {
         tableStore,
         routes,
@@ -22,12 +22,13 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
         authorization,
         selectDonorModal,
         selectDonorDropdownStore,
-        reviewModal
-    } = contributionViewStore;
+        reviewModal,
+        reviewDropdownStore
+    } = grantViewStore;
 
     return (
         <React.Fragment>
-            <ApplicationListLayout store={contributionViewStore} authorization={authorization}>
+            <ApplicationListLayout store={grantViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
                     <div className="u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
@@ -44,7 +45,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
             </ApplicationListLayout>
             <BaasicModal modalParams={selectDonorModal}>
                 <section className='w--400--px'>
-                    <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.LIST.SELECT_DONOR')}</h3>
+                    <h3 className="u-mar--bottom--med">{t('GRANT.LIST.SELECT_DONOR')}</h3>
                     <div className="row">
                         <div className="form__group col col-lrg-12">
                             <BaasicDropdown className='input--dropdown' store={selectDonorDropdownStore} />
@@ -52,19 +53,19 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
                     </div>
                 </section>
             </BaasicModal>
-            <BaasicModal modalParams={reviewModal}>
-                <ContributionReview />
-            </BaasicModal>
+            {/* <BaasicModal modalParams={reviewModal}>
+                <GrantReview />
+            </BaasicModal> */}
         </React.Fragment>
     )
 };
 
 function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='CONTRIBUTION.LIST.EMPTY_STATE.TITLE' actionLabel='CONTRIBUTION.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
+    return <EmptyState image={EmptyIcon} title='GRANT.LIST.EMPTY_STATE.TITLE' actionLabel='GRANT.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
 
-ContributionListTemplate.propTypes = {
-    contributionViewStore: PropTypes.object.isRequired,
+GrantistTemplate.propTypes = {
+    grantViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
 };
 
@@ -82,7 +83,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
-                        label='CONTRIBUTION.LIST.BUTTON.EDIT'
+                        label='GRANT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
@@ -92,7 +93,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization='theDonorsFundAdministrationSection.update'
                         className="btn btn--icon"
                         icon='u-icon u-icon--approved u-icon--sml'
-                        label='CONTRIBUTION.LIST.BUTTON.REVIEW'
+                        label='GRANT.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item.id)}>
                     </BaasicButton>
@@ -108,5 +109,5 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-export default defaultTemplate(ContributionListTemplate);
+export default defaultTemplate(GrantistTemplate);
 

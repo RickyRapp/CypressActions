@@ -4,6 +4,7 @@ import { applicationContext } from 'core/utils';
 import { ContributionService } from 'application/contribution/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
+import _ from 'lodash';
 
 @applicationContext
 class ContributionReviewViewStore extends BaseEditViewStore {

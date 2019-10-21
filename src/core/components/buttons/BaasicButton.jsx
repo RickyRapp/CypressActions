@@ -33,7 +33,8 @@ BaasicButton.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.string,
     rotate: PropTypes.bool,
-    onlyIcon: PropTypes.bool
+    onlyIcon: PropTypes.bool,
+    authorization: PropTypes.any
 };
 
 BaasicButton.defaultProps = {
