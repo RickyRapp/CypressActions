@@ -21,7 +21,7 @@ class BaseService {
         return this.apiClient.get(url);
     }
 
-    get(id, options = { }) {
+    get(id, options = {}) {
         const url = this.routeService.get(id, options);
         return this.apiClient.get(url);
     }
@@ -33,6 +33,7 @@ class BaseService {
 
     update(resource) {
         const url = this.routeService.update(resource);
+        debugger;
         return this.apiClient.put(url, resource);
     }
 

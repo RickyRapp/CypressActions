@@ -1,24 +1,16 @@
-import { action, runInAction, computed, observable } from 'mobx';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { GrantService } from 'application/grant/services';
-import { LookupService, FeeService } from 'common/services';
+import { action, runInAction, computed } from 'mobx';
+import { BaasicDropdownStore } from 'core/stores';
+import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
-import { CharityService } from 'application/charity/services';
-import { DonorAccountService } from 'application/donor-account/services';
 import { GrantCreateForm } from 'application/grant/forms';
+import { GrantService } from 'application/grant/services';
+import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
 
 @applicationContext
-class GrantCreateViewStore extends BaseEditViewStore {
-    @observable grantScheduleTypes = null;
-    @observable donorName = '';
-    applicationDefaultSetting = null;
-    feeTypes = null;
-    @observable amountWithFee = null;
-
+class GrantCreateViewStore extends GrantBaseViewStore {
     constructor(rootStore) {
         const service = new GrantService(rootStore.application.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
             name: 'grant-create',
@@ -33,40 +25,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
             },
             FormClass: GrantCreateForm,
         });
-
-        this.id = id;
-        this.service = service;
-        const charityService = new CharityService(rootStore.application.baasic.apiClient);
-        this.feeService = new FeeService(rootStore.application.baasic.apiClient);
-
-        this.grantPurposeTypeDropdownStore = new BaasicDropdownStore();
-        this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore();
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();
-        this.charityDropdownStore = new BaasicDropdownStore({
-            placeholder: 'GRANT.CREATE.FIELDS.SELECT_CHARITY',
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const response = await charityService.search({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'name|asc',
-                        embed: [
-                            'charityAddresses',
-                            'charityAddresses.address'
-                        ],
-                        fields: [
-                            'id',
-                            'taxId',
-                            'name'
-                        ]
-                    });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
-                }
-            });
     }
 
     @action.bound
@@ -92,61 +51,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    setFormDefaultRules() {
-        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-            this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
-        }
-        else {
-            if (this.donorAccount.initialContribution) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donorAccount.grantMinimumAmount}`);
-            }
-            else {
-                this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
-                this.rootStore.routerStore.goTo(
-                    'master.app.main.contribution.create',
-                    { id: this.id }
-                );
-            }
-        }
-    }
-
-    @action.bound
     setFormDefaultValues() {
         this.form.$('donorAccountId').set(this.id);
         this.form.$('accountTypeId').set(this.donorAccount.accountTypeId);
 
         this.donorName = this.donorAccount.donorName;
-    }
-
-    @action.bound
-    async onChangeAmount() {
-        if (this.form.$('amount').value && this.form.$('amount').isValid) {
-            let params = {};
-            params.id = this.id;
-            params.feeTypeId = _.find(this.feeTypes, { abrv: 'grant-fee' }).id;
-            params.amount = this.form.$('amount').value;
-            const feeAmount = await this.feeService.calculateFee(params);
-            this.amountWithFee = params.amount + feeAmount;
-
-            if (this.form.$('amount').value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
-                //combined
-                this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
-                this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
-                this.grantAcknowledgmentTypeDropdownStore.onChange(this.form.$('grantAcknowledgmentTypeId').value);
-                this.grantPurposeTypeDropdownStore.onChange(this.form.$('grantPurposeTypeId').value);
-                this.form.$('grantAcknowledgmentTypeId').set('disabled', true);
-                this.form.$('grantAcknowledgmentTypeId').resetValidation();
-                this.form.$('grantPurposeTypeId').set('disabled', true);
-                this.form.$('grantPurposeTypeId').resetValidation();
-            }
-            else { //regular
-                this.form.$('grantAcknowledgmentTypeId').set('disabled', false);
-                this.form.$('grantPurposeTypeId').set('disabled', false);
-            }
-        }
-        else {
-            this.amountWithFee = null;
-        }
     }
 
     @action.bound
@@ -186,54 +95,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async fetchDonorAccount() {
-        const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.id, {
-            embed: [
-                'coreUser',
-                'companyProfile',
-                'donorAccountAddresses',
-                'donorAccountAddresses.address'
-            ],
-            fields: [
-                'id',
-                'donorName',
-                'accountTypeId',
-                'availableBalance',
-                'initialContribution',
-                'lineOfCredit',
-                'grantFee',
-                'grantMinimumAmount',
-                'fundName',
-                'donorAccountAddresses'
-            ]
-        });
-        this.donorAccount = response.data;
-    }
-
-    @action.bound
-    async fetchGrantPurposeTypes() {
-        this.grantPurposeTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.grantPurposeTypeDropdownStore.setItems(response.data);
-            this.grantPurposeTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchGrantAcknowledgmentTypes() {
-        this.grantAcknowledgmentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.grantAcknowledgmentTypeDropdownStore.setItems(response.data);
-            this.grantAcknowledgmentTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
     async fetchGrantScheduleTypes() {
         this.grantScheduleTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-schedule-type');
@@ -243,20 +104,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.grantScheduleTypeDropdownStore.setItems(response.data);
             this.grantScheduleTypeDropdownStore.setLoading(false);
         });
-    }
-
-    @action.bound
-    async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
-    }
-
-    @action.bound
-    async fetchFeeTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'fee-type');
-        const response = await service.getAll();
-        this.feeTypes = response.data;
     }
 
     @computed get oneTimeId() {
