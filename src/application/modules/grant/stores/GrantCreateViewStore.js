@@ -1,7 +1,7 @@
 import { action, runInAction, computed, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { GrantService } from 'application/grant/services';
-import { LookupService } from 'common/services';
+import { LookupService, FeeService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { CharityService } from 'application/charity/services';
 import { DonorAccountService } from 'application/donor-account/services';
@@ -12,6 +12,9 @@ import _ from 'lodash';
 class GrantCreateViewStore extends BaseEditViewStore {
     @observable grantScheduleTypes = null;
     @observable donorName = '';
+    applicationDefaultSetting = null;
+    feeTypes = null;
+    @observable amountWithFee = null;
 
     constructor(rootStore) {
         const service = new GrantService(rootStore.application.baasic.apiClient);
@@ -34,6 +37,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         this.id = id;
         this.service = service;
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
+        this.feeService = new FeeService(rootStore.application.baasic.apiClient);
 
         this.grantPurposeTypeDropdownStore = new BaasicDropdownStore();
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore();
@@ -75,7 +79,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 this.fetchDonorAccount(),
                 this.fetchGrantPurposeTypes(),
                 this.fetchGrantAcknowledgmentTypes(),
-                this.fetchGrantScheduleTypes()
+                this.fetchGrantScheduleTypes(),
+                this.fetchApplicationDefaultSetting(),
+                this.fetchFeeTypes()
             ]);
 
             await this.fetch([
@@ -87,20 +93,18 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaultRules() {
-        this.form.$('accountTypeId').set(this.donorAccount.accountTypeId);
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
-
-            this.donorName = this.donorAccount.donorName;
         }
         else {
             if (this.donorAccount.initialContribution) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${grantMinimumAmount}`);
+                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donorAccount.grantMinimumAmount}`);
             }
             else {
+                this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
                 this.rootStore.routerStore.goTo(
                     'master.app.main.contribution.create',
-                    { id: this.donorAccount.id }
+                    { id: this.id }
                 );
             }
         }
@@ -109,6 +113,76 @@ class GrantCreateViewStore extends BaseEditViewStore {
     @action.bound
     setFormDefaultValues() {
         this.form.$('donorAccountId').set(this.id);
+        this.form.$('accountTypeId').set(this.donorAccount.accountTypeId);
+
+        this.donorName = this.donorAccount.donorName;
+    }
+
+    @action.bound
+    async onChangeAmount() {
+        if (this.form.$('amount').value && this.form.$('amount').isValid) {
+            let params = {};
+            params.id = this.id;
+            params.feeTypeId = _.find(this.feeTypes, { abrv: 'grant-fee' }).id;
+            params.amount = this.form.$('amount').value;
+            const feeAmount = await this.feeService.calculateFee(params);
+            this.amountWithFee = params.amount + feeAmount;
+
+            if (this.form.$('amount').value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
+                //combined
+                this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
+                this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
+                this.grantAcknowledgmentTypeDropdownStore.onChange(this.form.$('grantAcknowledgmentTypeId').value);
+                this.grantPurposeTypeDropdownStore.onChange(this.form.$('grantPurposeTypeId').value);
+                this.form.$('grantAcknowledgmentTypeId').set('disabled', true);
+                this.form.$('grantAcknowledgmentTypeId').resetValidation();
+                this.form.$('grantPurposeTypeId').set('disabled', true);
+                this.form.$('grantPurposeTypeId').resetValidation();
+            }
+            else { //regular
+                this.form.$('grantAcknowledgmentTypeId').set('disabled', false);
+                this.form.$('grantPurposeTypeId').set('disabled', false);
+            }
+        }
+        else {
+            this.amountWithFee = null;
+        }
+    }
+
+    @action.bound
+    onChangeEndDate() {
+        if (this.form.$('endDate').value && this.form.$('endDate').isValid) {
+            this.form.$('numberOfPayments').set('disabled', true);
+            this.form.$('noEndDate').set('disabled', true);
+        }
+        else {
+            this.form.$('numberOfPayments').set('disabled', false);
+            this.form.$('noEndDate').set('disabled', false);
+        }
+    }
+
+    @action.bound
+    onChangeNumberOfPayments() {
+        if (this.form.$('numberOfPayments').value && this.form.$('numberOfPayments').isValid) {
+            this.form.$('endDate').set('disabled', true);
+            this.form.$('noEndDate').set('disabled', true);
+        }
+        else {
+            this.form.$('endDate').set('disabled', false);
+            this.form.$('noEndDate').set('disabled', false);
+        }
+    }
+
+    @action.bound
+    onChangeNoEndDate() {
+        if (this.form.$('noEndDate').value && this.form.$('noEndDate').isValid) {
+            this.form.$('numberOfPayments').set('disabled', true);
+            this.form.$('endDate').set('disabled', true);
+        }
+        else {
+            this.form.$('numberOfPayments').set('disabled', false);
+            this.form.$('endDate').set('disabled', false);
+        }
     }
 
     @action.bound
@@ -169,6 +243,20 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.grantScheduleTypeDropdownStore.setItems(response.data);
             this.grantScheduleTypeDropdownStore.setLoading(false);
         });
+    }
+
+    @action.bound
+    async fetchApplicationDefaultSetting() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
+        const response = await service.getAll();
+        this.applicationDefaultSetting = response.data[0];
+    }
+
+    @action.bound
+    async fetchFeeTypes() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'fee-type');
+        const response = await service.getAll();
+        this.feeTypes = response.data;
     }
 
     @computed get oneTimeId() {

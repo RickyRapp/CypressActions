@@ -96,9 +96,7 @@ export default class GrantCreateForm extends FormBase {
                     label: 'GRANT.CREATE.FIELDS.NUMBER_OF_PAYMENTS_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.NUMBER_OF_PAYMENTS_PLACEHOLDER',
                     rules: 'numeric',
-                    extra: {
-                        type: 'n'
-                    }
+                    type: 'integer'
                 },
                 {
                     name: 'noEndDate',

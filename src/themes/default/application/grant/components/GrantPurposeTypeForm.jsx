@@ -1,11 +1,10 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc'
 import { BasicInput, BasicTextArea, BasicFieldCheckbox } from 'core/components';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 function GrantPurposeTypeForm({ store, form, t }
 ) {
-
     return (
         <React.Fragment>
             {store.value.abrv === 'in-memory-of' &&
@@ -40,6 +39,12 @@ function GrantPurposeTypeForm({ store, form, t }
                 t("GRANT.CREATE.FIELDS.NON_BINDING_PLEDGE_LABEL")}
         </React.Fragment>
     )
+}
+
+GrantPurposeTypeForm.propTypes = {
+    store: PropTypes.object.isRequired,
+    form: PropTypes.object,
+    t: PropTypes.func
 };
 
 export default defaultTemplate(GrantPurposeTypeForm);

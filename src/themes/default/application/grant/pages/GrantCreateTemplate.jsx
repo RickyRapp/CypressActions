@@ -9,7 +9,8 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import { GrantPurposeTypeForm } from 'themes/application/grant/components'
+import { GrantPurposeTypeForm } from 'themes/application/grant/components';
+import _ from 'lodash';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore }) {
     const {
@@ -22,7 +23,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
         donorName,
         donorAccount,
         monthlyGrantId,
-        annualGrantId
+        annualGrantId,
+        onChangeAmount,
+        amountWithFee,
+        onChangeEndDate,
+        onChangeNumberOfPayments,
+        onChangeNoEndDate
     } = grantCreateViewStore;
 
     return (
@@ -38,10 +44,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} />
                             </div>
-                            <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <DatePickerField field={form.$('startFutureDate')} />
                             </div>
                             {form.$('grantScheduleTypeId').value && form.$('startFutureDate').value &&
@@ -53,34 +59,40 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
                                     {(form.$('grantScheduleTypeId').value === monthlyGrantId || form.$('grantScheduleTypeId').value === annualGrantId) &&
                                         <React.Fragment>
                                             <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml">
-                                                <NumericInputField field={form.$('numberOfPayments')} />
+                                                <NumericInputField field={form.$('numberOfPayments')} onChange={onChangeNumberOfPayments} />
                                             </div>
                                             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
-                                                <DatePickerField field={form.$('endDate')} />
+                                                <DatePickerField field={form.$('endDate')} onChange={onChangeEndDate} />
                                             </div>
                                             <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml">
-                                                <BasicFieldCheckbox field={form.$('noEndDate')} />
+                                                <BasicFieldCheckbox field={form.$('noEndDate')} onChange={onChangeNoEndDate} />
                                             </div>
                                         </React.Fragment>}
                                 </React.Fragment>}
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                <NumericInputField field={form.$('amount')} />
+                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                                <NumericInputField field={form.$('amount')} onChange={onChangeAmount} />
+                            </div>
+                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                                {amountWithFee &&
+                                    <React.Fragment><label className="form__group__label">Total amount with fee</label>
+                                        <span className={"input input--med input--text input--disabled"}>{amountWithFee}</span>
+                                    </React.Fragment>}
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                             </div>
                             {grantAcknowledgmentTypeDropdownStore.value &&
-                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' && `${donorAccount.fundName} - ${_.find(donorAccount.donorAccountAddresses, { primary: true }).address.addressLine1}`}
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
                                 </div>}
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                             </div>
                         </div>

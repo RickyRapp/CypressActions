@@ -12,7 +12,6 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { GrantReview } from 'application/grant/components'
 
 const GrantistTemplate = function ({ grantViewStore, t }) {
     const {
@@ -21,9 +20,7 @@ const GrantistTemplate = function ({ grantViewStore, t }) {
         queryUtility,
         authorization,
         selectDonorModal,
-        selectDonorDropdownStore,
-        reviewModal,
-        reviewDropdownStore
+        selectDonorDropdownStore
     } = grantViewStore;
 
     return (
@@ -69,18 +66,24 @@ GrantistTemplate.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-function renderActions({ item, actions, authorization }) {
+function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
     const { onEdit, onReview } = actions;
     if (!isSome(onEdit) && !isSome(onReview)) return null;
 
+    let editRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onEditRender) {
+            editRender = actionsRender.onEditRender(item);
+        }
+    }
+
     return (
         <td className="table__body--data right">
             <div className="table__icons">
-                {isSome(onEdit) ? (
+                {isSome(onEdit) && editRender ? (
                     <BaasicButton
-                        authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='GRANT.LIST.BUTTON.EDIT'
@@ -90,7 +93,7 @@ function renderActions({ item, actions, authorization }) {
                 ) : null}
                 {isSome(onReview) ? (
                     <BaasicButton
-                        authorization='theDonorsFundAdministrationSection.update'
+                        authorization={'theDonorsFundAdministrationSection.update'}
                         className="btn btn--icon"
                         icon='u-icon u-icon--approved u-icon--sml'
                         label='GRANT.LIST.BUTTON.REVIEW'
@@ -106,6 +109,7 @@ function renderActions({ item, actions, authorization }) {
 renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
+    actionsRender: PropTypes.object,
     authorization: PropTypes.any
 };
 

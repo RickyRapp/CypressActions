@@ -6,12 +6,18 @@ import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/contribution/models';
 import _ from 'lodash';
+import moment from 'moment';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
     constructor(rootStore) {
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        let filter = new ContributionListFilter('dateCreated', 'desc')
+        filter.donorAccountId = id;
+
         super(rootStore, {
             name: 'contribution',
+            authorization: 'theDonorsFundContributionSection',
             routes: {
                 edit: (id, editId) => {
                     this.rootStore.routerStore.goTo(
@@ -23,16 +29,20 @@ class ContributionViewStore extends BaseListViewStore {
                     );
                 },
                 create: () => {
-                    if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
                     }
                     else {
-                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.rootStore.userStore.applicationUser.id });
+                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: id });
                     }
                 }
             },
             queryConfig: {
-                filter: new ContributionListFilter('dateCreated', 'desc')
+                filter: filter,
+                disableUpdateQueryParams: true,
+                onResetFilter: (filter) => {
+                    filter.donorAccountId = id;
+                }
             },
             actions: () => {
                 const service = new ContributionService(rootStore.application.baasic.apiClient);
@@ -44,9 +54,23 @@ class ContributionViewStore extends BaseListViewStore {
                             'donorAccount.companyProfile',
                             'payerInformation',
                             'bankAccount',
-                            'createdByCoreUser',
                             'paymentType',
                             'contributionStatus'
+                        ];
+                        params.fields = [
+                            'id',
+                            'donorAccountId',
+                            'donorAccount',
+                            'donorAccount.donorName',
+                            'amount',
+                            'dateCreated',
+                            'confirmationNumber',
+                            'contributionStatus',
+                            'paymentType',
+                            'payerInformation',
+                            'payerInformation.name',
+                            'bankAccount',
+                            'bankAccount.accountNumber'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -60,8 +84,7 @@ class ContributionViewStore extends BaseListViewStore {
                 {
                     key: 'donorAccount.donorName',
                     title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
+                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'amount',
@@ -82,6 +105,10 @@ class ContributionViewStore extends BaseListViewStore {
                 {
                     key: 'paymentType.name',
                     title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
+                    format: {
+                        type: 'function',
+                        value: this.renderPaymentType
+                    }
                 },
                 {
                     key: 'payerInformation.name',
@@ -100,6 +127,17 @@ class ContributionViewStore extends BaseListViewStore {
                 onEdit: (contribution) => this.routes.edit(contribution.donorAccountId, contribution.id),
                 onReview: (contributionId) => this.openReviewDonorModal(contributionId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
+            },
+            actionsRender: {
+                onEditRender: (contribution) => {
+                    if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        return true;
+                    }
+                    else {
+                        const dateToEdit = moment(contribution.dateCreated).add('minutes', 15);
+                        return moment().isBetween(contribution.dateCreated, dateToEdit);
+                    }
+                },
             }
         }));
 
@@ -150,6 +188,21 @@ class ContributionViewStore extends BaseListViewStore {
             id: id,
             onAfterReview: () => { this.reviewModal.close(); this.queryUtility.fetch(); }
         });
+    }
+
+    @action.bound
+    renderPaymentType = (item) => {
+        if (item.paymentType.abrv === 'ach' || item.paymentType.abrv === 'wire-transfer') {
+            if (item.bankAccount) {
+                if (item.bankAccount.accountNumber.length > 4) {
+                    return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber.substr(item.bankAccount.accountNumber.length - 4)}`;
+                }
+                else {
+                    return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber}`;
+                }
+            }
+        }
+        return item.paymentType.name;
     }
 }
 

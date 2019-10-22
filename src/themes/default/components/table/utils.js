@@ -25,24 +25,29 @@ const LocalizedCell = defaultTemplate(({ onClick, className, dataItem, field, ic
 });
 
 function defaultRenderColumnsTemplate({ t, columns }) {
-    return columns.map(({ key = null, title = null, cell = null, icon = null, onClick = null, innerColumns = null, format, ...otherProps }, idx) => {
+    return columns.map(({ key = null, title = null, cell = null, icon = null, onClick = null, innerColumns = null, format, visible, ...otherProps }, idx) => {
         const defaultCell = cell ? cell : (props) => <LocalizedCell onClick={onClick} icon={icon} {...props}
             format={format} />;
-        return <GridColumn
-            className={onClick ? "c-pointer table--clickable" : ""}
-            key={key || idx}
-            field={key}
-            title={t(title)}
-            cell={innerColumns ? null : defaultCell}
-            {...otherProps}
-        >
-            {innerColumns ? defaultRenderColumnsTemplate({ t, columns: innerColumns }) : null}
-        </GridColumn>
+        if (visible === false) {
+            return null
+        }
+        else {
+            return <GridColumn
+                className={onClick ? "c-pointer table--clickable" : ""}
+                key={key || idx}
+                field={key}
+                title={t(title)}
+                cell={innerColumns ? null : defaultCell}
+                {...otherProps}
+            >
+                {innerColumns ? defaultRenderColumnsTemplate({ t, columns: innerColumns }) : null}
+            </GridColumn>
+        }
     }
     );
 }
 
-function defaultRenderActionsTemplate({ actions, actionsComponent, authorization, t }) {
+function defaultRenderActionsTemplate({ actions, actionsRender, actionsComponent, authorization, t }) {
     const actionCount = (actions ? actions.visible : null) || _.size(actions);
 
     return hasAction(actions) || actionsComponent ?
@@ -54,8 +59,14 @@ function defaultRenderActionsTemplate({ actions, actionsComponent, authorization
             filterable={false}
             resizable={false}
             width={30 * actionCount}
-            cell={(cellProps) => <BaasicTableActions {...cellProps} actions={actions} authorization={authorization}
-                actionsComponent={actionsComponent} t={t} />}
+            cell={(cellProps) => <BaasicTableActions
+                {...cellProps}
+                actions={actions}
+                actionsRender={actionsRender}
+                authorization={authorization}
+                actionsComponent={actionsComponent}
+                t={t}
+            />}
         /> : null;
 }
 
@@ -113,6 +124,7 @@ function defaultRenderNoRecordsTemplate(noRecordsComponent) {
 
 defaultRenderActionsTemplate.propTypes = {
     actions: PropTypes.object,
+    actionsRender: PropTypes.object,
     actionsComponent: PropTypes.array,
     authorization: PropTypes.any,
     t: PropTypes.func

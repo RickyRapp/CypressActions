@@ -56,8 +56,8 @@ class BaseListViewStore extends BaseViewStore {
 
     hasEditPermissions() {
         let hasPermission = false;
-        if (this.authorization && this.authorization.edit) {
-            hasPermission = this.hasPermission(this.authorization.edit);
+        if (this.authorization && this.authorization.update) {
+            hasPermission = this.hasPermission(this.authorization.update);
         } else {
             hasPermission = true;
         }
@@ -194,8 +194,9 @@ function compileAuthorization(authorization) {
         if (tokens.length > 0) {
             const section = _.toLower(tokens[0]);
             auth.create = section + '.create';
-            auth.edit = section + '.edit';
+            auth.update = section + '.update';
             auth.delete = section + '.delete';
+            auth.read = section + '.read';
         }
     }
 

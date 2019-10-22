@@ -6,8 +6,8 @@ import { isSome, renderIf } from 'core/utils';
 import { DatePicker } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-const DatePickerFieldTemplate = function ({ field, t, ...otherProps }) {
-    const { value, onChange, ...otherFieldProps } = field.bind();
+const DatePickerFieldTemplate = function ({ field, t, onChange, ...otherProps }) {
+    const { value, ...otherFieldProps } = field.bind();
 
     const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
 
@@ -24,6 +24,14 @@ const DatePickerFieldTemplate = function ({ field, t, ...otherProps }) {
         otherFieldProps.min = new Date(minValue);
     }
 
+    const handleOnChange = (event) => {
+        field.onChange(event);
+
+        if (onChange) {
+            onChange(event);
+        }
+    }
+
     return (
         <div>
             <div className='form__group__label'>{t(field.label)}{requiredMark}</div>
@@ -33,7 +41,7 @@ const DatePickerFieldTemplate = function ({ field, t, ...otherProps }) {
                 format={field.initialSetup.format}
                 className={warningClasses}
                 value={value ? new Date(value) : null}
-                onChange={onChange}
+                onChange={handleOnChange}
             />
             {renderIf(isSome(field.localizedError))(
                 <div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>
@@ -44,7 +52,8 @@ const DatePickerFieldTemplate = function ({ field, t, ...otherProps }) {
 
 DatePickerFieldTemplate.propTypes = {
     field: PropTypes.object.isRequired,
-    t: PropTypes.any
+    t: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 export default defaultTemplate(DatePickerFieldTemplate);

@@ -6,7 +6,7 @@ import { DropDownList, MultiSelect } from '@progress/kendo-react-dropdowns';
 import { defaultTemplate } from 'core/hoc';
 
 const BaasicDropdownTemplate = function (props) {
-    const { store, t, placeholder, className, warningClassName, ...assignProps } = props;
+    const { store, t, placeholder, disabled, className, warningClassName, ...assignProps } = props;
 
     function onChange(event) {
         onChangeFn(event);
@@ -72,7 +72,7 @@ const BaasicDropdownTemplate = function (props) {
             autoClose={store.options.autoClose}
             dataItemKey={store.options.dataItemKey}
             filterable={store.options.filterable}
-            disabled={store.options.disabled}
+            disabled={disabled || store.options.disabled}
             onFilterChange={onFilter}
             onChange={onChange}
             loading={store.loading}
@@ -99,6 +99,7 @@ BaasicDropdownTemplate.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.any,
     multi: PropTypes.bool,
+    disabled: PropTypes.bool,
     t: PropTypes.func
 };
 

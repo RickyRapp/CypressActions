@@ -70,7 +70,6 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
     }

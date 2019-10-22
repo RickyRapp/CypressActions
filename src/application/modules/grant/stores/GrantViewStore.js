@@ -5,13 +5,19 @@ import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/grant/models';
+import moment from 'moment'
 import _ from 'lodash';
 
 @applicationContext
 class GrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        let filter = new GrantListFilter('dateCreated', 'desc')
+        filter.donorAccountId = id;
+
         super(rootStore, {
             name: 'grant',
+            authorization: 'theDonorsFundGrantSection',
             routes: {
                 edit: (id, editId) => {
                     this.rootStore.routerStore.goTo(
@@ -23,16 +29,20 @@ class GrantViewStore extends BaseListViewStore {
                     );
                 },
                 create: () => {
-                    if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
                     }
                     else {
-                        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: this.rootStore.userStore.applicationUser.id });
+                        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: id });
                     }
                 }
             },
             queryConfig: {
-                filter: new GrantListFilter('dateCreated', 'desc')
+                filter: filter,
+                disableUpdateQueryParams: true,
+                onResetFilter: (filter) => {
+                    filter.donorAccountId = id;
+                }
             },
             actions: () => {
                 const service = new GrantService(rootStore.application.baasic.apiClient);
@@ -61,8 +71,7 @@ class GrantViewStore extends BaseListViewStore {
                 {
                     key: 'donorAccount.donorName',
                     title: 'GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
+                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'donation.charity.name',
@@ -101,6 +110,17 @@ class GrantViewStore extends BaseListViewStore {
                 onEdit: (grant) => this.routes.edit(grant.donorAccountId, grant.id),
                 onReview: (grantId) => this.openReviewDonorModal(grantId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
+            },
+            actionsRender: {
+                onEditRender: (grant) => {
+                    if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        return true;
+                    }
+                    else {
+                        const dateToEdit = moment(grant.dateCreated).add('minutes', 15);
+                        return moment().isBetween(grant.dateCreated, dateToEdit);
+                    }
+                },
             }
         }));
 

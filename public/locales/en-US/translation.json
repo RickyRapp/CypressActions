@@ -740,7 +740,7 @@
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "GRANT_STATUS_NAME_LABEL": "Status",
                 "DONATION_CHARITY_LABEL": "Charity",
-                "GRANT_PURPOSE_TYPE_LABEL": "Payer"
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose"
             },
             "EMPTY_STATE": {
                 "TITLE": "No grants",

@@ -30,6 +30,8 @@ function FormatterResolver({ item, field, format }) {
                 return <span onClick={() => window.open(format.fetch(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab
             }
             return null;
+        case 'function':
+            return format.value(item);
         default:
             return () => { };
     }

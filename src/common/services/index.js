@@ -18,3 +18,6 @@ export { default as CharityFileStreamRouteService } from './CharityFileStreamRou
 
 export { default as DonorAccountFileStreamService } from './DonorAccountFileStreamService'
 export { default as DonorAccountFileStreamRouteService } from './DonorAccountFileStreamRouteService'
+
+export { default as FeeService } from './FeeService'
+export { default as FeeRouteService } from './FeeRouteService'

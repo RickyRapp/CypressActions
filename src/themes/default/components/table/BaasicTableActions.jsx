@@ -9,8 +9,10 @@ class CommandCell extends GridCell {
             rowType,
             dataItem,
             actions,
+            actionsRender,
             items,
             actionsComponent,
+            authorization,
             t
         } = this.props;
 
@@ -21,6 +23,8 @@ class CommandCell extends GridCell {
                     actions={actions}
                     item={dataItem}
                     items={items}
+                    authorization={authorization}
+                    actionsRender={actionsRender}
                     t={t}
                 />
             );

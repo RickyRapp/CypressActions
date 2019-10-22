@@ -68,18 +68,24 @@ ContributionListTemplate.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-function renderActions({ item, actions, authorization }) {
+function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
     const { onEdit, onReview } = actions;
     if (!isSome(onEdit) && !isSome(onReview)) return null;
 
+    let editRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onEditRender) {
+            editRender = actionsRender.onEditRender(item);
+        }
+    }
+
     return (
         <td className="table__body--data right">
             <div className="table__icons">
-                {isSome(onEdit) ? (
+                {isSome(onEdit) && editRender ? (
                     <BaasicButton
-                        authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.EDIT'
@@ -105,6 +111,7 @@ function renderActions({ item, actions, authorization }) {
 renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
+    actionsRender: PropTypes.object,
     authorization: PropTypes.any
 };
 
