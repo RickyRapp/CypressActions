@@ -50,9 +50,6 @@ const GrantistTemplate = function ({ grantViewStore, t }) {
                     </div>
                 </section>
             </BaasicModal>
-            {/* <BaasicModal modalParams={reviewModal}>
-                <GrantReview />
-            </BaasicModal> */}
         </React.Fragment>
     )
 };
@@ -69,8 +66,8 @@ GrantistTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onReview } = actions;
-    if (!isSome(onEdit) && !isSome(onReview)) return null;
+    const { onEdit } = actions;
+    if (!isSome(onEdit)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -89,16 +86,6 @@ function renderActions({ item, actions, actionsRender }) {
                         label='GRANT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onReview) ? (
-                    <BaasicButton
-                        authorization={'theDonorsFundAdministrationSection.update'}
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
-                        label='GRANT.LIST.BUTTON.REVIEW'
-                        onlyIcon={true}
-                        onClick={() => onReview(item.id)}>
                     </BaasicButton>
                 ) : null}
             </div>

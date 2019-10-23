@@ -108,7 +108,6 @@ class GrantViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (grant) => this.routes.edit(grant.donorAccount.id, grant.id),
-                onReview: (grantId) => this.openReviewDonorModal(grantId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
