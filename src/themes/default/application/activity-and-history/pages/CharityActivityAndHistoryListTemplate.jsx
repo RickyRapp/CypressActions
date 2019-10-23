@@ -19,7 +19,7 @@ const CharityActivityAndHistoryListTemplate = function ({ charityActivityAndHist
                 {(id || charityDropdownStore.value) ?
                     <React.Fragment>
                         <Content>
-                            <SettledPaymentTransaction id={id ? id : charityDropdownStore.value.id} />
+                            <SettledPaymentTransaction charityId={id ? id : charityDropdownStore.value.id} />
                         </Content>
                     </React.Fragment>
                     :

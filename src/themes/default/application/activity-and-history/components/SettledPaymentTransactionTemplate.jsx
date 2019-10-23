@@ -17,6 +17,7 @@ const SettledPaymentTransactionTemplate = function ({ settledPaymentTransactionV
                 </TableFilter>
             </div>
             <div className="card--form card--primary card--med">
+                <h3 className="u-mar--bottom--med">Settled transactions</h3>
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

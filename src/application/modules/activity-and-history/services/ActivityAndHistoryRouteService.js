@@ -6,7 +6,7 @@ class ActivityAndHistoryRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,donorAccountId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,donorAccountId,charityId,page,rpp,sort,embed,fields}', filter);
     }
 
     findDonorPendingTransactions(donorAccountId) {

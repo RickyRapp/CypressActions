@@ -6,9 +6,9 @@ import { ActivityAndHistoryListFilter } from 'application/activity-and-history/m
 
 @applicationContext
 class ReservedPaymentTransactionViewStore extends BaseListViewStore {
-    constructor(rootStore, { id }) {
+    constructor(rootStore, { donorAccountId }) {
         let filter = new ActivityAndHistoryListFilter();
-        filter.donorAccountId = id;
+        filter.donorAccountId = donorAccountId;
 
         super(rootStore, {
             name: 'activity-and-history',
@@ -17,8 +17,9 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 disableUpdateQueryParams: true,
+                disableChangeOrder: true,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.donorAccountId = donorAccountId;
                 }
             },
             actions: () => {
@@ -72,11 +73,6 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
             actions: {
             }
         }));
-    }
-
-    @action.bound
-    setSelectedDonorAccount(donorAccountId) {
-        this.queryUtility.filter.set('donorAccountId', donorAccountId);
     }
 }
 

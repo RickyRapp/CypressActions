@@ -69,6 +69,10 @@ class QueryUtility {
         if (options.onResetFilter) {
             this.onResetFilter = options.onResetFilter;
         }
+
+        if (options.disableChangeOrder) {
+            this.disableChangeOrder = options.disableChangeOrder;
+        }
     }
 
     @action
@@ -103,6 +107,8 @@ class QueryUtility {
     };
 
     @action.bound changeOrder = (sort, updateUrlParams = true) => {
+        if (this.disableChangeOrder) return;
+
         let direction = sortDirection.asc;
         if (this.filter.orderBy === sort && this.filter.orderDirection === sortDirection.asc) {
             direction = sortDirection.desc;

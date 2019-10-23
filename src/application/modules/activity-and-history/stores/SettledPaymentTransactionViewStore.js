@@ -6,9 +6,10 @@ import { ActivityAndHistoryListFilter } from 'application/activity-and-history/m
 
 @applicationContext
 class SettledPaymentTransactionViewStore extends BaseListViewStore {
-    constructor(rootStore, { id }) {
+    constructor(rootStore, { charityId, donorAccountId }) {
         let filter = new ActivityAndHistoryListFilter();
-        filter.donorAccountId = id;
+        filter.charityId = charityId;
+        filter.donorAccountId = donorAccountId;
 
         super(rootStore, {
             name: 'activity-and-history',
@@ -17,19 +18,18 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 disableUpdateQueryParams: true,
+                disableChangeOrder: true,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.charityId = charityId;
+                    filter.donorAccountId = donorAccountId;
                 }
             },
             actions: () => {
                 const service = new ActivityAndHistoryService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        if (params.donorAccountId) {
+                        if (params.charityId || params.donorAccountId) {
                             params.embed = [
-                                'donorAccount',
-                                'donorAccount.coreUser',
-                                'donorAccount.companyProfile',
                                 'paymentTransaction',
                                 'paymentTransaction.paymentTransactionStatus',
                                 'paymentTransaction.paymentTransactionType'
@@ -80,11 +80,6 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
-    }
-
-    @action.bound
-    setSelectedDonorAccount(donorAccountId) {
-        this.queryUtility.filter.set('donorAccountId', donorAccountId);
     }
 }
 

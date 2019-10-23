@@ -17,6 +17,7 @@ const ReservedPaymentTransactionTemplate = function ({ reservedPaymentTransactio
                 </TableFilter>
             </div>
             <div className="card--form card--primary card--med">
+                <h3 className="u-mar--bottom--med">Pending transactions</h3>
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

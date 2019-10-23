@@ -302,6 +302,7 @@
         "CHARITIES": "Charities",
         "CONTRIBUTIONS": "Contributions",
         "GRANTS": "Grants",
+        "DONATIONS": "Donations",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -334,10 +335,11 @@
         "LIST": {
             "TITLE": "Donors",
             "COLUMNS": {
-                "DONORNAME": "Name",
-                "ACCOUNTNUMBER": "Account Number",
-                "PRESENTBALANCE": "Balance",
-                "ACCOUNTTYPE": "Type"
+                "DONOR_NAME": "Name",
+                "ACCOUNT_NUMBER": "Account Number",
+                "PRESENT_BALANCE": "Balance",
+                "ACCOUNT_TYPE": "Type",
+                "AVAILABLE_BALANCE": "Available balance"
             },
             "EMPTY_STATE": {
                 "TITLE": "No donors",
@@ -797,6 +799,42 @@
                 "STATUS_LABEL": "Status",
                 "STATUS_PLACEHOLDER": "Status",
                 "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount"
+            }
+        }
+    },
+    "DONATION": {
+        "LIST": {
+            "TITLE": "Donations",
+            "COLUMNS": {
+                "CHARITY_NAME_LABEL": "Charity",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "DONATION_STATUS_NAME_LABEL": "Status",
+                "DONATION_TYPE_NAME_LABEL": "Type"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No donations"
+            },
+            "BUTTON": {
+                "REVIEW": "Review"
+            }
+        },
+        "REVIEW": {
+            "TITLE": "Review",
+            "FIELDS": {
+                "STATUS_LABEL": "Status",
+                "STATUS_PLACEHOLDER": "Status",
+                "DONOR_NAME_LABEL": "Donor",
+                "CHARITY_NAME_LABEL": "Charity",
+                "PAYMENT_TYPE_LABEL": "Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
+                "ATT_OF_LABEL": "Att of",
+                "ATT_OF_PLACEHOLDER": "Att of",
+                "BANK_ACCOUNT_NAME_LABEL": "Bank account",
                 "AMOUNT_LABEL": "Amount"
             }
         }
