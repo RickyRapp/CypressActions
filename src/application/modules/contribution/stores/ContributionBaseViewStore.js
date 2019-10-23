@@ -37,8 +37,8 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
             {
-                onChange: () => {
-                    this.onPaymentTypeChange();
+                onChange: (paymentTypeId) => {
+                    this.onPaymentTypeChange(paymentTypeId);
                     this.form.$('checkNumber').clear();
                     this.form.$('payerInformation').each((field) => { field.set('disabled', false) });
                     this.form.$('bankAccountId').clear();
@@ -48,7 +48,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
         this.bankAccountDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (bankAccountId) => {
-                    this.onBankAccountChange()
+                    this.onBankAccountChange(bankAccountId)
                     if (bankAccountId) {
                         this.setPayerInfo(_.find(this.bankAccounts, { id: bankAccountId }).accountHolder);
                     }
@@ -57,8 +57,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    onPaymentTypeChange() {
-        const paymentTypeId = this.form.$('paymentTypeId').value;
+    onPaymentTypeChange(paymentTypeId) {
         this.form.$('bankAccountId').setRequired(paymentTypeId === this.achId);
         this.form.$('checkNumber').setRequired(paymentTypeId === this.checkId);
         this.form.$('financialInstitution').setRequired(paymentTypeId === this.stockAndMutualFundsId);
@@ -71,8 +70,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    onBankAccountChange() {
-        const bankAccountId = this.form.$('bankAccountId').value;
+    onBankAccountChange(bankAccountId) {
         if (bankAccountId) {
             this.form.$('payerInformation').each((field) => { field.resetValidation(); field.set('disabled', true) });
         }

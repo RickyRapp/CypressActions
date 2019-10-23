@@ -40,18 +40,8 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
         this.rootStore = rootStore;
 
-        this.prefixTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                onChange: (prefixTypeId) => {
-                    this.item.prefixTypeId = prefixTypeId;
-                }
-            });
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                onChange: (deliveryMethodTypeId) => {
-                    this.item.deliveryMethodTypeId = deliveryMethodTypeId;
-                }
-            });
+        this.prefixTypeDropdownStore = new BaasicDropdownStore();
+        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound
@@ -67,21 +57,9 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                 this.fetchPrefixTypes(),
                 this.fetchDeliveryMethodTypes()
             ]);
-            await this.fetch([
-                this.getResource(this.id)
-            ]);
+
+            await this.getResource(this.id)
         }
-    }
-
-    @action.bound
-    async getResource(id) {
-        await super.getResource(id);
-
-        runInAction(() => {
-            this.form.$('prefixTypeId').set(this.item.prefixTypeId);
-            this.form.$('deliveryMethodTypeId').set(this.item.deliveryMethodTypeId);
-            this.form.validate();
-        });
     }
 
     @action.bound

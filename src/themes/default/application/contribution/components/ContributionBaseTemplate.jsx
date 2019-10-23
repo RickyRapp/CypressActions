@@ -18,11 +18,6 @@ function ContributionBaseTemplate({
     form,
     paymentTypeDropdownStore,
     donorName,
-    achId,
-    checkId,
-    wireTransferId,
-    stockAndMutualFundsId,
-    chaseQuickPayId,
     openBankAccountModal,
     bankAccountDropdownStore,
     setPayerInfoUsingPrimaryDonorContactInfo
@@ -41,31 +36,31 @@ function ContributionBaseTemplate({
                     </div>
                 </div>
 
-                {form.$('paymentTypeId').value === achId &&
+                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
                     <AchTemplate
                         field={form.$('bankAccountId')}
                         bankAccountDropdownStore={bankAccountDropdownStore}
                         openBankAccountModal={openBankAccountModal} />}
 
-                {form.$('paymentTypeId').value === wireTransferId &&
+                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'wire-transfer' &&
                     <WireTransferTemplate
                         field={form.$('bankAccountId')}
                         bankAccountDropdownStore={bankAccountDropdownStore} />}
 
-                {form.$('paymentTypeId').value === checkId &&
+                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' &&
                     <CheckTemplate field={form.$('checkNumber')} />}
 
-                {form.$('paymentTypeId').value === stockAndMutualFundsId &&
+                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'stock-and-mutual-funds' &&
                     <StockAndMutualFundsTemplate form={form} />}
 
-                {form.$('paymentTypeId').value === chaseQuickPayId &&
+                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'chase-quick-pay' &&
                     <ChaseQuickPayTemplate form={form} />}
             </div>
             <div className="card card--form card--primary card--med u-mar--bottom--med">
                 <PayerInformationTemplate
                     form={form}
                     setPayerInfoUsingPrimaryDonorContactInfo={setPayerInfoUsingPrimaryDonorContactInfo}
-                    hideButton={form.$('paymentTypeId').value === achId}
+                    hideButton={paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach'}
                 />
             </div>
         </React.Fragment>
@@ -76,11 +71,6 @@ ContributionBaseTemplate.propTypes = {
     form: PropTypes.object.isRequired,
     paymentTypeDropdownStore: PropTypes.object.isRequired,
     donorName: PropTypes.string.isRequired,
-    achId: PropTypes.string.isRequired,
-    checkId: PropTypes.string.isRequired,
-    wireTransferId: PropTypes.string.isRequired,
-    stockAndMutualFundsId: PropTypes.string.isRequired,
-    chaseQuickPayId: PropTypes.string.isRequired,
     openBankAccountModal: PropTypes.func.isRequired,
     bankAccountDropdownStore: PropTypes.object.isRequired,
     setPayerInfoUsingPrimaryDonorContactInfo: PropTypes.func.isRequired

@@ -17,11 +17,6 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
         form,
         paymentTypeDropdownStore,
         donorName,
-        achId,
-        checkId,
-        wireTransferId,
-        stockAndMutualFundsId,
-        chaseQuickPayId,
         openBankAccountModal,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo
@@ -35,11 +30,6 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
                         form={form}
                         paymentTypeDropdownStore={paymentTypeDropdownStore}
                         donorName={donorName}
-                        achId={achId}
-                        checkId={checkId}
-                        wireTransferId={wireTransferId}
-                        stockAndMutualFundsId={stockAndMutualFundsId}
-                        chaseQuickPayId={chaseQuickPayId}
                         openBankAccountModal={openBankAccountModal}
                         bankAccountDropdownStore={bankAccountDropdownStore}
                         setPayerInfoUsingPrimaryDonorContactInfo={setPayerInfoUsingPrimaryDonorContactInfo}

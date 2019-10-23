@@ -24,12 +24,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
         image,
         onAttachmentDrop,
         bankAccountModal,
-        contributionSettingTypeDropdownStore,
-        achId,
-        wireTransferId,
-        checkId,
-        chaseQuickPayId,
-        stockAndMutualFundsId
+        contributionSettingTypeDropdownStore
     } = contributionCreateViewStore;
 
     return (
@@ -40,17 +35,11 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
                         form={form}
                         paymentTypeDropdownStore={paymentTypeDropdownStore}
                         donorName={donorName}
-                        achId={achId}
-                        checkId={checkId}
-                        wireTransferId={wireTransferId}
-                        stockAndMutualFundsId={stockAndMutualFundsId}
-                        chaseQuickPayId={chaseQuickPayId}
                         openBankAccountModal={openBankAccountModal}
                         bankAccountDropdownStore={bankAccountDropdownStore}
                         setPayerInfoUsingPrimaryDonorContactInfo={setPayerInfoUsingPrimaryDonorContactInfo}
                     />
-                    {form.$('paymentTypeId').value === achId
-                        && bankAccountDropdownStore.value && form.$('amount').value &&
+                    {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' && bankAccountDropdownStore.value && form.$('amount').value &&
                         <div className="card card--form card--primary card--med u-mar--bottom--med">
                             <h3 className="u-mar--bottom--med">Scheduled contribution (optional)</h3>
                             <div className="row">

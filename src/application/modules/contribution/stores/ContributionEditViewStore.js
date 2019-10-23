@@ -23,6 +23,8 @@ class ContributionEditViewStore extends ContributionBaseViewStore {
                     get: async (id) => {
                         let params = {
                             embed: [
+                                'bankAccount',
+                                'paymentType',
                                 'payerInformation',
                                 'payerInformation.address',
                                 'payerInformation.emailAddress',
@@ -70,10 +72,11 @@ class ContributionEditViewStore extends ContributionBaseViewStore {
     @action.bound
     async getResource(id) {
         await super.getResource(id);
-
         runInAction(() => {
-            this.onPaymentTypeChange();
-            this.onBankAccountChange();
+            this.paymentTypeDropdownStore.setValue(this.item.paymentType);
+            this.onPaymentTypeChange(this.item.paymentTypeId);
+            this.bankAccountDropdownStore.setValue(this.item.bankAccount);
+            this.onBankAccountChange(this.item.bankAccountId);
             this.form.validate();
         });
     }
