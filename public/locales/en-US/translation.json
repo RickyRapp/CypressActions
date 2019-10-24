@@ -304,6 +304,7 @@
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
+        "FUND_TRANSFERS": "Fund transfers",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -893,6 +894,35 @@
                 "CHARITY_EVENT_ATTENDING_MESSAGE": "The IRS prohibits using donor-advised funds to pay for tickets to attend a charity event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
                 "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
                 "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below."
+            }
+        }
+    },
+    "FUND_TRANSFER": {
+        "LIST": {
+            "TITLE": "Fund transfers",
+            "COLUMNS": {
+                "CHARITY_NAME_LABEL": "Charity",
+                "SENDER_DONOR_NAME_LABEL": "Sender donor",
+                "RECIPIENT_DONOR_NAME_LABEL": "Recipient donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description",
+                "CREATED_BY_LABEL": "Created by"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No fund transfers"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create fund transfers",
+            "INSUFICIENT_FUNDS_MESSAGE": "Insuficient funds",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "SENDER_DONOR_ACCOUNT_LABEL": "Sender",
+                "SENDER_DONOR_ACCOUNT_PLACEHOLDER": "Sender",
+                "RECIPIENT_DONOR_ACCOUNT_LABEL": "Recipient",
+                "RECIPIENT_DONOR_ACCOUNT_PLACEHOLDER": "Recipient"
             }
         }
     }
