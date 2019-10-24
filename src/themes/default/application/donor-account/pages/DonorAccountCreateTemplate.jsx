@@ -6,7 +6,8 @@ import {
     BaasicFieldDropdown,
     BaasicFormControls,
     NumericInputField,
-    EditFormContent
+    EditFormContent,
+    FormDebug
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
@@ -94,7 +95,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                             </div>
                         </div>
                     </div>
-
+                    <FormDebug form={form}></FormDebug>
                     {renderEditLayoutFooterContent({ form })}
                 </EditFormContent>
             </div>

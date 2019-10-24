@@ -55,8 +55,9 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
-                onChange: () => {
-                    this.setFormDefaultValues();
+                onChange: (accountTypeId) => {
+                    this.form.$('blankBookletMax').setRequired(accountTypeId === this.premiumId);
+                    this.form.$('extraBookletPercentage').setRequired(accountTypeId === this.premiumId);
                 }
             });
         this.howDidYouHearAboutUsDropdownStore = new BaasicDropdownStore();
@@ -79,7 +80,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
             ]);
 
             await this.fetch([
-                this.setAdditionalFormRules(),
                 this.setFormDefaultValues()
             ]);
         }
@@ -184,14 +184,10 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async setAdditionalFormRules() {
-        this.form.$('blankBookletMax').set('rules', this.form.$('blankBookletMax').rules + `|required_if:accountTypeId,${this.premiumId}`)
-    }
-
-    @action.bound
     async setFormDefaultValues() {
         if (!this.form.$('accountTypeId').value) {
             this.form.$('accountTypeId').set(this.basicId);
+            this.accountTypeDropdownStore.onChange(_.find(this.accountTypes, { abrv: 'basic' }))
         }
 
         this.form.$('deliveryMethodTypeId').set(this.applicationDefaultSetting.deliveryMethodTypeId);

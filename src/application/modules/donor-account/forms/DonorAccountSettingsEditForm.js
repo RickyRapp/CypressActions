@@ -45,7 +45,7 @@ export const donorAccountSettingsFormProperties = {
         {
             name: 'extraBookletPercentage',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.EXTRA_BOOKLET_PERCENTAGE_LABEL',
-            rules: 'required|numeric|min:0|max:1000',
+            rules: 'numeric|min:0|max:1000',
             extra: {
                 type: 'c2'
             }
