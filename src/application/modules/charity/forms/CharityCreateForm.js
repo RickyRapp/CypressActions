@@ -2,8 +2,7 @@ import { FormBase } from 'core/components';
 import {
     donorAccountAddressFormProperties,
     donorAccountEmailAddressFormProperties,
-    donorAccountPhoneNumberFormProperties,
-    donorAccountBankAccountFormProperties
+    donorAccountPhoneNumberFormProperties
 } from 'application/donor-account/forms';
 
 export default class CharityCreateForm extends FormBase {
@@ -69,7 +68,44 @@ export default class CharityCreateForm extends FormBase {
                 },
                 {
                     name: 'bankAccount',
-                    ...donorAccountBankAccountFormProperties
+                    fields: [
+                        {
+                            name: 'name',
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_FIELD',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'accountNumber',
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_NUMBER_FIELD',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'routingNumber',
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_FIELD',
+                            rules: 'required|string|digits:9'
+                        },
+                        {
+                            name: 'description',
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.DESCRIPTION_FIELD',
+                        },
+                        {
+                            name: 'accountHolder',
+                            fields: [
+                                {
+                                    name: 'address',
+                                    ...donorAccountAddressFormProperties
+                                },
+                                {
+                                    name: 'emailAddress',
+                                    ...donorAccountEmailAddressFormProperties
+                                },
+                                {
+                                    name: 'phoneNumber',
+                                    ...donorAccountPhoneNumberFormProperties
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: 'coreUser',

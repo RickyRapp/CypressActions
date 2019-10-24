@@ -84,6 +84,7 @@ class ContributionViewStore extends BaseListViewStore {
                 {
                     key: 'donorAccount.donorName',
                     title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    disableClick: true,
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
@@ -130,13 +131,18 @@ class ContributionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (contribution) => {
-                    if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
-                        return true;
+                    if (contribution.contributionStatus.abrv === 'pending' || contribution.contributionStatus.abrv === 'in-process') {
+                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                            return true;
+                        }
+                        else {
+                            if (contribution.contributionStatus.abrv === 'pending') {
+                                const dateToEdit = moment(contribution.dateCreated).add('minutes', 15);
+                                return moment().isBetween(contribution.dateCreated, dateToEdit);
+                            }
+                        }
                     }
-                    else {
-                        const dateToEdit = moment(contribution.dateCreated).add('minutes', 15);
-                        return moment().isBetween(contribution.dateCreated, dateToEdit);
-                    }
+                    return false;
                 },
             }
         }));

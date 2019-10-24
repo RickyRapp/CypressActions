@@ -1,5 +1,4 @@
 import { FormBase } from 'core/components';
-import moment from 'moment';
 
 export default class FundTransferCreateForm extends FormBase {
     constructor(hooks) {

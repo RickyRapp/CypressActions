@@ -55,10 +55,9 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             this.form.clear();
             await this.fetch([
                 this.fetchPrefixTypes(),
-                this.fetchDeliveryMethodTypes()
+                this.fetchDeliveryMethodTypes(),
+                this.getResource(this.id)
             ]);
-
-            await this.getResource(this.id)
         }
     }
 

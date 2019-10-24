@@ -6,7 +6,6 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import _ from 'lodash';
 
 const FundTransferCreateTemplate = function ({ fundTransferCreateViewStore, t }) {
     const {

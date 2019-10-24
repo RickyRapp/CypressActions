@@ -67,23 +67,10 @@ class CharityEditViewStore extends BaseEditViewStore {
             this.form.clear();
             await this.fetch([
                 this.fetchCharityTypes(),
-                this.fetchCharityStatuses()
-            ]);
-            await this.fetch([
+                this.fetchCharityStatuses(),
                 this.getResource(this.id)
             ]);
         }
-    }
-
-    @action.bound
-    async getResource(id) {
-        await super.getResource(id);
-
-        runInAction(() => {
-            this.form.$('charityStatusId').set(this.item.charityStatusId);
-            this.form.$('charityTypeId').set(this.item.charityTypeId);
-            this.form.validate();
-        });
     }
 
     @action.bound

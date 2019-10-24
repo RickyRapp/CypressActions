@@ -66,15 +66,15 @@ class GranteEditViewStore extends GrantBaseViewStore {
                 this.fetchGrantPurposeTypes(),
                 this.fetchGrantAcknowledgmentTypes(),
                 this.fetchApplicationDefaultSetting(),
-                this.fetchFeeTypes()
+                this.fetchFeeTypes(),
+                this.getResource(this.editId)
             ]);
 
             await this.fetch([
                 this.setFormDefaultRules(),
-                this.setFormDefaultValues()
+                this.setFormDefaultValues(),
             ]);
 
-            await this.getResource(this.editId);
             this.form.validate();
             this.onChangeAmount();
             this.grantAcknowledgmentTypeDropdownStore.onChange(this.item.grantAcknowledgmentType);

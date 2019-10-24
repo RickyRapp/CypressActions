@@ -57,15 +57,14 @@ class ContributionEditViewStore extends ContributionBaseViewStore {
             await this.fetch([
                 this.fetchDonorAccount(),
                 this.fetchPaymentTypes(),
-                this.fetchBankAccounts()
+                this.fetchBankAccounts(),
+                this.getResource(this.editId)
             ]);
 
             await this.fetch([
                 this.setFormDefaultRules(),
                 this.setFormDefaultValues()
             ]);
-
-            await this.getResource(this.editId);
         }
     }
 

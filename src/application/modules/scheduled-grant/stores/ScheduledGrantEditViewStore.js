@@ -11,6 +11,8 @@ import moment from 'moment';
 @applicationContext
 class ScheduledGrantEditViewStore extends BaseEditViewStore {
     grantScheduleTypes = null;
+    grantPurposeTypes = null;
+    grantAcknowledgmentTypes = null;
     applicationDefaultSetting = null;
     feeTypes = null;
     @observable amountWithFee = null;
@@ -259,6 +261,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         this.grantPurposeTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
         const response = await service.getAll();
+        this.grantPurposeTypes = response.data;
         runInAction(() => {
             this.grantPurposeTypeDropdownStore.setItems(response.data);
             this.grantPurposeTypeDropdownStore.setLoading(false);
@@ -270,6 +273,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         this.grantAcknowledgmentTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
         const response = await service.getAll();
+        this.grantAcknowledgmentTypes = response.data;
         runInAction(() => {
             this.grantAcknowledgmentTypeDropdownStore.setItems(response.data);
             this.grantAcknowledgmentTypeDropdownStore.setLoading(false);
