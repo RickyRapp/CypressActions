@@ -3,7 +3,6 @@ import { applicationContext } from 'core/utils';
 import { GrantEditForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
-import _ from 'lodash';
 
 @applicationContext
 class GranteEditViewStore extends GrantBaseViewStore {

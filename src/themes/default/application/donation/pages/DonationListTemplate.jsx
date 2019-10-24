@@ -13,7 +13,7 @@ import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { DonationReview } from 'application/donation/components'
 
-const DonationListTemplate = function ({ donationViewStore, t }) {
+const DonationListTemplate = function ({ donationViewStore }) {
     const {
         tableStore,
         routes,
@@ -52,7 +52,7 @@ function renderEmpty(routes) {
 
 DonationListTemplate.propTypes = {
     donationViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {

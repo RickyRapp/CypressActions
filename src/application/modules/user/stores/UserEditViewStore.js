@@ -69,8 +69,6 @@ class UserEditViewStore extends BaseEditViewStore {
     @action.bound
     async getResource(id) {
         await super.getResource(id);
-
-        console.log(this.item.roles)
         runInAction(() => {
             this.form.$('roles').set(this.item.roles);
             // this.form.update({roles: this.item.roles});

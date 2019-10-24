@@ -1,4 +1,3 @@
-import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ActivityAndHistoryService } from 'application/activity-and-history/services';
 import { applicationContext } from 'core/utils';

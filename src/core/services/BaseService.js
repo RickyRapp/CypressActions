@@ -33,7 +33,6 @@ class BaseService {
 
     update(resource) {
         const url = this.routeService.update(resource);
-        debugger;
         return this.apiClient.put(url, resource);
     }
 

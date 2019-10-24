@@ -1,6 +1,4 @@
 import { FormBase } from 'core/components';
-import { donorAccountAddressFormProperties } from 'application/donor-account/forms';
-import _ from 'lodash';
 
 export default class DonationReviewForm extends FormBase {
     constructor(hooks) {

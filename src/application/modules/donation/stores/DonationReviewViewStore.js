@@ -57,7 +57,7 @@ class DonationReviewViewStore extends BaseEditViewStore {
 
         this.id = id;
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
-            onChange: (paymentTypeId) => {
+            onChange: () => {
                 this.form.$('address').clear();
                 this.form.$('bankAccountId').clear();
                 this.form.$('address').each((field) => { field.setRequired(false) });

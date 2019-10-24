@@ -88,7 +88,7 @@ export default class GrantCreateForm extends FormBase {
                 {
                     name: 'endDate',
                     label: 'GRANT.CREATE.FIELDS.END_DATE_LABEL',
-                    rules: `min_date:${moment().add(1, 'days').format('MM/DD/YYYY')}`,
+                    rules: `min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`, //TODO not working with non required field -> returns invalid date
                     type: 'date'
                 },
                 {

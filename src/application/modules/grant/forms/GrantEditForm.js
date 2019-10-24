@@ -1,5 +1,4 @@
 import { FormBase } from 'core/components';
-import moment from 'moment';
 
 export default class GrantEditForm extends FormBase {
     constructor(hooks) {

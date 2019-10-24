@@ -4,6 +4,7 @@ import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
+import { ScheduledGrantService } from 'application/scheduled-grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
 
@@ -11,6 +12,7 @@ import _ from 'lodash';
 class GrantCreateViewStore extends GrantBaseViewStore {
     constructor(rootStore) {
         const service = new GrantService(rootStore.application.baasic.apiClient);
+        const scheduledGrantService = new ScheduledGrantService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'grant-create',
@@ -19,7 +21,16 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        return await service.create(resource);
+                        if (resource.endDate == 'Invalid date') {
+                            resource.endDate = null;
+                        }
+                        if (resource.grantScheduleTypeId &&
+                            (resource.startFutureDate > new Date() || resource.grantScheduleTypeId === this.monthlyGrantId || resource.grantScheduleTypeId === this.annualGrantId)) {
+                            return await scheduledGrantService.create(resource);
+                        }
+                        else {
+                            return await service.create(resource);
+                        }
                     }
                 }
             },
@@ -106,7 +117,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
         });
     }
 
-    @computed get oneTimeId() {
+    @computed get oneTimeGrantId() {
         return this.grantScheduleTypes ? _.find(this.grantScheduleTypes, { abrv: 'one-time' }).id : null;
     }
 
@@ -116,30 +127,6 @@ class GrantCreateViewStore extends GrantBaseViewStore {
 
     @computed get annualGrantId() {
         return this.grantScheduleTypes ? _.find(this.grantScheduleTypes, { abrv: 'annual' }).id : null;
-    }
-
-    @computed get isOneTimeGrant() {
-        return this.form.$('grantScheduleTypeId').value === this.oneTimeId
-            && this.form.$('startFutureDate').value
-            && this.form.$('startFutureDate').value.toLocaleDateString() === (new Date()).toLocaleDateString();
-    }
-
-    @computed get isFutureGrant() {
-        return this.form.$('grantScheduleTypeId').value === this.oneTimeId
-            && this.form.$('startFutureDate').value
-            && this.form.$('startFutureDate').value.toLocaleDateString() > (new Date()).toLocaleDateString();
-    }
-
-    @computed get isMonthlyGrant() {
-        return this.form.$('grantScheduleTypeId').value === this.monthlyId && (this.form.$('endDate').value
-            || this.form.$('numberOfPayments').value
-            || this.form.$('noEndDate').value);
-    }
-
-    @computed get isAnnualGrant() {
-        return this.form.$('grantScheduleTypeId').value === this.annualId && (this.form.$('endDate').value
-            || this.form.$('numberOfPayments').value
-            || this.form.$('noEndDate').value);
     }
 }
 

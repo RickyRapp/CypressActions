@@ -5,27 +5,23 @@ import {
     BaasicButton,
     BaasicTable,
     TableFilter,
-    EmptyState,
-    BaasicModal,
-    BaasicDropdown
+    EmptyState
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
-const GrantListTemplate = function ({ grantViewStore, t }) {
+const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
-        authorization,
-        selectDonorModal,
-        selectDonorDropdownStore
-    } = grantViewStore;
+        authorization
+    } = scheduledGrantViewStore;
 
     return (
         <React.Fragment>
-            <ApplicationListLayout store={grantViewStore} authorization={authorization}>
+            <ApplicationListLayout store={scheduledGrantViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
                     <div className="u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
@@ -40,34 +36,24 @@ const GrantListTemplate = function ({ grantViewStore, t }) {
                     </div>
                 </Content>
             </ApplicationListLayout>
-            <BaasicModal modalParams={selectDonorModal}>
-                <section className='w--400--px'>
-                    <h3 className="u-mar--bottom--med">{t('GRANT.LIST.SELECT_DONOR')}</h3>
-                    <div className="row">
-                        <div className="form__group col col-lrg-12">
-                            <BaasicDropdown className='input--dropdown' store={selectDonorDropdownStore} />
-                        </div>
-                    </div>
-                </section>
-            </BaasicModal>
         </React.Fragment>
     )
 };
 
 function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='GRANT.LIST.EMPTY_STATE.TITLE' actionLabel='GRANT.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
+    return <EmptyState image={EmptyIcon} title='SCHEDULED_GRANT.LIST.EMPTY_STATE.TITLE' actionLabel='SCHEDULED_GRANT.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
 
-GrantListTemplate.propTypes = {
-    grantViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+ScheduledGrantListTemplate.propTypes = {
+    scheduledGrantViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onRedirect } = actions;
-    if (!isSome(onEdit) && !isSome(onRedirect)) return null;
+    const { onEdit, onCancel } = actions;
+    if (!isSome(onEdit) && !isSome(onCancel)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -76,10 +62,10 @@ function renderActions({ item, actions, actionsRender }) {
         }
     }
 
-    let redirectRender = true;
+    let cancelRender = true;
     if (isSome(actionsRender)) {
-        if (actionsRender.onRedirectRender) {
-            redirectRender = actionsRender.onRedirectRender(item);
+        if (actionsRender.onCancelRender) {
+            cancelRender = actionsRender.onCancelRender(item);
         }
     }
 
@@ -90,18 +76,18 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
-                        label='GRANT.LIST.BUTTON.EDIT'
+                        label='SCHEDULED_GRANT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
                 ) : null}
-                {isSome(onRedirect) && redirectRender ? (
+                {isSome(onCancel) && cancelRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml' //TODO: change with redirect icon
-                        label='GRANT.LIST.BUTTON.REDIRECT'
+                        icon='u-icon u-icon--edit u-icon--sml'
+                        label='SCHEDULED_GRANT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
-                        onClick={() => onRedirect(item)}>
+                        onClick={() => onCancel(item)}>
                     </BaasicButton>
                 ) : null}
             </div>
@@ -116,5 +102,5 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-export default defaultTemplate(GrantListTemplate);
+export default defaultTemplate(ScheduledGrantListTemplate);
 

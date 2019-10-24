@@ -28,6 +28,14 @@ class GrantViewStore extends BaseListViewStore {
                         }
                     );
                 },
+                scheduledGrantsList: (name) => {
+                    this.rootStore.routerStore.goTo(
+                        'master.app.main.scheduled-grant.list', null,
+                        {
+                            name: name
+                        }
+                    );
+                },
                 create: () => {
                     if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
@@ -57,8 +65,24 @@ class GrantViewStore extends BaseListViewStore {
                             'donorAccount',
                             'donorAccount.coreUser',
                             'donorAccount.companyProfile',
-                            'grantStatus'
+                            'grantStatus',
+                            'grantScheduledPayment'
                         ];
+                        params.fields = [
+                            'id',
+                            'donation',
+                            'donation.charity',
+                            'donation.charity.name',
+                            'donorAccount',
+                            'donorAccount.id',
+                            'donorAccount.donorName',
+                            'amount',
+                            'confirmationNumber',
+                            'grantStatus',
+                            'grantPurposeType',
+                            'dateCreated',
+                            'scheduledGrantPayment'
+                        ]
                         const response = await service.find(params);
                         return response.data;
                     }
@@ -108,6 +132,7 @@ class GrantViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (grant) => this.routes.edit(grant.donorAccount.id, grant.id),
+                onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
@@ -119,6 +144,12 @@ class GrantViewStore extends BaseListViewStore {
                         const dateToEdit = moment(grant.dateCreated).add('minutes', 15);
                         return moment().isBetween(grant.dateCreated, dateToEdit);
                     }
+                },
+                onRedirectRender: (grant) => {
+                    if (grant.scheduledGrantPayment) {
+                        return true;
+                    }
+                    return false;
                 },
             }
         }));
