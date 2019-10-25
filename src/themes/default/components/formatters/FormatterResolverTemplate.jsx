@@ -9,7 +9,11 @@ import { Date, Address, PhoneNumber } from 'core/components';
 function FormatterResolver({ item, field, format }) {
     switch (format.type) {
         case 'date':
-            return <Date value={_.get(item, field)} format={format.value} />
+            const date = _.get(item, field);
+            if (date) {
+                return <Date value={date} format={format.value} />
+            }
+            return null;
         case 'currency':
             return <span>{format.value + _.get(item, field)}</span>
         case 'boolean':
@@ -32,6 +36,17 @@ function FormatterResolver({ item, field, format }) {
             return null;
         case 'function':
             return format.value(item);
+        case 'denomination':
+            const notAvailable = "Out Of Stock.";
+            const denominationType = item.denominationType;
+            switch (format.value) {
+                case 'short':
+                    const oneCert = `$${denominationType.value}`;
+                    const totalCert = `$${denominationType.value * denominationType.certificateAmount}`;
+                    return <span>{oneCert} ({denominationType.certificateAmount} cert. - {totalCert}) {format.formatNotAvailable && !denominationType.available ? notAvailable : null}</span>
+                default:
+                    return null;
+            }
         default:
             return () => { };
     }

@@ -51,7 +51,7 @@ export default class CharityEditForm extends FormBase {
                         }
                     ]
                 }
-            ],
+            ]
         };
     }
 }

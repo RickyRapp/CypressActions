@@ -1,0 +1,1 @@
+export { default as BookletEditRowTemplate } from './BookletEditRowTemplate'

@@ -73,7 +73,7 @@ class DonorAccountBankAccountEditForm extends Component {
                                     onClick={() => useDonorContactInformations(true, 'address')}
                                     className='btn btn--tny btn--secondary'
                                     type='button'
-                                    label={t("BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS")}
+                                    label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS"
                                 />
                             </div>
                         }
@@ -92,7 +92,7 @@ class DonorAccountBankAccountEditForm extends Component {
                                     onClick={() => useDonorContactInformations(true, 'emailAddress')}
                                     className='btn btn--tny btn--secondary'
                                     type='button'
-                                    label={t("BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS")}
+                                    label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
                                 />
                             </div>
                         }
@@ -111,7 +111,7 @@ class DonorAccountBankAccountEditForm extends Component {
                                     onClick={() => useDonorContactInformations(true, 'phoneNumber')}
                                     className='btn btn--tny btn--secondary'
                                     type='button'
-                                    label={t("BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER")}
+                                    label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER"
                                 />
                             </div>
                         }

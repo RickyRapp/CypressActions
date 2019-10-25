@@ -305,6 +305,7 @@
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
         "FUND_TRANSFERS": "Fund transfers",
+        "BOOKLETS": "Booklets",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -931,6 +932,53 @@
                 "SENDER_DONOR_ACCOUNT_PLACEHOLDER": "Sender",
                 "RECIPIENT_DONOR_ACCOUNT_LABEL": "Recipient",
                 "RECIPIENT_DONOR_ACCOUNT_PLACEHOLDER": "Recipient"
+            }
+        }
+    },
+    "BOOKLET": {
+        "LIST": {
+            "TITLE": "Booklets",
+            "COLUMNS": {
+                "CODE_LABEL": "Code",
+                "DENOMINATION_LABEL": "Denominaiton",
+                "ASSIGNED_TO_LABEL": "Assigned to",
+                "DATE_ASSIGNED_LABEL": "Assigned on",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status",
+                "CERTIFICATES_LABEL": "Certificates"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No booklets"
+            }
+        },
+        "CREATE": {
+            "BUTTON": {
+                "ADD": "Add new",
+                "DELETE": "Delete"
+            },
+            "TITLE": "Create booklet",
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination"
+            }
+        },
+        "EDIT": {
+            "BUTTON": {
+                "ACTIVE": "Active",
+                "INACTIVE": "Inactive",
+                "CLEAN_CERTIFICATE_STATUS": "Clean",
+                "CANCELED_CERTIFICATE_STATUS": "Canceled",
+                "SAVE_ROW_CHANGES": "Save row",
+                "IS_ACTIVE": "Is active"
+            },
+            "TITLE": "Create booklet",
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination"
             }
         }
     }
