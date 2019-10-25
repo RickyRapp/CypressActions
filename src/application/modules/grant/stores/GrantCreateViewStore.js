@@ -7,6 +7,7 @@ import { GrantService } from 'application/grant/services';
 import { ScheduledGrantService } from 'application/scheduled-grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
+import moment from 'moment';
 
 @applicationContext
 class GrantCreateViewStore extends GrantBaseViewStore {
@@ -25,7 +26,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
                             resource.endDate = null;
                         }
                         if (resource.grantScheduleTypeId &&
-                            (resource.startFutureDate > new Date() || resource.grantScheduleTypeId === this.monthlyGrantId || resource.grantScheduleTypeId === this.annualGrantId)) {
+                            (moment(resource.startFutureDate) > moment() || resource.grantScheduleTypeId === this.monthlyGrantId || resource.grantScheduleTypeId === this.annualGrantId)) {
                             return await scheduledGrantService.create(resource);
                         }
                         else {

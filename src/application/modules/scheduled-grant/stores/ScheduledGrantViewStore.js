@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ScheduledGrantService } from 'application/scheduled-grant/services';
 import { applicationContext } from 'core/utils';
@@ -10,6 +11,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
         let filter = new ScheduledGrantListFilter('dateCreated', 'desc')
         filter.donorAccountId = id;
+
+        const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'scheduled-grant',
@@ -33,7 +36,6 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -52,6 +54,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'donorAccount.id',
                             'donorAccount.donorName',
                             'amount',
+                            'name',
                             'grantScheduleType',
                             'dateCreated',
                             'startFutureDate',
@@ -59,7 +62,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'done',
                             'endDate',
                             'noEndDate',
-                            'numberOfPayments'
+                            'numberOfPayments',
+                            'remainingNumberOfPayments'
                         ]
                         const response = await service.find(params);
                         return response.data;
@@ -78,6 +82,10 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                },
+                {
+                    key: 'name',
+                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.NAME_LABEL',
                 },
                 {
                     key: 'amount',
@@ -130,17 +138,42 @@ class ScheduledGrantViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.donorAccount.id, scheduledGrant.id),
+                onCancel: (scheduledGrant) => this.onCancel(scheduledGrant.id, scheduledGrant.name),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onEditRender: (scheduledGrant) => {
+                    if (scheduledGrant.done) {
+                        return false;
+                    }
+
                     if (moment(scheduledGrant.startFutureDate).isSameOrBefore(moment())) {
                         return false;
                     }
                     return true;
                 },
+                onCancelRender: (scheduledGrant) => {
+                    return !scheduledGrant.done;
+                }
             }
         }));
+
+        this.service = service;
+        this.rootStore = rootStore;
+    }
+
+    @action.bound async onCancel(id, name) {
+        this.rootStore.modalStore.showConfirm('SCHEDULED_GRANT.CANCEL.QUESTION',
+            async () => {
+                try {
+                    await this.service.cancel({ id: id });
+                    this.rootStore.notificationStore.success('SCHEDULED_GRANT.CANCEL.SUCCESS');
+                } catch (error) {
+                    this.rootStore.notificationStore.error('SCHEDULED_GRANT.CANCEL.ERROR');
+                }
+                await this.queryUtility.fetch();
+            }
+        );
     }
 
     renderGrantScheduleType(item) {

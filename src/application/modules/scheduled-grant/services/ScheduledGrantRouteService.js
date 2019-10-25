@@ -20,6 +20,10 @@ class ScheduledGrantRouteService extends BaseRouteService {
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }
+
+    cancel(resource) {
+        return super.update(this.base + '/cancel/{id}', resource);
+    }
 }
 
 export default ScheduledGrantRouteService;

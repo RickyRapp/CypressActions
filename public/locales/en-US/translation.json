@@ -847,6 +847,7 @@
             "COLUMNS": {
                 "CHARITY_NAME_LABEL": "Charity",
                 "DONOR_NAME_LABEL": "Donor",
+                "NAME_LABEL": "Name",
                 "AMOUNT_LABEL": "Amount",
                 "DONE_LABEL": "Done",
                 "GRANT_SCHEDULE_TYPE_NAME_LABEL": "Schedule type",
@@ -858,7 +859,8 @@
                 "TITLE": "No scheduled grants"
             },
             "BUTTON": {
-                "REVIEW": "Review"
+                "EDIT": "Edit",
+                "CANCEL": "Cancel"
             }
         },
         "EDIT": {
@@ -895,6 +897,12 @@
                 "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
                 "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below."
             }
+        },
+        "CANCEL": {
+            "TITLE": "Cancel scheduled grant",
+            "QUESTION": "Are you sure you want to cancel selected resource?",
+            "SUCCESS": "Successfully canceled selected resource",
+            "ERROR": "Error occurred while trying to cancel resource"
         }
     },
     "FUND_TRANSFER": {

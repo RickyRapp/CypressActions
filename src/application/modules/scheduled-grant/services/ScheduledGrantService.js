@@ -6,6 +6,12 @@ class ScheduledGrantService extends BaseService {
         super(apiClient, new ScheduledGrantRouteService());
         this.apiClient = apiClient;
     }
+
+    async cancel(resource) {
+        const url = this.routeService.cancel(resource);
+        const response = await this.apiClient.put(url, resource);
+        return response || null;
+    }
 }
 
 export default ScheduledGrantService;

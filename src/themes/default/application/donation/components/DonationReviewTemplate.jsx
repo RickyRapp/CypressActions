@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     BaasicFormControls,
-    BasicInput,
-    FormDebug
+    BasicInput
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
@@ -75,7 +74,6 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </form>
-            <FormDebug form={form}></FormDebug>
         </section>
     )
 };
