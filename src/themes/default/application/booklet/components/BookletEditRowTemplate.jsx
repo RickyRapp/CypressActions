@@ -13,6 +13,7 @@ function BookletEditRowTemplate({
     saveRowChanges,
     onRowStatusChange
 }) {
+
     return (
         <tr>
             <td className="table__body--data">{item.code}</td>
@@ -20,7 +21,7 @@ function BookletEditRowTemplate({
             <td className="table__body--data">
                 <BasicCheckbox
                     id={item.id}
-                    value={item.isActive}
+                    checked={item.isActive}
                     onChange={(e) => item.isActive = e.target.checked}
                     label='BOOKLET.EDIT.BUTTON.IS_ACTIVE'
                 />

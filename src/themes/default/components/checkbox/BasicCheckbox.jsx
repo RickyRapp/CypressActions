@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
-const BasicCheckboxTemplate = function ({ id, label, value, onChange, t, disabled }) {
+const BasicCheckboxTemplate = function ({ id, label, checked, onChange, t, disabled }) {
     return (
         <React.Fragment>
             <input
                 id={id}
-                checked={value}
+                checked={checked}
                 onChange={onChange}
                 disabled={disabled}
                 type='checkbox'

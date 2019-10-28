@@ -41,7 +41,7 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
         menu: [
             {
                 title: 'MENU.ADMINISTRATION',
-                authorization: 'theDonorsFundBookletSection.read',
+                authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
                         title: 'MENU.BOOKLETS',
@@ -49,7 +49,13 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
                         route: 'master.app.main.booklet.list'
                     },
                 ]
-            }
+            },
+            {
+                title: 'MENU.BOOKLETS',
+                route: 'master.app.main.booklet.list',
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                icon: 'booklet'
+            },
         ]
     });
 })();

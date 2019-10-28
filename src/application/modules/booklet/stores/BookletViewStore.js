@@ -7,8 +7,13 @@ import _ from 'lodash';
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
     constructor(rootStore) {
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        let filter = new BookletListFilter('code', 'desc')
+        filter.donorAccountId = id;
+
         super(rootStore, {
             name: 'booklet',
+            authorization: 'theDonorsFundAdministrationSection',
             routes: {
                 edit: (id) => {
                     this.setChildNavigationTitle(i => i.id === id, item => item.code);
@@ -23,7 +28,7 @@ class BookletViewStore extends BaseListViewStore {
                     )
             },
             queryConfig: {
-                filter: new BookletListFilter()
+                filter: filter
             },
             actions: () => {
                 const service = new BookletService(rootStore.application.baasic.apiClient);

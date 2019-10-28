@@ -35,8 +35,6 @@ function BookletEditTemplate({ bookletEditViewStore }) {
         active = _.filter(booklet.certificates, { isActive: true }).length;
     }
 
-    console.log(1)
-
     return (
         <ApplicationEditLayout store={bookletEditViewStore}>
             <Content loading={contentLoading} >
