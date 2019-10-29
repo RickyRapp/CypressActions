@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    BasicInput,
     BaasicDropdown,
     BaasicButton
 } from 'core/components';
@@ -10,7 +9,7 @@ import { ApplicationEditLayout, Content } from 'core/layouts';
 import { renderIf } from 'core/utils';
 import _ from 'lodash';
 
-const BookletCreateTemplate = function ({ bookletCreateViewStore, t }) {
+const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
     const {
         contentLoading,
         form,

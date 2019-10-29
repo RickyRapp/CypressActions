@@ -306,6 +306,7 @@
         "SCHEDULED_GRANTS": "Scheduled grants",
         "FUND_TRANSFERS": "Fund transfers",
         "BOOKLETS": "Booklets",
+        "BOOKLET_ORDERS": "Booklet orders",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -979,6 +980,73 @@
                 "COUNT_PLACEHOLDER": "Count",
                 "DENOMINATION_LABEL": "Denomination",
                 "DENOMINATION_PLACEHOLDER": "Denomination"
+            }
+        }
+    },
+    "BOOKLET_ORDER": {
+        "LIST": {
+            "TITLE": "Booklet orders",
+            "SELECT_DONOR": "Select donor",
+            "COLUMNS": {
+                "CODE_LABEL": "Code",
+                "DENOMINATION_LABEL": "Denominaiton",
+                "DONOR_NAME_LABEL": "Donor",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status",
+                "CERTIFICATES_LABEL": "Certificates",
+                "CREATED_BY_LABEL": "Created by"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No booklet orders"
+            }
+        },
+        "CREATE": {
+            "BUTTON": {
+                "ADD": "Add new",
+                "REVIEW": "Review"
+            },
+            "TITLE": "Create booklet",
+            "MOST_COMMON_DENOMINATIONS": "Common Denominations:",
+            "TOTAL_WITH_FEE": "Total with fee",
+            "TOTAL": "Total",
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
+            }
+        },
+        "EDIT": {
+            "BUTTON": {
+                "ACTIVE": "Active",
+                "INACTIVE": "Inactive",
+                "CLEAN_CERTIFICATE_STATUS": "Clean",
+                "CANCELED_CERTIFICATE_STATUS": "Canceled",
+                "SAVE_ROW_CHANGES": "Save row",
+                "IS_ACTIVE": "Is active"
+            },
+            "TITLE": "Create booklet",
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
+            }
+        },
+        "REVIEW": {
+            "TITLE": "Assign booklets",
+            "FIELDS": {
+                "BOOKLET_LABEL": "Booklet",
+                "BOOKLET_PLACEHOLDER": "Booklet",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
             }
         }
     }

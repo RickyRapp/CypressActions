@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicDropdown,
     BaasicButton,
     BasicCheckbox
 } from 'core/components';
-import _ from 'lodash';
 
 function BookletEditRowTemplate({
     item,
@@ -58,5 +58,12 @@ function BookletEditRowTemplate({
         </tr>
     );
 }
+
+BookletEditRowTemplate.propTypes = {
+    item: PropTypes.object.isRequired,
+    certificateStatusDropdownStore: PropTypes.object.isRequired,
+    saveRowChanges: PropTypes.func.isRequired,
+    onRowStatusChange: PropTypes.func.isRequired
+};
 
 export default defaultTemplate(BookletEditRowTemplate);

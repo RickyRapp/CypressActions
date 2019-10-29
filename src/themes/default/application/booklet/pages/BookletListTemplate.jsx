@@ -5,7 +5,6 @@ import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/compone
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { SearchFilter } from 'core/components';
 
 const BookletListTemplate = function ({ bookletViewStore }) {
     const {

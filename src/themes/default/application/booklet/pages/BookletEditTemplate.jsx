@@ -113,6 +113,10 @@ function BookletEditTemplate({ bookletEditViewStore }) {
             </PageFooter>
         </ApplicationEditLayout >
     );
+}
+
+BookletEditTemplate.propTypes = {
+    bookletEditViewStore: PropTypes.object.isRequiredk
 };
 
 export default defaultTemplate(BookletEditTemplate);

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import * as _ from 'lodash';
 import { DropDownList, MultiSelect } from '@progress/kendo-react-dropdowns';
 import { defaultTemplate } from 'core/hoc';
+import { isSome } from 'core/utils';
 
 const BaasicDropdownTemplate = function (props) {
     const { store, t, placeholder, disabled, className, warningClassName, ...assignProps } = props;
@@ -13,7 +14,15 @@ const BaasicDropdownTemplate = function (props) {
     }
 
     function onFilter(event) {
-        store.onFilter(event.filter.value);
+        onFilterFn(event);
+    }
+
+    function onFilterFn(e) {
+        if (props.onFilter) {
+            props.onFilter(e.filter.value);
+            return;
+        }
+        store.onFilter(e.filter.value);
     }
 
     function onChangeFn(e) {
@@ -33,6 +42,22 @@ const BaasicDropdownTemplate = function (props) {
         else {
             return value;
         }
+    }
+
+    function getFilterable() {
+        if (isSome(props.filterable)) {
+            return props.filterable;
+        }
+
+        return store.options.filterable;
+    }
+
+    function getDisabled() {
+        if (isSome(props.disabled)) {
+            return props.disabled;
+        }
+
+        return store.options.disabled;
     }
 
     function getDefaultItem() {
@@ -71,8 +96,8 @@ const BaasicDropdownTemplate = function (props) {
             filter={store.filterTerm}
             autoClose={store.options.autoClose}
             dataItemKey={store.options.dataItemKey}
-            filterable={store.options.filterable}
-            disabled={disabled || store.options.disabled}
+            filterable={getFilterable()}
+            disabled={getDisabled()}
             onFilterChange={onFilter}
             onChange={onChange}
             loading={store.loading}

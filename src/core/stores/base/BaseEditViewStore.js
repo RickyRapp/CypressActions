@@ -123,7 +123,6 @@ class BaseEditViewStore extends BaseViewStore {
             }
 
             await this.actions.update({
-                id: this.id,
                 ...resource
             });
 

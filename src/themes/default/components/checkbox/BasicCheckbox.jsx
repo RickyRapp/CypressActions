@@ -23,7 +23,7 @@ const BasicCheckboxTemplate = function ({ id, label, checked, onChange, t, disab
 BasicCheckboxTemplate.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.bool,
+    checked: PropTypes.bool,
     disabled: PropTypes.bool,
     label: PropTypes.string,
     t: PropTypes.func

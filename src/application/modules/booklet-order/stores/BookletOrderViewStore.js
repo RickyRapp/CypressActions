@@ -1,27 +1,27 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
-import { ContributionService } from 'application/contribution/services';
+import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { ContributionListFilter } from 'application/contribution/models';
+import { BookletOrderListFilter } from 'application/booklet-order/models';
 import _ from 'lodash';
 import moment from 'moment';
 
 @applicationContext
-class ContributionViewStore extends BaseListViewStore {
+class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
-        let filter = new ContributionListFilter('dateCreated', 'desc')
+        let filter = new BookletOrderListFilter('code', 'desc')
         filter.donorAccountId = id;
 
         super(rootStore, {
-            name: 'contribution',
-            authorization: 'theDonorsFundContributionSection',
+            name: 'booklet-order',
+            authorization: 'theDonorsFundBookletOrderSection',
             routes: {
                 edit: (id, editId) => {
                     this.rootStore.routerStore.goTo(
-                        'master.app.main.contribution.edit',
+                        'master.app.main.booklet-order.edit',
                         {
                             id: id,
                             editId: editId
@@ -33,7 +33,12 @@ class ContributionViewStore extends BaseListViewStore {
                         this.openSelectDonorModal();
                     }
                     else {
-                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: id });
+                        this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: id });
+                    }
+                },
+                review: (id) => {
+                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
+                        this.rootStore.routerStore.goTo('master.app.main.booklet-order.review', { id: id });
                     }
                 }
             },
@@ -45,36 +50,28 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new ContributionService(rootStore.application.baasic.apiClient);
+                const service = new BookletOrderService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
                             'donorAccount',
                             'donorAccount.coreUser',
                             'donorAccount.companyProfile',
-                            'payerInformation',
-                            'bankAccount',
-                            'paymentType',
-                            'contributionStatus'
+                            'createdByCoreUser',
+                            'bookletOrderStatus'
                         ];
+
                         params.fields = [
                             'id',
                             'donorAccountId',
+                            'dateCreated',
+                            'amount',
+                            'confirmationNumber',
+                            'bookletOrderStatus',
                             'donorAccount',
                             'donorAccount.donorName',
-                            'amount',
-                            'dateCreated',
-                            'confirmationNumber',
-                            'contributionStatus',
-                            'contributionStatus.name',
-                            'contributionStatus.abrv',
-                            'paymentType',
-                            'paymentType.name',
-                            'paymentType.abrv',
-                            'payerInformation',
-                            'payerInformation.name',
-                            'bankAccount',
-                            'bankAccount.accountNumber'
+                            'createdByCoreUser',
+                            'createdByCoreUser.firstName'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -87,41 +84,25 @@ class ContributionViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'donorAccount.donorName',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
                     disableClick: true,
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
-                    key: 'amount',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
-                    }
-                },
-                {
                     key: 'confirmationNumber',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
                 },
                 {
-                    key: 'contributionStatus.name',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
+                    key: 'bookletOrderStatus.name',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.STATUS_LABEL',
                 },
                 {
-                    key: 'paymentType.name',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
-                    format: {
-                        type: 'function',
-                        value: this.renderPaymentType
-                    }
-                },
-                {
-                    key: 'payerInformation.name',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
+                    key: 'createdByCoreUser.firstName',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.CREATED_BY_LABEL'
                 },
                 {
                     key: 'dateCreated',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
@@ -129,34 +110,41 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (contribution) => this.routes.edit(contribution.donorAccountId, contribution.id),
-                onReview: (contributionId) => this.openReviewDonorModal(contributionId),
+                onEdit: (bookletOrder) => this.routes.edit(bookletOrder.donorAccountId, bookletOrder.id),
+                onReview: (bookletOrderId) => this.routes.review(bookletOrderId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
-                onEditRender: (contribution) => {
-                    if (contribution.contributionStatus.abrv === 'pending' || contribution.contributionStatus.abrv === 'in-process') {
+                onEditRender: (bookletOrder) => {
+                    if (bookletOrder.bookletOrderStatus.abrv === 'pending') {
                         if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                         else {
-                            if (contribution.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(contribution.dateCreated).add('minutes', 15);
-                                return moment().isBetween(contribution.dateCreated, dateToEdit);
+                            if (bookletOrder.bookletOrderStatus.abrv === 'pending') {
+                                const dateToEdit = moment(bookletOrder.dateCreated).add('minutes', 15);
+                                return moment().isBetween(bookletOrder.dateCreated, dateToEdit);
                             }
                         }
                     }
                     return false;
                 },
+                onReviewRender: (bookletOrder) => {
+                    if (bookletOrder.bookletOrderStatus.abrv === 'pending') {
+                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
             }
         }));
 
         this.selectDonorModal = new ModalParams({});
-        this.reviewModal = new ModalParams({});
 
         const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
         this.selectDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.SELECT_DONOR',
+            placeholder: 'BOOKLET_ORDER.LIST.SELECT_DONOR',
             initFetch: false,
             filterable: true
         },
@@ -182,7 +170,7 @@ class ContributionViewStore extends BaseListViewStore {
                     return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
                 },
                 onChange: (donorAccountId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId })
+                    this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId })
                 }
             });
     }
@@ -191,29 +179,6 @@ class ContributionViewStore extends BaseListViewStore {
     openSelectDonorModal() {
         this.selectDonorModal.open({ donorAccountId: this.queryUtility.filter.donorAccountId });
     }
-
-    @action.bound
-    openReviewDonorModal(id) {
-        this.reviewModal.open({
-            id: id,
-            onAfterReview: () => { this.reviewModal.close(); this.queryUtility.fetch(); }
-        });
-    }
-
-    @action.bound
-    renderPaymentType = (item) => {
-        if (item.paymentType.abrv === 'ach' || item.paymentType.abrv === 'wire-transfer') {
-            if (item.bankAccount) {
-                if (item.bankAccount.accountNumber.length > 4) {
-                    return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber.substr(item.bankAccount.accountNumber.length - 4)}`;
-                }
-                else {
-                    return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber}`;
-                }
-            }
-        }
-        return item.paymentType.name;
-    }
 }
 
-export default ContributionViewStore;
+export default BookletOrderViewStore;
