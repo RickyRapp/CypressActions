@@ -53,18 +53,14 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.DONOR_ACCOUNTS',
+                order: 3,
                 authorization: 'theDonorsFundAdministrationSection.read',
-                subMenu: [
-                    {
-                        title: 'MENU.DONOR_ACCOUNTS',
-                        order: 1,
-                        route: 'master.app.main.donor-account.list'
-                    }
-                ]
+                route: 'master.app.main.donor-account.list'
             },
             {
                 title: 'MENU.DONOR_ACCOUNT_EDIT',
+                order: 5,
                 route: 'master.app.main.profile',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'profile'

@@ -36,11 +36,12 @@ import { noApplicationRedirectPromise } from 'core/utils';
         menu: [
             {
                 title: 'MENU.ADMINISTRATION',
+                order: 1,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
                         title: 'MENU.ROLES',
-                        order: 4,
+                        order: 2,
                         route: 'master.app.main.role.list'
                     },
                 ]

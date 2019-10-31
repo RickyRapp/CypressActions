@@ -22,15 +22,10 @@ import { DonationList } from 'application/donation/pages';
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.DONATIONS',
                 authorization: 'theDonorsFundAdministrationSection.read',
-                subMenu: [
-                    {
-                        title: 'MENU.DONATIONS',
-                        order: 1,
-                        route: 'master.app.main.donation.list'
-                    }
-                ]
+                order: 6,
+                route: 'master.app.main.donation.list'
             }
         ]
     });

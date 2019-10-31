@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { FormDebug } from 'core/components'
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { BookletOrderReviewRowTemplate } from 'themes/application/booklet-order/components'
-import _ from 'lodash';
 
-const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore, t }) {
+const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
     const {
         form,
         contentLoading,
         denominationTypes,
-        fetchFunc,
-        assignError
+        fetchFunc
     } = bookletOrderReviewViewStore;
 
     return (
@@ -31,14 +28,12 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore, t })
                     })}
                 </div>
             </Content>
-            <FormDebug form={form}></FormDebug>
         </ApplicationEditLayout >
     )
 };
 
 BookletOrderReviewTemplate.propTypes = {
-    bookletOrderReviewViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    bookletOrderReviewViewStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(BookletOrderReviewTemplate);

@@ -40,7 +40,8 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.CONTRIBUTION',
+                order: 4,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
@@ -52,6 +53,7 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
             },
             {
                 title: 'MENU.CONTRIBUTIONS',
+                order: 5,
                 route: 'master.app.main.contribution.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'contribution'

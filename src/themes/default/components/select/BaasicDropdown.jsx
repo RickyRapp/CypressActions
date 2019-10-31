@@ -7,7 +7,7 @@ import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
 
 const BaasicDropdownTemplate = function (props) {
-    const { store, t, placeholder, disabled, className, warningClassName, ...assignProps } = props;
+    const { store, t, placeholder, className, warningClassName, ...assignProps } = props;
 
     function onChange(event) {
         onChangeFn(event);
@@ -119,11 +119,13 @@ const BaasicDropdownTemplate = function (props) {
 BaasicDropdownTemplate.propTypes = {
     store: PropTypes.object.isRequired,
     onChange: PropTypes.func,
+    onFilter: PropTypes.func,
     className: PropTypes.string,
     warningClassName: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.any,
     multi: PropTypes.bool,
+    filterable: PropTypes.bool,
     disabled: PropTypes.bool,
     t: PropTypes.func
 };

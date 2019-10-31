@@ -1,4 +1,4 @@
-import { action, runInAction, observable, computed } from 'mobx';
+import { action } from 'mobx';
 import { BookletOrderReviewForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
@@ -38,7 +38,6 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                                 ...resource
                             });
                         } catch (err) {
-                            console.log(err)
                             //TODO:send status code/type from backend
                             // throw { type: ErrorType.InsufficientFunds, error: err };
                         }

@@ -15,9 +15,10 @@ import { Home } from 'application/dashboard/pages';
         menu: [
             {
                 title: 'MENU.DASHBOARD',
+                order: 10,
                 route: 'master.app.main.dashboard',
                 icon: 'dashboard'
-            },
+            }
         ]
     });
 })();

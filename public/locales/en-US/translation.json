@@ -296,6 +296,10 @@
         "PERMISSIONS": "Permissions",
         "APPLICATION": "Application",
         "ADMINISTRATION": "Administration",
+        "BOOKLET": "Booklet",
+        "SESSION": "Session",
+        "GRANT": "Grant",
+        "CONTRIBUTION": "Contribution",
         "DASHBOARD": "Dashboard",
         "DONOR_ACCOUNTS": "Donors",
         "DONOR_ACCOUNT_EDIT": "Profile",
@@ -307,6 +311,9 @@
         "FUND_TRANSFERS": "Fund transfers",
         "BOOKLETS": "Booklets",
         "BOOKLET_ORDERS": "Booklet orders",
+        "SESSIONS": "Sessions",
+        "SESSION_IN_PROGRESS": "Session in progress",
+        "SCANNER_CONNECTIONS": "Scanner connections",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -1047,6 +1054,107 @@
                 "DENOMINATION_PLACEHOLDER": "Denomination",
                 "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
                 "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
+            }
+        }
+    },
+    "SESSION": {
+        "LIST": {
+            "TITLE": "Sessions",
+            "COLUMNS": {
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status",
+                "AMOUNT_LABEL": "Amount",
+                "CHARITY_NAME_LABEL": "Charity"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No booklet orders"
+            },
+            "IN_PROGRESS": {
+                "TITLE": "Sessions in progress",
+                "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",
+                "SESSION_NOT_FOUND_ERROR": "Session not found for given key.",
+                "COLUMNS": {
+                    "KEY_LABEL": "Key",
+                    "FULL_NAME_LABEL": "Full name",
+                    "PHONE_NUMBER_LABEL": "Phone number",
+                    "EMAIL_LABEL": "Email",
+                    "CHARITY_NAME_LABEL": "Charity name",
+                    "CHARITY_EMAIL_LABEL": "Charity email",
+                    "IS_ACTIVE_LABEL": "Is active",
+                    "TAX_ID_LABEL": "Tax Id",
+                    "SESSION_CERTIFICATES_LABEL": "Certificates"
+                },
+                "BUTTON": {
+                    "SET_INACTIVE": "Deactivate"
+                }
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create session",
+            "STEP1": {
+                "SELECT_LANGUAGE_ENG": "To begin please select a language",
+                "SELECT_LANGUAGE_HEB": "כדי להתחיל בבקשה בחר שפה",
+                "ENG_LANGUAGE": "English",
+                "HEB_LANGUAGE": "עברי"
+            },
+            "STEP2": {
+                "SCANNER_NOT_INITIALIZED_ERROR": "Scanner not initialized.",
+                "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",
+                "SESSION_NOT_FOUND_ERROR": "Session not found for given key.",
+                "BUTTONS": {
+                    "SAVE": "Continue",
+                    "BACK": "Back",
+                    "SEARCH": "Search"
+                },
+                "FIELDS": {
+                    "FULL_NAME_LABEL": "Full name",
+                    "FULL_NAME_PLACEHOLDER": "Full name",
+                    "PHONE_NUMBER_LABEL": "Phone number",
+                    "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                    "EMAIL_LABEL": "Email",
+                    "EMAIL_PLACEHOLDER": "Email",
+                    "CHARITY_NAME_LABEL": "Charity name",
+                    "CHARITY_NAME_PLACEHOLDER": "Charity name",
+                    "TAX_ID_LABEL": "Tax Id",
+                    "TAX_ID_PLACEHOLDER": "Tax Id",
+                    "CHARITY_EMAIL_LABEL": "Charity email",
+                    "CHARITY_EMAIL_PLACEHOLDER": "Charity email",
+                    "DESCRIPTION_LABEL": "Description",
+                    "DESCRIPTION_PLACEHOLDER": "Description",
+                    "KEY_LABEL": "Load existing session",
+                    "KEY_PLACEHOLDER": "Key"
+                }
+            },
+            "STEP3": {
+                "READY_FOR_SCANNING": "Ready for scanning"
+            },
+            "STEP4": {
+                "BUTTONS": {
+                    "FINISH": "Finish"
+                },
+                "SESSION_NUMBER": "Session number",
+                "TOTAL": "Total",
+                "FINISH_MESSAGE": "To complete the session please click the finish button and hand the certificates to the cashier desk. Please make a note of your session number as this can be used for more information should you wish to contact us. That You for using The Donors Fund.",
+                "AUTOCLOSE_MESSAGE": "This page will close in "
+            },
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count"
+            }
+        }
+    },
+    "SCANNER_CONNECTION": {
+        "LIST": {
+            "TITLE": "Scanner connections",
+            "COLUMNS": {
+                "SCANNER_NAME_LABEL": "Scanner",
+                "USER_NAME_LABEL": "Connected user",
+                "IS_ACTIVE_LABEL": "Active connection",
+                "DATE_CREATED_LABEL": "Date connected"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No scanner connections"
             }
         }
     }

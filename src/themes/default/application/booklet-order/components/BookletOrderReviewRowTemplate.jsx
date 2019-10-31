@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { renderIf } from 'core/utils';
 import { BaasicDropdownStore } from 'core/stores';
 import {
     BaasicDropdown
 } from 'core/components';
 import _ from 'lodash';
 
-const BookletOrderReviewRowTemplate = function ({ item, fetchFunc, denominationTypes, assignError, t }) {
+const BookletOrderReviewRowTemplate = function ({ item, fetchFunc, denominationTypes }) {
     const denominationType = _.find(denominationTypes, { id: item.$('denominationTypeId').value });
     const usedBookletIds = _.map(item.$('bookletOrderItemBooklets').value, (params) => { return params.bookletId });
 
@@ -80,7 +79,8 @@ const BookletOrderReviewRowTemplate = function ({ item, fetchFunc, denominationT
 
 BookletOrderReviewRowTemplate.propTypes = {
     item: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    fetchFunc: PropTypes.func.isRequired,
+    denominationTypes: PropTypes.array.isRequired
 };
 
 const listNoDataRender = (element, maxItemSelected) => {

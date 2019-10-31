@@ -40,8 +40,9 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.BOOKLET',
                 authorization: 'theDonorsFundAdministrationSection.read',
+                order: 3,
                 subMenu: [
                     {
                         title: 'MENU.BOOKLETS',
@@ -53,6 +54,7 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
             {
                 title: 'MENU.BOOKLETS',
                 route: 'master.app.main.booklet.list',
+                order: 2,
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'booklet'
             },

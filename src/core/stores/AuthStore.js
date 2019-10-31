@@ -68,13 +68,21 @@ class AuthStore {
     }
 
     initAuthEvents() {
-        document.addEventListener('tokenExpired', () => {
+        // eslint-disable-next-line
+        $(window).on('tokenExpired', () => {
             this.syncToken();
         });
+        // document.addEventListener('tokenExpired', () => {
+        //     this.syncToken();
+        // });
 
-        document.addEventListener('tokenUpdated', async () => {
+        // eslint-disable-next-line
+        $(window).on('tokenUpdated', () => {
             this.syncToken();
         });
+        // document.addEventListener('tokenUpdated', async () => {
+        //     this.syncToken();
+        // });
     }
 }
 

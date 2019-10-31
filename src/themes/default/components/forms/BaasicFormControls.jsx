@@ -5,7 +5,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
 
 const BaasicFormControlsTemplate = function (props) {
-    const { form, onSubmit, controls, t } = props;
+    const { form, onSubmit, controls, label, t } = props;
 
     return (
         <React.Fragment>
@@ -21,7 +21,7 @@ const BaasicFormControlsTemplate = function (props) {
                             ? "synchronize-arrows-1 rotate"
                             : ''
                     }
-                    label={t('FORM_CONTROLS.SAVE_BUTTON')}
+                    label={t(label)}
                 />
             )}
 
@@ -37,11 +37,13 @@ BaasicFormControlsTemplate.propTypes = {
     controls: PropTypes.object,
     validation: PropTypes.object,
     authorization: PropTypes.any,
+    label: PropTypes.string,
     t: PropTypes.any
 };
 
 BaasicFormControlsTemplate.defaultProps = {
-    validation: {}
+    validation: {},
+    label: 'FORM_CONTROLS.SAVE_BUTTON'
 };
 
 export default defaultTemplate(BaasicFormControlsTemplate);

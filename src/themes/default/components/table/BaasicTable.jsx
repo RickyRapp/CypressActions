@@ -16,6 +16,7 @@ import {
 const BaasicTableTemplate = function ({ tableStore, loading, actionsComponent, noRecordsComponent, authorization, t, ...otherProps }) {
     const { isBatchSelect, data, config: { columns, actions, actionsRender, ...otherStoreFields } } = tableStore;
     const isLoading = !_.isNil(loading) ? loading : tableStore.loading;
+
     return (
         <div>
             <Grid

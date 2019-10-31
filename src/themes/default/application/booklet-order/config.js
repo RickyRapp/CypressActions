@@ -49,8 +49,9 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.BOOKLET',
                 authorization: 'theDonorsFundAdministrationSection.read',
+                order: 3,
                 subMenu: [
                     {
                         title: 'MENU.BOOKLET_ORDERS',
@@ -61,6 +62,7 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
             },
             {
                 title: 'MENU.BOOKLET_ORDERS',
+                order: 3,
                 route: 'master.app.main.booklet-order.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'booklet-order'

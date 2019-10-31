@@ -10,7 +10,8 @@ function buildMenu(menuItems, routes, rootStore) {
                 if (!root) {
                     root = {
                         title: moduleItem.title,
-                        subMenu: []
+                        subMenu: [],
+                        order: moduleItem.order
                     };
                     menuTree.push(root);
                 }

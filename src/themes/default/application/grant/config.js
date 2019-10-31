@@ -40,7 +40,8 @@ import { GrantList, GrantCreate, GrantEdit } from 'application/grant/pages';
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.GRANT',
+                order: 7,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {
@@ -52,6 +53,7 @@ import { GrantList, GrantCreate, GrantEdit } from 'application/grant/pages';
             },
             {
                 title: 'MENU.GRANTS',
+                order: 7,
                 route: 'master.app.main.grant.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'grant'

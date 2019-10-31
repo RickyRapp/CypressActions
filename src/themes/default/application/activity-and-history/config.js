@@ -59,6 +59,7 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.TITLE',
                 authorization: 'theDonorsFundAdministrationSection.read',
+                order: 2,
                 icon: 'activity',
                 subMenu: [
                     {

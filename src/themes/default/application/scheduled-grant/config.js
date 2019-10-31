@@ -31,18 +31,20 @@ import { ScheduledGrantList, ScheduledGrantEdit } from 'application/scheduled-gr
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.GRANT',
                 authorization: 'theDonorsFundAdministrationSection.read',
+                order: 7,
                 subMenu: [
                     {
                         title: 'MENU.SCHEDULED_GRANTS',
-                        order: 1,
+                        order: 2,
                         route: 'master.app.main.scheduled-grant.list'
                     }
                 ]
             },
             {
                 title: 'MENU.SCHEDULED_GRANTS',
+                order: 8,
                 route: 'master.app.main.scheduled-grant.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'scheduled-grant'

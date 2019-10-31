@@ -40,15 +40,10 @@ import { CharityList, CharityCreate, CharityEdit } from 'application/charity/pag
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.CHARITIES',
                 authorization: 'theDonorsFundAdministrationSection.read',
-                subMenu: [
-                    {
-                        title: 'MENU.CHARITIES',
-                        order: 2,
-                        route: 'master.app.main.charity.list'
-                    },
-                ]
+                order: 4,
+                route: 'master.app.main.charity.list'
             }
         ]
     });
