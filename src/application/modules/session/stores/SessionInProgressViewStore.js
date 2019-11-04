@@ -15,6 +15,10 @@ class SessionInProgressViewStore extends BaseListViewStore {
             name: 'session',
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
+                continue: (key) =>
+                    this.rootStore.routerStore.goTo(
+                        'master.app.main.session.create', null, { key: key }
+                    )
             },
             queryConfig: {
                 filter: filter,
@@ -37,7 +41,8 @@ class SessionInProgressViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'key',
-                    title: 'SESSION.LIST.IN_PROGRESS.COLUMNS.KEY_LABEL'
+                    title: 'SESSION.LIST.IN_PROGRESS.COLUMNS.KEY_LABEL',
+                    onClick: (item) => this.routes.continue(item.key),
                 },
                 {
                     key: 'fullName',

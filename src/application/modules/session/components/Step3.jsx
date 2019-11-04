@@ -11,6 +11,7 @@ import { Step3Template } from 'themes/application/session/components';
         previousStep: props.previousStep,
         sessionKeyIdentifier: props.sessionKeyIdentifier,
         setSessionKeyIdentifier: props.setSessionKeyIdentifier,
+        handleResponse: props.handleResponse
     }), 'step3ViewStore')
 @observer
 class Step3 extends React.Component {

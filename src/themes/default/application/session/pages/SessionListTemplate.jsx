@@ -5,18 +5,23 @@ import {
     BaasicButton,
     BaasicTable,
     TableFilter,
-    EmptyState
+    BaasicModal,
+    EmptyState,
+    BaasicDropdown
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
-const SessionListTemplate = function ({ sessionViewStore }) {
+const SessionListTemplate = function ({ sessionViewStore, t }) {
     const {
         tableStore,
         routes,
         queryUtility,
-        authorization
+        authorization,
+        selectScannerModal,
+        scannerDropdownStore,
+        setScannerConnection
     } = sessionViewStore;
 
     return (
@@ -34,6 +39,21 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                         />
                     </div>
                 </Content>
+                <BaasicModal modalParams={selectScannerModal}>
+                    <section className='w--400--px'>
+                        <h3 className="u-mar--bottom--med">{t('SESSION.LIST.SELECT_SCANNER')}</h3>
+                        <div className="row">
+                            <div className="form__group col col-lrg-12">
+                                <BaasicDropdown store={scannerDropdownStore} />
+                                <BaasicButton
+                                    className="btn btn--primary"
+                                    label='SESSION.LIST.BUTTON.SKIP_TO_CREATE_PAGE'
+                                    onClick={() => setScannerConnection()}>
+                                </BaasicButton>
+                            </div>
+                        </div>
+                    </section>
+                </BaasicModal>
             </ApplicationListLayout>
         </React.Fragment>
     )

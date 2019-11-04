@@ -34,12 +34,16 @@ class ScannerConnectionViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
+                    key: 'coreUser.firstName',
+                    title: 'SCANNER_CONNECTION.LIST.COLUMNS.USER_NAME_LABEL',
+                },
+                {
                     key: 'scanner.name',
                     title: 'SCANNER_CONNECTION.LIST.COLUMNS.SCANNER_NAME_LABEL'
                 },
                 {
-                    key: 'coreUser.firstName',
-                    title: 'SCANNER_CONNECTION.LIST.COLUMNS.USER_NAME_LABEL',
+                    key: 'connectionId',
+                    title: 'SCANNER_CONNECTION.LIST.COLUMNS.CONNECTION_ID_LABEL'
                 },
                 {
                     key: 'isActive',
@@ -50,7 +54,7 @@ class ScannerConnectionViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'dateCreated',
+                    key: 'dateUpdated',
                     title: 'SCANNER_CONNECTION.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',

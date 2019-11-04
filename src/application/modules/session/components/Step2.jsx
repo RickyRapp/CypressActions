@@ -9,7 +9,8 @@ import { Step2Template } from 'themes/application/session/components';
     {
         nextStep: props.nextStep,
         previousStep: props.previousStep,
-        setSessionKeyIdentifier: props.setSessionKeyIdentifier
+        setSessionKeyIdentifier: props.setSessionKeyIdentifier,
+        handleResponse: props.handleResponse
     }), 'step2ViewStore')
 @observer
 class Step2 extends React.Component {

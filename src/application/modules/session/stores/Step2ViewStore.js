@@ -4,11 +4,6 @@ import { SessionService } from 'application/session/services';
 import { Step2CreateForm } from 'application/session/forms';
 import { applicationContext } from 'core/utils';
 
-const ErrorType = {
-    ScannerNotInitialized: 0,
-    SessionAlreadyActive: 1
-};
-
 @applicationContext
 class Step2ViewStore extends BaseEditViewStore {
     @observable loadingExistingSession = false;
@@ -16,7 +11,7 @@ class Step2ViewStore extends BaseEditViewStore {
     existingSession = null;
     response = null;
 
-    constructor(rootStore, { nextStep, previousStep, setSessionKeyIdentifier }) {
+    constructor(rootStore, { nextStep, previousStep, setSessionKeyIdentifier, handleResponse }) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
@@ -29,32 +24,14 @@ class Step2ViewStore extends BaseEditViewStore {
                         try {
                             this.response = await service.createSessionInformation(resource);
                         } catch (err) {
-                            if (err.data.statusCode === 4000000001) {
-                                throw { type: ErrorType.ScannerNotInitialized, error: err };
-                            }
-                            else if (err.data.statusCode === 4000000002) {
-                                throw { type: ErrorType.SessionAlreadyActive, error: err };
-                            }
-                            else {
-                                throw { error: err };
-                            }
+                            throw { error: err };
                         }
                     }
                 }
             },
             errorActions: {
-                onCreateError: ({ type, error }) => {
-                    switch (type) {
-                        case ErrorType.ScannerNotInitialized:
-                            rootStore.notificationStore.error('SESSION.CREATE.STEP2.SCANNER_NOT_INITIALIZED_ERROR', error);
-                            break;
-                        case ErrorType.SessionAlreadyActive:
-                            rootStore.notificationStore.error('SESSION.CREATE.STEP2.SESSION_ALREADY_ACTIVE_ERROR', error);
-                            break;
-                        default:
-                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
-                            break;
-                    }
+                onCreateError: ({ error }) => {
+                    this.handleResponse(error.data, error);
                 }
             },
             FormClass: Step2CreateForm,
@@ -67,6 +44,7 @@ class Step2ViewStore extends BaseEditViewStore {
         this.service = service;
         this.rootStore = rootStore;
         this.previousStep = previousStep;
+        this.handleResponse = handleResponse;
     }
 
     @action.bound
@@ -82,18 +60,7 @@ class Step2ViewStore extends BaseEditViewStore {
                 this.isValidExisitingSessionKey = true;
             } catch (err) {
                 this.isValidExisitingSessionKey = false;
-                if (err.data.statusCode === 4000000001) {
-                    this.rootStore.notificationStore.error('SESSION.CREATE.STEP2.SCANNER_NOT_INITIALIZED_ERROR', err);
-                }
-                else if (err.data.statusCode === 4000000002) {
-                    this.rootStore.notificationStore.error('SESSION.CREATE.STEP2.SESSION_ALREADY_ACTIVE_ERROR', err);
-                }
-                else if (err.data.statusCode === 4040020000) {
-                    this.rootStore.notificationStore.error('SESSION.CREATE.STEP2.SESSION_NOT_FOUND_ERROR', err);
-                }
-                else {
-                    this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
-                }
+                this.handleResponse(err.data, err);
             }
         }
         else {

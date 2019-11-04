@@ -7,17 +7,13 @@ import { LookupService } from 'common/services';
 import _ from 'lodash';
 import 'signalr';
 
-const ErrorType = {
-    ScannerNotInitialized: 0
-};
-
 @applicationContext
 class Step3ViewStore extends BaseEditViewStore {
     @observable session = null;
     @observable barcode = '';
     @observable denominationTypes = null;
 
-    constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier }) {
+    constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier, handleResponse }) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
@@ -31,12 +27,7 @@ class Step3ViewStore extends BaseEditViewStore {
                             const response = await service.finishSession(resource);
                             setSessionKeyIdentifier(response.data.response);
                         } catch (err) {
-                            if (err.data.statusCode === 4000000001) {
-                                throw { type: ErrorType.ScannerNotInitialized, error: err };
-                            }
-                            else {
-                                throw { error: err };
-                            }
+                            throw { error: err };
                         }
                     },
                     get: async (id) => {
@@ -47,12 +38,8 @@ class Step3ViewStore extends BaseEditViewStore {
                 }
             },
             errorActions: {
-                onUpdateError: ({ type, error }) => {
-                    switch (type) {
-                        default:
-                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE', error);
-                            break;
-                    }
+                onUpdateError: ({ error }) => {
+                    this.handleResponse(error.data, error);
                 }
             },
             FormClass: Step3CreateForm,
@@ -64,6 +51,7 @@ class Step3ViewStore extends BaseEditViewStore {
         this.service = service;
         this.rootStore = rootStore;
         this.previousStep = previousStep;
+        this.handleResponse = handleResponse;
     }
 
     @action.bound
@@ -109,12 +97,7 @@ class Step3ViewStore extends BaseEditViewStore {
             await this.service.setConnectionId({ id: connectionId });
             this.rootStore.notificationStore.success('SESSION.CREATE.STEP3.READY_FOR_SCANNING');
         } catch (err) {
-            if (err.data.statusCode === 4000000001) {
-                this.rootStore.notificationStore.error('SESSION.CREATE.STEP3.SCANNER_NOT_INITIALIZED_ERROR', err);
-            }
-            else {
-                this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
-            }
+            this.handleResponse(err.data, err)
         }
     }
 
@@ -139,11 +122,18 @@ class Step3ViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onAddedNewCertificate(certificate) {
+    async onAddedNewCertificate(response) {
         if (!isSome(this.session.sessionCertificates)) {
             this.session.sessionCertificates = [];
         }
-        this.session.sessionCertificates.push(certificate);
+        debugger
+        if (response.statusCode === 2000000000) {
+            this.session.sessionCertificates.push(response.response);
+            this.rootStore.notificationStore.success('SESSION.STATUS_CODE.CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS')
+        }
+        else {
+            this.handleResponse(response);
+        }
     }
 
     @action.bound

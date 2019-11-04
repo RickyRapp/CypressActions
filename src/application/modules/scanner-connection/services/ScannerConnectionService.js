@@ -6,16 +6,6 @@ class ScannerConnectionService extends BaseService {
         super(apiClient, new ScannerConnectionRouteService());
         this.apiClient = apiClient;
     }
-
-    createSetting(resource) {
-        const url = this.routeService.createSetting();
-        return this.apiClient.post(url, resource);
-    }
-
-    review(resource) {
-        const url = this.routeService.review(resource);
-        return this.apiClient.put(url, resource);
-    }
 }
 
 export default ScannerConnectionService;

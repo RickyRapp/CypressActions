@@ -1060,12 +1060,17 @@
     "SESSION": {
         "LIST": {
             "TITLE": "Sessions",
+            "SELECT_SCANNER": "Select scanner",
             "COLUMNS": {
                 "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
                 "DATE_CREATED_LABEL": "Date created",
                 "STATUS_LABEL": "Status",
                 "AMOUNT_LABEL": "Amount",
                 "CHARITY_NAME_LABEL": "Charity"
+            },
+            "BUTTON": {
+                "GO_TO_CREATE_PAGE": "Proceed without scanner",
+                "SKIP_TO_CREATE_PAGE": "Skip"
             },
             "EMPTY_STATE": {
                 "TITLE": "No booklet orders"
@@ -1099,9 +1104,6 @@
                 "HEB_LANGUAGE": "עברי"
             },
             "STEP2": {
-                "SCANNER_NOT_INITIALIZED_ERROR": "Scanner not initialized.",
-                "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",
-                "SESSION_NOT_FOUND_ERROR": "Session not found for given key.",
                 "BUTTONS": {
                     "SAVE": "Continue",
                     "BACK": "Back",
@@ -1142,6 +1144,19 @@
                 "COUNT_LABEL": "Count",
                 "COUNT_PLACEHOLDER": "Count"
             }
+        },
+        "STATUS_CODE": {
+            "SCANNER_CONNECTION_NOT_INITIALIZED_ERROR": "Scanner not initialized.",
+            "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",
+            "BARCODE_NOT_FOUND_ERROR": "Barcode not found.",
+            "CERTIFICATE_NOT_CLEAN_ERROR": "Certificate is not in status for scanning.",
+            "BOOKLET_NOT_ASSIGNED_ERROR": "Booklet is not assigned.",
+            "CERTIFICATE_NOT_ACTIVE_ERROR": "Certificate is not active.",
+            "CHARITY_NOT_ACTIVE_ERROR": "Charity is not active.",
+            "CERTIFICATE_ALREADY_USED_IN_OPEN_SESSION_ERROR": "Certificate is already used in other active session.",
+            "CERTIFICATE_ALREADY_SCANNED_ERROR": "Certificate is already scanned.",
+            "INSUFFICIENT_FUNDS_ERROR": "Insufficient funds.",
+            "CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS": "Certificate added."
         }
     },
     "SCANNER_CONNECTION": {
@@ -1151,7 +1166,8 @@
                 "SCANNER_NAME_LABEL": "Scanner",
                 "USER_NAME_LABEL": "Connected user",
                 "IS_ACTIVE_LABEL": "Active connection",
-                "DATE_CREATED_LABEL": "Date connected"
+                "DATE_CREATED_LABEL": "Date connected",
+                "CONNECTION_ID_LABEL": "Connection Id"
             },
             "EMPTY_STATE": {
                 "TITLE": "No scanner connections"

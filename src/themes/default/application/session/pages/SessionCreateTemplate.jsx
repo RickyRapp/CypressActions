@@ -12,7 +12,8 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         nextStep,
         previousStep,
         setSessionKeyIdentifier,
-        sessionKeyIdentifier
+        sessionKeyIdentifier,
+        handleResponse
     } = sessionCreateViewStore;
 
     return (
@@ -35,6 +36,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         nextStep={nextStep}
                         previousStep={previousStep}
                         setSessionKeyIdentifier={setSessionKeyIdentifier}
+                        handleResponse={handleResponse}
                     />
                 </div>}
             {currentStep === 3 &&
@@ -43,6 +45,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                     previousStep={previousStep}
                     sessionKeyIdentifier={sessionKeyIdentifier}
                     setSessionKeyIdentifier={setSessionKeyIdentifier}
+                    handleResponse={handleResponse}
                 />}
             {currentStep === 4 &&
                 <Step4

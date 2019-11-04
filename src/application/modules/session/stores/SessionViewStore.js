@@ -1,12 +1,16 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { action, runInAction } from 'mobx';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { SessionService } from 'application/session/services';
 import { ScannerConnectionService } from 'application/scanner-connection/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, isSome } from 'core/utils';
 import { SessionListFilter } from 'application/session/models';
+import { ModalParams } from 'core/models';
+import { LookupService } from 'common/services';
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
+    scanners = null;
+
     constructor(rootStore) {
         let filter = new SessionListFilter('dateCreated', 'desc')
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -18,10 +22,11 @@ class SessionViewStore extends BaseListViewStore {
                 create: async () => {
                     const response = await this.checkScannerConnection();
                     if (response) {
-                        this.rootStore.routerStore.goTo('master.app.main.session.create');
+                        this.goToCreatePage();
                     }
                     else {
-                        rootStore.notificationStore.error('SESSION.CREATE.STEP2.SCANNER_NOT_INITIALIZED_ERROR');
+                        this.openSelectScanner();
+                        // rootStore.notificationStore.error('SESSION.CREATE.STEP2.SCANNER_NOT_INITIALIZED_ERROR');
                     }
                 }
             },
@@ -90,6 +95,24 @@ class SessionViewStore extends BaseListViewStore {
         this.service = service;
         this.rootStore = rootStore;
         this.scannerConnectionService = new ScannerConnectionService(rootStore.application.baasic.apiClient);
+        this.scannerDropdownStore = new BaasicDropdownStore(null, {
+            onChange: async (scannerId) => {
+                const scanner = this.scannerDropdownStore.value;
+                await this.setScannerConnection(scanner.code);
+            }
+        })
+        this.fetchScanners();
+
+        this.selectScannerModal = new ModalParams({});
+    }
+
+    @action.bound
+    async setScannerConnection(scannerCode) {
+        const params = {
+            code: scannerCode
+        }
+        await this.scannerConnectionService.create(params);
+        this.goToCreatePage();
     }
 
     @action.bound
@@ -99,7 +122,31 @@ class SessionViewStore extends BaseListViewStore {
             coreUserId: this.rootStore.userStore.user.id
         }
         const response = await this.scannerConnectionService.find(params);
-        return response.data.item.length === 1;
+        if (response.data.item.length === 1) {
+            return isSome(response.data.item.scannerId);
+        }
+        return false;
+    }
+
+    @action.bound
+    async fetchScanners() {
+        this.scannerDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'scanner');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.scannerDropdownStore.setItems(response.data);
+            this.scannerDropdownStore.setLoading(false);
+        });
+    }
+
+    @action.bound
+    goToCreatePage() {
+        this.rootStore.routerStore.goTo('master.app.main.session.create');
+    }
+
+    @action.bound
+    openSelectScanner() {
+        this.selectScannerModal.open({ id: 'jajaj' });
     }
 }
 
