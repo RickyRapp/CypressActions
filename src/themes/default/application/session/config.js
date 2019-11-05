@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { SessionList, SessionCreate, SessionInProgressList } from 'application/session/pages';
+import { SessionList, SessionCreate, SessionInProgressList, SessionEdit } from 'application/session/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -33,6 +33,15 @@ import { SessionList, SessionCreate, SessionInProgressList } from 'application/s
                         authorization: 'theDonorsFundAdministrationSection.create',
                         data: {
                             title: "SESSION.CREATE.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.session.edit',
+                        pattern: 'edit/:id',
+                        component: SessionEdit,
+                        authorization: 'theDonorsFundAdministrationSection.edit',
+                        data: {
+                            title: "SESSION.EDIT.TITLE"
                         }
                     }
                 ]

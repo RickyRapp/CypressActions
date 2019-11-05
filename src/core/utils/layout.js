@@ -1,9 +1,9 @@
 import React from 'react';
-import { 
-    PageHeader, 
-    PageFooter, 
+import {
+    PageHeader,
+    PageFooter,
     PageNavigation,
-    PageContentHeader, 
+    PageContentHeader,
     PageContentFooter,
     PageContentSidebar
 } from 'core/layouts';

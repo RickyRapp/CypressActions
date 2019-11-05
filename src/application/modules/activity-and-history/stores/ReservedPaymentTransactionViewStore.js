@@ -70,7 +70,8 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-            }
+            },
+            disablePaging: true
         }));
     }
 }

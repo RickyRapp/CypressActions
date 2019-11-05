@@ -28,6 +28,12 @@ class SessionViewStore extends BaseListViewStore {
                         this.openSelectScanner();
                         // rootStore.notificationStore.error('SESSION.CREATE.STEP2.SCANNER_NOT_INITIALIZED_ERROR');
                     }
+                },
+                edit: async (id) => {
+                    rootStore.routerStore.goTo('master.app.main.session.edit',
+                        {
+                            id: id
+                        });
                 }
             },
             queryConfig: {
@@ -39,6 +45,8 @@ class SessionViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'sessionStatus',
+                            'donation',
+                            'donation.charity',
                             'sessionCertificates',
                             'sessionCertificates.certificate',
                             'sessionCertificates.certificate.booklet',
@@ -47,6 +55,15 @@ class SessionViewStore extends BaseListViewStore {
                             'sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
                             'sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder',
                         ];
+                        params.fields = [
+                            'id',
+                            'confirmationNumber',
+                            'donation',
+                            'donation.charity',
+                            'amount',
+                            'sessionStatus',
+                            'dateCreated',
+                        ]
                         const response = await service.find(params);
                         return response.data;
                     }
@@ -86,9 +103,13 @@ class SessionViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
+                onEdit: (session) => this.routes.edit(session.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
+                onEditRender: (session) => {
+                    return session.sessioStatus.abrv === pending;
+                },
             }
         }));
 
@@ -146,7 +167,7 @@ class SessionViewStore extends BaseListViewStore {
 
     @action.bound
     openSelectScanner() {
-        this.selectScannerModal.open({ id: 'jajaj' });
+        this.selectScannerModal.open();
     }
 }
 

@@ -16,7 +16,7 @@ BaasicInputTemplate.propTypes = {
     showLabel: PropTypes.bool,
     label: PropTypes.string,
     type: PropTypes.string,
-    value: PropTypes.any.required,
+    value: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string,
     placeholder: PropTypes.string,

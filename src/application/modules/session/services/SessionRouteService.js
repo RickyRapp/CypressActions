@@ -48,6 +48,10 @@ class SessionRouteService extends BaseRouteService {
     finishSession(resource) {
         return super.create(this.base + '/finish/{key}', resource);
     }
+
+    removeCertificate() {
+        return super.create(this.base + '/remove-certificate');
+    }
 }
 
 export default SessionRouteService;

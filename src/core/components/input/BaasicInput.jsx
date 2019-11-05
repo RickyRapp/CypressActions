@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {observer} from 'mobx-react';
-import {BaasicInputTemplate} from "themes/components";
+import { observer } from 'mobx-react';
+import { BaasicInputTemplate } from "themes/components";
 
 @observer
 class BaasicInput extends Component {

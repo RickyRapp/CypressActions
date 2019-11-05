@@ -5,7 +5,7 @@ import { GrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 
 @applicationContext
-class GranteEditViewStore extends GrantBaseViewStore {
+class GrantEditViewStore extends GrantBaseViewStore {
     constructor(rootStore) {
         const service = new GrantService(rootStore.application.baasic.apiClient);
         const editId = rootStore.routerStore.routerState.params.editId;
@@ -89,4 +89,4 @@ class GranteEditViewStore extends GrantBaseViewStore {
     }
 }
 
-export default GranteEditViewStore;
+export default GrantEditViewStore;

@@ -38,7 +38,6 @@ class SessionViewStore extends BaseViewStore {
 
     @action.bound
     handleResponse(data, err) {
-        debugger
         if (data.statusCode === 4000000001) {
             this.rootStore.notificationStore.error('SESSION.STATUS_CODE.SCANNER_CONNECTION_NOT_INITIALIZED_ERROR', err);
         }

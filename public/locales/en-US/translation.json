@@ -1145,6 +1145,43 @@
                 "COUNT_PLACEHOLDER": "Count"
             }
         },
+        "EDIT": {
+            "REMOVE_SESSION_CERTIFICATE": "Remove certificate",
+            "REMOVE_PREMIUM_SESSION_CERTIFICATE": "Certificate is from Premium account",
+            "REMOVE_BASIC_SESSION_CERTIFICATE": "Certificate is from Basic account",
+            "MAKE_REFUND": "Refund?",
+            "MAKE_REFUND_FEE": "Refund fee?",
+            "PREMIUM_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Session Certificate Fee",
+            "CERTIFICATE_DETAILS": "Update certificate status if necessary",
+            "TOTAL_REFUND": "Total refund:",
+            "TOTAL_REFUND_CERTIFICATE": "Refund certificate:",
+            "TOTAL_REFUND_FEE": "Refund fee:",
+            "FIELDS": {
+                "FULL_NAME_LABEL": "Full name",
+                "FULL_NAME_PLACEHOLDER": "Full name",
+                "CHARTIY_LABEL": "Charity",
+                "CHARTIY_PLACEHOLDER": "Charity",
+                "PHONE_NUMBER_LABEL": "Phone number",
+                "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "EMAIL_LABEL": "Email",
+                "EMAIL_PLACEHOLDER": "Email",
+                "CHARITY_NAME_LABEL": "Charity name",
+                "CHARITY_NAME_PLACEHOLDER": "Charity name",
+                "TAX_ID_LABEL": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "CHARITY_EMAIL_LABEL": "Charity email",
+                "CHARITY_EMAIL_PLACEHOLDER": "Charity email",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "CERTIFICATE_NOTE_LABEL": "Note",
+                "CERTIFICATE_NOTE_PLACEHOLDER": "Note",
+                "CERTIFICATE_STATUS_LABEL": "Status",
+                "IS_ACTIVE_LABEL": "Is active"
+            },
+            "BUTTON": {
+                "REMOVE_SESSION_CERTIFICATE": "Remove"
+            }
+        },
         "STATUS_CODE": {
             "SCANNER_CONNECTION_NOT_INITIALIZED_ERROR": "Scanner not initialized.",
             "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",

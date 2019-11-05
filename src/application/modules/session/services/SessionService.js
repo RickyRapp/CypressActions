@@ -49,6 +49,11 @@ class SessionService extends BaseService {
         return response || null;
     }
 
+    async removeCertificate(resource) {
+        var url = this.routeService.removeCertificate();
+        const response = await this.apiClient.post(url, resource);
+        return response || null;
+    }
 }
 
 export default SessionService;

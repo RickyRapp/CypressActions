@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {BaasicFormControls, BaasicButton, EditFormContent} from 'core/components';
-import {Page, PageFooter} from 'core/layouts';
-import {defaultTemplate} from 'core/hoc';
-import {getPageObject} from 'core/utils';
+import { BaasicFormControls, BaasicButton, EditFormContent } from 'core/components';
+import { Page, PageFooter } from 'core/layouts';
+import { defaultTemplate } from 'core/hoc';
+import { getPageObject } from 'core/utils';
 
 function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loading }) {
     const {
@@ -13,13 +13,14 @@ function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loadi
         loaderStore
     } = store;
     const { header, footer, content } = getPageObject(children);
+
     return (
         <Page loading={!_.isNil(loading) ? loading : loaderStore.loading} >
             {header}
             {content.header}
             {content.sidebar}
             <EditFormContent form={form}>
-                    {content.children}
+                {content.children}
             </EditFormContent>
             {content.footer}
             {renderEditLayoutFooterContent({
@@ -40,7 +41,7 @@ function renderEditLayoutFooterContent({ footer, form, visible, goBack, t }) {
             : (
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit}/>
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                         <BaasicButton
                             className='btn btn--base btn--ghost'
                             label={t('EDIT_FORM_LAYOUT.CANCEL')}
