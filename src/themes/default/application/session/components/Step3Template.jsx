@@ -4,18 +4,22 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicFormControls,
     EditFormContent,
-    BaasicButton
+    BaasicButton,
+    BaasicModal,
+    BaasicInput
 } from 'core/components';
+import { BlankCertificateModal } from 'themes/application/session/components';
 import _ from 'lodash';
 
-function Step3Template({ step3ViewStore }) {
+function Step3Template({ step3ViewStore, t }) {
     const {
         form,
         session,
         previousStep,
         barcode,
         addCertificate,
-        denominationTypes
+        denominationTypes,
+        blankCertificateModal
     } = step3ViewStore;
 
     return (
@@ -29,16 +33,16 @@ function Step3Template({ step3ViewStore }) {
                                 <div className="row">
                                     <div className="form__group col col-lrg-3">
                                         Certificate Number
-                </div>
+                                    </div>
                                     <div className="form__group col col-lrg-3">
                                         Barcode
-                </div>
+                                    </div>
                                     <div className="form__group col col-lrg-3">
                                         Denomination
-                </div>
+                                    </div>
                                     <div className="form__group col col-lrg-3">
                                         Amount
-                </div>
+                                    </div>
                                 </div>
                                 {session && session.sessionCertificates && _.map(session.sessionCertificates, function (item) {
                                     return (
@@ -50,23 +54,24 @@ function Step3Template({ step3ViewStore }) {
                                                 {item.barcode}
                                             </div>
                                             <div className="form__group col col-lrg-3">
-                                                {denominationTypes && _.find(denominationTypes, { id: item.denominationId }).name}
+                                                {`$${item.certificateValue}`}
                                             </div>
                                             <div className="form__group col col-lrg-3">
-                                                {item.deductionCertificateAmount}
+                                                ${item.certificateValue - item.deductionCertificateAmount}
                                             </div>
                                         </div>
                                     )
                                 })}
                             </div>
                             <div className="row">
-                                <div className="form__group col col-lrg-3">
-                                    <input
+                                <div className="form__group col col-lrg-4">
+                                    <BaasicInput
                                         className={barcode ? "input input--med input--text input--disabled" : "input input--med input--text"}
                                         disabled={barcode !== ''}
                                         value={barcode}
                                         onChange={addCertificate}
-                                    />
+                                    >
+                                    </BaasicInput>
                                 </div>
                             </div>
                             {renderEditLayoutFooterContent({
@@ -74,6 +79,9 @@ function Step3Template({ step3ViewStore }) {
                                 previousStep,
                             })}
                         </EditFormContent>
+                        <BaasicModal modalParams={blankCertificateModal} showClose={false}>
+                            <BlankCertificateModal />
+                        </BaasicModal>
                     </div>
                 </div>
                 <div className="form__group col col-lrg-6">

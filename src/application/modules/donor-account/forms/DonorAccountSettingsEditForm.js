@@ -11,23 +11,25 @@ export const donorAccountSettingsFormProperties = {
             }
         },
         {
-            name: 'certificateDeduction',
+            name: 'certificateDeductionPercentage',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.CERTIFICATE_DEDUCTION_LABEL',
-            rules: 'required|numeric|min:0|max:100',
+            rules: 'required|numeric|min:0|max:1',
             extra: {
-                type: 'c2'
+                type: 'p2',
+                step: 0.001
             }
         },
         {
-            name: 'certificateFee',
+            name: 'certificateFeePercentage',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.CERTIFICATE_FEE_LABEL',
-            rules: 'required|numeric|min:0|max:100',
+            rules: 'required|numeric|min:0|max:1',
             extra: {
-                type: 'c2'
+                type: 'p2',
+                step: 0.001
             }
         },
         {
-            name: 'contributionMinimumAdditional',
+            name: 'contributionMinimumAdditionalAmount',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.CONTRIBUTION_MINIMUM_ADDITIONAL_LABEL',
             rules: 'required|numeric|min:0',
             extra: {
@@ -35,7 +37,7 @@ export const donorAccountSettingsFormProperties = {
             }
         },
         {
-            name: 'contributionMinimumInitial',
+            name: 'contributionMinimumInitialAmount',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.CONTRIBUTION_MINIMUM_INITIAL_LABEL',
             rules: 'required|numeric|min:0',
             extra: {
@@ -45,17 +47,19 @@ export const donorAccountSettingsFormProperties = {
         {
             name: 'extraBookletPercentage',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.EXTRA_BOOKLET_PERCENTAGE_LABEL',
-            rules: 'numeric|min:0|max:1000',
+            rules: 'numeric|min:0|max:10',
             extra: {
-                type: 'c2'
+                type: 'p2',
+                step: 0.001
             }
         },
         {
-            name: 'grantFee',
+            name: 'grantFeePercentage',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.GRANT_FEE_LABEL_LABEL',
-            rules: 'required|numeric|min:0|max:100',
+            rules: 'required|numeric|min:0|max:1',
             extra: {
-                type: 'c2'
+                type: 'p2',
+                step: 0.001
             }
         },
         {

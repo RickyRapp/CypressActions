@@ -44,6 +44,15 @@ class DonationViewStore extends BaseListViewStore {
                             'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
                             'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder'
                         ];
+                        params.fields = [
+                            'id',
+                            'charity',
+                            'charity.name',
+                            'amount',
+                            'donationStatus',
+                            'donationType',
+                            'dateCreated'
+                        ]
                         const response = await service.find(params);
                         return response.data;
                     }

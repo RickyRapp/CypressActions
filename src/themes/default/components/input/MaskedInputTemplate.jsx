@@ -1,47 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { MaskedTextBox } from '@progress/kendo-react-inputs';
 
-const BaasicMaskedInputTemplate = function (props) {
-    const { t, value, onChange, type, showLabel, placeholder, name, label, className, labelClassName, disabled, mask } = props;
+import { MaskedTextBox } from '@progress/kendo-react-inputs';
+import '@progress/kendo-react-intl'
+
+const MaskedInputTemplate = defaultTemplate((props) => {
+    const { t, value, onChange, mask, label, required, className, disabled, name } = props;
+    const showLabel = props.showLabel === undefined ? true : props.showLabel;
+
+    const requiredMark = required ? <span>*</span> : null;
+    const handleFocus = (event) => { event.target.select(); }
+
     return (
-        <div>
-            {showLabel && <div className={labelClassName}>{t(label)}</div>}
+        <div onFocus={handleFocus}>
+            {showLabel && <div className='form__group__label'>{t(label)}{requiredMark}</div>}
             <MaskedTextBox
-                type={type}
                 className={className}
-                placeholder={t(placeholder)}
                 name={name}
-                disabled={disabled}
-                value={value}
-                onChange={onChange}
                 mask={mask}
+                disabled={disabled}
+                onChange={onChange}
+                value={value}
             />
         </div>
     )
-};
+});
 
-BaasicMaskedInputTemplate.propTypes = {
+MaskedInputTemplate.propTypes = {
     showLabel: PropTypes.bool,
     label: PropTypes.string,
-    type: PropTypes.string,
-    value: PropTypes.any.required,
+    value: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
+    mask: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
     labelClassName: PropTypes.string,
     className: PropTypes.string,
     disabled: PropTypes.bool,
-    t: PropTypes.func,
-    mask: PropTypes.string.isRequired
+    t: PropTypes.func
 };
 
-BaasicMaskedInputTemplate.defaultProps = {
+MaskedInputTemplate.defaultProps = {
     type: 'text',
     showLabel: true,
     labelClassName: 'form__group__label',
     className: 'input input--med input--text'
 };
 
-export default defaultTemplate(BaasicMaskedInputTemplate);
+export default MaskedInputTemplate;

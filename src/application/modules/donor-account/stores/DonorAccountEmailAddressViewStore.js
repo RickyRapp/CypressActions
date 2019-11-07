@@ -55,7 +55,7 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
                 {
                     key: 'email',
                     title: 'EMAIL_ADDRESS.LIST.COLUMNS.EMAIL_LABEL',
-                    onClick: (emailAddress) => this.routes.edit(emailAddress.id),
+                    onClick: (emailAddress) => this.openEmailAddressModal(emailAddress),
                     authorization: this.authorization.update
                 },
                 {

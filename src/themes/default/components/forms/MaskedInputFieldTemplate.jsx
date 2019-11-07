@@ -1,32 +1,24 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 
-import { NumericInput } from 'core/components';
+import { MaskedInput } from 'core/components';
 import { renderIf, isSome } from 'core/utils';
 import '@progress/kendo-react-intl'
 
-const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange }) => {
+const MaskedInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange }) => {
     const required = field.rules && field.rules.indexOf('required') !== -1;
-    const maxValue = field.rules && field.rules.indexOf('max') !== -1 ? parseInt((/max:(\d+)/).exec(field.rules)[1]) : undefined;
-    const minValue = field.rules && field.rules.indexOf('min') !== -1 ? parseInt((/min:(\d+)/).exec(field.rules)[1]) : undefined;
 
-    let type = 'n2';
-    if (field.type == 'integer')
-        type = 'n0';
-
-    let step = 1;
+    let mask = '';
     if (field.extra) {
-        if (field.extra.type) {
-            type = field.extra.type;
-        }
-        if (field.extra.step) {
-            step = field.extra.step;
+        if (field.extra.mask) {
+            mask = field.extra.mask;
         }
     }
 
     const value = field.value === '' ? null : field.value;
 
     const handleOnChange = (event) => {
+        console.log(event)
         field.onChange(event);
 
         if (onChange) {
@@ -36,15 +28,12 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
 
     return (
         <React.Fragment>
-            <NumericInput
+            <MaskedInput
                 className={"input--numeric " + (field.localizedError ? "input--warning" : null)}
                 required={required}
                 showLabel={showLabel}
                 label={field.label}
-                max={maxValue}
-                min={minValue}
-                format={type}
-                step={step}
+                mask={mask}
                 disabled={disabled || field.disabled}
                 onChange={handleOnChange}
                 defaultValue={null}
@@ -56,4 +45,4 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
     )
 });
 
-export default NumericInputFieldTemplate;
+export default MaskedInputFieldTemplate;

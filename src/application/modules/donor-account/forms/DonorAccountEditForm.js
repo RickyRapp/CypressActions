@@ -35,7 +35,7 @@ export default class DonorAccountEditForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'blankBookletMax',
+                    name: 'blankBookletMaxAmount',
                     label: 'DONOR_ACCOUNT.EDIT.BLANK_BOOKLET_MAX_LABEL',
                     rules: 'required|numeric|min:0',
                     extra: {

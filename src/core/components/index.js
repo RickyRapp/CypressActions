@@ -25,6 +25,8 @@ export { default as SearchFilter } from './SearchFilter';
 
 export { default as BasicInput } from './forms/BasicInput';
 export { default as NumericInputField } from './forms/NumericInputField';
+export { default as MaskedInputField } from './forms/MaskedInputField';
+export { default as NumberFormatInputField } from './forms/NumberFormatInputField';
 export { default as BasicQueryInput } from './forms/BasicQueryInput';
 export { default as BasicTextArea } from './forms/BasicTextArea';
 export { default as BasicRadio } from './forms/BasicRadio';
@@ -34,6 +36,8 @@ export { default as RowInput } from './forms/RowInput';
 
 export { default as BaasicInput } from './input/BaasicInput';
 export { default as NumericInput } from './input/NumericInput';
+export { default as MaskedInput } from './input/MaskedInput';
+export { default as NumberFormatInput } from './input/NumberFormatInput';
 export { default as BaasicConfirmModal } from './dialog/BaasicConfirmModal';
 export { default as BaasicModal } from './dialog/BaasicModal';
 export { default as YesNoView } from './dialog/YesNoView';
@@ -95,10 +99,7 @@ export { default as Date } from './formatters/Date';
 export { default as LanguageMetadata } from './formatters/LanguageMetadata';
 export { default as FormatterResolver } from './formatters/FormatterResolver';
 export { default as Address } from './formatters/Address';
-export { default as PhoneNumber } from './formatters/PhoneNumber';
 
 export { default as TabContent } from './content/TabContent';
-
-export { default as BaasicMaskedInput } from './masked-input/BaasicMaskedInput';
 
 export * from './empty-state';

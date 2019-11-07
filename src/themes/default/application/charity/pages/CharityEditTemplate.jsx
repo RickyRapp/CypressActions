@@ -5,13 +5,15 @@ import {
     BasicInput,
     BaasicFieldDropdown,
     BaasicFormControls,
-    EditFormContent
+    EditFormContent,
+    NumberFormatInputField
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
     CharityAddressListTable,
     CharityBankAccountEdit
 } from 'application/charity/components';
+import NumberFormat from 'react-number-format';
 
 const CharityEditTemplate = function ({ charityEditViewStore }) {
     const {
@@ -38,7 +40,9 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                                         <div>
                                             <label className="form__group__label">Tax Id</label>
                                             {item &&
-                                                <span className={"input input--med input--text input--disabled"}>{item.taxId}</span>}
+                                                <span className={"input input--med input--text input--disabled"}>
+                                                    <NumberFormat format="##-########" displayType="text" value={item.taxId} />
+                                                </span>}
                                         </div>
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
@@ -62,7 +66,7 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                                         <BasicInput field={form.$('contactInformation.emailAddress.email')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <BasicInput field={form.$('contactInformation.phoneNumber.number')} />
+                                        <NumberFormatInputField field={form.$('contactInformation.phoneNumber.number')} />
                                     </div>
                                 </div>
                             </div>

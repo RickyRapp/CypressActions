@@ -8,7 +8,7 @@ import {
     BaasicDropdown
 } from 'core/components'
 
-const RemoveSessionCertificateDialog = function ({ modalParams, t, makeRefund, makeRefundFee }) {
+const RemoveSessionCertificateModal = function ({ modalParams, t, makeRefund, makeRefundFee }) {
     const {
         sessionCertificate,
         certificateStatusDropdownStore,
@@ -19,10 +19,12 @@ const RemoveSessionCertificateDialog = function ({ modalParams, t, makeRefund, m
 
     const bookletOrder = sessionCertificate.certificate.booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder;
 
+    const denominationType = sessionCertificate.certificate.booklet.denominationType;
+
     let total = 0;
     let totalFee = 0;
     if (makeRefund) {
-        total = sessionCertificate.certificate.booklet.denominationType.value;
+        total = denominationType.value;
         if (makeRefundFee) {
             totalFee = total * bookletOrder.basicFeeCharge;
         }
@@ -32,56 +34,56 @@ const RemoveSessionCertificateDialog = function ({ modalParams, t, makeRefund, m
 
     return (
         <section className='w--400--px'>
-            <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.REMOVE_SESSION_CERTIFICATE')}</h3>
+            <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.LIST.REMOVE_SESSION_CERTIFICATE')}</h3>
             <div className="row">
                 {bookletOrder.accountType.abrv === 'premium' &&
                     <React.Fragment>
                         <div className="form__group col col-lrg-12">
-                            <h5>{t('SESSION.EDIT.REMOVE_PREMIUM_SESSION_CERTIFICATE')}</h5>
+                            <h5>{t('SESSION.EDIT.LIST.REMOVE_PREMIUM_SESSION_CERTIFICATE')}</h5>
                         </div>
                         <div className="form__group col col-lrg-12">
-                            {t('SESSION.EDIT.PREMIUM_REFUND_MESSAGE')}
+                            {t('SESSION.EDIT.LIST.PREMIUM_REFUND_MESSAGE')}
                         </div>
                         <div className="form__group col col-lrg-12">
                             <ul>
-                                <li>{t('SESSION.EDIT.TOTAL_REFUND_CERTIFICATE')} ${sessionCertificate.certificate.booklet.denominationType.value}</li>
-                                <li>{t('SESSION.EDIT.TOTAL_REFUND_FEE')} ${sessionCertificate.certificate.booklet.denominationType.value * sessionCertificate.premiumFeeCharge}</li>
+                                <li>{t('SESSION.EDIT.LIST.TOTAL_REFUND_CERTIFICATE')} ${denominationType.abrv === 'blank' ? sessionCertificate.blankCertificateValue : denominationType.value}</li>
+                                <li>{t('SESSION.EDIT.LIST.TOTAL_REFUND_FEE')} ${(denominationType.abrv === 'blank' ? sessionCertificate.blankCertificateValue : denominationType.value) * sessionCertificate.premiumFeeCharge}</li>
                             </ul>
                         </div>
                     </React.Fragment>}
                 {bookletOrder.accountType.abrv === 'basic' &&
                     <React.Fragment>
                         <div className="form__group col col-lrg-12">
-                            <h5>{t('SESSION.EDIT.REMOVE_BASIC_SESSION_CERTIFICATE')}</h5>
+                            <h5>{t('SESSION.EDIT.LIST.REMOVE_BASIC_SESSION_CERTIFICATE')}</h5>
                         </div>
                         <div className="form__group col col-lrg-3">
                             <BasicCheckbox
-                                id='SESSION.EDIT.MAKE_REFUND'
+                                id='SESSION.EDIT.LIST.MAKE_REFUND'
                                 checked={makeRefund}
                                 onChange={(event) => onMakeRefundChange(event.target.checked)}
-                                label='SESSION.EDIT.MAKE_REFUND'
+                                label='SESSION.EDIT.LIST.MAKE_REFUND'
                             />
                         </div>
                         {makeRefund &&
                             <React.Fragment>
                                 <div className="form__group col col-lrg-4">
                                     <BasicCheckbox
-                                        id='SESSION.EDIT.MAKE_REFUND_FEE'
+                                        id='SESSION.EDIT.LIST.MAKE_REFUND_FEE'
                                         checked={makeRefundFee}
                                         onChange={(event) => onMakeRefundFeeChange(event.target.checked)}
-                                        label='SESSION.EDIT.MAKE_REFUND_FEE'
+                                        label='SESSION.EDIT.LIST.MAKE_REFUND_FEE'
                                     />
                                 </div>
                                 <div className="form__group col col-lrg-5">
-                                    {t('SESSION.EDIT.TOTAL_REFUND')} ${total + totalFee}
+                                    {t('SESSION.EDIT.LIST.TOTAL_REFUND')} ${total + totalFee}
                                 </div>
                             </React.Fragment>}
                     </React.Fragment>}
             </div>
-            <h5 className="u-mar--top--med">{t('SESSION.EDIT.CERTIFICATE_DETAILS')}</h5>
+            <h5 className="u-mar--top--med">{t('SESSION.EDIT.LIST.CERTIFICATE_DETAILS')}</h5>
             <div className="row">
                 <div className="form__group col col-lrg-12">
-                    <div className='form__group__label'>{t('SESSION.EDIT.FIELDS.CERTIFICATE_STATUS_LABEL')}<span>*</span></div>
+                    <div className='form__group__label'>{t('SESSION.EDIT.LIST.FIELDS.CERTIFICATE_STATUS_LABEL')}<span>*</span></div>
                     <BaasicDropdown
                         store={certificateStatusDropdownStore}
                         onChange={(event) => {
@@ -93,8 +95,8 @@ const RemoveSessionCertificateDialog = function ({ modalParams, t, makeRefund, m
                     <BaasicInput
                         value={sessionCertificate.certificate.note}
                         onChange={(event) => sessionCertificate.certificate.note = event.target.value}
-                        label='SESSION.EDIT.FIELDS.CERTIFICATE_NOTE_LABEL'
-                        placeholder='SESSION.EDIT.FIELDS.CERTIFICATE_NOTE_PLACEHOLDER'>
+                        label='SESSION.EDIT.LIST.FIELDS.CERTIFICATE_NOTE_LABEL'
+                        placeholder='SESSION.EDIT.LIST.FIELDS.CERTIFICATE_NOTE_PLACEHOLDER'>
                     </BaasicInput>
                 </div>
                 <div className="form__group col col-lrg-12">
@@ -102,13 +104,13 @@ const RemoveSessionCertificateDialog = function ({ modalParams, t, makeRefund, m
                         id={sessionCertificate.id}
                         checked={sessionCertificate.certificate.isActive}
                         onChange={(event) => sessionCertificate.certificate.isActive = event.target.checked}
-                        label='SESSION.EDIT.FIELDS.IS_ACTIVE_LABEL'
+                        label='SESSION.EDIT.LIST.FIELDS.IS_ACTIVE_LABEL'
                     />
                 </div>
                 <div className="form__group col col-lrg-12 u-mar--top--med">
                     <BaasicButton
                         className="btn btn--base btn--primary"
-                        label='SESSION.EDIT.BUTTON.REMOVE_SESSION_CERTIFICATE'
+                        label='SESSION.EDIT.LIST.BUTTON.REMOVE_SESSION_CERTIFICATE'
                         onClick={() => onRemove(sessionCertificate)}>
                     </BaasicButton>
                 </div>
@@ -117,9 +119,11 @@ const RemoveSessionCertificateDialog = function ({ modalParams, t, makeRefund, m
     )
 }
 
-RemoveSessionCertificateDialog.propTypes = {
+RemoveSessionCertificateModal.propTypes = {
     modalParams: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    makeRefund: PropTypes.bool.isRequired,
+    makeRefundFee: PropTypes.bool.isRequired
 };
 
-export default defaultTemplate(RemoveSessionCertificateDialog);
+export default defaultTemplate(RemoveSessionCertificateModal);

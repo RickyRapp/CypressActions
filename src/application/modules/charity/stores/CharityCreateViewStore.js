@@ -100,12 +100,8 @@ class CharityCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    onBlurTaxId(event) {
-        this.taxIdExists(event.target ? event.target.value : null)
-    }
-
-    @action.bound
     async taxIdExists(taxId) {
+        this.form.$('taxId').validate();
         if (this.form.$('taxId').isValid) {
             try {
                 const response = await this.service.taxIdExists(taxId);

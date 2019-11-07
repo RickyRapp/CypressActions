@@ -3,6 +3,7 @@ import { DonationReviewForm } from 'application/donation/forms';
 import { applicationContext } from 'core/utils';
 import { DonationService } from 'application/donation/services';
 import { GrantService } from 'application/grant/services';
+import { SessionService } from 'application/session/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
 import _ from 'lodash';
@@ -15,6 +16,7 @@ class DonationReviewViewStore extends BaseEditViewStore {
     constructor(rootStore, id, onAfterReview) {
         const service = new DonationService(rootStore.application.baasic.apiClient);
         const grantService = new GrantService(rootStore.application.baasic.apiClient);
+        const sessionService = new SessionService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'donation-review',
@@ -27,7 +29,9 @@ class DonationReviewViewStore extends BaseEditViewStore {
                         if (this.item.donationType.abrv === 'grant' || this.item.donationType.abrv === 'combined-grant') {
                             response = await grantService.review({ ...resource });
                         }
-                        onAfterReview();
+                        else if (this.item.donationType.abrv === 'session') {
+                            response = await sessionService.review({ ...resource });
+                        }
                         return response;
                     },
                     get: async (id) => {
@@ -42,8 +46,27 @@ class DonationReviewViewStore extends BaseEditViewStore {
                                 'grants',
                                 'grants.donorAccount',
                                 'grants.donorAccount.coreUser',
-                                'grants.donorAccount.companyProfile'
-
+                                'grants.donorAccount.companyProfile',
+                                'sessions',
+                                'sessions.sessionCertificates',
+                                'sessions.sessionCertificates.certificate',
+                                'sessions.sessionCertificates.certificate.booklet',
+                                'sessions.sessionCertificates.certificate.booklet.denominationType',
+                                'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets',
+                                'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
+                                'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder'
+                            ],
+                            fields: [
+                                'id',
+                                'charity',
+                                'charity.name',
+                                'charity.bankAccount',
+                                'charity.charityAddresses',
+                                'grants',
+                                'grants.donorAccount',
+                                'grants.donorAccount.donorName',
+                                'amount',
+                                'donationType'
                             ]
                         };
                         let response = await service.get(id, params);
@@ -91,7 +114,9 @@ class DonationReviewViewStore extends BaseEditViewStore {
             else if (this.item.donationType.abrv === 'combined-grant') {
                 this.donorName = 'Anonymous'
             }
-
+            else if (this.item.donationType.abrv === 'session') {
+                this.donorName = 'Anonymous'
+            }
         }
     }
 

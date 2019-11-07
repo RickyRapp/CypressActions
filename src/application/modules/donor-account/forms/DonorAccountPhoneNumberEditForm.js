@@ -9,7 +9,11 @@ export const donorAccountPhoneNumberFormProperties = {
         {
             name: 'number',
             label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_FIELD',
-            rules: 'required|string'
+            rules: 'required|string',
+            extra: {
+                mask: '_',
+                format: '(###) ###-####'
+            }
         },
         {
             name: 'description',

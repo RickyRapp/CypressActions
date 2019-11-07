@@ -61,7 +61,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                                         </div>}
                                     {isPremiumAccount &&
                                         <div className="form__group col col-lrg-3">
-                                            <NumericInputField field={form.$('blankBookletMax')} />
+                                            <NumericInputField field={form.$('blankBookletMaxAmount')} />
                                         </div>}
                                 </div>
                             </div>

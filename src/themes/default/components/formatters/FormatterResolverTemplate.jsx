@@ -4,7 +4,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
-import { Date, Address, PhoneNumber } from 'core/components';
+import { Date, Address, NumberFormatInput } from 'core/components';
 
 function FormatterResolver({ item, field, format }) {
     switch (format.type) {
@@ -27,9 +27,9 @@ function FormatterResolver({ item, field, format }) {
         case 'address':
             return <Address value={_.get(item, field)} format={format.value} />
         case 'phone-number':
-            return <PhoneNumber value={_.get(item, field)} />
+            return <NumberFormatInput value={_.get(item, field)} format='(###) ###-####' displayType='text' className='' />
         case 'routing-number':
-            return <span>{_.get(item, field)}</span>
+            return <NumberFormatInput value={_.get(item, field)} format='###-###-###' displayType='text' className='' />
         case 'image':
             if (_.get(item, field)) {
                 return <span onClick={() => window.open(format.fetch(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab

@@ -36,6 +36,7 @@ const SessionListTemplate = function ({ sessionViewStore, t }) {
                         <BaasicTable
                             authorization={authorization}
                             tableStore={tableStore}
+                            actionsComponent={renderActions}
                         />
                     </div>
                 </Content>

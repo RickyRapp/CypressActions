@@ -56,7 +56,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (accountTypeId) => {
-                    this.form.$('blankBookletMax').setRequired(accountTypeId === this.premiumId);
+                    this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === this.premiumId);
                     this.form.$('extraBookletPercentage').setRequired(accountTypeId === this.premiumId);
                 }
             });
@@ -194,24 +194,24 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
 
         if (this.form.$('accountTypeId').value === this.basicId) {
             this.form.$('lineOfCredit').set(this.applicationDefaultSetting.basicLineOfCreditAmount);
-            this.form.$('contributionMinimumInitial').set(this.applicationDefaultSetting.basicMinimumInitialContributionAmount);
-            this.form.$('contributionMinimumAdditional').set(this.applicationDefaultSetting.basicMinimumAdditionalContributionAmount);
+            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.basicMinimumInitialContributionAmount);
+            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.basicMinimumAdditionalContributionAmount);
             this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.basicMinimumGrantAmount);
-            this.form.$('grantFee').set(this.applicationDefaultSetting.basicGrantFeePercentage);
-            this.form.$('certificateDeduction').set(this.applicationDefaultSetting.basicCertificateDeductionPercentage);
-            this.form.$('certificateFee').set(this.applicationDefaultSetting.basicCertificateFeePercentage);
+            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.basicGrantFeePercentage);
+            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.basicCertificateDeductionPercentage);
+            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.basicCertificateFeePercentage);
         }
         else if (this.form.$('accountTypeId').value === this.premiumId) {
             this.form.$('lineOfCredit').set(this.applicationDefaultSetting.premiumLineOfCreditAmount);
-            this.form.$('contributionMinimumInitial').set(this.applicationDefaultSetting.premiumMinimumInitialContributionAmount);
-            this.form.$('contributionMinimumAdditional').set(this.applicationDefaultSetting.premiumMinimumAdditionalContributionAmount);
+            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.premiumMinimumInitialContributionAmount);
+            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.premiumMinimumAdditionalContributionAmount);
             this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.premiumMinimumGrantAmount);
-            this.form.$('grantFee').set(this.applicationDefaultSetting.premiumGrantFeePercentage);
-            this.form.$('certificateDeduction').set(this.applicationDefaultSetting.premiumCertificateDeductionPercentage);
-            this.form.$('certificateFee').set(this.applicationDefaultSetting.premiumCertificateFeePercentage);
+            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.premiumGrantFeePercentage);
+            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.premiumCertificateDeductionPercentage);
+            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.premiumCertificateFeePercentage);
             this.form.$('extraBookletPercentage').set(this.applicationDefaultSetting.extraBookletPercentage);
             this.form.$('notificationLimitRemainderAmount').set(this.applicationDefaultSetting.premiumNotificationLimitRemainderAmount);
-            this.form.$('blankBookletMax').set(this.applicationDefaultSetting.blankBookletMaxAmount);
+            this.form.$('blankBookletMaxAmount').set(this.applicationDefaultSetting.blankBookletMaxAmount);
         }
     }
 

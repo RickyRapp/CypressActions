@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     BasicInput,
-    BaasicButton
+    BaasicButton,
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
@@ -17,7 +18,7 @@ class DonorAccountPhoneNumberEditForm extends Component {
                     <h3 className="u-mar--bottom--med">{formPhoneNumber.$('id').value ? t('PHONE_NUMBER.EDIT.TITLE') : t('PHONE_NUMBER.CREATE.TITLE')}</h3>
                     <div className="row">
                         <div className="form__group col col-lrg-6">
-                            <BasicInput field={formPhoneNumber.$('number')} />
+                            <NumberFormatInputField field={formPhoneNumber.$('number')} />
                         </div>
                         <div className="form__group col col-lrg-6">
                             <BasicInput field={formPhoneNumber.$('description')} />

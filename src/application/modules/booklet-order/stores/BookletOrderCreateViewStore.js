@@ -138,7 +138,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         totalAndFee.total = total;
 
         if (this.donorAccount && this.donorAccount.accountType.abrvId === 'basic') {
-            total = total + total * (this.donorAccount.certificateFee / 100)
+            total = total + total * (this.donorAccount.certificateFeePercentage / 100)
         }
 
         if (this.form && this.form.has('deliveryMethodTypeId')) {
@@ -170,7 +170,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 'id',
                 'donorName',
                 'initialContribution',
-                'certificateFee',
+                'certificateFeePercentage',
                 'accountType',
                 'accountType.abrv'
             ]

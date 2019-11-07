@@ -1,9 +1,10 @@
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { SessionService } from 'application/session/services';
 import { Step3CreateForm } from 'application/session/forms';
 import { applicationContext, isSome } from 'core/utils';
 import { LookupService } from 'common/services';
+import { ModalParams } from 'core/models';
 import _ from 'lodash';
 import 'signalr';
 
@@ -52,6 +53,8 @@ class Step3ViewStore extends BaseEditViewStore {
         this.rootStore = rootStore;
         this.previousStep = previousStep;
         this.handleResponse = handleResponse;
+        this.sessionKeyIdentifier = sessionKeyIdentifier;
+        this.blankCertificateModal = new ModalParams({});
     }
 
     @action.bound
@@ -129,10 +132,27 @@ class Step3ViewStore extends BaseEditViewStore {
         if (response.statusCode === 2000000000) {
             this.session.sessionCertificates.push(response.response);
             this.rootStore.notificationStore.success('SESSION.STATUS_CODE.CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS')
+            if (response.response.denominationTypeId === this.blankDenominationTypeId) {
+                this.blankCertificateModal.open({
+                    sessionCertificate: response.response,
+                    onClick: this.onSetBlankCertificate
+                });
+            }
         }
         else {
             this.handleResponse(response);
         }
+    }
+
+    @action.bound
+    async onSetBlankCertificate(sessionCertificate) {
+        const response = await this.service.setBlankCertificate({
+            key: this.sessionKeyIdentifier,
+            barcode: sessionCertificate.barcode,
+            certificateValue: sessionCertificate.certificateValue
+        });
+        await this.getResource(this.id);
+        this.blankCertificateModal.close();
     }
 
     @action.bound
@@ -142,6 +162,9 @@ class Step3ViewStore extends BaseEditViewStore {
         this.denominationTypes = response.data;
     }
 
+    @computed get blankDenominationTypeId() {
+        return this.denominationTypes ? _.find(this.denominationTypes, { abrv: 'blank' }).id : null;
+    }
 }
 
 export default Step3ViewStore;

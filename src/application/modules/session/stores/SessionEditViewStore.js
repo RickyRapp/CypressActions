@@ -1,5 +1,5 @@
 import { action, runInAction, observable } from 'mobx';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { LookupService, FeeService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { SessionEditForm } from 'application/session/forms';
@@ -13,6 +13,7 @@ class SessionEditViewStore extends BaseEditViewStore {
     session = null;
     @observable makeRefund = false;
     @observable makeRefundFee = false;
+    @observable maxAmountError = false;
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -30,6 +31,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                     get: async (id) => {
                         let params = {
                             embed: [
+                                'sessionStatus',
                                 'donation',
                                 'donation.charity',
                                 'sessionCertificates',
@@ -45,6 +47,8 @@ class SessionEditViewStore extends BaseEditViewStore {
                         }
                         let response = await service.get(id, params);
                         this.session = response.data;
+                        response.data.charity = response.data.donation.charity;
+                        this.tableStore.setData(response.data.sessionCertificates)
                         return response.data;
                     }
                 }
@@ -55,6 +59,7 @@ class SessionEditViewStore extends BaseEditViewStore {
         this.rootStore = rootStore;
         this.id = id;
         this.removeSessionCertificateModal = new ModalParams({});
+        this.editBlankSessionCertificateModal = new ModalParams({});
         this.service = service;
         this.bookletService = new BookletService(rootStore.application.baasic.apiClient);
 
@@ -86,6 +91,50 @@ class SessionEditViewStore extends BaseEditViewStore {
                     return _.map(response.item, x => { return { id: x.id, name: x.name } });
                 }
             });
+
+        this.tableStore = new TableViewStore(null, {
+            columns: [
+                {
+                    key: 'code',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.CODE_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => { return `${item.certificate.booklet.code}-${item.certificate.code}`; }
+                    }
+                },
+                {
+                    key: 'certificate.barcode',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.BARCODE_LABEL',
+                },
+                {
+                    key: 'value',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.DENOMINATION_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            const value = item.certificate.booklet.denominationType.abrv === 'blank' ? '$' + item.blankCertificateValue : '$' + item.certificate.booklet.denominationType.value;
+                            if (item.certificate.booklet.denominationType.abrv === 'blank') {
+                                return `${value} (${item.certificate.booklet.denominationType.name})`;
+                            }
+                            return value;
+                        }
+                    }
+                },
+                {
+                    key: 'deductionAmount',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL'
+                }
+            ],
+            actions: {
+                onRemove: (sessionCertificate) => this.openRemoveSessionCertificate(sessionCertificate),
+                onEdit: (sessionCertificate) => this.openEditBlankSessionCertificateModal(sessionCertificate)
+            },
+            actionsRender: {
+                onEditRender: (sessionCertificate) => {
+                    return sessionCertificate.certificate.booklet.denominationType.abrv === 'blank';
+                },
+            }
+        });
     }
 
     @action.bound
@@ -98,6 +147,11 @@ class SessionEditViewStore extends BaseEditViewStore {
                 this.getResource(this.id),
                 this.fetchCertificateStatuses()
             ]);
+
+            if (this.session.sessionStatus.abrv !== 'pending') {
+                await this.rootStore.routerStore.goBack();
+                this.rootStore.notificationStore.warning('SESSION.EDIT.NOT_IN_STATUS_FOR_EDIT_WARNING');
+            }
         }
     }
 
@@ -127,6 +181,37 @@ class SessionEditViewStore extends BaseEditViewStore {
         const response = await this.service.removeCertificate(item);
         await this.getResource(this.id);
         this.removeSessionCertificateModal.close();
+    }
+
+    @action.bound
+    openEditBlankSessionCertificateModal(sessionCertificate) {
+        this.editBlankSessionCertificateModal.open({
+            sessionCertificate: sessionCertificate,
+            onSubmit: this.onSubmit
+        });
+    }
+
+    @action.bound
+    async onSubmit(data) {
+        const item = {
+            id: data.id,
+            certificateValue: data.certificateValue
+        }
+        try {
+            const response = await this.service.updateBlankCertificate(item);
+            await this.getResource(this.id);
+            this.editBlankSessionCertificateModal.close();
+        } catch (err) {
+            if (err.data) {
+                if (err.data.statusCode === 4000000009) {
+                    this.maxAmountError = true;
+                    this.rootStore.notificationStore.error('SESSION.EDIT.INSUFFICIENT_FUNDS_ERROR', err);
+                }
+            }
+            else {
+                this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+            }
+        }
     }
 
     @action.bound

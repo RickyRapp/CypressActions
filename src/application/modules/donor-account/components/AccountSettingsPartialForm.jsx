@@ -18,19 +18,19 @@ class AccountSettingsPartialForm extends Component {
                         <NumericInputField field={form.$('lineOfCredit')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <NumericInputField field={form.$('certificateDeduction')} />
+                        <NumericInputField field={form.$('certificateDeductionPercentage')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <NumericInputField field={form.$('certificateFee')} />
+                        <NumericInputField field={form.$('certificateFeePercentage')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <NumericInputField field={form.$('contributionMinimumAdditional')} />
+                        <NumericInputField field={form.$('contributionMinimumAdditionalAmount')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <NumericInputField field={form.$('contributionMinimumInitial')} />
+                        <NumericInputField field={form.$('contributionMinimumInitialAmount')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <NumericInputField field={form.$('grantFee')} />
+                        <NumericInputField field={form.$('grantFeePercentage')} />
                     </div>
                     <div className="form__group col col-lrg-3">
                         <NumericInputField field={form.$('grantMinimumAmount')} />

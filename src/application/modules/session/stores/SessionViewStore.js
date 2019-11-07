@@ -78,7 +78,7 @@ class SessionViewStore extends BaseListViewStore {
                     title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
                 },
                 {
-                    key: 'charity.name',
+                    key: 'donation.charity.name',
                     title: 'SESSION.LIST.COLUMNS.CHARITY_NAME_LABEL',
                 },
                 {
@@ -108,7 +108,7 @@ class SessionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (session) => {
-                    return session.sessioStatus.abrv === pending;
+                    return session.sessionStatus.abrv === 'pending';
                 },
             }
         }));

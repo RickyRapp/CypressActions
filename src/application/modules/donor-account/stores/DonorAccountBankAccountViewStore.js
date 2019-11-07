@@ -79,7 +79,7 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                 {
                     key: 'name',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.NAME_LABEL',
-                    onClick: (bankAccount) => this.routes.edit(bankAccount.id),
+                    onClick: (bankAccount) => this.openBankAccountModal(bankAccount),
                     authorization: this.authorization.update
                 },
                 {
@@ -90,8 +90,7 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                     key: 'routingNumber',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.ROUTING_NUMBER_LABEL',
                     format: {
-                        type: 'routing-number',
-                        value: '### ### ###' //TODO
+                        type: 'routing-number'
                     }
                 },
                 {

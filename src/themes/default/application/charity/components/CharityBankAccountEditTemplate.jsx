@@ -4,7 +4,8 @@ import {
     BasicInput,
     BaasicFormControls,
     EditFormContent,
-    BaasicDropzone
+    BaasicDropzone,
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
@@ -33,7 +34,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
                         <BasicInput field={form.$('accountNumber')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('routingNumber')} />
+                        <NumberFormatInputField field={form.$('routingNumber')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('accountHolder').$('address.addressLine1')} />

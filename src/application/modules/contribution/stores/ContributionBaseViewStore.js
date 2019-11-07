@@ -87,7 +87,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             this.donorName = this.donorAccount.donorName;
         }
         else {
-            const minContribution = this.donorAccount.initialContribution ? this.donorAccount.contributionMinimumAdditional : this.donorAccount.contributionMinimumInitial;
+            const minContribution = this.donorAccount.initialContribution ? this.donorAccount.contributionMinimumAdditionalAmount : this.donorAccount.contributionMinimumInitialAmount;
             this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${minContribution}`);
         }
     }
@@ -190,8 +190,8 @@ class ContributionBaseViewStore extends BaseEditViewStore {
                 'id',
                 'donorName',
                 'initialContribution',
-                'contributionMinimumAdditional',
-                'contributionMinimumInitial',
+                'contributionMinimumAdditionalAmount',
+                'contributionMinimumInitialAmount',
                 'donorAccountAddresses',
                 'donorAccountEmailAddresses',
                 'donorAccountPhoneNumbers'

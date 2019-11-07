@@ -10,8 +10,8 @@ import {
     defaultRenderBatchActionsToolbar
 } from 'core/components/table/utils';
 
-const SimpleBaasicTableTemplate = function({ tableStore, loading, actionsComponent, noRecordsComponent, t, ...otherProps }) {
-    const { isBatchSelect, data, config: { columns, actions, ...otherStoreFields } } = tableStore;
+const SimpleBaasicTableTemplate = function ({ tableStore, loading, actionsComponent, noRecordsComponent, t, ...otherProps }) {
+    const { isBatchSelect, data, config: { columns, actions, actionsRender, ...otherStoreFields } } = tableStore;
     return (
         <div>
             <Grid
@@ -27,7 +27,7 @@ const SimpleBaasicTableTemplate = function({ tableStore, loading, actionsCompone
                 {/*{children ? children(tableStore) : defaultRenderColumns(columns)}*/}
                 {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore) : null}
                 {defaultRenderColumns({ columns, t })}
-                {defaultRenderActions({ actions, actionsComponent, t })}
+                {defaultRenderActions({ actions, actionsRender, actionsComponent, t })}
             </Grid>
             {loading ? <BaasicTableLoader /> : null}
         </div>
@@ -38,7 +38,7 @@ SimpleBaasicTableTemplate.propTypes = {
     tableStore: PropTypes.object.isRequired,
     loading: PropTypes.bool,
     actionsComponent: PropTypes.any,
-    noRecordsComponent:PropTypes.any,
+    noRecordsComponent: PropTypes.any,
     editField: PropTypes.string,
     t: PropTypes.func
 };

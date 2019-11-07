@@ -55,8 +55,11 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
                 {
                     key: 'number',
                     title: 'PHONE_NUMBER.LIST.COLUMNS.NUMBER_LABEL',
-                    onClick: (phoneNumber) => this.routes.edit(phoneNumber.id),
-                    authorization: this.authorization.update
+                    onClick: (phoneNumber) => this.openPhoneNumberModal(phoneNumber),
+                    authorization: this.authorization.update,
+                    format: {
+                        type: 'phone-number'
+                    }
                 },
                 {
                     key: 'donorAccountPhoneNumbers[0].primary',

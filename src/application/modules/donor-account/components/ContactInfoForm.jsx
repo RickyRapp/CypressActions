@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BasicInput } from 'core/components';
+import { BasicInput, NumberFormatInputField } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
 class ContactInfoForm extends Component {
@@ -39,7 +39,7 @@ class ContactInfoForm extends Component {
                 </div>
                 <div className="row">
                     <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('phoneNumber.number')} />
+                        <NumberFormatInputField field={form.$('phoneNumber.number')} />
                     </div>
                     <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('phoneNumber.description')} />

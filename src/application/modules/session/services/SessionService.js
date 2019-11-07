@@ -54,6 +54,23 @@ class SessionService extends BaseService {
         const response = await this.apiClient.post(url, resource);
         return response || null;
     }
+
+    async setBlankCertificate(resource) {
+        var url = this.routeService.setBlankCertificate();
+        const response = await this.apiClient.post(url, resource);
+        return response || null;
+    }
+
+    async updateBlankCertificate(resource) {
+        var url = this.routeService.updateBlankCertificate();
+        const response = await this.apiClient.put(url, resource);
+        return response || null;
+    }
+
+    review(resource) {
+        const url = this.routeService.review(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default SessionService;

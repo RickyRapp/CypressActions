@@ -52,6 +52,18 @@ class SessionRouteService extends BaseRouteService {
     removeCertificate() {
         return super.create(this.base + '/remove-certificate');
     }
+
+    setBlankCertificate() {
+        return super.create(this.base + '/set-blank-certificate');
+    }
+
+    updateBlankCertificate() {
+        return super.update(this.base + '/update-blank-certificate');
+    }
+
+    review(resource) {
+        return super.update(this.base + '/review/{id}', resource);
+    }
 }
 
 export default SessionRouteService;

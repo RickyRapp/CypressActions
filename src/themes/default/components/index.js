@@ -21,10 +21,14 @@ export * from './table/utils';
 export { default as SearchFilterTemplate } from './SearchFilter';
 export { default as BasicInputTemplate } from './forms/BasicInput';
 export { default as NumericInputFieldTemplate } from './forms/NumericInputField';
+export { default as MaskedInputFieldTemplate } from './forms/MaskedInputFieldTemplate';
+export { default as NumberFormatInputFieldTemplate } from './forms/NumberFormatInputFieldTemplate';
 export { default as BasicQueryInputTemplate } from './forms/BasicQueryInput';
 export { default as BasicTextAreaTemplate } from './forms/BasicTextArea';
 export { default as RowInputTemplate } from './forms/RowInput';
 export { default as BaasicInputTemplate } from './input/BaasicInput';
+export { default as MaskedInputTemplate } from './input/MaskedInputTemplate';
+export { default as NumberFormatInputTemplate } from './input/NumberFormatInputTemplate';
 export { default as NumericInputTemplate } from './input/NumericInput';
 export { default as BaasicFormControlsTemplate } from './forms/BaasicFormControls';
 export { default as BasicFieldRecaptchaTemplate } from './forms/BasicFieldRecaptcha'
@@ -91,8 +95,5 @@ export { default as DateTemplate } from './formatters/DateTemplate';
 export { default as LanguageMetadataTemplate } from './formatters/LanguageMetadataTemplate';
 export { default as FormatterResolverTemplate } from './formatters/FormatterResolverTemplate';
 export { default as AddressTemplate } from './formatters/AddressTemplate';
-export { default as PhoneNumberTemplate } from './formatters/PhoneNumberTemplate';
-
-export { default as BaasicMaskedInputTemplate } from './masked-input/BaasicMaskedInputTemplate';
 
 export * from './empty-state';

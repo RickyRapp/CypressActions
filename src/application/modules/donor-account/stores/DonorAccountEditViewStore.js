@@ -63,28 +63,28 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async updateResource(resource) {
-        const { prefixTypeId, firstName, lastName, middleName, fundName, blankBookletMax, deliveryMethodTypeId, notificationLimitRemainderAmount,
-            lineOfCredit, certificateDeduction, certificateFee, contributionMinimumAdditional, contributionMinimumInitial, extraBookletPercentage,
-            grantFee, grantMinimumAmount, initialContribution, securityPin } = resource;
+        const { prefixTypeId, firstName, lastName, middleName, fundName, blankBookletMaxAmount, deliveryMethodTypeId, notificationLimitRemainderAmount,
+            lineOfCredit, certificateDeductionPercentage, certificateFeePercentage, contributionMinimumAdditionalAmount, contributionMinimumInitialAmount, extraBookletPercentage,
+            grantFeePercentage, grantMinimumAmount, initialContribution, securityPin } = resource;
         const generalData = {
             prefixTypeId,
             firstName,
             lastName,
             middleName,
             fundName,
-            blankBookletMax,
+            blankBookletMaxAmount,
             deliveryMethodTypeId,
             notificationLimitRemainderAmount
         };
 
         const accountSettingsData = {
             lineOfCredit,
-            certificateDeduction,
-            certificateFee,
-            contributionMinimumAdditional,
-            contributionMinimumInitial,
+            certificateDeductionPercentage,
+            certificateFeePercentage,
+            contributionMinimumAdditionalAmount,
+            contributionMinimumInitialAmount,
             extraBookletPercentage,
-            grantFee,
+            grantFeePercentage,
             grantMinimumAmount,
             initialContribution,
             securityPin

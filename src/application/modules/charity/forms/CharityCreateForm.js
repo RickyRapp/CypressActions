@@ -22,8 +22,11 @@ export default class CharityCreateForm extends FormBase {
                 {
                     name: 'taxId',
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.TAX_ID_PLACEHOLDER',
-                    rules: 'required|string|size:10'
+                    rules: 'required|string|size:10',
+                    extra: {
+                        mask: '_',
+                        format: '##-########'
+                    }
                 },
                 {
                     name: 'dba',
@@ -82,7 +85,11 @@ export default class CharityCreateForm extends FormBase {
                         {
                             name: 'routingNumber',
                             label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_FIELD',
-                            rules: 'required|string|digits:9'
+                            rules: 'required|string|digits:9',
+                            extra: {
+                                mask: '_',
+                                format: '###-###-###'
+                            }
                         },
                         {
                             name: 'description',

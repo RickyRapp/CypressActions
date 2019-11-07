@@ -1129,7 +1129,12 @@
                 }
             },
             "STEP3": {
-                "READY_FOR_SCANNING": "Ready for scanning"
+                "READY_FOR_SCANNING": "Ready for scanning",
+                "BLANK_CERTIFICATE_ENTER_AMOUNT": "Enter amount for open certificate",
+                "BLANK_CERTIFICATE_CODE": "Certificate code",
+                "CERTIFICATE_VALUE_LABEL": "Certificate amount",
+                "CERTIFICATE_VALUE_PLACEHOLDER": "Amount",
+                "SET_BLANK_CERTIFICATE_VALUE": "Save"
             },
             "STEP4": {
                 "BUTTONS": {
@@ -1146,21 +1151,48 @@
             }
         },
         "EDIT": {
-            "REMOVE_SESSION_CERTIFICATE": "Remove certificate",
-            "REMOVE_PREMIUM_SESSION_CERTIFICATE": "Certificate is from Premium account",
-            "REMOVE_BASIC_SESSION_CERTIFICATE": "Certificate is from Basic account",
-            "MAKE_REFUND": "Refund?",
-            "MAKE_REFUND_FEE": "Refund fee?",
-            "PREMIUM_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Session Certificate Fee",
-            "CERTIFICATE_DETAILS": "Update certificate status if necessary",
-            "TOTAL_REFUND": "Total refund:",
-            "TOTAL_REFUND_CERTIFICATE": "Refund certificate:",
-            "TOTAL_REFUND_FEE": "Refund fee:",
+            "TITLE": "Session edit",
+            "BLANK_CERTIFICATE_ENTER_AMOUNT": "Enter amount for open certificate",
+            "BLANK_CERTIFICATE_CODE": "Code",
+            "CERTIFICATE_VALUE_LABEL": "Blank certificate value",
+            "SET_BLANK_CERTIFICATE_VALUE": "Save",
+            "TOTAL_AMOUNT": "Total:",
+            "TOTAL_AMOUNT_AFTER_DEDUCTION": "Total after deduction:",
+            "INSUFFICIENT_FUNDS_ERROR": "Entered amount is greater than the donor set up on his account.",
+            "MAX_BLANK_CERTIFICATE_AMOUNT_ERROR": "Entered amount is greater than the donor set up on his account.",
+            "NOT_IN_STATUS_FOR_EDIT_WARNING": "Session is not in status for edit.",
+            "LIST": {
+                "REMOVE_SESSION_CERTIFICATE": "Remove certificate",
+                "REMOVE_PREMIUM_SESSION_CERTIFICATE": "Certificate is from Premium account",
+                "REMOVE_BASIC_SESSION_CERTIFICATE": "Certificate is from Basic account",
+                "MAKE_REFUND": "Refund?",
+                "MAKE_REFUND_FEE": "Refund fee?",
+                "PREMIUM_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Session Certificate Fee",
+                "CERTIFICATE_DETAILS": "Update certificate status if necessary",
+                "TOTAL_REFUND": "Total refund:",
+                "TOTAL_REFUND_CERTIFICATE": "Refund certificate:",
+                "TOTAL_REFUND_FEE": "Refund fee:",
+                "BUTTON": {
+                    "REMOVE_SESSION_CERTIFICATE": "Remove"
+                },
+                "FIELDS": {
+                    "CERTIFICATE_NOTE_LABEL": "Note",
+                    "CERTIFICATE_NOTE_PLACEHOLDER": "Note",
+                    "CERTIFICATE_STATUS_LABEL": "Status",
+                    "IS_ACTIVE_LABEL": "Is active"
+                },
+                "COLUMNS": {
+                    "CODE_LABEL": "Code",
+                    "BARCODE_LABEL": "Barcode",
+                    "DENOMINATION_LABEL": "Denomination",
+                    "VALUE_LABEL": "Value"
+                }
+            },
             "FIELDS": {
                 "FULL_NAME_LABEL": "Full name",
                 "FULL_NAME_PLACEHOLDER": "Full name",
-                "CHARTIY_LABEL": "Charity",
-                "CHARTIY_PLACEHOLDER": "Charity",
+                "CHARITY_LABEL": "Charity",
+                "CHARITY_PLACEHOLDER": "Charity",
                 "PHONE_NUMBER_LABEL": "Phone number",
                 "PHONE_NUMBER_PLACEHOLDER": "Phone number",
                 "EMAIL_LABEL": "Email",
@@ -1172,14 +1204,7 @@
                 "CHARITY_EMAIL_LABEL": "Charity email",
                 "CHARITY_EMAIL_PLACEHOLDER": "Charity email",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description",
-                "CERTIFICATE_NOTE_LABEL": "Note",
-                "CERTIFICATE_NOTE_PLACEHOLDER": "Note",
-                "CERTIFICATE_STATUS_LABEL": "Status",
-                "IS_ACTIVE_LABEL": "Is active"
-            },
-            "BUTTON": {
-                "REMOVE_SESSION_CERTIFICATE": "Remove"
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         },
         "STATUS_CODE": {

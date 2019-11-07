@@ -55,7 +55,7 @@ class CharityAddressViewStore extends BaseListViewStore {
                 {
                     key: 'addressLine1',
                     title: 'ADDRESS.LIST.COLUMNS.ADDRESS_LINE_1_LABEL',
-                    onClick: (address) => this.routes.edit(address.id),
+                    onClick: (address) => this.openAddressModal(address),
                     authorization: this.authorization.update
                 },
                 {

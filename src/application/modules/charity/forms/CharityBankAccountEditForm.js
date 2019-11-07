@@ -20,7 +20,11 @@ export const charityBankAccountFormProperties = {
         {
             name: 'routingNumber',
             label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_FIELD',
-            rules: 'required|string|digits:9'
+            rules: 'required|string|digits:9',
+            extra: {
+                mask: '_',
+                format: '###-###-###'
+            }
         },
         {
             name: 'description',

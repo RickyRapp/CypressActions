@@ -4,7 +4,8 @@ import {
     BasicInput,
     BaasicButton,
     BasicFieldCheckbox,
-    BaasicDropzone
+    BaasicDropzone,
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
@@ -36,7 +37,7 @@ class DonorAccountBankAccountEditForm extends Component {
                             <BasicInput field={formBankAccount.$('accountNumber')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('routingNumber')} />
+                            <NumberFormatInputField field={formBankAccount.$('routingNumber')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-12">
                             <BasicFieldCheckbox field={formBankAccount.$('isThirdPartyAccount')} />

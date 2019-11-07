@@ -1,51 +1,45 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 
-import { NumericInput } from 'core/components';
+import { NumberFormatInput } from 'core/components';
 import { renderIf, isSome } from 'core/utils';
 import '@progress/kendo-react-intl'
 
-const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange }) => {
+const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange }) => {
     const required = field.rules && field.rules.indexOf('required') !== -1;
-    const maxValue = field.rules && field.rules.indexOf('max') !== -1 ? parseInt((/max:(\d+)/).exec(field.rules)[1]) : undefined;
-    const minValue = field.rules && field.rules.indexOf('min') !== -1 ? parseInt((/min:(\d+)/).exec(field.rules)[1]) : undefined;
 
-    let type = 'n2';
-    if (field.type == 'integer')
-        type = 'n0';
-
-    let step = 1;
+    let mask = '';
+    let format = '';
     if (field.extra) {
-        if (field.extra.type) {
-            type = field.extra.type;
+        if (field.extra.mask) {
+            mask = field.extra.mask;
         }
-        if (field.extra.step) {
-            step = field.extra.step;
+        if (field.extra.format) {
+            format = field.extra.format;
         }
     }
 
     const value = field.value === '' ? null : field.value;
 
     const handleOnChange = (event) => {
-        field.onChange(event);
+        field.onChange(event.value);
 
         if (onChange) {
-            onChange(event)
+            onChange(event.value)
         }
     }
 
     return (
         <React.Fragment>
-            <NumericInput
-                className={"input--numeric " + (field.localizedError ? "input--warning" : null)}
+            <NumberFormatInput
+                className={"input input--med input--text " + (field.localizedError ? "input--warning" : null)}
                 required={required}
                 showLabel={showLabel}
                 label={field.label}
-                max={maxValue}
-                min={minValue}
-                format={type}
-                step={step}
+                mask={mask}
+                format={format}
                 disabled={disabled || field.disabled}
+                placeholder={field.placeholder || format}
                 onChange={handleOnChange}
                 defaultValue={null}
                 value={value}
@@ -56,4 +50,4 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
     )
 });
 
-export default NumericInputFieldTemplate;
+export default NumberFormatInputFieldTemplate;

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { BaasicMaskedInputTemplate } from "themes/components";
+import { MaskedInputTemplate } from "themes/components";
 
 @observer
-class BaasicMaskedInput extends Component {
+class MaskedInput extends Component {
     render() {
         return (
-            <BaasicMaskedInputTemplate {...this.props} />
+            <MaskedInputTemplate {...this.props} />
         );
     }
 }
 
-BaasicMaskedInput.propTypes = {
+MaskedInput.propTypes = {
     showLabel: PropTypes.bool,
     label: PropTypes.string,
     type: PropTypes.string,
@@ -25,4 +25,4 @@ BaasicMaskedInput.propTypes = {
     disabled: PropTypes.bool,
 };
 
-export default BaasicMaskedInput;
+export default MaskedInput;

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {
     BasicInput,
     BaasicFieldDropdown,
-    BaasicDropzone
+    BaasicDropzone,
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -20,7 +21,7 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
         uploadTypes,
         image,
         onBlurUsername,
-        onBlurTaxId
+        taxIdExists
     } = charityCreateViewStore;
 
     return (
@@ -33,9 +34,9 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
                             <BasicInput field={form.$('name')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput
+                            <NumberFormatInputField
                                 field={form.$('taxId')}
-                                onBlur={onBlurTaxId}
+                                onChange={taxIdExists}
                             />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
@@ -91,7 +92,7 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
                                 <BasicInput field={form.$('bankAccount.accountNumber')} />
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                <BasicInput field={form.$('bankAccount.routingNumber')} />
+                                <NumberFormatInputField field={form.$('bankAccount.routingNumber')} />
                             </div>
                         </div>
                     </div>
