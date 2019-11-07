@@ -47,7 +47,9 @@ class SessionEditViewStore extends BaseEditViewStore {
                         }
                         let response = await service.get(id, params);
                         this.session = response.data;
-                        response.data.charity = response.data.donation.charity;
+                        if (response.data.donation) {
+                            response.data.charity = response.data.donation.charity;
+                        }
                         this.tableStore.setData(response.data.sessionCertificates)
                         return response.data;
                     }

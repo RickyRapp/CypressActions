@@ -1167,7 +1167,7 @@
                 "REMOVE_BASIC_SESSION_CERTIFICATE": "Certificate is from Basic account",
                 "MAKE_REFUND": "Refund?",
                 "MAKE_REFUND_FEE": "Refund fee?",
-                "PREMIUM_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Session Certificate Fee",
+                "PREMIUM_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Certificate Fee",
                 "CERTIFICATE_DETAILS": "Update certificate status if necessary",
                 "TOTAL_REFUND": "Total refund:",
                 "TOTAL_REFUND_CERTIFICATE": "Refund certificate:",
