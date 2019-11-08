@@ -11,7 +11,7 @@ class Step2ViewStore extends BaseEditViewStore {
     existingSession = null;
     response = null;
 
-    constructor(rootStore, { nextStep, previousStep, setSessionKeyIdentifier, handleResponse }) {
+    constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier, handleResponse }) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
@@ -45,11 +45,16 @@ class Step2ViewStore extends BaseEditViewStore {
         this.rootStore = rootStore;
         this.previousStep = previousStep;
         this.handleResponse = handleResponse;
+
+        if (sessionKeyIdentifier) {
+            this.form.$('key').set(sessionKeyIdentifier);
+            this.loadExistingSession();
+        }
     }
 
     @action.bound
     async loadExistingSession() {
-        if (this.form.$('key') && this.form.$('key').value.length === 5) {
+        if (this.form.$('key').value && this.form.$('key').value.toString().length === 5) {
             const sessionKeyIdentifier = this.form.$('key').value;
             this.loadingExistingSession = true;
             try {

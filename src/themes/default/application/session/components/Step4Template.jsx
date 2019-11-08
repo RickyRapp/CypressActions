@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import {
-    BaasicButton
-} from 'core/components';
-import _ from 'lodash';
+import { BaasicButton } from 'core/components';
 
 function Step4Template({ step4ViewStore, t }) {
     const {

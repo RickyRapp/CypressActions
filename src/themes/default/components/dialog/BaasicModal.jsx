@@ -24,7 +24,8 @@ function BaasicModalTemplate({ modalParams, children, showClose = true, ...other
 BaasicModalTemplate.propTypes = {
     modalParams: PropTypes.object,
     children: PropTypes.any,
-    hideNavigation: PropTypes.bool
+    hideNavigation: PropTypes.bool,
+    showClose: PropTypes.bool
 };
 
 export default defaultTemplate(BaasicModalTemplate);

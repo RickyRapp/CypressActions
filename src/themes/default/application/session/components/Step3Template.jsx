@@ -11,15 +11,15 @@ import {
 import { BlankCertificateModal } from 'themes/application/session/components';
 import _ from 'lodash';
 
-function Step3Template({ step3ViewStore, t }) {
+function Step3Template({ step3ViewStore }) {
     const {
         form,
         session,
         previousStep,
         barcode,
         addCertificate,
-        denominationTypes,
-        blankCertificateModal
+        blankCertificateModal,
+        connectionEstablished
     } = step3ViewStore;
 
     return (
@@ -67,7 +67,7 @@ function Step3Template({ step3ViewStore, t }) {
                                 <div className="form__group col col-lrg-4">
                                     <BaasicInput
                                         className={barcode ? "input input--med input--text input--disabled" : "input input--med input--text"}
-                                        disabled={barcode !== ''}
+                                        disabled={barcode !== '' || !connectionEstablished}
                                         value={barcode}
                                         onChange={addCertificate}
                                     >
@@ -77,6 +77,7 @@ function Step3Template({ step3ViewStore, t }) {
                             {renderEditLayoutFooterContent({
                                 form,
                                 previousStep,
+                                connectionEstablished
                             })}
                         </EditFormContent>
                         <BaasicModal modalParams={blankCertificateModal} showClose={false}>
@@ -99,25 +100,28 @@ Step3Template.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-function renderEditLayoutFooterContent({ form, previousStep }) {
+function renderEditLayoutFooterContent({ form, previousStep, connectionEstablished }) {
     return (
         <div className="u-mar--bottom--med">
             <BaasicButton
                 className="btn btn--base btn--ghost u-mar--right--sml"
                 onClick={previousStep}
                 label='SESSION.CREATE.STEP2.BUTTONS.BACK'
+                disabled={!connectionEstablished}
             />
             <BaasicFormControls
                 form={form}
                 onSubmit={form.onSubmit}
-                label='SESSION.CREATE.STEP2.BUTTONS.SAVE' />
+                label='SESSION.CREATE.STEP2.BUTTONS.SAVE'
+                disabled={!connectionEstablished} />
         </div>
     )
 }
 
 renderEditLayoutFooterContent.propTypes = {
     form: PropTypes.any.isRequired,
-    previousStep: PropTypes.func.isRequired
+    previousStep: PropTypes.func.isRequired,
+    connectionEstablished: PropTypes.bool.isRequired
 };
 
 export default defaultTemplate(Step3Template);

@@ -17,8 +17,11 @@ export default class SessionInformationCreateForm extends FormBase {
                 {
                     name: 'phoneNumber',
                     label: 'SESSION.CREATE.STEP2.FIELDS.PHONE_NUMBER_LABEL',
-                    placeholder: 'SESSION.CREATE.STEP2.FIELDS.PHONE_NUMBER_PLACEHOLDER',
-                    rules: 'required|string'
+                    rules: 'required|string',
+                    extra: {
+                        mask: '_',
+                        format: '(###) ###-####'
+                    }
                 },
                 {
                     name: 'email',
@@ -35,8 +38,11 @@ export default class SessionInformationCreateForm extends FormBase {
                 {
                     name: 'taxId',
                     label: 'SESSION.CREATE.STEP2.FIELDS.TAX_ID_LABEL',
-                    placeholder: 'SESSION.CREATE.STEP2.FIELDS.TAX_ID_PLACEHOLDER',
-                    rules: 'string'
+                    rules: 'string',
+                    extra: {
+                        mask: '_',
+                        format: '##-########'
+                    }
                 },
                 {
                     name: 'charityEmail',

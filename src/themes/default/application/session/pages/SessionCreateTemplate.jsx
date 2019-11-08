@@ -37,6 +37,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         previousStep={previousStep}
                         setSessionKeyIdentifier={setSessionKeyIdentifier}
                         handleResponse={handleResponse}
+                        sessionKeyIdentifier={sessionKeyIdentifier}
                     />
                 </div>}
             {currentStep === 3 &&

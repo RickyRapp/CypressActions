@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-
 import NumberFormat from 'react-number-format';
 
 const NumberFormatInputTemplate = defaultTemplate((props) => {

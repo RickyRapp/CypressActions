@@ -18,7 +18,6 @@ const MaskedInputFieldTemplate = defaultTemplate(({ field, showLabel = true, dis
     const value = field.value === '' ? null : field.value;
 
     const handleOnChange = (event) => {
-        console.log(event)
         field.onChange(event);
 
         if (onChange) {

@@ -13,6 +13,7 @@ class SessionViewStore extends BaseViewStore {
         if (key) {
             this.setSessionKeyIdentifier(key);
             this.nextStep(3);
+            rootStore.routerStore.setQueryParams(null);
         }
     }
 

@@ -117,9 +117,8 @@ class SessionViewStore extends BaseListViewStore {
         this.rootStore = rootStore;
         this.scannerConnectionService = new ScannerConnectionService(rootStore.application.baasic.apiClient);
         this.scannerDropdownStore = new BaasicDropdownStore(null, {
-            onChange: async (scannerId) => {
-                const scanner = this.scannerDropdownStore.value;
-                await this.setScannerConnection(scanner.code);
+            onChange: async () => {
+                await this.setScannerConnection(this.scannerDropdownStore.value.code);
             }
         })
         this.fetchScanners();

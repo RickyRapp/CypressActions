@@ -5,7 +5,8 @@ import {
     BasicInput,
     BaasicFormControls,
     EditFormContent,
-    BaasicButton
+    BaasicButton,
+    NumberFormatInputField
 } from 'core/components';
 
 function Step2Template({ step2ViewStore }) {
@@ -24,7 +25,7 @@ function Step2Template({ step2ViewStore }) {
                     <BasicInput field={form.$('fullName')} />
                 </div>
                 <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('phoneNumber')} />
+                    <NumberFormatInputField field={form.$('phoneNumber')} />
                 </div>
                 <div className="form__group col col-lrg-3">
                     <BasicInput field={form.$('email')} />
@@ -33,7 +34,7 @@ function Step2Template({ step2ViewStore }) {
                     <BasicInput field={form.$('charityName')} />
                 </div>
                 <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('taxId')} />
+                    <NumberFormatInputField field={form.$('taxId')} />
                 </div>
                 <div className="form__group col col-lrg-3">
                     <BasicInput field={form.$('charityEmail')} />

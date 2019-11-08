@@ -1,12 +1,13 @@
 import { action, runInAction, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
-import { LookupService, FeeService } from 'common/services';
+import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { SessionEditForm } from 'application/session/forms';
 import { SessionService } from 'application/session/services';
 import { CharityService } from 'application/charity/services';
 import { BookletService } from 'application/booklet/services';
 import { ModalParams } from 'core/models';
+import _ from 'lodash';
 
 @applicationContext
 class SessionEditViewStore extends BaseEditViewStore {
@@ -26,6 +27,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
+                        resource.charityId = resource.charity;
                         return await service.update({ id: this.id, ...resource });
                     },
                     get: async (id) => {
@@ -180,7 +182,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             makeRefund: this.makeRefund,
             makeRefundFee: this.makeRefundFee
         }
-        const response = await this.service.removeCertificate(item);
+        await this.service.removeCertificate(item);
         await this.getResource(this.id);
         this.removeSessionCertificateModal.close();
     }
@@ -200,7 +202,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             certificateValue: data.certificateValue
         }
         try {
-            const response = await this.service.updateBlankCertificate(item);
+            await this.service.updateBlankCertificate(item);
             await this.getResource(this.id);
             this.editBlankSessionCertificateModal.close();
         } catch (err) {

@@ -86,6 +86,4 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-
 export default defaultTemplate(SessionInProgressListTemplate);
-

@@ -1,7 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { SessionService } from 'application/session/services';
-import { ScannerConnectionService } from 'application/scanner-connection/services';
 import { applicationContext } from 'core/utils';
 import { SessionListFilter } from 'application/session/models';
 

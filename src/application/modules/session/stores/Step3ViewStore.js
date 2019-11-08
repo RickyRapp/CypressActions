@@ -13,6 +13,7 @@ class Step3ViewStore extends BaseEditViewStore {
     @observable session = null;
     @observable barcode = '';
     @observable denominationTypes = null;
+    @observable connectionEstablished = false;
 
     constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier, handleResponse }) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -73,10 +74,11 @@ class Step3ViewStore extends BaseEditViewStore {
 
     @action.bound
     async loadConnection() {
-        const response = await this.rootStore.application.baasic.apiClient.get("http://api.thedonorsfund.local/signalr/hubs");
+        const response = await this.rootStore.application.baasic.apiClient.get(
+            ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr/hubs');
         eval(response.data);
         // eslint-disable-next-line
-        $.connection.hub.url = "http://api.thedonorsfund.local/signalr";
+        $.connection.hub.url = ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr';
 
         // eslint-disable-next-line
         const sessionHub = $.connection.sessionHub;
@@ -98,6 +100,7 @@ class Step3ViewStore extends BaseEditViewStore {
     async setConnectionId(connectionId) {
         try {
             await this.service.setConnectionId({ id: connectionId });
+            this.connectionEstablished = true;
             this.rootStore.notificationStore.success('SESSION.CREATE.STEP3.READY_FOR_SCANNING');
         } catch (err) {
             this.handleResponse(err.data, err)
@@ -146,7 +149,7 @@ class Step3ViewStore extends BaseEditViewStore {
 
     @action.bound
     async onSetBlankCertificate(sessionCertificate) {
-        const response = await this.service.setBlankCertificate({
+        await this.service.setBlankCertificate({
             key: this.sessionKeyIdentifier,
             barcode: sessionCertificate.barcode,
             certificateValue: sessionCertificate.certificateValue
