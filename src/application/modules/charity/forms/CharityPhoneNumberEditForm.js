@@ -11,7 +11,6 @@ export const charityPhoneNumberFormProperties = {
             label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_FIELD',
             rules: 'required|string',
             extra: {
-                mask: '_',
                 format: '(###) ###-####'
             }
         },

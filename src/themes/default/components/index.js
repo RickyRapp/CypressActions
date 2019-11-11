@@ -30,6 +30,7 @@ export { default as BaasicInputTemplate } from './input/BaasicInput';
 export { default as MaskedInputTemplate } from './input/MaskedInputTemplate';
 export { default as NumberFormatInputTemplate } from './input/NumberFormatInputTemplate';
 export { default as NumericInputTemplate } from './input/NumericInput';
+export { default as NumericInputRangeTemplate } from './input/NumericInputRangeTemplate';
 export { default as BaasicFormControlsTemplate } from './forms/BaasicFormControls';
 export { default as BasicFieldRecaptchaTemplate } from './forms/BasicFieldRecaptcha'
 export { default as BasicRadioTemplate } from './forms/BasicRadio';

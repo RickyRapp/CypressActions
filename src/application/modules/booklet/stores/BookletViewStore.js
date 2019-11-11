@@ -28,7 +28,12 @@ class BookletViewStore extends BaseListViewStore {
                     )
             },
             queryConfig: {
-                filter: filter
+                filter: filter,
+                onResetFilter: (filter) => {
+                    filter.donorAccountId = id;
+                    this.deliveryMethodTypeDropdownStore.setValue(null);
+                    this.bookletStatusDropdownStore.setValue(null);
+                }
             },
             actions: () => {
                 const service = new BookletService(rootStore.application.baasic.apiClient);
@@ -56,7 +61,7 @@ class BookletViewStore extends BaseListViewStore {
                 {
                     key: 'code',
                     title: 'BOOKLET.LIST.COLUMNS.CODE_LABEL',
-                    onClick: item => this.routes.edit(item.id),
+                    onClick: (item) => this.routes.edit(item.id),
                     authorization: this.authorization.update
                 },
                 {

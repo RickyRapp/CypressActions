@@ -47,7 +47,11 @@ class CharityViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'taxId',
-                    title: 'CHARITY.LIST.COLUMNS.TAX_ID_LABEL'
+                    title: 'CHARITY.LIST.COLUMNS.TAX_ID_LABEL',
+                    format: {
+                        type: 'number-format',
+                        value: '##-#######'
+                    }
                 },
                 {
                     key: 'dateCreated',

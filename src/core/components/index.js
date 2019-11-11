@@ -38,6 +38,7 @@ export { default as BaasicInput } from './input/BaasicInput';
 export { default as NumericInput } from './input/NumericInput';
 export { default as MaskedInput } from './input/MaskedInput';
 export { default as NumberFormatInput } from './input/NumberFormatInput';
+export { default as NumericInputRange } from './input/NumericInputRange';
 export { default as BaasicConfirmModal } from './dialog/BaasicConfirmModal';
 export { default as BaasicModal } from './dialog/BaasicModal';
 export { default as YesNoView } from './dialog/YesNoView';

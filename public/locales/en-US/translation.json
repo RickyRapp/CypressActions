@@ -11,7 +11,8 @@
     "HEADER": {
         "USER_MENU": {
             "CHANGE_PASSWORD": "Change Password",
-            "LOGOUT": "Logout"
+            "LOGOUT": "Logout",
+            "MY_PROFILE": "Profile"
         }
     },
     "ERROR_MESSAGES": {
@@ -352,6 +353,14 @@
                 "ACCOUNT_TYPE": "Type",
                 "AVAILABLE_BALANCE": "Available balance"
             },
+            "FILTER": {
+                "FIRST_NAME_PLACEHOLDER": "First name",
+                "LAST_NAME_PLACEHOLDER": "Last name",
+                "EMAILS_PLACEHOLDER": "Emails (,)",
+                "BASIC_PLACEHOLDER": "Basic",
+                "PREMIUM_PLACEHOLDER": "Premium",
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account Number"
+            },
             "EMPTY_STATE": {
                 "TITLE": "No donors",
                 "ACTION": "Create new donor",
@@ -605,6 +614,12 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "BALANCE_LABEL": "Balance"
             },
+            "FILTER": {
+                "NAME_PLACEHOLDER": "Name",
+                "EMAILS_PLACEHOLDER": "Emails",
+                "ADDRESS_PLACEHOLDER": "Address",
+                "TAX_ID_PLACEHOLDER": "Tax Id"
+            },
             "EMPTY_STATE": {
                 "TITLE": "No charities",
                 "ACTION": "Create new charity"
@@ -668,6 +683,18 @@
                 "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
                 "PAYMENT_TYPE_NAME_LABEL": "Payment type",
                 "PAYER_INFORMATION_NAME_LABEL": "Payer"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "CONTRIBUTION_STATUS_PLACEHOLDER": "Contribution status",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
+                "BASIC_PLACEHOLDER": "Basic",
+                "PREMIUM_PLACEHOLDER": "Premium",
+                "NAME_ON_CHECK_PLACEHOLDER": "Name on check",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },
             "EMPTY_STATE": {
                 "TITLE": "No contributions",
@@ -754,6 +781,13 @@
                 "GRANT_STATUS_NAME_LABEL": "Status",
                 "DONATION_CHARITY_LABEL": "Charity",
                 "GRANT_PURPOSE_TYPE_LABEL": "Purpose"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "GRANT_STATUS_PLACEHOLDER": "Grant status",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },
             "EMPTY_STATE": {
                 "TITLE": "No grants",
@@ -1004,6 +1038,13 @@
                 "CERTIFICATES_LABEL": "Certificates",
                 "CREATED_BY_LABEL": "Created by"
             },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "BOOKLET_CODES_PLACEHOLDER": "Codes",
+                "BOOKLET_ORDER_STATUS_PLACEHOLDER": "Order status",
+                "DELIVERY_TYPE_PLACEHOLDER": "Delivery type",
+                "TRACKING_NUMBER_PLACEHOLDER": "Tracking number"
+            },
             "EMPTY_STATE": {
                 "TITLE": "No booklet orders"
             }
@@ -1067,6 +1108,14 @@
                 "STATUS_LABEL": "Status",
                 "AMOUNT_LABEL": "Amount",
                 "CHARITY_NAME_LABEL": "Charity"
+            },
+            "FILTER": {
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "BOOKLET_CERTIFICATE_CODE_PLACEHOLDER": "Booklet and certificate code",
+                "SESSION_STATUS_PLACEHOLDER": "Session status",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number"
             },
             "BUTTON": {
                 "GO_TO_CREATE_PAGE": "Proceed without scanner",

@@ -1,53 +1,72 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState, QueryNullableSwitch } from 'core/components';
+import {
+    BaasicButton,
+    BaasicTable,
+    TableFilter,
+    EmptyState,
+    NullableSwitch,
+    BaasicInput
+} from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { SearchFilter } from 'core/components';
+import _ from 'lodash';
 
 const DonorAccountListTemplate = function ({ donorAccountViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
-        authorization
+        authorization,
+        accountTypes
     } = donorAccountViewStore;
 
     return (
         <ApplicationListLayout store={donorAccountViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} >
+                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <SearchFilter
-                                className='input input--sml input--search'
-                                queryUtility={queryUtility}
-                                propertyName='firstName'
-                                placeholder="First Name"
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['firstName'] || ""}
+                                onChange={(event) => queryUtility.filter['firstName'] = event.target.value}
+                                placeholder='DONOR_ACCOUNT.LIST.FILTER.FIRST_NAME_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <SearchFilter
-                                className='input input--sml input--search'
-                                queryUtility={queryUtility}
-                                propertyName='lastName'
-                                placeholder="Last Name"
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['lastName'] || ""}
+                                onChange={(event) => queryUtility.filter['lastName'] = event.target.value}
+                                placeholder='DONOR_ACCOUNT.LIST.FILTER.LAST_NAME_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-4 col-lrg-2 u-mar--top--sml u-mar--bottom--sml">
+                            {accountTypes &&
+                                <NullableSwitch
+                                    value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'basic' }).id}
+                                    onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'basic' : 'premium' }).id}
+                                    yesLabel='DONOR_ACCOUNT.LIST.FILTER.BASIC_PLACEHOLDER'
+                                    noLabel='DONOR_ACCOUNT.LIST.FILTER.PREMIUM_PLACEHOLDER'
+                                />}
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['emails'] || ""}
+                                onChange={(event) => queryUtility.filter['emails'] = event.target.value}
+                                placeholder='DONOR_ACCOUNT.LIST.FILTER.EMAILS_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <QueryNullableSwitch
-                                queryUtility={queryUtility}
-                                propertyName='accountTypeId'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <SearchFilter
-                                className='input input--sml input--search'
-                                queryUtility={queryUtility}
-                                propertyName='emails'
-                                placeholder="Emails"
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['accountNumber'] || ""}
+                                onChange={(event) => queryUtility.filter['accountNumber'] = event.target.value}
+                                placeholder='DONOR_ACCOUNT.LIST.FILTER.ACCOUNT_NUMBER_PLACEHOLDER'
                             />
                         </div>
                     </TableFilter>

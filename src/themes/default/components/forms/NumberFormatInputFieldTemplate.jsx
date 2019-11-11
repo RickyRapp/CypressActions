@@ -39,7 +39,7 @@ const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = tru
                 mask={mask}
                 format={format}
                 disabled={disabled || field.disabled}
-                placeholder={field.placeholder || format}
+                placeholder={field.placeholder}
                 onChange={handleOnChange}
                 defaultValue={null}
                 value={value}

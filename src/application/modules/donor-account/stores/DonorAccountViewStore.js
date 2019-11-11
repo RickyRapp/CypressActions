@@ -1,10 +1,14 @@
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
+import { LookupService } from 'common/services';
 import { DonorAccountListFilter } from 'application/donor-account/models';
 
 @applicationContext
 class DonorAccountViewStore extends BaseListViewStore {
+    @observable accountTypes = null;
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'donor-account',
@@ -74,6 +78,27 @@ class DonorAccountViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goTo(
+                'master.app.main.donor-account.list'
+            )
+        }
+        else {
+            await this.fetch([
+                this.fetchAccountTypes()
+            ]);
+        }
+    }
+
+    @action.bound
+    async fetchAccountTypes() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
+        const response = await service.getAll();
+        this.accountTypes = response.data;
     }
 }
 

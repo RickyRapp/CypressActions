@@ -18,6 +18,7 @@ QueryNullableSwitchTemplate.propTypes = {
     propertyName: PropTypes.string,
     onChange: PropTypes.func,
     label: PropTypes.string
+
 };
 
 export default defaultTemplate(QueryNullableSwitchTemplate);

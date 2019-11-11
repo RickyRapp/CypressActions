@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/components';
+import {
+    BaasicButton,
+    BaasicTable,
+    TableFilter,
+    EmptyState,
+    BaasicInput,
+    NumberFormatInput
+} from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { SearchFilter } from 'core/components';
 
 const CharityListTemplate = function ({ charityViewStore }) {
     const {
@@ -18,22 +24,38 @@ const CharityListTemplate = function ({ charityViewStore }) {
     return (
         <ApplicationListLayout store={charityViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} >
+                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <SearchFilter
-                                className='input input--sml input--search'
-                                queryUtility={queryUtility}
-                                propertyName='name'
-                                placeholder="Name"
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['name'] || ""}
+                                onChange={(event) => queryUtility.filter['name'] = event.target.value}
+                                placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <SearchFilter
-                                className='input input--sml input--search'
-                                queryUtility={queryUtility}
-                                propertyName='taxId'
-                                placeholder="Tax Id"
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['emails'] || ""}
+                                onChange={(event) => queryUtility.filter['emails'] = event.target.value}
+                                placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['address'] || ""}
+                                onChange={(event) => queryUtility.filter['address'] = event.target.value}
+                                placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <NumberFormatInput
+                                className='input input--sml'
+                                value={queryUtility.filter['taxId']}
+                                onChange={(event) => queryUtility.filter['taxId'] = event.value}
+                                format='##-#######'
                             />
                         </div>
                     </TableFilter>

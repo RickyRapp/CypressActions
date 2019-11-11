@@ -50,6 +50,8 @@ function FormatterResolver({ item, field, format }) {
                     return null;
             }
         }
+        case 'number-format':
+            return <NumberFormatInput value={_.get(item, field)} format={format.value} displayType='text' className='' />;
         default:
             return () => { };
     }

@@ -24,7 +24,6 @@ export default class CharityCreateForm extends FormBase {
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
                     rules: 'required|string|size:10',
                     extra: {
-                        mask: '_',
                         format: '##-########'
                     }
                 },
@@ -87,7 +86,6 @@ export default class CharityCreateForm extends FormBase {
                             label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_FIELD',
                             rules: 'required|string|digits:9',
                             extra: {
-                                mask: '_',
                                 format: '###-###-###'
                             }
                         },

@@ -5,8 +5,13 @@ class SessionListFilter extends FilterParams {
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
-    @observable dateCreatedStartDate;
-    @observable dateCreatedEndDate;
+    @observable dateCreatedFrom;
+    @observable dateCreatedTo;
+    @observable bookletCertificateCode;
+    @observable paymentTypeIds;
+    @observable sessionStatusIds;
+    @observable paymentNumber;
+    @observable charityId;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -21,8 +26,13 @@ class SessionListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
-        this.dateCreatedStartDate = null;
-        this.dateCreatedEndDate = null;
+        this.dateCreatedFrom = null;
+        this.dateCreatedTo = null;
+        this.bookletCertificateCode = null;
+        this.paymentTypeIds = null;
+        this.sessionStatusIds = null;
+        this.paymentNumber = null;
+        this.charityId = null;
     }
 }
 

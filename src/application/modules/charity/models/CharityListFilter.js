@@ -4,6 +4,8 @@ import { FilterParams } from "core/models";
 class CharityListFilter extends FilterParams {
     @observable name;
     @observable taxId;
+    @observable emails;
+    @observable address;
 
     constructor() {
         super();
@@ -15,6 +17,8 @@ class CharityListFilter extends FilterParams {
         super.reset();
         this.name = null;
         this.taxId = null;
+        this.emails = null;
+        this.address = null;
     }
 }
 

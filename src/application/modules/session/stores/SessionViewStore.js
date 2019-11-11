@@ -1,6 +1,7 @@
 import { action, runInAction } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionService } from 'application/session/services';
+import { CharityService } from 'application/charity/services';
 import { ScannerConnectionService } from 'application/scanner-connection/services';
 import { applicationContext, isSome } from 'core/utils';
 import { SessionListFilter } from 'application/session/models';
@@ -39,6 +40,12 @@ class SessionViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 disableUpdateQueryParams: true,
+                onResetFilter: (filter) => {
+                    this.paymentTypeDropdownStore.setValue(null);
+                    this.sessionStatusDropdownStore.setValue(null);
+                    this.searchCharityDropdownStore.setValue(null);
+                    this.dateCreatedDateRangeQueryStore.reset();
+                }
             },
             actions: () => {
                 return {
@@ -121,9 +128,70 @@ class SessionViewStore extends BaseListViewStore {
                 await this.setScannerConnection(this.scannerDropdownStore.value.code);
             }
         })
-        this.fetchScanners();
 
         this.selectScannerModal = new ModalParams({});
+
+        const charityService = new CharityService(rootStore.application.baasic.apiClient);
+        this.searchCharityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await charityService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses',
+                            'charityAddresses.address'
+                        ],
+                        fields: [
+                            'id',
+                            'taxId',
+                            'name'
+                        ]
+                    });
+                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                },
+                onChange: (charityId) => {
+                    this.queryUtility.filter['charityId'] = charityId;
+                }
+            });
+
+        this.paymentTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (paymentType) => {
+                    this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
+                }
+            });
+        this.sessionStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (sessionStatus) => {
+                    this.queryUtility.filter['sessionStatusIds'] = _.map(sessionStatus, (status) => { return status.id });
+                }
+            });
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.fetchScanners(),
+                this.fetchSessionStatuses(),
+                this.fetchPaymentTypes()
+            ]);
+        }
     }
 
     @action.bound
@@ -149,6 +217,38 @@ class SessionViewStore extends BaseListViewStore {
     }
 
     @action.bound
+    goToCreatePage() {
+        this.rootStore.routerStore.goTo('master.app.main.session.create');
+    }
+
+    @action.bound
+    openSelectScanner() {
+        this.selectScannerModal.open();
+    }
+
+    @action.bound
+    async fetchSessionStatuses() {
+        this.sessionStatusDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'session-status');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.sessionStatusDropdownStore.setItems(response.data);
+            this.sessionStatusDropdownStore.setLoading(false);
+        });
+    }
+
+    @action.bound
+    async fetchPaymentTypes() {
+        this.paymentTypeDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.paymentTypeDropdownStore.setItems(response.data);
+            this.paymentTypeDropdownStore.setLoading(false);
+        });
+    }
+
+    @action.bound
     async fetchScanners() {
         this.scannerDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'scanner');
@@ -159,15 +259,6 @@ class SessionViewStore extends BaseListViewStore {
         });
     }
 
-    @action.bound
-    goToCreatePage() {
-        this.rootStore.routerStore.goTo('master.app.main.session.create');
-    }
-
-    @action.bound
-    openSelectScanner() {
-        this.selectScannerModal.open();
-    }
 }
 
 export default SessionViewStore;

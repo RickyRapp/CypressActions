@@ -6,7 +6,7 @@ class CharityRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,name,taxId,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

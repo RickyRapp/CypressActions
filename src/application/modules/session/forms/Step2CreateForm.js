@@ -19,7 +19,6 @@ export default class SessionInformationCreateForm extends FormBase {
                     label: 'SESSION.CREATE.STEP2.FIELDS.PHONE_NUMBER_LABEL',
                     rules: 'required|string',
                     extra: {
-                        mask: '_',
                         format: '(###) ###-####'
                     }
                 },
@@ -40,7 +39,6 @@ export default class SessionInformationCreateForm extends FormBase {
                     label: 'SESSION.CREATE.STEP2.FIELDS.TAX_ID_LABEL',
                     rules: 'string',
                     extra: {
-                        mask: '_',
                         format: '##-########'
                     }
                 },

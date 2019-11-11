@@ -1,10 +1,11 @@
-import { action } from 'mobx';
+import { action, runInAction } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { GrantService } from 'application/grant/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/grant/models';
+import { LookupService } from 'common/services';
 import moment from 'moment'
 import _ from 'lodash';
 
@@ -50,6 +51,7 @@ class GrantViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
+                    this.grantStatusDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -82,7 +84,7 @@ class GrantViewStore extends BaseListViewStore {
                             'grantPurposeType',
                             'dateCreated',
                             'scheduledGrantPayment'
-                        ]
+                        ];
                         const response = await service.find(params);
                         return response.data;
                     }
@@ -188,6 +190,58 @@ class GrantViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
                 }
             });
+
+        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+            placeholder: 'GRANT.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorAccountService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'coreUser.firstName|asc',
+                        embed: [
+                            'coreUser',
+                            'companyProfile',
+                            'donorAccountAddresses',
+                            'donorAccountAddresses.address'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName'
+                        ]
+                    });
+                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                },
+                onChange: (donorAccountId) => {
+                    this.queryUtility.filter['donorAccountId'] = donorAccountId;
+                }
+            });
+
+        this.grantStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (grantStatus) => {
+                    this.queryUtility.filter['grantStatusIds'] = _.map(grantStatus, (status) => { return status.id });
+                }
+            });
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.fetchGrantStatus()
+            ]);
+        }
     }
 
     @action.bound
@@ -200,6 +254,17 @@ class GrantViewStore extends BaseListViewStore {
         this.reviewModal.open({
             id: id,
             onAfterReview: () => { this.reviewModal.close(); this.queryUtility.fetch(); }
+        });
+    }
+
+    @action.bound
+    async fetchGrantStatus() {
+        this.grantStatusDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-status');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.grantStatusDropdownStore.setItems(response.data);
+            this.grantStatusDropdownStore.setLoading(false);
         });
     }
 }

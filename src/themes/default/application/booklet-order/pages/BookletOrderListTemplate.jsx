@@ -6,8 +6,10 @@ import {
     BaasicTable,
     TableFilter,
     EmptyState,
-    BaasicModal,
-    BaasicDropdown
+    BaasicDropdown,
+    BaasicInput,
+    DateRangeQueryPicker,
+    BaasicModal
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -20,15 +22,69 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
         queryUtility,
         authorization,
         selectDonorModal,
-        selectDonorDropdownStore
+        selectDonorDropdownStore,
+        searchDonorAccountDropdownStore,
+        deliveryMethodTypeDropdownStore,
+        bookletOrderStatusDropdownStore,
+        dateCreatedDateRangeQueryStore
     } = bookletOrderViewStore;
 
     return (
         <React.Fragment>
             <ApplicationListLayout store={bookletOrderViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
+                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                        <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
+                                    value={queryUtility.filter['bookletCodes'] || ""}
+                                    onChange={(event) => queryUtility.filter['bookletCodes'] = event.target.value}
+                                    placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
+                                    value={queryUtility.filter['trackingNumber'] || ""}
+                                    onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
+                                    placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'
+                                />
+                            </div>
+                            {/* TODO
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <NumericInputRange
+                                    valueMin={queryUtility.filter['amountRangeMin'] || undefined}
+                                    valueMax={queryUtility.filter['amountRangeMax'] || undefined}
+                                    onChangeMin={(value) => queryUtility.filter['amountRangeMin'] = value}
+                                    onChangeMax={(value) => queryUtility.filter['amountRangeMax'] = value}
+                                    placeholderMin='BOOKLET_ORDER.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER'
+                                    placeholderMax='BOOKLET_ORDER.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
+                                />
+                            </div> */}
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={deliveryMethodTypeDropdownStore}
+                                    placeholder='BOOKLET_ORDER.LIST.FILTER.DELIVERY_TYPE_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={bookletOrderStatusDropdownStore}
+                                    placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <DateRangeQueryPicker
+                                    queryUtility={queryUtility}
+                                    store={dateCreatedDateRangeQueryStore}
+                                    fromPropertyName='dateCreatedFrom'
+                                    toPropertyName='dateCreatedTo'
+                                />
+                            </div>
                         </TableFilter>
                     </div>
                     <div className="card--form card--primary card--med">

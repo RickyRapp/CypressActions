@@ -1,9 +1,10 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { action, runInAction } from 'mobx';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { LookupService } from 'common/services';
 import { BookletOrderListFilter } from 'application/booklet-order/models';
 import _ from 'lodash';
 import moment from 'moment';
@@ -47,6 +48,10 @@ class BookletOrderViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
+                    this.deliveryMethodTypeDropdownStore.setValue(null);
+                    this.bookletOrderStatusDropdownStore.setValue(null);
+                    this.dateCreatedDateRangeQueryStore.reset();
+                    this.searchDonorAccountDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -173,6 +178,91 @@ class BookletOrderViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId })
                 }
             });
+
+        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorAccountService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'coreUser.firstName|asc',
+                        embed: [
+                            'coreUser',
+                            'companyProfile',
+                            'donorAccountAddresses',
+                            'donorAccountAddresses.address'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName'
+                        ]
+                    });
+                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                },
+                onChange: (donorAccountId) => {
+                    this.queryUtility.filter['donorAccountId'] = donorAccountId;
+                }
+            });
+
+        this.bookletOrderStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (bookletOrderStatus) => {
+                    this.queryUtility.filter['bookletOrderStatusIds'] = _.map(bookletOrderStatus, (status) => { return status.id });
+                }
+            });
+        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (deliveryMethodType) => {
+                    this.queryUtility.filter['deliveryMethodTypeIds'] = _.map(deliveryMethodType, (type) => { return type.id });
+                }
+            });
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
+    }
+
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.fetchBookletStatuses(),
+                this.fetchDeliveryMethodTypes()
+            ]);
+        }
+    }
+
+    @action.bound
+    async fetchBookletStatuses() {
+        this.bookletOrderStatusDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-order-status');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.bookletOrderStatusDropdownStore.setItems(response.data);
+            this.bookletOrderStatusDropdownStore.setLoading(false);
+        });
+    }
+
+    @action.bound
+    async fetchDeliveryMethodTypes() {
+        this.deliveryMethodTypeDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.deliveryMethodTypeDropdownStore.setItems(response.data);
+            this.deliveryMethodTypeDropdownStore.setLoading(false);
+        });
     }
 
     @action.bound

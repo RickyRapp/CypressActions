@@ -1,15 +1,18 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { action, runInAction, observable } from 'mobx';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionService } from 'application/contribution/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { LookupService } from 'common/services';
 import { ContributionListFilter } from 'application/contribution/models';
 import _ from 'lodash';
 import moment from 'moment';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
+    @observable accountTypes = null;
+
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
         let filter = new ContributionListFilter('dateCreated', 'desc')
@@ -42,6 +45,8 @@ class ContributionViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
+                    this.paymentTypeDropdownStore.setValue(null);
+                    this.contributionStatusDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -185,6 +190,69 @@ class ContributionViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId })
                 }
             });
+
+        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorAccountService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'coreUser.firstName|asc',
+                        embed: [
+                            'coreUser',
+                            'companyProfile',
+                            'donorAccountAddresses',
+                            'donorAccountAddresses.address'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName'
+                        ]
+                    });
+                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                },
+                onChange: (donorAccountId) => {
+                    this.queryUtility.filter['donorAccountId'] = donorAccountId;
+                }
+            });
+
+        this.paymentTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (paymentType) => {
+                    this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
+                }
+            });
+        this.contributionStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                onChange: (contributionStatus) => {
+                    this.queryUtility.filter['contributionStatusIds'] = _.map(contributionStatus, (status) => { return status.id });
+                }
+            });
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.fetchPaymentTypes(),
+                this.fetchContributionStatus(),
+                this.fetchAccountTypes()
+            ]);
+        }
     }
 
     @action.bound
@@ -213,6 +281,35 @@ class ContributionViewStore extends BaseListViewStore {
             }
         }
         return item.paymentType.name;
+    }
+
+    @action.bound
+    async fetchPaymentTypes() {
+        this.paymentTypeDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.paymentTypeDropdownStore.setItems(response.data);
+            this.paymentTypeDropdownStore.setLoading(false);
+        });
+    }
+
+    @action.bound
+    async fetchContributionStatus() {
+        this.contributionStatusDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-status');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.contributionStatusDropdownStore.setItems(response.data);
+            this.contributionStatusDropdownStore.setLoading(false);
+        });
+    }
+
+    @action.bound
+    async fetchAccountTypes() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
+        const response = await service.getAll();
+        this.accountTypes = response.data;
     }
 }
 

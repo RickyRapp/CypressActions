@@ -7,7 +7,8 @@ import {
     TableFilter,
     EmptyState,
     BaasicModal,
-    BaasicDropdown
+    BaasicDropdown,
+    BaasicInput
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -20,15 +21,45 @@ const GrantListTemplate = function ({ grantViewStore, t }) {
         queryUtility,
         authorization,
         selectDonorModal,
-        selectDonorDropdownStore
+        selectDonorDropdownStore,
+        searchDonorAccountDropdownStore,
+        grantStatusDropdownStore
     } = grantViewStore;
 
     return (
         <React.Fragment>
             <ApplicationListLayout store={grantViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
+                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                        <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
+                                    value={queryUtility.filter['confirmationNumber'] || ""}
+                                    onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                    placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                                />
+                            </div>
+                            {/* TODO
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <NumericInputRange
+                                    valueMin={queryUtility.filter['amountRangeMin'] || undefined}
+                                    valueMax={queryUtility.filter['amountRangeMax'] || undefined}
+                                    onChangeMin={(value) => queryUtility.filter['amountRangeMin'] = value}
+                                    onChangeMax={(value) => queryUtility.filter['amountRangeMax'] = value}
+                                    placeholderMin='GRANT.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER'
+                                    placeholderMax='GRANT.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
+                                />
+                            </div> */}
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={grantStatusDropdownStore}
+                                    placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
+                                />
+                            </div>
                         </TableFilter>
                     </div>
                     <div className="card--form card--primary card--med">

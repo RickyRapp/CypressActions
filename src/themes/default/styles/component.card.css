@@ -10,6 +10,12 @@
         border-radius: $radius-med;
     }
 
+    &--secondary {
+        background-color: #bababa;
+        box-shadow: $shadow-base;
+        border-radius: $radius-med;
+    }
+
     &--med {
         padding: calc($unit * 4);
     }

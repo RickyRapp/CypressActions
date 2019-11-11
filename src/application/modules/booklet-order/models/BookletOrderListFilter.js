@@ -8,6 +8,10 @@ class BookletOrderListFilter extends FilterParams {
     @observable confirmationNumber;
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
+    @observable bookletOrderStatusIds;
+    @observable deliveryMethodTypeIds;
+    @observable trackingNumber;
+    @observable bookletCodes;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -25,6 +29,10 @@ class BookletOrderListFilter extends FilterParams {
         this.confirmationNumber = null;
         this.dateCreatedStartDate = null;
         this.dateCreatedEndDate = null;
+        this.bookletOrderStatusIds = null;
+        this.deliveryMethodTypeIds = null;
+        this.trackingNumber = null;
+        this.bookletCodes = null;
     }
 }
 

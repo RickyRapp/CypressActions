@@ -8,6 +8,8 @@ class BookletListFilter extends FilterParams {
     @observable codes;
     @observable denominationTypeIds;
     @observable donorAccountId;
+    @observable trackingNumber;
+    @observable deliveryMethodTypeIds;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -24,6 +26,8 @@ class BookletListFilter extends FilterParams {
         this.bookletStatusIds = null;
         this.codes = null;
         this.denominationTypeIds = null;
+        this.trackingNumber = null;
+        this.deliveryMethodTypeIds = null;
     }
 }
 

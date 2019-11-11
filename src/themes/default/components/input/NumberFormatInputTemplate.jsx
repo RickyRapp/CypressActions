@@ -21,7 +21,7 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
                 mask={mask}
                 onValueChange={onChange}
                 value={value}
-                placeholder={placeholder}
+                placeholder={placeholder || format}
                 displayType={displayType}
                 thousandSeparator={thousandSeparator}
                 prefix={prefix}
@@ -32,7 +32,8 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
 
 NumberFormatInputTemplate.defaultProps = {
     labelClassName: 'form__group__label',
-    className: 'input input--med input--text'
+    className: 'input input--med input--text',
+    mask: '_'
 };
 
 export default NumberFormatInputTemplate;

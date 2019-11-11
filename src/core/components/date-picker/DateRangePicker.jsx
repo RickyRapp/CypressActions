@@ -55,8 +55,7 @@ const CustomDateInput = function (props) {
 CustomDateInput.propTypes = {
     label: PropTypes.string,
     error: PropTypes.string,
-    required: PropTypes.bool,
-    t: PropTypes.func.isRequired,
+    required: PropTypes.bool
 };
 
 DateRangePicker.propTypes = {

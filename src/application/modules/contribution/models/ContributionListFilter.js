@@ -6,10 +6,12 @@ class ContributionListFilter extends FilterParams {
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
-    @observable dateCreatedStartDate;
-    @observable dateCreatedEndDate;
+    @observable dateCreatedFrom;
+    @observable dateCreatedTo;
     @observable contributionStatusIds;
     @observable paymentTypeIds;
+    @observable nameOnCheck;
+    @observable accountTypeId;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -25,10 +27,12 @@ class ContributionListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
-        this.dateCreatedStartDate = null;
-        this.dateCreatedEndDate = null;
+        this.dateCreatedFrom = null;
+        this.dateCreatedTo = null;
         this.contributionStatusIds = null;
         this.paymentTypeIds = null;
+        this.accountTypeId = null;
+
     }
 }
 

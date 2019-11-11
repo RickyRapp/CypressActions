@@ -7,12 +7,17 @@ import {
     TableFilter,
     EmptyState,
     BaasicModal,
-    BaasicDropdown
+    BaasicDropdown,
+    BaasicInput,
+    NullableSwitch,
+    DateRangeQueryPicker,
+    NumericInputRange
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { ContributionReview } from 'application/contribution/components'
+import _ from 'lodash'
 
 const ContributionListTemplate = function ({ contributionViewStore, t }) {
     const {
@@ -22,15 +27,87 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
         authorization,
         selectDonorModal,
         selectDonorDropdownStore,
-        reviewModal
+        searchDonorAccountDropdownStore,
+        paymentTypeDropdownStore,
+        reviewModal,
+        contributionStatusDropdownStore,
+        accountTypes,
+        dateCreatedDateRangeQueryStore
     } = contributionViewStore;
 
     return (
         <React.Fragment>
             <ApplicationListLayout store={contributionViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
+                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                        <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                            </div>
+                            <div className="col col-sml-12 col-med-4 col-lrg-2 u-mar--top--sml u-mar--bottom--sml">
+                                {accountTypes &&
+                                    <NullableSwitch
+                                        value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'basic' }).id}
+                                        onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'basic' : 'premium' }).id}
+                                        yesLabel='CONTRIBUTION.LIST.FILTER.BASIC_PLACEHOLDER'
+                                        noLabel='CONTRIBUTION.LIST.FILTER.PREMIUM_PLACEHOLDER'
+                                    />}
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
+                                    value={queryUtility.filter['confirmationNumber'] || ""}
+                                    onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
+                                    value={queryUtility.filter['paymentNumber'] || ""}
+                                    onChange={(event) => queryUtility.filter['paymentNumber'] = event.target.value}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
+                                />
+                            </div>
+                            {/* TODO
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <NumericInputRange
+                                    valueMin={queryUtility.filter['amountRangeMin'] || undefined}
+                                    valueMax={queryUtility.filter['amountRangeMax'] || undefined}
+                                    onChangeMin={(value) => queryUtility.filter['amountRangeMin'] = value}
+                                    onChangeMax={(value) => queryUtility.filter['amountRangeMax'] = value}
+                                    placeholderMin='CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER'
+                                    placeholderMax='CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
+                                />
+                            </div> */}
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={paymentTypeDropdownStore}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={contributionStatusDropdownStore}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
+                                    value={queryUtility.filter['nameOnCheck'] || ""}
+                                    onChange={(event) => queryUtility.filter['nameOnCheck'] = event.target.value}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <DateRangeQueryPicker
+                                    queryUtility={queryUtility}
+                                    store={dateCreatedDateRangeQueryStore}
+                                    fromPropertyName='dateCreatedFrom'
+                                    toPropertyName='dateCreatedTo'
+                                />
+                            </div>
                         </TableFilter>
                     </div>
                     <div className="card--form card--primary card--med">

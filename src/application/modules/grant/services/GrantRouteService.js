@@ -6,7 +6,7 @@ class GrantRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,search,name,taxId,grantId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorAccountId,confirmationNumber,grantStatusIds,search,name,taxId,grantId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
