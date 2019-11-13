@@ -47,12 +47,14 @@ class BookletCreateViewStore extends BaseEditViewStore {
         }
     }
 
-    @action.bound onDel(item) {
+    @action.bound
+    onDel(item) {
         item.del();
         this.resetDenominationDropdownStore();
     }
 
-    @action.bound onAdd() {
+    @action.bound
+    onAdd() {
         if (this.count && this.denominationTypeDropdownStore.value) {
             this.form.$('items').add([{ count: this.count, denominationTypeId: this.denominationTypeDropdownStore.value.id }])
             this.count = '';
@@ -61,7 +63,8 @@ class BookletCreateViewStore extends BaseEditViewStore {
         }
     }
 
-    @action.bound onEdit(item) {
+    @action.bound
+    onEdit(item) {
         this.count = item.$('count').value;
         this.denominationTypeDropdownStore.setValue(_.find(this.originalDenominationTypes, { id: item.$('denominationTypeId').value }));
         item.del();
