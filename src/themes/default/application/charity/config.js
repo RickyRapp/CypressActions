@@ -43,7 +43,8 @@ import { CharityList, CharityCreate, CharityEdit } from 'application/charity/pag
                 title: 'MENU.CHARITIES',
                 authorization: 'theDonorsFundAdministrationSection.read',
                 order: 4,
-                route: 'master.app.main.charity.list'
+                route: 'master.app.main.charity.list',
+                icon: 'charities',
             }
         ]
     });

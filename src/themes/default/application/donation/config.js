@@ -25,7 +25,8 @@ import { DonationList } from 'application/donation/pages';
                 title: 'MENU.DONATIONS',
                 authorization: 'theDonorsFundAdministrationSection.read',
                 order: 6,
-                route: 'master.app.main.donation.list'
+                route: 'master.app.main.donation.list',
+                icon: 'donations'
             }
         ]
     });

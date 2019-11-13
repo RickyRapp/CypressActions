@@ -83,6 +83,34 @@
                 &--activity {
                     background-image: svg-load('postcss-svg/archive.svg', fill: color(white a(60%)));
                 }
+
+                &--booklet {
+                    background-image: svg-load('postcss-svg/booklets.svg', fill: color(white a(60%)));
+                }
+
+                &--donors {
+                    background-image: svg-load('postcss-svg/users.svg', fill: color(white a(60%)));
+                }
+
+                &--charities {
+                    background-image: svg-load('postcss-svg/donations.svg', fill: color(white a(60%)));
+                }
+
+                &--contribution {
+                    background-image: svg-load('postcss-svg/contribution.svg', fill: color(white a(60%)));
+                }
+
+                &--donations {
+                    background-image: svg-load('postcss-svg/donations.svg', fill: color(white a(60%)));
+                }
+
+                &--grant {
+                    background-image: svg-load('postcss-svg/grant.svg', fill: color(white a(60%)));
+                }
+
+                &--session {
+                    background-image: svg-load('postcss-svg/sessions.svg', fill: color(white a(60%)));
+                }
             } 
 
             &:hover,

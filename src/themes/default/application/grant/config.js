@@ -43,6 +43,7 @@ import { GrantList, GrantCreate, GrantEdit } from 'application/grant/pages';
                 title: 'MENU.GRANT',
                 order: 7,
                 authorization: 'theDonorsFundAdministrationSection.read',
+                icon: 'grant',
                 subMenu: [
                     {
                         title: 'MENU.GRANTS',

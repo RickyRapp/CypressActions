@@ -52,6 +52,7 @@ import { SessionList, SessionCreate, SessionInProgressList, SessionEdit } from '
                 title: 'MENU.SESSION',
                 order: 8,
                 authorization: 'theDonorsFundAdministrationSection.read',
+                icon: 'session',
                 subMenu: [
                     {
                         title: 'MENU.SESSIONS',

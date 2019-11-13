@@ -43,6 +43,7 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
                 title: 'MENU.BOOKLET',
                 authorization: 'theDonorsFundAdministrationSection.read',
                 order: 3,
+                icon: 'booklet',
                 subMenu: [
                     {
                         title: 'MENU.BOOKLETS',

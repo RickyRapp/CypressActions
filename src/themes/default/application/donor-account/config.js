@@ -56,7 +56,8 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                 title: 'MENU.DONOR_ACCOUNTS',
                 order: 3,
                 authorization: 'theDonorsFundAdministrationSection.read',
-                route: 'master.app.main.donor-account.list'
+                route: 'master.app.main.donor-account.list',
+                icon: 'donors'
             },
             {
                 title: 'MENU.DONOR_ACCOUNT_EDIT',

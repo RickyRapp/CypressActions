@@ -52,7 +52,7 @@ import { noApplicationRedirectPromise } from 'core/utils';
                 subMenu: [
                     {
                         title: 'MENU.USERS',
-                        order: 1,
+                        order: 2,
                         icon: 'user icon',
                         route: 'master.app.main.user.list'
                     },

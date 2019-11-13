@@ -28,7 +28,7 @@ import { ApplicationDefaultSettingEdit } from 'application/administration/applic
                 subMenu: [
                     {
                         title: 'MENU.APPLICATION_DEFAULT_SETTING',
-                        order: 2,
+                        order: 1,
                         route: 'master.app.main.application-default-setting.edit'
                     },
                 ]
