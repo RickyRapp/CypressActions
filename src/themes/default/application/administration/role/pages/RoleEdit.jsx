@@ -13,7 +13,7 @@ function RoleEditTemplate({ editView }) {
     return (
         <ApplicationEditLayout store={editView}>
             <Content loading={contentLoading} >
-                <div className="row">
+                <div className="row card card--form card--primary card--med">
                     <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('name')} />
                     </div>

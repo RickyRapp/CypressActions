@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { UserProfilePartialForm } from 'application/administration/user/components';
+// import { UserProfilePartialForm } from 'application/administration/user/components';
 import { BasicInput, BaasicFieldDropdown } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -16,7 +16,7 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
         <ApplicationEditLayout store={userCreateViewStore}>
             <Content loading={contentLoading} >
                 <React.Fragment>
-                    <div className="row">
+                    <div className="row card card--form card--primary card--med">
                         <div className="form__group col col-lrg-6">
                             <BasicInput field={form.$('userName')} />
                         </div>
@@ -33,11 +33,10 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
                             <BasicInput field={form.$('confirmPassword')} />
                         </div>
                         <div className="form__group col col-lrg-6">
-                            <BaasicFieldDropdown field={form.$('roles')}
-                                store={roleMultiselectStore} />
+                            <BaasicFieldDropdown field={form.$('roles')} store={roleMultiselectStore} />
                         </div>
                     </div>
-                    <UserProfilePartialForm form={form} />
+                    {/* <UserProfilePartialForm form={form} /> */}
                 </React.Fragment>
             </Content>
         </ApplicationEditLayout>

@@ -63,12 +63,14 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                             </div>
                             <div className={'header__profile__dropdown' + (profileMenuOpen ? ' active' : '')}>
                                 <ul>
-                                    <li className='header__profile__dropdown__item'
-                                        onClick={() => {
-                                            toggleProfileMenu();
-                                            routerStore.goTo('master.app.main.my-profile', { id: rootStore.userStore.applicationUser.id })
-                                        }}> {t('HEADER.USER_MENU.MY_PROFILE')}
-                                    </li>
+                                    {rootStore.userStore.applicationUser && rootStore.userStore.applicationUser.roles.includes('Users', 'Charities') &&
+                                        <li className='header__profile__dropdown__item'
+                                            onClick={() => {
+                                                toggleProfileMenu();
+                                                routerStore.goTo(rootStore.userStore.applicationUser.roles.includes('Users') ? 'master.app.main.profile' : 'master.app.main.profile',
+                                                    { id: rootStore.userStore.applicationUser.id })
+                                            }}> {t('HEADER.USER_MENU.MY_PROFILE')}
+                                        </li>}
                                     <li className='header__profile__dropdown__item'
                                         onClick={() => {
                                             rootStore.viewStore.logout();

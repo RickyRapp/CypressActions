@@ -23,7 +23,7 @@ import { DonorActivityAndHistoryList, CharityActivityAndHistoryList } from 'appl
                     },
                     {
                         name: 'master.app.main.activity-and-history.charity-view',
-                        pattern: '/overview/:id',
+                        pattern: '/activity/:id',
                         component: CharityActivityAndHistoryList,
                         authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Charities') },
                         data: {
