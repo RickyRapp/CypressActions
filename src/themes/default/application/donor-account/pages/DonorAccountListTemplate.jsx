@@ -44,7 +44,7 @@ const DonorAccountListTemplate = function ({ donorAccountViewStore }) {
                                 placeholder='DONOR_ACCOUNT.LIST.FILTER.LAST_NAME_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-4 col-lrg-2 u-mar--top--sml u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
                             {accountTypes &&
                                 <NullableSwitch
                                     value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'basic' }).id}

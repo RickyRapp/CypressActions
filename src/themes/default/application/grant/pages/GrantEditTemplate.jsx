@@ -4,9 +4,10 @@ import {
     BaasicFieldDropdown,
     NumericInputField
 } from 'core/components';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { GrantPurposeTypeForm } from 'themes/application/grant/components';
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import _ from 'lodash';
 
 const GrantEditTemplate = function ({ grantEditViewStore }) {
@@ -16,16 +17,17 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
         grantPurposeTypeDropdownStore,
         grantAcknowledgmentTypeDropdownStore,
         charityDropdownStore,
-        donorName,
+        id,
         donorAccount,
         onChangeAmount,
-        amountWithFee } = grantEditViewStore;
+        amountWithFee
+    } = grantEditViewStore;
 
     return (
         <React.Fragment>
             <ApplicationEditLayout store={grantEditViewStore}>
+                <AuthPageHeader id={id} type={2} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
-                    {donorName && <h3 className="u-mar--bottom--med">{donorName}</h3>}
                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                         <h3 className="u-mar--bottom--med">General Data</h3>
                         <div className="row">
@@ -71,6 +73,8 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
         </React.Fragment>
     )
 };
+
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 GrantEditTemplate.propTypes = {
     grantEditViewStore: PropTypes.object.isRequired

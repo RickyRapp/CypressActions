@@ -43,6 +43,8 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore({
             defaultItem: { id: '', name: '-' }
         })
+
+        this.id = id;
     }
 
     @action.bound

@@ -117,7 +117,7 @@ class ContributionSettingViewStore extends BaseListViewStore {
                 },
             ],
             actions: {
-                onEdit: (contributionSetting) => alert('TODO'),
+                onEdit: () => alert('TODO'),
                 onCancel: (contributionSetting) => this.onCancel(contributionSetting.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },

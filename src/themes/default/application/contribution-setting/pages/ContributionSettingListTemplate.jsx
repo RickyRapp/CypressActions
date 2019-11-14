@@ -6,16 +6,14 @@ import {
     BaasicTable,
     TableFilter,
     EmptyState,
-    BaasicModal,
     BaasicDropdown,
     DateRangeQueryPicker
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import _ from 'lodash'
 
-const ContributionSettingListTemplate = function ({ contributionSettingViewStore, t }) {
+const ContributionSettingListTemplate = function ({ contributionSettingViewStore }) {
     const {
         tableStore,
         routes,

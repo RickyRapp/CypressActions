@@ -16,6 +16,7 @@ import {
     DonorAccountPhoneNumberListTable,
     DonorAccountBankAccountListTable
 } from 'application/donor-account/components';
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 
 function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
     const {
@@ -30,6 +31,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 
     return (
         <Page loading={loaderStore.loading} >
+            {item && <AuthPageHeader id={item.id} type={0} authorization='theDonorsFundAdministrationSection.read' />}
             <div className="card card--form card--primary card--med u-mar--bottom--sml">
                 <EditFormContent form={form}>
                     <div className="row">
@@ -100,6 +102,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 }
 
 const AuthAccountSettingsPartialFormContent = withAuth(AccountSettingsPartialForm);
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 DonorAccountEditTemplate.propTypes = {
     donorAccountEditViewStore: PropTypes.object.isRequired,

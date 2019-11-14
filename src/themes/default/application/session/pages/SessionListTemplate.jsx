@@ -10,8 +10,7 @@ import {
     BaasicDropdown,
     BaasicInput,
     NumberFormatInput,
-    DateRangeQueryPicker,
-    NumericInputRange
+    DateRangeQueryPicker
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';

@@ -26,6 +26,7 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
         const donorAccountId = rootStore.routerStore.routerState.params.id;
         super(rootStore, {
             name: 'donor-account-email-addresses',
+            authorization: 'theDonorsFundContactInfoSection',
             routes: {
             },
             queryConfig: {

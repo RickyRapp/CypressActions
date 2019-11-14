@@ -17,14 +17,12 @@ import {
 function ContributionBaseTemplate({
     form,
     paymentTypeDropdownStore,
-    donorName,
     openBankAccountModal,
     bankAccountDropdownStore,
     setPayerInfoUsingPrimaryDonorContactInfo
 }) {
     return (
         <React.Fragment>
-            {donorName && <h3 className="u-mar--bottom--med">{donorName}</h3>}
             <div className="card card--form card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">General Data</h3>
                 <div className="row">
@@ -70,7 +68,6 @@ function ContributionBaseTemplate({
 ContributionBaseTemplate.propTypes = {
     form: PropTypes.object.isRequired,
     paymentTypeDropdownStore: PropTypes.object.isRequired,
-    donorName: PropTypes.string.isRequired,
     openBankAccountModal: PropTypes.func.isRequired,
     bankAccountDropdownStore: PropTypes.object.isRequired,
     setPayerInfoUsingPrimaryDonorContactInfo: PropTypes.func.isRequired

@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BaasicModal } from 'core/components';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { DonorAccountBankAccountEditForm } from 'application/donor-account/components';
 import { ContributionBaseTemplate } from 'themes/application/contribution/components';
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 
 const ContributionEditTemplate = function ({ contributionEditViewStore }) {
     const {
@@ -16,7 +17,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
         bankAccountModal,
         form,
         paymentTypeDropdownStore,
-        donorName,
+        id,
         openBankAccountModal,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo
@@ -25,11 +26,11 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={contributionEditViewStore}>
+                <AuthPageHeader id={id} type={1} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <ContributionBaseTemplate
                         form={form}
                         paymentTypeDropdownStore={paymentTypeDropdownStore}
-                        donorName={donorName}
                         openBankAccountModal={openBankAccountModal}
                         bankAccountDropdownStore={bankAccountDropdownStore}
                         setPayerInfoUsingPrimaryDonorContactInfo={setPayerInfoUsingPrimaryDonorContactInfo}
@@ -48,6 +49,8 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
         </React.Fragment>
     )
 };
+
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 ContributionEditTemplate.propTypes = {
     contributionEditViewStore: PropTypes.object.isRequired

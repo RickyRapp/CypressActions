@@ -14,9 +14,10 @@ class ContributionViewStore extends BaseListViewStore {
     @observable accountTypes = null;
 
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id;
+        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new ContributionListFilter('dateCreated', 'desc')
-        filter.donorAccountId = id;
+        filter.donorAccountId = id || queryParamsId;
 
         super(rootStore, {
             name: 'contribution',
@@ -45,6 +46,7 @@ class ContributionViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
+                    this.searchDonorAccountDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
                 }
@@ -217,6 +219,30 @@ class ContributionViewStore extends BaseListViewStore {
                     });
                     return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
                 },
+                initValueFunc: async () => {
+                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
+                        const id = rootStore.routerStore.routerState.queryParams.id;
+                        const params = {
+                            embed: [
+                                'coreUser',
+                                'companyProfile',
+                                'donorAccountAddresses',
+                                'donorAccountAddresses.address'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName'
+                            ]
+                        }
+                        const response = await donorAccountService.get(id, params);
+                        rootStore.routerStore.setQueryParams(null);
+                        return { id: response.data.id, name: response.data.donorName };
+                    }
+                    else {
+                        return null;
+                    }
+                },
                 onChange: (donorAccountId) => {
                     this.queryUtility.filter['donorAccountId'] = donorAccountId;
                 }
@@ -258,6 +284,11 @@ class ContributionViewStore extends BaseListViewStore {
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open({ donorAccountId: this.queryUtility.filter.donorAccountId });
+    }
+
+    @action.bound
+    onClickDonorFromFilter(donorAccountId) {
+        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId })
     }
 
     @action.bound

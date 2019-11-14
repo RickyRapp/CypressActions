@@ -44,6 +44,7 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
         const donorAccountId = rootStore.routerStore.routerState.params.id;
         super(rootStore, {
             name: 'donor-account-phone-numbers',
+            authorization: 'theDonorsFundContactInfoSection',
             routes: {
             },
             queryConfig: {

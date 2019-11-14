@@ -6,9 +6,10 @@ import {
     DatePickerField
 } from 'core/components';
 import { ContributionBaseTemplate } from 'themes/application/contribution/components';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { DonorAccountBankAccountEditForm } from 'application/donor-account/components';
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 
 const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
     const {
@@ -17,7 +18,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
         paymentTypeDropdownStore,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo,
-        donorName,
+        id,
         openBankAccountModal,
         uploadTypes,
         uploadLoading,
@@ -30,11 +31,11 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={contributionCreateViewStore}>
+                <AuthPageHeader id={id} type={1} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <ContributionBaseTemplate
                         form={form}
                         paymentTypeDropdownStore={paymentTypeDropdownStore}
-                        donorName={donorName}
                         openBankAccountModal={openBankAccountModal}
                         bankAccountDropdownStore={bankAccountDropdownStore}
                         setPayerInfoUsingPrimaryDonorContactInfo={setPayerInfoUsingPrimaryDonorContactInfo}
@@ -67,6 +68,8 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
         </React.Fragment>
     )
 };
+
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 ContributionCreateTemplate.propTypes = {
     contributionCreateViewStore: PropTypes.object.isRequired

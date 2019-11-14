@@ -23,7 +23,8 @@ const GrantListTemplate = function ({ grantViewStore, t }) {
         selectDonorModal,
         selectDonorDropdownStore,
         searchDonorAccountDropdownStore,
-        grantStatusDropdownStore
+        grantStatusDropdownStore,
+        onClickDonorFromFilter
     } = grantViewStore;
 
     return (
@@ -75,6 +76,14 @@ const GrantListTemplate = function ({ grantViewStore, t }) {
                 <section className='w--400--px'>
                     <h3 className="u-mar--bottom--med">{t('GRANT.LIST.SELECT_DONOR')}</h3>
                     <div className="row">
+                        {selectDonorModal.data.donorAccountId &&
+                            <div className="form__group col col-lrg-12">
+                                <a
+                                    className=""
+                                    onClick={() => onClickDonorFromFilter(selectDonorModal.data.donorAccountId)}>
+                                    {t('GRANT.LIST.SELECT_DONOR_FROM_FILTER')}
+                                </a>
+                            </div>}
                         <div className="form__group col col-lrg-12">
                             <BaasicDropdown className='input--dropdown' store={selectDonorDropdownStore} />
                         </div>

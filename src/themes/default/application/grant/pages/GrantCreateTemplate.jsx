@@ -7,9 +7,10 @@ import {
     BasicInput,
     BasicFieldCheckbox
 } from 'core/components';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { GrantPurposeTypeForm } from 'themes/application/grant/components';
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import _ from 'lodash';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore }) {
@@ -20,7 +21,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
         grantAcknowledgmentTypeDropdownStore,
         grantScheduleTypeDropdownStore,
         charityDropdownStore,
-        donorName,
+        id,
         donorAccount,
         monthlyGrantId,
         annualGrantId,
@@ -34,8 +35,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={grantCreateViewStore}>
+                <AuthPageHeader id={id} type={2} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
-                    {donorName && <h3 className="u-mar--bottom--med">{donorName}</h3>}
                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                         <h3 className="u-mar--bottom--med">General Data</h3>
                         <div className="row">
@@ -108,6 +109,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
         </React.Fragment>
     )
 };
+
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 GrantCreateTemplate.propTypes = {
     grantCreateViewStore: PropTypes.object.isRequired

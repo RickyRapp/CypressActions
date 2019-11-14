@@ -12,9 +12,10 @@ import _ from 'lodash';
 @applicationContext
 class GrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id;
+        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new GrantListFilter('dateCreated', 'desc')
-        filter.donorAccountId = id;
+        filter.donorAccountId = id || queryParamsId;
 
         super(rootStore, {
             name: 'grant',
@@ -52,6 +53,7 @@ class GrantViewStore extends BaseListViewStore {
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
                     this.grantStatusDropdownStore.setValue(null);
+                    this.searchDonorAccountDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -91,6 +93,8 @@ class GrantViewStore extends BaseListViewStore {
                 }
             }
         });
+
+        this.rootStore = rootStore;
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -217,6 +221,30 @@ class GrantViewStore extends BaseListViewStore {
                     });
                     return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
                 },
+                initValueFunc: async () => {
+                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
+                        const id = rootStore.routerStore.routerState.queryParams.id;
+                        const params = {
+                            embed: [
+                                'coreUser',
+                                'companyProfile',
+                                'donorAccountAddresses',
+                                'donorAccountAddresses.address'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName'
+                            ]
+                        }
+                        const response = await donorAccountService.get(id, params);
+                        rootStore.routerStore.setQueryParams(null);
+                        return { id: response.data.id, name: response.data.donorName };
+                    }
+                    else {
+                        return null;
+                    }
+                },
                 onChange: (donorAccountId) => {
                     this.queryUtility.filter['donorAccountId'] = donorAccountId;
                 }
@@ -247,6 +275,11 @@ class GrantViewStore extends BaseListViewStore {
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open({ donorAccountId: this.queryUtility.filter.donorAccountId });
+    }
+
+    @action.bound
+    onClickDonorFromFilter(donorAccountId) {
+        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
     }
 
     @action.bound

@@ -305,7 +305,7 @@
         "DONOR_ACCOUNTS": "Donors",
         "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
-        "CONTRIBUTIONS": "Contribtions",
+        "CONTRIBUTIONS": "Contributions",
         "CONTRIBUTION_SETTINGS": "Settings",
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
@@ -420,6 +420,15 @@
             "INITIAL_CONTRIBUTION_LABEL": "Initial contribution",
             "SECURITY_PIN_LABEL": "Security pin",
             "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount"
+        },
+        "PAGE_HEADER": {
+            "OVERVIEW": {
+                "PRESENT_BALANCE": "Present:",
+                "AVAILABLE_BALANCE": "Available:",
+                "ACTIVITY": "Activity",
+                "CONTRIBUTION": "Contributions",
+                "GRANT": "Grants"
+            }
         }
     },
     "ADDRESS": {
@@ -677,6 +686,7 @@
         "LIST": {
             "TITLE": "Contributions",
             "SELECT_DONOR": "Select donor",
+            "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
@@ -811,6 +821,7 @@
         "LIST": {
             "TITLE": "Grants",
             "SELECT_DONOR": "Select donor",
+            "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",

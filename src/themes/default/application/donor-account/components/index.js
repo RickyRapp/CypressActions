@@ -2,3 +2,4 @@ export { default as DonorAccountAddressListTableTemplate } from './DonorAccountA
 export { default as DonorAccountEmailAddressListTableTemplate } from './DonorAccountEmailAddressListTableTemplate'
 export { default as DonorAccountPhoneNumberListTableTemplate } from './DonorAccountPhoneNumberListTableTemplate'
 export { default as DonorAccountBankAccountListTableTemplate } from './DonorAccountBankAccountListTableTemplate'
+export { default as DonorAccountPageHeaderOverviewTemplate } from './DonorAccountPageHeaderOverviewTemplate'

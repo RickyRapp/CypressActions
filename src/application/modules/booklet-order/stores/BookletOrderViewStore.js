@@ -229,7 +229,6 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
     }
 
-
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {

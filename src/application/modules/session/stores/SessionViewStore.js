@@ -7,6 +7,7 @@ import { applicationContext, isSome } from 'core/utils';
 import { SessionListFilter } from 'application/session/models';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
+import _ from 'lodash';
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
@@ -40,7 +41,7 @@ class SessionViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 disableUpdateQueryParams: true,
-                onResetFilter: (filter) => {
+                onResetFilter: () => {
                     this.paymentTypeDropdownStore.setValue(null);
                     this.sessionStatusDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);

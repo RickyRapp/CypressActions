@@ -10,8 +10,7 @@ import {
     BaasicDropdown,
     BaasicInput,
     NullableSwitch,
-    DateRangeQueryPicker,
-    NumericInputRange
+    DateRangeQueryPicker
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -32,7 +31,8 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
         reviewModal,
         contributionStatusDropdownStore,
         accountTypes,
-        dateCreatedDateRangeQueryStore
+        dateCreatedDateRangeQueryStore,
+        onClickDonorFromFilter
     } = contributionViewStore;
 
     return (
@@ -44,7 +44,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicDropdown store={searchDonorAccountDropdownStore} />
                             </div>
-                            <div className="col col-sml-12 col-med-4 col-lrg-2 u-mar--top--sml u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
                                 {accountTypes &&
                                     <NullableSwitch
                                         value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'basic' }).id}
@@ -123,6 +123,14 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
                 <section className='w--400--px'>
                     <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.LIST.SELECT_DONOR')}</h3>
                     <div className="row">
+                        {selectDonorModal.data.donorAccountId &&
+                            <div className="form__group col col-lrg-12">
+                                <a
+                                    className=""
+                                    onClick={() => onClickDonorFromFilter(selectDonorModal.data.donorAccountId)}>
+                                    {t('CONTRIBUTION.LIST.SELECT_DONOR_FROM_FILTER')}
+                                </a>
+                            </div>}
                         <div className="form__group col col-lrg-12">
                             <BaasicDropdown className='input--dropdown' store={selectDonorDropdownStore} />
                         </div>

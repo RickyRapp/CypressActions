@@ -8,3 +8,4 @@ export { default as DonorAccountAddressEditForm } from './DonorAccountAddressEdi
 export { default as DonorAccountPhoneNumberEditForm } from './DonorAccountPhoneNumberEditForm'
 export { default as DonorAccountBankAccountEditForm } from './DonorAccountBankAccountEditForm'
 export { default as ContactInfoForm } from './ContactInfoForm'
+export { default as DonorAccountPageHeaderOverview } from './DonorAccountPageHeaderOverview'

@@ -4,7 +4,8 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
-import { Date, Address, NumberFormatInput } from 'core/components';
+import { Date, Address } from 'core/components';
+import NumberFormat from 'react-number-format';
 
 function FormatterResolver({ item, field, format }) {
     switch (format.type) {
@@ -15,8 +16,17 @@ function FormatterResolver({ item, field, format }) {
             }
             return null;
         }
-        case 'currency':
-            return <span>{format.value + _.get(item, field)}</span>
+        case 'currency': {
+            const params = {
+                value: _.get(item, field),
+                displayType: 'text',
+                thousandSeparator: true,
+                prefix: format.value ? format.value : '$',
+                fixedDecimalScale: true,
+                decimalScale: 2
+            }
+            return <NumberFormat {...params} />
+        }
         case 'boolean':
             switch (format.value) {
                 case 'yes-no':
@@ -27,9 +37,9 @@ function FormatterResolver({ item, field, format }) {
         case 'address':
             return <Address value={_.get(item, field)} format={format.value} />
         case 'phone-number':
-            return <NumberFormatInput value={_.get(item, field)} format='(###) ###-####' displayType='text' className='' />
+            return <NumberFormat value={_.get(item, field)} format='(###) ###-####' displayType='text' />
         case 'routing-number':
-            return <NumberFormatInput value={_.get(item, field)} format='###-###-###' displayType='text' className='' />
+            return <NumberFormat value={_.get(item, field)} format='###-###-###' displayType='text' />
         case 'image':
             if (_.get(item, field)) {
                 return <span onClick={() => window.open(format.fetch(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab
@@ -51,7 +61,7 @@ function FormatterResolver({ item, field, format }) {
             }
         }
         case 'number-format':
-            return <NumberFormatInput value={_.get(item, field)} format={format.value} displayType='text' className='' />;
+            return <NumberFormat value={_.get(item, field)} format={format.value} displayType='text' />;
         default:
             return () => { };
     }
