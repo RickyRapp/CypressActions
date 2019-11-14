@@ -305,7 +305,8 @@
         "DONOR_ACCOUNTS": "Donors",
         "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
-        "CONTRIBUTIONS": "Contributions",
+        "CONTRIBUTIONS": "Contribtions",
+        "CONTRIBUTION_SETTINGS": "Settings",
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
@@ -768,6 +769,42 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount"
             }
+        }
+    },
+    "CONTRIBUTION_SETTING": {
+        "LIST": {
+            "TITLE": "Contributions",
+            "SELECT_DONOR": "Select donor",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "START_DATE_LABEL": "Start date",
+                "CONTRIBUTION_SETTING_TYPE_NAME_LABEL": "Type",
+                "PAYMENT_TYPE_NAME_LABEL": "Payment type",
+                "BANK_ACCOUNT_NAME_LABEL": "Bank account",
+                "ENABLED_LABEL": "Enabled"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "CONTRIBUTION_SETTING_TYPE_PLACEHOLDER": "Contribution type",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No contributions",
+                "ACTION": "Create new contribution"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CANCEL": "Cancel"
+            }
+        },
+        "CANCEL": {
+            "TITLE": "Cancel contribution setting",
+            "QUESTION": "Are you sure you want to cancel selected resource?",
+            "SUCCESS": "Successfully canceled selected resource",
+            "ERROR": "Error occurred while trying to cancel resource"
         }
     },
     "GRANT": {

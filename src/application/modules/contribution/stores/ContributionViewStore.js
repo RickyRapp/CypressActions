@@ -269,7 +269,7 @@ class ContributionViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    renderPaymentType = (item) => {
+    renderPaymentType(item) {
         if (item.paymentType.abrv === 'ach' || item.paymentType.abrv === 'wire-transfer') {
             if (item.bankAccount) {
                 if (item.bankAccount.accountNumber.length > 4) {

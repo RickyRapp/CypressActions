@@ -130,8 +130,9 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
                     await this.fetchBankAccounts();
                     this.form.$('bankAccountId').set(response.data.response);
+                    this.bankAccountDropdownStore.setValue(_.find(this.bankAccounts, { id: response.data.response }))
                     this.setPayerInfo(_.find(this.bankAccounts, { id: response.data.response }).accountHolder);
-                    this.form.$('payerInformation').each((field) => field.set('disabled', true));
+                    this.form.$('payerInformation').each((field) => { field.resetValidation(); field.set('disabled', true) });
                     this.bankAccountModal.close();
 
                 }
