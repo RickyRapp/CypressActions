@@ -317,6 +317,7 @@
         "SESSION_IN_PROGRESS": "Session in progress",
         "SCANNER_CONNECTIONS": "Scanner connections",
         "APPLICATION_DEFAULT_SETTING": "Default setting",
+        "SCHEDULED_SETTINGS": "Scheduled settings",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -1391,6 +1392,21 @@
             },
             "EMPTY_STATE": {
                 "TITLE": "No scanner connections"
+            }
+        }
+    },
+    "SCHEDULED_SETTING": {
+        "LIST": {
+            "TITLE": "Scheduled tasks",
+            "COLUMNS": {
+                "NAME_LABEL": "Task",
+                "DESCRIPTION_LABEL": "Description"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No scheduled tasks"
+            },
+            "BUTTON": {
+                "RUN": "Run scheduled tasks"
             }
         }
     }
