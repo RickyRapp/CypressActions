@@ -49,6 +49,14 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicInput
                                     className='input input--sml'
+                                    value={queryUtility.filter['confirmationNumber'] || ""}
+                                    onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                    placeholder='BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--sml'
                                     value={queryUtility.filter['trackingNumber'] || ""}
                                     onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
                                     placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'

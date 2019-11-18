@@ -2,6 +2,7 @@ import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ActivityAndHistoryService } from 'application/activity-and-history/services';
 import { applicationContext } from 'core/utils';
 import { ActivityAndHistoryListFilter } from 'application/activity-and-history/models';
+import { action } from 'mobx';
 
 @applicationContext
 class SettledPaymentTransactionViewStore extends BaseListViewStore {
@@ -28,11 +29,6 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         if (params.charityId || params.donorAccountId) {
-                            params.embed = [
-                                'paymentTransaction',
-                                'paymentTransaction.paymentTransactionStatus',
-                                'paymentTransaction.paymentTransactionType'
-                            ];
                             const response = await service.find(params);
                             return response.data;
                         }
@@ -43,6 +39,8 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 }
             }
         });
+
+        this.rootStore = rootStore;
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -73,12 +71,67 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                         type: 'currency',
                         value: '$'
                     }
+                },
+                {
+                    key: 'activityConfirmationNumber',
+                    title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.ACTIVITY_TYPE_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (activity) => this.renderActivity(activity)
+                    },
+                    onClick: (activity) => this.redirectActivity(activity)
                 }
             ],
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
+    }
+
+    @action.bound
+    redirectActivity(activity) {
+        switch (activity.activityType) {
+            case 1:
+                this.rootStore.routerStore.goTo('master.app.main.contribution.list', null, { confirmationNumber: activity.activityConfirmationNumber });
+                break;
+            case 2:
+                this.rootStore.routerStore.goTo('master.app.main.grant.list', null, { confirmationNumber: activity.activityConfirmationNumber });
+                break;
+            case 4:
+                alert('TODO')
+                break;
+            case 8:
+                alert('TODO')
+                break;
+            case 16:
+                alert('TODO')
+                break;
+            case 32:
+                this.rootStore.routerStore.goTo('master.app.main.booklet-order.list', null, { confirmationNumber: activity.activityConfirmationNumber });
+                break;
+            default:
+                return;
+        }
+    }
+
+    @action.bound
+    renderActivity(activity) {
+        switch (activity.activityType) {
+            case 1:
+                return 'Contribution'
+            case 2:
+                return 'Grant'
+            case 4:
+                return 'FundTransfer'
+            case 8:
+                return 'Session certificate'
+            case 16:
+                return 'Fee'
+            case 32:
+                return 'Booklet order'
+            default:
+                return '-'
+        }
     }
 }
 

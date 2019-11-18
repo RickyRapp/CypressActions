@@ -306,7 +306,7 @@
         "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
         "CONTRIBUTIONS": "Contributions",
-        "CONTRIBUTION_SETTINGS": "Settings",
+        "CONTRIBUTION_SETTINGS": "Contribution settings",
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
@@ -608,7 +608,8 @@
                 "PAYMENT_AMOUNT_LABEL": "Amount",
                 "PRESENT_BALANCE_LABEL": "Balance",
                 "DONOR_NAME_LABEL": "Donor",
-                "CHARITY_NAME_LABEL": "Charity"
+                "CHARITY_NAME_LABEL": "Charity",
+                "ACTIVITY_TYPE_LABEL": "Type"
             },
             "EMPTY_STATE": {
                 "TITLE": "No activities"
@@ -1093,7 +1094,8 @@
                 "BOOKLET_CODES_PLACEHOLDER": "Codes",
                 "BOOKLET_ORDER_STATUS_PLACEHOLDER": "Order status",
                 "DELIVERY_TYPE_PLACEHOLDER": "Delivery type",
-                "TRACKING_NUMBER_PLACEHOLDER": "Tracking number"
+                "TRACKING_NUMBER_PLACEHOLDER": "Tracking number",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number"
             },
             "EMPTY_STATE": {
                 "TITLE": "No booklet orders"
