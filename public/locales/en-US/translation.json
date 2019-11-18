@@ -314,6 +314,7 @@
         "BOOKLETS": "Booklets",
         "BOOKLET_ORDERS": "Booklet orders",
         "SESSIONS": "Sessions",
+        "SESSION_CERTIFICATES": "Certificates",
         "SESSION_IN_PROGRESS": "Session in progress",
         "SCANNER_CONNECTIONS": "Scanner connections",
         "APPLICATION_DEFAULT_SETTING": "Default setting",
@@ -1409,6 +1410,28 @@
             },
             "BUTTON": {
                 "RUN": "Run scheduled tasks"
+            }
+        }
+    },
+    "SESSION_CERTIFICATE": {
+        "LIST": {
+            "TITLE": "Scanned certificates",
+            "COLUMNS": {
+                "CERTIFICATE_CODE_LABEL": "Certificate code",
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Amount",
+                "CHARITY_NAME_LABEL": "Charity",
+                "DONOR_NAME_LABEL": "Donor",
+                "DENOMINATION_LABEL": "Denomination",
+                "DATE_LABEL": "Date"
+            },
+            "FILTER": {
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "BOOKLET_CERTIFICATE_CODE_PLACEHOLDER": "Booklet and certificate code"
+            },
+            "BUTTON": {},
+            "EMPTY_STATE": {
+                "TITLE": "No scanned certificates"
             }
         }
     }

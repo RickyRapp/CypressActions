@@ -67,7 +67,7 @@ class SessionService extends BaseService {
         return response || null;
     }
 
-    review(resource) {
+    async review(resource) {
         const url = this.routeService.review(resource);
         return this.apiClient.put(url, resource);
     }
