@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     NumericInput,
-    BaasicButton
+    BaasicButton,
+    NullableSwitch
 } from 'core/components'
-import { renderIf } from 'core/utils';
+import { renderIf, isSome } from 'core/utils';
 
 const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) {
     const {
@@ -35,6 +36,38 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                     {renderIf(maxAmountError)(<div
                         className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{t('SESSION.EDIT.MAX_BLANK_CERTIFICATE_AMOUNT_ERROR')}</div>)}
                 </div>
+                {sessionCertificate.certificate.booklet.denominationType.abrv === 'blank' &&
+                    <div className="form__group col col-lrg-12">
+                        <div>
+                            {isSome(sessionCertificate.donorApproved) &&
+                                <React.Fragment>
+                                    {sessionCertificate.donorApproved &&
+                                        <label className="form__group__label">{t('SESSION.EDIT.DONOR_APPROVED_BLANK_AMOUNT')}</label>}
+                                    {!sessionCertificate.donorApproved &&
+                                        <label className="form__group__label">{t('SESSION.EDIT.DONOR_DOES_NOT_AGREE_WITH_BLANK_AMOUNT')}</label>}
+                                </React.Fragment>}
+                            {!isSome(sessionCertificate.donorApproved) &&
+                                <React.Fragment>
+                                    {isSome(sessionCertificate.donorApproveToken) &&
+                                        <label className="form__group__label">{t('SESSION.EDIT.DONOR_DID_NOT_RESPOND_YET_ON_BLANK_AMOUNT')}</label>}
+                                    {!isSome(sessionCertificate.donorApproveToken) &&
+                                        <label className="form__group__label">{t('SESSION.EDIT.AGREE_EMAIL_NOT_SENT')}</label>}
+                                </React.Fragment>}
+                            <NullableSwitch
+                                value={sessionCertificate.donorApproved}
+                                onChange={(value) => sessionCertificate.donorApproved = value}
+                            />
+                            {!isSome(sessionCertificate.donorApproved) &&
+                                <BaasicButton
+                                    className="btn btn--icon"
+                                    icon='u-icon u-icon--email-pass u-icon--sml'
+                                    label='SESSION.EDIT.SEND_APPROVE_EMAIL'
+                                    onlyIcon={true}
+                                    onClick={() => sendApproveEmail(sessionCertificate)}>
+                                </BaasicButton>
+                            }
+                        </div>
+                    </div>}
                 <div className="form__group col col-lrg-12 u-mar--top--med">
                     <BaasicButton
                         className="btn btn--base btn--primary"
