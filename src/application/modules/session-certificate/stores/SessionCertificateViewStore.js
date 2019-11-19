@@ -3,8 +3,8 @@ import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionCertificateService } from 'application/session-certificate/services';
 import { CharityService } from 'application/charity/services';
+import { DonorAccountService } from 'application/donor-account/services';
 import { applicationContext, isSome } from 'core/utils';
-import { FormatterResolver } from 'core/components';
 import { SessionCertificateListFilter } from 'application/session-certificate/models';
 import _ from 'lodash';
 
@@ -20,10 +20,13 @@ class SessionCertificateViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: filter,
-                disableUpdateQueryParams: true,
                 onResetFilter: () => {
                     this.searchCharityDropdownStore.setValue(null);
+                    this.searchDonorAccountDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
+                },
+                queryParamMap: {
+                    bookletCertificateCode: { fromQuery: (queryParamValue) => { return queryParamValue } }
                 }
             },
             actions: () => {
@@ -38,10 +41,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                             'certificate.booklet.donorAccount.coreUser',
                             'session',
                             'session.donation',
-                            'session.donation.charity',
-                            'sessionCertificateDonorAccountTransactions',
-                            'sessionCertificateDonorAccountTransactions.paymentTransaction',
-                            'sessionCertificateDonorAccountTransactions.paymentTransaction.paymentTransactionStatus'
+                            'session.donation.charity'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -50,30 +50,28 @@ class SessionCertificateViewStore extends BaseListViewStore {
             }
         });
 
+        this.isCharityUser = rootStore.userStore.applicationUser.roles.includes('Charities');
+        this.isDonorUser = rootStore.userStore.applicationUser.roles.includes('Users');
+
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'certificate.booklet.donorAccount.donorName',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: !rootStore.userStore.applicationUser.roles.includes('Users')
+                    visible: !this.isDonorUser
                 },
                 {
                     key: 'session.donation.charity.name',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
-                    visible: !rootStore.userStore.applicationUser.roles.includes('Charities')
+                    visible: !this.isCharityUser
                 },
                 {
-                    key: 'value',
+                    key: 'certificate.booklet.denominationType',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
-                        type: 'function',
-                        value: (item) => {
-                            const value = item.certificate.booklet.denominationType.abrv === 'blank' ? '$' + item.blankCertificateValue : '$' + item.certificate.booklet.denominationType.value;
-                            if (item.certificate.booklet.denominationType.abrv === 'blank') {
-                                return `${value} (${item.certificate.booklet.denominationType.name})`;
-                            }
-                            return value;
-                        }
+                        type: 'denomination',
+                        value: 'short',
+                        additionalField: 'blankCertificateValue'
                     }
                 },
                 {
@@ -85,18 +83,11 @@ class SessionCertificateViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'date',
-                    title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DATE_LABEL',
+                    key: 'session.dateProcessed',
+                    title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DATE_PROCESSED_LABEL',
                     format: {
-                        type: 'function',
-                        value: (item) => {
-                            const date = _.find(item.sessionCertificateDonorAccountTransactions, (item) => { return item.paymentTransaction.paymentTransactionStatus.abrv === 'settled' }).dateCreated;
-                            return <FormatterResolver
-                                item={{ date: date }}
-                                field='date'
-                                format={{ type: 'date', value: 'short' }}
-                            />
-                        }
+                        type: 'date',
+                        value: 'short'
                     }
                 },
             ],
@@ -110,7 +101,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
 
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.searchCharityDropdownStore = new BaasicDropdownStore({
-            placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+            placeholder: 'SESSION_CERTIFICATE.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
             initFetch: false,
             filterable: true
         },
@@ -135,6 +126,62 @@ class SessionCertificateViewStore extends BaseListViewStore {
                 },
                 onChange: (charityId) => {
                     this.queryUtility.filter['charityId'] = charityId;
+                }
+            });
+
+        const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
+        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+            placeholder: 'SESSION_CERTIFICATE.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorAccountService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'coreUser.firstName|asc',
+                        embed: [
+                            'coreUser',
+                            'companyProfile',
+                            'donorAccountAddresses',
+                            'donorAccountAddresses.address'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName'
+                        ]
+                    });
+                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                },
+                initValueFunc: async () => {
+                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
+                        const id = rootStore.routerStore.routerState.queryParams.id;
+                        const params = {
+                            embed: [
+                                'coreUser',
+                                'companyProfile',
+                                'donorAccountAddresses',
+                                'donorAccountAddresses.address'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName'
+                            ]
+                        }
+                        const response = await donorAccountService.get(id, params);
+                        rootStore.routerStore.setQueryParams(null);
+                        return { id: response.data.id, name: response.data.donorName };
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorAccountId) => {
+                    this.queryUtility.filter['donorAccountId'] = donorAccountId;
                 }
             });
 

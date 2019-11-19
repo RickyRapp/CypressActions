@@ -65,11 +65,11 @@ class BookletViewStore extends BaseListViewStore {
                     authorization: this.authorization.update
                 },
                 {
-                    key: 'denominationType.name',
+                    key: 'denominationType',
                     title: 'BOOKLET.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
                         type: 'denomination',
-                        value: 'short'
+                        value: 'long'
                     }
                 },
                 {

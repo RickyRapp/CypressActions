@@ -41,6 +41,8 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
         });
 
         this.rootStore = rootStore;
+        this.isCharityUser = rootStore.userStore.applicationUser.roles.includes('Charities');
+        this.isDonorUser = rootStore.userStore.applicationUser.roles.includes('Users');
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -75,6 +77,7 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 {
                     key: 'activityConfirmationNumber',
                     title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.ACTIVITY_TYPE_LABEL',
+                    visible: !this.isCharityUser,
                     format: {
                         type: 'function',
                         value: (activity) => this.renderActivity(activity)
@@ -101,7 +104,7 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 alert('TODO')
                 break;
             case 8:
-                alert('TODO')
+                this.rootStore.routerStore.goTo('master.app.main.session-certificate.list', null, { bookletCertificateCode: activity.activityConfirmationNumber });
                 break;
             case 16:
                 alert('TODO')

@@ -6,7 +6,7 @@ class SessionCertificateRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,bookletCertificateCode,dateCreatedFrom,dateCreatedTo,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,bookletCertificateCode,dateCreatedFrom,dateCreatedTo,donorAccountId,charityId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

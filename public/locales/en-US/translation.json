@@ -1423,10 +1423,11 @@
                 "CHARITY_NAME_LABEL": "Charity",
                 "DONOR_NAME_LABEL": "Donor",
                 "DENOMINATION_LABEL": "Denomination",
-                "DATE_LABEL": "Date"
+                "DATE_PROCESSED_LABEL": "Date"
             },
             "FILTER": {
                 "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
                 "BOOKLET_CERTIFICATE_CODE_PLACEHOLDER": "Booklet and certificate code"
             },
             "BUTTON": {},

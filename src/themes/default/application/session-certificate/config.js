@@ -39,6 +39,13 @@ import { SessionCertificateList } from 'application/session-certificate/pages';
                 route: 'master.app.main.session-certificate.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'session-certificate'
+            },
+            {
+                title: 'MENU.SESSION_CERTIFICATES',
+                order: 2,
+                route: 'master.app.main.session-certificate.list',
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Charities'); },
+                icon: 'session-certificate'
             }
         ]
     });

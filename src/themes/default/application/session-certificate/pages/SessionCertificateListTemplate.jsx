@@ -6,7 +6,8 @@ import {
     TableFilter,
     EmptyState,
     BaasicDropdown,
-    DateRangeQueryPicker
+    DateRangeQueryPicker,
+    NumberFormatInput
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { ApplicationListLayout, Content } from 'core/layouts';
@@ -18,7 +19,10 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore, 
         queryUtility,
         authorization,
         searchCharityDropdownStore,
-        dateCreatedDateRangeQueryStore
+        searchDonorAccountDropdownStore,
+        dateCreatedDateRangeQueryStore,
+        isDonorUser,
+        isCharityUser
     } = sessionCertificateViewStore;
 
     return (
@@ -27,21 +31,15 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore, 
                 <Content emptyRenderer={renderEmpty(routes)} >
                     <div className="card--form card--secondary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                            {!isCharityUser && !isDonorUser &&
+                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                    <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                                </div>}
+                            {!isCharityUser &&
+                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                    <BaasicDropdown store={searchCharityDropdownStore} />
+                                </div>}
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchCharityDropdownStore} />
-                            </div>
-                            {/* TODO
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumericInputRange
-                                    valueMin={queryUtility.filter['amountRangeMin'] || undefined}
-                                    valueMax={queryUtility.filter['amountRangeMax'] || undefined}
-                                    onChangeMin={(value) => queryUtility.filter['amountRangeMin'] = value}
-                                    onChangeMax={(value) => queryUtility.filter['amountRangeMax'] = value}
-                                    placeholderMin='SESSION_CERTIFICATE.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER'
-                                    placeholderMax='SESSION_CERTIFICATE.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
-                                />
-                            </div> */}
-                            {/* <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <NumberFormatInput
                                     className='input input--sml'
                                     value={queryUtility.filter['bookletCertificateCode']}
@@ -49,7 +47,7 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore, 
                                     format='#####-##'
                                     mask=''
                                 />
-                            </div> */}
+                            </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                 <DateRangeQueryPicker
                                     queryUtility={queryUtility}

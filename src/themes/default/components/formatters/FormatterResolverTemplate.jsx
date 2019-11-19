@@ -8,6 +8,15 @@ import { Date, Address } from 'core/components';
 import NumberFormat from 'react-number-format';
 
 function FormatterResolver({ item, field, format }) {
+    const params = {
+        value: _.get(item, field),
+        displayType: 'text',
+        thousandSeparator: true,
+        prefix: format.value ? format.value : '$',
+        fixedDecimalScale: true,
+        decimalScale: 2
+    }
+
     switch (format.type) {
         case 'date': {
             const date = _.get(item, field);
@@ -17,14 +26,6 @@ function FormatterResolver({ item, field, format }) {
             return null;
         }
         case 'currency': {
-            const params = {
-                value: _.get(item, field),
-                displayType: 'text',
-                thousandSeparator: true,
-                prefix: format.value ? format.value : '$',
-                fixedDecimalScale: true,
-                decimalScale: 2
-            }
             return <NumberFormat {...params} />
         }
         case 'boolean':
@@ -49,12 +50,17 @@ function FormatterResolver({ item, field, format }) {
             return format.value(item);
         case 'denomination': {
             const notAvailable = "Out Of Stock.";
-            const denominationType = item.denominationType;
+            const denominationType = _.get(item, field);
+            const value = denominationType.abrv === 'blank' ? _.get(item, format.additionalField) : denominationType.value;
+            const oneCert = <span><NumberFormat value={value} displayType='text' thousandSeparator={true} prefix='$' fixedDecimalScale={true} decimalScale={2} />{denominationType.abrv === 'blank' ? ' (Blank)' : ''}</span>;
+
             switch (format.value) {
-                case 'short': {
-                    const oneCert = `$${denominationType.value}`;
-                    const totalCert = `$${denominationType.value * denominationType.certificateAmount}`;
+                case 'long': {
+                    const totalCert = <NumberFormat value={value * denominationType.certificateAmount} displayType='text' thousandSeparator={true} prefix='$' fixedDecimalScale={true} decimalScale={2} />;
                     return <span>{oneCert} ({denominationType.certificateAmount} cert. - {totalCert}) {format.formatNotAvailable && !denominationType.available ? notAvailable : null}</span>
+                }
+                case 'short': {
+                    return oneCert
                 }
                 default:
                     return null;
