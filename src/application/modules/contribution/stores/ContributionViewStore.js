@@ -1,8 +1,9 @@
+import { React } from 'react'
 import { action, runInAction, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionService } from 'application/contribution/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import { ContributionListFilter } from 'application/contribution/models';
@@ -183,10 +184,17 @@ class ContributionViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: (donorAccountId) => {
                     this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId })
@@ -214,10 +222,17 @@ class ContributionViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 initValueFunc: async () => {
                     if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {

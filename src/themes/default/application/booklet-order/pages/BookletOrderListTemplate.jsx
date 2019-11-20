@@ -109,7 +109,11 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
                     <h3 className="u-mar--bottom--med">{t('BOOKLET_ORDER.LIST.SELECT_DONOR')}</h3>
                     <div className="row">
                         <div className="form__group col col-lrg-12">
-                            <BaasicDropdown className='input--dropdown' store={selectDonorDropdownStore} />
+                            <BaasicDropdown
+                                className='input--dropdown'
+                                store={selectDonorDropdownStore}
+                                opened={true}
+                            />
                         </div>
                     </div>
                 </section>

@@ -132,7 +132,11 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
                                 </a>
                             </div>}
                         <div className="form__group col col-lrg-12">
-                            <BaasicDropdown className='input--dropdown' store={selectDonorDropdownStore} />
+                            <BaasicDropdown
+                                className='input--dropdown'
+                                store={selectDonorDropdownStore}
+                                opened={true}
+                            />
                         </div>
                     </div>
                 </section>

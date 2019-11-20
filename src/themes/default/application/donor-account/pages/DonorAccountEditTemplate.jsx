@@ -24,7 +24,8 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
         prefixTypeDropdownStore,
         item,
         loaderStore,
-        deliveryMethodTypeDropdownStore
+        accountSettingsShow,
+        onChangeAccountSettingsShow
     } = donorAccountEditViewStore;
 
     let isPremiumAccount = item && item.accountType.abrv === 'premium';
@@ -55,7 +56,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                                         <BasicInput field={form.$('fundName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />
+                                        <BasicInput field={form.$('securityPin')} />
                                     </div>
                                     {isPremiumAccount &&
                                         <div className="form__group col col-lrg-3">
@@ -73,6 +74,8 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                                         form={form}
                                         isPremiumAccount={isPremiumAccount}
                                         authorization='theDonorsFundAdministrationSection.update'
+                                        show={accountSettingsShow}
+                                        onChangeShow={onChangeAccountSettingsShow}
                                     />}
                             </div>
                         </div>

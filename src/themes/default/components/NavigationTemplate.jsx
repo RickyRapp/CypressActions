@@ -17,7 +17,7 @@ const NavigationOptions = defaultTemplate(({ options, t }) => {
     }
 
     if (options.title && options.title !== '') {
-        return <span className='type--wgt--regular'>{t(options.title)}</span>
+        return <span className='type--wgt--regular'>: {t(options.title)}</span>
     }
 
     return null;

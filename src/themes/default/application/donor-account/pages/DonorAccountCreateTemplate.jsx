@@ -20,11 +20,14 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
         form,
         prefixTypeDropdownStore,
         loaderStore,
-        deliveryMethodTypeDropdownStore,
         accountTypeDropdownStore,
         howDidYouHearAboutUsDropdownStore,
         onBlurUsername,
-        onBlurFundName
+        onBlurFundName,
+        accountSettingsShow,
+        onChangeAccountSettingsShow,
+        loginShow,
+        onChangeLoginShow
     } = donorAccountCreateViewStore;
 
     const isPremium = accountTypeDropdownStore.value && accountTypeDropdownStore.value.abrv === 'premium';
@@ -60,7 +63,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                         />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />
+                                        <BasicInput field={form.$('securityPin')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <BaasicFieldDropdown field={form.$('howDidYouHearAboutUsId')} store={howDidYouHearAboutUsDropdownStore} />
@@ -80,6 +83,8 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     form={form}
                                     isPremiumAccount={isPremium}
                                     authorization='theDonorsFundAdministrationSection.update'
+                                    show={accountSettingsShow}
+                                    onChangeShow={onChangeAccountSettingsShow}
                                 />
                             </div>
                             <div className="u-mar--bottom--sml">
@@ -90,6 +95,8 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     form={form}
                                     title='DONOR_ACCOUNT.CREATE.LOGIN_FORM_FIELDS.TITLE'
                                     onBlurUsername={onBlurUsername}
+                                    show={loginShow}
+                                    onChangeShow={onChangeLoginShow}
                                 />
                             </div>
                         </div>

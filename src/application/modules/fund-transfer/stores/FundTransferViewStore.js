@@ -1,7 +1,7 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { FundTransferService } from 'application/fund-transfer/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { FundTransferListFilter } from 'application/fund-transfer/models';
 import _ from 'lodash';
 
@@ -121,10 +121,17 @@ class FundTransferViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: (donorAccountId) => {
                     this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })

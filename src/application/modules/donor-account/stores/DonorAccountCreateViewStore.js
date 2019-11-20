@@ -1,5 +1,5 @@
-import { applicationContext } from 'core/utils';
-import { action, runInAction, computed } from 'mobx';
+import { applicationContext, isSome } from 'core/utils';
+import { action, runInAction, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorAccountCreateForm } from 'application/donor-account/forms';
 import { LookupService } from 'common/services';
@@ -14,6 +14,8 @@ const ErrorType = {
 class DonorAccountCreateViewStore extends BaseEditViewStore {
     accountTypes = null;
     applicationDefaultSetting = null;
+    @observable loginShow = false;
+    @observable accountSettingsShow = false;
 
     constructor(rootStore) {
         const service = new DonorAccountService(rootStore.application.baasic.apiClient);
@@ -27,9 +29,24 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                         this.usernameExists(item.coreUser.username),
                         this.fundNameExists(item.fundName)
                     ])
+                    if (item.coreUser.username || item.coreUser.coreMembership.password || item.coreUser.coreMembership.confirmPassword) {
+                        if (!item.coreUser.username) {
+                            this.form.$('coreUser.username').invalidate('The Username is required if you want create online account.')
+                        }
+                        if (!item.coreUser.coreMembership.password) {
+                            this.form.$('coreUser.coreMembership.password').invalidate('The Password is required if you want create online account.')
+                        }
+                        if (!item.coreUser.coreMembership.confirmPassword) {
+                            this.form.$('coreUser.coreMembership.confirmPassword').invalidate('The Confirm password is required if you want create online account.')
+                        }
+                    }
+                    else {
+                        item.coreUser.username = null;
+                    }
                     if (!this.form.isValid) {
                         throw { type: ErrorType.Unique };
                     }
+
                     item.coreUser.json = JSON.stringify({ middleName: item.coreUser.middleName, prefixTypeId: item.coreUser.prefixTypeId });
                     return await service.create(item);
                 }
@@ -40,7 +57,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                         case ErrorType.Unique:
                             break;
                         default:
-                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
                             break;
                     }
                 }
@@ -52,12 +69,12 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         this.service = service;
 
         this.prefixTypeDropdownStore = new BaasicDropdownStore();
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (accountTypeId) => {
                     this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === this.premiumId);
                     this.form.$('extraBookletPercentage').setRequired(accountTypeId === this.premiumId);
+                    this.setFormDefaultValues();
                 }
             });
         this.howDidYouHearAboutUsDropdownStore = new BaasicDropdownStore();
@@ -73,7 +90,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         else {
             await this.fetch([
                 this.fetchPrefixTypes(),
-                this.fetchDeliveryMethodTypes(),
                 this.fetchAccountTypes(),
                 this.fetchHowDidYouHearAboutUsTypes(),
                 this.fetchApplicationDefaultSetting()
@@ -109,6 +125,16 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+    onChangeLoginShow(visiblity) {
+        this.loginShow = visiblity;
+    }
+
+    @action.bound
+    onChangeAccountSettingsShow(visiblity) {
+        this.accountSettingsShow = visiblity;
+    }
+
+    @action.bound
     onBlurFundName(event) {
         this.fundNameExists(event.target ? event.target.value : null)
     }
@@ -139,17 +165,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         runInAction(() => {
             this.prefixTypeDropdownStore.setItems(response.data);
             this.prefixTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchDeliveryMethodTypes() {
-        this.deliveryMethodTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.deliveryMethodTypeDropdownStore.setItems(response.data);
-            this.deliveryMethodTypeDropdownStore.setLoading(false);
         });
     }
 
@@ -189,8 +204,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
             this.form.$('accountTypeId').set(this.basicId);
             this.accountTypeDropdownStore.onChange(_.find(this.accountTypes, { abrv: 'basic' }))
         }
-
-        this.form.$('deliveryMethodTypeId').set(this.applicationDefaultSetting.deliveryMethodTypeId);
 
         if (this.form.$('accountTypeId').value === this.basicId) {
             this.form.$('lineOfCredit').set(this.applicationDefaultSetting.basicLineOfCreditAmount);

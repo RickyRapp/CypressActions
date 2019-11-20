@@ -407,11 +407,15 @@
                 "TITLE": "Login info",
                 "USERNAME_LABEL": "Username/Email",
                 "PASSWORD_LABEL": "Password",
-                "CONFIRM_PASSWORD_LABEL": "Confirm password"
+                "CONFIRM_PASSWORD_LABEL": "Confirm password",
+                "SHOW": "Show",
+                "HIDE": "Hide"
             }
         },
         "ACCOUNT_SETTINGS_FIELDS": {
             "TITLE": "Account settings details",
+            "HIDE": "Show",
+            "SHOW": "Hide",
             "LINE_OF_CREDIT_LABEL": "Line of credit",
             "CERTIFICATE_DEDUCTION_LABEL": "Certificate deduction",
             "CERTIFICATE_FEE_LABEL": "Certificate fee",

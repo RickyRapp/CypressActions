@@ -2,7 +2,7 @@ import { action, runInAction } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import { BookletOrderListFilter } from 'application/booklet-order/models';
@@ -169,10 +169,17 @@ class BookletOrderViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: (donorAccountId) => {
                     this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId })
@@ -203,7 +210,12 @@ class BookletOrderViewStore extends BaseListViewStore {
                             'donorName'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: (donorAccountId) => {
                     this.queryUtility.filter['donorAccountId'] = donorAccountId;

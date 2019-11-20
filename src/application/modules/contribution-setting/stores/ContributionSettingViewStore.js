@@ -4,7 +4,7 @@ import { action, runInAction, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionSettingService } from 'application/contribution-setting/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, isSome } from 'core/utils';
+import { applicationContext, isSome, donorAccountFormatter } from 'core/utils';
 import { LookupService } from 'common/services';
 import { ContributionSettingListFilter } from 'application/contribution-setting/models';
 import _ from 'lodash';
@@ -159,10 +159,17 @@ class ContributionSettingViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: (donorAccountId) => {
                     this.queryUtility.filter['donorAccountId'] = donorAccountId;

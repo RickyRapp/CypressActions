@@ -30,11 +30,6 @@ export default class DonorAccountEditForm extends FormBase {
                     rules: ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`]
                 },
                 {
-                    name: 'deliveryMethodTypeId',
-                    label: 'DONOR_ACCOUNT.EDIT.DELIVERY_METHOD_TYPE_LABEL',
-                    rules: 'required|string'
-                },
-                {
                     name: 'blankBookletMaxAmount',
                     label: 'DONOR_ACCOUNT.EDIT.BLANK_BOOKLET_MAX_LABEL',
                     rules: 'required|numeric|min:0',

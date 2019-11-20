@@ -1,5 +1,5 @@
 import { applicationContext } from 'core/utils';
-import { action, runInAction } from 'mobx';
+import { action, runInAction, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorAccountEditForm } from 'application/donor-account/forms';
 import { LookupService } from 'common/services';
@@ -7,6 +7,7 @@ import { DonorAccountService } from 'application/donor-account/services';
 
 @applicationContext
 class DonorAccountEditViewStore extends BaseEditViewStore {
+    @observable accountSettingsShow = false;
     constructor(rootStore) {
         const id = rootStore.routerStore.routerState.params.id;
         const service = new DonorAccountService(rootStore.application.baasic.apiClient);
@@ -41,7 +42,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
         this.rootStore = rootStore;
 
         this.prefixTypeDropdownStore = new BaasicDropdownStore();
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound
@@ -55,7 +55,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             this.form.clear();
             await this.fetch([
                 this.fetchPrefixTypes(),
-                this.fetchDeliveryMethodTypes(),
                 this.getResource(this.id)
             ]);
         }
@@ -63,7 +62,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async updateResource(resource) {
-        const { prefixTypeId, firstName, lastName, middleName, fundName, blankBookletMaxAmount, deliveryMethodTypeId, notificationLimitRemainderAmount,
+        const { prefixTypeId, firstName, lastName, middleName, fundName, blankBookletMaxAmount, notificationLimitRemainderAmount,
             lineOfCredit, certificateDeductionPercentage, certificateFeePercentage, contributionMinimumAdditionalAmount, contributionMinimumInitialAmount, extraBookletPercentage,
             grantFeePercentage, grantMinimumAmount, initialContribution, securityPin } = resource;
         const generalData = {
@@ -73,7 +72,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             middleName,
             fundName,
             blankBookletMaxAmount,
-            deliveryMethodTypeId,
             notificationLimitRemainderAmount
         };
 
@@ -111,6 +109,11 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+    onChangeAccountSettingsShow(visiblity) {
+        this.accountSettingsShow = visiblity;
+    }
+
+    @action.bound
     async fetchPrefixTypes() {
         this.prefixTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
@@ -118,17 +121,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
         runInAction(() => {
             this.prefixTypeDropdownStore.setItems(response.data);
             this.prefixTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchDeliveryMethodTypes() {
-        this.deliveryMethodTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.deliveryMethodTypeDropdownStore.setItems(response.data);
-            this.deliveryMethodTypeDropdownStore.setLoading(false);
         });
     }
 }

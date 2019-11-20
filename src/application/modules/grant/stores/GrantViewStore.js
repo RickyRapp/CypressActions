@@ -2,7 +2,7 @@ import { action, runInAction } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { GrantService } from 'application/grant/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/grant/models';
 import { LookupService } from 'common/services';
@@ -185,10 +185,17 @@ class GrantViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: (donorAccountId) => {
                     this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
@@ -216,10 +223,17 @@ class GrantViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 initValueFunc: async () => {
                     if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
@@ -239,7 +253,10 @@ class GrantViewStore extends BaseListViewStore {
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return { id: response.data.id, name: response.data.donorName };
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
                     }
                     else {
                         return null;

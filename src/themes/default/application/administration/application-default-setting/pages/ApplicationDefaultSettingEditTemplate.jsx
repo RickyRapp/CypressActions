@@ -17,7 +17,6 @@ function ApplicationDefaultSettingEditTemplate({ applicationDefaultSettingEditVi
         form,
         rootStore,
         loaderStore,
-        deliveryMethodTypeDropdownStore,
         grantAcknowledgmentTypeDropdownStore,
         grantPurposeTypeDropdownStore
     } = applicationDefaultSettingEditViewStore;
@@ -113,11 +112,6 @@ function ApplicationDefaultSettingEditTemplate({ applicationDefaultSettingEditVi
                             </div>
                             <div className="form__group col col-lrg-6 u-mar--bottom--sml">
                                 <NumericInputField field={form.$('grantMinimumRegularAmount')} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
-                                <BaasicFieldDropdown field={form.$('deliveryMethodTypeId')} store={deliveryMethodTypeDropdownStore} />
                             </div>
                         </div>
                         <div className="row">

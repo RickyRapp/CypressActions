@@ -4,7 +4,7 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryP
 import { SessionCertificateService } from 'application/session-certificate/services';
 import { CharityService } from 'application/charity/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, isSome } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { SessionCertificateListFilter } from 'application/session-certificate/models';
 import _ from 'lodash';
 
@@ -151,10 +151,17 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 initValueFunc: async () => {
                     if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
@@ -174,7 +181,10 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return { id: response.data.id, name: response.data.donorName };
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
                     }
                     else {
                         return null;
