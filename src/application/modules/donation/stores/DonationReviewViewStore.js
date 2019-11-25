@@ -2,83 +2,28 @@ import { action, runInAction, observable } from 'mobx';
 import { DonationReviewForm } from 'application/donation/forms';
 import { applicationContext } from 'core/utils';
 import { DonationService } from 'application/donation/services';
-import { GrantService } from 'application/grant/services';
-import { SessionService } from 'application/session/services';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 @applicationContext
-class DonationReviewViewStore extends BaseEditViewStore {
+class DonationReviewViewStore extends BaseViewStore {
     paymentTypes = null;
-    @observable donorName = null;
 
-    constructor(rootStore, id, onAfterReview) {
-        const service = new DonationService(rootStore.application.baasic.apiClient);
-        const grantService = new GrantService(rootStore.application.baasic.apiClient);
-        const sessionService = new SessionService(rootStore.application.baasic.apiClient);
+    form = new DonationReviewForm({
+        onSuccess: async form => {
+            const item = form.values();
+            await this.service.review({ ...item });
+        }
+    });
 
-        super(rootStore, {
-            name: 'donation-review',
-            id: id,
-            autoInit: false,
-            actions: () => {
-                return {
-                    update: async (resource) => {
-                        let response;
-                        if (this.item.donationType.abrv === 'grant' || this.item.donationType.abrv === 'combined-grant') {
-                            response = await grantService.review({ ...resource });
-                        }
-                        else if (this.item.donationType.abrv === 'session') {
-                            response = await sessionService.review({ ...resource });
-                        }
-                        return response;
-                    },
-                    get: async (id) => {
-                        let params = {
-                            embed: [
-                                'donationStatus',
-                                'donationType',
-                                'charity',
-                                'charity.bankAccount',
-                                'charity.charityAddresses',
-                                'charity.charityAddresses.address',
-                                'grants',
-                                'grants.donorAccount',
-                                'grants.donorAccount.coreUser',
-                                'grants.donorAccount.companyProfile',
-                                'sessions',
-                                'sessions.sessionCertificates',
-                                'sessions.sessionCertificates.certificate',
-                                'sessions.sessionCertificates.certificate.booklet',
-                                'sessions.sessionCertificates.certificate.booklet.denominationType',
-                                'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets',
-                                'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
-                                'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder'
-                            ],
-                            fields: [
-                                'id',
-                                'charity',
-                                'charity.name',
-                                'charity.bankAccount',
-                                'charity.charityAddresses',
-                                'grants',
-                                'grants.donorAccount',
-                                'grants.donorAccount.donorName',
-                                'amount',
-                                'donationType'
-                            ]
-                        };
-                        let response = await service.get(id, params);
-                        return response.data;
-                    }
-                }
-            },
-            FormClass: DonationReviewForm,
-            onAfterAction: onAfterReview
-        });
+    constructor(rootStore, charity, selectedItems) {
+        super(rootStore);
 
-        this.id = id;
+        this.selectedItems = selectedItems;
+        this.service = new DonationService(rootStore.application.baasic.apiClient);
+        this.charity = charity;
+
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
             onChange: () => {
                 this.form.$('address').clear();
@@ -87,11 +32,11 @@ class DonationReviewViewStore extends BaseEditViewStore {
                 this.form.$('bankAccountId').each((field) => { field.setRequired(false) });
                 if (this.paymentTypeDropdownStore.value.abrv === 'check') {
                     this.form.$('address').each((field) => { field.name !== 'addressLine2' && field.setRequired(true) });
-                    this.form.$('address').set(_.find(this.item.charity.charityAddresses, { primary: true }).address);
+                    this.form.$('address').set(_.find(this.charity.charityAddresses, { primary: true }).address);
                 }
                 else if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
                     this.form.$('bankAccountId').each((field) => { field.setRequired(true) });
-                    this.form.$('bankAccountId').set(this.item.charity.bankAccount.id);
+                    this.form.$('bankAccountId').set(this.charity.bankAccount.id);
                 }
             }
         });
@@ -104,19 +49,9 @@ class DonationReviewViewStore extends BaseEditViewStore {
         }
         else {
             this.form.clear();
-            await this.getResource(this.id);
             this.form.$('address').each((field) => { field.setRequired(false) });
             this.form.validate();
             await this.fetchPaymentTypes();
-            if (this.item.donationType.abrv === 'grant') {
-                this.donorName = this.item.grants[0].donorAccount.donorName
-            }
-            else if (this.item.donationType.abrv === 'combined-grant') {
-                this.donorName = 'Anonymous'
-            }
-            else if (this.item.donationType.abrv === 'session') {
-                this.donorName = 'Anonymous'
-            }
         }
     }
 
@@ -125,7 +60,7 @@ class DonationReviewViewStore extends BaseEditViewStore {
         let availableStatuses = [];
         availableStatuses.push(_.find(this.paymentTypes, { abrv: 'check' }));
         availableStatuses.push(_.find(this.paymentTypes, { abrv: 'bill-pay' }))
-        if (this.item.charity.bankAccount) {
+        if (this.charity.bankAccount) {
             availableStatuses.push(_.find(this.paymentTypes, { abrv: 'ach' }))
         }
         return availableStatuses;

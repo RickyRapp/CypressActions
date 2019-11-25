@@ -6,28 +6,37 @@ import {
     BaasicTable,
     TableFilter,
     EmptyState,
-    BaasicModal
+    BaasicDropdown
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { DonationReview } from 'application/donation/components'
 
-const DonationListTemplate = function ({ donationViewStore }) {
+const GroupedDonationListTemplate = function ({ groupedDonationViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
         authorization,
-        reviewModal
-    } = donationViewStore;
+        donationStatusDropdownStore,
+        searchCharityDropdownStore
+    } = groupedDonationViewStore;
 
     return (
         <React.Fragment>
-            <ApplicationListLayout store={donationViewStore} authorization={authorization}>
+            <ApplicationListLayout store={groupedDonationViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
+                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                        <TableFilter queryUtility={queryUtility}>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown store={searchCharityDropdownStore} />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={donationStatusDropdownStore}
+                                    placeholder='DONATION.LIST.FILTER.DONATION_STATUS_PLACEHOLDER'
+                                />
+                            </div>
                         </TableFilter>
                     </div>
                     <div className="card--form card--primary card--med">
@@ -39,9 +48,6 @@ const DonationListTemplate = function ({ donationViewStore }) {
                     </div>
                 </Content>
             </ApplicationListLayout>
-            <BaasicModal modalParams={reviewModal}>
-                <DonationReview />
-            </BaasicModal>
         </React.Fragment>
     )
 };
@@ -50,28 +56,21 @@ function renderEmpty(routes) {
     return <EmptyState image={EmptyIcon} title='DONATION.LIST.EMPTY_STATE.TITLE' actionLabel='DONATION.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
 
-DonationListTemplate.propTypes = {
-    donationViewStore: PropTypes.object.isRequired,
+GroupedDonationListTemplate.propTypes = {
+    groupedDonationViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onReview } = actions;
-    if (!isSome(onEdit, onReview)) return null;
+    const { onEdit } = actions;
+    if (!isSome(onEdit)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
         if (actionsRender.onEditRender) {
             editRender = actionsRender.onEditRender(item);
-        }
-    }
-
-    let reviewRender = true;
-    if (isSome(actionsRender)) {
-        if (actionsRender.onReviewRender) {
-            reviewRender = actionsRender.onReviewRender(item);
         }
     }
 
@@ -87,15 +86,6 @@ function renderActions({ item, actions, actionsRender }) {
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
                 ) : null}
-                {isSome(onReview) && reviewRender ? (
-                    <BaasicButton
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
-                        label='DONATION.LIST.BUTTON.REVIEW'
-                        onlyIcon={true}
-                        onClick={() => onReview(item)}>
-                    </BaasicButton>
-                ) : null}
             </div>
         </td>
     )
@@ -108,5 +98,5 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-export default defaultTemplate(DonationListTemplate);
+export default defaultTemplate(GroupedDonationListTemplate);
 

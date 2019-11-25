@@ -100,7 +100,7 @@ class TableViewStore {
     @action.bound onItemChange = (event) => event;
 
     @action.bound updateDataItems() {
-        this.data = [...this.data]; // what the fuck
+        this.data = [...this.data];
     }
 
     @action.bound resetGridItems() {

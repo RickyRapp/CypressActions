@@ -3,36 +3,38 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     BaasicFormControls,
-    BasicInput
+    BasicInput,
+    FormatterResolver
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import _ from 'lodash';
 
-const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
+const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedItems }) {
     const {
         form,
         paymentTypeDropdownStore,
-        item,
-        donorName
+        charity
     } = donationReviewViewStore;
+
+    form.$('donationIds').set(selectedItems.map(c => c.id).join(', '));
 
     return (
         <section className='w--600--px'>
             <h3 className="u-mar--bottom--med">{t('DONATION.REVIEW.TITLE')}</h3>
             <div className="row">
-                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                     <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.CHARITY_NAME_LABEL')}</label>
-                    {item &&
-                        <span className={"input input--med input--text input--disabled"}>{item.charity.name}</span>}
+                    <span className={"input input--med input--text input--disabled"}>{charity.name}</span>
                 </div>
-                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                     <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.AMOUNT_LABEL')}</label>
-                    {item &&
-                        <span className={"input input--med input--text input--disabled"}>${item.amount}</span>}
-                </div>
-                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                    <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.DONOR_NAME_LABEL')}</label>
-                    {donorName &&
-                        <span className={"input input--med input--text input--disabled"}>{donorName}</span>}
+                    <span className={"input input--med input--text input--disabled"}>
+                        <FormatterResolver
+                            item={{ totalAmount: _.sumBy(selectedItems, 'amount') }}
+                            field='totalAmount'
+                            format={{ type: 'currency' }}
+                        />
+                    </span>
                 </div>
             </div>
             <form className='form'>
@@ -46,7 +48,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                     {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
                         <div className="form__group col col-lrg-6">
                             <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.BANK_ACCOUNT_NAME_LABEL')}</label>
-                            <span className={"input input--med input--text input--disabled"}>{item.charity.bankAccount.name}</span>
+                            <span className={"input input--med input--text input--disabled"}>{charity.bankAccount.name}</span>
                         </div>}
                 </div>
                 {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' &&
@@ -71,7 +73,8 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                         </div>
                     </div>}
                 <div className="u-mar--bottom--med">
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                    {selectedItems.length > 0 &&
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
                 </div>
             </form>
         </section>

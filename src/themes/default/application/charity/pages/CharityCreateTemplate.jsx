@@ -21,7 +21,9 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
         uploadTypes,
         image,
         onBlurUsername,
-        taxIdExists
+        taxIdExists,
+        loginShow,
+        onChangeLoginShow
     } = charityCreateViewStore;
 
     return (
@@ -140,6 +142,8 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
                             form={form}
                             title='CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.TITLE'
                             onBlurUsername={onBlurUsername}
+                            show={loginShow}
+                            onChangeShow={onChangeLoginShow}
                         />
                     </div>
                 </div>

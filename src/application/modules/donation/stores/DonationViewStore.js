@@ -1,27 +1,41 @@
-export { default as DonationViewStore } from './DonationViewStore'; import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { action, observable } from 'mobx';
+import { SelectTableWithRowDetailsViewStore, BaseListViewStore } from 'core/stores';
 import { DonationService } from 'application/donation/services';
 import { applicationContext } from 'core/utils';
-import { ModalParams } from 'core/models';
 import { DonationListFilter } from 'application/donation/models';
 
 @applicationContext
 class DonationViewStore extends BaseListViewStore {
+    @observable charity = null;
+
     constructor(rootStore) {
+        let filter = new DonationListFilter();
+        const charityId = rootStore.routerStore.routerState.queryParams.charityId;
+        const pendingStatusId = rootStore.routerStore.routerState.queryParams.pendingStatusId;
+        filter.charityId = charityId;
+        filter.pendingStatusId = pendingStatusId;
+        filter.pageSize = 1000;
+
         super(rootStore, {
             name: 'donation',
             authorization: 'theDonorsFundDonationSection',
             routes: {
-                edit: (id, grantId) =>
+                editGrant: (id, grantId) =>
                     rootStore.routerStore.goTo(
                         'master.app.main.grant.edit',
                         {
                             id: id,
                             editId: grantId
                         }),
+                editSession: (id) =>
+                    rootStore.routerStore.goTo(
+                        'master.app.main.session.edit',
+                        {
+                            id: id
+                        })
             },
             queryConfig: {
-                filter: new DonationListFilter('dateCreated', 'desc')
+                filter: filter
             },
             actions: () => {
                 const service = new DonationService(rootStore.application.baasic.apiClient);
@@ -33,6 +47,11 @@ class DonationViewStore extends BaseListViewStore {
                             'grants.donorAccount.coreUser',
                             'grants.donorAccount.companyProfile',
                             'charity',
+                            'charity.charityType',
+                            'charity.charityStatus',
+                            'charity.bankAccount',
+                            'charity.charityAddresses',
+                            'charity.charityAddresses.address',
                             'donationType',
                             'donationStatus',
                             'sessions',
@@ -44,39 +63,25 @@ class DonationViewStore extends BaseListViewStore {
                             'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
                             'sessions.sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder'
                         ];
-                        params.fields = [
-                            'id',
-                            'charity',
-                            'charity.name',
-                            'amount',
-                            'donationStatus',
-                            'donationType',
-                            'dateCreated'
-                        ]
-                        const response = await service.find(params);
+                        const response = await service.findOverview(params);
+                        if (response.data && response.data.item && response.data.item.length > 0) {
+                            this.charity = response.data.item[0].charity;
+                        }
                         return response.data;
                     }
                 }
             }
         });
 
-        this.setTableStore(new TableViewStore(this.queryUtility, {
+        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
             columns: [
-                {
-                    key: 'charity.name',
-                    title: 'DONATION.LIST.COLUMNS.CHARITY_NAME_LABEL',
-                },
                 {
                     key: 'amount',
                     title: 'DONATION.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency',
                         value: '$'
-                    }
-                },
-                {
-                    key: 'donationStatus.name',
-                    title: 'DONATION.LIST.COLUMNS.DONATION_STATUS_NAME_LABEL',
+                    },
                 },
                 {
                     key: 'donationType.name',
@@ -92,29 +97,31 @@ class DonationViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onReview: (donation) => this.openReviewDonorModal(donation.id),
-                onEdit: (donation) => this.routes.edit(donation.grants[0].donorAccountId, donation.grants[0].id),
+                onEdit: (donation) => {
+                    if (donation.donationType.abrv === 'grant') {
+                        this.routes.editGrant(donation.grants[0].donorAccountId, donation.grants[0].id)
+                    }
+                    else if (donation.donationType.abrv === 'session') {
+                        this.routes.editSession(donation.sessions[0].id)
+                    }
+                    else if (donation.donationType.abrv === 'combined-grant') {
+                        this.openCombinedGrantsModal(donation.grants)
+                    }
+                },
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onEditRender: (donation) => {
-                    return donation.donationStatus.abrv === 'pending' && donation.donationType.abrv === 'grant';
+                    return true;
                 },
                 onReviewRender: (donation) => {
                     return donation.donationStatus.abrv === 'pending';
                 }
-            }
+            },
+            selectionChange: this.selectionChange,
+            selectedField: 'selected'
+
         }));
-
-        this.reviewModal = new ModalParams({});
-    }
-
-    @action.bound
-    openReviewDonorModal(id) {
-        this.reviewModal.open({
-            id: id,
-            onAfterReview: () => { this.reviewModal.close(); this.queryUtility.fetch(); }
-        });
     }
 }
 

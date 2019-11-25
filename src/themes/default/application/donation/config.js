@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonationList } from 'application/donation/pages';
+import { GroupedDonationList, DonationOverview } from 'application/donation/pages';
+import { LookupService } from 'common/services';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -11,10 +12,33 @@ import { DonationList } from 'application/donation/pages';
                     {
                         name: 'master.app.main.donation.list',
                         pattern: '',
-                        component: DonationList,
+                        component: GroupedDonationList,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
-                            title: "DONATION.LIST.TITLE"
+                            title: "DONATION.LIST.GROUPED_TITLE"
+                        },
+                        beforeEnter: async function (fromState, toState, routerStore) {
+                            const service = new LookupService(routerStore.rootStore.application.baasic.apiClient, 'donation-status');
+                            const response = await service.getAll();
+                            const pendingId = _.find(response.data, { abrv: 'pending' }).id
+                            if (toState.queryParams) {
+                                toState.queryParams.donationStatusIds = [pendingId]
+                            }
+                            else {
+                                toState.queryParams = {
+                                    donationStatusIds: [pendingId]
+                                }
+                            }
+                            return Promise.resolve();
+                        }
+                    },
+                    {
+                        name: 'master.app.main.donation.overview',
+                        pattern: 'overview',
+                        component: DonationOverview,
+                        authorization: 'theDonorsFundAdministrationSection.read',
+                        data: {
+                            title: "DONATION.LIST.OVERVIEW_TITLE"
                         }
                     }
                 ]

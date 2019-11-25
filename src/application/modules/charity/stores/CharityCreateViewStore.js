@@ -16,6 +16,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
     @observable image = null;
     @observable uploadLoading = false;
     uploadTypes = ['.png', '.jpg', '.jpeg'];
+    @observable loginShow = false;
 
     constructor(rootStore) {
         const service = new CharityService(rootStore.application.baasic.apiClient);
@@ -74,6 +75,11 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 this.fetchCharityStatuses()
             ]);
         }
+    }
+
+    @action.bound
+    onChangeLoginShow(visiblity) {
+        this.loginShow = visiblity;
     }
 
     @action.bound

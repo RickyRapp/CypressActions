@@ -9,7 +9,7 @@ export default class DonationReviewForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'id',
+                    name: 'donationIds',
                     rules: 'required|string'
                 },
                 {

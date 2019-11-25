@@ -6,7 +6,11 @@ class DonationRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,search,name,taxId,donationId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?charityId,amountRangeMin,amountRangeMax,countRangeMin,countRangeMax,donationStatusIds,page,rpp,sort,embed,fields}', filter);
+    }
+
+    findOverview(filter) {
+        return super.find(this.base + '/overview/{?charityId,search,donationStatusIds,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
@@ -14,7 +18,7 @@ class DonationRouteService extends BaseRouteService {
     }
 
     review(resource) {
-        return super.update(this.base + '/review/{id}', resource);
+        return super.update(this.base + '/review', resource);
     }
 }
 

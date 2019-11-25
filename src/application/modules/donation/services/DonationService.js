@@ -11,6 +11,11 @@ class DonationService extends BaseService {
         const url = this.routeService.review(resource);
         return this.apiClient.put(url, resource);
     }
+
+    findOverview(filter) {
+        const url = this.routeService.findOverview(filter);
+        return this.apiClient.get(url);
+    }
 }
 
 export default DonationService;

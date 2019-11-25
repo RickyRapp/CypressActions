@@ -59,11 +59,11 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                     title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.PAYMENT_DESCRIPTION_LABEL'
                 },
                 {
-                    key: 'paymentTransaction.amount',
+                    key: 'paymentTransaction',
                     title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.PAYMENT_AMOUNT_LABEL',
                     format: {
-                        type: 'currency',
-                        value: '$'
+                        type: 'transaction-currency',
+                        value: '$',
                     }
                 },
                 {

@@ -907,19 +907,27 @@
     "DONATION": {
         "LIST": {
             "TITLE": "Donations",
+            "GROUPED_TITLE": "Donations by charity",
+            "OVERVIEW_TITLE": "Charity donations",
             "COLUMNS": {
                 "CHARITY_NAME_LABEL": "Charity",
                 "AMOUNT_LABEL": "Amount",
                 "DATE_CREATED_LABEL": "Date created",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "DONATION_STATUS_NAME_LABEL": "Status",
-                "DONATION_TYPE_NAME_LABEL": "Type"
+                "DONATION_TYPE_NAME_LABEL": "Type",
+                "COUNT_LABEL": "Number of donations"
             },
             "EMPTY_STATE": {
                 "TITLE": "No donations"
             },
             "BUTTON": {
-                "REVIEW": "Review"
+                "REVIEW": "Review",
+                "REVIEW_SELECTED": "Review selected"
+            },
+            "FILTER": {
+                "DONATION_STATUS_PLACEHOLDER": "Status",
+                "SELECT_CHARITY_PLACEHOLDER": "Charity"
             }
         },
         "REVIEW": {

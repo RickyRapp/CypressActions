@@ -49,8 +49,8 @@ class CharityViewStore extends BaseListViewStore {
                     key: 'taxId',
                     title: 'CHARITY.LIST.COLUMNS.TAX_ID_LABEL',
                     format: {
-                        type: 'number-format',
-                        value: '##-#######'
+                        type: 'charity',
+                        value: 'tax-id'
                     }
                 },
                 {

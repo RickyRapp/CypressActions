@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
 import { Date, Address } from 'core/components';
-import { donorAccountFormatter } from 'core/utils';
+import { donorAccountFormatter, charityFormatter } from 'core/utils';
 import NumberFormat from 'react-number-format';
 
 function FormatterResolver({ item, field, format }) {
     const params = {
-        value: _.get(item, field),
         displayType: 'text',
         thousandSeparator: true,
         prefix: format.value ? format.value : '$',
@@ -27,6 +26,16 @@ function FormatterResolver({ item, field, format }) {
             return null;
         }
         case 'currency': {
+            params.value = _.get(item, field);
+            return <NumberFormat {...params} />
+        }
+        case 'transaction-currency': {
+            const paymentTransaction = _.get(item, field);
+            const type = paymentTransaction.paymentTransactionType.abrv;
+            params.value = paymentTransaction.amount;
+            if (type === 'debit') {
+                params.value = params.value * (-1)
+            }
             return <NumberFormat {...params} />
         }
         case 'boolean':
@@ -71,6 +80,8 @@ function FormatterResolver({ item, field, format }) {
             return <NumberFormat value={_.get(item, field)} format={format.value} displayType='text' />;
         case 'donor-name':
             return donorAccountFormatter.format(_.get(item, field), format)
+        case 'charity':
+            return charityFormatter.format(_.get(item, field), format)
         default:
             return () => { };
     }
