@@ -112,7 +112,7 @@ class DonationViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (donation) => {
-                    return true;
+                    return donation.donationType.abrv === 'grant' || donation.donationType.abrv === 'session';
                 },
                 onReviewRender: (donation) => {
                     return donation.donationStatus.abrv === 'pending';
