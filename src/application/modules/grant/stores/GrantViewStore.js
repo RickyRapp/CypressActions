@@ -101,6 +101,7 @@ class GrantViewStore extends BaseListViewStore {
                 {
                     key: 'donorAccount.donorName',
                     title: 'GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    onClick: (grant) => this.routes.edit(grant.donorAccount.id, grant.id),
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
