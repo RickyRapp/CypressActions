@@ -1452,5 +1452,23 @@
                 "TITLE": "No scanned certificates"
             }
         }
+    },
+    "DONOR_NOTE": {
+        "LIST": {
+            "TITLE": "Notes",
+            "COLUMNS": {
+                "NOTE_LABEL": "Note",
+                "DATE_CREATED_LABEL": "Date created",
+                "CREATED_BY_LABEL": "Created by"
+            },
+            "BUTTON": {},
+            "EMPTY_STATE": {
+                "TITLE": "No scanned certificates"
+            }
+        },
+        "FIELDS": {
+            "NOTE_LABEL": "Note",
+            "NOTE_PLACEHOLDER": "Note"
+        }
     }
 }

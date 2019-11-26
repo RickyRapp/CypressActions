@@ -80,6 +80,31 @@ function FormatterResolver({ item, field, format }) {
             return <NumberFormat value={_.get(item, field)} format={format.value} displayType='text' />;
         case 'donor-name':
             return donorAccountFormatter.format(_.get(item, field), format)
+        case 'created-by':
+            const coreUser = _.get(item, field);
+            switch (format.value) {
+                case 'short': {
+                    if (coreUser.firstName || coreUser.lastName) {
+                        if (coreUser.firstName && coreUser.lastName) {
+                            return coreUser.firstName + ' ' + coreUser.lastName;
+                        }
+                        else if (coreUser.firstName) {
+                            return coreUser.firstName;
+                        }
+                        else {
+                            return coreUser.lastName;
+                        }
+                    }
+                    else if (coreUser.displayName) {
+                        return coreUser.displayName;
+                    }
+                    else if (coreUser.username) {
+                        return coreUser.username;
+                    }
+                }
+                default:
+                    return null;
+            }
         case 'charity':
             return charityFormatter.format(_.get(item, field), format)
         default:

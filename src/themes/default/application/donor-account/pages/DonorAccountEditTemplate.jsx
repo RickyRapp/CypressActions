@@ -17,6 +17,7 @@ import {
     DonorAccountBankAccountListTable
 } from 'application/donor-account/components';
 import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
+import { DonorNoteList } from 'application/donor-note/pages';
 
 function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
     const {
@@ -100,12 +101,19 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                         </div>
                     </div>}
             </div>
+
+            {item &&
+                <AuthDonorNote
+                    id={item.id}
+                    authorization='theDonorsFundAdministrationSection.update'
+                />}
         </Page >
     )
 }
 
 const AuthAccountSettingsPartialFormContent = withAuth(AccountSettingsPartialForm);
 const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
+const AuthDonorNote = withAuth(DonorNoteList);
 
 DonorAccountEditTemplate.propTypes = {
     donorAccountEditViewStore: PropTypes.object.isRequired,
