@@ -1,4 +1,3 @@
-import { React } from 'react'
 import { action, runInAction, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionService } from 'application/contribution/services';

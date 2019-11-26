@@ -11,7 +11,8 @@ import { renderIf, isSome } from 'core/utils';
 const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) {
     const {
         sessionCertificate,
-        onSubmit
+        onSubmit,
+        sendApproveEmail
     } = modalParams.data;
 
     return (

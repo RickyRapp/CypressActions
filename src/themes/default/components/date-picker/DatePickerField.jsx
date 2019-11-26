@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { inject, observer } from 'mobx-react';
 import { isSome, renderIf } from 'core/utils';
-import { defaultTemplate } from 'core/hoc';
 import { DatePicker } from 'core/components';
+import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
 
 @inject(i => ({
@@ -58,12 +58,13 @@ class DatePickerFieldTemplate extends React.Component {
             </div>
         );
     }
-};
+}
 
 DatePickerFieldTemplate.propTypes = {
     field: PropTypes.object.isRequired,
     t: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    timeZone: PropTypes.string
 };
 
 export default defaultTemplate(DatePickerFieldTemplate);

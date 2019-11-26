@@ -1,4 +1,4 @@
-import { applicationContext, isSome } from 'core/utils';
+import { applicationContext } from 'core/utils';
 import { action, runInAction, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorAccountCreateForm } from 'application/donor-account/forms';

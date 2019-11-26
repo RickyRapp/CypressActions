@@ -1,6 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { GroupedDonationList, DonationOverview } from 'application/donation/pages';
 import { LookupService } from 'common/services';
+import _ from 'lodash'
 
 (function () {
     moduleProviderFactory.application.register({

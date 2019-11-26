@@ -85,7 +85,7 @@ class DonorNoteViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
-                onEditRender: (note) => {
+                onEditRender: () => {
                     return true;
                 }
             }

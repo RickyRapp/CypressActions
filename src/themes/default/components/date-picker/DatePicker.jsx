@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { DatePicker } from '@progress/kendo-react-dateinputs';
 import { dateFormatter } from 'core/utils';
 import { BaasicButton } from 'core/components';
-import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
 
 @inject(i => ({
@@ -57,7 +56,7 @@ class DatePickerTemplate extends React.Component {
             </React.Fragment>
         );
     }
-};
+}
 
 DatePickerTemplate.propTypes = {
     onChange: PropTypes.func,
@@ -66,7 +65,8 @@ DatePickerTemplate.propTypes = {
     min: PropTypes.instanceOf(Date),
     max: PropTypes.instanceOf(Date),
     show: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    timeZone: PropTypes.string
 };
 
-export default defaultTemplate(DatePickerTemplate);
+export default DatePickerTemplate;

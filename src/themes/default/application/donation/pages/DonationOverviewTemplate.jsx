@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
-    SimpleBaasicTable,
     BaasicTableWithRowDetails,
     EmptyState,
     FormatterResolver,
-    BaasicModal
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome, addressFormatter, charityFormatter } from 'core/utils';
@@ -16,7 +14,7 @@ import _ from 'lodash'
 import { CombinedGrantDetailTemplate, GrantDetailTemplate, SessionDetailTemplate } from 'themes/application/donation/components';
 import { DonationReview } from 'application/donation/components'
 
-const DonationOverviewTemplate = function ({ donationViewStore, t, rou }) {
+const DonationOverviewTemplate = function ({ donationViewStore }) {
     const {
         tableStore,
         routes,
@@ -35,6 +33,10 @@ const DonationOverviewTemplate = function ({ donationViewStore, t, rou }) {
             return <SessionDetailTemplate item={dataItem} />
         }
     }
+
+    DetailComponent.propTypes = {
+        dataItem: PropTypes.object.isRequired
+    };
 
     return (
         <React.Fragment>

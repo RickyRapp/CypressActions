@@ -5,6 +5,7 @@ import { CharityService } from 'application/charity/services';
 import { applicationContext } from 'core/utils';
 import { LookupService } from 'common/services';
 import { GroupedDonationListFilter } from 'application/donation/models';
+import _ from 'lodash'
 
 @applicationContext
 class GroupedDonationViewStore extends BaseListViewStore {
@@ -28,7 +29,7 @@ class GroupedDonationViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: filter,
-                onResetFilter: (filter) => {
+                onResetFilter: () => {
                     this.searchCharityDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                 }

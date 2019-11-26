@@ -1,4 +1,4 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, runInAction } from 'mobx';
 import { DonationReviewForm } from 'application/donation/forms';
 import { applicationContext } from 'core/utils';
 import { DonationService } from 'application/donation/services';

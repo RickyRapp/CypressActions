@@ -80,7 +80,7 @@ function FormatterResolver({ item, field, format }) {
             return <NumberFormat value={_.get(item, field)} format={format.value} displayType='text' />;
         case 'donor-name':
             return donorAccountFormatter.format(_.get(item, field), format)
-        case 'created-by':
+        case 'created-by': {
             const coreUser = _.get(item, field);
             switch (format.value) {
                 case 'short': {
@@ -101,10 +101,12 @@ function FormatterResolver({ item, field, format }) {
                     else if (coreUser.username) {
                         return coreUser.username;
                     }
+                    return '';
                 }
                 default:
                     return null;
             }
+        }
         case 'charity':
             return charityFormatter.format(_.get(item, field), format)
         default:

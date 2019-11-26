@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { observable } from 'mobx';
 import { SelectTableWithRowDetailsViewStore, BaseListViewStore } from 'core/stores';
 import { DonationService } from 'application/donation/services';
 import { applicationContext } from 'core/utils';

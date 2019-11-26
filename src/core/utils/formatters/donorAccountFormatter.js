@@ -6,7 +6,7 @@ class DonorAccountFormatter {
         switch (format.type) {
             case 'donor-name': {
                 switch (format.value) {
-                    case 'dropdown':
+                    case 'dropdown': {
                         let formattedDonorAccountName = donorAccount.donorName;
                         if (donorAccount.securityPin) {
                             formattedDonorAccountName += ', ' + donorAccount.securityPin;
@@ -16,6 +16,7 @@ class DonorAccountFormatter {
                             formattedDonorAccountName += ', ' + addressFormatter.format(address, 'full');
                         }
                         return formattedDonorAccountName;
+                    }
                     default:
                         break;
                 }

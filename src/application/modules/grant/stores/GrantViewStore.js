@@ -253,10 +253,12 @@ class GrantViewStore extends BaseListViewStore {
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return {
-                            id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
+                        return _.map(response.item, x => {
+                            return {
+                                id: x.id,
+                                name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            }
+                        });
                     }
                     else {
                         return null;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionCertificateService } from 'application/session-certificate/services';
@@ -181,10 +180,12 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return {
-                            id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
+                        return _.map(response.item, x => {
+                            return {
+                                id: x.id,
+                                name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            }
+                        });
                     }
                     else {
                         return null;
@@ -202,8 +203,6 @@ class SessionCertificateViewStore extends BaseListViewStore {
     async onInit({ initialLoad }) {
         if (!initialLoad) {
             this.rootStore.routerStore.goBack();
-        }
-        else {
         }
     }
 }

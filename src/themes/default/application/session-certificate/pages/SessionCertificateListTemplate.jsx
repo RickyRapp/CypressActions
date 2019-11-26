@@ -12,7 +12,7 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
-const SessionCertificateListTemplate = function ({ sessionCertificateViewStore, t }) {
+const SessionCertificateListTemplate = function ({ sessionCertificateViewStore }) {
     const {
         tableStore,
         routes,
@@ -75,8 +75,7 @@ function renderEmpty(routes) {
 }
 
 SessionCertificateListTemplate.propTypes = {
-    sessionCertificateViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+    sessionCertificateViewStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(SessionCertificateListTemplate);

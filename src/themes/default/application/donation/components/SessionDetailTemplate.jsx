@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { SimpleBaasicTable, Date } from 'core/components'
 import { defaultTemplate } from 'core/hoc';
 
-const SessionDetailTemplate = function ({ item, t }) {
+const SessionDetailTemplate = function ({ item }) {
     const tableStore = new TableViewStore(null, {
         columns: [
             {

@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { ScheduledSettingList } from 'application/administration/scheduled-setting/pages';
-import { noApplicationRedirectPromise } from 'core/utils';
 
 (function () {
     moduleProviderFactory.application.register({
