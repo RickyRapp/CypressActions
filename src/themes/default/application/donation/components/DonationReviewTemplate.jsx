@@ -19,14 +19,14 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
     form.$('donationIds').set(selectedItems.map(c => c.id).join(', '));
 
     return (
-        <section className='w--600--px'>
+        <React.Fragment>
             <h3 className="u-mar--bottom--med">{t('DONATION.REVIEW.TITLE')}</h3>
             <div className="row">
-                <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.CHARITY_NAME_LABEL')}</label>
                     <span className={"input input--med input--text input--disabled"}>{charity.name}</span>
                 </div>
-                <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                     <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.AMOUNT_LABEL')}</label>
                     <span className={"input input--med input--text input--disabled"}>
                         <FormatterResolver
@@ -39,10 +39,10 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
             </div>
             <form className='form'>
                 <div className="row">
-                    <div className="form__group col col-lrg-6">
+                    <div className="form__group col col-lrg-3">
                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-lrg-6">
+                    <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('paymentNumber')} />
                     </div>
                     {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
@@ -50,34 +50,34 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
                             <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.BANK_ACCOUNT_NAME_LABEL')}</label>
                             <span className={"input input--med input--text input--disabled"}>{charity.bankAccount.name}</span>
                         </div>}
+                    {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' &&
+                        <React.Fragment>
+                            <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                <BasicInput field={form.$('attOf')} />
+                            </div>
+                            <div className="form__group col col-sml-3 col-lrg-3 u-mar--bottom--sml">
+                                <BasicInput field={form.$('address.addressLine1')} />
+                            </div>
+                            <div className="form__group col col-sml-3 col-lrg-3 u-mar--bottom--sml">
+                                <BasicInput field={form.$('address.addressLine2')} />
+                            </div>
+                            <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
+                                <BasicInput field={form.$('address.city')} />
+                            </div>
+                            <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
+                                <BasicInput field={form.$('address.state')} />
+                            </div>
+                            <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
+                                <BasicInput field={form.$('address.zipCode')} />
+                            </div>
+                        </React.Fragment>}
                 </div>
-                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' &&
-                    <div className="row">
-                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                            <BasicInput field={form.$('attOf')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                            <BasicInput field={form.$('address.addressLine1')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                            <BasicInput field={form.$('address.addressLine2')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('address.city')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('address.state')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('address.zipCode')} />
-                        </div>
-                    </div>}
                 <div className="u-mar--bottom--med">
                     {selectedItems.length > 0 &&
                         <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
                 </div>
             </form>
-        </section>
+        </React.Fragment>
     )
 };
 

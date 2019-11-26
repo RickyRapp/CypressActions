@@ -1,48 +1,62 @@
 import React from 'react';
+import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { DatePicker } from '@progress/kendo-react-dateinputs';
-import { defaultTemplate } from 'core/hoc';
 import { dateFormatter } from 'core/utils';
 import { BaasicButton } from 'core/components';
+import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
 
-const DatePickerTemplate = function ({
-    value,
-    onChange,
-    format = 'kendo-input-short',
-    max,
-    min,
-    disabled,
-    ...otherProps
-}) {
-    return (
-        <React.Fragment>
-            <div className="u-pos--relative">
-                <DatePicker
-                    {...otherProps}
-                    value={value}
-                    max={max}
-                    min={min}
-                    disabled={disabled}
-                    format={dateFormatter.map(format)}
-                    onChange={(result) => {
-                        let value = moment(result.value).format('YYYY-MM-DD');
-                        if (value != 'Invalid date')
-                            onChange(new Date(value));
-                        else
-                            onChange(new Date())
-                    }}
-                />
-                <BaasicButton
-                    onClick={() => onChange(null)}
-                    className="btn btn--icon datepicker__btn" icon='u-icon u-icon--unapproved--secondary u-icon--sml' label="DATEPICKER.CLEAR_BUTTON"
-                    onlyIcon
-                    value={null}
-                    disabled={disabled}
-                />
-            </div>
-        </React.Fragment>
-    );
+@inject(i => ({
+    timeZone: i.rootStore.timeZoneStore.timeZone
+}))
+@observer
+class DatePickerTemplate extends React.Component {
+    render() {
+        const {
+            value,
+            onChange,
+            format = 'kendo-input-short',
+            max,
+            min,
+            disabled,
+            timeZone,
+            ...otherProps
+        } = this.props;
+
+        const changeFn = (event) => {
+            let value = moment(event.value).tz(timeZone);
+            if (value != 'Invalid date')
+                onChange(value.toDate());
+            else
+                onChange(moment().tz(timeZone).toDate())
+        }
+
+        return (
+            <React.Fragment>
+                <div className="u-pos--relative">
+                    <DatePicker
+                        {...otherProps}
+                        value={value}
+                        max={max}
+                        min={min}
+                        disabled={disabled}
+                        format={dateFormatter.map(format)}
+                        onChange={changeFn}
+                    />
+                    <BaasicButton
+                        onClick={() => onChange(null)}
+                        className="btn btn--icon datepicker__btn"
+                        icon='u-icon u-icon--unapproved--secondary u-icon--sml'
+                        label="DATEPICKER.CLEAR_BUTTON"
+                        onlyIcon
+                        value={null}
+                        disabled={disabled}
+                    />
+                </div>
+            </React.Fragment>
+        );
+    }
 };
 
 DatePickerTemplate.propTypes = {
