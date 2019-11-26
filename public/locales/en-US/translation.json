@@ -1461,7 +1461,9 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "CREATED_BY_LABEL": "Created by"
             },
-            "BUTTON": {},
+            "BUTTON": {
+                "EDIT": "Edit"
+            },
             "EMPTY_STATE": {
                 "TITLE": "No scanned certificates"
             }
