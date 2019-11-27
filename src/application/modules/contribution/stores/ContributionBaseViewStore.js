@@ -1,4 +1,4 @@
-import { action, runInAction, computed, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import { ContributionService } from 'application/contribution/services';
@@ -14,7 +14,6 @@ import _ from 'lodash';
 class ContributionBaseViewStore extends BaseEditViewStore {
     donorAccount = null;
     @observable paymentTypes = null;
-    bankAccounts = null;
     @observable donorName = '';
     uploadTypes = null;
     @observable image = null;
@@ -37,6 +36,12 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
+                    const response = await service.getAll();
+                    this.paymentTypes = response.data;
+                    return response.data;
+                },
                 onChange: (paymentTypeId) => {
                     this.onPaymentTypeChange(paymentTypeId);
                     this.form.$('checkNumber').clear();
@@ -47,10 +52,25 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             });
         this.bankAccountDropdownStore = new BaasicDropdownStore(null,
             {
+                fetchFunc: async () => {
+                    let params = {
+                        embed: [
+                            'accountHolder',
+                            'accountHolder.address',
+                            'accountHolder.emailAddress',
+                            'accountHolder.phoneNumber'
+                        ],
+                        donorAccountId: this.id,
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    const response = await this.bankAccountService.find(params);
+                    return response.data.item;
+                },
                 onChange: (bankAccountId) => {
                     this.onBankAccountChange(bankAccountId)
                     if (bankAccountId) {
-                        this.setPayerInfo(_.find(this.bankAccounts, { id: bankAccountId }).accountHolder);
+                        this.setPayerInfo(_.find(this.bankAccountDropdownStore.items, { id: bankAccountId }).accountHolder);
                     }
                 }
             });
@@ -128,10 +148,10 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
                     this.rootStore.notificationStore.success('Resource created');
 
-                    await this.fetchBankAccounts();
+                    await this.bankAccountDropdownStore.filterAsync();
                     this.form.$('bankAccountId').set(response.data.response);
-                    this.bankAccountDropdownStore.setValue(_.find(this.bankAccounts, { id: response.data.response }))
-                    this.setPayerInfo(_.find(this.bankAccounts, { id: response.data.response }).accountHolder);
+                    this.bankAccountDropdownStore.setValue(_.find(this.bankAccountDropdownStore.items, { id: response.data.response }))
+                    this.setPayerInfo(_.find(this.bankAccountDropdownStore.items, { id: response.data.response }).accountHolder);
                     this.form.$('payerInformation').each((field) => { field.resetValidation(); field.set('disabled', true) });
                     this.bankAccountModal.close();
 
@@ -199,51 +219,6 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             ]
         });
         this.donorAccount = response.data;
-    }
-
-    @action.bound
-    async fetchPaymentTypes() {
-        this.paymentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-        const response = await service.getAll();
-        this.paymentTypes = response.data;
-        runInAction(() => {
-            this.paymentTypeDropdownStore.setItems(response.data);
-            this.paymentTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchContributionSettingTypes() {
-        this.contributionSettingTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.contributionSettingTypeDropdownStore.setItems(_.filter(response.data, function (type) { return type.abrv !== 'low-balance' }));
-            this.contributionSettingTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchBankAccounts() {
-        this.bankAccountDropdownStore.setLoading(true);
-        let params = {
-            embed: [
-                'accountHolder',
-                'accountHolder.address',
-                'accountHolder.emailAddress',
-                'accountHolder.phoneNumber'
-            ],
-            donorAccountId: this.id,
-            orderBy: 'dateCreated',
-            orderDirection: 'desc'
-        }
-        const response = await this.bankAccountService.find(params);
-        this.bankAccounts = response.data.item;
-        runInAction(() => {
-            this.bankAccountDropdownStore.setItems(response.data.item);
-            this.bankAccountDropdownStore.setLoading(false);
-        });
     }
 
     @computed get achId() {

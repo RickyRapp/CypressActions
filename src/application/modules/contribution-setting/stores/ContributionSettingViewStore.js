@@ -1,16 +1,15 @@
 import React from 'react';
 import { Date } from 'core/components';
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionSettingService } from 'application/contribution-setting/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, isSome, donorAccountFormatter } from 'core/utils';
+import { isSome, donorAccountFormatter } from 'core/utils';
 import { LookupService } from 'common/services';
 import { ContributionSettingListFilter } from 'application/contribution-setting/models';
 import _ from 'lodash';
 import moment from 'moment';
 
-@applicationContext
 class ContributionSettingViewStore extends BaseListViewStore {
     @observable accountTypes = null;
 
@@ -180,23 +179,16 @@ class ContributionSettingViewStore extends BaseListViewStore {
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (contributionSettingType) => {
                     this.queryUtility.filter['contributionSettingTypeIds'] = _.map(contributionSettingType, (status) => { return status.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.fetchContributionSettingType()
-            ]);
-        }
     }
 
     @action.bound async onCancel(id) {
@@ -222,17 +214,6 @@ class ContributionSettingViewStore extends BaseListViewStore {
                     - <Date value={item.nextDate} format={'short'} /> (in {moment(item.nextDate).diff(moment(), 'days')} day/s)
                 </React.Fragment>}
         </React.Fragment>
-    }
-
-    @action.bound
-    async fetchContributionSettingType() {
-        this.contributionSettingTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.contributionSettingTypeDropdownStore.setItems(response.data);
-            this.contributionSettingTypeDropdownStore.setLoading(false);
-        });
     }
 }
 

@@ -1,10 +1,9 @@
-import { action, runInAction } from 'mobx';
+import { action } from 'mobx';
 import { ContributionCreateForm } from 'application/contribution/forms';
 import { BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ContributionService } from 'application/contribution/services';
 import { LookupService } from 'common/services';
-import _ from 'lodash';
 import ContributionBaseViewStore from './ContributionBaseViewStore';
 
 @applicationContext
@@ -40,9 +39,17 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
             FormClass: ContributionCreateForm,
         });
 
-        this.contributionSettingTypeDropdownStore = new BaasicDropdownStore({
-            defaultItem: { id: '', name: '-' }
-        })
+        this.contributionSettingTypeDropdownStore = new BaasicDropdownStore(
+            {
+                defaultItem: { id: '', name: '-' }
+            },
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
+                    const response = await service.getAll();
+                    return response.data;
+                }
+            })
 
         this.id = id;
     }
@@ -54,10 +61,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount(),
-                this.fetchPaymentTypes(),
-                this.fetchBankAccounts(),
-                this.fetchContributionSettingTypes()
+                this.fetchDonorAccount()
             ]);
 
             await this.fetch([
@@ -65,17 +69,6 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
                 this.setFormDefaultValues()
             ]);
         }
-    }
-
-    @action.bound
-    async fetchContributionSettingTypes() {
-        this.contributionSettingTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.contributionSettingTypeDropdownStore.setItems(_.filter(response.data, function (type) { return type.abrv !== 'low-balance' }));
-            this.contributionSettingTypeDropdownStore.setLoading(false);
-        });
     }
 }
 

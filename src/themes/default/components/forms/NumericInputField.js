@@ -49,6 +49,7 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
                 onChange={handleOnChange}
                 defaultValue={null}
                 value={value}
+                placeholder={field.placeholder}
             />
             {renderIf(isSome(field.localizedError))(<div
                 className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}

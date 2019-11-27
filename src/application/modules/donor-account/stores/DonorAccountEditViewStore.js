@@ -1,11 +1,9 @@
-import { applicationContext } from 'core/utils';
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorAccountEditForm } from 'application/donor-account/forms';
 import { LookupService } from 'common/services';
 import { DonorAccountService } from 'application/donor-account/services';
 
-@applicationContext
 class DonorAccountEditViewStore extends BaseEditViewStore {
     @observable accountSettingsShow = false;
     constructor(rootStore) {
@@ -13,7 +11,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
         const service = new DonorAccountService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'donor-account',
-            autoInit: false,
             id: id,
             actions: {
                 get: async (id) => {
@@ -41,23 +38,13 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
 
         this.rootStore = rootStore;
 
-        this.prefixTypeDropdownStore = new BaasicDropdownStore();
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goTo(
-                'master.app.main.donor-account.list'
-            )
-        }
-        else {
-            this.form.clear();
-            await this.fetch([
-                this.fetchPrefixTypes(),
-                this.getResource(this.id)
-            ]);
-        }
+        this.prefixTypeDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
+                const response = await service.getAll();
+                return response.data;
+            }
+        });
     }
 
     @action.bound
@@ -111,17 +98,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
     @action.bound
     onChangeAccountSettingsShow(visiblity) {
         this.accountSettingsShow = visiblity;
-    }
-
-    @action.bound
-    async fetchPrefixTypes() {
-        this.prefixTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.prefixTypeDropdownStore.setItems(response.data);
-            this.prefixTypeDropdownStore.setLoading(false);
-        });
     }
 }
 

@@ -1,13 +1,11 @@
-import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionCertificateService } from 'application/session-certificate/services';
 import { CharityService } from 'application/charity/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, donorAccountFormatter } from 'core/utils';
+import { donorAccountFormatter } from 'core/utils';
 import { SessionCertificateListFilter } from 'application/session-certificate/models';
 import _ from 'lodash';
 
-@applicationContext
 class SessionCertificateViewStore extends BaseListViewStore {
     constructor(rootStore) {
         let filter = new SessionCertificateListFilter('dateCreated', 'desc')
@@ -197,13 +195,6 @@ class SessionCertificateViewStore extends BaseListViewStore {
             });
 
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
     }
 }
 

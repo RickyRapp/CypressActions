@@ -63,8 +63,6 @@ class GrantEditViewStore extends GrantBaseViewStore {
         else {
             await this.fetch([
                 this.fetchDonorAccount(),
-                this.fetchGrantPurposeTypes(),
-                this.fetchGrantAcknowledgmentTypes(),
                 this.fetchApplicationDefaultSetting(),
                 this.fetchFeeTypes(),
                 this.getResource(this.editId)

@@ -78,8 +78,20 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
         this.id = id;
         this.editId = editId;
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
-        this.denominationTypeDropdownStore = new BaasicDropdownStore();
+        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
+                const response = await service.getAll();
+                return response.data;
+            }
+        });
+        this.denominationTypeDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
+                const response = await service.getAll();
+                return response.data;
+            }
+        });
     }
 
     @action.bound
@@ -90,8 +102,6 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         else {
             await this.fetch([
                 this.fetchDonorAccount(),
-                this.fetchDeliveryMethodTypes(),
-                this.fetchDenominationTypes(),
                 this.fetchApplicationDefaultSetting()
             ]);
 
@@ -220,25 +230,6 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
             ]
         });
         this.donorAccount = response.data;
-    }
-
-    @action.bound
-    async fetchDeliveryMethodTypes() {
-        this.deliveryMethodTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.deliveryMethodTypeDropdownStore.setItems(response.data);
-            this.deliveryMethodTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchDenominationTypes() {
-        this.denominationTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-        const response = await service.getAll();
-        this.denominationTypes = response.data;
     }
 
     @action.bound

@@ -1,15 +1,14 @@
-import { action, runInAction } from 'mobx';
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, donorAccountFormatter } from 'core/utils';
+import { donorAccountFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import { BookletOrderListFilter } from 'application/booklet-order/models';
 import _ from 'lodash';
 import moment from 'moment';
 
-@applicationContext
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
@@ -148,8 +147,8 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.selectDonorModal = new ModalParams({});
 
         const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
-        this.selectDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'BOOKLET_ORDER.LIST.SELECT_DONOR',
+        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: false,
             filterable: true
         },
@@ -181,41 +180,36 @@ class BookletOrderViewStore extends BaseListViewStore {
                         }
                     });
                 },
-                onChange: (donorAccountId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId })
-                }
-            });
-
-        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'coreUser.firstName|asc',
-                        embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
-                        ],
-                        fields: [
-                            'id',
-                            'accountNumber',
-                            'donorName'
-                        ]
-                    });
-                    return _.map(response.item, x => {
-                        return {
-                            id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                initValueFunc: async () => {
+                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
+                        const id = rootStore.routerStore.routerState.queryParams.id;
+                        const params = {
+                            embed: [
+                                'coreUser',
+                                'companyProfile',
+                                'donorAccountAddresses',
+                                'donorAccountAddresses.address'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'securityPin',
+                                'donorAccountAddresses'
+                            ]
                         }
-                    });
+                        const response = await donorAccountService.get(id, params);
+                        rootStore.routerStore.setQueryParams(null);
+                        return _.map(response.item, x => {
+                            return {
+                                id: x.id,
+                                name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            }
+                        });
+                    }
+                    else {
+                        return null;
+                    }
                 },
                 onChange: (donorAccountId) => {
                     this.queryUtility.filter['donorAccountId'] = donorAccountId;
@@ -226,6 +220,11 @@ class BookletOrderViewStore extends BaseListViewStore {
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-order-status');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (bookletOrderStatus) => {
                     this.queryUtility.filter['bookletOrderStatusIds'] = _.map(bookletOrderStatus, (status) => { return status.id });
                 }
@@ -234,6 +233,11 @@ class BookletOrderViewStore extends BaseListViewStore {
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (deliveryMethodType) => {
                     this.queryUtility.filter['deliveryMethodTypeIds'] = _.map(deliveryMethodType, (type) => { return type.id });
                 }
@@ -242,43 +246,13 @@ class BookletOrderViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.fetchBookletStatuses(),
-                this.fetchDeliveryMethodTypes()
-            ]);
-        }
-    }
-
-    @action.bound
-    async fetchBookletStatuses() {
-        this.bookletOrderStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-order-status');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.bookletOrderStatusDropdownStore.setItems(response.data);
-            this.bookletOrderStatusDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchDeliveryMethodTypes() {
-        this.deliveryMethodTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.deliveryMethodTypeDropdownStore.setItems(response.data);
-            this.deliveryMethodTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
     openSelectDonorModal() {
-        this.selectDonorModal.open({ donorAccountId: this.queryUtility.filter.donorAccountId });
+        this.selectDonorModal.open(
+            {
+                donorAccountId: this.queryUtility.filter.donorAccountId,
+                onClickDonorFromFilter: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId }),
+                onChange: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId })
+            });
     }
 }
 

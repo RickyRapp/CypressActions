@@ -1,7 +1,6 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { CharityCreateForm } from 'application/charity/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
 import { CharityService } from 'application/charity/services';
 import { LookupService, CharityFileStreamService } from 'common/services';
 
@@ -9,7 +8,6 @@ const ErrorType = {
     Unique: 0
 };
 
-@applicationContext
 class CharityCreateViewStore extends BaseEditViewStore {
     attachment = null;
     uploadTypes = null;
@@ -60,21 +58,20 @@ class CharityCreateViewStore extends BaseEditViewStore {
         });
 
         this.service = service;
-        this.charityTypeDropdownStore = new BaasicDropdownStore();
-        this.charityStatusDropdownStore = new BaasicDropdownStore();
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.fetchCharityTypes(),
-                this.fetchCharityStatuses()
-            ]);
-        }
+        this.charityTypeDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-type');
+                const response = await service.getAll();
+                return response.data;
+            }
+        });
+        this.charityStatusDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-status');
+                const response = await service.getAll();
+                return response.data;
+            }
+        });
     }
 
     @action.bound
@@ -122,28 +119,6 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 }
             }
         }
-    }
-
-    @action.bound
-    async fetchCharityTypes() {
-        this.charityTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.charityTypeDropdownStore.setItems(response.data);
-            this.charityTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchCharityStatuses() {
-        this.charityStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-status');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.charityStatusDropdownStore.setItems(response.data);
-            this.charityStatusDropdownStore.setLoading(false);
-        });
     }
 
     @action.bound

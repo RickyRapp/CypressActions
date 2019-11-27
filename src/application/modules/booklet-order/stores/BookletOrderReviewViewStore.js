@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { BookletOrderReviewForm } from 'application/booklet-order/forms';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletOrderService } from 'application/booklet-order/services';
 import { BookletService } from 'application/booklet/services';
@@ -81,9 +81,6 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
         this.id = id;
         const bookletService = new BookletService(rootStore.application.baasic.apiClient);
 
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore();
-        this.denominationTypeDropdownStore = new BaasicDropdownStore();
-
         this.fetchFunc = async (searchQuery, denominationTypeId, usedBookletIds) => {
             let options = {
                 pageNumber: 1,
@@ -145,7 +142,6 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchDenominationTypes() {
-        this.denominationTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
         const response = await service.getAll();
         this.denominationTypes = response.data;

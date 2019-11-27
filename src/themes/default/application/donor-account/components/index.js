@@ -3,3 +3,4 @@ export { default as DonorAccountEmailAddressListTableTemplate } from './DonorAcc
 export { default as DonorAccountPhoneNumberListTableTemplate } from './DonorAccountPhoneNumberListTableTemplate'
 export { default as DonorAccountBankAccountListTableTemplate } from './DonorAccountBankAccountListTableTemplate'
 export { default as DonorAccountPageHeaderOverviewTemplate } from './DonorAccountPageHeaderOverviewTemplate'
+export { default as SelectDonorTemplate } from './SelectDonorTemplate'

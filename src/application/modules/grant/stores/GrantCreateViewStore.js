@@ -48,8 +48,6 @@ class GrantCreateViewStore extends GrantBaseViewStore {
         else {
             await this.fetch([
                 this.fetchDonorAccount(),
-                this.fetchGrantPurposeTypes(),
-                this.fetchGrantAcknowledgmentTypes(),
                 this.fetchGrantScheduleTypes(),
                 this.fetchApplicationDefaultSetting(),
                 this.fetchFeeTypes()

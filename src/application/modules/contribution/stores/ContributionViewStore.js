@@ -1,4 +1,4 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionService } from 'application/contribution/services';
 import { DonorAccountService } from 'application/donor-account/services';
@@ -162,44 +162,6 @@ class ContributionViewStore extends BaseListViewStore {
         this.reviewModal = new ModalParams({});
 
         const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
-        this.selectDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.SELECT_DONOR',
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'coreUser.firstName|asc',
-                        embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
-                        ],
-                        fields: [
-                            'id',
-                            'accountNumber',
-                            'donorName',
-                            'securityPin',
-                            'donorAccountAddresses'
-                        ]
-                    });
-                    return _.map(response.item, x => {
-                        return {
-                            id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
-                    });
-                },
-                onChange: (donorAccountId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId })
-                }
-            });
-
         this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
             placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: false,
@@ -246,7 +208,9 @@ class ContributionViewStore extends BaseListViewStore {
                             fields: [
                                 'id',
                                 'accountNumber',
-                                'donorName'
+                                'donorName',
+                                'securityPin',
+                                'donorAccountAddresses'
                             ]
                         }
                         const response = await donorAccountService.get(id, params);
@@ -266,6 +230,11 @@ class ContributionViewStore extends BaseListViewStore {
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (paymentType) => {
                     this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
                 }
@@ -274,6 +243,11 @@ class ContributionViewStore extends BaseListViewStore {
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-status');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (contributionStatus) => {
                     this.queryUtility.filter['contributionStatusIds'] = _.map(contributionStatus, (status) => { return status.id });
                 }
@@ -288,8 +262,6 @@ class ContributionViewStore extends BaseListViewStore {
         }
         else {
             await this.fetch([
-                this.fetchPaymentTypes(),
-                this.fetchContributionStatus(),
                 this.fetchAccountTypes()
             ]);
         }
@@ -297,7 +269,13 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     openSelectDonorModal() {
-        this.selectDonorModal.open({ donorAccountId: this.queryUtility.filter.donorAccountId });
+        this.selectDonorModal.open(
+            {
+                donorAccountId: this.queryUtility.filter.donorAccountId,
+                onClickDonorFromFilter: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId }),
+                onChange: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorAccountId })
+            }
+        );
     }
 
     @action.bound
@@ -326,28 +304,6 @@ class ContributionViewStore extends BaseListViewStore {
             }
         }
         return item.paymentType.name;
-    }
-
-    @action.bound
-    async fetchPaymentTypes() {
-        this.paymentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.paymentTypeDropdownStore.setItems(response.data);
-            this.paymentTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchContributionStatus() {
-        this.contributionStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-status');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.contributionStatusDropdownStore.setItems(response.data);
-            this.contributionStatusDropdownStore.setLoading(false);
-        });
     }
 
     @action.bound

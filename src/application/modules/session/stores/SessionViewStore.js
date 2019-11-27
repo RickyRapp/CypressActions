@@ -1,15 +1,14 @@
-import { action, runInAction } from 'mobx';
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionService } from 'application/session/services';
 import { CharityService } from 'application/charity/services';
 import { ScannerConnectionService } from 'application/scanner-connection/services';
-import { applicationContext, isSome } from 'core/utils';
+import { isSome } from 'core/utils';
 import { SessionListFilter } from 'application/session/models';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import _ from 'lodash';
 
-@applicationContext
 class SessionViewStore extends BaseListViewStore {
     scanners = null;
 
@@ -124,12 +123,6 @@ class SessionViewStore extends BaseListViewStore {
         this.service = service;
         this.rootStore = rootStore;
         this.scannerConnectionService = new ScannerConnectionService(rootStore.application.baasic.apiClient);
-        this.scannerDropdownStore = new BaasicDropdownStore(null, {
-            onChange: async () => {
-                await this.setScannerConnection(this.scannerDropdownStore.value.code);
-            }
-        })
-
         this.selectScannerModal = new ModalParams({});
 
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
@@ -162,10 +155,26 @@ class SessionViewStore extends BaseListViewStore {
                 }
             });
 
+        this.scannerDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'scanner');
+                const response = await service.getAll();
+                return response.data;
+            },
+            onChange: async () => {
+                await this.setScannerConnection(this.scannerDropdownStore.value.code);
+            }
+        })
+
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (paymentType) => {
                     this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
                 }
@@ -174,25 +183,16 @@ class SessionViewStore extends BaseListViewStore {
             multi: true
         },
             {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'session-status');
+                    const response = await service.getAll();
+                    return response.data;
+                },
                 onChange: (sessionStatus) => {
                     this.queryUtility.filter['sessionStatusIds'] = _.map(sessionStatus, (status) => { return status.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.fetchScanners(),
-                this.fetchSessionStatuses(),
-                this.fetchPaymentTypes()
-            ]);
-        }
     }
 
     @action.bound
@@ -226,40 +226,6 @@ class SessionViewStore extends BaseListViewStore {
     openSelectScanner() {
         this.selectScannerModal.open();
     }
-
-    @action.bound
-    async fetchSessionStatuses() {
-        this.sessionStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'session-status');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.sessionStatusDropdownStore.setItems(response.data);
-            this.sessionStatusDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchPaymentTypes() {
-        this.paymentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.paymentTypeDropdownStore.setItems(response.data);
-            this.paymentTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchScanners() {
-        this.scannerDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'scanner');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.scannerDropdownStore.setItems(response.data);
-            this.scannerDropdownStore.setLoading(false);
-        });
-    }
-
 }
 
 export default SessionViewStore;

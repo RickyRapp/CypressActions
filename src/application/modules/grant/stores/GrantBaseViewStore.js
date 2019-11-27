@@ -1,4 +1,4 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { LookupService, FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
@@ -9,8 +9,6 @@ class GrantBaseViewStore extends BaseEditViewStore {
     @observable grantScheduleTypes = null;
     @observable donorName = '';
     applicationDefaultSetting = null;
-    grantAcknowledgmentTypes = null;
-    grantPurposeTypes = null;
     feeTypes = null;
     @observable amountWithFee = null;
 
@@ -23,8 +21,22 @@ class GrantBaseViewStore extends BaseEditViewStore {
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.feeService = new FeeService(rootStore.application.baasic.apiClient);
 
-        this.grantPurposeTypeDropdownStore = new BaasicDropdownStore();
-        this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore();
+        this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
+            });
+        this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
+            });
         this.charityDropdownStore = new BaasicDropdownStore({
             placeholder: 'GRANT.CREATE.FIELDS.SELECT_CHARITY',
             initFetch: false,
@@ -85,8 +97,8 @@ class GrantBaseViewStore extends BaseEditViewStore {
                 //combined
                 this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
                 this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
-                this.grantAcknowledgmentTypeDropdownStore.onChange(_.find(this.grantAcknowledgmentTypes, { id: this.applicationDefaultSetting.grantAcknowledgmentTypeId }));
-                this.grantPurposeTypeDropdownStore.onChange(_.find(this.grantPurposeTypes, { id: this.applicationDefaultSetting.grantPurposeTypeId }));
+                this.grantAcknowledgmentTypeDropdownStore.onChange(_.find(this.grantAcknowledgmentTypeDropdownStore.items, { id: this.applicationDefaultSetting.grantAcknowledgmentTypeId }));
+                this.grantPurposeTypeDropdownStore.onChange(_.find(this.grantPurposeTypeDropdownStore.items, { id: this.applicationDefaultSetting.grantPurposeTypeId }));
                 this.form.$('grantAcknowledgmentTypeId').set('disabled', true);
                 this.form.$('grantAcknowledgmentTypeId').resetValidation();
                 this.form.$('grantPurposeTypeId').set('disabled', true);
@@ -126,30 +138,6 @@ class GrantBaseViewStore extends BaseEditViewStore {
             ]
         });
         this.donorAccount = response.data;
-    }
-
-    @action.bound
-    async fetchGrantPurposeTypes() {
-        this.grantPurposeTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
-        const response = await service.getAll();
-        this.grantPurposeTypes = response.data;
-        runInAction(() => {
-            this.grantPurposeTypeDropdownStore.setItems(response.data);
-            this.grantPurposeTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchGrantAcknowledgmentTypes() {
-        this.grantAcknowledgmentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-        const response = await service.getAll();
-        this.grantAcknowledgmentTypes = response.data;
-        runInAction(() => {
-            this.grantAcknowledgmentTypeDropdownStore.setItems(response.data);
-            this.grantAcknowledgmentTypeDropdownStore.setLoading(false);
-        });
     }
 
     @action.bound

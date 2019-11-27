@@ -1,5 +1,5 @@
 import { applicationContext } from 'core/utils';
-import { action, runInAction, computed, observable } from 'mobx';
+import { action, runInAction, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorAccountCreateForm } from 'application/donor-account/forms';
 import { LookupService } from 'common/services';
@@ -68,16 +68,30 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         this.rootStore = rootStore;
         this.service = service;
 
-        this.prefixTypeDropdownStore = new BaasicDropdownStore();
+        this.prefixTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
+                    const response = await service.getAll();
+                    response.data;
+                }
+            });
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (accountTypeId) => {
-                    this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === this.premiumId);
-                    this.form.$('extraBookletPercentage').setRequired(accountTypeId === this.premiumId);
+                    this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'premium' }).id);
+                    this.form.$('extraBookletPercentage').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'premium' }).id);
                     this.setFormDefaultValues();
                 }
             });
-        this.howDidYouHearAboutUsDropdownStore = new BaasicDropdownStore();
+        this.howDidYouHearAboutUsDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'how-did-you-hear-about-us');
+                    const response = await service.getAll();
+                    response.data;
+                }
+            });
     }
 
     @action.bound
@@ -89,11 +103,16 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchPrefixTypes(),
-                this.fetchAccountTypes(),
-                this.fetchHowDidYouHearAboutUsTypes(),
-                this.fetchApplicationDefaultSetting()
+                this.fetchApplicationDefaultSetting(),
+                this.fetchAccountTypes()
             ]);
+
+            if (!this.form.$('accountTypeId').value) {
+                this.form.$('accountTypeId').set(_.find(this.accountTypes, { abrv: 'basic' }).id);
+                this.form.$('blankBookletMaxAmount').setRequired(false);
+                this.form.$('extraBookletPercentage').setRequired(false);
+                this.accountTypeDropdownStore.setValue(_.find(this.accountTypes, { abrv: 'basic' }))
+            }
 
             await this.fetch([
                 this.setFormDefaultValues()
@@ -158,17 +177,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async fetchPrefixTypes() {
-        this.prefixTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.prefixTypeDropdownStore.setItems(response.data);
-            this.prefixTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
     async fetchAccountTypes() {
         this.accountTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
@@ -181,17 +189,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async fetchHowDidYouHearAboutUsTypes() {
-        this.howDidYouHearAboutUsDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'how-did-you-hear-about-us');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.howDidYouHearAboutUsDropdownStore.setItems(response.data);
-            this.howDidYouHearAboutUsDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
     async fetchApplicationDefaultSetting() {
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
         const response = await service.getAll();
@@ -200,12 +197,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async setFormDefaultValues() {
-        if (!this.form.$('accountTypeId').value) {
-            this.form.$('accountTypeId').set(this.basicId);
-            this.accountTypeDropdownStore.onChange(_.find(this.accountTypes, { abrv: 'basic' }))
-        }
-
-        if (this.form.$('accountTypeId').value === this.basicId) {
+        if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'basic' }).id) {
             this.form.$('lineOfCredit').set(this.applicationDefaultSetting.basicLineOfCreditAmount);
             this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.basicMinimumInitialContributionAmount);
             this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.basicMinimumAdditionalContributionAmount);
@@ -214,7 +206,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
             this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.basicCertificateDeductionPercentage);
             this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.basicCertificateFeePercentage);
         }
-        else if (this.form.$('accountTypeId').value === this.premiumId) {
+        else if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'premium' }).id) {
             this.form.$('lineOfCredit').set(this.applicationDefaultSetting.premiumLineOfCreditAmount);
             this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.premiumMinimumInitialContributionAmount);
             this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.premiumMinimumAdditionalContributionAmount);
@@ -226,14 +218,6 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
             this.form.$('notificationLimitRemainderAmount').set(this.applicationDefaultSetting.premiumNotificationLimitRemainderAmount);
             this.form.$('blankBookletMaxAmount').set(this.applicationDefaultSetting.blankBookletMaxAmount);
         }
-    }
-
-    @computed get basicId() {
-        return _.find(this.accountTypes, { abrv: 'basic' }).id;
-    }
-
-    @computed get premiumId() {
-        return _.find(this.accountTypes, { abrv: 'premium' }).id;
     }
 }
 

@@ -21,7 +21,7 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
                 mask={mask}
                 onValueChange={onChange}
                 value={value}
-                placeholder={placeholder || format}
+                placeholder={placeholder ? t(placeholder) : format}
                 displayType={displayType}
                 thousandSeparator={thousandSeparator}
                 fixedDecimalScale={fixedDecimalScale}

@@ -14,15 +14,15 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
+import { SelectDonor } from 'application/donor-account/components';
 
-const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
+const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
         authorization,
         selectDonorModal,
-        selectDonorDropdownStore,
         searchDonorAccountDropdownStore,
         deliveryMethodTypeDropdownStore,
         bookletOrderStatusDropdownStore,
@@ -105,18 +105,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
                 </Content>
             </ApplicationListLayout>
             <BaasicModal modalParams={selectDonorModal}>
-                <section className='w--400--px'>
-                    <h3 className="u-mar--bottom--med">{t('BOOKLET_ORDER.LIST.SELECT_DONOR')}</h3>
-                    <div className="row">
-                        <div className="form__group col col-lrg-12">
-                            <BaasicDropdown
-                                className='input--dropdown'
-                                store={selectDonorDropdownStore}
-                                opened={true}
-                            />
-                        </div>
-                    </div>
-                </section>
+                <SelectDonor />
             </BaasicModal>
         </React.Fragment>
     )
@@ -128,7 +117,7 @@ function renderEmpty(routes) {
 
 BookletOrderListTemplate.propTypes = {
     bookletOrderViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {

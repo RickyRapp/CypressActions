@@ -13,18 +13,17 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
+import { SelectDonor } from 'application/donor-account/components';
 
-const GrantListTemplate = function ({ grantViewStore, t }) {
+const GrantListTemplate = function ({ grantViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
         authorization,
         selectDonorModal,
-        selectDonorDropdownStore,
         searchDonorAccountDropdownStore,
-        grantStatusDropdownStore,
-        onClickDonorFromFilter
+        grantStatusDropdownStore
     } = grantViewStore;
 
     return (
@@ -73,26 +72,7 @@ const GrantListTemplate = function ({ grantViewStore, t }) {
                 </Content>
             </ApplicationListLayout>
             <BaasicModal modalParams={selectDonorModal}>
-                <section className='w--400--px'>
-                    <h3 className="u-mar--bottom--med">{t('GRANT.LIST.SELECT_DONOR')}</h3>
-                    <div className="row">
-                        {selectDonorModal.data.donorAccountId &&
-                            <div className="form__group col col-lrg-12">
-                                <a
-                                    className=""
-                                    onClick={() => onClickDonorFromFilter(selectDonorModal.data.donorAccountId)}>
-                                    {t('GRANT.LIST.SELECT_DONOR_FROM_FILTER')}
-                                </a>
-                            </div>}
-                        <div className="form__group col col-lrg-12">
-                            <BaasicDropdown
-                                className='input--dropdown'
-                                store={selectDonorDropdownStore}
-                                opened={true}
-                            />
-                        </div>
-                    </div>
-                </section>
+                <SelectDonor />
             </BaasicModal>
         </React.Fragment>
     )
@@ -104,7 +84,7 @@ function renderEmpty(routes) {
 
 GrantListTemplate.propTypes = {
     grantViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {

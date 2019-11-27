@@ -9,3 +9,4 @@ export { default as DonorAccountPhoneNumberEditForm } from './DonorAccountPhoneN
 export { default as DonorAccountBankAccountEditForm } from './DonorAccountBankAccountEditForm'
 export { default as ContactInfoForm } from './ContactInfoForm'
 export { default as DonorAccountPageHeaderOverview } from './DonorAccountPageHeaderOverview'
+export { default as SelectDonor } from './SelectDonor'

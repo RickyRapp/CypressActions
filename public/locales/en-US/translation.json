@@ -347,6 +347,9 @@
     "NO": "NO",
     "Are you sure you want to disapprove user?": "Are you sure you want to disapprove user?",
     "Are you sure you want to lock user?": "Are you sure you want to lock user?",
+    "SELECT_DONOR": "Select donor",
+    "SELECT_DONOR_PLACEHOLDER": "Select donor",
+    "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
     "DONOR_ACCOUNT": {
         "LIST": {
             "TITLE": "Donors",
@@ -379,35 +382,56 @@
             "TITLE": "Details",
             "SUCCESS": "Successfully updated",
             "FIRST_NAME_LABEL": "First name",
+            "FIRST_NAME_PLACEHOLDER": "First name",
             "LAST_NAME_LABEL": "Last name",
+            "LAST_NAME_PLACEHOLDER": "Last name",
             "MIDDLE_NAME_LABEL": "Middle name",
+            "MIDDLE_NAME_PLACEHOLDER": "Middle name",
             "FUND_NAME_LABEL": "Fund name",
+            "FUND_NAME_PLACEHOLDER": "Fund name",
             "PREFIX_TYPE_LABEL": "Prefix",
+            "PREFIX_TYPE_PLACEHOLDER": "Prefix",
             "DELIVERY_METHOD_TYPE_LABEL": "Delivery Method",
+            "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery Method",
             "BLANK_BOOKLET_MAX_LABEL": "Open certificate max amount",
-            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder"
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Open certificate max amount",
+            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
+            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
         },
         "CREATE": {
             "TITLE": "Create",
             "SUCCESS": "Successfully created",
             "FIRST_NAME_LABEL": "First name",
+            "FIRST_NAME_PLACEHOLDER": "First name",
             "LAST_NAME_LABEL": "Last name",
+            "LAST_NAME_PLACEHOLDER": "Last name",
             "MIDDLE_NAME_LABEL": "Middle name",
+            "MIDDLE_NAME_PLACEHOLDER": "Middle name",
             "FUND_NAME_LABEL": "Fund name",
+            "FUND_NAME_PLACEHOLDER": "Fund name",
             "PREFIX_TYPE_LABEL": "Prefix",
+            "PREFIX_TYPE_PLACEHOLDER": "Prefix",
             "DELIVERY_METHOD_TYPE_LABEL": "Delivery Method",
+            "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery Method",
             "BLANK_BOOKLET_MAX_LABEL": "Open certificate max amount",
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Open certificate max amount",
             "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
+            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
             "HOW_DID_YOU_HEAR_ABOUT_US_LABEL": "How did you hear about us?",
+            "HOW_DID_YOU_HEAR_ABOUT_US_PLACEHOLDER": "How did you hear about us?",
             "ACCOUNT_TYPE_LABEL": "Type",
+            "ACCOUNT_TYPE_PLACEHOLDER": "Type",
             "CONTACT_INFO_FIELDS": {
                 "TITLE": "Contact info"
             },
             "LOGIN_FORM_FIELDS": {
                 "TITLE": "Login info",
                 "USERNAME_LABEL": "Username/Email",
+                "USERNAME_PLACEHOLDER": "Username/Email",
                 "PASSWORD_LABEL": "Password",
+                "PASSWORD_PLACEHOLDER": "Password",
                 "CONFIRM_PASSWORD_LABEL": "Confirm password",
+                "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password",
                 "SHOW": "Show",
                 "HIDE": "Hide"
             }
@@ -417,15 +441,25 @@
             "HIDE": "Show",
             "SHOW": "Hide",
             "LINE_OF_CREDIT_LABEL": "Line of credit",
+            "LINE_OF_CREDIT_PLACEHOLDER": "Line of credit",
             "CERTIFICATE_DEDUCTION_LABEL": "Certificate deduction",
+            "CERTIFICATE_DEDUCTION_PLACEHOLDER": "Certificate deduction",
             "CERTIFICATE_FEE_LABEL": "Certificate fee",
+            "CERTIFICATE_FEE_PLACEHOLDER": "Certificate fee",
             "CONTRIBUTION_MINIMUM_ADDITIONAL_LABEL": "Contribution additional amount",
+            "CONTRIBUTION_MINIMUM_ADDITIONAL_PLACEHOLDER": "Contribution additional amount",
             "EXTRA_BOOKLET_PERCENTAGE_LABEL": "Extra booklet percentage",
+            "EXTRA_BOOKLET_PERCENTAGE_PLACEHOLDER": "Extra booklet percentage",
             "GRANT_FEE_LABEL_LABEL": "Grant fee",
+            "GRANT_FEE_LABEL_PLACEHOLDER": "Grant fee",
             "GRANT_MINIMUM_AMOUNT_LABEL": "Grant minimum amount",
+            "GRANT_MINIMUM_AMOUNT_PLACEHOLDER": "Grant minimum amount",
             "INITIAL_CONTRIBUTION_LABEL": "Initial contribution",
+            "INITIAL_CONTRIBUTION_PLACEHOLDER": "Initial contribution",
             "SECURITY_PIN_LABEL": "Security pin",
-            "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount"
+            "SECURITY_PIN_PLACEHOLDER": "Security pin",
+            "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount",
+            "CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER": "Contribution initial amount"
         },
         "PAGE_HEADER": {
             "OVERVIEW": {
@@ -462,23 +496,35 @@
         "CREATE": {
             "TITLE": "Add address",
             "FIELDS": {
-                "ADDRESS_LINE_1_FIELD": "Address line 1",
-                "ADDRESS_LINE_2_FIELD": "Address line 2",
-                "CITY_FIELD": "City",
-                "STATE_FIELD": "State",
-                "ZIPCODE_FIELD": "Zip code",
-                "DESCRIPTION_FIELD": "Description"
+                "ADDRESS_LINE_1_FIELD_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_FIELD_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_FIELD_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_FIELD_PLACEHOLDER": "Address line 2",
+                "CITY_FIELD_LABEL": "City",
+                "CITY_FIELD_PLACEHOLDER": "City",
+                "STATE_FIELD_LABEL": "State",
+                "STATE_FIELD_PLACEHOLDER": "State",
+                "ZIPCODE_FIELD_LABEL": "Zip code",
+                "ZIPCODE_FIELD_PLACEHOLDER": "Zip code",
+                "DESCRIPTION_FIELD_LABEL": "Description",
+                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
             }
         },
         "EDIT": {
             "TITLE": "Edit address",
             "FIELDS": {
-                "ADDRESS_LINE_1_FIELD": "Address line 1",
-                "ADDRESS_LINE_2_FIELD": "Address line 2",
-                "CITY_FIELD": "City",
-                "STATE_FIELD": "State",
-                "ZIPCODE_FIELD": "Zip code",
-                "DESCRIPTION_FIELD": "Description"
+                "ADDRESS_LINE_1_FIELD_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_FIELD_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_FIELD_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_FIELD_PLACEHOLDER": "Address line 2",
+                "CITY_FIELD_LABEL": "City",
+                "CITY_FIELD_PLACEHOLDER": "City",
+                "STATE_FIELD_LABEL": "State",
+                "STATE_FIELD_PLACEHOLDER": "State",
+                "ZIPCODE_FIELD_LABEL": "Zip code",
+                "ZIPCODE_FIELD_PLACEHOLDER": "Zip code",
+                "DESCRIPTION_FIELD_LABEL": "Description",
+                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
             }
         }
     },
@@ -503,15 +549,19 @@
         "CREATE": {
             "TITLE": "Add email address",
             "FIELDS": {
-                "EMAIL_FIELD": "Email",
-                "DESCRIPTION_FIELD": "Description"
+                "EMAIL_FIELD_LABEL": "Email",
+                "EMAIL_FIELD_PLACEHOLDER": "Email",
+                "DESCRIPTION_FIELD_LABEL": "Description",
+                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
             }
         },
         "EDIT": {
             "TITLE": "Edit email address",
             "FIELDS": {
-                "EMAIL_FIELD": "Email",
-                "DESCRIPTION_FIELD": "Description"
+                "EMAIL_FIELD_LABEL": "Email",
+                "EMAIL_FIELD_PLACEHOLDER": "Email",
+                "DESCRIPTION_FIELD_LABEL": "Description",
+                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
             }
         }
     },
@@ -536,15 +586,19 @@
         "CREATE": {
             "TITLE": "Add phone number",
             "FIELDS": {
-                "NUMBER_FIELD": "Number",
-                "DESCRIPTION_FIELD": "Description"
+                "NUMBER_FIELD_LABEL": "Number",
+                "NUMBER_FIELD_PLACEHOLDER": "Number",
+                "DESCRIPTION_FIELD_LABEL": "Description",
+                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
             }
         },
         "EDIT": {
             "TITLE": "Edit phone number",
             "FIELDS": {
-                "NUMBER_FIELD": "Number",
-                "DESCRIPTION_FIELD": "Description"
+                "NUMBER_FIELD_LABEL": "Number",
+                "NUMBER_FIELD_PLACEHOLDER": "Number",
+                "DESCRIPTION_FIELD_LABEL": "Description",
+                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
             }
         }
     },
@@ -692,8 +746,6 @@
     "CONTRIBUTION": {
         "LIST": {
             "TITLE": "Contributions",
-            "SELECT_DONOR": "Select donor",
-            "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
@@ -791,7 +843,6 @@
     "CONTRIBUTION_SETTING": {
         "LIST": {
             "TITLE": "Contributions",
-            "SELECT_DONOR": "Select donor",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
@@ -827,8 +878,6 @@
     "GRANT": {
         "LIST": {
             "TITLE": "Grants",
-            "SELECT_DONOR": "Select donor",
-            "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
@@ -1091,7 +1140,6 @@
     "BOOKLET_ORDER": {
         "LIST": {
             "TITLE": "Booklet orders",
-            "SELECT_DONOR": "Select donor",
             "COLUMNS": {
                 "CODE_LABEL": "Code",
                 "DENOMINATION_LABEL": "Denominaiton",

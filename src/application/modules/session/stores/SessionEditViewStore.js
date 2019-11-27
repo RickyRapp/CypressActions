@@ -1,4 +1,4 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
@@ -67,7 +67,13 @@ class SessionEditViewStore extends BaseEditViewStore {
         this.service = service;
         this.bookletService = new BookletService(rootStore.application.baasic.apiClient);
 
-        this.certificateStatusDropdownStore = new BaasicDropdownStore();
+        this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'certificate-status');
+                const response = await service.getAll();
+                return response.data;
+            }
+        });
 
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.charityDropdownStore = new BaasicDropdownStore({
@@ -148,8 +154,7 @@ class SessionEditViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.getResource(this.id),
-                this.fetchCertificateStatuses()
+                this.getResource(this.id)
             ]);
 
             if (this.session.sessionStatus.abrv !== 'pending') {
@@ -216,17 +221,6 @@ class SessionEditViewStore extends BaseEditViewStore {
                 this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
             }
         }
-    }
-
-    @action.bound
-    async fetchCertificateStatuses() {
-        this.certificateStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'certificate-status');
-        const response = await service.getAll();
-        runInAction(() => {
-            this.certificateStatusDropdownStore.setItems(response.data);
-            this.certificateStatusDropdownStore.setLoading(false);
-        });
     }
 }
 

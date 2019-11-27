@@ -8,12 +8,14 @@ export const donorAccountEmailAddressFormProperties = {
         },
         {
             name: 'email',
-            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_FIELD',
+            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_FIELD_LABEL',
+            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_FIELD_PLACEHOLDER',
             rules: 'required|email'
         },
         {
             name: 'description',
-            label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_FIELD',
+            label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_FIELD_LABEL',
+            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_FIELD_PLACEHOLDER',
             rules: 'string'
         }
     ]

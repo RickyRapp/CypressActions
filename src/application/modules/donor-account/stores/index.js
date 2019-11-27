@@ -6,3 +6,4 @@ export { default as DonorAccountPhoneNumberViewStore } from './DonorAccountPhone
 export { default as DonorAccountBankAccountViewStore } from './DonorAccountBankAccountViewStore'
 export { default as DonorAccountCreateViewStore } from './DonorAccountCreateViewStore'
 export { default as DonorAccountPageHeaderOverviewViewStore } from './DonorAccountPageHeaderOverviewViewStore'
+export { default as SelectDonorViewStore } from './SelectDonorViewStore'
