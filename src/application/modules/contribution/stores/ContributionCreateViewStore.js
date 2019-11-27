@@ -1,10 +1,11 @@
-import { action } from 'mobx';
+import { action, runInAction } from 'mobx';
 import { ContributionCreateForm } from 'application/contribution/forms';
 import { BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ContributionService } from 'application/contribution/services';
 import { LookupService } from 'common/services';
 import ContributionBaseViewStore from './ContributionBaseViewStore';
+import moment from 'moment';
 
 @applicationContext
 class ContributionCreateViewStore extends ContributionBaseViewStore {
@@ -19,7 +20,8 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        if (resource.contributionSettingTypeId && resource.settingStartDate) {
+                        if (this.paymentTypeDropdownStore.value.abrv === 'ach' && this.contributionSettingTypeDropdownStore.value.abrv === 'one-time' &&
+                            moment(resource.settingStartDate).startOf('day').isAfter(moment().startOf('day'))) {
                             const contributionSetting = {
                                 donorAccountId: id,
                                 amount: resource.amount,
@@ -30,28 +32,16 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
                             }
                             return await service.createSetting(contributionSetting);
                         }
-                        else {
-                            return await service.create(resource);
-                        }
+                        return await service.create(resource);
                     }
                 }
             },
             FormClass: ContributionCreateForm,
         });
 
-        this.contributionSettingTypeDropdownStore = new BaasicDropdownStore(
-            {
-                defaultItem: { id: '', name: '-' }
-            },
-            {
-                fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
-                    const response = await service.getAll();
-                    return response.data;
-                }
-            })
-
+        this.contributionSettingTypeDropdownStore = new BaasicDropdownStore()
         this.id = id;
+        this.timeZone = rootStore.timeZoneStore.timeZone;
     }
 
     @action.bound
@@ -61,14 +51,30 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount()
+                this.fetchDonorAccount(),
+                this.fetchContributionSettingTypes()
             ]);
+
+            this.form.$('contributionSettingTypeId').set(_.find(this.contributionSettingTypeDropdownStore.items, { abrv: 'one-time' }).id);
+            this.contributionSettingTypeDropdownStore.setValue(_.find(this.contributionSettingTypeDropdownStore.items, { abrv: 'one-time' }));
+            this.form.$('settingStartDate').set(moment().tz(this.timeZone).toDate())
 
             await this.fetch([
                 this.setFormDefaultRules(),
                 this.setFormDefaultValues()
             ]);
         }
+    }
+
+    @action.bound
+    async fetchContributionSettingTypes() {
+        this.contributionSettingTypeDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-setting-type');
+        const response = await service.getAll();
+        runInAction(() => {
+            this.contributionSettingTypeDropdownStore.setItems(response.data);
+            this.contributionSettingTypeDropdownStore.setLoading(false);
+        });
     }
 }
 
