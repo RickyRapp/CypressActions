@@ -84,7 +84,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
 DonationReviewTemplate.propTypes = {
     donationReviewViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array
+    selectedItems: PropTypes.any
 };
 
 export default defaultTemplate(DonationReviewTemplate);

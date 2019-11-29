@@ -73,7 +73,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                 fetchFunc: async () => {
                     const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
                     const response = await service.getAll();
-                    response.data;
+                    return response.data;
                 }
             });
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
@@ -89,7 +89,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                 fetchFunc: async () => {
                     const service = new LookupService(this.rootStore.application.baasic.apiClient, 'how-did-you-hear-about-us');
                     const response = await service.getAll();
-                    response.data;
+                    return response.data;
                 }
             });
     }

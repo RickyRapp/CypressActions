@@ -79,7 +79,7 @@ class UserEditViewStore extends BaseEditViewStore {
     @action.bound
     async updateResource(resource) {
 
-        const { roles, userName, email, firstName, lastName, ...userProfile } = resource; // eslint-disable-line
+        const { roles, userName, email, firstName, lastName } = resource; // eslint-disable-line
 
         const user = {
             ...this.item,
@@ -95,11 +95,7 @@ class UserEditViewStore extends BaseEditViewStore {
                 await this.rootStore.application.baasic.membershipModule.user.update({
                     id: this.id,
                     ...user
-                }),
-                await this.rootStore.application.baasic.userProfileModule.profile.update({
-                    id: this.id,
-                    ...userProfile
-                }),
+                })
             ])
             this.rootStore.notificationStore.success('Successfully updated user data');
             await this.rootStore.routerStore.goBack();

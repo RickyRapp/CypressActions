@@ -22,7 +22,6 @@ class CharityCreateViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'charity',
             id: undefined,
-            autoInit: false,
             actions: () => {
                 return {
                     create: async (resource) => {

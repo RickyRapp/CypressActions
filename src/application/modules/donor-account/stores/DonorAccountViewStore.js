@@ -26,7 +26,7 @@ class DonorAccountViewStore extends BaseListViewStore {
                     )
             },
             queryConfig: {
-                filter: new DonorAccountListFilter()
+                filter: new DonorAccountListFilter('dateCreated', 'desc')
             },
             actions: () => {
                 const service = new DonorAccountService(rootStore.application.baasic.apiClient);

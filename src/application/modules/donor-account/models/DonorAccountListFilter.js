@@ -8,9 +8,11 @@ class DonorAccountListFilter extends FilterParams {
     @observable accountTypeId;
     @observable accountNumber;
 
-    constructor() {
+    constructor(orderBy, orderDirection) {
         super();
         this.reset();
+        this.orderBy = orderBy;
+        this.orderDirection = orderDirection;
     }
 
     @action.bound

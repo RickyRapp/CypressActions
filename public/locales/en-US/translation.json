@@ -319,6 +319,8 @@
         "SCANNER_CONNECTIONS": "Scanner connections",
         "APPLICATION_DEFAULT_SETTING": "Default setting",
         "SCHEDULED_SETTINGS": "Scheduled settings",
+        "RECONCILE": "Reconcile",
+        "CHECKS": "Checks",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -956,7 +958,7 @@
     "DONATION": {
         "LIST": {
             "TITLE": "Donations",
-            "GROUPED_TITLE": "Donations by charity",
+            "GROUPED_TITLE": "Donations to charity",
             "OVERVIEW_TITLE": "Charity donations",
             "COLUMNS": {
                 "CHARITY_NAME_LABEL": "Charity",
@@ -1519,6 +1521,20 @@
         "FIELDS": {
             "NOTE_LABEL": "Note",
             "NOTE_PLACEHOLDER": "Note"
+        }
+    },
+    "CHECK": {
+        "LIST": {
+            "TITLE": "Checks",
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "CHECK_NUMBER_LABEL": "Check number",
+                "CHARITY_NAME_LABEL": "Charity",
+                "DATE_CREATED_LABEL": "Date created"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No checks"
+            }
         }
     }
 }
