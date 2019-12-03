@@ -321,6 +321,7 @@
         "SCHEDULED_SETTINGS": "Scheduled settings",
         "RECONCILE": "Reconcile",
         "CHECKS": "Checks",
+        "FIDELITY_RECOMMENDATION_CARDS": "Fidelity recommendation cards",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -1523,17 +1524,50 @@
             "NOTE_PLACEHOLDER": "Note"
         }
     },
-    "CHECK": {
+    "RECONCILE": {
         "LIST": {
             "TITLE": "Checks",
             "COLUMNS": {
                 "AMOUNT_LABEL": "Amount",
                 "CHECK_NUMBER_LABEL": "Check number",
                 "CHARITY_NAME_LABEL": "Charity",
-                "DATE_CREATED_LABEL": "Date created"
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description",
+                "OLD_CHECK_NUMBER_LABEL": "Check number",
+                "OLD_CHECK_DATE_CREATED_LABEL": "Date",
+                "OLD_CHECK_DESCRIPTION_LABEL": "Description"
             },
             "EMPTY_STATE": {
                 "TITLE": "No checks"
+            }
+        },
+        "EDIT": {
+            "FIELDS": {
+                "TRANSACTION_DESCRIPTION_LABEL": "Description",
+                "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
+                "NEW_CHECK_NUMBER_LABEL": "New check number",
+                "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number"
+            }
+        }
+    },
+    "FIDELITY_RECOMMENDATION_CARD": {
+        "LIST": {
+            "TITLE": "Fidelity recommendation cards",
+            "COLUMNS": {
+                "CARD_NUMBER_LABEL": "Card number",
+                "DONOR_NAME_LABEL": "Assigned to donor",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description",
+                "LOST_OR_STOLEN_LABEL": "Lost or stolen",
+                "POSSIBLE_LOST_OR_STOLEN_LABEL": "Possible lost or stolen",
+                "LOCKED_LABEL": "Locked"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No fidelity recommendation cards"
+            },
+            "BUTTON": {
+                "LOCK": "Lock",
+                "UNLOCK": "Unlock"
             }
         }
     }

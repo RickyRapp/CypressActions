@@ -15,7 +15,7 @@ const BasicRadioTemplate = function (props) {
 
 BasicRadioTemplate.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
     field: PropTypes.object.isRequired,
     t: PropTypes.any
 };

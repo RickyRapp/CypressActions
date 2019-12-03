@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {observer} from 'mobx-react';
-import {BasicRadioTemplate} from "themes/components";
+import { observer } from 'mobx-react';
+import { BasicRadioTemplate } from "themes/components";
 
 @observer
 class BasicRadio extends Component {
@@ -14,7 +14,7 @@ class BasicRadio extends Component {
 
 BasicRadio.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
     field: PropTypes.object.isRequired,
 };
 

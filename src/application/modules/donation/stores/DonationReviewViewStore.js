@@ -13,7 +13,11 @@ class DonationReviewViewStore extends BaseViewStore {
     form = new DonationReviewForm({
         onSuccess: async form => {
             const item = form.values();
+            if (item.paymentTypeId === '-1') {
+                item.paymentTypeId = null;
+            }
             await this.service.review({ ...item });
+            this.rootStore.routerStore.goBack();
         }
     });
 
@@ -23,20 +27,27 @@ class DonationReviewViewStore extends BaseViewStore {
         this.selectedItems = selectedItems;
         this.service = new DonationService(rootStore.application.baasic.apiClient);
         this.charity = charity;
+        this.rootStore = rootStore;
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
             onChange: () => {
                 this.form.$('address').clear();
                 this.form.$('bankAccountId').clear();
                 this.form.$('address').each((field) => { field.setRequired(false) });
-                this.form.$('bankAccountId').each((field) => { field.setRequired(false) });
+                this.form.$('bankAccountId').setRequired(false);
+                this.form.$('paymentTypeId').setRequired(true);
+                this.form.$('paymentNumber').setRequired(true);
                 if (this.paymentTypeDropdownStore.value.abrv === 'check') {
                     this.form.$('address').each((field) => { field.name !== 'addressLine2' && field.setRequired(true) });
                     this.form.$('address').set(_.find(this.charity.charityAddresses, { primary: true }).address);
                 }
                 else if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
-                    this.form.$('bankAccountId').each((field) => { field.setRequired(true) });
+                    this.form.$('bankAccountId').setRequired(true);
                     this.form.$('bankAccountId').set(this.charity.bankAccount.id);
+                }
+                else if (this.paymentTypeDropdownStore.value.abrv === 'transfer-to-charity-account') {
+                    this.form.$('paymentTypeId').setRequired(false);
+                    this.form.$('paymentNumber').setRequired(false);
                 }
             }
         });
@@ -63,6 +74,7 @@ class DonationReviewViewStore extends BaseViewStore {
         if (this.charity.bankAccount) {
             availableStatuses.push(_.find(this.paymentTypes, { abrv: 'ach' }))
         }
+        availableStatuses.push({ id: '-1', name: 'Transfer to charity account', abrv: 'transfer-to-charity-account' });
         return availableStatuses;
     }
 

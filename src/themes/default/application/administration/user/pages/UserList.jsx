@@ -83,7 +83,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         icon='u-icon u-icon--unlocked u-icon--sml'
-                        label='Lock'
+                        label='Unlock'
                         onlyIcon={true}
                         onClick={() => onUnlock(item)}>
                     </BaasicButton>
@@ -92,7 +92,7 @@ function renderActions({ item, actions, authorization }) {
                             authorization={authorization ? authorization.update : null}
                             className="btn btn--icon"
                             icon='u-icon u-icon--locked u-icon--sml'
-                            label='Unlock'
+                            label='Lock'
                             onlyIcon={true}
                             onClick={() => onLock(item)}>
                         </BaasicButton>

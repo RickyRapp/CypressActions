@@ -11,30 +11,28 @@ const DonorActivityAndHistoryListTemplate = function ({ donorActivityAndHistoryV
     return (
         <Page>
             <ListContent>
-                <div className="card card--form card--primary card--med">
-                    <div className="row u-mar--bottom--sml ">
-                        <div className="col col-sml-12 col-med-6 col-lrg-3">
-                            <AuthDropdownContent store={donorAccountDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
-                        </div>
+                <div className="row u-mar--bottom--sml ">
+                    <div className="col col-sml-12 col-med-6 col-lrg-3">
+                        <AuthDropdownContent store={donorAccountDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
                     </div>
-                    {(id || donorAccountDropdownStore.value) ?
-                        <React.Fragment>
-                            <div className="u-mar--bottom--sml">
-                                <Content>
-                                    <ReservedPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
-                                </Content>
-                            </div>
-                            <div className="u-mar--bottom--sml">
-                                <Content>
-                                    <SettledPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
-                                </Content>
-                            </div>
-                        </React.Fragment>
-                        :
-                        <Content>
-                            <EmptyState title='ACTIVITY_AND_HISTORY.LIST.EMPTY_STATE.TITLE' />
-                        </Content>}
                 </div>
+                {(id || donorAccountDropdownStore.value) ?
+                    <React.Fragment>
+                        <div className="u-mar--bottom--sml">
+                            <Content>
+                                <ReservedPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
+                            </Content>
+                        </div>
+                        <div className="u-mar--bottom--sml">
+                            <Content>
+                                <SettledPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
+                            </Content>
+                        </div>
+                    </React.Fragment>
+                    :
+                    <Content>
+                        <EmptyState title='ACTIVITY_AND_HISTORY.LIST.EMPTY_STATE.TITLE' />
+                    </Content>}
             </ListContent>
         </Page>
     )

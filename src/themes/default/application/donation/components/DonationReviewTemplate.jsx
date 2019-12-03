@@ -42,9 +42,13 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
                     <div className="form__group col col-lrg-3">
                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('paymentNumber')} />
-                    </div>
+                    {paymentTypeDropdownStore.value &&
+                        (paymentTypeDropdownStore.value.abrv === 'ach' ||
+                            paymentTypeDropdownStore.value.abrv === 'check' ||
+                            paymentTypeDropdownStore.value.abrv === 'bill-pay') &&
+                        <div className="form__group col col-lrg-3">
+                            <BasicInput field={form.$('paymentNumber')} />
+                        </div>}
                     {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
                         <div className="form__group col col-lrg-6">
                             <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.BANK_ACCOUNT_NAME_LABEL')}</label>

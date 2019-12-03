@@ -18,22 +18,20 @@ const FundTransferListTemplate = function ({ fundTransferViewStore }) {
     } = fundTransferViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={fundTransferViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
-                        </TableFilter>
-                    </div>
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                        />
-                    </div>
-                </Content>
-            </ApplicationListLayout>
-        </React.Fragment>
+        <ApplicationListLayout store={fundTransferViewStore} authorization={authorization}>
+            <Content emptyRenderer={renderEmpty(routes)} >
+                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} >
+                    </TableFilter>
+                </div>
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                    />
+                </div>
+            </Content>
+        </ApplicationListLayout>
     )
 };
 

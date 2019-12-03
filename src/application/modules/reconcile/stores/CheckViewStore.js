@@ -1,6 +1,8 @@
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { CheckService } from 'application/reconcile/services';
+import { ReconcileService } from 'application/reconcile/services';
 import { CheckListFilter } from 'application/reconcile/models';
+import { ModalParams } from 'core/models';
 
 class CheckViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -13,12 +15,13 @@ class CheckViewStore extends BaseListViewStore {
                 filter: new CheckListFilter('dateCreated', 'desc')
             },
             actions: () => {
-                const service = new CheckService(rootStore.application.baasic.apiClient);
+                const service = new ReconcileService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
                             'charity',
-                            'paymentTransaction'
+                            'paymentTransaction',
+                            'paymentType'
                         ]
                         const response = await service.find(params);
                         return response.data;
@@ -33,11 +36,11 @@ class CheckViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'paymentNumber',
-                    title: 'CHECK.LIST.COLUMNS.CHECK_NUMBER_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.CHECK_NUMBER_LABEL'
                 },
                 {
                     key: 'paymentTransaction.amount',
-                    title: 'CHECK.LIST.COLUMNS.AMOUNT_LABEL',
+                    title: 'RECONCILE.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency',
                         value: '$'
@@ -45,11 +48,15 @@ class CheckViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'charity.name',
-                    title: 'CHECK.LIST.COLUMNS.CHARITY_NAME_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL'
+                },
+                {
+                    key: 'description',
+                    title: 'RECONCILE.LIST.COLUMNS.DESCRIPTION_LABEL'
                 },
                 {
                     key: 'dateCreated',
-                    title: 'CHECK.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'RECONCILE.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
@@ -57,11 +64,37 @@ class CheckViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
+                onEdit: (transaction) => this.openEditModal(transaction),
+                onPreview: (transaction) => this.openPreviewModal(transaction),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
+                onEditRender: (transaction) => {
+                    return !transaction.checkCashed;
+                },
+                onPreviewRender: (transaction) => {
+                    return transaction.checkCashed && transaction.json;
+                }
             }
         }));
+
+        this.editModal = new ModalParams({});
+        this.previewModal = new ModalParams({});
+    }
+
+    @action.bound
+    openEditModal(transaction) {
+        this.editModal.open({
+            transaction: transaction,
+            onAfterEdit: () => { this.editModal.close(); this.queryUtility.fetch() }
+        });
+    }
+
+    @action.bound
+    openPreviewModal(transaction) {
+        this.previewModal.open({
+            transaction: transaction
+        });
     }
 }
 

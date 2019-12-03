@@ -143,12 +143,14 @@ class GrantViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (grant) => {
-                    if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
-                        return true;
-                    }
-                    else {
-                        const dateToEdit = moment(grant.dateCreated).add('minutes', 15);
-                        return moment().isBetween(grant.dateCreated, dateToEdit);
+                    if (grant.grantStatus.abrv === 'pending') {
+                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                            return true;
+                        }
+                        else {
+                            const dateToEdit = moment(grant.dateCreated).add('minutes', 15);
+                            return moment().isBetween(grant.dateCreated, dateToEdit);
+                        }
                     }
                 },
                 onRedirectRender: (grant) => {

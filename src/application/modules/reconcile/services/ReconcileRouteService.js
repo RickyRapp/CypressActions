@@ -1,6 +1,6 @@
 import { BaseRouteService } from 'core/services';
 
-class CheckRouteService extends BaseRouteService {
+class ReconcileRouteService extends BaseRouteService {
     constructor() {
         super('reconcile');
     }
@@ -8,6 +8,10 @@ class CheckRouteService extends BaseRouteService {
     find(filter) {
         return super.find(this.base + '/{?page,rpp,sort,embed,fields}', filter);
     }
+
+    checkUpdate(resource) {
+        return super.update(this.base + '/check/{id}', resource);
+    }
 }
 
-export default CheckRouteService;
+export default ReconcileRouteService;

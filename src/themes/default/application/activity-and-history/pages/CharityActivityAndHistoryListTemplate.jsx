@@ -11,23 +11,21 @@ const CharityActivityAndHistoryListTemplate = function ({ charityActivityAndHist
     return (
         <Page>
             <ListContent>
-                <div className="card card--form card--primary card--med">
-                    <div className="u-mar--bottom--sml">
-                        <div className="col col-sml-12 col-med-6 col-lrg-3">
-                            <AuthDropdownContent store={charityDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
-                        </div>
+                <div className="u-mar--bottom--sml">
+                    <div className="col col-sml-12 col-med-6 col-lrg-3">
+                        <AuthDropdownContent store={charityDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
                     </div>
-                    {(id || charityDropdownStore.value) ?
-                        <React.Fragment>
-                            <Content>
-                                <SettledPaymentTransaction charityId={id ? id : charityDropdownStore.value.id} />
-                            </Content>
-                        </React.Fragment>
-                        :
-                        <Content>
-                            <EmptyState title='ACTIVITY_AND_HISTORY.LIST.EMPTY_STATE.TITLE' />
-                        </Content>}
                 </div>
+                {(id || charityDropdownStore.value) ?
+                    <React.Fragment>
+                        <Content>
+                            <SettledPaymentTransaction charityId={id ? id : charityDropdownStore.value.id} />
+                        </Content>
+                    </React.Fragment>
+                    :
+                    <Content>
+                        <EmptyState title='ACTIVITY_AND_HISTORY.LIST.EMPTY_STATE.TITLE' />
+                    </Content>}
             </ListContent>
         </Page>
     )
