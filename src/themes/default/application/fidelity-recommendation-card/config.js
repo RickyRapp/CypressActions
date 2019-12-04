@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { FidelityRecommendationCardList } from 'application/fidelity-recommendation-card/pages';
-import _ from 'lodash'
 
 (function () {
     moduleProviderFactory.application.register({

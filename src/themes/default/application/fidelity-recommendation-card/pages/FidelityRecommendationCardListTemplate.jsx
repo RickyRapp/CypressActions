@@ -11,7 +11,7 @@ import { isSome } from 'core/utils';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
-const FidelityRecommendationCardListTemplate = function ({ fidelityRecommendationCardViewStore, t }) {
+const FidelityRecommendationCardListTemplate = function ({ fidelityRecommendationCardViewStore }) {
     const {
         tableStore,
         authorization,
@@ -43,8 +43,7 @@ function renderEmpty(routes) {
 }
 
 FidelityRecommendationCardListTemplate.propTypes = {
-    donorNoteViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    fidelityRecommendationCardViewStore: PropTypes.object.isRequired
 };
 
 function renderActions({ item, actions }) {

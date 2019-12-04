@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { FilterParams } from "core/models";
 
 class FidelityRecommendationCardListFilter extends FilterParams {

@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from 'mobx';
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { FidelityRecommendationCardService } from 'application/fidelity-recommendation-card/services';
 import { applicationContext } from 'core/utils';

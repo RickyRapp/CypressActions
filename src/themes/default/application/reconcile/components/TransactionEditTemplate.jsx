@@ -9,7 +9,7 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-const TransactionEditTemplate = function ({ transactionEditViewStore, t }) {
+const TransactionEditTemplate = function ({ transactionEditViewStore }) {
     const {
         form,
         cashedVariable,
@@ -65,8 +65,7 @@ const TransactionEditTemplate = function ({ transactionEditViewStore, t }) {
 };
 
 TransactionEditTemplate.propTypes = {
-    transactionEditViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired,
+    transactionEditViewStore: PropTypes.object.isRequired
 };
 
 function renderEditLayoutFooterContent({ form }) {

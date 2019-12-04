@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CheckList, GrantCreate, GrantEdit } from 'application/reconcile/pages';
+import { CheckList } from 'application/reconcile/pages';
 
 (function () {
     moduleProviderFactory.application.register({

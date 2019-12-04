@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     SimpleBaasicTable
 } from 'core/components';
@@ -8,8 +9,8 @@ import _ from 'lodash'
 
 class TransactionPreviewTemplate extends React.Component {
     render() {
-        const { transaction } = this.props.modalParams.data;
-        debugger
+        const { modalParams } = this.props;
+        const { transaction } = modalParams.data;
 
         const tableStore = new TableViewStore(null, {
             columns: [
@@ -47,5 +48,9 @@ class TransactionPreviewTemplate extends React.Component {
             </section>)
     }
 }
+
+TransactionPreviewTemplate.propTypes = {
+    modalParams: PropTypes.object.isRequired
+};
 
 export default defaultTemplate(TransactionPreviewTemplate);
