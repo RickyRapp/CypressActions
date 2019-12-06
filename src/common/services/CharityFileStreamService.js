@@ -18,6 +18,13 @@ class CharityFileStreamService extends BaseService {
         const url = this.routeService.uploadCharityBankAccount(charityId, file.name);
         return this.apiClient.post(url, formData);
     }
+
+    uploadCharityUpdateFile(file) {
+        let formData = new FormData();
+        formData.append('file', file, file.name);
+        const url = this.routeService.uploadCharityUpdateFile(file.name);
+        return this.apiClient.post(url, formData);
+    }
 }
 
 export default CharityFileStreamService;

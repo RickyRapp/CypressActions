@@ -13,6 +13,10 @@ class CharityRouteService extends BaseRouteService {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
+    processUpdateFile(id) {
+        return super.get(this.base + '/process-update-file/{id}', id);
+    }
+
     create() {
         return super.create(this.base);
     }

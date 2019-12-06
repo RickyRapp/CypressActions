@@ -1,5 +1,5 @@
-import {toast} from 'react-toastify';
-import {localizationService, errorFormatterService} from 'core/services';
+import { toast } from 'react-toastify';
+import { localizationService, errorFormatterService } from 'core/services';
 
 class NotificationStore {
     constructor(rootStore) {
@@ -24,9 +24,11 @@ class NotificationStore {
     }
 
     error(message, data = null) {
-        if(data) {
+        if (data) {
             const { headers, config, status } = data;
-            errorFormatterService.getErrorObject(data.data, data.message, status, headers, config);
+            const error = errorFormatterService.getErrorObject(data.data, data.message, status, headers, config);
+            if (error)
+                message = errorFormatterService.mergeMessages(message, error.message);
         }
 
         return showToast(localizationService.t(message), {

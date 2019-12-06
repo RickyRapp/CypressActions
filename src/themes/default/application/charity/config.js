@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CharityList, CharityCreate, CharityEdit } from 'application/charity/pages';
+import { CharityList, CharityCreate, CharityEdit, CharityUpdateFile } from 'application/charity/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -33,6 +33,15 @@ import { CharityList, CharityCreate, CharityEdit } from 'application/charity/pag
                         authorization: 'theDonorsFundAdministrationSection.create',
                         data: {
                             title: "CHARITY.CREATE.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.charity.update-file',
+                        pattern: '/update-file',
+                        component: CharityUpdateFile,
+                        authorization: 'theDonorsFundAdministrationSection.create',
+                        data: {
+                            title: "CHARITY.UPDATE_FILE.TITLE"
                         }
                     }
                 ]

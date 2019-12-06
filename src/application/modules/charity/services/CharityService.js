@@ -18,6 +18,12 @@ class CharityService extends BaseService {
         const response = await this.apiClient.get(url);
         return response || null;
     }
+
+    async processUpdateFile(fileId) {
+        const url = this.routeService.processUpdateFile(fileId);
+        const response = await this.apiClient.get(url);
+        return response || null;
+    }
 }
 
 export default CharityService;

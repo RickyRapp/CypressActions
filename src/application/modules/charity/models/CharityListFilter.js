@@ -7,9 +7,11 @@ class CharityListFilter extends FilterParams {
     @observable emails;
     @observable address;
 
-    constructor() {
+    constructor(orderBy, orderDirection) {
         super();
         this.reset();
+        this.orderBy = orderBy;
+        this.orderDirection = orderDirection;
     }
 
     @action.bound

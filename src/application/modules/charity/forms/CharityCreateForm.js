@@ -22,7 +22,7 @@ export default class CharityCreateForm extends FormBase {
                 {
                     name: 'taxId',
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
-                    rules: 'required|string|size:10',
+                    rules: 'required|string|size:9',
                     extra: {
                         format: '##-########'
                     }

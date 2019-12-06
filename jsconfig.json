@@ -1,12 +1,24 @@
 {
-    "compilerOptions": {
-        "target": "ES5",
-        "module": "commonjs",
-        "allowSyntheticDefaultImports": true,
-        "baseUrl": "./",
-        "paths": {
-          "themes/*": ["src/themes/default/*"]
-        },
-        "experimentalDecorators": true
-    }
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "themes/*": [
+        "src/themes/default/*"
+      ],
+      "core/*": [
+        "src/core/*"
+      ],
+      "common/*": [
+        "src/common/*"
+      ],
+      "application/*": [
+        "src/application/modules/*"
+      ]
+    },
+    "jsx": "react",
+    "experimentalDecorators": true
+  }
 }

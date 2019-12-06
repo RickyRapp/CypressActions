@@ -22,7 +22,7 @@ class CharityViewStore extends BaseListViewStore {
                     )
             },
             queryConfig: {
-                filter: new CharityListFilter()
+                filter: new CharityListFilter('dateCreated', 'desc')
             },
             actions: () => {
                 const service = new CharityService(rootStore.application.baasic.apiClient);
