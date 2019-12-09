@@ -6,7 +6,8 @@ import {
     BaasicFieldDropdown,
     BaasicFormControls,
     NumericInputField,
-    EditFormContent
+    EditFormContent,
+    NumberFormatInputField
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
@@ -57,7 +58,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                                         <BasicInput field={form.$('fundName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('securityPin')} />
+                                        <NumberFormatInputField field={form.$('securityPin')} />
                                     </div>
                                     {isPremiumAccount &&
                                         <div className="form__group col col-lrg-3">

@@ -39,7 +39,7 @@ export default class SessionInformationCreateForm extends FormBase {
                     label: 'SESSION.CREATE.STEP2.FIELDS.TAX_ID_LABEL',
                     rules: 'string',
                     extra: {
-                        format: '##-########'
+                        format: '##-#######'
                     }
                 },
                 {

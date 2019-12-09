@@ -101,7 +101,7 @@ class DonorAccountBankAccountEditForm extends Component {
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('phoneNumber').$('number')} />
+                            <NumberFormatInputField field={formBankAccount.$('accountHolder').$('phoneNumber').$('number')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-4">
                             <BasicInput field={formBankAccount.$('accountHolder').$('phoneNumber').$('description')} />

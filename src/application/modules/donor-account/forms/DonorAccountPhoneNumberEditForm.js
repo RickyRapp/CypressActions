@@ -8,8 +8,7 @@ export const donorAccountPhoneNumberFormProperties = {
         },
         {
             name: 'number',
-            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_FIELD_LABEL',
-            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_FIELD_PLACEHOLDER',
+            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
             rules: 'required|string',
             extra: {
                 format: '(###) ###-####'
@@ -17,8 +16,8 @@ export const donorAccountPhoneNumberFormProperties = {
         },
         {
             name: 'description',
-            label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_FIELD_LABEL',
-            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_FIELD_PLACEHOLDER',
+            label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
+            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
             rules: 'string'
         }
     ]

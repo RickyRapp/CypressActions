@@ -180,10 +180,11 @@ class BaseEditViewStore extends BaseViewStore {
 
     onCreateError(error) {
         if (!this.errorActions.onCreateError) {
-            throw error;
+            this.rootStore.notificationStore.error(null, error);
         }
-
-        return this.errorActions.onCreateError(error)
+        else {
+            return this.errorActions.onCreateError(error)
+        }
     }
 
     @action.bound
@@ -204,10 +205,11 @@ class BaseEditViewStore extends BaseViewStore {
 
     onUpdateError(error) {
         if (!this.errorActions.onUpdateError) {
-            throw error;
+            this.rootStore.notificationStore.error(null, error);
         }
-
-        return this.errorActions.onUpdateError(error);
+        else {
+            return this.errorActions.onUpdateError(error);
+        }
     }
 }
 

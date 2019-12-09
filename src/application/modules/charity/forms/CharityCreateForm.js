@@ -1,9 +1,4 @@
 import { FormBase } from 'core/components';
-import {
-    donorAccountAddressFormProperties,
-    donorAccountEmailAddressFormProperties,
-    donorAccountPhoneNumberFormProperties
-} from 'application/donor-account/forms';
 
 export default class CharityCreateForm extends FormBase {
     constructor(hooks) {
@@ -24,7 +19,7 @@ export default class CharityCreateForm extends FormBase {
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
                     rules: 'required|string|size:9',
                     extra: {
-                        format: '##-########'
+                        format: '##-#######'
                     }
                 },
                 {
@@ -47,7 +42,44 @@ export default class CharityCreateForm extends FormBase {
                 },
                 {
                     name: 'address',
-                    ...donorAccountAddressFormProperties
+                    fields: [
+                        {
+                            name: 'addressLine1',
+                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'addressLine2',
+                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+                            rules: 'string'
+                        },
+                        {
+                            name: 'city',
+                            label: 'ADDRESS.EDIT.FIELDS.CITY_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'state',
+                            label: 'ADDRESS.EDIT.FIELDS.STATE_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'zipCode',
+                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'description',
+                            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                            rules: 'string'
+                        }
+                    ]
                 },
                 {
                     name: 'contactInformation',
@@ -60,11 +92,39 @@ export default class CharityCreateForm extends FormBase {
                         },
                         {
                             name: 'emailAddress',
-                            ...donorAccountEmailAddressFormProperties
+                            fields: [
+                                {
+                                    name: 'email',
+                                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
+                                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
+                                    rules: 'required|email'
+                                },
+                                {
+                                    name: 'description',
+                                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
+                                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                                    rules: 'string'
+                                }
+                            ]
                         },
                         {
                             name: 'phoneNumber',
-                            ...donorAccountPhoneNumberFormProperties
+                            fields: [
+                                {
+                                    name: 'number',
+                                    label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
+                                    rules: 'required|string',
+                                    extra: {
+                                        format: '(###) ###-####'
+                                    }
+                                },
+                                {
+                                    name: 'description',
+                                    label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
+                                    placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                                    rules: 'string'
+                                }
+                            ]
                         },
                     ]
                 },
@@ -73,40 +133,108 @@ export default class CharityCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'name',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_FIELD',
-                            rules: 'required|string'
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_LABEL',
+                            placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_PLACEHOLDER',
+                            rules: 'string'
                         },
                         {
                             name: 'accountNumber',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_NUMBER_FIELD',
-                            rules: 'required|string'
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_NUMBER_LABEL',
+                            placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_NUMBER_PLACEHOLDER',
+                            rules: 'string'
                         },
                         {
                             name: 'routingNumber',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_FIELD',
-                            rules: 'required|string|digits:9',
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_LABEL',
+                            rules: 'string|digits:9',
                             extra: {
                                 format: '###-###-###'
                             }
                         },
                         {
                             name: 'description',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.DESCRIPTION_FIELD',
+                            label: 'BANK_ACCOUNT.EDIT.FIELDS.DESCRIPTION_LABEL',
                         },
                         {
                             name: 'accountHolder',
                             fields: [
                                 {
                                     name: 'address',
-                                    ...donorAccountAddressFormProperties
+                                    fields: [
+                                        {
+                                            name: 'addressLine1',
+                                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
+                                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                                            rules: 'string'
+                                        },
+                                        {
+                                            name: 'addressLine2',
+                                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
+                                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+                                            rules: 'string'
+                                        },
+                                        {
+                                            name: 'city',
+                                            label: 'ADDRESS.EDIT.FIELDS.CITY_LABEL',
+                                            placeholder: 'ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER',
+                                            rules: 'string'
+                                        },
+                                        {
+                                            name: 'state',
+                                            label: 'ADDRESS.EDIT.FIELDS.STATE_LABEL',
+                                            placeholder: 'ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER',
+                                            rules: 'string'
+                                        },
+                                        {
+                                            name: 'zipCode',
+                                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_LABEL',
+                                            placeholder: 'ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
+                                            rules: 'string'
+                                        },
+                                        {
+                                            name: 'description',
+                                            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
+                                            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                                            rules: 'string'
+                                        }
+                                    ]
                                 },
                                 {
                                     name: 'emailAddress',
-                                    ...donorAccountEmailAddressFormProperties
+                                    fields: [
+                                        {
+                                            name: 'email',
+                                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
+                                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
+                                            rules: 'email'
+                                        },
+                                        {
+                                            name: 'description',
+                                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
+                                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                                            rules: 'string'
+                                        }
+                                    ]
                                 },
                                 {
                                     name: 'phoneNumber',
-                                    ...donorAccountPhoneNumberFormProperties
+                                    fields: [
+                                        {
+                                            name: 'number',
+                                            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
+                                            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_PLACEHOLDER',
+                                            rules: 'string',
+                                            extra: {
+                                                format: '(###) ###-####'
+                                            }
+                                        },
+                                        {
+                                            name: 'description',
+                                            label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
+                                            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                                            rules: 'string'
+                                        }
+                                    ]
                                 }
                             ]
                         }
@@ -118,7 +246,8 @@ export default class CharityCreateForm extends FormBase {
                         {
                             name: 'username',
                             label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_LABEL',
-                            rules: 'required|email',
+                            placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_PLACEHOLDER',
+                            rules: 'email',
                             autoComplete: 'off'
                         },
                         {
@@ -127,14 +256,16 @@ export default class CharityCreateForm extends FormBase {
                                 {
                                     name: 'password',
                                     label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
-                                    rules: ['required', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
+                                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_PLACEHOLDER',
+                                    rules: ['string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
                                     type: 'password',
                                     autoComplete: 'off'
                                 },
                                 {
                                     name: 'confirmPassword',
                                     label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_LABEL',
-                                    rules: 'required|string|same:coreUser.coreMembership.password',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_PLACEHOLDER',
+                                    rules: 'string|same:coreUser.coreMembership.password',
                                     type: 'password'
                                 }
                             ]

@@ -71,6 +71,69 @@
         },
         "REQUIIRED_WITH_ALL": "ERROR_MESSAGES.REQUIIRED_WITH_ALL"
     },
+    "ERROR_CODE": {
+        "400": "The request could not be understood due to invalid data.",
+        "404": "Requested resource could not be found.",
+        "500": "Unhandled error occurred, please contact support team.",
+        "1000": "Validation failed.",
+        "1100": "The e-mail address already exists in the database for the application.",
+        "1101": "The provider user key already exists in the database for the application.",
+        "1102": "The user name already exists in the database for the application.",
+        "1103": "The password answer is not formatted correctly.",
+        "1104": "The invalid culture name.",
+        "1105": "The e-mail address is not formatted correctly.",
+        "1106": "The password is not formatted correctly.",
+        "1107": " The provider user key is of an invalid type or format.",
+        "1108": "The password question is not formatted correctly.",
+        "1109": "The invalid time zone identifier.",
+        "1110": "The user name was not found.",
+        "1111": "Password doesn't match regex.",
+        "1112": "Password has too few alphanumeric characters.",
+        "1113": "Password is too short.",
+        "1114": "The user was not created, for a reason defined by the provider.",
+        "2000": "Validation failed.",
+        "2100": "The e-mail address already exists in the database for the application.",
+        "2101": "The provider user key already exists in the database for the application.",
+        "2102": "The user name already exists in the database for the application.",
+        "2103": "The password answer is not formatted correctly.",
+        "2104": "The invalid culture name.",
+        "2105": "The e-mail address is not formatted correctly.",
+        "2106": "The password is not formatted correctly.",
+        "2107": " The provider user key is of an invalid type or format.",
+        "2108": "The password question is not formatted correctly.",
+        "2109": "The invalid time zone identifier.",
+        "2110": "The user name was not found.",
+        "2111": "Password doesn't match regex.",
+        "2112": "Password has too few alphanumeric characters.",
+        "2113": "Password is too short.",
+        "2114": "The user was not created, for a reason defined by the provider.",
+        "3000": "Grant is canceled.",
+        "3001": "Insufficient funds.",
+        "3002": "Grant information invalid.",
+        "3003": "Charity not found.",
+        "3004": "Charity is not active.",
+        "3005": "Donor not found",
+        "3006": "Grant is processed.",
+        "3007": "Missing reserved not done transaction.",
+        "3008": "Scheduled payment already done.",
+        "3100": "Invalid card number.",
+        "3101": "Possible lost or stolen.",
+        "3102": "Card reported as lost or stolen.",
+        "3103": "Card is not assigned.",
+        "3104": "Card is locked.",
+        "4000": "Scanner connection not initialized.",
+        "4001": "Session already active.",
+        "4002": "Barcode not found.",
+        "4003": "Certificate not clean.",
+        "4004": "Booklet not assigned.",
+        "4005": "Certificate not active.",
+        "4006": "Charity not active.",
+        "4007": "Certificate already used in open session.",
+        "4008": "Insufficient funds.",
+        "4009": "Certificate already scanned.",
+        "5000": "Setting not enabled.",
+        "5001": "Cannot have two low balance settings."
+    },
     "BREADCRUMBS": {
         "CREATE": "Create",
         "EDIT": "Edit",
@@ -399,7 +462,9 @@
             "BLANK_BOOKLET_MAX_LABEL": "Open certificate max amount",
             "BLANK_BOOKLET_MAX_PLACEHOLDER": "Open certificate max amount",
             "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
-            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
+            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
+            "SECURITY_PIN_LABEL": "Security pin",
+            "SECURITY_PIN_PLACEHOLDER": "Security pin"
         },
         "CREATE": {
             "TITLE": "Create",
@@ -422,6 +487,8 @@
             "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
             "HOW_DID_YOU_HEAR_ABOUT_US_LABEL": "How did you hear about us?",
             "HOW_DID_YOU_HEAR_ABOUT_US_PLACEHOLDER": "How did you hear about us?",
+            "SECURITY_PIN_LABEL": "Security pin",
+            "SECURITY_PIN_PLACEHOLDER": "Security pin",
             "ACCOUNT_TYPE_LABEL": "Type",
             "ACCOUNT_TYPE_PLACEHOLDER": "Type",
             "CONTACT_INFO_FIELDS": {
@@ -459,8 +526,6 @@
             "GRANT_MINIMUM_AMOUNT_PLACEHOLDER": "Grant minimum amount",
             "INITIAL_CONTRIBUTION_LABEL": "Initial contribution",
             "INITIAL_CONTRIBUTION_PLACEHOLDER": "Initial contribution",
-            "SECURITY_PIN_LABEL": "Security pin",
-            "SECURITY_PIN_PLACEHOLDER": "Security pin",
             "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount",
             "CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER": "Contribution initial amount"
         },
@@ -499,35 +564,35 @@
         "CREATE": {
             "TITLE": "Add address",
             "FIELDS": {
-                "ADDRESS_LINE_1_FIELD_LABEL": "Address line 1",
-                "ADDRESS_LINE_1_FIELD_PLACEHOLDER": "Address line 1",
-                "ADDRESS_LINE_2_FIELD_LABEL": "Address line 2",
-                "ADDRESS_LINE_2_FIELD_PLACEHOLDER": "Address line 2",
-                "CITY_FIELD_LABEL": "City",
-                "CITY_FIELD_PLACEHOLDER": "City",
-                "STATE_FIELD_LABEL": "State",
-                "STATE_FIELD_PLACEHOLDER": "State",
-                "ZIPCODE_FIELD_LABEL": "Zip code",
-                "ZIPCODE_FIELD_PLACEHOLDER": "Zip code",
-                "DESCRIPTION_FIELD_LABEL": "Description",
-                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         },
         "EDIT": {
             "TITLE": "Edit address",
             "FIELDS": {
-                "ADDRESS_LINE_1_FIELD_LABEL": "Address line 1",
-                "ADDRESS_LINE_1_FIELD_PLACEHOLDER": "Address line 1",
-                "ADDRESS_LINE_2_FIELD_LABEL": "Address line 2",
-                "ADDRESS_LINE_2_FIELD_PLACEHOLDER": "Address line 2",
-                "CITY_FIELD_LABEL": "City",
-                "CITY_FIELD_PLACEHOLDER": "City",
-                "STATE_FIELD_LABEL": "State",
-                "STATE_FIELD_PLACEHOLDER": "State",
-                "ZIPCODE_FIELD_LABEL": "Zip code",
-                "ZIPCODE_FIELD_PLACEHOLDER": "Zip code",
-                "DESCRIPTION_FIELD_LABEL": "Description",
-                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         }
     },
@@ -552,19 +617,19 @@
         "CREATE": {
             "TITLE": "Add email address",
             "FIELDS": {
-                "EMAIL_FIELD_LABEL": "Email",
-                "EMAIL_FIELD_PLACEHOLDER": "Email",
-                "DESCRIPTION_FIELD_LABEL": "Description",
-                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
+                "EMAIL_LABEL": "Email",
+                "EMAIL_PLACEHOLDER": "Email",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         },
         "EDIT": {
             "TITLE": "Edit email address",
             "FIELDS": {
-                "EMAIL_FIELD_LABEL": "Email",
-                "EMAIL_FIELD_PLACEHOLDER": "Email",
-                "DESCRIPTION_FIELD_LABEL": "Description",
-                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
+                "EMAIL_LABEL": "Email",
+                "EMAIL_PLACEHOLDER": "Email",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         }
     },
@@ -589,19 +654,19 @@
         "CREATE": {
             "TITLE": "Add phone number",
             "FIELDS": {
-                "NUMBER_FIELD_LABEL": "Number",
-                "NUMBER_FIELD_PLACEHOLDER": "Number",
-                "DESCRIPTION_FIELD_LABEL": "Description",
-                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         },
         "EDIT": {
             "TITLE": "Edit phone number",
             "FIELDS": {
-                "NUMBER_FIELD_LABEL": "Number",
-                "NUMBER_FIELD_PLACEHOLDER": "Number",
-                "DESCRIPTION_FIELD_LABEL": "Description",
-                "DESCRIPTION_FIELD_PLACEHOLDER": "Description"
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
             }
         }
     },
@@ -631,23 +696,34 @@
         "CREATE": {
             "TITLE": "Add bank account",
             "FIELDS": {
-                "NAME_FIELD": "Name",
-                "ACCOUNT_NUMBER_FIELD": "Account number",
-                "ROUTING_NUMBER_FIELD": "Routing number",
-                "DESCRIPTION_FIELD": "Description",
-                "THIRD_PARTY_BANK_ACCOUNT_FIELD": "Third party account?",
-                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD": "Account holder name"
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ROUTING_NUMBER_LABEL": "Routing number",
+                "ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
+                "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Account holder name",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name"
             }
         },
         "EDIT": {
             "TITLE": "Edit bank account",
             "FIELDS": {
-                "NAME_FIELD": "Name",
-                "ACCOUNT_NUMBER_FIELD": "Account number",
-                "ROUTING_NUMBER_FIELD": "Routing number",
-                "DESCRIPTION_FIELD": "Description",
-                "THIRD_PARTY_BANK_ACCOUNT_FIELD": "Third party account?",
-                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_FIELD": "Account holder name"
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "ROUTING_NUMBER_LABEL": "Routing number",
+                "ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
+                "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Acount holder name",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -723,8 +799,11 @@
                 "LOGIN_FORM_FIELDS": {
                     "TITLE": "Login info",
                     "USERNAME_LABEL": "Username/Email",
+                    "USERNAME_PLACEHOLDER": "Username/Email",
                     "PASSWORD_LABEL": "Password",
-                    "CONFIRM_PASSWORD_LABEL": "Confirm password"
+                    "PASSWORD_PLACEHOLDER": "Password",
+                    "CONFIRM_PASSWORD_LABEL": "Confirm password",
+                    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password"
                 }
             }
         },

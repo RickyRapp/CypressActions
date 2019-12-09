@@ -25,8 +25,8 @@ class NotificationStore {
 
     error(message, data = null) {
         if (data) {
-            const { headers, config, status } = data;
-            const error = errorFormatterService.getErrorObject(data.data, data.message, status, headers, config);
+            const { headers, config, statusCode, statusText } = data;
+            const error = errorFormatterService.getErrorObject(data.data, data.message, statusCode, statusText, headers, config);
             if (error)
                 message = errorFormatterService.mergeMessages(message, error.message);
         }

@@ -57,6 +57,15 @@ export default class DonorAccountEditForm extends FormBase {
                     placeholder: 'DONOR_ACCOUNT.EDIT.PREFIX_TYPE_PLACEHOLDER',
                     rules: 'string'
                 },
+                {
+                    name: 'securityPin',
+                    label: 'DONOR_ACCOUNT.EDIT.SECURITY_PIN_LABEL',
+                    rules: 'required|string|digits:4',
+                    extra: {
+                        format: '####',
+                        mask: '*'
+                    }
+                },
                 ...donorAccountSettingsFormProperties.fields
             ]
         };

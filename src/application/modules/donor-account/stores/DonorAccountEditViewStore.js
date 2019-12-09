@@ -59,7 +59,8 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             middleName,
             fundName,
             blankBookletMaxAmount,
-            notificationLimitRemainderAmount
+            notificationLimitRemainderAmount,
+            securityPin
         };
 
         const accountSettingsData = {
@@ -71,8 +72,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             extraBookletPercentage,
             grantFeePercentage,
             grantMinimumAmount,
-            initialContribution,
-            securityPin
+            initialContribution
         };
 
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);

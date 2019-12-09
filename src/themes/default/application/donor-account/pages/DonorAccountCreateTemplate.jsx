@@ -6,7 +6,8 @@ import {
     BaasicFieldDropdown,
     BaasicFormControls,
     NumericInputField,
-    EditFormContent
+    EditFormContent,
+    NumberFormatInputField
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
@@ -63,7 +64,7 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                         />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('securityPin')} />
+                                        <NumberFormatInputField field={form.$('securityPin')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <BaasicFieldDropdown field={form.$('howDidYouHearAboutUsId')} store={howDidYouHearAboutUsDropdownStore} />

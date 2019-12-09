@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+    BaasicButton,
     BasicInput,
     BaasicFieldDropdown,
     BaasicDropzone,
@@ -10,7 +11,7 @@ import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { CreateLoginForm } from 'common/components';
 
-const CharityCreateTemplate = function ({ charityCreateViewStore }) {
+const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
     const {
         contentLoading,
         form,
@@ -23,7 +24,9 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
         onBlurUsername,
         taxIdExists,
         loginShow,
-        onChangeLoginShow
+        onChangeLoginShow,
+        bankAccountShow,
+        onChangeBankAccountShow
     } = charityCreateViewStore;
 
     return (
@@ -79,62 +82,73 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
                             <BasicInput field={form.$('contactInformation.emailAddress.email')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('contactInformation.phoneNumber.number')} />
+                            <NumberFormatInputField field={form.$('contactInformation.phoneNumber.number')} />
                         </div>
                     </div>
                 </div>
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
-                    <h3 className="u-mar--bottom--med">Bank account</h3>
-                    <div className="content__header">
-                        <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                <BasicInput field={form.$('bankAccount.name')} />
+                    <h3 className="u-mar--bottom--med">Bank account
+                    <BaasicButton
+                            className="btn btn--icon"
+                            icon={`u-icon u-icon--${bankAccountShow ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
+                            label={bankAccountShow ? t('CHARITY.CREATE.BANK_ACCOUNT_FORM_FIELDS.HIDE') : t('DONOR_ACCOUNT.CREATE.BANK_ACCOUNT_FORM_FIELDS.SHOW')}
+                            onlyIcon={true}
+                            onClick={() => onChangeBankAccountShow(!bankAccountShow)}
+                        />
+                    </h3>
+                    {bankAccountShow &&
+                        <React.Fragment>
+                            <div className="content__header">
+                                <div className="row">
+                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                        <BasicInput field={form.$('bankAccount.name')} />
+                                    </div>
+                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                        <BasicInput field={form.$('bankAccount.accountNumber')} />
+                                    </div>
+                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                        <NumberFormatInputField field={form.$('bankAccount.routingNumber')} />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                <BasicInput field={form.$('bankAccount.accountNumber')} />
-                            </div>
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                <NumberFormatInputField field={form.$('bankAccount.routingNumber')} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.address.addressLine1')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.address.addressLine2')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.address.city')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.address.state')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.address.zipCode')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.emailAddress.email')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('bankAccount.accountHolder.phoneNumber.number')} />
-                        </div>
-                        <div className="col col-sml-12 col-lrg-4">
-                            <div className="card card--form card--primary card--med u-mar--bottom--med">
-                                <label className="form__group__label" >Bank account image</label>
+                            <div className="row">
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountHolder.address.addressLine1')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountHolder.address.addressLine2')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountHolder.address.city')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountHolder.address.state')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountHolder.address.zipCode')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountHolder.emailAddress.email')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <NumberFormatInputField field={form.$('bankAccount.accountHolder.phoneNumber.number')} />
+                                </div>
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                        <label className="form__group__label" >Bank account image</label>
 
-                                <BaasicDropzone
-                                    acceptFiles={uploadTypes}
-                                    loading={uploadLoading}
-                                    onFilesDrop={onAttachmentDrop}
-                                    multiple={false}
-                                />
+                                        <BaasicDropzone
+                                            acceptFiles={uploadTypes}
+                                            loading={uploadLoading}
+                                            onFilesDrop={onAttachmentDrop}
+                                            multiple={false}
+                                        />
 
-                                {image && imgPreview({ image })}
+                                        {image && imgPreview({ image })}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </React.Fragment>}
                 </div>
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <div className="row">
@@ -153,7 +167,8 @@ const CharityCreateTemplate = function ({ charityCreateViewStore }) {
 };
 
 CharityCreateTemplate.propTypes = {
-    charityCreateViewStore: PropTypes.object.isRequired
+    charityCreateViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired,
 };
 
 const thumb = {

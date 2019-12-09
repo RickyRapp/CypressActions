@@ -39,8 +39,10 @@ export default class DonorAccountCreateForm extends FormBase {
                 {
                     name: 'securityPin',
                     label: 'DONOR_ACCOUNT.CREATE.SECURITY_PIN_LABEL',
-                    placeholder: 'DONOR_ACCOUNT.CREATE.SECURITY_PIN_PLACEHOLDER',
-                    rules: 'required|string|digits:4'
+                    rules: 'required|string|digits:4',
+                    extra: {
+                        format: '####'
+                    }
                 },
                 {
                     name: 'blankBookletMaxAmount',
@@ -119,15 +121,80 @@ export default class DonorAccountCreateForm extends FormBase {
                 ...donorAccountSettingsFormProperties.fields,
                 {
                     name: 'address',
-                    ...donorAccountAddressFormProperties
+                    fields: [
+                        {
+                            name: 'addressLine1',
+                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'addressLine2',
+                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+                            rules: 'string'
+                        },
+                        {
+                            name: 'city',
+                            label: 'ADDRESS.EDIT.FIELDS.CITY_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'state',
+                            label: 'ADDRESS.EDIT.FIELDS.STATE_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'zipCode',
+                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
+                            rules: 'required|string'
+                        },
+                        {
+                            name: 'description',
+                            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
+                            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                            rules: 'string'
+                        }
+                    ]
                 },
                 {
                     name: 'emailAddress',
-                    ...donorAccountEmailAddressFormProperties
+                    fields: [
+                        {
+                            name: 'email',
+                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
+                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
+                            rules: 'required|email'
+                        },
+                        {
+                            name: 'description',
+                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
+                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                            rules: 'string'
+                        }
+                    ]
                 },
                 {
                     name: 'phoneNumber',
-                    ...donorAccountPhoneNumberFormProperties
+                    fields: [
+                        {
+                            name: 'number',
+                            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
+                            rules: 'required|string',
+                            extra: {
+                                format: '(###) ###-####'
+                            }
+                        },
+                        {
+                            name: 'description',
+                            label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
+                            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                            rules: 'string'
+                        }
+                    ]
                 }
             ]
         };

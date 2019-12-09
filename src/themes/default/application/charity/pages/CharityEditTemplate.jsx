@@ -41,7 +41,7 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                                             <label className="form__group__label">Tax Id</label>
                                             {item &&
                                                 <span className={"input input--med input--text input--disabled"}>
-                                                    <NumberFormat format="##-########" displayType="text" value={item.taxId} />
+                                                    <NumberFormat format="##-#######" displayType="text" value={item.taxId} />
                                                 </span>}
                                         </div>
                                     </div>

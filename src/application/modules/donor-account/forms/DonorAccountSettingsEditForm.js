@@ -84,12 +84,6 @@ export const donorAccountSettingsFormProperties = {
             placeholder: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.INITIAL_CONTRIBUTION_PLACEHOLDER',
             rules: 'required|boolean',
             type: 'checkbox'
-        },
-        {
-            name: 'securityPin',
-            label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.SECURITY_PIN_LABEL',
-            placeholder: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.SECURITY_PIN_PLACEHOLDER',
-            rules: 'required|string|digits:4'
         }
     ]
 };

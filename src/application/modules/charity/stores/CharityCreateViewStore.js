@@ -15,6 +15,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
     @observable uploadLoading = false;
     uploadTypes = ['.png', '.jpg', '.jpeg'];
     @observable loginShow = false;
+    @observable bankAccountShow = false;
 
     constructor(rootStore) {
         const service = new CharityService(rootStore.application.baasic.apiClient);
@@ -24,20 +25,47 @@ class CharityCreateViewStore extends BaseEditViewStore {
             id: undefined,
             actions: () => {
                 return {
-                    create: async (resource) => {
+                    create: async (item) => {
                         await this.fetch([
-                            this.usernameExists(resource.coreUser.username),
-                            this.taxIdExists(resource.taxId),
+                            this.usernameExists(item.coreUser.username),
+                            this.taxIdExists(item.taxId)
                         ])
+                        if (item.coreUser.username || item.coreUser.coreMembership.password || item.coreUser.coreMembership.confirmPassword) {
+                            if (!item.coreUser.username) {
+                                this.form.$('coreUser.username').invalidate('The Username is required if you want create online account.')
+                            }
+                            if (!item.coreUser.coreMembership.password) {
+                                this.form.$('coreUser.coreMembership.password').invalidate('The Password is required if you want create online account.')
+                            }
+                            if (!item.coreUser.coreMembership.confirmPassword) {
+                                this.form.$('coreUser.coreMembership.confirmPassword').invalidate('The Confirm password is required if you want create online account.')
+                            }
+                        }
+                        else {
+                            item.coreUser = null;
+                        }
+                        if (item.bankAccount.name || item.bankAccount.accountNumber || item.bankAccount.routingNumber) {
+                            if (!item.bankAccount.name) {
+                                this.form.$('bankAccount.name').invalidate('The Name is required if you want create bank account.')
+                            }
+                            if (!item.bankAccount.accountNumber) {
+                                this.form.$('bankAccount.accountNumber').invalidate('The Account number is required if you want create bank account.')
+                            }
+                            if (!item.bankAccount.routingNumber) {
+                                this.form.$('bankAccount.routingNumber').invalidate('The routing number is required if you want create bank account.')
+                            }
+                        }
+                        else {
+                            item.bankAccount = null;
+                        }
                         if (!this.form.isValid) {
                             throw { type: ErrorType.Unique };
                         }
                         try {
-                            const response = await service.create(resource);
+                            const response = await service.create(item);
                             await this.insertImage(response.data.response);
                         } catch (err) {
-                            this.form.invalidate(err.data);
-                            throw { error: err };
+                            rootStore.notificationStore.error('ERROR', err);
                         }
                     }
                 }
@@ -48,7 +76,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
                         case ErrorType.Unique:
                             break;
                         default:
-                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
                             break;
                     }
                 }
@@ -76,6 +104,11 @@ class CharityCreateViewStore extends BaseEditViewStore {
     @action.bound
     onChangeLoginShow(visiblity) {
         this.loginShow = visiblity;
+    }
+
+    @action.bound
+    onChangeBankAccountShow(visiblity) {
+        this.bankAccountShow = visiblity;
     }
 
     @action.bound
