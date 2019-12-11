@@ -1,5 +1,4 @@
 import { FormBase } from 'core/components';
-import { charityEmailAddressFormProperties, charityPhoneNumberFormProperties } from 'application/charity/forms';
 
 export default class CharityEditForm extends FormBase {
     constructor(hooks) {

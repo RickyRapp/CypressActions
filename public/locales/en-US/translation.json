@@ -416,6 +416,12 @@
     "SELECT_DONOR": "Select donor",
     "SELECT_DONOR_PLACEHOLDER": "Select donor",
     "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
+    "CHOOSE_TYPE_EXPORT": "Export type",
+    "CHOOSE_LIMIT_EXPORT": "Export size",
+    "CHOOSE_EXPORT_COLUMNS": "Export fields",
+    "EXPORT_TYPES": "Export type",
+    "EXPORT_LIMITS": "Export limit",
+    "EXPORT_FIELDS": "Export fields",
     "DONOR_ACCOUNT": {
         "LIST": {
             "TITLE": "Donors",

@@ -3,10 +3,11 @@ import { BaseRouteService } from 'core/services';
 class GrantRouteService extends BaseRouteService {
     constructor() {
         super('grant');
+        this.filterFields = 'donorAccountId,confirmationNumber,grantStatusIds,search,name,taxId,grantId,page,rpp,sort,embed,fields'
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,confirmationNumber,grantStatusIds,search,name,taxId,grantId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + `/{?${this.filterFields}}`, filter);
     }
 
     get(id, options) {
@@ -23,6 +24,10 @@ class GrantRouteService extends BaseRouteService {
 
     review(resource) {
         return super.update(this.base + '/review/{id}', resource);
+    }
+
+    export(filter) {
+        return super.find(this.base + `/search-export/{?exportFields,exportLimit,exportType,${this.filterFields}}`, filter);
     }
 }
 

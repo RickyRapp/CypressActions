@@ -9,7 +9,6 @@ import { Page } from 'core/layouts';
 
 const CharityUpdateFileTemplate = function ({ charityUpdateFileViewStore, t }) {
     const {
-        loaderStore,
         uploadTypes,
         insertImage,
         onAttachmentDrop,

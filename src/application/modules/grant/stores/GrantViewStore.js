@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
-import { GrantService } from 'application/grant/services';
+import { GrantService, GrantRouteService } from 'application/grant/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { donorAccountFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -15,6 +15,7 @@ class GrantViewStore extends BaseListViewStore {
         const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new GrantListFilter('dateCreated', 'desc')
         filter.donorAccountId = id || queryParamsId;
+        const service = new GrantService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'grant',
@@ -56,7 +57,6 @@ class GrantViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new GrantService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -248,6 +248,31 @@ class GrantViewStore extends BaseListViewStore {
                     this.queryUtility.filter['grantStatusIds'] = _.map(grantStatus, (status) => { return status.id });
                 }
             });
+
+        this.exportConfig = {
+            fileName: `Grants_${moment().format("YYYY-MM-DD_HH-mm-ss")}`,
+            columns: [
+                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 3, title: 'Charity type', key: 'CHARITY TYPE', selected: false, visible: this.hasPermission('theDonorsFundAdministrationSection.read') },
+                { id: 4, title: 'Charity address', key: 'CHARITY ADDRESS', selected: false, visible: this.hasPermission('theDonorsFundAdministrationSection.read') },
+                { id: 5, title: 'Account number', key: 'ACCOUNT NUMBER', selected: false, visible: this.hasPermission('theDonorsFundAdministrationSection.read') },
+                { id: 6, title: 'TaxId', key: 'TAX ID', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 7, title: 'Amount', key: 'AMOUNT', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 8, title: 'Confirmation number', key: 'CONFIRMATION NUMBER', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 9, title: 'Status', key: 'STATUS', selected: false, visible: this.hasPermission('theDonorsFundGrantSection.read') }
+            ],
+            exportUrlFunc: (exportData) => { return this.getExportUrl(exportData); }
+        }
+    }
+
+    getExportUrl({ exportType, exportLimit, exportFields }) {
+        const routeService = new GrantRouteService();
+        let filter = this.queryUtility.filter;
+        filter.exportFields = exportFields;
+        filter.exportLimit = exportLimit;
+        filter.exportType = exportType;
+        return routeService.export(filter);
     }
 
     @action.bound

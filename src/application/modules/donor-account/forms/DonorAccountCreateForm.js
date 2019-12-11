@@ -1,9 +1,6 @@
 import { FormBase } from 'core/components';
 import {
-    donorAccountSettingsFormProperties,
-    donorAccountAddressFormProperties,
-    donorAccountEmailAddressFormProperties,
-    donorAccountPhoneNumberFormProperties
+    donorAccountSettingsFormProperties
 } from 'application/donor-account/forms';
 
 export default class DonorAccountCreateForm extends FormBase {

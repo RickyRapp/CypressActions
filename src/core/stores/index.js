@@ -37,3 +37,5 @@ export { default as DateRangeQueryPickerStore } from './date-picker/DateRangeQue
 export { default as RouterStore } from './RouterStore';
 
 export { default as TimeZoneStore } from './TimeZoneStore';
+
+export { default as ExportViewStore } from './export/ExportViewStore';

@@ -97,4 +97,6 @@ export { default as LanguageMetadataTemplate } from './formatters/LanguageMetada
 export { default as FormatterResolverTemplate } from './formatters/FormatterResolverTemplate';
 export { default as AddressTemplate } from './formatters/AddressTemplate';
 
+export { default as ExportTemplate } from './export/ExportTemplate';
+
 export * from './empty-state';

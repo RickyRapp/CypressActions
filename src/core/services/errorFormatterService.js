@@ -29,7 +29,6 @@ class ErrorFormatterService {
 
     getErrorObject = (data, message, statusCode, statusText, headers, config) => {
         let result = new Error(statusCode);
-        debugger
         if (!_.isUndefined(data) && !_.isNull(data)) {
             if (data.errorCode > 0 && data.errorCode <= 100000) { //TDF error codes range. 0 will not be included because of success and unhandled error.
                 result.message = this.mergeMessages(message, localizationService.t('ERROR_CODE.' + data.errorCode));

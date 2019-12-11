@@ -103,4 +103,6 @@ export { default as Address } from './formatters/Address';
 
 export { default as TabContent } from './content/TabContent';
 
+export { default as Export } from './export/Export';
+
 export * from './empty-state';

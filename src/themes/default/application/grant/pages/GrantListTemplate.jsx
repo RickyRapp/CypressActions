@@ -8,7 +8,8 @@ import {
     EmptyState,
     BaasicModal,
     BaasicDropdown,
-    BaasicInput
+    BaasicInput,
+    Export
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -23,7 +24,8 @@ const GrantListTemplate = function ({ grantViewStore }) {
         authorization,
         selectDonorModal,
         searchDonorAccountDropdownStore,
-        grantStatusDropdownStore
+        grantStatusDropdownStore,
+        exportConfig
     } = grantViewStore;
 
     return (
@@ -61,6 +63,11 @@ const GrantListTemplate = function ({ grantViewStore }) {
                                 />
                             </div>
                         </TableFilter>
+                    </div>
+                    <div className="row card--form card--secondary card--med u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-12 col-lrg-12">
+                            <Export config={exportConfig} />
+                        </div>
                     </div>
                     <div className="card--form card--primary card--med">
                         <BaasicTable
