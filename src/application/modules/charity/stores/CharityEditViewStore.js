@@ -37,12 +37,10 @@ class CharityEditViewStore extends BaseEditViewStore {
             FormClass: CharityEditForm,
         });
 
-        this.rootStore = rootStore;
-
         this.charityTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-type');
+                    const service = new LookupService(rootStore.application.baasic.apiClient, 'charity-type');
                     const response = await service.getAll();
                     return response.data;
                 }
@@ -51,7 +49,7 @@ class CharityEditViewStore extends BaseEditViewStore {
         this.charityStatusDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-status');
+                    const service = new LookupService(rootStore.application.baasic.apiClient, 'charity-status');
                     const response = await service.getAll();
                     return response.data;
                 }

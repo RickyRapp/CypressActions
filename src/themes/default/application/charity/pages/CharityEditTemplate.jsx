@@ -33,8 +33,11 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                             <div className="u-mar--bottom--sml">
                                 <h3 className="u-mar--bottom--med">General data</h3>
                                 <div className="row">
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('name')} />
+                                    </div>
+                                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                        <BasicInput field={form.$('dba')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                                         <div>
@@ -44,9 +47,6 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                                                     <NumberFormat format="##-#######" displayType="text" value={item.taxId} />
                                                 </span>}
                                         </div>
-                                    </div>
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <BasicInput field={form.$('dba')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />

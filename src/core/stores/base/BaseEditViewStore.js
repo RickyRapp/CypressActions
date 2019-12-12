@@ -108,7 +108,9 @@ class BaseEditViewStore extends BaseViewStore {
     @action.bound
     updateForm() {
         if (this.item) {
+            this.form.state.options.set({ validateOnChange: false })
             this.form.update(this.item);
+            this.form.state.options.set({ validateOnChange: true })
             if (this.translationStore) {
                 this.translationStore.update(this.form.values());
             }
