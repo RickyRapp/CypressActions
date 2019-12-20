@@ -34,12 +34,17 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                             this.rootStore.notificationStore.warning('There is a problem with fetching bank account.')
                             return {};
                         }
-                        if (response.data.item[0].coreMediaVaultEntryId) {
-                            const service = new CharityFileStreamRouteService();
-                            this.currentImage = service.getPreview(response.data.item[0].coreMediaVaultEntryId)
+                        else if (response.data.item.length === 1) {
+                            if (response.data.item[0].coreMediaVaultEntryId) {
+                                const service = new CharityFileStreamRouteService();
+                                this.currentImage = service.getPreview(response.data.item[0].coreMediaVaultEntryId)
+                            }
+                            this.setEditState(response.data.item[0].id);
+                            return response.data.item[0];
                         }
-                        this.setEditState(response.data.item[0].id);
-                        return response.data.item[0];
+                        else {
+                            return {};
+                        }
                     },
                     update: async (resource) => {
                         try {
