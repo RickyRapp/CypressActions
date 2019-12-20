@@ -12,7 +12,6 @@ import _ from 'lodash'
 class ContributionCreateViewStore extends ContributionBaseViewStore {
     constructor(rootStore) {
         const service = new ContributionService(rootStore.application.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
             name: 'contribution-create',
@@ -24,12 +23,12 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
                         if (this.paymentTypeDropdownStore.value.abrv === 'ach' && this.contributionSettingTypeDropdownStore.value.abrv === 'one-time' &&
                             moment(resource.settingStartDate).startOf('day').isAfter(moment().startOf('day'))) {
                             const contributionSetting = {
-                                donorAccountId: id,
+                                donorAccountId: resource.donorAccountId,
                                 amount: resource.amount,
                                 bankAccountId: resource.bankAccountId,
                                 contributionSettingTypeId: resource.contributionSettingTypeId,
                                 startDate: resource.settingStartDate,
-                                enabled: true
+                                isPrimary: true
                             }
                             return await service.createSetting(contributionSetting);
                         }
@@ -41,7 +40,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
         });
 
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore()
-        this.id = id;
+        this.donorAccountId = rootStore.routerStore.routerState.params.id;
         this.timeZone = rootStore.timeZoneStore.timeZone;
     }
 

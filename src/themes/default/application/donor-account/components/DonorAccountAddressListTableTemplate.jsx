@@ -70,13 +70,13 @@ DonorAccountAddressListTableTemplate.propTypes = {
 function renderActions({ item, actions, authorization }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onMarkPrimary } = actions;
-    if (!isSome(onEdit, onMarkPrimary)) return null;
+    const { onEdit, onMarkPrimary, onDelete } = actions;
+    if (!isSome(onEdit, onMarkPrimary, onDelete)) return null;
 
     return (
         <td className="table__body--data right">
             <div className="table__icons">
-                {isSome(onMarkPrimary) && !item.donorAccountAddresses[0].primary ? (
+                {isSome(onMarkPrimary) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
@@ -94,6 +94,16 @@ function renderActions({ item, actions, authorization }) {
                         label='ADDRESS.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onDelete) && !item.isPrimary ? (
+                    <BaasicButton
+                        authorization={authorization ? authorization.update : null}
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--delete u-icon--sml'
+                        label='ADDRESS.LIST.BUTTON.DELETE'
+                        onlyIcon={true}
+                        onClick={() => onDelete(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

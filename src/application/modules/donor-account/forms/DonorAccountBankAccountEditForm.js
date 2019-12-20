@@ -48,94 +48,50 @@ export const donorAccountBankAccountFormProperties = {
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER',
                     rules: 'required|string'
                 },
+
                 {
-                    name: 'address',
-                    fields: [
-                        {
-                            name: 'id',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'addressLine1',
-                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'addressLine2',
-                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'city',
-                            label: 'ADDRESS.EDIT.FIELDS.CITY_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'state',
-                            label: 'ADDRESS.EDIT.FIELDS.STATE_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'zipCode',
-                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'description',
-                            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                            rules: 'string'
-                        }
-                    ]
+                    name: 'addressLine1',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL',
+                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER',
+                    rules: 'required|string'
                 },
                 {
-                    name: 'emailAddress',
-                    fields: [
-                        {
-                            name: 'id',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'email',
-                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
-                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                            rules: 'required|email'
-                        },
-                        {
-                            name: 'description',
-                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                            rules: 'string'
-                        }
-                    ]
+                    name: 'addressLine2',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL',
+                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER',
+                    rules: 'string'
                 },
                 {
-                    name: 'phoneNumber',
-                    fields: [
-                        {
-                            name: 'id',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'number',
-                            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
-                            rules: 'required|string',
-                            extra: {
-                                format: '(###) ###-####'
-                            }
-                        },
-                        {
-                            name: 'description',
-                            label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
-                            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                            rules: 'string'
-                        }
-                    ]
+                    name: 'city',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_CITY_LABEL',
+                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_CITY_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'state',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_STATE_LABEL',
+                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_STATE_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'zipCode',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ZIPCODE_LABEL',
+                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'email',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_EMAIL_LABEL',
+                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_EMAIL_PLACEHOLDER',
+                    rules: 'required|email'
+                },
+                {
+                    name: 'number',
+                    label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_NUMBER_LABEL',
+                    rules: 'required|string',
+                    extra: {
+                        format: '(###) ###-####'
+                    }
                 }
             ]
         }

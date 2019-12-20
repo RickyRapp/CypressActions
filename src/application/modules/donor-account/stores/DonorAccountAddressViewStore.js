@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { AddressService } from 'common/services';
+import { DonorAccountAddressService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 import { DonorAccountAddressEditForm } from 'application/donor-account/forms';
@@ -34,12 +34,11 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true
             },
             actions: () => {
-                this.addressService = new AddressService(rootStore.application.baasic.apiClient);
+                this.addressService = new DonorAccountAddressService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.embed = ['donorAccountAddresses'];
                         params.donorAccountId = donorAccountId;
-                        params.orderBy = 'donorAccountAddresses.primary';
+                        params.orderBy = 'primary';
                         params.orderDirection = 'desc';
                         const response = await this.addressService.find(params);
                         return response.data;
@@ -76,7 +75,7 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
                     title: 'ADDRESS.LIST.COLUMNS.ZIP_CODE_LABEL',
                 },
                 {
-                    key: 'donorAccountAddresses[0].primary',
+                    key: 'isPrimary',
                     title: 'ADDRESS.LIST.COLUMNS.PRIMARY_LABEL',
                     format: {
                         type: 'boolean',
@@ -87,6 +86,7 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (address) => this.openAddressModal(address),
                 onMarkPrimary: (address) => this.markPrimary(address),
+                onDelete: (address) => this.deleteAddress(address),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             disablePaging: true
@@ -105,43 +105,52 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async updateAddressAsync(entity) {
+    async updateAddressAsync(entity, message) {
         try {
             await this.addressService.update(entity);
-
-            this.rootStore.notificationStore.success('Resource updated');
+            this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.addressModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async createAddressAsync(entity) {
         try {
-            await this.addressService.createDonorAccountAddress({
+            await this.addressService.create({
                 donorAccountId: this.donorAccountId,
                 ...entity
             });
 
-            this.rootStore.notificationStore.success('Resource created');
+            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             this.addressModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async markPrimary(address) {
         this.loaderStore.suspend();
-        await this.addressService.markPrimary(address);
-        this.rootStore.notificationStore.success('Successfully marked primary');
-        await this.queryUtility.fetch();
+        address.isPrimary = true;
+        await this.updateAddressAsync(address);
         this.loaderStore.resume();
+    }
+
+    @action.bound
+    async deleteAddress(address) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to delete address?`,
+            async () => {
+                address.isDeleted = true;
+                await this.updateAddressAsync(address, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
+            }
+        );
     }
 }
 

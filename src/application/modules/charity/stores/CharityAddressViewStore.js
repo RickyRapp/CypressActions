@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { AddressService } from 'common/services';
+import { CharityAddressService } from 'application/charity/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 import { CharityAddressEditForm } from 'application/charity/forms';
@@ -33,12 +33,11 @@ class CharityAddressViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true
             },
             actions: () => {
-                this.addressService = new AddressService(rootStore.application.baasic.apiClient);
+                this.addressService = new CharityAddressService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.embed = ['charityAddresses'];
                         params.charityId = charityId;
-                        params.orderBy = 'charityAddresses.primary';
+                        params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
                         const response = await this.addressService.find(params);
                         return response.data;
@@ -75,7 +74,7 @@ class CharityAddressViewStore extends BaseListViewStore {
                     title: 'ADDRESS.LIST.COLUMNS.ZIP_CODE_LABEL',
                 },
                 {
-                    key: 'charityAddresses[0].primary',
+                    key: 'isPrimary',
                     title: 'ADDRESS.LIST.COLUMNS.PRIMARY_LABEL',
                     format: {
                         type: 'boolean',
@@ -110,38 +109,37 @@ class CharityAddressViewStore extends BaseListViewStore {
         try {
             await this.addressService.update(entity);
 
-            this.rootStore.notificationStore.success('Resource updated');
+            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.addressModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error('Error', err);
         }
     }
 
     @action.bound
     async createAddressAsync(entity) {
         try {
-            await this.addressService.createCharityAddress({
+            await this.addressService.create({
                 charityId: this.charityId,
                 ...entity
             });
 
-            this.rootStore.notificationStore.success('Resource created');
+            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             this.addressModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error('Error', err);
         }
     }
 
     @action.bound
     async markPrimary(address) {
         this.loaderStore.suspend();
-        await this.addressService.markPrimary(address);
-        this.rootStore.notificationStore.success('Successfully marked primary');
-        await this.queryUtility.fetch();
+        address.isPrimary = true;
+        await this.updateAddressAsync(address);
         this.loaderStore.resume();
     }
 }

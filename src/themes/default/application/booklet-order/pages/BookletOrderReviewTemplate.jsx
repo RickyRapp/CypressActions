@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { BookletOrderReviewRowTemplate } from 'themes/application/booklet-order/components'
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 
 const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
     const {
         form,
         contentLoading,
         denominationTypes,
-        fetchFunc
+        fetchFunc,
+        bookletOrder
     } = bookletOrderReviewViewStore;
 
     return (
         <ApplicationEditLayout store={bookletOrderReviewViewStore}>
+            {bookletOrder &&
+                <AuthPageHeader donorAccountId={bookletOrder.donorAccountId} type={3} authorization='theDonorsFundAdministrationSection.read' />}
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <h3 className="u-mar--bottom--med">General Data</h3>
@@ -31,6 +35,8 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
         </ApplicationEditLayout >
     )
 };
+
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 BookletOrderReviewTemplate.propTypes = {
     bookletOrderReviewViewStore: PropTypes.object.isRequired

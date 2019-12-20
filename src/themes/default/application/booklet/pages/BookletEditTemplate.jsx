@@ -39,7 +39,6 @@ function BookletEditTemplate({ bookletEditViewStore }) {
         <ApplicationEditLayout store={bookletEditViewStore}>
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
-                    <h3 className="u-mar--bottom--med">General Data</h3>
                     <div className="row">
                         <div className="form__group col col-lrg-2">
                             <strong>Code:</strong> {booklet && booklet.code}
@@ -116,7 +115,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
 }
 
 BookletEditTemplate.propTypes = {
-    bookletEditViewStore: PropTypes.object.isRequiredk
+    bookletEditViewStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(BookletEditTemplate);

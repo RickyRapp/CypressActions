@@ -6,7 +6,8 @@ import { DonorAccountService } from 'application/donor-account/services';
 const Types = {
     DonorAccount: 0,
     Contribution: 1,
-    Grant: 2
+    Grant: 2,
+    BookletOrder: 3
 };
 
 @applicationContext
@@ -14,10 +15,10 @@ class DonorAccountPageHeaderOverviewViewStore extends BaseViewStore {
     @observable donorAccount = null;
     prefixTypes = null;
 
-    constructor(rootStore, { id, type }) {
+    constructor(rootStore, { donorAccountId, type }) {
         super(rootStore)
 
-        this.id = id;
+        this.donorAccountId = donorAccountId;
         this.type = type;
         this.Types = Types;
         this.rootStore = rootStore;
@@ -43,8 +44,6 @@ class DonorAccountPageHeaderOverviewViewStore extends BaseViewStore {
 
         let params = {
             embed: [
-                'coreUser',
-                'companyProfile',
                 'accountType'
             ],
             fields: [
@@ -57,10 +56,8 @@ class DonorAccountPageHeaderOverviewViewStore extends BaseViewStore {
 
         this.setDonorOptions(params);
 
-        const response = await service.get(this.id, params);
-        if (response) {
-            this.donorAccount = response.data;
-        }
+        const response = await service.get(this.donorAccountId, params);
+        this.donorAccount = response.data;
     }
 
     setDonorOptions(params) {
@@ -74,6 +71,10 @@ class DonorAccountPageHeaderOverviewViewStore extends BaseViewStore {
                 // params.fields.push()
                 break;
             case Types.Grant:
+                // params.embed.push()
+                // params.fields.push()
+                break;
+            case Types.BookletOrder:
                 // params.embed.push()
                 // params.fields.push()
                 break;

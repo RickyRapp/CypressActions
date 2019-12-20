@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format';
 
 const NumberFormatInputTemplate = defaultTemplate((props) => {
     const { t, value, onChange, format, mask, label, required, className, name, displayType,
-        thousandSeparator, prefix, type, placeholder, decimalScale, fixedDecimalScale } = props;
+        thousandSeparator, prefix, type, placeholder, decimalScale, fixedDecimalScale, disabled } = props;
     const showLabel = props.showLabel === undefined ? true : props.showLabel;
 
     const requiredMark = required ? <span>*</span> : null;
@@ -27,6 +27,7 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
                 fixedDecimalScale={fixedDecimalScale}
                 decimalScale={decimalScale}
                 prefix={prefix}
+                disabled={disabled}
             />
         </div>
     )

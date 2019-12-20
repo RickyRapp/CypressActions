@@ -35,7 +35,7 @@ class BaseEditViewStore extends BaseViewStore {
         this.form = form || new FormClass({
             onSuccess: (form) => {
                 const item = form.values();
-                if (this.isEdit && !this.actions.create) {
+                if (this.isEdit || !this.actions.create) {
                     return this.updateResource(item);
                 } else {
                     return this.createResource(item);
@@ -70,6 +70,11 @@ class BaseEditViewStore extends BaseViewStore {
                 this.initialize()
             ]);
         }
+    }
+
+    @action.bound
+    setEditState(id) {
+        this.id = id;
     }
 
     @computed get isEdit() {

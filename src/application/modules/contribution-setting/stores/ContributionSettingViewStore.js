@@ -107,7 +107,7 @@ class ContributionSettingViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'enabled',
+                    key: 'isEnabled',
                     title: 'CONTRIBUTION_SETTING.LIST.COLUMNS.ENABLED_LABEL',
                     format: {
                         type: 'boolean',
@@ -122,13 +122,13 @@ class ContributionSettingViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (contributionSetting) => {
-                    if (contributionSetting.enabled && (isSome(contributionSetting.nextDate) || contributionSetting.startDate === contributionSetting.nextDate)) {
+                    if (contributionSetting.isEnabled && (isSome(contributionSetting.nextDate) || contributionSetting.startDate === contributionSetting.nextDate)) {
                         return true;
                     }
                     return false;
                 },
                 onCancelRender: (contributionSetting) => {
-                    if (contributionSetting.enabled && (isSome(contributionSetting.nextDate) || contributionSetting.startDate === contributionSetting.nextDate)) {
+                    if (contributionSetting.isEnabled && (isSome(contributionSetting.nextDate) || contributionSetting.startDate === contributionSetting.nextDate)) {
                         return true;
                     }
                     return false;
@@ -150,10 +150,7 @@ class ContributionSettingViewStore extends BaseListViewStore {
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
+                            'donorAccountAddresses'
                         ],
                         fields: [
                             'id',

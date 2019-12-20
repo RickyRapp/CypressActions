@@ -79,10 +79,10 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
                             <BasicInput field={form.$('contactInformation.name')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('contactInformation.emailAddress.email')} />
+                            <BasicInput field={form.$('contactInformation.email')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <NumberFormatInputField field={form.$('contactInformation.phoneNumber.number')} />
+                            <NumberFormatInputField field={form.$('contactInformation.number')} />
                         </div>
                     </div>
                 </div>
@@ -113,25 +113,25 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
                             </div>
                             <div className="row">
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('bankAccount.accountHolder.address.addressLine1')} />
+                                    <BasicInput field={form.$('bankAccount.accountHolder.addressLine1')} />
                                 </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('bankAccount.accountHolder.address.addressLine2')} />
+                                    <BasicInput field={form.$('bankAccount.accountHolder.addressLine2')} />
                                 </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('bankAccount.accountHolder.address.city')} />
+                                    <BasicInput field={form.$('bankAccount.accountHolder.city')} />
                                 </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('bankAccount.accountHolder.address.state')} />
+                                    <BasicInput field={form.$('bankAccount.accountHolder.state')} />
                                 </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('bankAccount.accountHolder.address.zipCode')} />
+                                    <BasicInput field={form.$('bankAccount.accountHolder.zipCode')} />
                                 </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('bankAccount.accountHolder.emailAddress.email')} />
+                                    <BasicInput field={form.$('bankAccount.accountHolder.email')} />
                                 </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                    <NumberFormatInputField field={form.$('bankAccount.accountHolder.phoneNumber.number')} />
+                                    <NumberFormatInputField field={form.$('bankAccount.accountHolder.number')} />
                                 </div>
                                 <div className="col col-sml-12 col-lrg-4">
                                     <div className="card card--form card--primary card--med u-mar--bottom--med">

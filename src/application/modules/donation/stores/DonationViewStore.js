@@ -22,17 +22,10 @@ class DonationViewStore extends BaseListViewStore {
             routes: {
                 editGrant: (id, grantId) =>
                     rootStore.routerStore.goTo(
-                        'master.app.main.grant.edit',
-                        {
-                            id: id,
-                            editId: grantId
-                        }),
+                        'master.app.main.grant.edit', { id: id, editId: grantId }),
                 editSession: (id) =>
                     rootStore.routerStore.goTo(
-                        'master.app.main.session.edit',
-                        {
-                            id: id
-                        })
+                        'master.app.main.session.edit', { id: id })
             },
             queryConfig: {
                 filter: filter
@@ -44,14 +37,11 @@ class DonationViewStore extends BaseListViewStore {
                         params.embed = [
                             'grants',
                             'grants.donorAccount',
-                            'grants.donorAccount.coreUser',
-                            'grants.donorAccount.companyProfile',
                             'charity',
                             'charity.charityType',
                             'charity.charityStatus',
-                            'charity.bankAccount',
+                            'charity.charityBankAccounts',
                             'charity.charityAddresses',
-                            'charity.charityAddresses.address',
                             'donationType',
                             'donationStatus',
                             'sessions',

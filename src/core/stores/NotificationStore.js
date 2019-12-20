@@ -23,12 +23,15 @@ class NotificationStore {
         });
     }
 
-    error(message, data = null) {
+    error(message, data = null, messageAfter = null) {
         if (data) {
             const { headers, config, statusCode, statusText } = data;
             const error = errorFormatterService.getErrorObject(data.data, data.message, statusCode, statusText, headers, config);
             if (error)
                 message = errorFormatterService.mergeMessages(message, error.message);
+
+            if (messageAfter)
+                message = errorFormatterService.mergeMessages(message, messageAfter);
         }
 
         return showToast(localizationService.t(message), {

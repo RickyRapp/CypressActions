@@ -113,10 +113,7 @@ class FundTransferViewStore extends BaseListViewStore {
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
+                            'donorAccountAddresses'
                         ],
                         fields: [
                             'id',

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+    BaasicFormControls,
     BasicInput,
     BaasicButton,
     BasicFieldCheckbox,
@@ -51,71 +52,56 @@ class DonorAccountBankAccountEditForm extends Component {
                     </div>
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('address.addressLine1')} />
+                            <BasicInput field={formBankAccount.$('accountHolder').$('addressLine1')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('address').$('addressLine2')} />
+                            <BasicInput field={formBankAccount.$('accountHolder').$('addressLine2')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('address').$('city')} />
+                            <BasicInput field={formBankAccount.$('accountHolder').$('city')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('address').$('state')} />
+                            <BasicInput field={formBankAccount.$('accountHolder').$('state')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('address').$('zipCode')} />
+                            <BasicInput field={formBankAccount.$('accountHolder').$('zipCode')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('address').$('description')} />
+                            <BaasicButton
+                                onClick={() => useDonorContactInformations(true, 'address')}
+                                className='btn btn--tny btn--secondary'
+                                type='button'
+                                label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS"
+                            />
                         </div>
-                        {formBankAccount.$('isThirdPartyAccount').value === false &&
-                            <div className="form__group col col-sml-6 col-lrg-3">
-                                <BaasicButton
-                                    onClick={() => useDonorContactInformations(true, 'address')}
-                                    className='btn btn--tny btn--secondary'
-                                    type='button'
-                                    label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS"
-                                />
-                            </div>
-                        }
                     </div>
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('emailAddress').$('email')} />
+                            <BasicInput field={formBankAccount.$('accountHolder').$('email')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('emailAddress').$('description')} />
+                            <BaasicButton
+                                onClick={() => useDonorContactInformations(true, 'emailAddress')}
+                                className='btn btn--tny btn--secondary'
+                                type='button'
+                                label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
+                            />
                         </div>
-                        {formBankAccount.$('isThirdPartyAccount').value === false &&
-                            <div className="form__group col col-sml-12 col-lrg-4">
-                                <BaasicButton
-                                    onClick={() => useDonorContactInformations(true, 'emailAddress')}
-                                    className='btn btn--tny btn--secondary'
-                                    type='button'
-                                    label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
-                                />
-                            </div>
-                        }
                     </div>
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <NumberFormatInputField field={formBankAccount.$('accountHolder').$('phoneNumber').$('number')} />
+                            <NumberFormatInputField field={formBankAccount.$('accountHolder').$('number')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('phoneNumber').$('description')} />
+                            <BaasicButton
+                                onClick={() => useDonorContactInformations(true, 'phoneNumber')}
+                                className='btn btn--tny btn--secondary'
+                                type='button'
+                                label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER"
+                            />
                         </div>
-                        {formBankAccount.$('isThirdPartyAccount').value === false &&
-                            <div className="form__group col col-sml-12 col-lrg-4">
-                                <BaasicButton
-                                    onClick={() => useDonorContactInformations(true, 'phoneNumber')}
-                                    className='btn btn--tny btn--secondary'
-                                    type='button'
-                                    label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER"
-                                />
-                            </div>
-                        }
                     </div>
 
                     <div className="row">
@@ -135,11 +121,7 @@ class DonorAccountBankAccountEditForm extends Component {
                         </div>
                     </div>
 
-                    <BaasicButton
-                        className='btn btn--base btn--primary'
-                        type='submit'
-                        label='Submit'
-                    />
+                    <BaasicFormControls form={formBankAccount} onSubmit={formBankAccount.onSubmit} />
                 </form>
             </section>
         );

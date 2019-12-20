@@ -13,6 +13,10 @@ class DonationReviewViewStore extends BaseViewStore {
     form = new DonationReviewForm({
         onSuccess: async form => {
             const item = form.values();
+            if (!item.donationIds || item.donationIds.length === 0) {
+                this.rootStore.notificationStore.warning('DONATION.REVIEW.SELECT_DONATIONS_WARNING');
+                return;
+            }
             if (item.paymentTypeId === '-1') {
                 item.paymentTypeId = null;
             }
@@ -31,19 +35,33 @@ class DonationReviewViewStore extends BaseViewStore {
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
             onChange: () => {
-                this.form.$('address').clear();
+                this.form.$('addressLine1').clear();
+                this.form.$('addressLine2').clear();
+                this.form.$('city').clear();
+                this.form.$('state').clear();
+                this.form.$('zipCode').clear();
                 this.form.$('bankAccountId').clear();
-                this.form.$('address').each((field) => { field.setRequired(false) });
+                this.form.$('addressLine1').setRequired(false);
+                this.form.$('city').setRequired(false);
+                this.form.$('state').setRequired(false);
+                this.form.$('zipCode').setRequired(false);
                 this.form.$('bankAccountId').setRequired(false);
                 this.form.$('paymentTypeId').setRequired(true);
                 this.form.$('paymentNumber').setRequired(true);
                 if (this.paymentTypeDropdownStore.value.abrv === 'check') {
-                    this.form.$('address').each((field) => { field.name !== 'addressLine2' && field.setRequired(true) });
-                    this.form.$('address').set(_.find(this.charity.charityAddresses, { primary: true }).address);
+                    this.form.$('addressLine1').setRequired(true);
+                    this.form.$('city').setRequired(true);
+                    this.form.$('state').setRequired(true);
+                    this.form.$('zipCode').setRequired(true);
+                    const address = _.find(this.charity.charityAddresses, { isPrimary: true });
+                    this.form.$('addressLine1').set(address.addressLine1);
+                    this.form.$('city').set(address.city);
+                    this.form.$('state').set(address.state);
+                    this.form.$('zipCode').set(address.zipCode);
                 }
                 else if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
                     this.form.$('bankAccountId').setRequired(true);
-                    this.form.$('bankAccountId').set(this.charity.bankAccount.id);
+                    this.form.$('bankAccountId').set(this.charity.charityBankAccounts[0].id);
                 }
                 else if (this.paymentTypeDropdownStore.value.abrv === 'transfer-to-charity-account') {
                     this.form.$('paymentTypeId').setRequired(false);
@@ -60,7 +78,10 @@ class DonationReviewViewStore extends BaseViewStore {
         }
         else {
             this.form.clear();
-            this.form.$('address').each((field) => { field.setRequired(false) });
+            this.form.$('addressLine1').setRequired(false);
+            this.form.$('city').setRequired(false);
+            this.form.$('state').setRequired(false);
+            this.form.$('zipCode').setRequired(false);
             this.form.validate();
             await this.fetchPaymentTypes();
         }

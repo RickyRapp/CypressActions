@@ -45,38 +45,38 @@ export default class CharityCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'addressLine1',
-                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
                             rules: 'required|string'
                         },
                         {
                             name: 'addressLine2',
-                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
                             rules: 'string'
                         },
                         {
                             name: 'city',
-                            label: 'ADDRESS.EDIT.FIELDS.CITY_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.CITY_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.CITY_PLACEHOLDER',
                             rules: 'required|string'
                         },
                         {
                             name: 'state',
-                            label: 'ADDRESS.EDIT.FIELDS.STATE_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.STATE_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.STATE_PLACEHOLDER',
                             rules: 'required|string'
                         },
                         {
                             name: 'zipCode',
-                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.ZIPCODE_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.ZIPCODE_PLACEHOLDER',
                             rules: 'required|string'
                         },
                         {
                             name: 'description',
-                            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.DESCRIPTION_PLACEHOLDER',
                             rules: 'string'
                         }
                     ]
@@ -91,41 +91,19 @@ export default class CharityCreateForm extends FormBase {
                             rules: 'required|string'
                         },
                         {
-                            name: 'emailAddress',
-                            fields: [
-                                {
-                                    name: 'email',
-                                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
-                                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                                    rules: 'required|email'
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                    rules: 'string'
-                                }
-                            ]
+                            name: 'email',
+                            label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_PLACEHOLDER',
+                            rules: 'required|email'
                         },
                         {
-                            name: 'phoneNumber',
-                            fields: [
-                                {
-                                    name: 'number',
-                                    label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
-                                    rules: 'required|string',
-                                    extra: {
-                                        format: '(###) ###-####'
-                                    }
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                    placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                    rules: 'string'
-                                }
-                            ]
-                        },
+                            name: 'number',
+                            label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NUMBER_LABEL',
+                            rules: 'required|string',
+                            extra: {
+                                format: '(###) ###-####'
+                            }
+                        }
                     ]
                 },
                 {
@@ -133,19 +111,19 @@ export default class CharityCreateForm extends FormBase {
                     fields: [
                         {
                             name: 'name',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_LABEL',
-                            placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_NAME_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_NAME_PLACEHOLDER',
                             rules: 'string'
                         },
                         {
                             name: 'accountNumber',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_NUMBER_LABEL',
-                            placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_NUMBER_PLACEHOLDER',
+                            label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER',
                             rules: 'string'
                         },
                         {
                             name: 'routingNumber',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.ROUTING_NUMBER_LABEL',
+                            label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ROUTING_NUMBER_LABEL',
                             rules: 'string|digits:9',
                             extra: {
                                 format: '###-###-###'
@@ -153,88 +131,55 @@ export default class CharityCreateForm extends FormBase {
                         },
                         {
                             name: 'description',
-                            label: 'BANK_ACCOUNT.EDIT.FIELDS.DESCRIPTION_LABEL',
+                            label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
+                            placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_DESCRIPTION_LABEL',
                         },
                         {
                             name: 'accountHolder',
                             fields: [
                                 {
-                                    name: 'address',
-                                    fields: [
-                                        {
-                                            name: 'addressLine1',
-                                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
-                                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
-                                            rules: 'string'
-                                        },
-                                        {
-                                            name: 'addressLine2',
-                                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
-                                            placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
-                                            rules: 'string'
-                                        },
-                                        {
-                                            name: 'city',
-                                            label: 'ADDRESS.EDIT.FIELDS.CITY_LABEL',
-                                            placeholder: 'ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER',
-                                            rules: 'string'
-                                        },
-                                        {
-                                            name: 'state',
-                                            label: 'ADDRESS.EDIT.FIELDS.STATE_LABEL',
-                                            placeholder: 'ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER',
-                                            rules: 'string'
-                                        },
-                                        {
-                                            name: 'zipCode',
-                                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_LABEL',
-                                            placeholder: 'ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
-                                            rules: 'string'
-                                        },
-                                        {
-                                            name: 'description',
-                                            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                            rules: 'string'
-                                        }
-                                    ]
+                                    name: 'addressLine1',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER',
+                                    rules: 'string'
                                 },
                                 {
-                                    name: 'emailAddress',
-                                    fields: [
-                                        {
-                                            name: 'email',
-                                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
-                                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                                            rules: 'email'
-                                        },
-                                        {
-                                            name: 'description',
-                                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                            rules: 'string'
-                                        }
-                                    ]
+                                    name: 'addressLine2',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER',
+                                    rules: 'string'
                                 },
                                 {
-                                    name: 'phoneNumber',
-                                    fields: [
-                                        {
-                                            name: 'number',
-                                            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
-                                            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_PLACEHOLDER',
-                                            rules: 'string',
-                                            extra: {
-                                                format: '(###) ###-####'
-                                            }
-                                        },
-                                        {
-                                            name: 'description',
-                                            label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                            rules: 'string'
-                                        }
-                                    ]
+                                    name: 'city',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_CITY_LABEL',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_CITY_PLACEHOLDER',
+                                    rules: 'string'
+                                },
+                                {
+                                    name: 'state',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_STATE_LABEL',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_STATE_PLACEHOLDER',
+                                    rules: 'string'
+                                },
+                                {
+                                    name: 'zipCode',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ZIPCODE_LABEL',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER',
+                                    rules: 'string'
+                                },
+                                {
+                                    name: 'email',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_EMAIL_LABEL',
+                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_EMAIL_PLACEHOLDER',
+                                    rules: 'email'
+                                },
+                                {
+                                    name: 'number',
+                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_NUMBER_LABEL',
+                                    rules: 'string',
+                                    extra: {
+                                        format: '(###) ###-####'
+                                    }
                                 }
                             ]
                         }

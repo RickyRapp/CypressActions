@@ -25,10 +25,7 @@ class ContributionEditViewStore extends ContributionBaseViewStore {
                             embed: [
                                 'bankAccount',
                                 'paymentType',
-                                'payerInformation',
-                                'payerInformation.address',
-                                'payerInformation.emailAddress',
-                                'payerInformation.phoneNumber',
+                                'payerInformation'
                             ]
                         }
                         let response = await service.get(id, params);

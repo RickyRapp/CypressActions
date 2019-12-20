@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { CharityBankAccountEditTemplate } from 'themes/application/charity/components';
 import { CharityBankAccountEditViewStore } from 'application/charity/stores';
 
-@setCurrentView((rootStore, props) => new CharityBankAccountEditViewStore(rootStore, { id: props.id, charityId: props.charityId }), 'charityBankAccountEditViewStore')
+@setCurrentView((rootStore, props) => new CharityBankAccountEditViewStore(rootStore, { charityId: props.charityId }), 'charityBankAccountEditViewStore')
 @observer
 class CharityBankAccountEdit extends React.Component {
     render() {

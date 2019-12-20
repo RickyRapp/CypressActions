@@ -10,10 +10,6 @@ export default class GrantCreateForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'id',
-                    rules: 'string'
-                },
-                {
                     name: 'donorAccountId',
                     rules: 'required|string'
                 },

@@ -45,7 +45,7 @@ class AccountSettingsPartialForm extends Component {
                             <NumericInputField field={form.$('grantMinimumAmount')} />
                         </div>
                         <div className="form__group col col-lrg-3">
-                            <BasicFieldCheckbox field={form.$('initialContribution')} />
+                            <BasicFieldCheckbox field={form.$('isInitialContributionDone')} />
                         </div>
                         {isPremiumAccount &&
                             <React.Fragment>

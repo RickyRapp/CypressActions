@@ -16,25 +16,24 @@ class CharityEditViewStore extends BaseEditViewStore {
                     get: async (id) => {
                         const params = {
                             embed: [
-                                'emailAddress',
-                                'contactInformation',
-                                'contactInformation.emailAddress',
-                                'contactInformation.phoneNumber'
+                                'contactInformation'
                             ]
                         }
                         const response = await service.get(id, params);
                         return response.data;
                     },
                     update: async (resource) => {
-                        return await service.update(
+                        await service.update(
                             {
                                 id: id,
                                 ...resource
                             });
+                        this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                     }
                 }
             },
             FormClass: CharityEditForm,
+            onAfterAction: () => this.getResource()
         });
 
         this.charityTypeDropdownStore = new BaasicDropdownStore(null,

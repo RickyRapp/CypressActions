@@ -34,7 +34,7 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
 
     return (
         <Page loading={loaderStore.loading} >
-            {item && <AuthPageHeader id={item.id} type={0} authorization='theDonorsFundAdministrationSection.read' />}
+            {item && <AuthPageHeader donorAccountId={item.id} type={0} authorization='theDonorsFundAdministrationSection.read' />}
             <div className="card card--form card--primary card--med u-mar--bottom--sml">
                 <EditFormContent form={form}>
                     <div className="row">

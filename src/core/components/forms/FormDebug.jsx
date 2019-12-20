@@ -5,14 +5,17 @@ import { observer } from 'mobx-react';
 @observer
 class FormDebug extends Component {
     render() {
+
+        const style = { wordBreak: 'break-all' }
+
         return (
             <div className="card card--form card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">Errors</h3>
-                <div className="row">
+                <div className="row" style={style}>
                     {JSON.stringify(this.props.form.errors())}
                 </div>
                 <h3 className="u-mar--bottom--med">Values</h3>
-                <div className="row">
+                <div className="row" style={style}>
                     {JSON.stringify(this.props.form.values())}
                 </div>
                 <h3 className="u-mar--bottom--med">Properties</h3>

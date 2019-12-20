@@ -15,6 +15,13 @@ export const donorAccountPhoneNumberFormProperties = {
             }
         },
         {
+            name: 'isPrimary',
+            label: 'PHONE_NUMBER.EDIT.FIELDS.PRIMARY_LABEL',
+            placeholder: 'PHONE_NUMBER.EDIT.FIELDS.PRIMARY_PLACEHOLDER',
+            rules: 'boolean',
+            type: 'checkbox'
+        },
+        {
             name: 'description',
             label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
             placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',

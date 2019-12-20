@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { EmailAddressService } from 'common/services';
+import { DonorAccountEmailAddressService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 import { DonorAccountEmailAddressEditForm } from 'application/donor-account/forms';
@@ -34,12 +34,11 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true
             },
             actions: () => {
-                this.emailAddressService = new EmailAddressService(rootStore.application.baasic.apiClient);
+                this.emailAddressService = new DonorAccountEmailAddressService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.embed = ['donorAccountEmailAddresses'];
                         params.donorAccountId = donorAccountId;
-                        params.orderBy = 'donorAccountEmailAddresses.primary';
+                        params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
                         const response = await this.emailAddressService.find(params);
                         return response.data;
@@ -60,7 +59,7 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
                     authorization: this.authorization.update
                 },
                 {
-                    key: 'donorAccountEmailAddresses[0].primary',
+                    key: 'isPrimary',
                     title: 'EMAIL_ADDRESS.LIST.COLUMNS.PRIMARY_LABEL',
                     format: {
                         type: 'boolean',
@@ -71,6 +70,7 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (emailAddress) => this.openEmailAddressModal(emailAddress),
                 onMarkPrimary: (emailAddress) => this.markPrimary(emailAddress),
+                onDelete: (emailAddress) => this.deleteAddress(emailAddress),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             disablePaging: true
@@ -89,43 +89,53 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async updateEmailAddressAsync(entity) {
+    async updateEmailAddressAsync(entity, message) {
         try {
             await this.emailAddressService.update(entity);
 
-            this.rootStore.notificationStore.success('Resource updated');
+            this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.emailAddressModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async createEmailAddressAsync(entity) {
         try {
-            await this.emailAddressService.createDonorAccountEmailAddress({
+            await this.emailAddressService.create({
                 donorAccountId: this.donorAccountId,
                 ...entity
             });
 
-            this.rootStore.notificationStore.success('Resource created');
+            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             this.emailAddressModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async markPrimary(emailAddress) {
         this.loaderStore.suspend();
-        await this.emailAddressService.markPrimary(emailAddress);
-        this.rootStore.notificationStore.success('Successfully marked primary');
-        await this.queryUtility.fetch();
+        emailAddress.isPrimary = true;
+        await this.updateEmailAddressAsync(emailAddress);
         this.loaderStore.resume();
+    }
+
+    @action.bound
+    async deleteAddress(emailAddress) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to delete email address?`,
+            async () => {
+                emailAddress.isDeleted = true;
+                await this.updateEmailAddressAsync(emailAddress, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
+            }
+        );
     }
 }
 

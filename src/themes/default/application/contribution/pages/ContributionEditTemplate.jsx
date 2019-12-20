@@ -17,7 +17,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
         bankAccountModal,
         form,
         paymentTypeDropdownStore,
-        id,
+        donorAccountId,
         openBankAccountModal,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo
@@ -26,7 +26,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={contributionEditViewStore}>
-                <AuthPageHeader id={id} type={1} authorization='theDonorsFundAdministrationSection.read' />
+                <AuthPageHeader donorAccountId={donorAccountId} type={1} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <ContributionBaseTemplate
                         form={form}

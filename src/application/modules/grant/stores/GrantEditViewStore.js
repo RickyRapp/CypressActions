@@ -7,18 +7,16 @@ import GrantBaseViewStore from './GrantBaseViewStore'
 @applicationContext
 class GrantEditViewStore extends GrantBaseViewStore {
     constructor(rootStore) {
-        const service = new GrantService(rootStore.application.baasic.apiClient);
-        const editId = rootStore.routerStore.routerState.params.editId;
-        const id = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
             name: 'grant-edit',
-            id: editId,
+            id: rootStore.routerStore.routerState.params.editId,
             autoInit: false,
             actions: () => {
+                const service = new GrantService(rootStore.application.baasic.apiClient);
                 return {
                     update: async (resource) => {
-                        return await service.update({ id: this.editId, ...resource });
+                        return await service.update({ id: this.id, ...resource });
                     },
                     get: async (id) => {
                         let params = {
@@ -51,8 +49,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
             FormClass: GrantEditForm,
         });
 
-        this.editId = editId;
-        this.id = id;
+        this.donorAccountId = rootStore.routerStore.routerState.params.id;
     }
 
     @action.bound
@@ -65,7 +62,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
                 this.fetchDonorAccount(),
                 this.fetchApplicationDefaultSetting(),
                 this.fetchFeeTypes(),
-                this.getResource(this.editId)
+                this.getResource(this.id)
             ]);
 
             await this.fetch([
@@ -75,14 +72,13 @@ class GrantEditViewStore extends GrantBaseViewStore {
 
             this.form.validate();
             this.onChangeAmount();
-            this.grantAcknowledgmentTypeDropdownStore.onChange(this.item.grantAcknowledgmentType);
-            this.grantPurposeTypeDropdownStore.onChange(this.item.grantPurposeType);
+            this.grantAcknowledgmentTypeDropdownStore.setValue(this.item.grantAcknowledgmentType);
+            this.grantPurposeTypeDropdownStore.setValue(this.item.grantPurposeType);
         }
     }
 
     @action.bound
     setFormDefaultValues() {
-        this.form.$('donorAccountId').set(this.id);
         this.donorName = this.donorAccount.donorName;
     }
 }

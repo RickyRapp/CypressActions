@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     BaasicDropdown,
-    BaasicButton
+    BaasicButton,
+    BaasicInput
 } from 'core/components';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { renderIf } from 'core/utils';
+import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import _ from 'lodash';
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
@@ -26,14 +28,15 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         denominationError,
         mostCommonDenominations,
         totalAndFee,
-        donorAccount
+        donorAccount,
+        donorAccountId
     } = store;
 
     return (
         <ApplicationEditLayout store={store}>
+            <AuthPageHeader donorAccountId={donorAccountId} type={3} authorization='theDonorsFundAdministrationSection.read' />
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
-                    <h3 className="u-mar--bottom--med">General Data</h3>
                     <div className="row">
                         <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                             <BaasicFieldDropdown store={deliveryMethodTypeDropdownStore} field={form.$('deliveryMethodTypeId')} />
@@ -42,12 +45,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     <div className="row">
                         <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
                             <div>
-                                <label className="form__group__label">Count<span>*</span></label>
-                                <input
-                                    className={"input input--med input--text"}
-                                    type="text"
+                                <label className="form__group__label">{t('BOOKLET_ORDER.CREATE.FIELDS.COUNT_LABEL')}<span>*</span></label>
+                                <BaasicInput
+                                    placeholder='BOOKLET_ORDER.CREATE.FIELDS.COUNT_PLACEHOLDER'
                                     onChange={onCountChange}
-                                    value={count} />
+                                    value={count}
+                                />
                                 {renderIf(countError)(
                                     <div className="type--tny type--color--error u-mar--top--tny">
                                         <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Field is required.
@@ -99,14 +102,14 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             <div className="form__group col col-sml-2 col-lrg-2">
                                 <BaasicButton
                                     className="btn btn--icon"
-                                    icon='u-icon u-icon--edit u-icon--med'
+                                    icon='u-icon u-icon--edit u-icon--sml'
                                     label='BOOKLET_ORDER.CREATE.BUTTON.EDIT'
                                     onlyIcon={true}
                                     onClick={() => onEdit(item)}
                                 />
                                 <BaasicButton
                                     className="btn btn--icon"
-                                    icon='u-icon u-icon--delete u-icon--med'
+                                    icon='u-icon u-icon--delete u-icon--sml'
                                     label='BOOKLET_ORDER.CREATE.BUTTON.DELETE'
                                     onlyIcon={true}
                                     onClick={() => onDel(item)}
@@ -122,9 +125,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                             {t('BOOKLET_ORDER.CREATE.TOTAL_WITH_FEE')} ${totalAndFee.totalWithFee}
                             {deliveryMethodTypeDropdownStore.value && deliveryMethodTypeDropdownStore.value.abrv === 'express-mail' &&
-                                <span> (Express Mail Fee In Amount Of $25)</span>}
+                                <span>{t('BOOKLET_ORDER.CREATE.EXPRESS_MAIL_FEE')}</span>}
                             {donorAccount && donorAccount.accountType.abrv === 'premium' &&
-                                <div>Fee Will Be Applied When Scanning Certificate.</div>}
+                                <div>{t('BOOKLET_ORDER.CREATE.PREMIUM_FEE_APPLIED')}</div>}
                         </div>
                     </div>
                 </div>
@@ -132,6 +135,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         </ApplicationEditLayout >
     )
 };
+
+const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 BookletOrderCreateTemplate.propTypes = {
     store: PropTypes.object.isRequired,

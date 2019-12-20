@@ -41,6 +41,13 @@ export const donorAccountAddressFormProperties = {
             label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
             placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
             rules: 'string'
+        },
+        {
+            name: 'isPrimary',
+            label: 'ADDRESS.EDIT.FIELDS.PRIMARY_LABEL',
+            placeholder: 'ADDRESS.EDIT.FIELDS.PRIMARY_PLACEHOLDER',
+            rules: 'boolean',
+            type: 'checkbox'
         }
     ]
 }

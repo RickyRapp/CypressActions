@@ -27,15 +27,22 @@ class GrantCreateViewStore extends GrantBaseViewStore {
                         }
                         if (resource.grantScheduleTypeId &&
                             (moment(resource.startFutureDate) > moment() || resource.grantScheduleTypeId === this.monthlyGrantId || resource.grantScheduleTypeId === this.annualGrantId)) {
-                            return await scheduledGrantService.create(resource);
+                            this.scheduledGrant = true;
+                            await scheduledGrantService.create(resource);
                         }
                         else {
-                            return await service.create(resource);
+                            this.scheduledGrant = false;
+                            await service.create(resource);
                         }
                     }
                 }
             },
             FormClass: GrantCreateForm,
+            onAfterAction: () => {
+                this.scheduledGrant ?
+                    this.rootStore.routerStore.goTo('master.app.main.scheduled-grant.list') :
+                    this.rootStore.routerStore.goTo('master.app.main.grant.list')
+            }
         });
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();
     }
@@ -62,7 +69,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
 
     @action.bound
     setFormDefaultValues() {
-        this.form.$('donorAccountId').set(this.id);
+        this.form.$('donorAccountId').set(this.donorAccountId);
         this.form.$('accountTypeId').set(this.donorAccount.accountTypeId);
 
         this.donorName = this.donorAccount.donorName;

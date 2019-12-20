@@ -42,7 +42,7 @@ class PasswordChangeViewStore extends BaseViewStore {
         catch (err) {
             this.loaderStore.resume();
 
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error('Error', err);
         }
     }
 }

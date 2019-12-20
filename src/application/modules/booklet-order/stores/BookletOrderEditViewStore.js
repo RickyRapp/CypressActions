@@ -15,7 +15,7 @@ const ErrorType = {
 class BookletOrderEditViewStore extends BaseEditViewStore {
     @observable denominationTypes = null;
     applicationDefaultSetting = null;
-    donorAccount = null;
+    @observable donorAccount = null;
     @observable countError = null;
     @observable denominationError = null;
     @observable count = '';
@@ -23,25 +23,18 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
     constructor(rootStore) {
         const service = new BookletOrderService(rootStore.application.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.id;
-        const editId = rootStore.routerStore.routerState.params.editId;
 
         super(rootStore, {
             name: 'booklet-order-create',
-            id: editId,
+            id: rootStore.routerStore.routerState.params.editId,
             autoInit: false,
             actions: () => {
                 return {
                     update: async (resource) => {
-                        try {
-                            return await service.update({
-                                id: editId,
-                                ...resource
-                            });
-                        } catch (err) {
-                            //TODO:send status code/type from backend
-                            // throw { type: ErrorType.InsufficientFunds, error: err };
-                        }
+                        await service.update({
+                            id: this.editId,
+                            ...resource
+                        });
                     },
                     get: async (id) => {
                         const params = {
@@ -76,22 +69,25 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
             FormClass: BookletOrderEditForm
         });
 
-        this.id = id;
-        this.editId = editId;
-        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null, {
+        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.editId = rootStore.routerStore.routerState.params.editId;
+        this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore({
+            placeholder: 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_PLACEHOLDER'
+        }, {
             fetchFunc: async () => {
                 const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
                 const response = await service.getAll();
                 return response.data;
             }
         });
-        this.denominationTypeDropdownStore = new BaasicDropdownStore(null, {
-            fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-                const response = await service.getAll();
-                return response.data;
-            }
-        });
+        this.denominationTypeDropdownStore = new BaasicDropdownStore({
+            placeholder: 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_PLACEHOLDER'
+        },
+            {
+                onChange: (value) => {
+                    this.denominationError = !(value !== null && value !== undefined && value !== '');
+                }
+            });
     }
 
     @action.bound
@@ -102,7 +98,8 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         else {
             await this.fetch([
                 this.fetchDonorAccount(),
-                this.fetchApplicationDefaultSetting()
+                this.fetchApplicationDefaultSetting(),
+                this.fetchDenominationTypes()
             ]);
 
             await this.getResource(this.editId);
@@ -125,12 +122,9 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         });
 
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-            if (!this.donorAccount.initialContribution) {
-                this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
-                this.rootStore.routerStore.goTo(
-                    'master.app.main.contribution.create',
-                    { id: this.id }
-                );
+            if (!this.donorAccount.isInitialContributionDone) {
+                this.rootStore.notificationStore.warning('BOOKLET_ORDER.CREATE.MISSING_INITIAL_CONTRIBUTION');
+                this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorAccountId });
             }
         }
     }
@@ -147,6 +141,10 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
             this.denominationTypeDropdownStore.setValue(null);
             this.resetDenominationDropdownStore();
         }
+        else {
+            this.countError = !(this.count !== null && this.count !== undefined && this.count !== '');
+            this.denominationError = !(this.denominationTypeDropdownStore.value !== null && this.denominationTypeDropdownStore.value !== undefined && this.denominationTypeDropdownStore.value !== '');
+        }
     }
 
     @action.bound onEdit(item) {
@@ -154,6 +152,8 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         this.denominationTypeDropdownStore.setValue(_.find(this.denominationTypes, { id: item.$('denominationTypeId').value }));
         item.del();
         this.resetDenominationDropdownStore();
+        this.countError = !(this.count !== null && this.count !== undefined && this.count !== '');
+        this.denominationError = !(this.denominationTypeDropdownStore.value !== null && this.denominationTypeDropdownStore.value !== undefined && this.denominationTypeDropdownStore.value !== '');
     }
 
     @action
@@ -201,29 +201,20 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         }
 
         totalAndFee.totalWithFee = total;
-
         return totalAndFee;
     }
 
     @action.bound
     async fetchDonorAccount() {
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.id, {
+        const response = await service.get(this.donorAccountId, {
             embed: [
-                'accountType',
-                'coreUser',
-                'companyProfile',
-                'donorAccountAddresses',
-                'donorAccountAddresses.address',
-                'donorAccountEmailAddresses',
-                'donorAccountEmailAddresses.emailAddress',
-                'donorAccountPhoneNumbers',
-                'donorAccountPhoneNumbers.phoneNumber'
+                'accountType'
             ],
             fields: [
                 'id',
                 'donorName',
-                'initialContribution',
+                'isInitialContributionDone',
                 'certificateFeePercentage',
                 'accountType',
                 'accountType.abrv'
@@ -237,6 +228,18 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
         const response = await service.getAll();
         this.applicationDefaultSetting = response.data[0];
+    }
+
+    @action.bound
+    async fetchDenominationTypes() {
+        this.denominationTypeDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
+        const response = await service.getAll();
+        this.denominationTypes = response.data;
+        runInAction(() => {
+            this.denominationTypeDropdownStore.setItems(this.denominationTypes);
+            this.denominationTypeDropdownStore.setLoading(false);
+        });
     }
 }
 

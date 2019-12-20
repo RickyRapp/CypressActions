@@ -2,10 +2,9 @@ import { action, computed, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import { ContributionService } from 'application/contribution/services';
-import { DonorAccountService } from 'application/donor-account/services';
+import { DonorAccountService, DonorAccountBankAccountService } from 'application/donor-account/services';
 import {
     LookupService,
-    BankAccountService,
     DonorAccountFileStreamService
 } from 'common/services';
 import { DonorAccountBankAccountEditForm } from 'application/donor-account/forms';
@@ -23,15 +22,13 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
     constructor(rootStore, config) {
         const service = new ContributionService(rootStore.application.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.id;
-        const editId = rootStore.routerStore.routerState.params.editId
 
         super(rootStore, config);
 
-        this.id = id;
-        this.editId = editId;
+        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.editId = rootStore.routerStore.routerState.params.editId;
         this.service = service;
-        this.bankAccountService = new BankAccountService(rootStore.application.baasic.apiClient);
+        this.bankAccountService = new DonorAccountBankAccountService(rootStore.application.baasic.apiClient);
         this.bankAccountModal = new ModalParams({});
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
@@ -54,13 +51,8 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             {
                 fetchFunc: async () => {
                     let params = {
-                        embed: [
-                            'accountHolder',
-                            'accountHolder.address',
-                            'accountHolder.emailAddress',
-                            'accountHolder.phoneNumber'
-                        ],
-                        donorAccountId: this.id,
+                        embed: ['accountHolder'],
+                        donorAccountId: this.donorAccountId,
                         orderBy: 'dateCreated',
                         orderDirection: 'desc'
                     }
@@ -114,16 +106,16 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaultValues() {
-        this.form.$('donorAccountId').set(this.id);
+        this.form.$('donorAccountId').set(this.donorAccountId);
     }
 
     @action.bound
     setPayerInfoUsingPrimaryDonorContactInfo() {
         const payer = {
             name: this.donorAccount.donorName,
-            address: _.find(this.donorAccount.donorAccountAddresses, { primary: true }).address,
-            emailAddress: _.find(this.donorAccount.donorAccountEmailAddresses, { primary: true }).emailAddress,
-            phoneNumber: _.find(this.donorAccount.donorAccountPhoneNumbers, { primary: true }).phoneNumber
+            ..._.find(this.donorAccount.donorAccountAddresses, { isPrimary: true }),
+            ..._.find(this.donorAccount.donorAccountEmailAddresses, { isPrimary: true }),
+            ..._.find(this.donorAccount.donorAccountPhoneNumbers, { isPrimary: true })
         }
         this.setPayerInfo(payer)
     }
@@ -140,14 +132,12 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             onSuccess: async (form) => {
                 const bankAccount = form.values();
                 try {
-                    const response = await this.bankAccountService.createDonorAccountBankAccount({
-                        donorAccountId: this.id,
+                    const response = await this.bankAccountService.create({
+                        donorAccountId: this.donorAccountId,
                         ...bankAccount
                     });
                     await this.insertImage(response.data.response);
-
-                    this.rootStore.notificationStore.success('Resource created');
-
+                    this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
                     await this.bankAccountDropdownStore.filterAsync();
                     this.form.$('bankAccountId').set(response.data.response);
                     this.bankAccountDropdownStore.setValue(_.find(this.bankAccountDropdownStore.items, { id: response.data.response }))
@@ -157,7 +147,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
                 }
                 catch (err) {
-                    this.rootStore.notificationStore.error(err.data.message, err);
+                    this.rootStore.notificationStore.error("Error", err);
                 }
             }
         });
@@ -173,7 +163,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             try {
                 const service = new DonorAccountFileStreamService(this.rootStore.application.baasic.apiClient);
                 this.uploadLoading = true;
-                const response = await service.uploadDonorAccountBankAccount(this.attachment, this.id, bankAccountId);
+                const response = await service.uploadDonorAccountBankAccount(this.attachment, this.donorAccountId, bankAccountId);
                 this.uploadLoading = false;
                 return response.data.id;
             }
@@ -195,16 +185,11 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     @action.bound
     async fetchDonorAccount() {
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.id, {
+        const response = await service.get(this.donorAccountId, {
             embed: [
-                'coreUser',
-                'companyProfile',
                 'donorAccountAddresses',
-                'donorAccountAddresses.address',
                 'donorAccountEmailAddresses',
-                'donorAccountEmailAddresses.emailAddress',
                 'donorAccountPhoneNumbers',
-                'donorAccountPhoneNumbers.phoneNumber',
                 'contributionSettings'
             ],
             fields: [

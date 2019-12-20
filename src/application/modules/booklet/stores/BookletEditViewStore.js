@@ -17,6 +17,7 @@ class BookletEditViewStore extends BaseViewStore {
             this.loaderStore.suspend();
             const item = form.values();
             const response = await this.service.updateCertificate(item);
+            this.rootStore.notificationStore.success((response && response.data && response.data.message) ? response.data.message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.loaderStore.resume();
             return response;
         }

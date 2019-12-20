@@ -1,2 +1,6 @@
 export { default as CharityService } from './CharityService'
 export { default as CharityRouteService } from './CharityRouteService'
+export { default as CharityAddressService } from './CharityAddressService'
+export { default as CharityAddressRouteService } from './CharityAddressRouteService'
+export { default as CharityBankAccountService } from './CharityBankAccountService'
+export { default as CharityBankAccountRouteService } from './CharityBankAccountRouteService'

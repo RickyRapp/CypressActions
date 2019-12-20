@@ -22,37 +22,38 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
     return (
         <div className="card--form card--primary card--med">
             <EditFormContent form={form}>
-                <h3 className="u-mar--bottom--med">{form.$('id').value ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
+                <h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.BANK_ACCOUNT_TITLE')}</h3>
+                <div className="content__header">
+                    <div className="row">
+                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <BasicInput field={form.$('name')} />
+                        </div>
+                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <BasicInput field={form.$('accountNumber')} />
+                        </div>
+                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <NumberFormatInputField field={form.$('routingNumber')} />
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
-                    <div className="form__group col col-sml-13 col-lrg-3">
-                        <BasicInput field={form.$('name')} />
+                    <div className="form__group col col-sml-12 col-lrg-3">
+                        <BasicInput field={form.$('accountHolder.addressLine1')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('description')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountNumber')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <NumberFormatInputField field={form.$('routingNumber')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('address.addressLine1')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('address').$('addressLine2')} />
+                        <BasicInput field={form.$('accountHolder.addressLine2')} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('address').$('city')} />
+                        <BasicInput field={form.$('accountHolder.city')} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('address').$('state')} />
+                        <BasicInput field={form.$('accountHolder.state')} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('address').$('zipCode')} />
+                        <BasicInput field={form.$('accountHolder.zipCode')} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder').$('emailAddress').$('email')} />
+                        <BasicInput field={form.$('accountHolder.email')} />
                     </div>
                     <div className="col col-sml-12 col-lrg-3">
                         <label className="form__group__label" >Bank account image</label>

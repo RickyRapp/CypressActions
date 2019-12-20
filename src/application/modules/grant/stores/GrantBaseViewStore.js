@@ -13,11 +13,9 @@ class GrantBaseViewStore extends BaseEditViewStore {
     @observable amountWithFee = null;
 
     constructor(rootStore, config) {
-        const id = rootStore.routerStore.routerState.params.id;
-
         super(rootStore, config);
 
-        this.id = id;
+        this.donorAccountId = rootStore.routerStore.routerState.params.id;
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.feeService = new FeeService(rootStore.application.baasic.apiClient);
 
@@ -70,15 +68,16 @@ class GrantBaseViewStore extends BaseEditViewStore {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
         }
         else {
-            if (this.donorAccount.initialContribution) {
+            if (this.donorAccount.isInitialContributionDone) {
                 this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donorAccount.grantMinimumAmount}`);
             }
             else {
                 this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
                 this.rootStore.routerStore.goTo(
                     'master.app.main.contribution.create',
-                    { id: this.id }
+                    { id: this.donorAccountId }
                 );
+                return;
             }
         }
     }
@@ -87,7 +86,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
     async onChangeAmount() {
         if (this.form.$('amount').value && this.form.$('amount').isValid) {
             let params = {};
-            params.id = this.id;
+            params.id = this.donorAccountId;
             params.feeTypeId = _.find(this.feeTypes, { abrv: 'grant-fee' }).id;
             params.amount = this.form.$('amount').value;
             const feeAmount = await this.feeService.calculateFee(params);
@@ -117,12 +116,9 @@ class GrantBaseViewStore extends BaseEditViewStore {
     @action.bound
     async fetchDonorAccount() {
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.id, {
+        const response = await service.get(this.donorAccountId, {
             embed: [
-                'coreUser',
-                'companyProfile',
-                'donorAccountAddresses',
-                'donorAccountAddresses.address'
+                'donorAccountAddresses'
             ],
             fields: [
                 'id',

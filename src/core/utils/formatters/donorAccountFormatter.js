@@ -12,7 +12,7 @@ class DonorAccountFormatter {
                             formattedDonorAccountName += ', ' + donorAccount.securityPin;
                         }
                         if (donorAccount.donorAccountAddresses && donorAccount.donorAccountAddresses.length > 0) {
-                            const address = _.find(donorAccount.donorAccountAddresses, { primary: true }).address;
+                            const address = _.find(donorAccount.donorAccountAddresses, { isPrimary: true });
                             formattedDonorAccountName += ', ' + addressFormatter.format(address, 'full');
                         }
                         return formattedDonorAccountName;

@@ -28,7 +28,7 @@
         "BETWEEN": "The [:attribute] field must be between [:min] and [:max].",
         "CONFIRMED": "The [:attribute] confirmation does not match.",
         "DATE": "The [:attribute] is not a valid date format.",
-        "DEF": "The [:attribute] attribute has errors.",
+        "DEF": "The [:attribute] attribute has ERRORs.",
         "DIFFERENT": "The [:attribute] and [:different] must be different.",
         "DIGITS": "The [:attribute] must be [:digits] digits.",
         "EMAIL": "The [:attribute] format is invalid.",
@@ -132,7 +132,13 @@
         "4008": "Insufficient funds.",
         "4009": "Certificate already scanned.",
         "5000": "Setting not enabled.",
-        "5001": "Cannot have two low balance settings."
+        "5001": "Cannot have two low balance settings.",
+        "6000": "Missing bank account.",
+        "6001": "Missing address.",
+        "6002": "Only donations per one charity.",
+        "6003": "Missing reserved not done transaction.",
+        "7000": "Insufficient funds. Necessary amount is: ",
+        "7001": "Missing initial contribution. You will be redirect to contribution page."
     },
     "BREADCRUMBS": {
         "CREATE": "Create",
@@ -169,6 +175,8 @@
         "ERROR_CREATE": "Error occurred while trying to create resource",
         "SUCCESS_UPDATE": "Successfully updated selected resource",
         "ERROR_UPDATE": "Error occurred while trying to update selected resource",
+        "SUCCESS_DELETE": "Successfully deleted selected resource",
+        "ERROR_DELETE": "Error occurred while trying to delete selected resource",
         "CANCEL": "Cancel",
         "LANGUAGES": "Translation",
         "DELETE": "Delete"
@@ -384,7 +392,7 @@
         "SCHEDULED_SETTINGS": "Scheduled settings",
         "RECONCILE": "Reconcile",
         "CHECKS": "Checks",
-        "FIDELITY_RECOMMENDATION_CARDS": "Fidelity recommendation cards",
+        "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -712,7 +720,21 @@
                 "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
                 "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
                 "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Account holder name",
-                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name"
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
             }
         },
         "EDIT": {
@@ -729,7 +751,21 @@
                 "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
                 "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
                 "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Acount holder name",
-                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name"
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -800,8 +836,42 @@
                 "CHARITY_TYPE_PLACEHOLDER": "Type",
                 "CHARITY_STATUS_LABEL": "Status",
                 "CHARITY_STATUS_PLACEHOLDER": "Status",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
                 "CONTACT_INFORMATION_NAME_LABEL": "Name",
                 "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name",
+                "CONTACT_INFORMATION_EMAIL_LABEL": "Email",
+                "CONTACT_INFORMATION_EMAIL_PLACEHOLDER": "Email",
+                "CONTACT_INFORMATION_NUMBER_LABEL": "Number",
+                "CONTACT_INFORMATION_NUMBER_PLACEHOLDER": "Number",
+                "BANK_ACCOUNT_NAME_LABEL": "Name",
+                "BANK_ACCOUNT_NAME_PLACEHOLDER": "Name",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL": "Account number",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_LABEL": "Routing number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number",
                 "LOGIN_FORM_FIELDS": {
                     "TITLE": "Login info",
                     "USERNAME_LABEL": "Username/Email",
@@ -816,6 +886,7 @@
         "EDIT": {
             "TITLE": "Edit charity",
             "FIELDS": {
+                "TITLE": "General data",
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",
                 "TAX_ID_LABEL": "Tax Id",
@@ -826,8 +897,42 @@
                 "CHARITY_TYPE_PLACEHOLDER": "Type",
                 "CHARITY_STATUS_LABEL": "Status",
                 "CHARITY_STATUS_PLACEHOLDER": "Status",
+                "ADDRESS_TITLE": "Addresses",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
                 "CONTACT_INFORMATION_NAME_LABEL": "Name",
-                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name"
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name",
+                "BANK_ACCOUNT_TITLE": "Bank account",
+                "BANK_ACCOUNT_NAME_LABEL": "Name",
+                "BANK_ACCOUNT_NAME_PLACEHOLDER": "Name",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL": "Account number",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_LABEL": "Routing number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "BANK_ACCOUNT_DESCRIPTION_LABEL": "Description",
+                "BANK_ACCOUNT_DESCRIPTION_PLACEHOLDER": "Description",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
             }
         }
     },
@@ -912,7 +1017,21 @@
                 "SETTING_TYPE_LABEL": "Setting",
                 "SETTING_TYPE_PLACEHOLDER": "Setting",
                 "SETTING_START_DATE_LABEL": "Date",
-                "SETTING_START_DATE_PLACEHOLDER": "Date"
+                "SETTING_START_DATE_PLACEHOLDER": "Date",
+                "PAYER_INFORMATION_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "PAYER_INFORMATION_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "PAYER_INFORMATION_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "PAYER_INFORMATION_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "PAYER_INFORMATION_CITY_LABEL": "City",
+                "PAYER_INFORMATION_CITY_PLACEHOLDER": "City",
+                "PAYER_INFORMATION_STATE_LABEL": "State",
+                "PAYER_INFORMATION_STATE_PLACEHOLDER": "State",
+                "PAYER_INFORMATION_ZIPCODE_LABEL": "Zip code",
+                "PAYER_INFORMATION_ZIPCODE_PLACEHOLDER": "Zip code",
+                "PAYER_INFORMATION_EMAIL_LABEL": "Email",
+                "PAYER_INFORMATION_EMAIL_PLACEHOLDER": "Email",
+                "PAYER_INFORMATION_NUMBER_LABEL": "Number",
+                "PAYER_INFORMATION_NUMBER_PLACEHOLDER": "Number"
             }
         },
         "EDIT": {
@@ -1069,6 +1188,7 @@
         },
         "REVIEW": {
             "TITLE": "Review",
+            "SELECT_DONATIONS_WARNING": "Please, select at least one donation.",
             "FIELDS": {
                 "STATUS_LABEL": "Status",
                 "STATUS_PLACEHOLDER": "Status",
@@ -1081,7 +1201,17 @@
                 "ATT_OF_LABEL": "Att of",
                 "ATT_OF_PLACEHOLDER": "Att of",
                 "BANK_ACCOUNT_NAME_LABEL": "Bank account",
-                "AMOUNT_LABEL": "Amount"
+                "AMOUNT_LABEL": "Amount",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code"
             }
         }
     },
@@ -1248,17 +1378,26 @@
             },
             "EMPTY_STATE": {
                 "TITLE": "No booklet orders"
+            },
+            "BUTTON": {
+                "REVIEW": "Review",
+                "EDIT": "Edit"
             }
         },
         "CREATE": {
             "BUTTON": {
                 "ADD": "Add new",
-                "REVIEW": "Review"
+                "REVIEW": "Review",
+                "EDIT": "Edit",
+                "DELETE": "Delete"
             },
             "TITLE": "Create booklet",
             "MOST_COMMON_DENOMINATIONS": "Common Denominations:",
             "TOTAL_WITH_FEE": "Total with fee",
             "TOTAL": "Total",
+            "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
+            "PREMIUM_FEE_APPLIED": "Fee Will Be Applied When Scanning Certificate.",
+            "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
             "FIELDS": {
                 "COUNT_LABEL": "Count",
                 "COUNT_PLACEHOLDER": "Count",

@@ -23,10 +23,7 @@ class SelectDonorViewStore extends BaseViewStore {
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
+                            'donorAccountAddresses'
                         ],
                         fields: [
                             'id',

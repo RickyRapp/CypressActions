@@ -60,25 +60,25 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
                                 <BasicInput field={form.$('attOf')} />
                             </div>
                             <div className="form__group col col-sml-3 col-lrg-3 u-mar--bottom--sml">
-                                <BasicInput field={form.$('address.addressLine1')} />
+                                <BasicInput field={form.$('addressLine1')} />
                             </div>
                             <div className="form__group col col-sml-3 col-lrg-3 u-mar--bottom--sml">
-                                <BasicInput field={form.$('address.addressLine2')} />
+                                <BasicInput field={form.$('addressLine2')} />
                             </div>
                             <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
-                                <BasicInput field={form.$('address.city')} />
+                                <BasicInput field={form.$('city')} />
                             </div>
                             <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
-                                <BasicInput field={form.$('address.state')} />
+                                <BasicInput field={form.$('state')} />
                             </div>
                             <div className="form__group col col-sml-2 col-lrg-2 u-mar--bottom--sml">
-                                <BasicInput field={form.$('address.zipCode')} />
+                                <BasicInput field={form.$('zipCode')} />
                             </div>
                         </React.Fragment>}
                 </div>
                 <div className="u-mar--bottom--med">
                     {selectedItems.length > 0 &&
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />}
+                        < BaasicFormControls form={form} onSubmit={form.onSubmit} />}
                 </div>
             </form>
         </React.Fragment>

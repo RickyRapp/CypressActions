@@ -9,14 +9,6 @@ export default class GrantEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'id',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'donorAccountId',
-                    rules: 'required|string'
-                },
-                {
                     name: 'amount',
                     label: 'GRANT.CREATE.FIELDS.AMOUNT_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.AMOUNT_PLACEHOLDER',

@@ -118,7 +118,7 @@ class UserEditViewStore extends BaseEditViewStore {
         }
         catch (err) {
             if (err.statusCode !== 404) {
-                this.rootStore.notificationStore.error(err.data.message, err);
+                this.rootStore.notificationStore.error('Error', err);
             }
         }
     }

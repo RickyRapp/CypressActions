@@ -15,7 +15,7 @@ import {
 } from 'application/charity/components';
 import NumberFormat from 'react-number-format';
 
-const CharityEditTemplate = function ({ charityEditViewStore }) {
+const CharityEditTemplate = function ({ charityEditViewStore, t }) {
     const {
         form,
         item,
@@ -31,7 +31,7 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-12">
                             <div className="u-mar--bottom--sml">
-                                <h3 className="u-mar--bottom--med">General data</h3>
+                                <h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.TITLE')}</h3>
                                 <div className="row">
                                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('name')} />
@@ -63,10 +63,10 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
                                         <BasicInput field={form.$('contactInformation.name')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <BasicInput field={form.$('contactInformation.emailAddress.email')} />
+                                        <BasicInput field={form.$('contactInformation.email')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <NumberFormatInputField field={form.$('contactInformation.phoneNumber.number')} />
+                                        <NumberFormatInputField field={form.$('contactInformation.number')} />
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
             {item &&
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <CharityBankAccountEdit id={item.bankAccountId} charityId={item.id} />
+                        <CharityBankAccountEdit charityId={item.id} />
                     </div>
                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                         <CharityAddressListTable />
@@ -91,7 +91,8 @@ const CharityEditTemplate = function ({ charityEditViewStore }) {
 };
 
 CharityEditTemplate.propTypes = {
-    charityEditViewStore: PropTypes.object.isRequired
+    charityEditViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 function renderEditLayoutFooterContent({ form }) {

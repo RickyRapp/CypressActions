@@ -43,10 +43,7 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                         sort: 'coreUser.firstName|asc',
                         exceptId: this.recipientDonorAccountDropdownStore.value ? this.recipientDonorAccountDropdownStore.value.id : null,
                         embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
+                            'donorAccountAddresses'
                         ],
                         fields: [
                             'id',

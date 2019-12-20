@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     BasicInput,
-    BaasicButton,
+    BaasicFormControls,
     NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
@@ -24,11 +24,8 @@ class DonorAccountPhoneNumberEditForm extends Component {
                             <BasicInput field={formPhoneNumber.$('description')} />
                         </div>
                     </div>
-                    <BaasicButton
-                        className='btn btn--base btn--primary'
-                        type='submit'
-                        label='Submit'
-                    />
+
+                    <BaasicFormControls form={formPhoneNumber} onSubmit={formPhoneNumber.onSubmit} />
                 </form>
             </section>
         );

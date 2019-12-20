@@ -8,6 +8,7 @@ import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { GrantPurposeTypeForm } from 'themes/application/grant/components';
 import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
+import { addressFormatter } from 'core/utils';
 import _ from 'lodash';
 
 const GrantEditTemplate = function ({ grantEditViewStore }) {
@@ -17,7 +18,7 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
         grantPurposeTypeDropdownStore,
         grantAcknowledgmentTypeDropdownStore,
         charityDropdownStore,
-        id,
+        donorAccountId,
         donorAccount,
         onChangeAmount,
         amountWithFee
@@ -26,7 +27,7 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={grantEditViewStore}>
-                <AuthPageHeader id={id} type={2} authorization='theDonorsFundAdministrationSection.read' />
+                <AuthPageHeader donorAccountId={donorAccountId} type={2} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                         <h3 className="u-mar--bottom--med">General Data</h3>
@@ -53,11 +54,10 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
                             {grantAcknowledgmentTypeDropdownStore.value &&
                                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--top--med">
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
-                                        `${donorAccount.donorName} - ${donorAccount.fundName} - ${_.find(donorAccount.donorAccountAddresses, { primary: true }).address.addressLine1}`}
+                                        `${donorAccount.donorName} - ${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
-                                        `${donorAccount.fundName} - ${_.find(donorAccount.donorAccountAddresses, { primary: true }).address.addressLine1}`}
-                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' &&
-                                        donorAccount.fundName}
+                                        `${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
+                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
                                 </div>}
                         </div>
                         <div className="row">

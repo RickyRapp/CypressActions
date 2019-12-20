@@ -18,6 +18,8 @@ const DonorAccountPageHeaderOverviewTemplate = function ({ donorAccountPageHeade
             return <RenderContribution donorAccount={donorAccount} rootStore={rootStore} t={t} />
         case Types.Grant:
             return <RenderGrant donorAccount={donorAccount} rootStore={rootStore} t={t} />
+        case Types.BookletOrder:
+            return <RenderBookletOrder donorAccount={donorAccount} rootStore={rootStore} t={t} />
         default:
             return null;
     }
@@ -178,6 +180,55 @@ const RenderGrant = ({ donorAccount, rootStore, t }) => {
 }
 
 RenderGrant.propTypes = {
+    donorAccount: PropTypes.object,
+    rootStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
+};
+
+const RenderBookletOrder = ({ donorAccount, rootStore, t }) => {
+    return (
+        <PageHeader>
+            <div className="card card--primary card--med">
+                <div className="row">
+                    <div className="col col-sml-6 col-lrg-2">
+                        <a
+                            className=""
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.donor-account.edit', { id: donorAccount && donorAccount.id })}>
+                            {donorAccount && donorAccount.donorName}
+                        </a>
+                    </div>
+                    <div className="col col-sml-6 col-lrg-2">
+                        {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.PRESENT_BALANCE')}
+                        {donorAccount &&
+                            <FormatterResolver
+                                item={{ presentBalance: donorAccount.presentBalance }}
+                                field='presentBalance'
+                                format={{ type: 'currency' }}
+                            />}
+                    </div>
+                    <div className="col col-sml-6 col-lrg-2">
+                        {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.AVAILABLE_BALANCE')}
+                        {donorAccount &&
+                            <FormatterResolver
+                                item={{ availableBalance: donorAccount.availableBalance }}
+                                field='availableBalance'
+                                format={{ type: 'currency' }}
+                            />}
+                    </div>
+                    <div className="col col-sml-6 col-lrg-2">
+                        <a
+                            className=""
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-donor-view', null, { id: donorAccount && donorAccount.id })}>
+                            {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.ACTIVITY')}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </PageHeader>
+    )
+}
+
+RenderBookletOrder.propTypes = {
     donorAccount: PropTypes.object,
     rootStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired

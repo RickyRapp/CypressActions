@@ -1,17 +1,18 @@
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import {
-    BankAccountService,
-    AddressService,
-    EmailAddressService,
-    PhoneNumberService,
     DonorAccountFileStreamRouteService,
     DonorAccountFileStreamService
 } from 'common/services';
+import {
+    DonorAccountBankAccountService,
+    DonorAccountAddressService,
+    DonorAccountEmailAddressService,
+    DonorAccountPhoneNumberService,
+} from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 import { DonorAccountBankAccountEditForm } from 'application/donor-account/forms';
-import _ from 'lodash';
 
 @applicationContext
 class DonorAccountBankAccountViewStore extends BaseListViewStore {
@@ -21,9 +22,9 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
     @observable currentImage = null;
     @observable uploadLoading = false;
     uploadTypes = ['.png', '.jpg', '.jpeg'];
-    addresses = [];
-    emailAddresses = [];
-    phoneNumbers = [];
+    primaryAddress = null;
+    primaryEmailAddress = null;
+    primaryPhoneNumber = null;
     bankAccountService = null;
     donorAccountFileStreamRouteService = null;
 
@@ -52,14 +53,11 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true
             },
             actions: () => {
-                this.bankAccountService = new BankAccountService(rootStore.application.baasic.apiClient);
+                this.bankAccountService = new DonorAccountBankAccountService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.embed = ['donorAccountBankAccounts',
-                            'accountHolder',
-                            'accountHolder.address',
-                            'accountHolder.emailAddress',
-                            'accountHolder.phoneNumber'
+                        params.embed = [
+                            'accountHolder'
                         ];
                         params.donorAccountId = donorAccountId;
                         params.orderBy = 'dateCreated';
@@ -103,7 +101,7 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'accountHolder.address',
+                    key: 'accountHolder',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.ACCOUNT_HOLDER_ADDRESS_LABEL',
                     format: {
                         type: 'address',
@@ -111,11 +109,11 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'accountHolder.emailAddress.email',
+                    key: 'accountHolder.email',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.ACCOUNT_HOLDER_EMAIL_ADDRESS_LABEL'
                 },
                 {
-                    key: 'accountHolder.phoneNumber.number',
+                    key: 'accountHolder.number',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.ACCOUNT_HOLDER_PHONE_NUMBER_LABEL',
                     format: {
                         type: 'phone-number'
@@ -133,6 +131,7 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (bankAccount) => this.openBankAccountModal(bankAccount),
+                onDelete: (bankAccount) => this.deleteBankAccount(bankAccount),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             disablePaging: true
@@ -159,100 +158,105 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async updateBankAccountAsync(entity) {
+    async updateBankAccountAsync(entity, message) {
         try {
             await this.bankAccountService.update(entity);
             await this.insertImage(entity.id);
 
-            this.rootStore.notificationStore.success('Resource updated');
+            this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.bankAccountModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async createBankAccountAsync(entity) {
         try {
-            const response = await this.bankAccountService.createDonorAccountBankAccount({
+            const response = await this.bankAccountService.create({
                 donorAccountId: this.donorAccountId,
                 ...entity
             });
             await this.insertImage(response.data.response);
 
-            this.rootStore.notificationStore.success('Resource created');
+            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             this.bankAccountModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async useDonorContactInformations(value, type) {
         if (type === 'address') {
-            if (this.addresses.length === 0) {
-                const addressService = new AddressService(this.rootStore.application.baasic.apiClient);
+            if (!this.primaryAddress) {
+                const addressService = new DonorAccountAddressService(this.rootStore.application.baasic.apiClient);
                 const params = {
-                    embed: ['donorAccountAddresses'],
                     donorAccountId: this.donorAccountId,
-                    orderBy: 'donorAccountAddresses.primary',
-                    orderDirection: 'desc'
+                    isPrimary: true
                 }
                 const response = await addressService.find(params);
-                this.addresses.push(...response.data.item);
+                this.primaryAddress = response.data.item[0];
             }
             if (value === null) {
-                this.formBankAccount.$('accountHolder').$('address').clear()
+                this.formBankAccount.$('accountHolder.addressLine1').set('');
+                this.formBankAccount.$('accountHolder.addressLine2').set('');
+                this.formBankAccount.$('accountHolder.city').set('');
+                this.formBankAccount.$('accountHolder.state').set('');
+                this.formBankAccount.$('accountHolder.zipCode').set('');
             }
             else {
-                if (_.find(this.addresses, { donorAccountAddresses: [{ primary: value }] }))
-                    this.formBankAccount.$('accountHolder').$('address').update(_.find(this.addresses, { donorAccountAddresses: [{ primary: value }] }))
+                if (this.primaryAddress) {
+                    this.formBankAccount.$('accountHolder.addressLine1').set(this.primaryAddress.addressLine1)
+                    this.formBankAccount.$('accountHolder.addressLine2').set(this.primaryAddress.addressLine2)
+                    this.formBankAccount.$('accountHolder.city').set(this.primaryAddress.city)
+                    this.formBankAccount.$('accountHolder.state').set(this.primaryAddress.state)
+                    this.formBankAccount.$('accountHolder.zipCode').set(this.primaryAddress.zipCode)
+                }
             }
         }
         else if (type === 'emailAddress') {
-            if (this.emailAddresses.length === 0) {
-                const emailAddressService = new EmailAddressService(this.rootStore.application.baasic.apiClient);
+            if (!this.primaryEmailAddress) {
+                const emailAddressService = new DonorAccountEmailAddressService(this.rootStore.application.baasic.apiClient);
                 const params = {
-                    embed: ['donorAccountEmailAddresses'],
                     donorAccountId: this.donorAccountId,
-                    orderBy: 'donorAccountEmailAddresses.primary',
-                    orderDirection: 'desc'
+                    isPrimary: true
                 }
                 const response = await emailAddressService.find(params);
-                this.emailAddresses.push(...response.data.item);
+                this.primaryEmailAddress = response.data.item[0];
             }
 
             if (value === null) {
-                this.formBankAccount.$('accountHolder').$('emailAddress').clear()
+                this.formBankAccount.$('accountHolder.email').set('');
             }
             else {
-                if (_.find(this.emailAddresses, { donorAccountEmailAddresses: [{ primary: value }] }))
-                    this.formBankAccount.$('accountHolder').$('emailAddress').update(_.find(this.emailAddresses, { donorAccountEmailAddresses: [{ primary: value }] }))
+                if (this.primaryEmailAddress) {
+                    this.formBankAccount.$('accountHolder.email').set(this.primaryEmailAddress.email);
+                }
             }
         }
         else if (type === 'phoneNumber') {
-            if (this.phoneNumbers.length === 0) {
-                const phoneNumberService = new PhoneNumberService(this.rootStore.application.baasic.apiClient);
+            if (!this.primaryPhoneNumber) {
+                const phoneNumberService = new DonorAccountPhoneNumberService(this.rootStore.application.baasic.apiClient);
                 const params = {
-                    embed: ['donorAccountPhoneNumbers'],
                     donorAccountId: this.donorAccountId,
-                    orderBy: 'donorAccountPhoneNumbers.primary',
-                    orderDirection: 'desc'
+                    isPrimary: true
                 }
                 const response = await phoneNumberService.find(params);
-                this.phoneNumbers.push(...response.data.item);
+                this.primaryPhoneNumber = response.data.item[0];
             }
 
             if (value === null) {
-                this.formBankAccount.$('accountHolder').$('phoneNumber').clear()
+                this.formBankAccount.$('accountHolder.number').set('');
             }
             else {
-                if (_.find(this.phoneNumbers, { donorAccountPhoneNumbers: [{ primary: value }] }))
-                    this.formBankAccount.$('accountHolder').$('phoneNumber').update(_.find(this.phoneNumbers, { donorAccountPhoneNumbers: [{ primary: value }] }))
+                if (this.primaryPhoneNumber) {
+                    this.formBankAccount.$('accountHolder.number').set(this.primaryPhoneNumber.number)
+                }
             }
         }
     }
@@ -280,6 +284,17 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
         const binaryData = [];
         binaryData.push(this.attachment);
         this.image = window.URL.createObjectURL(new Blob(binaryData, { type: this.attachment.type }));
+    }
+
+    @action.bound
+    async deleteBankAccount(bankAccount) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to delete bank account?`,
+            async () => {
+                bankAccount.isDeleted = true;
+                await this.updateBankAccountAsync(bankAccount, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
+            }
+        );
     }
 }
 

@@ -79,7 +79,7 @@ export const donorAccountSettingsFormProperties = {
             }
         },
         {
-            name: 'initialContribution',
+            name: 'isInitialContributionDone',
             label: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.INITIAL_CONTRIBUTION_LABEL',
             placeholder: 'DONOR_ACCOUNT.ACCOUNT_SETTINGS_FIELDS.INITIAL_CONTRIBUTION_PLACEHOLDER',
             rules: 'required|boolean',

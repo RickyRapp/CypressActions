@@ -18,7 +18,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
         paymentTypeDropdownStore,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo,
-        id,
+        donorAccountId,
         openBankAccountModal,
         uploadTypes,
         uploadLoading,
@@ -31,7 +31,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={contributionCreateViewStore}>
-                <AuthPageHeader id={id} type={1} authorization='theDonorsFundAdministrationSection.read' />
+                <AuthPageHeader donorAccountId={donorAccountId} type={1} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <ContributionBaseTemplate
                         form={form}

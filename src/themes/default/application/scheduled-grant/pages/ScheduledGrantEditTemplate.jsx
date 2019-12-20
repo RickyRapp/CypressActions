@@ -87,7 +87,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
                             </div>
                             {grantAcknowledgmentTypeDropdownStore.value &&
                                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' && `${donorAccount.fundName} - ${_.find(donorAccount.donorAccountAddresses, { primary: true }).address.addressLine1}`}
+                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' && `${donorAccount.fundName} - ${_.find(donorAccount.donorAccountAddresses, { isPrimary: true }).address.addressLine1}`}
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
                                 </div>}
                         </div>

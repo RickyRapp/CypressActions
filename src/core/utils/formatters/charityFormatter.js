@@ -10,7 +10,7 @@ class CharityFormatter {
                     formattedCharityName += ', ' + this.format(value.taxId, { value: 'tax-id' });
                 }
                 if (value.charityAddresses && value.charityAddresses.length > 0) {
-                    const address = _.find(value.charityAddresses, { primary: true }).address;
+                    const address = _.find(value.charityAddresses, { isPrimary: true });
                     formattedCharityName += ', ' + addressFormatter.format(address, 'full');
                 }
                 return formattedCharityName;

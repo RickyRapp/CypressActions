@@ -45,10 +45,16 @@ const DonationOverviewTemplate = function ({ donationViewStore }) {
                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                         <h3 className="u-mar--bottom--med">Charity info</h3>
                         <div className="row u-mar--bottom--lrg">
-                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 <label className="form__group__label">Charity</label>
                                 <span className={"input input--med input--text input--disabled"}>
                                     {charity && charityFormatter.format(charity, { value: 'charity-name-display' })}
+                                </span>
+                            </div>
+                            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                <label className="form__group__label">Address</label>
+                                <span className={"input input--med input--text input--disabled"}>
+                                    {charity && addressFormatter.format(_.find(charity.charityAddresses, { isPrimary: true }), 'full')}
                                 </span>
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
@@ -60,12 +66,6 @@ const DonationOverviewTemplate = function ({ donationViewStore }) {
                                             field='balance'
                                             format={{ type: 'currency' }}
                                         />}
-                                </span>
-                            </div>
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                                <label className="form__group__label">Address</label>
-                                <span className={"input input--med input--text input--disabled"}>
-                                    {charity && addressFormatter.format(_.find(charity.charityAddresses, { primary: true }).address, 'full')}
                                 </span>
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">

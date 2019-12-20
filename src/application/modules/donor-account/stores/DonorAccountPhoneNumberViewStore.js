@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { PhoneNumberService } from 'common/services';
+import { DonorAccountPhoneNumberService } from 'application/donor-account/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 import { DonorAccountPhoneNumberEditForm } from 'application/donor-account/forms';
@@ -34,12 +34,11 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true
             },
             actions: () => {
-                this.phoneNumberService = new PhoneNumberService(rootStore.application.baasic.apiClient);
+                this.phoneNumberService = new DonorAccountPhoneNumberService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.embed = ['donorAccountPhoneNumbers'];
                         params.donorAccountId = donorAccountId;
-                        params.orderBy = 'donorAccountPhoneNumbers.primary';
+                        params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
                         const response = await this.phoneNumberService.find(params);
                         return response.data;
@@ -63,7 +62,7 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'donorAccountPhoneNumbers[0].primary',
+                    key: 'isPrimary',
                     title: 'PHONE_NUMBER.LIST.COLUMNS.PRIMARY_LABEL',
                     format: {
                         type: 'boolean',
@@ -73,6 +72,7 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (phoneNumber) => this.openPhoneNumberModal(phoneNumber),
+                onDelete: (phoneNumber) => this.deletePhoneNumber(phoneNumber),
                 onMarkPrimary: (phoneNumber) => this.markPrimary(phoneNumber),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
@@ -92,43 +92,52 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async updatePhoneNumberAsync(entity) {
+    async updatePhoneNumberAsync(entity, message) {
         try {
             await this.phoneNumberService.update(entity);
-
-            this.rootStore.notificationStore.success('Resource updated');
+            this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.phoneNumberModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async createPhoneNumberAsync(entity) {
         try {
-            await this.phoneNumberService.createDonorAccountPhoneNumber({
+            await this.phoneNumberService.create({
                 donorAccountId: this.donorAccountId,
                 ...entity
             });
 
-            this.rootStore.notificationStore.success('Resource created');
+            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             this.phoneNumberModal.close();
             await this.queryUtility.fetch();
         }
         catch (err) {
-            this.rootStore.notificationStore.error(err.data.message, err);
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 
     @action.bound
     async markPrimary(phoneNumber) {
         this.loaderStore.suspend();
-        await this.phoneNumberService.markPrimary(phoneNumber);
-        this.rootStore.notificationStore.success('Successfully marked primary');
-        await this.queryUtility.fetch();
+        phoneNumber.isPrimary = true;
+        await this.updatePhoneNumberAsync(phoneNumber);
         this.loaderStore.resume();
+    }
+
+    @action.bound
+    async deletePhoneNumber(phoneNumber) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to delete phone number?`,
+            async () => {
+                phoneNumber.isDeleted = true;
+                await this.updatePhoneNumberAsync(phoneNumber, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
+            }
+        );
     }
 }
 

@@ -48,7 +48,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                     }
 
                     item.coreUser.json = JSON.stringify({ middleName: item.coreUser.middleName, prefixTypeId: item.coreUser.prefixTypeId });
-                    return await service.create(item);
+                    await service.create(item);
                 }
             },
             errorActions: {

@@ -10,7 +10,7 @@ export default class DonationReviewForm extends FormBase {
             fields: [
                 {
                     name: 'donationIds',
-                    rules: 'required|string'
+                    rules: 'string' //it's not required so we can easier show error message with warning in onSuccess method
                 },
                 {
                     name: 'paymentTypeId',
@@ -35,34 +35,34 @@ export default class DonationReviewForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'address',
-                    fields: [
-                        {
-                            name: 'addressLine1',
-                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_FIELD',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'addressLine2',
-                            label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_FIELD',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'city',
-                            label: 'ADDRESS.EDIT.FIELDS.CITY_FIELD',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'state',
-                            label: 'ADDRESS.EDIT.FIELDS.STATE_FIELD',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'zipCode',
-                            label: 'ADDRESS.EDIT.FIELDS.ZIPCODE_FIELD',
-                            rules: 'string'
-                        },
-                    ]
+                    name: 'addressLine1',
+                    label: 'DONATION.REVIEW.FIELDS.ADDRESS_LINE_1_LABEL',
+                    placeholder: 'DONATION.REVIEW.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'addressLine2',
+                    label: 'DONATION.REVIEW.FIELDS.ADDRESS_LINE_2_LABEL',
+                    placeholder: 'DONATION.REVIEW.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'city',
+                    label: 'DONATION.REVIEW.FIELDS.CITY_LABEL',
+                    placeholder: 'DONATION.REVIEW.FIELDS.CITY_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'state',
+                    label: 'DONATION.REVIEW.FIELDS.STATE_LABEL',
+                    placeholder: 'DONATION.REVIEW.FIELDS.STATE_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'zipCode',
+                    label: 'DONATION.REVIEW.FIELDS.ZIPCODE_LABEL',
+                    placeholder: 'DONATION.REVIEW.FIELDS.ZIPCODE_PLACEHOLDER',
+                    rules: 'string'
                 }
             ]
         };

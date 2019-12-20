@@ -34,56 +34,30 @@ export default class CharityEditForm extends FormBase {
                 },
                 {
                     name: 'contactInformation',
+                    label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_TITLE',
                     fields: [
+                        {
+                            name: 'id',
+                            rules: 'required|string'
+                        },
                         {
                             name: 'name',
                             label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
                             rules: 'required|string'
                         },
                         {
-                            name: 'emailAddress',
-                            fields: [
-                                {
-                                    name: 'id',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'email',
-                                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
-                                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                                    rules: 'required|email'
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                    rules: 'string'
-                                }
-                            ]
+                            name: 'email',
+                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
+                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
+                            rules: 'required|email'
                         },
                         {
-                            name: 'phoneNumber',
-                            fields: [
-                                {
-                                    name: 'id',
-                                    rules: 'required|string'
-                                },
-                                {
-                                    name: 'number',
-                                    label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
-                                    placeholder: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_PLACEHOLDER',
-                                    rules: 'required|string',
-                                    extra: {
-                                        format: '(###) ###-####'
-                                    }
-                                },
-                                {
-                                    name: 'description',
-                                    label: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_LABEL',
-                                    placeholder: 'PHONE_NUMBER.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-                                    rules: 'string'
-                                }
-                            ]
+                            name: 'number',
+                            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
+                            rules: 'required|string',
+                            extra: {
+                                format: '(###) ###-####'
+                            }
                         }
                     ]
                 }

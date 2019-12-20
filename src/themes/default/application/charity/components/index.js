@@ -1,5 +1,3 @@
 export { default as CharityAddressListTableTemplate } from './CharityAddressListTableTemplate'
-export { default as CharityEmailAddressListTableTemplate } from './CharityEmailAddressListTableTemplate'
-export { default as CharityPhoneNumberListTableTemplate } from './CharityPhoneNumberListTableTemplate'
 export { default as CharityBankAccountListTableTemplate } from './CharityBankAccountListTableTemplate'
 export { default as CharityBankAccountEditTemplate } from './CharityBankAccountEditTemplate'

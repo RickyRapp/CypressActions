@@ -78,8 +78,8 @@ DonorAccountBankAccountListTableTemplate.propTypes = {
 function renderActions({ item, actions, authorization }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit } = actions;
-    if (!isSome(onEdit)) return null;
+    const { onEdit, onDelete } = actions;
+    if (!isSome(onEdit) && !isSome(onDelete)) return null;
 
     return (
         <td className="table__body--data right">
@@ -92,6 +92,16 @@ function renderActions({ item, actions, authorization }) {
                         label='BANK_ACCOUNT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onDelete) ? (
+                    <BaasicButton
+                        authorization={authorization ? authorization.update : null}
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--delete u-icon--sml'
+                        label='BANK_ACCOUNT.LIST.BUTTON.DELETE'
+                        onlyIcon={true}
+                        onClick={() => onDelete(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

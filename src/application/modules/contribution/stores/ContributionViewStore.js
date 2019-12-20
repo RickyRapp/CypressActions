@@ -175,10 +175,7 @@ class ContributionViewStore extends BaseListViewStore {
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'coreUser',
-                            'companyProfile',
-                            'donorAccountAddresses',
-                            'donorAccountAddresses.address'
+                            'donorAccountAddresses'
                         ],
                         fields: [
                             'id',
@@ -200,10 +197,7 @@ class ContributionViewStore extends BaseListViewStore {
                         const id = rootStore.routerStore.routerState.queryParams.id;
                         const params = {
                             embed: [
-                                'coreUser',
-                                'companyProfile',
-                                'donorAccountAddresses',
-                                'donorAccountAddresses.address'
+                                'donorAccountAddresses'
                             ],
                             fields: [
                                 'id',

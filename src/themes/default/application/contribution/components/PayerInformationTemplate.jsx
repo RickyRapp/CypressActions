@@ -22,25 +22,25 @@ function PayerInformationTemplate({ form, setPayerInfoUsingPrimaryDonorContactIn
                     <BasicInput field={form.$('payerInformation.name')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.address.addressLine1')} />
+                    <BasicInput field={form.$('payerInformation.addressLine1')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.address.addressLine2')} />
+                    <BasicInput field={form.$('payerInformation.addressLine2')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.address.city')} />
+                    <BasicInput field={form.$('payerInformation.city')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.address.state')} />
+                    <BasicInput field={form.$('payerInformation.state')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.address.zipCode')} />
+                    <BasicInput field={form.$('payerInformation.zipCode')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.emailAddress.email')} />
+                    <BasicInput field={form.$('payerInformation.email')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                    <BasicInput field={form.$('payerInformation.phoneNumber.number')} />
+                    <BasicInput field={form.$('payerInformation.number')} />
                 </div>
             </div>
         </React.Fragment>

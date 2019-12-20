@@ -27,29 +27,29 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
     return (
         <div>
             <ListContent>
-                <h3 className="u-mar--bottom--tny">
-                    {t('ADDRESS.LIST.TITLE')}
-                    {maxAddressesEntered ?
-                        <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
-                        :
-                        <BaasicButton
-                            authorization={authorization ? authorization.create : null}
-                            className="btn btn--icon"
-                            icon='u-icon u-icon--unlocked u-icon--sml'
-                            label='ADDRESS.LIST.BUTTON.CREATE'
-                            onlyIcon={true}
-                            onClick={() => openAddressModal()}>
-                        </BaasicButton>}
-                </h3>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="card--form card--primary card--med">
+                <div className="card--form card--primary card--med">
+                    <h3 className="u-mar--bottom--tny">
+                        {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
+                        {maxAddressesEntered ?
+                            <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
+                            :
+                            <BaasicButton
+                                authorization={authorization ? authorization.create : null}
+                                className="btn btn--icon"
+                                icon='u-icon u-icon--unlocked u-icon--sml'
+                                label='ADDRESS.LIST.BUTTON.CREATE'
+                                onlyIcon={true}
+                                onClick={() => openAddressModal()}>
+                            </BaasicButton>}
+                    </h3>
+                    <Content emptyRenderer={renderEmpty(routes)} >
                         <BaasicTable
                             authorization={authorization}
                             tableStore={tableStore}
                             actionsComponent={renderActions}
                         />
-                    </div>
-                </Content>
+                    </Content>
+                </div>
             </ListContent>
             <BaasicModal modalParams={addressModal}>
                 <CharityAddressEditForm />
@@ -76,7 +76,7 @@ function renderActions({ item, actions, authorization }) {
     return (
         <td className="table__body--data right">
             <div className="table__icons">
-                {isSome(onMarkPrimary) && !item.charityAddresses[0].primary ? (
+                {isSome(onMarkPrimary) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"

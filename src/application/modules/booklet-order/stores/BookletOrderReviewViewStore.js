@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { BookletOrderReviewForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
@@ -14,6 +14,7 @@ const ErrorType = {
 @applicationContext
 class BookletOrderReviewViewStore extends BaseEditViewStore {
     bookletStatuses = null;
+    @observable bookletOrder = null;
 
     constructor(rootStore) {
         const service = new BookletOrderService(rootStore.application.baasic.apiClient);
@@ -51,6 +52,7 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                             ],
                             fields: [
                                 'id',
+                                'donorAccountId',
                                 'bookletOrderItems',
                                 'bookletOrderItems.id',
                                 'bookletOrderItems.count',

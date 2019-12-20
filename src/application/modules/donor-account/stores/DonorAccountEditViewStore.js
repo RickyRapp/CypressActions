@@ -16,8 +16,6 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                 get: async (id) => {
                     const response = await service.get(id, {
                         embed: [
-                            'coreUser',
-                            'companyProfile',
                             'accountType'
                         ]
                     });
@@ -51,7 +49,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
     async updateResource(resource) {
         const { prefixTypeId, firstName, lastName, middleName, fundName, blankBookletMaxAmount, notificationLimitRemainderAmount,
             lineOfCredit, certificateDeductionPercentage, certificateFeePercentage, contributionMinimumAdditionalAmount, contributionMinimumInitialAmount, extraBookletPercentage,
-            grantFeePercentage, grantMinimumAmount, initialContribution, securityPin } = resource;
+            grantFeePercentage, grantMinimumAmount, isInitialContributionDone, securityPin } = resource;
         const generalData = {
             prefixTypeId,
             firstName,
@@ -72,7 +70,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
             extraBookletPercentage,
             grantFeePercentage,
             grantMinimumAmount,
-            initialContribution
+            isInitialContributionDone
         };
 
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);

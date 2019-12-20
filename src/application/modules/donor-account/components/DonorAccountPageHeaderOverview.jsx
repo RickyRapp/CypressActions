@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorAccountPageHeaderOverviewTemplate } from 'themes/application/donor-account/components';
 import { DonorAccountPageHeaderOverviewViewStore } from 'application/donor-account/stores';
 
-@setCurrentView((rootStore, props) => new DonorAccountPageHeaderOverviewViewStore(rootStore, { id: props.id, type: props.type }), 'donorAccountPageHeaderOverviewViewStore')
+@setCurrentView((rootStore, props) => new DonorAccountPageHeaderOverviewViewStore(rootStore, { donorAccountId: props.donorAccountId, type: props.type }), 'donorAccountPageHeaderOverviewViewStore')
 @observer
 class DonorAccountPageHeaderOverview extends React.Component {
     render() {

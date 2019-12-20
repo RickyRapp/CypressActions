@@ -15,6 +15,7 @@
     "@progress/kendo-react-popup": "3.0.0",
     "@progress/kendo-react-upload": "3.0.0",
     "@progress/kendo-theme-default": "3.6.1",
+    "@progress/kendo-file-saver": "1.0.7",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",

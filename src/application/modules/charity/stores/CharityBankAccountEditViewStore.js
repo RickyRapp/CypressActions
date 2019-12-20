@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
-import { BankAccountService } from 'common/services';
+import { CharityBankAccountService } from 'application/charity/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { CharityBankAccountEditForm } from 'application/charity/forms';
@@ -16,44 +16,76 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     uploadTypes = ['.png', '.jpg', '.jpeg'];
     bankAccountService = null;
 
-    constructor(rootStore, { id, charityId }) {
+    constructor(rootStore, { charityId }) {
         super(rootStore, {
             name: 'charity-bank-account',
-            id: id,
+            id: undefined,
             actions: () => {
-                const service = new BankAccountService(rootStore.application.baasic.apiClient);
+                const service = new CharityBankAccountService(rootStore.application.baasic.apiClient);
                 return {
-                    get: async (id) => {
+                    get: async () => {
                         const params = {
-                            embed: ['accountHolder', 'accountHolder.address', 'accountHolder.emailAddress', 'coreMediaVaultEntry']
+                            embed: ['accountHolder', 'coreMediaVaultEntry'],
+                            charityId: charityId
                         }
-                        const response = await service.get(id, params);
-                        if (response && response.data) {
-                            if (response.data.coreMediaVaultEntryId) {
-                                const service = new CharityFileStreamRouteService();
-                                this.currentImage = service.getPreview(response.data.coreMediaVaultEntryId)
-                            }
+
+                        const response = await service.find(params);
+                        if (response.data.item && response.data.item.length > 1) {
+                            this.rootStore.notificationStore.warning('There is a problem with fetching bank account.')
+                            return {};
                         }
-                        return response.data;
+                        if (response.data.item[0].coreMediaVaultEntryId) {
+                            const service = new CharityFileStreamRouteService();
+                            this.currentImage = service.getPreview(response.data.item[0].coreMediaVaultEntryId)
+                        }
+                        this.setEditState(response.data.item[0].id);
+                        return response.data.item[0];
                     },
                     update: async (resource) => {
                         try {
-                            const response = await service.update(resource);
+                            await service.update({
+                                id: this.id,
+                                ...resource
+                            });
                             await this.insertImage();
-                            return response;
+                            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                         } catch (err) {
-                            this.form.invalidate(err.data);
-                            throw { error: err };
+                            this.rootStore.notificationStore.error('Error', err);
+                        }
+                    },
+                    create: async (resource) => {
+                        try {
+                            await service.create({
+                                charityId: charityId,
+                                ...resource
+                            });
+                            await this.insertImage();
+                            this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
+                        } catch (err) {
+                            this.rootStore.notificationStore.error('Error', err);
                         }
                     }
                 }
             },
             FormClass: CharityBankAccountEditForm,
+            onAfterAction: () => this.getResource()
         });
 
         this.charityId = charityId;
-        this.id = id;
         this.bankAccountModal = new ModalParams({});
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goTo(
+                'master.app.main.user.list'
+            )
+        }
+        else {
+            this.form.clear();
+            this.getResource();
+        }
     }
 
     @action.bound
