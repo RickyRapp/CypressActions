@@ -74,26 +74,20 @@ class Step3ViewStore extends BaseEditViewStore {
 
     @action.bound
     async loadConnection() {
-        const response = await this.rootStore.application.baasic.apiClient.get(
-            ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr/hubs');
-        eval(response.data);
-        // eslint-disable-next-line
-        $.connection.hub.url = ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr';
+        const connection = $.hubConnection(ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr');
+        const sessionHubProxy = connection.createHubProxy('sessionHub');
+        sessionHubProxy.on('newCertificate', this.onAddedNewCertificate);
 
-        // eslint-disable-next-line
-        const sessionHub = $.connection.sessionHub;
-        // Create a function that the hub can call back to display messages.
-        sessionHub.client.newCertificate = this.onAddedNewCertificate;
-
-        // Start the connection.
-        // eslint-disable-next-line
-        $.connection.hub.start()
-            .then(_.bind(function () {
-                sessionHub.invoke('getConnectionId')
+        connection.start()
+            .done(_.bind(function () {
+                sessionHubProxy.invoke('getConnectionId')
                     .then(_.bind(function (connectionId) {
                         this.setConnectionId(connectionId);
                     }, this));
-            }, this));
+            }, this))
+            .fail(function (data) {
+                console.log(data);
+            });
     }
 
     @action.bound
