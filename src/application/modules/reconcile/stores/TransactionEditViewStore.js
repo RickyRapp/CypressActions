@@ -3,6 +3,7 @@ import { BaseEditViewStore, TableViewStore } from 'core/stores';
 import { TransactionEditForm } from 'application/reconcile/forms';
 import { ReconcileService } from 'application/reconcile/services';
 import { applicationContext } from 'core/utils';
+import _ from 'lodash';
 
 @applicationContext
 class TransactionEditViewStore extends BaseEditViewStore {
@@ -19,7 +20,7 @@ class TransactionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        return await service.checkUpdate({ id: transaction.id, ...resource });
+                        await service.checkUpdate({ id: transaction.id, ...resource });
                     },
                     get: async () => {
                         if (transaction.json) {
@@ -38,12 +39,12 @@ class TransactionEditViewStore extends BaseEditViewStore {
             columns: [
                 {
                     key: 'paymentNumber',
-                    title: 'RECONCILE.LIST.COLUMNS.OLD_CHECK_NUMBER_LABEL'
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.OLD_CHECK_NUMBER_LABEL'
 
                 },
                 {
                     key: 'dateChanged',
-                    title: 'RECONCILE.LIST.COLUMNS.OLD_CHECK_DATE_CREATED_LABEL',
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.OLD_CHECK_DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'full'
@@ -51,7 +52,7 @@ class TransactionEditViewStore extends BaseEditViewStore {
                 },
                 {
                     key: 'description',
-                    title: 'RECONCILE.LIST.COLUMNS.OLD_CHECK_DESCRIPTION_LABEL'
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.OLD_CHECK_DESCRIPTION_LABEL'
                 }
             ]
         });

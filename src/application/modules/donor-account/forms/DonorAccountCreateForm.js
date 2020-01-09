@@ -2,6 +2,7 @@ import { FormBase } from 'core/components';
 import {
     donorAccountSettingsFormProperties
 } from 'application/donor-account/forms';
+import moment from 'moment';
 
 export default class DonorAccountCreateForm extends FormBase {
     constructor(hooks) {
@@ -22,6 +23,19 @@ export default class DonorAccountCreateForm extends FormBase {
                     label: 'DONOR_ACCOUNT.CREATE.HOW_DID_YOU_HEAR_ABOUT_US_LABEL',
                     placeholder: 'DONOR_ACCOUNT.CREATE.HOW_DID_YOU_HEAR_ABOUT_US_PLACEHOLDER',
                     rules: 'required|string'
+                },
+                {
+                    name: 'howDidYouHearAboutUsDescription',
+                    label: 'DONOR_ACCOUNT.CREATE.HOW_DID_YOU_HEAR_ABOUT_US_DESCRIPTION_LABEL',
+                    placeholder: 'DONOR_ACCOUNT.CREATE.HOW_DID_YOU_HEAR_ABOUT_US_DESCRIPTION_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'dateOfBirth',
+                    label: 'DONOR_ACCOUNT.CREATE.DATE_OF_BIRTH_LABEL',
+                    placeholder: 'DONOR_ACCOUNT.CREATE.DATE_OF_BIRTH_PLACEHOLDER',
+                    rules: `required|before_or_equal_date:${moment().format('YYYY-MM-DD')}`,
+                    type: 'required|date'
                 },
                 {
                     name: 'activationUrl',

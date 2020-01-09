@@ -24,6 +24,13 @@ export const donorAccountEmailAddressFormProperties = {
             placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.PRIMARY_PLACEHOLDER',
             rules: 'boolean',
             type: 'checkbox'
+        },
+        {
+            name: 'isNotifyEnabled',
+            label: 'EMAIL_ADDRESS.EDIT.FIELDS.NOTIFY_LABEL',
+            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.NOTIFY_PLACEHOLDER',
+            rules: 'boolean',
+            type: 'checkbox'
         }
     ]
 }

@@ -5,7 +5,8 @@
             "full": "LLL",
             "full-time-offset": "LTS Z",
             "kendo-input-short": "M/d/y",
-            "kendo-input-medium": "M/d/y hh:mm"
+            "kendo-input-medium": "M/d/y hh:mm",
+            "full-date": "MMMM, dddd, MM/DD/YYYY"
         }
     },
     "HEADER": {
@@ -505,6 +506,10 @@
             "SECURITY_PIN_PLACEHOLDER": "Security pin",
             "ACCOUNT_TYPE_LABEL": "Type",
             "ACCOUNT_TYPE_PLACEHOLDER": "Type",
+            "HOW_DID_YOU_HEAR_ABOUT_US_DESCRIPTION_LABEL": "Short description how you heard about us",
+            "HOW_DID_YOU_HEAR_ABOUT_US_DESCRIPTION_PLACEHOLDER": "Short description",
+            "DATE_OF_BIRTH_LABEL": "Date of birth",
+            "DATE_OF_BIRTH_PLACEHOLDER": "Date of birth",
             "CONTACT_INFO_FIELDS": {
                 "TITLE": "Contact info"
             },
@@ -615,7 +620,8 @@
             "TITLE": "Email addresses",
             "COLUMNS": {
                 "EMAIL_LABEL": "Email",
-                "PRIMARY_LABEL": "Primary"
+                "PRIMARY_LABEL": "Primary",
+                "NOTIFY_LABEL": "Notifications enabled"
             },
             "EMPTY_STATE": {
                 "TITLE": "No email addresses",
@@ -643,7 +649,9 @@
                 "EMAIL_LABEL": "Email",
                 "EMAIL_PLACEHOLDER": "Email",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "NOTIFY_LABEL": "Enable notifications",
+                "NOTIFY_PLACEHOLDER": "Enable notifications"
             }
         }
     },
@@ -1749,28 +1757,35 @@
         }
     },
     "RECONCILE": {
-        "LIST": {
-            "TITLE": "Checks",
-            "COLUMNS": {
-                "AMOUNT_LABEL": "Amount",
-                "CHECK_NUMBER_LABEL": "Check number",
-                "CHARITY_NAME_LABEL": "Charity",
-                "DATE_CREATED_LABEL": "Date created",
-                "DESCRIPTION_LABEL": "Description",
-                "OLD_CHECK_NUMBER_LABEL": "Check number",
-                "OLD_CHECK_DATE_CREATED_LABEL": "Date",
-                "OLD_CHECK_DESCRIPTION_LABEL": "Description"
+        "CHECK": {
+            "LIST": {
+                "TITLE": "Checks",
+                "COLUMNS": {
+                    "AMOUNT_LABEL": "Amount",
+                    "CHECK_NUMBER_LABEL": "Check number",
+                    "CHARITY_NAME_LABEL": "Charity",
+                    "DATE_CREATED_LABEL": "Date created",
+                    "DESCRIPTION_LABEL": "Description",
+                    "OLD_CHECK_NUMBER_LABEL": "Check number",
+                    "OLD_CHECK_DATE_CREATED_LABEL": "Date",
+                    "OLD_CHECK_DESCRIPTION_LABEL": "Description"
+                },
+                "EMPTY_STATE": {
+                    "TITLE": "No checks"
+                },
+                "BUTTON": {
+                    "EDIT": "Edit",
+                    "PREVIEW": "Preview",
+                    "CASH": "Cash"
+                }
             },
-            "EMPTY_STATE": {
-                "TITLE": "No checks"
-            }
-        },
-        "EDIT": {
-            "FIELDS": {
-                "TRANSACTION_DESCRIPTION_LABEL": "Description",
-                "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
-                "NEW_CHECK_NUMBER_LABEL": "New check number",
-                "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number"
+            "EDIT": {
+                "FIELDS": {
+                    "TRANSACTION_DESCRIPTION_LABEL": "Description",
+                    "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
+                    "NEW_CHECK_NUMBER_LABEL": "New check number",
+                    "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number"
+                }
             }
         }
     },

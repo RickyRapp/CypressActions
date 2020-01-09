@@ -14,7 +14,7 @@ import { CheckList } from 'application/reconcile/pages';
                         component: CheckList,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
-                            title: "CHECK.LIST.TITLE"
+                            title: 'RECONCILE.CHECK.LIST.TITLE'
                         }
                     }
                 ]

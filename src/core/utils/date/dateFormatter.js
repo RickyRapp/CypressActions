@@ -5,6 +5,7 @@ class DateFormatter {
     format(date, format, timeZone = null) {
         let dateFormat = this.map(format);
         let momentDate = moment.isMoment(date) ? date : moment(date);
+
         if (timeZone) {
             momentDate = moment.tz(momentDate, timeZone);
         }

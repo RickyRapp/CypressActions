@@ -3,6 +3,8 @@ import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ReconcileService } from 'application/reconcile/services';
 import { CheckListFilter } from 'application/reconcile/models';
 import { ModalParams } from 'core/models';
+import { isSome } from 'core/utils';
+import { TransactionEditForm } from '../forms';
 
 class CheckViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -36,11 +38,11 @@ class CheckViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'paymentNumber',
-                    title: 'RECONCILE.LIST.COLUMNS.CHECK_NUMBER_LABEL'
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.CHECK_NUMBER_LABEL'
                 },
                 {
                     key: 'paymentTransaction.amount',
-                    title: 'RECONCILE.LIST.COLUMNS.AMOUNT_LABEL',
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency',
                         value: '$'
@@ -48,15 +50,15 @@ class CheckViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'charity.name',
-                    title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL'
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.CHARITY_NAME_LABEL'
                 },
                 {
                     key: 'description',
-                    title: 'RECONCILE.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.DESCRIPTION_LABEL'
                 },
                 {
                     key: 'dateCreated',
-                    title: 'RECONCILE.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'RECONCILE.CHECK.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
@@ -65,12 +67,16 @@ class CheckViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (transaction) => this.openEditModal(transaction),
+                onCash: (transaction) => this.cashConfirm(transaction),
                 onPreview: (transaction) => this.openPreviewModal(transaction),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onEditRender: (transaction) => {
                     return !transaction.checkCashed;
+                },
+                onCashRender: (transaction) => {
+                    return !isSome(transaction.checkCashed);
                 },
                 onPreviewRender: (transaction) => {
                     return transaction.checkCashed && transaction.json;
@@ -95,6 +101,21 @@ class CheckViewStore extends BaseListViewStore {
         this.previewModal.open({
             transaction: transaction
         });
+    }
+
+    @action.bound
+    async cashConfirm(transaction) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to mark transaction as cashed?`,
+            async () => {
+                let form = new TransactionEditForm();
+                form.$('checkCashed').set(true);
+                const service = new ReconcileService(this.rootStore.application.baasic.apiClient);
+                await service.checkUpdate({ id: transaction.id, ...form.values() });
+                await this.queryUtility.fetch();
+                this.rootStore.notificationStore.success('Successfully cashed transaction');
+            }
+        );
     }
 }
 

@@ -74,7 +74,7 @@ class Step3ViewStore extends BaseEditViewStore {
 
     @action.bound
     async loadConnection() {
-        const connection = $.hubConnection(ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr');
+        const connection = $.hubConnection(ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + '/signalr'); //eslint-disable-line
         const sessionHubProxy = connection.createHubProxy('sessionHub');
         sessionHubProxy.on('newCertificate', this.onAddedNewCertificate);
 
@@ -86,7 +86,7 @@ class Step3ViewStore extends BaseEditViewStore {
                     }, this));
             }, this))
             .fail(function (data) {
-                console.log(data);
+                console.log(data);//eslint-disable-line
             });
     }
 

@@ -11,13 +11,13 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
 
     formEmailAddress = new DonorAccountEmailAddressEditForm({
         onSuccess: async form => {
-            const { id, email, description } = form.values();
+            const { id, email, description, isNotifyEnabled } = form.values();
 
             if (id) {
-                await this.updateEmailAddressAsync({ id, email, description });
+                await this.updateEmailAddressAsync({ id, email, description, isNotifyEnabled });
             }
             else {
-                await this.createEmailAddressAsync({ email, description });
+                await this.createEmailAddressAsync({ email, description, isNotifyEnabled });
             }
         }
     });
@@ -61,6 +61,14 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
                 {
                     key: 'isPrimary',
                     title: 'EMAIL_ADDRESS.LIST.COLUMNS.PRIMARY_LABEL',
+                    format: {
+                        type: 'boolean',
+                        value: 'yes-no'
+                    }
+                },
+                {
+                    key: 'isNotifyEnabled',
+                    title: 'EMAIL_ADDRESS.LIST.COLUMNS.NOTIFY_LABEL',
                     format: {
                         type: 'boolean',
                         value: 'yes-no'

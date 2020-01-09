@@ -48,6 +48,7 @@ class DonorAccountCreateViewStore extends BaseEditViewStore {
                     }
 
                     item.coreUser.json = JSON.stringify({ middleName: item.coreUser.middleName, prefixTypeId: item.coreUser.prefixTypeId });
+                    item.dateOfBirth = new Date(Date.UTC(item.dateOfBirth.getFullYear(), item.dateOfBirth.getMonth() + 1, item.dateOfBirth.getDate()));
                     await service.create(item);
                 }
             },

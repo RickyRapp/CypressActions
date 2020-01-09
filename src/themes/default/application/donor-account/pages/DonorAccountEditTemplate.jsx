@@ -7,7 +7,8 @@ import {
     BaasicFormControls,
     NumericInputField,
     EditFormContent,
-    NumberFormatInputField
+    NumberFormatInputField,
+    Date
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
@@ -53,6 +54,15 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <BasicInput field={form.$('lastName')} />
+                                    </div>
+                                    <div className="form__group col col-lrg-3">
+                                        <div>
+                                            <label className="form__group__label">Date of birth</label>
+                                            {item &&
+                                                <span className={"input input--med input--text input--disabled"}>
+                                                    <Date format="full-date" value={item.dateOfBirth} />
+                                                </span>}
+                                        </div>
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <BasicInput field={form.$('fundName')} />

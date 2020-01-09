@@ -61,8 +61,8 @@ CheckListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onPreview } = actions;
-    if (!isSome(onEdit) && !isSome(onPreview)) return null;
+    const { onEdit, onPreview, onCash } = actions;
+    if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCash)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -78,6 +78,13 @@ function renderActions({ item, actions, actionsRender }) {
         }
     }
 
+    let cashRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onCashRender) {
+            cashRender = actionsRender.onCashRender(item);
+        }
+    }
+
     return (
         <td className="table__body--data right">
             <div className="table__icons">
@@ -85,7 +92,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
-                        label='SESSION.LIST.BUTTON.EDIT'
+                        label='RECONCILE.CHECK.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
@@ -94,9 +101,18 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--preview u-icon--sml'
-                        label='SESSION.LIST.BUTTON.EDIT'
+                        label='RECONCILE.CHECK.LIST.BUTTON.PREVIEW'
                         onlyIcon={true}
                         onClick={() => onPreview(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onCash) && cashRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--approved u-icon--sml'
+                        label='RECONCILE.CHECK.LIST.BUTTON.CASH'
+                        onlyIcon={true}
+                        onClick={() => onCash(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

@@ -8,6 +8,7 @@ import {
     SimpleBaasicTable
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import { renderIf } from 'core/utils';
 
 const TransactionEditTemplate = function ({ transactionEditViewStore }) {
     const {
@@ -36,9 +37,6 @@ const TransactionEditTemplate = function ({ transactionEditViewStore }) {
                         <h3>Voided checks</h3>
                         <SimpleBaasicTable tableStore={tableStore} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                        <BasicTextArea field={form.$('description')} rows={2} />
-                    </div>
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                         <BasicCheckbox
                             id='1'
@@ -52,11 +50,15 @@ const TransactionEditTemplate = function ({ transactionEditViewStore }) {
                             onChange={(event) => onChangeVoid(event.target.checked)}
                             label='Void'
                         />
+                        {renderIf(form.$('checkCashed').localizedError)(<div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Select either Cashed or Void.</div>)}
                     </div>
                     {form.$('checkCashed').value === false &&
-                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                        <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                             <BasicInput field={form.$('newCheckNumber')} />
                         </div>}
+                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                        <BasicTextArea field={form.$('description')} rows={2} />
+                    </div>
                 </div>
                 {renderEditLayoutFooterContent({ form })}
             </section>

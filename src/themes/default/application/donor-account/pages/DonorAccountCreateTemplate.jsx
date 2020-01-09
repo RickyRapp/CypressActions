@@ -7,7 +7,8 @@ import {
     BaasicFormControls,
     NumericInputField,
     EditFormContent,
-    NumberFormatInputField
+    NumberFormatInputField,
+    DatePickerField
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
@@ -57,6 +58,9 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     <div className="form__group col col-lrg-3">
                                         <BasicInput field={form.$('coreUser.lastName')} />
                                     </div>
+                                    <div className="form__group col col-sml-6 col-lrg-3">
+                                        <DatePickerField field={form.$('dateOfBirth')} />
+                                    </div>
                                     <div className="form__group col col-lrg-3">
                                         <BasicInput
                                             field={form.$('fundName')}
@@ -68,6 +72,9 @@ function DonorAccountCreateTemplate({ donorAccountCreateViewStore }) {
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <BaasicFieldDropdown field={form.$('howDidYouHearAboutUsId')} store={howDidYouHearAboutUsDropdownStore} />
+                                    </div>
+                                    <div className="form__group col col-lrg-3">
+                                        <BasicInput field={form.$('howDidYouHearAboutUsDescription')} />
                                     </div>
                                     {isPremium &&
                                         <div className="form__group col col-lrg-3">
