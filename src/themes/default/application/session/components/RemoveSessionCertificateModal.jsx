@@ -18,7 +18,6 @@ const RemoveSessionCertificateModal = function ({ modalParams, t, makeRefund, ma
     } = modalParams.data;
 
     const bookletOrder = sessionCertificate.certificate.booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder;
-
     const denominationType = sessionCertificate.certificate.booklet.denominationType;
 
     let total = 0;

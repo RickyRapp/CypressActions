@@ -12,8 +12,9 @@ export { default as PageContentSidebarTemplate } from './page/PageContentSidebar
 
 export { default as EditFormLayoutTemplate } from './EditFormLayoutTemplate';
 export { default as ListLayoutTemplate } from './ListLayoutTemplate';
+export { default as PreviewLayoutTemplate } from './PreviewLayoutTemplate';
 export { default as TabMenuLayoutTemplate } from './TabMenuLayoutTemplate';
-export {default as TabLayoutTemplate} from './TabLayoutTemplate';
+export { default as TabLayoutTemplate } from './TabLayoutTemplate';
 export { default as LanguageEditLayoutTemplate } from './LanguageEditLayoutTemplate';
 export { default as ListSelectLayoutTemplate } from './ListSelectLayoutTemplate';
 export { default as ContentTemplate } from './ContentTemplate';

@@ -18,7 +18,6 @@ const GroupedDonationListTemplate = function ({ groupedDonationViewStore }) {
         routes,
         queryUtility,
         authorization,
-        donationStatusDropdownStore,
         searchCharityDropdownStore
     } = groupedDonationViewStore;
 
@@ -30,12 +29,6 @@ const GroupedDonationListTemplate = function ({ groupedDonationViewStore }) {
                         <TableFilter queryUtility={queryUtility}>
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicDropdown store={searchCharityDropdownStore} />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={donationStatusDropdownStore}
-                                    placeholder='DONATION.LIST.FILTER.DONATION_STATUS_PLACEHOLDER'
-                                />
                             </div>
                         </TableFilter>
                     </div>

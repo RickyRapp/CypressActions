@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
-import {action, computed, observable} from 'mobx';
-import {TableViewStore} from 'core/stores';
-import {TableSelectColumnCell, TableSelectColumnHeader} from 'core/components';
+import { action, computed, observable } from 'mobx';
+import { TableViewStore } from 'core/stores';
+import { TableSelectColumnCell, TableSelectColumnHeader } from 'core/components';
 
 class SelectTableViewStore extends TableViewStore {
     isBatchSelect = true;
@@ -19,7 +19,9 @@ class SelectTableViewStore extends TableViewStore {
     @observable selectedItems = [];
 
     @action setGlobalCheck = (value) => this.globalCheck = value;
-    @action setSelectedItems = (value) => this.selectedItems = value;
+    @action setSelectedItems = (value) => {
+        this.selectedItems = value;
+    };
 }
 
 /* eslint-disable */
@@ -28,7 +30,7 @@ function getSelectConfiguration(getStore, config) {
         columns: [{
             width: '50px',
             headerCell: function () {
-                return <TableSelectColumnHeader tableStore={getStore()}/>
+                return <TableSelectColumnHeader tableStore={getStore()} />
             },
             cell: function ({ dataItem, dataIndex, ...props }) {
                 return <TableSelectColumnCell tableStore={getStore()} dataItem={dataItem} dataIndex={dataIndex} {...props} />

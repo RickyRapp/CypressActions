@@ -38,6 +38,14 @@ class GrantViewStore extends BaseListViewStore {
                         }
                     );
                 },
+                preview: (editId) => {
+                    this.rootStore.routerStore.goTo(
+                        'master.app.main.grant.preview',
+                        {
+                            editId: editId
+                        }
+                    );
+                },
                 create: () => {
                     if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
@@ -52,7 +60,7 @@ class GrantViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
-                    this.grantStatusDropdownStore.setValue(null);
+                    this.donationStatusDropdownStore.setValue(null);
                     this.searchDonorAccountDropdownStore.setValue(null);
                 }
             },
@@ -60,28 +68,25 @@ class GrantViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'donation',
-                            'donation.donationStatus',
-                            'donation.charity',
+                            'charity',
                             'grantPurposeType',
                             'createdByCoreUser',
                             'donorAccount',
                             'donorAccount.coreUser',
                             'donorAccount.companyProfile',
-                            'grantStatus',
+                            'donationStatus',
                             'grantScheduledPayment'
                         ];
                         params.fields = [
                             'id',
-                            'donation',
-                            'donation.charity',
-                            'donation.charity.name',
+                            'charity',
+                            'charity.name',
                             'donorAccount',
                             'donorAccount.id',
                             'donorAccount.donorName',
                             'amount',
                             'confirmationNumber',
-                            'grantStatus',
+                            'donationStatus',
                             'grantPurposeType',
                             'dateCreated',
                             'scheduledGrantPayment'
@@ -104,7 +109,7 @@ class GrantViewStore extends BaseListViewStore {
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
-                    key: 'donation.charity.name',
+                    key: 'charity.name',
                     title: 'GRANT.LIST.COLUMNS.DONATION_CHARITY_LABEL',
                 },
                 {
@@ -120,7 +125,7 @@ class GrantViewStore extends BaseListViewStore {
                     title: 'GRANT.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
                 },
                 {
-                    key: 'grantStatus.name',
+                    key: 'donationStatus.name',
                     title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
                 },
                 {
@@ -139,11 +144,12 @@ class GrantViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (grant) => this.routes.edit(grant.donorAccount.id, grant.id),
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
+                onPreview: (grant) => this.routes.preview(grant.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onEditRender: (grant) => {
-                    if (grant.grantStatus.abrv === 'pending') {
+                    if (grant.donationStatus.abrv === 'pending') {
                         if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
@@ -229,17 +235,17 @@ class GrantViewStore extends BaseListViewStore {
                 }
             });
 
-        this.grantStatusDropdownStore = new BaasicDropdownStore({
+        this.donationStatusDropdownStore = new BaasicDropdownStore({
             multi: true
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-status');
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'donation-status');
                     const response = await service.getAll();
                     return response.data;
                 },
-                onChange: (grantStatus) => {
-                    this.queryUtility.filter['grantStatusIds'] = _.map(grantStatus, (status) => { return status.id });
+                onChange: (donationStatus) => {
+                    this.queryUtility.filter['donationStatusIds'] = _.map(donationStatus, (status) => { return status.id });
                 }
             });
 

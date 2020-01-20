@@ -18,6 +18,7 @@ export { default as applicationContext } from './applicationContext';
 export { default as uuid } from './uuid';
 export { default as transformToArray } from './transformToArray';
 export { default as SelectItems } from './selectItems';
+export { default as compileAuthorization } from './compileAuthorization';
 
 // Templates
 export { default as renderIf } from './templates/renderIf';

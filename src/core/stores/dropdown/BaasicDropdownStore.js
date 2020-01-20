@@ -95,7 +95,6 @@ class BaasicDropdownStore {
         }
 
         reaction(() => this.filterTerm, term => {
-            //console.log('filter reaction');
             this.actions.onFilter(term);
         }, {
             delay: this.options.filterDebounce,

@@ -125,7 +125,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
                 'donorName',
                 'accountTypeId',
                 'availableBalance',
-                'initialContribution',
+                'isInitialContributionDone',
                 'lineOfCredit',
                 'grantFeePercentage',
                 'grantMinimumAmount',

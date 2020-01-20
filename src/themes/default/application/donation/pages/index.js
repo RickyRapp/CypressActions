@@ -1,2 +1,3 @@
 export { default as GroupedDonationListTemplate } from './GroupedDonationListTemplate'
-export { default as DonationOverviewTemplate } from './DonationOverviewTemplate'
+export { default as DonationReviewTemplate } from './DonationReviewTemplate'
+export { default as CharityProcessedDonationTemplate } from './CharityProcessedDonationTemplate'

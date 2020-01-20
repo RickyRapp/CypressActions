@@ -17,6 +17,7 @@ export { default as TableSelectColumnCell } from './table/TableSelectColumnCell'
 export { default as TableSelectColumnHeader } from './table/TableSelectColumnHeader';
 export { default as BaasicTableNoRecords } from './table/BaasicTableNoRecords';
 export { default as BaasicTableWithRowDetails } from './table/BaasicTableWithRowDetails';
+export { default as SimpleBaasicTableWithRowDetails } from './table/SimpleBaasicTableWithRowDetails';
 export { default as BaasicTableRowDetail } from './table/BaasicTableRowDetail';
 export { default as TableFilter } from './table/TableFilter';
 export { default as TableDateColumnCell } from './table/TableDateColumnCell';
@@ -93,6 +94,7 @@ export { default as EmptyState } from './empty-state/EmptyState';
 
 export { default as EditFormContent } from './content/EditFormContent';
 export { default as ListContent } from './content/ListContent';
+export { default as PreviewContent } from './content/PreviewContent';
 
 export { default as SessionExpireModal } from './SessionExpireModal';
 

@@ -9,8 +9,16 @@ export default class DonationReviewForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'donationIds',
-                    rules: 'string' //it's not required so we can easier show error message with warning in onSuccess method
+                    name: 'grantIds',
+                    rules: 'string'
+                },
+                {
+                    name: 'sessionIds',
+                    rules: 'string'
+                },
+                {
+                    name: 'charityId',
+                    rules: 'required|string'
                 },
                 {
                     name: 'paymentTypeId',

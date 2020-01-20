@@ -37,8 +37,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                             'certificate.booklet.donorAccount.companyProfile',
                             'certificate.booklet.donorAccount.coreUser',
                             'session',
-                            'session.donation',
-                            'session.donation.charity'
+                            'session.charity'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -58,7 +57,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                     visible: !this.isDonorUser
                 },
                 {
-                    key: 'session.donation.charity.name',
+                    key: 'session.charity.name',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
                     visible: !this.isCharityUser
                 },

@@ -3,6 +3,7 @@ import { applicationContext } from 'core/utils';
 import { GrantEditForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
+import moment from 'moment';
 
 @applicationContext
 class GrantEditViewStore extends GrantBaseViewStore {
@@ -21,8 +22,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
                     get: async (id) => {
                         let params = {
                             embed: [
-                                'donation',
-                                'donation.charity',
+                                'charity',
                                 'grantPurposeType',
                                 'grantAcknowledgmentType'
                             ],
@@ -36,12 +36,10 @@ class GrantEditViewStore extends GrantBaseViewStore {
                                 'additionalInformation',
                                 'purposeMemberName',
                                 'charityEventAttending',
-                                'donation',
-                                'donation.charity'
+                                'charity'
                             ]
                         }
                         let response = await service.get(id, params);
-                        response.data.charity = response.data.donation.charity;
                         return response.data;
                     }
                 }
@@ -80,6 +78,14 @@ class GrantEditViewStore extends GrantBaseViewStore {
     @action.bound
     setFormDefaultValues() {
         this.donorName = this.donorAccount.donorName;
+
+        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+            const dateToEdit = moment(this.item.dateCreated).add('minutes', 15);
+            if (!moment().isBetween(this.item.dateCreated, dateToEdit)) {
+                this.rootStore.notificationStore.warning('Time expired for editing.');
+                this.rootStore.routerStore.goTo('master.app.main.grant.preview', { editId: this.id });
+            }
+        }
     }
 }
 

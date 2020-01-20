@@ -17,6 +17,8 @@ class CharityFormatter {
             }
             case 'tax-id':
                 return value.slice(0, 2) + "-" + value.slice(2);
+            case 'name-taxid':
+                return `${value.name}, ${value.taxId.slice(0, 2) + "-" + value.taxId.slice(2)}`;
             default:
                 break;
         }

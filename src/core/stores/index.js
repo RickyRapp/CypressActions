@@ -8,6 +8,7 @@ export { default as AuthStore } from './AuthStore';
 export { default as ErrorStore } from './ErrorStore';
 export { default as NotificationStore } from './NotificationStore';
 export { default as BaseListViewStore } from './base/BaseListViewStore';
+export { default as BasePreviewViewStore } from './base/BasePreviewViewStore';
 export { default as BaseEditViewStore } from './base/BaseEditViewStore';
 export { default as BaasicTreeViewStore } from './tree/BaasicTreeViewStore';
 export { default as BaseTreeViewStore } from './base/BaseTreeViewStore';

@@ -8,7 +8,7 @@ class GrantListFilter extends FilterParams {
     @observable confirmationNumber;
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
-    @observable grantStatusIds;
+    @observable donationStatusIds;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -26,7 +26,7 @@ class GrantListFilter extends FilterParams {
         this.confirmationNumber = null;
         this.dateCreatedStartDate = null;
         this.dateCreatedEndDate = null;
-        this.grantStatusIds = null;
+        this.donationStatusIds = null;
     }
 }
 

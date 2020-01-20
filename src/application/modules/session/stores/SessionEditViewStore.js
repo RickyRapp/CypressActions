@@ -33,9 +33,8 @@ class SessionEditViewStore extends BaseEditViewStore {
                     get: async (id) => {
                         let params = {
                             embed: [
-                                'sessionStatus',
-                                'donation',
-                                'donation.charity',
+                                'donationStatus',
+                                'charity',
                                 'sessionCertificates',
                                 'sessionCertificates.certificate',
                                 'sessionCertificates.certificate.certificateStatus',
@@ -49,8 +48,8 @@ class SessionEditViewStore extends BaseEditViewStore {
                         }
                         let response = await service.get(id, params);
                         this.session = response.data;
-                        if (response.data.donation) {
-                            response.data.charity = response.data.donation.charity;
+                        if (response.data) {
+                            response.data.charity = response.data.charity;
                         }
                         this.tableStore.setData(response.data.sessionCertificates)
                         return response.data;
@@ -157,7 +156,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                 this.getResource(this.id)
             ]);
 
-            if (this.session.sessionStatus.abrv !== 'pending') {
+            if (this.session.donationStatus.abrv !== 'pending') {
                 await this.rootStore.routerStore.goBack();
                 this.rootStore.notificationStore.warning('SESSION.EDIT.NOT_IN_STATUS_FOR_EDIT_WARNING');
             }

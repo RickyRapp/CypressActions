@@ -24,7 +24,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
         authorization,
         selectDonorModal,
         searchDonorAccountDropdownStore,
-        grantStatusDropdownStore,
+        donationStatusDropdownStore,
         exportConfig
     } = grantViewStore;
 
@@ -58,7 +58,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
                             </div> */}
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicDropdown
-                                    store={grantStatusDropdownStore}
+                                    store={donationStatusDropdownStore}
                                     placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
                                 />
                             </div>
@@ -97,8 +97,8 @@ GrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onRedirect } = actions;
-    if (!isSome(onEdit) && !isSome(onRedirect)) return null;
+    const { onEdit, onRedirect, onPreview } = actions;
+    if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -133,6 +133,15 @@ function renderActions({ item, actions, actionsRender }) {
                         label='GRANT.LIST.BUTTON.REDIRECT'
                         onlyIcon={true}
                         onClick={() => onRedirect(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onPreview) ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--preview u-icon--sml'
+                        label='GRANT.LIST.BUTTON.PREVIEW'
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

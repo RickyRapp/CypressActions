@@ -89,6 +89,7 @@ export { default as EmptyStateTemplate } from './EmptyState';
 export { default as EditFormContentTemplate } from './content/EditFormContentTemplate';
 export { default as ListContentTemplate } from './content/ListContentTemplate';
 export { default as TabContentTemplate } from './content/TabContentTemplate';
+export { default as PreviewContentTemplate } from './content/PreviewContentTemplate';
 
 export { default as SessionExpireModalTemplate } from './SessionExpireModal';
 

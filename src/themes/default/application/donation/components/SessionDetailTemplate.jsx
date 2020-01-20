@@ -35,8 +35,7 @@ const SessionDetailTemplate = function ({ item }) {
         ]
     });
 
-    const session = item.sessions[0];
-    tableStore.setData(session.sessionCertificates)
+    tableStore.setData(item.sessionCertificates)
 
     return (
         <React.Fragment>
@@ -44,25 +43,25 @@ const SessionDetailTemplate = function ({ item }) {
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Organization Name/Email/Tax ID</label>
                     <span className={"input input--med input--text input--disabled"}>
-                        {session.charityName} / {session.charityEmail || '-'} / {session.taxId || '-'}
+                        {item.charityName} / {item.charityEmail || '-'} / {item.taxId || '-'}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Full name</label>
                     <span className={"input input--med input--text input--disabled"}>
-                        {session.fullName}
+                        {item.fullName}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Phone number</label>
                     <span className={"input input--med input--text input--disabled"}>
-                        {session.phoneNumber}
+                        {item.phoneNumber}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Email</label>
                     <span className={"input input--med input--text input--disabled"}>
-                        {session.email}
+                        {item.email}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">

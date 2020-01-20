@@ -144,6 +144,7 @@
     "BREADCRUMBS": {
         "CREATE": "Create",
         "EDIT": "Edit",
+        "PREVIEW": "Preview",
         "SETTINGS": "Settings",
         "LANGUAGE": "Localization"
     },
@@ -181,6 +182,11 @@
         "CANCEL": "Cancel",
         "LANGUAGES": "Translation",
         "DELETE": "Delete"
+    },
+    "PREVIEW_LAYOUT": {
+        "NEW": "New",
+        "EDIT_BUTTON": "Edit",
+        "CANCEL_BUTTON": "Cancel"
     },
     "APPLICATION_EDIT_LAYOUT": {
         "EMPTY_STATE_TITLE": "Application Not Selected",
@@ -1099,7 +1105,7 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "GRANT_STATUS_NAME_LABEL": "Status",
-                "DONATION_CHARITY_LABEL": "Charity",
+                "CHARITY_LABEL": "Charity",
                 "GRANT_PURPOSE_TYPE_LABEL": "Purpose"
             },
             "FILTER": {
@@ -1118,6 +1124,19 @@
                 "CREATE": "Create",
                 "DELETE": "Delete",
                 "REVIEW": "Review"
+            }
+        },
+        "PREVIEW": {
+            "TITLE": "Grants",
+            "FIELDS": {
+                "CHARITY_LABEL": "Charity",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "STATUS_NAME_LABEL": "Status",
+                "PURPOSE_TYPE_LABEL": "Purpose",
+                "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
+                "DONOR_NAME_LABEL": "Donor"
             }
         },
         "CREATE": {
@@ -1171,7 +1190,7 @@
     "DONATION": {
         "LIST": {
             "TITLE": "Donations",
-            "GROUPED_TITLE": "Donations to charity",
+            "GROUPED_TITLE": "Pending donations to charity",
             "OVERVIEW_TITLE": "Charity donations",
             "COLUMNS": {
                 "CHARITY_NAME_LABEL": "Charity",

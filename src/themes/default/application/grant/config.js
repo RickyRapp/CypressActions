@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantList, GrantCreate, GrantEdit } from 'application/grant/pages';
+import { GrantList, GrantCreate, GrantEdit, GrantPreview } from 'application/grant/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -33,6 +33,15 @@ import { GrantList, GrantCreate, GrantEdit } from 'application/grant/pages';
                         authorization: 'theDonorsFundGrantSection.update',
                         data: {
                             title: "GRANT.EDIT.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.grant.preview',
+                        pattern: '/preview/:editId',
+                        component: GrantPreview,
+                        authorization: 'theDonorsFundGrantSection.read',
+                        data: {
+                            title: "GRANT.PREVIEW.TITLE"
                         }
                     }
                 ]

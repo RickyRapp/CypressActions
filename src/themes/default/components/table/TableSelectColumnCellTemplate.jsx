@@ -34,6 +34,9 @@ export default defaultTemplate(({ tableStore, dataItem, dataIndex }) => {
                     });
 
                     tableStore.setGlobalCheck(allChecked);
+                    if (tableStore.config && tableStore.config.onSetSelectedItems) {
+                        tableStore.config.onSetSelectedItems(tableStore.selectedItems);
+                    }
                 }}
             />
         </td>

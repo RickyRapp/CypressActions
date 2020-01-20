@@ -42,7 +42,7 @@ class SessionViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: () => {
                     this.paymentTypeDropdownStore.setValue(null);
-                    this.sessionStatusDropdownStore.setValue(null);
+                    this.donationStatusDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
@@ -51,9 +51,8 @@ class SessionViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'sessionStatus',
-                            'donation',
-                            'donation.charity',
+                            'donationStatus',
+                            'charity',
                             'sessionCertificates',
                             'sessionCertificates.certificate',
                             'sessionCertificates.certificate.booklet',
@@ -65,10 +64,9 @@ class SessionViewStore extends BaseListViewStore {
                         params.fields = [
                             'id',
                             'confirmationNumber',
-                            'donation',
-                            'donation.charity',
+                            'charity',
                             'amount',
-                            'sessionStatus',
+                            'donationStatus',
                             'dateCreated',
                         ]
                         const response = await service.find(params);
@@ -85,7 +83,7 @@ class SessionViewStore extends BaseListViewStore {
                     title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
                 },
                 {
-                    key: 'donation.charity.name',
+                    key: 'charity.name',
                     title: 'SESSION.LIST.COLUMNS.CHARITY_NAME_LABEL',
                 },
                 {
@@ -97,7 +95,7 @@ class SessionViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'sessionStatus.name',
+                    key: 'donationStatus.name',
                     title: 'SESSION.LIST.COLUMNS.STATUS_LABEL'
                 },
                 {
@@ -115,7 +113,7 @@ class SessionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (session) => {
-                    return session.sessionStatus.abrv === 'pending';
+                    return session.donationStatus.abrv === 'pending';
                 },
             }
         }));
@@ -179,17 +177,17 @@ class SessionViewStore extends BaseListViewStore {
                     this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
                 }
             });
-        this.sessionStatusDropdownStore = new BaasicDropdownStore({
+        this.donationStatusDropdownStore = new BaasicDropdownStore({
             multi: true
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'session-status');
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'donation-status');
                     const response = await service.getAll();
                     return response.data;
                 },
-                onChange: (sessionStatus) => {
-                    this.queryUtility.filter['sessionStatusIds'] = _.map(sessionStatus, (status) => { return status.id });
+                onChange: (donationStatus) => {
+                    this.queryUtility.filter['donationStatusIds'] = _.map(donationStatus, (status) => { return status.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();

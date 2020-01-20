@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { action, observable } from 'mobx';
-import { QueryUtility } from 'core/utils';
+import { QueryUtility, compileAuthorization } from 'core/utils';
 import { BaseViewStore, TableViewStore } from 'core/stores';
 
 class BaseListViewStore extends BaseViewStore {
@@ -181,26 +181,6 @@ class BaseListViewStore extends BaseViewStore {
             });
         }
     }
-}
-
-function compileAuthorization(authorization) {
-    let requestedAuth = _.isString(authorization)
-        ? authorization
-        : (_.isArray(authorization) && authorization.length === 1 ? authorization[0] : null);
-
-    let auth = {};
-    if (requestedAuth) {
-        const tokens = _.split(requestedAuth, '.');
-        if (tokens.length > 0) {
-            const section = _.toLower(tokens[0]);
-            auth.create = section + '.create';
-            auth.update = section + '.update';
-            auth.delete = section + '.delete';
-            auth.read = section + '.read';
-        }
-    }
-
-    return auth;
 }
 
 export default BaseListViewStore;

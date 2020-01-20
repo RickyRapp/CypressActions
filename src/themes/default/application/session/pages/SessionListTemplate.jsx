@@ -27,7 +27,7 @@ const SessionListTemplate = function ({ sessionViewStore, t }) {
         setScannerConnection,
         searchCharityDropdownStore,
         paymentTypeDropdownStore,
-        sessionStatusDropdownStore,
+        donationStatusDropdownStore,
         dateCreatedDateRangeQueryStore
     } = sessionViewStore;
 
@@ -75,7 +75,7 @@ const SessionListTemplate = function ({ sessionViewStore, t }) {
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicDropdown
-                                    store={sessionStatusDropdownStore}
+                                    store={donationStatusDropdownStore}
                                     placeholder='SESSION.LIST.FILTER.SESSION_STATUS_PLACEHOLDER'
                                 />
                             </div>

@@ -5,7 +5,7 @@ import { SimpleBaasicTable, BaasicButton } from 'core/components'
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
 
-const CombinedGrantDetailTemplate = function ({ item, editGrant }) {
+const CombinedGrantDetailTemplate = function ({ items, editGrant }) {
     const tableStore = new TableViewStore(null, {
         columns: [
             {
@@ -34,7 +34,7 @@ const CombinedGrantDetailTemplate = function ({ item, editGrant }) {
         },
     });
 
-    tableStore.setData(item.grants)
+    tableStore.setData(items)
 
     return (
         <SimpleBaasicTable
@@ -46,7 +46,7 @@ const CombinedGrantDetailTemplate = function ({ item, editGrant }) {
 };
 
 CombinedGrantDetailTemplate.propTypes = {
-    item: PropTypes.object.isRequired,
+    items: PropTypes.object.isRequired,
     editGrant: PropTypes.func.isRequired,
     t: PropTypes.func
 };
@@ -75,7 +75,7 @@ function renderActions({ item, actions }) {
 }
 
 renderActions.propTypes = {
-    item: PropTypes.object,
+    item: PropTypes.array,
     actions: PropTypes.object,
     editGrant: PropTypes.func
 };

@@ -12,8 +12,8 @@ class DonationService extends BaseService {
         return this.apiClient.put(url, resource);
     }
 
-    findOverview(filter) {
-        const url = this.routeService.findOverview(filter);
+    findOverview(params) {
+        const url = this.routeService.findOverview(params);
         return this.apiClient.get(url);
     }
 }

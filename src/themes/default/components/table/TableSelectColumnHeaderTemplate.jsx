@@ -12,6 +12,9 @@ export default defaultTemplate(({ tableStore }) => {
                 tableStore.setSelectedItems(
                     e.target.checked ? [...tableStore.data] : []
                 );
+                if (tableStore.config && tableStore.config.onSetSelectedItems) {
+                    tableStore.config.onSetSelectedItems(tableStore.selectedItems);
+                }
             }}
         />
     );
