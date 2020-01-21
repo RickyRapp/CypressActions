@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TabsHeader } from 'core/components';
-import {  PageNavigation, Content } from 'core/layouts';
+import { PageNavigation, Content } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 
 import _ from 'lodash';
@@ -23,13 +23,13 @@ const TabLayoutTemplate = function ({
         <Content isError={isError} loading={isLoading}>
             <div className='content'>
                 {/*TODO: insert page header?*/}
-                {showNavigation && <PageNavigation></PageNavigation>} 
-                
+                {showNavigation && <PageNavigation></PageNavigation>}
+
                 <TabsHeader tabsStore={store} >{children}</TabsHeader> {/* jshint ignore:line */}
                 {title}
 
                 {/* TODO: give parent route name? */}
-                
+
                 {renderTabsContent(activeIndex, children)}
             </div>
         </Content>
@@ -37,10 +37,10 @@ const TabLayoutTemplate = function ({
 };
 
 TabLayoutTemplate.propTypes = {
-   store: PropTypes.any,
-   title: PropTypes.string,
-   children: PropTypes.any,
-   showNavigation: PropTypes.bool
+    store: PropTypes.any,
+    title: PropTypes.string,
+    children: PropTypes.any,
+    showNavigation: PropTypes.bool
 };
 
 // vice-versa compatibility with settings props as well as using store

@@ -36,7 +36,6 @@ const ExportTemplate = function ({ store, t }) {
                 />
             </div>
         </div>
-
     );
 };
 

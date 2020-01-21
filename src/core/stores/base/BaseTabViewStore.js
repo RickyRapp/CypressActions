@@ -13,6 +13,7 @@ class BaseTabViewStore extends BaseViewStore {
     @action
     async handleTabClick(tabIndex) {
         this.activeIndex = tabIndex;
+        this.rootStore.routerStore.setQueryParams({ tab: this.activeIndex });
     }
 }
 
