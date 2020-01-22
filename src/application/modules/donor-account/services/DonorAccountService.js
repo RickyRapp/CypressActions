@@ -42,6 +42,18 @@ class DonorAccountService extends BaseService {
     const response = await this.apiClient.get(url);
     return response || null;
   }
+
+  async createThirdPartyWebsiteSetting(resource) {
+    const url = this.routeService.createThirdPartyWebsiteSetting(resource);
+    const response = await this.apiClient.post(url, resource);
+    return response || null;
+  }
+
+  async getThirdPartyWebsiteSetting(id) {
+    const url = this.routeService.getThirdPartyWebsiteSetting(id);
+    const response = await this.apiClient.get(url);
+    return response || null;
+  }
 }
 
 export default DonorAccountService;

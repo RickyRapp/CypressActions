@@ -10,3 +10,4 @@ export { default as DonorAccountBankAccountEditForm } from './DonorAccountBankAc
 export { default as ContactInfoForm } from './ContactInfoForm'
 export { default as DonorAccountPageHeaderOverview } from './DonorAccountPageHeaderOverview'
 export { default as SelectDonor } from './SelectDonor'
+export { default as DonorAccountThirdPartyWebsiteSetting } from './DonorAccountThirdPartyWebsiteSetting'

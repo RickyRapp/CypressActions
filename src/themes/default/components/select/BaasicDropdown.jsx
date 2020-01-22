@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { DropDownList, MultiSelect } from '@progress/kendo-react-dropdowns';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
+import { BaasicButton } from 'core/components';
 
 const BaasicDropdownTemplate = function (props) {
     const { store, t, placeholder, className, warningClassName, ...assignProps } = props;
@@ -88,31 +89,45 @@ const BaasicDropdownTemplate = function (props) {
     });
 
     return (
-        <Component
-            {...assignProps}
-            className={styleClasses}
-            data={_.filter(store.items, i => i.hideInDropdown !== true)}
-            textField={store.options.textField}
-            filter={store.filterTerm}
-            autoClose={store.options.autoClose}
-            dataItemKey={store.options.dataItemKey}
-            filterable={getFilterable()}
-            disabled={getDisabled()}
-            onFilterChange={onFilter}
-            onChange={onChange}
-            loading={store.loading}
-            onOpen={store.onOpen}
-            onClose={store.onClose}
-            value={getValue()}
-            label={
-                placeholder
-                    ? t(placeholder)
-                    : t(store.options.placeholder)
-            }
-            defaultItem={getDefaultItem()}
-            popupSettings={store.options.popupSettings}
-            ref={multiselect => multiselect && multiselect.setState({ focusedIndex: -1 })}
-        />
+        <React.Fragment>
+            <div className="u-pos--relative">
+                <Component
+                    {...assignProps}
+                    className={styleClasses}
+                    data={_.filter(store.items, i => i.hideInDropdown !== true)}
+                    textField={store.options.textField}
+                    filter={store.filterTerm}
+                    autoClose={store.options.autoClose}
+                    dataItemKey={store.options.dataItemKey}
+                    filterable={getFilterable()}
+                    disabled={getDisabled()}
+                    onFilterChange={onFilter}
+                    onChange={onChange}
+                    loading={store.loading}
+                    onOpen={store.onOpen}
+                    onClose={store.onClose}
+                    value={getValue()}
+                    label={
+                        placeholder
+                            ? t(placeholder)
+                            : t(store.options.placeholder)
+                    }
+                    defaultItem={getDefaultItem()}
+                    popupSettings={store.options.popupSettings}
+                    ref={multiselect => multiselect && multiselect.setState({ focusedIndex: -1 })}
+                />
+                {store.options.clearable &&
+                    <BaasicButton
+                        onClick={() => onChange({ target: { value: null } })}
+                        className="btn btn--icon datepicker__btn"
+                        icon='u-icon u-icon--unapproved--secondary u-icon--sml'
+                        label="DROPDOWN.CLEAR_BUTTON"
+                        onlyIcon
+                        value={null}
+                        disabled={getDisabled()}
+                    />}
+            </div>
+        </React.Fragment>
     )
 };
 

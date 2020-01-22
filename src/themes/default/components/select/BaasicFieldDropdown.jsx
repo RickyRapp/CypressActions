@@ -19,6 +19,9 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
                 field.set(value[store.options.dataItemKey]);
             }
         }
+        else {
+            field.clear();
+        }
         store.onChange(value);
     }
 

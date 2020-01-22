@@ -5,3 +5,4 @@ export { default as DonorAccountEmailAddressEditForm, donorAccountEmailAddressFo
 export { default as DonorAccountAddressEditForm, donorAccountAddressFormProperties } from './DonorAccountAddressEditForm'
 export { default as DonorAccountPhoneNumberEditForm, donorAccountPhoneNumberFormProperties } from './DonorAccountPhoneNumberEditForm'
 export { default as DonorAccountBankAccountEditForm, donorAccountBankAccountFormProperties } from './DonorAccountBankAccountEditForm'
+export { default as DonorAccountThirdPartyWebsiteSettingForm } from './DonorAccountThirdPartyWebsiteSettingForm'

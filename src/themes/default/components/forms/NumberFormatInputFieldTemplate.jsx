@@ -5,7 +5,7 @@ import { NumberFormatInput } from 'core/components';
 import { renderIf, isSome } from 'core/utils';
 import '@progress/kendo-react-intl'
 
-const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange }) => {
+const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange, onBlur }) => {
     const required = field.rules && field.rules.indexOf('required') !== -1;
 
     let mask = '';
@@ -29,6 +29,14 @@ const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = tru
         }
     }
 
+    const handleOnBlur = (event) => {
+        // field.onBlur(event.value); //onBlur is called in onValueChange (that's how is done in react-number-format) so there is no need to update field again.
+
+        if (onBlur) {
+            onBlur(event.target.value)
+        }
+    }
+
     return (
         <React.Fragment>
             <NumberFormatInput
@@ -41,6 +49,7 @@ const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = tru
                 disabled={disabled || field.disabled}
                 placeholder={field.placeholder}
                 onChange={handleOnChange}
+                onBlur={handleOnBlur}
                 defaultValue={null}
                 value={value}
             />

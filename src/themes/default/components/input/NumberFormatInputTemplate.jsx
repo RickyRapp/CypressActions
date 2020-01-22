@@ -3,31 +3,30 @@ import { defaultTemplate } from 'core/hoc';
 import NumberFormat from 'react-number-format';
 
 const NumberFormatInputTemplate = defaultTemplate((props) => {
-    const { t, value, onChange, format, mask, label, required, className, name, displayType,
-        thousandSeparator, prefix, type, placeholder, decimalScale, fixedDecimalScale, disabled } = props;
-    const showLabel = props.showLabel === undefined ? true : props.showLabel;
+    const { t, onChange, onBlur, required } = props;
 
     const requiredMark = required ? <span>*</span> : null;
     const handleFocus = (event) => { event.target.select(); }
 
     return (
         <div onFocus={handleFocus}>
-            {showLabel && <div className='form__group__label'>{t(label)}{requiredMark}</div>}
+            {props.showLabel && <div className='form__group__label'>{t(props.label)}{requiredMark}</div>}
             <NumberFormat
-                className={className}
-                name={name}
-                type={type}
-                format={format}
-                mask={mask}
+                className={props.className}
+                name={props.name}
+                type={props.type}
+                format={props.format}
+                mask={props.mask}
                 onValueChange={onChange}
-                value={value}
-                placeholder={placeholder ? t(placeholder) : format}
-                displayType={displayType}
-                thousandSeparator={thousandSeparator}
-                fixedDecimalScale={fixedDecimalScale}
-                decimalScale={decimalScale}
-                prefix={prefix}
-                disabled={disabled}
+                onBlur={onBlur}
+                value={props.value}
+                placeholder={props.placeholder ? t(props.placeholder) : props.format}
+                displayType={props.displayType}
+                thousandSeparator={props.thousandSeparator}
+                fixedDecimalScale={props.fixedDecimalScale}
+                decimalScale={props.decimalScale}
+                prefix={props.prefix}
+                disabled={props.disabled}
             />
         </div>
     )

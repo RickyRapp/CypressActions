@@ -48,6 +48,18 @@ class DonorAccountRouteService extends BaseRouteService {
   fundNameExists(fundName) {
     return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: fundName });
   }
+
+  getThirdPartyWebsiteSetting(id) {
+    return super.get('third-party-website-setting', id);
+  }
+
+  getThirdPartyWebsiteSetting(id) {
+    return super.get('third-party-website-setting/{id}', id);
+  }
+
+  createThirdPartyWebsiteSetting(resource) {
+    return super.create('third-party-website-setting', resource);
+  }
 }
 
 export default DonorAccountRouteService;

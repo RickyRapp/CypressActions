@@ -9,7 +9,8 @@ const NumberFormatInputField = function (props) {
 
 NumberFormatInputField.propTypes = {
     field: PropTypes.object.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
 };
 
 export default defaultTemplate(NumberFormatInputField);

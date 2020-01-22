@@ -187,7 +187,9 @@ class BaseEditViewStore extends BaseViewStore {
 
     onCreateError(error) {
         if (!this.errorActions.onCreateError) {
-            this.rootStore.notificationStore.error(null, error);
+            if (error) {
+                this.rootStore.notificationStore.error(null, error);
+            }
         }
         else {
             return this.errorActions.onCreateError(error)

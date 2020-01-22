@@ -204,6 +204,12 @@
         "SUCCESS_UPDATE": "Successfully updated resource language",
         "ERROR_UPDATE": "Error occurred while trying to update resource language"
     },
+    "DATEPICKER": {
+        "CLEAR_BUTTON": "Clear"
+    },
+    "DROPDOWN": {
+        "CLEAR_BUTTON": "Clear"
+    },
     "FORM_CONTROLS": {
         "SAVE_BUTTON": "Save"
     },
@@ -400,6 +406,7 @@
         "RECONCILE": "Reconcile",
         "CHECKS": "Checks",
         "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
+        "THIRD_PARTY_WEBSITE": "Third party websites",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -553,6 +560,23 @@
             "INITIAL_CONTRIBUTION_PLACEHOLDER": "Initial contribution",
             "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount",
             "CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER": "Contribution initial amount"
+        },
+        "THIRD_PARTY_WEBSITE_SETTING": {
+            "TITLE": "Third party website setting",
+            "EDIT": {
+                "FIELDS": {
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Grant acknowledgment",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Grant acknowledgment",
+                    "GRANT_PURPOSE_TYPE_LABEL": "Purpose type",
+                    "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Purpose type",
+                    "MAX_AMOUNT_LABEL": "Max amount",
+                    "MAX_AMOUNT_PLACEHOLDER": "Max amount",
+                    "MAX_TIMES_PER_DAY_LABEL": "Max times per day",
+                    "MAX_TIMES_PER_DAY_PLACEHOLDER": "Max times per day",
+                    "IS_ENABLED_LABEL": "Is enabled",
+                    "IS_ENABLED_PLACEHOLDER": "Is enabled"
+                }
+            }
         },
         "PAGE_HEADER": {
             "OVERVIEW": {
@@ -1826,6 +1850,45 @@
             "BUTTON": {
                 "LOCK": "Lock",
                 "UNLOCK": "Unlock"
+            }
+        }
+    },
+    "THIRD_PARTY_WEBSITE": {
+        "LIST": {
+            "TITLE": "Third party websites",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "IP_LABEL": "IP address",
+                "URL_LABEL": "URL address",
+                "IS_DELETED_LABEL": "Deleted",
+                "DATE_CREATED_LABEL": "Date created"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No third party websites"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create third party website",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "IP_LABEL": "IP",
+                "URL_LABEL": "URL",
+                "URL_PLACEHOLDER": "URL"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit third party website",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "IP_LABEL": "IP",
+                "URL_LABEL": "URL",
+                "URL_PLACEHOLDER": "URL"
             }
         }
     }

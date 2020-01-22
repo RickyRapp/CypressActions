@@ -7,3 +7,4 @@ export { default as DonorAccountBankAccountViewStore } from './DonorAccountBankA
 export { default as DonorAccountCreateViewStore } from './DonorAccountCreateViewStore'
 export { default as DonorAccountPageHeaderOverviewViewStore } from './DonorAccountPageHeaderOverviewViewStore'
 export { default as SelectDonorViewStore } from './SelectDonorViewStore'
+export { default as DonorAccountThirdPartyWebsiteSettingViewStore } from './DonorAccountThirdPartyWebsiteSettingViewStore'

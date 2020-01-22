@@ -55,6 +55,7 @@ class BaasicDropdownStore {
         virtualized: false,
         virtual: null,
         disabled: false,
+        clearable: false,
         popupSettings: {
             animate: false
         }
