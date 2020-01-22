@@ -21,8 +21,12 @@ class DonorAccountThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
                         await service.createThirdPartyWebsiteSetting({ donorAccountId: donorAccountId, ...resource });
                     },
                     get: async (id) => {
-                        let response = await service.getThirdPartyWebsiteSetting(id);
-                        return response.data;
+                        try {
+                            let response = await service.getThirdPartyWebsiteSetting(id);
+                            return response.data;
+                        } catch (error) {
+                            return null;
+                        }
                     }
                 }
             },
