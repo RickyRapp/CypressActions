@@ -1,6 +1,5 @@
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonorAccountThirdPartyWebsiteSettingForm } from 'application/donor-account/forms';
-import _ from 'lodash';
 import { action } from 'mobx';
 import { DonorAccountService } from '../services';
 import { LookupService } from 'common/services';

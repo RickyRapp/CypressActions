@@ -42,7 +42,6 @@ class ExportViewStore {
         this.exportFieldStore = new BaasicDropdownStore(
             {
                 multi: true,
-                clearable: true,
                 placeholder: 'CHOOSE_EXPORT_COLUMNS'
             },
             null,

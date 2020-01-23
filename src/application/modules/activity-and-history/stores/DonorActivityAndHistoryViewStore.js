@@ -18,7 +18,8 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
         this.donorAccountDropdownStore = new BaasicDropdownStore({
             placeholder: 'ACTIVITY_AND_HISTORY.LIST.SELECT_DONOR',
             initFetch: false,
-            filterable: true
+            filterable: true,
+            clearable: true
         },
             {
                 fetchFunc: async (searchQuery) => {

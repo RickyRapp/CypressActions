@@ -90,6 +90,13 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     </React.Fragment>}
                                 </span>
                             </div>
+                            {item && item.thirdPartyWebsite &&
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.THIRD_PARTY_WEBSITE_LABEL')}</div>
+                                    <span className="input--preview">
+                                        {item && <React.Fragment>{item.thirdPartyWebsite.name} - {item.thirdPartyWebsite.url}</React.Fragment>}
+                                    </span>
+                                </div>}
                         </div>
                     </div>
                 </div>

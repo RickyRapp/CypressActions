@@ -50,10 +50,6 @@ class DonorAccountRouteService extends BaseRouteService {
   }
 
   getThirdPartyWebsiteSetting(id) {
-    return super.get('third-party-website-setting', id);
-  }
-
-  getThirdPartyWebsiteSetting(id) {
     return super.get('third-party-website-setting/{id}', id);
   }
 

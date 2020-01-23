@@ -1160,7 +1160,8 @@
                 "STATUS_NAME_LABEL": "Status",
                 "PURPOSE_TYPE_LABEL": "Purpose",
                 "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
-                "DONOR_NAME_LABEL": "Donor"
+                "DONOR_NAME_LABEL": "Donor",
+                "THIRD_PARTY_WEBSITE_LABEL": "Created over third party website"
             }
         },
         "CREATE": {
@@ -1872,7 +1873,7 @@
             }
         },
         "CREATE": {
-            "TITLE": "Create third party website",
+            "TITLE": "Create third party website access",
             "FIELDS": {
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",
@@ -1882,7 +1883,7 @@
             }
         },
         "EDIT": {
-            "TITLE": "Edit third party website",
+            "TITLE": "Edit third party website access",
             "FIELDS": {
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",

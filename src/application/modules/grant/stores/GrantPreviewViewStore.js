@@ -44,7 +44,8 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'grantDonorAccountTransactions',
                                 'grantDonorAccountTransactions.paymentTransaction',
                                 'grantDonorAccountTransactions.paymentTransaction.paymentTransactionStatus',
-                                'grantDonorAccountTransactions.paymentTransaction.paymentTransactionType'
+                                'grantDonorAccountTransactions.paymentTransaction.paymentTransactionType',
+                                'thirdPartyWebsite'
                             ]
                         }
                         let response = await service.get(id, params);

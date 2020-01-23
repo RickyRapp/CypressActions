@@ -18,7 +18,8 @@ class CharityActivityAndHistoryViewStore extends BaseViewStore {
         this.charityDropdownStore = new BaasicDropdownStore({
             placeholder: 'ACTIVITY_AND_HISTORY.LIST.SELECT_CHARITY',
             initFetch: false,
-            filterable: true
+            filterable: true,
+            clearable: true
         },
             {
                 fetchFunc: async (searchQuery) => {

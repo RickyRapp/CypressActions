@@ -110,7 +110,7 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'charity.name',
-                    title: 'GRANT.LIST.COLUMNS.DONATION_CHARITY_LABEL',
+                    title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL',
                 },
                 {
                     key: 'amount',

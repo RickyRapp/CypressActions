@@ -119,7 +119,7 @@ const BaasicDropdownTemplate = function (props) {
                 {store.options.clearable &&
                     <BaasicButton
                         onClick={() => onChange({ target: { value: null } })}
-                        className="btn btn--icon datepicker__btn"
+                        className="btn btn--icon"
                         icon='u-icon u-icon--unapproved--secondary u-icon--sml'
                         label="DROPDOWN.CLEAR_BUTTON"
                         onlyIcon

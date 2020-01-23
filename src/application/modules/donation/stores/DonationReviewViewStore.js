@@ -62,7 +62,7 @@ class DonationReviewViewStore extends BasePreviewViewStore {
             columns: [
                 {
                     key: 'totalAmountPerType',
-                    title: 'SCHEDULED_SETTING.LIST.COLUMNS.AMOUNT_LABEL',
+                    title: 'DONATION.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency',
                         value: '$'
@@ -70,10 +70,15 @@ class DonationReviewViewStore extends BasePreviewViewStore {
                 },
                 {
                     key: 'donationType.name',
-                    title: 'SCHEDULED_SETTING.LIST.COLUMNS.TYPE_LABEL'
+                    title: 'DONATION.LIST.COLUMNS.DONATION_TYPE_NAME_LABEL'
                 }
             ],
-            actions: {},
+            actions: {
+                onEdit: (item) => this.routes.editGrant(item.grant.donorAccount.id, item.grant.id)
+            },
+            actionsRender: {
+                onEditRender: (item) => item.donationType.abrv === 'grant'
+            },
             onSetSelectedItems: this.setSelectedItems,
             selectedField: 'selected'
         });
