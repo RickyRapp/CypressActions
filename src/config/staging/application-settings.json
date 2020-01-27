@@ -2,6 +2,6 @@
     "appId": "thedonorsfund",
     "appUrl": "api.thedonorsfund.staging.mono-software.com",
     "appVersion": "",
-    "useSSL": false,
+    "useSSL": true,
     "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
 }
