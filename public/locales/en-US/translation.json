@@ -1862,7 +1862,8 @@
                 "IP_LABEL": "IP address",
                 "URL_LABEL": "URL address",
                 "IS_DELETED_LABEL": "Deleted",
-                "DATE_CREATED_LABEL": "Date created"
+                "DATE_CREATED_LABEL": "Date created",
+                "CHARITY_LABEL": "Charity"
             },
             "EMPTY_STATE": {
                 "TITLE": "No third party websites"
@@ -1879,7 +1880,9 @@
                 "NAME_PLACEHOLDER": "Name",
                 "IP_LABEL": "IP",
                 "URL_LABEL": "URL",
-                "URL_PLACEHOLDER": "URL"
+                "URL_PLACEHOLDER": "URL",
+                "CHARITY_LABEL": "Charity",
+                "CHARITY_PLACEHOLDER": "Charity"
             }
         },
         "EDIT": {

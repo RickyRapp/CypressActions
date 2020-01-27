@@ -1,7 +1,9 @@
-import { BaseEditViewStore } from 'core/stores';
+import { action } from 'mobx';
+import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ThirdPartyWebsiteCreateForm } from 'application/administration/third-party-website/forms';
 import { ThirdPartyWebsiteService } from 'application/administration/third-party-website/services';
-import { action } from 'mobx';
+import { CharityService } from 'application/charity/services';
+import _ from 'lodash';
 
 class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, id, onAfterAction) {
@@ -22,6 +24,7 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
+                        resource.charityId = resource.charity; //due to easier fetch when editing item
                         await service.update({ id: id, ...resource });
                     },
                     create: async (resource) => {
@@ -33,10 +36,12 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
+                        resource.charityId = resource.charity; //due to easier fetch when editing item
                         await service.create(resource);
                     },
                     get: async (id) => {
-                        let response = await service.get(id);
+                        let params = { embed: 'charity' }
+                        let response = await service.get(id, params);
                         return response.data;
                     }
                 }
@@ -44,6 +49,33 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
             FormClass: ThirdPartyWebsiteCreateForm,
         });
+
+        this.charityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'THIRD_PARTY_WEBSITE.CREATE.FIELDS.SELECT_CHARITY',
+            initFetch: false,
+            filterable: true,
+            clearable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const charityService = new CharityService(rootStore.application.baasic.apiClient);
+                    const response = await charityService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'taxId',
+                            'name'
+                        ]
+                    });
+                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                }
+            });
     }
 
     @action.bound

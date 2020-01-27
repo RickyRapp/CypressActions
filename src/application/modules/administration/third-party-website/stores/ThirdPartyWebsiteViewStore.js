@@ -28,6 +28,7 @@ class ThirdPartyWebsiteViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
+                        params.embed = 'charity';
                         const response = await service.find(params);
                         return response.data;
                     }
@@ -48,6 +49,10 @@ class ThirdPartyWebsiteViewStore extends BaseListViewStore {
                 {
                     key: 'url',
                     title: 'THIRD_PARTY_WEBSITE.LIST.COLUMNS.URL_LABEL'
+                },
+                {
+                    key: 'charity.name',
+                    title: 'THIRD_PARTY_WEBSITE.LIST.COLUMNS.CHARITY_LABEL'
                 },
                 {
                     key: 'isDeleted',

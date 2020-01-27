@@ -7,6 +7,7 @@ import {
     BaasicFormControls,
     BasicInput,
     NumberFormatInputField,
+    BaasicFieldDropdown,
 } from 'core/components'
 import { PageFooter } from 'core/layouts';
 
@@ -15,7 +16,8 @@ const ThirdPartyWebsiteCreateTemplate = function ({ t, thirdPartyWebsiteCreateVi
         loaderStore,
         form,
         id,
-        validateIPaddress
+        validateIPaddress,
+        charityDropdownStore
     } = thirdPartyWebsiteCreateViewStore;
 
     return (
@@ -34,6 +36,12 @@ const ThirdPartyWebsiteCreateTemplate = function ({ t, thirdPartyWebsiteCreateVi
                     </div>
                     <div className="form__group col col-lrg-12">
                         <BasicInput field={form.$('url')} />
+                    </div>
+                    <div className="form__group col col-lrg-12">
+                        <BaasicFieldDropdown
+                            field={form.$('charity')}
+                            store={charityDropdownStore}
+                        />
                     </div>
                 </div>
             </EditFormContent>
