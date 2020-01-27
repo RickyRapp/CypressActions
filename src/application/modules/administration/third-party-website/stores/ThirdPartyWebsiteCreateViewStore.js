@@ -19,24 +19,26 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
                         resource.ip = resource.ip.slice(0, 3) + '.' + resource.ip.slice(3);
                         resource.ip = resource.ip.slice(0, 7) + '.' + resource.ip.slice(7);
                         resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
+
                         this.validateIPaddress(resource.ip);
+                        await this.validateCharitySetting(resource.charityId)
 
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
-                        resource.charityId = resource.charity; //due to easier fetch when editing item
                         await service.update({ id: id, ...resource });
                     },
                     create: async (resource) => {
                         resource.ip = resource.ip.slice(0, 3) + '.' + resource.ip.slice(3);
                         resource.ip = resource.ip.slice(0, 7) + '.' + resource.ip.slice(7);
                         resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
+
                         this.validateIPaddress(resource.ip);
+                        await this.validateCharitySetting(resource.charityId)
 
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
-                        resource.charityId = resource.charity; //due to easier fetch when editing item
                         await service.create(resource);
                     },
                     get: async (id) => {
@@ -49,6 +51,9 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
             FormClass: ThirdPartyWebsiteCreateForm,
         });
+
+        this.service = service;
+        this.id = id;
 
         this.charityDropdownStore = new BaasicDropdownStore({
             placeholder: 'THIRD_PARTY_WEBSITE.CREATE.FIELDS.SELECT_CHARITY',
@@ -74,8 +79,39 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
                         ]
                     });
                     return _.map(response.item, x => { return { id: x.id, name: x.name } });
-                }
+                },
+                onChange: this.validateCharitySetting
             });
+    }
+
+    async getResource(id) {
+        await super.getResource(id);
+        if (this.item && this.item.charity) {
+            this.charityDropdownStore.setValue({ id: this.item.charity.id, name: this.item.charity.name })
+        }
+    }
+
+    @action.bound
+    async validateCharitySetting(charityId) {
+        if (charityId) {
+            const params = {
+                embed: 'charity',
+                charityIds: [charityId]
+            }
+            if (this.id) {
+                params.exceptIds = [this.id];
+            }
+            let response = await this.service.find(params);
+            if (response.data && response.data.item && response.data.item.length > 0) {
+                this.form.$('charityId').invalidate('Setting already defined for this charity.')
+            }
+            else {
+                this.form.$('charityId').resetValidation()
+            }
+        }
+        else {
+            this.form.$('charityId').resetValidation()
+        }
     }
 
     @action.bound

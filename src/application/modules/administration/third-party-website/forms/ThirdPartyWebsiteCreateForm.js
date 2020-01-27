@@ -9,9 +9,10 @@ export default class ThirdPartyWebsiteCreateForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charity',
+                    name: 'charityId',
                     label: 'THIRD_PARTY_WEBSITE.CREATE.FIELDS.CHARITY_LABEL',
-                    placeholder: 'THIRD_PARTY_WEBSITE.CREATE.FIELDS.CHARITY_PLACEHOLDER'
+                    placeholder: 'THIRD_PARTY_WEBSITE.CREATE.FIELDS.CHARITY_PLACEHOLDER',
+                    rules: 'string'
                 },
                 {
                     name: 'name',

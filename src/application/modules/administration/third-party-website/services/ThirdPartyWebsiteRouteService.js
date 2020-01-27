@@ -6,7 +6,7 @@ class ThirdPartyWebsiteRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,donorAccountId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,donorAccountId,charityIds,exceptIds,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

@@ -39,7 +39,7 @@ const ThirdPartyWebsiteCreateTemplate = function ({ t, thirdPartyWebsiteCreateVi
                     </div>
                     <div className="form__group col col-lrg-12">
                         <BaasicFieldDropdown
-                            field={form.$('charity')}
+                            field={form.$('charityId')}
                             store={charityDropdownStore}
                         />
                     </div>
