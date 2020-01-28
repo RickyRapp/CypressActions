@@ -866,6 +866,8 @@
             "FIELDS": {
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",
+                "CHARITY_ACCOUNT_LABEL": "Account",
+                "CHARITY_ACCOUNT_PLACEHOLDER": "Account",
                 "TAX_ID_LABEL": "Tax Id",
                 "TAX_ID_PLACEHOLDER": "Tax Id",
                 "DBA_LABEL": "DBA",

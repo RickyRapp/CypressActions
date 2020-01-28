@@ -26,7 +26,8 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
         loginShow,
         onChangeLoginShow,
         bankAccountShow,
-        onChangeBankAccountShow
+        onChangeBankAccountShow,
+        charityAccountTypeDropdownStore
     } = charityCreateViewStore;
 
     return (
@@ -34,6 +35,14 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <h3 className="u-mar--bottom--med">General Data</h3>
+                    <div className="row">
+                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicFieldDropdown
+                                field={form.$('charityAccountTypeId')}
+                                store={charityAccountTypeDropdownStore}
+                            />
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                             <BasicInput field={form.$('name')} />

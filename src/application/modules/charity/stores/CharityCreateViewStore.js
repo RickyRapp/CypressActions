@@ -1,13 +1,15 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { CharityCreateForm } from 'application/charity/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
 import { LookupService, CharityFileStreamService } from 'common/services';
+import { applicationContext } from 'core/utils';
 
 const ErrorType = {
     Unique: 0
 };
 
+@applicationContext
 class CharityCreateViewStore extends BaseEditViewStore {
     attachment = null;
     uploadTypes = null;
@@ -16,6 +18,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
     uploadTypes = ['.png', '.jpg', '.jpeg'];
     @observable loginShow = false;
     @observable bankAccountShow = false;
+    charityAccountTypes = null;
 
     constructor(rootStore) {
         const service = new CharityService(rootStore.application.baasic.apiClient);
@@ -99,6 +102,25 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 return response.data;
             }
         });
+
+        this.charityAccountTypeDropdownStore = new BaasicDropdownStore();
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goTo(
+                'master.app.main.charity.list'
+            )
+        }
+        else {
+            await this.fetch([
+                this.fetchAccountTypes()
+            ]);
+
+            this.charityAccountTypeDropdownStore.setValue(_.find(this.charityAccountTypes, { abrv: 'regular' }))
+            this.form.$('charityAccountTypeId').set(_.find(this.charityAccountTypes, { abrv: 'regular' }).id)
+        }
     }
 
     @action.bound
@@ -114,6 +136,18 @@ class CharityCreateViewStore extends BaseEditViewStore {
     @action.bound
     onBlurUsername(event) {
         this.usernameExists(event.target ? event.target.value : null)
+    }
+
+    @action.bound
+    async fetchAccountTypes() {
+        this.charityAccountTypeDropdownStore.setLoading(true);
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-account-type');
+        const response = await service.getAll();
+        this.charityAccountTypes = response.data;
+        runInAction(() => {
+            this.charityAccountTypeDropdownStore.setItems(this.charityAccountTypes);
+            this.charityAccountTypeDropdownStore.setLoading(false);
+        });
     }
 
     @action.bound

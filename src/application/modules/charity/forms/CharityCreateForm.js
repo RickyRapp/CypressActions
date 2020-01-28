@@ -15,6 +15,12 @@ export default class CharityCreateForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
+                    name: 'charityAccountTypeId',
+                    label: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
                     name: 'taxId',
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
                     rules: 'required|string|size:9',

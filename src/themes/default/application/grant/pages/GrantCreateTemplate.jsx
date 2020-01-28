@@ -74,7 +74,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore }) {
                         </div>
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumericInputField field={form.$('amount')} onChange={onChangeAmount} />
+                                <NumericInputField field={form.$('amount')} onBlur={onChangeAmount} />
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 {amountWithFee &&

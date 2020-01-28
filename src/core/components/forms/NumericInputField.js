@@ -9,7 +9,8 @@ const NumericInputField = function (props) {
 
 NumericInputField.propTypes = {
     field: PropTypes.object.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
 };
 
 export default defaultTemplate(NumericInputField);
