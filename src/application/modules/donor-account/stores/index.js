@@ -8,3 +8,4 @@ export { default as DonorAccountCreateViewStore } from './DonorAccountCreateView
 export { default as DonorAccountPageHeaderOverviewViewStore } from './DonorAccountPageHeaderOverviewViewStore'
 export { default as SelectDonorViewStore } from './SelectDonorViewStore'
 export { default as DonorAccountThirdPartyWebsiteSettingViewStore } from './DonorAccountThirdPartyWebsiteSettingViewStore'
+export { default as DonorAccountAutomaticContributionSettingViewStore } from './DonorAccountAutomaticContributionSettingViewStore'

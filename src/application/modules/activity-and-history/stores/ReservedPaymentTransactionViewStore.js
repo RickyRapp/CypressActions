@@ -1,7 +1,8 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { ActivityAndHistoryService } from 'application/activity-and-history/services';
 import { applicationContext } from 'core/utils';
 import { ActivityAndHistoryListFilter } from 'application/activity-and-history/models';
+import { DonorAccountService } from 'application/donor-account/services';
+import _ from 'lodash';
 
 @applicationContext
 class ReservedPaymentTransactionViewStore extends BaseListViewStore {
@@ -22,17 +23,22 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new ActivityAndHistoryService(rootStore.application.baasic.apiClient);
+                const service = new DonorAccountService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
+                        let options = {};
                         if (params.donorAccountId) {
-                            params.embed = [
-                                "charity"
+                            options.embed = [
+                                "pendingTransactions",
+                                "pendingTransactions.paymentTransaction",
+                                "pendingTransactions.paymentTransaction.paymentTransactionType",
                             ];
-                            const response = await service.findDonorPendingTransactions(params);
-
+                            options.fields = [
+                                "pendingTransactions"
+                            ];
+                            const response = await service.get(params.donorAccountId, options);
                             if (response.data) {
-                                return response.data;
+                                return _.map(response.data.pendingTransactions, 'paymentTransaction')
                             }
                             else {
                                 return response.data = {}

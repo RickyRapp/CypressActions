@@ -25,7 +25,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
                             const contributionSetting = {
                                 donorAccountId: resource.donorAccountId,
                                 amount: resource.amount,
-                                bankAccountId: resource.bankAccountId,
+                                donorAccountBankAccountId: resource.bankAccountId,
                                 contributionSettingTypeId: resource.contributionSettingTypeId,
                                 startDate: resource.settingStartDate,
                                 isPrimary: true

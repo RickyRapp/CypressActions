@@ -6,3 +6,4 @@ export { default as DonorAccountAddressEditForm, donorAccountAddressFormProperti
 export { default as DonorAccountPhoneNumberEditForm, donorAccountPhoneNumberFormProperties } from './DonorAccountPhoneNumberEditForm'
 export { default as DonorAccountBankAccountEditForm, donorAccountBankAccountFormProperties } from './DonorAccountBankAccountEditForm'
 export { default as DonorAccountThirdPartyWebsiteSettingForm } from './DonorAccountThirdPartyWebsiteSettingForm'
+export { default as DonorAccountAutomaticContributionSettingForm } from './DonorAccountAutomaticContributionSettingForm'

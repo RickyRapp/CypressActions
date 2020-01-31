@@ -5,3 +5,4 @@ export { default as DonorAccountBankAccountListTableTemplate } from './DonorAcco
 export { default as DonorAccountPageHeaderOverviewTemplate } from './DonorAccountPageHeaderOverviewTemplate'
 export { default as SelectDonorTemplate } from './SelectDonorTemplate'
 export { default as DonorAccountThirdPartyWebsiteSettingTemplate } from './DonorAccountThirdPartyWebsiteSettingTemplate'
+export { default as DonorAccountAutomaticContributionSettingTemplate } from './DonorAccountAutomaticContributionSettingTemplate'

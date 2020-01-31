@@ -44,7 +44,8 @@ class DonorAccountPageHeaderOverviewViewStore extends BaseViewStore {
 
         let params = {
             embed: [
-                'accountType'
+                'accountType',
+                'pendingTransactions'
             ],
             fields: [
                 'id',

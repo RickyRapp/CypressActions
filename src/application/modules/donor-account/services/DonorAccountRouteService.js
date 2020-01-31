@@ -56,6 +56,14 @@ class DonorAccountRouteService extends BaseRouteService {
   createThirdPartyWebsiteSetting(resource) {
     return super.create('third-party-website-setting', resource);
   }
+
+  getAutomaticContributionSetting(id) {
+    return super.get('automatic-contribution-setting/{id}', id);
+  }
+
+  createAutomaticContributionSetting(resource) {
+    return super.create('automatic-contribution-setting', resource);
+  }
 }
 
 export default DonorAccountRouteService;

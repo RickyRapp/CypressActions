@@ -54,6 +54,18 @@ class DonorAccountService extends BaseService {
     const response = await this.apiClient.get(url);
     return response || null;
   }
+
+  async createAutomaticContributionSetting(resource) {
+    const url = this.routeService.createAutomaticContributionSetting(resource);
+    const response = await this.apiClient.post(url, resource);
+    return response || null;
+  }
+
+  async getAutomaticContributionSetting(id) {
+    const url = this.routeService.getAutomaticContributionSetting(id);
+    const response = await this.apiClient.get(url);
+    return response || null;
+  }
 }
 
 export default DonorAccountService;

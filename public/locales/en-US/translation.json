@@ -578,6 +578,21 @@
                 }
             }
         },
+        "AUTOMATIC_CONTRIBUTION_SETTING": {
+            "TITLE": "Automatic contribution setting",
+            "EDIT": {
+                "FIELDS": {
+                    "BANK_ACCOUNT_LABEL": "Bank account",
+                    "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
+                    "AMOUNT_LABEL": "Max amount",
+                    "AMOUNT_PLACEHOLDER": "Max amount",
+                    "LOW_BALANCE_AMOUNT_LABEL": "Low balance amount",
+                    "LOW_BALANCE_AMOUNT_PLACEHOLDER": "Low balance amount",
+                    "IS_ENABLED_LABEL": "Is enabled",
+                    "IS_ENABLED_PLACEHOLDER": "Is enabled"
+                }
+            }
+        },
         "PAGE_HEADER": {
             "OVERVIEW": {
                 "PRESENT_BALANCE": "Present:",
