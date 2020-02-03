@@ -942,7 +942,9 @@
                 "SUBSCRIPTION_NEXT_DATE_PLACEHOLDER": "Subscription first date",
                 "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
                 "SUBSCRIPTION_AMOUNT_PLACEHOLDER": "Subscription amount",
-                "IS_ONLINE_ACCOUNT_ENABLED_LABEL": "Is online account enabled?"
+                "IS_ONLINE_ACCOUNT_ENABLED_LABEL": "Is online account enabled?",
+                "NOTIFY_ADMINISTRATORS_LABEL": "Notify administrators?",
+                "SEND_WELCOME_EMAIL_LABEL": "Send welcome email?"
             }
         },
         "EDIT": {
@@ -995,6 +997,13 @@
                 "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
                 "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
                 "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
+            }
+        },
+        "PAGE_HEADER": {
+            "OVERVIEW": {
+                "BALANCE": "Balance:",
+                "LOGIN": "Login",
+                "ACTIVITY": "Activity"
             }
         }
     },

@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import {
     BasicInput,
     BaasicFieldDropdown,
     BaasicFormControls,
     EditFormContent,
-    NumberFormatInputField
+    NumberFormatInputField,
+    BasicFieldCheckbox,
+    DatePickerField,
+    NumericInputField
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
     CharityAddressListTable,
-    CharityBankAccountEdit
+    CharityBankAccountEdit,
+    CharityPageHeaderOverview
 } from 'application/charity/components';
 import NumberFormat from 'react-number-format';
 
@@ -21,11 +25,17 @@ const CharityEditTemplate = function ({ charityEditViewStore, t }) {
         item,
         loaderStore,
         charityTypeDropdownStore,
-        charityStatusDropdownStore
+        charityStatusDropdownStore,
+        charityAccountTypeDropdownStore,
+        subscriptionTypeDropdownStore,
+        createOnlineAccount,
+        formOnlineAccount,
+        onBlurUsername
     } = charityEditViewStore;
 
     return (
         <Page loading={loaderStore.loading} >
+            {item && <AuthPageHeader charityId={item.id} type={0} authorization='theDonorsFundAdministrationSection.read' />}
             <EditFormContent form={form}>
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <div className="row">
@@ -73,7 +83,7 @@ const CharityEditTemplate = function ({ charityEditViewStore, t }) {
                         </div>
                     </div>
 
-                    {renderEditLayoutFooterContent({ form })}
+                    {renderEditLayoutFooterContent({ form: form, onSubmit: form.onSubmit })}
                 </div>
             </EditFormContent>
 
@@ -86,18 +96,68 @@ const CharityEditTemplate = function ({ charityEditViewStore, t }) {
                         <CharityAddressListTable />
                     </div>
                 </div>}
+
+            {item && !item.coreUser &&
+                <div className="card card--form card--primary card--med u-mar--bottom--med">
+                    <h3 className="u-mar--bottom--med">
+                        Create online account
+                        </h3>
+                    <EditFormContent form={formOnlineAccount}>
+                        <div className="row">
+                            <div className="form__group col-lrg-3 u-mar--bottom--sml">
+                                <BaasicFieldDropdown
+                                    field={formOnlineAccount.$('charityAccountTypeId')}
+                                    store={charityAccountTypeDropdownStore}
+                                />
+                            </div>
+                            <div className="form__group col-lrg-3 u-mar--bottom--sml">
+                                <BaasicFieldDropdown
+                                    field={formOnlineAccount.$('subscriptionTypeId')}
+                                    store={subscriptionTypeDropdownStore}
+                                />
+                            </div>
+                            <div className="form__group col col-lrg-3">
+                                <DatePickerField field={formOnlineAccount.$('subscriptionNextDate')} />
+                            </div>
+                            <div className="form__group col col-lrg-3">
+                                <NumericInputField field={formOnlineAccount.$('subscriptionAmount')} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="form__group col col-lrg-3">
+                                <BasicInput field={formOnlineAccount.$('coreUser.username')} onBlur={onBlurUsername} />
+                            </div>
+                            <div className="form__group col col-lrg-3">
+                                <BasicInput field={formOnlineAccount.$('coreUser.coreMembership.password')} />
+                            </div>
+                            <div className="form__group col col-lrg-3">
+                                <BasicInput field={formOnlineAccount.$('coreUser.coreMembership.confirmPassword')} />
+                            </div>
+                            <div className="form__group col col-lrg-3">
+                                <BasicFieldCheckbox field={formOnlineAccount.$('notifyAdministrators')} />
+                            </div>
+                            <div className="form__group col col-lrg-3">
+                                <BasicFieldCheckbox field={formOnlineAccount.$('sendWelcomeEmail')} />
+                            </div>
+                        </div>
+
+                        {renderEditLayoutFooterContent({ form: formOnlineAccount, onSubmit: createOnlineAccount })}
+                    </EditFormContent>
+                </div>}
         </Page >
     )
 };
+
+const AuthPageHeader = withAuth(CharityPageHeaderOverview);
 
 CharityEditTemplate.propTypes = {
     charityEditViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
 };
 
-function renderEditLayoutFooterContent({ form }) {
+function renderEditLayoutFooterContent({ form, onSubmit }) {
     return <div className="u-mar--bottom--med">
-        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+        <BaasicFormControls form={form} onSubmit={onSubmit} />
     </div>
 }
 
