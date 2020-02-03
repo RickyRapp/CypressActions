@@ -5,7 +5,10 @@ import {
     BasicInput,
     BaasicFieldDropdown,
     BaasicDropzone,
-    NumberFormatInputField
+    NumberFormatInputField,
+    BasicFieldCheckbox,
+    NumericInputField,
+    DatePickerField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -23,11 +26,11 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
         image,
         onBlurUsername,
         taxIdExists,
-        loginShow,
-        onChangeLoginShow,
+        onChangeIsOnlineAccountEnabled,
         bankAccountShow,
         onChangeBankAccountShow,
-        charityAccountTypeDropdownStore
+        charityAccountTypeDropdownStore,
+        subscriptionTypeDropdownStore
     } = charityCreateViewStore;
 
     return (
@@ -35,14 +38,6 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <h3 className="u-mar--bottom--med">General Data</h3>
-                    <div className="row">
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BaasicFieldDropdown
-                                field={form.$('charityAccountTypeId')}
-                                store={charityAccountTypeDropdownStore}
-                            />
-                        </div>
-                    </div>
                     <div className="row">
                         <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                             <BasicInput field={form.$('name')} />
@@ -160,15 +155,47 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
                         </React.Fragment>}
                 </div>
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
-                    <div className="row">
-                        <CreateLoginForm
-                            form={form}
-                            title='CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.TITLE'
-                            onBlurUsername={onBlurUsername}
-                            show={loginShow}
-                            onChangeShow={onChangeLoginShow}
+                    <h3 className="u-mar--bottom--med">
+                        Online account
+                        <BasicFieldCheckbox
+                            field={form.$('isOnlineAccountEnabled')}
+                            onChange={onChangeIsOnlineAccountEnabled}
                         />
-                    </div>
+                    </h3>
+                    {form.$('isOnlineAccountEnabled').value === true &&
+                        <React.Fragment>
+                            <div className="row">
+                                <div className="form__group col-lrg-3 u-mar--bottom--sml">
+                                    <BaasicFieldDropdown
+                                        field={form.$('charityAccountTypeId')}
+                                        store={charityAccountTypeDropdownStore}
+                                    />
+                                </div>
+                                <div className="form__group col-lrg-3 u-mar--bottom--sml">
+                                    <BaasicFieldDropdown
+                                        field={form.$('subscriptionTypeId')}
+                                        store={subscriptionTypeDropdownStore}
+                                    />
+                                </div>
+                                <div className="form__group col col-lrg-3">
+                                    <DatePickerField field={form.$('subscriptionNextDate')} />
+                                </div>
+                                <div className="form__group col col-lrg-3">
+                                    <NumericInputField field={form.$('subscriptionAmount')} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="form__group col col-lrg-3">
+                                    <BasicInput field={form.$('coreUser.username')} /> {/* onBlur={onBlurUsername}  */}
+                                </div>
+                                <div className="form__group col col-lrg-3">
+                                    <BasicInput field={form.$('coreUser.coreMembership.password')} />
+                                </div>
+                                <div className="form__group col col-lrg-3">
+                                    <BasicInput field={form.$('coreUser.coreMembership.confirmPassword')} />
+                                </div>
+                            </div>
+                        </React.Fragment>}
                 </div>
             </Content>
         </ApplicationEditLayout >

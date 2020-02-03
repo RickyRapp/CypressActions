@@ -20,6 +20,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
     @observable loginShow = false;
     @observable bankAccountShow = false;
     charityAccountTypes = null;
+    applicationDefaultSetting = null;
 
     constructor(rootStore) {
         const service = new CharityService(rootStore.application.baasic.apiClient);
@@ -34,7 +35,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
                             this.usernameExists(item.coreUser.username),
                             this.taxIdExists(item.taxId)
                         ])
-                        if (item.coreUser.username || item.coreUser.coreMembership.password || item.coreUser.coreMembership.confirmPassword) {
+                        if (item.isOnlineAccountEnabled === true) {
                             if (!item.coreUser.username) {
                                 this.form.$('coreUser.username').invalidate('The Username is required if you want create online account.')
                             }
@@ -64,6 +65,10 @@ class CharityCreateViewStore extends BaseEditViewStore {
                         }
                         if (!this.form.isValid) {
                             throw { type: ErrorType.Unique };
+                        }
+                        if (item.isOnlineAccountEnabled) { // todo check next date. when it's required from begining it's ok, when it's not required it's like string
+                            item.subscriptionNextDate =
+                                new Date(Date.UTC(item.subscriptionNextDate.getFullYear(), item.subscriptionNextDate.getMonth() + 1, item.subscriptionNextDate.getDate()));
                         }
                         try {
                             const response = await service.create(item);
@@ -103,8 +108,23 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 return response.data;
             }
         });
+        this.subscriptionTypeDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'subscription-type');
+                const response = await service.getAll();
+                return response.data;
+            },
+            onChange: () => {
+                this.setSubscriptionAmount();
+            }
+        });
 
-        this.charityAccountTypeDropdownStore = new BaasicDropdownStore();
+        this.charityAccountTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                onChange: () => {
+                    this.setSubscriptionAmount();
+                }
+            });
     }
 
     @action.bound
@@ -116,7 +136,8 @@ class CharityCreateViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchAccountTypes()
+                this.fetchAccountTypes(),
+                this.fetchApplicationDefaultSetting(),
             ]);
 
             this.charityAccountTypeDropdownStore.setValue(_.find(this.charityAccountTypes, { abrv: 'regular' }))
@@ -137,6 +158,50 @@ class CharityCreateViewStore extends BaseEditViewStore {
     @action.bound
     onBlurUsername(event) {
         this.usernameExists(event.target ? event.target.value : null)
+    }
+
+    @action.bound
+    onChangeIsOnlineAccountEnabled() {
+        this.form.$('charityAccountTypeId').setRequired(this.form.$('isOnlineAccountEnabled').value);
+        this.form.$('charityAccountTypeId').resetValidation();
+        this.form.$('coreUser.username').setRequired(this.form.$('isOnlineAccountEnabled').value);
+        this.form.$('coreUser.username').resetValidation();
+        this.form.$('coreUser.coreMembership.password').setRequired(this.form.$('isOnlineAccountEnabled').value);
+        this.form.$('coreUser.coreMembership.password').resetValidation();
+        this.form.$('subscriptionTypeId').setRequired(this.form.$('isOnlineAccountEnabled').value);
+        this.form.$('subscriptionTypeId').resetValidation();
+        this.form.$('subscriptionAmount').setRequired(this.form.$('isOnlineAccountEnabled').value);
+        this.form.$('subscriptionAmount').resetValidation();
+        this.form.$('subscriptionNextDate').setRequired(this.form.$('isOnlineAccountEnabled').value);
+        this.form.$('subscriptionNextDate').resetValidation();
+    }
+
+    @action.bound
+    setSubscriptionAmount() {
+        if (this.charityAccountTypeDropdownStore.value && this.subscriptionTypeDropdownStore.value) {
+            if (this.charityAccountTypeDropdownStore.value.abrv === 'regular' && this.subscriptionTypeDropdownStore.value.abrv === 'monthly') {
+                this.form.$('subscriptionAmount').set(this.applicationDefaultSetting.monthlyRegularSubscriptionAmount)
+            }
+            else if (this.charityAccountTypeDropdownStore.value.abrv === 'advanced' && this.subscriptionTypeDropdownStore.value.abrv === 'monthly') {
+                this.form.$('subscriptionAmount').set(this.applicationDefaultSetting.monthlyAdvancedSubscriptionAmount)
+            }
+            else if (this.charityAccountTypeDropdownStore.value.abrv === 'regular' && this.subscriptionTypeDropdownStore.value.abrv === 'annual') {
+                this.form.$('subscriptionAmount').set(this.applicationDefaultSetting.annualRegularSubscriptionAmount)
+            }
+            else if (this.charityAccountTypeDropdownStore.value.abrv === 'advanced' && this.subscriptionTypeDropdownStore.value.abrv === 'annual') {
+                this.form.$('subscriptionAmount').set(this.applicationDefaultSetting.annualAdvancedSubscriptionAmount)
+            }
+        }
+        else {
+            this.form.$('subscriptionAmount').set('')
+        }
+    }
+
+    @action.bound
+    async fetchApplicationDefaultSetting() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
+        const response = await service.getAll();
+        this.applicationDefaultSetting = response.data[0];
     }
 
     @action.bound

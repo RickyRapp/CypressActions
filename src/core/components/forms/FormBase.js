@@ -201,22 +201,39 @@ class FieldBase extends Field {
     setRequired(isRequired) {
         if (this.rules) {
             if (isRequired) {
-                if (this.rules.indexOf('required|') !== -1 || this.rules.indexOf('|required') !== -1 || this.rules.indexOf('required') !== -1) {
-                    return;
+                if (_.isArray(this.rules)) {
+                    if (_.includes(this.rules, 'required')) {
+                        return;
+                    }
+                    else {
+                        this.rules.push('required');
+                    }
                 }
                 else {
-                    this.set('rules', this.rules + '|required');
+                    if (this.rules.indexOf('required|') !== -1 || this.rules.indexOf('|required') !== -1 || this.rules.indexOf('required') !== -1) {
+                        return;
+                    }
+                    else {
+                        this.set('rules', this.rules + '|required');
+                    }
                 }
             }
             else {
-                if (this.rules.indexOf('required|') !== -1) {
-                    this.set('rules', this.rules.replace('required|', ''));
+                if (_.isArray(this.rules)) {
+                    if (_.includes(this.rules, 'required')) {
+                        this.rules.splice('required');
+                    }
                 }
-                else if (this.rules.indexOf('|required') !== -1) {
-                    this.set('rules', this.rules.replace('|required', ''));
-                }
-                else if (this.rules.indexOf('required') !== -1) {
-                    this.set('rules', this.rules.replace('required', ''));
+                else {
+                    if (this.rules.indexOf('required|') !== -1) {
+                        this.set('rules', this.rules.replace('required|', ''));
+                    }
+                    else if (this.rules.indexOf('|required') !== -1) {
+                        this.set('rules', this.rules.replace('|required', ''));
+                    }
+                    else if (this.rules.indexOf('required') !== -1) {
+                        this.set('rules', this.rules.replace('required', ''));
+                    }
                 }
             }
         }

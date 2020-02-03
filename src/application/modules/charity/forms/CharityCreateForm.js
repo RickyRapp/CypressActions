@@ -1,4 +1,5 @@
 import { FormBase } from 'core/components';
+import moment from 'moment';
 
 export default class CharityCreateForm extends FormBase {
     constructor(hooks) {
@@ -12,12 +13,6 @@ export default class CharityCreateForm extends FormBase {
                     name: 'name',
                     label: 'CHARITY.CREATE.FIELDS.NAME_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.NAME_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'charityAccountTypeId',
-                    label: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_PLACEHOLDER',
                     rules: 'required|string'
                 },
                 {
@@ -190,6 +185,40 @@ export default class CharityCreateForm extends FormBase {
                             ]
                         }
                     ]
+                },
+                {
+                    name: 'isOnlineAccountEnabled',
+                    label: 'CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_PLACEHOLDER',
+                    rules: 'required|boolean',
+                    type: 'checkbox'
+                },
+                {
+                    name: 'charityAccountTypeId',
+                    label: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'subscriptionTypeId',
+                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_TYPE_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_TYPE_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'subscriptionAmount',
+                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_AMOUNT_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_AMOUNT_PLACEHOLDER',
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'c2'
+                    }
+                },
+                {
+                    name: 'subscriptionNextDate',
+                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_LABEL',
+                    rules: `min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}|before_or_equal_date:${moment().add(30, 'days').format('YYYY-MM-DD')}`,
+                    type: 'date'
                 },
                 {
                     name: 'coreUser',

@@ -46,6 +46,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Contribution by automatic contribution setting',
                 description: 'Process contributions specified by automatic contribution settings. Low balance contribution.',
                 abrv: 'contribution-by-automatic-contribution-setting'
+            },
+            {
+                name: 'Charity subscription fee',
+                description: 'Process charity subscription fee for regular and advanced charities (charities with enabled online account).',
+                abrv: 'charity-subscription-fee'
             }
         ];
 
@@ -53,9 +58,9 @@ class ScheduledSettingViewStore extends BaseViewStore {
     }
 
     @action.bound
-    async runTask(name) {
+    async runTask(abrv) {
         this.tableStore.suspend();
-        await this.service.runTask(name)
+        await this.service.runTask(abrv)
         this.tableStore.resume();
     }
 }

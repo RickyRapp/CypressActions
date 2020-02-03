@@ -935,7 +935,14 @@
                     "PASSWORD_PLACEHOLDER": "Password",
                     "CONFIRM_PASSWORD_LABEL": "Confirm password",
                     "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password"
-                }
+                },
+                "SUBSCRIPTION_TYPE_LABEL": "Subscription type",
+                "SUBSCRIPTION_TYPE_PLACEHOLDER": "Subscription type",
+                "SUBSCRIPTION_NEXT_DATE_LABEL": "Subscription first date",
+                "SUBSCRIPTION_NEXT_DATE_PLACEHOLDER": "Subscription first date",
+                "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
+                "SUBSCRIPTION_AMOUNT_PLACEHOLDER": "Subscription amount",
+                "IS_ONLINE_ACCOUNT_ENABLED_LABEL": "Is online account enabled?"
             }
         },
         "EDIT": {
