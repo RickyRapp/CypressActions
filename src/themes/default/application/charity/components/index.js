@@ -2,3 +2,4 @@ export { default as CharityAddressListTableTemplate } from './CharityAddressList
 export { default as CharityBankAccountListTableTemplate } from './CharityBankAccountListTableTemplate'
 export { default as CharityBankAccountEditTemplate } from './CharityBankAccountEditTemplate'
 export { default as CharityPageHeaderOverviewTemplate } from './CharityPageHeaderOverviewTemplate'
+export { default as CharityOnlineAccountPreviewTemplate } from './CharityOnlineAccountPreviewTemplate'

@@ -36,7 +36,7 @@ class CharityAddressViewStore extends BaseListViewStore {
                 this.addressService = new CharityAddressService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.charityId = charityId;
+                        params.idOrUserId = charityId;
                         params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
                         const response = await this.addressService.find(params);

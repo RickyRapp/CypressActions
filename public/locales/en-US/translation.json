@@ -389,6 +389,7 @@
         "DONOR_ACCOUNTS": "Donors",
         "DONOR_ACCOUNT_EDIT": "Profile",
         "CHARITIES": "Charities",
+        "CHARITY_EDIT": "Profile",
         "CONTRIBUTIONS": "Contributions",
         "CONTRIBUTION_SETTINGS": "Contribution settings",
         "GRANTS": "Grants",
@@ -951,6 +952,7 @@
             "TITLE": "Edit charity",
             "FIELDS": {
                 "TITLE": "General data",
+                "BALANCE_LABEL": "Balance",
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",
                 "TAX_ID_LABEL": "Tax Id",
@@ -1001,9 +1003,21 @@
         },
         "PAGE_HEADER": {
             "OVERVIEW": {
-                "BALANCE": "Balance:",
+                "BALANCE": "Balance: ",
                 "LOGIN": "Login",
-                "ACTIVITY": "Activity"
+                "ACTIVITY": "Activity",
+                "ACCOUNT_TYPE": "Account: "
+            }
+        },
+        "PREVIEW": {
+            "TITLE": "Online account details",
+            "FIELDS": {
+                "ACCOUNT_CREATED_LABEL": "Account created",
+                "USERNAME_LABEL": "Username",
+                "ACCOUNT_TYPE_LABEL": "Account type",
+                "SUBSCRIPTION_TYPE_LABEL": "Subscription type",
+                "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
+                "SUBSCRIPTION_NEXT_DATE_LABEL": "Date to renew"
             }
         }
     },

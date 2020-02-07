@@ -168,11 +168,11 @@ class FieldBase extends Field {
 
     constructor(props) {
         const setup = props.data;
-        if (setup && setup.type === 'date') {
-            setup.output = setup.output || ((value) => {
-                return moment.utc(value).format();
-            })
-        }
+        // if (setup && setup.type === 'date') {
+        //     setup.output = setup.output || ((value) => {
+        //         return moment.utc(value).format();
+        //     })
+        // }
 
         super({
             ...props,
@@ -242,6 +242,10 @@ class FieldBase extends Field {
                 this.rules.set('rules', 'required');
             }
         }
+    }
+
+    setDisabled(isDisabled) {
+        this.set('disabled', isDisabled)
     }
 }
 

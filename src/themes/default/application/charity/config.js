@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { CharityList, CharityCreate, CharityEdit, CharityUpdateFile } from 'application/charity/pages';
+import { CharityService } from 'application/charity/services';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -45,7 +46,28 @@ import { CharityList, CharityCreate, CharityEdit, CharityUpdateFile } from 'appl
                         }
                     }
                 ]
-            }
+            },
+            {
+                name: 'master.app.main.charity-profile',
+                pattern: '/profile/:id',
+                component: CharityEdit,
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                data: {
+                    title: "CHARITY.EDIT.TITLE"
+                },
+                beforeEnter: async (fromState, toState, routerStore) => {
+                    const userId = routerStore.rootStore.userStore.applicationUser.id;
+                    const service = new CharityService(routerStore.rootStore.application.baasic.apiClient);
+                    const response = await service.get(userId, { fields: ['id'] });
+                    if (response.statusCode === 200) {
+                        toState.params.id = response.data.id;
+                        return Promise.resolve();
+                    }
+                    else {
+                        return Promise.reject(fromState);
+                    }
+                }
+            },
         ],
         menu: [
             {
@@ -54,7 +76,14 @@ import { CharityList, CharityCreate, CharityEdit, CharityUpdateFile } from 'appl
                 order: 4,
                 route: 'master.app.main.charity.list',
                 icon: 'charities',
-            }
+            },
+            {
+                title: 'MENU.CHARITY_EDIT',
+                order: 5,
+                route: 'master.app.main.charity-profile',
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                icon: 'profile'
+            },
         ]
     });
 })();

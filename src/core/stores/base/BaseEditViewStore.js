@@ -72,6 +72,14 @@ class BaseEditViewStore extends BaseViewStore {
         }
     }
 
+    hasPermission(authorization) {
+        if (this.rootStore.permissionStore.hasPermission(authorization)) {
+            return true;
+        }
+
+        return false;
+    }
+
     @action.bound
     setEditState(id) {
         this.id = id;

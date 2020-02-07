@@ -66,9 +66,9 @@ class CharityCreateViewStore extends BaseEditViewStore {
                         if (!this.form.isValid) {
                             throw { type: ErrorType.Unique };
                         }
-                        if (item.isOnlineAccountEnabled) { // todo check next date. when it's required from begining it's ok, when it's not required it's like string
+                        if (item.isOnlineAccountEnabled) {
                             item.subscriptionNextDate =
-                                new Date(Date.UTC(item.subscriptionNextDate.getFullYear(), item.subscriptionNextDate.getMonth() + 1, item.subscriptionNextDate.getDate()));
+                                new Date(Date.UTC(item.subscriptionNextDate.getFullYear(), item.subscriptionNextDate.getMonth(), item.subscriptionNextDate.getDate()));
                         }
                         try {
                             const response = await service.create(item);

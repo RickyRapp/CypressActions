@@ -217,6 +217,7 @@ export default class CharityCreateForm extends FormBase {
                 {
                     name: 'subscriptionNextDate',
                     label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_PLACEHOLDER',
                     rules: `min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}|before_or_equal_date:${moment().add(30, 'days').format('YYYY-MM-DD')}`,
                     type: 'date'
                 },

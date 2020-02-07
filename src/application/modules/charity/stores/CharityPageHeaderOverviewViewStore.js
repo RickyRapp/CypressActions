@@ -40,14 +40,12 @@ class CharityPageHeaderOverviewViewStore extends BaseViewStore {
         const service = new CharityService(this.rootStore.application.baasic.apiClient);
 
         let params = {
-            embed: [
-                'charityAccountType'
-            ],
+            // embed: [ ],
             fields: [
                 'id',
                 'name',
                 'taxId',
-                'balance'
+                'coreUserId'
             ]
         }
 
@@ -60,7 +58,7 @@ class CharityPageHeaderOverviewViewStore extends BaseViewStore {
     setCharityOptions(params) {
         switch (this.type) {
             case Types.Profile:
-                params.fields.push('coreUserId')
+                //params.fields.push()
                 break;
             default:
                 break;

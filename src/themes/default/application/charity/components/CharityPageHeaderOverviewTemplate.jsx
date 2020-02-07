@@ -31,15 +31,6 @@ const RenderProfile = ({ charity, rootStore, t }) => {
             <div className="card card--primary card--med">
                 <div className="row">
                     <div className="col col-sml-6 col-lrg-2">
-                        {t('CHARITY.PAGE_HEADER.OVERVIEW.BALANCE')}
-                        {charity &&
-                            <FormatterResolver
-                                item={{ balance: charity.balance }}
-                                field='balance'
-                                format={{ type: 'currency' }}
-                            />}
-                    </div>
-                    <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
                             onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-charity-view', null, { id: charity && charity.id })}>

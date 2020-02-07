@@ -9,13 +9,15 @@ import {
     NumberFormatInputField,
     BasicFieldCheckbox,
     DatePickerField,
-    NumericInputField
+    NumericInputField,
+    FormatterResolver
 } from 'core/components';
 import { Page } from 'core/layouts';
 import {
     CharityAddressListTable,
     CharityBankAccountEdit,
-    CharityPageHeaderOverview
+    CharityPageHeaderOverview,
+    CharityOnlineAccountPreview
 } from 'application/charity/components';
 import NumberFormat from 'react-number-format';
 
@@ -30,18 +32,27 @@ const CharityEditTemplate = function ({ charityEditViewStore, t }) {
         subscriptionTypeDropdownStore,
         createOnlineAccount,
         formOnlineAccount,
-        onBlurUsername
+        onBlurUsername,
+        charityId
     } = charityEditViewStore;
 
     return (
         <Page loading={loaderStore.loading} >
-            {item && <AuthPageHeader charityId={item.id} type={0} authorization='theDonorsFundAdministrationSection.read' />}
+            <AuthPageHeader charityId={charityId} type={0} authorization='theDonorsFundAdministrationSection.read' />
             <EditFormContent form={form}>
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-12">
                             <div className="u-mar--bottom--sml">
                                 <h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.TITLE')}</h3>
+                                <div className="form__group__label">{t('CHARITY.EDIT.FIELDS.BALANCE_LABEL')}</div>
+                                <span className="input--preview">
+                                    {item && <FormatterResolver
+                                        item={{ balance: item.balance }}
+                                        field='balance'
+                                        format={{ type: 'currency' }}
+                                    />}
+                                </span>
                                 <div className="row">
                                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('name')} />
@@ -52,10 +63,7 @@ const CharityEditTemplate = function ({ charityEditViewStore, t }) {
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                                         <div>
                                             <label className="form__group__label">Tax Id</label>
-                                            {item &&
-                                                <span className={"input input--med input--text input--disabled"}>
-                                                    <NumberFormat format="##-#######" displayType="text" value={item.taxId} />
-                                                </span>}
+                                            {item && <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
                                         </div>
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
@@ -87,15 +95,18 @@ const CharityEditTemplate = function ({ charityEditViewStore, t }) {
                 </div>
             </EditFormContent>
 
-            {item &&
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <CharityBankAccountEdit charityId={item.id} />
-                    </div>
-                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <CharityAddressListTable />
-                    </div>
-                </div>}
+            <div className="row">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    {item && item.coreUser &&
+                        <CharityOnlineAccountPreview charityId={charityId} />}
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <CharityBankAccountEdit charityId={charityId} />
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <CharityAddressListTable />
+                </div>
+            </div>
 
             {item && !item.coreUser &&
                 <div className="card card--form card--primary card--med u-mar--bottom--med">

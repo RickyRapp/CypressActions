@@ -13,8 +13,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
 
         super(rootStore, {
             name: 'session-certificate',
-            routes: {
-            },
+            routes: {},
             queryConfig: {
                 filter: filter,
                 onResetFilter: () => {
@@ -34,8 +33,6 @@ class SessionCertificateViewStore extends BaseListViewStore {
                             'certificate.booklet',
                             'certificate.booklet.denominationType',
                             'certificate.booklet.donorAccount',
-                            'certificate.booklet.donorAccount.companyProfile',
-                            'certificate.booklet.donorAccount.coreUser',
                             'session',
                             'session.charity'
                         ];
@@ -109,8 +106,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAddresses'
                         ],
                         fields: [
                             'id',

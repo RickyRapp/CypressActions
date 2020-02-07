@@ -25,6 +25,7 @@ class CharityEditViewStore extends BaseEditViewStore {
     constructor(rootStore) {
         const id = rootStore.routerStore.routerState.params.id;
         const service = new CharityService(rootStore.application.baasic.apiClient);
+
         super(rootStore, {
             name: 'charity',
             id: id,
@@ -51,7 +52,10 @@ class CharityEditViewStore extends BaseEditViewStore {
                 }
             },
             FormClass: CharityEditForm,
-            onAfterAction: () => this.getResource()
+            onAfterAction: () => {
+                this.getResource(this.charityId);
+                this.setDisabledFields();
+            }
         });
 
         this.service = service;
@@ -106,10 +110,28 @@ class CharityEditViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.fetchAccountTypes(),
                 this.fetchApplicationDefaultSetting(),
+                this.getResource(this.charityId)
             ]);
 
-            this.charityAccountTypeDropdownStore.setValue(_.find(this.charityAccountTypes, { abrv: 'regular' }))
-            this.formOnlineAccount.$('charityAccountTypeId').set(_.find(this.charityAccountTypes, { abrv: 'regular' }).id)
+            this.charityAccountTypeDropdownStore.setValue(_.find(this.charityAccountTypes, { abrv: 'regular' }));
+            this.formOnlineAccount.$('charityAccountTypeId').set(_.find(this.charityAccountTypes, { abrv: 'regular' }).id);
+
+            this.setDisabledFields();
+        }
+    }
+
+    @action.bound
+    setDisabledFields() {
+        if (!this.hasPermission('theDonorsFundAdministrationSection.update')) {
+            this.form.$('name').setDisabled(true);
+            this.form.$('dba').setDisabled(true);
+            this.form.$('charityStatusId').setDisabled(true);
+            this.form.$('charityTypeId').setDisabled(true);
+
+            this.form.$('name').resetValidation();
+            this.form.$('dba').resetValidation();
+            this.form.$('charityStatusId').resetValidation();
+            this.form.$('charityTypeId').resetValidation();
         }
     }
 

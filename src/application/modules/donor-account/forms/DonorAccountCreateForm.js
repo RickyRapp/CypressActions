@@ -35,7 +35,7 @@ export default class DonorAccountCreateForm extends FormBase {
                     label: 'DONOR_ACCOUNT.CREATE.DATE_OF_BIRTH_LABEL',
                     placeholder: 'DONOR_ACCOUNT.CREATE.DATE_OF_BIRTH_PLACEHOLDER',
                     rules: `required|before_or_equal_date:${moment().format('YYYY-MM-DD')}`,
-                    type: 'required|date'
+                    type: 'date'
                 },
                 {
                     name: 'activationUrl',
