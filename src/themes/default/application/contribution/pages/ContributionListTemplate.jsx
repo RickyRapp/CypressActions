@@ -10,7 +10,8 @@ import {
     BaasicDropdown,
     BaasicInput,
     NullableSwitch,
-    DateRangeQueryPicker
+    DateRangeQueryPicker,
+    QueryNullableSwitch
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -45,9 +46,11 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                             </div>
                             <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
                                 {accountTypes &&
-                                    <NullableSwitch
-                                        value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'basic' }).id}
-                                        onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'basic' : 'premium' }).id}
+                                    <QueryNullableSwitch
+                                        queryUtility={queryUtility}
+                                        propertyName='accountTypeId'
+                                        yesValue={_.find(accountTypes, { abrv: 'basic' }).id}
+                                        noValue={_.find(accountTypes, { abrv: 'premium' }).id}
                                         yesLabel='CONTRIBUTION.LIST.FILTER.BASIC_PLACEHOLDER'
                                         noLabel='CONTRIBUTION.LIST.FILTER.PREMIUM_PLACEHOLDER'
                                     />}

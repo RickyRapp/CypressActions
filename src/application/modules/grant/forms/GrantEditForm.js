@@ -30,10 +30,10 @@ export default class GrantEditForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'charity',
+                    name: 'charityId',
                     label: 'GRANT.CREATE.FIELDS.CHARITY_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.CHARITY_PLACEHOLDER',
-                    rules: 'required'
+                    rules: 'required|string'
                 },
                 {
                     name: 'additionalInformation',

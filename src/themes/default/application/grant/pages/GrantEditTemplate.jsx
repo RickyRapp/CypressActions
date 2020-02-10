@@ -20,7 +20,7 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
         charityDropdownStore,
         donorAccountId,
         donorAccount,
-        onChangeAmount,
+        onBlurAmount,
         amountWithFee
     } = grantEditViewStore;
 
@@ -33,12 +33,12 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
                         <h3 className="u-mar--bottom--med">General Data</h3>
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                                <BaasicFieldDropdown field={form.$('charity')} store={charityDropdownStore} />
+                                <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumericInputField field={form.$('amount')} onChange={onChangeAmount} />
+                                <NumericInputField field={form.$('amount')} onBlur={onBlurAmount} />
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 {amountWithFee &&

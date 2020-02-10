@@ -3,6 +3,7 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { LookupService, FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
 import { DonorAccountService } from 'application/donor-account/services';
+import { charityFormatter } from 'core/utils';
 import _ from 'lodash';
 
 class GrantBaseViewStore extends BaseEditViewStore {
@@ -49,15 +50,20 @@ class GrantBaseViewStore extends BaseEditViewStore {
                         sort: 'name|asc',
                         embed: [
                             'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAccountType'
                         ],
                         fields: [
                             'id',
                             'taxId',
-                            'name'
+                            'name',
+                            'charityAccountType',
+                            'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return _.map(response.item, x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
+                },
+                onChange: () => {
+                    this.onBlurAmount();
                 }
             });
     }
@@ -83,8 +89,27 @@ class GrantBaseViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onChangeAmount() {
-        if (this.form.$('amount').value && this.form.$('amount').isValid) {
+    async onBlurAmount() {
+        if (this.form.$('amount').value) {
+            if (this.form.$('charityId').value) {
+                if (this.charityDropdownStore.value && this.charityDropdownStore.value.item) {
+                    if (this.charityDropdownStore.value.item.charityAccountType.abrv === 'regular') {
+                        if (this.form.$('amount').value < 100) {
+                            this.form.$('amount').invalidate('Amount cannot be less than $100 for this charity.')
+                            this.amountWithFee = null;
+                            return;
+                        }
+                    }
+                    else if (this.charityDropdownStore.value.item.charityAccountType.abrv === 'advanced') {
+                        if (this.form.$('amount').value < 25) {
+                            this.form.$('amount').invalidate('Amount cannot be less than $25 for this charity.')
+                            this.amountWithFee = null;
+                            return;
+                        }
+                    }
+                }
+            }
+
             let params = {};
             params.id = this.donorAccountId;
             params.feeTypeId = _.find(this.feeTypes, { abrv: 'grant-fee' }).id;

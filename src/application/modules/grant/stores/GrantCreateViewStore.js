@@ -25,6 +25,10 @@ class GrantCreateViewStore extends GrantBaseViewStore {
                         if (resource.endDate == 'Invalid date') {
                             resource.endDate = null;
                         }
+                        this.onBlurAmount();
+                        if (!this.form.isValid) {
+                            throw { data: { message: "There is a problem with form." } };
+                        }
                         if (resource.grantScheduleTypeId &&
                             (moment(resource.startFutureDate) > moment() || resource.grantScheduleTypeId === this.monthlyGrantId || resource.grantScheduleTypeId === this.annualGrantId)) {
                             this.scheduledGrant = true;

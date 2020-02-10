@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { applicationContext } from 'core/utils';
+import { applicationContext, charityFormatter } from 'core/utils';
 import { GrantEditForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
@@ -17,12 +17,17 @@ class GrantEditViewStore extends GrantBaseViewStore {
                 const service = new GrantService(rootStore.application.baasic.apiClient);
                 return {
                     update: async (resource) => {
+                        this.onBlurAmount();
+                        if (!this.form.isValid) {
+                            throw { data: { message: "There is a problem with form." } };
+                        }
                         return await service.update({ id: this.id, ...resource });
                     },
                     get: async (id) => {
                         let params = {
                             embed: [
                                 'charity',
+                                'charity.charityAccountType',
                                 'grantPurposeType',
                                 'grantAcknowledgmentType'
                             ],
@@ -36,6 +41,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
                                 'additionalInformation',
                                 'purposeMemberName',
                                 'charityEventAttending',
+                                'charityId',
                                 'charity'
                             ]
                         }
@@ -68,8 +74,12 @@ class GrantEditViewStore extends GrantBaseViewStore {
                 this.setFormDefaultValues(),
             ]);
 
+            if (this.item && this.item.charity) {
+                this.charityDropdownStore.setValue({ id: this.item.charity.id, name: charityFormatter.format(this.item.charity, { value: 'charity-name-display' }), item: this.item.charity })
+            }
+
             this.form.validate();
-            this.onChangeAmount();
+            this.onBlurAmount();
             this.grantAcknowledgmentTypeDropdownStore.setValue(this.item.grantAcknowledgmentType);
             this.grantPurposeTypeDropdownStore.setValue(this.item.grantPurposeType);
         }
