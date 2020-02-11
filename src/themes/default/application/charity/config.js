@@ -51,7 +51,7 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-profile',
                 pattern: '/profile/:id',
                 component: CharityEdit,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY.EDIT.TITLE"
                 },
@@ -72,7 +72,7 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-grants',
                 pattern: '/charity-grants',
                 component: CharityGrantsList,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY_GRANTS.LIST.TITLE"
                 }
@@ -81,7 +81,7 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-certificates',
                 pattern: '/charity-certificates',
                 component: CharityCertificatesList,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY_CERTIFICATES.LIST.TITLE"
                 }
@@ -99,21 +99,21 @@ import { CharityService } from 'application/charity/services';
                 title: 'MENU.CHARITY_EDIT',
                 order: 5,
                 route: 'master.app.main.charity-profile',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 icon: 'profile'
             },
             {
                 title: 'MENU.CHARITY_GRANTS',
                 order: 6,
                 route: 'master.app.main.charity-grants',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 icon: 'grant'
             },
             {
                 title: 'MENU.CHARITY_CERTIFICATES',
                 order: 7,
                 route: 'master.app.main.charity-certificates',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('CharitiesRegular', 'CharitiesAdvanced'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 icon: 'grant'
             },
         ]

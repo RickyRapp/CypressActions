@@ -92,7 +92,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
     async onBlurAmount() {
         if (this.form.$('amount').value) {
             if (this.form.$('charityId').value) {
-                if (this.charityDropdownStore.value && this.charityDropdownStore.value.item) {
+                if (this.charityDropdownStore.value && this.charityDropdownStore.value.item && this.charityDropdownStore.value.item.charityAccountType) {
                     if (this.charityDropdownStore.value.item.charityAccountType.abrv === 'regular') {
                         if (this.form.$('amount').value < 100) {
                             this.form.$('amount').invalidate('Amount cannot be less than $100 for this charity.')

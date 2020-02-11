@@ -72,8 +72,6 @@ class GrantViewStore extends BaseListViewStore {
                             'grantPurposeType',
                             'createdByCoreUser',
                             'donorAccount',
-                            'donorAccount.coreUser',
-                            'donorAccount.companyProfile',
                             'donationStatus',
                             'grantScheduledPayment'
                         ];
