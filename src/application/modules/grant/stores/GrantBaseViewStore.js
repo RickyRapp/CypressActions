@@ -60,7 +60,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
                             'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
+                    return _.map(response.data.item, x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
                 },
                 onChange: () => {
                     this.onBlurAmount();

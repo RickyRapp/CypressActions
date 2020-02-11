@@ -9,10 +9,10 @@ export default class SessionEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charity',
+                    name: 'charityId',
                     label: 'SESSION.EDIT.FIELDS.CHARITY_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.CHARITY_PLACEHOLDER',
-                    rules: 'required'
+                    rules: 'required|string'
                 },
                 {
                     name: 'fullName',

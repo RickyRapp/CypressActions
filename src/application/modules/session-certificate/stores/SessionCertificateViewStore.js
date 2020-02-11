@@ -82,7 +82,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         type: 'date',
                         value: 'short'
                     }
-                },
+                }
             ],
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)

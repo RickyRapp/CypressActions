@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { LookupService } from 'common/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, charityFormatter } from 'core/utils';
 import { SessionEditForm } from 'application/session/forms';
 import { SessionService } from 'application/session/services';
 import { CharityService } from 'application/charity/services';
@@ -27,7 +27,6 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        resource.charityId = resource.charity;
                         return await service.update({ id: this.id, ...resource });
                     },
                     get: async (id) => {
@@ -88,16 +87,16 @@ class SessionEditViewStore extends BaseEditViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAddresses'
                         ],
                         fields: [
                             'id',
                             'taxId',
-                            'name'
+                            'name',
+                            'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return _.map(response.data.item, x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
                 }
             });
 
@@ -155,6 +154,10 @@ class SessionEditViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource(this.id)
             ]);
+
+            if (this.item && this.item.charity) {
+                this.charityDropdownStore.setValue({ id: this.item.charity.id, name: charityFormatter.format(this.item.charity, { value: 'charity-name-display' }), item: this.item.charity })
+            }
 
             if (this.session.donationStatus.abrv !== 'pending') {
                 await this.rootStore.routerStore.goBack();

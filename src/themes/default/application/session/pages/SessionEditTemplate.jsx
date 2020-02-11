@@ -41,7 +41,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                 <h3 className="u-mar--bottom--med">General Data</h3>
                 <div className="row u-mar--bottom--lrg">
                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                        <BaasicFieldDropdown field={form.$('charity')} store={charityDropdownStore} />
+                        <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                         <div>

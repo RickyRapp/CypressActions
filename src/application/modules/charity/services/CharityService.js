@@ -7,28 +7,34 @@ class CharityService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async search(filter) {
+    findGrants(filter) {
+        const url = this.routeService.findGrants(filter);
+        return this.apiClient.get(url);
+    }
+
+    findCertificates(filter) {
+        const url = this.routeService.findCertificates(filter);
+        return this.apiClient.get(url);
+    }
+
+    search(filter) {
         const url = this.routeService.search(filter);
-        const response = await this.apiClient.get(url, filter);
-        return response.data || null;
+        return this.apiClient.get(url, filter);
     }
 
-    async taxIdExists(taxId) {
+    taxIdExists(taxId) {
         const url = this.routeService.taxIdExists(taxId);
-        const response = await this.apiClient.get(url);
-        return response || null;
+        return this.apiClient.get(url);
     }
 
-    async processUpdateFile(fileId) {
+    processUpdateFile(fileId) {
         const url = this.routeService.processUpdateFile(fileId);
-        const response = await this.apiClient.get(url);
-        return response || null;
+        return this.apiClient.get(url);
     }
 
-    async createOnlineAccount(resource) {
+    createOnlineAccount(resource) {
         const url = this.routeService.createOnlineAccount(resource);
-        const response = await this.apiClient.post(url, resource);
-        return response || null;
+        return this.apiClient.post(url, resource);
     }
 }
 

@@ -9,7 +9,6 @@ import {
     BaasicModal,
     BaasicDropdown,
     BaasicInput,
-    NullableSwitch,
     DateRangeQueryPicker,
     QueryNullableSwitch
 } from 'core/components';

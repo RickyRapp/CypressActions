@@ -408,6 +408,8 @@
         "CHECKS": "Checks",
         "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
         "THIRD_PARTY_WEBSITE": "Third party websites",
+        "CHARITY_GRANTS": "Grants",
+        "CHARITY_CERTIFICATES": "Certificates",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -1018,6 +1020,31 @@
                 "SUBSCRIPTION_TYPE_LABEL": "Subscription type",
                 "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
                 "SUBSCRIPTION_NEXT_DATE_LABEL": "Date to renew"
+            }
+        }
+    },
+    "CHARITY_GRANTS": {
+        "LIST": {
+            "TITLE": "Grants",
+            "COLUMNS": {
+                "DONOR_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "DATE_CREATED_LABEL": "Date created"
+            }
+        }
+    },
+    "CHARITY_CERTIFICATES": {
+        "LIST": {
+            "TITLE": "Certificates",
+            "COLUMNS": {
+                "DONOR_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "DATE_PROCESSED_LABEL": "Date processed",
+                "CODE_LABEL": "CODE"
             }
         }
     },

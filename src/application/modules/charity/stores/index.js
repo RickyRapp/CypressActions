@@ -6,3 +6,5 @@ export { default as CharityBankAccountEditViewStore } from './CharityBankAccount
 export { default as CharityUpdateFileViewStore } from './CharityUpdateFileViewStore'
 export { default as CharityPageHeaderOverviewViewStore } from './CharityPageHeaderOverviewViewStore'
 export { default as CharityOnlineAccountPreviewViewStore } from './CharityOnlineAccountPreviewViewStore'
+export { default as CharityGrantsViewStore } from './CharityGrantsViewStore'
+export { default as CharityCertificatesViewStore } from './CharityCertificatesViewStore'
