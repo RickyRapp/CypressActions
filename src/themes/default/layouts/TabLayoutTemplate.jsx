@@ -7,31 +7,18 @@ import { defaultTemplate } from 'core/hoc';
 
 import _ from 'lodash';
 
-const TabLayoutTemplate = function ({
-    title,
-    children,
-    store,
-    showNavigation
-}) {
-    const { loaderStore, activeIndex, isError = false } = store;
-    const { loading } = loaderStore;
-    const {
-        isLoading
-    } = resolveProps({ loading, store });
+const TabLayoutTemplate = function ({ title, children, store, showNavigation, loading }) {
+    const { activeIndex, isError = false } = store;
+    const { isLoading } = resolveProps({ loading, store });
 
     return (
         <Content isError={isError} loading={isLoading}>
-            <div className='content'>
-                {/*TODO: insert page header?*/}
-                {showNavigation && <PageNavigation></PageNavigation>}
-
-                <TabsHeader tabsStore={store} >{children}</TabsHeader> {/* jshint ignore:line */}
-                {title}
-
-                {/* TODO: give parent route name? */}
-
-                {renderTabsContent(activeIndex, children)}
-            </div>
+            {/*TODO: insert page header?*/}
+            {showNavigation && <PageNavigation></PageNavigation>}
+            <TabsHeader tabsStore={store}>{children}</TabsHeader> {/* jshint ignore:line */}
+            {title}
+            {/* TODO: give parent route name? */}
+            {renderTabsContent(activeIndex, children)}
         </Content>
     );
 };
@@ -40,16 +27,15 @@ TabLayoutTemplate.propTypes = {
     store: PropTypes.any,
     title: PropTypes.string,
     children: PropTypes.any,
-    showNavigation: PropTypes.bool
+    showNavigation: PropTypes.bool,
+    loading: PropTypes.bool,
 };
 
 // vice-versa compatibility with settings props as well as using store
 function resolveProps({ loading, store }) {
     return {
-        isLoading: _.isBoolean(loading)
-            ? loading
-            : (store ? store.loaderStore.initial && store.loaderStore.loading : false)
-    }
+        isLoading: _.isBoolean(loading) ? loading : store ? store.loaderStore.initial && store.loaderStore.loading : false,
+    };
 }
 
 function renderTabsContent(activeIndex, children) {

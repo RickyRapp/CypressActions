@@ -43,13 +43,11 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
                     </BaasicButton>
                 </h3>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                            actionsComponent={renderActions}
-                        />
-                    </div>
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
                 </Content>
             </ListContent>
             <BaasicModal modalParams={bankAccountModal}>

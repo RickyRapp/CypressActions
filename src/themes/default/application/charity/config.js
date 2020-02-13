@@ -49,7 +49,7 @@ import { CharityService } from 'application/charity/services';
             },
             {
                 name: 'master.app.main.charity-profile',
-                pattern: '/profile/:id',
+                pattern: '/charity-profile/:id',
                 component: CharityEdit,
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {

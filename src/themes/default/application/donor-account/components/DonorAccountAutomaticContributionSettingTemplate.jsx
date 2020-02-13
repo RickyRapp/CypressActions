@@ -19,34 +19,30 @@ const DonorAccountAutomaticContributionSettingTemplate = function ({ t, donorAcc
     } = donorAccountAutomaticContributionSettingViewStore;
 
     return (
-        <div>
-            <EditFormContent form={form}
-                emptyRenderer={<ApplicationEmptyState />}
-                loading={loaderStore.loading}
-                layoutFoot
-            >
-                <h3>{t('DONOR_ACCOUNT.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
-                <div className="card--form card--primary card--med">
-                    <div className="row">
-                        <div className="form__group col col-lrg-4">
-                            <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="form__group col col-lrg-4">
-                            <BaasicFieldDropdown field={form.$('donorAccountBankAccountId')} store={bankAccountDropdownStore} />
-                        </div>
-                        <div className="form__group col col-lrg-4">
-                            <NumericInputField field={form.$('amount')} />
-                        </div>
-                        <div className="form__group col col-lrg-4">
-                            <NumericInputField field={form.$('lowBalanceAmount')} />
-                        </div>
-                    </div>
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+        <EditFormContent form={form}
+            emptyRenderer={<ApplicationEmptyState />}
+            loading={loaderStore.loading}
+            layoutFoot
+        >
+            <h3 className="u-mar--bottom--tny">{t('DONOR_ACCOUNT.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
+            <div className="row">
+                <div className="form__group col col-lrg-4">
+                    <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                 </div>
-            </EditFormContent>
-        </div>
+            </div>
+            <div className="row">
+                <div className="form__group col col-lrg-4">
+                    <BaasicFieldDropdown field={form.$('donorAccountBankAccountId')} store={bankAccountDropdownStore} />
+                </div>
+                <div className="form__group col col-lrg-4">
+                    <NumericInputField field={form.$('amount')} />
+                </div>
+                <div className="form__group col col-lrg-4">
+                    <NumericInputField field={form.$('lowBalanceAmount')} />
+                </div>
+            </div>
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+        </EditFormContent>
     )
 }
 

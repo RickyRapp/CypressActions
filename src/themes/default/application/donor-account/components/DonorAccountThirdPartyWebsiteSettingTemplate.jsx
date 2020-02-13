@@ -26,29 +26,27 @@ const DonorAccountThirdPartyWebsiteSettingTemplate = function ({ t, donorAccount
                 loading={loaderStore.loading}
                 layoutFoot
             >
-                <h3>{t('DONOR_ACCOUNT.THIRD_PARTY_WEBSITE_SETTING.TITLE')}</h3>
-                <div className="card--form card--primary card--med">
-                    <div className="row">
-                        <div className="form__group col col-lrg-4">
-                            <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
-                        </div>
+                <h3 className="u-mar--bottom--tny">{t('DONOR_ACCOUNT.THIRD_PARTY_WEBSITE_SETTING.TITLE')}</h3>
+                <div className="row">
+                    <div className="form__group col col-lrg-4">
+                        <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                     </div>
-                    <div className="row">
-                        <div className="form__group col col-lrg-4">
-                            <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
-                        </div>
-                        <div className="form__group col col-lrg-4">
-                            <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
-                        </div>
-                        <div className="form__group col col-lrg-2">
-                            <NumericInputField field={form.$('maxAmount')} />
-                        </div>
-                        <div className="form__group col col-lrg-2">
-                            <NumericInputField field={form.$('maxTimesPerDay')} />
-                        </div>
-                    </div>
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
+                <div className="row">
+                    <div className="form__group col col-lrg-4">
+                        <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
+                    </div>
+                    <div className="form__group col col-lrg-4">
+                        <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+                    </div>
+                    <div className="form__group col col-lrg-2">
+                        <NumericInputField field={form.$('maxAmount')} />
+                    </div>
+                    <div className="form__group col col-lrg-2">
+                        <NumericInputField field={form.$('maxTimesPerDay')} />
+                    </div>
+                </div>
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </EditFormContent>
         </div>
     )

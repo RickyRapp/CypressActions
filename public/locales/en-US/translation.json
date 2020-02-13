@@ -448,6 +448,11 @@
     "EXPORT_LIMITS": "Export limit",
     "EXPORT_FIELDS": "Export fields",
     "DONOR_ACCOUNT": {
+        "TAB": {
+            "GENERAL_DATA": "General data",
+            "PERSONAL_DATA": "Personal data",
+            "SETTING_DATA": "Settings"
+        },
         "LIST": {
             "TITLE": "Donors",
             "COLUMNS": {
@@ -615,7 +620,8 @@
                 "AVAILABLE_BALANCE": "Available:",
                 "ACTIVITY": "Activity",
                 "CONTRIBUTION": "Contributions",
-                "GRANT": "Grants"
+                "GRANT": "Grants",
+                "LOGIN": "Login"
             }
         }
     },

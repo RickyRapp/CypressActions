@@ -57,6 +57,13 @@ const RenderDonorAccount = ({ donorAccount, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.user.edit', { id: donorAccount && donorAccount.id })}>
+                            {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.LOGIN')}
+                        </a>
+                    </div>
+                    <div className="col col-sml-6 col-lrg-2">
+                        <a
+                            className=""
                             onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-donor-view', null, { id: donorAccount && donorAccount.id })}>
                             {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>

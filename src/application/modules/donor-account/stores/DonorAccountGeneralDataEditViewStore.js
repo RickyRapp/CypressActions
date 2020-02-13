@@ -4,13 +4,13 @@ import { DonorAccountEditForm } from 'application/donor-account/forms';
 import { LookupService } from 'common/services';
 import { DonorAccountService } from 'application/donor-account/services';
 
-class DonorAccountEditViewStore extends BaseEditViewStore {
+class DonorAccountGeneralDataEditViewStore extends BaseEditViewStore {
     @observable accountSettingsShow = false;
     constructor(rootStore) {
         const id = rootStore.routerStore.routerState.params.id;
         const service = new DonorAccountService(rootStore.application.baasic.apiClient);
         super(rootStore, {
-            name: 'donor-account',
+            name: 'general-data',
             id: id,
             actions: {
                 get: async (id) => {
@@ -79,7 +79,7 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
                 id: this.id,
                 ...generalData
             });
-            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+            if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
                 await service.updateAccountSettingsData({
                     id: this.id,
                     ...accountSettingsData
@@ -99,4 +99,4 @@ class DonorAccountEditViewStore extends BaseEditViewStore {
     }
 }
 
-export default DonorAccountEditViewStore;
+export default DonorAccountGeneralDataEditViewStore;

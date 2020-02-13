@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TabHeader = ({ onClick, label, isActive, t }) => {
     return (
-        <a className={'tabs--primary__item' + (isActive ? ' active' : '')} href='#' onClick={onClick}>{t(label)}</a>
+        <a className={'u-mar--right--sml tabs--primary__item' + (isActive ? ' active' : '')} href='#' onClick={onClick}>{t(label)}</a>
     )
 }
 

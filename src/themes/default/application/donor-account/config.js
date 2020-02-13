@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'application/donor-account/pages';
+import { DonorAccountList, DonorAccountTab, DonorAccountCreate } from 'application/donor-account/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -20,7 +20,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
                     {
                         name: 'master.app.main.donor-account.edit',
                         pattern: '/edit/:id',
-                        component: DonorAccountEdit,
+                        component: DonorAccountTab,
                         authorization: 'theDonorsFundDonorSection.update',
                         data: {
                             title: "DONOR_ACCOUNT.EDIT.TITLE"
@@ -40,7 +40,7 @@ import { DonorAccountList, DonorAccountEdit, DonorAccountCreate } from 'applicat
             {
                 name: 'master.app.main.profile',
                 pattern: '/profile/:id',
-                component: DonorAccountEdit,
+                component: DonorAccountTab,
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 data: {
                     title: "DONOR_ACCOUNT.EDIT.TITLE"
