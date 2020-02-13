@@ -29,6 +29,18 @@ function FormatterResolver({ item, field, format }) {
             params.value = _.get(item, field);
             return <NumberFormat {...params} />
         }
+        case 'share-name': {
+            let shareName = item.grantAcknowledgmentType.name;
+
+            if (item.grantAcknowledgmentTypeByAmount && item.acknowledgmentByAmount) {
+                params.value = item.acknowledgmentByAmount;
+                const formatAmount = <span><NumberFormat {...params} /></span>
+                return <span>{shareName} (over {formatAmount} will be {item.grantAcknowledgmentTypeByAmount.name})</span>
+            }
+            else {
+                return shareName;
+            }
+        }
         case 'transaction-currency': {
             const paymentTransaction = _.get(item, field);
             const type = paymentTransaction.paymentTransactionType.abrv;

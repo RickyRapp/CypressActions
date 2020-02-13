@@ -12,3 +12,4 @@ export { default as DonorAccountPageHeaderOverview } from './DonorAccountPageHea
 export { default as SelectDonor } from './SelectDonor'
 export { default as DonorAccountThirdPartyWebsiteSetting } from './DonorAccountThirdPartyWebsiteSetting'
 export { default as DonorAccountAutomaticContributionSetting } from './DonorAccountAutomaticContributionSetting'
+export { default as DonorAccountCertificateSetting } from './DonorAccountCertificateSetting'

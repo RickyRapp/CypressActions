@@ -13,11 +13,11 @@ class DonorAccountThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
 
         super(rootStore, {
             name: 'third-party-website-edit',
-            id: undefined,
+            id: donorAccountId,
             actions: () => {
                 return {
-                    create: async (resource) => {
-                        await service.createThirdPartyWebsiteSetting({ donorAccountId: donorAccountId, ...resource });
+                    update: async (resource) => {
+                        await service.editThirdPartyWebsiteSetting({ id: donorAccountId, ...resource });
                     },
                     get: async (id) => {
                         try {

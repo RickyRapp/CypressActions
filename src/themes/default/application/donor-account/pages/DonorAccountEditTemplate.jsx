@@ -18,7 +18,8 @@ import {
     DonorAccountPhoneNumberListTable,
     DonorAccountBankAccountListTable,
     DonorAccountThirdPartyWebsiteSetting,
-    DonorAccountAutomaticContributionSetting
+    DonorAccountAutomaticContributionSetting,
+    DonorAccountCertificateSetting
 } from 'application/donor-account/components';
 import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import { DonorNoteList } from 'application/donor-note/pages';
@@ -117,6 +118,9 @@ function DonorAccountEditTemplate({ donorAccountEditViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                             <DonorAccountThirdPartyWebsiteSetting />
+                        </div>
+                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                            <DonorAccountCertificateSetting />
                         </div>
                     </div>}
             </div>

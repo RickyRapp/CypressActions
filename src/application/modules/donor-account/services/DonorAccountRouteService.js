@@ -53,8 +53,8 @@ class DonorAccountRouteService extends BaseRouteService {
     return super.get('third-party-website-setting/{id}', id);
   }
 
-  createThirdPartyWebsiteSetting(resource) {
-    return super.create('third-party-website-setting', resource);
+  editThirdPartyWebsiteSetting(resource) {
+    return super.update('third-party-website-setting/{id}', resource);
   }
 
   getAutomaticContributionSetting(id) {
@@ -63,6 +63,14 @@ class DonorAccountRouteService extends BaseRouteService {
 
   createAutomaticContributionSetting(resource) {
     return super.create('automatic-contribution-setting', resource);
+  }
+
+  getCertificateSetting(id) {
+    return super.get('certificate-setting/{id}', id);
+  }
+
+  editCertificateSetting(resource) {
+    return super.update('certificate-setting/{id}', resource);
   }
 }
 

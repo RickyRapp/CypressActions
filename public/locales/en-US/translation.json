@@ -596,6 +596,19 @@
                 }
             }
         },
+        "CERTIFICATE_SETTING": {
+            "TITLE": "Certificate setting",
+            "EDIT": {
+                "FIELDS": {
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Grant acknowledgment",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Grant acknowledgment",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Grant acknowledgment by amount",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_PLACEHOLDER": "Grant acknowledgment by amount",
+                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Amount",
+                    "ACKNOWLEDGMENT_BY_AMOUNT_PLACEHOLDER": "Amount"
+                }
+            }
+        },
         "PAGE_HEADER": {
             "OVERVIEW": {
                 "PRESENT_BALANCE": "Present:",
@@ -1444,10 +1457,14 @@
                 "DATE_ASSIGNED_LABEL": "Assigned on",
                 "DATE_CREATED_LABEL": "Date created",
                 "STATUS_LABEL": "Status",
+                "SHARE_NAME_LABEL": "Share name",
                 "CERTIFICATES_LABEL": "Certificates"
             },
             "EMPTY_STATE": {
                 "TITLE": "No booklets"
+            },
+            "BUTTON": {
+                "EDIT": "Edit"
             }
         },
         "CREATE": {

@@ -6,3 +6,4 @@ export { default as DonorAccountPageHeaderOverviewTemplate } from './DonorAccoun
 export { default as SelectDonorTemplate } from './SelectDonorTemplate'
 export { default as DonorAccountThirdPartyWebsiteSettingTemplate } from './DonorAccountThirdPartyWebsiteSettingTemplate'
 export { default as DonorAccountAutomaticContributionSettingTemplate } from './DonorAccountAutomaticContributionSettingTemplate'
+export { default as DonorAccountCertificateSettingTemplate } from './DonorAccountCertificateSettingTemplate'

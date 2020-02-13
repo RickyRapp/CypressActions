@@ -7,64 +7,64 @@ class DonorAccountService extends BaseService {
     this.apiClient = apiClient;
   }
 
-  async updateGeneralData(resource) {
+  updateGeneralData(resource) {
     const url = this.routeService.updateGeneralData(resource);
-    const response = await this.apiClient.put(url, resource);
-    return response || null;
+    return this.apiClient.put(url, resource);
   }
 
-  async updateAccountSettingsData(resource) {
+  updateAccountSettingsData(resource) {
     const url = this.routeService.updateAccountSettingsData(resource);
-    const response = await this.apiClient.put(url, resource);
-    return response || null;
+    return this.apiClient.put(url, resource);
   }
 
-  async register(resource) {
+  register(resource) {
     var url = this.routeService.register();
-    const response = await this.apiClient.post(url, resource);
-    return response || null;
+    return this.apiClient.post(url, resource);
   }
 
-  async getSettings(id) {
+  getSettings(id) {
     const url = this.routeService.getSettings(id);
-    const response = await this.apiClient.get(url);
-    return response.data || null;
+    return this.apiClient.get(url);
   }
 
-  async search(filter) {
+  search(filter) {
     const url = this.routeService.search(filter);
-    const response = await this.apiClient.get(url, filter);
-    return response.data || null;
+    return this.apiClient.get(url, filter);
   }
 
-  async fundNameExists(fundName) {
+  fundNameExists(fundName) {
     const url = this.routeService.fundNameExists(fundName);
-    const response = await this.apiClient.get(url);
-    return response || null;
+    return this.apiClient.get(url);
   }
 
-  async createThirdPartyWebsiteSetting(resource) {
-    const url = this.routeService.createThirdPartyWebsiteSetting(resource);
-    const response = await this.apiClient.post(url, resource);
-    return response || null;
+  editThirdPartyWebsiteSetting(resource) {
+    const url = this.routeService.editThirdPartyWebsiteSetting(resource);
+    return this.apiClient.put(url, resource);
   }
 
-  async getThirdPartyWebsiteSetting(id) {
+  getThirdPartyWebsiteSetting(id) {
     const url = this.routeService.getThirdPartyWebsiteSetting(id);
-    const response = await this.apiClient.get(url);
-    return response || null;
+    return this.apiClient.get(url);
   }
 
-  async createAutomaticContributionSetting(resource) {
-    const url = this.routeService.createAutomaticContributionSetting(resource);
-    const response = await this.apiClient.post(url, resource);
-    return response || null;
-  }
-
-  async getAutomaticContributionSetting(id) {
+  getAutomaticContributionSetting(id) {
     const url = this.routeService.getAutomaticContributionSetting(id);
-    const response = await this.apiClient.get(url);
-    return response || null;
+    return this.apiClient.get(url);
+  }
+
+  createAutomaticContributionSetting(resource) {
+    const url = this.routeService.createAutomaticContributionSetting(resource);
+    return this.apiClient.post(url, resource);
+  }
+
+  getCertificateSetting(id) {
+    const url = this.routeService.getCertificateSetting(id);
+    return this.apiClient.get(url);
+  }
+
+  editCertificateSetting(resource) {
+    const url = this.routeService.editCertificateSetting(resource);
+    return this.apiClient.put(url, resource);
   }
 }
 

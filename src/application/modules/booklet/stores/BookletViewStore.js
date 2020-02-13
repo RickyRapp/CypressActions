@@ -45,8 +45,8 @@ class BookletViewStore extends BaseListViewStore {
                             'certificates',
                             'certificates.certificateStatus',
                             'donorAccount',
-                            'donorAccount.coreUser',
-                            'donorAccount.companyProfile'
+                            'grantAcknowledgmentType',
+                            'grantAcknowledgmentTypeByAmount',
                         ];
                         params.fields = [];
                         const response = await service.find(params);
@@ -87,6 +87,13 @@ class BookletViewStore extends BaseListViewStore {
                 {
                     key: 'bookletStatus.name',
                     title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL'
+                },
+                {
+                    key: 'shareName',
+                    title: 'BOOKLET.LIST.COLUMNS.SHARE_NAME_LABEL',
+                    format: {
+                        type: 'share-name'
+                    },
                 },
                 {
                     key: 'certificates',

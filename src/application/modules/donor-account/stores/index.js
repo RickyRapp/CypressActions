@@ -9,3 +9,4 @@ export { default as DonorAccountPageHeaderOverviewViewStore } from './DonorAccou
 export { default as SelectDonorViewStore } from './SelectDonorViewStore'
 export { default as DonorAccountThirdPartyWebsiteSettingViewStore } from './DonorAccountThirdPartyWebsiteSettingViewStore'
 export { default as DonorAccountAutomaticContributionSettingViewStore } from './DonorAccountAutomaticContributionSettingViewStore'
+export { default as DonorAccountCertificateSettingViewStore } from './DonorAccountCertificateSettingViewStore'

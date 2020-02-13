@@ -40,10 +40,10 @@ const DonorAccountThirdPartyWebsiteSettingTemplate = function ({ t, donorAccount
                         <div className="form__group col col-lrg-4">
                             <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                         </div>
-                        <div className="form__group col col-lrg-4">
+                        <div className="form__group col col-lrg-2">
                             <NumericInputField field={form.$('maxAmount')} />
                         </div>
-                        <div className="form__group col col-lrg-4">
+                        <div className="form__group col col-lrg-2">
                             <NumericInputField field={form.$('maxTimesPerDay')} />
                         </div>
                     </div>
