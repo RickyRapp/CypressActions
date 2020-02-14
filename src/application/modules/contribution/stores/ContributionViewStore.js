@@ -49,6 +49,7 @@ class ContributionViewStore extends BaseListViewStore {
                     this.searchDonorAccountDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
+                    this.dateCreatedDateRangeQueryStore.reset();
                 }
             },
             actions: () => {
@@ -185,7 +186,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => {
+                    return _.map(response.data.item, x => {
                         return {
                             id: x.id,
                             name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })

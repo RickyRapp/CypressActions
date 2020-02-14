@@ -145,7 +145,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                             'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => {
+                    return _.map(response.data.item, x => {
                         return {
                             id: x.id,
                             name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
@@ -162,17 +162,14 @@ class SessionCertificateViewStore extends BaseListViewStore {
                             fields: [
                                 'id',
                                 'accountNumber',
-                                'donorName'
+                                'donorName',
+                                'securityPin',
+                                'donorAccountAddresses'
                             ]
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return _.map(response.item, x => {
-                            return {
-                                id: x.id,
-                                name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                            }
-                        });
+                        return { id: response.data.id, name: response.data.donorName };
                     }
                     else {
                         return null;

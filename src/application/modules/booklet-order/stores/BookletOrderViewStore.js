@@ -59,8 +59,6 @@ class BookletOrderViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'donorAccount',
-                            'donorAccount.coreUser',
-                            'donorAccount.companyProfile',
                             'createdByCoreUser',
                             'bookletOrderStatus'
                         ];
@@ -194,12 +192,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return _.map(response.item, x => {
-                            return {
-                                id: x.id,
-                                name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                            }
-                        });
+                        return { id: response.data.id, name: response.data.donorName };
                     }
                     else {
                         return null;

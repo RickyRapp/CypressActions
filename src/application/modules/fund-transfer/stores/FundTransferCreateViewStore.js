@@ -1,5 +1,5 @@
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { FundTransferCreateForm } from 'application/fund-transfer/forms';
 import { FundTransferService } from 'application/fund-transfer/services';
 import { DonorAccountService } from 'application/donor-account/services';
@@ -48,10 +48,17 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: async (senderDonorAccountId) => {
                     if (this.recipientDonorAccountDropdownStore.has(senderDonorAccountId)) {
@@ -77,18 +84,22 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
                         sort: 'coreUser.firstName|asc',
                         exceptId: this.senderDonorAccountDropdownStore.value ? this.senderDonorAccountDropdownStore.value.id : null,
                         embed: [
-                            'coreUser',
-                            'companyProfile',
                             'donorAccountAddresses',
-                            'donorAccountAddresses.address'
                         ],
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 onChange: async (recipientDonorAccountId) => {
                     if (this.senderDonorAccountDropdownStore.has(recipientDonorAccountId)) {

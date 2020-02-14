@@ -1,5 +1,5 @@
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorAccountFormatter } from 'core/utils';
 import { DonorAccountService } from 'application/donor-account/services';
 import _ from 'lodash'
 
@@ -34,13 +34,21 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
                         fields: [
                             'id',
                             'accountNumber',
-                            'donorName'
+                            'donorName',
+                            'securityPin',
+                            'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.donorName } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
                 },
                 initValueFunc: async () => {
                     if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
+                        const id = rootStore.routerStore.routerState.queryParams.id;
                         const params = {
                             embed: [
                                 'donorAccountAddresses'
@@ -48,10 +56,12 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
                             fields: [
                                 'id',
                                 'accountNumber',
-                                'donorName'
+                                'donorName',
+                                'securityPin',
+                                'donorAccountAddresses'
                             ]
                         }
-                        const response = await donorAccountService.get(rootStore.routerStore.routerState.queryParams.id, params);
+                        const response = await donorAccountService.get(id, params);
                         return { id: response.data.id, name: response.data.donorName };
                     }
                     else {

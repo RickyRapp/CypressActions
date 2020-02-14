@@ -60,6 +60,7 @@ export { default as MinMaxAvgTemplate } from './charts/MinMaxAvg';
 
 export { default as DatePickerTemplate } from './date-picker/DatePicker';
 export { default as DateQueryPickerTemplate } from './date-picker/DateQueryPickerTemplate';
+export { default as AdvancedCalendar } from './date-picker/AdvancedCalendar';
 export { default as DatePickerFieldTemplate } from './date-picker/DatePickerField';
 
 export { default as DateRangePickerTemplate } from './date-picker/DateRangePicker';

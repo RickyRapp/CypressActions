@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DateRangePicker } from '@progress/kendo-react-dateinputs';
+import { DateRangePicker, MultiViewCalendar } from '@progress/kendo-react-dateinputs';
 import { defaultTemplate } from 'core/hoc';
+import AdvancedCalendar from './AdvancedCalendar';
 
-const DateRangePickerTemplate = function(props) {
-    const {t, format, store, ...otherProps} = props;
+const DateRangePickerTemplate = function (props) {
+    const { t, format, store, ...otherProps } = props;
 
     function internalOnChange(event) {
-        if(props.onChange)
+        if (props.onChange)
             props.onChange(event);
     }
 
@@ -16,6 +17,7 @@ const DateRangePickerTemplate = function(props) {
     return (
         <DateRangePicker
             {...otherProps}
+            calendar={AdvancedCalendar}
             format={t(format)}
             startDateInput={store.d1}
             endDateInput={store.d2}

@@ -193,7 +193,7 @@ class GrantViewStore extends BaseListViewStore {
                             'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => {
+                    return _.map(response.data.item, x => {
                         return {
                             id: x.id,
                             name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
@@ -217,12 +217,7 @@ class GrantViewStore extends BaseListViewStore {
                         }
                         const response = await donorAccountService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
-                        return _.map(response.item, x => {
-                            return {
-                                id: x.id,
-                                name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                            }
-                        });
+                        return { id: response.data.id, name: response.data.donorName };
                     }
                     else {
                         return null;
