@@ -38,7 +38,7 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.donorAccountId = donorAccountId;
-                        params.orderBy = 'primary';
+                        params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
                         const response = await this.addressService.find(params);
                         return response.data;
@@ -89,7 +89,8 @@ class DonorAccountAddressViewStore extends BaseListViewStore {
                 onDelete: (address) => this.deleteAddress(address),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            disablePaging: true
+            disablePaging: true,
+            disableSorting: true
         }));
     }
 

@@ -4,6 +4,7 @@ import { ThirdPartyWebsiteCreateForm } from 'application/administration/third-pa
 import { ThirdPartyWebsiteService } from 'application/administration/third-party-website/services';
 import { CharityService } from 'application/charity/services';
 import _ from 'lodash';
+import { charityFormatter } from 'core/utils';
 
 class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, id, onAfterAction) {
@@ -70,15 +71,24 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses'
+                            'charityAddresses',
+                            'charityAccountType'
                         ],
                         fields: [
                             'id',
                             'taxId',
-                            'name'
+                            'name',
+                            'charityAccountType',
+                            'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                            item: x
+                        }
+                    });
                 },
                 onChange: this.validateCharitySetting
             });

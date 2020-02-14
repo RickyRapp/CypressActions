@@ -81,7 +81,8 @@ class DonorAccountEmailAddressViewStore extends BaseListViewStore {
                 onDelete: (emailAddress) => this.deleteAddress(emailAddress),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            disablePaging: true
+            disablePaging: true,
+            disableSorting: true
         }));
     }
 

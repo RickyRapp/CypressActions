@@ -76,7 +76,8 @@ class DonorAccountPhoneNumberViewStore extends BaseListViewStore {
                 onMarkPrimary: (phoneNumber) => this.markPrimary(phoneNumber),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            disablePaging: true
+            disablePaging: true,
+            disableSorting: true
         }));
     }
 
