@@ -29,6 +29,12 @@ function FormatterResolver({ item, field, format }) {
             params.value = _.get(item, field);
             return <NumberFormat {...params} />
         }
+        case 'percentage': {
+            params.value = _.get(item, field);
+            params.prefix = null;
+            params.suffix = '%';
+            return <NumberFormat {...params} />
+        }
         case 'share-name': {
             let shareName = item.grantAcknowledgmentType.name;
 

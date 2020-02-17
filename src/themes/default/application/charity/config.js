@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CharityList, CharityCreate, CharityEdit, CharityUpdateFile, CharityGrantsList, CharityCertificatesList } from 'application/charity/pages';
+import { CharityList, CharityCreate, CharityTab, CharityUpdateFile, CharityGrantsList, CharityCertificatesList } from 'application/charity/pages';
 import { CharityService } from 'application/charity/services';
 
 (function () {
@@ -21,7 +21,7 @@ import { CharityService } from 'application/charity/services';
                     {
                         name: 'master.app.main.charity.edit',
                         pattern: '/edit/:id',
-                        component: CharityEdit,
+                        component: CharityTab,
                         authorization: 'theDonorsFundAdministrationSection.update',
                         data: {
                             title: "CHARITY.EDIT.TITLE"
@@ -50,7 +50,7 @@ import { CharityService } from 'application/charity/services';
             {
                 name: 'master.app.main.charity-profile',
                 pattern: '/charity-profile/:id',
-                component: CharityEdit,
+                component: CharityTab,
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY.EDIT.TITLE"

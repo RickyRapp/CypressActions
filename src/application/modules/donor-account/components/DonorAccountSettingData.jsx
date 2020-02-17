@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import {
     DonorAccountAutomaticContributionSetting,
     DonorAccountThirdPartyWebsiteSetting,
-    DonorAccountCertificateSetting
+    DonorAccountCertificateSetting,
+    DonorAccountContributionSetting
 } from 'application/donor-account/components';
 
 function DonorAccountSettingDataTemplate() {
@@ -19,6 +20,9 @@ function DonorAccountSettingDataTemplate() {
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorAccountCertificateSetting />
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <DonorAccountContributionSetting />
                 </div>
             </div>
         </div>

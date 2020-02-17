@@ -8,3 +8,4 @@ export { default as DonorAccountBankAccountEditForm, donorAccountBankAccountForm
 export { default as DonorAccountThirdPartyWebsiteSettingForm } from './DonorAccountThirdPartyWebsiteSettingForm'
 export { default as DonorAccountAutomaticContributionSettingForm } from './DonorAccountAutomaticContributionSettingForm'
 export { default as DonorAccountCertificateSettingForm } from './DonorAccountCertificateSettingForm'
+export { default as DonorAccountContributionSettingEditForm } from './DonorAccountContributionSettingEditForm'

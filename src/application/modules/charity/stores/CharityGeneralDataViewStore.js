@@ -6,7 +6,7 @@ import { action, runInAction } from 'mobx';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
-class CharityEditViewStore extends BaseEditViewStore {
+class CharityGeneralDataViewStore extends BaseEditViewStore {
     applicationDefaultSetting = null;
     charityAccountTypes = null;
 
@@ -216,4 +216,4 @@ class CharityEditViewStore extends BaseEditViewStore {
 
 }
 
-export default CharityEditViewStore;
+export default CharityGeneralDataViewStore;

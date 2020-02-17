@@ -44,8 +44,7 @@ class CharityActivityAndHistoryViewStore extends BaseViewStore {
                     if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
                         const params = {
                             embed: [
-                                'charityAddresses',
-                                'charityAddresses.address'
+                                'charityAddresses'
                             ],
                             fields: [
                                 'id',

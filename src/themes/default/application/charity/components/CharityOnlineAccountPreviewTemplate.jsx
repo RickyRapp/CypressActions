@@ -13,7 +13,7 @@ function CharityOnlineAccountPreviewTemplate({ charityOnlineAccountPreviewViewSt
     } = charityOnlineAccountPreviewViewStore;
 
     return (
-        <div className="card card--form card--primary card--med">
+        <div>
             <h3 className="u-mar--bottom--med">{t('CHARITY.PREVIEW.TITLE')}</h3>
             <div className="row">
                 <div className="col col-sml-12 col-lrg-2">

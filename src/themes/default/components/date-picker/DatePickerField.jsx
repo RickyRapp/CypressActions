@@ -18,6 +18,8 @@ class DatePickerFieldTemplate extends React.Component {
 
         const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
 
+        otherProps.clearable = isSome(otherProps.clearable) ? otherProps.clearable : !requiredMark;
+
         const warningClasses = classNames({
             'input--warning': !field.isValid && field.touched && !field.isDirty
         });
@@ -70,7 +72,8 @@ DatePickerFieldTemplate.propTypes = {
     field: PropTypes.object.isRequired,
     t: PropTypes.func,
     onChange: PropTypes.func,
-    timeZone: PropTypes.string
+    timeZone: PropTypes.string,
+    clearable: PropTypes.bool
 };
 
 export default defaultTemplate(DatePickerFieldTemplate);

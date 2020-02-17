@@ -8,3 +8,5 @@ export { default as DonorAccountPhoneNumberService } from './DonorAccountPhoneNu
 export { default as DonorAccountPhoneNumberRouteService } from './DonorAccountPhoneNumberRouteService'
 export { default as DonorAccountBankAccountService } from './DonorAccountBankAccountService'
 export { default as DonorAccountBankAccountRouteService } from './DonorAccountBankAccountRouteService'
+export { default as DonorAccountContributionSettingService } from './DonorAccountContributionSettingService'
+export { default as DonorAccountContributionSettingRouteService } from './DonorAccountContributionSettingRouteService'

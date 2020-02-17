@@ -11,3 +11,4 @@ export { default as DonorAccountAutomaticContributionSettingViewStore } from './
 export { default as DonorAccountCertificateSettingViewStore } from './DonorAccountCertificateSettingViewStore'
 export { default as DonorAccountTabViewStore } from './DonorAccountTabViewStore'
 export { default as DonorAccountGeneralDataEditViewStore } from './DonorAccountGeneralDataEditViewStore'
+export { default as DonorAccountContributionSettingViewStore } from './DonorAccountContributionSettingViewStore'

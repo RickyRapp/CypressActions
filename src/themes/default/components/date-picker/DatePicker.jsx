@@ -20,6 +20,7 @@ class DatePickerTemplate extends React.Component {
             min,
             disabled,
             timeZone,
+            clearable,
             ...otherProps
         } = this.props;
 
@@ -43,15 +44,16 @@ class DatePickerTemplate extends React.Component {
                         format={dateFormatter.map(format)}
                         onChange={changeFn}
                     />
-                    <BaasicButton
-                        onClick={() => onChange(null)}
-                        className="btn btn--icon datepicker__btn"
-                        icon='u-icon u-icon--unapproved--secondary u-icon--sml'
-                        label="DATEPICKER.CLEAR_BUTTON"
-                        onlyIcon
-                        value={null}
-                        disabled={disabled}
-                    />
+                    {clearable &&
+                        <BaasicButton
+                            onClick={() => onChange(null)}
+                            className="btn btn--icon datepicker__btn"
+                            icon='u-icon u-icon--unapproved--secondary u-icon--sml'
+                            label="DATEPICKER.CLEAR_BUTTON"
+                            onlyIcon
+                            value={null}
+                            disabled={disabled}
+                        />}
                 </div>
             </React.Fragment>
         );
@@ -68,5 +70,9 @@ DatePickerTemplate.propTypes = {
     disabled: PropTypes.bool,
     timeZone: PropTypes.string
 };
+
+DatePickerTemplate.defaultProps = {
+    clearable: true
+}
 
 export default DatePickerTemplate;

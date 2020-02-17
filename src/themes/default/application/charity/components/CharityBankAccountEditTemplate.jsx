@@ -20,60 +20,58 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
     } = charityBankAccountEditViewStore;
 
     return (
-        <div className="card--form card--primary card--med">
-            <EditFormContent form={form}>
-                <h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.BANK_ACCOUNT_TITLE')}</h3>
-                <div className="content__header">
-                    <div className="row">
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('name')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('accountNumber')} />
-                        </div>
-                        <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <NumberFormatInputField field={form.$('routingNumber')} />
-                        </div>
-                    </div>
-                </div>
+        <EditFormContent form={form}>
+            <h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.BANK_ACCOUNT_TITLE')}</h3>
+            <div className="content__header">
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder.addressLine1')} />
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                        <BasicInput field={form.$('name')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder.addressLine2')} />
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                        <BasicInput field={form.$('accountNumber')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder.city')} />
-                    </div>
-                    <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder.state')} />
-                    </div>
-                    <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder.zipCode')} />
-                    </div>
-                    <div className="form__group col col-sml-6 col-lrg-3">
-                        <BasicInput field={form.$('accountHolder.email')} />
-                    </div>
-                    <div className="col col-sml-12 col-lrg-3">
-                        <label className="form__group__label" >Bank account image</label>
-
-                        {!image && currentImage && imgPreview({ image: currentImage })}
-
-                        <BaasicDropzone
-                            acceptFiles={uploadTypes}
-                            loading={uploadLoading}
-                            onFilesDrop={onAttachmentDrop}
-                            multiple={false}
-                        />
-
-                        {image && imgPreview({ image })}
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                        <NumberFormatInputField field={form.$('routingNumber')} />
                     </div>
                 </div>
+            </div>
+            <div className="row">
+                <div className="form__group col col-sml-12 col-lrg-3">
+                    <BasicInput field={form.$('accountHolder.addressLine1')} />
+                </div>
+                <div className="form__group col col-sml-12 col-lrg-3">
+                    <BasicInput field={form.$('accountHolder.addressLine2')} />
+                </div>
+                <div className="form__group col col-sml-6 col-lrg-3">
+                    <BasicInput field={form.$('accountHolder.city')} />
+                </div>
+                <div className="form__group col col-sml-6 col-lrg-3">
+                    <BasicInput field={form.$('accountHolder.state')} />
+                </div>
+                <div className="form__group col col-sml-6 col-lrg-3">
+                    <BasicInput field={form.$('accountHolder.zipCode')} />
+                </div>
+                <div className="form__group col col-sml-6 col-lrg-3">
+                    <BasicInput field={form.$('accountHolder.email')} />
+                </div>
+                <div className="col col-sml-12 col-lrg-3">
+                    <label className="form__group__label" >Bank account image</label>
 
-                {renderEditLayoutFooterContent({ form })}
-            </EditFormContent>
-        </div>
+                    {!image && currentImage && imgPreview({ image: currentImage })}
+
+                    <BaasicDropzone
+                        acceptFiles={uploadTypes}
+                        loading={uploadLoading}
+                        onFilesDrop={onAttachmentDrop}
+                        multiple={false}
+                    />
+
+                    {image && imgPreview({ image })}
+                </div>
+            </div>
+
+            {renderEditLayoutFooterContent({ form })}
+        </EditFormContent>
     )
 };
 

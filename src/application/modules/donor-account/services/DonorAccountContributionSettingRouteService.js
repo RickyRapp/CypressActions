@@ -1,12 +1,12 @@
 import { BaseRouteService } from 'core/services';
 
-class CharityAddressRouteService extends BaseRouteService {
+class DonorAccountContributionSettingRouteService extends BaseRouteService {
   constructor() {
-    super('charity-address');
+    super('donor-contribution-setting');
   }
 
   find(filter) {
-    return super.find(this.base + '/{?charityId,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(this.base + '/{?donorAccountId,page,rpp,sort,embed,searchFields}', filter);
   }
 
   get(id, options) {
@@ -22,4 +22,4 @@ class CharityAddressRouteService extends BaseRouteService {
   }
 }
 
-export default CharityAddressRouteService;
+export default DonorAccountContributionSettingRouteService;

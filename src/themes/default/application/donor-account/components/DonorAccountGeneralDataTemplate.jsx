@@ -10,17 +10,20 @@ import {
     NumberFormatInputField,
     Date
 } from 'core/components';
-import { AccountSettingsPartialForm } from 'application/donor-account/components';
+import { AccountSettingsPartialForm, AccountSettingsPreview } from 'application/donor-account/components';
 
-function DonorAccountGeneralDataTemplate({ donorAccountGeneralDataEditViewStore }) {
+function DonorAccountGeneralDataTemplate({ donorAccountGeneralDataEditViewStore, rootStore }) {
     const {
         form,
         prefixTypeDropdownStore,
         item,
-        loaderStore,
         accountSettingsShow,
         onChangeAccountSettingsShow
     } = donorAccountGeneralDataEditViewStore;
+
+    const {
+        permissionStore
+    } = rootStore;
 
     let isPremiumAccount = item && item.accountType.abrv === 'premium';
 
@@ -71,13 +74,21 @@ function DonorAccountGeneralDataTemplate({ donorAccountGeneralDataEditViewStore 
                         </div>
                         <div className="u-mar--bottom--sml">
                             {item &&
-                                <AuthAccountSettingsPartialFormContent
-                                    form={form}
-                                    isPremiumAccount={isPremiumAccount}
-                                    authorization='theDonorsFundAdministrationSection.update'
-                                    show={accountSettingsShow}
-                                    onChangeShow={onChangeAccountSettingsShow}
-                                />}
+                                <React.Fragment>
+                                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') ?
+                                        <AccountSettingsPartialForm
+                                            form={form}
+                                            isPremiumAccount={isPremiumAccount}
+                                            show={accountSettingsShow}
+                                            onChangeShow={onChangeAccountSettingsShow}
+                                        />
+                                        :
+                                        <AccountSettingsPreview
+                                            item={item}
+                                            isPremiumAccount={isPremiumAccount}
+                                        />
+                                    }
+                                </React.Fragment>}
                         </div>
                     </div>
                 </div>
@@ -89,7 +100,7 @@ function DonorAccountGeneralDataTemplate({ donorAccountGeneralDataEditViewStore 
     )
 }
 
-const AuthAccountSettingsPartialFormContent = withAuth(AccountSettingsPartialForm);
+const AuthAccountSettings = withAuth(AccountSettingsPartialForm, AccountSettingsPreview);
 
 DonorAccountGeneralDataTemplate.propTypes = {
     donorAccountGeneralDataEditViewStore: PropTypes.object.isRequired,

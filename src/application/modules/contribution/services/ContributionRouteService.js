@@ -17,10 +17,6 @@ class ContributionRouteService extends BaseRouteService {
         return super.create(this.base);
     }
 
-    createSetting() { //TODO move in separate ContributionSettingService
-        return super.create('contribution-setting');
-    }
-
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }

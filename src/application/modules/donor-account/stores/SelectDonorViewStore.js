@@ -33,7 +33,7 @@ class SelectDonorViewStore extends BaseViewStore {
                             'donorAccountAddresses'
                         ]
                     });
-                    return _.map(response.item, x => {
+                    return _.map(response.data.item, x => {
                         return {
                             id: x.id,
                             name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })

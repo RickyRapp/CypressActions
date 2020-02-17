@@ -1,5 +1,5 @@
 export { default as CharityViewStore } from './CharityViewStore'
-export { default as CharityEditViewStore } from './CharityEditViewStore'
+export { default as CharityGeneralDataViewStore } from './CharityGeneralDataViewStore'
 export { default as CharityCreateViewStore } from './CharityCreateViewStore'
 export { default as CharityAddressViewStore } from './CharityAddressViewStore'
 export { default as CharityBankAccountEditViewStore } from './CharityBankAccountEditViewStore'
@@ -8,3 +8,4 @@ export { default as CharityPageHeaderOverviewViewStore } from './CharityPageHead
 export { default as CharityOnlineAccountPreviewViewStore } from './CharityOnlineAccountPreviewViewStore'
 export { default as CharityGrantsViewStore } from './CharityGrantsViewStore'
 export { default as CharityCertificatesViewStore } from './CharityCertificatesViewStore'
+export { default as CharityTabViewStore } from './CharityTabViewStore'

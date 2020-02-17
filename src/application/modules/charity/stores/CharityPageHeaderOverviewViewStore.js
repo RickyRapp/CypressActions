@@ -45,7 +45,8 @@ class CharityPageHeaderOverviewViewStore extends BaseViewStore {
                 'id',
                 'name',
                 'taxId',
-                'coreUserId'
+                'coreUserId',
+                'balance'
             ]
         }
 

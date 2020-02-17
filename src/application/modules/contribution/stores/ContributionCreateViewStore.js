@@ -7,6 +7,7 @@ import { LookupService } from 'common/services';
 import ContributionBaseViewStore from './ContributionBaseViewStore';
 import moment from 'moment';
 import _ from 'lodash'
+import { DonorAccountContributionSettingService } from 'application/donor-account/services';
 
 @applicationContext
 class ContributionCreateViewStore extends ContributionBaseViewStore {
@@ -20,23 +21,26 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        if (this.paymentTypeDropdownStore.value.abrv === 'ach' && this.contributionSettingTypeDropdownStore.value.abrv === 'one-time' &&
-                            moment(resource.settingStartDate).startOf('day').isAfter(moment().startOf('day'))) {
+                        if (this.paymentTypeDropdownStore.value.abrv === 'ach' &&
+                            !(this.contributionSettingTypeDropdownStore.value.abrv === 'one-time' &&
+                                moment(resource.settingStartDate).startOf('day').isSame(moment().startOf('day')))) {
+
+                            const contributionSettingService = new DonorAccountContributionSettingService(rootStore.application.baasic.apiClient);
                             const contributionSetting = {
                                 donorAccountId: resource.donorAccountId,
                                 amount: resource.amount,
                                 donorAccountBankAccountId: resource.bankAccountId,
                                 contributionSettingTypeId: resource.contributionSettingTypeId,
                                 startDate: resource.settingStartDate,
-                                isPrimary: true
+                                isEnabled: true
                             }
-                            return await service.createSetting(contributionSetting);
+                            return await contributionSettingService.create(contributionSetting);
                         }
                         return await service.create(resource);
                     }
                 }
             },
-            FormClass: ContributionCreateForm,
+            FormClass: ContributionCreateForm
         });
 
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore()

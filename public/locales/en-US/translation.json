@@ -391,7 +391,6 @@
         "CHARITIES": "Charities",
         "CHARITY_EDIT": "Profile",
         "CONTRIBUTIONS": "Contributions",
-        "CONTRIBUTION_SETTINGS": "Contribution settings",
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
@@ -874,6 +873,10 @@
         }
     },
     "CHARITY": {
+        "TAB": {
+            "GENERAL_DATA": "General data",
+            "PERSONAL_DATA": "Personal data"
+        },
         "LIST": {
             "TITLE": "Charities",
             "COLUMNS": {
@@ -1178,17 +1181,16 @@
             }
         }
     },
-    "CONTRIBUTION_SETTING": {
+    "DONOR_ACCOUNT_CONTRIBUTION_SETTING": {
         "LIST": {
-            "TITLE": "Contributions",
+            "TITLE": "Recurring contribution settings",
             "COLUMNS": {
-                "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
                 "DATE_CREATED_LABEL": "Date created",
                 "START_DATE_LABEL": "Start date",
-                "CONTRIBUTION_SETTING_TYPE_NAME_LABEL": "Type",
-                "PAYMENT_TYPE_NAME_LABEL": "Payment type",
-                "BANK_ACCOUNT_NAME_LABEL": "Bank account",
+                "NEXT_DATE_LABEL": "Next date",
+                "CONTRIBUTION_SETTING_TYPE_LABEL": "Type",
+                "DONOR_ACCOUNT_BANK_ACCOUNT_LABEL": "Bank account",
                 "ENABLED_LABEL": "Enabled"
             },
             "FILTER": {
@@ -1204,6 +1206,15 @@
             "BUTTON": {
                 "EDIT": "Edit",
                 "CANCEL": "Cancel"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit contribution setting",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "START_DATE_LABEL": "Start date",
+                "DONOR_ACCOUNT_BANK_ACCOUNT_LABEL": "Bank account",
+                "IS_ENABLED_LABEL": "Enabled?"
             }
         },
         "CANCEL": {

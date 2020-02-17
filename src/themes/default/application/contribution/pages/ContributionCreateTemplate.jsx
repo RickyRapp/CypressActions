@@ -42,7 +42,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
                     />
                     {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' && bankAccountDropdownStore.value && form.$('amount').value &&
                         <div className="card card--form card--primary card--med u-mar--bottom--med">
-                            <h3 className="u-mar--bottom--med">Scheduled contribution (optional)</h3>
+                            <h3 className="u-mar--bottom--med">Scheduled contribution</h3>
                             <div className="row">
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                                     <BaasicFieldDropdown

@@ -6,10 +6,10 @@ import { DonorAccountTabViewStore } from 'application/donor-account/stores';
 
 @setCurrentView((rootStore) => new DonorAccountTabViewStore(rootStore), 'donorAccountTabViewStore')
 @observer
-class DonorAccountTabList extends React.Component {
+class DonorAccountTab extends React.Component {
     render() {
         return <DonorAccountTabTemplate {...this.props} />
     }
 }
 
-export default DonorAccountTabList;
+export default DonorAccountTab;

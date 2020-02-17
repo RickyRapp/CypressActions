@@ -8,3 +8,4 @@ export { default as DonorAccountThirdPartyWebsiteSettingTemplate } from './Donor
 export { default as DonorAccountAutomaticContributionSettingTemplate } from './DonorAccountAutomaticContributionSettingTemplate'
 export { default as DonorAccountCertificateSettingTemplate } from './DonorAccountCertificateSettingTemplate'
 export { default as DonorAccountGeneralDataTemplate } from './DonorAccountGeneralDataTemplate'
+export { default as DonorAccountContributionSettingTemplate } from './DonorAccountContributionSettingTemplate'
