@@ -102,20 +102,16 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
                     </h3>
                     {bankAccountShow &&
                         <React.Fragment>
-                            <div className="content__header">
-                                <div className="row">
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <BasicInput field={form.$('bankAccount.name')} />
-                                    </div>
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <BasicInput field={form.$('bankAccount.accountNumber')} />
-                                    </div>
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                                        <NumberFormatInputField field={form.$('bankAccount.routingNumber')} />
-                                    </div>
-                                </div>
-                            </div>
                             <div className="row">
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.name')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('bankAccount.accountNumber')} />
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <NumberFormatInputField field={form.$('bankAccount.routingNumber')} />
+                                </div>
                                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                                     <BasicInput field={form.$('bankAccount.accountHolder.addressLine1')} />
                                 </div>
