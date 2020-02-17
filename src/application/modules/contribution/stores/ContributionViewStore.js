@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionService } from 'application/contribution/services';
 import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, donorAccountFormatter } from 'core/utils';
+import { applicationContext, donorAccountFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import { ContributionListFilter } from 'application/contribution/models';
@@ -49,6 +49,7 @@ class ContributionViewStore extends BaseListViewStore {
                     this.searchDonorAccountDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
+                    this.timePeriodDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
             },
@@ -248,6 +249,65 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
+        this.timePeriodDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const timePeriods =
+                        [
+                            {
+                                id: 0,
+                                name: 'This week'
+                            },
+                            {
+                                id: 1,
+                                name: 'This month'
+                            },
+                            {
+                                id: 2,
+                                name: 'Last week'
+                            },
+                            {
+                                id: 3,
+                                name: 'Last month'
+                            }
+                        ]
+                    return timePeriods;
+                },
+                onChange: (item) => {
+                    if (isSome(item)) {
+                        const currentDate = new Date();
+                        const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
+                        if (item === 0) {
+                            const thisWeekFirstDate = moment(new Date(now_utc)).startOf('week').toDate();
+                            const thisWeekLastDate = moment(new Date(now_utc)).endOf('week').toDate();
+                            this.dateCreatedDateRangeQueryStore.setValue({ start: thisWeekFirstDate, end: thisWeekLastDate });
+                            this.queryUtility.filter['dateCreatedFrom'] = moment(thisWeekFirstDate).format('YYYY-MM-DD');
+                            this.queryUtility.filter['dateCreatedTo'] = moment(thisWeekLastDate).format('YYYY-MM-DD');
+                        }
+                        else if (item === 1) {
+                            const thisMonthFirstDate = moment(new Date(now_utc)).startOf('month').toDate();
+                            const thisMonthLastDate = moment(new Date(now_utc)).endOf('month').toDate();
+                            this.dateCreatedDateRangeQueryStore.setValue({ start: thisMonthFirstDate, end: thisMonthLastDate });
+                            this.queryUtility.filter['dateCreatedFrom'] = moment(thisMonthFirstDate).format('YYYY-MM-DD');
+                            this.queryUtility.filter['dateCreatedTo'] = moment(thisMonthLastDate).format('YYYY-MM-DD');
+                        }
+                        else if (item === 2) {
+                            const lastWeekFirstDate = moment(new Date(now_utc)).add(-7, 'days').startOf('week').toDate();
+                            const lastWeekLastDate = moment(new Date(now_utc)).add(-7, 'days').endOf('week').toDate();
+                            this.dateCreatedDateRangeQueryStore.setValue({ start: lastWeekFirstDate, end: lastWeekLastDate });
+                            this.queryUtility.filter['dateCreatedFrom'] = moment(lastWeekFirstDate).format('YYYY-MM-DD');
+                            this.queryUtility.filter['dateCreatedTo'] = moment(lastWeekLastDate).format('YYYY-MM-DD');
+                        }
+                        else if (item === 3) {
+                            const lastMonthFirstDate = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate();
+                            const lastMonthLastDate = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate();
+                            this.dateCreatedDateRangeQueryStore.setValue({ start: lastMonthFirstDate, end: lastMonthLastDate });
+                            this.queryUtility.filter['dateCreatedFrom'] = moment(lastMonthFirstDate).format('YYYY-MM-DD');
+                            this.queryUtility.filter['dateCreatedTo'] = moment(lastMonthLastDate).format('YYYY-MM-DD');
+                        }
+                    }
+                }
+            });
     }
 
     @action.bound

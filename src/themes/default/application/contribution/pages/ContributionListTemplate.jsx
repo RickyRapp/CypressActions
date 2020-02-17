@@ -31,7 +31,8 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
         reviewModal,
         contributionStatusDropdownStore,
         accountTypes,
-        dateCreatedDateRangeQueryStore
+        dateCreatedDateRangeQueryStore,
+        timePeriodDropdownStore
     } = contributionViewStore;
 
     return (
@@ -107,6 +108,10 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                                     store={dateCreatedDateRangeQueryStore}
                                     fromPropertyName='dateCreatedFrom'
                                     toPropertyName='dateCreatedTo'
+                                />
+                                <BaasicDropdown
+                                    store={timePeriodDropdownStore}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.CHOOSE_A_TIME_PERIOD_PLACEHOLDER'
                                 />
                             </div>
                         </TableFilter>

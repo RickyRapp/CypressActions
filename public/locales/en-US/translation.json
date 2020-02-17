@@ -1092,7 +1092,8 @@
                 "PREMIUM_PLACEHOLDER": "Premium",
                 "NAME_ON_CHECK_PLACEHOLDER": "Name on check",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
-                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
+                "CHOOSE_A_TIME_PERIOD_PLACEHOLDER": "Choose a time period"
             },
             "EMPTY_STATE": {
                 "TITLE": "No contributions",
