@@ -107,4 +107,6 @@ export { default as TabContent } from './content/TabContent';
 
 export { default as Export } from './export/Export';
 
+export { default as Scanner } from './barcode-scanner/Scanner';
+
 export * from './empty-state';
