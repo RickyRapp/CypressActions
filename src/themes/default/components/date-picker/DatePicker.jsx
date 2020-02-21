@@ -68,7 +68,8 @@ DatePickerTemplate.propTypes = {
     max: PropTypes.instanceOf(Date),
     show: PropTypes.bool,
     disabled: PropTypes.bool,
-    timeZone: PropTypes.string
+    timeZone: PropTypes.string,
+    clearable: PropTypes.bool
 };
 
 DatePickerTemplate.defaultProps = {

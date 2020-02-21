@@ -2,7 +2,6 @@ import _ from "lodash";
 import { Form, Field } from "mobx-react-form";
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from "validatorjs";
-import moment from 'moment';
 import { computed } from 'mobx';
 import { validatorService, localizationService } from 'core/services';
 import {

@@ -85,6 +85,7 @@ function renderActions({ item, actions, actionsRender, authorization }) {
 renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
+    actionsRender: PropTypes.object,
     authorization: PropTypes.any
 };
 

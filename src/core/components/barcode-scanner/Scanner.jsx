@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserMultiFormatReader, NotFoundException, ChecksumException, FormatException } from '@zxing/library';
 import { observer, inject } from 'mobx-react';
 import { action, observable } from 'mobx';
-import { isSome } from 'core/utils';
 import BaasicButton from '../buttons/BaasicButton';
+import _ from 'lodash';
 
 @inject((i) => ({
     notificationStore: i.rootStore.notificationStore
@@ -19,7 +19,7 @@ class Scanner extends React.Component {
         this.codeReader = new BrowserMultiFormatReader();
         //Supported:
         //1D - product: EAN-8, EAN-13
-        //1D industrial: Code 39, Code 128, ITF, RSS-14
+        //1D industrial: Code 39, Code 128
         //2D: QR Code, Data Matrix
         this.codeReader.timeBetweenDecodingAttempts = 500;
         this.notificationStore = props.notificationStore;
@@ -36,31 +36,28 @@ class Scanner extends React.Component {
 
     @action.bound
     startStopDecoding() {
-        try {
-            this.codeReader.decodeFromVideoDevice(undefined, 'video', (result, err) => {
-                if (result) {
-                    if (_.isFunction(this.onBarcodeDetected)) {
-                        this.onBarcodeDetected(result.text);
-                    }
+        this.codeReader.decodeFromVideoDevice(undefined, 'video', (result, err) => {
+            if (result) {
+                if (_.isFunction(this.onBarcodeDetected)) {
+                    this.onBarcodeDetected(result.text);
                 }
-                if (err) {
-                    // As long as this error belongs into one of the following categories
-                    // the code reader is going to continue as excepted. Any other error
-                    // will stop the decoding loop.
-                    //
-                    // Excepted Exceptions:
-                    //
-                    //  - NotFoundException
-                    //  - ChecksumException
-                    //  - FormatException
+            }
+            if (err) {
+                // As long as this error belongs into one of the following categories
+                // the code reader is going to continue as excepted. Any other error
+                // will stop the decoding loop.
+                //
+                // Excepted Exceptions:
+                //
+                //  - NotFoundException
+                //  - ChecksumException
+                //  - FormatException
 
-                    if (err instanceof NotFoundException || err instanceof ChecksumException || err instanceof FormatException) {
-                    }
-                }
-            })
-        } catch (error) {
-            console.log('error :', error);
-        }
+                if (err instanceof NotFoundException || err instanceof ChecksumException || err instanceof FormatException) { // eslint-disable-line
+                }                                                                                                                 // eslint-disable-line
+            }
+        })
+
     }
 
     @action.bound
@@ -95,11 +92,5 @@ class Scanner extends React.Component {
         );
     }
 }
-
-Scanner.propTypes = {
-};
-
-Scanner.defaultProps = {
-};
 
 export default Scanner;

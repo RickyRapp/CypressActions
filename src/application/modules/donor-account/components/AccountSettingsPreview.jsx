@@ -7,7 +7,10 @@ import { defaultTemplate } from 'core/hoc';
 
 class AccountSettingsPreview extends Component {
     render() {
-        const { item, isPremiumAccount, t } = this.props;
+        const { item,
+            isPremiumAccount,
+            t
+        } = this.props;
 
         return (
             <React.Fragment>
@@ -107,6 +110,7 @@ AccountSettingsPreview.propTypes = {
     isPremiumAccount: PropTypes.bool,
     show: PropTypes.bool,
     onChangeShow: PropTypes.func,
+    item: PropTypes.object
 };
 
 export default defaultTemplate(AccountSettingsPreview);

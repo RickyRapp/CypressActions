@@ -2,6 +2,7 @@ import * as React from 'react';
 import { MultiViewCalendar } from '@progress/kendo-react-dateinputs';
 import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
+import { PropTypes } from 'mobx-react';
 
 const AdvancedCalendar = function (props) {
     const currentDate = new Date();
@@ -156,5 +157,10 @@ const AdvancedCalendar = function (props) {
         </div>
     );
 }
+
+AdvancedCalendar.propTypes = {
+    value: PropTypes.object,
+    onChange: PropTypes.func
+};
 
 export default defaultTemplate(AdvancedCalendar);

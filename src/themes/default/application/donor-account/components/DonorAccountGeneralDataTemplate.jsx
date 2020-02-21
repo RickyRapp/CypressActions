@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate, withAuth } from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 import {
     BasicInput,
     BaasicFieldDropdown,
@@ -100,11 +100,10 @@ function DonorAccountGeneralDataTemplate({ donorAccountGeneralDataEditViewStore,
     )
 }
 
-const AuthAccountSettings = withAuth(AccountSettingsPartialForm, AccountSettingsPreview);
-
 DonorAccountGeneralDataTemplate.propTypes = {
     donorAccountGeneralDataEditViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    rootStore: PropTypes.object
 };
 
 function renderEditLayoutFooterContent({ form }) {

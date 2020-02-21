@@ -5,7 +5,6 @@ import {
     FormatterResolver,
     Date
 } from 'core/components';
-import _ from 'lodash'
 
 function CharityOnlineAccountPreviewTemplate({ charityOnlineAccountPreviewViewStore, t }) {
     const {

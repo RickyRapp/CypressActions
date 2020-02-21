@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DateRangePicker, MultiViewCalendar } from '@progress/kendo-react-dateinputs';
+import { DateRangePicker } from '@progress/kendo-react-dateinputs';
 import { defaultTemplate } from 'core/hoc';
 // import AdvancedCalendar from './AdvancedCalendar';
 

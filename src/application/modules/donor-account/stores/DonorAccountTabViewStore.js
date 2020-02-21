@@ -11,10 +11,6 @@ class DonorAccountTabViewStore extends BaseTabViewStore {
             this.activeIndex = rootStore.routerStore.routerState.queryParams.tab;
         }
     }
-
-    onBarcodeDetected = (text) => {
-        this.rootStore.notificationStore.success(text)
-    }
 }
 
 export default DonorAccountTabViewStore;

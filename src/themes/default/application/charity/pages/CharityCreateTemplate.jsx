@@ -12,7 +12,6 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import { CreateLoginForm } from 'common/components';
 
 const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
     const {

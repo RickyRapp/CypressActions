@@ -1,7 +1,7 @@
 import { action, runInAction, computed } from 'mobx';
 import { BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, charityFormatter } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
 import { ScheduledGrantService } from 'application/scheduled-grant/services';
@@ -112,6 +112,43 @@ class GrantCreateViewStore extends GrantBaseViewStore {
         else {
             this.form.$('numberOfPayments').set('disabled', false);
             this.form.$('endDate').set('disabled', false);
+        }
+    }
+
+    @action.bound
+    async onScanned(result) {
+        if (result) {
+            const response = await this.charityService.search({
+                pageNumber: 1,
+                pageSize: 10,
+                search: result.replace('-', ''),
+                sort: 'name|asc',
+                embed: [
+                    'charityAddresses',
+                    'charityAccountType'
+                ],
+                fields: [
+                    'id',
+                    'taxId',
+                    'name',
+                    'charityAccountType',
+                    'charityAddresses'
+                ]
+            });
+            if (response.data && response.data.item && response.data.item.length === 1) {
+                const item = _.map(response.data.item, x => {
+                    return {
+                        id: x.id,
+                        name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                        item: x
+                    }
+                })[0];
+                this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
+                this.form.$('charityId').set(item.id);
+            }
+            else {
+                this.rootStore.notificationStore.warning('Charity does not exist.');
+            }
         }
     }
 

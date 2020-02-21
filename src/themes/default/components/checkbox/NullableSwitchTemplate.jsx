@@ -19,7 +19,6 @@ function NullableSwitchTemplate({ value, onChange, label, yesLabel, noLabel, t, 
     const noneId = _.uniqueId('none_');
     const offId = _.uniqueId('off_');
 
-
     return (
         <div>
             <div>

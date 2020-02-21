@@ -5,13 +5,11 @@ import { TabLayout, Page } from 'core/layouts';
 import { DonorAccountGeneralData, DonorAccountPersonalData, DonorAccountSettingData } from 'application/donor-account/components';
 import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import { DonorNoteList } from 'application/donor-note/pages';
-import { Scanner } from 'core/components';
 
 function DonorAccountTabTemplate({ donorAccountTabViewStore }) {
     const {
         donorAccountId,
-        loaderStore,
-        onBarcodeDetected
+        loaderStore
     } = donorAccountTabViewStore;
 
     return (
@@ -32,7 +30,6 @@ function DonorAccountTabTemplate({ donorAccountTabViewStore }) {
                         <DonorAccountSettingData />
                     </div>
                 </TabLayout>
-                <Scanner onBarcodeDetected={onBarcodeDetected} />
             </div>
 
             <AuthDonorNote

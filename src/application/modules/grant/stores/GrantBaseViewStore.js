@@ -17,7 +17,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
         super(rootStore, config);
 
         this.donorAccountId = rootStore.routerStore.routerState.params.id;
-        const charityService = new CharityService(rootStore.application.baasic.apiClient);
+        this.charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.feeService = new FeeService(rootStore.application.baasic.apiClient);
 
         this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null,
@@ -43,7 +43,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await charityService.search({
+                    const response = await this.charityService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,

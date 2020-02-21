@@ -10,7 +10,6 @@ import {
     NumericInputField,
     BaasicFormControls
 } from 'core/components';
-import _ from 'lodash'
 
 function CharityOnlineAccountCreateTemplate({ store }) {
     const {
@@ -83,7 +82,8 @@ function renderEditLayoutFooterContent({ form, onSubmit }) {
 }
 
 renderEditLayoutFooterContent.propTypes = {
-    form: PropTypes.any
+    form: PropTypes.any,
+    onSubmit: PropTypes.func
 };
 
 export default defaultTemplate(CharityOnlineAccountCreateTemplate);

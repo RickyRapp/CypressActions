@@ -6,11 +6,14 @@ import {
     BaasicFieldDropdown,
     BaasicFormControls,
     EditFormContent,
-    NumberFormatInputField
+    NumberFormatInputField,
+    Barcode
 } from 'core/components';
 import NumberFormat from 'react-number-format';
 import { CharityOnlineAccountPreview } from 'application/charity/components';
 import { CharityOnlineAccountCreateTemplate } from '.';
+import { BarcodeFormat } from '@zxing/library';
+import { charityFormatter } from 'core/utils';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     const {
@@ -33,6 +36,15 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                         <label className="form__group__label">Tax Id</label>
                                         {item && <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
                                     </div>
+                                </div>
+                                <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+                                    {item &&
+                                        <Barcode
+                                            type={BarcodeFormat.QR_CODE}
+                                            value={charityFormatter.format(item.taxId, { value: 'tax-id' })}
+                                            height={150}
+                                            width={150}
+                                        />}
                                 </div>
                             </div>
                             <div className="row">

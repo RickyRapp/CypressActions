@@ -4,6 +4,7 @@ import { CharityService } from 'application/charity/services';
 import { LookupService } from 'common/services';
 import { action, runInAction } from 'mobx';
 import { applicationContext } from 'core/utils';
+import _ from 'lodash';
 
 @applicationContext
 class CharityGeneralDataViewStore extends BaseEditViewStore {
