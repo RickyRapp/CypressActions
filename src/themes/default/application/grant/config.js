@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantList, GrantCreate, GrantEdit, GrantPreview } from 'application/grant/pages';
+import { GrantList, GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/grant/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,13 +9,10 @@ import { GrantList, GrantCreate, GrantEdit, GrantPreview } from 'application/gra
                 pattern: '/grants',
                 children: [
                     {
-                        name: 'master.app.main.grant.list',
+                        name: 'master.app.main.grant.tab',
                         pattern: '',
-                        component: GrantList,
-                        authorization: 'theDonorsFundGrantSection.read',
-                        data: {
-                            title: "GRANT.LIST.TITLE"
-                        }
+                        component: GrantTab,
+                        authorization: 'theDonorsFundGrantSection.read'
                     },
                     {
                         name: 'master.app.main.grant.create',
@@ -36,6 +33,15 @@ import { GrantList, GrantCreate, GrantEdit, GrantPreview } from 'application/gra
                         }
                     },
                     {
+                        name: 'master.app.main.grant.scheduled-edit',
+                        pattern: '/scheduled-edit/:id/:editId',
+                        component: ScheduledGrantEdit,
+                        authorization: 'theDonorsFundGrantSection.update',
+                        data: {
+                            title: "GRANT.EDIT.TITLE"
+                        }
+                    },
+                    {
                         name: 'master.app.main.grant.preview',
                         pattern: '/preview/:editId',
                         component: GrantPreview,
@@ -49,22 +55,16 @@ import { GrantList, GrantCreate, GrantEdit, GrantPreview } from 'application/gra
         ],
         menu: [
             {
-                title: 'MENU.GRANT',
+                title: 'MENU.GRANTS',
                 order: 7,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 icon: 'grant',
-                subMenu: [
-                    {
-                        title: 'MENU.GRANTS',
-                        order: 1,
-                        route: 'master.app.main.grant.list'
-                    }
-                ]
+                route: 'master.app.main.grant.tab'
             },
             {
                 title: 'MENU.GRANTS',
                 order: 7,
-                route: 'master.app.main.grant.list',
+                route: 'master.app.main.grant.tab',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
                 icon: 'grant'
             },

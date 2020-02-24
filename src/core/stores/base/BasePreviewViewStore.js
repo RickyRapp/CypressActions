@@ -41,14 +41,6 @@ class BasePreviewViewStore extends BaseViewStore {
         this.item = item;
     }
 
-    hasPermission(authorization) {
-        if (this.rootStore.permissionStore.hasPermission(authorization)) {
-            return true;
-        }
-
-        return false;
-    }
-
     @action.bound
     async getResource(id) {
         const item = await this.actions.get(id);

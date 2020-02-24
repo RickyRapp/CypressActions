@@ -14,7 +14,7 @@ class BaseViewStore {
     }
 
     createLoaderStore() {
-    return new LoaderStore();
+        return new LoaderStore();
     }
 
     @action setObservable(name, value) {
@@ -42,6 +42,14 @@ class BaseViewStore {
     destroy() {
         _.each(this.observeDisposers, (disposer) => disposer());
         _.each(this.eventDisposers, (disposer) => disposer());
+    }
+
+    hasPermission(authorization) {
+        if (this.rootStore.permissionStore.hasPermission(authorization)) {
+            return true;
+        }
+
+        return false;
     }
 }
 

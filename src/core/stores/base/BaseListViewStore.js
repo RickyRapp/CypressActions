@@ -65,14 +65,6 @@ class BaseListViewStore extends BaseViewStore {
         return hasPermission;
     }
 
-    hasPermission(authorization) {
-        if (this.rootStore.permissionStore.hasPermission(authorization)) {
-            return true;
-        }
-
-        return false;
-    }
-
     @action.bound
     setTableStore(tableStore) {
         const primaryColumn = _.first(tableStore.config.columns);

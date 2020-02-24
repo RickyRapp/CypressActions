@@ -1,8 +1,8 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { ScheduledGrantService } from 'application/scheduled-grant/services';
+import { ScheduledGrantService } from 'application/grant/services';
 import { applicationContext } from 'core/utils';
-import { ScheduledGrantListFilter } from 'application/scheduled-grant/models';
+import { ScheduledGrantListFilter } from 'application/grant/models';
 import moment from 'moment'
 
 @applicationContext
@@ -20,7 +20,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
             routes: {
                 edit: (id, editId) => {
                     this.rootStore.routerStore.goTo(
-                        'master.app.main.scheduled-grant.edit',
+                        'master.app.main.grant.scheduled-edit',
                         {
                             id: id,
                             editId: editId

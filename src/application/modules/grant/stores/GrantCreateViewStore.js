@@ -4,7 +4,7 @@ import { LookupService } from 'common/services';
 import { applicationContext, charityFormatter } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
-import { ScheduledGrantService } from 'application/scheduled-grant/services';
+import { ScheduledGrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
 import moment from 'moment';
@@ -44,7 +44,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             FormClass: GrantCreateForm,
             onAfterAction: () => {
                 this.scheduledGrant ?
-                    this.rootStore.routerStore.goTo('master.app.main.scheduled-grant.list') :
+                    this.rootStore.routerStore.goTo('master.app.main.grant.list', null, { tab: 1 }) :
                     this.rootStore.routerStore.goTo('master.app.main.grant.list')
             }
         });

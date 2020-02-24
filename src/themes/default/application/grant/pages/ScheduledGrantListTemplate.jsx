@@ -9,7 +9,7 @@ import {
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 
 const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
     const {
@@ -20,23 +20,19 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
     } = scheduledGrantViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={scheduledGrantViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
-                        </TableFilter>
-                    </div>
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                            actionsComponent={renderActions}
-                        />
-                    </div>
-                </Content>
-            </ApplicationListLayout>
-        </React.Fragment>
+        <Content emptyRenderer={renderEmpty(routes)} >
+            <div className="u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} >
+                </TableFilter>
+            </div>
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                    actionsComponent={renderActions}
+                />
+            </div>
+        </Content>
     )
 };
 

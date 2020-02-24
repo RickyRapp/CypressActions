@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
-import { ScheduledGrantEditTemplate } from 'themes/application/scheduled-grant/pages';
-import { ScheduledGrantEditViewStore } from 'application/scheduled-grant/stores';
+import { ScheduledGrantEditTemplate } from 'themes/application/grant/pages';
+import { ScheduledGrantEditViewStore } from 'application/grant/stores';
 
 @setCurrentView((rootStore) => new ScheduledGrantEditViewStore(rootStore), 'scheduledGrantEditViewStore')
 @observer

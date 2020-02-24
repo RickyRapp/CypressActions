@@ -10,7 +10,7 @@ import moment from 'moment'
 import _ from 'lodash';
 
 class GrantViewStore extends BaseListViewStore {
-    constructor(rootStore) {
+    constructor(rootStore, { onChangeDonorFilter }) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id;
         const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new GrantListFilter('dateCreated', 'desc')
@@ -32,8 +32,9 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 scheduledGrantsList: (name) => {
                     this.rootStore.routerStore.goTo(
-                        'master.app.main.scheduled-grant.list', null,
+                        'master.app.main.grant.list', null,
                         {
+                            tab: 1,
                             name: name
                         }
                     );
@@ -166,7 +167,6 @@ class GrantViewStore extends BaseListViewStore {
             }
         }));
 
-        this.selectDonorModal = new ModalParams({});
         this.reviewModal = new ModalParams({});
 
         const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
@@ -225,6 +225,7 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 onChange: (donorAccountId) => {
                     this.queryUtility.filter['donorAccountId'] = donorAccountId;
+                    onChangeDonorFilter(donorAccountId);
                 }
             });
 
@@ -266,16 +267,6 @@ class GrantViewStore extends BaseListViewStore {
         filter.exportLimit = exportLimit;
         filter.exportType = exportType;
         return routeService.export(filter);
-    }
-
-    @action.bound
-    openSelectDonorModal() {
-        this.selectDonorModal.open(
-            {
-                donorAccountId: this.queryUtility.filter.donorAccountId,
-                onClickDonorFromFilter: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId }),
-                onChange: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
-            });
     }
 
     @action.bound

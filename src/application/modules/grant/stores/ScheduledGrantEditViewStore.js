@@ -1,7 +1,7 @@
 import { action, runInAction, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
-import { ScheduledGrantEditForm } from 'application/scheduled-grant/forms';
-import { ScheduledGrantService } from 'application/scheduled-grant/services';
+import { ScheduledGrantEditForm } from 'application/grant/forms';
+import { ScheduledGrantService } from 'application/grant/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { LookupService, FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
@@ -156,7 +156,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
             await this.getResource(this.editId);
             if (moment(this.item.startFutureDate).isSameOrBefore(moment())) {
                 this.rootStore.notificationStore.warning('Cannot edit scheduled grant. It already started.');
-                this.rootStore.routerStore.goTo('master.app.main.scheduled-grant.list');
+                this.rootStore.routerStore.goTo('master.app.main.grant.list', null, { tabIndex: 1 });
             }
             this.donorAccount = this.item.donorAccount;
             this.grantAcknowledgmentTypeDropdownStore.onChange(this.item.grantAcknowledgmentType);

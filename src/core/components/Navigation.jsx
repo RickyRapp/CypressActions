@@ -14,7 +14,7 @@ export default inject((i, props) => {
     });
 
     return {
-        title: activeRoute.data ? activeRoute.data.title : props.title,
+        title: props.title ? props.title : (activeRoute.data ? activeRoute.data.title : ''),
         breadcrumbs: rootStore.viewStore.breadcrumbs,
         routerStore: rootStore.routerStore,
         navigationOptions: rootStore.viewStore.navigationOptions

@@ -6,15 +6,13 @@ import {
     BaasicTable,
     TableFilter,
     EmptyState,
-    BaasicModal,
     BaasicDropdown,
     BaasicInput,
     Export
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
-import { SelectDonor } from 'application/donor-account/components';
+import { Content } from 'core/layouts';
 
 const GrantListTemplate = function ({ grantViewStore }) {
     const {
@@ -22,30 +20,27 @@ const GrantListTemplate = function ({ grantViewStore }) {
         routes,
         queryUtility,
         authorization,
-        selectDonorModal,
         searchDonorAccountDropdownStore,
         donationStatusDropdownStore,
         exportConfig
     } = grantViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={grantViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchDonorAccountDropdownStore} />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    className='input input--sml'
-                                    value={queryUtility.filter['confirmationNumber'] || ""}
-                                    onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
-                                    placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                                />
-                            </div>
-                            {/* TODO
+        <Content emptyRenderer={renderEmpty(routes)} >
+            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                    </div>
+                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <BaasicInput
+                            className='input input--sml'
+                            value={queryUtility.filter['confirmationNumber'] || ""}
+                            onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                            placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                        />
+                    </div>
+                    {/* TODO
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <NumericInputRange
                                     valueMin={queryUtility.filter['amountRangeMin'] || undefined}
@@ -56,32 +51,27 @@ const GrantListTemplate = function ({ grantViewStore }) {
                                     placeholderMax='GRANT.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
                                 />
                             </div> */}
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={donationStatusDropdownStore}
-                                    placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
-                                />
-                            </div>
-                        </TableFilter>
-                    </div>
-                    <div className="row card--form card--secondary card--med u-mar--bottom--sml">
-                        <div className="col col-sml-12 col-med-12 col-lrg-12">
-                            <Export config={exportConfig} />
-                        </div>
-                    </div>
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                            actionsComponent={renderActions}
+                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <BaasicDropdown
+                            store={donationStatusDropdownStore}
+                            placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
                         />
                     </div>
-                </Content>
-            </ApplicationListLayout>
-            <BaasicModal modalParams={selectDonorModal}>
-                <SelectDonor />
-            </BaasicModal>
-        </React.Fragment>
+                </TableFilter>
+            </div>
+            <div className="row card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="col col-sml-12 col-med-12 col-lrg-12">
+                    <Export config={exportConfig} />
+                </div>
+            </div>
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                    actionsComponent={renderActions}
+                />
+            </div>
+        </Content>
     )
 };
 
