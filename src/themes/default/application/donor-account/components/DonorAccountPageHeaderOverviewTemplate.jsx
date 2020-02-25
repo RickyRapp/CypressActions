@@ -78,7 +78,7 @@ const RenderDonorAccount = ({ donorAccount, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.grant.list', null, { id: donorAccount && donorAccount.id })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.grant.tab', null, { id: donorAccount && donorAccount.id })}>
                             {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.GRANT')}
                         </a>
                     </div>

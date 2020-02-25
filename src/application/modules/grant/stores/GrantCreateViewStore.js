@@ -44,8 +44,8 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             FormClass: GrantCreateForm,
             onAfterAction: () => {
                 this.scheduledGrant ?
-                    this.rootStore.routerStore.goTo('master.app.main.grant.list', null, { tab: 1 }) :
-                    this.rootStore.routerStore.goTo('master.app.main.grant.list')
+                    this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { tab: 1 }) :
+                    this.rootStore.routerStore.goTo('master.app.main.grant.tab')
             }
         });
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();

@@ -32,7 +32,7 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 scheduledGrantsList: (name) => {
                     this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.list', null,
+                        'master.app.main.grant.tab', null,
                         {
                             tab: 1,
                             name: name

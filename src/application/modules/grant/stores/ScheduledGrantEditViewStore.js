@@ -156,7 +156,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
             await this.getResource(this.editId);
             if (moment(this.item.startFutureDate).isSameOrBefore(moment())) {
                 this.rootStore.notificationStore.warning('Cannot edit scheduled grant. It already started.');
-                this.rootStore.routerStore.goTo('master.app.main.grant.list', null, { tabIndex: 1 });
+                this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { tab: 1 });
             }
             this.donorAccount = this.item.donorAccount;
             this.grantAcknowledgmentTypeDropdownStore.onChange(this.item.grantAcknowledgmentType);

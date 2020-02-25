@@ -98,7 +98,7 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 this.rootStore.routerStore.goTo('master.app.main.contribution.list', null, { confirmationNumber: activity.activityConfirmationNumber });
                 break;
             case 2:
-                this.rootStore.routerStore.goTo('master.app.main.grant.list', null, { confirmationNumber: activity.activityConfirmationNumber });
+                this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { confirmationNumber: activity.activityConfirmationNumber });
                 break;
             case 4:
                 alert('TODO')
