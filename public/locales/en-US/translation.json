@@ -889,7 +889,8 @@
                 "NAME_PLACEHOLDER": "Name",
                 "EMAILS_PLACEHOLDER": "Emails",
                 "ADDRESS_PLACEHOLDER": "Address",
-                "TAX_ID_PLACEHOLDER": "Tax Id"
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "CHARITY_TYPE_PLACEHOLDER": "Charity type"
             },
             "EMPTY_STATE": {
                 "TITLE": "No charities",
@@ -1275,6 +1276,7 @@
         },
         "CREATE": {
             "TITLE": "Add grant",
+            "ADVANCED_CHARITY_FILTER_BUTTON": "Advanced search for charity",
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
                 "AMOUNT_PLACEHOLDER": "Amount",

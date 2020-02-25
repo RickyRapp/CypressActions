@@ -12,6 +12,7 @@ import { ApplicationEditLayout, Content } from 'core/layouts';
 import { GrantPurposeTypeForm } from 'themes/application/grant/components';
 import _ from 'lodash';
 import moment from 'moment';
+import { addressFormatter } from 'core/utils';
 
 const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
     const {
@@ -85,9 +86,12 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                             </div>
-                            {grantAcknowledgmentTypeDropdownStore.value &&
+                            {donorAccount && grantAcknowledgmentTypeDropdownStore.value &&
                                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' && `${donorAccount.fundName} - ${_.find(donorAccount.donorAccountAddresses, { isPrimary: true }).address.addressLine1}`}
+                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
+                                        `${donorAccount.donorName} - ${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
+                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
+                                        `${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
                                 </div>}
                         </div>

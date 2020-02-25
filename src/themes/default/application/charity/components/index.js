@@ -4,3 +4,4 @@ export { default as CharityPageHeaderOverviewTemplate } from './CharityPageHeade
 export { default as CharityOnlineAccountPreviewTemplate } from './CharityOnlineAccountPreviewTemplate'
 export { default as CharityGeneralDataTemplate } from './CharityGeneralDataTemplate'
 export { default as CharityOnlineAccountCreateTemplate } from './CharityOnlineAccountCreateTemplate'
+export { default as CharityAdvancedSearchTemplate } from './CharityAdvancedSearchTemplate'

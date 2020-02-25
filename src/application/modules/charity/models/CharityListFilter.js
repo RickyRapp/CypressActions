@@ -6,12 +6,14 @@ class CharityListFilter extends FilterParams {
     @observable taxId;
     @observable emails;
     @observable address;
+    @observable charityTypeIds;
 
-    constructor(orderBy, orderDirection) {
+    constructor(orderBy, orderDirection, pageSize = 10) {
         super();
         this.reset();
         this.orderBy = orderBy;
         this.orderDirection = orderDirection;
+        this.pageSize = pageSize;
     }
 
     @action.bound
@@ -21,6 +23,7 @@ class CharityListFilter extends FilterParams {
         this.taxId = null;
         this.emails = null;
         this.address = null;
+        this.charityTypeIds = null;
     }
 }
 

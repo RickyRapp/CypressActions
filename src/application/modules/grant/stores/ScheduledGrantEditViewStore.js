@@ -1,5 +1,5 @@
 import { action, runInAction, observable } from 'mobx';
-import { applicationContext } from 'core/utils';
+import { applicationContext, charityFormatter } from 'core/utils';
 import { ScheduledGrantEditForm } from 'application/grant/forms';
 import { ScheduledGrantService } from 'application/grant/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
@@ -64,13 +64,11 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                                 'charity',
                                 'grantAcknowledgmentType',
                                 'donorAccount',
-                                'donorAccount.coreUser',
-                                'donorAccount.companyProfile',
-                                'donorAccount.donorAccountAddresses',
-                                'donorAccount.donorAccountAddresses.address'
+                                'donorAccount.donorAccountAddresses'
                             ]
                         }
                         let response = await service.get(id, params);
+                        console.log('response.data', response.data)
                         return response.data;
                     }
                 }
@@ -120,15 +118,23 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                         sort: 'name|asc',
                         embed: [
                             'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAccountType'
                         ],
                         fields: [
                             'id',
                             'taxId',
-                            'name'
+                            'name',
+                            'charityAccountType',
+                            'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                            item: x
+                        }
+                    });
                 }
             });
     }

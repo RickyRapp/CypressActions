@@ -191,7 +191,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 scheduleTypeDescription = 'Ongoing';
             }
             else {
-                scheduleTypeDescription = `Number Of Payments: ${item.remainingNumberOfPayments}/${item.numberOfPayments}`;
+                scheduleTypeDescription = `Number Of Payments: ${item.numberOfPayments - item.remainingNumberOfPayments}/${item.numberOfPayments}`;
             }
             return `${base} - ${scheduleTypeDescription}`;
         }

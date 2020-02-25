@@ -97,8 +97,6 @@ class GrantViewStore extends BaseListViewStore {
             }
         });
 
-        this.rootStore = rootStore;
-
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {

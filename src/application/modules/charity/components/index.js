@@ -5,3 +5,4 @@ export { default as CharityPageHeaderOverview } from './CharityPageHeaderOvervie
 export { default as CharityOnlineAccountPreview } from './CharityOnlineAccountPreview'
 export { default as CharityGeneralData } from './CharityGeneralData'
 export { default as CharityPersonalData } from './CharityPersonalData'
+export { default as CharityAdvancedSearch } from './CharityAdvancedSearch'

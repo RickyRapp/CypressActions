@@ -9,3 +9,4 @@ export { default as CharityOnlineAccountPreviewViewStore } from './CharityOnline
 export { default as CharityGrantsViewStore } from './CharityGrantsViewStore'
 export { default as CharityCertificatesViewStore } from './CharityCertificatesViewStore'
 export { default as CharityTabViewStore } from './CharityTabViewStore'
+export { default as CharityAdvancedSearchViewStore } from './CharityAdvancedSearchViewStore'

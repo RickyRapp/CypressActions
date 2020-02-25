@@ -19,7 +19,7 @@ class CharityService extends BaseService {
 
     search(filter) {
         const url = this.routeService.search(filter);
-        return this.apiClient.get(url, filter);
+        return this.apiClient.get(url);
     }
 
     taxIdExists(taxId) {

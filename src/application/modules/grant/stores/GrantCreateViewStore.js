@@ -8,6 +8,7 @@ import { ScheduledGrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
 import moment from 'moment';
+import { ModalParams } from 'core/models';
 
 @applicationContext
 class GrantCreateViewStore extends GrantBaseViewStore {
@@ -49,6 +50,12 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             }
         });
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();
+        this.advancedSearchModal = new ModalParams({});
+    }
+
+    @action.bound
+    openAdvancedSearchModal() {
+        this.advancedSearchModal.open();
     }
 
     @action.bound
@@ -150,6 +157,13 @@ class GrantCreateViewStore extends GrantBaseViewStore {
                 this.rootStore.notificationStore.warning('Charity does not exist.');
             }
         }
+    }
+
+    @action.bound
+    onCharitySelected(item) {
+        this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
+        this.form.$('charityId').set(item.id);
+        this.advancedSearchModal.close();
     }
 
     @action.bound
