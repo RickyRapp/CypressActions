@@ -5,7 +5,11 @@ import {
     DatePickerField,
     NumericInputField,
     BasicInput,
-    BasicFieldCheckbox
+    BasicFieldCheckbox,
+    BaasicButton,
+    Scanner,
+    BaasicModal,
+    FormDebug
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -13,8 +17,9 @@ import { GrantPurposeTypeForm } from 'themes/application/grant/components';
 import _ from 'lodash';
 import moment from 'moment';
 import { addressFormatter } from 'core/utils';
+import { CharityAdvancedSearch } from 'application/charity/components';
 
-const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
+const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t }) {
     const {
         contentLoading,
         form,
@@ -28,7 +33,11 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
         amountWithFee,
         onChangeEndDate,
         onChangeNumberOfPayments,
-        onChangeNoEndDate
+        onChangeNoEndDate,
+        onScanned,
+        onCharitySelected,
+        advancedSearchModal,
+        openAdvancedSearchModal
     } = scheduledGrantEditViewStore;
 
     return (
@@ -41,6 +50,16 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+                                <BaasicButton
+                                    className="btn btn--icon"
+                                    icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
+                                    label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
+                                    onlyIcon={true}
+                                    onClick={openAdvancedSearchModal}
+                                />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                <Scanner onBarcodeDetected={onScanned} />
                             </div>
                         </div>
                         <div className="row">
@@ -109,6 +128,9 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore }) {
                     </div>
                 </Content>
             </ApplicationEditLayout >
+            <BaasicModal modalParams={advancedSearchModal}>
+                <CharityAdvancedSearch onSelected={onCharitySelected} />
+            </BaasicModal>
         </React.Fragment>
     )
 };

@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
-    NumericInputField
+    NumericInputField,
+    BaasicModal,
+    BaasicButton,
+    Scanner
 } from 'core/components';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -10,8 +13,9 @@ import { GrantPurposeTypeForm } from 'themes/application/grant/components';
 import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import { addressFormatter } from 'core/utils';
 import _ from 'lodash';
+import { CharityAdvancedSearch } from 'application/charity/components';
 
-const GrantEditTemplate = function ({ grantEditViewStore }) {
+const GrantEditTemplate = function ({ grantEditViewStore, t }) {
     const {
         contentLoading,
         form,
@@ -21,7 +25,11 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
         donorAccountId,
         donorAccount,
         onBlurAmount,
-        amountWithFee
+        amountWithFee,
+        onScanned,
+        onCharitySelected,
+        advancedSearchModal,
+        openAdvancedSearchModal
     } = grantEditViewStore;
 
     return (
@@ -34,6 +42,16 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+                                <BaasicButton
+                                    className="btn btn--icon"
+                                    icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
+                                    label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
+                                    onlyIcon={true}
+                                    onClick={openAdvancedSearchModal}
+                                />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                <Scanner onBarcodeDetected={onScanned} />
                             </div>
                         </div>
                         <div className="row">
@@ -74,6 +92,9 @@ const GrantEditTemplate = function ({ grantEditViewStore }) {
                     </div>
                 </Content>
             </ApplicationEditLayout >
+            <BaasicModal modalParams={advancedSearchModal}>
+                <CharityAdvancedSearch onSelected={onCharitySelected} />
+            </BaasicModal>
         </React.Fragment>
     )
 };

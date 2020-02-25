@@ -3,6 +3,7 @@ import { FilterParams } from "core/models";
 
 class CharityListFilter extends FilterParams {
     @observable name;
+    @observable dba;
     @observable taxId;
     @observable emails;
     @observable address;
@@ -20,6 +21,7 @@ class CharityListFilter extends FilterParams {
     reset() {
         super.reset();
         this.name = null;
+        this.dba = null;
         this.taxId = null;
         this.emails = null;
         this.address = null;

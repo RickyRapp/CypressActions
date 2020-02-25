@@ -8,7 +8,6 @@ import { ScheduledGrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
 import moment from 'moment';
-import { ModalParams } from 'core/models';
 
 @applicationContext
 class GrantCreateViewStore extends GrantBaseViewStore {
@@ -50,12 +49,6 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             }
         });
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();
-        this.advancedSearchModal = new ModalParams({});
-    }
-
-    @action.bound
-    openAdvancedSearchModal() {
-        this.advancedSearchModal.open();
     }
 
     @action.bound
@@ -120,50 +113,6 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             this.form.$('numberOfPayments').set('disabled', false);
             this.form.$('endDate').set('disabled', false);
         }
-    }
-
-    @action.bound
-    async onScanned(result) {
-        if (result) {
-            const response = await this.charityService.search({
-                pageNumber: 1,
-                pageSize: 10,
-                search: result.replace('-', ''),
-                sort: 'name|asc',
-                embed: [
-                    'charityAddresses',
-                    'charityAccountType'
-                ],
-                fields: [
-                    'id',
-                    'taxId',
-                    'name',
-                    'charityAccountType',
-                    'charityAddresses'
-                ]
-            });
-            if (response.data && response.data.item && response.data.item.length === 1) {
-                const item = _.map(response.data.item, x => {
-                    return {
-                        id: x.id,
-                        name: charityFormatter.format(x, { value: 'charity-name-display' }),
-                        item: x
-                    }
-                })[0];
-                this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
-                this.form.$('charityId').set(item.id);
-            }
-            else {
-                this.rootStore.notificationStore.warning('Charity does not exist.');
-            }
-        }
-    }
-
-    @action.bound
-    onCharitySelected(item) {
-        this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
-        this.form.$('charityId').set(item.id);
-        this.advancedSearchModal.close();
     }
 
     @action.bound

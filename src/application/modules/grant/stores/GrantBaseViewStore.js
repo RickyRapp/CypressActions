@@ -5,6 +5,7 @@ import { CharityService } from 'application/charity/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { charityFormatter } from 'core/utils';
 import _ from 'lodash';
+import { ModalParams } from 'core/models';
 
 class GrantBaseViewStore extends BaseEditViewStore {
     @observable grantScheduleTypes = null;
@@ -72,6 +73,50 @@ class GrantBaseViewStore extends BaseEditViewStore {
                     this.onBlurAmount();
                 }
             });
+
+        this.advancedSearchModal = new ModalParams({});
+    }
+
+    @action.bound
+    openAdvancedSearchModal() {
+        this.advancedSearchModal.open();
+    }
+
+    @action.bound
+    async onScanned(result) {
+        if (result) {
+            const response = await this.charityService.search({
+                pageNumber: 1,
+                pageSize: 10,
+                search: result.replace('-', ''),
+                sort: 'name|asc',
+                embed: [
+                    'charityAddresses',
+                    'charityAccountType'
+                ],
+                fields: [
+                    'id',
+                    'taxId',
+                    'name',
+                    'charityAccountType',
+                    'charityAddresses'
+                ]
+            });
+            if (response.data && response.data.item && response.data.item.length === 1) {
+                const item = _.map(response.data.item, x => {
+                    return {
+                        id: x.id,
+                        name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                        item: x
+                    }
+                })[0];
+                this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
+                this.form.$('charityId').set(item.id);
+            }
+            else {
+                this.rootStore.notificationStore.warning('Charity does not exist.');
+            }
+        }
     }
 
     @action.bound
@@ -180,6 +225,14 @@ class GrantBaseViewStore extends BaseEditViewStore {
         const response = await service.getAll();
         this.feeTypes = response.data;
     }
+
+    @action.bound
+    onCharitySelected(item) {
+        this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
+        this.form.$('charityId').set(item.id);
+        this.advancedSearchModal.close();
+    }
+
 }
 
 export default GrantBaseViewStore;

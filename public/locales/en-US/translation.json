@@ -890,7 +890,8 @@
                 "EMAILS_PLACEHOLDER": "Emails",
                 "ADDRESS_PLACEHOLDER": "Address",
                 "TAX_ID_PLACEHOLDER": "Tax Id",
-                "CHARITY_TYPE_PLACEHOLDER": "Charity type"
+                "CHARITY_TYPE_PLACEHOLDER": "Charity type",
+                "DBA_PLACEHOLDER": "DBA"
             },
             "EMPTY_STATE": {
                 "TITLE": "No charities",

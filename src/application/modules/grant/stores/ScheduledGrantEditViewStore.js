@@ -7,6 +7,7 @@ import { LookupService, FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
 import _ from 'lodash';
 import moment from 'moment';
+import { ModalParams } from 'core/models';
 
 @applicationContext
 class ScheduledGrantEditViewStore extends BaseEditViewStore {
@@ -68,7 +69,6 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                             ]
                         }
                         let response = await service.get(id, params);
-                        console.log('response.data', response.data)
                         return response.data;
                     }
                 }
@@ -78,7 +78,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
         this.editId = editId;
         this.id = id;
-        const charityService = new CharityService(rootStore.application.baasic.apiClient);
+        this.charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.feeService = new FeeService(rootStore.application.baasic.apiClient);
 
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore(null,
@@ -111,7 +111,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await charityService.search({
+                    const response = await this.charityService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
@@ -137,7 +137,51 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                     });
                 }
             });
+        this.advancedSearchModal = new ModalParams({});
     }
+
+    @action.bound
+    openAdvancedSearchModal() {
+        this.advancedSearchModal.open();
+    }
+
+    @action.bound
+    async onScanned(result) {
+        if (result) {
+            const response = await this.charityService.search({
+                pageNumber: 1,
+                pageSize: 10,
+                search: result.replace('-', ''),
+                sort: 'name|asc',
+                embed: [
+                    'charityAddresses',
+                    'charityAccountType'
+                ],
+                fields: [
+                    'id',
+                    'taxId',
+                    'name',
+                    'charityAccountType',
+                    'charityAddresses'
+                ]
+            });
+            if (response.data && response.data.item && response.data.item.length === 1) {
+                const item = _.map(response.data.item, x => {
+                    return {
+                        id: x.id,
+                        name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                        item: x
+                    }
+                })[0];
+                this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
+                this.form.$('charityId').set(item.id);
+            }
+            else {
+                this.rootStore.notificationStore.warning('Charity does not exist.');
+            }
+        }
+    }
+
 
     @action.bound
     async onInit({ initialLoad }) {
@@ -228,38 +272,26 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
     @action.bound
     onChangeEndDate() {
-        if (this.form.$('endDate').value && this.form.$('endDate').isValid) {
-            this.form.$('numberOfPayments').set('disabled', true);
-            this.form.$('noEndDate').set('disabled', true);
-        }
-        else {
-            this.form.$('numberOfPayments').set('disabled', false);
-            this.form.$('noEndDate').set('disabled', false);
-        }
+        this.form.$('numberOfPayments').set('disabled', this.form.$('endDate').value && this.form.$('endDate').isValid);
+        this.form.$('numberOfPayments').resetValidation();
+        this.form.$('noEndDate').set('disabled', this.form.$('endDate').value && this.form.$('endDate').isValid);
+        this.form.$('noEndDate').resetValidation();
     }
 
     @action.bound
     onChangeNumberOfPayments() {
-        if (this.form.$('numberOfPayments').value && this.form.$('numberOfPayments').isValid) {
-            this.form.$('endDate').set('disabled', true);
-            this.form.$('noEndDate').set('disabled', true);
-        }
-        else {
-            this.form.$('endDate').set('disabled', false);
-            this.form.$('noEndDate').set('disabled', false);
-        }
+        this.form.$('endDate').set('disabled', this.form.$('numberOfPayments').value && this.form.$('numberOfPayments').isValid);
+        this.form.$('endDate').resetValidation();
+        this.form.$('noEndDate').set('disabled', this.form.$('numberOfPayments').value && this.form.$('numberOfPayments').isValid);
+        this.form.$('noEndDate').resetValidation();
     }
 
     @action.bound
     onChangeNoEndDate() {
-        if (this.form.$('noEndDate').value && this.form.$('noEndDate').isValid) {
-            this.form.$('numberOfPayments').set('disabled', true);
-            this.form.$('endDate').set('disabled', true);
-        }
-        else {
-            this.form.$('numberOfPayments').set('disabled', false);
-            this.form.$('endDate').set('disabled', false);
-        }
+        this.form.$('numberOfPayments').set('disabled', this.form.$('noEndDate').value && this.form.$('noEndDate').isValid);
+        this.form.$('numberOfPayments').resetValidation();
+        this.form.$('endDate').set('disabled', this.form.$('noEndDate').value && this.form.$('noEndDate').isValid);
+        this.form.$('endDate').resetValidation();
     }
 
     @action.bound
