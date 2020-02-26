@@ -13,6 +13,7 @@ import {
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 import { DonorAccountBankAccountEditForm } from 'application/donor-account/forms';
+import { RoutingNumberService } from 'application/administration/bank/services';
 
 @applicationContext
 class DonorAccountBankAccountViewStore extends BaseListViewStore {
@@ -295,6 +296,24 @@ class DonorAccountBankAccountViewStore extends BaseListViewStore {
                 await this.updateBankAccountAsync(bankAccount, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
             }
         );
+    }
+
+    @action.bound
+    async checkBank(value) {
+        if (value && value.replace(/-/g, "").length === 9) {
+            const service = new RoutingNumberService(this.rootStore.application.baasic.apiClient);
+            const response = await service.find({
+                pageNumber: 1,
+                pageSize: 10,
+                embed: ['bank'],
+                number: value
+            });
+
+            if (response.data && response.data.item.length > 0) {
+                this.formBankAccount.$('name').set(response.data.item[0].bank.name);
+                this.rootStore.notificationStore.success('Found!');
+            }
+        }
     }
 }
 

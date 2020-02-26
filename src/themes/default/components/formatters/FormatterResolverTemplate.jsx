@@ -127,6 +127,9 @@ function FormatterResolver({ item, field, format }) {
         }
         case 'charity':
             return charityFormatter.format(_.get(item, field), format)
+        case 'count':
+            const items = _.get(item, field);
+            return items.length;
         default:
             return () => { };
     }

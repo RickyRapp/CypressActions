@@ -409,6 +409,7 @@
         "THIRD_PARTY_WEBSITE": "Third party websites",
         "CHARITY_GRANTS": "Grants",
         "CHARITY_CERTIFICATES": "Certificates",
+        "BANKS": "Banks",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -2009,6 +2010,90 @@
                 "IP_LABEL": "IP",
                 "URL_LABEL": "URL",
                 "URL_PLACEHOLDER": "URL"
+            }
+        }
+    },
+    "BANK": {
+        "TAB": {
+            "LIST": "Banks",
+            "ROUTING_NUMBER": "Routing numbers"
+        },
+        "LIST": {
+            "TITLE": "Banks",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DATE_CREATED_LABEL": "Date created",
+                "ROUTING_NUMBERS_COUNT_LABEL": "Routing numbers"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No banks"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create bank",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit bank",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
+            }
+        }
+    },
+    "ROUTING_NUMBER": {
+        "LIST": {
+            "TITLE": "Routing numbers",
+            "COLUMNS": {
+                "BANK_LABEL": "Bank",
+                "REGION_LABEL": "Region",
+                "DATE_CREATED_LABEL": "Date created",
+                "NUMBER_LABEL": "Number"
+            },
+            "FILTER": {
+                "NUMBER_PLACEHOLDER": "Routing number",
+                "BANK_PLACEHOLDER": "Bank"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No banks"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create routing number",
+            "FIELDS": {
+                "BANK_LABEL": "Bank",
+                "BANK_PLACEHOLDER": "Bank",
+                "REGION_LABEL": "Region",
+                "REGION_PLACEHOLDER": "Region",
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit routing number",
+            "FIELDS": {
+                "BANK_LABEL": "Bank",
+                "BANK_PLACEHOLDER": "Bank",
+                "REGION_LABEL": "Region",
+                "REGION_PLACEHOLDER": "Region",
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number"
             }
         }
     }

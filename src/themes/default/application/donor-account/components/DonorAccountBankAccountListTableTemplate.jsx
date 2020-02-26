@@ -25,7 +25,8 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
         uploadLoading,
         image,
         onAttachmentDrop,
-        currentImage
+        currentImage,
+        checkBank
     } = donorAccountBankAccountViewStore;
 
     return (
@@ -58,6 +59,7 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
                     image={image}
                     onAttachmentDrop={onAttachmentDrop}
                     currentImage={currentImage}
+                    onBlurRoutingNumber={checkBank}
                 />
             </BaasicModal>
         </div>

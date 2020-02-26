@@ -5,6 +5,7 @@ import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { CharityBankAccountEditForm } from 'application/charity/forms';
 import { CharityFileStreamService, CharityFileStreamRouteService } from 'common/services';
+import { RoutingNumberService } from 'application/administration/bank/services';
 
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {
@@ -116,6 +117,25 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         const binaryData = [];
         binaryData.push(this.attachment);
         this.image = window.URL.createObjectURL(new Blob(binaryData, { type: this.attachment.type }));
+    }
+
+
+    @action.bound
+    async checkBank(value) {
+        if (value && value.replace(/-/g, "").length === 9) {
+            const service = new RoutingNumberService(this.rootStore.application.baasic.apiClient);
+            const response = await service.find({
+                pageNumber: 1,
+                pageSize: 10,
+                embed: ['bank'],
+                number: value
+            });
+
+            if (response.data && response.data.item.length > 0) {
+                this.form.$('name').set(response.data.item[0].bank.name);
+                this.rootStore.notificationStore.success('Found!');
+            }
+        }
     }
 }
 

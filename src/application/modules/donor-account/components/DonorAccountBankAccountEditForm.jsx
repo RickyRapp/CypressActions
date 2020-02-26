@@ -19,7 +19,8 @@ class DonorAccountBankAccountEditForm extends Component {
             uploadLoading,
             image,
             onAttachmentDrop,
-            currentImage
+            currentImage,
+            onBlurRoutingNumber
         } = this.props;
         const { formBankAccount } = modalParams.data;
 
@@ -29,16 +30,16 @@ class DonorAccountBankAccountEditForm extends Component {
                     <h3 className="u-mar--bottom--med">{formBankAccount.$('id').value ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('name')} />
+                            <NumberFormatInputField field={formBankAccount.$('routingNumber')} onBlur={onBlurRoutingNumber} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('description')} />
+                            <BasicInput field={formBankAccount.$('name')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
                             <BasicInput field={formBankAccount.$('accountNumber')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <NumberFormatInputField field={formBankAccount.$('routingNumber')} />
+                            <BasicInput field={formBankAccount.$('description')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-12">
                             <BasicFieldCheckbox field={formBankAccount.$('isThirdPartyAccount')} />

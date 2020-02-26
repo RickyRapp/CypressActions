@@ -16,7 +16,8 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
         uploadLoading,
         image,
         onAttachmentDrop,
-        currentImage
+        currentImage,
+        checkBank
     } = charityBankAccountEditViewStore;
 
     return (
@@ -24,13 +25,13 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
             <h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.BANK_ACCOUNT_TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <NumberFormatInputField field={form.$('routingNumber')} onBlur={checkBank} />
+                </div>
+                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <BasicInput field={form.$('name')} />
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <BasicInput field={form.$('accountNumber')} />
-                </div>
-                <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                    <NumberFormatInputField field={form.$('routingNumber')} />
                 </div>
                 <div className="form__group col col-sml-12 col-lrg-3">
                     <BasicInput field={form.$('accountHolder.addressLine1')} />
