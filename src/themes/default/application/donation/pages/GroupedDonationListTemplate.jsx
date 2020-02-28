@@ -54,29 +54,22 @@ GroupedDonationListTemplate.propTypes = {
     t: PropTypes.func
 };
 
-function renderActions({ item, actions, actionsRender }) {
+function renderActions({ item, actions }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit } = actions;
-    if (!isSome(onEdit)) return null;
-
-    let editRender = true;
-    if (isSome(actionsRender)) {
-        if (actionsRender.onEditRender) {
-            editRender = actionsRender.onEditRender(item);
-        }
-    }
+    const { onReview } = actions;
+    if (!isSome(onReview)) return null;
 
     return (
         <td className="table__body--data right">
             <div className="table__icons">
-                {isSome(onEdit) && editRender ? (
+                {isSome(onReview) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--sml'
-                        label='DONATION.LIST.BUTTON.EDIT'
+                        icon='u-icon u-icon--approved u-icon--sml'
+                        label='DONATION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
-                        onClick={() => onEdit(item)}>
+                        onClick={() => onReview(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

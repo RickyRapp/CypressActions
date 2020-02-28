@@ -3,6 +3,7 @@ import { DonationService } from 'application/donation/services';
 import { CharityService } from 'application/charity/services';
 import { GroupedDonationListFilter } from 'application/donation/models';
 import _ from 'lodash'
+import { charityFormatter } from 'core/utils';
 
 class GroupedDonationViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -31,7 +32,7 @@ class GroupedDonationViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'groupedDonation'
+                            'charity'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -43,29 +44,24 @@ class GroupedDonationViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'name',
+                    key: 'charity.name',
                     title: 'DONATION.LIST.COLUMNS.CHARITY_NAME_LABEL'
                 },
                 {
-                    key: 'groupedDonation',
+                    key: 'count',
                     title: 'DONATION.LIST.COLUMNS.COUNT_LABEL',
                     format: {
                         type: 'function',
                         value: (item) => {
-                            let grantCount = 0;
-                            let combinedGrantCount = 0;
-                            let sessionCount = 0;
-                            if (item.groupedDonation) {
-                                grantCount = item.groupedDonation.grantCount;
-                                combinedGrantCount = item.groupedDonation.combinedGrantCount;
-                                sessionCount = item.groupedDonation.sessionCount;
-                            }
+                            const grantCount = item.grantCount;
+                            const combinedGrantCount = item.combinedGrantCount;
+                            const sessionCount = item.sessionCount;
                             return `Grants: ${grantCount} | Combined grants: ${combinedGrantCount} | Sessions: ${sessionCount}`;
                         }
                     }
                 },
                 {
-                    key: 'groupedDonation.totalAmount',
+                    key: 'totalAmount',
                     title: 'DONATION.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency',
@@ -74,14 +70,9 @@ class GroupedDonationViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (item) => this.routes.review(item.id),
-                onPreviewProcessed: (item) => this.routes.processed(item.id),
+                onReview: (item) => this.routes.review(item.charity.id),
+                onPreviewProcessed: (item) => this.routes.processed(item.charity.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
-            },
-            actionsRender: {
-                onEditRender: (item) => {
-                    return item.groupedDonation && (item.groupedDonation.grantCount > 0 || item.groupedDonation.combinedGrantCount > 0 || item.groupedDonation.sessionCount > 0);
-                }
             }
         }));
 
@@ -100,15 +91,23 @@ class GroupedDonationViewStore extends BaseListViewStore {
                         sort: 'name|asc',
                         embed: [
                             'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAccountType'
                         ],
                         fields: [
                             'id',
                             'taxId',
-                            'name'
+                            'name',
+                            'charityAccountType',
+                            'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                            item: x
+                        }
+                    });
                 },
                 onChange: (charityId) => {
                     this.queryUtility.filter['charityId'] = charityId;

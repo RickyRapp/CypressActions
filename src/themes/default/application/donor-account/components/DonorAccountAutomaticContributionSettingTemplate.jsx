@@ -22,7 +22,6 @@ const DonorAccountAutomaticContributionSettingTemplate = function ({ t, donorAcc
         <EditFormContent form={form}
             emptyRenderer={<ApplicationEmptyState />}
             loading={loaderStore.loading}
-            layoutFoot
         >
             <h3 className="u-mar--bottom--tny">{t('DONOR_ACCOUNT.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
             <div className="row">

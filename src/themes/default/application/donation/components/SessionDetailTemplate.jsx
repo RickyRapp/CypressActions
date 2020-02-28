@@ -29,8 +29,11 @@ const SessionDetailTemplate = function ({ item }) {
                 }
             },
             {
-                key: 'deductionAmount',
-                title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL'
+                key: 'amountAfterDeduction',
+                title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
+                format: {
+                    type: 'currency'
+                }
             }
         ]
     });

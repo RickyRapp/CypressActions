@@ -2,8 +2,8 @@ import { BasePreviewViewStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
 
 class CharityOnlineAccountPreviewViewStore extends BasePreviewViewStore {
-    constructor(rootStore, charityId) {
-        const id = charityId;
+    constructor(rootStore) {
+        const id = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
             name: 'user',

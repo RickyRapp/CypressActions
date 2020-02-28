@@ -1,1 +1,1 @@
-export { default as CheckListTemplate } from './CheckListTemplate'
+export { default as ReconcileListTemplate } from './ReconcileListTemplate'

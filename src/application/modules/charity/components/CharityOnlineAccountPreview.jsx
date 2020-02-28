@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { CharityOnlineAccountPreviewTemplate } from 'themes/application/charity/components';
 import { CharityOnlineAccountPreviewViewStore } from 'application/charity/stores';
 
-@setCurrentView((rootStore, props) => new CharityOnlineAccountPreviewViewStore(rootStore, props.charityId), 'charityOnlineAccountPreviewViewStore')
+@setCurrentView((rootStore) => new CharityOnlineAccountPreviewViewStore(rootStore), 'charityOnlineAccountPreviewViewStore')
 @observer
 class CharityOnlineAccountPreview extends React.Component {
     render() {

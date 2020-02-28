@@ -18,7 +18,7 @@ export default class DonorAccountCertificateSettingForm extends FormBase {
                     name: 'grantAcknowledgmentTypeByAmountId',
                     label: 'DONOR_ACCOUNT.CERTIFICATE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL',
                     placeholder: 'DONOR_ACCOUNT.CERTIFICATE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_PLACEHOLDER',
-                    rules: 'required|string'
+                    rules: 'string'
                 },
                 {
                     name: 'acknowledgmentByAmount',

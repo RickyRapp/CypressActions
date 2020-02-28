@@ -15,7 +15,7 @@ class DonorAccountCertificateSettingViewStore extends BaseEditViewStore {
             id: donorAccountId,
             actions: () => {
                 return {
-                    edit: async (resource) => {
+                    update: async (resource) => {
                         await service.editCertificateSetting({ id: donorAccountId, ...resource });
                     },
                     get: async (id) => {

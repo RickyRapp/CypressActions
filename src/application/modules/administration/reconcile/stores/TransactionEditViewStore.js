@@ -72,11 +72,11 @@ class TransactionEditViewStore extends BaseEditViewStore {
     onChangeCashed(value) {
         this.cashedVariable = value;
         if (value) {
-            this.form.$('checkCashed').set(true);
+            this.form.$('isCashed').set(true);
             this.voidVariable = false;
         }
         else {
-            this.form.$('checkCashed').set('');
+            this.form.$('isCashed').set('');
         }
     }
 
@@ -84,11 +84,11 @@ class TransactionEditViewStore extends BaseEditViewStore {
     onChangeVoid(value) {
         this.voidVariable = value;
         if (value) {
-            this.form.$('checkCashed').set(false);
+            this.form.$('isCashed').set(false);
             this.cashedVariable = false;
         }
         else {
-            this.form.$('checkCashed').set('');
+            this.form.$('isCashed').set('');
         }
     }
 }

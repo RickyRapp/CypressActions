@@ -14,7 +14,7 @@ import { isSome } from 'core/utils';
 import { TransactionEdit } from 'application/administration/reconcile/components';
 import { TransactionPreviewTemplate } from 'themes/application/administration/reconcile/components';
 
-const CheckListTemplate = function ({ checkViewStore }) {
+const ReconcileListTemplate = function ({ reconcileViewStore }) {
     const {
         tableStore,
         routes,
@@ -22,10 +22,10 @@ const CheckListTemplate = function ({ checkViewStore }) {
         authorization,
         editModal,
         previewModal
-    } = checkViewStore;
+    } = reconcileViewStore;
 
     return (
-        <ApplicationListLayout store={checkViewStore} authorization={authorization}>
+        <ApplicationListLayout store={reconcileViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility}>
@@ -53,8 +53,8 @@ function renderEmpty(routes) {
     return <EmptyState image={EmptyIcon} title='CHECK.LIST.EMPTY_STATE.TITLE' actionLabel='CHECK.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
 
-CheckListTemplate.propTypes = {
-    checkViewStore: PropTypes.object.isRequired,
+ReconcileListTemplate.propTypes = {
+    reconcileViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
@@ -92,7 +92,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
-                        label='RECONCILE.CHECK.LIST.BUTTON.EDIT'
+                        label='RECONCILE.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
@@ -101,7 +101,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--preview u-icon--sml'
-                        label='RECONCILE.CHECK.LIST.BUTTON.PREVIEW'
+                        label='RECONCILE.LIST.BUTTON.PREVIEW'
                         onlyIcon={true}
                         onClick={() => onPreview(item)}>
                     </BaasicButton>
@@ -110,7 +110,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--approved u-icon--sml'
-                        label='RECONCILE.CHECK.LIST.BUTTON.CASH'
+                        label='RECONCILE.LIST.BUTTON.CASH'
                         onlyIcon={true}
                         onClick={() => onCash(item)}>
                     </BaasicButton>
@@ -127,5 +127,5 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-export default defaultTemplate(CheckListTemplate);
+export default defaultTemplate(ReconcileListTemplate);
 

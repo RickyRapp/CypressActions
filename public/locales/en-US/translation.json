@@ -1,4 +1,46 @@
 {
+    "MENU": {
+        "USERS": "Users",
+        "ROLES": "Roles",
+        "PERMISSIONS": "Permissions",
+        "APPLICATION": "Application",
+        "ADMINISTRATION": "Administration",
+        "BOOKLET": "Booklet",
+        "SESSION": "Session",
+        "GRANT": "Grant",
+        "CONTRIBUTION": "Contribution",
+        "DASHBOARD": "Dashboard",
+        "DONOR_ACCOUNTS": "Donors",
+        "DONOR_ACCOUNT_EDIT": "Profile",
+        "CHARITIES": "Charities",
+        "CHARITY_EDIT": "Profile",
+        "CONTRIBUTIONS": "Contributions",
+        "GRANTS": "Grants",
+        "DONATIONS": "Donations",
+        "SCHEDULED_GRANTS": "Scheduled grants",
+        "FUND_TRANSFERS": "Fund transfers",
+        "BOOKLETS": "Booklets",
+        "BOOKLET_ORDERS": "Booklet orders",
+        "SESSIONS": "Sessions",
+        "SESSION_CERTIFICATES": "Certificates",
+        "SESSION_IN_PROGRESS": "Session in progress",
+        "SCANNER_CONNECTIONS": "Scanner connections",
+        "APPLICATION_DEFAULT_SETTING": "Default setting",
+        "SCHEDULED_SETTINGS": "Scheduled settings",
+        "RECONCILE": "Reconcile",
+        "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
+        "THIRD_PARTY_WEBSITE": "Third party websites",
+        "CHARITY_GRANTS": "Grants",
+        "CHARITY_CERTIFICATES": "Certificates",
+        "BANKS": "Banks",
+        "ACTIVITY_AND_HISTORY": {
+            "TITLE": "Activity",
+            "DONOR_VIEW": "Activity",
+            "CHARITY_VIEW": "Activity",
+            "ADMINISTRATOR_DONOR_VIEW": "Donor",
+            "ADMINISTRATOR_CHARITY_VIEW": "Charity"
+        }
+    },
     "CORE": {
         "DATE_FORMAT": {
             "short": "MM/DD/YYYY",
@@ -373,49 +415,6 @@
             "NAME_PLACEHOLDER": "Enter role name",
             "DESCRIPTION_LABEL": "Description",
             "DESCRIPTION_PLACEHOLDER": "Enter role description"
-        }
-    },
-    "MENU": {
-        "USERS": "Users",
-        "ROLES": "Roles",
-        "PERMISSIONS": "Permissions",
-        "APPLICATION": "Application",
-        "ADMINISTRATION": "Administration",
-        "BOOKLET": "Booklet",
-        "SESSION": "Session",
-        "GRANT": "Grant",
-        "CONTRIBUTION": "Contribution",
-        "DASHBOARD": "Dashboard",
-        "DONOR_ACCOUNTS": "Donors",
-        "DONOR_ACCOUNT_EDIT": "Profile",
-        "CHARITIES": "Charities",
-        "CHARITY_EDIT": "Profile",
-        "CONTRIBUTIONS": "Contributions",
-        "GRANTS": "Grants",
-        "DONATIONS": "Donations",
-        "SCHEDULED_GRANTS": "Scheduled grants",
-        "FUND_TRANSFERS": "Fund transfers",
-        "BOOKLETS": "Booklets",
-        "BOOKLET_ORDERS": "Booklet orders",
-        "SESSIONS": "Sessions",
-        "SESSION_CERTIFICATES": "Certificates",
-        "SESSION_IN_PROGRESS": "Session in progress",
-        "SCANNER_CONNECTIONS": "Scanner connections",
-        "APPLICATION_DEFAULT_SETTING": "Default setting",
-        "SCHEDULED_SETTINGS": "Scheduled settings",
-        "RECONCILE": "Reconcile",
-        "CHECKS": "Checks",
-        "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
-        "THIRD_PARTY_WEBSITE": "Third party websites",
-        "CHARITY_GRANTS": "Grants",
-        "CHARITY_CERTIFICATES": "Certificates",
-        "BANKS": "Banks",
-        "ACTIVITY_AND_HISTORY": {
-            "TITLE": "Activity",
-            "DONOR_VIEW": "Activity",
-            "CHARITY_VIEW": "Activity",
-            "ADMINISTRATOR_DONOR_VIEW": "Donor",
-            "ADMINISTRATOR_CHARITY_VIEW": "Charity"
         }
     },
     "GRID": {
@@ -1918,35 +1917,34 @@
         }
     },
     "RECONCILE": {
-        "CHECK": {
-            "LIST": {
-                "TITLE": "Checks",
-                "COLUMNS": {
-                    "AMOUNT_LABEL": "Amount",
-                    "CHECK_NUMBER_LABEL": "Check number",
-                    "CHARITY_NAME_LABEL": "Charity",
-                    "DATE_CREATED_LABEL": "Date created",
-                    "DESCRIPTION_LABEL": "Description",
-                    "OLD_CHECK_NUMBER_LABEL": "Check number",
-                    "OLD_CHECK_DATE_CREATED_LABEL": "Date",
-                    "OLD_CHECK_DESCRIPTION_LABEL": "Description"
-                },
-                "EMPTY_STATE": {
-                    "TITLE": "No checks"
-                },
-                "BUTTON": {
-                    "EDIT": "Edit",
-                    "PREVIEW": "Preview",
-                    "CASH": "Cash"
-                }
+        "LIST": {
+            "TITLE": "Recnncile",
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "PAYMENT_TYPE_LABEL": "Payment type",
+                "CHARITY_NAME_LABEL": "Charity",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description",
+                "OLD_CHECK_NUMBER_LABEL": "Check number",
+                "OLD_CHECK_DATE_CREATED_LABEL": "Date",
+                "OLD_CHECK_DESCRIPTION_LABEL": "Description"
             },
-            "EDIT": {
-                "FIELDS": {
-                    "TRANSACTION_DESCRIPTION_LABEL": "Description",
-                    "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
-                    "NEW_CHECK_NUMBER_LABEL": "New check number",
-                    "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number"
-                }
+            "EMPTY_STATE": {
+                "TITLE": "No checks"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "PREVIEW": "Preview",
+                "CASH": "Cash"
+            }
+        },
+        "EDIT": {
+            "FIELDS": {
+                "TRANSACTION_DESCRIPTION_LABEL": "Description",
+                "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
+                "NEW_CHECK_NUMBER_LABEL": "New check number",
+                "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number"
             }
         }
     },

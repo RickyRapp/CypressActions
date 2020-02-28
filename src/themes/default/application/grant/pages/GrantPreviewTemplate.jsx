@@ -38,9 +38,9 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
         >
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
-                    {item && item.debitCharityTransaction && item.debitCharityTransaction.paymentType.abrv === 'check' &&
+                    {item &&
                         <div className="card card--form card--primary card--med u-mar--bottom--med">
-                            {item && <GrantProgressTimeline item={item} />}
+                            <GrantProgressTimeline item={item} />
                         </div>}
                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                         <AuthDonorNameRow authorization='theDonorsFundAdministrationSection.update' />

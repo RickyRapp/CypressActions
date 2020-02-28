@@ -9,7 +9,7 @@ export default class TransactionEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'checkCashed',
+                    name: 'isCashed',
                     label: 'RECONCILE.CHECK.EDIT.FIELDS.CHECK_CASHED_LABEL',
                     placeholder: 'RECONCILE.CHECK.EDIT.FIELDS.CHECK_CASHED_PLACEHOLDER',
                     rules: 'required|boolean'

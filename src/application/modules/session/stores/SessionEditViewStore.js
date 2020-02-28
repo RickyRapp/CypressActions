@@ -115,22 +115,20 @@ class SessionEditViewStore extends BaseEditViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.BARCODE_LABEL',
                 },
                 {
-                    key: 'value',
+                    key: 'certificate.booklet.denominationType',
                     title: 'SESSION.EDIT.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
-                        type: 'function',
-                        value: (item) => {
-                            const value = item.certificate.booklet.denominationType.abrv === 'blank' ? '$' + item.blankCertificateValue : '$' + item.certificate.booklet.denominationType.value;
-                            if (item.certificate.booklet.denominationType.abrv === 'blank') {
-                                return `${value} (${item.certificate.booklet.denominationType.name})`;
-                            }
-                            return value;
-                        }
+                        type: 'denomination',
+                        value: 'short',
+                        additionalField: 'blankCertificateValue'
                     }
                 },
                 {
-                    key: 'deductionAmount',
-                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL'
+                    key: 'amountAfterDeduction',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
+                    format: {
+                        type: 'currency'
+                    }
                 }
             ],
             actions: {

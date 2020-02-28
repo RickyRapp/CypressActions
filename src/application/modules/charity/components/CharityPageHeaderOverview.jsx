@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { CharityPageHeaderOverviewTemplate } from 'themes/application/charity/components';
 import { CharityPageHeaderOverviewViewStore } from 'application/charity/stores';
 
-@setCurrentView((rootStore, props) => new CharityPageHeaderOverviewViewStore(rootStore, { charityId: props.charityId, type: props.type }), 'charityPageHeaderOverviewViewStore')
+@setCurrentView((rootStore, props) => new CharityPageHeaderOverviewViewStore(rootStore, { type: props.type }), 'charityPageHeaderOverviewViewStore')
 @observer
 class CharityPageHeaderOverview extends React.Component {
     render() {

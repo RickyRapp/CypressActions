@@ -7,14 +7,13 @@ import { CharityPageHeaderOverview } from 'application/charity/components';
 
 function CharityTabTemplate({ charityTabViewStore }) {
     const {
-        charityId,
         loaderStore
     } = charityTabViewStore;
 
     return (
         <Page loading={loaderStore.loading} >
             <AuthPageHeader
-                charityId={charityId} type={0}
+                type={0}
                 authorization='theDonorsFundAdministrationSection.read' />
 
             <div className='u-mar--bottom--med'>
@@ -25,9 +24,6 @@ function CharityTabTemplate({ charityTabViewStore }) {
                     <div label={'CHARITY.TAB.PERSONAL_DATA'}>
                         <CharityPersonalData />
                     </div>
-                    {/* <div label={'CHARITY.TAB.SETTING_DATA'}>
-                        <CharitySettingData />
-                    </div> */}
                 </TabLayout>
             </div>
         </Page>

@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { FilterParams } from "core/models";
 
-class CheckListFilter extends FilterParams {
+class ReconcileListFilter extends FilterParams {
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
 
@@ -20,4 +20,4 @@ class CheckListFilter extends FilterParams {
     }
 }
 
-export default CheckListFilter;
+export default ReconcileListFilter;

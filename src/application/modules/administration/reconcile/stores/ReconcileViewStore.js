@@ -1,12 +1,12 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ReconcileService } from 'application/administration/reconcile/services';
-import { CheckListFilter } from 'application/administration/reconcile/models';
+import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { ModalParams } from 'core/models';
 import { isSome } from 'core/utils';
 import { TransactionEditForm } from '../forms';
 
-class CheckViewStore extends BaseListViewStore {
+class ReconcileViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant',
@@ -14,7 +14,7 @@ class CheckViewStore extends BaseListViewStore {
             routes: {
             },
             queryConfig: {
-                filter: new CheckListFilter('dateCreated', 'desc')
+                filter: new ReconcileListFilter('dateCreated', 'desc')
             },
             actions: () => {
                 const service = new ReconcileService(rootStore.application.baasic.apiClient);
@@ -38,11 +38,15 @@ class CheckViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'paymentNumber',
-                    title: 'RECONCILE.CHECK.LIST.COLUMNS.CHECK_NUMBER_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.PAYMENT_NUMBER_LABEL'
+                },
+                {
+                    key: 'paymentType.name',
+                    title: 'RECONCILE.LIST.COLUMNS.PAYMENT_TYPE_LABEL'
                 },
                 {
                     key: 'paymentTransaction.amount',
-                    title: 'RECONCILE.CHECK.LIST.COLUMNS.AMOUNT_LABEL',
+                    title: 'RECONCILE.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency',
                         value: '$'
@@ -50,36 +54,36 @@ class CheckViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'charity.name',
-                    title: 'RECONCILE.CHECK.LIST.COLUMNS.CHARITY_NAME_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL'
                 },
                 {
                     key: 'description',
-                    title: 'RECONCILE.CHECK.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.DESCRIPTION_LABEL'
                 },
                 {
                     key: 'dateCreated',
-                    title: 'RECONCILE.CHECK.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'RECONCILE.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
-                        value: 'short'
+                        value: 'full'
                     }
                 }
             ],
             actions: {
-                onEdit: (transaction) => this.openEditModal(transaction),
-                onCash: (transaction) => this.cashConfirm(transaction),
-                onPreview: (transaction) => this.openPreviewModal(transaction),
+                onEdit: (item) => this.openEditModal(item),
+                onCash: (item) => this.cashConfirm(item),
+                onPreview: (item) => this.openPreviewModal(item),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
-                onEditRender: (transaction) => {
-                    return !transaction.checkCashed;
+                onEditRender: (item) => {
+                    return !item.isCashed && item.paymentType.abrv === 'check';
                 },
-                onCashRender: (transaction) => {
-                    return !isSome(transaction.checkCashed);
+                onCashRender: (item) => {
+                    return !isSome(item.isCashed);
                 },
-                onPreviewRender: (transaction) => {
-                    return transaction.checkCashed && transaction.json;
+                onPreviewRender: (item) => {
+                    return item.isCashed && item.json;
                 }
             }
         }));
@@ -109,7 +113,7 @@ class CheckViewStore extends BaseListViewStore {
             `Are you sure you want to mark transaction as cashed?`,
             async () => {
                 let form = new TransactionEditForm();
-                form.$('checkCashed').set(true);
+                form.$('isCashed').set(true);
                 const service = new ReconcileService(this.rootStore.application.baasic.apiClient);
                 await service.checkUpdate({ id: transaction.id, ...form.values() });
                 await this.queryUtility.fetch();
@@ -119,4 +123,4 @@ class CheckViewStore extends BaseListViewStore {
     }
 }
 
-export default CheckViewStore;
+export default ReconcileViewStore;

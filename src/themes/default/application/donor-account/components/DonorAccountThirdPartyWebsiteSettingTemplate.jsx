@@ -24,7 +24,6 @@ const DonorAccountThirdPartyWebsiteSettingTemplate = function ({ t, donorAccount
             <EditFormContent form={form}
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
-                layoutFoot
             >
                 <h3 className="u-mar--bottom--tny">{t('DONOR_ACCOUNT.THIRD_PARTY_WEBSITE_SETTING.TITLE')}</h3>
                 <div className="row">

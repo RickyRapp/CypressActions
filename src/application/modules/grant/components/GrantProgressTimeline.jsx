@@ -11,7 +11,7 @@ class GrantProgressTimeline extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('1. Grant submited')}</div>
+                        <div className="form__group__label">{t('1. Submited')}</div>
                         <span className="input--preview">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
@@ -21,7 +21,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('2. Check mailed')}</div>
+                        <div className="form__group__label">{t('2. Processed')}</div>
                         <span className="input--preview">
                             {item && item.debitCharityTransaction ?
                                 <React.Fragment>
@@ -30,30 +30,33 @@ class GrantProgressTimeline extends Component {
                                         field='dateCreated'
                                         format={{ type: 'date', value: 'short' }}
                                     />
-                                    <div>Check number: {item.debitCharityTransaction.paymentNumber}</div>
-                                    <div>Address: <FormatterResolver
-                                        item={{
-                                            recipientAddress: {
-                                                addressLine1: item.debitCharityTransaction.recipientAddressLine1,
-                                                adddressLine2: item.debitCharityTransaction.recipientAddressLine2,
-                                                city: item.debitCharityTransaction.recipientCity,
-                                                state: item.debitCharityTransaction.recipientState,
-                                                zipCode: item.debitCharityTransaction.recipientZipCode
-                                            }
-                                        }}
-                                        field='recipientAddress'
-                                        format={{ type: 'address', value: 'full' }}
-                                    /></div>
-                                    {item.debitCharityTransaction.attOf &&
-                                        <div>Att Of: {item.debitCharityTransaction.attOf}</div>}
+                                    {item.debitCharityTransaction.paymentType.abrv === 'check' &&
+                                        <React.Fragment>
+                                            <div>Check number: {item.debitCharityTransaction.paymentNumber}</div>
+                                            <div>Address: <FormatterResolver
+                                                item={{
+                                                    recipientAddress: {
+                                                        addressLine1: item.debitCharityTransaction.recipientAddressLine1,
+                                                        adddressLine2: item.debitCharityTransaction.recipientAddressLine2,
+                                                        city: item.debitCharityTransaction.recipientCity,
+                                                        state: item.debitCharityTransaction.recipientState,
+                                                        zipCode: item.debitCharityTransaction.recipientZipCode
+                                                    }
+                                                }}
+                                                field='recipientAddress'
+                                                format={{ type: 'address', value: 'full' }}
+                                            /></div>
+                                            {item.debitCharityTransaction.attOf &&
+                                                <div>Att Of: {item.debitCharityTransaction.attOf}</div>}
+                                        </React.Fragment>}
                                 </React.Fragment>
                                 : ''}
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('3. Check cashed')}</div>
+                        <div className="form__group__label">{t('3. Cashed')}</div>
                         <span className="input--preview">
-                            {item && item.debitCharityTransaction.checkCashed ?
+                            {item && item.debitCharityTransaction && item.debitCharityTransaction.isCashed ?
                                 <FormatterResolver
                                     item={{ dateCashed: item.debitCharityTransaction.dateCashed }}
                                     field='dateCashed'

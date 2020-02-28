@@ -88,13 +88,14 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                     </div>
                 </div>
             </div>
+
             <div className="card--form card--primary card--med">
                 <h3 className="u-mar--bottom--med">{t('Review')}</h3>
-                <div className="row u-mar--bottom--lrg">
-                    <div className="form__group col col-sml-3 col-lrg-3 u-mar--bottom--sml">
+                <div className="row">
+                    <div className="form__group col col-sml-3 col-lrg-3">
                         <BaasicFieldDropdown store={paymentTypeDropdownStore} field={form.$('paymentTypeId')} />
                     </div>
-                    <div className="form__group col col-sml-3 col-lrg-3 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-3 col-lrg-3">
                         <label className="form__group__label">{t('Total amount to review')}</label>
                         {tableStore && tableStore.selectedItems &&
                             <span className={"input input--med input--text input--disabled"}>
@@ -107,15 +108,15 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                     </div>
                 </div>
 
-                <div className="row u-mar--bottom--lrg">
+                <div className="row u-mar--bottom--sml">
                     {paymentTypeDropdownStore.value &&
                         (paymentTypeDropdownStore.value.abrv === 'ach' ||
                             paymentTypeDropdownStore.value.abrv === 'check' ||
-                            paymentTypeDropdownStore.value.abrv === 'bill-pay') &&
+                            paymentTypeDropdownStore.value.abrv === 'wire-transfer') &&
                         <div className="form__group col col-lrg-3">
                             <BasicInput field={form.$('paymentNumber')} />
                         </div>}
-                    {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
+                    {paymentTypeDropdownStore.value && (paymentTypeDropdownStore.value.abrv === 'ach' || paymentTypeDropdownStore.value.abrv === 'wire-transfer') &&
                         <div className="form__group col col-lrg-6">
                             <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.BANK_ACCOUNT_NAME_LABEL')}</label>
                             <span className={"input input--med input--text input--disabled"}>{item.charityBankAccounts[0].name}</span>
@@ -142,7 +143,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                             </div>
                         </React.Fragment>}
                 </div>
-                <div className="u-mar--bottom--med">
+                <div className="u-mar--bottom--tny">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
                 <SimpleBaasicTableWithRowDetails

@@ -181,9 +181,11 @@ class DonationReviewViewStore extends BasePreviewViewStore {
     getDefaults() {
         let availableStatuses = [];
         availableStatuses.push(_.find(this.paymentTypes, { abrv: 'check' }));
-        availableStatuses.push(_.find(this.paymentTypes, { abrv: 'bill-pay' }))
+        availableStatuses.push(_.find(this.paymentTypes, { abrv: 'chase-quickpay' }));
+        availableStatuses.push(_.find(this.paymentTypes, { abrv: 'credit-card' }));
         if (this.item.charityBankAccounts && this.item.charityBankAccounts.length > 0) {
             availableStatuses.push(_.find(this.paymentTypes, { abrv: 'ach' }))
+            availableStatuses.push(_.find(this.paymentTypes, { abrv: 'wire-transfer' }));
         }
         availableStatuses.push({ id: '-1', name: 'Transfer to charity account', abrv: 'transfer-to-charity-account' });
         return availableStatuses;

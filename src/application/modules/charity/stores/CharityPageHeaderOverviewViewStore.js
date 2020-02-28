@@ -12,10 +12,10 @@ class CharityPageHeaderOverviewViewStore extends BaseViewStore {
     @observable charity = null;
     prefixTypes = null;
 
-    constructor(rootStore, { charityId, type }) {
+    constructor(rootStore, { type }) {
         super(rootStore)
 
-        this.charityId = charityId;
+        this.charityId = rootStore.routerStore.routerState.params.id;
         this.type = type;
         this.Types = Types;
         this.rootStore = rootStore;

@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CheckList } from 'application/administration/reconcile/pages';
+import { ReconcileList } from 'application/administration/reconcile/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -10,11 +10,11 @@ import { CheckList } from 'application/administration/reconcile/pages';
                 children: [
                     {
                         name: 'master.app.main.reconcile.check.list',
-                        pattern: 'checks',
-                        component: CheckList,
+                        pattern: 'reconcile',
+                        component: ReconcileList,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
-                            title: 'RECONCILE.CHECK.LIST.TITLE'
+                            title: 'RECONCILE.LIST.TITLE'
                         }
                     }
                 ]
@@ -28,7 +28,7 @@ import { CheckList } from 'application/administration/reconcile/pages';
                 icon: 'administration',
                 subMenu: [
                     {
-                        title: 'MENU.CHECKS',
+                        title: 'MENU.RECONCILE',
                         order: 6,
                         route: 'master.app.main.reconcile.check.list'
                     }

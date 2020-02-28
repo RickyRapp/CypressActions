@@ -85,7 +85,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     {item && item.coreUser ?
-                        <CharityOnlineAccountPreview charityId={item.id} />
+                        <CharityOnlineAccountPreview />
                         :
                         <CharityOnlineAccountCreateTemplate store={charityGeneralDataViewStore} />}
                 </div>

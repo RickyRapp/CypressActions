@@ -17,7 +17,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     uploadTypes = ['.png', '.jpg', '.jpeg'];
     bankAccountService = null;
 
-    constructor(rootStore, { charityId }) {
+    constructor(rootStore) {
+        const charityId = rootStore.routerStore.routerState.params.id;
         super(rootStore, {
             name: 'charity-bank-account',
             id: undefined,

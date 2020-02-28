@@ -1,5 +1,5 @@
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { applicationContext, charityFormatter } from 'core/utils';
 import { CharityService } from 'application/charity/services';
 import _ from 'lodash'
 
@@ -30,26 +30,37 @@ class CharityActivityAndHistoryViewStore extends BaseViewStore {
                         sort: 'name|asc',
                         embed: [
                             'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAccountType'
                         ],
                         fields: [
                             'id',
                             'taxId',
-                            'name'
+                            'name',
+                            'charityAccountType',
+                            'charityAddresses'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                            item: x
+                        }
+                    });
                 },
                 initValueFunc: async () => {
                     if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
                         const params = {
                             embed: [
-                                'charityAddresses'
+                                'charityAddresses',
+                                'charityAccountType'
                             ],
                             fields: [
                                 'id',
                                 'taxId',
-                                'name'
+                                'name',
+                                'charityAccountType',
+                                'charityAddresses'
                             ]
                         }
                         const response = await charityService.get(rootStore.routerStore.routerState.queryParams.id, params);

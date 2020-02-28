@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
 import { Date, Address } from 'core/components';
-import { donorAccountFormatter, charityFormatter } from 'core/utils';
+import { donorAccountFormatter, charityFormatter, isSome } from 'core/utils';
 import NumberFormat from 'react-number-format';
 
 function FormatterResolver({ item, field, format }) {
