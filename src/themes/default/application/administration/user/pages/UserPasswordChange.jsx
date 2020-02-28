@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
-import {BasicInput, BaasicButton, BasicFieldCheckbox} from 'core/components';
+import { BasicInput, BaasicButton, BasicFieldCheckbox } from 'core/components';
 
 function UserPasswordChangeTemplate(props) {
-    const { userPasswordChangeViewStore} = props; 
-    const {userPasswordChangeForm} = userPasswordChangeViewStore;
+    const { userPasswordChangeViewStore } = props;
+    const { userPasswordChangeForm } = userPasswordChangeViewStore;
 
     return (
-        <section className='w--400--px align--h--center'>
+        <section >
             <form className='form' onSubmit={userPasswordChangeForm.onSubmit}>
                 <h3 className='spc--bottom--sml'>Change Password</h3>
                 <BasicInput field={userPasswordChangeForm.$('newPassword')} />

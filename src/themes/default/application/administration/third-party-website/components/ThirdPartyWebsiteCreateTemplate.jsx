@@ -21,7 +21,7 @@ const ThirdPartyWebsiteCreateTemplate = function ({ t, thirdPartyWebsiteCreateVi
     } = thirdPartyWebsiteCreateViewStore;
 
     return (
-        <section className='w--400--px'>
+        <section>
             <EditFormContent form={form}
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}

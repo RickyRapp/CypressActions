@@ -107,7 +107,7 @@ const SessionListTemplate = function ({ sessionViewStore, t }) {
                     </div>
                 </Content>
                 <BaasicModal modalParams={selectScannerModal}>
-                    <section className='w--400--px'>
+                    <section>
                         <h3 className="u-mar--bottom--med">{t('SESSION.LIST.SELECT_SCANNER')}</h3>
                         <div className="row">
                             <div className="form__group col col-lrg-12">

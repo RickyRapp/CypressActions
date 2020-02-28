@@ -14,7 +14,7 @@ const AchTemplate = ({ bankAccountDropdownStore, field, openBankAccountModal }) 
 
     return (
         <div className="row">
-            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+            <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                 <BaasicFieldDropdown field={field} store={bankAccountDropdownStore} additionalLabel={addButton} />
             </div>
         </div>

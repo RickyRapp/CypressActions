@@ -16,7 +16,7 @@ class DonorAccountEmailAddressEditForm extends Component {
         const { formContributionSetting, donorAccountBankAccountDropdownStore } = modalParams.data;
 
         return (
-            <section className='w--600--px'>
+            <section >
                 <EditFormContent form={formContributionSetting}>
                     <h3 className="u-mar--bottom--med">{t('DONOR_ACCOUNT_CONTRIBUTION_SETTING.EDIT.TITLE')}</h3>
                     <div className="row">

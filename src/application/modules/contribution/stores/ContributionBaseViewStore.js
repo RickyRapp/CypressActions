@@ -2,13 +2,14 @@ import { action, computed, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import { ContributionService } from 'application/contribution/services';
-import { DonorAccountService, DonorAccountBankAccountService } from 'application/donor-account/services';
+import { DonorAccountService, DonorAccountBankAccountService, DonorAccountAddressService, DonorAccountEmailAddressService, DonorAccountPhoneNumberService } from 'application/donor-account/services';
 import {
     LookupService,
     DonorAccountFileStreamService
 } from 'common/services';
 import { DonorAccountBankAccountEditForm } from 'application/donor-account/forms';
 import _ from 'lodash';
+import { RoutingNumberService } from 'application/administration/bank/services';
 
 class ContributionBaseViewStore extends BaseEditViewStore {
     donorAccount = null;
@@ -128,7 +129,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
     @action.bound
     openBankAccountModal() {
-        const formBankAccount = new DonorAccountBankAccountEditForm({
+        this.formBankAccount = new DonorAccountBankAccountEditForm({
             onSuccess: async (form) => {
                 const bankAccount = form.values();
                 try {
@@ -153,7 +154,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
         });
 
         this.bankAccountModal.open({
-            formBankAccount: formBankAccount
+            formBankAccount: this.formBankAccount
         });
     }
 
@@ -204,6 +205,95 @@ class ContributionBaseViewStore extends BaseEditViewStore {
             ]
         });
         this.donorAccount = response.data;
+    }
+
+    @action.bound
+    async useDonorContactInformations(value, type) {
+        if (type === 'address') {
+            if (!this.primaryAddress) {
+                const addressService = new DonorAccountAddressService(this.rootStore.application.baasic.apiClient);
+                const params = {
+                    donorAccountId: this.donorAccountId,
+                    isPrimary: true
+                }
+                const response = await addressService.find(params);
+                this.primaryAddress = response.data.item[0];
+            }
+            if (value === null) {
+                this.formBankAccount.$('accountHolder.addressLine1').set('');
+                this.formBankAccount.$('accountHolder.addressLine2').set('');
+                this.formBankAccount.$('accountHolder.city').set('');
+                this.formBankAccount.$('accountHolder.state').set('');
+                this.formBankAccount.$('accountHolder.zipCode').set('');
+            }
+            else {
+                if (this.primaryAddress) {
+                    this.formBankAccount.$('accountHolder.addressLine1').set(this.primaryAddress.addressLine1)
+                    this.formBankAccount.$('accountHolder.addressLine2').set(this.primaryAddress.addressLine2)
+                    this.formBankAccount.$('accountHolder.city').set(this.primaryAddress.city)
+                    this.formBankAccount.$('accountHolder.state').set(this.primaryAddress.state)
+                    this.formBankAccount.$('accountHolder.zipCode').set(this.primaryAddress.zipCode)
+                }
+            }
+        }
+        else if (type === 'emailAddress') {
+            if (!this.primaryEmailAddress) {
+                const emailAddressService = new DonorAccountEmailAddressService(this.rootStore.application.baasic.apiClient);
+                const params = {
+                    donorAccountId: this.donorAccountId,
+                    isPrimary: true
+                }
+                const response = await emailAddressService.find(params);
+                this.primaryEmailAddress = response.data.item[0];
+            }
+
+            if (value === null) {
+                this.formBankAccount.$('accountHolder.email').set('');
+            }
+            else {
+                if (this.primaryEmailAddress) {
+                    this.formBankAccount.$('accountHolder.email').set(this.primaryEmailAddress.email);
+                }
+            }
+        }
+        else if (type === 'phoneNumber') {
+            if (!this.primaryPhoneNumber) {
+                const phoneNumberService = new DonorAccountPhoneNumberService(this.rootStore.application.baasic.apiClient);
+                const params = {
+                    donorAccountId: this.donorAccountId,
+                    isPrimary: true
+                }
+                const response = await phoneNumberService.find(params);
+                this.primaryPhoneNumber = response.data.item[0];
+            }
+
+            if (value === null) {
+                this.formBankAccount.$('accountHolder.number').set('');
+            }
+            else {
+                if (this.primaryPhoneNumber) {
+                    this.formBankAccount.$('accountHolder.number').set(this.primaryPhoneNumber.number)
+                }
+            }
+        }
+    }
+
+    @action.bound
+    async checkBank(value) {
+        if (value && value.replace(/-/g, "").length === 9) {
+            const service = new RoutingNumberService(this.rootStore.application.baasic.apiClient);
+            const response = await service.find({
+                pageNumber: 1,
+                pageSize: 10,
+                embed: ['bank'],
+                number: value
+            });
+
+            if (response.data && response.data.item.length > 0) {
+                this.formBankAccount.$('name').set(response.data.item[0].bank.name);
+                this.rootStore.notificationStore.success('Found!');
+            }
+        }
     }
 
     @computed get achId() {

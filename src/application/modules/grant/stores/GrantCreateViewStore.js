@@ -1,7 +1,7 @@
 import { action, runInAction, computed } from 'mobx';
 import { BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
-import { applicationContext, charityFormatter } from 'core/utils';
+import { applicationContext } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
 import { ScheduledGrantService } from 'application/grant/services';

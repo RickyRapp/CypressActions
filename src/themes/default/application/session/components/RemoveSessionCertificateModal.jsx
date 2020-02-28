@@ -32,7 +32,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t, makeRefund, ma
     certificateStatusDropdownStore.setValue(sessionCertificate.certificate.certificateStatus)
 
     return (
-        <section className='w--400--px'>
+        <section>
             <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.LIST.REMOVE_SESSION_CERTIFICATE')}</h3>
             <div className="row">
                 {bookletOrder.accountType.abrv === 'premium' &&

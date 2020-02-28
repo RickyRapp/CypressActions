@@ -19,7 +19,7 @@ const BankCreateTemplate = function ({ t, bankCreateViewStore }) {
     } = bankCreateViewStore;
 
     return (
-        <section className='w--400--px'>
+        <section >
             <EditFormContent form={form}
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}

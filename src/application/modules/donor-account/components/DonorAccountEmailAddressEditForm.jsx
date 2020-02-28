@@ -13,7 +13,7 @@ class DonorAccountEmailAddressEditForm extends Component {
         const { formEmailAddress } = modalParams.data;
 
         return (
-            <section className='w--400--px'>
+            <section>
                 <form className='form' onSubmit={formEmailAddress.onSubmit}>
                     <h3 className="u-mar--bottom--med">{formEmailAddress.$('id').value ? t('EMAIL_ADDRESS.EDIT.TITLE') : t('EMAIL_ADDRESS.CREATE.TITLE')}</h3>
                     <div className="row">

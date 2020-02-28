@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BasicInput, BaasicButton } from 'core/components';
-import {defaultTemplate} from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 
 function PasswordChangeTemplate({ currentView, t }) {
     const { passwordChangeForm, goToLogin } = currentView;
 
-    return <section className="w--400--px align--h--center padd--top--med">
+    return <section>
         <form className="form card card--med spc--top--med" onSubmit={passwordChangeForm.onSubmit}>
             <h3 className="spc--bottom--sml">{t('PASSWORD_CHANGE.NEW_PASSWORD_PLACEHOLDER')}</h3>
             <BasicInput field={passwordChangeForm.$('password')} />

@@ -7,12 +7,12 @@ import logo from 'themes/assets/img/logo.svg';
 function PasswordRecoveryTemplate({ currentView, t }) {
     const { form, loading, onVerifyRecaptcha, goToLogin } = currentView;
     return (
-        <section className='w--400--px align--h--center padd--top--med'>
-        <img
-            className='w--160--px display--b align--h--center'
-            src={logo}
-            alt='Logo'
-        />
+        <section >
+            <img
+                className='w--160--px display--b align--h--center'
+                src={logo}
+                alt='Logo'
+            />
             <form className='form card card--med card--primary spc--top--med' onSubmit={form.onSubmit}>
                 <h5 className='spc--bottom--sml'>{t('PASSWORD_RECOVERY.TITLE')}</h5>
                 <p className='spc--bottom--med type--color--dark'>
@@ -44,6 +44,6 @@ function PasswordRecoveryTemplate({ currentView, t }) {
 PasswordRecoveryTemplate.propTypes = {
     currentView: PropTypes.object.isRequired,
     t: PropTypes.func
- };
+};
 
 export default defaultTemplate(PasswordRecoveryTemplate);

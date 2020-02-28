@@ -19,7 +19,7 @@ class BankViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: new BankListFilter('dateCreated', 'desc')
+                filter: new BankListFilter('name', 'desc')
             },
             actions: () => {
                 return {

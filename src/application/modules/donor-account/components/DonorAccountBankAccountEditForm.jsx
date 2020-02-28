@@ -25,7 +25,7 @@ class DonorAccountBankAccountEditForm extends Component {
         const { formBankAccount } = modalParams.data;
 
         return (
-            <section className='w--600--px'>
+            <section >
                 <form className='form' onSubmit={formBankAccount.onSubmit}>
                     <h3 className="u-mar--bottom--med">{formBankAccount.$('id').value ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
                     <div className="row">
@@ -48,24 +48,24 @@ class DonorAccountBankAccountEditForm extends Component {
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('name')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.name')} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('addressLine1')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.addressLine1')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-6">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('addressLine2')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.addressLine2')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('city')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.city')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('state')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.state')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('zipCode')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.zipCode')} />
                         </div>
                         <div className="form__group col col-sml-6 col-lrg-3">
                             <BaasicButton
@@ -79,7 +79,7 @@ class DonorAccountBankAccountEditForm extends Component {
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <BasicInput field={formBankAccount.$('accountHolder').$('email')} />
+                            <BasicInput field={formBankAccount.$('accountHolder.email')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-4">
                             <BaasicButton
@@ -93,7 +93,7 @@ class DonorAccountBankAccountEditForm extends Component {
 
                     <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-4">
-                            <NumberFormatInputField field={formBankAccount.$('accountHolder').$('number')} />
+                            <NumberFormatInputField field={formBankAccount.$('accountHolder.number')} />
                         </div>
                         <div className="form__group col col-sml-12 col-lrg-4">
                             <BaasicButton

@@ -11,7 +11,7 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
     } = selectDonorViewStore;
 
     return (
-        <section className='w--400--px'>
+        <section className="w--400--px">
             <h3 className="u-mar--bottom--med">{t('SELECT_DONOR')}</h3>
             <div className="row">
                 {donorAccountId &&

@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 function ChaseQuickPayTemplate({ form }) {
     return (
         <div className="row">
-            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+            <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                 <BasicInput field={form.$('transactionId')} />
             </div>
-            <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+            <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                 <BasicInput field={form.$('memo')} />
             </div>
         </div>

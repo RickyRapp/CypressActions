@@ -23,7 +23,7 @@ const TransactionEditTemplate = function ({ transactionEditViewStore }) {
 
     return (
         <form className='form'>
-            <section className='w--600--px'>
+            <section >
                 <div className="row">
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                         <div>

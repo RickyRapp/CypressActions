@@ -38,7 +38,7 @@ class TransactionPreviewTemplate extends React.Component {
         tableStore.setData(_.orderBy(oldPaymentNumbers, ['dateChanged'], ['desc']))
 
         return (
-            <section className='w--600--px'>
+            <section>
                 <div className="row">
                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                         <h3>Voided checks</h3>

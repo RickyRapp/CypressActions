@@ -1,11 +1,12 @@
-import { action, observable } from 'mobx';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
+import { action, observable, runInAction } from 'mobx';
+import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { LookupService, FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { charityFormatter } from 'core/utils';
 import _ from 'lodash';
 import { ModalParams } from 'core/models';
+import { GrantService } from '../services';
 
 class GrantBaseViewStore extends BaseEditViewStore {
     @observable grantScheduleTypes = null;
@@ -71,10 +72,40 @@ class GrantBaseViewStore extends BaseEditViewStore {
                 },
                 onChange: () => {
                     this.onBlurAmount();
+                    this.fetchDonorGrantsToCharity();
                 }
             });
 
         this.advancedSearchModal = new ModalParams({});
+
+        this.tableStore = new TableViewStore(null, {
+            columns: [
+                {
+                    key: 'amount',
+                    title: 'GRANT.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
+                },
+                {
+                    key: 'confirmationNumber',
+                    title: 'GRANT.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+                },
+                {
+                    key: 'donationStatus.name',
+                    title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
+                },
+                {
+                    key: 'dateCreated',
+                    title: 'GRANT.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
+                }
+            ]
+        });
     }
 
     @action.bound
@@ -190,6 +221,29 @@ class GrantBaseViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+    async fetchDonorGrantsToCharity() {
+        if (this.form.$('charityId').value) {
+            const service = new GrantService(this.rootStore.application.baasic.apiClient);
+            const params = {
+                embed: [
+                    'donationStatus'
+                ],
+                fields: [
+                    'id',
+                    'amount',
+                    'confirmationNumber',
+                    'donationStatus',
+                    'dateCreated'
+                ],
+                charityId: this.form.$('charityId').value,
+                donorAccountId: this.donorAccountId
+            }
+            const response = await service.find(params);
+            this.tableStore.setData(response.data.item)
+        }
+    }
+
+    @action.bound
     async fetchDonorAccount() {
         const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
         const response = await service.get(this.donorAccountId, {
@@ -230,6 +284,8 @@ class GrantBaseViewStore extends BaseEditViewStore {
     onCharitySelected(item) {
         this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
         this.form.$('charityId').set(item.id);
+        this.onBlurAmount();
+        this.fetchDonorGrantsToCharity();
         this.advancedSearchModal.close();
     }
 

@@ -13,7 +13,7 @@ class DonorAccountPhoneNumberEditForm extends Component {
         const { formPhoneNumber } = modalParams.data;
 
         return (
-            <section className='w--400--px'>
+            <section>
                 <form className='form' onSubmit={formPhoneNumber.onSubmit}>
                     <h3 className="u-mar--bottom--med">{formPhoneNumber.$('id').value ? t('PHONE_NUMBER.EDIT.TITLE') : t('PHONE_NUMBER.CREATE.TITLE')}</h3>
                     <div className="row">

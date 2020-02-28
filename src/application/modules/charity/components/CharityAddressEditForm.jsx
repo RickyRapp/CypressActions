@@ -12,7 +12,7 @@ class CharityAddressEditForm extends Component {
         const { formAddress } = modalParams.data;
 
         return (
-            <section className='w--600--px'>
+            <section >
                 <form className='form' onSubmit={formAddress.onSubmit}>
                     <h3 className="u-mar--bottom--med">{formAddress.$('id').value ? t('ADDRESS.EDIT.TITLE') : t('ADDRESS.CREATE.TITLE')}</h3>
                     <div className="row">

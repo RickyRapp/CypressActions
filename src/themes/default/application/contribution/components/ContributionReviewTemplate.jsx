@@ -14,7 +14,7 @@ const ContributionReviewTemplate = function ({ contributionReviewViewStore, t })
     } = contributionReviewViewStore;
 
     return (
-        <section className='w--400--px'>
+        <section>
             <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.REVIEW.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">

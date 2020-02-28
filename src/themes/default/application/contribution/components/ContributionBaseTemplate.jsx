@@ -26,10 +26,10 @@ function ContributionBaseTemplate({
             <div className="card card--form card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">General Data</h3>
                 <div className="row">
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                         <NumericInputField field={form.$('amount')} />
                     </div>
                 </div>

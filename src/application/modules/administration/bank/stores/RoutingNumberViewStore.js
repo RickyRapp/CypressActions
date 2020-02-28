@@ -19,7 +19,7 @@ class RoutingNumberViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: new RoutingNumberListFilter('dateCreated', 'desc'),
+                filter: new RoutingNumberListFilter('region', 'asc'),
                 onResetFilter: (filter) => {
                     this.bankDropdownStore.setValue(null);
                 }

@@ -25,7 +25,9 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
         image,
         onAttachmentDrop,
         bankAccountModal,
-        contributionSettingTypeDropdownStore
+        contributionSettingTypeDropdownStore,
+        checkBank,
+        useDonorContactInformations
     } = contributionCreateViewStore;
 
     return (
@@ -58,11 +60,12 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
             </ApplicationEditLayout >
             <BaasicModal modalParams={bankAccountModal}>
                 <DonorAccountBankAccountEditForm
-                    useDonorContactInformations={() => alert('infooo')}
+                    useDonorContactInformations={useDonorContactInformations}
                     uploadTypes={uploadTypes}
                     uploadLoading={uploadLoading}
                     image={image}
                     onAttachmentDrop={onAttachmentDrop}
+                    onBlurRoutingNumber={checkBank}
                 />
             </BaasicModal>
         </React.Fragment>
