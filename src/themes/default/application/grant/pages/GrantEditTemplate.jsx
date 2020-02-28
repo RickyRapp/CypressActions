@@ -114,7 +114,8 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 GrantEditTemplate.propTypes = {
-    grantEditViewStore: PropTypes.object.isRequired
+    grantEditViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 export default defaultTemplate(GrantEditTemplate);

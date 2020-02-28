@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
 import { Date, Address } from 'core/components';
-import { donorAccountFormatter, charityFormatter, isSome } from 'core/utils';
+import { donorAccountFormatter, charityFormatter } from 'core/utils';
 import NumberFormat from 'react-number-format';
 
 function FormatterResolver({ item, field, format }) {
@@ -127,9 +127,10 @@ function FormatterResolver({ item, field, format }) {
         }
         case 'charity':
             return charityFormatter.format(_.get(item, field), format)
-        case 'count':
+        case 'count': {
             const items = _.get(item, field);
             return items.length;
+        }
         default:
             return () => { };
     }

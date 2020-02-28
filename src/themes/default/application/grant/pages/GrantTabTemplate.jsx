@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate, withAuth } from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page, PageNavigation } from 'core/layouts';
 import { GrantList, ScheduledGrantList } from 'application/grant/pages';
 import { BaasicButton, BaasicModal } from 'core/components';
@@ -40,6 +40,7 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
 
 GrantTabTemplate.propTypes = {
     grantTabViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 export default defaultTemplate(GrantTabTemplate);

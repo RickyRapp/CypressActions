@@ -1,7 +1,6 @@
 import { BaseEditViewStore } from 'core/stores';
 import { BankCreateForm } from 'application/administration/bank/forms';
 import { BankService } from 'application/administration/bank/services';
-import _ from 'lodash';
 
 class BankCreateViewStore extends BaseEditViewStore {
     constructor(rootStore, id, onAfterAction) {

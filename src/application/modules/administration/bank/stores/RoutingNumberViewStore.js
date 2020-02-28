@@ -3,6 +3,7 @@ import { RoutingNumberService, BankService } from 'application/administration/ba
 import { RoutingNumberListFilter } from 'application/administration/bank/models';
 import { ModalParams } from 'core/models';
 import { action } from 'mobx';
+import _ from 'lodash'
 
 class RoutingNumberViewStore extends BaseListViewStore {
     scanners = null;
@@ -20,7 +21,7 @@ class RoutingNumberViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: new RoutingNumberListFilter('region', 'asc'),
-                onResetFilter: (filter) => {
+                onResetFilter: () => {
                     this.bankDropdownStore.setValue(null);
                 }
             },

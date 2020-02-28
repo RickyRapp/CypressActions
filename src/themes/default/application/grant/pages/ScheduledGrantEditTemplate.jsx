@@ -8,8 +8,7 @@ import {
     BasicFieldCheckbox,
     BaasicButton,
     Scanner,
-    BaasicModal,
-    FormDebug
+    BaasicModal
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -136,7 +135,8 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
 };
 
 ScheduledGrantEditTemplate.propTypes = {
-    scheduledGrantEditViewStore: PropTypes.object.isRequired
+    scheduledGrantEditViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 export default defaultTemplate(ScheduledGrantEditTemplate);

@@ -137,6 +137,7 @@ DonorAccountBankAccountEditForm.propTypes = {
     uploadLoading: PropTypes.bool.isRequired,
     image: PropTypes.string,
     onAttachmentDrop: PropTypes.func.isRequired,
+    onBlurRoutingNumber: PropTypes.func,
     currentImage: PropTypes.string
 };
 

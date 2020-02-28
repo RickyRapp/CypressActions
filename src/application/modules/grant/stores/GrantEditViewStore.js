@@ -93,7 +93,6 @@ class GrantEditViewStore extends GrantBaseViewStore {
 
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
             const dateToEdit = moment(this.item.dateCreated).add('minutes', 15);
-            debugger
             if (!moment().isBetween(this.item.dateCreated, dateToEdit)) {
                 this.rootStore.notificationStore.warning('Time expired for editing.');
                 this.rootStore.routerStore.goTo('master.app.main.grant.preview', { editId: this.id });

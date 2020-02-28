@@ -182,7 +182,6 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         }
     }
 
-
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {

@@ -5,9 +5,7 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BasicInput,
-    NumberFormatInputField,
-    BaasicFieldDropdown,
+    BasicInput
 } from 'core/components'
 import { PageFooter } from 'core/layouts';
 

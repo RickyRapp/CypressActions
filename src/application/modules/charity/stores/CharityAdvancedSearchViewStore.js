@@ -2,6 +2,7 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/sto
 import { CharityService } from 'application/charity/services';
 import { CharityListFilter } from 'application/charity/models';
 import { LookupService } from 'common/services';
+import _ from 'lodash';
 
 class CharityAdvancedSearchViewStore extends BaseListViewStore {
     constructor(rootStore, onSelected) {

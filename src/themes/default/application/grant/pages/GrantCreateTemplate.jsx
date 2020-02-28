@@ -150,7 +150,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
 
 GrantCreateTemplate.propTypes = {
-    grantCreateViewStore: PropTypes.object.isRequired
+    grantCreateViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 export default defaultTemplate(GrantCreateTemplate);

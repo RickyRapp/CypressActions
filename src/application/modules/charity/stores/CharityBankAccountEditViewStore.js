@@ -120,7 +120,6 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.image = window.URL.createObjectURL(new Blob(binaryData, { type: this.attachment.type }));
     }
 
-
     @action.bound
     async checkBank(value) {
         if (value && value.replace(/-/g, "").length === 9) {
