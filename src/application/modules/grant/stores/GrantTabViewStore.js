@@ -1,11 +1,12 @@
 import { BaseTabViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 
 @applicationContext
 class GrantTabViewStore extends BaseTabViewStore {
     donorAccountId = null;
+    @observable canCreate = true;
 
     constructor(rootStore) {
         super(rootStore);
@@ -13,6 +14,10 @@ class GrantTabViewStore extends BaseTabViewStore {
         this.loaderStore.resume();
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
             this.activeIndex = rootStore.routerStore.routerState.queryParams.tab;
+        }
+
+        if (this.activeIndex === 2) {
+            this.canCreate = false;
         }
 
         this.createFunc = () => {
@@ -25,6 +30,16 @@ class GrantTabViewStore extends BaseTabViewStore {
         }
 
         this.selectDonorModal = new ModalParams({});
+    }
+
+    async handleTabClick(tabIndex) {
+        await super.handleTabClick(tabIndex);
+        if (this.activeIndex === 2) {
+            this.canCreate = false;
+        }
+        else {
+            this.canCreate = true;
+        }
     }
 
     @action.bound

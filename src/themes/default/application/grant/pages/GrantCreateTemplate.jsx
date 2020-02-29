@@ -9,7 +9,8 @@ import {
     Scanner,
     BaasicButton,
     BaasicModal,
-    SimpleBaasicTable
+    SimpleBaasicTable,
+    FormatterResolver
 } from 'core/components';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
@@ -55,17 +56,18 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-                                        <BaasicButton
+                                        {!form.$('charityId').disabled && <BaasicButton
                                             className="btn btn--icon"
                                             icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
                                             label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
                                             onlyIcon={true}
                                             onClick={openAdvancedSearchModal}
-                                        />
+                                        />}
                                     </div>
-                                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        <Scanner onBarcodeDetected={onScanned} />
-                                    </div>
+                                    {!form.$('charityId').disabled &&
+                                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                            <Scanner onBarcodeDetected={onScanned} />
+                                        </div>}
                                 </div>
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
@@ -101,7 +103,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         {amountWithFee &&
                                             <React.Fragment><label className="form__group__label">Total amount with fee</label>
-                                                <span className={"input input--med input--text input--disabled"}>{amountWithFee}</span>
+                                                <span className={"input input--med input--text input--disabled"}>
+                                                    <FormatterResolver
+                                                        item={{ amount: amountWithFee }}
+                                                        field='amount'
+                                                        format={{ type: 'currency' }}
+                                                    /></span>
                                             </React.Fragment>}
                                     </div>
                                 </div>
@@ -116,6 +123,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
                                                 `${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
                                             {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
+                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'remain-anonymous' && 'Anonymous'}
                                         </div>}
                                 </div>
                                 <div className="row">

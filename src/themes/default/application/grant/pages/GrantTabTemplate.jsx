@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page, PageNavigation } from 'core/layouts';
-import { GrantList, ScheduledGrantList } from 'application/grant/pages';
+import { GrantList, ScheduledGrantList, GrantRequestList } from 'application/grant/pages';
 import { BaasicButton, BaasicModal } from 'core/components';
 import { SelectDonor } from 'application/donor-account/components';
 
@@ -12,14 +12,23 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
         createFunc,
         activeIndex,
         selectDonorModal,
-        setDonorAccountId
+        setDonorAccountId,
+        canCreate
     } = grantTabViewStore;
+
+    let title = 'Grants';
+    if (activeIndex === 0)
+        title = 'Grants';
+    else if (activeIndex === 1)
+        title = 'Scheduled grants';
+    else if (activeIndex === 2)
+        title = 'Grant requests';
 
     return (
         <Page loading={loaderStore.loading} >
-            <PageNavigation title={activeIndex == 0 ? 'Grants' : 'Scheduled grants'}>
-                <BaasicButton authorization={'theDonorsFundGrantSection.create'} t={t}
-                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={createFunc}></BaasicButton>
+            <PageNavigation title={title}>
+                {canCreate && <BaasicButton authorization={'theDonorsFundGrantSection.create'} t={t}
+                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={createFunc}></BaasicButton>}
             </PageNavigation>
             <div className='u-mar--bottom--med'>
                 <TabLayout store={grantTabViewStore}>
@@ -28,6 +37,9 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
                     </div>
                     <div label={'GRANT.TAB.SCHEDULED_LIST'}>
                         <ScheduledGrantList onChangeDonorFilter={setDonorAccountId} />
+                    </div>
+                    <div label={'GRANT.TAB.GRANT_REQUEST'}>
+                        <GrantRequestList onChangeDonorFilter={setDonorAccountId} />
                     </div>
                 </TabLayout>
             </div>

@@ -14,6 +14,12 @@ export default class GrantCreateForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
+                    name: 'charityId',
+                    label: 'GRANT.CREATE.FIELDS.CHARITY_LABEL',
+                    placeholder: 'GRANT.CREATE.FIELDS.CHARITY_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
                     name: 'accountTypeId',
                     rules: 'required|string'
                 },
@@ -36,12 +42,6 @@ export default class GrantCreateForm extends FormBase {
                     name: 'grantAcknowledgmentTypeId',
                     label: 'GRANT.CREATE.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'charityId',
-                    label: 'GRANT.CREATE.FIELDS.CHARITY_LABEL',
-                    placeholder: 'GRANT.CREATE.FIELDS.CHARITY_PLACEHOLDER',
                     rules: 'required|string'
                 },
                 {
@@ -100,6 +100,10 @@ export default class GrantCreateForm extends FormBase {
                     placeholder: 'GRANT.CREATE.FIELDS.NO_END_DATE_PLACEHOLDER',
                     rules: 'boolean',
                     type: 'checkbox'
+                },
+                {
+                    name: 'grantRequestId',
+                    rules: 'string'
                 }
             ]
         };

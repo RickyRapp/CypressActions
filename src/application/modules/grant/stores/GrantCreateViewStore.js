@@ -3,7 +3,7 @@ import { BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
-import { GrantService } from 'application/grant/services';
+import { GrantService, GrantRequestService } from 'application/grant/services';
 import { ScheduledGrantService } from 'application/grant/services';
 import GrantBaseViewStore from './GrantBaseViewStore'
 import _ from 'lodash';
@@ -22,6 +22,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
+                        debugger
                         if (resource.endDate == 'Invalid date') {
                             resource.endDate = null;
                         }
@@ -49,6 +50,10 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             }
         });
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();
+
+        if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
+            this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
+        }
     }
 
     @action.bound
@@ -63,6 +68,10 @@ class GrantCreateViewStore extends GrantBaseViewStore {
                 this.fetchApplicationDefaultSetting(),
                 this.fetchFeeTypes()
             ]);
+
+            if (this.grantRequestId) {
+                await this.fetchGrantRequest();
+            }
 
             await this.fetch([
                 this.setFormDefaultRules(),
@@ -125,6 +134,36 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             this.grantScheduleTypeDropdownStore.setItems(response.data);
             this.grantScheduleTypeDropdownStore.setLoading(false);
         });
+    }
+
+    @action.bound
+    async fetchGrantRequest() {
+        if (this.grantRequestId) {
+            const service = new GrantRequestService(this.rootStore.application.baasic.apiClient);
+            let response = null;
+            try {
+                response = await service.get(this.grantRequestId, { embed: ['charity'] });
+            } catch (err) {
+                this.rootStore.notificationStore.warning('Grant request does not exist.');
+                return;
+            }
+            this.form.$('amount').set(response.data.amount);
+            this.onCharitySelected(response.data.charity)
+            this.form.$('grantScheduleTypeId').set(this.oneTimeGrantId);
+            this.form.$('startFutureDate').set(moment().toDate());
+            this.grantAcknowledgmentTypeDropdownStore.setValue(_.find(this.grantAcknowledgmentTypeDropdownStore.items, { abrv: 'remain-anonymous' }));
+            this.form.$('grantAcknowledgmentTypeId').set(this.grantAcknowledgmentTypeDropdownStore.value.id);
+            this.grantPurposeTypeDropdownStore.setValue(_.find(this.grantPurposeTypeDropdownStore.items, { abrv: 'charity-event' }));
+            this.form.$('grantPurposeTypeId').set(this.grantPurposeTypeDropdownStore.value.id);
+            this.form.$('grantRequestId').set(this.grantRequestId);
+
+            this.form.$('charityId').validate();
+            this.form.$('charityId').setDisabled(true);
+            this.form.$('grantScheduleTypeId').validate();
+            this.form.$('grantScheduleTypeId').setDisabled(true);
+            this.form.$('startFutureDate').validate();
+            this.form.$('startFutureDate').setDisabled(true);
+        }
     }
 
     @computed get oneTimeGrantId() {

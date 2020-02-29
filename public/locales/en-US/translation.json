@@ -253,7 +253,9 @@
         "CLEAR_BUTTON": "Clear"
     },
     "FORM_CONTROLS": {
-        "SAVE_BUTTON": "Save"
+        "SAVE_BUTTON": "Save",
+        "EDIT_BUTTON": "Edit",
+        "CONFIRM_BUTTON": "Confirm"
     },
     "LIST_SELECT_LAYOUT": {
         "EMPTY_MESSAGE": "There is no information about selected item"
@@ -1230,7 +1232,8 @@
     "GRANT": {
         "TAB": {
             "LIST": "Grants",
-            "SCHEDULED_LIST": "Scheduled grants"
+            "SCHEDULED_LIST": "Scheduled grants",
+            "GRANT_REQUEST": "Grant requests"
         },
         "LIST": {
             "TITLE": "Grants",
@@ -1272,6 +1275,7 @@
                 "PURPOSE_TYPE_LABEL": "Purpose",
                 "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
                 "DONOR_NAME_LABEL": "Donor",
+                "SCHEDULED_LABEL": "Scheduled",
                 "THIRD_PARTY_WEBSITE_LABEL": "Created over third party website"
             }
         },
@@ -2092,6 +2096,32 @@
                 "REGION_PLACEHOLDER": "Region",
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number"
+            }
+        }
+    },
+    "GRANT_REQUEST": {
+        "LIST": {
+            "TITLE": "Grant requests",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "CHARITY_LABEL": "Charity",
+                "STATUS_LABEL": "Status"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No grant requests",
+                "ACTION": "Create new grant requests"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "COMPLETE": "Complete",
+                "DECLINE": "Decline"
             }
         }
     }
