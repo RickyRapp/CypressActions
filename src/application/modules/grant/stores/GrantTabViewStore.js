@@ -13,7 +13,7 @@ class GrantTabViewStore extends BaseTabViewStore {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id;
         this.loaderStore.resume();
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
-            this.activeIndex = rootStore.routerStore.routerState.queryParams.tab;
+            this.handleTabClick(rootStore.routerStore.routerState.queryParams.tab)
         }
 
         if (this.activeIndex === 2) {

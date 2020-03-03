@@ -193,6 +193,18 @@ class GrantRequestViewStore extends BaseListViewStore {
     }
 
     @action.bound
+    async onConfirm() {
+        this.loaderStore.suspend();
+        const service = new GrantRequestService(this.rootStore.application.baasic.apiClient);
+        const id = this.grantCreateOVerviewModalParams.data.item.id;
+        await service.complete({ id: id });
+        await this.queryUtility.fetch();
+        this.grantCreateOVerviewModalParams.close();
+        this.rootStore.notificationStore.success('Successfully declined');
+        this.loaderStore.resume();
+    }
+
+    @action.bound
     async declineRequest(item) {
         this.rootStore.modalStore.showConfirm(
             'Are you sure you want to decline request?',
