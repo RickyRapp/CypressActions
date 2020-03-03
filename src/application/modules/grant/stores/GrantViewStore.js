@@ -22,30 +22,13 @@ class GrantViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundGrantSection',
             routes: {
                 edit: (id, editId) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.edit',
-                        {
-                            id: id,
-                            editId: editId
-                        }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.grant.edit', { id: id, editId: editId });
                 },
                 scheduledGrantsList: (name) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.tab', null,
-                        {
-                            tab: 1,
-                            name: name
-                        }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { tab: 1, name: name });
                 },
                 preview: (editId) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.preview',
-                        {
-                            editId: editId
-                        }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.grant.preview', { editId: editId });
                 },
                 create: () => {
                     if (this.hasPermission('theDonorsFundAdministrationSection.create')) {

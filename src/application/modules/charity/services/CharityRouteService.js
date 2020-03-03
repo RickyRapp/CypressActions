@@ -44,6 +44,10 @@ class CharityRouteService extends BaseRouteService {
     createOnlineAccount(resource) {
         return super.create(this.base + '/create-online-account/{id}', resource);
     }
+
+    phoneNumberExists(phoneNumber) {
+        return super.get(this.base + '/phone-number/{phoneNumber}/exists/', null, { phoneNumber: phoneNumber });
+    }
 }
 
 export default CharityRouteService;

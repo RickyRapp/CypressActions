@@ -31,6 +31,7 @@
         "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
         "THIRD_PARTY_WEBSITE": "Third party websites",
         "CHARITY_GRANTS": "Grants",
+        "CHARITY_GRANT_REQUESTS": "Grant requests",
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
         "ACTIVITY_AND_HISTORY": {
@@ -1050,6 +1051,19 @@
         }
     },
     "CHARITY_GRANTS": {
+        "LIST": {
+            "TITLE": "Grants",
+            "COLUMNS": {
+                "DONOR_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "DATE_CREATED_LABEL": "Date created",
+                "PHONE_NUMBER_LABEL": "Phone number"
+            }
+        }
+    },
+    "CHARITY_GRANT_REQUESTS": {
         "LIST": {
             "TITLE": "Grants",
             "COLUMNS": {
@@ -2122,6 +2136,15 @@
                 "EDIT": "Edit",
                 "COMPLETE": "Complete",
                 "DECLINE": "Decline"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create grant request",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number"
             }
         }
     }

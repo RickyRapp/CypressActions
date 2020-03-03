@@ -5,3 +5,4 @@ export { default as CharityOnlineAccountPreviewTemplate } from './CharityOnlineA
 export { default as CharityGeneralDataTemplate } from './CharityGeneralDataTemplate'
 export { default as CharityOnlineAccountCreateTemplate } from './CharityOnlineAccountCreateTemplate'
 export { default as CharityAdvancedSearchTemplate } from './CharityAdvancedSearchTemplate'
+export { default as CharityGrantRequestCreateTemplate } from './CharityGrantRequestCreateTemplate'

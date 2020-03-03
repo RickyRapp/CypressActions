@@ -36,6 +36,11 @@ class CharityService extends BaseService {
         const url = this.routeService.createOnlineAccount(resource);
         return this.apiClient.post(url, resource);
     }
+
+    phoneNumberExists(phoneNumber) {
+        const url = this.routeService.phoneNumberExists(phoneNumber);
+        return this.apiClient.get(url);
+    }
 }
 
 export default CharityService;

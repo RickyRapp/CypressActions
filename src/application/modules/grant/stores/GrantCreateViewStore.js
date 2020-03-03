@@ -22,7 +22,6 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        debugger
                         if (resource.endDate == 'Invalid date') {
                             resource.endDate = null;
                         }
@@ -153,7 +152,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             this.form.$('startFutureDate').set(moment().toDate());
             this.grantAcknowledgmentTypeDropdownStore.setValue(_.find(this.grantAcknowledgmentTypeDropdownStore.items, { abrv: 'remain-anonymous' }));
             this.form.$('grantAcknowledgmentTypeId').set(this.grantAcknowledgmentTypeDropdownStore.value.id);
-            this.grantPurposeTypeDropdownStore.setValue(_.find(this.grantPurposeTypeDropdownStore.items, { abrv: 'charity-event' }));
+            this.grantPurposeTypeDropdownStore.setValue(_.find(this.grantPurposeTypeDropdownStore.items, { abrv: 'where-deemed-most-needed' }));
             this.form.$('grantPurposeTypeId').set(this.grantPurposeTypeDropdownStore.value.id);
             this.form.$('grantRequestId').set(this.grantRequestId);
 

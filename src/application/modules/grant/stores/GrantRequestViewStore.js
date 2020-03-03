@@ -1,18 +1,18 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
-import { GrantRequestService, GrantRequestRouteService } from 'application/grant/services';
+import { GrantRequestService } from 'application/grant/services';
 import { DonorAccountService } from 'application/donor-account/services';
 import { donorAccountFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantRequestListFilter } from 'application/grant/models';
 import { LookupService } from 'common/services';
-import moment from 'moment'
 import _ from 'lodash';
 
 class GrantRequestViewStore extends BaseListViewStore {
     constructor(rootStore, { onChangeDonorFilter }) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id;
-        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
+        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+            rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new GrantRequestListFilter('dateCreated', 'desc')
         filter.donorAccountId = id || queryParamsId;
         const service = new GrantRequestService(rootStore.application.baasic.apiClient);
@@ -35,7 +35,8 @@ class GrantRequestViewStore extends BaseListViewStore {
                         params.embed = [
                             'charity',
                             'donorAccount',
-                            'grantRequestStatus'
+                            'grantRequestStatus',
+                            'grant'
                         ];
                         params.fields = [
                             'id',
@@ -47,7 +48,8 @@ class GrantRequestViewStore extends BaseListViewStore {
                             'donorAccount.donorName',
                             'amount',
                             'dateCreated',
-                            'grantRequestStatus'
+                            'grantRequestStatus',
+                            'grant'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -92,7 +94,7 @@ class GrantRequestViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key),
                 onComplete: (item) => this.setAndOpenCompleteModal(item),
-                onDecline: (item) => alert('2')
+                onDecline: (item) => this.declineRequest(item)
             },
             actionsRender: {
                 onCompleteRender: (item) => {
@@ -187,8 +189,25 @@ class GrantRequestViewStore extends BaseListViewStore {
     onEdit() {
         const donorAccountId = this.grantCreateOVerviewModalParams.data.item.donorAccount.id;
         const id = this.grantCreateOVerviewModalParams.data.item.id;
-        debugger
         this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId }, { grantRequestId: id });
+    }
+
+    @action.bound
+    async declineRequest(item) {
+        this.rootStore.modalStore.showConfirm(
+            'Are you sure you want to decline request?',
+            async () => {
+                this.loaderStore.suspend();
+                if (item.grantRequestStatus.abrv === 'open') {
+                    const service = new GrantRequestService(this.rootStore.application.baasic.apiClient);
+                    await service.decline({ id: item.id });
+                }
+
+                await this.queryUtility.fetch();
+                this.rootStore.notificationStore.success('Successfully declined');
+                this.loaderStore.resume();
+            }
+        );
     }
 }
 

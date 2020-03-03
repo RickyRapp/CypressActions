@@ -32,6 +32,7 @@ class GrantTabViewStore extends BaseTabViewStore {
         this.selectDonorModal = new ModalParams({});
     }
 
+    @action.bound
     async handleTabClick(tabIndex) {
         await super.handleTabClick(tabIndex);
         if (this.activeIndex === 2) {
@@ -56,7 +57,6 @@ class GrantTabViewStore extends BaseTabViewStore {
                 onChange: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
             });
     }
-
 }
 
 export default GrantTabViewStore;

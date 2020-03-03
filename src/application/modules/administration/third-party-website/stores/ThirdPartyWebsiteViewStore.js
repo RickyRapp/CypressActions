@@ -15,10 +15,10 @@ class ThirdPartyWebsiteViewStore extends BaseListViewStore {
             name: 'third-party-website',
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
-                create: async () => {
+                create: () => {
                     this.openCreateModal(undefined);
                 },
-                edit: async (id) => {
+                edit: (id) => {
                     this.openCreateModal(id);
                 }
             },

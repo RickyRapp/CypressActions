@@ -7,8 +7,7 @@ import {
     TableFilter,
     EmptyState,
     BaasicDropdown,
-    BaasicModal,
-    BaasicFormControls
+    BaasicModal
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';

@@ -13,7 +13,8 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
         activeIndex,
         selectDonorModal,
         setDonorAccountId,
-        canCreate
+        canCreate,
+        handleTabClick
     } = grantTabViewStore;
 
     let title = 'Grants';
@@ -39,7 +40,7 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
                         <ScheduledGrantList onChangeDonorFilter={setDonorAccountId} />
                     </div>
                     <div label={'GRANT.TAB.GRANT_REQUEST'}>
-                        <GrantRequestList onChangeDonorFilter={setDonorAccountId} />
+                        <GrantRequestList onChangeDonorFilter={setDonorAccountId} handleTabClick={handleTabClick} />
                     </div>
                 </TabLayout>
             </div>

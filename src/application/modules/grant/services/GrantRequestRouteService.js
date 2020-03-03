@@ -7,7 +7,11 @@ class GrantRequestRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,charityId,confirmationNumber,donationStatusIds,search,name,taxId,grantId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorAccountId,charityId,search,page,rpp,sort,embed,fields}', filter);
+    }
+
+    findCharityGrantRequest(filter) {
+        return super.find(this.base + '/charity-grant-request/{?charityId,search,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
@@ -20,6 +24,14 @@ class GrantRequestRouteService extends BaseRouteService {
 
     update(resource) {
         return super.update(this.base + '/{id}', resource);
+    }
+
+    decline(resource) {
+        return super.update(this.base + '/decline/{id}', resource);
+    }
+
+    cancel(resource) {
+        return super.update(this.base + '/cancel/{id}', resource);
     }
 }
 

@@ -14,8 +14,7 @@ const CharityGrantsListTemplate = function ({ charityGrantsViewStore }) {
         tableStore,
         routes,
         queryUtility,
-        authorization
-    } = charityGrantsViewStore;
+        authorization } = charityGrantsViewStore;
 
     return (
         <ApplicationListLayout store={charityGrantsViewStore} authorization={authorization}>
@@ -40,7 +39,8 @@ function renderEmpty(routes) {
 }
 
 CharityGrantsListTemplate.propTypes = {
-    charityGrantsViewStore: PropTypes.object.isRequired
+    charityGrantsViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func
 };
 
 export default defaultTemplate(CharityGrantsListTemplate);

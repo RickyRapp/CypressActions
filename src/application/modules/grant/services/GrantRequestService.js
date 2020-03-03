@@ -16,6 +16,21 @@ class GrantRequestService extends BaseService {
         const url = this.routeService.review(resource);
         return this.apiClient.put(url, resource);
     }
+
+    findCharityGrantRequest(filter) {
+        const url = this.routeService.findCharityGrantRequest(filter);
+        return this.apiClient.get(url);
+    }
+
+    decline(resource) {
+        const url = this.routeService.decline(resource);
+        return this.apiClient.put(url, resource);
+    }
+
+    cancel(resource) {
+        const url = this.routeService.cancel(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default GrantRequestService;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormatterResolver } from 'core/components';
 import shouldRenderContentChildren from 'themes/components/content/shouldRenderContentChildren';
 import { addressFormatter } from 'core/utils';
+import _ from 'lodash';
 
 class GrantCreateOverviewTemplate extends React.Component {
     render() {
@@ -62,7 +63,8 @@ class GrantCreateOverviewTemplate extends React.Component {
 
 GrantCreateOverviewTemplate.propTypes = {
     modalParams: PropTypes.object.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    children: PropTypes.any
 };
 
 export default defaultTemplate(GrantCreateOverviewTemplate);
