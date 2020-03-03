@@ -51,7 +51,7 @@ export default class CharityOnlineAccountForm extends FormBase {
                 {
                     name: 'subscriptionNextDate',
                     label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_LABEL',
-                    rules: `required|min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}|before_or_equal_date:${moment().add(30, 'days').format('YYYY-MM-DD')}`,
+                    rules: `required|min_date:${moment().format('YYYY-MM-DD')}|before_or_equal_date:${moment().add(30, 'days').format('YYYY-MM-DD')}`,
                     type: 'date'
                 },
                 {

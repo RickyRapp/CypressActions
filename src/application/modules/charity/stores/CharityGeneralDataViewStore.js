@@ -19,6 +19,9 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
             if (!this.formOnlineAccount.isValid) {
                 return this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
             }
+
+            if (account.subscriptionNextDate)
+                account.subscriptionNextDate = new Date(Date.UTC(account.subscriptionNextDate.getFullYear(), account.subscriptionNextDate.getMonth(), account.subscriptionNextDate.getDate()));
             await this.createOnlineAccountAsync(account);
         }
     });

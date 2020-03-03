@@ -13,7 +13,7 @@ import NumberFormat from 'react-number-format';
 import { CharityOnlineAccountPreview } from 'application/charity/components';
 import { CharityOnlineAccountCreateTemplate } from '.';
 import { BarcodeFormat } from '@zxing/library';
-import { charityFormatter } from 'core/utils';
+import { charityFormatter, isSome } from 'core/utils';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     const {
@@ -84,9 +84,9 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
 
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    {item && item.coreUser ?
-                        <CharityOnlineAccountPreview />
-                        :
+                    {item && isSome(item.coreUser) &&
+                        <CharityOnlineAccountPreview />}
+                    {item && !isSome(item.coreUser) &&
                         <CharityOnlineAccountCreateTemplate store={charityGeneralDataViewStore} />}
                 </div>
             </div>
