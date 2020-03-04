@@ -74,18 +74,18 @@ class CharityCreateViewStore extends BaseEditViewStore {
                             const response = await service.create(item);
                             await this.insertImage(response.data.response);
                         } catch (err) {
-                            rootStore.notificationStore.error('ERROR', err);
+                            throw { error: err }
                         }
                     }
                 }
             },
             errorActions: {
-                onCreateError: ({ type }) => {
+                onCreateError: ({ type, error }) => {
                     switch (type) {
                         case ErrorType.Unique:
                             break;
                         default:
-                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE', error);
                             break;
                     }
                 }
