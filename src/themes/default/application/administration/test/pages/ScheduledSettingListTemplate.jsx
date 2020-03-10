@@ -12,21 +12,19 @@ function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
     } = scheduledSettingViewStore;
 
     return (
-        <ApplicationListLayout store={scheduledSettingViewStore}>
-            <Content emptyRenderer={renderEmpty()} >
-                <div className="card--form card--primary card--med">
-                    <SimpleBaasicTable
-                        tableStore={tableStore}
-                        actionsComponent={renderActions}
-                    />
-                </div>
-            </Content>
-        </ApplicationListLayout>
+        <Content emptyRenderer={renderEmpty()} >
+            <div className="card--form card--primary card--med">
+                <SimpleBaasicTable
+                    tableStore={tableStore}
+                    actionsComponent={renderActions}
+                />
+            </div>
+        </Content>
     )
 }
 
 function renderEmpty() {
-    return <EmptyState image={EmptyIcon} title='ROLE.LIST.EMPTY_STATE.TITLE' description='ROLE.LIST.EMPTY_STATE.DESCRIPTION' />
+    return <EmptyState image={EmptyIcon} title='TEST.SCHEDULED_SETTING.LIST.EMPTY_STATE.TITLE' description='TEST.SCHEDULED_SETTING.LIST.EMPTY_STATE.DESCRIPTION' />
 }
 
 ScheduledSettingListTemplate.propTypes = {
@@ -46,7 +44,7 @@ function renderActions({ item, actions }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--approved u-icon--sml'
-                        label='SCHEDULED_SETTING.LIST.BUTTON.RUN'
+                        label='TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN'
                         onlyIcon={true}
                         onClick={() => onRun(item.abrv)}>
                     </BaasicButton>

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
-    BaasicFormControls
+    BaasicFormControls,
+    FormatterResolver
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
@@ -14,22 +15,24 @@ const ContributionReviewTemplate = function ({ contributionReviewViewStore, t })
     } = contributionReviewViewStore;
 
     return (
-        <section>
+        <section className="w--400--px">
             <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.REVIEW.TITLE')}</h3>
             <div className="row">
-                <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                    <div>
-                        <label className="form__group__label">{t('CONTRIBUTION.REVIEW.FIELDS.DONOR_NAME_LABEL')}</label>
-                        {item &&
-                            <span className={"input input--med input--text input--disabled"}>{item.donorAccount.donorName}</span>}
-                    </div>
+                <div className="form__group col col-lrg-6">
+                    <div className="form__group__label">{t('CONTRIBUTION.REVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
+                    <span className="input--preview">
+                        {item && item.donorAccount.donorName}
+                    </span>
                 </div>
-                <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                    <div>
-                        <label className="form__group__label">{t('CONTRIBUTION.REVIEW.FIELDS.AMOUNT_LABEL')}</label>
-                        {item &&
-                            <span className={"input input--med input--text input--disabled"}>${item.amount}</span>}
-                    </div>
+                <div className="form__group col col-lrg-6">
+                    <div className="form__group__label">{t('CONTRIBUTION.REVIEW.FIELDS.AMOUNT_LABEL')}</div>
+                    <span className="input--preview">
+                        {item && <FormatterResolver
+                            item={{ amount: item.amount }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />}
+                    </span>
                 </div>
             </div>
             <form className='form'>
@@ -42,7 +45,7 @@ const ContributionReviewTemplate = function ({ contributionReviewViewStore, t })
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </form>
-        </section>
+        </section >
     )
 };
 

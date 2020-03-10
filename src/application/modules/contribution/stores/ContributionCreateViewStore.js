@@ -61,7 +61,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
 
             this.form.$('contributionSettingTypeId').set(_.find(this.contributionSettingTypeDropdownStore.items, { abrv: 'one-time' }).id);
             this.contributionSettingTypeDropdownStore.setValue(_.find(this.contributionSettingTypeDropdownStore.items, { abrv: 'one-time' }));
-            this.form.$('settingStartDate').set(moment().tz(this.timeZone).toDate())
+            // this.form.$('settingStartDate').set(moment().tz(this.timeZone).toDate())
 
             await this.fetch([
                 this.setFormDefaultRules(),

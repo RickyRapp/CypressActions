@@ -34,6 +34,7 @@
         "CHARITY_GRANT_REQUESTS": "Grant requests",
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
+        "TESTING": "Test",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -1876,21 +1877,6 @@
             }
         }
     },
-    "SCHEDULED_SETTING": {
-        "LIST": {
-            "TITLE": "Scheduled tasks",
-            "COLUMNS": {
-                "NAME_LABEL": "Task",
-                "DESCRIPTION_LABEL": "Description"
-            },
-            "EMPTY_STATE": {
-                "TITLE": "No scheduled tasks"
-            },
-            "BUTTON": {
-                "RUN": "Run scheduled tasks"
-            }
-        }
-    },
     "SESSION_CERTIFICATE": {
         "LIST": {
             "TITLE": "Scanned certificates",
@@ -2145,6 +2131,58 @@
                 "AMOUNT_PLACEHOLDER": "Amount",
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number"
+            }
+        }
+    },
+    "TEST": {
+        "TAB": {
+            "EMAIL": "Email",
+            "SCHEDULED_TASK": "Scheduled task"
+        },
+        "TEST_EMAIL": {
+            "LIST": {
+                "TITLE": "Emails",
+                "COLUMNS": {
+                    "NAME_LABEL": "Template",
+                    "DESCRIPTION_LABEL": "Description"
+                },
+                "BUTTON": {
+                    "SEND": "Prepare for sending"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Set test data for email: ",
+                "FIELDS": {
+                    "AMOUNT_LABEL": "Amount",
+                    "AMOUNT_PLACEHOLDER": "Amount",
+                    "NAME_LABEL": "Name",
+                    "NAME_PLACEHOLDER": "Name",
+                    "EMAIL_LABEL": "Email",
+                    "EMAIL_PLACEHOLDER": "Email",
+                    "PAYMENT_TYPE_LABEL": "Payment type",
+                    "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                    "ACCOUNT_TYPE_LABEL": "Account type",
+                    "ACCOUNT_TYPE_PLACEHOLDER": "Account type",
+                    "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                    "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                    "DELIVERY_METHOD_TYPE_LABEL": "Delivery method",
+                    "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery method"
+                }
+            }
+        },
+        "SCHEDULED_SETTING": {
+            "LIST": {
+                "TITLE": "Scheduled tasks",
+                "COLUMNS": {
+                    "NAME_LABEL": "Task",
+                    "DESCRIPTION_LABEL": "Description"
+                },
+                "EMPTY_STATE": {
+                    "TITLE": "No scheduled tasks"
+                },
+                "BUTTON": {
+                    "RUN": "Run scheduled tasks"
+                }
             }
         }
     }

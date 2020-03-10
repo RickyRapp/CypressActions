@@ -1,20 +1,20 @@
 import { moduleProviderFactory } from 'core/providers';
-import { ScheduledSettingList } from 'application/administration/scheduled-setting/pages';
+import { TestTab } from 'application/administration/test/pages';
 
 (function () {
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.scheduled-setting',
-                pattern: '/scheduled-settings',
+                name: 'master.app.main.administration',
+                pattern: '/',
                 children: [
                     {
-                        name: 'master.app.main.scheduled-setting.list',
-                        pattern: '',
-                        component: ScheduledSettingList,
+                        name: 'master.app.main.administration.test-tab',
+                        pattern: 'testing',
+                        component: TestTab,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
-                            title: "SCHEDULED_SETTING.LIST.TITLE"
+                            title: "MENU.TESTING"
                         }
                     }
                 ]
@@ -28,10 +28,9 @@ import { ScheduledSettingList } from 'application/administration/scheduled-setti
                 icon: 'administration',
                 subMenu: [
                     {
-                        title: 'MENU.SCHEDULED_SETTINGS',
+                        title: 'MENU.TESTING',
                         order: 2,
-                        icon: 'scheduled-setting icon',
-                        route: 'master.app.main.scheduled-setting.list'
+                        route: 'master.app.main.administration.test-tab'
                     },
                 ]
             }

@@ -5,7 +5,7 @@ import {
     ApplicationEmptyState,
     FormatterResolver
 } from 'core/components';
-import { addressFormatter } from 'core/utils';
+import { addressFormatter, isSome } from 'core/utils';
 import { PreviewLayout } from 'core/layouts';
 import { GrantProgressTimeline } from 'application/grant/components';
 import _ from 'lodash'
@@ -38,7 +38,7 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
         >
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
-                    {item &&
+                    {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
                         <div className="card card--form card--primary card--med u-mar--bottom--med">
                             <GrantProgressTimeline item={item} />
                         </div>}

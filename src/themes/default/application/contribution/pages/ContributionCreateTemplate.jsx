@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     BaasicModal,
-    DatePickerField
+    DatePickerField,
+    FormDebug
 } from 'core/components';
 import { ContributionBaseTemplate } from 'themes/application/contribution/components';
 import { defaultTemplate, withAuth } from 'core/hoc';
@@ -68,6 +69,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
                     onBlurRoutingNumber={checkBank}
                 />
             </BaasicModal>
+            <FormDebug form={form} ></FormDebug>
         </React.Fragment>
     )
 };

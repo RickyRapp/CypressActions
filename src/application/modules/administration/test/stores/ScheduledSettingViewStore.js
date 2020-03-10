@@ -1,24 +1,24 @@
 import { action } from 'mobx'
 import { TableViewStore, BaseViewStore } from 'core/stores';
-import { ScheduledSettingService } from 'application/administration/scheduled-setting/services';
+import { AdministrationService } from 'application/administration/test/services';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
 class ScheduledSettingViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore)
-        this.service = new ScheduledSettingService(rootStore.application.baasic.apiClient)
+        this.service = new AdministrationService(rootStore.application.baasic.apiClient)
         this.routes = {}
 
         this.tableStore = new TableViewStore(null, {
             columns: [
                 {
                     key: 'name',
-                    title: 'SCHEDULED_SETTING.LIST.COLUMNS.NAME_LABEL'
+                    title: 'TEST.SCHEDULED_SETTING.LIST.COLUMNS.NAME_LABEL'
                 },
                 {
                     key: 'description',
-                    title: 'SCHEDULED_SETTING.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'TEST.SCHEDULED_SETTING.LIST.COLUMNS.DESCRIPTION_LABEL'
                 }
             ],
             actions: {
