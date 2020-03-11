@@ -14,7 +14,9 @@ i18n
         debug: false,
         load: 'currentOnly',
         react: {
-            wait: true
+            wait: true,
+            bindI18n: false,
+            bindStore: false
         },
         preload: ['en-US'],
         backend: {

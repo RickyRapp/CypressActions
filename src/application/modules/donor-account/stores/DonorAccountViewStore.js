@@ -32,7 +32,7 @@ class DonorAccountViewStore extends BaseListViewStore {
                 const service = new DonorAccountService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.embed = ['coreUser', 'companyProfile', 'accountType'];
+                        params.embed = ['accountType'];
                         params.fields = [
                             'id',
                             'donorName',
