@@ -16,7 +16,7 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
     const {
         loaderStore,
         form,
-        emailName,
+        item,
         needName,
         needAmount,
         needPaymentType,
@@ -36,7 +36,7 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
                 loading={loaderStore.loading}
             >
                 <h5 className="u-mar--bottom--med">{t('TEST.TEST_EMAIL.CREATE.TITLE')}</h5>
-                <h3>{emailName}</h3>
+                <h3>{item.name}</h3>
                 <div className="row">
                     <div className="form__group col col-lrg-12">
                         <BasicInput field={form.$('email')} />

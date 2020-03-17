@@ -88,6 +88,7 @@
     "react-paginate": "^5.3.1",
     "react-recaptcha": "^2.3.10",
     "react-toastify": "^4.5.2",
+    "react-tooltip": "^4.1.1",
     "resolve": "1.6.0",
     "rx-mobx": "1.1.1",
     "rxjs": "6.3.3",

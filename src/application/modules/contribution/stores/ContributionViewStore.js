@@ -143,20 +143,23 @@ class ContributionViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
-                onEditRender: (contribution) => {
-                    if (contribution.contributionStatus.abrv === 'pending' || contribution.contributionStatus.abrv === 'in-process') {
+                onEditRender: (item) => {
+                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
                         if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                         else {
-                            if (contribution.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(contribution.dateCreated).add('minutes', 15);
-                                return moment().isBetween(contribution.dateCreated, dateToEdit);
+                            if (item.contributionStatus.abrv === 'pending') {
+                                const dateToEdit = moment(item.dateCreated).add('minutes', 15);
+                                return moment().isBetween(item.dateCreated, dateToEdit);
                             }
                         }
                     }
                     return false;
                 },
+                onReviewRender: (item) => {
+                    return item.confirmationNumber > 20000 // import from old app
+                }
             }
         }));
 

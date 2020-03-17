@@ -2,6 +2,7 @@ import { action } from 'mobx'
 import { TableViewStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { LookupService } from 'common/services';
 
 @applicationContext
 class TestEmailViewStore extends BaseViewStore {
@@ -25,61 +26,15 @@ class TestEmailViewStore extends BaseViewStore {
             }
         });
 
-        const data = [
-            {
-                name: 'Register notification to administrator',
-                description: '',
-                abrv: 'registerNotificationToAdministrator'
-            },
-            {
-                name: 'Canceled contribution notification to donor',
-                description: '',
-                abrv: 'canceledContributionNotificationToDonor'
-            },
-            {
-                name: 'Create booklet notification',
-                description: '',
-                abrv: 'createBookletNotification'
-            },
-            {
-                name: 'Create booklet order notification',
-                description: '',
-                abrv: 'createBookletOrderNotification'
-            },
-            {
-                name: 'Create contribution notification to donor',
-                description: '',
-                abrv: 'createContributionNotificationToDonor'
-            },
-            {
-                name: 'Declined contribution notification to donor',
-                description: '',
-                abrv: 'declinedContributionNotificationToDonor'
-            },
-            {
-                name: 'Funded contribution notification to donor',
-                description: '',
-                abrv: 'fundedContributionNotificationToDonor'
-            },
-            {
-                name: 'Low balance email',
-                description: '',
-                abrv: 'lowBalanceEmail'
-            },
-            {
-                name: 'Scheduled grant insufficient fund',
-                description: '',
-                abrv: 'scheduledGrantInsufficientFund'
-            },
-            {
-                name: 'Scheduled grant skipped due to insufficient fund',
-                description: '',
-                abrv: 'scheduledGrantSkippedDueToInsufficientFund'
-            }
-        ];
-
-        this.tableStore.setData(data)
+        this.setData();
         this.emailModal = new ModalParams({});
+    }
+
+    @action.bound
+    async setData() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'email-type');
+        const response = await service.getAll();
+        this.tableStore.setData(response.data)
     }
 
     @action.bound

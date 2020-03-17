@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
 import { SimpleBaasicTable, EmptyState, BaasicButton } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 
 function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
     const {

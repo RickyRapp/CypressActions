@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import { BaasicTableActions, LanguageMetadata, FormatterResolver, BaasicButton } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
+import ReactTooltip from 'react-tooltip'
 
 function hasAction(actions) {
     return actions && (actions.onEdit || actions.onDelete);
@@ -24,12 +25,29 @@ const LocalizedCell = defaultTemplate(({ onClick, className, dataItem, field, ic
     )
 });
 
+//Cannot set title as component, it needs to be string
+const HeaderCell = defaultTemplate(({ t, header }) => {
+    return (
+        <span className="k-link">
+            {t(header.title)}
+            {header.tooltip &&
+                <React.Fragment>
+                    <i data-tip={t(header.tooltip.text)} data-for={header.tooltip.text} className={`u-icon u-icon--sml u-icon--${header.tooltip.icon || 'info'}`}></i>
+                    <ReactTooltip id={header.tooltip.text} />
+                </React.Fragment>}
+        </span>
+    )
+});
+
 function defaultRenderColumnsTemplate({ t, columns }) {
-    return columns.map(({ key = null, title = null, cell = null, icon = null, onClick = null, innerColumns = null, format, visible, ...otherProps }, idx) => {
+    return columns.map(({ key = null, title = null, cell = null, icon = null, onClick = null, innerColumns = null, format, visible, header, ...otherProps }, idx) => {
         const defaultCell = cell ? cell : (props) => <LocalizedCell onClick={onClick} icon={icon} {...props}
             format={format} />;
+
+        const headerCell = header ? () => <HeaderCell t={t} header={header} /> : null;
+
         if (visible === false) {
-            return null
+            return null;
         }
         else {
             return <GridColumn
@@ -37,6 +55,7 @@ function defaultRenderColumnsTemplate({ t, columns }) {
                 key={key || idx}
                 field={key}
                 title={t(title)}
+                headerCell={headerCell}
                 cell={innerColumns ? null : defaultCell}
                 {...otherProps}
             >

@@ -97,7 +97,6 @@ class BookletViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'certificates',
-                    title: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_LABEL',
                     format: {
                         type: 'function',
                         value: (item) => {
@@ -106,6 +105,12 @@ class BookletViewStore extends BaseListViewStore {
                             const canceled = _.filter(item.certificates, { certificateStatus: { abrv: 'canceled' } }).length;
                             const active = _.filter(item.certificates, { isActive: true }).length;
                             return `${clean} / ${used} / ${canceled} | ${active}`;
+                        }
+                    },
+                    header: {
+                        title: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_LABEL',
+                        tooltip: {
+                            text: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_TOOLTIP_LABEL'
                         }
                     }
                 },

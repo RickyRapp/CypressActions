@@ -157,6 +157,13 @@ function renderActions({ item, actions, actionsRender }) {
         }
     }
 
+    let reviewRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onReviewRender) {
+            reviewRender = actionsRender.onReviewRender(item);
+        }
+    }
+
     return (
         <td className="table__body--data right">
             <div className="table__icons">
@@ -169,7 +176,7 @@ function renderActions({ item, actions, actionsRender }) {
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
                 ) : null}
-                {isSome(onReview) ? (
+                {isSome(onReview) && reviewRender ? (
                     <BaasicButton
                         authorization='theDonorsFundAdministrationSection.update'
                         className="btn btn--icon"

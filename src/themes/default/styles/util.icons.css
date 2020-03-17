@@ -104,6 +104,10 @@
         &--circle-right {
             background-image: svg-load('postcss-svg/circle-right.svg', fill: $grey-4);
         }
+
+        &--info {
+            background-image: svg-load('postcss-svg/donations.svg', fill: $grey-4);
+        }
     }
 }
 

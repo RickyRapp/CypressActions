@@ -454,7 +454,8 @@
         "TAB": {
             "GENERAL_DATA": "General data",
             "PERSONAL_DATA": "Personal data",
-            "SETTING_DATA": "Settings"
+            "SETTING_DATA": "Settings",
+            "EMAIL": "Emails"
         },
         "LIST": {
             "TITLE": "Donors",
@@ -879,7 +880,8 @@
     "CHARITY": {
         "TAB": {
             "GENERAL_DATA": "General data",
-            "PERSONAL_DATA": "Personal data"
+            "PERSONAL_DATA": "Personal data",
+            "EMAIL": "Emails"
         },
         "LIST": {
             "TITLE": "Charities",
@@ -1496,13 +1498,14 @@
             "TITLE": "Booklets",
             "COLUMNS": {
                 "CODE_LABEL": "Code",
-                "DENOMINATION_LABEL": "Denominaiton",
+                "DENOMINATION_LABEL": "Denomination",
                 "ASSIGNED_TO_LABEL": "Assigned to",
                 "DATE_ASSIGNED_LABEL": "Assigned on",
                 "DATE_CREATED_LABEL": "Date created",
                 "STATUS_LABEL": "Status",
                 "SHARE_NAME_LABEL": "Share name",
-                "CERTIFICATES_LABEL": "Certificates"
+                "CERTIFICATES_LABEL": "Certificates",
+                "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"
             },
             "EMPTY_STATE": {
                 "TITLE": "No booklets"
@@ -2183,6 +2186,21 @@
                 "BUTTON": {
                     "RUN": "Run scheduled tasks"
                 }
+            }
+        }
+    },
+    "EMAIL": {
+        "LIST": {
+            "TITLE": "Emails",
+            "COLUMNS": {
+                "SUBJECT_LABEL": "Subject",
+                "EMAIL_TYPE_NAME_LABEL": "Email type",
+                "EMAIL_SENDER_LABEL": "Sender",
+                "DATE_CREATED_LABEL": "Date sent"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No grant requests",
+                "ACTION": "Create new grant requests"
             }
         }
     }

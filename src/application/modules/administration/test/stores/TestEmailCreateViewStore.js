@@ -3,6 +3,7 @@ import { TestEmailCreateForm } from 'application/administration/test/forms';
 import { AdministrationService } from 'application/administration/test/services';
 import { observable } from 'mobx';
 import { LookupService } from 'common/services';
+import _ from 'lodash'
 
 class TestEmailCreateViewStore extends BaseEditViewStore {
     @observable needName = false;
@@ -26,7 +27,8 @@ class TestEmailCreateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
             FormClass: TestEmailCreateForm,
         });
-        this.emailName = item.name;
+
+        this.item = item;
         this.needName = false;
         this.needAmount = false;
         this.needPaymentType = false;
@@ -35,54 +37,54 @@ class TestEmailCreateViewStore extends BaseEditViewStore {
         this.needConfirmationNumber = false;
 
         switch (item.abrv) {
-            case 'registerNotificationToAdministrator':
+            case 'register-notification-to-administrator':
                 this.needName = true;
                 break;
-            case 'canceledContributionNotificationToDonor':
+            case 'canceled-contribution-notification-to-donor':
                 this.needName = true;
                 this.needAmount = true;
                 this.needConfirmationNumber = true;
                 this.needPaymentType = true;
                 this.needAccountType = true;
                 break;
-            case 'createBookletNotification':
+            case 'create-booklet-notification':
                 this.needName = true;
                 break;
-            case 'createBookletOrderNotification':
+            case 'create-booklet-order-notification':
                 this.needName = true;
                 this.needDeliveryMethodType = true;
                 this.needAccountType = true;
                 this.needConfirmationNumber = true;
                 break;
-            case 'createContributionNotificationToDonor':
+            case 'create-contribution-notification-to-donor':
                 this.needName = true;
                 this.needAmount = true;
                 this.needConfirmationNumber = true;
                 this.needPaymentType = true;
                 this.needAccountType = true;
                 break;
-            case 'declinedContributionNotificationToDonor':
+            case 'declined-contribution-notification-to-donor':
                 this.needName = true;
                 this.needAmount = true;
                 this.needConfirmationNumber = true;
                 this.needPaymentType = true;
                 this.needAccountType = true;
                 break;
-            case 'fundedContributionNotificationToDonor':
+            case 'funded-contribution-notification-to-donor':
                 this.needName = true;
                 this.needAmount = true;
                 this.needConfirmationNumber = true;
                 this.needPaymentType = true;
                 this.needAccountType = true;
                 break;
-            case 'lowBalanceEmail':
+            case 'low-balance-email':
                 this.needName = true;
                 break;
-            case 'scheduledGrantInsufficientFund':
+            case 'scheduled-grant-insufficient-fund':
                 this.needName = true;
                 this.needAmount = true;
                 break;
-            case 'scheduledGrantSkippedDueToInsufficientFund':
+            case 'scheduled-grant-skipped-due-to-insufficient-fund':
                 this.needName = true;
                 this.needAmount = true;
                 break;
