@@ -56,6 +56,13 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Grant daily mark as cashed',
                 description: 'Process grants in Processed status, that are not cashed, with ACH or Wire payment type and mark them as paid.',
                 abrv: 'grant-daily-mark-as-cashed'
+            },
+            {
+                name: 'Send low balance remainder',
+                description: `Sends low balance remainder email to premium donors which are not new (15 days or older), initial contribution 
+                                must be done, at lease one contribution funded, low balance amount greater than present balance, day before 
+                                present balance must be greater than low balance amount OR if we didn't sent notification already.`,
+                abrv: 'process-low-balance-remainder'
             }
         ];
 
