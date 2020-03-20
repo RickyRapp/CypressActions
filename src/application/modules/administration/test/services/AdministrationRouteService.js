@@ -10,7 +10,7 @@ class AdministrationRouteService extends BaseRouteService {
     }
 
     sendEmail(resource) {
-        return super.update(this.base + '/send-test-mail/{template}', resource);
+        return super.update(this.base + '/send-test-mail', resource);
     }
 }
 

@@ -20,7 +20,7 @@ class TestEmailCreateViewStore extends BaseEditViewStore {
                 return {
                     create: async (resource) => {
                         const service = new AdministrationService(rootStore.application.baasic.apiClient);
-                        await service.sendEmail({ template: item.abrv, ...resource });
+                        await service.sendEmail({ emailTypeId: item.id, ...resource });
                     }
                 }
             },

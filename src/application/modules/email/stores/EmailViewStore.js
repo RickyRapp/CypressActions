@@ -33,7 +33,8 @@ class EmailViewStore extends BaseListViewStore {
                             'emailType',
                             'emailSender',
                             'dateCreated',
-                            'htmlBody'
+                            'htmlBody',
+                            'to'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -51,6 +52,10 @@ class EmailViewStore extends BaseListViewStore {
                 {
                     key: 'emailType.name',
                     title: 'EMAIL.LIST.COLUMNS.EMAIL_TYPE_NAME_LABEL',
+                },
+                {
+                    key: 'to',
+                    title: 'EMAIL.LIST.COLUMNS.TO_LABEL',
                 },
                 {
                     key: 'emailSender.name',

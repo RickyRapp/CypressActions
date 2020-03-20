@@ -2196,7 +2196,8 @@
                 "SUBJECT_LABEL": "Subject",
                 "EMAIL_TYPE_NAME_LABEL": "Email type",
                 "EMAIL_SENDER_LABEL": "Sender",
-                "DATE_CREATED_LABEL": "Date sent"
+                "DATE_CREATED_LABEL": "Date sent",
+                "TO_LABEL": "To email"
             },
             "EMPTY_STATE": {
                 "TITLE": "No grant requests",
