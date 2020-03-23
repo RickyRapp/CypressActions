@@ -44,7 +44,6 @@ class BookletOrderViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: filter,
-                disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
                     this.deliveryMethodTypeDropdownStore.setValue(null);

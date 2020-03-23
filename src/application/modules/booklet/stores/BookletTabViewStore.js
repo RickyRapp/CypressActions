@@ -2,7 +2,7 @@ import { BaseTabViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
-class ActivityAndHistoryTabViewStore extends BaseTabViewStore {
+class BookletTabViewStore extends BaseTabViewStore {
     constructor(rootStore) {
         super(rootStore);
         this.loaderStore.resume();
@@ -12,4 +12,4 @@ class ActivityAndHistoryTabViewStore extends BaseTabViewStore {
     }
 }
 
-export default ActivityAndHistoryTabViewStore;
+export default BookletTabViewStore;

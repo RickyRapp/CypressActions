@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pages';
+import { BookletTab, BookletCreate, BookletEdit } from 'application/booklet/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,9 +9,9 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
                 pattern: '/booklets',
                 children: [
                     {
-                        name: 'master.app.main.booklet.list',
+                        name: 'master.app.main.booklet.tab',
                         pattern: '',
-                        component: BookletList,
+                        component: BookletTab,
                         authorization: 'theDonorsFundBookletSection.read',
                         data: {
                             title: "BOOKLET.LIST.TITLE"
@@ -41,24 +41,11 @@ import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pag
         menu: [
             {
                 title: 'MENU.BOOKLET',
-                authorization: 'theDonorsFundAdministrationSection.read',
+                authorization: 'theDonorsFundBookletSection.read',
                 order: 3,
                 icon: 'booklet',
-                subMenu: [
-                    {
-                        title: 'MENU.BOOKLETS',
-                        order: 2,
-                        route: 'master.app.main.booklet.list'
-                    },
-                ]
-            },
-            {
-                title: 'MENU.BOOKLETS',
-                route: 'master.app.main.booklet.list',
-                order: 2,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
-                icon: 'booklet'
-            },
+                route: 'master.app.main.booklet.tab'
+            }
         ]
     });
 })();

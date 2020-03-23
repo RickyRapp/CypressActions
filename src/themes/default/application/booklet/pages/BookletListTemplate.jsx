@@ -4,9 +4,9 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import {  Content } from 'core/layouts';
 
-const BookletListTemplate = function ({ bookletViewStore }) {
+const BookletListTemplate = function ({ bookletViewStore, t }) {
     const {
         tableStore,
         routes,
@@ -15,8 +15,9 @@ const BookletListTemplate = function ({ bookletViewStore }) {
     } = bookletViewStore;
 
     return (
-        <ApplicationListLayout store={bookletViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
+                <BaasicButton t={t}
+                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create}/>
                 <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >
                     </TableFilter>
@@ -29,7 +30,6 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                     />
                 </div>
             </Content>
-        </ApplicationListLayout>
     )
 };
 
@@ -38,7 +38,8 @@ function renderEmpty(routes) {
 }
 
 BookletListTemplate.propTypes = {
-    bookletViewStore: PropTypes.object.isRequired
+    bookletViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, authorization }) {

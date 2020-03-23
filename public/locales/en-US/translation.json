@@ -5,7 +5,7 @@
         "PERMISSIONS": "Permissions",
         "APPLICATION": "Application",
         "ADMINISTRATION": "Administration",
-        "BOOKLET": "Booklet",
+        "BOOKLET": "Certificates",
         "SESSION": "Session",
         "GRANT": "Grant",
         "CONTRIBUTION": "Contribution",
@@ -1498,6 +1498,10 @@
         }
     },
     "BOOKLET": {
+        "TAB": {
+            "BOOKLET": "Booklets",
+            "BOOKLET_ORDER": "Orders"
+        },
         "LIST": {
             "TITLE": "Booklets",
             "COLUMNS": {

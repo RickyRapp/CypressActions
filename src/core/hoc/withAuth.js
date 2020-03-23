@@ -9,11 +9,17 @@ function withAuth(Component) {
     class AuthComponent extends React.Component {
         render() {
             const { permissionStore, authorization, ...otherProps } = this.props;
-            return authorization ?
-                permissionStore.hasPermission(authorization)
-                    ? <Component {...otherProps} />
-                    : null
-                : <Component {...otherProps} />;
+            if (authorization) {
+                if (permissionStore.hasPermission(authorization)) {
+                    return <Component {...otherProps} />
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                return <Component {...otherProps} />;
+            }
         }
     }
 
