@@ -17,16 +17,12 @@ const DonorActivityAndHistoryListTemplate = function ({ store }) {
                 </div>
                 {(id || donorAccountDropdownStore.value) ?
                     <React.Fragment>
-                        <div className="u-mar--bottom--sml">
                             <Content>
                                 <ReservedPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
                             </Content>
-                        </div>
-                        <div className="u-mar--bottom--sml">
                             <Content>
                                 <SettledPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
                             </Content>
-                        </div>
                     </React.Fragment>
                     :
                     <Content>
