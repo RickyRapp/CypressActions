@@ -70,7 +70,6 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
                 }
             });
     }
-
 }
 
 export default DonorActivityAndHistoryViewStore;

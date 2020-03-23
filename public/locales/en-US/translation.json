@@ -857,6 +857,10 @@
         }
     },
     "ACTIVITY_AND_HISTORY": {
+        "TAB": {
+            "DONOR": "Donor",
+            "CHARITY": "Charity"
+        },
         "LIST": {
             "TITLE": "Activity and history",
             "SELECT_DONOR": "Select donor",

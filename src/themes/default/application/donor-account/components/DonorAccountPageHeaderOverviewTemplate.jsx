@@ -64,7 +64,7 @@ const RenderDonorAccount = ({ donorAccount, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-donor-view', null, { id: donorAccount && donorAccount.id })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donorAccount && donorAccount.id, tab: 0 })}>
                             {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
@@ -127,7 +127,7 @@ const RenderContribution = ({ donorAccount, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-donor-view', null, { id: donorAccount && donorAccount.id })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donorAccount && donorAccount.id, tab: 0 })}>
                             {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
@@ -176,7 +176,7 @@ const RenderGrant = ({ donorAccount, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-donor-view', null, { id: donorAccount && donorAccount.id })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donorAccount && donorAccount.id, tab: 0 })}>
                             {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
@@ -225,7 +225,7 @@ const RenderBookletOrder = ({ donorAccount, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.admin-donor-view', null, { id: donorAccount && donorAccount.id })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donorAccount && donorAccount.id, tab: 0 })}>
                             {t('DONOR_ACCOUNT.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
