@@ -8,7 +8,7 @@ class CharityTabViewStore extends BaseTabViewStore {
         this.loaderStore.resume();
         this.charityId = rootStore.routerStore.routerState.params.id;
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
-            this.activeIndex = rootStore.routerStore.routerState.queryParams.tab;
+            this.activeIndex = Number(rootStore.routerStore.routerState.queryParams.tab);
         }
     }
 }

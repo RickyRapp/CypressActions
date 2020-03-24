@@ -8,7 +8,7 @@ class DonorAccountTabViewStore extends BaseTabViewStore {
         this.loaderStore.resume();
         this.donorAccountId = rootStore.routerStore.routerState.params.id;
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
-            this.activeIndex = rootStore.routerStore.routerState.queryParams.tab;
+            this.activeIndex = Number(rootStore.routerStore.routerState.queryParams.tab);
         }
     }
 }

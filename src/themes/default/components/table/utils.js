@@ -32,7 +32,11 @@ const HeaderCell = defaultTemplate(({ t, header }) => {
             {t(header.title)}
             {header.tooltip &&
                 <React.Fragment>
-                    <i data-tip={t(header.tooltip.text)} data-for={header.tooltip.text} className={`u-icon u-icon--sml u-icon--${header.tooltip.icon || 'info'}`}></i>
+                    <i
+                        data-tip={t(header.tooltip.text)}
+                        data-for={header.tooltip.text}
+                        data-place='bottom'
+                        className={`u-icon u-icon--sml u-icon--${header.tooltip.icon || 'info'}`}></i>
                     <ReactTooltip id={header.tooltip.text} />
                 </React.Fragment>}
         </span>

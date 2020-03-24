@@ -11,7 +11,7 @@ export default function compileAuthorization(authorization) {
         if (tokens.length > 0) {
             const section = _.toLower(tokens[0]);
             auth.create = section + '.create';
-            auth.edit = section + '.edit';
+            auth.update = section + '.update';
             auth.delete = section + '.delete';
         }
     }

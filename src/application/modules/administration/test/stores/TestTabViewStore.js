@@ -7,7 +7,7 @@ class TestTabViewStore extends BaseTabViewStore {
         super(rootStore);
         this.loaderStore.resume();
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
-            this.activeIndex = rootStore.routerStore.routerState.queryParams.tab;
+            this.activeIndex = Number(rootStore.routerStore.routerState.queryParams.tab);
         }
     }
 }

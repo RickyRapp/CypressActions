@@ -4,6 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page, PageNavigation } from 'core/layouts';
 import { BookletList } from 'application/booklet/pages';
 import { BookletOrderList } from 'application/booklet-order/pages';
+import { SessionCertificateList } from 'application/session-certificate/pages';
 
 function BookletTabTemplate({ bookletTabViewStore }) {
     const {
@@ -16,6 +17,8 @@ function BookletTabTemplate({ bookletTabViewStore }) {
         title = 'BOOKLET.LIST.TITLE';
     else if (activeIndex === 1)
         title = 'BOOKLET_ORDER.LIST.TITLE';
+    else if (activeIndex === 2)
+        title = 'SESSION_CERTIFICATE.LIST.TITLE';
 
     return (
         <Page loading={loaderStore.loading} >
@@ -27,6 +30,9 @@ function BookletTabTemplate({ bookletTabViewStore }) {
                     </div>
                     <div label={'BOOKLET.TAB.BOOKLET_ORDER'}>
                         <BookletOrderList />
+                    </div>
+                    <div label={'BOOKLET.TAB.SCANNED_CERTIFICATES'}>
+                        <SessionCertificateList />
                     </div>
                 </TabLayout>
             </div>

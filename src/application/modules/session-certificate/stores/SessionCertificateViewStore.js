@@ -43,20 +43,16 @@ class SessionCertificateViewStore extends BaseListViewStore {
             }
         });
 
-        this.isCharityUser = rootStore.userStore.applicationUser.roles.includes('Charities');
-        this.isDonorUser = rootStore.userStore.applicationUser.roles.includes('Users');
-
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'certificate.booklet.donorAccount.donorName',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: !this.isDonorUser
+                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'session.charity.name',
-                    title: 'SESSION_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
-                    visible: !this.isCharityUser
+                    title: 'SESSION_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL'
                 },
                 {
                     key: 'certificate.booklet.denominationType',
@@ -90,7 +86,6 @@ class SessionCertificateViewStore extends BaseListViewStore {
         }));
 
         this.service = service;
-        this.rootStore = rootStore;
 
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.searchCharityDropdownStore = new BaasicDropdownStore({

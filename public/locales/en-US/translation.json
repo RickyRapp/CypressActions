@@ -1500,7 +1500,8 @@
     "BOOKLET": {
         "TAB": {
             "BOOKLET": "Booklets",
-            "BOOKLET_ORDER": "Orders"
+            "BOOKLET_ORDER": "Orders",
+            "SCANNED_CERTIFICATES": "Scanned"
         },
         "LIST": {
             "TITLE": "Booklets",

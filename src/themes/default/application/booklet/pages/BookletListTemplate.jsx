@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import {  Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 
 const BookletListTemplate = function ({ bookletViewStore, t }) {
     const {
@@ -15,21 +15,21 @@ const BookletListTemplate = function ({ bookletViewStore, t }) {
     } = bookletViewStore;
 
     return (
-            <Content emptyRenderer={renderEmpty(routes)} >
-                <BaasicButton t={t}
-                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create}/>
-                <div className="u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} >
-                    </TableFilter>
-                </div>
-                <div className="card--form card--primary card--med">
-                    <BaasicTable
-                        authorization={authorization}
-                        tableStore={tableStore}
-                        actionsComponent={renderActions}
-                    />
-                </div>
-            </Content>
+        <Content emptyRenderer={renderEmpty(routes)} >
+            <BaasicButton t={t}
+                className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create} />
+            <div className="u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} >
+                </TableFilter>
+            </div>
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                    actionsComponent={renderActions}
+                />
+            </div>
+        </Content>
     )
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/hoc';
+import { defaultTemplate, withAuth } from 'core/hoc';
 import {
     BaasicTable,
     TableFilter,
@@ -10,7 +10,7 @@ import {
     NumberFormatInput
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 
 const SessionCertificateListTemplate = function ({ sessionCertificateViewStore }) {
     const {
@@ -20,54 +20,61 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore }
         authorization,
         searchCharityDropdownStore,
         searchDonorAccountDropdownStore,
-        dateCreatedDateRangeQueryStore,
-        isDonorUser,
-        isCharityUser
+        dateCreatedDateRangeQueryStore
     } = sessionCertificateViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={sessionCertificateViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                            {!isCharityUser && !isDonorUser &&
-                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                    <BaasicDropdown store={searchDonorAccountDropdownStore} />
-                                </div>}
-                            {!isCharityUser &&
-                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                    <BaasicDropdown store={searchCharityDropdownStore} />
-                                </div>}
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumberFormatInput
-                                    className='input input--sml'
-                                    value={queryUtility.filter['bookletCertificateCode']}
-                                    onChange={(event) => queryUtility.filter['bookletCertificateCode'] = event.formattedValue}
-                                    format='#####-##'
-                                    mask=''
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <DateRangeQueryPicker
-                                    queryUtility={queryUtility}
-                                    store={dateCreatedDateRangeQueryStore}
-                                    fromPropertyName='dateCreatedFrom'
-                                    toPropertyName='dateCreatedTo'
-                                />
-                            </div>
-                        </TableFilter>
-                    </div>
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
+        <Content emptyRenderer={renderEmpty(routes)} >
+            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                    <AuthDropdown
+                        store={searchDonorAccountDropdownStore}
+                        authorization='theDonorsFundAdministrationSection.read' />
+
+                    <AuthDropdown
+                        store={searchCharityDropdownStore}
+                        authorization='theDonorsFundDonorSection.read' />
+
+                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <NumberFormatInput
+                            className='input input--sml'
+                            value={queryUtility.filter['bookletCertificateCode']}
+                            onChange={(event) => queryUtility.filter['bookletCertificateCode'] = event.formattedValue}
+                            format='#####-##'
+                            mask=''
                         />
                     </div>
-                </Content>
-            </ApplicationListLayout>
-        </React.Fragment>
+                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                        <DateRangeQueryPicker
+                            queryUtility={queryUtility}
+                            store={dateCreatedDateRangeQueryStore}
+                            fromPropertyName='dateCreatedFrom'
+                            toPropertyName='dateCreatedTo'
+                        />
+                    </div>
+                </TableFilter>
+            </div>
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                />
+            </div>
+        </Content>
     )
+};
+
+const AuthDropdown = withAuth(DropdownComponent);
+function DropdownComponent({ store }) {
+    return (
+        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+            <BaasicDropdown store={store} />
+        </div>
+    );
+}
+
+DropdownComponent.propTypes = {
+    store: PropTypes.object.isRequired
 };
 
 function renderEmpty(routes) {
