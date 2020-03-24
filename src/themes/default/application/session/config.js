@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { SessionList, SessionCreate, SessionInProgressList, SessionEdit } from 'application/session/pages';
+import { SessionTab, SessionEdit } from 'application/session/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,30 +9,12 @@ import { SessionList, SessionCreate, SessionInProgressList, SessionEdit } from '
                 pattern: '/sessions',
                 children: [
                     {
-                        name: 'master.app.main.session.list',
+                        name: 'master.app.main.session.tab',
                         pattern: '',
-                        component: SessionList,
+                        component: SessionTab,
                         authorization: 'theDonorsFundSessionSection.read',
                         data: {
                             title: "SESSION.LIST.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.session.list.in-progress',
-                        pattern: 'in-progress',
-                        component: SessionInProgressList,
-                        authorization: 'theDonorsFundSessionSection.read',
-                        data: {
-                            title: "SESSION.LIST.IN_PROGRESS.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.session.create',
-                        pattern: 'create',
-                        component: SessionCreate,
-                        authorization: 'theDonorsFundAdministrationSection.create',
-                        data: {
-                            title: "SESSION.CREATE.TITLE"
                         }
                     },
                     {
@@ -53,18 +35,7 @@ import { SessionList, SessionCreate, SessionInProgressList, SessionEdit } from '
                 order: 8,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 icon: 'session',
-                subMenu: [
-                    {
-                        title: 'MENU.SESSIONS',
-                        order: 1,
-                        route: 'master.app.main.session.list'
-                    },
-                    {
-                        title: 'MENU.SESSION_IN_PROGRESS',
-                        order: 2,
-                        route: 'master.app.main.session.list.in-progress'
-                    }
-                ]
+                route: 'master.app.main.session.tab'
             }
         ]
     });

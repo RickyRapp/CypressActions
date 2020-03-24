@@ -19,6 +19,7 @@
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
         "FUND_TRANSFERS": "Fund transfers",
+        "FUND_TRANSFER": "Fund transfer",
         "BOOKLETS": "Booklets",
         "BOOKLET_ORDERS": "Booklet orders",
         "SESSIONS": "Sessions",
@@ -1638,6 +1639,11 @@
         }
     },
     "SESSION": {
+        "TAB": {
+            "LIST": "Sessions",
+            "IN_PROGRESS": "In progress",
+            "CONNECTIONS": "Scanners"
+        },
         "LIST": {
             "TITLE": "Sessions",
             "SELECT_SCANNER": "Select scanner",

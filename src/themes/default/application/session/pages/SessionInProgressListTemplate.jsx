@@ -8,7 +8,7 @@ import {
     BaasicButton
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 import { isSome } from 'core/utils';
 
 const SessionInProgressListTemplate = function ({ sessionInProgressViewStore }) {
@@ -20,23 +20,19 @@ const SessionInProgressListTemplate = function ({ sessionInProgressViewStore }) 
     } = sessionInProgressViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={sessionInProgressViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
-                        </TableFilter>
-                    </div>
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                            actionsComponent={renderActions}
-                        />
-                    </div>
-                </Content>
-            </ApplicationListLayout>
-        </React.Fragment>
+        <Content emptyRenderer={renderEmpty(routes)} >
+            <div className="u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} >
+                </TableFilter>
+            </div>
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                    actionsComponent={renderActions}
+                />
+            </div>
+        </Content>
     )
 };
 

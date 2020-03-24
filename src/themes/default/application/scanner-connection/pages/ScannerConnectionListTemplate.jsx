@@ -7,7 +7,7 @@ import {
     EmptyState
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 
 const ScannerConnectionListTemplate = function ({ scannerConnectionViewStore }) {
     const {
@@ -18,22 +18,18 @@ const ScannerConnectionListTemplate = function ({ scannerConnectionViewStore }) 
     } = scannerConnectionViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={scannerConnectionViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
-                        </TableFilter>
-                    </div>
-                    <div className="card--form card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                        />
-                    </div>
-                </Content>
-            </ApplicationListLayout>
-        </React.Fragment>
+        <Content emptyRenderer={renderEmpty(routes)} >
+            <div className="u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} >
+                </TableFilter>
+            </div>
+            <div className="card--form card--primary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                />
+            </div>
+        </Content>
     )
 };
 

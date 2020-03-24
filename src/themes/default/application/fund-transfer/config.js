@@ -31,16 +31,10 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
         ],
         menu: [
             {
-                title: 'MENU.CONTRIBUTION',
+                title: 'MENU.FUND_TRANSFER',
                 order: 5,
                 authorization: 'theDonorsFundAdministrationSection.read',
-                subMenu: [
-                    {
-                        title: 'MENU.FUND_TRANSFERS',
-                        order: 2,
-                        route: 'master.app.main.fund-transfer.list'
-                    }
-                ]
+                route: 'master.app.main.fund-transfer.list'
             },
             {
                 title: 'MENU.FUND_TRANSFERS',

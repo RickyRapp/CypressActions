@@ -44,13 +44,7 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
                 order: 4,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 icon: 'contribution',
-                subMenu: [
-                    {
-                        title: 'MENU.CONTRIBUTIONS',
-                        order: 1,
-                        route: 'master.app.main.contribution.list'
-                    }
-                ]
+                route: 'master.app.main.contribution.list'
             },
             {
                 title: 'MENU.CONTRIBUTIONS',

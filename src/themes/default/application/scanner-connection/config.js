@@ -20,19 +20,6 @@ import { ScannerConnectionList } from 'application/scanner-connection/pages';
                 ]
             }
         ],
-        menu: [
-            {
-                title: 'MENU.SESSION',
-                order: 8,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                subMenu: [
-                    {
-                        title: 'MENU.SCANNER_CONNECTIONS',
-                        order: 3,
-                        route: 'master.app.main.scanner-connection.list'
-                    }
-                ]
-            }
-        ]
+        menu: []
     });
 })();
