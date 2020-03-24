@@ -31,8 +31,10 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
 
     return (
         <React.Fragment>
-            <BaasicButton t={t}
-                className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create} />
+            <BaasicButton
+                className="btn btn--base btn--primary"
+                label={'LIST_LAYOUT.CREATE_BUTTON'}
+                onClick={routes.create} />
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>

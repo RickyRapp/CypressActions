@@ -35,11 +35,16 @@ class SessionViewStore extends BaseListViewStore {
                         {
                             id: id
                         });
+                },
+                preview: async (id) => {
+                    rootStore.routerStore.goTo('master.app.main.session.preview',
+                        {
+                            id: id
+                        });
                 }
             },
             queryConfig: {
                 filter: filter,
-                disableUpdateQueryParams: true,
                 onResetFilter: () => {
                     this.paymentTypeDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
@@ -80,7 +85,8 @@ class SessionViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'confirmationNumber',
-                    title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
+                    title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+                    disableClick: true,
                 },
                 {
                     key: 'charity.name',
@@ -109,12 +115,13 @@ class SessionViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (session) => this.routes.edit(session.id),
+                onPreview: (session) => this.routes.preview(session.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onEditRender: (session) => {
                     return session.donationStatus.abrv === 'pending';
-                },
+                }
             }
         }));
 

@@ -16,8 +16,10 @@ const BookletListTemplate = function ({ bookletViewStore, t }) {
 
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
-            <BaasicButton t={t}
-                className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create} />
+            <BaasicButton
+                className="btn btn--base btn--primary"
+                label={'LIST_LAYOUT.CREATE_BUTTON'}
+                onClick={routes.create} />
             <div className="u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} >
                 </TableFilter>

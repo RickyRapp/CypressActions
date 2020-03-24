@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { SessionTab, SessionEdit } from 'application/session/pages';
+import { SessionTab, SessionEdit, SessionPreview } from 'application/session/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -21,9 +21,18 @@ import { SessionTab, SessionEdit } from 'application/session/pages';
                         name: 'master.app.main.session.edit',
                         pattern: 'edit/:id',
                         component: SessionEdit,
-                        authorization: 'theDonorsFundAdministrationSection.edit',
+                        authorization: 'theDonorsFundAdministrationSection.update',
                         data: {
                             title: "SESSION.EDIT.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.session.preview',
+                        pattern: '/preview/:id',
+                        component: SessionPreview,
+                        authorization: 'theDonorsFundSessionSection.read',
+                        data: {
+                            title: "SESSION.PREVIEW.TITLE"
                         }
                     }
                 ]

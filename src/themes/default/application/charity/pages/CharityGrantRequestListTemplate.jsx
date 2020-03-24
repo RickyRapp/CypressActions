@@ -27,8 +27,11 @@ const CharityGrantRequestListTemplate = function ({ charityGrantRequestViewStore
     return (
         <ApplicationListLayout store={charityGrantRequestViewStore} authorization={authorization}>
             <PageNavigation>
-                <BaasicButton authorization={authorization.update} t={t}
-                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create}></BaasicButton>
+                <BaasicButton
+                    authorization={authorization.update}
+                    className="btn btn--base btn--primary"
+                    label={'LIST_LAYOUT.CREATE_BUTTON'}
+                    onClick={routes.create} />
             </PageNavigation>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">

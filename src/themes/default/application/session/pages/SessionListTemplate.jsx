@@ -33,6 +33,10 @@ const SessionListTemplate = function ({ sessionViewStore, t }) {
 
     return (
         <React.Fragment>
+            <BaasicButton
+                className="btn btn--base btn--primary"
+                label={'LIST_LAYOUT.CREATE_BUTTON'}
+                onClick={routes.create} />
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
@@ -136,8 +140,8 @@ SessionListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onCancel } = actions;
-    if (!isSome(onEdit) && !isSome(onCancel)) return null;
+    const { onEdit, onCancel, onPreview } = actions;
+    if (!isSome(onEdit) && !isSome(onCancel) && !isSome(onPreview)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -172,6 +176,16 @@ function renderActions({ item, actions, actionsRender }) {
                         label='SESSION.LIST.BUTTON.CANCEL'
                         onlyIcon={true}
                         onClick={() => onCancel(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onPreview) ? (
+                    <BaasicButton
+                        authorization='theDonorsFundSessionSection.read'
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--preview u-icon--sml'
+                        label='SESSION.LIST.BUTTON.PREVIEW'
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

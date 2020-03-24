@@ -29,8 +29,11 @@ const ListLayoutTemplate = function ({
                 ? navigation
                 : (<PageNavigation>
                     {createFunc &&
-                        <BaasicButton authorization={auth ? auth.create : null} t={t}
-                            className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={createFunc}></BaasicButton>}
+                        <BaasicButton
+                            authorization={auth ? auth.create : null}
+                            className="btn btn--base btn--primary"
+                            label={'LIST_LAYOUT.CREATE_BUTTON'}
+                            onClick={createFunc} />}
                 </PageNavigation>)
             }
             {header}

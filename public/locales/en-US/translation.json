@@ -1644,6 +1644,19 @@
             "IN_PROGRESS": "In progress",
             "CONNECTIONS": "Scanners"
         },
+        "PREVIEW": {
+            "TITLE": "Details",
+            "SELECT_SCANNER": "Select scanner",
+            "FIELDS": {
+                "CHARITY_LABEL": "Charity",
+                "ORGANIZATION_NAME_LABEL": "Name / Email / Tax ID",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "FULL_NAME_LABEL": "Full name",
+                "PHONE_NUMBER_LABEL": "Phone number",
+                "EMAIL_LABEL": "Email"
+            }
+        },
         "LIST": {
             "TITLE": "Sessions",
             "SELECT_SCANNER": "Select scanner",
@@ -1664,10 +1677,11 @@
             },
             "BUTTON": {
                 "GO_TO_CREATE_PAGE": "Proceed without scanner",
-                "SKIP_TO_CREATE_PAGE": "Skip"
+                "SKIP_TO_CREATE_PAGE": "Skip",
+                "PREVIEW": "Preview"
             },
             "EMPTY_STATE": {
-                "TITLE": "No booklet orders"
+                "TITLE": "No sessions"
             },
             "IN_PROGRESS": {
                 "TITLE": "Sessions in progress",

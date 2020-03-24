@@ -22,8 +22,10 @@ const BankListTemplate = function ({ bankViewStore, t }) {
     return (
         <React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <BaasicButton t={t}
-                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={routes.create}/>
+                <BaasicButton
+                    className="btn btn--base btn--primary"
+                    label={'LIST_LAYOUT.CREATE_BUTTON'}
+                    onClick={routes.create} />
                 <div className="card--form card--primary card--med">
                     <BaasicTable
                         authorization={authorization}

@@ -28,8 +28,12 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
     return (
         <Page loading={loaderStore.loading} >
             <PageNavigation title={title}>
-                {canCreate && <BaasicButton authorization={'theDonorsFundGrantSection.create'} t={t}
-                    className="btn btn--base btn--primary" label={'LIST_LAYOUT.CREATE_BUTTON'} onClick={createFunc}></BaasicButton>}
+                {canCreate &&
+                    <BaasicButton
+                        authorization={'theDonorsFundGrantSection.create'}
+                        className="btn btn--base btn--primary"
+                        label={'LIST_LAYOUT.CREATE_BUTTON'}
+                        onClick={createFunc} />}
             </PageNavigation>
             <div className='u-mar--bottom--med'>
                 <TabLayout store={grantTabViewStore}>
