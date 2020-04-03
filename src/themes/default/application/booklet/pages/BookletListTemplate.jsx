@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/components';
+import { BaasicButton, BaasicTable, TableFilter, EmptyState, BaasicInput, BaasicDropdown } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 
-const BookletListTemplate = function ({ bookletViewStore, t }) {
+const BookletListTemplate = function ({ bookletViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
-        authorization
+        authorization,
+        denominationTypeDropdownStore
     } = bookletViewStore;
 
     return (
@@ -21,8 +22,24 @@ const BookletListTemplate = function ({ bookletViewStore, t }) {
                 label={'LIST_LAYOUT.CREATE_BUTTON'}
                 onClick={routes.create} />
             <div className="u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility} >
-                </TableFilter>
+                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} >
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['codes'] || ""}
+                                onChange={(event) => queryUtility.filter['codes'] = event.target.value}
+                                placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicDropdown
+                                store={denominationTypeDropdownStore}
+                                placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
+                            />
+                        </div>
+                    </TableFilter>
+                </div>
             </div>
             <div className="card--form card--primary card--med">
                 <BaasicTable

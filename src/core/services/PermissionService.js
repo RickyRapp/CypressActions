@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 class PermissionService {
-     hasPermission(user, authorization) {         
+    hasPermission(user, authorization) {
         var hasPermission = false;
 
         if (user) {

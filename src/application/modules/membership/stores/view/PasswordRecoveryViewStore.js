@@ -2,7 +2,7 @@ import { action } from 'mobx';
 import { PasswordRecoveryForm } from 'application/membership/forms';
 import { BaseViewStore } from 'core/stores';
 
-class PasswordRecoveryViewStore extends BaseViewStore {    
+class PasswordRecoveryViewStore extends BaseViewStore {
     recoverUrl = `${window.location.origin}/password-change/{?passwordRecoveryToken}`;
     form = new PasswordRecoveryForm({
         onSuccess: async (form) => {
@@ -38,10 +38,10 @@ class PasswordRecoveryViewStore extends BaseViewStore {
 
             await this.goToLogin();
             this.rootStore.notificationStore.success('PASSWORD_RECOVERY.RESET_PASSWORD_EMAIL_SENT_MESSAGE');
-        } catch(ex) {
+        } catch (ex) {
             this.loaderStore.resume();
             if (ex.data && ex.data) {
-                this.rootStore.notificationStore.error(ex.data.message ? ex.data.message  : ex.data, ex);
+                this.rootStore.notificationStore.error(ex.data.message ? ex.data.message : ex.data, ex);
             }
         }
     }

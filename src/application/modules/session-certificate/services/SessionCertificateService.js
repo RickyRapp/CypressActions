@@ -6,6 +6,11 @@ class SessionCertificateService extends BaseService {
         super(apiClient, new SessionCertificateRouteService());
         this.apiClient = apiClient;
     }
+
+    reviewToken(resource) {
+        var url = this.routeService.reviewToken(resource);
+        return this.apiClient.get(url);
+    }
 }
 
 export default SessionCertificateService;

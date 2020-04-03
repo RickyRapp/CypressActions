@@ -38,6 +38,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                                 'sessionCertificates.certificate',
                                 'sessionCertificates.certificate.certificateStatus',
                                 'sessionCertificates.certificate.booklet',
+                                'sessionCertificates.certificate.booklet.donorAccount',
                                 'sessionCertificates.certificate.booklet.denominationType',
                                 'sessionCertificates.certificate.booklet.bookletOrderItemBooklets',
                                 'sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
@@ -55,8 +56,6 @@ class SessionEditViewStore extends BaseEditViewStore {
             FormClass: SessionEditForm,
         });
 
-        this.rootStore = rootStore;
-        this.id = id;
         this.removeSessionCertificateModal = new ModalParams({});
         this.editBlankSessionCertificateModal = new ModalParams({});
         this.service = service;
@@ -193,31 +192,11 @@ class SessionEditViewStore extends BaseEditViewStore {
     openEditBlankSessionCertificateModal(sessionCertificate) {
         this.editBlankSessionCertificateModal.open({
             sessionCertificate: sessionCertificate,
-            onSubmit: this.onSubmit
+            onAfterAction: () => {
+                this.editBlankSessionCertificateModal.close();
+                this.getResource(this.id, false);
+            }
         });
-    }
-
-    @action.bound
-    async onSubmit(data) {
-        const item = {
-            id: data.id,
-            certificateValue: data.certificateValue
-        }
-        try {
-            await this.service.updateBlankCertificate(item);
-            await this.getResource(this.id);
-            this.editBlankSessionCertificateModal.close();
-        } catch (err) {
-            if (err.data) {
-                if (err.data.statusCode === 4000000009) {
-                    this.maxAmountError = true;
-                    this.rootStore.notificationStore.error('SESSION.EDIT.INSUFFICIENT_FUNDS_ERROR', err);
-                }
-            }
-            else {
-                this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
-            }
-        }
     }
 }
 

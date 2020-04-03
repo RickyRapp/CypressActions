@@ -25,7 +25,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t, makeRefund, ma
     if (makeRefund) {
         total = denominationType.value;
         if (makeRefundFee) {
-            totalFee = total * bookletOrder.basicFeeCharge;
+            totalFee = (total * bookletOrder.basicFeeCharge).toFixed(2);
         }
     }
 
@@ -46,7 +46,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t, makeRefund, ma
                         <div className="form__group col col-lrg-12">
                             <ul>
                                 <li>{t('SESSION.EDIT.LIST.TOTAL_REFUND_CERTIFICATE')} ${denominationType.abrv === 'blank' ? sessionCertificate.blankCertificateValue : denominationType.value}</li>
-                                <li>{t('SESSION.EDIT.LIST.TOTAL_REFUND_FEE')} ${(denominationType.abrv === 'blank' ? sessionCertificate.blankCertificateValue : denominationType.value) * sessionCertificate.premiumFeeCharge}</li>
+                                <li>{t('SESSION.EDIT.LIST.TOTAL_REFUND_FEE')} ${((denominationType.abrv === 'blank' ? sessionCertificate.blankCertificateValue : denominationType.value) * sessionCertificate.premiumFeeCharge).toFixed(2)}</li>
                             </ul>
                         </div>
                     </React.Fragment>}

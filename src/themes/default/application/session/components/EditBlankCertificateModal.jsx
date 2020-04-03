@@ -17,7 +17,7 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
 
     return (
         <section>
-            <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.BLANK_CERTIFICATE_ENTER_AMOUNT')}</h3>
+            <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.BLANK_CERTIFICATE_AMOUNT')}</h3>
             <div className="row">
                 <div className="form__group col col-lrg-6">
                     <div>

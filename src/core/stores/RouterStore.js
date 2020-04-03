@@ -26,7 +26,7 @@ class RouterStore {
         );
 
         observe(this, 'routerState',
-        // eslint-disable-next-line
+            // eslint-disable-next-line
             ({ oldValue, newValue }) => {
                 var index = _.findIndex(this.routeHistory, {
                     routeName: newValue.routeName

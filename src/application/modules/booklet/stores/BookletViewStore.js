@@ -1,8 +1,9 @@
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { BookletService } from 'application/booklet/services';
 import { applicationContext } from 'core/utils';
 import { BookletListFilter } from 'application/booklet/models';
 import _ from 'lodash';
+import { LookupService } from 'common/services';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
@@ -31,8 +32,9 @@ class BookletViewStore extends BaseListViewStore {
                 filter: filter,
                 onResetFilter: (filter) => {
                     filter.donorAccountId = id;
-                    this.deliveryMethodTypeDropdownStore.setValue(null);
-                    this.bookletStatusDropdownStore.setValue(null);
+                    filter.orderBy = 'code';
+                    filter.orderDirection = 'desc';
+                    this.denominationTypeDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -48,7 +50,6 @@ class BookletViewStore extends BaseListViewStore {
                             'grantAcknowledgmentType',
                             'grantAcknowledgmentTypeByAmount',
                         ];
-                        params.fields = [];
                         const response = await service.find(params);
                         return response.data;
                     }
@@ -128,6 +129,20 @@ class BookletViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
+
+        this.denominationTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
+                    const response = await service.getAll();
+                    return response.data;
+                },
+                onChange: (denominationType) => {
+                    this.queryUtility.filter['denominationTypeIds'] = _.map(denominationType, (type) => { return type.id });
+                }
+            });
     }
 }
 

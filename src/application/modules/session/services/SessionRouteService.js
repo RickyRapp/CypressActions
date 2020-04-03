@@ -64,6 +64,10 @@ class SessionRouteService extends BaseRouteService {
     review(resource) {
         return super.update(this.base + '/review/{id}', resource);
     }
+
+    reviewBlankCertificate() {
+        return super.update(this.base + '/review-blank-certificate');
+    }
 }
 
 export default SessionRouteService;

@@ -7,68 +7,63 @@ class SessionService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async createSessionInformation(resource) {
+    createSessionInformation(resource) {
         var url = this.routeService.createSessionInformation();
-        const response = await this.apiClient.post(url, resource);
-        return response || null;
+        return this.apiClient.post(url, resource);
     }
 
-    async getExistingSession(resource) {
+    getExistingSession(resource) {
         var url = this.routeService.getExistingSession(resource);
-        const response = await this.apiClient.get(url);
-        return response || null;
+        return this.apiClient.get(url);
     }
 
-    async findSessionInProgress(resource) {
+    findSessionInProgress(resource) {
         var url = this.routeService.findSessionInProgress(resource);
-        const response = await this.apiClient.get(url);
-        return response || null;
+        return this.apiClient.get(url);
     }
 
-    async setConnectionId(resource) {
+    setConnectionId(resource) {
         var url = this.routeService.setConnectionId(resource);
-        const response = await this.apiClient.post(url);
-        return response || null;
+        return this.apiClient.post(url);
     }
 
-    async addCertificate(resource) {
+    addCertificate(resource) {
         var url = this.routeService.addCertificate(resource);
-        const response = await this.apiClient.get(url);
-        return response || null;
+        return this.apiClient.get(url);
     }
 
-    async inActivateSession(resource) {
+    inActivateSession(resource) {
         var url = this.routeService.inActivateSession(resource);
-        const response = await this.apiClient.put(url);
-        return response || null;
+        return this.apiClient.put(url);
     }
 
-    async finishSession(resource) {
+    finishSession(resource) {
         var url = this.routeService.finishSession(resource);
-        const response = await this.apiClient.post(url);
-        return response || null;
+        return this.apiClient.post(url);
     }
 
-    async removeCertificate(resource) {
+    removeCertificate(resource) {
         var url = this.routeService.removeCertificate();
-        const response = await this.apiClient.post(url, resource);
-        return response || null;
+        return this.apiClient.post(url, resource);
     }
 
-    async setBlankCertificate(resource) {
+    setBlankCertificate(resource) {
         var url = this.routeService.setBlankCertificate();
-        const response = await this.apiClient.post(url, resource);
-        return response || null;
+        return this.apiClient.post(url, resource);
     }
 
-    async updateBlankCertificate(resource) {
+    updateBlankCertificate(resource) {
         var url = this.routeService.updateBlankCertificate();
-        const response = await this.apiClient.put(url, resource);
-        return response || null;
+        return this.apiClient.put(url, resource);
     }
 
-    async review(resource) {
+    review(resource) {
         const url = this.routeService.review(resource);
+        return this.apiClient.put(url, resource);
+    }
+
+    reviewBlankCertificate(resource) {
+        const url = this.routeService.reviewBlankCertificate(resource);
         return this.apiClient.put(url, resource);
     }
 }

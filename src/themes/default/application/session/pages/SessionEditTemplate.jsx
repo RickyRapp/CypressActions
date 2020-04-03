@@ -15,6 +15,7 @@ import { isSome } from 'core/utils';
 import { EditFormLayout, PageFooter } from 'core/layouts';
 import { RemoveSessionCertificateModal, EditBlankCertificateModal } from 'themes/application/session/components';
 import _ from 'lodash';
+import { EditBlankCertificate } from 'application/session/components';
 
 const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
     const {
@@ -25,7 +26,6 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
         tableStore,
         removeSessionCertificateModal,
         editBlankSessionCertificateModal,
-        maxAmountError,
         makeRefund,
         makeRefundFee
     } = sessionEditViewStore;
@@ -104,9 +104,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
             </BaasicModal>
 
             <BaasicModal modalParams={editBlankSessionCertificateModal}>
-                <EditBlankCertificateModal
-                    maxAmountError={maxAmountError}
-                />
+                <EditBlankCertificate />
             </BaasicModal>
         </EditFormLayout >
     )
@@ -126,7 +124,7 @@ function renderEditLayoutFooterContent({ form }) {
 
 }
 
-function renderActions({ item, actions, actionsRender }) {
+function renderActions({ item, actions, actionsRender, t }) {
     if (!isSome(actions)) return null;
 
     const { onRemove, onEdit } = actions;
@@ -142,11 +140,14 @@ function renderActions({ item, actions, actionsRender }) {
     return (
         <td className="table__body--data right">
             <div className="table__icons">
+                {item.isApproved ? (
+                    <span className={'u-icon u-icon--approved u-icon--sml'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
+                ) : null}
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--edit u-icon--sml'
-                        label='SESSION.EDIT.LIST.EDIT_SESSION_CERTIFICATE'
+                        label='SESSION.EDIT.LIST.BUTTON.EDIT_SESSION_CERTIFICATE'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
@@ -155,7 +156,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--unapproved u-icon--sml'
-                        label='SESSION.EDIT.LIST.REMOVE_SESSION_CERTIFICATE'
+                        label='SESSION.EDIT.LIST.BUTTON.REMOVE_SESSION_CERTIFICATE'
                         onlyIcon={true}
                         onClick={() => onRemove(item)}>
                     </BaasicButton>
@@ -169,7 +170,8 @@ renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
     actionsRender: PropTypes.object,
-    authorization: PropTypes.any
+    authorization: PropTypes.any,
+    t: PropTypes.func
 };
 
 renderEditLayoutFooterContent.propTypes = {

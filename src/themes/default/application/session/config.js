@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { SessionTab, SessionEdit, SessionPreview } from 'application/session/pages';
+import { SessionTab, SessionEdit, SessionPreview, SessionCreate, ReviewCertificate } from 'application/session/pages';
+import { PublicLayout } from 'core/layouts';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -27,6 +28,15 @@ import { SessionTab, SessionEdit, SessionPreview } from 'application/session/pag
                         }
                     },
                     {
+                        name: 'master.app.main.session.create',
+                        pattern: 'create',
+                        component: SessionCreate,
+                        authorization: 'theDonorsFundAdministrationSection.create',
+                        data: {
+                            title: "SESSION.CREATE.TITLE"
+                        }
+                    },
+                    {
                         name: 'master.app.main.session.preview',
                         pattern: '/preview/:id',
                         component: SessionPreview,
@@ -36,6 +46,23 @@ import { SessionTab, SessionEdit, SessionPreview } from 'application/session/pag
                         }
                     }
                 ]
+            },
+            {
+                name: 'master.app.review',
+                pattern: '/review-certificate',
+                component: [PublicLayout],
+                beforeEnter: async (fromState, toState, routerStore) => {
+                    const { rootStore } = routerStore;
+                    await rootStore.userStore.resolveUser();
+                },
+                children: [
+                    {
+                        name: 'master.app.review.certificate',
+                        pattern: '/:reviewToken',
+                        component: ReviewCertificate,
+                        authorization: 'theDonorsFundDonorSection.read',
+                    },
+                ],
             }
         ],
         menu: [

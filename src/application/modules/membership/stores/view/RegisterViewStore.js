@@ -27,16 +27,16 @@ class RegisterViewStore extends BaseViewStore {
     });
 
     constructor(rootStore) {
-        super();        
+        super();
         this.rootStore = rootStore;
         this.baasicApp = rootStore.application.baasic;
     }
 
-    @action.bound navigateToLoginPage(){
+    @action.bound navigateToLoginPage() {
         this.rootStore.routerStore.goTo('master.app.membership.login');
     }
 
-    @action.bound navigateToDashboard(){
+    @action.bound navigateToDashboard() {
         this.rootStore.routerStore.goTo(this.rootStore.initialState);
     }
 
@@ -75,7 +75,7 @@ class RegisterViewStore extends BaseViewStore {
     @action.bound async activate(activationToken) {
         this.loaderStore.suspend();
         try {
-            await this.baasicApp.membershipModule.register.activate(activationToken);            
+            await this.baasicApp.membershipModule.register.activate(activationToken);
         }
         catch ({ statusCode }) {
             switch (statusCode) {

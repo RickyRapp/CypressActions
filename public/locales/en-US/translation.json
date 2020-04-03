@@ -1517,6 +1517,10 @@
                 "CERTIFICATES_LABEL": "Certificates",
                 "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"
             },
+            "FILTER": {
+                "CODES_PLACEHOLDER": "Codes",
+                "DENOMINATION_PLACEHOLDER": "Denominations"
+            },
             "EMPTY_STATE": {
                 "TITLE": "No booklets"
             },
@@ -1760,22 +1764,26 @@
         },
         "EDIT": {
             "TITLE": "Session edit",
-            "BLANK_CERTIFICATE_ENTER_AMOUNT": "Enter amount for open certificate",
-            "BLANK_CERTIFICATE_CODE": "Code",
             "CERTIFICATE_VALUE_LABEL": "Blank certificate value",
             "DONOR_APPROVED_BLANK_AMOUNT": "Approved by donor",
             "DONOR_DOES_NOT_AGREE_WITH_BLANK_AMOUNT": "Donor does not agree with blank amount",
-            "DONOR_DID_NOT_RESPOND_YET_ON_BLANK_AMOUNT": "Donor didn't respond yet.",
+            "DONOR_DID_NOT_RESPOND_YET_ON_BLANK_AMOUNT": "Email sent. Donor didn't responded yet.",
             "AGREE_EMAIL_NOT_SENT": "Email is not sent yet.",
-            "SEND_APPROVE_EMAIL": "Send approve email",
-            "SET_BLANK_CERTIFICATE_VALUE": "Save",
+            "SAVE_SEND_APPROVE_EMAIL": "Save and send review email",
+            "SAVE_RESEND_APPROVE_EMAIL": "Save and resend review email",
+            "SAVE_SET_BLANK_CERTIFICATE_VALUE": "Save",
             "TOTAL_AMOUNT": "Total:",
             "TOTAL_AMOUNT_AFTER_DEDUCTION": "Total after deduction:",
             "INSUFFICIENT_FUNDS_ERROR": "Entered amount is greater than the donor set up on his account.",
             "MAX_BLANK_CERTIFICATE_AMOUNT_ERROR": "Entered amount is greater than the donor set up on his account.",
             "NOT_IN_STATUS_FOR_EDIT_WARNING": "Session is not in status for edit.",
+            "BLANK_CERTIFICATE_AMOUNT_TITLE": "Blank certificate",
+            "BLANK_CERTIFICATE_CODE": "Certificate code",
+            "DONOR_APPROVES": "Donor approves",
+            "DONOR_DOES_NOT_APPROVE": "Donor does not approve",
+            "BLANK_BOOKLET_MAX_AMOUNT": "Blank booklet max amount by donor",
             "LIST": {
-                "REMOVE_SESSION_CERTIFICATE": "Remove certificate",
+                "REMOVE_SESSION_CERTIFICATE": "Removing certificate",
                 "REMOVE_PREMIUM_SESSION_CERTIFICATE": "Certificate is from Premium account",
                 "REMOVE_BASIC_SESSION_CERTIFICATE": "Certificate is from Basic account",
                 "MAKE_REFUND": "Refund?",
@@ -1785,8 +1793,10 @@
                 "TOTAL_REFUND": "Total refund:",
                 "TOTAL_REFUND_CERTIFICATE": "Refund certificate:",
                 "TOTAL_REFUND_FEE": "Refund fee:",
+                "BLANK_SESSION_APPROVED": "Approved",
                 "BUTTON": {
-                    "REMOVE_SESSION_CERTIFICATE": "Remove"
+                    "REMOVE_SESSION_CERTIFICATE": "Remove",
+                    "EDIT_SESSION_CERTIFICATE": "Edit"
                 },
                 "FIELDS": {
                     "CERTIFICATE_NOTE_LABEL": "Note",
@@ -1817,7 +1827,9 @@
                 "CHARITY_EMAIL_LABEL": "Charity email",
                 "CHARITY_EMAIL_PLACEHOLDER": "Charity email",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "BLANK_CERTIFICATE_AMOUNT_LABEL": "Enter amount for open certificate",
+                "BLANK_CERTIFICATE_AMOUNT_PLACEHOLDER": "Blank certificate amount"
             }
         },
         "STATUS_CODE": {
@@ -1832,6 +1844,18 @@
             "CERTIFICATE_ALREADY_SCANNED_ERROR": "Certificate is already scanned.",
             "INSUFFICIENT_FUNDS_ERROR": "Insufficient funds.",
             "CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS": "Certificate added."
+        },
+        "REVIEW": {
+            "Review": "Review",
+            "DESCRIPTION": "Review certificate. If you agree with amount click approve, if not click disaprove",
+            "FIELDS": {
+                "CODE": "Code",
+                "AMOUNT": "Amount"
+            },
+            "BUTTON": {
+                "APPROVE": "Approve",
+                "DISAPPROVE": "Disapprove"
+            }
         }
     },
     "SCANNER_CONNECTION": {

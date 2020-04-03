@@ -12,6 +12,10 @@ class SessionCertificateRouteService extends BaseRouteService {
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
+
+    reviewToken(reviewToken) {
+        return super.get(this.base + '/review-token/{id}', reviewToken);
+    }
 }
 
 export default SessionCertificateRouteService;

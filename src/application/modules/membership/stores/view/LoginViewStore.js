@@ -29,7 +29,7 @@ class LoginViewStore extends BaseViewStore {
     @action async login({ username, password }) {
         this.loaderStore.suspend();
         try {
-            await this.app.membershipModule.login.login({ username, password, options: ['sliding']});
+            await this.app.membershipModule.login.login({ username, password, options: ['sliding'] });
             await this.rootStore.userStore.resolveUser();
             const redirect = this.rootStore.authStore.getSignInRedirect();
             await this.rootStore.routerStore.goTo(redirect);
@@ -42,15 +42,16 @@ class LoginViewStore extends BaseViewStore {
                 else if (data.error === 'invalid_grant_lock') {
                     this.loginForm.invalidate('User is locked');
                 }
-                else if (data.error === 'invalid_grant_approve'){
+                else if (data.error === 'invalid_grant_approve') {
                     this.loginForm.invalidate('User is not approved');
                 }
             }
+            this.loaderStore.resume();
         }
     }
 
     @action.bound async logout() {
-        if(!this.app.getAccessToken()){
+        if (!this.app.getAccessToken()) {
             return;
         }
         const { token, type } = this.app.getAccessToken();

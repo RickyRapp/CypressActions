@@ -40,7 +40,7 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
                 title: 'MENU.FUND_TRANSFERS',
                 order: 6,
                 route: 'master.app.main.fund-transfer.list',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'fund-transfer'
             },
         ]

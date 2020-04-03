@@ -41,7 +41,7 @@ import { DonorAccountList, DonorAccountTab, DonorAccountCreate } from 'applicati
                 name: 'master.app.main.profile',
                 pattern: '/profile/:id',
                 component: DonorAccountTab,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
                 data: {
                     title: "DONOR_ACCOUNT.EDIT.TITLE"
                 },
@@ -63,7 +63,7 @@ import { DonorAccountList, DonorAccountTab, DonorAccountCreate } from 'applicati
                 title: 'MENU.DONOR_ACCOUNT_EDIT',
                 order: 5,
                 route: 'master.app.main.profile',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'profile'
             },
         ]

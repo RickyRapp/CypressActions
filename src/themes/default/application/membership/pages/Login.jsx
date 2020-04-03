@@ -4,8 +4,9 @@ import { defaultTemplate } from 'core/hoc';
 import { BasicInput, Loader, BaasicButton } from 'core/components';
 
 function LoginTemplate({ currentView, t }) {
-    const { loginForm, loaderStore: {loading}, routes } = currentView;
-    return <section>
+    const { loginForm, loaderStore: { loading }, routes } = currentView;
+    return (
+        <section>
             <div className='login__top'>
                 <img className='login__top__logo' src={require('themes/assets/img/logo.svg')} alt='Logo' />
             </div>
@@ -21,7 +22,7 @@ function LoginTemplate({ currentView, t }) {
                     <div className='form__group u-mar--bottom--lrg'>
                         <BasicInput field={loginForm.$('password')} />
                     </div>
-                    {loginForm.error && 
+                    {loginForm.error &&
                         <div>
                             <p className='type--color--warning type--small u-mar--bottom--med'>
                                 {loginForm.error}
@@ -36,7 +37,7 @@ function LoginTemplate({ currentView, t }) {
                         </div>
                         <div className='u-push'>
                             <BaasicButton className='btn btn--base btn--primary' type='submit' disabled={loginForm.submitting} icon={loginForm.submitting || loginForm.validating ? 'synchronize-arrows-1 rotate' : ''} label={t('LOGIN.SIGNIN_BUTTON')} />
-                            {loading && 
+                            {loading &&
                                 <span className='loader--login u-padd--top--med'>
                                     <Loader />
                                 </span>
@@ -48,7 +49,8 @@ function LoginTemplate({ currentView, t }) {
 
                 </form>
             </div>
-        </section>;
+        </section>
+    )
 }
 
 LoginTemplate.propTypes = {

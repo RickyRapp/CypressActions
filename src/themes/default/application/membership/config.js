@@ -44,7 +44,7 @@ import {
 					},
 					{
 						name: 'master.app.membership.registration-success',
-						pattern: 'registration-success',
+						pattern: '/registration-success',
 						isPublic: true,
 						component: RegistrationSuccess
 					},

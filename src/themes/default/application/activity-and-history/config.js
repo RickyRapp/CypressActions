@@ -12,7 +12,7 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                         name: 'master.app.main.activity-and-history.donor-view',
                         pattern: '/overview/:id',
                         component: DonorActivityAndHistory,
-                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser.roles.includes('Users'); },
+                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.applicationUser.roles.includes('Users'); },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         },
@@ -25,7 +25,7 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                         name: 'master.app.main.activity-and-history.charity-view',
                         pattern: '/my-history/:id',
                         component: CharityActivityAndHistory,
-                        authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Charities') },
+                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Charities') },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.CHARITY"
                         },
@@ -58,14 +58,14 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                 title: 'MENU.ACTIVITY_AND_HISTORY.DONOR_VIEW',
                 order: 1,
                 route: 'master.app.main.activity-and-history.donor-view',
-                authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Users') },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users') },
                 icon: 'activity'
             },
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.CHARITY_VIEW',
                 order: 1,
                 route: 'master.app.main.activity-and-history.charity-view',
-                authorization: (route, rootStore) => { return rootStore.userStore.user.roles.includes('Charities') },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Charities') },
                 icon: 'activity'
             }
         ]

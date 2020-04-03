@@ -6,6 +6,7 @@ import {
 } from 'core/components';
 import { PreviewLayout } from 'core/layouts';
 import _ from 'lodash'
+import { charityFormatter } from 'core/utils';
 
 function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
     const {
@@ -26,7 +27,7 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                     <div className="col col-sml-12 col-lrg-4">
                         <div className="form__group__label">{t('SESSION.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
                         <span className="input--preview">
-                            {item && <FormatterResolver
+                            {item && item.charity && <FormatterResolver
                                 item={{ charity: item.charity }}
                                 field='charity'
                                 format={{ type: 'charity', value: 'charity-name-display' }}
@@ -36,7 +37,7 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                     <div className="col col-sml-12 col-lrg-4">
                         <div className="form__group__label">{t('SESSION.PREVIEW.FIELDS.ORGANIZATION_NAME_LABEL')}</div>
                         <span className="input--preview">
-                            {item && `${item.charityName} / ${item.charityEmail || '-'} / ${item.taxId || '-'}`}
+                            {item && `${item.charityName} / ${item.charityEmail || '-'} / ${item.taxId ? charityFormatter.format(item.taxId, { value: 'tax-id' }) : '-'}`}
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4">
