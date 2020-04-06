@@ -15,7 +15,6 @@ class ReviewCertificateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        debugger
                         const service = new SessionService(rootStore.application.baasic.apiClient);
                         await service.reviewBlankCertificate({
                             id: this.sessionCertificate.id,

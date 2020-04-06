@@ -21,7 +21,7 @@ class EditBlankCertificateViewStore extends BaseEditViewStore {
                             await service.updateBlankCertificate({
                                 id: this.id,
                                 sendReviewEmail: this.sendReviewEmail,
-                                reviewUrl: window.location.host + '/app/review-certificate',
+                                reviewUrl: window.location.host + '/review-certificate/{reviewToken}',
                                 ...resource
                             });
                         } catch (err) {

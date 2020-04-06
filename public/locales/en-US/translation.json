@@ -1847,7 +1847,7 @@
         },
         "REVIEW": {
             "Review": "Review",
-            "DESCRIPTION": "Review certificate. If you agree with amount click approve, if not click disaprove",
+            "DESCRIPTION": "Review certificate. If you agree with amount click approve, if not click disaprove.",
             "FIELDS": {
                 "CODE": "Code",
                 "AMOUNT": "Amount"
