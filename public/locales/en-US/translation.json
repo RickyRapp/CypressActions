@@ -1682,7 +1682,8 @@
             "BUTTON": {
                 "GO_TO_CREATE_PAGE": "Proceed without scanner",
                 "SKIP_TO_CREATE_PAGE": "Skip",
-                "PREVIEW": "Preview"
+                "PREVIEW": "Preview",
+                "EDIT": "Edit"
             },
             "EMPTY_STATE": {
                 "TITLE": "No sessions"
@@ -1791,18 +1792,12 @@
                 "PREMIUM_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Certificate Fee",
                 "CERTIFICATE_DETAILS": "Update certificate status if necessary",
                 "TOTAL_REFUND": "Total refund:",
-                "TOTAL_REFUND_CERTIFICATE": "Refund certificate:",
-                "TOTAL_REFUND_FEE": "Refund fee:",
+                "TOTAL_REFUND_CERTIFICATE": "Refund certificate: ",
+                "TOTAL_REFUND_FEE": "Refund fee: ",
                 "BLANK_SESSION_APPROVED": "Approved",
                 "BUTTON": {
                     "REMOVE_SESSION_CERTIFICATE": "Remove",
                     "EDIT_SESSION_CERTIFICATE": "Edit"
-                },
-                "FIELDS": {
-                    "CERTIFICATE_NOTE_LABEL": "Note",
-                    "CERTIFICATE_NOTE_PLACEHOLDER": "Note",
-                    "CERTIFICATE_STATUS_LABEL": "Status",
-                    "IS_ACTIVE_LABEL": "Is active"
                 },
                 "COLUMNS": {
                     "CODE_LABEL": "Code",
@@ -1829,7 +1824,14 @@
                 "DESCRIPTION_LABEL": "Description",
                 "DESCRIPTION_PLACEHOLDER": "Description",
                 "BLANK_CERTIFICATE_AMOUNT_LABEL": "Enter amount for open certificate",
-                "BLANK_CERTIFICATE_AMOUNT_PLACEHOLDER": "Blank certificate amount"
+                "BLANK_CERTIFICATE_AMOUNT_PLACEHOLDER": "Blank certificate amount",
+                "NOTE_LABEL": "Note",
+                "NOTE_PLACEHOLDER": "Note",
+                "CERTIFICATE_STATUS_LABEL": "Certificate status",
+                "CERTIFICATE_STATUS_PLACEHOLDER": "Certificate status",
+                "IS_ACTIVE_LABEL": "Is active",
+                "MAKE_REFUND_LABEL": "Make refund",
+                "MAKE_REFUND_FEE_LABEL": "Make refund fee"
             }
         },
         "STATUS_CODE": {

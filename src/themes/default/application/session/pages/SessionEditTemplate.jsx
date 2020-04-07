@@ -13,9 +13,8 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
 import { EditFormLayout, PageFooter } from 'core/layouts';
-import { RemoveSessionCertificateModal, EditBlankCertificateModal } from 'themes/application/session/components';
 import _ from 'lodash';
-import { EditBlankCertificate } from 'application/session/components';
+import { EditBlankCertificate, RemoveSessionCertificate } from 'application/session/components';
 
 const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
     const {
@@ -97,10 +96,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
             </div>
 
             <BaasicModal modalParams={removeSessionCertificateModal}>
-                <RemoveSessionCertificateModal
-                    makeRefundFee={makeRefundFee}
-                    makeRefund={makeRefund}
-                />
+                <RemoveSessionCertificate />
             </BaasicModal>
 
             <BaasicModal modalParams={editBlankSessionCertificateModal}>

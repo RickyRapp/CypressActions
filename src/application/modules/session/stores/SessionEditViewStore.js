@@ -58,7 +58,6 @@ class SessionEditViewStore extends BaseEditViewStore {
 
         this.removeSessionCertificateModal = new ModalParams({});
         this.editBlankSessionCertificateModal = new ModalParams({});
-        this.service = service;
         this.bookletService = new BookletService(rootStore.application.baasic.apiClient);
 
         this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {
@@ -164,28 +163,11 @@ class SessionEditViewStore extends BaseEditViewStore {
     openRemoveSessionCertificate(sessionCertificate) {
         this.removeSessionCertificateModal.open({
             sessionCertificate: sessionCertificate,
-            certificateStatusDropdownStore: this.certificateStatusDropdownStore,
-            onRemove: this.onRemove,
-            makeRefund: this.makeRefund,
-            onMakeRefundChange: (value) => { this.makeRefund = value; this.makeRefundFee = value },
-            makeRefundFee: this.makeRefundFee,
-            onMakeRefundFeeChange: (value) => this.makeRefundFee = value
+            onAfterAction: () => {
+                this.removeSessionCertificateModal.close();
+                this.getResource(this.id);
+            }
         });
-    }
-
-    @action.bound
-    async onRemove(sessionCertificate) {
-        const item = {
-            id: sessionCertificate.id,
-            note: sessionCertificate.certificate.note,
-            certificateStatusId: this.certificateStatusDropdownStore.value.id,
-            isActive: sessionCertificate.certificate.isActive,
-            makeRefund: this.makeRefund,
-            makeRefundFee: this.makeRefundFee
-        }
-        await this.service.removeCertificate(item);
-        await this.getResource(this.id);
-        this.removeSessionCertificateModal.close();
     }
 
     @action.bound
