@@ -88,6 +88,10 @@ class TestEmailCreateViewStore extends BaseEditViewStore {
                 this.needName = true;
                 this.needAmount = true;
                 break;
+            case 'review-blank-certificate-amount':
+                this.needName = true;
+                this.needAmount = true;
+                break;
             default:
                 break;
         }
