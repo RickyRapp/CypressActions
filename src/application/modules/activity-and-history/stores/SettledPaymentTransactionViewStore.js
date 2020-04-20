@@ -73,68 +73,12 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                         type: 'currency',
                         value: '$'
                     }
-                },
-                {
-                    key: 'activityConfirmationNumber',
-                    title: 'ACTIVITY_AND_HISTORY.LIST.COLUMNS.ACTIVITY_TYPE_LABEL',
-                    visible: !this.isCharityUser,
-                    format: {
-                        type: 'function',
-                        value: (activity) => this.renderActivity(activity)
-                    },
-                    onClick: (activity) => this.redirectActivity(activity)
                 }
             ],
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
-    }
-
-    @action.bound
-    redirectActivity(activity) {
-        switch (activity.activityType) {
-            case 1:
-                this.rootStore.routerStore.goTo('master.app.main.contribution.list', null, { confirmationNumber: activity.activityConfirmationNumber });
-                break;
-            case 2:
-                this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { confirmationNumber: activity.activityConfirmationNumber });
-                break;
-            case 4:
-                alert('TODO')
-                break;
-            case 8:
-                this.rootStore.routerStore.goTo('master.app.main.session-certificate.list', null, { bookletCertificateCode: activity.activityConfirmationNumber });
-                break;
-            case 16:
-                alert('TODO')
-                break;
-            case 32:
-                this.rootStore.routerStore.goTo('master.app.main.booklet-order.list', null, { confirmationNumber: activity.activityConfirmationNumber });
-                break;
-            default:
-                return;
-        }
-    }
-
-    @action.bound
-    renderActivity(activity) {
-        switch (activity.activityType) {
-            case 1:
-                return 'Contribution'
-            case 2:
-                return 'Grant'
-            case 4:
-                return 'FundTransfer'
-            case 8:
-                return 'Session certificate'
-            case 16:
-                return 'Fee'
-            case 32:
-                return 'Booklet order'
-            default:
-                return '-'
-        }
     }
 }
 
