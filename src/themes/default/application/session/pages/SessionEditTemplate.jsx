@@ -15,6 +15,7 @@ import { isSome } from 'core/utils';
 import { EditFormLayout, PageFooter } from 'core/layouts';
 import _ from 'lodash';
 import { EditBlankCertificate, RemoveSessionCertificate } from 'application/session/components';
+import { CharityAdvancedSearch } from 'application/charity/components';
 
 const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
     const {
@@ -25,8 +26,9 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
         tableStore,
         removeSessionCertificateModal,
         editBlankSessionCertificateModal,
-        makeRefund,
-        makeRefundFee
+        onCharitySelected,
+        advancedSearchModal,
+        openAdvancedSearchModal
     } = sessionEditViewStore;
 
     return (
@@ -39,15 +41,15 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
             <div className="card card--form card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">General Data</h3>
                 <div className="row u-mar--bottom--lrg">
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                         <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-                    </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                        <div>
-                            <label className="form__group__label">Organization Name/Email/Tax ID</label>
-                            {item &&
-                                <span className={"input input--med input--text input--disabled"}>{item.charityName} / {item.charityEmail || '-'} / {item.taxId || '-'}</span>}
-                        </div>
+                        {!form.$('charityId').disabled && <BaasicButton
+                            className="btn btn--icon"
+                            icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
+                            label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
+                            onlyIcon={true}
+                            onClick={openAdvancedSearchModal}
+                        />}
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                         <BasicInput field={form.$('fullName')} />
@@ -101,6 +103,10 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
 
             <BaasicModal modalParams={editBlankSessionCertificateModal}>
                 <EditBlankCertificate />
+            </BaasicModal>
+
+            <BaasicModal modalParams={advancedSearchModal}>
+                <CharityAdvancedSearch onSelected={onCharitySelected} />
             </BaasicModal>
         </EditFormLayout >
     )

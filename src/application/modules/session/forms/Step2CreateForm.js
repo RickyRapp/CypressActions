@@ -29,24 +29,10 @@ export default class SessionInformationCreateForm extends FormBase {
                     rules: 'email'
                 },
                 {
-                    name: 'charityName',
-                    label: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_NAME_LABEL',
-                    placeholder: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_NAME_PLACEHOLDER',
+                    name: 'charityId',
+                    label: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_LABEL',
+                    placeholder: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_PLACEHOLDER',
                     rules: 'required|string'
-                },
-                {
-                    name: 'taxId',
-                    label: 'SESSION.CREATE.STEP2.FIELDS.TAX_ID_LABEL',
-                    rules: 'string',
-                    extra: {
-                        format: '##-#######'
-                    }
-                },
-                {
-                    name: 'charityEmail',
-                    label: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_EMAIL_LABEL',
-                    placeholder: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_EMAIL_PLACEHOLDER',
-                    rules: 'email'
                 },
                 {
                     name: 'description',

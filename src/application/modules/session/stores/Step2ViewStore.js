@@ -1,8 +1,10 @@
 import { action, observable } from 'mobx';
-import { BaseEditViewStore } from 'core/stores';
+import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { SessionService } from 'application/session/services';
 import { Step2CreateForm } from 'application/session/forms';
-import { applicationContext } from 'core/utils';
+import { applicationContext, charityFormatter } from 'core/utils';
+import { CharityService } from 'application/charity/services';
+import _ from 'lodash';
 
 @applicationContext
 class Step2ViewStore extends BaseEditViewStore {
@@ -50,6 +52,41 @@ class Step2ViewStore extends BaseEditViewStore {
             this.form.$('key').set(sessionKeyIdentifier);
             this.loadExistingSession();
         }
+
+        const charityService = new CharityService(rootStore.application.baasic.apiClient);
+        this.charityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'SESSION.CREATE.STEP2.FIELDS.CHARITY_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await charityService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses',
+                            'charityAccountType'
+                        ],
+                        fields: [
+                            'id',
+                            'taxId',
+                            'name',
+                            'charityAccountType',
+                            'charityAddresses'
+                        ]
+                    });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                            item: x
+                        }
+                    });
+                }
+            });
     }
 
     @action.bound

@@ -59,6 +59,7 @@ class SessionEditViewStore extends BaseEditViewStore {
         this.removeSessionCertificateModal = new ModalParams({});
         this.editBlankSessionCertificateModal = new ModalParams({});
         this.bookletService = new BookletService(rootStore.application.baasic.apiClient);
+        this.advancedSearchModal = new ModalParams({});
 
         this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
@@ -136,6 +137,18 @@ class SessionEditViewStore extends BaseEditViewStore {
                 },
             }
         });
+    }
+
+    @action.bound
+    openAdvancedSearchModal() {
+        this.advancedSearchModal.open();
+    }
+
+    @action.bound
+    onCharitySelected(item) {
+        this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
+        this.form.$('charityId').set(item.id);
+        this.advancedSearchModal.close();
     }
 
     @action.bound

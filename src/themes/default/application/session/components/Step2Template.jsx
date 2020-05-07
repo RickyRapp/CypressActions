@@ -6,7 +6,8 @@ import {
     BaasicFormControls,
     EditFormContent,
     BaasicButton,
-    NumberFormatInputField
+    NumberFormatInputField,
+    BaasicFieldDropdown
 } from 'core/components';
 
 function Step2Template({ step2ViewStore }) {
@@ -14,7 +15,8 @@ function Step2Template({ step2ViewStore }) {
         form,
         loadExistingSession,
         previousStep,
-        loadingExistingSession
+        loadingExistingSession,
+        charityDropdownStore
     } = step2ViewStore;
 
     return (
@@ -30,14 +32,10 @@ function Step2Template({ step2ViewStore }) {
                 <div className="form__group col col-lrg-3">
                     <BasicInput field={form.$('email')} />
                 </div>
-                <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('charityName')} />
-                </div>
-                <div className="form__group col col-lrg-3">
-                    <NumberFormatInputField field={form.$('taxId')} />
-                </div>
-                <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('charityEmail')} />
+            </div>
+            <div className="row">
+                <div className="form__group col col-lrg-6">
+                    <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                 </div>
                 <div className="form__group col col-lrg-3">
                     <BasicInput field={form.$('description')} />

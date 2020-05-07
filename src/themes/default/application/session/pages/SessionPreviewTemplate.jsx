@@ -35,12 +35,6 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('SESSION.PREVIEW.FIELDS.ORGANIZATION_NAME_LABEL')}</div>
-                        <span className="input--preview">
-                            {item && `${item.charityName} / ${item.charityEmail || '-'} / ${item.taxId ? charityFormatter.format(item.taxId, { value: 'tax-id' }) : '-'}`}
-                        </span>
-                    </div>
-                    <div className="col col-sml-12 col-lrg-4">
                         <div className="form__group__label">{t('SESSION.PREVIEW.FIELDS.FULL_NAME_LABEL')}</div>
                         <span className="input--preview">
                             {item && item.fullName}
