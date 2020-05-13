@@ -41,6 +41,10 @@ export default class SessionInformationCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
+                    name: 'language',
+                    rules: 'string'
+                },
+                {
                     name: 'key',
                     label: 'SESSION.CREATE.STEP2.FIELDS.KEY_LABEL',
                     placeholder: 'SESSION.CREATE.STEP2.FIELDS.KEY_PLACEHOLDER',

@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
-import { SessionService } from 'application/session/services';
+import { SessionScanService } from 'application/session/services';
 import { Step3CreateForm } from 'application/session/forms';
 import { applicationContext, isSome } from 'core/utils';
 import { LookupService } from 'common/services';
@@ -16,7 +16,7 @@ class Step3ViewStore extends BaseEditViewStore {
     @observable connectionEstablished = false;
 
     constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier, handleResponse }) {
-        const service = new SessionService(rootStore.application.baasic.apiClient);
+        const service = new SessionScanService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'step2-create',
@@ -93,7 +93,7 @@ class Step3ViewStore extends BaseEditViewStore {
     @action.bound
     async setConnectionId(connectionId) {
         try {
-            await this.service.setConnectionId({ id: connectionId });
+            await this.service.setConnectionId({ connectionId: connectionId });
             this.connectionEstablished = true;
             this.rootStore.notificationStore.success('SESSION.CREATE.STEP3.READY_FOR_SCANNING');
         } catch (err) {
@@ -126,6 +126,7 @@ class Step3ViewStore extends BaseEditViewStore {
         if (!isSome(this.session.sessionCertificates)) {
             this.session.sessionCertificates = [];
         }
+        debugger
         if (response.statusCode === 2000000000) {
             this.session.sessionCertificates.push(response.response);
             this.rootStore.notificationStore.success('SESSION.STATUS_CODE.CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS')

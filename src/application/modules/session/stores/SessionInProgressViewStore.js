@@ -86,11 +86,15 @@ class SessionInProgressViewStore extends BaseListViewStore {
             ],
             actions: {
                 onSetInactive: (session) => this.inActivateSession(session),
+                onRemove: (session) => this.onRemoveFromCache(session.key),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onSetInactiveRender: (session) => {
                     return session.isActive;
+                },
+                onRemoveFromCacheRender: (session) => {
+                    return !session.isActive;
                 }
             },
             disablePaging: true
@@ -124,6 +128,18 @@ class SessionInProgressViewStore extends BaseListViewStore {
         this.rootStore.notificationStore.success('Successfully deactivated session');
         await this.queryUtility.fetch();
         this.loaderStore.resume();
+    }
+
+    @action.bound
+    async onRemoveFromCache(key) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to remove session from cache?`,
+            async () => {
+                await this.service.removeSessionFromCache({ key: key });
+                await this.queryUtility.fetch();
+                this.rootStore.notificationStore.success(`Successfully removed from cache`);
+            }
+        );
     }
 }
 

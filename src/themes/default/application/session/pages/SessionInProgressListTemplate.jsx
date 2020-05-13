@@ -48,13 +48,17 @@ SessionInProgressListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onSetInactive } = actions;
-    if (!isSome(onSetInactive)) return null;
+    const { onSetInactive, onRemove } = actions;
+    if (!isSome(onSetInactive) && !isSome(onRemove)) return null;
 
     let setInactiveRender = true;
+    let removeFromCacheRender = true;
     if (isSome(actionsRender)) {
         if (actionsRender.onSetInactiveRender) {
             setInactiveRender = actionsRender.onSetInactiveRender(item);
+        }
+        if (actionsRender.onRemoveFromCacheRender) {
+            removeFromCacheRender = actionsRender.onRemoveFromCacheRender(item);
         }
     }
 
@@ -68,6 +72,15 @@ function renderActions({ item, actions, actionsRender }) {
                         label='SESSION.LIST.IN_PROGRESS.BUTTON.SET_INACTIVE'
                         onlyIcon={true}
                         onClick={() => onSetInactive(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onRemove) && removeFromCacheRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--delete u-icon--sml'
+                        label='SESSION.LIST.IN_PROGRESS.BUTTON.REMOVE_FROM_CACHE'
+                        onlyIcon={true}
+                        onClick={() => onRemove(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

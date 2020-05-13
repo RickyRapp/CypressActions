@@ -9,11 +9,13 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
     const {
         steps,
         currentStep,
+        setLanguage,
         nextStep,
         previousStep,
         setSessionKeyIdentifier,
         sessionKeyIdentifier,
-        handleResponse
+        handleResponse,
+        language
     } = sessionCreateViewStore;
 
     return (
@@ -27,7 +29,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
             {currentStep === 1 &&
                 <div className="card card--form card--primary card--med u-mar--bottom--sml">
                     <Step1
-                        nextStep={nextStep}
+                        nextStep={setLanguage}
                     />
                 </div>}
             {currentStep === 2 &&
@@ -38,6 +40,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         setSessionKeyIdentifier={setSessionKeyIdentifier}
                         handleResponse={handleResponse}
                         sessionKeyIdentifier={sessionKeyIdentifier}
+                        language={language}
                     />
                 </div>}
             {currentStep === 3 &&

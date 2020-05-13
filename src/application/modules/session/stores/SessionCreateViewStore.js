@@ -5,6 +5,7 @@ class SessionViewStore extends BaseViewStore {
     steps = [1, 2, 3, 4];
     @observable currentStep = 1;
     @observable sessionKeyIdentifier = null;
+    @observable language = '';
 
     constructor(rootStore) {
         super(rootStore);
@@ -35,6 +36,12 @@ class SessionViewStore extends BaseViewStore {
     @action.bound
     setSessionKeyIdentifier(key) {
         this.sessionKeyIdentifier = key;
+    }
+
+    @action.bound
+    setLanguage(lang) {
+        this.language = lang;
+        this.nextStep()
     }
 
     @action.bound

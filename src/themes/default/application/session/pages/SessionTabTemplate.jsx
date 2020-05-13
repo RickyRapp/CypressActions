@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { SessionList, SessionInProgressList } from 'application/session/pages';
-import { ScannerConnectionList } from 'application/scanner-connection/pages';
+import { SessionList, SessionInProgressList, SessionPendingCertificateList } from 'application/session/pages';
 
 function SessionTabTemplate({ sessionTabViewStore, rootStore }) {
     const {
@@ -20,8 +19,8 @@ function SessionTabTemplate({ sessionTabViewStore, rootStore }) {
                     <div label={'SESSION.TAB.IN_PROGRESS'}>
                         <SessionInProgressList />
                     </div>
-                    <div label={'SESSION.TAB.CONNECTIONS'}>
-                        <ScannerConnectionList />
+                    <div label={'SESSION.TAB.PENDING_CERTIFICATE'}>
+                        <SessionPendingCertificateList />
                     </div>
                 </TabLayout>
             </div>

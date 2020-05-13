@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { SessionService } from 'application/session/services';
+import { SessionScanService } from 'application/session/services';
 import { Step2CreateForm } from 'application/session/forms';
 import { applicationContext, charityFormatter } from 'core/utils';
 import { CharityService } from 'application/charity/services';
@@ -13,8 +13,8 @@ class Step2ViewStore extends BaseEditViewStore {
     existingSession = null;
     response = null;
 
-    constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier, handleResponse }) {
-        const service = new SessionService(rootStore.application.baasic.apiClient);
+    constructor(rootStore, { nextStep, previousStep, sessionKeyIdentifier, setSessionKeyIdentifier, handleResponse, language }) {
+        const service = new SessionScanService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'step2-create',
@@ -51,6 +51,13 @@ class Step2ViewStore extends BaseEditViewStore {
         if (sessionKeyIdentifier) {
             this.form.$('key').set(sessionKeyIdentifier);
             this.loadExistingSession();
+        }
+
+        if (language) {
+            this.form.$('language').set(language);
+        }
+        else {
+            this.form.$('language').set('eng');
         }
 
         const charityService = new CharityService(rootStore.application.baasic.apiClient);

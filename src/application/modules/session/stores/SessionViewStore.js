@@ -1,9 +1,7 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
-import { SessionService } from 'application/session/services';
+import { SessionService, SessionScanService } from 'application/session/services';
 import { CharityService } from 'application/charity/services';
-import { ScannerConnectionService } from 'application/scanner-connection/services';
-import { isSome } from 'core/utils';
 import { SessionListFilter } from 'application/session/models';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
@@ -21,14 +19,7 @@ class SessionViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
                 create: async () => {
-                    const response = await this.checkScannerConnection();
-                    if (response) {
-                        this.goToCreatePage();
-                    }
-                    else {
-                        this.openSelectScanner();
-                        // rootStore.notificationStore.error('SESSION.CREATE.STEP2.SCANNER_NOT_INITIALIZED_ERROR');
-                    }
+                    this.openSelectScanner();
                 },
                 edit: async (id) => {
                     rootStore.routerStore.goTo('master.app.main.session.edit',
@@ -125,9 +116,6 @@ class SessionViewStore extends BaseListViewStore {
             }
         }));
 
-        this.service = service;
-        this.rootStore = rootStore;
-        this.scannerConnectionService = new ScannerConnectionService(rootStore.application.baasic.apiClient);
         this.selectScannerModal = new ModalParams({});
 
         const charityService = new CharityService(rootStore.application.baasic.apiClient);
@@ -144,8 +132,7 @@ class SessionViewStore extends BaseListViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses',
-                            'charityAddresses.address'
+                            'charityAddresses'
                         ],
                         fields: [
                             'id',
@@ -205,21 +192,9 @@ class SessionViewStore extends BaseListViewStore {
         const params = {
             code: scannerCode
         }
-        await this.scannerConnectionService.create(params);
+        const service = new SessionScanService(this.rootStore.application.baasic.apiClient)
+        await service.setUserScannerConnection(params);
         this.goToCreatePage();
-    }
-
-    @action.bound
-    async checkScannerConnection() {
-        const params = {
-            isActive: true,
-            coreUserId: this.rootStore.userStore.user.id
-        }
-        const response = await this.scannerConnectionService.find(params);
-        if (response.data.item.length === 1) {
-            return isSome(response.data.item.scannerId);
-        }
-        return false;
     }
 
     @action.bound

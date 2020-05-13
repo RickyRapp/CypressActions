@@ -15,12 +15,12 @@ const Step1Template = function ({ nextStep, t }) {
             <BaasicButton
                 className="btn btn--base btn--ghost"
                 label='SESSION.CREATE.STEP1.ENG_LANGUAGE'
-                onClick={() => nextStep()}
+                onClick={() => nextStep('eng')}
             />
             <BaasicButton
                 className="btn btn--base btn--ghost"
                 label='SESSION.CREATE.STEP1.HEB_LANGUAGE'
-                onClick={() => nextStep()}
+                onClick={() => nextStep('heb')}
             />
         </div>)
 }

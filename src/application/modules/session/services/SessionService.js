@@ -66,6 +66,11 @@ class SessionService extends BaseService {
         const url = this.routeService.reviewBlankCertificate(resource);
         return this.apiClient.put(url, resource);
     }
+
+    removeSessionFromCache(resource) {
+        const url = this.routeService.removeSessionFromCache(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default SessionService;

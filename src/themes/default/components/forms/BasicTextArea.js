@@ -4,11 +4,6 @@ import { renderIf } from 'core/utils';
 
 const BasicTextAreaTemplate = defaultTemplate(({ field, t, rows }) => {
     const { placeholder, ...otherProps } = field.bind();
-    if (otherProps.value) {
-        otherProps.value = otherProps.value.replace(/\s+/g, ' ');
-    } else {
-        otherProps.value = '';
-    }
 
     const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
 

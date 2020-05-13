@@ -1642,11 +1642,20 @@
             }
         }
     },
+    "SESSION_PENDING_CERTIFICATE": {
+        "LIST": {
+            "COLUMNS": {
+                "CHARITY_NAME_LABEL": "Charity",
+                "DATE_CREATED_LABEL": "Date created",
+                "DENOMINATION_LABEL": "Denomination"
+            }
+        }
+    },
     "SESSION": {
         "TAB": {
             "LIST": "Sessions",
             "IN_PROGRESS": "In progress",
-            "CONNECTIONS": "Scanners"
+            "PENDING_CERTIFICATE": "Pending certificates"
         },
         "PREVIEW": {
             "TITLE": "Details",

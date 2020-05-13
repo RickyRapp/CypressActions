@@ -68,6 +68,10 @@ class SessionRouteService extends BaseRouteService {
     reviewBlankCertificate() {
         return super.update(this.base + '/review-blank-certificate');
     }
+
+    removeSessionFromCache(resource) {
+        return super.update(this.base + '/remove-existing-session/{key}', resource);
+    }
 }
 
 export default SessionRouteService;

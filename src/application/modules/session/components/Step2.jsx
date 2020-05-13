@@ -11,7 +11,8 @@ import { Step2Template } from 'themes/application/session/components';
         previousStep: props.previousStep,
         setSessionKeyIdentifier: props.setSessionKeyIdentifier,
         handleResponse: props.handleResponse,
-        sessionKeyIdentifier: props.sessionKeyIdentifier
+        sessionKeyIdentifier: props.sessionKeyIdentifier,
+        language: props.language
     }), 'step2ViewStore')
 @observer
 class Step2 extends React.Component {
