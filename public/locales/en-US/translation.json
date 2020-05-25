@@ -1647,7 +1647,8 @@
             "COLUMNS": {
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
-                "DENOMINATION_LABEL": "Denomination"
+                "DENOMINATION_LABEL": "Denomination",
+                "AMOUNT_AFTER_DEDUCTION_LABEL": "Amount"
             }
         }
     },

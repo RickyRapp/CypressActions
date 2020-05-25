@@ -54,7 +54,7 @@ function Step3Template({ step3ViewStore }) {
                                                 {item.barcode}
                                             </div>
                                             <div className="form__group col col-lrg-3">
-                                                {`$${item.certificateValue}`} {item.insufficientFunds ? ` - insufficient funds` : ''}
+                                                {`$${item.certificateValue}`} {item.insufficientFunds ? ` - maybe insufficient funds` : ''}
                                             </div>
                                             <div className="form__group col col-lrg-3">
                                                 ${item.certificateValue - item.deductionCertificateAmount}

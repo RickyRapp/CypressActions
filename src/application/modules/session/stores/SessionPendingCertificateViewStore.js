@@ -37,6 +37,14 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
                 },
                 {
+                    key: 'amountAfterDeduction',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.AMOUNT_AFTER_DEDUCTION_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
+                },
+                {
                     key: 'certificate.booklet.denominationType.value',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {

@@ -126,7 +126,7 @@ class Step3ViewStore extends BaseEditViewStore {
         if (!isSome(this.session.sessionCertificates)) {
             this.session.sessionCertificates = [];
         }
-        debugger
+
         if (response.statusCode === 2000000000) {
             this.session.sessionCertificates.push(response.response);
             this.rootStore.notificationStore.success('SESSION.STATUS_CODE.CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS')
