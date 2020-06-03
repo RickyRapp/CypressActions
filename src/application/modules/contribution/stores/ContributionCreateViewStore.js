@@ -67,6 +67,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
                 this.setFormDefaultRules(),
                 this.setFormDefaultValues()
             ]);
+            this.form.$('settingStartDate').set(moment().toDate());
         }
     }
 

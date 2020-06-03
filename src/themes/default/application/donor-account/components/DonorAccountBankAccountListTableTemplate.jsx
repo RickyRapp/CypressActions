@@ -21,7 +21,6 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
         bankAccountModal,
         openBankAccountModal,
         useDonorContactInformations,
-        uploadTypes,
         uploadLoading,
         image,
         onAttachmentDrop,
@@ -54,7 +53,6 @@ const DonorAccountBankAccountListTableTemplate = function ({ donorAccountBankAcc
             <BaasicModal modalParams={bankAccountModal}>
                 <DonorAccountBankAccountEditForm
                     useDonorContactInformations={useDonorContactInformations}
-                    uploadTypes={uploadTypes}
                     uploadLoading={uploadLoading}
                     image={image}
                     onAttachmentDrop={onAttachmentDrop}

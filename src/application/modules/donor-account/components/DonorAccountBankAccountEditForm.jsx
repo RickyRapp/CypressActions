@@ -134,11 +134,15 @@ DonorAccountBankAccountEditForm.propTypes = {
     useDonorContactInformations: PropTypes.func.isRequired,
     t: PropTypes.func,
     uploadTypes: PropTypes.array.isRequired,
-    uploadLoading: PropTypes.bool.isRequired,
+    uploadLoading: PropTypes.bool,
     image: PropTypes.string,
     onAttachmentDrop: PropTypes.func.isRequired,
     onBlurRoutingNumber: PropTypes.func,
     currentImage: PropTypes.string
+};
+
+DonorAccountBankAccountEditForm.defaultProps = {
+    uploadTypes: ['.png', '.jpg', '.jpeg']
 };
 
 const thumb = {

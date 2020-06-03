@@ -18,28 +18,32 @@ function PayerInformationTemplate({ form, setPayerInfoUsingPrimaryDonorContactIn
                     </BaasicButton>}
             </h3>
             <div className="row">
-                <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.name')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+            </div>
+            <div className="row">
+                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.addressLine1')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.addressLine2')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-2 u-mar--bottom--sml">
+                <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.city')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-2 u-mar--bottom--sml">
+                <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.state')} />
                 </div>
-                <div className="form__group col col-sml12 col-lrg-2 u-mar--bottom--sml">
+                <div className="form__group col col-sml12 col-lrg-4 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.zipCode')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+            </div>
+            <div className="row">
+                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.email')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.number')} />
                 </div>
             </div>

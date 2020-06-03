@@ -19,7 +19,6 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     @observable image = null;
     @observable currentImage = null;
     @observable uploadLoading = false;
-    uploadTypes = ['.png', '.jpg', '.jpeg'];
 
     constructor(rootStore, config) {
         const service = new ContributionService(rootStore.application.baasic.apiClient);
@@ -137,12 +136,13 @@ class ContributionBaseViewStore extends BaseEditViewStore {
                         donorAccountId: this.donorAccountId,
                         ...bankAccount
                     });
-                    await this.insertImage(response.data.response);
+                    const bankAccountId = response.data;
+                    await this.insertImage(bankAccountId);
                     this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
                     await this.bankAccountDropdownStore.filterAsync();
-                    this.form.$('bankAccountId').set(response.data.response);
-                    this.bankAccountDropdownStore.setValue(_.find(this.bankAccountDropdownStore.items, { id: response.data.response }))
-                    this.setPayerInfo(_.find(this.bankAccountDropdownStore.items, { id: response.data.response }).accountHolder);
+                    this.form.$('bankAccountId').set(bankAccountId);
+                    this.bankAccountDropdownStore.setValue(_.find(this.bankAccountDropdownStore.items, { id: bankAccountId }))
+                    this.setPayerInfo(_.find(this.bankAccountDropdownStore.items, { id: bankAccountId }).accountHolder);
                     this.form.$('payerInformation').each((field) => { field.resetValidation(); field.set('disabled', true) });
                     this.bankAccountModal.close();
 

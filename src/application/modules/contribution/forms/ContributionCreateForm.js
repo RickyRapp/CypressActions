@@ -193,7 +193,7 @@ export default class ContributionCreateForm extends FormBase {
                     name: 'settingStartDate',
                     label: 'CONTRIBUTION.CREATE.FIELDS.SETTING_START_DATE_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.SETTING_START_DATE_PLACEHOLDER',
-                    rules: `min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`,
+                    rules: `min_date:${moment().format('YYYY-MM-DD')}`,
                     type: 'date'
                 }
             ],

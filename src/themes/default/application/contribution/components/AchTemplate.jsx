@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaasicFieldDropdown, BaasicButton } from 'core/components';
+import { BaasicFieldDropdown, BaasicButton, DatePickerField } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
 
@@ -13,11 +13,16 @@ const AchTemplate = ({ bankAccountDropdownStore, field, openBankAccountModal }) 
     </BaasicButton>
 
     return (
-        <div className="row">
-            <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
-                <BaasicFieldDropdown field={field} store={bankAccountDropdownStore} additionalLabel={addButton} />
+        <React.Fragment>
+            <div className="row">
+                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                    <BaasicFieldDropdown
+                        field={field}
+                        store={bankAccountDropdownStore}
+                        additionalLabel={addButton} />
+                </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 

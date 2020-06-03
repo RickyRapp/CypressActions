@@ -18,11 +18,9 @@ import { RoutingNumberService } from 'application/administration/bank/services';
 @applicationContext
 class DonorAccountBankAccountViewStore extends BaseListViewStore {
     attachment = null;
-    uploadTypes = null;
     @observable image = null;
     @observable currentImage = null;
     @observable uploadLoading = false;
-    uploadTypes = ['.png', '.jpg', '.jpeg'];
     primaryAddress = null;
     primaryEmailAddress = null;
     primaryPhoneNumber = null;
