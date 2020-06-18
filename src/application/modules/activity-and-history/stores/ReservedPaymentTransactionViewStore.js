@@ -38,7 +38,7 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                             ];
                             const response = await service.get(params.donorAccountId, options);
                             if (response.data) {
-                                return _.map(response.data.pendingTransactions, 'paymentTransaction')
+                                return _.orderBy(_.map(response.data.pendingTransactions, 'paymentTransaction'), ['dateCreated'], ['desc'])
                             }
                             else {
                                 return response.data = {}

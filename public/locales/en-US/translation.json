@@ -36,6 +36,7 @@
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
         "TESTING": "Test",
+        "INVESTMENT": "Investments",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -2263,6 +2264,16 @@
             "EMPTY_STATE": {
                 "TITLE": "No grant requests",
                 "ACTION": "Create new grant requests"
+            }
+        }
+    },
+    "INVESTMENT_POOL": {
+        "LIST": {
+            "TITLE": "Investments",
+            "COLUMNS": {
+                "NAME": "Pool name",
+                "VALUE": "Value",
+                "CHANGE": "Change"
             }
         }
     }

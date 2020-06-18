@@ -63,6 +63,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                                 must be done, at lease one contribution funded, low balance amount greater than present balance, day before 
                                 present balance must be greater than low balance amount OR if we didn't sent notification already.`,
                 abrv: 'process-low-balance-remainder'
+            },
+            {
+                name: 'Process session pending certificates',
+                description: `Process session pending certificates for donors who have enough funds on their account.`,
+                abrv: 'session-pending-certificates'
             }
         ];
 
