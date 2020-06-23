@@ -6,7 +6,7 @@ class InvestmentPoolHistoryRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?investmentPoolIds,page,rpp,sort,embed,fields}', filter);
     }
 
     overview(filter) {
@@ -17,8 +17,8 @@ class InvestmentPoolHistoryRouteService extends BaseRouteService {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
-    create() {
-        return super.create(this.base);
+    update() {
+        return super.update(this.base);
     }
 }
 

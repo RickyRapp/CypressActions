@@ -30,9 +30,12 @@ function FormatterResolver({ item, field, format }) {
             return <NumberFormat {...params} />
         }
         case 'percentage': {
-            params.value = _.get(item, field);
+            params.value = _.get(item, field) * 100;
             params.prefix = null;
             params.suffix = '%';
+            if (format.decimalScale) {
+                params.decimalScale = format.decimalScale;
+            }
             return <NumberFormat {...params} />
         }
         case 'share-name': {

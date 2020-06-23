@@ -2,10 +2,11 @@ import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { InvestmentPoolHistoryService } from 'application/investment/services';
 import { applicationContext } from 'core/utils';
-import { FilterParams } from 'core/models';
+import { FilterParams, ModalParams } from 'core/models';
 
 @applicationContext
 class InvestmentPoolViewStore extends BaseListViewStore {
+    @observable investmentPoolDetailsId = null;
     constructor(rootStore) {
         super(rootStore, {
             name: 'investment',
@@ -32,7 +33,7 @@ class InvestmentPoolViewStore extends BaseListViewStore {
                     title: 'INVESTMENT_POOL.LIST.COLUMNS.NAME'
                 },
                 {
-                    key: 'value',
+                    key: 'currentValue',
                     title: 'INVESTMENT_POOL.LIST.COLUMNS.VALUE',
                     format: {
                         type: 'currency'
@@ -42,16 +43,30 @@ class InvestmentPoolViewStore extends BaseListViewStore {
                     key: 'change',
                     title: 'INVESTMENT_POOL.LIST.COLUMNS.CHANGE',
                     format: {
-                        type: 'percentage'
+                        type: 'percentage',
+                        decimalScale: 6
                     }
                 },
             ],
             actions: {
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onSelect: (item) => this.investmentPoolDetailsId = item.investmentPool.id
             },
             disablePaging: true,
             disableSorting: true
         }));
+
+        this.investmentPoolChangeModal = new ModalParams({});
+    }
+
+    @action.bound
+    openInvestmentPoolChange() {
+        this.investmentPoolChangeModal.open({
+            onAfterAction: () => {
+                this.queryUtility.fetch();
+                this.investmentPoolChangeModal.close();
+            }
+        });
     }
 }
 

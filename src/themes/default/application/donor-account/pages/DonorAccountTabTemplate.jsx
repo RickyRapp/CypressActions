@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { DonorAccountGeneralData, DonorAccountPersonalData, DonorAccountSettingData } from 'application/donor-account/components';
+import { DonorAccountGeneralData, DonorAccountPersonalData, DonorAccountSettingData, DonorAccountInvestmentData } from 'application/donor-account/components';
 import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
 import { DonorNoteList } from 'application/donor-note/pages';
 import { EmailList } from 'application/email/pages';
@@ -34,6 +34,9 @@ function DonorAccountTabTemplate({ donorAccountTabViewStore, rootStore }) {
                     </div>
                     <div label={'DONOR_ACCOUNT.TAB.SETTING_DATA'}>
                         <DonorAccountSettingData />
+                    </div>
+                    <div label={'DONOR_ACCOUNT.TAB.INVESTMENT_DATA'}>
+                        <DonorAccountInvestmentData />
                     </div>
 
                     {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') &&

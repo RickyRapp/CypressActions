@@ -457,7 +457,8 @@
             "GENERAL_DATA": "General data",
             "PERSONAL_DATA": "Personal data",
             "SETTING_DATA": "Settings",
-            "EMAIL": "Emails"
+            "EMAIL": "Emails",
+            "INVESTMENT_DATA": "Investments"
         },
         "LIST": {
             "TITLE": "Donors",
@@ -2274,6 +2275,13 @@
                 "NAME": "Pool name",
                 "VALUE": "Value",
                 "CHANGE": "Change"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Title",
+            "FIELDS": {
+                "BALANCE_LABEL": "Balance",
+                "BALANCE_PLACEHOLDER": "Balance"
             }
         }
     }

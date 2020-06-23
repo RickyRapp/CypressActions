@@ -10,3 +10,5 @@ export { default as DonorAccountBankAccountService } from './DonorAccountBankAcc
 export { default as DonorAccountBankAccountRouteService } from './DonorAccountBankAccountRouteService'
 export { default as DonorAccountContributionSettingService } from './DonorAccountContributionSettingService'
 export { default as DonorAccountContributionSettingRouteService } from './DonorAccountContributionSettingRouteService'
+export { default as DonorAccountInvestmentService } from './DonorAccountInvestmentService'
+export { default as DonorAccountInvestmentRouteService } from './DonorAccountInvestmentRouteService'
