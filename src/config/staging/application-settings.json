@@ -1,6 +1,6 @@
 {
     "appId": "thedonorsfund",
-    "appUrl": "api.thedonorsfund.staging.mono-software.com",
+    "appUrl": "api.tdfcharitable.org",
     "appVersion": "",
     "useSSL": true,
     "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
