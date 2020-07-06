@@ -28,7 +28,7 @@ class CharityViewStore extends BaseViewStore {
                 const response = await service.uploadCharityUpdateFile(this.attachment);
                 if (processNow) {
                     const charityService = new CharityService(this.rootStore.application.baasic.apiClient);
-                    await charityService.processUpdateFile();
+                    await charityService.processUpdateFile(response.data.id);
                 }
                 this.uploadLoading = false;
                 return response.data.id;
