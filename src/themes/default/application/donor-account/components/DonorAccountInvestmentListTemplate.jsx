@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     EmptyState,
-    ListContent,
     FormatterResolver
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { Content } from 'core/layouts';
 
 const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentListViewStore }) {
     const {
@@ -42,9 +40,6 @@ const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentLis
     )
 };
 
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='ADDRESS.LIST.EMPTY_STATE.TITLE' actionLabel='ADDRESS.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 DonorAccountInvestmentListTemplate.propTypes = {
     donorAccountInvestmentListViewStore: PropTypes.object.isRequired,

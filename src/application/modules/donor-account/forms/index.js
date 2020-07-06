@@ -9,3 +9,4 @@ export { default as DonorAccountThirdPartyWebsiteSettingForm } from './DonorAcco
 export { default as DonorAccountAutomaticContributionSettingForm } from './DonorAccountAutomaticContributionSettingForm'
 export { default as DonorAccountCertificateSettingForm } from './DonorAccountCertificateSettingForm'
 export { default as DonorAccountContributionSettingEditForm } from './DonorAccountContributionSettingEditForm'
+export { default as DonorAccountInvestmentForm } from './DonorAccountInvestmentForm'

@@ -443,7 +443,7 @@
     "NO": "NO",
     "Are you sure you want to disapprove user?": "Are you sure you want to disapprove user?",
     "Are you sure you want to lock user?": "Are you sure you want to lock user?",
-    "SELECT_DONOR": "Select donor",
+    "SELECT_DONOR": "Select DONOR",
     "SELECT_DONOR_PLACEHOLDER": "Select donor",
     "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
     "CHOOSE_TYPE_EXPORT": "Export type",
@@ -2282,6 +2282,14 @@
             "FIELDS": {
                 "BALANCE_LABEL": "Balance",
                 "BALANCE_PLACEHOLDER": "Balance"
+            }
+        }
+    },
+    "DONOR_ACCOUNT_INVESTMENT": {
+        "CREATE": {
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount"
             }
         }
     }

@@ -91,7 +91,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onSelect) && selectRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--preview u-icon--sml'
                         label='DONOR_NOTE.LIST.BUTTON.SELECT'
                         onlyIcon={true}
                         onClick={() => onSelect(item)}>
