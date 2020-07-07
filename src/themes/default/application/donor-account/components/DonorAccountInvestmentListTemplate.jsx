@@ -3,14 +3,21 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     EmptyState,
-    FormatterResolver
+    FormatterResolver,
+    BaasicModal,
+    BaasicButton
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
+import { DonorAccountInvestmentEditForm, DonorAccountInvestmentPoolHistory } from 'application/donor-account/components';
 
 const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentListViewStore }) {
     const {
         investments,
-        investmentPoolsOverview
+        investmentPoolsOverview,
+        investmentModal,
+        openInvestmentModal,
+        openHistory,
+        donorAccountInvestmentIdForHistory
     } = donorAccountInvestmentListViewStore
 
     function renderFormatedValue(value, type) {
@@ -22,21 +29,49 @@ const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentLis
     }
 
     return (
-        <div className="row">
-            {investmentPoolsOverview && investments &&
-                investmentPoolsOverview.map(lastPoolHistory => {
-                    const donorInvestment = investments.find((item) => item.investmentPoolId === lastPoolHistory.investmentPoolId)
+        <React.Fragment>
+            <div className="row">
+                {investmentPoolsOverview && investments &&
+                    investmentPoolsOverview.map(lastPoolHistory => {
+                        const donorAccountInvestment = investments.find((item) => item.investmentPoolId === lastPoolHistory.investmentPoolId)
 
-                    return <div
-                        key={lastPoolHistory.id}
-                        className="col col-lrg-3 card--form card--primary card--med u-mar--left--sml u-mar--bottom--sml"
-                        style={{ backgroundColor: donorInvestment.balance === 0 ? "lightslategrey" : "lightgreen" }}>
-                        <div><strong>{lastPoolHistory.investmentPool.name}</strong>({renderFormatedValue(lastPoolHistory.change, 'percentage')})</div>
-                        <div>{renderFormatedValue(donorInvestment.balance, 'currency')}</div>
-                    </div>
-                })
-            }
-        </div>
+                        return <div
+                            key={lastPoolHistory.id}
+                            className="col col-lrg-3 card--form card--primary card--med u-mar--left--sml u-mar--bottom--sml"
+                            style={{ backgroundColor: donorAccountInvestment.balance === 0 ? "#607d8b26" : "#90ee909e" }}>
+                            <div><strong>{lastPoolHistory.investmentPool.name}</strong>({renderFormatedValue(lastPoolHistory.change, 'percentage')})</div>
+                            <div>
+                                {renderFormatedValue(donorAccountInvestment.balance, 'currency')}
+                                <BaasicButton
+                                    className="btn btn--icon"
+                                    icon='u-icon u-icon--reset-pass u-icon--sml'
+                                    label='DONOR_ACCOUNT_INVESTMENT.LIST.BUTTON.INVEST'
+                                    onlyIcon={true}
+                                    onClick={() => openInvestmentModal(donorAccountInvestment, lastPoolHistory.investmentPool)}>
+                                </BaasicButton>
+                                <BaasicButton
+                                    className="btn btn--icon"
+                                    icon='u-icon u-icon--preview u-icon--sml'
+                                    label='DONOR_ACCOUNT_INVESTMENT.LIST.BUTTON.HISTORY'
+                                    onlyIcon={true}
+                                    onClick={() => openHistory(donorAccountInvestment)}>
+                                </BaasicButton>
+                            </div>
+                        </div>
+                    })
+                }
+            </div>
+
+            {donorAccountInvestmentIdForHistory &&
+                <React.Fragment >
+                    <span>In progress</span>
+                    <DonorAccountInvestmentPoolHistory key={donorAccountInvestmentIdForHistory} id={donorAccountInvestmentIdForHistory} />
+                </React.Fragment>}
+
+            <BaasicModal modalParams={investmentModal}>
+                <DonorAccountInvestmentEditForm />
+            </BaasicModal>
+        </React.Fragment>
     )
 };
 

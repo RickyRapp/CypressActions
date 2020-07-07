@@ -2286,7 +2286,20 @@
         }
     },
     "DONOR_ACCOUNT_INVESTMENT": {
+        "LIST": {
+            "BUTTON": {
+                "INVEST": "Invest",
+                "HISTORY": "Show history"
+            },
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "PRESENT_BALANCE_LABEL": "Present balance",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description"
+            }
+        },
         "CREATE": {
+            "TITLE": "Invest",
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
                 "AMOUNT_PLACEHOLDER": "Amount"

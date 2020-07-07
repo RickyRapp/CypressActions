@@ -6,6 +6,11 @@ class DonorAccountInvestmentService extends BaseService {
         super(apiClient, new DonorAccountInvestmentRouteService());
         this.apiClient = apiClient;
     }
+
+    invest(resource) {
+        const url = this.routeService.invest();
+        return this.apiClient.post(url, resource);
+    }
 }
 
 export default DonorAccountInvestmentService;

@@ -21,3 +21,5 @@ export { default as DonorAccountContributionSettingEditForm } from './DonorAccou
 export { default as AccountSettingsPreview } from './AccountSettingsPreview'
 export { default as DonorAccountInvestmentData } from './DonorAccountInvestmentData'
 export { default as DonorAccountInvestmentList } from './DonorAccountInvestmentList'
+export { default as DonorAccountInvestmentEditForm } from './DonorAccountInvestmentEditForm'
+export { default as DonorAccountInvestmentPoolHistory } from './DonorAccountInvestmentPoolHistory'

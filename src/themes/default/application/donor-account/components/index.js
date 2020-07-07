@@ -10,3 +10,4 @@ export { default as DonorAccountCertificateSettingTemplate } from './DonorAccoun
 export { default as DonorAccountGeneralDataTemplate } from './DonorAccountGeneralDataTemplate'
 export { default as DonorAccountContributionSettingTemplate } from './DonorAccountContributionSettingTemplate'
 export { default as DonorAccountInvestmentListTemplate } from './DonorAccountInvestmentListTemplate'
+export { default as DonorAccountInvestmentPoolHistoryTemplate } from './DonorAccountInvestmentPoolHistoryTemplate'

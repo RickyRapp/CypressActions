@@ -20,6 +20,10 @@ class DonorAccountInvestmentRouteService extends BaseRouteService {
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }
+
+    invest() {
+        return super.create(this.base + '/invest');
+    }
 }
 
 export default DonorAccountInvestmentRouteService;
