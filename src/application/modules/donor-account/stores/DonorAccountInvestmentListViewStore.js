@@ -18,6 +18,7 @@ class DonorAccountInvestmentListViewStore extends BaseViewStore {
             await this.donorAccountInvestmentService.invest(values);
             this.investmentModal.close();
             await this.fetchInvestments();
+            this.donorAccountInvestmentIdForHistory = null;
         }
     })
 

@@ -30,48 +30,48 @@ const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentLis
 
     return (
         <React.Fragment>
-            <div className="row">
-                {investmentPoolsOverview && investments &&
-                    investmentPoolsOverview.map(lastPoolHistory => {
-                        const donorAccountInvestment = investments.find((item) => item.investmentPoolId === lastPoolHistory.investmentPoolId)
+            <div className="card--form card--primary card--med">
+                <div className="row">
+                    {investmentPoolsOverview && investments &&
+                        investmentPoolsOverview.map(lastPoolHistory => {
+                            const donorAccountInvestment = investments.find((item) => item.investmentPoolId === lastPoolHistory.investmentPoolId)
 
-                        return <div
-                            key={lastPoolHistory.id}
-                            className="col col-lrg-3 card--form card--primary card--med u-mar--left--sml u-mar--bottom--sml"
-                            style={{ backgroundColor: donorAccountInvestment.balance === 0 ? "#607d8b26" : "#90ee909e" }}>
-                            <div><strong>{lastPoolHistory.investmentPool.name}</strong>({renderFormatedValue(lastPoolHistory.change, 'percentage')})</div>
-                            <div>
-                                {renderFormatedValue(donorAccountInvestment.balance, 'currency')}
-                                <BaasicButton
-                                    className="btn btn--icon"
-                                    icon='u-icon u-icon--reset-pass u-icon--sml'
-                                    label='DONOR_ACCOUNT_INVESTMENT.LIST.BUTTON.INVEST'
-                                    onlyIcon={true}
-                                    onClick={() => openInvestmentModal(donorAccountInvestment, lastPoolHistory.investmentPool)}>
-                                </BaasicButton>
-                                <BaasicButton
-                                    className="btn btn--icon"
-                                    icon='u-icon u-icon--preview u-icon--sml'
-                                    label='DONOR_ACCOUNT_INVESTMENT.LIST.BUTTON.HISTORY'
-                                    onlyIcon={true}
-                                    onClick={() => openHistory(donorAccountInvestment)}>
-                                </BaasicButton>
+                            return <div
+                                key={lastPoolHistory.id}
+                                className="col col-lrg-3 card--form card--primary card--med u-mar--left--sml u-mar--bottom--sml"
+                                style={{ backgroundColor: donorAccountInvestment.balance === 0 ? "#607d8b26" : "#90ee909e" }}>
+                                <div><strong>{lastPoolHistory.investmentPool.name}</strong>({renderFormatedValue(lastPoolHistory.change, 'percentage')})</div>
+                                <div>
+                                    {renderFormatedValue(donorAccountInvestment.balance, 'currency')}
+                                    <BaasicButton
+                                        className="btn btn--icon"
+                                        icon='u-icon u-icon--reset-pass u-icon--sml'
+                                        label='DONOR_ACCOUNT_INVESTMENT.LIST.BUTTON.INVEST'
+                                        onlyIcon={true}
+                                        onClick={() => openInvestmentModal(donorAccountInvestment, lastPoolHistory.investmentPool)}>
+                                    </BaasicButton>
+                                    <BaasicButton
+                                        className="btn btn--icon"
+                                        icon='u-icon u-icon--preview u-icon--sml'
+                                        label='DONOR_ACCOUNT_INVESTMENT.LIST.BUTTON.HISTORY'
+                                        onlyIcon={true}
+                                        onClick={() => openHistory(donorAccountInvestment)}>
+                                    </BaasicButton>
+                                </div>
                             </div>
-                        </div>
-                    })
+                        })
+                    }
+                </div>
+
+                {donorAccountInvestmentIdForHistory &&
+                    <DonorAccountInvestmentPoolHistory key={donorAccountInvestmentIdForHistory} id={donorAccountInvestmentIdForHistory} />
                 }
             </div>
-
-            {donorAccountInvestmentIdForHistory &&
-                <React.Fragment >
-                    <span>In progress</span>
-                    <DonorAccountInvestmentPoolHistory key={donorAccountInvestmentIdForHistory} id={donorAccountInvestmentIdForHistory} />
-                </React.Fragment>}
 
             <BaasicModal modalParams={investmentModal}>
                 <DonorAccountInvestmentEditForm />
             </BaasicModal>
-        </React.Fragment>
+        </React.Fragment >
     )
 };
 

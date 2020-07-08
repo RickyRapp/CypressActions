@@ -13,6 +13,10 @@ class DonorAccountInvestmentRouteService extends BaseRouteService {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
+    findPoolHistory(filter) {
+        return super.find(this.base + '/pool-history/{?id,page,rpp,sort,embed,searchFields}', filter);
+    }
+
     create() {
         return super.create(this.base);
     }

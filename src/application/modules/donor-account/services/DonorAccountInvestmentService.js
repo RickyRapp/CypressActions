@@ -7,6 +7,11 @@ class DonorAccountInvestmentService extends BaseService {
         this.apiClient = apiClient;
     }
 
+    findPoolHistory(filter) {
+        const url = this.routeService.findPoolHistory(filter);
+        return this.apiClient.get(url);
+    }
+
     invest(resource) {
         const url = this.routeService.invest();
         return this.apiClient.post(url, resource);

@@ -18,10 +18,12 @@ const DonorAccountInvestmentPoolHistoryTemplate = function ({ donorAccountInvest
     return (
         <ListContent>
             <Content >
-                <BaasicTable
-                    authorization={authorization}
-                    tableStore={tableStore}
-                />
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                    />
+                </div>
             </Content>
         </ListContent>
     )

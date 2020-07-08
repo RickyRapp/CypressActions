@@ -9,28 +9,26 @@ import { DonorAccountInvestmentFilter } from 'application/donor-account/models';
 class DonorAccountInvestmentPoolHistoryViewStore extends BaseListViewStore {
     constructor(rootStore, id) {
         const service = new DonorAccountInvestmentService(rootStore.application.baasic.apiClient);
+        const filter = new DonorAccountInvestmentFilter('dateCreated', 'desc');
+        filter.id = id;
 
         super(rootStore, {
             name: 'donor-account-investment-pool-history',
             routes: {
             },
             queryConfig: {
-                filter: new FilterParams(),
+                filter: filter,
                 disableUpdateQueryParams: true
             },
             actions: () => {
                 return {
-                    find: async () => {
-                        let params = {
-                            embed: [
-                                'investmentPool',
-                                'donorAccountInvestmentTransactions',
-                                'donorAccountInvestmentTransactions.paymentTransaction',
-                                'donorAccountInvestmentTransactions.paymentTransaction.paymentTransactionType'
-                            ]
-                        };
-                        const response = await service.get(id, params);
-                        return _.orderBy(response.data.donorAccountInvestmentTransactions, 'dateCreated', 'desc');
+                    find: async (params) => {
+                        params.embed = [
+                            'paymentTransaction',
+                            'paymentTransaction.paymentTransactionType'
+                        ];
+                        const response = await service.findPoolHistory(params);
+                        return response.data;
                     }
                 }
             }
