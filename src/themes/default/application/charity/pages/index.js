@@ -1,6 +1,5 @@
 export { default as CharityListTemplate } from './CharityListTemplate'
 export { default as CharityCreateTemplate } from './CharityCreateTemplate'
-export { default as CharityUpdateFileTemplate } from './CharityUpdateFileTemplate'
 export { default as CharityGrantsListTemplate } from './CharityGrantsListTemplate'
 export { default as CharityCertificatesListTemplate } from './CharityCertificatesListTemplate'
 export { default as CharityTabTemplate } from './CharityTabTemplate'

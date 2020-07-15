@@ -68,6 +68,12 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Process session pending certificates',
                 description: `Process session pending certificates for donors who have enough funds on their account.`,
                 abrv: 'session-pending-certificates'
+            },
+            {
+                name: 'Process charity update file',
+                description: `Downloads files from IRS (https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf) 
+                                and import/update all charities in database.`,
+                abrv: 'charity-update-file'
             }
         ];
 

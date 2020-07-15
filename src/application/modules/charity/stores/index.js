@@ -3,7 +3,6 @@ export { default as CharityGeneralDataViewStore } from './CharityGeneralDataView
 export { default as CharityCreateViewStore } from './CharityCreateViewStore'
 export { default as CharityAddressViewStore } from './CharityAddressViewStore'
 export { default as CharityBankAccountEditViewStore } from './CharityBankAccountEditViewStore'
-export { default as CharityUpdateFileViewStore } from './CharityUpdateFileViewStore'
 export { default as CharityPageHeaderOverviewViewStore } from './CharityPageHeaderOverviewViewStore'
 export { default as CharityOnlineAccountPreviewViewStore } from './CharityOnlineAccountPreviewViewStore'
 export { default as CharityGrantsViewStore } from './CharityGrantsViewStore'
