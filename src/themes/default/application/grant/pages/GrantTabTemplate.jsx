@@ -6,7 +6,7 @@ import { GrantList, ScheduledGrantList, GrantRequestList } from 'application/gra
 import { BaasicButton, BaasicModal } from 'core/components';
 import { SelectDonor } from 'application/donor-account/components';
 
-function GrantTabTemplate({ grantTabViewStore, t }) {
+function GrantTabTemplate({ grantTabViewStore }) {
     const {
         loaderStore,
         createFunc,
@@ -56,8 +56,7 @@ function GrantTabTemplate({ grantTabViewStore, t }) {
 }
 
 GrantTabTemplate.propTypes = {
-    grantTabViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    grantTabViewStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(GrantTabTemplate);

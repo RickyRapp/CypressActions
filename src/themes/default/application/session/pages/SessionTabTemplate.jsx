@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate, withAuth } from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
 import { SessionList, SessionInProgressList, SessionPendingCertificateList } from 'application/session/pages';
 
-function SessionTabTemplate({ sessionTabViewStore, rootStore }) {
+function SessionTabTemplate({ sessionTabViewStore }) {
     const {
         loaderStore
     } = sessionTabViewStore;

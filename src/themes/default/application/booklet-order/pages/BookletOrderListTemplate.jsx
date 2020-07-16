@@ -16,7 +16,7 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/donor-account/components';
 
-const BookletOrderListTemplate = function ({ bookletOrderViewStore, t }) {
+const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     const {
         tableStore,
         routes,

@@ -12,7 +12,7 @@ import {
 } from 'core/components'
 import { isSome } from 'core/utils';
 
-const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, t, }) {
+const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, t }) {
     const {
         contentLoading,
         sessionCertificate,
@@ -89,7 +89,7 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
 }
 
 EditBlankCertificateTemplate.propTypes = {
-    modalParams: PropTypes.object.isRequired,
+    editBlankCertificateViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
 };
 

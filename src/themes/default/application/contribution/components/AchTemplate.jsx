@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaasicFieldDropdown, BaasicButton, DatePickerField } from 'core/components';
+import { BaasicFieldDropdown, BaasicButton } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
 

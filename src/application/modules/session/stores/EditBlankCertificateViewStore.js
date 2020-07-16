@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { EditBlankCertificateForm } from 'application/session/forms';

@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicTable,
-    EmptyState,
     ListContent
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { Content } from 'core/layouts';
 
 const DonorAccountInvestmentPoolHistoryTemplate = function ({ donorAccountInvestmentPoolHistoryViewStore }) {

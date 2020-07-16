@@ -10,7 +10,6 @@ const ListLayoutTemplate = function ({
     title,
     onCreate,
     children,
-    t,
     loading,
     authorization,
     store

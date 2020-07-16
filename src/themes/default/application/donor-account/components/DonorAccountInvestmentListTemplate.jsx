@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    EmptyState,
     FormatterResolver,
     BaasicModal,
     BaasicButton
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { DonorAccountInvestmentEditForm, DonorAccountInvestmentPoolHistory } from 'application/donor-account/components';
 
 const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentListViewStore }) {
@@ -74,7 +72,6 @@ const DonorAccountInvestmentListTemplate = function ({ donorAccountInvestmentLis
         </React.Fragment >
     )
 };
-
 
 DonorAccountInvestmentListTemplate.propTypes = {
     donorAccountInvestmentListViewStore: PropTypes.object.isRequired,

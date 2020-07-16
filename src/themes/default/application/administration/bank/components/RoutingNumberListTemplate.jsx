@@ -14,7 +14,7 @@ import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { Content } from 'core/layouts';
 import { RoutingNumberCreate } from 'application/administration/bank/components';
 
-const RoutingNumberListTemplate = function ({ routingNumberViewStore, t }) {
+const RoutingNumberListTemplate = function ({ routingNumberViewStore }) {
     const {
         tableStore,
         routes,

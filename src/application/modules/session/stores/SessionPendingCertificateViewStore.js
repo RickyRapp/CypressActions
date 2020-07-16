@@ -1,6 +1,5 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { SessionPendingCertificateService } from 'application/session/services';
-import _ from 'lodash';
 import { FilterParams } from 'core/models';
 
 class SessionPendingCertificateViewStore extends BaseListViewStore {

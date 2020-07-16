@@ -1,8 +1,7 @@
-import { action, observable } from 'mobx';
 import { BasePreviewViewStore, TableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { SessionService } from 'application/session/services';
-import moment from 'moment';
+import _ from 'lodash';
 
 @applicationContext
 class SessionPreviewViewStore extends BasePreviewViewStore {

@@ -2,7 +2,6 @@ import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ActivityAndHistoryService } from 'application/activity-and-history/services';
 import { applicationContext } from 'core/utils';
 import { ActivityAndHistoryListFilter } from 'application/activity-and-history/models';
-import { action } from 'mobx';
 
 @applicationContext
 class SettledPaymentTransactionViewStore extends BaseListViewStore {

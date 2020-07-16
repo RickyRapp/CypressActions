@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    BaasicButton,
-    BaasicInput,
-    BasicCheckbox,
-    BaasicDropdown,
     BasicFieldCheckbox,
     BasicInput,
     EditFormContent,

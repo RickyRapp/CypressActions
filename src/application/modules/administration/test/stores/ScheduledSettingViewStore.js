@@ -1,4 +1,3 @@
-import { action } from 'mobx'
 import { TableViewStore, BaseViewStore } from 'core/stores';
 import { AdministrationService } from 'application/administration/test/services';
 import { applicationContext } from 'core/utils';
@@ -22,7 +21,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 }
             ],
             actions: {
-                onRun: (task) => this.runTask(task)
+                onRun: async (task) => {
+                    this.tableStore.suspend();
+                    await this.service.runTask(task)
+                    this.tableStore.resume();
+                }
             }
         });
 
@@ -72,19 +75,17 @@ class ScheduledSettingViewStore extends BaseViewStore {
             {
                 name: 'Process charity update file',
                 description: `Downloads files from IRS (https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf) 
-                                and import/update all charities in database.`,
+                                and import in temp table from which later will charities be imported/updated.`,
                 abrv: 'charity-update-file'
+            },
+            {
+                name: 'Process update charity with charity from file',
+                description: `Updates/insert charities from temp table (charities from files)`,
+                abrv: 'update-charity-with-charity-from-file'
             }
         ];
 
         this.tableStore.setData(data)
-    }
-
-    @action.bound
-    async runTask(abrv) {
-        this.tableStore.suspend();
-        await this.service.runTask(abrv)
-        this.tableStore.resume();
     }
 }
 

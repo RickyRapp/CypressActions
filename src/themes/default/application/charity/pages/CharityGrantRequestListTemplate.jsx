@@ -13,7 +13,7 @@ import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageNavigation } from 'core/layouts';
 import { CharityGrantRequestCreate } from 'application/charity/pages';
 
-const CharityGrantRequestListTemplate = function ({ charityGrantRequestViewStore, t }) {
+const CharityGrantRequestListTemplate = function ({ charityGrantRequestViewStore }) {
     const {
         tableStore,
         routes,

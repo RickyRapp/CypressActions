@@ -21,7 +21,7 @@ class SessionScanRouteService extends BaseRouteService {
         return super.find(this.base + '/step3/{key}/{id}', resource);
     }
 
-    setConnectionId(resource) {
+    setConnectionId() {
         return super.create(this.base + '/step3-set-connection');
     }
 

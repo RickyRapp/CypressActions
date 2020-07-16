@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, ListContent } from 'core/components';
-import { Content } from 'core/layouts';
 
-const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore, t }) {
+const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore }) {
     const {
         tableStore,
         authorization
@@ -24,7 +23,7 @@ const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore
 
 InvestmentPoolHistoryTemplate.propTypes = {
     investmentPoolHistoryViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func
 };
 
 export default defaultTemplate(InvestmentPoolHistoryTemplate);

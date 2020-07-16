@@ -67,7 +67,8 @@ const ReviewCertificateTemplate = function ({ reviewCertificateViewStore, t }) {
 };
 
 ReviewCertificateTemplate.propTypes = {
-    reviewCertificateViewStore: PropTypes.object.isRequired
+    reviewCertificateViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func
 };
 
 export default defaultTemplate(ReviewCertificateTemplate);

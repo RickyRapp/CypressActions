@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { observable } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { InvestmentPoolHistoryService } from 'application/investment/services';
 import { applicationContext } from 'core/utils';

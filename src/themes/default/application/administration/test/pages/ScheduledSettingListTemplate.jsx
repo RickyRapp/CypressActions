@@ -17,6 +17,7 @@ function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
                 <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}
+                    loading={tableStore.loading}
                 />
             </div>
         </Content>

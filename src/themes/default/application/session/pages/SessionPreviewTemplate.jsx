@@ -6,7 +6,6 @@ import {
 } from 'core/components';
 import { PreviewLayout } from 'core/layouts';
 import _ from 'lodash'
-import { charityFormatter } from 'core/utils';
 
 function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
     const {

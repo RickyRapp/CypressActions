@@ -11,7 +11,7 @@ import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { Content } from 'core/layouts';
 import { BankCreate } from 'application/administration/bank/components';
 
-const BankListTemplate = function ({ bankViewStore, t }) {
+const BankListTemplate = function ({ bankViewStore }) {
     const {
         tableStore,
         routes,
