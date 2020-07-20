@@ -8,7 +8,7 @@ import { defaultTemplate } from 'core/hoc';
 class AccountSettingsPreview extends Component {
     render() {
         const { item,
-            isPremiumAccount,
+            isPrivateAccount,
             t
         } = this.props;
 
@@ -88,7 +88,7 @@ class AccountSettingsPreview extends Component {
                                 format={{ type: 'boolean', value: 'yes-no' }}
                             />}
                     </div>
-                    {isPremiumAccount &&
+                    {isPrivateAccount &&
                         <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                             <label className="form__group__label">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.EXTRA_BOOKLET_PERCENTAGE_LABEL')}</label>
                             {item &&
@@ -107,7 +107,7 @@ class AccountSettingsPreview extends Component {
 AccountSettingsPreview.propTypes = {
     form: PropTypes.object.isRequired,
     t: PropTypes.func,
-    isPremiumAccount: PropTypes.bool,
+    isPrivateAccount: PropTypes.bool,
     show: PropTypes.bool,
     onChangeShow: PropTypes.func,
     item: PropTypes.object

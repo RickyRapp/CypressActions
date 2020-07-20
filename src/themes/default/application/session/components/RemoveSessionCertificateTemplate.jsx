@@ -16,7 +16,7 @@ const RemoveSessionCertificateTemplate = function ({ removeSessionCertificateVie
         contentLoading,
         form,
         certificateStatusDropdownStore,
-        isPremium,
+        isPrivate,
         certificateValue,
         certificateFeeValue
     } = removeSessionCertificateViewStore;
@@ -30,13 +30,13 @@ const RemoveSessionCertificateTemplate = function ({ removeSessionCertificateVie
 
                 <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.LIST.REMOVE_SESSION_CERTIFICATE')}</h3>
                 <div className="row">
-                    {isPremium ?
+                    {isPrivate ?
                         <React.Fragment>
                             <div className="form__group col col-lrg-12">
-                                <h5>{t('SESSION.EDIT.LIST.REMOVE_PREMIUM_SESSION_CERTIFICATE')}</h5>
+                                <h5>{t('SESSION.EDIT.LIST.REMOVE_PRIVATE_SESSION_CERTIFICATE')}</h5>
                             </div>
                             <div className="form__group col col-lrg-12">
-                                {t('SESSION.EDIT.LIST.PREMIUM_REFUND_MESSAGE')}
+                                {t('SESSION.EDIT.LIST.PRIVATE_REFUND_MESSAGE')}
                             </div>
                             <div className="form__group col col-lrg-12">
                                 <ul>

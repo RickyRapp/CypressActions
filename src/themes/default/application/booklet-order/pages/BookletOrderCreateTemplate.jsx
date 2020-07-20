@@ -126,8 +126,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             {t('BOOKLET_ORDER.CREATE.TOTAL_WITH_FEE')} ${totalAndFee.totalWithFee}
                             {deliveryMethodTypeDropdownStore.value && deliveryMethodTypeDropdownStore.value.abrv === 'express-mail' &&
                                 <span>{t('BOOKLET_ORDER.CREATE.EXPRESS_MAIL_FEE')}</span>}
-                            {donor && donor.accountType.abrv === 'premium' &&
-                                <div>{t('BOOKLET_ORDER.CREATE.PREMIUM_FEE_APPLIED')}</div>}
+                            {donor && donor.accountType.abrv === 'private' &&
+                                <div>{t('BOOKLET_ORDER.CREATE.PRIVATE_FEE_APPLIED')}</div>}
                         </div>
                     </div>
                 </div>

@@ -33,22 +33,22 @@ class RemoveSessionCertificateViewStore extends BaseEditViewStore {
         this.bookletOrder = sessionCertificate.certificate.booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder;
         this.denominationType = sessionCertificate.certificate.booklet.denominationType;
         this.sessionCertificate = sessionCertificate;
-        this.isPremium = this.bookletOrder.accountType.abrv === 'premium';
+        this.isPrivate = this.bookletOrder.accountType.abrv === 'private';
 
         this.certificateValue = null;
         this.certificateFeeValue = null;
-        if (this.isPremium) {
+        if (this.isPrivate) {
             if (this.denominationType.abrv === 'blank') {
                 this.certificateValue = sessionCertificate.blankCertificateValue;
             }
             else {
                 this.certificateValue = this.denominationType.value;
             }
-            this.certificateFeeValue = Number((this.certificateValue * sessionCertificate.premiumFeeCharge).toFixed(2))
+            this.certificateFeeValue = Number((this.certificateValue * sessionCertificate.privateFeeCharge).toFixed(2))
         }
         else {
             this.certificateValue = this.denominationType.value;
-            this.certificateFeeValue = Number((this.certificateValue * this.bookletOrder.basicFeeCharge).toFixed(2))
+            this.certificateFeeValue = Number((this.certificateValue * this.bookletOrder.regularFeeCharge).toFixed(2))
         }
 
         this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {

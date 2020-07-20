@@ -80,8 +80,8 @@ class DonorCreateViewStore extends BaseEditViewStore {
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 onChange: (accountTypeId) => {
-                    this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'premium' }).id);
-                    this.form.$('extraBookletPercentage').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'premium' }).id);
+                    this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'private' }).id);
+                    this.form.$('extraBookletPercentage').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'private' }).id);
                     this.setFormDefaultValues();
                 }
             });
@@ -109,10 +109,10 @@ class DonorCreateViewStore extends BaseEditViewStore {
             ]);
 
             if (!this.form.$('accountTypeId').value) {
-                this.form.$('accountTypeId').set(_.find(this.accountTypes, { abrv: 'basic' }).id);
+                this.form.$('accountTypeId').set(_.find(this.accountTypes, { abrv: 'regular' }).id);
                 this.form.$('blankBookletMaxAmount').setRequired(false);
                 this.form.$('extraBookletPercentage').setRequired(false);
-                this.accountTypeDropdownStore.setValue(_.find(this.accountTypes, { abrv: 'basic' }))
+                this.accountTypeDropdownStore.setValue(_.find(this.accountTypes, { abrv: 'regular' }))
             }
 
             await this.fetch([
@@ -198,25 +198,25 @@ class DonorCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async setFormDefaultValues() {
-        if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'basic' }).id) {
-            this.form.$('lineOfCredit').set(this.applicationDefaultSetting.basicLineOfCreditAmount);
-            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.basicMinimumInitialContributionAmount);
-            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.basicMinimumAdditionalContributionAmount);
-            this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.basicMinimumGrantAmount);
-            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.basicGrantFeePercentage);
-            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.basicCertificateDeductionPercentage);
-            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.basicCertificateFeePercentage);
+        if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'regular' }).id) {
+            this.form.$('lineOfCredit').set(this.applicationDefaultSetting.regularLineOfCreditAmount);
+            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.regularMinimumInitialContributionAmount);
+            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.regularMinimumAdditionalContributionAmount);
+            this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.regularMinimumGrantAmount);
+            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.regularGrantFeePercentage);
+            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.regularCertificateDeductionPercentage);
+            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.regularCertificateFeePercentage);
         }
-        else if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'premium' }).id) {
-            this.form.$('lineOfCredit').set(this.applicationDefaultSetting.premiumLineOfCreditAmount);
-            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.premiumMinimumInitialContributionAmount);
-            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.premiumMinimumAdditionalContributionAmount);
-            this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.premiumMinimumGrantAmount);
-            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.premiumGrantFeePercentage);
-            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.premiumCertificateDeductionPercentage);
-            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.premiumCertificateFeePercentage);
+        else if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'private' }).id) {
+            this.form.$('lineOfCredit').set(this.applicationDefaultSetting.privateLineOfCreditAmount);
+            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.privateMinimumInitialContributionAmount);
+            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.privateMinimumAdditionalContributionAmount);
+            this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.privateMinimumGrantAmount);
+            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.privateGrantFeePercentage);
+            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.privateCertificateDeductionPercentage);
+            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.privateCertificateFeePercentage);
             this.form.$('extraBookletPercentage').set(this.applicationDefaultSetting.extraBookletPercentage);
-            this.form.$('notificationLimitRemainderAmount').set(this.applicationDefaultSetting.premiumNotificationLimitRemainderAmount);
+            this.form.$('notificationLimitRemainderAmount').set(this.applicationDefaultSetting.privateNotificationLimitRemainderAmount);
             this.form.$('blankBookletMaxAmount').set(this.applicationDefaultSetting.blankBookletMaxAmount);
         }
     }

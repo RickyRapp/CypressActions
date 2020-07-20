@@ -32,7 +32,7 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
         onChangeLoginShow
     } = donorCreateViewStore;
 
-    const isPremium = accountTypeDropdownStore.value && accountTypeDropdownStore.value.abrv === 'premium';
+    const isPrivate = accountTypeDropdownStore.value && accountTypeDropdownStore.value.abrv === 'private';
 
     return (
         <Page loading={loaderStore.loading} >
@@ -76,11 +76,11 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                                     <div className="form__group col col-lrg-3">
                                         <BasicInput field={form.$('howDidYouHearAboutUsDescription')} />
                                     </div>
-                                    {isPremium &&
+                                    {isPrivate &&
                                         <div className="form__group col col-lrg-3">
                                             <NumericInputField field={form.$('notificationLimitRemainderAmount')} />
                                         </div>}
-                                    {isPremium &&
+                                    {isPrivate &&
                                         <div className="form__group col col-lrg-3">
                                             <NumericInputField field={form.$('blankBookletMaxAmount')} />
                                         </div>}
@@ -89,7 +89,7 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                             <div className="u-mar--bottom--sml">
                                 <AuthAccountSettingsPartialFormContent
                                     form={form}
-                                    isPremiumAccount={isPremium}
+                                    isPrivateAccount={isPrivate}
                                     authorization='theDonorsFundAdministrationSection.update'
                                     show={accountSettingsShow}
                                     onChangeShow={onChangeAccountSettingsShow}

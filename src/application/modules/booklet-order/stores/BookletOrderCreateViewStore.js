@@ -103,7 +103,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     setFormDefaults() {
         this.form.$('donorId').set('value', this.donorId);
         this.form.$('checkOrderUrl').set('value', `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`)
-        if (this.donor.accountType.abrv === 'basic') {
+        if (this.donor.accountType.abrv === 'regular') {
             this.denominationTypes = _.filter(this.denominationTypes, (item) => { return item.abrv !== 'blank' });
         }
         runInAction(() => {
@@ -181,7 +181,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
         totalAndFee.total = total;
 
-        if (this.donor && this.donor.accountType.abrv === 'basic') {
+        if (this.donor && this.donor.accountType.abrv === 'regular') {
             total = total + total * (this.donor.certificateFeePercentage / 100)
         }
 

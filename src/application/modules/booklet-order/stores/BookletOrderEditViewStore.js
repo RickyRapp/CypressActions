@@ -113,7 +113,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaults() {
-        if (this.donor.accountType.abrv === 'basic') {
+        if (this.donor.accountType.abrv === 'regular') {
             this.denominationTypes = _.filter(this.denominationTypes, (item) => { return item.abrv !== 'blank' });
         }
         runInAction(() => {
@@ -191,7 +191,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
         totalAndFee.total = total;
 
-        if (this.donor && this.donor.accountType.abrvId === 'basic') {
+        if (this.donor && this.donor.accountType.abrvId === 'regular') {
             total = total + total * (this.donor.certificateFeePercentage / 100)
         }
 

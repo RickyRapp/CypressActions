@@ -25,7 +25,7 @@ function DonorGeneralDataTemplate({ donorGeneralDataEditViewStore, rootStore }) 
         permissionStore
     } = rootStore;
 
-    let isPremiumAccount = item && item.accountType.abrv === 'premium';
+    let isPrivateAccount = item && item.accountType.abrv === 'private';
 
     return (
         <div className="card--form card--primary card--med">
@@ -62,11 +62,11 @@ function DonorGeneralDataTemplate({ donorGeneralDataEditViewStore, rootStore }) 
                                 <div className="form__group col col-lrg-3">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
-                                {isPremiumAccount &&
+                                {isPrivateAccount &&
                                     <div className="form__group col col-lrg-3">
                                         <NumericInputField field={form.$('notificationLimitRemainderAmount')} />
                                     </div>}
-                                {isPremiumAccount &&
+                                {isPrivateAccount &&
                                     <div className="form__group col col-lrg-3">
                                         <NumericInputField field={form.$('blankBookletMaxAmount')} />
                                     </div>}
@@ -78,14 +78,14 @@ function DonorGeneralDataTemplate({ donorGeneralDataEditViewStore, rootStore }) 
                                     {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') ?
                                         <AccountSettingsPartialForm
                                             form={form}
-                                            isPremiumAccount={isPremiumAccount}
+                                            isPrivateAccount={isPrivateAccount}
                                             show={accountSettingsShow}
                                             onChangeShow={onChangeAccountSettingsShow}
                                         />
                                         :
                                         <AccountSettingsPreview
                                             item={item}
-                                            isPremiumAccount={isPremiumAccount}
+                                            isPrivateAccount={isPrivateAccount}
                                         />
                                     }
                                 </React.Fragment>}

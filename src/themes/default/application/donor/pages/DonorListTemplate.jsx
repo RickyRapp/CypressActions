@@ -47,10 +47,10 @@ const DonorListTemplate = function ({ donorViewStore }) {
                         <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
                             {accountTypes &&
                                 <NullableSwitch
-                                    value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'basic' }).id}
-                                    onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'basic' : 'premium' }).id}
-                                    yesLabel='DONOR.LIST.FILTER.BASIC_PLACEHOLDER'
-                                    noLabel='DONOR.LIST.FILTER.PREMIUM_PLACEHOLDER'
+                                    value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'regular' }).id}
+                                    onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'regular' : 'private' }).id}
+                                    yesLabel='DONOR.LIST.FILTER.REGULAR_PLACEHOLDER'
+                                    noLabel='DONOR.LIST.FILTER.PRIVATE_PLACEHOLDER'
                                 />}
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">

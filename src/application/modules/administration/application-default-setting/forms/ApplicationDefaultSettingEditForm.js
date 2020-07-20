@@ -26,9 +26,9 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'basicCertificateDeductionPercentage',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_CERTIFICATE_DEDUCTION_PERCENTAGE_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_CERTIFICATE_DEDUCTION_PERCENTAGE_PLACEHOLDER',
+                    name: 'regularCertificateDeductionPercentage',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_CERTIFICATE_DEDUCTION_PERCENTAGE_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_CERTIFICATE_DEDUCTION_PERCENTAGE_PLACEHOLDER',
                     rules: 'required|numeric|min:0|max:1',
                     extra: {
                         type: 'p2',
@@ -36,9 +36,9 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'basicCertificateFeePercentage',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_CERTIFICATE_FEE_PERCENTAGE_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_CERTIFICATE_FEE_PERCENTAGE_PLACEHOLDER',
+                    name: 'regularCertificateFeePercentage',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_CERTIFICATE_FEE_PERCENTAGE_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_CERTIFICATE_FEE_PERCENTAGE_PLACEHOLDER',
                     rules: 'required|numeric|min:0|max:1',
                     extra: {
                         type: 'p2',
@@ -46,9 +46,9 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'premiumCertificateDeductionPercentage',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_CERTIFICATE_DEDUCTION_PERCENTAGE_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_CERTIFICATE_DEDUCTION_PERCENTAGE_PLACEHOLDER',
+                    name: 'privateCertificateDeductionPercentage',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_CERTIFICATE_DEDUCTION_PERCENTAGE_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_CERTIFICATE_DEDUCTION_PERCENTAGE_PLACEHOLDER',
                     rules: 'required|numeric|min:0|max:1',
                     extra: {
                         type: 'p2',
@@ -56,9 +56,9 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'premiumCertificateFeePercentage',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_CERTIFICATE_FEE_PERCENTAGE_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_CERTIFICATE_FEE_PERCENTAGE_PLACEHOLDER',
+                    name: 'privateCertificateFeePercentage',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_CERTIFICATE_FEE_PERCENTAGE_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_CERTIFICATE_FEE_PERCENTAGE_PLACEHOLDER',
                     rules: 'required|numeric|min:0|max:1',
                     extra: {
                         type: 'p2',
@@ -66,9 +66,9 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'basicGrantFeePercentage',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_GRANT_FEE_PERCENTAGE_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_GRANT_FEE_PERCENTAGE_PLACEHOLDER',
+                    name: 'regularGrantFeePercentage',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_GRANT_FEE_PERCENTAGE_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_GRANT_FEE_PERCENTAGE_PLACEHOLDER',
                     rules: 'required|numeric|min:0|max:1',
                     extra: {
                         type: 'p2',
@@ -76,9 +76,9 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'premiumGrantFeePercentage',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_GRANT_FEE_PERCENTAGE_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_GRANT_FEE_PERCENTAGE_PLACEHOLDER',
+                    name: 'privateGrantFeePercentage',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_GRANT_FEE_PERCENTAGE_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_GRANT_FEE_PERCENTAGE_PLACEHOLDER',
                     rules: 'required|numeric|min:0|max:1',
                     extra: {
                         type: 'p2',
@@ -86,90 +86,90 @@ export default class ApplicationDefaultSettingEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'basicLineOfCreditAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_LINE_OF_CREDIT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_LINE_OF_CREDIT_PLACEHOLDER',
+                    name: 'regularLineOfCreditAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_LINE_OF_CREDIT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_LINE_OF_CREDIT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'premiumLineOfCreditAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_LINE_OF_CREDIT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_LINE_OF_CREDIT_PLACEHOLDER',
+                    name: 'privateLineOfCreditAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_LINE_OF_CREDIT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_LINE_OF_CREDIT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'basicMinimumAdditionalContributionAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
+                    name: 'regularMinimumAdditionalContributionAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'premiumMinimumAdditionalContributionAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
+                    name: 'privateMinimumAdditionalContributionAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'basicMinimumInitialContributionAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
+                    name: 'regularMinimumInitialContributionAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'premiumMinimumInitialContributionAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
+                    name: 'privateMinimumInitialContributionAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'basicMinimumGrantAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_MINIMUM_GRANT_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_MINIMUM_GRANT_AMOUNT_PLACEHOLDER',
+                    name: 'regularMinimumGrantAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_MINIMUM_GRANT_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_MINIMUM_GRANT_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'premiumMinimumGrantAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_MINIMUM_GRANT_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_MINIMUM_GRANT_AMOUNT_PLACEHOLDER',
+                    name: 'privateMinimumGrantAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_MINIMUM_GRANT_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_MINIMUM_GRANT_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'basicNotificationLimitRemainderAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.BASIC_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_PLACEHOLDER',
+                    name: 'regularNotificationLimitRemainderAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.REGULAR_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }
                 },
                 {
-                    name: 'premiumNotificationLimitRemainderAmount',
-                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_LABEL',
-                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PREMIUM_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_PLACEHOLDER',
+                    name: 'privateNotificationLimitRemainderAmount',
+                    label: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_LABEL',
+                    placeholder: 'APPLICATION_DEFAULT_SETTING.EDIT.FIELDS.PRIVATE_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'

@@ -9,7 +9,7 @@ import { defaultTemplate } from 'core/hoc';
 
 class AccountSettingsPartialForm extends Component {
     render() {
-        const { form, t, isPremiumAccount, show, onChangeShow } = this.props;
+        const { form, t, isPrivateAccount, show, onChangeShow } = this.props;
         return (
             <React.Fragment>
                 <h3 className="u-mar--bottom--med">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.TITLE')}
@@ -47,7 +47,7 @@ class AccountSettingsPartialForm extends Component {
                         <div className="form__group col col-lrg-3">
                             <BasicFieldCheckbox field={form.$('isInitialContributionDone')} />
                         </div>
-                        {isPremiumAccount &&
+                        {isPrivateAccount &&
                             <React.Fragment>
                                 <div className="form__group col col-lrg-3">
                                     <NumericInputField field={form.$('extraBookletPercentage')} />
@@ -63,7 +63,7 @@ class AccountSettingsPartialForm extends Component {
 AccountSettingsPartialForm.propTypes = {
     form: PropTypes.object.isRequired,
     t: PropTypes.func,
-    isPremiumAccount: PropTypes.bool,
+    isPrivateAccount: PropTypes.bool,
     show: PropTypes.bool,
     onChangeShow: PropTypes.func,
 };

@@ -125,13 +125,13 @@ class TestEmailCreateViewStore extends BaseEditViewStore {
 
         this.setAllCustom = () => {
             this.paymentTypeDropdownStore.setValue(_.find(this.paymentTypeDropdownStore.items, { abrv: 'check' }));
-            this.accountTypeDropdownStore.setValue(_.find(this.accountTypeDropdownStore.items, { abrv: 'basic' }));
+            this.accountTypeDropdownStore.setValue(_.find(this.accountTypeDropdownStore.items, { abrv: 'regular' }));
             this.deliveryMethodTypeDropdownStore.setValue(_.find(this.deliveryMethodTypeDropdownStore.items, { abrv: 'mail-usps' }));
             this.form.$('name').set('Hugh Marks');
             this.form.$('amount').set(150);
             this.form.$('confirmationNumber').set('456789');
             this.form.$('paymentTypeId').set(_.find(this.paymentTypeDropdownStore.items, { abrv: 'check' }).id);
-            this.form.$('accountTypeId').set(_.find(this.accountTypeDropdownStore.items, { abrv: 'basic' }).id);
+            this.form.$('accountTypeId').set(_.find(this.accountTypeDropdownStore.items, { abrv: 'regular' }).id);
             this.form.$('deliveryMethodTypeId').set(_.find(this.deliveryMethodTypeDropdownStore.items, { abrv: 'mail-usps' }).id);
         }
     }

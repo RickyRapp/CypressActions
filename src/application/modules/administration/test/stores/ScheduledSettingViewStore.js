@@ -62,7 +62,7 @@ class ScheduledSettingViewStore extends BaseViewStore {
             },
             {
                 name: 'Send low balance remainder',
-                description: `Sends low balance remainder email to premium donors which are not new (15 days or older), initial contribution 
+                description: `Sends low balance remainder email to private donors which are not new (15 days or older), initial contribution 
                                 must be done, at lease one contribution funded, low balance amount greater than present balance, day before 
                                 present balance must be greater than low balance amount OR if we didn't sent notification already.`,
                 abrv: 'process-low-balance-remainder'
