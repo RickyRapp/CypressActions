@@ -11,11 +11,11 @@ const FundTransferCreateTemplate = function ({ fundTransferCreateViewStore, t })
     const {
         contentLoading,
         form,
-        senderDonorAccountDropdownStore,
-        recipientDonorAccountDropdownStore,
+        senderDonorDropdownStore,
+        recipientDonorDropdownStore,
         onChangeAmount,
-        senderDonorAccount,
-        recipientDonorAccount,
+        senderDonor,
+        recipientDonor,
         setErrorInsuficientFunds
     } = fundTransferCreateViewStore;
 
@@ -26,24 +26,24 @@ const FundTransferCreateTemplate = function ({ fundTransferCreateViewStore, t })
                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                                <BaasicFieldDropdown field={form.$('senderDonorAccountId')} store={senderDonorAccountDropdownStore} />
+                                <BaasicFieldDropdown field={form.$('senderDonorId')} store={senderDonorDropdownStore} />
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                                <BaasicFieldDropdown field={form.$('recipientDonorAccountId')} store={recipientDonorAccountDropdownStore} />
+                                <BaasicFieldDropdown field={form.$('recipientDonorId')} store={recipientDonorDropdownStore} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                                {senderDonorAccount &&
+                                {senderDonor &&
                                     <React.Fragment>
-                                        <span>{senderDonorAccount.donorName}: ${senderDonorAccount.presentBalance}</span>
+                                        <span>{senderDonor.donorName}: ${senderDonor.presentBalance}</span>
                                         {setErrorInsuficientFunds &&
                                             <div className="type--med type--color--error u-mar--top--tny">{t('FUND_TRANSFER.CREATE.INSUFICIENT_FUNDS_MESSAGE')}</div>}
                                     </React.Fragment>}
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                                {recipientDonorAccount &&
-                                    <span>{recipientDonorAccount.donorName}: ${recipientDonorAccount.presentBalance}</span>}
+                                {recipientDonor &&
+                                    <span>{recipientDonor.donorName}: ${recipientDonor.presentBalance}</span>}
                             </div>
                         </div>
                         <div className="row">

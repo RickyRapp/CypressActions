@@ -38,7 +38,7 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                         <div className="form__group__label">{t('SESSION.EDIT.BLANK_BOOKLET_MAX_AMOUNT')}</div>
                         <span className="input--preview">
                             <FormatterResolver
-                                item={{ blankBookletMaxAmount: sessionCertificate.certificate.booklet.donorAccount.blankBookletMaxAmount }}
+                                item={{ blankBookletMaxAmount: sessionCertificate.certificate.booklet.donor.blankBookletMaxAmount }}
                                 field='blankBookletMaxAmount'
                                 format={{ type: 'currency' }}
                             />

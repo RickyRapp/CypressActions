@@ -8,7 +8,7 @@ const GrantDetailTemplate = function ({ item, t }) {
             <div className="col col-sml-5 col-lrg-5">
                 <label className="form__group__label">{t('DONOR')}</label>
                 <span className={"input input--med input--text input--disabled"}>
-                    {item.donorAccount.donorName}
+                    {item.donor.donorName}
                 </span>
             </div>
             <div className="col col-sml-5 col-lrg-5">

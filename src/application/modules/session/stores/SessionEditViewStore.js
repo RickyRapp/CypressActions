@@ -38,7 +38,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                                 'sessionCertificates.certificate',
                                 'sessionCertificates.certificate.certificateStatus',
                                 'sessionCertificates.certificate.booklet',
-                                'sessionCertificates.certificate.booklet.donorAccount',
+                                'sessionCertificates.certificate.booklet.donor',
                                 'sessionCertificates.certificate.booklet.denominationType',
                                 'sessionCertificates.certificate.booklet.bookletOrderItemBooklets',
                                 'sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',

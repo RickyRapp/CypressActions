@@ -62,7 +62,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount(),
+                this.fetchDonor(),
                 this.fetchGrantScheduleTypes(),
                 this.fetchApplicationDefaultSetting(),
                 this.fetchFeeTypes()
@@ -81,10 +81,10 @@ class GrantCreateViewStore extends GrantBaseViewStore {
 
     @action.bound
     setFormDefaultValues() {
-        this.form.$('donorAccountId').set(this.donorAccountId);
-        this.form.$('accountTypeId').set(this.donorAccount.accountTypeId);
+        this.form.$('donorId').set(this.donorId);
+        this.form.$('accountTypeId').set(this.donor.accountTypeId);
 
-        this.donorName = this.donorAccount.donorName;
+        this.donorName = this.donor.donorName;
     }
 
     @action.bound

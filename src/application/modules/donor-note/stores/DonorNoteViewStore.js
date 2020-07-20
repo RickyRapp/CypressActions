@@ -24,7 +24,7 @@ class DonorNoteViewStore extends BaseListViewStore {
     constructor(rootStore, { id }) {
         const service = new DonorNoteService(rootStore.application.baasic.apiClient);
         let filter = new DonorNoteListFilter('dateCreated', 'desc')
-        filter.donorAccountId = id;
+        filter.donorId = id;
 
         super(rootStore, {
             name: 'donor-note',
@@ -35,7 +35,7 @@ class DonorNoteViewStore extends BaseListViewStore {
                 filter: filter,
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.donorId = id;
                 }
             },
             actions: () => {
@@ -43,9 +43,9 @@ class DonorNoteViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'createdByCoreUser',
-                            'donorAccount',
-                            'donorAccount.coreUser',
-                            'donorAccount.companyProfile'
+                            'donor',
+                            'donor.coreUser',
+                            'donor.companyProfile'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -55,7 +55,7 @@ class DonorNoteViewStore extends BaseListViewStore {
         });
 
         this.service = service;
-        this.form.$('donorAccountId').set(id);
+        this.form.$('donorId').set(id);
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [

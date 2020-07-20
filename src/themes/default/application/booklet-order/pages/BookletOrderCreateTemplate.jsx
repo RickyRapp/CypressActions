@@ -9,7 +9,7 @@ import {
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { renderIf } from 'core/utils';
-import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
+import { DonorPageHeaderOverview } from 'application/donor/components';
 import _ from 'lodash';
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
@@ -28,13 +28,13 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         denominationError,
         mostCommonDenominations,
         totalAndFee,
-        donorAccount,
-        donorAccountId
+        donor,
+        donorId
     } = store;
 
     return (
         <ApplicationEditLayout store={store}>
-            <AuthPageHeader donorAccountId={donorAccountId} type={3} authorization='theDonorsFundAdministrationSection.read' />
+            <AuthPageHeader donorId={donorId} type={3} authorization='theDonorsFundAdministrationSection.read' />
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <div className="row">
@@ -126,7 +126,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             {t('BOOKLET_ORDER.CREATE.TOTAL_WITH_FEE')} ${totalAndFee.totalWithFee}
                             {deliveryMethodTypeDropdownStore.value && deliveryMethodTypeDropdownStore.value.abrv === 'express-mail' &&
                                 <span>{t('BOOKLET_ORDER.CREATE.EXPRESS_MAIL_FEE')}</span>}
-                            {donorAccount && donorAccount.accountType.abrv === 'premium' &&
+                            {donor && donor.accountType.abrv === 'premium' &&
                                 <div>{t('BOOKLET_ORDER.CREATE.PREMIUM_FEE_APPLIED')}</div>}
                         </div>
                     </div>
@@ -136,7 +136,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
     )
 };
 
-const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
+const AuthPageHeader = withAuth(DonorPageHeaderOverview);
 
 BookletOrderCreateTemplate.propTypes = {
     store: PropTypes.object.isRequired,

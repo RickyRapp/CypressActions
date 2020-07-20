@@ -17,7 +17,7 @@ class GroupedDonationListFilter extends FilterParams {
     @action.bound
     reset() {
         super.reset();
-        this.donorAccountId = null;
+        this.donorId = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.countRangeMin = null;

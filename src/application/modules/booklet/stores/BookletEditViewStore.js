@@ -57,9 +57,9 @@ class BookletEditViewStore extends BaseViewStore {
                 'certificates',
                 'certificates.certificateStatus',
                 'denominationType',
-                'donorAccount',
-                'donorAccount.coreUser',
-                'donorAccount.companyProfile',
+                'donor',
+                'donor.coreUser',
+                'donor.companyProfile',
                 'createdByCoreUser',
                 'denominationType'
             ]

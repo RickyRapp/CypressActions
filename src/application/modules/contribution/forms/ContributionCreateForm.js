@@ -14,7 +14,7 @@ export default class ContributionCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'donorAccountId',
+                    name: 'donorId',
                     rules: 'required|string'
                 },
                 {

@@ -7,8 +7,8 @@ class AddressService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    createDonorAccountAddress(resource) {
-        const url = this.routeService.createDonorAccountAddress(resource);
+    createDonorAddress(resource) {
+        const url = this.routeService.createDonorAddress(resource);
         return this.apiClient.post(url, resource);
     }
 

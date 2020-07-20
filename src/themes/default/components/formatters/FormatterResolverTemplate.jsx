@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { defaultTemplate } from 'core/hoc';
 import { Date, Address } from 'core/components';
-import { donorAccountFormatter, charityFormatter } from 'core/utils';
+import { donorFormatter, charityFormatter } from 'core/utils';
 import NumberFormat from 'react-number-format';
 
 function FormatterResolver({ item, field, format }) {
@@ -100,7 +100,7 @@ function FormatterResolver({ item, field, format }) {
         case 'number-format':
             return <NumberFormat value={_.get(item, field)} format={format.value} displayType='text' />;
         case 'donor-name':
-            return donorAccountFormatter.format(_.get(item, field), format)
+            return donorFormatter.format(_.get(item, field), format)
         case 'created-by': {
             const coreUser = _.get(item, field);
             switch (format.value) {

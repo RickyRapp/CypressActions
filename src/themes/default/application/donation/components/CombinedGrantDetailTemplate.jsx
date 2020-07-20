@@ -9,7 +9,7 @@ const CombinedGrantDetailTemplate = function ({ items, editGrant }) {
     const tableStore = new TableViewStore(null, {
         columns: [
             {
-                key: 'donorAccount.donorName',
+                key: 'donor.donorName',
                 title: 'DONATION.LIST.COLUMNS.DONATION_TYPE_NAME_LABEL',
             },
             {
@@ -30,7 +30,7 @@ const CombinedGrantDetailTemplate = function ({ items, editGrant }) {
             }
         ],
         actions: {
-            onEdit: (item) => editGrant(item.donorAccountId, item.id)
+            onEdit: (item) => editGrant(item.donorId, item.id)
         },
     });
 

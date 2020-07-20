@@ -14,7 +14,7 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
-import { SelectDonor } from 'application/donor-account/components';
+import { SelectDonor } from 'application/donor/components';
 
 const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     const {
@@ -23,7 +23,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
         queryUtility,
         authorization,
         selectDonorModal,
-        searchDonorAccountDropdownStore,
+        searchDonorDropdownStore,
         deliveryMethodTypeDropdownStore,
         bookletOrderStatusDropdownStore,
         dateCreatedDateRangeQueryStore
@@ -39,7 +39,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <AuthDropdown
-                            searchDonorAccountDropdownStore={searchDonorAccountDropdownStore}
+                            searchDonorDropdownStore={searchDonorDropdownStore}
                             authorization='theDonorsFundAdministrationSection.read' />
 
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
@@ -116,16 +116,16 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 
 const AuthDropdown = withAuth(DropdownComponent);
 
-function DropdownComponent({ searchDonorAccountDropdownStore }) {
+function DropdownComponent({ searchDonorDropdownStore }) {
     return (
         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-            <BaasicDropdown store={searchDonorAccountDropdownStore} />
+            <BaasicDropdown store={searchDonorDropdownStore} />
         </div>
     );
 }
 
 DropdownComponent.propTypes = {
-    searchDonorAccountDropdownStore: PropTypes.object.isRequired
+    searchDonorDropdownStore: PropTypes.object.isRequired
 };
 
 function renderEmpty(routes) {

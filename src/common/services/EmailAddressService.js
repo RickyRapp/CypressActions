@@ -7,8 +7,8 @@ class EmailAddressService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    createDonorAccountEmailAddress(resource) {
-        const url = this.routeService.createDonorAccountEmailAddress(resource);
+    createDonorEmailAddress(resource) {
+        const url = this.routeService.createDonorEmailAddress(resource);
         return this.apiClient.post(url, resource);
     }
 

@@ -10,7 +10,7 @@ class BookletViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
         let filter = new BookletListFilter('code', 'desc')
-        filter.donorAccountId = id;
+        filter.donorId = id;
 
         super(rootStore, {
             name: 'booklet',
@@ -31,7 +31,7 @@ class BookletViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.donorId = id;
                     filter.orderBy = 'code';
                     filter.orderDirection = 'desc';
                     this.denominationTypeDropdownStore.setValue(null);
@@ -46,7 +46,7 @@ class BookletViewStore extends BaseListViewStore {
                             'denominationType',
                             'certificates',
                             'certificates.certificateStatus',
-                            'donorAccount',
+                            'donor',
                             'grantAcknowledgmentType',
                             'grantAcknowledgmentTypeByAmount',
                         ];
@@ -74,7 +74,7 @@ class BookletViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'donorAccount.donorName',
+                    key: 'donor.donorName',
                     title: 'BOOKLET.LIST.COLUMNS.ASSIGNED_TO_LABEL'
                 },
                 {

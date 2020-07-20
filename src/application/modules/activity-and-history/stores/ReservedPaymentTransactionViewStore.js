@@ -1,14 +1,14 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ActivityAndHistoryListFilter } from 'application/activity-and-history/models';
-import { DonorAccountService } from 'application/donor-account/services';
+import { DonorService } from 'application/donor/services';
 import _ from 'lodash';
 
 @applicationContext
 class ReservedPaymentTransactionViewStore extends BaseListViewStore {
-    constructor(rootStore, { donorAccountId }) {
+    constructor(rootStore, { donorId }) {
         let filter = new ActivityAndHistoryListFilter();
-        filter.donorAccountId = donorAccountId;
+        filter.donorId = donorId;
 
         super(rootStore, {
             name: 'activity-and-history',
@@ -19,15 +19,15 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 disableChangeOrder: true,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = donorAccountId;
+                    filter.donorId = donorId;
                 }
             },
             actions: () => {
-                const service = new DonorAccountService(rootStore.application.baasic.apiClient);
+                const service = new DonorService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         let options = {};
-                        if (params.donorAccountId) {
+                        if (params.donorId) {
                             options.embed = [
                                 "pendingTransactions",
                                 "pendingTransactions.paymentTransaction",
@@ -36,7 +36,7 @@ class ReservedPaymentTransactionViewStore extends BaseListViewStore {
                             options.fields = [
                                 "pendingTransactions"
                             ];
-                            const response = await service.get(params.donorAccountId, options);
+                            const response = await service.get(params.donorId, options);
                             if (response.data) {
                                 return _.orderBy(_.map(response.data.pendingTransactions, 'paymentTransaction'), ['dateCreated'], ['desc'])
                             }

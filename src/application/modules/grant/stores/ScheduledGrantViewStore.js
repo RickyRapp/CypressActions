@@ -10,7 +10,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
         let filter = new ScheduledGrantListFilter('dateCreated', 'desc')
-        filter.donorAccountId = id;
+        filter.donorId = id;
 
         const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
 
@@ -32,7 +32,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 filter: filter,
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.donorId = id;
                 }
             },
             actions: () => {
@@ -40,9 +40,9 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'createdByCoreUser',
-                            'donorAccount',
-                            'donorAccount.coreUser',
-                            'donorAccount.companyProfile',
+                            'donor',
+                            'donor.coreUser',
+                            'donor.companyProfile',
                             'charity',
                             'grantScheduleType'
                         ];
@@ -50,9 +50,9 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'id',
                             'charity',
                             'charity.name',
-                            'donorAccount',
-                            'donorAccount.id',
-                            'donorAccount.donorName',
+                            'donor',
+                            'donor.id',
+                            'donor.donorName',
                             'amount',
                             'name',
                             'grantScheduleType',
@@ -75,7 +75,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'donorAccount.donorName',
+                    key: 'donor.donorName',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
@@ -137,7 +137,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.donorAccount.id, scheduledGrant.id),
+                onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.donor.id, scheduledGrant.id),
                 onCancel: (scheduledGrant) => this.onCancel(scheduledGrant.id, scheduledGrant.name),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },

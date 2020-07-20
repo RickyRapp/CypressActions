@@ -21,7 +21,7 @@ class CharityProcessedDonationViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'grants',
-                            'grants.donorAccount',
+                            'grants.donor',
                             'charity',
                             'donationType',
                             'sessions',

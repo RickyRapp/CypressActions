@@ -52,7 +52,7 @@ class ContributionEditViewStore extends ContributionBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount(),
+                this.fetchDonor(),
                 this.getResource(this.editId)
             ]);
 

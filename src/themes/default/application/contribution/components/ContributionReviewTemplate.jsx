@@ -21,7 +21,7 @@ const ContributionReviewTemplate = function ({ contributionReviewViewStore, t })
                 <div className="form__group col col-lrg-6">
                     <div className="form__group__label">{t('CONTRIBUTION.REVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
                     <span className="input--preview">
-                        {item && item.donorAccount.donorName}
+                        {item && item.donor.donorName}
                     </span>
                 </div>
                 <div className="form__group col col-lrg-6">

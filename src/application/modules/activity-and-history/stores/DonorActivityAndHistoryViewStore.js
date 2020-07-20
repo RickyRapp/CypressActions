@@ -1,6 +1,6 @@
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
-import { applicationContext, donorAccountFormatter } from 'core/utils';
-import { DonorAccountService } from 'application/donor-account/services';
+import { applicationContext, donorFormatter } from 'core/utils';
+import { DonorService } from 'application/donor/services';
 import _ from 'lodash'
 
 @applicationContext
@@ -14,8 +14,8 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
             this.id = rootStore.routerStore.routerState.params.id;
         }
 
-        const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
-        this.donorAccountDropdownStore = new BaasicDropdownStore({
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
+        this.donorDropdownStore = new BaasicDropdownStore({
             placeholder: 'ACTIVITY_AND_HISTORY.LIST.SELECT_DONOR',
             initFetch: false,
             filterable: true,
@@ -23,26 +23,26 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
+                    const response = await donorService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ],
                         fields: [
                             'id',
                             'accountNumber',
                             'donorName',
                             'securityPin',
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ]
                     });
                     return _.map(response.data.item, x => {
                         return {
                             id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
@@ -51,17 +51,17 @@ class DonorActivityAndHistoryViewStore extends BaseViewStore {
                         const id = rootStore.routerStore.routerState.queryParams.id;
                         const params = {
                             embed: [
-                                'donorAccountAddresses'
+                                'donorAddresses'
                             ],
                             fields: [
                                 'id',
                                 'accountNumber',
                                 'donorName',
                                 'securityPin',
-                                'donorAccountAddresses'
+                                'donorAddresses'
                             ]
                         }
-                        const response = await donorAccountService.get(id, params);
+                        const response = await donorService.get(id, params);
                         return { id: response.data.id, name: response.data.donorName };
                     }
                     else {

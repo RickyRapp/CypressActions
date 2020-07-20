@@ -6,7 +6,7 @@ class BankAccountRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,page,rpp,sort,embed,searchFields}', filter);
+        return super.find(this.base + '/{?donorId,page,rpp,sort,embed,searchFields}', filter);
     }
 
     get(id, options) {
@@ -17,8 +17,8 @@ class BankAccountRouteService extends BaseRouteService {
         return super.update(this.base, resource);
     }
 
-    createDonorAccountBankAccount(resource) {
-        return super.create(this.base + '/donor-account/{donorAccountId}', resource);
+    createDonorBankAccount(resource) {
+        return super.create(this.base + '/donor/{donorId}', resource);
     }
 }
 

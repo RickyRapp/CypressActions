@@ -45,7 +45,7 @@ class EditBlankCertificateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
         });
 
-        this.form.$('blankCertificateValue').set('rules', this.form.$('blankCertificateValue').rules + '|max:' + sessionCertificate.certificate.booklet.donorAccount.blankBookletMaxAmount)
+        this.form.$('blankCertificateValue').set('rules', this.form.$('blankCertificateValue').rules + '|max:' + sessionCertificate.certificate.booklet.donor.blankBookletMaxAmount)
         this.sessionCertificate = sessionCertificate;
     }
 

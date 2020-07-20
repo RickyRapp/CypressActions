@@ -7,7 +7,7 @@ class BookletListFilter extends FilterParams {
     @observable bookletStatusIds;
     @observable codes;
     @observable denominationTypeIds;
-    @observable donorAccountId;
+    @observable donorId;
     @observable trackingNumber;
     @observable deliveryMethodTypeIds;
 

@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { FilterParams } from "core/models";
 
 class ActivityAndHistoryListFilter extends FilterParams {
-    @observable donorAccountId;
+    @observable donorId;
 
     constructor() {
         super();
@@ -12,7 +12,7 @@ class ActivityAndHistoryListFilter extends FilterParams {
     @action.bound
     reset() {
         super.reset();
-        this.donorAccountId = null;
+        this.donorId = null;
     }
 }
 

@@ -36,11 +36,11 @@ class DonationReviewViewStore extends BasePreviewViewStore {
             id: id,
             autoInit: false,
             routes: {
-                editGrant: (donorAccountId, editId) => {
+                editGrant: (donorId, editId) => {
                     this.rootStore.routerStore.goTo(
                         'master.app.main.grant.edit',
                         {
-                            id: donorAccountId,
+                            id: donorId,
                             editId: editId
                         }
                     );
@@ -74,7 +74,7 @@ class DonationReviewViewStore extends BasePreviewViewStore {
                 }
             ],
             actions: {
-                onEdit: (item) => this.routes.editGrant(item.grant.donorAccount.id, item.grant.id)
+                onEdit: (item) => this.routes.editGrant(item.grant.donor.id, item.grant.id)
             },
             actionsRender: {
                 onEditRender: (item) => item.donationType.abrv === 'grant'

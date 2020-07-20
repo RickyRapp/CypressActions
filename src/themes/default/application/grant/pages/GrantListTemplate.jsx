@@ -20,7 +20,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
         routes,
         queryUtility,
         authorization,
-        searchDonorAccountDropdownStore,
+        searchDonorDropdownStore,
         donationStatusDropdownStore,
         exportConfig
     } = grantViewStore;
@@ -30,7 +30,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                        <BaasicDropdown store={searchDonorDropdownStore} />
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicInput

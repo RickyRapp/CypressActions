@@ -21,9 +21,9 @@ class FidelityRecommendationCardViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'donorAccount',
-                            'donorAccount.coreUser',
-                            'donorAccount.companyProfile'
+                            'donor',
+                            'donor.coreUser',
+                            'donor.companyProfile'
                         ];
                         const response = await service.find(params);
                         return response.data;
@@ -41,7 +41,7 @@ class FidelityRecommendationCardViewStore extends BaseListViewStore {
                     title: 'FIDELITY_RECOMMENDATION_CARD.LIST.COLUMNS.CARD_NUMBER_LABEL'
                 },
                 {
-                    key: 'donorAccount.donorName',
+                    key: 'donor.donorName',
                     title: 'FIDELITY_RECOMMENDATION_CARD.LIST.COLUMNS.DONOR_NAME_LABEL'
                 },
                 {

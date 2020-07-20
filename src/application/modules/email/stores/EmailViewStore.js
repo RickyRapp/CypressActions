@@ -7,9 +7,9 @@ import { ModalParams } from 'core/models';
 import { action } from 'mobx';
 
 class EmailViewStore extends BaseListViewStore {
-    constructor(rootStore, donorAccountId, charityId) {
+    constructor(rootStore, donorId, charityId) {
         let filter = new EmailListFilter('dateCreated', 'desc');
-        filter.donorAccountId = donorAccountId;
+        filter.donorId = donorId;
         filter.charityId = charityId;
         const service = new EmailService(rootStore.application.baasic.apiClient);
 

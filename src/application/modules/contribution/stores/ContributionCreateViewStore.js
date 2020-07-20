@@ -7,7 +7,7 @@ import { LookupService } from 'common/services';
 import ContributionBaseViewStore from './ContributionBaseViewStore';
 import moment from 'moment';
 import _ from 'lodash'
-import { DonorAccountContributionSettingService } from 'application/donor-account/services';
+import { DonorContributionSettingService } from 'application/donor/services';
 
 @applicationContext
 class ContributionCreateViewStore extends ContributionBaseViewStore {
@@ -25,11 +25,11 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
                             !(this.contributionSettingTypeDropdownStore.value.abrv === 'one-time' &&
                                 moment(resource.settingStartDate).startOf('day').isSame(moment().startOf('day')))) {
 
-                            const contributionSettingService = new DonorAccountContributionSettingService(rootStore.application.baasic.apiClient);
+                            const contributionSettingService = new DonorContributionSettingService(rootStore.application.baasic.apiClient);
                             const contributionSetting = {
-                                donorAccountId: resource.donorAccountId,
+                                donorId: resource.donorId,
                                 amount: resource.amount,
-                                donorAccountBankAccountId: resource.bankAccountId,
+                                donorBankAccountId: resource.bankAccountId,
                                 contributionSettingTypeId: resource.contributionSettingTypeId,
                                 startDate: resource.settingStartDate,
                                 isEnabled: true
@@ -44,7 +44,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
         });
 
         this.contributionSettingTypeDropdownStore = new BaasicDropdownStore()
-        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.donorId = rootStore.routerStore.routerState.params.id;
         this.timeZone = rootStore.timeZoneStore.timeZone;
     }
 
@@ -55,7 +55,7 @@ class ContributionCreateViewStore extends ContributionBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount(),
+                this.fetchDonor(),
                 this.fetchContributionSettingTypes()
             ]);
 

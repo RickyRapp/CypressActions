@@ -7,8 +7,8 @@ class PhoneNumberService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    createDonorAccountPhoneNumber(resource) {
-        const url = this.routeService.createDonorAccountPhoneNumber(resource);
+    createDonorPhoneNumber(resource) {
+        const url = this.routeService.createDonorPhoneNumber(resource);
         return this.apiClient.post(url, resource);
     }
 

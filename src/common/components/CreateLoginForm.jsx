@@ -18,7 +18,7 @@ class CreateLoginForm extends Component {
                     <BaasicButton
                         className="btn btn--icon"
                         icon={`u-icon u-icon--${show ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
-                        label={show ? t('DONOR_ACCOUNT.CREATE.LOGIN_FORM_FIELDS.HIDE') : t('DONOR_ACCOUNT.CREATE.LOGIN_FORM_FIELDS.SHOW')}
+                        label={show ? t('DONOR.CREATE.LOGIN_FORM_FIELDS.HIDE') : t('DONOR.CREATE.LOGIN_FORM_FIELDS.SHOW')}
                         onlyIcon={true}
                         onClick={() => onChangeShow(!show)}
                     />

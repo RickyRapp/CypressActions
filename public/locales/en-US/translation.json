@@ -10,8 +10,8 @@
         "GRANT": "Grant",
         "CONTRIBUTION": "Contribution",
         "DASHBOARD": "Dashboard",
-        "DONOR_ACCOUNTS": "Donors",
-        "DONOR_ACCOUNT_EDIT": "Profile",
+        "DONORS": "Donors",
+        "DONOR_EDIT": "Profile",
         "CHARITIES": "Charities",
         "CHARITY_EDIT": "Profile",
         "CONTRIBUTIONS": "Contributions",
@@ -452,7 +452,7 @@
     "EXPORT_TYPES": "Export type",
     "EXPORT_LIMITS": "Export limit",
     "EXPORT_FIELDS": "Export fields",
-    "DONOR_ACCOUNT": {
+    "DONOR": {
         "TAB": {
             "GENERAL_DATA": "General data",
             "PERSONAL_DATA": "Personal data",
@@ -1116,8 +1116,8 @@
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
                 "CONTRIBUTION_STATUS_PLACEHOLDER": "Contribution status",
                 "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
-                "BASIC_PLACEHOLDER": "Basic",
-                "PREMIUM_PLACEHOLDER": "Premium",
+                "REGULAR_PLACEHOLDER": "Regular",
+                "PRIVATE_PLACEHOLDER": "Private",
                 "NAME_ON_CHECK_PLACEHOLDER": "Name on check",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
                 "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
@@ -1210,7 +1210,7 @@
             }
         }
     },
-    "DONOR_ACCOUNT_CONTRIBUTION_SETTING": {
+    "DONOR_CONTRIBUTION_SETTING": {
         "LIST": {
             "TITLE": "Recurring contribution settings",
             "COLUMNS": {
@@ -1219,7 +1219,7 @@
                 "START_DATE_LABEL": "Start date",
                 "NEXT_DATE_LABEL": "Next date",
                 "CONTRIBUTION_SETTING_TYPE_LABEL": "Type",
-                "DONOR_ACCOUNT_BANK_ACCOUNT_LABEL": "Bank account",
+                "DONOR_BANK_ACCOUNT_LABEL": "Bank account",
                 "ENABLED_LABEL": "Enabled"
             },
             "FILTER": {
@@ -1242,7 +1242,7 @@
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
                 "START_DATE_LABEL": "Start date",
-                "DONOR_ACCOUNT_BANK_ACCOUNT_LABEL": "Bank account",
+                "DONOR_BANK_ACCOUNT_LABEL": "Bank account",
                 "IS_ENABLED_LABEL": "Enabled?"
             }
         },
@@ -1493,10 +1493,10 @@
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
                 "AMOUNT_PLACEHOLDER": "Amount",
-                "SENDER_DONOR_ACCOUNT_LABEL": "Sender",
-                "SENDER_DONOR_ACCOUNT_PLACEHOLDER": "Sender",
-                "RECIPIENT_DONOR_ACCOUNT_LABEL": "Recipient",
-                "RECIPIENT_DONOR_ACCOUNT_PLACEHOLDER": "Recipient"
+                "SENDER_DONOR_LABEL": "Sender",
+                "SENDER_DONOR_PLACEHOLDER": "Sender",
+                "RECIPIENT_DONOR_LABEL": "Recipient",
+                "RECIPIENT_DONOR_PLACEHOLDER": "Recipient"
             }
         }
     },
@@ -2285,7 +2285,7 @@
             }
         }
     },
-    "DONOR_ACCOUNT_INVESTMENT": {
+    "DONOR_INVESTMENT": {
         "LIST": {
             "BUTTON": {
                 "INVEST": "Invest",

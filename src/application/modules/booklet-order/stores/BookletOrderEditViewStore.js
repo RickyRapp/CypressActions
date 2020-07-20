@@ -3,7 +3,7 @@ import { BookletOrderEditForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletOrderService } from 'application/booklet-order/services';
-import { DonorAccountService } from 'application/donor-account/services';
+import { DonorService } from 'application/donor/services';
 import { LookupService } from 'common/services';
 import _ from 'lodash';
 
@@ -15,7 +15,7 @@ const ErrorType = {
 class BookletOrderEditViewStore extends BaseEditViewStore {
     @observable denominationTypes = null;
     applicationDefaultSetting = null;
-    @observable donorAccount = null;
+    @observable donor = null;
     @observable countError = null;
     @observable denominationError = null;
     @observable count = '';
@@ -69,7 +69,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
             FormClass: BookletOrderEditForm
         });
 
-        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.donorId = rootStore.routerStore.routerState.params.id;
         this.editId = rootStore.routerStore.routerState.params.editId;
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore({
             placeholder: 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_PLACEHOLDER'
@@ -97,7 +97,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount(),
+                this.fetchDonor(),
                 this.fetchApplicationDefaultSetting(),
                 this.fetchDenominationTypes()
             ]);
@@ -113,7 +113,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaults() {
-        if (this.donorAccount.accountType.abrv === 'basic') {
+        if (this.donor.accountType.abrv === 'basic') {
             this.denominationTypes = _.filter(this.denominationTypes, (item) => { return item.abrv !== 'blank' });
         }
         runInAction(() => {
@@ -122,9 +122,9 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         });
 
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-            if (!this.donorAccount.isInitialContributionDone) {
+            if (!this.donor.isInitialContributionDone) {
                 this.rootStore.notificationStore.warning('BOOKLET_ORDER.CREATE.MISSING_INITIAL_CONTRIBUTION');
-                this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorAccountId });
+                this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
             }
         }
     }
@@ -191,8 +191,8 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
         totalAndFee.total = total;
 
-        if (this.donorAccount && this.donorAccount.accountType.abrvId === 'basic') {
-            total = total + total * (this.donorAccount.certificateFeePercentage / 100)
+        if (this.donor && this.donor.accountType.abrvId === 'basic') {
+            total = total + total * (this.donor.certificateFeePercentage / 100)
         }
 
         if (this.form && this.form.has('deliveryMethodTypeId')) {
@@ -205,9 +205,9 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async fetchDonorAccount() {
-        const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.donorAccountId, {
+    async fetchDonor() {
+        const service = new DonorService(this.rootStore.application.baasic.apiClient);
+        const response = await service.get(this.donorId, {
             embed: [
                 'accountType'
             ],
@@ -220,7 +220,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
                 'accountType.abrv'
             ]
         });
-        this.donorAccount = response.data;
+        this.donor = response.data;
     }
 
     @action.bound

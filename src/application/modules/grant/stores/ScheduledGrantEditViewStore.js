@@ -18,7 +18,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
     feeTypes = null;
     @observable amountWithFee = null;
     @observable donorName = null;
-    donorAccount = null;
+    donor = null;
 
     constructor(rootStore) {
         const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
@@ -64,8 +64,8 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                                 'grantPurposeType',
                                 'charity',
                                 'grantAcknowledgmentType',
-                                'donorAccount',
-                                'donorAccount.donorAccountAddresses'
+                                'donor',
+                                'donor.donorAddresses'
                             ]
                         }
                         let response = await service.get(id, params);
@@ -207,7 +207,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                 this.rootStore.notificationStore.warning('Cannot edit scheduled grant. It already started.');
                 this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { tab: 1 });
             }
-            this.donorAccount = this.item.donorAccount;
+            this.donor = this.item.donor;
             this.grantAcknowledgmentTypeDropdownStore.onChange(this.item.grantAcknowledgmentType);
             this.grantPurposeTypeDropdownStore.onChange(this.item.grantPurposeType);
             this.grantScheduleTypeDropdownStore.setValue(this.item.grantScheduleType);
@@ -235,7 +235,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaultValues() {
-        this.form.$('donorAccountId').set(this.id);
+        this.form.$('donorId').set(this.id);
     }
 
     @action.bound

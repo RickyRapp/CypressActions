@@ -27,5 +27,5 @@ export * from './layout';
 export { default as dateFormatter } from './date/dateFormatter';
 export { default as addressFormatter } from './formatters/addressFormatter';
 export { default as charityFormatter } from './formatters/charityFormatter';
-export { default as donorAccountFormatter } from './formatters/donorAccountFormatter';
+export { default as donorFormatter } from './formatters/donorFormatter';
 export { generatePassword } from './passwordGenerator';

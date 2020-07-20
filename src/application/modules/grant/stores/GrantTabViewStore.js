@@ -5,7 +5,7 @@ import { action, observable } from 'mobx';
 
 @applicationContext
 class GrantTabViewStore extends BaseTabViewStore {
-    donorAccountId = null;
+    donorId = null;
     @observable canCreate = true;
 
     constructor(rootStore) {
@@ -44,17 +44,17 @@ class GrantTabViewStore extends BaseTabViewStore {
     }
 
     @action.bound
-    setDonorAccountId(id) {
-        this.donorAccountId = id;
+    setDonorId(id) {
+        this.donorId = id;
     }
 
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open(
             {
-                donorAccountId: this.donorAccountId,
-                onClickDonorFromFilter: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId }),
-                onChange: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
+                donorId: this.donorId,
+                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId }),
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId })
             });
     }
 }

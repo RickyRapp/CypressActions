@@ -8,7 +8,7 @@ export default class BookletOrderCreateForm extends FormBase {
     setup() {
         return {
             fields: [
-                'donorAccountId',
+                'donorId',
                 'deliveryMethodTypeId',
                 'checkOrderUrl',
                 'bookletOrderItems',
@@ -22,7 +22,7 @@ export default class BookletOrderCreateForm extends FormBase {
                 'bookletOrderItems[].denominationTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_TYPE_LABEL',
             },
             rules: {
-                'donorAccountId': 'required|string',
+                'donorId': 'required|string',
                 'checkOrderUrl': 'required|string',
                 'deliveryMethodTypeId': 'required|string',
                 'bookletOrderItems[].count': 'required|numeric|min:1|max:1000',

@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { FilterParams } from "core/models";
 
 class DonorNoteListFilter extends FilterParams {
-    @observable donorAccountId;
+    @observable donorId;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -14,7 +14,7 @@ class DonorNoteListFilter extends FilterParams {
     @action.bound
     reset() {
         super.reset();
-        this.donorAccountId = null;
+        this.donorId = null;
     }
 }
 

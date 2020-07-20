@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BaasicModal, NumericInputField, BaasicFieldDropdown } from 'core/components';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import { DonorAccountBankAccountEditForm } from 'application/donor-account/components';
+import { DonorBankAccountEditForm } from 'application/donor/components';
 import {
     AchTemplate,
     CheckTemplate,
@@ -12,7 +12,7 @@ import {
     ChaseQuickPayTemplate,
     PayerInformationTemplate
 } from 'themes/application/contribution/components';
-import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
+import { DonorPageHeaderOverview } from 'application/donor/components';
 
 const ContributionEditTemplate = function ({ contributionEditViewStore }) {
     const {
@@ -23,7 +23,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
         bankAccountModal,
         form,
         paymentTypeDropdownStore,
-        donorAccountId,
+        donorId,
         openBankAccountModal,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo,
@@ -33,7 +33,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={contributionEditViewStore}>
-                <AuthPageHeader donorAccountId={donorAccountId} type={1} authorization='theDonorsFundAdministrationSection.read' />
+                <AuthPageHeader donorId={donorId} type={1} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6">
@@ -85,7 +85,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
                 </Content>
             </ApplicationEditLayout >
             <BaasicModal modalParams={bankAccountModal}>
-                <DonorAccountBankAccountEditForm
+                <DonorBankAccountEditForm
                     useDonorContactInformations={useDonorContactInformations}
                     uploadLoading={uploadLoading}
                     image={image}
@@ -96,7 +96,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore }) {
     )
 };
 
-const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
+const AuthPageHeader = withAuth(DonorPageHeaderOverview);
 
 ContributionEditTemplate.propTypes = {
     contributionEditViewStore: PropTypes.object.isRequired

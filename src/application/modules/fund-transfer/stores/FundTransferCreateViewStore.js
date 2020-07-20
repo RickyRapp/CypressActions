@@ -1,15 +1,15 @@
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
-import { applicationContext, donorAccountFormatter } from 'core/utils';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { FundTransferCreateForm } from 'application/fund-transfer/forms';
 import { FundTransferService } from 'application/fund-transfer/services';
-import { DonorAccountService } from 'application/donor-account/services';
+import { DonorService } from 'application/donor/services';
 import _ from 'lodash';
 import { observable, action } from 'mobx';
 
 @applicationContext
 class FundTransferCreateViewStore extends BaseEditViewStore {
-    @observable recipientDonorAccount = null;
-    @observable senderDonorAccount = null;
+    @observable recipientDonor = null;
+    @observable senderDonor = null;
     @observable setErrorInsuficientFunds = null;
 
     constructor(rootStore) {
@@ -29,99 +29,99 @@ class FundTransferCreateViewStore extends BaseEditViewStore {
             FormClass: FundTransferCreateForm,
         });
 
-        const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
-        this.senderDonorAccountDropdownStore = new BaasicDropdownStore({
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
+        this.senderDonorDropdownStore = new BaasicDropdownStore({
             initFetch: false,
             filterable: true
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
+                    const response = await donorService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
-                        exceptId: this.recipientDonorAccountDropdownStore.value ? this.recipientDonorAccountDropdownStore.value.id : null,
+                        exceptId: this.recipientDonorDropdownStore.value ? this.recipientDonorDropdownStore.value.id : null,
                         embed: [
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ],
                         fields: [
                             'id',
                             'accountNumber',
                             'donorName',
                             'securityPin',
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ]
                     });
                     return _.map(response.data.item, x => {
                         return {
                             id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
-                onChange: async (senderDonorAccountId) => {
-                    if (this.recipientDonorAccountDropdownStore.has(senderDonorAccountId)) {
-                        const array = this.recipientDonorAccountDropdownStore.filteredItems;
-                        _.remove(array, { id: senderDonorAccountId });
-                        this.recipientDonorAccountDropdownStore.setFilteredItems(array);
+                onChange: async (senderDonorId) => {
+                    if (this.recipientDonorDropdownStore.has(senderDonorId)) {
+                        const array = this.recipientDonorDropdownStore.filteredItems;
+                        _.remove(array, { id: senderDonorId });
+                        this.recipientDonorDropdownStore.setFilteredItems(array);
                     }
-                    this.senderDonorAccount = await this.fetchDonorAccount(senderDonorAccountId);
-                    this.form.$('amount').set('rules', `required|numeric|min:0|max:${this.senderDonorAccount.presentBalance > 0 ? this.senderDonorAccount.presentBalance : 0}`)
-                    this.setErrorInsuficientFunds = this.senderDonorAccount.presentBalance <= 0;
+                    this.senderDonor = await this.fetchDonor(senderDonorId);
+                    this.form.$('amount').set('rules', `required|numeric|min:0|max:${this.senderDonor.presentBalance > 0 ? this.senderDonor.presentBalance : 0}`)
+                    this.setErrorInsuficientFunds = this.senderDonor.presentBalance <= 0;
                 }
             });
-        this.recipientDonorAccountDropdownStore = new BaasicDropdownStore({
+        this.recipientDonorDropdownStore = new BaasicDropdownStore({
             initFetch: false,
             filterable: true
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
+                    const response = await donorService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
-                        exceptId: this.senderDonorAccountDropdownStore.value ? this.senderDonorAccountDropdownStore.value.id : null,
+                        exceptId: this.senderDonorDropdownStore.value ? this.senderDonorDropdownStore.value.id : null,
                         embed: [
-                            'donorAccountAddresses',
+                            'donorAddresses',
                         ],
                         fields: [
                             'id',
                             'accountNumber',
                             'donorName',
                             'securityPin',
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ]
                     });
                     return _.map(response.data.item, x => {
                         return {
                             id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
-                onChange: async (recipientDonorAccountId) => {
-                    if (this.senderDonorAccountDropdownStore.has(recipientDonorAccountId)) {
-                        const array = this.senderDonorAccountDropdownStore.filteredItems;
-                        _.remove(array, { id: recipientDonorAccountId });
-                        this.senderDonorAccountDropdownStore.setFilteredItems(array);
+                onChange: async (recipientDonorId) => {
+                    if (this.senderDonorDropdownStore.has(recipientDonorId)) {
+                        const array = this.senderDonorDropdownStore.filteredItems;
+                        _.remove(array, { id: recipientDonorId });
+                        this.senderDonorDropdownStore.setFilteredItems(array);
                     }
-                    this.recipientDonorAccount = await this.fetchDonorAccount(recipientDonorAccountId);
+                    this.recipientDonor = await this.fetchDonor(recipientDonorId);
 
                 }
             });
     }
 
     @action.bound
-    async fetchDonorAccount(donorAccountId) {
-        const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(donorAccountId, {
+    async fetchDonor(donorId) {
+        const service = new DonorService(this.rootStore.application.baasic.apiClient);
+        const response = await service.get(donorId, {
             embed: [
                 'coreUser',
                 'companyProfile',
-                'donorAccountAddresses',
-                'donorAccountAddresses.address',
+                'donorAddresses',
+                'donorAddresses.address',
                 'presentBalance',
                 'availableBalance'
             ],

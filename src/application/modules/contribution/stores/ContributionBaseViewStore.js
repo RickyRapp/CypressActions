@@ -2,17 +2,17 @@ import { action, computed, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { ModalParams } from 'core/models';
 import { ContributionService } from 'application/contribution/services';
-import { DonorAccountService, DonorAccountBankAccountService, DonorAccountAddressService, DonorAccountEmailAddressService, DonorAccountPhoneNumberService } from 'application/donor-account/services';
+import { DonorService, DonorBankAccountService, DonorAddressService, DonorEmailAddressService, DonorPhoneNumberService } from 'application/donor/services';
 import {
     LookupService,
-    DonorAccountFileStreamService
+    DonorFileStreamService
 } from 'common/services';
-import { DonorAccountBankAccountEditForm } from 'application/donor-account/forms';
+import { DonorBankAccountEditForm } from 'application/donor/forms';
 import _ from 'lodash';
 import { RoutingNumberService } from 'application/administration/bank/services';
 
 class ContributionBaseViewStore extends BaseEditViewStore {
-    donorAccount = null;
+    donor = null;
     @observable paymentTypes = null;
     @observable donorName = '';
     uploadTypes = null;
@@ -25,10 +25,10 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
         super(rootStore, config);
 
-        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.donorId = rootStore.routerStore.routerState.params.id;
         this.editId = rootStore.routerStore.routerState.params.editId;
         this.service = service;
-        this.bankAccountService = new DonorAccountBankAccountService(rootStore.application.baasic.apiClient);
+        this.bankAccountService = new DonorBankAccountService(rootStore.application.baasic.apiClient);
         this.bankAccountModal = new ModalParams({});
 
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
@@ -52,7 +52,7 @@ class ContributionBaseViewStore extends BaseEditViewStore {
                 fetchFunc: async () => {
                     let params = {
                         embed: ['accountHolder'],
-                        donorAccountId: this.donorAccountId,
+                        donorId: this.donorId,
                         orderBy: 'dateCreated',
                         orderDirection: 'desc'
                     }
@@ -96,26 +96,26 @@ class ContributionBaseViewStore extends BaseEditViewStore {
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
 
-            this.donorName = this.donorAccount.donorName;
+            this.donorName = this.donor.donorName;
         }
         else {
-            const minContribution = this.donorAccount.initialContribution ? this.donorAccount.contributionMinimumAdditionalAmount : this.donorAccount.contributionMinimumInitialAmount;
+            const minContribution = this.donor.initialContribution ? this.donor.contributionMinimumAdditionalAmount : this.donor.contributionMinimumInitialAmount;
             this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${minContribution}`);
         }
     }
 
     @action.bound
     setFormDefaultValues() {
-        this.form.$('donorAccountId').set(this.donorAccountId);
+        this.form.$('donorId').set(this.donorId);
     }
 
     @action.bound
     setPayerInfoUsingPrimaryDonorContactInfo() {
         const payer = {
-            name: this.donorAccount.donorName,
-            ..._.find(this.donorAccount.donorAccountAddresses, { isPrimary: true }),
-            ..._.find(this.donorAccount.donorAccountEmailAddresses, { isPrimary: true }),
-            ..._.find(this.donorAccount.donorAccountPhoneNumbers, { isPrimary: true })
+            name: this.donor.donorName,
+            ..._.find(this.donor.donorAddresses, { isPrimary: true }),
+            ..._.find(this.donor.donorEmailAddresses, { isPrimary: true }),
+            ..._.find(this.donor.donorPhoneNumbers, { isPrimary: true })
         }
         this.setPayerInfo(payer)
     }
@@ -128,12 +128,12 @@ class ContributionBaseViewStore extends BaseEditViewStore {
 
     @action.bound
     openBankAccountModal() {
-        this.formBankAccount = new DonorAccountBankAccountEditForm({
+        this.formBankAccount = new DonorBankAccountEditForm({
             onSuccess: async (form) => {
                 const bankAccount = form.values();
                 try {
                     const response = await this.bankAccountService.create({
-                        donorAccountId: this.donorAccountId,
+                        donorId: this.donorId,
                         ...bankAccount
                     });
                     const bankAccountId = response.data;
@@ -162,9 +162,9 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     async insertImage(bankAccountId) {
         if (this.attachment != null) {
             try {
-                const service = new DonorAccountFileStreamService(this.rootStore.application.baasic.apiClient);
+                const service = new DonorFileStreamService(this.rootStore.application.baasic.apiClient);
                 this.uploadLoading = true;
-                const response = await service.uploadDonorAccountBankAccount(this.attachment, this.donorAccountId, bankAccountId);
+                const response = await service.uploadDonorBankAccount(this.attachment, this.donorId, bankAccountId);
                 this.uploadLoading = false;
                 return response.data.id;
             }
@@ -184,13 +184,13 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async fetchDonorAccount() {
-        const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.donorAccountId, {
+    async fetchDonor() {
+        const service = new DonorService(this.rootStore.application.baasic.apiClient);
+        const response = await service.get(this.donorId, {
             embed: [
-                'donorAccountAddresses',
-                'donorAccountEmailAddresses',
-                'donorAccountPhoneNumbers',
+                'donorAddresses',
+                'donorEmailAddresses',
+                'donorPhoneNumbers',
                 'contributionSettings'
             ],
             fields: [
@@ -199,21 +199,21 @@ class ContributionBaseViewStore extends BaseEditViewStore {
                 'initialContribution',
                 'contributionMinimumAdditionalAmount',
                 'contributionMinimumInitialAmount',
-                'donorAccountAddresses',
-                'donorAccountEmailAddresses',
-                'donorAccountPhoneNumbers'
+                'donorAddresses',
+                'donorEmailAddresses',
+                'donorPhoneNumbers'
             ]
         });
-        this.donorAccount = response.data;
+        this.donor = response.data;
     }
 
     @action.bound
     async useDonorContactInformations(value, type) {
         if (type === 'address') {
             if (!this.primaryAddress) {
-                const addressService = new DonorAccountAddressService(this.rootStore.application.baasic.apiClient);
+                const addressService = new DonorAddressService(this.rootStore.application.baasic.apiClient);
                 const params = {
-                    donorAccountId: this.donorAccountId,
+                    donorId: this.donorId,
                     isPrimary: true
                 }
                 const response = await addressService.find(params);
@@ -238,9 +238,9 @@ class ContributionBaseViewStore extends BaseEditViewStore {
         }
         else if (type === 'emailAddress') {
             if (!this.primaryEmailAddress) {
-                const emailAddressService = new DonorAccountEmailAddressService(this.rootStore.application.baasic.apiClient);
+                const emailAddressService = new DonorEmailAddressService(this.rootStore.application.baasic.apiClient);
                 const params = {
-                    donorAccountId: this.donorAccountId,
+                    donorId: this.donorId,
                     isPrimary: true
                 }
                 const response = await emailAddressService.find(params);
@@ -258,9 +258,9 @@ class ContributionBaseViewStore extends BaseEditViewStore {
         }
         else if (type === 'phoneNumber') {
             if (!this.primaryPhoneNumber) {
-                const phoneNumberService = new DonorAccountPhoneNumberService(this.rootStore.application.baasic.apiClient);
+                const phoneNumberService = new DonorPhoneNumberService(this.rootStore.application.baasic.apiClient);
                 const params = {
-                    donorAccountId: this.donorAccountId,
+                    donorId: this.donorId,
                     isPrimary: true
                 }
                 const response = await phoneNumberService.find(params);

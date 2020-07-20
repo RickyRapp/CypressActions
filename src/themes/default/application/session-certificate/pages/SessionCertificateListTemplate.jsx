@@ -19,7 +19,7 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore }
         queryUtility,
         authorization,
         searchCharityDropdownStore,
-        searchDonorAccountDropdownStore,
+        searchDonorDropdownStore,
         dateCreatedDateRangeQueryStore
     } = sessionCertificateViewStore;
 
@@ -28,7 +28,7 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore }
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                     <AuthDropdown
-                        store={searchDonorAccountDropdownStore}
+                        store={searchDonorDropdownStore}
                         authorization='theDonorsFundAdministrationSection.read' />
 
                     <AuthDropdown

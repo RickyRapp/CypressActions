@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { FilterParams } from "core/models";
 
 class GrantRequestListFilter extends FilterParams {
-    @observable donorAccountId;
+    @observable donorId;
     @observable charityId;
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
@@ -17,7 +17,7 @@ class GrantRequestListFilter extends FilterParams {
     @action.bound
     reset() {
         super.reset();
-        this.donorAccountId = null;
+        this.donorId = null;
         this.charityId = null;
         this.dateCreatedStartDate = null;
         this.dateCreatedEndDate = null;

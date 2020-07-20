@@ -94,7 +94,7 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
                     <BaasicButton
                             className="btn btn--icon"
                             icon={`u-icon u-icon--${bankAccountShow ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
-                            label={bankAccountShow ? t('CHARITY.CREATE.BANK_ACCOUNT_FORM_FIELDS.HIDE') : t('DONOR_ACCOUNT.CREATE.BANK_ACCOUNT_FORM_FIELDS.SHOW')}
+                            label={bankAccountShow ? t('CHARITY.CREATE.BANK_ACCOUNT_FORM_FIELDS.HIDE') : t('DONOR.CREATE.BANK_ACCOUNT_FORM_FIELDS.SHOW')}
                             onlyIcon={true}
                             onClick={() => onChangeBankAccountShow(!bankAccountShow)}
                         />

@@ -7,7 +7,7 @@ class GrantRequestRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,charityId,search,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorId,charityId,search,page,rpp,sort,embed,fields}', filter);
     }
 
     findCharityGrantRequest(filter) {

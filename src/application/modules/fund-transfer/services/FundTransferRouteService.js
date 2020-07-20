@@ -6,7 +6,7 @@ class FundTransferRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,amountRangeMin,amountRangeMax,senderDonorAccountId,recipientDonorAccountId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorId,amountRangeMin,amountRangeMax,senderDonorId,recipientDonorId,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

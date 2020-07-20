@@ -20,7 +20,7 @@ const GrantRequestListTemplate = function ({ grantRequestViewStore, t }) {
         routes,
         queryUtility,
         authorization,
-        searchDonorAccountDropdownStore,
+        searchDonorDropdownStore,
         grantCreateOVerviewModalParams,
         onConfirm,
         onEdit
@@ -31,7 +31,7 @@ const GrantRequestListTemplate = function ({ grantRequestViewStore, t }) {
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                        <BaasicDropdown store={searchDonorDropdownStore} />
                     </div>
                 </TableFilter>
             </div>

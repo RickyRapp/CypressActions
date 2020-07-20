@@ -16,8 +16,8 @@ import {
 } from 'themes/application/contribution/components';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import { DonorAccountBankAccountEditForm } from 'application/donor-account/components';
-import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
+import { DonorBankAccountEditForm } from 'application/donor/components';
+import { DonorPageHeaderOverview } from 'application/donor/components';
 
 const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
     const {
@@ -26,7 +26,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
         paymentTypeDropdownStore,
         bankAccountDropdownStore,
         setPayerInfoUsingPrimaryDonorContactInfo,
-        donorAccountId,
+        donorId,
         openBankAccountModal,
         uploadLoading,
         image,
@@ -40,7 +40,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={contributionCreateViewStore}>
-                <AuthPageHeader donorAccountId={donorAccountId} type={1} authorization='theDonorsFundAdministrationSection.read' />
+                <AuthPageHeader donorId={donorId} type={1} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6">
@@ -109,7 +109,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
                 </Content>
             </ApplicationEditLayout >
             <BaasicModal modalParams={bankAccountModal}>
-                <DonorAccountBankAccountEditForm
+                <DonorBankAccountEditForm
                     useDonorContactInformations={useDonorContactInformations}
                     uploadLoading={uploadLoading}
                     image={image}
@@ -121,7 +121,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
     )
 };
 
-const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
+const AuthPageHeader = withAuth(DonorPageHeaderOverview);
 
 ContributionCreateTemplate.propTypes = {
     contributionCreateViewStore: PropTypes.object.isRequired

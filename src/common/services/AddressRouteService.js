@@ -6,7 +6,7 @@ class AddressRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,charityId,page,rpp,sort,embed,searchFields}', filter);
+        return super.find(this.base + '/{?donorId,charityId,page,rpp,sort,embed,searchFields}', filter);
     }
 
     get(id, options) {
@@ -21,8 +21,8 @@ class AddressRouteService extends BaseRouteService {
         return super.update(this.base + '/mark-primary/{id}', resource);
     }
 
-    createDonorAccountAddress(resource) {
-        return super.create(this.base + '/donor-account/{donorAccountId}', resource);
+    createDonorAddress(resource) {
+        return super.create(this.base + '/donor/{donorId}', resource);
     }
 
     createCharityAddress(resource) {

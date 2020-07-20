@@ -11,7 +11,7 @@ import {
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { GrantPurposeTypeForm } from 'themes/application/grant/components';
-import { DonorAccountPageHeaderOverview } from 'application/donor-account/components';
+import { DonorPageHeaderOverview } from 'application/donor/components';
 import { addressFormatter } from 'core/utils';
 import _ from 'lodash';
 import { CharityAdvancedSearch } from 'application/charity/components';
@@ -23,8 +23,8 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
         grantPurposeTypeDropdownStore,
         grantAcknowledgmentTypeDropdownStore,
         charityDropdownStore,
-        donorAccountId,
-        donorAccount,
+        donorId,
+        donor,
         onBlurAmount,
         amountWithFee,
         onScanned,
@@ -37,7 +37,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
     return (
         <React.Fragment>
             <ApplicationEditLayout store={grantEditViewStore}>
-                <AuthPageHeader donorAccountId={donorAccountId} type={2} authorization='theDonorsFundAdministrationSection.read' />
+                <AuthPageHeader donorId={donorId} type={2} authorization='theDonorsFundAdministrationSection.read' />
                 <Content loading={contentLoading} >
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6">
@@ -76,10 +76,10 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                     {grantAcknowledgmentTypeDropdownStore.value &&
                                         <div className="form__group col col-sml-6 col-lrg-6 u-mar--top--med">
                                             {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
-                                                `${donorAccount.donorName} - ${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
+                                                `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(_.find(donor.donorAddresses, { isPrimary: true }), 'full')}`}
                                             {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
-                                                `${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
+                                                `${donor.fundName} - ${addressFormatter.format(_.find(donor.donorAddresses, { isPrimary: true }), 'full')}`}
+                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donor.fundName}
                                         </div>}
                                 </div>
                                 <div className="row">
@@ -111,7 +111,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
     )
 };
 
-const AuthPageHeader = withAuth(DonorAccountPageHeaderOverview);
+const AuthPageHeader = withAuth(DonorPageHeaderOverview);
 
 GrantEditTemplate.propTypes = {
     grantEditViewStore: PropTypes.object.isRequired,

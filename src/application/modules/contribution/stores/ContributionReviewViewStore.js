@@ -27,17 +27,17 @@ class ContributionReviewViewStore extends BaseEditViewStore {
                         let params = {
                             embed: [
                                 'contributionStatus',
-                                'donorAccount',
-                                'donorAccount.coreUser',
-                                'donorAccount.companyProfile'
+                                'donor',
+                                'donor.coreUser',
+                                'donor.companyProfile'
                             ],
                             fields: [
                                 'id',
                                 'contributionStatusId',
                                 'contributionStatus',
                                 'amount',
-                                'donorAccount',
-                                'donorAccount.donorName'
+                                'donor',
+                                'donor.donorName'
                             ]
                         };
                         let response = await service.get(id, params);

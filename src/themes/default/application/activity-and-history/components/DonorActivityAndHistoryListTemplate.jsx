@@ -6,29 +6,29 @@ import { Content } from 'core/layouts';
 import { SettledPaymentTransaction, ReservedPaymentTransaction } from 'application/activity-and-history/components';
 
 const DonorActivityAndHistoryListTemplate = function ({ store }) {
-    const { donorAccountDropdownStore, id } = store
+    const { donorDropdownStore, id } = store
 
     return (
-            <ListContent>
-                <div className="row u-mar--bottom--sml ">
-                    <div className="col col-sml-12 col-lrg-6">
-                        <AuthDropdownContent store={donorAccountDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
-                    </div>
+        <ListContent>
+            <div className="row u-mar--bottom--sml ">
+                <div className="col col-sml-12 col-lrg-6">
+                    <AuthDropdownContent store={donorDropdownStore} authorization='theDonorsFundAdministrationSection.read' />
                 </div>
-                {(id || donorAccountDropdownStore.value) ?
-                    <React.Fragment>
-                            <Content>
-                                <ReservedPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
-                            </Content>
-                            <Content>
-                                <SettledPaymentTransaction donorAccountId={id ? id : donorAccountDropdownStore.value.id} />
-                            </Content>
-                    </React.Fragment>
-                    :
+            </div>
+            {(id || donorDropdownStore.value) ?
+                <React.Fragment>
                     <Content>
-                        <EmptyState title='ACTIVITY_AND_HISTORY.LIST.EMPTY_STATE.TITLE' />
-                    </Content>}
-            </ListContent>
+                        <ReservedPaymentTransaction donorId={id ? id : donorDropdownStore.value.id} />
+                    </Content>
+                    <Content>
+                        <SettledPaymentTransaction donorId={id ? id : donorDropdownStore.value.id} />
+                    </Content>
+                </React.Fragment>
+                :
+                <Content>
+                    <EmptyState title='ACTIVITY_AND_HISTORY.LIST.EMPTY_STATE.TITLE' />
+                </Content>}
+        </ListContent>
     )
 };
 

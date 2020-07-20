@@ -54,7 +54,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
             FormClass: GrantEditForm,
         });
 
-        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.donorId = rootStore.routerStore.routerState.params.id;
     }
 
     @action.bound
@@ -64,7 +64,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonorAccount(),
+                this.fetchDonor(),
                 this.fetchApplicationDefaultSetting(),
                 this.fetchFeeTypes(),
                 this.getResource(this.id)
@@ -89,7 +89,7 @@ class GrantEditViewStore extends GrantBaseViewStore {
 
     @action.bound
     setFormDefaultValues() {
-        this.donorName = this.donorAccount.donorName;
+        this.donorName = this.donor.donorName;
 
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
             const dateToEdit = moment(this.item.dateCreated).add('minutes', 15);

@@ -1,8 +1,8 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { BookletOrderService } from 'application/booklet-order/services';
-import { DonorAccountService } from 'application/donor-account/services';
-import { donorAccountFormatter } from 'core/utils';
+import { DonorService } from 'application/donor/services';
+import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import { BookletOrderListFilter } from 'application/booklet-order/models';
@@ -13,7 +13,7 @@ class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
         let filter = new BookletOrderListFilter('confirmationNumber', 'desc')
-        filter.donorAccountId = id;
+        filter.donorId = id;
 
         super(rootStore, {
             name: 'booklet-order',
@@ -45,11 +45,11 @@ class BookletOrderViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.donorId = id;
                     this.deliveryMethodTypeDropdownStore.setValue(null);
                     this.bookletOrderStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
-                    this.searchDonorAccountDropdownStore.setValue(null);
+                    this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -57,20 +57,20 @@ class BookletOrderViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'donorAccount',
+                            'donor',
                             'createdByCoreUser',
                             'bookletOrderStatus'
                         ];
 
                         params.fields = [
                             'id',
-                            'donorAccountId',
+                            'donorId',
                             'dateCreated',
                             'amount',
                             'confirmationNumber',
                             'bookletOrderStatus',
-                            'donorAccount',
-                            'donorAccount.donorName',
+                            'donor',
+                            'donor.donorName',
                             'createdByCoreUser',
                             'createdByCoreUser.firstName'
                         ];
@@ -84,7 +84,7 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'donorAccount.donorName',
+                    key: 'donor.donorName',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
                     disableClick: true,
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
@@ -111,7 +111,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (bookletOrder) => this.routes.edit(bookletOrder.donorAccountId, bookletOrder.id),
+                onEdit: (bookletOrder) => this.routes.edit(bookletOrder.donorId, bookletOrder.id),
                 onReview: (bookletOrderId) => this.routes.review(bookletOrderId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
@@ -143,34 +143,34 @@ class BookletOrderViewStore extends BaseListViewStore {
 
         this.selectDonorModal = new ModalParams({});
 
-        const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
-        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
             placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: false,
             filterable: true
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
+                    const response = await donorService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ],
                         fields: [
                             'id',
                             'accountNumber',
                             'donorName',
                             'securityPin',
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ]
                     });
                     return _.map(response.data.item, x => {
                         return {
                             id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
@@ -179,17 +179,17 @@ class BookletOrderViewStore extends BaseListViewStore {
                         const id = rootStore.routerStore.routerState.queryParams.id;
                         const params = {
                             embed: [
-                                'donorAccountAddresses'
+                                'donorAddresses'
                             ],
                             fields: [
                                 'id',
                                 'accountNumber',
                                 'donorName',
                                 'securityPin',
-                                'donorAccountAddresses'
+                                'donorAddresses'
                             ]
                         }
-                        const response = await donorAccountService.get(id, params);
+                        const response = await donorService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
                         return { id: response.data.id, name: response.data.donorName };
                     }
@@ -197,8 +197,8 @@ class BookletOrderViewStore extends BaseListViewStore {
                         return null;
                     }
                 },
-                onChange: (donorAccountId) => {
-                    this.queryUtility.filter['donorAccountId'] = donorAccountId;
+                onChange: (donorId) => {
+                    this.queryUtility.filter['donorId'] = donorId;
                 }
             });
 
@@ -235,9 +235,9 @@ class BookletOrderViewStore extends BaseListViewStore {
     openSelectDonorModal() {
         this.selectDonorModal.open(
             {
-                donorAccountId: this.queryUtility.filter.donorAccountId,
-                onClickDonorFromFilter: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId }),
-                onChange: (donorAccountId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorAccountId })
+                donorId: this.queryUtility.filter.donorId,
+                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorId }),
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorId })
             });
     }
 }

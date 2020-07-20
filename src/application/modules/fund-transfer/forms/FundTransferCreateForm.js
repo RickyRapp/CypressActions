@@ -9,15 +9,15 @@ export default class FundTransferCreateForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'senderDonorAccountId',
-                    label: 'FUND_TRANSFER.CREATE.FIELDS.SENDER_DONOR_ACCOUNT_LABEL',
-                    placeholder: 'FUND_TRANSFER.CREATE.FIELDS.SENDER_DONOR_ACCOUNT_PLACEHOLDER',
+                    name: 'senderDonorId',
+                    label: 'FUND_TRANSFER.CREATE.FIELDS.SENDER_DONOR_LABEL',
+                    placeholder: 'FUND_TRANSFER.CREATE.FIELDS.SENDER_DONOR_PLACEHOLDER',
                     rules: 'required|string'
                 },
                 {
-                    name: 'recipientDonorAccountId',
-                    label: 'FUND_TRANSFER.CREATE.FIELDS.RECIPIENT_DONOR_ACCOUNT_LABEL',
-                    placeholder: 'FUND_TRANSFER.CREATE.FIELDS.RECIPIENT_DONOR_ACCOUNT_PLACEHOLDER',
+                    name: 'recipientDonorId',
+                    label: 'FUND_TRANSFER.CREATE.FIELDS.RECIPIENT_DONOR_LABEL',
+                    placeholder: 'FUND_TRANSFER.CREATE.FIELDS.RECIPIENT_DONOR_PLACEHOLDER',
                     rules: 'required|string'
                 },
                 {

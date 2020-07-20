@@ -43,10 +43,10 @@ class GrantCreateOverviewTemplate extends React.Component {
                         <label className="form__group__label">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</label>
                         {item && <React.Fragment>
                             {item.grantAcknowledgmentType.abrv === 'name-fund-name-and-address' &&
-                                `${item.donorAccount.donorName} - ${item.donorAccount.fundName} - ${addressFormatter.format(_.find(item.donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
+                                `${item.donor.donorName} - ${item.donor.fundName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
                             {item.grantAcknowledgmentType.abrv === 'fund-name-and-address' &&
-                                `${item.donorAccount.fundName} - ${addressFormatter.format(_.find(item.donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
-                            {item.grantAcknowledgmentType.abrv === 'fund-name' && item.donorAccount.fundName}
+                                `${item.donor.fundName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
+                            {item.grantAcknowledgmentType.abrv === 'fund-name' && item.donor.fundName}
                             {item.grantAcknowledgmentType.abrv === 'remain-anonymous' && 'Anonymous'}
                         </React.Fragment>}
                     </div>

@@ -1,8 +1,8 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionCertificateService } from 'application/session-certificate/services';
 import { CharityService } from 'application/charity/services';
-import { DonorAccountService } from 'application/donor-account/services';
-import { donorAccountFormatter } from 'core/utils';
+import { DonorService } from 'application/donor/services';
+import { donorFormatter } from 'core/utils';
 import { SessionCertificateListFilter } from 'application/session-certificate/models';
 import _ from 'lodash';
 
@@ -18,7 +18,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                 filter: filter,
                 onResetFilter: () => {
                     this.searchCharityDropdownStore.setValue(null);
-                    this.searchDonorAccountDropdownStore.setValue(null);
+                    this.searchDonorDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 },
                 queryParamMap: {
@@ -32,7 +32,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                             'certificate',
                             'certificate.booklet',
                             'certificate.booklet.denominationType',
-                            'certificate.booklet.donorAccount',
+                            'certificate.booklet.donor',
                             'session',
                             'session.charity'
                         ];
@@ -46,7 +46,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'certificate.booklet.donorAccount.donorName',
+                    key: 'certificate.booklet.donor.donorName',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DONOR_NAME_LABEL',
                     visible: this.hasPermission('theDonorsFundAdministrationSection.read')
                 },
@@ -116,34 +116,34 @@ class SessionCertificateViewStore extends BaseListViewStore {
                 }
             });
 
-        const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
-        this.searchDonorAccountDropdownStore = new BaasicDropdownStore({
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
             placeholder: 'SESSION_CERTIFICATE.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: false,
             filterable: true
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
+                    const response = await donorService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ],
                         fields: [
                             'id',
                             'accountNumber',
                             'donorName',
                             'securityPin',
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ]
                     });
                     return _.map(response.data.item, x => {
                         return {
                             id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
@@ -152,17 +152,17 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         const id = rootStore.routerStore.routerState.queryParams.id;
                         const params = {
                             embed: [
-                                'donorAccountAddresses'
+                                'donorAddresses'
                             ],
                             fields: [
                                 'id',
                                 'accountNumber',
                                 'donorName',
                                 'securityPin',
-                                'donorAccountAddresses'
+                                'donorAddresses'
                             ]
                         }
-                        const response = await donorAccountService.get(id, params);
+                        const response = await donorService.get(id, params);
                         rootStore.routerStore.setQueryParams(null);
                         return { id: response.data.id, name: response.data.donorName };
                     }
@@ -170,8 +170,8 @@ class SessionCertificateViewStore extends BaseListViewStore {
                         return null;
                     }
                 },
-                onChange: (donorAccountId) => {
-                    this.queryUtility.filter['donorAccountId'] = donorAccountId;
+                onChange: (donorId) => {
+                    this.queryUtility.filter['donorId'] = donorId;
                 }
             });
 

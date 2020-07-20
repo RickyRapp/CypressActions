@@ -4,7 +4,7 @@ import { FilterParams } from "core/models";
 class SessionCertificateListFilter extends FilterParams {
     @observable bookletCertificateCode;
     @observable charityId;
-    @observable donorAccountId;
+    @observable donorId;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -18,7 +18,7 @@ class SessionCertificateListFilter extends FilterParams {
         super.reset();
         this.bookletCertificateCode = null;
         this.charityId = null;
-        this.donorAccountId = null;
+        this.donorId = null;
     }
 }
 

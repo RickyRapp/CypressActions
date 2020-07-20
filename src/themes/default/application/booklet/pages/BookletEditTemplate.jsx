@@ -51,8 +51,8 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         </div>
                         <div className="form__group col col-lrg-2">
                             <strong>Donor: </strong>
-                            {booklet && booklet.donorAccount ?
-                                <span>{booklet.donorAccount.donorName} {bookletOrder.accountType.name}</span> : 'N/A'}
+                            {booklet && booklet.donor ?
+                                <span>{booklet.donor.donorName} {bookletOrder.accountType.name}</span> : 'N/A'}
                         </div>
                         <div className="form__group col col-lrg-3">
                             <strong>Assigned On:</strong> {booklet && booklet.dateAssigned ? moment(booklet.dateAssigned).format('YYYY-MM-DD HH:mm') : 'N/A'}

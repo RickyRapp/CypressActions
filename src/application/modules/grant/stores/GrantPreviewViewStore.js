@@ -20,7 +20,7 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                     this.rootStore.routerStore.goTo(
                         'master.app.main.grant.edit',
                         {
-                            id: this.item.donorAccount.id,
+                            id: this.item.donor.id,
                             editId: this.id
                         }
                     );
@@ -36,15 +36,15 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'debitCharityTransaction',
                                 'debitCharityTransaction.paymentTransaction',
                                 'debitCharityTransaction.paymentType',
-                                'donorAccount',
-                                'donorAccount.donorAccountAddresses',
+                                'donor',
+                                'donor.donorAddresses',
                                 'grantPurposeType',
                                 'donationStatus',
                                 'grantAcknowledgmentType',
-                                'grantDonorAccountTransactions',
-                                'grantDonorAccountTransactions.paymentTransaction',
-                                'grantDonorAccountTransactions.paymentTransaction.paymentTransactionStatus',
-                                'grantDonorAccountTransactions.paymentTransaction.paymentTransactionType',
+                                'grantDonorTransactions',
+                                'grantDonorTransactions.paymentTransaction',
+                                'grantDonorTransactions.paymentTransaction.paymentTransactionStatus',
+                                'grantDonorTransactions.paymentTransaction.paymentTransactionType',
                                 'thirdPartyWebsite'
                             ]
                         }

@@ -3,7 +3,7 @@ import { BaseRouteService } from 'core/services';
 class EmailRouteService extends BaseRouteService {
     constructor() {
         super('email');
-        this.filterFields = 'donorAccountId,charityId,search,name,page,rpp,sort,embed,fields'
+        this.filterFields = 'donorId,charityId,search,name,page,rpp,sort,embed,fields'
     }
 
     find(filter) {

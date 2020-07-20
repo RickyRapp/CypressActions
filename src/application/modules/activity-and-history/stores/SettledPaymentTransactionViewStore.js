@@ -5,10 +5,10 @@ import { ActivityAndHistoryListFilter } from 'application/activity-and-history/m
 
 @applicationContext
 class SettledPaymentTransactionViewStore extends BaseListViewStore {
-    constructor(rootStore, { charityId, donorAccountId }) {
+    constructor(rootStore, { charityId, donorId }) {
         let filter = new ActivityAndHistoryListFilter();
         filter.charityId = charityId;
-        filter.donorAccountId = donorAccountId;
+        filter.donorId = donorId;
 
         super(rootStore, {
             name: 'activity-and-history',
@@ -20,14 +20,14 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
                 disableChangeOrder: true,
                 onResetFilter: (filter) => {
                     filter.charityId = charityId;
-                    filter.donorAccountId = donorAccountId;
+                    filter.donorId = donorId;
                 }
             },
             actions: () => {
                 const service = new ActivityAndHistoryService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        if (params.charityId || params.donorAccountId) {
+                        if (params.charityId || params.donorId) {
                             const response = await service.find(params);
                             return response.data;
                         }

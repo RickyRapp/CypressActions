@@ -52,7 +52,7 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                             ],
                             fields: [
                                 'id',
-                                'donorAccountId',
+                                'donorId',
                                 'bookletOrderItems',
                                 'bookletOrderItems.id',
                                 'bookletOrderItems.count',

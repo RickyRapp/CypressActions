@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { LookupService, FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
-import { DonorAccountService } from 'application/donor-account/services';
+import { DonorService } from 'application/donor/services';
 import { charityFormatter } from 'core/utils';
 import _ from 'lodash';
 import { ModalParams } from 'core/models';
@@ -18,7 +18,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
     constructor(rootStore, config) {
         super(rootStore, config);
 
-        this.donorAccountId = rootStore.routerStore.routerState.params.id;
+        this.donorId = rootStore.routerStore.routerState.params.id;
         this.charityService = new CharityService(rootStore.application.baasic.apiClient);
         this.feeService = new FeeService(rootStore.application.baasic.apiClient);
 
@@ -156,14 +156,14 @@ class GrantBaseViewStore extends BaseEditViewStore {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
         }
         else {
-            if (this.donorAccount.isInitialContributionDone) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donorAccount.grantMinimumAmount}`);
+            if (this.donor.isInitialContributionDone) {
+                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.grantMinimumAmount}`);
             }
             else {
                 this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
                 this.rootStore.routerStore.goTo(
                     'master.app.main.contribution.create',
-                    { id: this.donorAccountId }
+                    { id: this.donorId }
                 );
                 return;
             }
@@ -193,7 +193,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
             }
 
             let params = {};
-            params.id = this.donorAccountId;
+            params.id = this.donorId;
             params.feeTypeId = _.find(this.feeTypes, { abrv: 'grant-fee' }).id;
             params.amount = this.form.$('amount').value;
             const feeAmount = await this.feeService.calculateFee(params);
@@ -236,7 +236,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
                     'dateCreated'
                 ],
                 charityId: this.form.$('charityId').value,
-                donorAccountId: this.donorAccountId
+                donorId: this.donorId
             }
             const response = await service.find(params);
             this.tableStore.setData(response.data.item)
@@ -244,11 +244,11 @@ class GrantBaseViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async fetchDonorAccount() {
-        const service = new DonorAccountService(this.rootStore.application.baasic.apiClient);
-        const response = await service.get(this.donorAccountId, {
+    async fetchDonor() {
+        const service = new DonorService(this.rootStore.application.baasic.apiClient);
+        const response = await service.get(this.donorId, {
             embed: [
-                'donorAccountAddresses'
+                'donorAddresses'
             ],
             fields: [
                 'id',
@@ -260,10 +260,10 @@ class GrantBaseViewStore extends BaseEditViewStore {
                 'grantFeePercentage',
                 'grantMinimumAmount',
                 'fundName',
-                'donorAccountAddresses'
+                'donorAddresses'
             ]
         });
-        this.donorAccount = response.data;
+        this.donor = response.data;
     }
 
     @action.bound

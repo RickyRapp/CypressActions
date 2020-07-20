@@ -7,8 +7,8 @@ class BankAccountService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    createDonorAccountBankAccount(resource) {
-        const url = this.routeService.createDonorAccountBankAccount(resource);
+    createDonorBankAccount(resource) {
+        const url = this.routeService.createDonorBankAccount(resource);
         return this.apiClient.post(url, resource);
     }
 }

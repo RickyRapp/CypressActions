@@ -26,7 +26,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
         grantAcknowledgmentTypeDropdownStore,
         grantScheduleTypeDropdownStore,
         charityDropdownStore,
-        donorAccount,
+        donor,
         donorName,
         onChangeAmount,
         amountWithFee,
@@ -104,13 +104,13 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                             </div>
-                            {donorAccount && grantAcknowledgmentTypeDropdownStore.value &&
+                            {donor && grantAcknowledgmentTypeDropdownStore.value &&
                                 <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
-                                        `${donorAccount.donorName} - ${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
+                                        `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(_.find(donor.donorAddresses, { isPrimary: true }), 'full')}`}
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
-                                        `${donorAccount.fundName} - ${addressFormatter.format(_.find(donorAccount.donorAccountAddresses, { isPrimary: true }), 'full')}`}
-                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donorAccount.fundName}
+                                        `${donor.fundName} - ${addressFormatter.format(_.find(donor.donorAddresses, { isPrimary: true }), 'full')}`}
+                                    {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donor.fundName}
                                 </div>}
                         </div>
                         <div className="row">

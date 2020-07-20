@@ -7,8 +7,8 @@ class ActivityAndHistoryService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async findDonorPendingTransactions(donorAccountId) {
-        const url = this.routeService.findDonorPendingTransactions(donorAccountId);
+    async findDonorPendingTransactions(donorId) {
+        const url = this.routeService.findDonorPendingTransactions(donorId);
         const response = await this.apiClient.get(url);
         return response || null;
     }

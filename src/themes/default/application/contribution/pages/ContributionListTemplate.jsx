@@ -16,7 +16,7 @@ import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { ContributionReview } from 'application/contribution/components'
-import { SelectDonor } from 'application/donor-account/components';
+import { SelectDonor } from 'application/donor/components';
 import _ from 'lodash'
 
 const ContributionListTemplate = function ({ contributionViewStore }) {
@@ -26,7 +26,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
         queryUtility,
         authorization,
         selectDonorModal,
-        searchDonorAccountDropdownStore,
+        searchDonorDropdownStore,
         paymentTypeDropdownStore,
         reviewModal,
         contributionStatusDropdownStore,
@@ -42,17 +42,17 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                     <div className="card--form card--secondary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchDonorAccountDropdownStore} />
+                                <BaasicDropdown store={searchDonorDropdownStore} />
                             </div>
                             <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
                                 {accountTypes &&
                                     <QueryNullableSwitch
                                         queryUtility={queryUtility}
                                         propertyName='accountTypeId'
-                                        yesValue={_.find(accountTypes, { abrv: 'basic' }).id}
-                                        noValue={_.find(accountTypes, { abrv: 'premium' }).id}
-                                        yesLabel='CONTRIBUTION.LIST.FILTER.BASIC_PLACEHOLDER'
-                                        noLabel='CONTRIBUTION.LIST.FILTER.PREMIUM_PLACEHOLDER'
+                                        yesValue={_.find(accountTypes, { abrv: 'regular' }).id}
+                                        noValue={_.find(accountTypes, { abrv: 'private' }).id}
+                                        yesLabel='CONTRIBUTION.LIST.FILTER.REGULAR_PLACEHOLDER'
+                                        noLabel='CONTRIBUTION.LIST.FILTER.PRIVATE_PLACEHOLDER'
                                     />}
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">

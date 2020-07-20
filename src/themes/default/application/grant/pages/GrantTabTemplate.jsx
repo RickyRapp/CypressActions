@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page, PageNavigation } from 'core/layouts';
 import { GrantList, ScheduledGrantList, GrantRequestList } from 'application/grant/pages';
 import { BaasicButton, BaasicModal } from 'core/components';
-import { SelectDonor } from 'application/donor-account/components';
+import { SelectDonor } from 'application/donor/components';
 
 function GrantTabTemplate({ grantTabViewStore }) {
     const {
@@ -12,7 +12,7 @@ function GrantTabTemplate({ grantTabViewStore }) {
         createFunc,
         activeIndex,
         selectDonorModal,
-        setDonorAccountId,
+        setDonorId,
         canCreate,
         handleTabClick
     } = grantTabViewStore;
@@ -38,13 +38,13 @@ function GrantTabTemplate({ grantTabViewStore }) {
             <div className='u-mar--bottom--med'>
                 <TabLayout store={grantTabViewStore}>
                     <div label={'GRANT.TAB.LIST'}>
-                        <GrantList onChangeDonorFilter={setDonorAccountId} />
+                        <GrantList onChangeDonorFilter={setDonorId} />
                     </div>
                     <div label={'GRANT.TAB.SCHEDULED_LIST'}>
-                        <ScheduledGrantList onChangeDonorFilter={setDonorAccountId} />
+                        <ScheduledGrantList onChangeDonorFilter={setDonorId} />
                     </div>
                     <div label={'GRANT.TAB.GRANT_REQUEST'}>
-                        <GrantRequestList onChangeDonorFilter={setDonorAccountId} handleTabClick={handleTabClick} />
+                        <GrantRequestList onChangeDonorFilter={setDonorId} handleTabClick={handleTabClick} />
                     </div>
                 </TabLayout>
             </div>

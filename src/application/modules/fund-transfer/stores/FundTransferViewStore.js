@@ -1,7 +1,7 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { FundTransferService } from 'application/fund-transfer/services';
-import { DonorAccountService } from 'application/donor-account/services';
-import { applicationContext, donorAccountFormatter } from 'core/utils';
+import { DonorService } from 'application/donor/services';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { FundTransferListFilter } from 'application/fund-transfer/models';
 import _ from 'lodash';
 
@@ -10,7 +10,7 @@ class FundTransferViewStore extends BaseListViewStore {
     constructor(rootStore) {
         const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
         let filter = new FundTransferListFilter('dateCreated', 'desc')
-        filter.donorAccountId = id;
+        filter.donorId = id;
 
         super(rootStore, {
             name: 'grant',
@@ -24,7 +24,7 @@ class FundTransferViewStore extends BaseListViewStore {
                 filter: filter,
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
-                    filter.donorAccountId = id;
+                    filter.donorId = id;
                 }
             },
             actions: () => {
@@ -32,20 +32,20 @@ class FundTransferViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'senderDonorAccount',
-                            'senderDonorAccount.coreUser',
-                            'senderDonorAccount.companyProfile',
-                            'recipientDonorAccount',
-                            'recipientDonorAccount.coreUser',
-                            'recipientDonorAccount.companyProfile',
+                            'senderDonor',
+                            'senderDonor.coreUser',
+                            'senderDonor.companyProfile',
+                            'recipientDonor',
+                            'recipientDonor.coreUser',
+                            'recipientDonor.companyProfile',
                             'createdByCoreUser'
                         ];
 
                         params.fields = [
-                            'senderDonorAccount',
-                            'senderDonorAccount.donorName',
-                            'recipientDonorAccount',
-                            'recipientDonorAccount.donorName',
+                            'senderDonor',
+                            'senderDonor.donorName',
+                            'recipientDonor',
+                            'recipientDonor.donorName',
                             'amount',
                             'description',
                             'createdByCoreUser',
@@ -70,11 +70,11 @@ class FundTransferViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'senderDonorAccount.donorName',
+                    key: 'senderDonor.donorName',
                     title: 'FUND_TRANSFER.LIST.COLUMNS.SENDER_DONOR_NAME_LABEL'
                 },
                 {
-                    key: 'recipientDonorAccount.donorName',
+                    key: 'recipientDonor.donorName',
                     title: 'FUND_TRANSFER.LIST.COLUMNS.RECIPIENT_DONOR_NAME_LABEL'
                 },
                 {
@@ -99,7 +99,7 @@ class FundTransferViewStore extends BaseListViewStore {
             }
         }));
 
-        const donorAccountService = new DonorAccountService(rootStore.application.baasic.apiClient);
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
         this.selectDonorDropdownStore = new BaasicDropdownStore({
             placeholder: 'FUND_TRANSFER.LIST.SELECT_DONOR',
             initFetch: false,
@@ -107,31 +107,31 @@ class FundTransferViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorAccountService.search({
+                    const response = await donorService.search({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
                         sort: 'coreUser.firstName|asc',
                         embed: [
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ],
                         fields: [
                             'id',
                             'accountNumber',
                             'donorName',
                             'securityPin',
-                            'donorAccountAddresses'
+                            'donorAddresses'
                         ]
                     });
                     return _.map(response.item, x => {
                         return {
                             id: x.id,
-                            name: donorAccountFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
-                onChange: (donorAccountId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorAccountId })
+                onChange: (donorId) => {
+                    this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId })
                 }
             });
     }

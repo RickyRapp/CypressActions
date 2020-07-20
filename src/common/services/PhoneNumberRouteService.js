@@ -6,7 +6,7 @@ class PhoneNumberRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorAccountId,page,rpp,sort,embed,searchFields}', filter);
+        return super.find(this.base + '/{?donorId,page,rpp,sort,embed,searchFields}', filter);
     }
 
     get(id, options) {
@@ -21,8 +21,8 @@ class PhoneNumberRouteService extends BaseRouteService {
         return super.update(this.base + '/mark-primary/{id}', resource);
     }
 
-    createDonorAccountPhoneNumber(resource) {
-        return super.create(this.base + '/donor-account/{donorAccountId}', resource);
+    createDonorPhoneNumber(resource) {
+        return super.create(this.base + '/donor/{donorId}', resource);
     }
 }
 

@@ -13,7 +13,7 @@ export default class DonorNoteForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'donorAccountId',
+                    name: 'donorId',
                     rules: 'required|string'
                 },
                 {
