@@ -574,7 +574,11 @@
             "INITIAL_CONTRIBUTION_LABEL": "Initial contribution",
             "INITIAL_CONTRIBUTION_PLACEHOLDER": "Initial contribution",
             "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount",
-            "CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER": "Contribution initial amount"
+            "CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER": "Contribution initial amount",
+            "BLANK_BOOKLET_MAX_LABEL": "Blank booklet max",
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Blank booklet max",
+            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
+            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
         },
         "THIRD_PARTY_WEBSITE_SETTING": {
             "TITLE": "Third party website setting",

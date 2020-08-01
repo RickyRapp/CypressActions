@@ -34,24 +34,6 @@ export default class DonorEditForm extends FormBase {
                     rules: ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`]
                 },
                 {
-                    name: 'blankBookletMaxAmount',
-                    label: 'DONOR.EDIT.BLANK_BOOKLET_MAX_LABEL',
-                    placeholder: 'DONOR.EDIT.BLANK_BOOKLET_MAX_PLACEHOLDER',
-                    rules: 'required|numeric|min:0',
-                    extra: {
-                        type: 'c2'
-                    }
-                },
-                {
-                    name: 'notificationLimitRemainderAmount',
-                    label: 'DONOR.EDIT.LOW_BALANCE_REMAINDER_LABEL',
-                    placeholder: 'DONOR.EDIT.LOW_BALANCE_REMAINDER_PLACEHOLDER',
-                    rules: 'numeric|min:0',
-                    extra: {
-                        type: 'c2'
-                    }
-                },
-                {
                     name: 'prefixTypeId',
                     label: 'DONOR.EDIT.PREFIX_TYPE_LABEL',
                     placeholder: 'DONOR.EDIT.PREFIX_TYPE_PLACEHOLDER',
@@ -65,8 +47,7 @@ export default class DonorEditForm extends FormBase {
                         format: '####',
                         mask: '*'
                     }
-                },
-                ...donorSettingsFormProperties.fields
+                }
             ]
         };
     }

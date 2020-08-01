@@ -5,7 +5,8 @@ import {
     DonorAutomaticContributionSetting,
     DonorThirdPartyWebsiteSetting,
     DonorCertificateSetting,
-    DonorContributionSetting
+    DonorContributionSetting,
+    DonorAccountSetting
 } from 'application/donor/components';
 
 function DonorSettingDataTemplate() {
@@ -23,6 +24,9 @@ function DonorSettingDataTemplate() {
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorContributionSetting />
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <DonorAccountSetting />
                 </div>
             </div>
         </div>

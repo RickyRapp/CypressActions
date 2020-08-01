@@ -14,3 +14,4 @@ export { default as DonorGeneralDataEditViewStore } from './DonorGeneralDataEdit
 export { default as DonorContributionSettingViewStore } from './DonorContributionSettingViewStore'
 export { default as DonorInvestmentListViewStore } from './DonorInvestmentListViewStore'
 export { default as DonorInvestmentPoolHistoryViewStore } from './DonorInvestmentPoolHistoryViewStore'
+export { default as DonorAccountSettingViewStore } from './DonorAccountSettingViewStore'

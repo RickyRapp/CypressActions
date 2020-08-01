@@ -1,6 +1,5 @@
 export { default as DonorEditForm } from './DonorEditForm'
 export { default as DonorCreateForm } from './DonorCreateForm'
-export { default as DonorSettingsEditForm, donorSettingsFormProperties } from './DonorSettingsEditForm'
 export { default as DonorEmailAddressEditForm, donorEmailAddressFormProperties } from './DonorEmailAddressEditForm'
 export { default as DonorAddressEditForm, donorAddressFormProperties } from './DonorAddressEditForm'
 export { default as DonorPhoneNumberEditForm, donorPhoneNumberFormProperties } from './DonorPhoneNumberEditForm'
@@ -10,3 +9,4 @@ export { default as DonorAutomaticContributionSettingForm } from './DonorAutomat
 export { default as DonorCertificateSettingForm } from './DonorCertificateSettingForm'
 export { default as DonorContributionSettingEditForm } from './DonorContributionSettingEditForm'
 export { default as DonorInvestmentForm } from './DonorInvestmentForm'
+export { default as DonorAccountSettingForm } from './DonorAccountSettingForm'

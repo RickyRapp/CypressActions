@@ -5,27 +5,17 @@ import {
     BasicInput,
     BaasicFieldDropdown,
     BaasicFormControls,
-    NumericInputField,
     EditFormContent,
     NumberFormatInputField,
     Date
 } from 'core/components';
-import { AccountSettingsPartialForm, AccountSettingsPreview } from 'application/donor/components';
 
-function DonorGeneralDataTemplate({ donorGeneralDataEditViewStore, rootStore }) {
+function DonorGeneralDataTemplate({ donorGeneralDataEditViewStore }) {
     const {
         form,
         prefixTypeDropdownStore,
-        item,
-        accountSettingsShow,
-        onChangeAccountSettingsShow
+        item
     } = donorGeneralDataEditViewStore;
-
-    const {
-        permissionStore
-    } = rootStore;
-
-    let isPrivateAccount = item && item.accountType.abrv === 'private';
 
     return (
         <div className="card--form card--primary card--med">
@@ -62,33 +52,7 @@ function DonorGeneralDataTemplate({ donorGeneralDataEditViewStore, rootStore }) 
                                 <div className="form__group col col-lrg-3">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
-                                {isPrivateAccount &&
-                                    <div className="form__group col col-lrg-3">
-                                        <NumericInputField field={form.$('notificationLimitRemainderAmount')} />
-                                    </div>}
-                                {isPrivateAccount &&
-                                    <div className="form__group col col-lrg-3">
-                                        <NumericInputField field={form.$('blankBookletMaxAmount')} />
-                                    </div>}
                             </div>
-                        </div>
-                        <div className="u-mar--bottom--sml">
-                            {item &&
-                                <React.Fragment>
-                                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') ?
-                                        <AccountSettingsPartialForm
-                                            form={form}
-                                            isPrivateAccount={isPrivateAccount}
-                                            show={accountSettingsShow}
-                                            onChangeShow={onChangeAccountSettingsShow}
-                                        />
-                                        :
-                                        <AccountSettingsPreview
-                                            item={item}
-                                            isPrivateAccount={isPrivateAccount}
-                                        />
-                                    }
-                                </React.Fragment>}
                         </div>
                     </div>
                 </div>

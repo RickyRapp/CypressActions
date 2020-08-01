@@ -46,7 +46,7 @@ class BaseEditViewStore extends BaseViewStore {
         if (process.env.NODE_ENV !== 'production') {
             MobxReactFormDevTools.register({ [this.name]: this.form });
             MobxReactFormDevTools.select(this.name);
-            // MobxReactFormDevTools.open(true);
+            MobxReactFormDevTools.open(true);
         }
 
         if (this.localization) {
