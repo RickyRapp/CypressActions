@@ -21,22 +21,29 @@ class InvestmentPoolChangeViewStore extends BaseEditViewStore {
                             embed: ['investmentPool']
                         }
                         const response = await service.overview(params);
-                        this.investmentPoolsHistory = response.data.item;
+                        this.investmentPoolsHistory = response.data;
                         return {
                             aggressiveGrowthName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'aggressive-growth' }).investmentPool.name,
-                            aggressiveGrowthChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'aggressive-growth' }).change,
+                            aggressiveGrowthPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'aggressive-growth' }).totalPoolValue,
+                            aggressiveGrowthChange: 0,
                             balancedName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'balanced' }).investmentPool.name,
-                            balancedChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'balanced' }).change,
+                            balancedPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'balanced' }).totalPoolValue,
+                            balancedChange: 0,
                             conservativeIncomeName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'conservative-income' }).investmentPool.name,
-                            conservativeIncomeChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'conservative-income' }).change,
+                            conservativeIncomePoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'conservative-income' }).totalPoolValue,
+                            conservativeIncomeChange: 0,
                             growthName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'growth' }).investmentPool.name,
-                            growthChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'growth' }).change,
+                            growthPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'growth' }).totalPoolValue,
+                            growthChange: 0,
                             incomeName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'income' }).investmentPool.name,
-                            incomeChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'income' }).change,
+                            incomePoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'income' }).totalPoolValue,
+                            incomeChange: 0,
                             moderateGrowthName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-growth' }).investmentPool.name,
-                            moderateGrowthChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-growth' }).change,
+                            moderateGrowthPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-growth' }).totalPoolValue,
+                            moderateGrowthChange: 0,
                             moderateIncomeName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-income' }).investmentPool.name,
-                            moderateIncomeChange: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-income' }).change
+                            moderateIncomePoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-income' }).totalPoolValue,
+                            moderateIncomeChange: 0
                         }
                     },
                     update: async (resource) => {

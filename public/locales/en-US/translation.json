@@ -2284,15 +2284,18 @@
             "TITLE": "Investments",
             "COLUMNS": {
                 "NAME": "Pool name",
-                "VALUE": "Value",
-                "CHANGE": "Change"
+                "CURRENT_SHARE_VALUE": "Value per share",
+                "TOTAL_VALUE_IN_POOL": "Total pool value",
+                "NUMBER_OF_SHARES": "Number of shares"
             }
         },
         "EDIT": {
             "TITLE": "Title",
             "FIELDS": {
-                "BALANCE_LABEL": "Balance",
-                "BALANCE_PLACEHOLDER": "Balance"
+                "CHANGE_LABEL": "Change",
+                "CHANGE_PLACEHOLDER": "Change",
+                "POOL_VALUE_LABEL": "Pool value",
+                "POOL_VALUE_PLACEHOLDER": "Pool value"
             }
         }
     },

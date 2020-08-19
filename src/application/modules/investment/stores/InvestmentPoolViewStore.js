@@ -33,19 +33,22 @@ class InvestmentPoolViewStore extends BaseListViewStore {
                     title: 'INVESTMENT_POOL.LIST.COLUMNS.NAME'
                 },
                 {
-                    key: 'currentValue',
-                    title: 'INVESTMENT_POOL.LIST.COLUMNS.VALUE',
+                    key: 'currentShareValue',
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.CURRENT_SHARE_VALUE',
                     format: {
                         type: 'currency'
                     }
                 },
                 {
-                    key: 'change',
-                    title: 'INVESTMENT_POOL.LIST.COLUMNS.CHANGE',
+                    key: 'totalPoolValue',
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.TOTAL_VALUE_IN_POOL',
                     format: {
-                        type: 'percentage',
-                        decimalScale: 6
+                        type: 'currency'
                     }
+                },
+                {
+                    key: 'numberOfShares',
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.NUMBER_OF_SHARES'
                 },
             ],
             actions: {

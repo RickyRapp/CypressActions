@@ -9,87 +9,143 @@ export default class InvestmentPoolEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'aggressiveGrowthName',
-                    rules: 'string'
-                },
-                {
                     name: 'aggressiveGrowthChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
                     }
                 },
                 {
-                    name: 'balancedName',
-                    rules: 'string'
+                    name: 'aggressiveGrowthPoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
+                    }
                 },
                 {
                     name: 'balancedChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
                     }
                 },
                 {
-                    name: 'conservativeIncomeName',
-                    rules: 'string'
+                    name: 'balancedPoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
+                    }
                 },
                 {
                     name: 'conservativeIncomeChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
                     }
                 },
                 {
-                    name: 'growthName',
-                    rules: 'string'
+                    name: 'conservativeIncomePoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
+                    }
                 },
                 {
                     name: 'growthChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
                     }
                 },
                 {
-                    name: 'incomeName',
-                    rules: 'string'
+                    name: 'growthPoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
+                    }
                 },
                 {
                     name: 'incomeChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
                     }
                 },
                 {
-                    name: 'moderateGrowthName',
-                    rules: 'string'
+                    name: 'incomePoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
+                    }
                 },
                 {
                     name: 'moderateGrowthChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
                     }
                 },
                 {
-                    name: 'moderateIncomeName',
-                    rules: 'string'
+                    name: 'moderateGrowthPoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
+                    }
                 },
                 {
                     name: 'moderateIncomeChange',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.CHANGE_PLACEHOLDER',
                     rules: 'required|numeric',
                     extra: {
-                        type: 'p6',
+                        type: 'p4',
                         step: 0.001
+                    }
+                },
+                {
+                    name: 'moderateIncomePoolValue',
+                    label: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_LABEL',
+                    placeholder: 'INVESTMENT_POOL.EDIT.FIELDS.POOL_VALUE_PLACEHOLDER',
+                    rules: 'required|numeric',
+                    extra: {
+                        type: 'c2',
+                        step: 1
                     }
                 }
             ],

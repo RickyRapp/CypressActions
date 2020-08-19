@@ -35,10 +35,10 @@ const DonorInvestmentListTemplate = function ({ donorInvestmentListViewStore }) 
                             const donorInvestment = investments.find((item) => item.investmentPoolId === lastPoolHistory.investmentPoolId)
 
                             return <div
-                                key={lastPoolHistory.id}
+                                key={lastPoolHistory.investmentPoolId}
                                 className="col col-lrg-3 card--form card--primary card--med u-mar--left--sml u-mar--bottom--sml"
                                 style={{ backgroundColor: donorInvestment.balance === 0 ? "#607d8b26" : "#90ee909e" }}>
-                                <div><strong>{lastPoolHistory.investmentPool.name}</strong>({renderFormatedValue(lastPoolHistory.change, 'percentage')})</div>
+                                <strong>{lastPoolHistory.investmentPool.name}</strong>
                                 <div>
                                     {renderFormatedValue(donorInvestment.balance, 'currency')}
                                     <BaasicButton

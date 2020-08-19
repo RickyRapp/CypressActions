@@ -77,7 +77,7 @@ class DonorInvestmentListViewStore extends BaseViewStore {
         const service = new InvestmentPoolHistoryService(this.rootStore.application.baasic.apiClient);
         let params = { embed: ['investmentPool'] };
         const response = await service.overview(params);
-        this.investmentPoolsOverview = response.data.item;
+        this.investmentPoolsOverview = response.data;
     }
 }
 

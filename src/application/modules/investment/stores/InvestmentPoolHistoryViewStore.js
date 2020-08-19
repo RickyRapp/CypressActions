@@ -36,15 +36,15 @@ class InvestmentPoolHistoryViewStore extends BaseListViewStore {
                     title: 'INVESTMENT_POOL.LIST.COLUMNS.NAME'
                 },
                 {
-                    key: 'currentValue',
+                    key: 'currentShareValue',
                     title: 'INVESTMENT_POOL.LIST.COLUMNS.VALUE',
                     format: {
                         type: 'function',
                         value: (item) => {
                             return <div>
                                 <FormatterResolver
-                                    item={{ currentValue: item.currentValue }}
-                                    field='currentValue'
+                                    item={{ currentShareValue: item.currentShareValue }}
+                                    field='currentShareValue'
                                     format={{ type: 'currency' }}
                                 />
                                 {item.change != 0 &&
@@ -54,7 +54,7 @@ class InvestmentPoolHistoryViewStore extends BaseListViewStore {
                                             style={{ transform: `rotate(${item.change > 0 ? '180' : '0'}deg)` }}></span>
                                         <span style={{ color: `${item.change > 0 ? 'green' : 'red'}` }}>
                                             <FormatterResolver
-                                                item={{ difference: item.previousValue * item.change }}
+                                                item={{ difference: item.previousShareValue * item.change }}
                                                 field='difference'
                                                 format={{ type: 'currency' }}
                                             />
