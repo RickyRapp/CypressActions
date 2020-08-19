@@ -1519,6 +1519,7 @@
                 "DATE_ASSIGNED_LABEL": "Assigned on",
                 "DATE_CREATED_LABEL": "Date created",
                 "STATUS_LABEL": "Status",
+                "TYPE_LABEL": "Type",
                 "SHARE_NAME_LABEL": "Share name",
                 "CERTIFICATES_LABEL": "Certificates",
                 "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"
@@ -1541,8 +1542,10 @@
             },
             "TITLE": "Create booklet",
             "FIELDS": {
-                "COUNT_LABEL": "Count",
-                "COUNT_PLACEHOLDER": "Count",
+                "BOOKLET_TYPE_LABEL": "Booklet type",
+                "BOOKLET_COUNT_LABEL": "How many booklets you want?",
+                "COUNT_LABEL": "Certificate per booklet",
+                "COUNT_PLACEHOLDER": "Certificate per booklet",
                 "DENOMINATION_LABEL": "Denomination",
                 "DENOMINATION_PLACEHOLDER": "Denomination"
             }
@@ -1609,12 +1612,16 @@
             "PRIVATE_FEE_APPLIED": "Fee Will Be Applied When Scanning Certificate.",
             "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
             "FIELDS": {
-                "COUNT_LABEL": "Count",
-                "COUNT_PLACEHOLDER": "Count",
+                "BOOKLET_COUNT_LABEL": "How many booklets you want?",
+                "BOOKLET_COUNT_PLACEHOLDER": "Count",
                 "DENOMINATION_LABEL": "Denomination",
                 "DENOMINATION_PLACEHOLDER": "Denomination",
                 "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
-                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type",
+                "BOOKLET_TYPE_LABEL": "Booklet type",
+                "BOOKLET_TYPE_PLACEHOLDER": "Booklet type",
+                "DENOMINATION_TYPE_LABEL": "Denomination type",
+                "DENOMINATION_TYPE_PLACEHOLDER": "Denomination type"
             }
         },
         "EDIT": {

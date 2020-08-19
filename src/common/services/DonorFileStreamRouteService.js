@@ -14,7 +14,7 @@ class DonorFileStreamRouteService extends BaseRouteService {
     }
 
     getPreview(id, options) {
-        return super.get(ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" + this.base + '/{id}/{?embed}', id, options);
+        return super.get(ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" + this.base + '/{id}/{?embed}', id, options); // eslint-disable-line
     }
 
     create(resource) {

@@ -22,7 +22,7 @@ i18n
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json',
         },
-        whitelist: ApplicationSettings.availableLanguages
+        whitelist: ApplicationSettings.availableLanguages // eslint-disable-line
     });
 
 export default i18n;

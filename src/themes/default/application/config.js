@@ -19,7 +19,7 @@ import { MainLayout } from 'core/layouts';
                             applicationStore,
                             authStore
                         } = routerStore.rootStore;
-                        applicationStore.register(ApplicationSettings);
+                        applicationStore.register(ApplicationSettings); // eslint-disable-line
 
                         try {
                             await authStore.initialize();

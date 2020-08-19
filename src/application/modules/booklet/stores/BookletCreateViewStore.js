@@ -1,26 +1,23 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { BookletCreateForm } from 'application/booklet/forms';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletService } from 'application/booklet/services';
 import { LookupService } from 'common/services';
-import _ from 'lodash';
 
 @applicationContext
 class BookletCreateViewStore extends BaseEditViewStore {
-    @observable countError = null;
-    @observable denominationError = null;
-    originalDenominationTypes = null;
-    @observable count = '';
+    @observable bookletTypes = null;
+    @observable denominationTypes = null;
 
     constructor(rootStore) {
-        const service = new BookletService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
-            name: 'booklet',
+            name: 'booklet-create',
             id: undefined,
             autoInit: false,
             actions: () => {
+                const service = new BookletService(rootStore.application.baasic.apiClient);
                 return {
                     create: async (resource) => {
                         service.create(resource.items);
@@ -30,9 +27,6 @@ class BookletCreateViewStore extends BaseEditViewStore {
             },
             FormClass: BookletCreateForm,
         });
-
-        this.service = service;
-        this.denominationTypeDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound
@@ -42,57 +36,24 @@ class BookletCreateViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDenominationTypes()
+                this.fetchDenominationTypes(),
+                this.fetchBookletTypes(),
             ]);
         }
     }
 
     @action.bound
-    onDel(item) {
-        item.del();
-        this.resetDenominationDropdownStore();
-    }
-
-    @action.bound
-    onAdd() {
-        if (this.count && this.denominationTypeDropdownStore.value) {
-            this.form.$('items').add([{ count: this.count, denominationTypeId: this.denominationTypeDropdownStore.value.id }])
-            this.count = '';
-            this.denominationTypeDropdownStore.setValue(null);
-            this.resetDenominationDropdownStore();
-        }
-    }
-
-    @action.bound
-    onEdit(item) {
-        this.count = item.$('count').value;
-        this.denominationTypeDropdownStore.setValue(_.find(this.originalDenominationTypes, { id: item.$('denominationTypeId').value }));
-        item.del();
-        this.resetDenominationDropdownStore();
-    }
-
-    @action
-    resetDenominationDropdownStore() {
-        const usedDenominationTypeIds = _.map(this.form.$('items').value, e => { return e.denominationTypeId });
-        const availableDenominations = _.filter(this.originalDenominationTypes, function (params) { return !_.includes(usedDenominationTypeIds, params.id) })
-        this.denominationTypeDropdownStore.setItems(availableDenominations);
-    }
-
-    @action.bound onCountChange(event) {
-        this.count = event.target.value;
-        this.countError = !(this.count !== null && this.count !== undefined && this.count !== '');
-    }
-
-    @action.bound
     async fetchDenominationTypes() {
-        this.denominationTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
         const response = await service.getAll();
-        this.originalDenominationTypes = response.data;
-        runInAction(() => {
-            this.denominationTypeDropdownStore.setItems(this.originalDenominationTypes);
-            this.denominationTypeDropdownStore.setLoading(false);
-        });
+        this.denominationTypes = response.data;
+    }
+
+    @action.bound
+    async fetchBookletTypes() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-type');
+        const response = await service.getAll();
+        this.bookletTypes = response.data;
     }
 }
 

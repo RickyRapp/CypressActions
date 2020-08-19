@@ -50,18 +50,14 @@ class BookletEditViewStore extends BaseViewStore {
     async getResource() {
         let params = {
             embed: [
-                'bookletOrderItemBooklets',
-                'bookletOrderItemBooklets.bookletOrderItem',
-                'bookletOrderItemBooklets.bookletOrderItem.bookletOrder',
-                'bookletOrderItemBooklets.bookletOrderItem.bookletOrder.accountType',
+                'bookletOrder',
+                'bookletOrder.accountType',
                 'certificates',
                 'certificates.certificateStatus',
-                'denominationType',
+                'certificates.denominationType',
                 'donor',
-                'donor.coreUser',
-                'donor.companyProfile',
                 'createdByCoreUser',
-                'denominationType'
+                'bookletType'
             ]
         }
         const response = await this.service.get(this.id, params);

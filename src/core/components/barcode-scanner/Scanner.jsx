@@ -15,14 +15,14 @@ class Scanner extends React.Component {
 
     constructor(props) {
         super();
-        this.onBarcodeDetected = props.onBarcodeDetected;
+        this.onBarcodeDetected = props.onBarcodeDetected; // eslint-disable-line
         this.codeReader = new BrowserMultiFormatReader();
         //Supported:
         //1D - product: EAN-8, EAN-13
         //1D industrial: Code 39, Code 128
         //2D: QR Code, Data Matrix
         this.codeReader.timeBetweenDecodingAttempts = 500;
-        this.notificationStore = props.notificationStore;
+        this.notificationStore = props.notificationStore;// eslint-disable-line
         this.codeReader.getVideoInputDevices()
             .then((videoInputDevices) => {
                 if (videoInputDevices.length > 0) {

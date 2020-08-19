@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { BookletOrderCreateTemplate } from 'themes/application/booklet-order/pages';
 import { BookletOrderCreateViewStore } from 'application/booklet-order/stores';
 
-@setCurrentView((rootStore) => new BookletOrderCreateViewStore(rootStore), 'store')
+@setCurrentView((rootStore) => new BookletOrderCreateViewStore(rootStore), 'bookletOrderCreateViewStore')
 @observer
 class BookletOrderCreate extends React.Component {
     render() {

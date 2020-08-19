@@ -86,10 +86,7 @@ class BaseEditViewStore extends BaseViewStore {
         if (this.isEdit) {
             await this.getResource(this.id);
         } else {
-            //due to showing error when we want to clear form (maybe only on nested fields) we need to temporarily disable valdiationOnChange.
-            this.form.state.options.set({ validateOnChange: false })
             this.form.clear()
-            this.form.state.options.set({ validateOnChange: true })
         }
     }
 

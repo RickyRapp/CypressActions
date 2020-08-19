@@ -9,24 +9,38 @@ export default class BookletOrderCreateForm extends FormBase {
         return {
             fields: [
                 'donorId',
-                'deliveryMethodTypeId',
+                // 'deliveryMethodTypeId',
                 'checkOrderUrl',
-                'bookletOrderItems',
-                'bookletOrderItems[].count',
-                'bookletOrderItems[].denominationTypeId'
+                // 'sendNotificationEmail',
+                'bookletOrderContents',
+                'bookletOrderContents[].bookletCount',
+                'bookletOrderContents[].bookletTypeId',
+                'bookletOrderContents[].certificateContents[]',
+                'bookletOrderContents[].certificateContents[].denominationTypeId',
+
             ],
             labels: {
-                'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL',
-                'bookletOrderItems': 'BOOKLET_ORDER.CREATE.FIELDS.ITEMS',
-                'bookletOrderItems[].count': 'BOOKLET_ORDER.CREATE.FIELDS.COUNT_LABEL',
-                'bookletOrderItems[].denominationTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_TYPE_LABEL',
+                // 'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL',
+                // 'sendNotificationEmail': 'BOOKLET_ORDER.CREATE.FIELDS.SEND_NOTIFICATION_EMAIL_LABEL',
+                'bookletOrderContents[].bookletCount': 'BOOKLET_ORDER.CREATE.FIELDS.BOOKLET_COUNT_LABEL',
+                'bookletOrderContents[].bookletTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.BOOKLET_TYPE_LABEL',
+                'bookletOrderContents[].certificateContents[].denominationTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_TYPE_LABEL',
             },
             rules: {
                 'donorId': 'required|string',
+                // 'deliveryMethodTypeId': 'required|string',
                 'checkOrderUrl': 'required|string',
-                'deliveryMethodTypeId': 'required|string',
-                'bookletOrderItems[].count': 'required|numeric|min:1|max:1000',
-                'bookletOrderItems[].denominationTypeId': 'required|string'
+                // 'sendNotificationEmail': 'required|boolean',
+                'bookletOrderContents[].bookletCount': 'required|integer|min:1|max:1000',
+                'bookletOrderContents[].bookletTypeId': 'required|string',
+                'bookletOrderContents[].certificateContents[].denominationTypeId': 'required|string'
+            },
+            extra: {
+                'bookletOrderContents[].bookletCount':
+                {
+                    type: 'n0',
+                    step: 1
+                }
             }
         };
     }

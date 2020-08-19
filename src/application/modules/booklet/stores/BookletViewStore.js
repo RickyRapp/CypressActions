@@ -43,8 +43,9 @@ class BookletViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'bookletStatus',
-                            'denominationType',
+                            'bookletType',
                             'certificates',
+                            'certificates.denominationType',
                             'certificates.certificateStatus',
                             'donor',
                             'grantAcknowledgmentType',
@@ -66,14 +67,6 @@ class BookletViewStore extends BaseListViewStore {
                     authorization: this.authorization.update
                 },
                 {
-                    key: 'denominationType',
-                    title: 'BOOKLET.LIST.COLUMNS.DENOMINATION_LABEL',
-                    format: {
-                        type: 'denomination',
-                        value: 'long'
-                    }
-                },
-                {
                     key: 'donor.donorName',
                     title: 'BOOKLET.LIST.COLUMNS.ASSIGNED_TO_LABEL'
                 },
@@ -84,6 +77,10 @@ class BookletViewStore extends BaseListViewStore {
                         type: 'date',
                         value: 'short'
                     }
+                },
+                {
+                    key: 'bookletType.name',
+                    title: 'BOOKLET.LIST.COLUMNS.TYPE_LABEL'
                 },
                 {
                     key: 'bookletStatus.name',

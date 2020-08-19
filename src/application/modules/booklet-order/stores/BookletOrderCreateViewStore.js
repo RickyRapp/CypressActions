@@ -1,29 +1,19 @@
-import { action, runInAction, observable, computed } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import { BookletOrderCreateForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorService } from 'application/donor/services';
 import { LookupService } from 'common/services';
 import _ from 'lodash';
 
-const ErrorType = {
-    Default: 0,
-    InsufficientFunds: 1
-};
-
 @applicationContext
 class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable denominationTypes = null;
+    @observable bookletTypes = null;
     applicationDefaultSetting = null;
-    @observable donor = null;
-    @observable countError = null;
-    @observable denominationError = null;
-    @observable count = '';
+    donor = null;
 
     constructor(rootStore) {
-        const service = new BookletOrderService(rootStore.application.baasic.apiClient);
-
         super(rootStore, {
             name: 'booklet-order-create',
             id: undefined,
@@ -31,30 +21,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        try {
-                            await service.create(resource);
-                        } catch (err) {
-                            if (err && err.data) {
-                                if (err.data.errorCode === 7000) {
-                                    throw { type: ErrorType.InsufficientFunds, error: err }
-                                }
-                                else {
-                                    throw { type: ErrorType.Default, error: err };
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            errorActions: {
-                onCreateError: ({ type, error }) => {
-                    switch (type) {
-                        case ErrorType.InsufficientFunds:
-                            this.rootStore.notificationStore.error(null, error, '$' + error.data.response.toFixed(2));
-                            break;
-                        default:
-                            this.rootStore.notificationStore.error(null, error);
-                            break;
+                        return { statusCode: 200, data: resource }
                     }
                 }
             },
@@ -71,14 +38,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 return response.data;
             }
         });
-        this.denominationTypeDropdownStore = new BaasicDropdownStore({
-            placeholder: 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_PLACEHOLDER'
-        },
-            {
-                onChange: (value) => {
-                    this.denominationError = !(value !== null && value !== undefined && value !== '');
-                }
-            });
     }
 
     @action.bound
@@ -90,7 +49,8 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.fetchDonor(),
                 this.fetchApplicationDefaultSetting(),
-                this.fetchDenominationTypes()
+                this.fetchDenominationTypes(),
+                this.fetchBookletTypes()
             ]);
 
             await this.fetch([
@@ -101,61 +61,15 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaults() {
-        this.form.$('donorId').set('value', this.donorId);
-        this.form.$('checkOrderUrl').set('value', `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`)
-        if (this.donor.accountType.abrv === 'regular') {
-            this.denominationTypes = _.filter(this.denominationTypes, (item) => { return item.abrv !== 'blank' });
-        }
-        runInAction(() => {
-            this.denominationTypeDropdownStore.setItems(this.denominationTypes);
-            this.denominationTypeDropdownStore.setLoading(false);
-        });
-
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             if (!this.donor.isInitialContributionDone) {
                 this.rootStore.notificationStore.warning('BOOKLET_ORDER.CREATE.MISSING_INITIAL_CONTRIBUTION');
                 this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
             }
         }
-    }
 
-    @action.bound onDel(item) {
-        item.del();
-        this.resetDenominationDropdownStore();
-    }
-
-    @action.bound onAdd() {
-        if (this.count && this.denominationTypeDropdownStore.value) {
-            this.form.$('bookletOrderItems').add([{ count: this.count, denominationTypeId: this.denominationTypeDropdownStore.value.id }])
-            this.count = '';
-            this.denominationTypeDropdownStore.setValue(null);
-            this.resetDenominationDropdownStore();
-        }
-        else {
-            this.countError = !(this.count !== null && this.count !== undefined && this.count !== '');
-            this.denominationError = !(this.denominationTypeDropdownStore.value !== null && this.denominationTypeDropdownStore.value !== undefined && this.denominationTypeDropdownStore.value !== '');
-        }
-    }
-
-    @action.bound onEdit(item) {
-        this.count = item.$('count').value;
-        this.denominationTypeDropdownStore.setValue(_.find(this.denominationTypes, { id: item.$('denominationTypeId').value }));
-        item.del();
-        this.resetDenominationDropdownStore();
-        this.countError = !(this.count !== null && this.count !== undefined && this.count !== '');
-        this.denominationError = !(this.denominationTypeDropdownStore.value !== null && this.denominationTypeDropdownStore.value !== undefined && this.denominationTypeDropdownStore.value !== '');
-    }
-
-    @action
-    resetDenominationDropdownStore() {
-        const usedDenominationTypeIds = _.map(this.form.$('bookletOrderItems').value, 'denominationTypeId');
-        const availableDenominations = _.filter(this.denominationTypes, function (params) { return !_.includes(usedDenominationTypeIds, params.id) })
-        this.denominationTypeDropdownStore.setItems(availableDenominations);
-    }
-
-    @action.bound onCountChange(event) {
-        this.count = event.target.value;
-        this.countError = !(this.count !== null && this.count !== undefined && this.count !== '');
+        this.form.$('donorId').set('value', this.donorId);
+        this.form.$('checkOrderUrl').set('value', `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`)
     }
 
     @computed get mostCommonDenominations() {
@@ -221,14 +135,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchDenominationTypes() {
-        this.denominationTypeDropdownStore.setLoading(true);
         const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
         const response = await service.getAll();
         this.denominationTypes = response.data;
-        runInAction(() => {
-            this.denominationTypeDropdownStore.setItems(this.denominationTypes);
-            this.denominationTypeDropdownStore.setLoading(false);
-        });
+    }
+
+    @action.bound
+    async fetchBookletTypes() {
+        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-type');
+        const response = await service.getAll();
+        this.bookletTypes = response.data;
     }
 }
 

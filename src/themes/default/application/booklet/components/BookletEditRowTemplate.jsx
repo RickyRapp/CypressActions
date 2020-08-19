@@ -11,12 +11,14 @@ function BookletEditRowTemplate({
     item,
     certificateStatusDropdownStore,
     saveRowChanges,
-    onRowStatusChange
+    onRowStatusChange,
+    isMixedBooklet
 }) {
 
     return (
         <tr>
             <td className="table__body--data">{item.code}</td>
+            {isMixedBooklet && <td className="table__body--data">{item.denominationType.name}</td>}
             <td className="table__body--data">{item.barcode}</td>
             <td className="table__body--data">
                 <BasicCheckbox
@@ -63,7 +65,8 @@ BookletEditRowTemplate.propTypes = {
     item: PropTypes.object.isRequired,
     certificateStatusDropdownStore: PropTypes.object.isRequired,
     saveRowChanges: PropTypes.func.isRequired,
-    onRowStatusChange: PropTypes.func.isRequired
+    onRowStatusChange: PropTypes.func.isRequired,
+    isMixedBooklet: PropTypes.bool
 };
 
 export default defaultTemplate(BookletEditRowTemplate);

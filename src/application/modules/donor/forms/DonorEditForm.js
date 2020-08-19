@@ -1,5 +1,4 @@
 import { FormBase } from 'core/components';
-import { donorSettingsFormProperties } from 'application/donor/forms';
 
 export default class DonorEditForm extends FormBase {
     constructor(hooks) {

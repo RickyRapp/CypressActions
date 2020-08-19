@@ -25,9 +25,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
     let canceled = 0;
     let active = 0;
     if (booklet) {
-        if (booklet.bookletOrderItemBooklets && booklet.bookletOrderItemBooklets.length > 0) {
-            bookletOrder = booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder;
-        }
+        bookletOrder = booklet.bookletOrder;
 
         clean = _.filter(booklet.certificates, { certificateStatus: { abrv: 'clean' } }).length;
         used = _.filter(booklet.certificates, { certificateStatus: { abrv: 'used' } }).length;
@@ -35,19 +33,26 @@ function BookletEditTemplate({ bookletEditViewStore }) {
         active = _.filter(booklet.certificates, { isActive: true }).length;
     }
 
+    const isMixedBooklet = booklet && booklet.bookletType.abrv === 'mixed'
+
     return (
         <ApplicationEditLayout store={bookletEditViewStore}>
             <Content loading={contentLoading} >
                 <div className="card card--form card--primary card--med u-mar--bottom--med">
                     <div className="row">
+                        {booklet &&
+                            <div className="form__group col col-lrg-3">
+                                <strong>Type: </strong>{booklet.bookletType.name}
+                                {!isMixedBooklet &&
+                                    <span>
+                                        {" "}({booklet.certificates[0].denominationType.name})
+                                    </span>}
+                            </div>}
                         <div className="form__group col col-lrg-2">
                             <strong>Code:</strong> {booklet && booklet.code}
                         </div>
                         <div className="form__group col col-lrg-2">
                             <strong>Count:</strong> {`${clean} / ${used} / ${canceled} | ${active}`}
-                        </div>
-                        <div className="form__group col col-lrg-3">
-                            <strong>Denomination:</strong> {booklet && booklet.denominationType.name}
                         </div>
                         <div className="form__group col col-lrg-2">
                             <strong>Donor: </strong>
@@ -87,6 +92,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         <thead className="table__head">
                             <tr>
                                 <th className="table__head--data">Certificate Code</th>
+                                {isMixedBooklet && <th className="table__head--data">Denomination</th>}
                                 <th className="table__head--data">Barcode</th>
                                 <th className="table__head--data">Is Active</th>
                                 <th className="table__head--data">Status</th>
@@ -102,7 +108,8 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                                         item={item}
                                         certificateStatusDropdownStore={certificateStatusDropdownStore}
                                         saveRowChanges={saveRowChanges}
-                                        onRowStatusChange={onRowStatusChange} />
+                                        onRowStatusChange={onRowStatusChange}
+                                        isMixedBooklet={isMixedBooklet} />
                                 })}
                             </tbody>}
                     </table>
