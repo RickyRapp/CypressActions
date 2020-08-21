@@ -47,14 +47,14 @@ class InvestmentPoolHistoryViewStore extends BaseListViewStore {
                                     field='currentShareValue'
                                     format={{ type: 'currency' }}
                                 />
-                                {item.change != 0 &&
+                                {item.newTotalPoolValue !== item.currentTotalPoolValue &&
                                     <span>
                                         <span
                                             className='u-icon u-icon--tny u-icon--arrow-down'
-                                            style={{ transform: `rotate(${item.change > 0 ? '180' : '0'}deg)` }}></span>
-                                        <span style={{ color: `${item.change > 0 ? 'green' : 'red'}` }}>
+                                            style={{ transform: `rotate(${item.newTotalPoolValue > item.currentTotalPoolValue ? '180' : '0'}deg)` }}></span>
+                                        <span style={{ color: `${item.newTotalPoolValue > item.currentTotalPoolValue > 0 ? 'green' : 'red'}` }}>
                                             <FormatterResolver
-                                                item={{ difference: item.previousShareValue * item.change }}
+                                                item={{ difference: item.previousShareValue * (item.newTotalPoolValue - item.currentTotalPoolValue) / item.currentTotalPoolValue }}
                                                 field='difference'
                                                 format={{ type: 'currency' }}
                                             />

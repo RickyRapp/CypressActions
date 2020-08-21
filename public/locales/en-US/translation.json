@@ -2292,10 +2292,10 @@
         "EDIT": {
             "TITLE": "Title",
             "FIELDS": {
-                "CHANGE_LABEL": "Change",
-                "CHANGE_PLACEHOLDER": "Change",
-                "POOL_VALUE_LABEL": "Pool value",
-                "POOL_VALUE_PLACEHOLDER": "Pool value"
+                "PERCENTAGE_CHANGE_LABEL": "Percentage change",
+                "PERCENTAGE_CHANGE_PLACEHOLDER": "Change",
+                "DOLLAR_CHANGE_LABEL": "Pool value",
+                "DOLLAR_VALUE_PLACEHOLDER": "Pool value"
             }
         }
     },

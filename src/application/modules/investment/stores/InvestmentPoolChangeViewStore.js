@@ -1,13 +1,11 @@
-import { observable } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { InvestmentPoolHistoryService } from 'application/investment/services';
 import { applicationContext } from 'core/utils';
 import { InvestmentPoolEditForm } from 'application/investment/forms';
+import { action } from 'mobx';
 
 @applicationContext
 class InvestmentPoolChangeViewStore extends BaseEditViewStore {
-    @observable investmentPoolsHistory = null;
-
     constructor(rootStore, onAfterAction) {
         super(rootStore, {
             name: 'investment-pool-change',
@@ -21,39 +19,43 @@ class InvestmentPoolChangeViewStore extends BaseEditViewStore {
                             embed: ['investmentPool']
                         }
                         const response = await service.overview(params);
-                        this.investmentPoolsHistory = response.data;
-                        return {
-                            aggressiveGrowthName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'aggressive-growth' }).investmentPool.name,
-                            aggressiveGrowthPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'aggressive-growth' }).totalPoolValue,
-                            aggressiveGrowthChange: 0,
-                            balancedName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'balanced' }).investmentPool.name,
-                            balancedPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'balanced' }).totalPoolValue,
-                            balancedChange: 0,
-                            conservativeIncomeName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'conservative-income' }).investmentPool.name,
-                            conservativeIncomePoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'conservative-income' }).totalPoolValue,
-                            conservativeIncomeChange: 0,
-                            growthName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'growth' }).investmentPool.name,
-                            growthPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'growth' }).totalPoolValue,
-                            growthChange: 0,
-                            incomeName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'income' }).investmentPool.name,
-                            incomePoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'income' }).totalPoolValue,
-                            incomeChange: 0,
-                            moderateGrowthName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-growth' }).investmentPool.name,
-                            moderateGrowthPoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-growth' }).totalPoolValue,
-                            moderateGrowthChange: 0,
-                            moderateIncomeName: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-income' }).investmentPool.name,
-                            moderateIncomePoolValue: this.investmentPoolsHistory.find(item => { return item.investmentPool.abrv === 'moderate-income' }).totalPoolValue,
-                            moderateIncomeChange: 0
+                        const arr = [];
+
+                        for (let index = 0; index < response.data.length; index++) {
+                            const element = response.data[index];
+                            arr.push({
+                                investmentPoolId: element.investmentPoolId,
+                                investmentPool: element.investmentPool,
+                                totalPoolValue: element.totalPoolValue,
+                                percentageChange: 0
+                            })
                         }
+
+                        return { investmentPoolHistory: arr };
                     },
                     update: async (resource) => {
-                        await service.update({ ...resource });
+                        debugger
+                        await service.update(resource.investmentPoolHistory);
                     }
                 }
             },
             onAfterAction: onAfterAction,
         });
     }
+
+    @action.bound
+    updateForm() {
+        if (this.item) {
+            for (let index = 0; index < this.item.investmentPoolHistory.length; index++) {
+                this.form.$('investmentPoolHistory').add([this.item.investmentPoolHistory[index]])
+            }
+
+            if (this.translationStore) {
+                this.translationStore.update(this.form.values());
+            }
+        }
+    }
+
 }
 
 export default InvestmentPoolChangeViewStore;
