@@ -12,44 +12,91 @@ const ErrorType = {
 
 @applicationContext
 class DonorCreateViewStore extends BaseEditViewStore {
-    accountTypes = null;
-    applicationDefaultSetting = null;
     @observable loginShow = false;
-    @observable accountSettingsShow = false;
 
     constructor(rootStore) {
         const service = new DonorService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'donor',
-            autoInit: false,
             id: undefined,
             actions: {
                 create: async (item) => {
+
                     await this.fetch([
-                        this.usernameExists(item.coreUser.username),
+                        this.usernameExists(item.username),
                         this.fundNameExists(item.fundName)
                     ])
-                    if (item.coreUser.username || item.coreUser.coreMembership.password || item.coreUser.coreMembership.confirmPassword) {
-                        if (!item.coreUser.username) {
-                            this.form.$('coreUser.username').invalidate('The Username is required if you want create online account.')
+
+                    if (item.username || item.password || item.confirmPassword) {
+                        if (!item.username) {
+                            this.form.$('username').invalidate('The Username is required if you want create online account.')
                         }
-                        if (!item.coreUser.coreMembership.password) {
-                            this.form.$('coreUser.coreMembership.password').invalidate('The Password is required if you want create online account.')
+                        if (!item.password) {
+                            this.form.$('password').invalidate('The Password is required if you want create online account.')
                         }
-                        if (!item.coreUser.coreMembership.confirmPassword) {
-                            this.form.$('coreUser.coreMembership.confirmPassword').invalidate('The Confirm password is required if you want create online account.')
+                        if (!item.confirmPassword) {
+                            this.form.$('confirmPassword').invalidate('The Confirm password is required if you want create online account.')
                         }
                     }
                     else {
-                        item.coreUser.username = null;
+                        item.username = null;
                     }
                     if (!this.form.isValid) {
                         throw { type: ErrorType.Unique };
                     }
 
-                    item.coreUser.json = JSON.stringify({ middleName: item.coreUser.middleName, prefixTypeId: item.coreUser.prefixTypeId });
+                    item.json = JSON.stringify({ middleName: item.middleName, prefixTypeId: item.prefixTypeId });
                     item.dateOfBirth = new Date(Date.UTC(item.dateOfBirth.getFullYear(), item.dateOfBirth.getMonth(), item.dateOfBirth.getDate()));
-                    await service.create(item);
+
+                    const serviceAplicationDefaultSetting = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
+                    const response = await serviceAplicationDefaultSetting.getAll();
+                    const applicationDefaultSetting = response.data[0];
+
+                    const model = {
+                        activationUrl: `${window.location.origin}/app/account-activation/?activationToken={activationToken}`,
+                        dateOfBirth: item.dateOfBirth,
+                        fundName: item.fundName,
+                        howDidYouHearAboutUsDescription: item.howDidYouHearAboutUsDescription,
+                        howDidYouHearAboutUsId: item.howDidYouHearAboutUsId,
+                        securityPin: item.securityPin,
+                        lineOfCredit: applicationDefaultSetting.regularLineOfCreditAmount,
+                        contributionMinimumInitialAmount: applicationDefaultSetting.regularMinimumInitialContributionAmount,
+                        contributionMinimumAdditionalAmount: applicationDefaultSetting.regularMinimumAdditionalContributionAmount,
+                        grantMinimumAmount: applicationDefaultSetting.regularMinimumGrantAmount,
+                        grantFeePercentage: applicationDefaultSetting.regularGrantFeePercentage,
+                        certificateDeductionPercentage: applicationDefaultSetting.regularCertificateDeductionPercentage,
+                        certificateFeePercentage: applicationDefaultSetting.regularCertificateFeePercentage,
+                        extraBookletPercentage: applicationDefaultSetting.extraBookletPercentage,
+                        notificationLimitRemainderAmount: applicationDefaultSetting.regularNotificationLimitRemainderAmount,
+                        blankBookletMaxAmount: applicationDefaultSetting.blankBookletMaxAmount,
+                        coreUser: {
+                            userName: item.username,
+                            firstName: item.firstName,
+                            lastName: item.lastName,
+                            json: item.json,
+                            coreMembership: {
+                                password: item.password,
+                                confirmPassword: item.confirmPassword
+                            }
+                        },
+                        address: {
+                            addressLine1: item.addressLine1,
+                            addressLine2: item.addressLine2,
+                            city: item.city,
+                            state: item.state,
+                            zipCode: item.zipCode,
+                            decription: item.addressDescription
+                        },
+                        emailAddress: {
+                            email: item.email,
+                            decription: item.emailAddressDescription
+                        },
+                        phoneNumber: {
+                            number: item.number,
+                            decription: item.phoneNumberDescription
+                        }
+                    }
+                    await service.create(model);
                 }
             },
             errorActions: {
@@ -66,23 +113,13 @@ class DonorCreateViewStore extends BaseEditViewStore {
             FormClass: DonorCreateForm,
         });
 
-        this.rootStore = rootStore;
         this.service = service;
-
         this.prefixTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
                     const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
                     const response = await service.getAll();
                     return response.data;
-                }
-            });
-        this.accountTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                onChange: (accountTypeId) => {
-                    this.form.$('blankBookletMaxAmount').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'private' }).id);
-                    this.form.$('extraBookletPercentage').setRequired(accountTypeId === _.find(this.accountTypes, { abrv: 'private' }).id);
-                    this.setFormDefaultValues();
                 }
             });
         this.howDidYouHearAboutUsDropdownStore = new BaasicDropdownStore(null,
@@ -96,48 +133,22 @@ class DonorCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goTo(
-                'master.app.main.donor.list'
-            )
-        }
-        else {
-            await this.fetch([
-                this.fetchApplicationDefaultSetting(),
-                this.fetchAccountTypes()
-            ]);
-
-            if (!this.form.$('accountTypeId').value) {
-                this.form.$('accountTypeId').set(_.find(this.accountTypes, { abrv: 'regular' }).id);
-                this.form.$('blankBookletMaxAmount').setRequired(false);
-                this.form.$('extraBookletPercentage').setRequired(false);
-                this.accountTypeDropdownStore.setValue(_.find(this.accountTypes, { abrv: 'regular' }))
-            }
-
-            await this.fetch([
-                this.setFormDefaultValues()
-            ]);
-        }
-    }
-
-    @action.bound
     onBlurUsername(event) {
         this.usernameExists(event.target ? event.target.value : null)
     }
 
     @action.bound
     async usernameExists(username) {
-        if (this.form.$('coreUser.username').isValid) {
+        if (this.form.$('username').isValid) {
             try {
                 const response = await this.rootStore.application.baasic.membershipModule.user.exists(username);
                 if (response.statusCode === 204) {
-                    this.form.$('coreUser.username').invalidate('Username already exists.')
+                    this.form.$('username').invalidate('Username already exists.')
                     return;
                 }
             } catch (err) {
                 if (err.statusCode === 404) {
-                    this.form.$('coreUser.username').resetValidation();
+                    this.form.$('username').resetValidation();
                     return;
                 }
             }
@@ -147,11 +158,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
     @action.bound
     onChangeLoginShow(visiblity) {
         this.loginShow = visiblity;
-    }
-
-    @action.bound
-    onChangeAccountSettingsShow(visiblity) {
-        this.accountSettingsShow = visiblity;
     }
 
     @action.bound
@@ -174,50 +180,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
                     return;
                 }
             }
-        }
-    }
-
-    @action.bound
-    async fetchAccountTypes() {
-        this.accountTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
-        const response = await service.getAll();
-        this.accountTypes = response.data;
-        runInAction(() => {
-            this.accountTypeDropdownStore.setItems(this.accountTypes);
-            this.accountTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    @action.bound
-    async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
-    }
-
-    @action.bound
-    async setFormDefaultValues() {
-        if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'regular' }).id) {
-            this.form.$('lineOfCredit').set(this.applicationDefaultSetting.regularLineOfCreditAmount);
-            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.regularMinimumInitialContributionAmount);
-            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.regularMinimumAdditionalContributionAmount);
-            this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.regularMinimumGrantAmount);
-            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.regularGrantFeePercentage);
-            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.regularCertificateDeductionPercentage);
-            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.regularCertificateFeePercentage);
-        }
-        else if (this.form.$('accountTypeId').value === _.find(this.accountTypes, { abrv: 'private' }).id) {
-            this.form.$('lineOfCredit').set(this.applicationDefaultSetting.privateLineOfCreditAmount);
-            this.form.$('contributionMinimumInitialAmount').set(this.applicationDefaultSetting.privateMinimumInitialContributionAmount);
-            this.form.$('contributionMinimumAdditionalAmount').set(this.applicationDefaultSetting.privateMinimumAdditionalContributionAmount);
-            this.form.$('grantMinimumAmount').set(this.applicationDefaultSetting.privateMinimumGrantAmount);
-            this.form.$('grantFeePercentage').set(this.applicationDefaultSetting.privateGrantFeePercentage);
-            this.form.$('certificateDeductionPercentage').set(this.applicationDefaultSetting.privateCertificateDeductionPercentage);
-            this.form.$('certificateFeePercentage').set(this.applicationDefaultSetting.privateCertificateFeePercentage);
-            this.form.$('extraBookletPercentage').set(this.applicationDefaultSetting.extraBookletPercentage);
-            this.form.$('notificationLimitRemainderAmount').set(this.applicationDefaultSetting.privateNotificationLimitRemainderAmount);
-            this.form.$('blankBookletMaxAmount').set(this.applicationDefaultSetting.blankBookletMaxAmount);
         }
     }
 }

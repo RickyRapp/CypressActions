@@ -1,7 +1,8 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier"
   ],
   "env": {
     "browser": true,
@@ -21,9 +22,9 @@
   "plugins": [
     "react"
   ],
-  // "globals": {
-  //   "ApplicationSettings": true
-  // },
+  "globals": {
+    "ApplicationSettings": true
+  },
   "rules": {
     "react/jsx-uses-vars": 1,
     "no-multiple-empty-lines": [

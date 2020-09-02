@@ -11,38 +11,38 @@ class ContactInfoForm extends Component {
                 <h3 className="u-mar--bottom--med">{t('DONOR.CREATE.CONTACT_INFO_FIELDS.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('address.addressLine1')} />
+                        <BasicInput field={form.$('addressLine1')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('address.addressLine2')} />
+                        <BasicInput field={form.$('addressLine2')} />
                     </div>
                     <div className="form__group col col-lrg-2">
-                        <BasicInput field={form.$('address.city')} />
+                        <BasicInput field={form.$('city')} />
                     </div>
                     <div className="form__group col col-lrg-2">
-                        <BasicInput field={form.$('address.state')} />
+                        <BasicInput field={form.$('state')} />
                     </div>
                     <div className="form__group col col-lrg-2">
-                        <BasicInput field={form.$('address.zipCode')} />
+                        <BasicInput field={form.$('zipCode')} />
                     </div>
                     <div className="form__group col col-lrg-2">
-                        <BasicInput field={form.$('address.description')} />
+                        <BasicInput field={form.$('addressDescription')} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('emailAddress.email')} />
+                        <BasicInput field={form.$('email')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('emailAddress.description')} />
+                        <BasicInput field={form.$('emailAddressDescription')} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="form__group col col-lrg-3">
-                        <NumberFormatInputField field={form.$('phoneNumber.number')} />
+                        <NumberFormatInputField field={form.$('number')} />
                     </div>
                     <div className="form__group col col-lrg-3">
-                        <BasicInput field={form.$('phoneNumber.description')} />
+                        <BasicInput field={form.$('phoneNumberDescription')} />
                     </div>
                 </div>
             </React.Fragment>

@@ -26,13 +26,13 @@ class CreateLoginForm extends Component {
                 {show &&
                     <div className="row">
                         <div className="form__group col col-lrg-3">
-                            <BasicInput field={form.$('coreUser.username')} onBlur={onBlurUsername} />
+                            <BasicInput field={form.$('username')} onBlur={onBlurUsername} />
                         </div>
                         <div className="form__group col col-lrg-3">
-                            <BasicInput field={form.$('coreUser.coreMembership.password')} />
+                            <BasicInput field={form.$('password')} />
                         </div>
                         <div className="form__group col col-lrg-3">
-                            <BasicInput field={form.$('coreUser.coreMembership.confirmPassword')} />
+                            <BasicInput field={form.$('confirmPassword')} />
                         </div>
                     </div>}
             </React.Fragment>

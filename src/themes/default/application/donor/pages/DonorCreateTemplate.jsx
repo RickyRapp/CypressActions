@@ -1,20 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate, withAuth } from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 import {
     BasicInput,
     BaasicFieldDropdown,
     BaasicFormControls,
-    NumericInputField,
     EditFormContent,
     NumberFormatInputField,
     DatePickerField
 } from 'core/components';
 import { Page } from 'core/layouts';
-import {
-    AccountSettingsPartialForm,
-    ContactInfoForm
-} from 'application/donor/components';
+import { ContactInfoForm } from 'application/donor/components';
 import { CreateLoginForm } from 'common/components';
 
 function DonorCreateTemplate({ donorCreateViewStore }) {
@@ -22,17 +18,12 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
         form,
         prefixTypeDropdownStore,
         loaderStore,
-        accountTypeDropdownStore,
         howDidYouHearAboutUsDropdownStore,
         onBlurUsername,
         onBlurFundName,
-        accountSettingsShow,
-        onChangeAccountSettingsShow,
         loginShow,
         onChangeLoginShow
     } = donorCreateViewStore;
-
-    const isPrivate = accountTypeDropdownStore.value && accountTypeDropdownStore.value.abrv === 'private';
 
     return (
         <Page loading={loaderStore.loading} >
@@ -43,29 +34,23 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                             <div className="u-mar--bottom--sml">
                                 <h3 className="u-mar--bottom--med">General Data</h3>
                                 <div className="row">
-                                    <div className="form__group col col-lrg-2">
-                                        <BaasicFieldDropdown field={form.$('accountTypeId')} store={accountTypeDropdownStore} />
-                                    </div>
                                     <div className="form__group col col-lrg-1">
-                                        <BaasicFieldDropdown field={form.$('coreUser.prefixTypeId')} store={prefixTypeDropdownStore} />
+                                        <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('coreUser.firstName')} />
+                                        <BasicInput field={form.$('firstName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('coreUser.middleName')} />
+                                        <BasicInput field={form.$('middleName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('coreUser.lastName')} />
+                                        <BasicInput field={form.$('lastName')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-3">
                                         <DatePickerField field={form.$('dateOfBirth')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput
-                                            field={form.$('fundName')}
-                                            onBlur={onBlurFundName}
-                                        />
+                                        <BasicInput field={form.$('fundName')} onBlur={onBlurFundName} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <NumberFormatInputField field={form.$('securityPin')} />
@@ -76,24 +61,7 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                                     <div className="form__group col col-lrg-3">
                                         <BasicInput field={form.$('howDidYouHearAboutUsDescription')} />
                                     </div>
-                                    {isPrivate &&
-                                        <div className="form__group col col-lrg-3">
-                                            <NumericInputField field={form.$('notificationLimitRemainderAmount')} />
-                                        </div>}
-                                    {isPrivate &&
-                                        <div className="form__group col col-lrg-3">
-                                            <NumericInputField field={form.$('blankBookletMaxAmount')} />
-                                        </div>}
                                 </div>
-                            </div>
-                            <div className="u-mar--bottom--sml">
-                                <AuthAccountSettingsPartialFormContent
-                                    form={form}
-                                    isPrivateAccount={isPrivate}
-                                    authorization='theDonorsFundAdministrationSection.update'
-                                    show={accountSettingsShow}
-                                    onChangeShow={onChangeAccountSettingsShow}
-                                />
                             </div>
                             <div className="u-mar--bottom--sml">
                                 <ContactInfoForm form={form} />
@@ -109,28 +77,18 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                             </div>
                         </div>
                     </div>
-                    {renderEditLayoutFooterContent({ form })}
+                    <div className="u-mar--bottom--med">
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                    </div>
                 </EditFormContent>
             </div>
         </Page >
     )
 }
 
-const AuthAccountSettingsPartialFormContent = withAuth(AccountSettingsPartialForm);
-
 DonorCreateTemplate.propTypes = {
     donorCreateViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
-};
-
-function renderEditLayoutFooterContent({ form }) {
-    return <div className="u-mar--bottom--med">
-        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-    </div>
-}
-
-renderEditLayoutFooterContent.propTypes = {
-    form: PropTypes.any
 };
 
 export default defaultTemplate(DonorCreateTemplate);

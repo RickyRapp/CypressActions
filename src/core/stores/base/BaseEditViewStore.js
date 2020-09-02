@@ -20,10 +20,17 @@ class BaseEditViewStore extends BaseViewStore {
 
     _errorActions = null;
     get errorActions() {
-        return this._errorActions ? (typeof this._errorActions === 'function' ? this._errorActions() : this._errorActions) : {};
+        return this._errorActions
+            ? typeof this._errorActions === 'function'
+                ? this._errorActions()
+                : this._errorActions
+            : {};
     }
 
-    constructor(rootStore, { name, id, actions, errorActions, form, FormClass, autoInit = true, localization = true, title, onAfterAction }) {
+    constructor(
+        rootStore,
+        { name, id, actions, errorActions, form, FormClass, autoInit = true, localization = true, title, onAfterAction }
+    ) {
         super(rootStore);
 
         this.id = id;
@@ -32,16 +39,18 @@ class BaseEditViewStore extends BaseViewStore {
         this._actions = actions;
         this._errorActions = errorActions;
         this.onAfterAction = onAfterAction;
-        this.form = form || new FormClass({
-            onSuccess: (form) => {
-                const item = form.values();
-                if (this.isEdit || !this.actions.create) {
-                    return this.updateResource(item);
-                } else {
-                    return this.createResource(item);
-                }
-            }
-        });
+        this.form =
+            form ||
+            new FormClass({
+                onSuccess: form => {
+                    const item = form.values();
+                    if (this.isEdit) {
+                        return this.updateResource(item);
+                    } else {
+                        return this.createResource(item);
+                    }
+                },
+            });
 
         if (process.env.NODE_ENV !== 'production') {
             MobxReactFormDevTools.register({ [this.name]: this.form });
@@ -66,15 +75,8 @@ class BaseEditViewStore extends BaseViewStore {
         }
 
         if (autoInit) {
-            this.fetch([
-                this.initialize()
-            ]);
+            this.fetch([this.initialize()]);
         }
-    }
-
-    @action.bound
-    setEditState(id) {
-        this.id = id;
     }
 
     @computed get isEdit() {
@@ -110,9 +112,7 @@ class BaseEditViewStore extends BaseViewStore {
     @action.bound
     updateForm() {
         if (this.item) {
-            this.form.state.options.set({ validateOnChange: false })
             this.form.update(this.item);
-            this.form.state.options.set({ validateOnChange: true })
             if (this.translationStore) {
                 this.translationStore.update(this.form.values());
             }
@@ -124,13 +124,15 @@ class BaseEditViewStore extends BaseViewStore {
         if (!this.actions.update) return;
 
         this.form.setFieldsDisabled(true);
+        this.loaderStore.suspend();
         try {
             if (this.translationStore) {
                 this.translationStore.applyMetadata(resource);
             }
 
             await this.actions.update({
-                ...resource
+                id: this.id,
+                ...resource,
             });
 
             this.form.setFieldsDisabled(false);
@@ -146,6 +148,8 @@ class BaseEditViewStore extends BaseViewStore {
         catch (err) {
             this.form.setFieldsDisabled(false);
             return this.onUpdateError(err);
+        } finally {
+            this.loaderStore.resume();
         }
     }
 
@@ -154,10 +158,12 @@ class BaseEditViewStore extends BaseViewStore {
         if (!this.actions.create) return;
 
         this.form.setFieldsDisabled(true);
+        this.loaderStore.suspend();
         try {
             if (this.translationStore) {
                 this.translationStore.applyMetadata(resource);
             }
+            this.loaderStore.suspend();
 
             await this.actions.create(resource);
 
@@ -174,6 +180,8 @@ class BaseEditViewStore extends BaseViewStore {
         catch (err) {
             this.form.setFieldsDisabled(false);
             return this.onCreateError(err);
+        } finally {
+            this.loaderStore.resume();
         }
     }
 
