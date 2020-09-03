@@ -9,11 +9,12 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
         super(rootStore, {
             name: 'advanced-charity',
             routes: {},
+            autoInit: false,
             queryConfig: {
                 disableUpdateQueryParams: true,
-                filter: new CharityListFilter('dateCreated', 'desc', 5),
+                filter: new CharityListFilter('dateCreated', 'desc', 10),
                 onResetFilter: (filter) => {
-                    filter.pageSize = 5;
+                    filter.pageSize = 10;
                 }
             },
             actions: () => {
@@ -57,7 +58,9 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
             actions: {
                 onSelect: (item) => onSelected(item),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
-            }
+            },
+            disablePaging: true,
+            disableSorting: true
         }));
 
         this.charityTypeDropdownStore = new BaasicDropdownStore({

@@ -20,10 +20,6 @@ export default class GrantCreateForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'accountTypeId',
-                    rules: 'required|string'
-                },
-                {
                     name: 'amount',
                     label: 'GRANT.CREATE.FIELDS.AMOUNT_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
@@ -46,8 +42,12 @@ export default class GrantCreateForm extends FormBase {
                 },
                 {
                     name: 'additionalInformation',
-                    label: 'GRANT.CREATE.FIELDS.ADDITIONAL_INFORMATION_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.ADDITIONAL_INFORMATION_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'noteToCharity',
+                    placeholder: 'GRANT.CREATE.FIELDS.NOTE_TO_CHARITY_PLACEHOLDER',
                     rules: 'string'
                 },
                 {
@@ -63,17 +63,17 @@ export default class GrantCreateForm extends FormBase {
                     type: 'checkbox'
                 },
                 {
-                    name: 'grantScheduleTypeId',
-                    label: 'GRANT.CREATE.FIELDS.GRANT_SCHEDULE_TYPE_LABEL',
-                    placeholder: 'GRANT.CREATE.FIELDS.GRANT_SCHEDULE_TYPE_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
                     name: 'startFutureDate',
                     label: 'GRANT.CREATE.FIELDS.START_FUTURE_DATE_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.START_FUTURE_DATE_PLACEHOLDER',
                     rules: `required|min_date:${moment().format('YYYY-MM-DD')}`,
                     type: 'date'
+                },
+                {
+                    name: 'grantScheduleTypeId',
+                    label: 'GRANT.CREATE.FIELDS.GRANT_SCHEDULE_TYPE_LABEL',
+                    placeholder: 'GRANT.CREATE.FIELDS.GRANT_SCHEDULE_TYPE_PLACEHOLDER',
+                    rules: 'string'
                 },
                 {
                     name: 'name',
@@ -83,13 +83,11 @@ export default class GrantCreateForm extends FormBase {
                 },
                 {
                     name: 'endDate',
-                    label: 'GRANT.CREATE.FIELDS.END_DATE_LABEL',
                     rules: `min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`, //TODO not working with non required field -> returns invalid date
                     type: 'date'
                 },
                 {
                     name: 'numberOfPayments',
-                    label: 'GRANT.CREATE.FIELDS.NUMBER_OF_PAYMENTS_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.NUMBER_OF_PAYMENTS_PLACEHOLDER',
                     rules: 'numeric',
                     type: 'integer'
@@ -97,7 +95,6 @@ export default class GrantCreateForm extends FormBase {
                 {
                     name: 'noEndDate',
                     label: 'GRANT.CREATE.FIELDS.NO_END_DATE_LABEL',
-                    placeholder: 'GRANT.CREATE.FIELDS.NO_END_DATE_PLACEHOLDER',
                     rules: 'boolean',
                     type: 'checkbox'
                 },

@@ -1,4 +1,4 @@
-import { action, runInAction, computed } from 'mobx';
+import { action, runInAction, computed, observable } from 'mobx';
 import { BaasicDropdownStore } from 'core/stores';
 import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
@@ -11,6 +11,9 @@ import moment from 'moment';
 
 @applicationContext
 class GrantCreateViewStore extends GrantBaseViewStore {
+    @observable isRecurring = false;
+    @observable isNoteToCharityIncluded = false;
+
     constructor(rootStore) {
         const service = new GrantService(rootStore.application.baasic.apiClient);
         const scheduledGrantService = new ScheduledGrantService(rootStore.application.baasic.apiClient);
@@ -29,8 +32,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
-                        if (resource.grantScheduleTypeId &&
-                            (moment(resource.startFutureDate) > moment() || resource.grantScheduleTypeId === this.monthlyGrantId || resource.grantScheduleTypeId === this.annualGrantId)) {
+                        if (moment(resource.startFutureDate) > moment() || this.isRecurring === true) {
                             this.scheduledGrant = true;
                             await scheduledGrantService.create(resource);
                         }
@@ -82,9 +84,6 @@ class GrantCreateViewStore extends GrantBaseViewStore {
     @action.bound
     setFormDefaultValues() {
         this.form.$('donorId').set(this.donorId);
-        this.form.$('accountTypeId').set(this.donor.accountTypeId);
-
-        this.donorName = this.donor.donorName;
     }
 
     @action.bound
@@ -130,7 +129,7 @@ class GrantCreateViewStore extends GrantBaseViewStore {
         const response = await service.getAll();
         this.grantScheduleTypes = response.data;
         runInAction(() => {
-            this.grantScheduleTypeDropdownStore.setItems(response.data);
+            this.grantScheduleTypeDropdownStore.setItems(response.data.filter(c => c.abrv != 'one-time'));
             this.grantScheduleTypeDropdownStore.setLoading(false);
         });
     }
@@ -163,6 +162,20 @@ class GrantCreateViewStore extends GrantBaseViewStore {
             this.form.$('startFutureDate').validate();
             this.form.$('startFutureDate').setDisabled(true);
         }
+    }
+
+    @action.bound
+    onRecurringChange(checked) {
+        this.isRecurring = checked;
+        this.form.$('grantScheduleTypeId').setRequired(this.isRecurring);
+        if (!this.isRecurring) {
+            this.form.$('grantScheduleTypeId').clear();
+        }
+    }
+
+    @action.bound
+    onIncludeNoteToCharityChange(checked) {
+        this.isNoteToCharityIncluded = checked;
     }
 
     @computed get oneTimeGrantId() {

@@ -4,21 +4,22 @@ import {
     BaasicFieldDropdown,
     DatePickerField,
     NumericInputField,
-    BasicInput,
     BasicFieldCheckbox,
-    Scanner,
     BaasicButton,
     BaasicModal,
     SimpleBaasicTable,
-    FormatterResolver
+    FormatterResolver,
+    BasicCheckbox,
+    BasicTextArea,
+    BaasicFormControls
 } from 'core/components';
-import { defaultTemplate, withAuth } from 'core/hoc';
-import { ApplicationEditLayout, Content } from 'core/layouts';
+import { defaultTemplate } from 'core/hoc';
+import { Content, EditFormLayout } from 'core/layouts';
 import { GrantPurposeTypeForm } from 'themes/application/grant/components';
-import { DonorPageHeaderOverview } from 'application/donor/components';
-import { addressFormatter } from 'core/utils';
+import { addressFormatter, charityFormatter } from 'core/utils';
 import _ from 'lodash';
 import { CharityAdvancedSearch } from 'application/charity/components';
+import logo from 'themes/assets/img/logo.svg';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
     const {
@@ -28,72 +29,69 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantAcknowledgmentTypeDropdownStore,
         grantScheduleTypeDropdownStore,
         charityDropdownStore,
-        donorId,
+        isRecurring,
+        onRecurringChange,
+        isNoteToCharityIncluded,
+        onIncludeNoteToCharityChange,
         donor,
-        monthlyGrantId,
-        annualGrantId,
         onBlurAmount,
         amountWithFee,
         onChangeEndDate,
         onChangeNumberOfPayments,
         onChangeNoEndDate,
-        onScanned,
         onCharitySelected,
         advancedSearchModal,
         openAdvancedSearchModal,
-        tableStore
+        tableStore,
+        loaderStore,
+        charity
     } = grantCreateViewStore;
 
     return (
         <React.Fragment>
-            <ApplicationEditLayout store={grantCreateViewStore}>
-                <AuthPageHeader donorId={donorId} type={2} authorization='theDonorsFundAdministrationSection.read' />
+            <EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
                 <Content loading={contentLoading} >
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6">
                             <div className="card card--form card--primary card--med u-mar--bottom--med">
-                                <h3 className="u-mar--bottom--med">General Data</h3>
+                                <h3 className="u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
-                                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-                                        {!form.$('charityId').disabled && <BaasicButton
+                                    <div className="form__group col col-sml-11 col-lrg-11 u-mar--bottom--sml">
+                                        <BaasicFieldDropdown
+                                            field={form.$('charityId')}
+                                            store={charityDropdownStore}
+                                            additionalLabel='My Favorite Charities'
+                                        />
+                                    </div>
+                                    <div className="col col-sml-1 col-lrg-1 u-mar--bottom--sml">
+                                        <BaasicButton
                                             className="btn btn--icon"
                                             icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
                                             label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
                                             onlyIcon={true}
                                             onClick={openAdvancedSearchModal}
-                                        />}
+                                        />
                                     </div>
-                                    {!form.$('charityId').disabled &&
-                                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                            <Scanner onBarcodeDetected={onScanned} />
-                                        </div>}
-                                </div>
-                                <div className="row">
-                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} />
+                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                        <u>{t('GRANT.CREATE.ADD_NEW_CHARITY')}</u>
                                     </div>
-                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <DatePickerField field={form.$('startFutureDate')} />
-                                    </div>
-                                    {form.$('grantScheduleTypeId').value && form.$('startFutureDate').value &&
+                                    {charityDropdownStore && charityDropdownStore.value &&
                                         <React.Fragment>
-                                            {form.$('startFutureDate').value > new Date() &&
-                                                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                    <BasicInput field={form.$('name')} />
-                                                </div>}
-                                            {(form.$('grantScheduleTypeId').value === monthlyGrantId || form.$('grantScheduleTypeId').value === annualGrantId) &&
-                                                <React.Fragment>
-                                                    <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
-                                                        <NumericInputField field={form.$('numberOfPayments')} onChange={onChangeNumberOfPayments} />
-                                                    </div>
-                                                    <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
-                                                        <DatePickerField field={form.$('endDate')} onChange={onChangeEndDate} />
-                                                    </div>
-                                                    <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
-                                                        <BasicFieldCheckbox field={form.$('noEndDate')} onChange={onChangeNoEndDate} />
-                                                    </div>
-                                                </React.Fragment>}
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                                <h4>{t('GRANT.CREATE.CHARITY_INFORMATION')}</h4>
+                                            </div>
+                                            <div className="col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                                {t('GRANT.CREATE.CHARITY_NAME')}
+                                            </div>
+                                            <div className="col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                                {charityDropdownStore && charityDropdownStore.value && charityDropdownStore.value.item.name}
+                                            </div>
+                                            <div className="col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                                {t('GRANT.CREATE.TAX_ID')}
+                                            </div>
+                                            <div className="col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                                {charityDropdownStore && charityDropdownStore.value && charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}
+                                            </div>
                                         </React.Fragment>}
                                 </div>
                                 <div className="row">
@@ -112,6 +110,39 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             </React.Fragment>}
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                        <DatePickerField field={form.$('startFutureDate')} />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                        <BasicCheckbox
+                                            id='1'
+                                            checked={isRecurring}
+                                            label='GRANT.CREATE.IS_RECURRING_GRANT'
+                                            onChange={event => onRecurringChange(event.target.checked)} />
+                                    </div>
+                                </div>
+                                {isRecurring &&
+                                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                        <div className="row">
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} />
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form__group col col-sml-12 col-lrg-5 u-mar--bottom--sml">
+                                                <NumericInputField field={form.$('numberOfPayments')} onChange={onChangeNumberOfPayments} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-5 u-mar--bottom--sml">
+                                                <DatePickerField field={form.$('endDate')} onChange={onChangeEndDate} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-2 u-mar--bottom--sml">
+                                                <BasicFieldCheckbox field={form.$('noEndDate')} onChange={onChangeNoEndDate} />
+                                            </div>
+                                        </div>
+                                    </div>}
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
@@ -137,29 +168,126 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                        <BasicCheckbox
+                                            id='2'
+                                            checked={isNoteToCharityIncluded}
+                                            label='GRANT.CREATE.INCLUDE_NOTE_TO_CHARITY'
+                                            onChange={event => onIncludeNoteToCharityChange(event.target.checked)} />
+                                    </div>
+                                </div>
+                                {isNoteToCharityIncluded &&
+                                    <div className="row">
+                                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                            <BasicTextArea field={form.$('noteToCharity')} />
+                                        </div>
+                                    </div>}
+                                {renderEditLayoutFooterContent({ form })}
                             </div>
                         </div>
-                        {form.$('charityId').value &&
-                            <div className="col col-sml-12 col-lrg-6">
-                                <div className="card card--form card--primary card--med u-mar--bottom--med">
-                                    <SimpleBaasicTable tableStore={tableStore} />
+                        <div className="col col-sml-12 col-lrg-6">
+                            <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                <div className="row">
+                                    <div className="card card--form card--primary card--med col col-sml-12 col-lrg-5 u-mar--bottom--med u-mar--right--med">
+                                        {donor && <FormatterResolver
+                                            item={{ balance: donor.presentBalance }}
+                                            field='balance'
+                                            format={{ type: 'currency' }}
+                                        />}
+                                        <p>{t('GRANT.CREATE.CURRENT_BALANCE')}</p>
+                                    </div>
+                                    <div className="card card--form card--primary card--med col col-sml-12 col-lrg-5 u-mar--bottom--med u-mar--left--med">
+                                        {donor && <FormatterResolver
+                                            item={{ balance: donor.presentBalance }}
+                                            field='balance'
+                                            format={{ type: 'currency' }}
+                                        />}
+                                        <p>{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
+                                    </div>
+                                    {charityDropdownStore && charityDropdownStore.value &&
+                                        <div className="card card--form card--primary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-6">
+                                                    <h4>{t('GRANT.CREATE.PROFILE_INFO')}</h4>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <img src={logo} alt={"logo"} />
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    {charityDropdownStore.value.item.name}
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
+                                                    <p>{charityDropdownStore.value.item.rullingYear}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.EIN')}</strong>
+                                                    <p>{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
+                                                    <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
+                                                    <p>{charityDropdownStore.value.item.principalOfficer}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
+                                                    <p>{charityDropdownStore.value.item.nteeCode}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
+                                                    <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
+                                                    <p>{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
+                                                </div>
+                                            </div>
+                                        </div>}
                                 </div>
-                            </div>}
+
+                                <div className="row">
+                                    <div className="card card--form card--primary card--med col col-sml-12 col-lrg-12">
+                                        <h4>{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
+                                        <SimpleBaasicTable tableStore={tableStore} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </Content>
-            </ApplicationEditLayout >
+            </EditFormLayout >
             <BaasicModal modalParams={advancedSearchModal}>
                 <CharityAdvancedSearch onSelected={onCharitySelected} />
             </BaasicModal>
-        </React.Fragment>
+        </React.Fragment >
     )
 };
-
-const AuthPageHeader = withAuth(DonorPageHeaderOverview);
 
 GrantCreateTemplate.propTypes = {
     grantCreateViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
+};
+
+function renderEditLayoutFooterContent({ form }) {
+    return <div className="u-mar--bottom--med">
+        <BaasicFormControls form={form} onSubmit={form.onSubmit} label='GRANT.CREATE.BUTTON.CREATE' />
+    </div>
+}
+
+renderEditLayoutFooterContent.propTypes = {
+    form: PropTypes.any
 };
 
 export default defaultTemplate(GrantCreateTemplate);

@@ -81,27 +81,19 @@ class GrantBaseViewStore extends BaseEditViewStore {
         this.tableStore = new TableViewStore(null, {
             columns: [
                 {
-                    key: 'amount',
-                    title: 'GRANT.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
-                    }
-                },
-                {
-                    key: 'confirmationNumber',
-                    title: 'GRANT.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
-                },
-                {
-                    key: 'donationStatus.name',
-                    title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
-                },
-                {
                     key: 'dateCreated',
                     title: 'GRANT.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
+                    }
+                },
+                {
+                    key: 'amount',
+                    title: 'GRANT.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
                     }
                 }
             ]
@@ -231,8 +223,6 @@ class GrantBaseViewStore extends BaseEditViewStore {
                 fields: [
                     'id',
                     'amount',
-                    'confirmationNumber',
-                    'donationStatus',
                     'dateCreated'
                 ],
                 charityId: this.form.$('charityId').value,
@@ -255,6 +245,7 @@ class GrantBaseViewStore extends BaseEditViewStore {
                 'donorName',
                 'accountTypeId',
                 'availableBalance',
+                'presentBalance',
                 'isInitialContributionDone',
                 'lineOfCredit',
                 'grantFeePercentage',
