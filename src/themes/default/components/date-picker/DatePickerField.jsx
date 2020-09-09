@@ -51,7 +51,8 @@ class DatePickerFieldTemplate extends React.Component {
 
         return (
             <div>
-                <div className='form__group__label'>{t(field.label)}{requiredMark}</div>
+                {field.label &&
+                    <div className='form__group__label'>{t(field.label)}{requiredMark}</div>}
                 <DatePicker
                     {...otherProps}
                     {...otherFieldProps}

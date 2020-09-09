@@ -34,7 +34,6 @@ class InvestmentPoolChangeViewStore extends BaseEditViewStore {
                         return { investmentPoolHistory: arr };
                     },
                     update: async (resource) => {
-                        debugger
                         await service.update(resource.investmentPoolHistory);
                     }
                 }

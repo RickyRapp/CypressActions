@@ -8,6 +8,17 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
     const requiredMark = required ? <span>*</span> : null;
     const handleFocus = (event) => { event.target.select(); }
 
+    let formatedPlaceholder = '';
+    if (props.placeholder && props.format) {
+        formatedPlaceholder = `${t(props.placeholder)} ${props.format}`;
+    }
+    else if (props.placeholder) {
+        formatedPlaceholder = t(props.placeholder);
+    }
+    else {
+        formatedPlaceholder = props.format;
+    }
+
     return (
         <div onFocus={handleFocus}>
             {props.showLabel && <div className='form__group__label'>{t(props.label)}{requiredMark}</div>}
@@ -20,7 +31,7 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
                 onValueChange={onChange}
                 onBlur={onBlur}
                 value={props.value}
-                placeholder={props.placeholder ? t(props.placeholder) : props.format}
+                placeholder={formatedPlaceholder}
                 displayType={props.displayType}
                 thousandSeparator={props.thousandSeparator}
                 fixedDecimalScale={props.fixedDecimalScale}

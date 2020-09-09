@@ -32,7 +32,8 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
 
     return (
         <div>
-            <div className='form__group__label'>{t(field.label)}{requiredMark}{additionalLabel}</div>
+            {field.label &&
+                <div className='form__group__label'>{t(field.label)}{requiredMark}{additionalLabel}</div>}
             <BaasicDropdown
                 {...field.bind()}
                 store={store}

@@ -754,8 +754,8 @@
         "CREATE": {
             "TITLE": "Add phone number",
             "FIELDS": {
-                "NUMBER_LABEL": "Number",
-                "NUMBER_PLACEHOLDER": "Number",
+                "NUMBER_LABEL": "Phone",
+                "NUMBER_PLACEHOLDER": "Phone",
                 "DESCRIPTION_LABEL": "Description",
                 "DESCRIPTION_PLACEHOLDER": "Description"
             }
@@ -1312,12 +1312,7 @@
             "TITLE": "New Grant",
             "FROM_TITLE": "Grant Details",
             "ADVANCED_CHARITY_FILTER_BUTTON": "Advanced search for charity",
-            "ADD_NEW_CHARITY": "Add New Charity",
-            "CHARITY_INFORMATION": "Charity Information",
-            "CHARITY_NAME": "Charity Name",
-            "TAX_ID": "Tax ID",
-            "IS_RECURRING_GRANT": "Make this a Recurring Donation",
-            "INCLUDE_NOTE_TO_CHARITY": "Include not to charity?",
+            "INCLUDE_NOTE_TO_ADMINISTRATOR": "Include not to administrator?",
             "CURRENT_BALANCE": "Current balance",
             "UPCOMING_GRANTS_THIS_YEAR": "Upcoming grants this year",
             "RULLING_YEAR": "Rulling Year",
@@ -1329,6 +1324,10 @@
             "MAIN_ADDRESS": "Main address",
             "PROFILE_INFO": "Profile info",
             "PREVIOUS_GRANTS": "Previous Grants",
+            "SIMILAR_GRANTS": "Similar Grants",
+            "INSIGHTS": "Insights",
+            "NEW_CHARITY_TITLE": "Charity Information",
+            "NEW_CHARITY_CONTACT_TITLE": "Contact Information",
             "BUTTON": {
                 "CREATE": "Create"
             },
@@ -1341,8 +1340,7 @@
                 "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Select",
                 "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Choose What Info You Want to Share",
                 "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Select",
-                "GRANT_SCHEDULE_TYPE_LABEL": "Recurring Grant",
-                "GRANT_SCHEDULE_TYPE_PLACEHOLDER": "Select",
+                "GRANT_SCHEDULE_TYPE_PLACEHOLDER": "Select Recurring Option",
                 "START_FUTURE_DATE_LABEL": "Schedule the Donation",
                 "START_FUTURE_DATE_PLACEHOLDER": "Select the Date",
                 "NAME_LABEL": "Name",
@@ -1355,7 +1353,7 @@
                 "NO_END_DATE_PLACEHOLDER": "Ongoing",
                 "ADDITIONAL_INFORMATION_LABEL": "Additional information",
                 "ADDITIONAL_INFORMATION_PLACEHOLDER": "Additional information",
-                "NOTE_TO_CHARITY_PLACEHOLDER": "Your Message",
+                "NOTE_TO_ADMINISTRATOR_PLACEHOLDER": "Your Message",
                 "MEMBERSHIP_LABEL": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
                 "PURPOSE_MEMBER_NAME_LABEL": "Name",
                 "PURPOSE_MEMBER_NAME_PLACEHOLDER": "Name",
@@ -1363,7 +1361,12 @@
                 "CHARITY_EVENT_LABEL": "Attending",
                 "CHARITY_EVENT_ATTENDING_MESSAGE": "The IRS prohibits using donor-advised funds to pay for tickets to attend a CHARITY event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
                 "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
-                "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below."
+                "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below.",
+                "INTERNATIONAL_COMPANY_LABEL": "Are you an international company?",
+                "IS_RECURRING_LABEL": "Make this a Recurring Donation",
+                "RECURRING_DATE_LABEL": "Make this a Recurring Donation",
+                "RECURRING_DATE_PLACEHOLDER": "Select Starting Date",
+                "IS_NEW_CHARITY_LABEL": "Add New Charity"
             }
         },
         "EDIT": {

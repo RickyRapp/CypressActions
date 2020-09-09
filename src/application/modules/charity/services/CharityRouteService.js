@@ -29,6 +29,10 @@ class CharityRouteService extends BaseRouteService {
         return super.create(this.base);
     }
 
+    suggest() {
+        return super.create(this.base + '/suggest');
+    }
+
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }

@@ -17,6 +17,11 @@ class CharityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    suggest(resource) {
+        const url = this.routeService.suggest();
+        return this.apiClient.post(url, resource);
+    }
+
     search(filter) {
         const url = this.routeService.search(filter);
         return this.apiClient.get(url);
