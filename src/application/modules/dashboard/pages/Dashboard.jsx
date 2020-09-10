@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
 import { setCurrentView } from 'core/utils';
-import { HomeTemplate } from 'themes/application/dashboard/pages';
+import { DashboardTemplate } from 'themes/application/dashboard/pages';
 import { DashboardViewStore } from 'application/dashboard/stores';
 
 @setCurrentView((rootStore) => new DashboardViewStore(rootStore), 'dashboardView')
-class Home extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div>
-                <HomeTemplate {...this.props} />
+                <DashboardTemplate {...this.props} />
             </div>
         )
     }
 }
 
-export default Home;
+export default Dashboard;

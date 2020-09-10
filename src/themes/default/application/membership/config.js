@@ -26,11 +26,7 @@ import {
 						component: Login,
 						beforeEnter: function (fromState, toState, routerStore) {
 							if (routerStore.rootStore.authStore.isAuthenticated) {
-								if (fromState.routeName === '__initial__') {
-									return Promise.reject(routerStore.rootStore.initialState);
-								} else {
-									return Promise.reject(fromState);
-								}
+								return Promise.reject(routerStore.rootStore.initialState);
 							}
 
 							return Promise.resolve();
@@ -38,7 +34,7 @@ import {
 					},
 					{
 						name: 'master.app.membership.register',
-						pattern: '/register',
+						pattern: '/register2',
 						isPublic: true,
 						component: Register
 					},

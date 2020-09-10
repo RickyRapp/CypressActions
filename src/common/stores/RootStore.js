@@ -70,13 +70,6 @@ export default class RootStore {
 
         this.historyAdapter = new HistoryAdapter(this.routerStore, history);
         this.historyAdapter.observeRouterStateChanges();
-
-        const currentPath = this.historyAdapter.history.location.pathname;
-
-        //TODO check if neccessary isAuthenticated
-        if ((currentPath === '' || currentPath === '/') && this.authStore.isAuthenticated) {
-            this.routerStore.goTo('master.app.main.dashboard');
-        }
     }
 
     navigateLogin() {

@@ -7,10 +7,9 @@ function LoginTemplate({ currentView, t }) {
     const { loginForm, loaderStore: { loading }, routes } = currentView;
     return (
         <section>
-            <div className='login__top'>
-                <img className='login__top__logo' src={require('themes/assets/img/logo.svg')} alt='Logo' />
-            </div>
-            <div className='container--login'>
+            <div className='container--login' style={
+                { padding: '84px 24px 108px 24px' }
+            }>
                 <form className='form card card--lrg card--primary' onSubmit={loginForm.onSubmit}>
                     <h1 className='u-mar--bottom--med'>{t('LOGIN.TITLE')}</h1>
                     <p className='u-mar--bottom--med type--color--dark'>

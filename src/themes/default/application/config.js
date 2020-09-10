@@ -1,5 +1,5 @@
 import { moduleProviderFactory, moduleBuilder } from 'core/providers';
-import { MainLayout } from 'core/layouts';
+import { MainLayout, PublicLayout } from 'core/layouts';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -30,6 +30,12 @@ import { MainLayout } from 'core/layouts';
                         return Promise.resolve();
                     },
                 children: [
+                    {
+                        name: 'master.app.public',
+                        isPublic: true,
+                        pattern: '/',
+                        component: [PublicLayout]
+                    },
                     {
                         name: 'master.app.main',
                         pattern: '/app',

@@ -23,7 +23,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                 src={logo}
                 alt='logo'
                 onClick={() =>
-                    routerStore.goTo('master.app.main.dashboard')
+                    routerStore.goTo('master.app.public.home')
                 }
             />
             <div className="header__options">

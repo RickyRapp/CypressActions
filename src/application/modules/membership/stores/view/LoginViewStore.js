@@ -5,7 +5,8 @@ import { BaseViewStore } from 'core/stores';
 class LoginViewStore extends BaseViewStore {
     routes = {
         forgotPassword: () => this.rootStore.routerStore.goTo('master.app.membership.password-recovery'),
-        register: () => this.rootStore.routerStore.goTo('master.app.membership.register')
+        register: () => this.rootStore.routerStore.goTo('master.app.public.register'),
+        home: () => this.rootStore.routerStore.goTo('master.app.public.home')
     };
 
     loaderStore = this.createLoaderStore();

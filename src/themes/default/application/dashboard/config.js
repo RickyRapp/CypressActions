@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-
-import { Home } from 'application/dashboard/pages';
+import { Dashboard } from 'application/dashboard/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,7 +8,7 @@ import { Home } from 'application/dashboard/pages';
                 name: 'master.app.main.dashboard',
                 pattern: '',
                 authorization: '',
-                component: Home
+                component: Dashboard
             },
         ],
         menu: [
