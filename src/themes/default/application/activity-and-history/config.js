@@ -25,7 +25,7 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                         name: 'master.app.main.activity-and-history.charity-view',
                         pattern: '/my-history/:id',
                         component: CharityActivityAndHistory,
-                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Charities') },
+                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.CHARITY"
                         },
@@ -56,16 +56,16 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
             },
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.DONOR_VIEW',
-                order: 1,
+                order: 2,
                 route: 'master.app.main.activity-and-history.donor-view',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users') },
                 icon: 'activity'
             },
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.CHARITY_VIEW',
-                order: 1,
+                order: 2,
                 route: 'master.app.main.activity-and-history.charity-view',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Charities') },
+                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
                 icon: 'activity'
             }
         ]

@@ -39,20 +39,20 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
             }
         ],
         menu: [
-            {
-                title: 'MENU.CONTRIBUTION',
-                order: 4,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                icon: 'contribution',
-                route: 'master.app.main.contribution.list'
-            },
+            // {
+            //     title: 'MENU.CONTRIBUTION',
+            //     order: 3,
+            //     authorization: 'theDonorsFundAdministrationSection.read',
+            //     icon: 'contribution',
+            //     route: 'master.app.main.contribution.list'
+            // },
             {
                 title: 'MENU.CONTRIBUTIONS',
-                order: 5,
+                order: 3,
                 route: 'master.app.main.contribution.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'contribution'
-            },
+            }
         ]
     });
 })();

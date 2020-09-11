@@ -54,20 +54,20 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
             }
         ],
         menu: [
-            {
-                title: 'MENU.GRANTS',
-                order: 7,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                icon: 'grant',
-                route: 'master.app.main.grant.tab'
-            },
-            {
-                title: 'MENU.GRANTS',
-                order: 7,
-                route: 'master.app.main.grant.tab',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
-                icon: 'grant'
-            },
+            // {
+            //     title: 'MENU.GRANTS',
+            //     order: 7,
+            //     authorization: 'theDonorsFundAdministrationSection.read',
+            //     icon: 'grant',
+            //     route: 'master.app.main.grant.tab'
+            // },
+            // {
+            //     title: 'MENU.GRANTS',
+            //     order: 7,
+            //     route: 'master.app.main.grant.tab',
+            //     authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
+            //     icon: 'grant'
+            // },
         ]
     });
 })();

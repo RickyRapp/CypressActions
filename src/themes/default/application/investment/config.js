@@ -23,7 +23,7 @@ import { InvestmentPoolList } from 'application/investment/pages';
         menu: [
             {
                 title: 'MENU.INVESTMENT',
-                order: 5,
+                order: 4,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 route: 'master.app.main.investment.list'
             }

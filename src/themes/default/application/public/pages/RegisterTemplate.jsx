@@ -1,6 +1,5 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton } from 'core/components';
 
 function RegisterTemplate() {
 

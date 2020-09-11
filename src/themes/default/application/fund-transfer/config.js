@@ -30,18 +30,24 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
             }
         ],
         menu: [
+            // {
+            //     title: 'MENU.FUND_TRANSFER',
+            //     order: 5,
+            //     authorization: 'theDonorsFundAdministrationSection.read',
+            //     route: 'master.app.main.fund-transfer.list'
+            // },
             {
-                title: 'MENU.FUND_TRANSFER',
+                title: 'MENU.MANAGE_FUND',
                 order: 5,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                route: 'master.app.main.fund-transfer.list'
-            },
-            {
-                title: 'MENU.FUND_TRANSFERS',
-                order: 6,
-                route: 'master.app.main.fund-transfer.list',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
-                icon: 'fund-transfer'
+                icon: 'administration',
+                subMenu: [
+                    {
+                        title: 'MENU.FUND_TRANSFERS',
+                        order: 6,
+                        route: 'master.app.main.fund-transfer.list',
+                    },
+                ]
             },
         ]
     });

@@ -28,7 +28,8 @@ function MenuTemplate({ menuStore, t }) {
     );
 }
 
-function renderPrimary(menu, menuStore, translate) {
+function renderPrimary(menu, menuStore, t) {
+    const menuLength = menu.length;
     return (
         <div>
 
@@ -39,7 +40,7 @@ function renderPrimary(menu, menuStore, translate) {
                     </i>
                 </div>
 
-                {_.map(menu, item => {
+                {_.map(menu, (item, index) => {
                     let className = "nav--primary__item";
                     if (
                         menuStore.selectedPath &&
@@ -52,56 +53,72 @@ function renderPrimary(menu, menuStore, translate) {
                     if (menuItemActive(item, menuStore.activePath)) {
                         className += " active";
                     }
-                    const title = translate(item.title);
-                    if (className.includes("selected") || (item.hasChildren && className.includes("active"))) {
-                        return (
-                            <div key={title}>
+
+                    const title = t(item.title);
+                    if (menuLength !== index + 1) {
+                        if (className.includes("selected") || (item.hasChildren && className.includes("active"))) {
+                            return (
+                                <div key={title}>
+                                    <div
+                                        className={className}
+                                        aria-label={title}
+                                        onClick={() => menuStore.selectMenuItem(item)}
+                                    >
+                                        <span
+                                            title={title}
+                                            className={"u-mar--right--sml u-icon u-icon--sml u-icon--" + item.icon}
+                                        />
+                                        <span title={title} className="nav__text">{title}</span>
+                                        {item.hasChildren ? (
+                                            <span className="nav--primary__icon">
+                                                <span className="u-icon u-icon--tny u-icon--arrow-down"></span>
+                                            </span>
+                                        ) : null}
+                                    </div>
+                                    <SecondaryMenu />
+                                </div>
+                            );
+                        }
+                        else {
+                            return (
                                 <div
-                                    className={className}
+                                    key={title}
                                     aria-label={title}
+                                    className={className}
+                                    label={title}
                                     onClick={() => menuStore.selectMenuItem(item)}
                                 >
                                     <span
                                         title={title}
                                         className={"u-mar--right--sml u-icon u-icon--sml u-icon--" + item.icon}
                                     />
+
                                     <span title={title} className="nav__text">{title}</span>
                                     {item.hasChildren ? (
                                         <span className="nav--primary__icon">
                                             <span className="u-icon u-icon--tny u-icon--arrow-down"></span>
                                         </span>
                                     ) : null}
+
                                 </div>
-                                <SecondaryMenu />
-                            </div>
-                        );
+                            );
+                        }
                     }
                     else {
                         return (
                             <div
-                                key={title}
-                                aria-label={title}
-                                className={className}
-                                label={title}
-                                onClick={() => menuStore.selectMenuItem(item)}
+                                key={t('HEADER.USER_MENU.LOGOUT')}
+                                className="btn btn--ghost btn--med"
+                                label={t('HEADER.USER_MENU.LOGOUT')}
+                                onClick={() => menuStore.rootStore.viewStore.logout()}
                             >
-                                <span
-                                    title={title}
-                                    className={"u-mar--right--sml u-icon u-icon--sml u-icon--" + item.icon}
-                                />
-
-                                <span title={title} className="nav__text">{title}</span>
-                                {item.hasChildren ? (
-                                    <span className="nav--primary__icon">
-                                        <span className="u-icon u-icon--tny u-icon--arrow-down"></span>
-                                    </span>
-                                ) : null}
-
+                                <span className="nav__text">Logout</span>
                             </div>
-                        );
+                        )
                     }
 
                 })}
+
                 <div className="nav--primary__collapse"
                     title="Toggle Menu"
                     onClick={() => menuStore.toggleCollapse()}

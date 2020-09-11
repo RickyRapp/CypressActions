@@ -157,7 +157,7 @@ class ContributionViewStore extends BaseListViewStore {
                     }
                     return false;
                 },
-                onReviewRender: (item) => {
+                onReviewRender: () => {
                     return true;//item.confirmationNumber > 20000 // import from old app
                 }
             }

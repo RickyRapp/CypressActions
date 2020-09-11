@@ -23,7 +23,7 @@ import { ApplicationDefaultSettingEdit } from 'application/administration/applic
         menu: [
             {
                 title: 'MENU.ADMINISTRATION',
-                order: 1,
+                order: 9,
                 authorization: 'theDonorsFundAdministrationSection.update',
                 subMenu: [
                     {

@@ -52,19 +52,25 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
             },
         ],
         menu: [
+            // {
+            //     title: 'MENU.DONORS',
+            //     order: 3,
+            //     authorization: 'theDonorsFundAdministrationSection.read',
+            //     route: 'master.app.main.donor.list',
+            //     icon: 'donors'
+            // },
             {
-                title: 'MENU.DONORS',
-                order: 3,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                route: 'master.app.main.donor.list',
-                icon: 'donors'
-            },
-            {
-                title: 'MENU.DONOR_EDIT',
+                title: 'MENU.MANAGE_FUND',
                 order: 5,
-                route: 'master.app.main.profile',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
-                icon: 'profile'
+                icon: 'administration',
+                subMenu: [
+                    {
+                        title: 'MENU.PROFILE_SETTING',
+                        order: 1,
+                        route: 'master.app.main.profile'
+                    },
+                ]
             },
         ]
     });

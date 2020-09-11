@@ -39,13 +39,13 @@ import { GroupedDonationList, DonationReview, CharityProcessedDonation } from 'a
             }
         ],
         menu: [
-            {
-                title: 'MENU.DONATIONS',
-                authorization: 'theDonorsFundAdministrationSection.read',
-                order: 6,
-                route: 'master.app.main.donation.list',
-                icon: 'donations'
-            }
+            // {
+            //     title: 'MENU.DONATIONS',
+            //     authorization: 'theDonorsFundAdministrationSection.read',
+            //     order: 6,
+            //     route: 'master.app.main.donation.list',
+            //     icon: 'donations'
+            // }
         ]
     });
 })();

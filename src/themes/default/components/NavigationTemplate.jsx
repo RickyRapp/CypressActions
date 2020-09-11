@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
@@ -23,11 +22,11 @@ const NavigationOptions = defaultTemplate(({ options, t }) => {
     return null;
 });
 
-function NavigationTemplate({ title, navigationOptions, breadcrumbs, routerStore, t, overrideDefaultContent, children }) {
-    const lastIndex = breadcrumbs.length - 1;
+function NavigationTemplate({ title, navigationOptions, breadcrumbs, routerStore, t, overrideDefaultContent, children }) { // eslint-disable-line
+    // const lastIndex = breadcrumbs.length - 1;
     return !overrideDefaultContent ? (
         <React.Fragment>
-            <div className='row'>
+            {/* <div className='row'>
                 <div className="col col-sml-12">
                     <div className='breadcrumbs'>
                         {_.map(breadcrumbs, (breadcrumb, index) => {
@@ -46,7 +45,7 @@ function NavigationTemplate({ title, navigationOptions, breadcrumbs, routerStore
                         })}
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="content__header">
                 <div className="row">
                     <div className='col col-sml-8'>

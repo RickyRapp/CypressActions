@@ -1,8 +1,7 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 
-
-function HomeTemplate({ homeViewStore }) {
+function HomeTemplate() {
 
     return (
         <div>

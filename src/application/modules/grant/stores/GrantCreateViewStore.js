@@ -7,7 +7,6 @@ import { GrantService } from 'application/grant/services';
 import { ScheduledGrantService } from 'application/grant/services';
 import moment from 'moment';
 import { CharityService } from 'application/charity/services';
-import { DonorService } from 'application/donor/services';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -66,7 +65,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                         }
                         else {
                             this.scheduledGrant = false;
-                            await service.create(resource);
+                            await this.service.create(resource);
                         }
                     }
                 }

@@ -36,7 +36,7 @@ import { noApplicationRedirectPromise } from 'core/utils';
         menu: [
             {
                 title: 'MENU.ADMINISTRATION',
-                order: 1,
+                order: 9,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 subMenu: [
                     {

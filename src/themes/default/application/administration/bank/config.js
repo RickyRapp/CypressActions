@@ -23,7 +23,7 @@ import { BankTab } from 'application/administration/bank/pages';
         menu: [
             {
                 title: 'MENU.ADMINISTRATION',
-                order: 1,
+                order: 9,
                 authorization: 'theDonorsFundAdministrationSection.update',
                 icon: 'administration',
                 subMenu: [

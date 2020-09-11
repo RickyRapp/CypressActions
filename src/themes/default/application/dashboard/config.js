@@ -14,7 +14,7 @@ import { Dashboard } from 'application/dashboard/pages';
         menu: [
             {
                 title: 'MENU.DASHBOARD',
-                order: 10,
+                order: 1,
                 route: 'master.app.main.dashboard',
                 icon: 'dashboard'
             }

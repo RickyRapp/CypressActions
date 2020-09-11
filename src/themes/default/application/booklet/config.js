@@ -39,13 +39,13 @@ import { BookletTab, BookletCreate, BookletEdit } from 'application/booklet/page
             }
         ],
         menu: [
-            {
-                title: 'MENU.BOOKLET',
-                authorization: 'theDonorsFundBookletSection.read',
-                order: 3,
-                icon: 'booklet',
-                route: 'master.app.main.booklet.tab'
-            }
+            // {
+            //     title: 'MENU.BOOKLET',
+            //     authorization: 'theDonorsFundBookletSection.read',
+            //     order: 3,
+            //     icon: 'booklet',
+            //     route: 'master.app.main.booklet.tab'
+            // }
         ]
     });
 })();

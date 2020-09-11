@@ -100,41 +100,47 @@ import { CharityService } from 'application/charity/services';
             }
         ],
         menu: [
+            // {
+            //     title: 'MENU.CHARITIES',
+            //     authorization: 'theDonorsFundAdministrationSection.read',
+            //     order: 4,
+            //     route: 'master.app.main.charity.list',
+            //     icon: 'charities',
+            // },
             {
-                title: 'MENU.CHARITIES',
-                authorization: 'theDonorsFundAdministrationSection.read',
-                order: 4,
-                route: 'master.app.main.charity.list',
-                icon: 'charities',
-            },
-            {
-                title: 'MENU.CHARITY_EDIT',
+                title: 'MENU.MANAGE_CHARITY_ACCOUNT',
                 order: 5,
-                route: 'master.app.main.charity-profile',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
-                icon: 'profile'
+                icon: 'profile',
+                subMenu: [
+                    {
+                        title: 'MENU.PROFILE_SETTING',
+                        order: 1,
+                        route: 'master.app.main.charity-profile',
+                    },
+                ]
             },
-            {
-                title: 'MENU.CHARITY_GRANTS',
-                order: 6,
-                route: 'master.app.main.charity-grants',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
-                icon: 'grant'
-            },
+            // {
+            //     title: 'MENU.CHARITY_GRANTS',
+            //     order: 6,
+            //     route: 'master.app.main.charity-grants',
+            //     authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+            //     icon: 'grant'
+            // },
             {
                 title: 'MENU.CHARITY_GRANT_REQUESTS',
-                order: 7,
+                order: 3,
                 route: 'master.app.main.charity-grant-requests',
                 authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced'].includes(c)) },
                 icon: 'grant'
             },
-            {
-                title: 'MENU.CHARITY_CERTIFICATES',
-                order: 8,
-                route: 'master.app.main.charity-certificates',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
-                icon: 'grant'
-            },
+            // {
+            //     title: 'MENU.CHARITY_CERTIFICATES',
+            //     order: 8,
+            //     route: 'master.app.main.charity-certificates',
+            //     authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+            //     icon: 'grant'
+            // },
         ]
     });
 })();
