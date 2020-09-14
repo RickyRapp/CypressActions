@@ -39,12 +39,12 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
             {
                 title: 'MENU.MANAGE_FUND',
                 order: 5,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'administration',
                 subMenu: [
                     {
                         title: 'MENU.FUND_TRANSFERS',
-                        order: 6,
+                        order: 7,
                         route: 'master.app.main.fund-transfer.list',
                     },
                 ]

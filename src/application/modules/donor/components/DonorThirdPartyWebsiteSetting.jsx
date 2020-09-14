@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorThirdPartyWebsiteSettingTemplate } from 'themes/application/donor/components';
 import { DonorThirdPartyWebsiteSettingViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorThirdPartyWebsiteSettingViewStore(rootStore), 'donorThirdPartyWebsiteSettingViewStore')
+@setCurrentView((rootStore, props) => new DonorThirdPartyWebsiteSettingViewStore(rootStore, props.donorId), 'donorThirdPartyWebsiteSettingViewStore')
 @observer
 class DonorThirdPartyWebsiteSetting extends React.Component {
     render() {

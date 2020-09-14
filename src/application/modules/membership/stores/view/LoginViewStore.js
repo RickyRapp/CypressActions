@@ -5,8 +5,8 @@ import { BaseViewStore } from 'core/stores';
 class LoginViewStore extends BaseViewStore {
     routes = {
         forgotPassword: () => this.rootStore.routerStore.goTo('master.app.membership.password-recovery'),
-        register: () => this.rootStore.routerStore.goTo('master.app.public.register'),
-        home: () => this.rootStore.routerStore.goTo('master.app.public.home')
+        register: () => this.rootStore.routerStore.goTo('master.public.main.register'),
+        home: () => this.rootStore.routerStore.goTo('master.public.main.home')
     };
 
     loaderStore = this.createLoaderStore();
@@ -31,7 +31,7 @@ class LoginViewStore extends BaseViewStore {
         this.loaderStore.suspend();
         try {
             await this.app.membershipModule.login.login({ username, password, options: ['sliding'] });
-            await this.rootStore.userStore.resolveUser();
+            // await rootStore.userStore.resolveUser(); //TODO: check why this can't be in config.js on master route beforeEnter event. That event for some reason loads after it redirect to defined route e.g. master.app.main.dashboard
             const redirect = this.rootStore.authStore.getSignInRedirect();
             await this.rootStore.routerStore.goTo(redirect);
         } catch (ex) {
@@ -47,26 +47,8 @@ class LoginViewStore extends BaseViewStore {
                     this.loginForm.invalidate('User is not approved');
                 }
             }
-            this.loaderStore.resume();
         }
-    }
-
-    @action.bound async logout() {
-        if (!this.app.getAccessToken()) {
-            return;
-        }
-        const { token, type } = this.app.getAccessToken();
-
-        try {
-            const url = uritemplate.parse('login').expand({}); // eslint-disable-line
-            await this.app.apiClient.delete(url, null, {
-                token,
-                type
-            });
-            this.app.updateAccessToken(null);
-        } catch (ex) {
-            // handle unsuccessful logout
-        }
+        this.loaderStore.resume();
     }
 }
 

@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorPhoneNumberListTableTemplate } from 'themes/application/donor/components';
 import { DonorPhoneNumberViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorPhoneNumberViewStore(rootStore), 'donorPhoneNumberViewStore')
+@setCurrentView((rootStore, props) => new DonorPhoneNumberViewStore(rootStore, props.donorId), 'donorPhoneNumberViewStore')
 @observer
 class DonorPhoneNumberListTable extends React.Component {
     render() {

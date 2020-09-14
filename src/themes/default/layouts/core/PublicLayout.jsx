@@ -22,7 +22,7 @@ function PublicLayoutTemplate({ render, ...props }) {
                             </a>
                         </span>
                         <div className="membership--primary--ondesktop">
-                            <span className="membership--primary--ondesktop__link" onClick={() => props.rootStore.routerStore.goTo('master.app.membership.login')}>-</span>
+                            <span className="membership--primary--ondesktop__link" onClick={() => props.rootStore.routerStore.goTo('master.public.membership.login')}>-</span>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@ function PublicLayoutTemplate({ render, ...props }) {
                 <div className="header--secondary">
                     <div className="containerold">
                         <nav role="navigation">
-                            <span className="logo"></span>
+                            <span className="logo" onClick={() => props.rootStore.routerStore.goTo('master.public.main.home')}></span>
                             <div className="nav">
                                 <ul className="nav__list">
                                     <li className="nav__list__item">
@@ -43,7 +43,7 @@ function PublicLayoutTemplate({ render, ...props }) {
                                         <a className="nav__list__link" href="#">Company</a>
                                     </li>
                                     <li className="nav__list__item">
-                                        <span className="nav__list__link btn btn--primary btn--med" onClick={() => props.rootStore.routerStore.goTo('master.app.public.register')}>Get Started</span>
+                                        <span className="nav__list__link btn btn--primary btn--med" onClick={() => props.rootStore.routerStore.goTo('master.public.main.register')}>Get Started</span>
                                     </li>
                                 </ul>
                             </div>

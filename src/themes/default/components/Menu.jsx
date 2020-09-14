@@ -55,10 +55,10 @@ function renderPrimary(menu, menuStore, t) {
                     }
 
                     const title = t(item.title);
-                    if (menuLength !== index + 1) {
-                        if (className.includes("selected") || (item.hasChildren && className.includes("active"))) {
-                            return (
-                                <div key={title}>
+                    if (className.includes("selected") || (item.hasChildren && className.includes("active"))) {
+                        return (
+                            <React.Fragment key={title}>
+                                <div>
                                     <div
                                         className={className}
                                         aria-label={title}
@@ -77,12 +77,22 @@ function renderPrimary(menu, menuStore, t) {
                                     </div>
                                     <SecondaryMenu />
                                 </div>
-                            );
-                        }
-                        else {
-                            return (
+                                {menuLength === index + 1 &&
+                                    <div
+                                        className="btn btn--ghost btn--med"
+                                        label={t('HEADER.USER_MENU.LOGOUT')}
+                                        onClick={() => menuStore.rootStore.viewStore.logout()}
+                                    >
+                                        <span className="nav__text">Logout</span>
+                                    </div>
+                                }
+                            </React.Fragment>
+                        );
+                    }
+                    else {
+                        return (
+                            <React.Fragment key={title}>
                                 <div
-                                    key={title}
                                     aria-label={title}
                                     className={className}
                                     label={title}
@@ -101,20 +111,17 @@ function renderPrimary(menu, menuStore, t) {
                                     ) : null}
 
                                 </div>
-                            );
-                        }
-                    }
-                    else {
-                        return (
-                            <div
-                                key={t('HEADER.USER_MENU.LOGOUT')}
-                                className="btn btn--ghost btn--med"
-                                label={t('HEADER.USER_MENU.LOGOUT')}
-                                onClick={() => menuStore.rootStore.viewStore.logout()}
-                            >
-                                <span className="nav__text">Logout</span>
-                            </div>
-                        )
+                                {menuLength === index + 1 &&
+                                    <div
+                                        className="btn btn--ghost btn--med"
+                                        label={t('HEADER.USER_MENU.LOGOUT')}
+                                        onClick={() => menuStore.rootStore.viewStore.logout()}
+                                    >
+                                        <span className="nav__text">Logout</span>
+                                    </div>
+                                }
+                            </React.Fragment>
+                        );
                     }
 
                 })}

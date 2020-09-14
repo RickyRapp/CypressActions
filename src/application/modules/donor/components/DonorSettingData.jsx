@@ -9,24 +9,24 @@ import {
     DonorAccountSetting
 } from 'application/donor/components';
 
-function DonorSettingDataTemplate() {
+function DonorSettingDataTemplate({ donorId }) {
     return (
         <div className="card--form card--primary card--med">
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorAutomaticContributionSetting />
+                    <DonorAutomaticContributionSetting donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorThirdPartyWebsiteSetting />
+                    <DonorThirdPartyWebsiteSetting donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorCertificateSetting />
+                    <DonorCertificateSetting donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorContributionSetting />
+                    <DonorContributionSetting donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorAccountSetting />
+                    <DonorAccountSetting donorId={donorId} />
                 </div>
             </div>
         </div>

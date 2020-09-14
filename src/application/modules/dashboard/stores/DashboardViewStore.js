@@ -1,4 +1,4 @@
-import {BaseViewStore} from 'core/stores';
+import { BaseViewStore } from 'core/stores';
 
 class DashboardViewStore extends BaseViewStore {
     constructor(rootStore) {

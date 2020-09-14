@@ -6,8 +6,7 @@ import { applicationContext } from 'core/utils';
 
 @applicationContext
 class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
-    constructor(rootStore) {
-        const donorId = rootStore.routerStore.routerState.params.id;
+    constructor(rootStore, donorId) {
         const service = new DonorService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {

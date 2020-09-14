@@ -5,13 +5,13 @@ import { Home, Register } from 'application/public/pages';
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.public.home', //Entry point, home page
+                name: 'master.public.main.home', //Entry point, home page
                 pattern: '',
                 isPublic: true,
                 component: Home
             },
             {
-                name: 'master.app.public.register',
+                name: 'master.public.main.register',
                 pattern: '/register',
                 isPublic: true,
                 component: Register

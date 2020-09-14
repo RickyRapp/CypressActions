@@ -3,22 +3,12 @@ import { RouterState } from 'mobx-state-router';
 import { flattenArray } from 'core/utils';
 import _ from 'lodash';
 
-const suffixDictionary = {
-    '.list': '',
-    '.edit': 'BREADCRUMBS.EDIT',
-    '.create': 'BREADCRUMBS.CREATE',
-    '.language': 'BREADCRUMBS.LANGUAGE',
-    '.localization': 'BREADCRUMBS.LANGUAGE',
-    '.settings': 'BREADCRUMBS.SETTINGS',
-    '.preview': 'BREADCRUMBS.PREVIEW'
-}
-
 export default function flattenRoutes(routes) {
     var flatRoutes = getFlatRoutes(routes);
     return {
         routes: flatRoutes,
-        routerMaps: getRouterMaps(flatRoutes)
-    }
+        routerMaps: getRouterMaps(flatRoutes),
+    };
 }
 
 function getRouterMaps(flatRoutes) {
@@ -30,9 +20,11 @@ function getRouterMaps(flatRoutes) {
 }
 
 function getFlatRoutes(routes, parentOptions = []) {
-    return flattenArray(routes.map(r => {
-        return flatten(r, parentOptions);
-    }));
+    return flattenArray(
+        routes.map(r => {
+            return flatten(r, parentOptions);
+        })
+    );
 }
 
 function flatten(route, parentOptions = []) {
@@ -65,59 +57,61 @@ class StateRoute {
         this.isPublic = route.isPublic || false;
 
         this.pattern = _.reduce(parentOptions, (prev, current) => joinPaths(prev, current.pattern), '');
-        this.authorization = _.filter(
-            _.map(parentOptions, p => p.authorization),
-            f => !_.isNil(f) && f !== ''
-        );
+        this.authorization = _.filter(_.map(parentOptions, p => p.authorization), f => !_.isNil(f) && f !== '');
 
         const optionLength = parentOptions.length;
-        this.data = _.reduce(parentOptions, (prev, current, idx) => {
-            if (current.data) {
-                if (current.data.title) {
-                    prev.title = current.data.title;
-                }
-
-                if (current.data.back) {
-                    prev.back = current.data.back;
-                }
-
-                if (current.data.crumbs) {
-                    const crumbs = _.isArray(current.data.crumbs) ? current.data.crumbs : [current.data.crumbs];
-                    prev.crumbs = [...prev.crumbs, ...crumbs];
-                } else if (optionLength - 1 === idx) {
-                    prev.crumbs = [...prev.crumbs,
-                    {
-                        title: getBreadcrumbTitle(route.data.breadcrumb || route.name),
-                        route: route.name
+        this.data = _.reduce(
+            parentOptions,
+            (prev, current, idx) => {
+                if (current.data) {
+                    if (current.data.title) {
+                        prev.title = current.data.title;
                     }
-                    ];
+
+                    if (current.data.back) {
+                        prev.back = current.data.back;
+                    }
+
+                    if (current.data.crumbs) {
+                        const crumbs = _.isArray(current.data.crumbs) ? current.data.crumbs : [current.data.crumbs];
+                        prev.crumbs = [...prev.crumbs, ...crumbs];
+                    } else if (optionLength - 1 === idx) {
+                        prev.crumbs = [
+                            ...prev.crumbs,
+                            {
+                                title: getBreadcrumbTitle(route.name),
+                                route: route.name,
+                            },
+                        ];
+                    }
+
+                    // NOTICE: add more properties here if you want to support them in data property
+                    if (current.data.type) {
+                        prev.type = current.data.type;
+                    }
                 }
 
-                // NOTICE: add more properties here if you want to support them in data property
-                if (current.data.type) {
-                    prev.type = current.data.type;
-                }
+                return prev;
+            },
+            {
+                crumbs: [],
             }
-
-            return prev;
-        }, {
-            crumbs: []
-        });
+        );
 
         this.component = this.getComponent(route, parentOptions);
 
         this.onExit = (fromState, toState, routerStore) => {
             const router = routerStore.rootStore.routerStore;
             return this.fireEvent('onExit', fromState, toState, router, parentOptions);
-        }
+        };
         this.onEnter = (fromState, toState, routerStore) => {
             const router = routerStore.rootStore.routerStore;
             return this.fireEvent('onEnter', fromState, toState, router, parentOptions);
-        }
+        };
         this.beforeExit = (fromState, toState, routerStore) => {
             const router = routerStore.rootStore.routerStore;
             return this.fireEvent('beforeExit', fromState, toState, router, parentOptions);
-        }
+        };
         this.beforeEnter = async (fromState, toState, routerStore) => {
             const { rootStore } = routerStore;
             if (fromState.routeName !== toState.routeName) {
@@ -137,20 +131,20 @@ class StateRoute {
                         authorization: this.authorization,
                         pattern: this.pattern,
                         data: this.data,
-                        isPublic: this.isPublic
-                    }
+                        isPublic: this.isPublic,
+                    },
                 });
             } catch (ex) {
                 return Promise.reject(ex);
             }
 
             return Promise.resolve();
-        }
+        };
     }
 
     getComponent(route, parentOptions) {
         var layouts = parentOptions.reduce((acc, current) => {
-            return [...acc, current.layouts]
+            return [...acc, current.layouts];
         }, []);
         layouts = flattenArray(layouts).reverse();
         layouts.forEach(w => {
@@ -163,19 +157,13 @@ class StateRoute {
     // executes all parents and own event in order starting from initial parent
     // NOTE: this method is initiated when:
     // 1. route name is changed - in this case parts that changed are compared and only those
-    //         parts are fired. e.g. master.user.edit -> master.user.list 
+    //         parts are fired. e.g. master.user.edit -> master.user.list
     //         means that only master.user.list event will be fired (master and master.user will be skipped since they are same as on previous route)
     // 2. custom condition has been defined for the route - condition is always inherited from
-    //        parent route and it overrides rule 1. if defined. 
+    //        parent route and it overrides rule 1. if defined.
     //        It can be defiend on route as hookCondition: (fromState, toState, routerState) => { return bool; }
     //        If hookCondition returns false on master but true on master.user everything beneath master.user (including master.user) will be initiated
-    async fireEvent(
-        name,
-        fromState,
-        toState,
-        routerStore,
-        parentOptions
-    ) {
+    async fireEvent(name, fromState, toState, routerStore, parentOptions) {
         const routeChanged = fromState.routeName !== toState.routeName;
 
         let hookCondition = false;
@@ -236,10 +224,14 @@ function renderComponent(Component, props = {}) {
 }
 
 function renderParentComponent({ Parent, component }) {
-    return (props) => <Parent {...props} render={renderProps => {
-        return renderComponent(component, renderProps)
-    }
-    } />
+    return props => (
+        <Parent
+            {...props}
+            render={renderProps => {
+                return renderComponent(component, renderProps);
+            }}
+        />
+    );
 }
 
 function joinPaths(a, b) {
@@ -271,26 +263,32 @@ function getSkipRoutePrefix(fromState, toState) {
         const fromElement = fromParts[j];
         const toElement = toParts[j];
         if (fromElement === toElement) {
-            skipRoutePrefix = skipRoutePrefix === undefined ? toElement : (skipRoutePrefix + '.' + toElement)
+            skipRoutePrefix = skipRoutePrefix === undefined ? toElement : skipRoutePrefix + '.' + toElement;
         }
     }
     return skipRoutePrefix;
 }
 
 function getBreadcrumbTitle(routeName) {
-    const suffix = routeName.substring(routeName.lastIndexOf("."));
+    const predicate = suffix => _.endsWith(routeName, suffix);
+
     let breadcrumb;
-
-    if (suffixDictionary[suffix]) {
-        breadcrumb = suffixDictionary[suffix];
-    } else if (!routeName.includes('.')) {
-        breadcrumb = routeName;
+    if (predicate('.list')) {
+        breadcrumb = '';
+    } else if (predicate('.edit')) {
+        breadcrumb = 'BREADCRUMBS.EDIT';
+    } else if (predicate('.create')) {
+        breadcrumb = 'BREADCRUMBS.CREATE';
+    } else if (predicate('.language') || predicate('.localization')) {
+        breadcrumb = 'BREADCRUMBS.LANGUAGE';
+    } else if (predicate('.settings')) {
+        breadcrumb = 'BREADCRUMBS.SETTINGS';
+    } else if (predicate('.preview')) {
+        breadcrumb = 'BREADCRUMBS.PREVIEW';
     }
-
     return breadcrumb;
 }
 
 function getRouteParts(route) {
     return route.split('.');
 }
-

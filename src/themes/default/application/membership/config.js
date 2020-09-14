@@ -12,15 +12,14 @@ import {
 
 (function () {
 	moduleProviderFactory.application.register({
-		name: 'Baasic.App.Membership',
 		routes: [
 			{
-				name: 'master.app.membership',
+				name: 'master.public.membership',
 				pattern: '',
 				component: [PublicLayout],
 				children: [
 					{
-						name: 'master.app.membership.login',
+						name: 'master.public.membership.login',
 						pattern: '/login',
 						isPublic: true,
 						component: Login,
@@ -33,31 +32,31 @@ import {
 						}
 					},
 					{
-						name: 'master.app.membership.register',
+						name: 'master.public.membership.register',
 						pattern: '/register2',
 						isPublic: true,
 						component: Register
 					},
 					{
-						name: 'master.app.membership.registration-success',
+						name: 'master.public.membership.registration-success',
 						pattern: '/registration-success',
 						isPublic: true,
 						component: RegistrationSuccess
 					},
 					{
-						name: 'master.app.membership.activation-confirm',
+						name: 'master.public.membership.activation-confirm',
 						pattern: '/account-activation',
 						isPublic: true,
 						component: ActivationConfirm
 					},
 					{
-						name: 'master.app.membership.password-recovery',
+						name: 'master.public.membership.password-recovery',
 						pattern: '/password-recovery',
 						isPublic: true,
 						component: PasswordRecovery
 					},
 					{
-						name: 'master.app.membership.password-change',
+						name: 'master.public.membership.password-change',
 						pattern: '/password-change',
 						isPublic: true,
 						component: PasswordChange

@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorAutomaticContributionSettingTemplate } from 'themes/application/donor/components';
 import { DonorAutomaticContributionSettingViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorAutomaticContributionSettingViewStore(rootStore), 'donorAutomaticContributionSettingViewStore')
+@setCurrentView((rootStore, props) => new DonorAutomaticContributionSettingViewStore(rootStore, props.donorId), 'donorAutomaticContributionSettingViewStore')
 @observer
 class DonorAutomaticContributionSetting extends React.Component {
     render() {

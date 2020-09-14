@@ -1,4 +1,4 @@
-import {observable, computed, runInAction} from 'mobx';
+import { observable, computed, runInAction } from 'mobx';
 import { LoaderStore } from 'core/stores';
 
 class UserStore {
@@ -20,7 +20,7 @@ class UserStore {
     async resolveUser() {
         this.loaderStore.suspend();
         const applicationUser = await this.resolveApplicationUser();
-        
+
         runInAction(() => {
             this.applicationUser = applicationUser;
 
@@ -44,6 +44,7 @@ class UserStore {
         } = this.rootStore;
 
         let user = null;
+
         if (authStore.isAuthenticated) {
             const response = await baasicApplication.membershipModule.login.loadUserData({ embed: 'permissions' });
             user = {

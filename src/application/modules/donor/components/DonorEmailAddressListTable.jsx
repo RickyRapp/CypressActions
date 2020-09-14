@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorEmailAddressListTableTemplate } from 'themes/application/donor/components';
 import { DonorEmailAddressViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorEmailAddressViewStore(rootStore), 'donorEmailAddressViewStore')
+@setCurrentView((rootStore, props) => new DonorEmailAddressViewStore(rootStore, props.donorId), 'donorEmailAddressViewStore')
 @observer
 class DonorEmailAddressListTable extends React.Component {
     render() {

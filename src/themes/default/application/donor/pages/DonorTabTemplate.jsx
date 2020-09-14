@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
 import { DonorGeneralData, DonorPersonalData, DonorSettingData, DonorInvestmentData } from 'application/donor/components';
-import { DonorPageHeaderOverview } from 'application/donor/components';
 import { DonorNoteList } from 'application/donor-note/pages';
 import { EmailList } from 'application/email/pages';
 
@@ -19,24 +18,19 @@ function DonorTabTemplate({ donorTabViewStore, rootStore }) {
 
     return (
         <Page loading={loaderStore.loading} >
-            <AuthPageHeader
-                donorId={donorId}
-                type={0}
-                authorization='theDonorsFundAdministrationSection.read' />
-
             <div className='u-mar--bottom--med'>
                 <TabLayout store={donorTabViewStore}>
                     <div label={'DONOR.TAB.GENERAL_DATA'}>
-                        <DonorGeneralData />
+                        <DonorGeneralData donorId={donorId} />
                     </div>
                     <div label={'DONOR.TAB.PERSONAL_DATA'}>
-                        <DonorPersonalData />
+                        <DonorPersonalData donorId={donorId} />
                     </div>
                     <div label={'DONOR.TAB.SETTING_DATA'}>
-                        <DonorSettingData />
+                        <DonorSettingData donorId={donorId} />
                     </div>
                     <div label={'DONOR.TAB.INVESTMENT_DATA'}>
-                        <DonorInvestmentData />
+                        <DonorInvestmentData donorId={donorId} />
                     </div>
 
                     {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') &&
@@ -55,7 +49,6 @@ function DonorTabTemplate({ donorTabViewStore, rootStore }) {
     );
 }
 
-const AuthPageHeader = withAuth(DonorPageHeaderOverview);
 const AuthDonorNote = withAuth(DonorNoteList);
 
 DonorTabTemplate.propTypes = {

@@ -65,7 +65,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
             //     title: 'MENU.GRANTS',
             //     order: 7,
             //     route: 'master.app.main.grant.tab',
-            //     authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
+            //     authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
             //     icon: 'grant'
             // },
         ]

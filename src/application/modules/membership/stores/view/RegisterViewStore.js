@@ -33,7 +33,7 @@ class RegisterViewStore extends BaseViewStore {
     }
 
     @action.bound navigateToLoginPage() {
-        this.rootStore.routerStore.goTo('master.app.membership.login');
+        this.rootStore.routerStore.goTo('master.public.membership.login');
     }
 
     @action.bound navigateToDashboard() {

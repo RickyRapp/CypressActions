@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorCertificateSettingTemplate } from 'themes/application/donor/components';
 import { DonorCertificateSettingViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorCertificateSettingViewStore(rootStore), 'donorCertificateSettingViewStore')
+@setCurrentView((rootStore, props) => new DonorCertificateSettingViewStore(rootStore, props.donorId), 'donorCertificateSettingViewStore')
 @observer
 class DonorCertificateSetting extends React.Component {
     render() {

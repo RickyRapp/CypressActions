@@ -12,12 +12,12 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                         name: 'master.app.main.activity-and-history.donor-view',
                         pattern: '/overview/:id',
                         component: DonorActivityAndHistory,
-                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.applicationUser.roles.includes('Users'); },
+                        authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         },
                         beforeEnter: function (fromState, toState, routerStore) {
-                            toState.params.id = routerStore.rootStore.userStore.applicationUser.id
+                            toState.params.id = routerStore.rootStore.userStore.user.id
                             return Promise.resolve();
                         }
                     },
@@ -25,12 +25,12 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                         name: 'master.app.main.activity-and-history.charity-view',
                         pattern: '/my-history/:id',
                         component: CharityActivityAndHistory,
-                        authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
+                        authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.CHARITY"
                         },
                         beforeEnter: function (fromState, toState, routerStore) {
-                            toState.params.id = routerStore.rootStore.userStore.applicationUser.id
+                            toState.params.id = routerStore.rootStore.userStore.user.id
                             return Promise.resolve();
                         }
                     },
@@ -58,14 +58,14 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
                 title: 'MENU.ACTIVITY_AND_HISTORY.DONOR_VIEW',
                 order: 2,
                 route: 'master.app.main.activity-and-history.donor-view',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users') },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users') },
                 icon: 'activity'
             },
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.CHARITY_VIEW',
                 order: 2,
                 route: 'master.app.main.activity-and-history.charity-view',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
                 icon: 'activity'
             }
         ]

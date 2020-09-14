@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorGeneralDataTemplate } from 'themes/application/donor/components';
 import { DonorGeneralDataEditViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorGeneralDataEditViewStore(rootStore), 'donorGeneralDataEditViewStore')
+@setCurrentView((rootStore, props) => new DonorGeneralDataEditViewStore(rootStore, props.donorId), 'donorGeneralDataEditViewStore')
 @observer
 class DonorGeneralData extends React.Component {
     render() {

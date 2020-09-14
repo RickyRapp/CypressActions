@@ -4,12 +4,11 @@ import { DonorService } from 'application/donor/services';
 import { action } from 'mobx';
 
 class DonorAccountSettingViewStore extends BaseEditViewStore {
-    constructor(rootStore) {
-        const id = rootStore.routerStore.routerState.params.id;
+    constructor(rootStore, donorId) {
         const service = new DonorService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'account-settings',
-            id: id,
+            id: donorId,
             actions: {
                 get: async (id) => {
                     const response = await service.get(id);

@@ -2,11 +2,9 @@ import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 import DonorInvestmentList from './DonorInvestmentList';
 
-function DonorInvestmentData() {
+function DonorInvestmentData({ donorId }) {
     return (
-        <React.Fragment>
-            <DonorInvestmentList />
-        </React.Fragment>
+        <DonorInvestmentList donorId={donorId} />
 
     )
 }

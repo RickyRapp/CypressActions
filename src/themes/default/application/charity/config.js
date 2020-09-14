@@ -42,12 +42,12 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-profile',
                 pattern: '/charity-profile/:id',
                 component: CharityTab,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY.EDIT.TITLE"
                 },
                 beforeEnter: async (fromState, toState, routerStore) => {
-                    const userId = routerStore.rootStore.userStore.applicationUser.id;
+                    const userId = routerStore.rootStore.userStore.user.id;
                     const service = new CharityService(routerStore.rootStore.application.baasic.apiClient);
                     const response = await service.get(userId, { fields: ['id'] });
                     if (response.statusCode === 200) {
@@ -63,7 +63,7 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-grants',
                 pattern: '/charity-grants',
                 component: CharityGrantsList,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY_GRANTS.LIST.TITLE"
                 }
@@ -72,12 +72,12 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-grant-requests',
                 pattern: '/charity-grant-requests/:id',
                 component: CharityGrantRequestList,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY_GRANT_REQUESTS.LIST.TITLE"
                 },
                 beforeEnter: async (fromState, toState, routerStore) => {
-                    const userId = routerStore.rootStore.userStore.applicationUser.id;
+                    const userId = routerStore.rootStore.userStore.user.id;
                     const service = new CharityService(routerStore.rootStore.application.baasic.apiClient);
                     const response = await service.get(userId, { fields: ['id'] });
                     if (response.statusCode === 200) {
@@ -93,7 +93,7 @@ import { CharityService } from 'application/charity/services';
                 name: 'master.app.main.charity-certificates',
                 pattern: '/charity-certificates',
                 component: CharityCertificatesList,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 data: {
                     title: "CHARITY_CERTIFICATES.LIST.TITLE"
                 }
@@ -110,7 +110,7 @@ import { CharityService } from 'application/charity/services';
             {
                 title: 'MENU.MANAGE_CHARITY_ACCOUNT',
                 order: 5,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
                 icon: 'profile',
                 subMenu: [
                     {
@@ -124,21 +124,21 @@ import { CharityService } from 'application/charity/services';
             //     title: 'MENU.CHARITY_GRANTS',
             //     order: 6,
             //     route: 'master.app.main.charity-grants',
-            //     authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+            //     authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
             //     icon: 'grant'
             // },
             {
                 title: 'MENU.CHARITY_GRANT_REQUESTS',
                 order: 3,
                 route: 'master.app.main.charity-grant-requests',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced'].includes(c)) },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced'].includes(c)) },
                 icon: 'grant'
             },
             // {
             //     title: 'MENU.CHARITY_CERTIFICATES',
             //     order: 8,
             //     route: 'master.app.main.charity-certificates',
-            //     authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
+            //     authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesRegular', 'CharitiesAdvanced'].includes(c)) },
             //     icon: 'grant'
             // },
         ]

@@ -8,7 +8,7 @@ import { LookupService } from 'common/services';
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id
         let filter = new BookletListFilter('code', 'desc')
         filter.donorId = id;
 

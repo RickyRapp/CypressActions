@@ -50,7 +50,7 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
                 title: 'MENU.CONTRIBUTIONS',
                 order: 3,
                 route: 'master.app.main.contribution.list',
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'contribution'
             }
         ]

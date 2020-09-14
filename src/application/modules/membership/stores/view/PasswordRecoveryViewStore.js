@@ -47,7 +47,7 @@ class PasswordRecoveryViewStore extends BaseViewStore {
     }
 
     @action.bound goToLogin() {
-        return this.rootStore.routerStore.goTo('master.app.membership.login');
+        return this.rootStore.routerStore.goTo('master.public.membership.login');
     }
 }
 

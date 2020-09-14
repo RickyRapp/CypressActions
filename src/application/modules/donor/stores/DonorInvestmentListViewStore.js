@@ -22,9 +22,9 @@ class DonorInvestmentListViewStore extends BaseViewStore {
         }
     })
 
-    constructor(rootStore) {
+    constructor(rootStore, donorId) {
         super(rootStore);
-        this.donorId = rootStore.routerStore.routerState.params.id;
+        this.donorId = donorId;
 
         this.investmentModal = new ModalParams({})
         this.donorInvestmentService = new DonorInvestmentService(rootStore.application.baasic.apiClient)

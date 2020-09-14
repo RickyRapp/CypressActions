@@ -11,7 +11,7 @@ import _ from 'lodash';
 
 class GrantViewStore extends BaseListViewStore {
     constructor(rootStore, { onChangeDonorFilter }) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id;
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id;
         const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new GrantListFilter('dateCreated', 'desc')
         filter.donorId = id || queryParamsId;

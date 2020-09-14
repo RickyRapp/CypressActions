@@ -4,12 +4,11 @@ import { LookupService } from 'common/services';
 import { DonorService } from 'application/donor/services';
 
 class DonorGeneralDataEditViewStore extends BaseEditViewStore {
-    constructor(rootStore) {
-        const id = rootStore.routerStore.routerState.params.id;
+    constructor(rootStore, donorId) {
         const service = new DonorService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'general-data',
-            id: id,
+            id: donorId,
             actions: {
                 get: async (id) => {
                     const response = await service.get(id);

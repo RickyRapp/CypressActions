@@ -22,8 +22,7 @@ class DonorPhoneNumberViewStore extends BaseListViewStore {
         }
     });
 
-    constructor(rootStore) {
-        const donorId = rootStore.routerStore.routerState.params.id;
+    constructor(rootStore, donorId) {
         super(rootStore, {
             name: 'donor-phone-numbers',
             authorization: 'theDonorsFundContactInfoSection',

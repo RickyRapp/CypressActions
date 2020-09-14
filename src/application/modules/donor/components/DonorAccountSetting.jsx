@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { DonorAccountSettingTemplate } from 'themes/application/donor/components';
 import { DonorAccountSettingViewStore } from 'application/donor/stores';
 
-@setCurrentView((rootStore) => new DonorAccountSettingViewStore(rootStore), 'donorAccountSettingViewStore')
+@setCurrentView((rootStore, props) => new DonorAccountSettingViewStore(rootStore, props.donorId), 'donorAccountSettingViewStore')
 @observer
 class DonorAccountSetting extends React.Component {
     render() {

@@ -63,7 +63,7 @@ class PasswordChangeViewStore extends BaseViewStore {
 
     @action.bound goToLogin() {
         return this.rootStore.routerStore.goTo(
-            'master.app.membership.login'
+            'master.public.membership.login'
         );
     }
 }

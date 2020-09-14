@@ -11,7 +11,7 @@ import moment from 'moment';
 
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id
         let filter = new BookletOrderListFilter('confirmationNumber', 'desc')
         filter.donorId = id;
 

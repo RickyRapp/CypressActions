@@ -8,7 +8,7 @@ import moment from 'moment'
 @applicationContext
 class ScheduledGrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.applicationUser.id
+        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id
         let filter = new ScheduledGrantListFilter('dateCreated', 'desc')
         filter.donorId = id;
 

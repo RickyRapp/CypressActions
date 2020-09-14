@@ -40,8 +40,8 @@ class SettledPaymentTransactionViewStore extends BaseListViewStore {
         });
 
         this.rootStore = rootStore;
-        this.isCharityUser = rootStore.userStore.applicationUser.roles.includes('Charities');
-        this.isDonorUser = rootStore.userStore.applicationUser.roles.includes('Users');
+        this.isCharityUser = rootStore.userStore.user.roles.includes('Charities');
+        this.isDonorUser = rootStore.userStore.user.roles.includes('Users');
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [

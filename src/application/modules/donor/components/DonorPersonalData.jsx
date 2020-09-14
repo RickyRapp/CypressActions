@@ -8,21 +8,21 @@ import {
     DonorBankAccountListTable
 } from 'application/donor/components';
 
-function DonorPersonalDataTemplate() {
+function DonorPersonalDataTemplate({ donorId }) {
     return (
         <div className="card--form card--primary card--med">
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorBankAccountListTable />
+                    <DonorBankAccountListTable donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorAddressListTable />
+                    <DonorAddressListTable donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorEmailAddressListTable />
+                    <DonorEmailAddressListTable donorId={donorId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorPhoneNumberListTable />
+                    <DonorPhoneNumberListTable donorId={donorId} />
                 </div>
             </div>
         </div>

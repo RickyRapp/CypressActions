@@ -39,6 +39,11 @@
         "INVESTMENT": "Investments",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
+        "MANAGE_CHARITIES": "Manage Charities",
+        "COMMUNICATION_PREFERENCES": "Communication Preferences",
+        "LEGACY": "Legacy",
+        "ORDER_VOUCHERS": "Order Vouchers",
+        "ORDERDRAFT_PROTECTION": "Orderdraft protection",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",

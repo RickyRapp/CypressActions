@@ -39,37 +39,26 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
             },
             {
                 name: 'master.app.main.profile',
-                pattern: '/profile/:id',
+                pattern: '/profile',
                 component: DonorTab,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 data: {
                     title: "DONOR.EDIT.TITLE"
-                },
-                beforeEnter: function (fromState, toState, routerStore) {
-                    toState.params.id = routerStore.rootStore.userStore.applicationUser.id
-                    return Promise.resolve();
                 }
             },
         ],
         menu: [
-            // {
-            //     title: 'MENU.DONORS',
-            //     order: 3,
-            //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     route: 'master.app.main.donor.list',
-            //     icon: 'donors'
-            // },
             {
                 title: 'MENU.MANAGE_FUND',
                 order: 5,
-                authorization: (route, rootStore) => { return rootStore.userStore.applicationUser && rootStore.userStore.user.roles.includes('Users'); },
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'administration',
                 subMenu: [
                     {
                         title: 'MENU.PROFILE_SETTING',
                         order: 1,
                         route: 'master.app.main.profile'
-                    },
+                    }
                 ]
             },
         ]

@@ -75,7 +75,7 @@ export default class RootStore {
     navigateLogin() {
         // clear storage here
         cacheService.clear();
-        return this.routerStore.goTo('master.app.membership.login');
+        return this.routerStore.goTo('master.public.membership.login');
     }
 
     createApplicationService(Type) {
@@ -84,14 +84,14 @@ export default class RootStore {
 
     async routeChange({ fromState, toState, options }) {
         const { authStore, permissionStore } = this;
-        if (fromState && fromState.routeName === 'master.app.membership.login' && toState.routeName === 'error') {
+        if (fromState && fromState.routeName === 'master.public.membership.login' && toState.routeName === 'error') {
             return Promise.reject(this.initialState);
         }
 
         if (options.isPublic === false) {
-            if (!authStore.isAuthenticated && toState.routeName !== 'master.app.membership.login') {
+            if (!authStore.isAuthenticated && toState.routeName !== 'master.public.membership.login') {
                 authStore.setSignInRedirect(toState);
-                return Promise.reject(new RouterState('master.app.membership.login'));
+                return Promise.reject(new RouterState('master.public.membership.login'));
             }
 
             if (
