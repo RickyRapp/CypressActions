@@ -50,20 +50,20 @@ import { DonorActivityAndHistory, CharityActivityAndHistory, ActivityAndHistoryT
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.TITLE',
                 authorization: 'theDonorsFundAdministrationSection.read',
-                order: 2,
+                order: 3,
                 icon: 'activity',
                 route: 'master.app.main.activity-and-history.tab'
             },
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.DONOR_VIEW',
-                order: 2,
+                order: 3,
                 route: 'master.app.main.activity-and-history.donor-view',
                 authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users') },
                 icon: 'activity'
             },
             {
                 title: 'MENU.ACTIVITY_AND_HISTORY.CHARITY_VIEW',
-                order: 2,
+                order: 3,
                 route: 'master.app.main.activity-and-history.charity-view',
                 authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.some(c => ['CharitiesAdvanced', 'CharitiesRegular'].includes(c)) },
                 icon: 'activity'

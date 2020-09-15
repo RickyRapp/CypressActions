@@ -66,6 +66,11 @@ class DonorService extends BaseService {
     const url = this.routeService.editCertificateSetting(resource);
     return this.apiClient.put(url, resource);
   }
+
+  loadDonorData(id) {
+    const url = this.routeService.loadDonorData(id);
+    return this.apiClient.get(url);
+  }
 }
 
 export default DonorService;

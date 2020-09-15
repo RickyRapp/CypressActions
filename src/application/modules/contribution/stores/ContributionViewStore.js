@@ -14,10 +14,13 @@ class ContributionViewStore extends BaseListViewStore {
     @observable accountTypes = null;
 
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id;
-        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new ContributionListFilter('dateCreated', 'desc')
-        filter.donorId = id || queryParamsId;
+
+        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+            }
+        }
 
         super(rootStore, {
             name: 'contribution',
@@ -43,9 +46,8 @@ class ContributionViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: filter,
-                disableUpdateQueryParams: true,
+                disableUpdateQueryParams: false,
                 onResetFilter: (filter) => {
-                    filter.donorId = id;
                     this.searchDonorDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
@@ -85,7 +87,13 @@ class ContributionViewStore extends BaseListViewStore {
                             'bankAccount',
                             'bankAccount.accountNumber'
                         ];
-                        const response = await service.find(params);
+
+                        let userId = null;
+                        if (!this.hasPermission('theDonorsFundAdministrationSection.read')) {
+                            userId = rootStore.userStore.user.id
+                        }
+
+                        const response = await service.find({ userId: userId, ...params });
                         return response.data;
                     }
                 }
@@ -213,7 +221,6 @@ class ContributionViewStore extends BaseListViewStore {
                             ]
                         }
                         const response = await donorService.get(id, params);
-                        rootStore.routerStore.setQueryParams(null);
                         return { id: response.data.id, name: response.data.donorName };
                     }
                     else {
@@ -221,7 +228,7 @@ class ContributionViewStore extends BaseListViewStore {
                     }
                 },
                 onChange: (donorId) => {
-                    this.queryUtility.filter['donorId'] = donorId;
+                    this.queryUtility.filter.donorId = donorId;
                 }
             });
 
@@ -235,9 +242,10 @@ class ContributionViewStore extends BaseListViewStore {
                     return response.data;
                 },
                 onChange: (paymentType) => {
-                    this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
+                    this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });
                 }
             });
+
         this.contributionStatusDropdownStore = new BaasicDropdownStore({
             multi: true
         },
@@ -248,7 +256,7 @@ class ContributionViewStore extends BaseListViewStore {
                     return response.data;
                 },
                 onChange: (contributionStatus) => {
-                    this.queryUtility.filter['contributionStatusIds'] = _.map(contributionStatus, (status) => { return status.id });
+                    this.queryUtility.filter.contributionStatusIds = _contributionStatus.map(status => { return status.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();

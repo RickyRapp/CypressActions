@@ -61,13 +61,29 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
             //     icon: 'grant',
             //     route: 'master.app.main.grant.tab'
             // },
-            // {
-            //     title: 'MENU.GRANTS',
-            //     order: 7,
-            //     route: 'master.app.main.grant.tab',
-            //     authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
-            //     icon: 'grant'
-            // },
+            {
+                title: 'MENU.GIVE',
+                order: 1,
+                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
+                icon: 'grant',
+                subMenu: [
+                    {
+                        title: 'MENU.NEW_GRANT',
+                        order: 1,
+                        route: 'master.app.main.grant.create'
+                    },
+                    {
+                        title: 'MENU.NEW_PLEDGE',
+                        order: 2,
+                        route: 'master.app.main.grant.create'
+                    },
+                    {
+                        title: 'MENU.NEW_REMAINDER',
+                        order: 3,
+                        route: 'master.app.main.grant.create'
+                    }
+                ]
+            },
         ]
     });
 })();

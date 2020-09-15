@@ -44,6 +44,10 @@
         "LEGACY": "Legacy",
         "ORDER_VOUCHERS": "Order Vouchers",
         "ORDERDRAFT_PROTECTION": "Orderdraft protection",
+        "NEW_GRANT": "New Grant",
+        "NEW_PLEDGE": "New Pledge",
+        "GIVE": "Give",
+        "NEW_REMAINDER": "New Remainder",
         "ACTIVITY_AND_HISTORY": {
             "TITLE": "Activity",
             "DONOR_VIEW": "Activity",
@@ -2351,6 +2355,25 @@
                 "AMOUNT_LABEL": "Amount",
                 "AMOUNT_PLACEHOLDER": "Amount"
             }
+        }
+    },
+    "DASHBOARD": {
+        "YOUR_FUNDS": "Your Funds",
+        "YOUR_GIVING": "Your Giving",
+        "FINISH_SETTING_UP_YOUR_ACCOUNT": "Finish setting up your account",
+        "RECENT_ACTIVITY": "Recent Activity",
+        "AVAILABLE_BALANCE": "Available balance",
+        "AVAILABLE_BALANCE_DESCRIPTION": "Not including investment pool",
+        "PRESENT_BALANCE": "Present Balance",
+        "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",
+        "INVESTMENTS": "Investments",
+        "BUTTON": {
+            "VIEW_INVESTMENT_OPTIONS": "View Investment Options",
+            "ORDER_CERTIFICATES": "Order Certificates",
+            "NEW_CONTRIBUTION": "New Contribution",
+            "NEW_GRANT": "New Grant",
+            "INVEST_FUNDS": "Invest Funds",
+            "DEPOSIT_FUNDS": "Deposit Funds"
         }
     }
 }

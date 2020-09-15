@@ -19,7 +19,7 @@ import { ContributionReview } from 'application/contribution/components'
 import { SelectDonor } from 'application/donor/components';
 import _ from 'lodash'
 
-const ContributionListTemplate = function ({ contributionViewStore }) {
+const ContributionListTemplate = function ({ contributionViewStore, rootStore }) {
     const {
         tableStore,
         routes,
@@ -32,8 +32,13 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
         contributionStatusDropdownStore,
         accountTypes,
         dateCreatedDateRangeQueryStore,
-        timePeriodDropdownStore
+        timePeriodDropdownStore,
+        hasPermission
     } = contributionViewStore;
+
+    const {
+        permissionStore
+    } = rootStore;
 
     return (
         <React.Fragment>
@@ -41,9 +46,10 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                 <Content emptyRenderer={renderEmpty(routes)} >
                     <div className="card--form card--secondary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchDonorDropdownStore} />
-                            </div>
+                            {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                    <BaasicDropdown store={searchDonorDropdownStore} />
+                                </div>}
                             <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
                                 {accountTypes &&
                                     <QueryNullableSwitch

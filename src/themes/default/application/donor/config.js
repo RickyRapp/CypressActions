@@ -50,7 +50,7 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
         menu: [
             {
                 title: 'MENU.MANAGE_FUND',
-                order: 5,
+                order: 6,
                 authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 icon: 'administration',
                 subMenu: [

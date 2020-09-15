@@ -72,6 +72,10 @@ class DonorRouteService extends BaseRouteService {
   editCertificateSetting(resource) {
     return super.update('certificate-setting/{id}', resource);
   }
+
+  loadDonorData(id) {
+    return super.get(this.base + '/load-donor-data/{id}', id);
+  }
 }
 
 export default DonorRouteService;
