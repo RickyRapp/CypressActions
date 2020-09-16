@@ -13,7 +13,7 @@ function PageHeaderTemplate({ children, ...props }) {
             )
         }
     }
-    
+
     return null;
 }
 

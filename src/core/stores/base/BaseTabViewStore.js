@@ -3,8 +3,6 @@ import { BaseViewStore } from 'core/stores';
 
 class BaseTabViewStore extends BaseViewStore {
     @observable activeIndex = 0;
-    @observable activeComponent = null;
-    config = null;
 
     constructor(rootStore) {
         super(rootStore);

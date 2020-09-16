@@ -26,7 +26,7 @@ class DonorAccountSettingViewStore extends BaseEditViewStore {
     async getResource(id, updateForm = true) {
         await super.getResource(id, updateForm);
 
-        if (!this.hasPermission('theDonorsFundAdministrationSection.update')) {
+        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
             this.form.setFieldsDisabled(true);
         }
     }

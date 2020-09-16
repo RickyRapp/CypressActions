@@ -40,17 +40,6 @@ const GrantListTemplate = function ({ grantViewStore }) {
                             placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
                         />
                     </div>
-                    {/* TODO
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumericInputRange
-                                    valueMin={queryUtility.filter['amountRangeMin'] || undefined}
-                                    valueMax={queryUtility.filter['amountRangeMax'] || undefined}
-                                    onChangeMin={(value) => queryUtility.filter['amountRangeMin'] = value}
-                                    onChangeMax={(value) => queryUtility.filter['amountRangeMax'] = value}
-                                    placeholderMin='GRANT.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER'
-                                    placeholderMax='GRANT.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
-                                />
-                            </div> */}
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicDropdown
                             store={donationStatusDropdownStore}
@@ -59,9 +48,11 @@ const GrantListTemplate = function ({ grantViewStore }) {
                     </div>
                 </TableFilter>
             </div>
-            <div className="row card--form card--secondary card--med u-mar--bottom--sml">
-                <div className="col col-sml-12 col-med-12 col-lrg-12">
-                    <Export config={exportConfig} />
+            <div className=" card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="row">
+                    <div className="col col-sml-12 col-med-12 col-lrg-12">
+                        <Export config={exportConfig} />
+                    </div>
                 </div>
             </div>
             <div className="card--form card--primary card--med">

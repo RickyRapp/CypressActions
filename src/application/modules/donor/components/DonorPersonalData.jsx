@@ -30,7 +30,7 @@ function DonorPersonalDataTemplate({ donorId }) {
 }
 
 DonorPersonalDataTemplate.propTypes = {
-    t: PropTypes.func
+    donorId: PropTypes.string.isRequired
 };
 
 export default defaultTemplate(DonorPersonalDataTemplate);

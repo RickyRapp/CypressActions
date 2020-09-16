@@ -32,8 +32,7 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
         contributionStatusDropdownStore,
         accountTypes,
         dateCreatedDateRangeQueryStore,
-        timePeriodDropdownStore,
-        hasPermission
+        timePeriodDropdownStore
     } = contributionViewStore;
 
     const {
@@ -147,6 +146,7 @@ function renderEmpty(routes) {
 
 ContributionListTemplate.propTypes = {
     contributionViewStore: PropTypes.object.isRequired,
+    rootStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
@@ -201,7 +201,8 @@ renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
     actionsRender: PropTypes.object,
-    authorization: PropTypes.any
+    authorization: PropTypes.any,
+    rootStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(ContributionListTemplate);

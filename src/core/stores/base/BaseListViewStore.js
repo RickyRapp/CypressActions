@@ -57,7 +57,7 @@ class BaseListViewStore extends BaseViewStore {
     hasEditPermissions() {
         let hasPermission = false;
         if (this.authorization && this.authorization.update) {
-            hasPermission = this.hasPermission(this.authorization.update);
+            hasPermission = this.rootStore.permissionStore.hasPermission(this.authorization.update);
         } else {
             hasPermission = true;
         }
@@ -72,7 +72,7 @@ class BaseListViewStore extends BaseViewStore {
             if (this.hasEditPermissions())
                 primaryColumn.onClick = (item) => this.routes.edit(item.id);
         } else if (primaryColumn.onClick && primaryColumn.authorization) {
-            if (!this.hasPermission(primaryColumn.authorization)) {
+            if (!this.rootStore.permissionStore.hasPermission(primaryColumn.authorization)) {
                 delete primaryColumn.onClick;
             }
         }

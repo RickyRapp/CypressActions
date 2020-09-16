@@ -126,7 +126,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
 
     @action.bound
     setDisabledFields() {
-        if (!this.hasPermission('theDonorsFundAdministrationSection.update')) {
+        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
             this.form.$('name').setDisabled(true);
             this.form.$('dba').setDisabled(true);
             this.form.$('charityStatusId').setDisabled(true);

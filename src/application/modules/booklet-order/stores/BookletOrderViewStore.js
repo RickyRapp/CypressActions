@@ -29,7 +29,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                     );
                 },
                 create: () => {
-                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
                     }
                     else {
@@ -37,7 +37,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                     }
                 },
                 review: (id) => {
-                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.rootStore.routerStore.goTo('master.app.main.booklet-order.review', { id: id });
                     }
                 }
@@ -87,7 +87,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                     key: 'donor.donorName',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
                     disableClick: true,
-                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'confirmationNumber',
@@ -118,7 +118,7 @@ class BookletOrderViewStore extends BaseListViewStore {
             actionsRender: {
                 onEditRender: (bookletOrder) => {
                     if (bookletOrder.bookletOrderStatus.abrv === 'pending') {
-                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                         else {
@@ -132,7 +132,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 onReviewRender: (bookletOrder) => {
                     if (bookletOrder.bookletOrderStatus.abrv === 'pending') {
-                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                     }

@@ -51,11 +51,6 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 abrv: 'contribution-by-automatic-contribution-setting'
             },
             {
-                name: 'Charity subscription fee',
-                description: 'Process charity subscription fee for regular and advanced charities (charities with enabled online account).',
-                abrv: 'charity-subscription-fee'
-            },
-            {
                 name: 'Grant daily mark as cashed',
                 description: 'Process grants in Processed status, that are not cashed, with ACH or Wire payment type and mark them as paid.',
                 abrv: 'grant-daily-mark-as-cashed'

@@ -48,7 +48,7 @@ class SessionCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'certificate.booklet.donor.donorName',
                     title: 'SESSION_CERTIFICATE.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'session.charity.name',

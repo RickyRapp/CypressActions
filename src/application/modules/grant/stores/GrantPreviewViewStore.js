@@ -60,7 +60,7 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
     async getResource(id) {
         await super.getResource(id);
         if (this.item.donationStatus.abrv === 'pending') {
-            if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                 this.isEditable = true;
             }
             else {

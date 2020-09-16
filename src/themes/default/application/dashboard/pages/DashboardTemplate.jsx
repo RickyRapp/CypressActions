@@ -2,6 +2,7 @@ import React from 'react';
 import { Page } from 'core/layouts';
 import { BaasicButton, FormatterResolver } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import PropTypes from 'prop-types';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
     const {
@@ -129,5 +130,10 @@ function DashboardTemplate({ dashboardViewStore, t }) {
         </Page>
     )
 }
+
+DashboardTemplate.propTypes = {
+    dashboardViewStore: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
+};
 
 export default defaultTemplate(DashboardTemplate);

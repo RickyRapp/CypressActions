@@ -77,7 +77,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'charity.name',

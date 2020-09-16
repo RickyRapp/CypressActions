@@ -64,7 +64,7 @@ const RenderDonor = ({ donor, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donor && donor.id, tab: 0 })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity.tab', null, { id: donor && donor.id, tab: 0 })}>
                             {t('DONOR.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
@@ -127,7 +127,7 @@ const RenderContribution = ({ donor, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donor && donor.id, tab: 0 })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity.tab', null, { id: donor && donor.id, tab: 0 })}>
                             {t('DONOR.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
@@ -176,7 +176,7 @@ const RenderGrant = ({ donor, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donor && donor.id, tab: 0 })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity.tab', null, { id: donor && donor.id, tab: 0 })}>
                             {t('DONOR.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>
@@ -225,7 +225,7 @@ const RenderBookletOrder = ({ donor, rootStore, t }) => {
                     <div className="col col-sml-6 col-lrg-2">
                         <a
                             className=""
-                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity-and-history.tab', null, { id: donor && donor.id, tab: 0 })}>
+                            onClick={() => rootStore.routerStore.goTo('master.app.main.activity.tab', null, { id: donor && donor.id, tab: 0 })}>
                             {t('DONOR.PAGE_HEADER.OVERVIEW.ACTIVITY')}
                         </a>
                     </div>

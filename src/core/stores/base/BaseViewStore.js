@@ -43,14 +43,6 @@ class BaseViewStore {
         _.each(this.observeDisposers, (disposer) => disposer());
         _.each(this.eventDisposers, (disposer) => disposer());
     }
-
-    hasPermission(authorization) {
-        if (this.rootStore.permissionStore.hasPermission(authorization)) {
-            return true;
-        }
-
-        return false;
-    }
 }
 
 export default BaseViewStore;

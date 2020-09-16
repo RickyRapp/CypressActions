@@ -16,7 +16,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                     },
                     {
                         name: 'master.app.main.grant.create',
-                        pattern: '/create/:id',
+                        pattern: '/create/:id?',
                         component: GrantCreate,
                         authorization: 'theDonorsFundGrantSection.create',
                         data: {
@@ -54,13 +54,6 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.GRANTS',
-            //     order: 7,
-            //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     icon: 'grant',
-            //     route: 'master.app.main.grant.tab'
-            // },
             {
                 title: 'MENU.GIVE',
                 order: 1,

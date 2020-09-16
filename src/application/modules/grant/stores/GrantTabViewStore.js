@@ -10,7 +10,13 @@ class GrantTabViewStore extends BaseTabViewStore {
 
     constructor(rootStore) {
         super(rootStore);
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id;
+        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+            this.donorId = rootStore.routerStore.routerState.params.id
+        }
+        else {
+            this.donorId = rootStore.userStore.user.id;
+        }
+
         this.loaderStore.resume();
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
             this.handleTabClick(rootStore.routerStore.routerState.queryParams.tab)
@@ -21,11 +27,11 @@ class GrantTabViewStore extends BaseTabViewStore {
         }
 
         this.createFunc = () => {
-            if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
+            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
                 this.openSelectDonorModal();
             }
             else {
-                rootStore.routerStore.goTo('master.app.main.grant.create', { id: id });
+                rootStore.routerStore.goTo('master.app.main.grant.create', { id: this.donorId });
             }
         }
 

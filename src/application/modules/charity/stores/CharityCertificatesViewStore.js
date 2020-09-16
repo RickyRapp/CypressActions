@@ -29,7 +29,7 @@ class CharityCertificatesViewStore extends BaseListViewStore {
                 {
                     key: 'donorName',
                     title: 'CHARITY_CERTIFICATES.LIST.COLUMNS.DONOR_LABEL',
-                    visible: this.hasPermission('theDonorsFundCharityAdvancedSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundCharityAdvancedSection.read')
                 },
                 {
                     key: 'amountAfterDeduction',
@@ -42,7 +42,7 @@ class CharityCertificatesViewStore extends BaseListViewStore {
                 {
                     key: 'confirmationNumber',
                     title: 'CHARITY_CERTIFICATES.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
-                    visible: this.hasPermission('theDonorsFundCharityAdvancedSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundCharityAdvancedSection.read')
                 },
                 {
                     key: 'codeDisplay',

@@ -48,13 +48,7 @@
         "NEW_PLEDGE": "New Pledge",
         "GIVE": "Give",
         "NEW_REMAINDER": "New Remainder",
-        "ACTIVITY_AND_HISTORY": {
-            "TITLE": "Activity",
-            "DONOR_VIEW": "Activity",
-            "CHARITY_VIEW": "Activity",
-            "ADMINISTRATOR_DONOR_VIEW": "Donor",
-            "ADMINISTRATOR_CHARITY_VIEW": "Charity"
-        }
+        "ACTIVITY": "Activity"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -874,29 +868,25 @@
             }
         }
     },
-    "ACTIVITY_AND_HISTORY": {
-        "TAB": {
-            "DONOR": "Donor",
-            "CHARITY": "Charity"
+    "ACTIVITY": {
+        "MY_GIVING": "My Giving",
+        "TRANSACTIONS": "Transactions",
+        "DEPOSITS": "Deposits",
+        "GRANTS": "Grants",
+        "TRANSACTION_TAB": {
+            "ALL": "All Transactions",
+            "STATEMENTS": "Statements"
         },
         "LIST": {
-            "TITLE": "Activity and history",
-            "SELECT_DONOR": "Select donor",
-            "SELECT_CHARITY": "Select charity",
             "COLUMNS": {
+                "CHARITY_LABEL": "DESCRIPTION",
                 "DATE_CREATED_LABEL": "Date created",
-                "PAYMENT_DESCRIPTION_LABEL": "Description",
-                "PAYMENT_AMOUNT_LABEL": "Amount",
-                "PRESENT_BALANCE_LABEL": "Balance",
-                "DONOR_NAME_LABEL": "Donor",
-                "CHARITY_NAME_LABEL": "Charity",
-                "ACTIVITY_TYPE_LABEL": "Type"
-            },
-            "EMPTY_STATE": {
-                "TITLE": "No activities"
-            },
-            "DONOR": "Donor",
-            "CHARITY": "Charity"
+                "AMOUNT_LABEL": "Balance",
+                "STATUS_LABEL": "Status",
+                "TRANSACTION_TYPE_LABEL": "Transaction Type",
+                "PENDING_TRANSACTION_DESCRIPTION_LABEL": "Description",
+                "PENDING_TRANSACTION_AMOUNT_LABEL": "Amount"
+            }
         }
     },
     "CHARITY": {

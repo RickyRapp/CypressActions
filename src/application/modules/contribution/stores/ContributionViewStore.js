@@ -36,18 +36,18 @@ class ContributionViewStore extends BaseListViewStore {
                     );
                 },
                 create: () => {
-                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
                     }
                     else {
-                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: id });
+                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
                     }
                 }
             },
             queryConfig: {
                 filter: filter,
                 disableUpdateQueryParams: false,
-                onResetFilter: (filter) => {
+                onResetFilter: () => {
                     this.searchDonorDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
@@ -89,7 +89,7 @@ class ContributionViewStore extends BaseListViewStore {
                         ];
 
                         let userId = null;
-                        if (!this.hasPermission('theDonorsFundAdministrationSection.read')) {
+                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
                             userId = rootStore.userStore.user.id
                         }
 
@@ -100,13 +100,20 @@ class ContributionViewStore extends BaseListViewStore {
             }
         });
 
+        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+            this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id;
+        }
+        else {
+            this.donorId = rootStore.userStore.user.id;
+        }
+
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
                     title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
                     disableClick: true,
-                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'amount',
@@ -153,7 +160,7 @@ class ContributionViewStore extends BaseListViewStore {
             actionsRender: {
                 onEditRender: (item) => {
                     if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                         else {
@@ -256,7 +263,7 @@ class ContributionViewStore extends BaseListViewStore {
                     return response.data;
                 },
                 onChange: (contributionStatus) => {
-                    this.queryUtility.filter.contributionStatusIds = _contributionStatus.map(status => { return status.id });
+                    this.queryUtility.filter.contributionStatusIds = contributionStatus.map(status => { return status.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();

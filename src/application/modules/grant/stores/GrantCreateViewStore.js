@@ -83,7 +83,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
         }
 
-        this.donorId = rootStore.routerStore.routerState.params.id;
+        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+            this.donorId = rootStore.routerStore.routerState.params.id;
+        }
+        else {
+            this.donorId = rootStore.userStore.user.id;
+        }
         this.service = new GrantService(rootStore.application.baasic.apiClient);
         this.feeService = new FeeService(rootStore.application.baasic.apiClient);
         this.charityService = new CharityService(rootStore.application.baasic.apiClient);
@@ -310,25 +315,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
     @action.bound
     async onBlurAmount() {
         if (this.form.$('amount').value) {
-            if (this.form.$('charityId').value) {
-                if (this.charityDropdownStore.value && this.charityDropdownStore.value.item && this.charityDropdownStore.value.item.charityAccountType) {
-                    if (this.charityDropdownStore.value.item.charityAccountType.abrv === 'regular') {
-                        if (this.form.$('amount').value < 100) {
-                            this.form.$('amount').invalidate('Amount cannot be less than $100 for this charity.')
-                            this.amountWithFee = null;
-                            return;
-                        }
-                    }
-                    else if (this.charityDropdownStore.value.item.charityAccountType.abrv === 'advanced') {
-                        if (this.form.$('amount').value < 25) {
-                            this.form.$('amount').invalidate('Amount cannot be less than $25 for this charity.')
-                            this.amountWithFee = null;
-                            return;
-                        }
-                    }
-                }
-            }
-
             let params = {};
             params.id = this.donorId;
             params.feeTypeId = this.feeTypes.find((item) => item.abrv === 'grant-fee').id;
@@ -370,8 +356,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
                     'amount',
                     'dateCreated'
                 ],
-                charityId: this.form.$('charityId').value,
-                donorId: this.donorId
+                charityId: this.form.$('charityId').value
+            }
+            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                params.donorId = this.donorId;
+            }
+            else {
+                params.userId = this.donorId;
             }
             const response = await service.find(params);
             this.previousGrantsTableStore.setData(response.data.item)

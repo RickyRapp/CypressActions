@@ -11,11 +11,12 @@ import _ from 'lodash';
 
 class GrantViewStore extends BaseListViewStore {
     constructor(rootStore, { onChangeDonorFilter }) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id;
-        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') && rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
-        let filter = new GrantListFilter('dateCreated', 'desc')
-        filter.donorId = id || queryParamsId;
-        const service = new GrantService(rootStore.application.baasic.apiClient);
+        const filter = new GrantListFilter('dateCreated', 'desc')
+        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+            }
+        }
 
         super(rootStore, {
             name: 'grant',
@@ -31,24 +32,24 @@ class GrantViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.goTo('master.app.main.grant.preview', { editId: editId });
                 },
                 create: () => {
-                    if (this.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
                     }
                     else {
-                        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: id });
+                        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: this.donorId });
                     }
                 }
             },
             queryConfig: {
                 filter: filter,
-                disableUpdateQueryParams: true,
-                onResetFilter: (filter) => {
-                    filter.donorId = id;
+                onResetFilter: () => {
                     this.donationStatusDropdownStore.setValue(null);
                     this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
+                const service = new GrantService(rootStore.application.baasic.apiClient);
+
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -73,12 +74,25 @@ class GrantViewStore extends BaseListViewStore {
                             'dateCreated',
                             'scheduledGrantPayment'
                         ];
-                        const response = await service.find(params);
+
+                        let userId = null;
+                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                            userId = rootStore.userStore.user.id
+                        }
+
+                        const response = await service.find({ userId: userId, ...params });
                         return response.data;
                     }
                 }
             }
         });
+
+        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+            this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id;
+        }
+        else {
+            this.donorId = rootStore.userStore.user.id;
+        }
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -88,7 +102,7 @@ class GrantViewStore extends BaseListViewStore {
                     onClick: (grant) => grant.donationStatus.abrv === 'pending' ?
                         this.routes.edit(grant.donor.id, grant.id) :
                         this.routes.preview(grant.id),
-                    visible: this.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
                     key: 'charity.name',
@@ -132,7 +146,7 @@ class GrantViewStore extends BaseListViewStore {
             actionsRender: {
                 onEditRender: (grant) => {
                     if (grant.donationStatus.abrv === 'pending') {
-                        if (this.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                         else {
@@ -229,15 +243,15 @@ class GrantViewStore extends BaseListViewStore {
         this.exportConfig = {
             fileName: `Grants_${moment().format("YYYY-MM-DD_HH-mm-ss")}`,
             columns: [
-                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 3, title: 'Charity type', key: 'CHARITY TYPE', selected: false, visible: this.hasPermission('theDonorsFundAdministrationSection.read') },
-                { id: 4, title: 'Charity address', key: 'CHARITY ADDRESS', selected: false, visible: this.hasPermission('theDonorsFundAdministrationSection.read') },
-                { id: 5, title: 'Account number', key: 'ACCOUNT NUMBER', selected: false, visible: this.hasPermission('theDonorsFundAdministrationSection.read') },
-                { id: 6, title: 'TaxId', key: 'TAX ID', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 7, title: 'Amount', key: 'AMOUNT', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 8, title: 'Confirmation number', key: 'CONFIRMATION NUMBER', selected: true, visible: this.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 9, title: 'Status', key: 'STATUS', selected: false, visible: this.hasPermission('theDonorsFundGrantSection.read') }
+                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 3, title: 'Charity type', key: 'CHARITY TYPE', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') },
+                { id: 4, title: 'Charity address', key: 'CHARITY ADDRESS', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') },
+                { id: 5, title: 'Account number', key: 'ACCOUNT NUMBER', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') },
+                { id: 6, title: 'TaxId', key: 'TAX ID', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 7, title: 'Amount', key: 'AMOUNT', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 8, title: 'Confirmation number', key: 'CONFIRMATION NUMBER', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
+                { id: 9, title: 'Status', key: 'STATUS', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') }
             ],
             exportUrlFunc: (exportData) => { return this.getExportUrl(exportData); }
         }
