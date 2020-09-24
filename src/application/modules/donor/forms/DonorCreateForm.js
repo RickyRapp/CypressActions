@@ -59,12 +59,6 @@ export default class DonorCreateForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'middleName',
-                    label: 'DONOR.CREATE.MIDDLE_NAME_LABEL',
-                    placeholder: 'DONOR.CREATE.MIDDLE_NAME_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
                     name: 'prefixTypeId',
                     label: 'DONOR.CREATE.PREFIX_TYPE_LABEL',
                     placeholder: 'DONOR.CREATE.PREFIX_TYPE_PLACEHOLDER',

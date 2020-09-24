@@ -459,11 +459,10 @@
     "EXPORT_FIELDS": "Export fields",
     "DONOR": {
         "TAB": {
-            "GENERAL_DATA": "General data",
-            "PERSONAL_DATA": "Personal data",
-            "SETTING_DATA": "Settings",
-            "EMAIL": "Emails",
-            "INVESTMENT_DATA": "Investments"
+            "ACCOUNT_INFORMATION": "Account Information",
+            "SECURITY_AND_PREFERENCES": "Security And Preferences",
+            "COMMUNICATION_PREFERENCE": "Communication Preferences",
+            "EMAIL": "Emails"
         },
         "LIST": {
             "TITLE": "Donors",
@@ -558,6 +557,38 @@
                 "HIDE": "Hide"
             }
         },
+        "ACCOUNT_INFORMATION_FIELDS": {
+            "TITLE_PROFILE": "Profile Information",
+            "DATE_OF_BIRTH": "Date Of Birth"
+        },
+        "COMMUNICATION_PREFERENCE": {
+            "TITLE": "Communication Preferences",
+            "TITLE_CARD": "Card",
+            "TITLE_CHECK": "Check",
+            "TITLE_THIRD_PARY_WEBSITE": "Third Party Website",
+            "TITLE_GENERAL": "General",
+            "TITLE_INVESTMENT": "Investment",
+            "FIELDS": {
+                "CARD_TRANSACTION_AMOUNT_EXCEEDING_LABEL": "Notify me for a non present transaction exceeding",
+                "CARD_TRANSACTION_AMOUNT_EXCEEDING_PLACEHOLDER": "",
+                "CARD_NON_PRESENT_TRANSACTION_AMOUNT_EXCEEDING_LABEL": "Notify me for card transactions exceeding",
+                "CARD_NON_PRESENT_TRANSACTION_AMOUNT_EXCEEDING_PLACEHOLDER": "",
+                "CHECK_AMOUNT_EXCEEDING_LABEL": "Notify me for checks exceeding",
+                "CHECK_AMOUNT_EXCEEDING_PLACEHOLDER": "",
+                "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_LABEL": "Notify me when check inventory runngin low",
+                "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_PLACEHOLDER": "",
+                "THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_LABEL": "Notify me for tranasctions exceed",
+                "THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER": "",
+                "IS_NEW_GRANT_REQUEST_ENABLED_LABEL": "Notify me when charity sends request",
+                "IS_NEW_GRANT_REQUEST_ENABLED_PLACEHOLDER": "",
+                "DONOR_AVAILABLE_BALANCE_RUNS_BELOW_LABEL": "Notify me when my balance runs below",
+                "DONOR_AVAILABLE_BALANCE_RUNS_BELOW_PLACEHODLER": "",
+                "IS_DONOR_STATEMENT_AVAILABLE_ENABLED_LABEL": "Notify me when my online statement is made available",
+                "IS_DONOR_STATEMENT_AVAILABLE_ENABLED_PLACEHOLDER": "",
+                "INVESTMENT_POOL_DROPS_BELOW_LABEL": "Notify me when a pool drops",
+                "INVESTMENT_POOL_DROPS_BELOW_PLACEHODLER": ""
+            }
+        },
         "ACCOUNT_SETTINGS_FIELDS": {
             "TITLE": "Account settings details",
             "HIDE": "Show",
@@ -621,11 +652,11 @@
             "TITLE": "Certificate setting",
             "EDIT": {
                 "FIELDS": {
-                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Grant acknowledgment",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Default grant acknowledgment",
                     "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Grant acknowledgment",
-                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Grant acknowledgment by amount",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Grant acknowledgment when exceed amount",
                     "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_PLACEHOLDER": "Grant acknowledgment by amount",
-                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Amount",
+                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Grant acknowledgment when exceeding the amount",
                     "ACKNOWLEDGMENT_BY_AMOUNT_PLACEHOLDER": "Amount"
                 }
             }

@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
     BaasicModal,
-    BaasicTable,
+    SimpleBaasicTable,
     EmptyState,
     ListContent
 } from 'core/components';
@@ -17,7 +17,6 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
     const {
         tableStore,
         routes,
-        authorization,
         bankAccountModal,
         openBankAccountModal,
         useDonorContactInformations,
@@ -34,7 +33,6 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                 <h3 className="u-mar--bottom--tny">
                     {t('BANK_ACCOUNT.LIST.TITLE')}
                     <BaasicButton
-                        authorization={authorization ? authorization.create : null}
                         className="btn btn--icon"
                         icon='u-icon u-icon--unlocked u-icon--sml'
                         label='BANK_ACCOUNT.LIST.BUTTON.CREATE'
@@ -43,8 +41,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                     </BaasicButton>
                 </h3>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <BaasicTable
-                        authorization={authorization}
+                    <SimpleBaasicTable
                         tableStore={tableStore}
                         actionsComponent={renderActions}
                     />

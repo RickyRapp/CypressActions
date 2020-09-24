@@ -5,11 +5,10 @@ import {
     DonorAutomaticContributionSetting,
     DonorThirdPartyWebsiteSetting,
     DonorCertificateSetting,
-    DonorContributionSetting,
-    DonorAccountSetting
+    DonorContributionSetting
 } from 'application/donor/components';
 
-function DonorSettingDataTemplate({ donorId }) {
+function DonorSecurityAndPreferencesData({ donorId }) {
     return (
         <div className="card--form card--primary card--med">
             <div className="row">
@@ -25,16 +24,13 @@ function DonorSettingDataTemplate({ donorId }) {
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorContributionSetting donorId={donorId} />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorAccountSetting donorId={donorId} />
-                </div>
             </div>
         </div>
     )
 }
 
-DonorSettingDataTemplate.propTypes = {
+DonorSecurityAndPreferencesData.propTypes = {
     donorId: PropTypes.string.isRequired
 };
 
-export default defaultTemplate(DonorSettingDataTemplate);
+export default defaultTemplate(DonorSecurityAndPreferencesData);

@@ -6,8 +6,8 @@ class DonorTabViewStore extends BaseTabViewStore {
     constructor(rootStore) {
         super(rootStore);
         this.loaderStore.resume();
-        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-            this.donorId = rootStore.routerStore.routerState.params.id
+        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+            this.donorId = rootStore.routerStore.routerState.params.id;
         }
         else {
             this.donorId = rootStore.userStore.user.id;

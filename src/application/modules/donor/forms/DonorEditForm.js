@@ -21,12 +21,6 @@ export default class DonorEditForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'middleName',
-                    label: 'DONOR.EDIT.MIDDLE_NAME_LABEL',
-                    placeholder: 'DONOR.EDIT.MIDDLE_NAME_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
                     name: 'fundName',
                     label: 'DONOR.EDIT.FUND_NAME_LABEL',
                     placeholder: 'DONOR.EDIT.FUND_NAME_PLACEHOLDER',

@@ -3,7 +3,7 @@ import { DonorEditForm } from 'application/donor/forms';
 import { LookupService } from 'common/services';
 import { DonorService } from 'application/donor/services';
 
-class DonorGeneralDataEditViewStore extends BaseEditViewStore {
+class DonorAccountInformationViewStore extends BaseEditViewStore {
     constructor(rootStore, donorId) {
         const service = new DonorService(rootStore.application.baasic.apiClient);
         super(rootStore, {
@@ -12,15 +12,6 @@ class DonorGeneralDataEditViewStore extends BaseEditViewStore {
             actions: {
                 get: async (id) => {
                     const response = await service.get(id);
-                    if (response) {
-                        response.data.firstName = response.data.coreUser.firstName;
-                        response.data.lastName = response.data.coreUser.lastName;
-                        if (response.data && response.data.coreUser && response.data.coreUser.json) {
-                            const coreUserJson = JSON.parse(response.data.coreUser.json);
-                            response.data.middleName = coreUserJson.middleName;
-                            response.data.prefixTypeId = coreUserJson.prefixTypeId;
-                        }
-                    }
                     return response.data;
                 },
                 update: async (resource) => {
@@ -40,4 +31,4 @@ class DonorGeneralDataEditViewStore extends BaseEditViewStore {
     }
 }
 
-export default DonorGeneralDataEditViewStore;
+export default DonorAccountInformationViewStore;

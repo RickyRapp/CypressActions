@@ -25,9 +25,7 @@ class DonorEmailAddressViewStore extends BaseListViewStore {
     constructor(rootStore, donorId) {
         super(rootStore, {
             name: 'donor-email-addresses',
-            authorization: 'theDonorsFundContactInfoSection',
-            routes: {
-            },
+            routes: {},
             queryConfig: {
                 filter: new FilterParams(),
                 disableUpdateQueryParams: true
@@ -54,8 +52,7 @@ class DonorEmailAddressViewStore extends BaseListViewStore {
                 {
                     key: 'email',
                     title: 'EMAIL_ADDRESS.LIST.COLUMNS.EMAIL_LABEL',
-                    onClick: (emailAddress) => this.openEmailAddressModal(emailAddress),
-                    authorization: this.authorization.update
+                    onClick: (emailAddress) => this.openEmailAddressModal(emailAddress)
                 },
                 {
                     key: 'isPrimary',

@@ -25,9 +25,7 @@ class DonorPhoneNumberViewStore extends BaseListViewStore {
     constructor(rootStore, donorId) {
         super(rootStore, {
             name: 'donor-phone-numbers',
-            authorization: 'theDonorsFundContactInfoSection',
-            routes: {
-            },
+            routes: {},
             queryConfig: {
                 filter: new FilterParams(),
                 disableUpdateQueryParams: true
@@ -55,7 +53,6 @@ class DonorPhoneNumberViewStore extends BaseListViewStore {
                     key: 'number',
                     title: 'PHONE_NUMBER.LIST.COLUMNS.NUMBER_LABEL',
                     onClick: (phoneNumber) => this.openPhoneNumberModal(phoneNumber),
-                    authorization: this.authorization.update,
                     format: {
                         type: 'phone-number'
                     }

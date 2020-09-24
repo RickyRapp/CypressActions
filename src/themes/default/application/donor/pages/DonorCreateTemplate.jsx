@@ -41,9 +41,6 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                                         <BasicInput field={form.$('firstName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('middleName')} />
-                                    </div>
-                                    <div className="form__group col col-lrg-3">
                                         <BasicInput field={form.$('lastName')} />
                                     </div>
                                     <div className="form__group col col-sml-6 col-lrg-3">

@@ -44,7 +44,7 @@ class DonorCreateViewStore extends BaseEditViewStore {
                         throw { type: ErrorType.Unique };
                     }
 
-                    item.json = JSON.stringify({ middleName: item.middleName, prefixTypeId: item.prefixTypeId });
+                    item.json = JSON.stringify({ prefixTypeId: item.prefixTypeId });
                     item.dateOfBirth = new Date(Date.UTC(item.dateOfBirth.getFullYear(), item.dateOfBirth.getMonth(), item.dateOfBirth.getDate()));
 
                     const serviceAplicationDefaultSetting = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');

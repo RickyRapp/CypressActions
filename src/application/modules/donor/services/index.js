@@ -12,3 +12,5 @@ export { default as DonorContributionSettingService } from './DonorContributionS
 export { default as DonorContributionSettingRouteService } from './DonorContributionSettingRouteService'
 export { default as DonorInvestmentService } from './DonorInvestmentService'
 export { default as DonorInvestmentRouteService } from './DonorInvestmentRouteService'
+export { default as DonorCommunicationPreferenceRouteService } from './DonorCommunicationPreferenceRouteService'
+export { default as DonorCommunicationPreferenceService } from './DonorCommunicationPreferenceService'

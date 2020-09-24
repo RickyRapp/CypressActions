@@ -4,9 +4,9 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
     BaasicModal,
-    BaasicTable,
     EmptyState,
-    ListContent
+    ListContent,
+    SimpleBaasicTable
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -17,7 +17,6 @@ const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore,
     const {
         tableStore,
         routes,
-        authorization,
         phoneNumberModal,
         openPhoneNumberModal
     } = donorPhoneNumberViewStore;
@@ -33,7 +32,6 @@ const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore,
                         <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
                         :
                         <BaasicButton
-                            authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
                             icon='u-icon u-icon--unlocked u-icon--sml'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
@@ -42,8 +40,7 @@ const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore,
                         </BaasicButton>}
                 </h3>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <BaasicTable
-                        authorization={authorization}
+                    <SimpleBaasicTable
                         tableStore={tableStore}
                         actionsComponent={renderActions}
                     />

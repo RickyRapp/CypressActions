@@ -40,7 +40,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                     <NumericInputField field={form.$('lowBalanceAmount')} />
                 </div>
             </div>
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={!form.$('isEnabled').value} />
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
         </EditFormContent>
     )
 }

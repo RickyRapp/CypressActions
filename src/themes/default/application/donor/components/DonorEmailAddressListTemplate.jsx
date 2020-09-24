@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
     BaasicModal,
-    BaasicTable,
+    SimpleBaasicTable,
     EmptyState,
     ListContent
 } from 'core/components';
@@ -17,7 +17,6 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
     const {
         tableStore,
         routes,
-        authorization,
         emailAddressModal,
         openEmailAddressModal
     } = donorEmailAddressViewStore;
@@ -33,7 +32,6 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                         <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
                         :
                         <BaasicButton
-                            authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
                             icon='u-icon u-icon--unlocked u-icon--sml'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
@@ -42,8 +40,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                         </BaasicButton>}
                 </h3>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <BaasicTable
-                        authorization={authorization}
+                    <SimpleBaasicTable
                         tableStore={tableStore}
                         actionsComponent={renderActions}
                     />

@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
     BaasicModal,
-    BaasicTable,
+    SimpleBaasicTable,
     EmptyState,
     ListContent
 } from 'core/components';
@@ -13,11 +13,10 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { DonorAddressEditForm } from 'application/donor/components';
 
-const DonorAddressListTableTemplate = function ({ donorAddressViewStore, t }) {
+const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
     const {
         tableStore,
         routes,
-        authorization,
         addressModal,
         openAddressModal
     } = donorAddressViewStore;
@@ -33,7 +32,6 @@ const DonorAddressListTableTemplate = function ({ donorAddressViewStore, t }) {
                         <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
                         :
                         <BaasicButton
-                            authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
                             icon='u-icon u-icon--unlocked u-icon--sml'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
@@ -42,8 +40,7 @@ const DonorAddressListTableTemplate = function ({ donorAddressViewStore, t }) {
                         </BaasicButton>}
                 </h3>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <BaasicTable
-                        authorization={authorization}
+                    <SimpleBaasicTable
                         tableStore={tableStore}
                         actionsComponent={renderActions}
                     />
@@ -60,7 +57,7 @@ function renderEmpty(routes) {
     return <EmptyState image={EmptyIcon} title='ADDRESS.LIST.EMPTY_STATE.TITLE' actionLabel='ADDRESS.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
 
-DonorAddressListTableTemplate.propTypes = {
+DonorAddressListTemplate.propTypes = {
     donorAddressViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
 };
@@ -115,5 +112,5 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-export default defaultTemplate(DonorAddressListTableTemplate);
+export default defaultTemplate(DonorAddressListTemplate);
 

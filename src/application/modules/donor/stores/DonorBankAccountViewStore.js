@@ -21,15 +21,28 @@ class DonorBankAccountViewStore extends BaseListViewStore {
     @observable image = null;
     @observable currentImage = null;
     @observable uploadLoading = false;
-    primaryAddress = null;
-    primaryEmailAddress = null;
-    primaryPhoneNumber = null;
     bankAccountService = null;
     donorFileStreamRouteService = null;
 
     formBankAccount = new DonorBankAccountEditForm({
         onSuccess: async form => {
             const bankAccount = form.values();
+
+            if (!bankAccount.isThirdPartyAccount) {
+                const primaryAddress = await this.getAddress();
+                const primaryEmailAddress = await this.getEmailAddress();
+                const primaryPhoneNumber = await this.getPhoneNumber()
+                bankAccount.accountHolder = {
+                    name: '', //todo
+                    addressLine1: primaryAddress.addressLine1,
+                    addressLine2: primaryAddress.addressLine2,
+                    city: primaryAddress.city,
+                    state: primaryAddress.state,
+                    zipCode: primaryAddress.zipCode,
+                    email: primaryEmailAddress.email,
+                    number: primaryPhoneNumber.number
+                }
+            }
 
             if (bankAccount.id) {
                 await this.updateBankAccountAsync(bankAccount);
@@ -42,10 +55,8 @@ class DonorBankAccountViewStore extends BaseListViewStore {
 
     constructor(rootStore, donorId) {
         super(rootStore, {
-            name: 'donor-phone-numbers',
-            authorization: 'theDonorsFundContactInfoSection',
-            routes: {
-            },
+            name: 'bank-accounts',
+            routes: {},
             queryConfig: {
                 filter: new FilterParams(),
                 disableUpdateQueryParams: true
@@ -76,8 +87,7 @@ class DonorBankAccountViewStore extends BaseListViewStore {
                 {
                     key: 'name',
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.NAME_LABEL',
-                    onClick: (bankAccount) => this.openBankAccountModal(bankAccount),
-                    authorization: this.authorization.update
+                    onClick: (bankAccount) => this.openBankAccountModal(bankAccount)
                 },
                 {
                     key: 'accountNumber',
@@ -189,74 +199,59 @@ class DonorBankAccountViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async useDonorContactInformations(value, type) {
+    async useDonorContactInformations(type) {
         if (type === 'address') {
-            if (!this.primaryAddress) {
-                const addressService = new DonorAddressService(this.rootStore.application.baasic.apiClient);
-                const params = {
-                    donorId: this.donorId,
-                    isPrimary: true
-                }
-                const response = await addressService.find(params);
-                this.primaryAddress = response.data.item[0];
-            }
-            if (value === null) {
-                this.formBankAccount.$('accountHolder.addressLine1').set('');
-                this.formBankAccount.$('accountHolder.addressLine2').set('');
-                this.formBankAccount.$('accountHolder.city').set('');
-                this.formBankAccount.$('accountHolder.state').set('');
-                this.formBankAccount.$('accountHolder.zipCode').set('');
-            }
-            else {
-                if (this.primaryAddress) {
-                    this.formBankAccount.$('accountHolder.addressLine1').set(this.primaryAddress.addressLine1)
-                    this.formBankAccount.$('accountHolder.addressLine2').set(this.primaryAddress.addressLine2)
-                    this.formBankAccount.$('accountHolder.city').set(this.primaryAddress.city)
-                    this.formBankAccount.$('accountHolder.state').set(this.primaryAddress.state)
-                    this.formBankAccount.$('accountHolder.zipCode').set(this.primaryAddress.zipCode)
-                }
+            const primaryAddress = await this.getAddress();
+            if (primaryAddress) {
+                this.formBankAccount.$('addressLine1').set(primaryAddress.addressLine1)
+                this.formBankAccount.$('addressLine2').set(primaryAddress.addressLine2)
+                this.formBankAccount.$('city').set(primaryAddress.city)
+                this.formBankAccount.$('state').set(primaryAddress.state)
+                this.formBankAccount.$('zipCode').set(primaryAddress.zipCode)
             }
         }
         else if (type === 'emailAddress') {
-            if (!this.primaryEmailAddress) {
-                const emailAddressService = new DonorEmailAddressService(this.rootStore.application.baasic.apiClient);
-                const params = {
-                    donorId: this.donorId,
-                    isPrimary: true
-                }
-                const response = await emailAddressService.find(params);
-                this.primaryEmailAddress = response.data.item[0];
-            }
-
-            if (value === null) {
-                this.formBankAccount.$('accountHolder.email').set('');
-            }
-            else {
-                if (this.primaryEmailAddress) {
-                    this.formBankAccount.$('accountHolder.email').set(this.primaryEmailAddress.email);
-                }
+            const primaryEmailAddress = await this.getEmailAddress();
+            if (primaryEmailAddress) {
+                this.formBankAccount.$('email').set(primaryEmailAddress.email);
             }
         }
         else if (type === 'phoneNumber') {
-            if (!this.primaryPhoneNumber) {
-                const phoneNumberService = new DonorPhoneNumberService(this.rootStore.application.baasic.apiClient);
-                const params = {
-                    donorId: this.donorId,
-                    isPrimary: true
-                }
-                const response = await phoneNumberService.find(params);
-                this.primaryPhoneNumber = response.data.item[0];
-            }
-
-            if (value === null) {
-                this.formBankAccount.$('accountHolder.number').set('');
-            }
-            else {
-                if (this.primaryPhoneNumber) {
-                    this.formBankAccount.$('accountHolder.number').set(this.primaryPhoneNumber.number)
-                }
+            const primaryPhoneNumber = await this.getPhoneNumber();
+            if (primaryPhoneNumber) {
+                this.formBankAccount.$('number').set(primaryPhoneNumber.number)
             }
         }
+    }
+
+    async getAddress() {
+        const addressService = new DonorAddressService(this.rootStore.application.baasic.apiClient);
+        const params = {
+            donorId: this.donorId,
+            isPrimary: true
+        }
+        const response = await addressService.find(params);
+        return response.data.item[0];
+    }
+
+    async getEmailAddress() {
+        const emailAddressService = new DonorEmailAddressService(this.rootStore.application.baasic.apiClient);
+        const params = {
+            donorId: this.donorId,
+            isPrimary: true
+        }
+        const response = await emailAddressService.find(params);
+        return response.data.item[0];
+    }
+
+    async getPhoneNumber() {
+        const phoneNumberService = new DonorPhoneNumberService(this.rootStore.application.baasic.apiClient);
+        const params = {
+            donorId: this.donorId,
+            isPrimary: true
+        }
+        const response = await phoneNumberService.find(params);
+        return response.data.item[0];
     }
 
     @action.bound

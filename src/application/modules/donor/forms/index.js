@@ -10,3 +10,4 @@ export { default as DonorCertificateSettingForm } from './DonorCertificateSettin
 export { default as DonorContributionSettingEditForm } from './DonorContributionSettingEditForm'
 export { default as DonorInvestmentForm } from './DonorInvestmentForm'
 export { default as DonorAccountSettingForm } from './DonorAccountSettingForm'
+export { default as DonorCommunicationPreferenceForm } from './DonorCommunicationPreferenceForm'

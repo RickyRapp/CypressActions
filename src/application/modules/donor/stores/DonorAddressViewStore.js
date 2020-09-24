@@ -25,9 +25,7 @@ class DonorAddressViewStore extends BaseListViewStore {
     constructor(rootStore, donorId) {
         super(rootStore, {
             name: 'donor-addresses',
-            authorization: 'theDonorsFundContactInfoSection',
-            routes: {
-            },
+            routes: {},
             queryConfig: {
                 filter: new FilterParams(),
                 disableUpdateQueryParams: true
@@ -54,8 +52,7 @@ class DonorAddressViewStore extends BaseListViewStore {
                 {
                     key: 'addressLine1',
                     title: 'ADDRESS.LIST.COLUMNS.ADDRESS_LINE_1_LABEL',
-                    onClick: (address) => this.openAddressModal(address),
-                    authorization: this.authorization.update
+                    onClick: (address) => this.openAddressModal(address)
                 },
                 {
                     key: 'addressLine2',
