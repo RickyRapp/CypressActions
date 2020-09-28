@@ -261,6 +261,9 @@
     "DROPDOWN": {
         "CLEAR_BUTTON": "Clear"
     },
+    "DROPZONE": {
+        "TITLE": "Upload"
+    },
     "FORM_CONTROLS": {
         "SAVE_BUTTON": "Save",
         "EDIT_BUTTON": "Edit",

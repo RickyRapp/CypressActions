@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { BaasicDropdownTemplate } from 'themes/components';
 
 class BaasicDropdown extends Component {

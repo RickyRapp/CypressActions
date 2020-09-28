@@ -1,14 +1,9 @@
 import { action, observable } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
-import {
-    DonorFileStreamRouteService,
-    DonorFileStreamService
-} from 'common/services';
+import { TableViewStore, BaseListViewStore, BaasicUploadStore } from 'core/stores';
+import { DonorFileStreamService } from 'common/services';
 import {
     DonorBankAccountService,
-    DonorAddressService,
-    DonorEmailAddressService,
-    DonorPhoneNumberService,
+    DonorService
 } from 'application/donor/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
@@ -17,33 +12,11 @@ import { RoutingNumberService } from 'application/administration/bank/services';
 
 @applicationContext
 class DonorBankAccountViewStore extends BaseListViewStore {
-    attachment = null;
-    @observable image = null;
-    @observable currentImage = null;
-    @observable uploadLoading = false;
     bankAccountService = null;
-    donorFileStreamRouteService = null;
 
     formBankAccount = new DonorBankAccountEditForm({
         onSuccess: async form => {
             const bankAccount = form.values();
-
-            if (!bankAccount.isThirdPartyAccount) {
-                const primaryAddress = await this.getAddress();
-                const primaryEmailAddress = await this.getEmailAddress();
-                const primaryPhoneNumber = await this.getPhoneNumber()
-                bankAccount.accountHolder = {
-                    name: '', //todo
-                    addressLine1: primaryAddress.addressLine1,
-                    addressLine2: primaryAddress.addressLine2,
-                    city: primaryAddress.city,
-                    state: primaryAddress.state,
-                    zipCode: primaryAddress.zipCode,
-                    email: primaryEmailAddress.email,
-                    number: primaryPhoneNumber.number
-                }
-            }
-
             if (bankAccount.id) {
                 await this.updateBankAccountAsync(bankAccount);
             }
@@ -71,7 +44,7 @@ class DonorBankAccountViewStore extends BaseListViewStore {
                         params.donorId = donorId;
                         params.orderBy = 'dateCreated';
                         params.orderDirection = 'desc';
-                        const response = await this.bankAccountService.find(params);
+                        const response = await this.bankAccountService.find({ userId: donorId, ...params });
                         return response.data;
                     }
                 }
@@ -79,8 +52,17 @@ class DonorBankAccountViewStore extends BaseListViewStore {
         });
 
         this.donorId = donorId;
-        this.bankAccountModal = new ModalParams({});
-        this.donorFileStreamRouteService = new DonorFileStreamRouteService();
+        this.bankAccountModal = new ModalParams({
+            onClose: () => {
+                this.imageUploadStore.clear();
+            }
+        });
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onDelete: (fileId) => {
+                //async call to delete if needed
+                this.formBankAccount.$('coreMediaVaultEntryId').clear();
+            }
+        })
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -147,21 +129,47 @@ class DonorBankAccountViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    openBankAccountModal(bankAccount) {
-        this.formBankAccount.state.options.set({ validateOnChange: false });
+    async openBankAccountModal(bankAccount) {
         this.formBankAccount.clear();
-        this.formBankAccount.state.options.set({ validateOnChange: true });
-        this.currentImage = null;
-        this.image = null;
-        this.attachment = null;
         if (bankAccount) {
-            this.formBankAccount.update(bankAccount);
+            this.formBankAccount.update({
+                ...bankAccount,
+                accountHolderName: bankAccount.accountHolder.name,
+                addressLine1: bankAccount.accountHolder.addressLine1,
+                addressLine2: bankAccount.accountHolder.addressLine2,
+                city: bankAccount.accountHolder.city,
+                state: bankAccount.accountHolder.state,
+                zipCode: bankAccount.accountHolder.zipCode,
+                email: bankAccount.accountHolder.email,
+                number: bankAccount.accountHolder.number
+            });
             if (bankAccount.coreMediaVaultEntryId) {
-                this.currentImage = this.donorFileStreamRouteService.getPreview(bankAccount.coreMediaVaultEntryId)
+                this.imageUploadStore.setInitialItems(bankAccount.coreMediaVaultEntryId);
             }
         }
+        else {
+            const donor = await this.getDonorInfo();
+            const primaryAddress = donor.donorAddresses.find((c) => c.isPrimary);
+            const primaryEmailAddress = donor.donorEmailAddresses.find((c) => c.isPrimary);
+            const primaryPhoneNumber = donor.donorPhoneNumbers.find((c) => c.isPrimary);
+
+            this.formBankAccount.update({
+                accountHolderName: donor.donorName,
+                addressLine1: primaryAddress.addressLine1,
+                addressLine2: primaryAddress.addressLine2,
+                city: primaryAddress.city,
+                state: primaryAddress.state,
+                zipCode: primaryAddress.zipCode,
+                email: primaryEmailAddress.email,
+                number: primaryPhoneNumber.number
+            });
+
+        }
         this.bankAccountModal.open({
-            formBankAccount: this.formBankAccount
+            formBankAccount: this.formBankAccount,
+            imageUploadStore: this.imageUploadStore,
+            useDonorContactInformations: this.useDonorContactInformations,
+            onBlurRoutingNumber: this.checkBank
         });
     }
 
@@ -169,7 +177,9 @@ class DonorBankAccountViewStore extends BaseListViewStore {
     async updateBankAccountAsync(entity, message) {
         try {
             await this.bankAccountService.update(entity);
-            await this.insertImage(entity.id);
+            if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
+                await this.insertImage(entity.id, this.imageUploadStore.files[0]);
+            }
 
             this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.bankAccountModal.close();
@@ -183,11 +193,13 @@ class DonorBankAccountViewStore extends BaseListViewStore {
     @action.bound
     async createBankAccountAsync(entity) {
         try {
-            const response = await this.bankAccountService.create({
+            await this.bankAccountService.create({
                 donorId: this.donorId,
                 ...entity
             });
-            await this.insertImage(response.data.response);
+            if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
+                await this.insertImage(entity.id, this.imageUploadStore.files[0]);
+            }
 
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             this.bankAccountModal.close();
@@ -200,8 +212,9 @@ class DonorBankAccountViewStore extends BaseListViewStore {
 
     @action.bound
     async useDonorContactInformations(type) {
+        const donor = await this.getDonorInfo();
         if (type === 'address') {
-            const primaryAddress = await this.getAddress();
+            const primaryAddress = donor.donorAddresses.find((c) => c.isPrimary);
             if (primaryAddress) {
                 this.formBankAccount.$('addressLine1').set(primaryAddress.addressLine1)
                 this.formBankAccount.$('addressLine2').set(primaryAddress.addressLine2)
@@ -211,72 +224,35 @@ class DonorBankAccountViewStore extends BaseListViewStore {
             }
         }
         else if (type === 'emailAddress') {
-            const primaryEmailAddress = await this.getEmailAddress();
+            const primaryEmailAddress = donor.donorEmailAddresses.find((c) => c.isPrimary);
             if (primaryEmailAddress) {
                 this.formBankAccount.$('email').set(primaryEmailAddress.email);
             }
         }
         else if (type === 'phoneNumber') {
-            const primaryPhoneNumber = await this.getPhoneNumber();
+            const primaryPhoneNumber = donor.donorPhoneNumbers.find((c) => c.isPrimary);
             if (primaryPhoneNumber) {
                 this.formBankAccount.$('number').set(primaryPhoneNumber.number)
             }
         }
     }
 
-    async getAddress() {
-        const addressService = new DonorAddressService(this.rootStore.application.baasic.apiClient);
-        const params = {
-            donorId: this.donorId,
-            isPrimary: true
-        }
-        const response = await addressService.find(params);
-        return response.data.item[0];
-    }
-
-    async getEmailAddress() {
-        const emailAddressService = new DonorEmailAddressService(this.rootStore.application.baasic.apiClient);
-        const params = {
-            donorId: this.donorId,
-            isPrimary: true
-        }
-        const response = await emailAddressService.find(params);
-        return response.data.item[0];
-    }
-
-    async getPhoneNumber() {
-        const phoneNumberService = new DonorPhoneNumberService(this.rootStore.application.baasic.apiClient);
-        const params = {
-            donorId: this.donorId,
-            isPrimary: true
-        }
-        const response = await phoneNumberService.find(params);
-        return response.data.item[0];
+    async getDonorInfo() {
+        const donorService = new DonorService(this.rootStore.application.baasic.apiClient);
+        const response = await donorService.get(this.donorId, { embed: 'donorAddresses,donorEmailAddresses,donorPhoneNumbers', fields: 'donorName,donorAddresses,donorEmailAddresses,donorPhoneNumbers' });
+        return response.data;
     }
 
     @action.bound
-    async insertImage(bankAccountId) {
-        if (this.attachment != null) {
-            try {
-                const service = new DonorFileStreamService(this.rootStore.application.baasic.apiClient);
-                this.uploadLoading = true;
-                const response = await service.uploadDonorBankAccount(this.attachment, this.donorId, bankAccountId);
-                this.uploadLoading = false;
-                return response.data.id;
-            }
-            catch (err) {
-                this.uploadLoading = false;
-                this.rootStore.notificationStore.error('ERROR', err);
-            }
+    async insertImage(bankAccountId, file) {
+        try {
+            const service = new DonorFileStreamService(this.rootStore.application.baasic.apiClient);
+            const response = await service.uploadDonorBankAccount(file, this.donorId, bankAccountId);
+            return response.data.id;
         }
-        return null;
-    }
-
-    @action.bound onAttachmentDrop(item) {
-        this.attachment = item.affectedFiles[0].getRawFile();
-        const binaryData = [];
-        binaryData.push(this.attachment);
-        this.image = window.URL.createObjectURL(new Blob(binaryData, { type: this.attachment.type }));
+        catch (err) {
+            this.rootStore.notificationStore.error('ERROR', err);
+        }
     }
 
     @action.bound
@@ -285,6 +261,16 @@ class DonorBankAccountViewStore extends BaseListViewStore {
             `Are you sure you want to delete bank account?`,
             async () => {
                 bankAccount.isDeleted = true;
+                if (bankAccount.isThirdPartyAccount) {
+                    bankAccount.accountHolderName = bankAccount.accountHolder.name;
+                    bankAccount.addressLine1 = bankAccount.accountHolder.addressLine1;
+                    bankAccount.addressLine2 = bankAccount.accountHolder.addressLine2;
+                    bankAccount.city = bankAccount.accountHolder.city;
+                    bankAccount.state = bankAccount.accountHolder.state;
+                    bankAccount.zipCode = bankAccount.accountHolder.zipCode;
+                    bankAccount.email = bankAccount.accountHolder.email;
+                    bankAccount.number = bankAccount.accountHolder.number;
+                }
                 await this.updateBankAccountAsync(bankAccount, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
             }
         );

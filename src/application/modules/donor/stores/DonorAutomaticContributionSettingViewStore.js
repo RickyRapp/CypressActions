@@ -17,32 +17,26 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
                     create: async (resource) => {
                         await service.createAutomaticContributionSetting({ donorId: donorId, ...resource });
                     },
-                    get: async (id) => {
-                        try {
-                            let response = await service.getAutomaticContributionSetting(id);
-                            return response.data;
-                        } catch (error) {
-                            return null;
-                        }
+                    get: async () => {
+                        const response = await service.getAutomaticContributionSetting(donorId);
+                        return response.data;
                     }
                 }
             },
             onAfterAction: async () => {
-                await this.getResource(this.donorId);
+                await this.getResource();
                 this.onChangeIsEnabled();
                 rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE')
             },
             FormClass: DonorAutomaticContributionSettingForm,
         });
 
-        this.donorId = donorId;
-
         this.bankAccountDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
                     const bankAccountService = new DonorBankAccountService(rootStore.application.baasic.apiClient);
                     let params = {
-                        donorId: this.donorId,
+                        donorId: donorId,
                         orderBy: 'dateCreated',
                         orderDirection: 'desc'
                     }
@@ -59,24 +53,21 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.getResource(this.donorId)
+                this.getResource()
             ]);
             this.onChangeIsEnabled();
         }
     }
 
     @action.bound
-    onChangeIsEnabled() {
+    async onChangeIsEnabled() {
         this.form.$('donorBankAccountId').set('disabled', !this.form.$('isEnabled').value);
         this.form.$('amount').set('disabled', !this.form.$('isEnabled').value);
         this.form.$('lowBalanceAmount').set('disabled', !this.form.$('isEnabled').value);
 
         this.form.$('donorBankAccountId').setRequired(this.form.$('isEnabled').value);
-        this.form.$('donorBankAccountId').resetValidation();
         this.form.$('amount').setRequired(this.form.$('isEnabled').value);
-        this.form.$('amount').resetValidation();
         this.form.$('lowBalanceAmount').setRequired(this.form.$('isEnabled').value);
-        this.form.$('lowBalanceAmount').resetValidation();
     }
 }
 

@@ -6,7 +6,7 @@ class DonorBankAccountRouteService extends BaseRouteService {
   }
 
   find(filter) {
-    return super.find(this.base + '/{?donorId,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(this.base + '/{?userId,donorId,page,rpp,sort,embed,searchFields}', filter);
   }
 
   get(id, options) {

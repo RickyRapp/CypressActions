@@ -43,6 +43,10 @@ export default class DonorBankAccountEditForm extends FormBase {
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
                 },
                 {
+                    name: 'coreMediaVaultEntryId',
+                    rules: 'string'
+                },
+                {
                     name: 'isThirdPartyAccount',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_BANK_ACCOUNT_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER',

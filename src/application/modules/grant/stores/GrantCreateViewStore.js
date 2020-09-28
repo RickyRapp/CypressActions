@@ -272,8 +272,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     onNewCharityChange() {
-        this.form.$('charityId').setDisabled(this.form.$('isNewCharity').value);
         this.form.$('charityId').clear();
+        this.form.$('charityId').setDisabled(this.form.$('isNewCharity').value);
         this.charityDropdownStore.setValue(null);
     }
 

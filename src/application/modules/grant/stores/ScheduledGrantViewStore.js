@@ -8,9 +8,12 @@ import moment from 'moment'
 @applicationContext
 class ScheduledGrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id
         let filter = new ScheduledGrantListFilter('dateCreated', 'desc')
-        filter.donorId = id;
+        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+            }
+        }
 
         const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
 
@@ -29,11 +32,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: filter,
-                disableUpdateQueryParams: true,
-                onResetFilter: (filter) => {
-                    filter.donorId = id;
-                }
+                filter: filter
             },
             actions: () => {
                 return {
@@ -65,7 +64,13 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'numberOfPayments',
                             'remainingNumberOfPayments'
                         ]
-                        const response = await service.find(params);
+
+                        let userId = null;
+                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                            userId = rootStore.userStore.user.id
+                        }
+
+                        const response = await service.find({ userId: userId, ...params });
                         return response.data;
                     }
                 }

@@ -37,7 +37,7 @@ class DonorAddressViewStore extends BaseListViewStore {
                         params.donorId = donorId;
                         params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
-                        const response = await this.addressService.find(params);
+                        const response = await this.addressService.find({ userId: donorId, ...params });
                         return response.data;
                     }
                 }

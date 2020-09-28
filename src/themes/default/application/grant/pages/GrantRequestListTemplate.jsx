@@ -14,7 +14,7 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { GrantCreateOverviewTemplate } from '../components';
 
-const GrantRequestListTemplate = function ({ grantRequestViewStore, t }) {
+const GrantRequestListTemplate = function ({ grantRequestViewStore, t, rootStore }) {
     const {
         tableStore,
         routes,
@@ -26,13 +26,18 @@ const GrantRequestListTemplate = function ({ grantRequestViewStore, t }) {
         onEdit
     } = grantRequestViewStore;
 
+    const {
+        permissionStore
+    } = rootStore
+
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={searchDonorDropdownStore} />
-                    </div>
+                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicDropdown store={searchDonorDropdownStore} />
+                        </div>}
                 </TableFilter>
             </div>
             <div className="card--form card--primary card--med">
@@ -67,7 +72,8 @@ function renderEmpty(routes) {
 
 GrantRequestListTemplate.propTypes = {
     grantRequestViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    rootStore: PropTypes.object
 };
 
 function renderActions({ item, actions, actionsRender }) {

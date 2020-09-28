@@ -18,13 +18,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
         tableStore,
         routes,
         bankAccountModal,
-        openBankAccountModal,
-        useDonorContactInformations,
-        uploadLoading,
-        image,
-        onAttachmentDrop,
-        currentImage,
-        checkBank
+        openBankAccountModal
     } = donorBankAccountViewStore;
 
     return (
@@ -48,14 +42,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                 </Content>
             </ListContent>
             <BaasicModal modalParams={bankAccountModal}>
-                <DonorBankAccountEditForm
-                    useDonorContactInformations={useDonorContactInformations}
-                    uploadLoading={uploadLoading}
-                    image={image}
-                    onAttachmentDrop={onAttachmentDrop}
-                    currentImage={currentImage}
-                    onBlurRoutingNumber={checkBank}
-                />
+                <DonorBankAccountEditForm />
             </BaasicModal>
         </div>
     )

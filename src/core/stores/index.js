@@ -40,3 +40,5 @@ export { default as RouterStore } from './RouterStore';
 export { default as TimeZoneStore } from './TimeZoneStore';
 
 export { default as ExportViewStore } from './export/ExportViewStore';
+
+export { default as BaasicUploadStore } from './upload/BaasicUploadStore';

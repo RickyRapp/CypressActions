@@ -58,11 +58,11 @@ class DonorRouteService extends BaseRouteService {
   }
 
   getAutomaticContributionSetting(id) {
-    return super.get('automatic-contribution-setting/{id}', id);
+    return super.get('donor-contribution-setting/{id}', id);
   }
 
   createAutomaticContributionSetting(resource) {
-    return super.create('automatic-contribution-setting', resource);
+    return super.create('donor-contribution-setting', resource);
   }
 
   getCertificateSetting(id) {

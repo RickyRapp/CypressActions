@@ -11,8 +11,7 @@ import {
     maxDate,
     beforeOrEqualDate,
     lessThan,
-    greaterThan,
-    organizationalStructureNameRegex
+    greaterThan
 } from 'core/utils/validation';
 
 var uriFormat = new RegExp(
@@ -72,7 +71,32 @@ const customRules = {
     max_date: maxDate,
     greater_than: greaterThan,
     less_than: lessThan,
-    org_struct_regex: organizationalStructureNameRegex,
+    required_if: {
+        rule: function
+            // eslint-disable-next-line
+            (value, req, attr, form) {
+            const vals = form.values();
+            const reqArr = req.split(',');
+
+            if (reqArr[1].toLowerCase().trim() === 'true') {
+                reqArr[1] = true;
+            }
+            else if (reqArr[1].toLowerCase().trim() === 'false') {
+                reqArr[1] = false;
+            }
+            if (vals[reqArr[0]] === reqArr[1]) {
+                if (value === undefined || value === null) {
+                    return false;
+                }
+
+                const str = String(value).replace(/\s/g, "");
+                return str.length > 0 ? true : false;
+            }
+
+            return true;
+        },
+        message: 'ERROR_MESSAGES.REQUIRED_IF'
+    },
     url: {
         // eslint-disable-next-line
         rule: (value, req, attr, form) => {

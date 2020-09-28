@@ -14,7 +14,7 @@ import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 
-const GrantListTemplate = function ({ grantViewStore }) {
+const GrantListTemplate = function ({ grantViewStore, rootStore }) {
     const {
         tableStore,
         routes,
@@ -25,13 +25,18 @@ const GrantListTemplate = function ({ grantViewStore }) {
         exportConfig
     } = grantViewStore;
 
+    const {
+        permissionStore
+    } = rootStore
+
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={searchDonorDropdownStore} />
-                    </div>
+                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicDropdown store={searchDonorDropdownStore} />
+                        </div>}
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicInput
                             className='input input--sml'
@@ -72,7 +77,8 @@ function renderEmpty(routes) {
 
 GrantListTemplate.propTypes = {
     grantViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    rootStore: PropTypes.object
 };
 
 function renderActions({ item, actions, actionsRender }) {

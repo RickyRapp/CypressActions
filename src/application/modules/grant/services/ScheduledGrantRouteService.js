@@ -6,7 +6,7 @@ class ScheduledGrantRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorId,search,name,taxId,grantId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?userId,donorId,search,name,taxId,grantId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

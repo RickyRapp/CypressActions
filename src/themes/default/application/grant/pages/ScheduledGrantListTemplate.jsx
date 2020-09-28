@@ -21,8 +21,8 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
-            <div className="u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility} >
+            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                 </TableFilter>
             </div>
             <div className="card--form card--primary card--med">

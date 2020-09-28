@@ -93,19 +93,20 @@ export default class GrantCreateForm extends FormBase {
                 {
                     name: 'endDate',
                     rules: `required_if:isRecurring,true|min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`, //TODO not working with non required field -> returns invalid date
-                    type: 'date'//|required_without:numberOfPayments,noEndDate
+                    type: 'date'
                 },
                 {
                     name: 'numberOfPayments',
                     placeholder: 'GRANT.CREATE.FIELDS.NUMBER_OF_PAYMENTS_PLACEHOLDER',
                     rules: 'required_if:isRecurring,true|numeric',
-                    type: 'integer'//|required_without:endDate,noEndDate
+                    type: 'integer'
                 },
                 {
                     name: 'noEndDate',
                     label: 'GRANT.CREATE.FIELDS.NO_END_DATE_LABEL',
                     rules: 'required_if:isRecurring,true|boolean',
-                    type: 'checkbox'//|required_without:endDate,numberOfPayments
+                    type: 'checkbox',
+                    value: ''
                 },
                 {
                     name: 'isNewCharity',

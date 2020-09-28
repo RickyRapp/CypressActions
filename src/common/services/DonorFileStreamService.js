@@ -14,7 +14,7 @@ class DonorFileStreamService extends BaseService {
 
     uploadDonorBankAccount(file, donorId, bankAccountId) {
         let formData = new FormData();
-        formData.append('file', file, file.name);
+        formData.append('file', file.getRawFile(), file.name);
         const url = this.routeService.uploadDonorBankAccount(donorId, bankAccountId, file.name);
         return this.apiClient.post(url, formData);
     }

@@ -10,26 +10,25 @@ import _ from 'lodash';
 
 class GrantRequestViewStore extends BaseListViewStore {
     constructor(rootStore, { onChangeDonorFilter }) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id;
-        const queryParamsId = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
-            rootStore.routerStore.routerState.queryParams ? rootStore.routerStore.routerState.queryParams.id : null;
         let filter = new GrantRequestListFilter('dateCreated', 'desc')
-        filter.donorId = id || queryParamsId;
-        const service = new GrantRequestService(rootStore.application.baasic.apiClient);
+        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+            }
+        }
 
         super(rootStore, {
-            name: 'grant',
+            name: 'grant-request',
             authorization: 'theDonorsFundGrantRequestSection',
             routes: {},
             queryConfig: {
                 filter: filter,
-                disableUpdateQueryParams: true,
-                onResetFilter: (filter) => {
-                    filter.donorId = id;
+                onResetFilter: () => {
                     this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
+                const service = new GrantRequestService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -51,7 +50,13 @@ class GrantRequestViewStore extends BaseListViewStore {
                             'grantRequestStatus',
                             'grant'
                         ];
-                        const response = await service.find(params);
+
+                        let userId = null;
+                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                            userId = rootStore.userStore.user.id
+                        }
+
+                        const response = await service.find({ userId: userId, ...params });
                         return response.data;
                     }
                 }
