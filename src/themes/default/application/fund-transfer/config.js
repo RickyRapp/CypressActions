@@ -30,16 +30,10 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.FUND_TRANSFER',
-            //     order: 5,
-            //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     route: 'master.app.main.fund-transfer.list'
-            // },
             {
                 title: 'MENU.MANAGE_FUND',
                 order: 5,
-                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
+                role: ['Users'],
                 icon: 'administration',
                 subMenu: [
                     {

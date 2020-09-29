@@ -93,15 +93,17 @@ export default class RootStore {
                 authStore.setSignInRedirect(toState);
                 return Promise.reject(new RouterState('master.public.membership.login'));
             }
-
-            if (
-                (options.authorization.length > 0 && _.some(options.authorization, a => !permissionStore.hasPermission(a)))
-                || !permissionStore.hasPermission()
-            ) {
-                return Promise.reject(new RouterState('unauthorized'));
+            if (options.authorization && options.authorization.length > 0) {
+                if (!permissionStore.hasPermission(options.authorization)) {
+                    return Promise.reject(new RouterState('unauthorized'));
+                }
+            }
+            else if (options.role && options.role.length > 0) {
+                if (!permissionStore.hasRolePermission(options.role)) {
+                    return Promise.reject(new RouterState('unauthorized'));
+                }
             }
         }
-
         return Promise.resolve();
     }
 }

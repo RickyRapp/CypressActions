@@ -34,6 +34,25 @@ class PermissionService {
 
         return hasPermission;
     }
+
+    hasRolePermission(user, role) {
+        var hasPermission = false;
+        if (user) {
+            if (user.roles) {
+                if (role) {
+                    var rolePermissions = user.roles.find(c => _.toLower(c) === _.toLower(role));
+                    if (rolePermissions) {
+                        hasPermission = true;
+                    }
+                }
+                else {
+                    hasPermission = true;
+                }
+            }
+        }
+
+        return hasPermission;
+    }
 }
 
 export default PermissionService;

@@ -1,17 +1,16 @@
 import _ from 'lodash';
 
-function buildMenu(menuItems, routes, rootStore) {
+function buildMenu(menuItems, routes, permissionFuncs) {
     var menuTree = [];
     _.each(menuItems, function (moduleItems) {
-        _.each(moduleItems, (moduleItem) => {
-            if (hasPermission(moduleItem, rootStore)) {
-
+        _.each(moduleItems, moduleItem => {
+            if (hasPermission(moduleItem, permissionFuncs)) {
                 let root = _.find(menuTree, t => t.title === moduleItem.title);
                 if (!root) {
                     root = {
                         title: moduleItem.title,
                         subMenu: [],
-                        order: moduleItem.order
+                        order: moduleItem.order,
                     };
                     menuTree.push(root);
                 }
@@ -21,20 +20,21 @@ function buildMenu(menuItems, routes, rootStore) {
                 if (!root.route && moduleItem.route) {
                     root.route = moduleItem.route;
                 }
-                _.each(moduleItem.subMenu, function (secondaryMenuItem, idx) { // eslint-disable-line
+                // eslint-disable-next-line
+                _.each(moduleItem.subMenu, function (secondaryMenuItem, idx) {
                     var route = getRouteByMenu(secondaryMenuItem, routes);
-                    if (hasPermission(route, rootStore)) {
+                    if (hasPermission(route, permissionFuncs)) {
                         let subRoot = _.find(root.subMenu, t => t.title === secondaryMenuItem.title);
                         if (secondaryMenuItem.subMenu) {
-                            evaluateSubMenuItems(secondaryMenuItem, routes, rootStore);
+                            evaluateSubMenuItems(secondaryMenuItem, routes, permissionFuncs);
                         }
                         if (!subRoot) {
                             root.subMenu = [...root.subMenu, secondaryMenuItem];
-                        }
-                        else {
-                            _.each(secondaryMenuItem.subMenu, function (terniaryMenuItem, idx) { // eslint-disable-line
+                        } else {
+                            // eslint-disable-next-line
+                            _.each(secondaryMenuItem.subMenu, function (terniaryMenuItem, idx) {
                                 var route = getRouteByMenu(terniaryMenuItem, routes);
-                                if (hasPermission(route, rootStore)) {
+                                if (hasPermission(route, permissionFuncs)) {
                                     subRoot.subMenu = [...subRoot.subMenu, terniaryMenuItem];
                                 }
                             });
@@ -49,11 +49,11 @@ function buildMenu(menuItems, routes, rootStore) {
 
     return menuTree;
 }
-function evaluateSubMenuItems(menuItem, routes, rootStore) {
+function evaluateSubMenuItems(menuItem, routes, permissionFuncs) {
     var keys = [];
     _.each(menuItem.subMenu, function (subMenuItem, key) {
         var childRoute = getRouteByMenu(subMenuItem, routes);
-        if (!hasPermission(childRoute, rootStore)) {
+        if (!hasPermission(childRoute, permissionFuncs)) {
             keys.push(key);
         } else {
             if (subMenuItem.subMenu) {
@@ -83,24 +83,24 @@ function getRouteByMenu(menuItem, routes) {
         route = menuItem.route;
     }
 
-    return _.find(routes, (r) => r.name === route);
+    return _.find(routes, r => r.name === route);
 }
 
-function hasPermission(item, rootStore) {
+function hasPermission(item, permissionFuncs) {
     let authorized = true;
-    if (item && item.authorization) {
-        if (_.isString(item.authorization)) {
-            authorized = rootStore.permissionStore.hasPermission(item.authorization);
-        } else if (_.isArray(item.authorization)) {
-            if (_.isFunction(item.authorization[0])) {//due to flattenRoutes.js in StateRoute constructore where this.authorization is build
-                authorized = item.authorization[0](item, rootStore);
+    if (item) {
+        if (item.authorization) {
+            if (_.isString(item.authorization) || _.isArray(item.authorization)) {
+                authorized = permissionFuncs.sectionAuthorization(item.authorization);
             }
             else {
-                authorized = rootStore.permissionStore.hasPermission(item.authorization);
+                item.authorization()
             }
         }
-        else {
-            authorized = item.authorization(item, rootStore);
+        else if (item.role) {
+            if (_.isString(item.role) || _.isArray(item.role)) {
+                authorized = permissionFuncs.roleAuthorization(item.role);
+            }
         }
     }
     return authorized;

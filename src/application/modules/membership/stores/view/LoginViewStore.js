@@ -31,7 +31,6 @@ class LoginViewStore extends BaseViewStore {
         this.loaderStore.suspend();
         try {
             await this.app.membershipModule.login.login({ username, password, options: ['sliding'] });
-            // await rootStore.userStore.resolveUser(); //TODO: check why this can't be in config.js on master route beforeEnter event. That event for some reason loads after it redirect to defined route e.g. master.app.main.dashboard
             const redirect = this.rootStore.authStore.getSignInRedirect();
             await this.rootStore.routerStore.goTo(redirect);
         } catch (ex) {

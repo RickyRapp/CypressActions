@@ -21,7 +21,14 @@ class MenuProvider {
 	}
 
 	buildMenu(rootStore, menu, routes) {
-		return buildAuthorizedMenu(menu, routes, rootStore);
+		return buildAuthorizedMenu(
+			menu,
+			routes,
+			{
+				sectionAuthorization: rootStore.permissionStore.hasPermission,
+				roleAuthorization: rootStore.permissionStore.hasRolePermission
+			}
+		);
 	}
 }
 

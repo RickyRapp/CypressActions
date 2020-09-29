@@ -58,6 +58,7 @@ class StateRoute {
 
         this.pattern = _.reduce(parentOptions, (prev, current) => joinPaths(prev, current.pattern), '');
         this.authorization = _.filter(_.map(parentOptions, p => p.authorization), f => !_.isNil(f) && f !== '');
+        this.role = _.filter(_.map(parentOptions, p => p.role), f => !_.isNil(f) && f !== '');
 
         const optionLength = parentOptions.length;
         this.data = _.reduce(
@@ -202,6 +203,7 @@ class StateRouteOptions {
         this.name = route.name;
         this.pattern = route.pattern;
         this.authorization = route.authorization;
+        this.role = route.role;
         this.data = route.data;
 
         this.parent = parentOptions.length > 0 ? _.last(parentOptions).parent : null;

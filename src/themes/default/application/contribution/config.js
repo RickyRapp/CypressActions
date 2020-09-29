@@ -39,18 +39,11 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.CONTRIBUTION',
-            //     order: 3,
-            //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     icon: 'contribution',
-            //     route: 'master.app.main.contribution.list'
-            // },
             {
                 title: 'MENU.CONTRIBUTIONS',
                 order: 4,
                 route: 'master.app.main.contribution.create',
-                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
+                role: ['Users'],
                 icon: 'contribution'
             }
         ]

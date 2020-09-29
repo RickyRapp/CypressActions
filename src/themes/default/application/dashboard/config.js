@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { Dashboard } from 'application/dashboard/pages';
+import { Dashboard, AdminDashboard } from 'application/dashboard/pages';
+import { RouterState } from 'mobx-state-router';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -8,7 +9,19 @@ import { Dashboard } from 'application/dashboard/pages';
                 name: 'master.app.main.dashboard',
                 pattern: '',
                 authorization: '',
-                component: Dashboard
+                component: Dashboard,
+                beforeEnter: async (fromState, toState, routerStore) => {
+                    if (routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) { //TODO: refactor this
+                        return Promise.reject(new RouterState('master.app.main.admin-dashboard'));
+                    }
+                    return Promise.resolve();
+                }
+            },
+            {
+                name: 'master.app.main.admin-dashboard',
+                pattern: '',
+                authorization: '',
+                component: AdminDashboard
             },
         ],
         menu: [

@@ -36,14 +36,14 @@ class PermissionStore {
 
         let authorized = true;
         if (authorization) {
-            if (typeof authorization === 'function') {
-                return authorization(null, this.rootStore);
+            if (_.isFunction(authorization)) {
+                return authorization();
             }
 
             let requestedAuthorization;
             if (_.isArray(authorization)) {
                 requestedAuthorization = authorization;
-            } else if (typeof authorization === 'string') {
+            } else if (_.isString(authorization)) {
                 requestedAuthorization = [authorization];
             }
 
@@ -69,6 +69,39 @@ class PermissionStore {
     resetPermissions() {
         this.permissions = {};
     }
+
+    hasRolePermission = (authorization) => {
+        let self = this;
+        const permissionFunc = (role) => {
+            const { user } = self.rootStore.userStore;
+            return self.permissionService.hasRolePermission(user, role);
+        };
+
+        let authorized = false;
+        if (authorization) {
+            if (_.isFunction(authorization)) {
+                return authorization();
+            }
+
+            let requestedAuthorization;
+            if (_.isArray(authorization)) {
+                requestedAuthorization = authorization;
+            } else if (_.isString(authorization)) {
+                requestedAuthorization = [authorization];
+            }
+
+            let l = requestedAuthorization.length;
+            let i = 0;
+            while (!authorized && i < l) {
+                const role = requestedAuthorization[i++];
+                authorized = permissionFunc(role);
+            }
+        } else {
+            authorized = permissionFunc(null);
+        }
+
+        return authorized;
+    };
 }
 
 function authorizationValid(authorization) {

@@ -57,7 +57,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
             {
                 title: 'MENU.GIVE',
                 order: 1,
-                authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
+                role: ['Users'],
                 icon: 'grant',
                 subMenu: [
                     {

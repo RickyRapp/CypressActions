@@ -24,7 +24,7 @@ import { InvestmentPoolList } from 'application/investment/pages';
             {
                 title: 'MENU.INVESTMENT',
                 order: 4,
-                authorization: 'theDonorsFundAdministrationSection.read',
+                role: ['Administrators'],
                 route: 'master.app.main.investment.list'
             }
         ]

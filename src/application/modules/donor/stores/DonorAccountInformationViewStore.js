@@ -15,7 +15,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                     return response.data;
                 },
                 update: async (resource) => {
-                    return await service.update({ id: this.id, ...resource });
+                    return await service.updateGeneralData({ id: this.id, ...resource });
                 }
             },
             FormClass: DonorEditForm,
