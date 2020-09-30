@@ -13,3 +13,4 @@ export { default as DonorInvestmentListTemplate } from './DonorInvestmentListTem
 export { default as DonorInvestmentPoolHistoryTemplate } from './DonorInvestmentPoolHistoryTemplate'
 export { default as DonorAccountSettingTemplate } from './DonorAccountSettingTemplate'
 export { default as DonorCommunicationPreferenceTemplate } from './DonorCommunicationPreferenceTemplate'
+export { default as BankAccountFormTemplate } from './BankAccountFormTemplate'

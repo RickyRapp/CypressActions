@@ -15,7 +15,6 @@ class ContributionViewStore extends BaseListViewStore {
 
     constructor(rootStore) {
         let filter = new ContributionListFilter('dateCreated', 'desc')
-
         if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
                 filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
@@ -61,8 +60,6 @@ class ContributionViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'donor',
-                            'donor.coreUser',
-                            'donor.companyProfile',
                             'payerInformation',
                             'bankAccount',
                             'paymentType',
@@ -159,6 +156,7 @@ class ContributionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (item) => {
+                    return false;
                     if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
                         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;

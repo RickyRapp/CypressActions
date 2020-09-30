@@ -59,7 +59,7 @@ class BaasicUploadStore {
     }
 
     @action.bound
-    clear(files) {
+    clear() {
         this.files = [];
         this.originalFiles = [];
     }

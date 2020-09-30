@@ -10,14 +10,6 @@ export default class ContributionCreateForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'id',
-                    rules: 'string'
-                },
-                {
-                    name: 'donorId',
-                    rules: 'required|string'
-                },
-                {
                     name: 'amount',
                     label: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
@@ -39,65 +31,74 @@ export default class ContributionCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
+                    name: 'isThirdParty',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.IS_THIRD_PARTY_LABEL',
+                    rules: 'required|boolean',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
+                    name: 'isAgreeToPoliciesAndGuidelines',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.IS_AGREE_TO_POLICIES_AND_GUIDELINES_LABEL',
+                    rules: 'required|boolean|accepted',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
                     name: 'checkNumber',
                     label: 'CONTRIBUTION.CREATE.FIELDS.CHECK_NUMBER_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.CHECK_NUMBER_PLACEHOLDER',
                     rules: 'string'
                 },
                 {
-                    name: 'payerInformation',
-                    fields: [
-                        {
-                            name: 'name',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_NAME_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_NAME_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'addressLine1',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_1_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_1_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'addressLine2',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_2_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_2_PLACEHOLDER',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'city',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_CITY_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_CITY_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'state',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_STATE_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_STATE_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'zipCode',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ZIPCODE_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ZIPCODE_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'email',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_EMAIL_LABEL',
-                            placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_EMAIL_PLACEHOLDER',
-                            rules: 'required|email'
-                        },
-                        {
-                            name: 'number',
-                            label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_NUMBER_LABEL',
-                            rules: 'required|string',
-                            extra: {
-                                format: '(###) ###-####'
-                            }
-                        },
-                    ]
+                    name: 'name',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_NAME_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_NAME_PLACEHOLDER',
+                    rules: 'required_if:isThirdParty,true|string'
+                },
+                {
+                    name: 'addressLine1',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_1_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_1_PLACEHOLDER',
+                    rules: 'required_if:isThirdParty,true|string'
+                },
+                {
+                    name: 'addressLine2',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_2_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ADDRESS_LINE_2_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'city',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_CITY_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_CITY_PLACEHOLDER',
+                    rules: 'required_if:isThirdParty,true|string'
+                },
+                {
+                    name: 'state',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_STATE_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_STATE_PLACEHOLDER',
+                    rules: 'required_if:isThirdParty,true|string'
+                },
+                {
+                    name: 'zipCode',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ZIPCODE_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_ZIPCODE_PLACEHOLDER',
+                    rules: 'required_if:isThirdParty,true|string'
+                },
+                {
+                    name: 'email',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_EMAIL_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_EMAIL_PLACEHOLDER',
+                    rules: 'required_if:isThirdParty,true|email'
+                },
+                {
+                    name: 'number',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_NUMBER_LABEL',
+                    rules: 'required_if:isThirdParty,true|string',
+                    extra: {
+                        format: '(###) ###-####'
+                    }
                 },
                 {
                     name: 'financialInstitution',

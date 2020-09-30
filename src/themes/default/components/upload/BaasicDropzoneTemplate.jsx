@@ -125,6 +125,7 @@ const BaasicDropzoneTemplate = function (props) {
 
 BaasicDropzoneTemplate.propTypes = {
      store: PropTypes.object.isRequired,
+     modalStore: PropTypes.object,
      onChange: PropTypes.func,
      placeholder: PropTypes.string,
      multi: PropTypes.bool,
@@ -134,7 +135,8 @@ BaasicDropzoneTemplate.propTypes = {
      removeFromBuffer: PropTypes.bool,
      deleteUploaded: PropTypes.bool,
      onRemoveFromBuffer: PropTypes.func,
-     onDeleteUploaded: PropTypes.func
+     onDeleteUploaded: PropTypes.func,
+     loading: PropTypes.any
 };
 
 const ImagePreview = function ({ image }) {

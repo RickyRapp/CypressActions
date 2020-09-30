@@ -5,13 +5,13 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
 
 const BaasicFormControlsTemplate = function (props) {
-    const { form, onSubmit, controls, label, t, disableSave } = props;
+    const { form, onSubmit, controls, label, t, disableSave, type } = props;
 
     return (
         <React.Fragment>
             {(!controls || controls.onSubmit) && (
                 <BaasicButton
-                    type='submit'
+                    type={type}
                     className="btn btn--base btn--primary u-mar--right--sml"
                     onClick={onSubmit || form.onSubmit}
                     disabled={disableSave}
@@ -38,13 +38,15 @@ BaasicFormControlsTemplate.propTypes = {
     validation: PropTypes.object,
     authorization: PropTypes.any,
     label: PropTypes.string,
-    t: PropTypes.any
+    t: PropTypes.any,
+    type: PropTypes.string
 };
 
 BaasicFormControlsTemplate.defaultProps = {
     validation: {},
     label: 'FORM_CONTROLS.SAVE_BUTTON',
-    disableSave: false
+    disableSave: false,
+    type: 'submit'
 };
 
 export default defaultTemplate(BaasicFormControlsTemplate);

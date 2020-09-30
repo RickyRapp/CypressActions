@@ -201,8 +201,7 @@ renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
     actionsRender: PropTypes.object,
-    authorization: PropTypes.any,
-    rootStore: PropTypes.object.isRequired
+    authorization: PropTypes.any
 };
 
 export default defaultTemplate(ContributionListTemplate);

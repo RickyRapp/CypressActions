@@ -1,6 +1,4 @@
-import _ from 'lodash';
 import { RouterState, HistoryAdapter } from 'mobx-state-router';
-
 import { history } from 'common/utils';
 import { ApplicationStore, AppStore } from 'common/stores';
 import { EventHandler, cacheService } from 'core/services';

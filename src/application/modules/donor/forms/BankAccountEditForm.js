@@ -1,10 +1,6 @@
 import { FormBase } from 'core/components';
 
-export const donorBankAccountFormProperties = {
-
-}
-
-export default class DonorBankAccountEditForm extends FormBase {
+export default class BankAccountEditForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }

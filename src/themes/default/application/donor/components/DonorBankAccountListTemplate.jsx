@@ -11,7 +11,7 @@ import {
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
-import { DonorBankAccountEditForm } from 'application/donor/components';
+import { BankAccountForm } from 'application/donor/components';
 
 const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore, t }) {
     const {
@@ -42,7 +42,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                 </Content>
             </ListContent>
             <BaasicModal modalParams={bankAccountModal}>
-                <DonorBankAccountEditForm />
+                <BankAccountForm />
             </BaasicModal>
         </div>
     )

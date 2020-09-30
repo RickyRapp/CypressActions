@@ -5,3 +5,4 @@ export { default as StockAndMutualFundsTemplate } from './StockAndMutualFundsTem
 export { default as ChaseQuickPayTemplate } from './ChaseQuickPayTemplate'
 export { default as PayerInformationTemplate } from './PayerInformationTemplate'
 export { default as ContributionReviewTemplate } from './ContributionReviewTemplate'
+export { default as ContributionConfirmTemplate } from './ContributionConfirmTemplate'

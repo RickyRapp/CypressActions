@@ -21,13 +21,17 @@ class ContributionBaseViewStore extends BaseEditViewStore {
     @observable uploadLoading = false;
 
     constructor(rootStore, config) {
-        const service = new ContributionService(rootStore.application.baasic.apiClient);
-
         super(rootStore, config);
 
-        this.donorId = rootStore.routerStore.routerState.params.id;
+        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            this.donorId = rootStore.userStore.user.id;
+        }
+        else {
+            this.donorId = rootStore.routerStore.routerState.params.id;
+        }
+
         this.editId = rootStore.routerStore.routerState.params.editId;
-        this.service = service;
+        this.service = new ContributionService(rootStore.application.baasic.apiClient);
         this.bankAccountService = new DonorBankAccountService(rootStore.application.baasic.apiClient);
         this.bankAccountModal = new ModalParams({});
 
