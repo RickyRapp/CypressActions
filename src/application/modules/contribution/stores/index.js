@@ -3,3 +3,4 @@ export { default as ContributionCreateViewStore } from './ContributionCreateView
 export { default as ContributionEditViewStore } from './ContributionEditViewStore'
 export { default as ContributionBaseViewStore } from './ContributionBaseViewStore'
 export { default as ContributionReviewViewStore } from './ContributionReviewViewStore'
+export { default as ContributionDetailsViewStore } from './ContributionDetailsViewStore'

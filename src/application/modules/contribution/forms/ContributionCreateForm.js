@@ -13,9 +13,17 @@ export default class ContributionCreateForm extends FormBase {
                     name: 'amount',
                     label: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric',
+                    rules: 'required|numeric|min:34',
                     extra: {
                         type: 'c2'
+                    },
+                    options: {
+                        validateOnChange: false
+                    },
+                    handlers: {
+                        onBlur: (field) => (event) => {
+                            field.validate({ showErrors: true });
+                        }
                     }
                 },
                 {

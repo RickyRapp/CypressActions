@@ -26,13 +26,7 @@ class ContributionViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundContributionSection',
             routes: {
                 edit: (id, editId) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.contribution.edit',
-                        {
-                            id: id,
-                            editId: editId
-                        }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { id: id, editId: editId });
                 },
                 create: () => {
                     if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
@@ -41,7 +35,14 @@ class ContributionViewStore extends BaseListViewStore {
                     else {
                         this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
                     }
-                }
+                },
+                preview: (id, donorId) => {
+                    let queryParams = null;
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                        queryParams = { donorId: donorId }
+                    }
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id },);
+                },
             },
             queryConfig: {
                 filter: filter,
@@ -152,6 +153,7 @@ class ContributionViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (contribution) => this.routes.edit(contribution.donorId, contribution.id),
                 onReview: (contributionId) => this.openReviewDonorModal(contributionId),
+                onPreview: (contribution) => this.routes.preview(contribution.id, contribution.donorId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {

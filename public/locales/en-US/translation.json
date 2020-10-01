@@ -1198,6 +1198,12 @@
             "DONATE_SECURITIES": "Maximize the tax advantages of your donation! Donate Securities.",
             "PREVIOUS_CONTRIBUTIONS": "Recent Contributions",
             "ALL_CONTRIBUTIONS": "All Contributions",
+            "SUCCESS": "Success! You've created your contribution!",
+            "SUMMARY": "Contribution Summary",
+            "PAYMENT_TYPE": "Payment Type",
+            "BANK_ACCOUNT_NAME": "Bank Account",
+            "BANK_ACCOUNT_NUMBER": "Bank Account Number",
+            "AMOUNT": "Amount",
             "FIELDS": {
                 "PAYMENT_TYPE_LABEL": "Select Payment type",
                 "PAYMENT_TYPE_PLACEHOLDER": "Select",
@@ -1272,6 +1278,23 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount"
             }
+        },
+        "DETAILS": {
+            "TITLE": "Contributions",
+            "DETAILS": "Contribution Details",
+            "GENERAL_INFORMATION": "General Information",
+            "DONOR_NAME": "Donor's Name",
+            "CONFRIMATION_NUMBER": "Confirmation Number",
+            "THIRD_PARTY": "Third Party",
+            "STATUS": "Status",
+            "DATE_CREATED": "Date Created",
+            "DATE_UPDATED": "Date Updated",
+            "PAYMENT_INFORMATION": "Payment Information",
+            "PAYMENT_TYPE": "Payment Type",
+            "AMOUNT": "Amount",
+            "SUMMARY": "Summary",
+            "TOTAL_MONEY_GIVEN": "Total money given",
+            "TOTAL_MONEY_UPCOMING": "Total money upcoming"
         }
     },
     "DONOR_CONTRIBUTION_SETTING": {

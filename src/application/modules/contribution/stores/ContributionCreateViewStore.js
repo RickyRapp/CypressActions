@@ -11,6 +11,7 @@ import { ContributionService } from 'application/contribution/services';
 class ContributionCreateViewStore extends BaseEditViewStore {
     @observable paymentTypes = null;
     @observable step = 1;
+    donor = null;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -18,28 +19,26 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             id: undefined,
             autoInit: false,
             actions: () => {
-                const service = new ContributionService(rootStore.application.baasic.apiClient)
                 return {
                     create: async (resource) => {
                         if (!resource.isThirdParty) {
-                            const donor = await this.getDonorInfo();
-                            const primaryAddress = donor.donorAddresses.find((c) => c.isPrimary);
-                            const primaryEmailAddress = donor.donorEmailAddresses.find((c) => c.isPrimary);
-                            const primaryPhoneNumber = donor.donorPhoneNumbers.find((c) => c.isPrimary);
-                            resource.name = donor.donorName;
-                            resource.addressLine1 = primaryAddress.addressLine1;
-                            resource.addressLine2 = primaryAddress.addressLine2;
-                            resource.city = primaryAddress.city;
-                            resource.state = primaryAddress.state;
-                            resource.zipCode = primaryAddress.zipCode;
-                            resource.email = primaryEmailAddress.email;
-                            resource.number = primaryPhoneNumber.number;
+                            resource.name = this.donor.donorName;
+                            resource.addressLine1 = this.donor.donorAddress.addressLine1;
+                            resource.addressLine2 = this.donor.donorAddress.addressLine2;
+                            resource.city = this.donor.donorAddress.city;
+                            resource.state = this.donor.donorAddress.state;
+                            resource.zipCode = this.donor.donorAddress.zipCode;
+                            resource.email = this.donor.donorEmailAddress.email;
+                            resource.number = this.donor.donorPhoneNumber.number;
                         }
-                        return service.create({ donorId: this.donorId, ...resource });
+                        return this.service.create({ donorId: this.donorId, ...resource });
                     }
                 }
             },
-            FormClass: ContributionCreateForm
+            FormClass: ContributionCreateForm,
+            onAfterAction: () => {
+                this.nextStep();
+            }
         });
 
         this.routes = {
@@ -47,6 +46,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                 this.rootStore.routerStore.goTo('master.app.main.contribution.list');
             }
         }
+
+        this.service = new ContributionService(this.rootStore.application.baasic.apiClient)
 
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             this.donorId = rootStore.userStore.user.id;
@@ -120,34 +121,16 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         }
         else {
             this.loaderStore.resume();
-            const service = new ContributionService(this.rootStore.application.baasic.apiClient)
-            const params = {
-                embed: [],
-                fields: ['amount', 'dateCreated'],
-                orderBy: 'dateCreated',
-                orderDirection: 'desc',
-                rpp: 5
-            }
-            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                params.donorId = this.donorId;
+            const response = await this.service.getDonorInformation(this.donorId);
+            this.donor = response.data;
+            this.previousContributionsTableStore.setData(this.donor.previousContributions);
+
+            if (this.donor.isInitialContributionDone) {
+                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumAdditionalAmount}`);
             }
             else {
-                params.userId = this.donorId;
+                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumInitialAmount}`);
             }
-            const response = await service.find(params);
-            this.previousContributionsTableStore.setData(response.data.item)
-        }
-    }
-
-    @action.bound
-    async getDonorInfo() {
-        if (!this.donor) {
-            const service = new DonorService(this.rootStore.application.baasic.apiClient);
-            const response = await service.get(this.donorId, {
-                embed: 'donorAddresses,donorEmailAddresses,donorPhoneNumbers',
-                fields: 'donorName,donorAddresses,donorEmailAddresses,donorPhoneNumbers'
-            });
-            return response.data;
         }
     }
 

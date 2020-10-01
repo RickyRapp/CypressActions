@@ -13,6 +13,14 @@ class ContributionRouteService extends BaseRouteService {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
+    getDetails(id, options) {
+        return super.get(this.base + '/details/{donorId}/{id}/{?embed,fields}', id, options);
+    }
+
+    getDonorInformation(id) {
+        return super.get(this.base + '/donor-information/{id}', id);
+    }
+
     create() {
         return super.create(this.base);
     }

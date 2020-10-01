@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { ContributionList, ContributionCreate, ContributionEdit } from 'application/contribution/pages';
+import { ContributionList, ContributionCreate, ContributionEdit, ContributionDetails } from 'application/contribution/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -33,6 +33,15 @@ import { ContributionList, ContributionCreate, ContributionEdit } from 'applicat
                         authorization: 'theDonorsFundContributionSection.update',
                         data: {
                             title: "CONTRIBUTION.EDIT.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.contribution.details',
+                        pattern: '/details/:id',
+                        component: ContributionDetails,
+                        authorization: 'theDonorsFundContributionSection.read',
+                        data: {
+                            title: "CONTRIBUTION.DETAILS.TITLE"
                         }
                     }
                 ]

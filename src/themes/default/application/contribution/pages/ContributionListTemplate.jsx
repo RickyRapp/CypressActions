@@ -153,8 +153,8 @@ ContributionListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onReview } = actions;
-    if (!isSome(onEdit) && !isSome(onReview)) return null;
+    const { onEdit, onReview, onPreview } = actions;
+    if (!isSome(onEdit) && !isSome(onReview) && !isSome(onPreview)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -167,6 +167,13 @@ function renderActions({ item, actions, actionsRender }) {
     if (isSome(actionsRender)) {
         if (actionsRender.onReviewRender) {
             reviewRender = actionsRender.onReviewRender(item);
+        }
+    }
+
+    let previewRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onPreviewRender) {
+            previewRender = actionsRender.onPreviewRender(item);
         }
     }
 
@@ -190,6 +197,15 @@ function renderActions({ item, actions, actionsRender }) {
                         label='CONTRIBUTION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item.id)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onPreview) && previewRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--preview u-icon--sml'
+                        label='CONTRIBUTION.LIST.BUTTON.PREVIEW'
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}>
                     </BaasicButton>
                 ) : null}
             </div>
