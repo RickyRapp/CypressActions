@@ -92,8 +92,7 @@ class DonorBankAccountViewStore extends BaseListViewStore {
                     title: 'BANK_ACCOUNT.LIST.COLUMNS.IMAGE_LABEL',
                     format: {
                         type: 'image',
-                        target: '_blank',
-                        fetch: (id) => { return this.donorFileStreamRouteService.getPreview(id); }
+                        target: '_blank'
                     }
                 },
             ],
@@ -108,9 +107,17 @@ class DonorBankAccountViewStore extends BaseListViewStore {
 
     @action.bound
     async openBankAccountModal(bankAccount) {
-        if (bankAccount) {
-            this.bankAccountModal.open({ bankAccount: bankAccount });
-        }
+        this.bankAccountModal.open(
+            {
+                editId: bankAccount ? bankAccount.id : null,
+                bankAccount: bankAccount,
+                donorId: this.donorId,
+                onAfterAction: async () => {
+                    this.queryUtility.fetch();
+                    this.bankAccountModal.close();
+                }
+            }
+        );
     }
 
     @action.bound
@@ -118,8 +125,8 @@ class DonorBankAccountViewStore extends BaseListViewStore {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to delete bank account?`,
             async () => {
-                bankAccount.isDeleted = true;
-                await this.updateBankAccountAsync(bankAccount, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
+                await this.bankAccountService.delete({ id: bankAccount.id, donorId: this.donorId });
+                await this.queryUtility.fetch();
             }
         );
     }

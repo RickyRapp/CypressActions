@@ -98,7 +98,15 @@ export default class ContributionCreateForm extends FormBase {
                     name: 'email',
                     label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_EMAIL_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_INFORMATION_EMAIL_PLACEHOLDER',
-                    rules: 'required_if:isThirdParty,true|email'
+                    rules: 'required_if:isThirdParty,true|email',
+                    options: {
+                        validateOnChange: false
+                    },
+                    handlers: {
+                        onBlur: (field) => (event) => {
+                            field.validate({ showErrors: true });
+                        }
+                    }
                 },
                 {
                     name: 'number',

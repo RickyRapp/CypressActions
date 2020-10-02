@@ -12,7 +12,15 @@ export default class TestEmailCreateForm extends FormBase {
                     name: 'email',
                     label: 'TEST.TEST_EMAIL.CREATE.FIELDS.EMAIL_LABEL',
                     placeholder: 'TEST.TEST_EMAIL.CREATE.FIELDS.EMAIL_PLACEHOLDER',
-                    rules: 'required|email'
+                    rules: 'required|email',
+                    options: {
+                        validateOnChange: false
+                    },
+                    handlers: {
+                        onBlur: (field) => (event) => {
+                            field.validate({ showErrors: true });
+                        }
+                    }
                 },
                 {
                     name: 'name',

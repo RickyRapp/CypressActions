@@ -69,7 +69,15 @@ export default class DonorCreateForm extends FormBase {
                     label: 'DONOR.CREATE.LOGIN_FORM_FIELDS.USERNAME_LABEL',
                     placeholder: 'DONOR.CREATE.LOGIN_FORM_FIELDS.USERNAME_PLACEHOLDER',
                     rules: 'email',
-                    autoComplete: 'off'
+                    autoComplete: 'off',
+                    options: {
+                        validateOnChange: false
+                    },
+                    handlers: {
+                        onBlur: (field) => (event) => {
+                            field.validate({ showErrors: true });
+                        }
+                    }
                 },
                 {
                     name: 'password',

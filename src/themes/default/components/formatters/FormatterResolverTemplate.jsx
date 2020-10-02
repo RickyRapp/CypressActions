@@ -7,6 +7,7 @@ import { defaultTemplate } from 'core/hoc';
 import { Date, Address } from 'core/components';
 import { donorFormatter, charityFormatter } from 'core/utils';
 import NumberFormat from 'react-number-format';
+import { FileStreamRouteService } from 'common/services';
 
 function FormatterResolver({ item, field, format }) {
     const params = {
@@ -74,7 +75,8 @@ function FormatterResolver({ item, field, format }) {
             return <NumberFormat value={_.get(item, field)} format='###-###-###' displayType='text' />
         case 'image':
             if (_.get(item, field)) {
-                return <span onClick={() => window.open(format.fetch(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab
+                const routeService = new FileStreamRouteService();
+                return <span onClick={() => window.open(routeService.getPreview(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab
             }
             return null;
         case 'function':

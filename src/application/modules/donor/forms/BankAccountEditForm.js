@@ -9,10 +9,6 @@ export default class BankAccountEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'id',
-                    rules: 'string'
-                },
-                {
                     name: 'name',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_PLACEHOLDER',
@@ -91,7 +87,15 @@ export default class BankAccountEditForm extends FormBase {
                     name: 'email',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_EMAIL_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_EMAIL_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|email'
+                    rules: 'required_if:isThirdPartyAccount,true|email',
+                    options: {
+                        validateOnChange: false
+                    },
+                    handlers: {
+                        onBlur: (field) => (event) => {
+                            field.validate({ showErrors: true });
+                        }
+                    }
                 },
                 {
                     name: 'number',

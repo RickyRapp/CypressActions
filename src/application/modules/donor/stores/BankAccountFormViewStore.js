@@ -16,11 +16,41 @@ class BankAccountFormViewStore extends BaseEditViewStore {
             actions: {
                 get: async () => {
                     if (props.bankAccount) {
-                        return props.bankAccount;
+                        return {
+                            name: props.bankAccount.name,
+                            accountNumber: props.bankAccount.accountNumber,
+                            routingNumber: props.bankAccount.routingNumber,
+                            description: props.bankAccount.description,
+                            coreMediaVaultEntryId: props.bankAccount.coreMediaVaultEntryId,
+                            isThirdPartyAccount: props.bankAccount.isThirdPartyAccount,
+                            accountHolderName: props.bankAccount.accountHolder.name,
+                            addressLine1: props.bankAccount.accountHolder.addressLine1,
+                            addressLine2: props.bankAccount.accountHolder.addressLine2,
+                            city: props.bankAccount.accountHolder.city,
+                            state: props.bankAccount.accountHolder.state,
+                            zipCode: props.bankAccount.accountHolder.zipCode,
+                            email: props.bankAccount.accountHolder.email,
+                            number: props.bankAccount.accountHolder.number
+                        };
                     }
                     else if (props.editId) {
                         const response = await service.get(props.editId);
-                        return response.data;
+                        return {
+                            name: response.data.name,
+                            accountNumber: response.data.accountNumber,
+                            routingNumber: response.data.routingNumber,
+                            description: response.data.description,
+                            coreMediaVaultEntryId: response.data.coreMediaVaultEntryId,
+                            isThirdPartyAccount: response.data.isThirdPartyAccount,
+                            accountHolderName: response.data.accountHolder.name,
+                            addressLine1: response.data.accountHolder.addressLine1,
+                            addressLine2: response.data.accountHolder.addressLine2,
+                            city: response.data.accountHolder.city,
+                            state: response.data.accountHolder.state,
+                            zipCode: response.data.accountHolder.zipCode,
+                            email: response.data.accountHolder.email,
+                            number: response.data.accountHolder.number
+                        };
                     }
                     else {
                         rootStore.notificationStore.warning("Something went wrong. Please try again.");
@@ -28,7 +58,7 @@ class BankAccountFormViewStore extends BaseEditViewStore {
                     }
                 },
                 update: async (resource) => {
-                    await service.update(resource);
+                    await service.update({ id: this.editId, ...resource });
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
                         const fileStreamService = new DonorFileStreamService(this.rootStore.application.baasic.apiClient);
                         await fileStreamService.uploadDonorBankAccount(this.imageUploadStore.files[0], this.donorId, resource.id);

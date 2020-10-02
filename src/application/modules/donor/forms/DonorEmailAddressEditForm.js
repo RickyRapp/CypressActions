@@ -10,7 +10,15 @@ export const donorEmailAddressFormProperties = {
             name: 'email',
             label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
             placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-            rules: 'required|email'
+            rules: 'required|email',
+            options: {
+                validateOnChange: false
+            },
+            handlers: {
+                onBlur: (field) => (event) => {
+                    field.validate({ showErrors: true });
+                }
+            }
         },
         {
             name: 'description',
