@@ -5,27 +5,26 @@ import { TabLayout, Content } from 'core/layouts';
 import { GrantList, ScheduledGrantList, GrantRequestList } from 'application/grant/pages';
 import { BaasicModal } from 'core/components';
 import { SelectDonor } from 'application/donor/components';
+import { PastGrantList } from 'application/donation/pages';
 
 function GrantTabTemplate({ grantTabViewStore }) {
     const {
         loaderStore,
-        selectDonorModal,
-        setDonorId,
-        handleTabClick
+        selectDonorModal
     } = grantTabViewStore;
 
     return (
         <Content loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={grantTabViewStore}>
-                    <div label={'GRANT.TAB.LIST'}>
-                        <GrantList onChangeDonorFilter={setDonorId} />
+                    <div label={'GRANT.TAB.PAST_GRANT'}>
+                        <PastGrantList />
                     </div>
                     <div label={'GRANT.TAB.SCHEDULED_LIST'}>
-                        <ScheduledGrantList onChangeDonorFilter={setDonorId} />
+                        <ScheduledGrantList />
                     </div>
                     <div label={'GRANT.TAB.GRANT_REQUEST'}>
-                        <GrantRequestList onChangeDonorFilter={setDonorId} handleTabClick={handleTabClick} />
+                        <GrantRequestList />
                     </div>
                 </TabLayout>
             </div>

@@ -6,7 +6,6 @@ import { action, observable } from 'mobx';
 @applicationContext
 class GrantTabViewStore extends BaseTabViewStore {
     donorId = null;
-    @observable canCreate = true;
 
     constructor(rootStore) {
         super(rootStore);
@@ -19,39 +18,10 @@ class GrantTabViewStore extends BaseTabViewStore {
 
         this.loaderStore.resume();
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
-            this.handleTabClick(rootStore.routerStore.routerState.queryParams.tab)
-        }
-
-        if (this.activeIndex === 2) {
-            this.canCreate = false;
-        }
-
-        this.createFunc = () => {
-            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                this.openSelectDonorModal();
-            }
-            else {
-                rootStore.routerStore.goTo('master.app.main.grant.create', { id: this.donorId });
-            }
+            this.activeIndex = Number(rootStore.routerStore.routerState.queryParams.tab);
         }
 
         this.selectDonorModal = new ModalParams({});
-    }
-
-    @action.bound
-    async handleTabClick(tabIndex) {
-        await super.handleTabClick(tabIndex);
-        if (this.activeIndex === 2) {
-            this.canCreate = false;
-        }
-        else {
-            this.canCreate = true;
-        }
-    }
-
-    @action.bound
-    setDonorId(id) {
-        this.donorId = id;
     }
 
     @action.bound

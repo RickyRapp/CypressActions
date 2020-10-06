@@ -25,7 +25,6 @@ class DonorBankAccountViewStore extends BaseListViewStore {
                         params.embed = [
                             'accountHolder'
                         ];
-                        params.donorId = donorId;
                         params.orderBy = 'dateCreated';
                         params.orderDirection = 'desc';
                         const response = await this.bankAccountService.find({ userId: donorId, ...params });

@@ -40,7 +40,7 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
                         orderBy: 'dateCreated',
                         orderDirection: 'desc'
                     }
-                    const response = await bankAccountService.find(params);
+                    const response = await bankAccountService.find({ userId: donorId, ...params });
                     return response.data.item;
                 }
             });

@@ -9,7 +9,7 @@ import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 class GrantRequestViewStore extends BaseListViewStore {
-    constructor(rootStore, { onChangeDonorFilter }) {
+    constructor(rootStore) {
         let filter = new GrantRequestListFilter('dateCreated', 'desc')
         if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
@@ -166,8 +166,7 @@ class GrantRequestViewStore extends BaseListViewStore {
                     }
                 },
                 onChange: (donorId) => {
-                    this.queryUtility.filter['donorId'] = donorId;
-                    onChangeDonorFilter(donorId);
+                    this.queryUtility.filter.donorId = donorId;
                 }
             });
 

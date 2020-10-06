@@ -113,7 +113,7 @@ class DonorContributionSettingViewStore extends BaseListViewStore {
                         orderDirection: 'desc'
                     }
                     const bankAccountService = new DonorBankAccountService(rootStore.application.baasic.apiClient);
-                    const response = await bankAccountService.find(params);
+                    const response = await bankAccountService.find({ userId: this.donorId, ...params });
                     return response.data.item;
                 }
             });

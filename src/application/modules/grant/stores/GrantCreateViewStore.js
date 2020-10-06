@@ -13,15 +13,16 @@ import { ModalParams } from 'core/models';
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
     @observable isNoteToAdministratorIncluded = false;
+    @observable amountWithFee = false;
 
     constructor(rootStore) {
-        const scheduledGrantService = new ScheduledGrantService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'grant-create',
             id: undefined,
             autoInit: false,
             actions: () => {
+                const scheduledGrantService = new ScheduledGrantService(rootStore.application.baasic.apiClient);
                 return {
                     create: async (resource) => {
                         resource.donorId = this.donorId;
@@ -59,7 +60,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                             resource.charityId = charityResponse.data.response; //charityId
                         }
 
-                        if (moment(resource.startFutureDate) > moment() || this.isRecurring === true) {
+                        if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
                             this.scheduledGrant = true;
                             await scheduledGrantService.create(resource);
                         }
@@ -72,16 +73,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
             },
             FormClass: GrantCreateForm,
             onAfterAction: () => {
-                this.scheduledGrant ?
-                    this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { tab: 1 }) :
-                    this.rootStore.routerStore.goTo('master.app.main.grant.tab')
+                this.rootStore.routerStore.goTo('master.app.main.activity.grants')
             }
         });
         this.grantScheduleTypeDropdownStore = new BaasicDropdownStore();
-
-        if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
-            this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
-        }
 
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             this.donorId = rootStore.routerStore.routerState.params.id;
@@ -315,7 +310,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
     @action.bound
     async onBlurAmount() {
         if (this.form.$('amount').value) {
-            let params = {};
+            const params = {};
             params.id = this.donorId;
             params.feeTypeId = this.feeTypes.find((item) => item.abrv === 'grant-fee').id;
             params.amount = this.form.$('amount').value;

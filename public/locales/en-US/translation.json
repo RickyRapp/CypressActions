@@ -1342,6 +1342,7 @@
     },
     "GRANT": {
         "TAB": {
+            "PAST_GRANT": "Past Grants",
             "LIST": "Grants",
             "SCHEDULED_LIST": "Scheduled grants",
             "GRANT_REQUEST": "Grant requests"
@@ -1465,29 +1466,26 @@
         }
     },
     "DONATION": {
-        "LIST": {
-            "TITLE": "Donations",
-            "GROUPED_TITLE": "Pending donations to charity",
-            "OVERVIEW_TITLE": "Charity donations",
-            "COLUMNS": {
-                "CHARITY_NAME_LABEL": "Charity",
-                "AMOUNT_LABEL": "Amount",
-                "DATE_CREATED_LABEL": "Date created",
-                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
-                "DONATION_STATUS_NAME_LABEL": "Status",
-                "DONATION_TYPE_NAME_LABEL": "Type",
-                "COUNT_LABEL": "Number of donations"
-            },
-            "EMPTY_STATE": {
-                "TITLE": "No donations"
-            },
-            "BUTTON": {
-                "REVIEW": "Review",
-                "REVIEW_SELECTED": "Review selected"
-            },
-            "FILTER": {
-                "DONATION_STATUS_PLACEHOLDER": "Status",
-                "SELECT_CHARITY_PLACEHOLDER": "Charity"
+        "PAST_GRANT": {
+            "LIST": {
+                "TITLE": "Donations",
+                "COLUMNS": {
+                    "CHARITY_LABEL": "Charity name",
+                    "AMOUNT_LABEL": "Amount",
+                    "DATE_CREATED_LABEL": "Date",
+                    "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                    "DONATION_STATUS_LABEL": "Status",
+                    "DONATION_TYPE_LABEL": "Transaction Type"
+                },
+                "EMPTY_STATE": {
+                    "TITLE": "No donations"
+                },
+                "BUTTON": {},
+                "FILTER": {
+                    "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                    "SELECT_DONATION_STATUS_PLACEHOLDER": "Status",
+                    "SELECT_DONATION_TYPE_PLACEHOLDER": "Type"
+                }
             }
         },
         "REVIEW": {
@@ -1527,10 +1525,8 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "NAME_LABEL": "Name",
                 "AMOUNT_LABEL": "Amount",
-                "DONE_LABEL": "Done",
-                "GRANT_SCHEDULE_TYPE_NAME_LABEL": "Schedule type",
+                "GRANT_SCHEDULE_TYPE_NAME_LABEL": "Frequency",
                 "DATE_CREATED_LABEL": "Date created",
-                "START_FUTURE_DATE_LABEL": "Start/Future date",
                 "NEXT_DATE_LABEL": "Next date"
             },
             "EMPTY_STATE": {

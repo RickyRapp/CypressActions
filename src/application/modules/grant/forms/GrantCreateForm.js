@@ -106,7 +106,7 @@ export default class GrantCreateForm extends FormBase {
                     label: 'GRANT.CREATE.FIELDS.NO_END_DATE_LABEL',
                     rules: 'required_if:isRecurring,true|boolean',
                     type: 'checkbox',
-                    value: ''
+                    value: false
                 },
                 {
                     name: 'isNewCharity',

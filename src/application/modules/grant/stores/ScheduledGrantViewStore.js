@@ -16,7 +16,6 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         }
 
         const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
-
         super(rootStore, {
             name: 'scheduled-grant',
             authorization: 'theDonorsFundGrantSection',
@@ -53,7 +52,6 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'donor.id',
                             'donor.donorName',
                             'amount',
-                            'name',
                             'grantScheduleType',
                             'dateCreated',
                             'startFutureDate',
@@ -89,10 +87,6 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.CHARITY_NAME_LABEL',
                 },
                 {
-                    key: 'name',
-                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.NAME_LABEL',
-                },
-                {
                     key: 'amount',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
@@ -109,27 +103,11 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'startFutureDate',
-                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.START_FUTURE_DATE_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
-                    }
-                },
-                {
                     key: 'nextDate',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.NEXT_DATE_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
-                    }
-                },
-                {
-                    key: 'done',
-                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONE_LABEL',
-                    format: {
-                        type: 'boolean',
-                        value: 'yes-no'
                     }
                 },
                 {
