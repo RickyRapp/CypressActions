@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Content } from 'core/layouts';
-import { GrantList, ScheduledGrantList, GrantRequestList } from 'application/grant/pages';
+import { ScheduledGrantList, GrantRequestList } from 'application/grant/pages';
 import { BaasicModal } from 'core/components';
 import { SelectDonor } from 'application/donor/components';
 import { PastGrantList } from 'application/donation/pages';
+import { BookletList } from 'application/booklet/pages';
+import { BookletOrderList } from 'application/booklet-order/pages';
 
 function GrantTabTemplate({ grantTabViewStore }) {
     const {
@@ -25,6 +27,12 @@ function GrantTabTemplate({ grantTabViewStore }) {
                     </div>
                     <div label={'GRANT.TAB.GRANT_REQUEST'}>
                         <GrantRequestList />
+                    </div>
+                    <div label={'GRANT.TAB.CERTIFICATE_LIST'}>
+                        <BookletList />
+                    </div>
+                    <div label={'GRANT.TAB.BOOKLET_ORDER_LIST'}>
+                        <BookletOrderList />
                     </div>
                 </TabLayout>
             </div>

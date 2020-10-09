@@ -19,7 +19,7 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
                     },
                     {
                         name: 'master.app.main.booklet-order.edit',
-                        pattern: '/edit/:id/:editId',
+                        pattern: '/edit/:editId',
                         component: BookletOrderEdit,
                         authorization: 'theDonorsFundBookletOrderSection.update',
                         data: {
@@ -28,7 +28,7 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
                     },
                     {
                         name: 'master.app.main.booklet-order.create',
-                        pattern: '/create/:id',
+                        pattern: '/create',
                         component: BookletOrderCreate,
                         authorization: 'theDonorsFundBookletOrderSection.create',
                         data: {
@@ -47,6 +47,14 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
                 ]
             }
         ],
-        menu: []
+        menu: [
+            {
+                title: 'MENU.BOOKLET_ORDERS',
+                order: 4,
+                route: 'master.app.main.booklet-order.list',
+                role: ['Administrators'],
+                icon: 'booklet-orders'
+            }
+        ]
     });
 })();

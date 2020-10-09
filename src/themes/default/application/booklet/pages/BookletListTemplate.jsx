@@ -17,18 +17,14 @@ const BookletListTemplate = function ({ bookletViewStore }) {
 
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
-            <BaasicButton
-                className="btn btn--base btn--primary"
-                label={'LIST_LAYOUT.CREATE_BUTTON'}
-                onClick={routes.create} />
             <div className="u-mar--bottom--sml">
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--sml'
-                                value={queryUtility.filter['codes'] || ""}
-                                onChange={(event) => queryUtility.filter['codes'] = event.target.value}
+                                value={queryUtility.filter.codes || ""}
+                                onChange={(event) => queryUtility.filter.codes = event.target.value}
                                 placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
                             />
                         </div>

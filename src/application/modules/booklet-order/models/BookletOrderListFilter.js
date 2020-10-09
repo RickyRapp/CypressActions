@@ -6,8 +6,8 @@ class BookletOrderListFilter extends FilterParams {
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
-    @observable dateCreatedStartDate;
-    @observable dateCreatedEndDate;
+    @observable dateCreatedTo;
+    @observable dateCreatedFrom;
     @observable bookletOrderStatusIds;
     @observable deliveryMethodTypeIds;
     @observable trackingNumber;
@@ -27,8 +27,8 @@ class BookletOrderListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
-        this.dateCreatedStartDate = null;
-        this.dateCreatedEndDate = null;
+        this.dateCreatedTo = null;
+        this.dateCreatedFrom = null;
         this.bookletOrderStatusIds = null;
         this.deliveryMethodTypeIds = null;
         this.trackingNumber = null;

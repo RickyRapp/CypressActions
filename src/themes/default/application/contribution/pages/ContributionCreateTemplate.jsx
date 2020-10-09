@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
-import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BaasicModal, BasicFieldCheckbox, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
+import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BaasicModal, BasicFieldCheckbox, BasicInput, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
 import { isNullOrUndefinedOrEmpty } from 'core/utils';
 import { BankAccountForm } from 'application/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/contribution/components';
@@ -24,13 +24,9 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
         previousContributionsTableStore
     } = contributionCreateViewStore;
 
-    let isBankAccountNeeded = false;
+    let paymentType = {};
     if (!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value)) {
-        let paymentType = paymentTypes.find(c => c.id === form.$('paymentTypeId').value)
-        if (paymentType) {
-            let paymentTypesNecessaryBankAccount = ['ach', 'wire-transfer']
-            isBankAccountNeeded = paymentTypesNecessaryBankAccount.includes(paymentType.abrv);
-        }
+        paymentType = paymentTypes.find(c => c.id === form.$('paymentTypeId').value)
     }
 
     const addButton = <BaasicButton
@@ -115,7 +111,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                                     </div>
-                                    {isBankAccountNeeded &&
+                                    {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&
                                         <React.Fragment>
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <BaasicFieldDropdown
@@ -127,6 +123,19 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                             <BaasicModal modalParams={bankAccountModal}>
                                                 <BankAccountForm />
                                             </BaasicModal>
+                                        </React.Fragment>}
+                                    {paymentType.abrv === 'check' &&
+                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                            <BasicInput field={form.$('checkNumber')} showLabel={false} />
+                                        </div>}
+                                    {paymentType.abrv === 'chase-quickpay' &&
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BasicInput field={form.$('transactionId')} showLabel={false} />
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BasicInput field={form.$('memo')} showLabel={false} />
+                                            </div>
                                         </React.Fragment>}
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                         <NumericInputField field={form.$('amount')} showLabel={false} />
@@ -175,7 +184,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     {t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}
                                     {paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name}
                                 </div>
-                                {isBankAccountNeeded &&
+                                {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12">
                                             {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
@@ -184,6 +193,23 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                         <div className="col col-sml-12 col-lrg-12">
                                             {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
                                             xxxx-xxxx-xxxx-{bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value).accountNumber}
+                                        </div>
+                                    </React.Fragment>}
+                                {paymentType.abrv === 'check' &&
+                                    <div className="col col-sml-12 col-lrg-12">
+                                        {t('CONTRIBUTION.CREATE.CHECK_NUMBER')}
+                                        {form.$('checkNumber').value}
+                                    </div>}
+
+                                {paymentType.abrv === 'chase-quickpay' &&
+                                    <React.Fragment>
+                                        <div className="col col-sml-12 col-lrg-12">
+                                            {t('CONTRIBUTION.CREATE.TRANSACTION_ID')}
+                                            {form.$('tranasctionId').value}
+                                        </div>
+                                        <div className="col col-sml-12 col-lrg-12">
+                                            {t('CONTRIBUTION.CREATE.MEMO')}
+                                            {form.$('memo').value}
                                         </div>
                                     </React.Fragment>}
                                 <div className="col col-sml-12 col-lrg-12">

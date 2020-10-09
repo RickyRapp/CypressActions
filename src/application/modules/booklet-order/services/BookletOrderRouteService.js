@@ -6,11 +6,15 @@ class BookletOrderRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorId,search,trackingNumber,confirmationNumber,deliveryMethodTypeIds,bookletCodes,bookletOrderStatusIds,name,taxId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?userId,donorId,search,trackingNumber,dateCreatedFrom,dateCreatedTo,confirmationNumber,deliveryMethodTypeIds,bookletCodes,bookletOrderStatusIds,name,taxId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
+    }
+
+    getDonorInformation(id) {
+        return super.get(this.base + '/donor-information/{id}', id);
     }
 
     create() {

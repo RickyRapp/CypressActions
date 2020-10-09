@@ -38,7 +38,6 @@ class ContributionDetailsViewStore extends BasePreviewViewStore {
                         }
 
                         let response = await service.getDetails(id, params);
-                        debugger
                         return response.data;
                     }
                 }

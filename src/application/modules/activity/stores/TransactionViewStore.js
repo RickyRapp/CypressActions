@@ -11,7 +11,7 @@ class TransactionViewStore extends BaseListViewStore {
     @observable activeIndex = 0;
 
     constructor(rootStore) {
-        const filter = new ActivityListFilter('dateCreated', 'desc')
+        const filter = new ActivityListFilter()
         if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
                 filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
@@ -63,7 +63,7 @@ class TransactionViewStore extends BaseListViewStore {
                     visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
-                    key: 'dateCreated',
+                    key: 'paymentTransaction.dateCreated',
                     title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
@@ -71,22 +71,29 @@ class TransactionViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'charity.name',
+                    key: 'charity',
                     title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if (item.charity) {
+                                return item.charity.name;
+                            }
+                            else {
+                                return item.paymentTransaction.description;
+                            }
+                        }
+                    }
                 },
                 {
                     key: 'type',
                     title: 'ACTIVITY.LIST.COLUMNS.TRANSACTION_TYPE_LABEL',
                 },
                 {
-                    key: 'status',
-                    title: 'ACTIVITY.LIST.COLUMNS.STATUS_LABEL',
-                },
-                {
-                    key: 'amount',
+                    key: 'paymentTransaction',
                     title: 'ACTIVITY.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
-                        type: 'currency',
+                        type: 'transaction-currency',
                         value: '$'
                     }
                 }

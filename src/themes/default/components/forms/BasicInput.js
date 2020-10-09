@@ -16,11 +16,7 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, disabl
 
     return (
         <div>
-            {
-                showLabel && (
-                    <label className="form__group__label" htmlFor={field.id}>{t(field.label)}{requiredMark}</label>)
-            }
-            {!showLabel ? requiredMark : null}
+            {showLabel && <label className="form__group__label" htmlFor={field.id}>{t(field.label)}{requiredMark}</label>}
             <input
                 className={"input input--med input--text" + (field.touched && !field.isValid ? " input--warning" : '')} {...otherProps}
                 disabled={disabled || otherProps.disabled} placeholder={t(placeholder)} autoComplete={field.initialSetup.autoComplete === 'off' ? 'new-password' : null} />

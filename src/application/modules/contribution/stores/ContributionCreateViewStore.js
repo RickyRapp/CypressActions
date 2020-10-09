@@ -158,6 +158,9 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.form.$('paymentTypeId').setDisabled(true);
         const paymentType = this.paymentTypes.find(c => c.id === id);
         this.form.$('bankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
+        this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check')
+        this.form.$('transactionId').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
+        this.form.$('memo').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
         this.nextStep(2);
     }
 

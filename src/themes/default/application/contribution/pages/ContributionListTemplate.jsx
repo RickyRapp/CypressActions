@@ -49,17 +49,18 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
                                 <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                     <BaasicDropdown store={searchDonorDropdownStore} />
                                 </div>}
-                            <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
-                                {accountTypes &&
-                                    <QueryNullableSwitch
-                                        queryUtility={queryUtility}
-                                        propertyName='accountTypeId'
-                                        yesValue={_.find(accountTypes, { abrv: 'regular' }).id}
-                                        noValue={_.find(accountTypes, { abrv: 'private' }).id}
-                                        yesLabel='CONTRIBUTION.LIST.FILTER.REGULAR_PLACEHOLDER'
-                                        noLabel='CONTRIBUTION.LIST.FILTER.PRIVATE_PLACEHOLDER'
-                                    />}
-                            </div>
+                            {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                                <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
+                                    {accountTypes &&
+                                        <QueryNullableSwitch
+                                            queryUtility={queryUtility}
+                                            propertyName='accountTypeId'
+                                            yesValue={_.find(accountTypes, { abrv: 'regular' }).id}
+                                            noValue={_.find(accountTypes, { abrv: 'private' }).id}
+                                            yesLabel='CONTRIBUTION.LIST.FILTER.REGULAR_PLACEHOLDER'
+                                            noLabel='CONTRIBUTION.LIST.FILTER.PRIVATE_PLACEHOLDER'
+                                        />}
+                                </div>}
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicInput
                                     className='input input--sml'

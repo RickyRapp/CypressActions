@@ -11,9 +11,12 @@ import moment from 'moment';
 
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id
-        let filter = new BookletOrderListFilter('confirmationNumber', 'desc')
-        filter.donorId = id;
+        const filter = new BookletOrderListFilter('dateCreated', 'desc')
+        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+            }
+        }
 
         super(rootStore, {
             name: 'booklet-order',
@@ -45,7 +48,6 @@ class BookletOrderViewStore extends BaseListViewStore {
             queryConfig: {
                 filter: filter,
                 onResetFilter: (filter) => {
-                    filter.donorId = id;
                     this.deliveryMethodTypeDropdownStore.setValue(null);
                     this.bookletOrderStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
@@ -70,11 +72,15 @@ class BookletOrderViewStore extends BaseListViewStore {
                             'confirmationNumber',
                             'bookletOrderStatus',
                             'donor',
-                            'donor.donorName',
-                            'createdByCoreUser',
-                            'createdByCoreUser.firstName'
+                            'donor.donorName'
                         ];
-                        const response = await service.find(params);
+
+                        let userId = null;
+                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                            userId = rootStore.userStore.user.id
+                        }
+
+                        const response = await service.find({ userId: userId, ...params });
                         return response.data;
                     }
                 }
@@ -90,24 +96,27 @@ class BookletOrderViewStore extends BaseListViewStore {
                     visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
                 },
                 {
-                    key: 'confirmationNumber',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
-                },
-                {
-                    key: 'bookletOrderStatus.name',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.STATUS_LABEL',
-                },
-                {
-                    key: 'createdByCoreUser.firstName',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.CREATED_BY_LABEL'
-                },
-                {
                     key: 'dateCreated',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
                     }
+                },
+                {
+                    key: 'confirmationNumber',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
+                },
+                {
+                    key: 'amount',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'currency'
+                    }
+                },
+                {
+                    key: 'bookletOrderStatus.name',
+                    title: 'BOOKLET_ORDER.LIST.COLUMNS.STATUS_LABEL',
                 }
             ],
             actions: {
@@ -198,7 +207,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                     }
                 },
                 onChange: (donorId) => {
-                    this.queryUtility.filter['donorId'] = donorId;
+                    this.queryUtility.filter.donorId = donorId;
                 }
             });
 

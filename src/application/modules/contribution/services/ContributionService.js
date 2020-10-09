@@ -9,7 +9,6 @@ class ContributionService extends BaseService {
 
     getDetails(id, params) {
         const url = this.routeService.getDetails(id, params);
-        debugger
         return this.apiClient.get(url);
     }
 

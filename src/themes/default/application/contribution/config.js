@@ -54,6 +54,13 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
                 route: 'master.app.main.contribution.create',
                 role: ['Users'],
                 icon: 'contribution'
+            },
+            {
+                title: 'MENU.CONTRIBUTIONS',
+                order: 3,
+                route: 'master.app.main.contribution.list',
+                role: ['Administrators'],
+                icon: 'contribution'
             }
         ]
     });

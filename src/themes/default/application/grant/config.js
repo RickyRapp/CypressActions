@@ -68,7 +68,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                     {
                         title: 'MENU.NEW_PLEDGE',
                         order: 2,
-                        route: 'master.app.main.grant.create'
+                        route: 'master.app.main.booklet-order.create'
                     },
                     {
                         title: 'MENU.NEW_REMAINDER',

@@ -8,39 +8,52 @@ export default class BookletOrderCreateForm extends FormBase {
     setup() {
         return {
             fields: [
-                'donorId',
-                // 'deliveryMethodTypeId',
-                'checkOrderUrl',
-                // 'sendNotificationEmail',
-                'bookletOrderContents',
-                'bookletOrderContents[].bookletCount',
-                'bookletOrderContents[].bookletTypeId',
-                'bookletOrderContents[].certificateContents[]',
-                'bookletOrderContents[].certificateContents[].denominationTypeId',
-
+                'addressLine1',
+                'addressLine2',
+                'city',
+                'state',
+                'zipCode',
+                'isCustomizedBook',
+                'customizedName',
+                'deliveryMethodTypeId'
             ],
             labels: {
-                // 'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL',
-                // 'sendNotificationEmail': 'BOOKLET_ORDER.CREATE.FIELDS.SEND_NOTIFICATION_EMAIL_LABEL',
-                'bookletOrderContents[].bookletCount': 'BOOKLET_ORDER.CREATE.FIELDS.BOOKLET_COUNT_LABEL',
-                'bookletOrderContents[].bookletTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.BOOKLET_TYPE_LABEL',
-                'bookletOrderContents[].certificateContents[].denominationTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_TYPE_LABEL',
+                'addressLine1': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
+                'addressLine2': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
+                'city': 'BOOKLET_ORDER.CREATE.FIELDS.CITY_LABEL',
+                'state': 'BOOKLET_ORDER.CREATE.FIELDS.STATE_LABEL',
+                'zipCode': 'BOOKLET_ORDER.CREATE.FIELDS.ZIPCODE_LABEL',
+                'isCustomizedBook': 'BOOKLET_ORDER.CREATE.FIELDS.CUSTOMIZE_YOUR_BOOKS_LABEL',
+                'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL'
+            },
+            placeholders: {
+                'customizedName': 'BOOKLET_ORDER.CREATE.FIELDS.CUSTOMIZED_NAME_PLACEHOLDER',
+                'customizedName': 'BOOKLET_ORDER.CREATE.FIELDS.CUSTOMIZED_NAME_PLACEHOLDER',
+                'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL'
             },
             rules: {
-                'donorId': 'required|string',
-                // 'deliveryMethodTypeId': 'required|string',
-                'checkOrderUrl': 'required|string',
-                // 'sendNotificationEmail': 'required|boolean',
-                'bookletOrderContents[].bookletCount': 'required|integer|min:1|max:1000',
-                'bookletOrderContents[].bookletTypeId': 'required|string',
-                'bookletOrderContents[].certificateContents[].denominationTypeId': 'required|string'
+                'addressLine1': 'required|string',
+                'addressLine2': 'string',
+                'city': 'required|string',
+                'state': 'required|string',
+                'zipCode': 'required|string',
+                'deliveryMethodTypeId': 'required|string',
+                'isCustomizedBook': 'required|boolean'
             },
-            extra: {
-                'bookletOrderContents[].bookletCount':
-                {
-                    type: 'n0',
-                    step: 1
-                }
+            types: {
+                'isCustomizedBook': 'checkbox',
+                'deliveryMethodTypeId': 'radio'
+            },
+            disabled: {
+                'customizedName': true,
+                'addressLine1': true,
+                'addressLine2': true,
+                'city': true,
+                'state': true,
+                'zipCode': true
+            },
+            values: {
+                'isCustomizedBook': false
             }
         };
     }

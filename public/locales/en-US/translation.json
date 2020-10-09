@@ -1345,7 +1345,9 @@
             "PAST_GRANT": "Past Grants",
             "LIST": "Grants",
             "SCHEDULED_LIST": "Scheduled grants",
-            "GRANT_REQUEST": "Grant requests"
+            "GRANT_REQUEST": "Grant requests",
+            "CERTIFICATE_LIST": "Certificates",
+            "BOOKLET_ORDER_LIST": "Booklet orders"
         },
         "LIST": {
             "TITLE": "Grants",
@@ -1683,7 +1685,8 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "STATUS_LABEL": "Status",
                 "CERTIFICATES_LABEL": "Certificates",
-                "CREATED_BY_LABEL": "Created by"
+                "CREATED_BY_LABEL": "Created by",
+                "AMOUNT_LABEL": "Amount"
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
@@ -1702,19 +1705,24 @@
             }
         },
         "CREATE": {
-            "BUTTON": {
-                "ADD": "Add new",
-                "REVIEW": "Review",
-                "EDIT": "Edit",
-                "DELETE": "Delete"
-            },
-            "TITLE": "Create booklet",
+            "TITLE": "Order Vouchers",
+            "ORDER_VOUCHERS_BOOKS": "Order Vouchers Books (50 checks per book)",
+            "PREPAID_ONLY": "PREPAID ONLY",
+            "DELIVERY_OPTIONS": "Delivery Options",
+            "CHANGE_SHIPPING_ADDRESS": "CHANGE SHIPPING ADDRESS",
+            "SET_DEFAULT_SHIPPING_ADDRESS": "SET DEFAULT SHIPPING ADDRESS",
             "MOST_COMMON_DENOMINATIONS": "Common Denominations:",
             "TOTAL_WITH_FEE": "Total with fee",
             "TOTAL": "Total",
             "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
             "PRIVATE_FEE_APPLIED": "Fee Will Be Applied When Scanning Certificate.",
             "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
+            "BUTTON": {
+                "ADD": "Add new",
+                "REVIEW": "Review",
+                "EDIT": "Edit",
+                "DELETE": "Delete"
+            },
             "FIELDS": {
                 "BOOKLET_COUNT_LABEL": "How many booklets you want?",
                 "BOOKLET_COUNT_PLACEHOLDER": "Count",
@@ -1725,7 +1733,19 @@
                 "BOOKLET_TYPE_LABEL": "Booklet type",
                 "BOOKLET_TYPE_PLACEHOLDER": "Booklet type",
                 "DENOMINATION_TYPE_LABEL": "Denomination type",
-                "DENOMINATION_TYPE_PLACEHOLDER": "Denomination type"
+                "DENOMINATION_TYPE_PLACEHOLDER": "Denomination type",
+                "CUSTOMIZE_YOUR_BOOKS_LABEL": "Customize Your Books",
+                "CUSTOMIZED_NAME_PLACEHOLDER": "Enter Name",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code"
             }
         },
         "EDIT": {

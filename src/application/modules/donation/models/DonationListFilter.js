@@ -6,8 +6,8 @@ class DonationListFilter extends FilterParams {
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
-    @observable dateCreatedStartDate;
-    @observable dateCreatedEndDate;
+    @observable dateCreatedTo;
+    @observable dateCreatedFrom;
     @observable charityId;
     @observable donationTypeIds;
     @observable donationStatusIds;
@@ -26,8 +26,8 @@ class DonationListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
-        this.dateCreatedStartDate = null;
-        this.dateCreatedEndDate = null;
+        this.dateCreatedTo = null;
+        this.dateCreatedFrom = null;
         this.charityId = null;
         this.donationTypeIds = null;
         this.donationStatusIds = null;

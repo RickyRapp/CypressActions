@@ -8,32 +8,20 @@ import { LookupService } from 'common/services';
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') ? null : rootStore.userStore.user.id
-        let filter = new BookletListFilter('code', 'desc')
-        filter.donorId = id;
+        const filter = new BookletListFilter('code', 'desc')
+        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+            }
+        }
 
         super(rootStore, {
             name: 'booklet',
             authorization: 'theDonorsFundAdministrationSection',
-            routes: {
-                edit: (id) => {
-                    this.setChildNavigationTitle(i => i.id === id, item => item.code);
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.booklet.edit',
-                        { id: id }
-                    );
-                },
-                create: () =>
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.booklet.create'
-                    )
-            },
+            routes: {},
             queryConfig: {
                 filter: filter,
                 onResetFilter: (filter) => {
-                    filter.donorId = id;
-                    filter.orderBy = 'code';
-                    filter.orderDirection = 'desc';
                     this.denominationTypeDropdownStore.setValue(null);
                 }
             },
@@ -46,12 +34,15 @@ class BookletViewStore extends BaseListViewStore {
                             'bookletType',
                             'certificates',
                             'certificates.denominationType',
-                            'certificates.certificateStatus',
-                            'donor',
-                            'grantAcknowledgmentType',
-                            'grantAcknowledgmentTypeByAmount',
+                            'certificates.certificateStatus'
                         ];
-                        const response = await service.find(params);
+
+                        let userId = null;
+                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                            userId = rootStore.userStore.user.id
+                        }
+
+                        const response = await service.find({ userId: userId, ...params });
                         return response.data;
                     }
                 }
@@ -61,37 +52,33 @@ class BookletViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'code',
-                    title: 'BOOKLET.LIST.COLUMNS.CODE_LABEL',
-                    onClick: (item) => this.routes.edit(item.id),
-                    authorization: this.authorization.update
-                },
-                {
-                    key: 'donor.donorName',
-                    title: 'BOOKLET.LIST.COLUMNS.ASSIGNED_TO_LABEL'
-                },
-                {
-                    key: 'dateAssigned',
-                    title: 'BOOKLET.LIST.COLUMNS.DATE_ASSIGNED_LABEL',
+                    key: 'dateCreated',
+                    title: 'BOOKLET.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
                     }
                 },
                 {
-                    key: 'bookletType.name',
-                    title: 'BOOKLET.LIST.COLUMNS.TYPE_LABEL'
+                    key: 'code',
+                    title: 'BOOKLET.LIST.COLUMNS.CODE_LABEL'
                 },
                 {
-                    key: 'bookletStatus.name',
-                    title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL'
-                },
-                {
-                    key: 'shareName',
-                    title: 'BOOKLET.LIST.COLUMNS.SHARE_NAME_LABEL',
+                    key: 'denominationType',
+                    title: 'BOOKLET.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
-                        type: 'share-name'
-                    },
+                        type: 'function',
+                        value: (item) => {
+                            if (item.bookletType.abrv === 'mixed') {
+                                const denominations = _.uniq(_.map(item.certificates, 'denominationType'))
+                                let wording = denominations.join(', ');
+                                return `${item.bookletType.name} - ${wording}`
+                            }
+                            else {
+                                return `${item.certificates[0].denominationType.name} - `
+                            }
+                        }
+                    }
                 },
                 {
                     key: 'certificates',
@@ -110,14 +97,6 @@ class BookletViewStore extends BaseListViewStore {
                         tooltip: {
                             text: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_TOOLTIP_LABEL'
                         }
-                    }
-                },
-                {
-                    key: 'dateCreated',
-                    title: 'BOOKLET.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
                     }
                 }
             ],
