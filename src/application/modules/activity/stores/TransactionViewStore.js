@@ -6,12 +6,8 @@ import { action, observable } from 'mobx';
 import { DonorService } from 'application/donor/services';
 
 @applicationContext
-class ActivityTransactionViewStore extends BaseListViewStore {
-    @observable donor = null;
-    @observable isPendingTransactionVisible = null;
-    @observable activeIndex = 0;
-
-    constructor(rootStore) {
+class TransactionViewStore extends BaseListViewStore {
+    constructor(rootStore, onDonorChange) {
         const filter = new ActivityListFilter()
         if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
@@ -57,16 +53,14 @@ class ActivityTransactionViewStore extends BaseListViewStore {
                 }
             }
         });
-
-        if (this.rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
-            this.activeIndex = Number(this.rootStore.routerStore.routerState.queryParams.tab);
-        }
+        this.onDonorChange = onDonorChange;
 
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
             this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId;
         }
         else {
             this.donorId = rootStore.userStore.user.id;
+            this.onDonorChange(this.donorId);
         }
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
@@ -118,32 +112,6 @@ class ActivityTransactionViewStore extends BaseListViewStore {
             },
             actionsRender: {}
         }));
-
-        this.pendingTransactionTableStore = new TableViewStore(null, {
-            columns: [
-                {
-                    key: 'paymentTransaction.dateCreated',
-                    title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
-                    }
-                },
-                {
-                    key: 'paymentTransaction.description',
-                    title: 'ACTIVITY.LIST.COLUMNS.PENDING_TRANSACTION_DESCRIPTION_LABEL'
-                },
-                {
-                    key: 'paymentTransaction',
-                    title: 'ACTIVITY.LIST.COLUMNS.PENDING_TRANSACTION_AMOUNT_LABEL',
-                    format: {
-                        type: 'transaction-currency',
-                        value: '$',
-                    }
-                },
-            ],
-            actions: {}
-        });
 
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
         const donorService = new DonorService(rootStore.application.baasic.apiClient);
@@ -205,14 +173,9 @@ class ActivityTransactionViewStore extends BaseListViewStore {
                 },
                 onChange: (donorId) => {
                     this.queryUtility.filter.donorId = donorId;
+                    this.onDonorChange(onDonorChange)
                 }
             });
-    }
-
-    @action
-    async handleTabClick(tabIndex) {
-        this.activeIndex = tabIndex;
-        this.rootStore.routerStore.setQueryParams({ tab: this.activeIndex });
     }
 
     @action.bound
@@ -221,34 +184,16 @@ class ActivityTransactionViewStore extends BaseListViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
-            await this.fetch([
-                this.fetchDonorData()
-            ]);
+            this.loaderStore.resume();
         }
     }
-
-    @action.bound async fetchDonorData() {
-        debugger
-        if (this.donorId) {
-            const service = new ActivityService(this.rootStore.application.baasic.apiClient);
-            const response = await service.loadDonorData(this.donorId);
-            this.donor = response.data;
-            this.pendingTransactionTableStore.setData(this.donor.pendingTransactions)
-        }
-    }
-
     @action.bound
     async onDonorTableClick(item) {
         this.donorId = item.donorId;
-        await this.fetchDonorData();
-        this.queryUtility.filter.donorId = this.donorId;
-        this.searchDonorDropdownStore.setValue({ id: this.donorId, name: item.donor.donorName });
+        this.searchDonorDropdownStore.onChange({ id: this.donorId, name: item.donor.donorName });
         this.queryUtility.fetch();
     }
 
-    @action.bound onExpandPendingTransactionClick() {
-        this.isPendingTransactionVisible = !this.isPendingTransactionVisible;
-    }
 }
 
-export default ActivityTransactionViewStore;
+export default TransactionViewStore;

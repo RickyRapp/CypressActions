@@ -915,6 +915,13 @@
             "ALL": "All Transactions",
             "STATEMENTS": "Statements"
         },
+        "GRANT_TAB": {
+            "PAST_GRANT": "Past Grants",
+            "SCHEDULED_LIST": "Scheduled grants",
+            "GRANT_REQUEST": "Grant requests",
+            "CERTIFICATE_LIST": "Certificates",
+            "BOOKLET_ORDER_LIST": "Booklet orders"
+        },
         "LIST": {
             "COLUMNS": {
                 "CHARITY_LABEL": "DESCRIPTION",
@@ -1345,14 +1352,6 @@
         }
     },
     "GRANT": {
-        "TAB": {
-            "PAST_GRANT": "Past Grants",
-            "LIST": "Grants",
-            "SCHEDULED_LIST": "Scheduled grants",
-            "GRANT_REQUEST": "Grant requests",
-            "CERTIFICATE_LIST": "Certificates",
-            "BOOKLET_ORDER_LIST": "Booklet orders"
-        },
         "LIST": {
             "TITLE": "Grants",
             "COLUMNS": {

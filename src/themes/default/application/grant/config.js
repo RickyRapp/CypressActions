@@ -6,14 +6,8 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
         routes: [
             {
                 name: 'master.app.main.grant',
-                pattern: '/grants',
+                pattern: '/grant',
                 children: [
-                    {
-                        name: 'master.app.main.grant.tab',
-                        pattern: '',
-                        component: GrantTab,
-                        authorization: 'theDonorsFundGrantSection.read'
-                    },
                     {
                         name: 'master.app.main.grant.create',
                         pattern: '/create/:id?',
@@ -56,7 +50,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
         menu: [
             {
                 title: 'MENU.GIVE',
-                order: 1,
+                order: 2,
                 role: ['Users'],
                 icon: 'grant',
                 subMenu: [

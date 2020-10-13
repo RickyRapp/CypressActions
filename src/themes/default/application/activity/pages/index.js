@@ -1,2 +1,3 @@
 export { default as ActivityTabTemplate } from './ActivityTabTemplate'
-export { default as ActivityTransactionTemplate } from './ActivityTransactionTemplate'
+export { default as ActivityTransactionTabTemplate } from './ActivityTransactionTabTemplate'
+export { default as ActivityGrantTabTemplate } from './ActivityGrantTabTemplate'

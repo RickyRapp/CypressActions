@@ -2,11 +2,11 @@ import { BaseTabViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
-class ActivityTabViewStore extends BaseTabViewStore {
+class ActivityGrantTabViewStore extends BaseTabViewStore {
     constructor(rootStore) {
-        super(rootStore, 'headerTab');
+        super(rootStore, 'tab');
         this.loaderStore.resume();
     }
 }
 
-export default ActivityTabViewStore;
+export default ActivityGrantTabViewStore;

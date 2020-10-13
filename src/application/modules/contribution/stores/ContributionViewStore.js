@@ -254,10 +254,8 @@ class ContributionViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-status');
-                    const response = await service.getAll();
-                    this.contributionStatuses = response.data;
-                    return response.data;
+                    this.contributionStatuses = await this.rootStore.application.lookup.contributionStatusStore.find();
+                    return this.contributionStatuses;
                 },
                 onChange: (contributionStatus) => {
                     this.queryUtility.filter.contributionStatusIds = contributionStatus.map(status => { return status.id });
