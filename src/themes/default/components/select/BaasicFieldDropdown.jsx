@@ -7,8 +7,7 @@ import { BaasicDropdown } from 'core/components';
 import { isSome, renderIf } from 'core/utils';
 
 const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, itemRender, valueRender, additionalLabel = null, t }) {
-    function onChange(event) {
-        const value = event.target.value;
+    function onChange(value) {
         if (value) {
             if (store.options.multi) {
                 field.set(value);

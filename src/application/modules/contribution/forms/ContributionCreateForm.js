@@ -30,10 +30,11 @@ export default class ContributionCreateForm extends FormBase {
                     name: 'paymentTypeId',
                     label: 'CONTRIBUTION.CREATE.FIELDS.PAYMENT_TYPE_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYMENT_TYPE_PLACEHOLDER',
-                    rules: 'required|string'
+                    rules: 'required|string',
+                    disabled: true
                 },
                 {
-                    name: 'bankAccountId',
+                    name: 'donorBankAccountId',
                     label: 'CONTRIBUTION.CREATE.FIELDS.BANK_ACCOUNT_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.BANK_ACCOUNT_PLACEHOLDER',
                     rules: 'string'

@@ -66,10 +66,8 @@ class BaasicDropdownStore {
         fetchFunc: null,
         initValueFunc: null,
         onChange: (selected) => selected,
-        onOpen: () => {
-        },
-        onClose: () => {
-        }
+        onOpen: () => { },
+        onClose: () => { }
     };
 
     constructor(options = null, actions = null, initialState = null) {

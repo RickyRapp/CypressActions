@@ -3,8 +3,9 @@ import { DonationService } from 'application/donation/services';
 import { CharityService } from 'application/charity/services';
 import { DonationListFilter } from 'application/donation/models';
 import _ from 'lodash'
-import { charityFormatter } from 'core/utils';
+import { charityFormatter, donorFormatter } from 'core/utils';
 import { LookupService } from 'common/services';
+import { DonorService } from 'application/donor/services';
 
 class PastGrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -25,6 +26,7 @@ class PastGrantViewStore extends BaseListViewStore {
                     this.charityDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                     this.donationTypeDropdownStore.setValue(null);
+                    this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -34,11 +36,12 @@ class PastGrantViewStore extends BaseListViewStore {
                         params.embed = [
                             'charity',
                             'donationType',
-                            'donationStatus'
+                            'donationStatus',
+                            'donor'
                         ];
 
                         let userId = null;
-                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                        if (!this.hasAdministratorPermission) {
                             userId = rootStore.userStore.user.id
                         }
 
@@ -49,7 +52,8 @@ class PastGrantViewStore extends BaseListViewStore {
             }
         });
 
-        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+        this.hasAdministratorPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update');
+        if (this.hasAdministratorPermission) {
             this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id;
         }
         else {
@@ -58,6 +62,11 @@ class PastGrantViewStore extends BaseListViewStore {
 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
+                {
+                    key: 'donor.donorName',
+                    title: 'ACTIVITY.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    visible: this.hasAdministratorPermission
+                },
                 {
                     key: 'dateCreated',
                     title: 'DONATION.PAST_GRANT.LIST.COLUMNS.DATE_CREATED_LABEL',
@@ -156,6 +165,68 @@ class PastGrantViewStore extends BaseListViewStore {
                 },
                 onChange: (donationType) => {
                     this.queryUtility.filter.donationTypeIds = _.map(donationType, (type) => { return type.id });
+                }
+            });
+
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'firstName',
+                            'lastName',
+                            'securityPin',
+                            'donorAddresses'
+                        ]
+                    });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                initValueFunc: async () => {
+                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = rootStore.routerStore.routerState.queryParams.donorId;
+                        const params = {
+                            embed: [
+                                'donorAddresses'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'firstName',
+                                'lastName',
+                                'securityPin',
+                                'donorAddresses'
+                            ]
+                        }
+                        const response = await donorService.get(id, params);
+                        return { id: response.data.id, name: response.data.donorName };
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorId) => {
+                    this.queryUtility.filter.donorId = donorId;
                 }
             });
     }

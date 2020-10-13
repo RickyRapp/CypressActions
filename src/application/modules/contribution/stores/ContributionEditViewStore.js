@@ -1,48 +1,123 @@
-import { action, runInAction } from 'mobx';
+import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
+import { LookupService } from 'common/services';
 import { ContributionCreateForm } from 'application/contribution/forms';
+import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
+import { DonorBankAccountService } from 'application/donor/services';
+import { ModalParams } from 'core/models';
 import { ContributionService } from 'application/contribution/services';
-import _ from 'lodash';
-import ContributionBaseViewStore from './ContributionBaseViewStore';
+import moment from 'moment';
 
 @applicationContext
-class ContributionEditViewStore extends ContributionBaseViewStore {
-    constructor(rootStore) {
-        const service = new ContributionService(rootStore.application.baasic.apiClient);
-        const editId = rootStore.routerStore.routerState.params.editId
+class ContributionEditViewStore extends BaseEditViewStore {
+    @observable paymentTypes = null;
+    @observable step = 2;
+    donor = null;
 
+    constructor(rootStore) {
         super(rootStore, {
-            name: 'contribution-edit',
-            id: editId,
+            name: 'contribution-create',
+            id: rootStore.routerStore.routerState.params.editId,
             autoInit: false,
             actions: () => {
+                const service = new ContributionService(rootStore.application.baasic.apiClient)
                 return {
                     update: async (resource) => {
-                        return await service.update({ id: editId, ...resource });
+                        if (!resource.isThirdParty) {
+                            resource.name = this.donor.donorName;
+                            resource.addressLine1 = this.donor.donorAddress.addressLine1;
+                            resource.addressLine2 = this.donor.donorAddress.addressLine2;
+                            resource.city = this.donor.donorAddress.city;
+                            resource.state = this.donor.donorAddress.state;
+                            resource.zipCode = this.donor.donorAddress.zipCode;
+                            resource.email = this.donor.donorEmailAddress.email;
+                            resource.number = this.donor.donorPhoneNumber.number;
+                        }
+                        return service.update({ id: this.id, donorId: this.donorId, ...resource });
                     },
                     get: async (id) => {
-                        let params = {
-                            embed: [
-                                'bankAccount',
-                                'paymentType',
-                                'payerInformation'
-                            ]
-                        }
-                        let response = await service.get(id, params);
-                        if (response.data.json && JSON.parse(response.data.json).paymentTypeInformations) {
-                            _.forOwn(JSON.parse(response.data.json).paymentTypeInformations, function (value, key) {
-                                response.data[key] = value;
-                            });
+                        const response = await service.getDetails(id, { embed: 'payerInformation,donorBankAccount,contributionStatus', donorId: this.donorId });
+                        return {
+                            ...response.data,
+                            ...response.data.payerInformation
                         }
 
-                        return response.data;
                     }
                 }
             },
             FormClass: ContributionCreateForm,
+            onAfterAction: () => {
+                this.nextStep();
+            }
         });
 
-        this.editId = editId;
+        this.hasAdministratorsPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read');
+
+        this.routes = {
+            allContributions: () => this.rootStore.routerStore.goTo('master.app.main.contribution.list')
+        }
+
+        if (!this.hasAdministratorsPermission) {
+            this.donorId = rootStore.userStore.user.id;
+        }
+        else {
+            this.donorId = rootStore.routerStore.routerState.queryParams.donorId;
+        }
+
+        this.bankAccountModal = new ModalParams({
+            onClose: () => this.bankAccountModal.data = {}
+        });
+        this.confirmModal = new ModalParams({});
+        this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
+                    const response = await service.getAll();
+                    this.paymentTypes = response.data;
+                    return response.data;
+                }
+            });
+
+        const bankAccountService = new DonorBankAccountService(rootStore.application.baasic.apiClient);
+        this.bankAccountDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    let params = {
+                        embed: ['accountHolder'],
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                        params.donorId = this.donorId;
+                    }
+                    else {
+                        params.userId = this.donorId;
+                    }
+                    const response = await bankAccountService.find(params);
+                    return response.data.item;
+                }
+            });
+
+        this.previousContributionsTableStore = new TableViewStore(null, {
+            columns: [
+                {
+                    key: 'dateCreated',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
+                },
+                {
+                    key: 'amount',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
+                }
+            ]
+        });
     }
 
     @action.bound
@@ -52,27 +127,84 @@ class ContributionEditViewStore extends ContributionBaseViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonor(),
-                this.getResource(this.editId)
-            ]);
+                super.getResource(this.id),
+                this.setDonor()
+            ])
 
-            await this.fetch([
-                this.setFormDefaultRules(),
-                this.setFormDefaultValues()
-            ]);
+            if (!this.hasAdministratorsPermission) {
+                const dateToEdit = moment(this.item.dateCreated).add(15, 'm');
+                if (!moment().isBetween(moment(this.item.dateCreated), dateToEdit)) {
+                    this.rootStore.notificationStore.warning('ERROR_CODE.5005')
+                    this.rootStore.routerStore.goBack();
+                }
+                if (!['pending', 'in-process'].includes(this.item.contributionStatus.abrv)) {
+                    this.rootStore.notificationStore.warning('ERROR_CODE.5028')
+                    this.rootStore.routerStore.goBack();
+                }
+            }
+            this.previousContributionsTableStore.setData(this.donor.previousContributions);
+
+            if (this.donor.isInitialContributionDone) {
+                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumAdditionalAmount}`);
+            }
+            else {
+                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumInitialAmount}`);
+            }
         }
     }
 
     @action.bound
-    async getResource(id) {
-        await super.getResource(id);
-        runInAction(() => {
-            this.paymentTypeDropdownStore.setValue(this.item.paymentType);
-            this.onPaymentTypeChange(this.item.paymentTypeId);
-            this.bankAccountDropdownStore.setValue(this.item.bankAccount);
-            this.onBankAccountChange(this.item.bankAccountId);
-            this.form.validate();
-        });
+    async setDonor() {
+        const service = new ContributionService(this.rootStore.application.baasic.apiClient)
+        const response = await service.getDonorInformation(this.donorId);
+        this.donor = response.data;
+    }
+
+    @action.bound
+    async onSubmitClick() {
+        const { isValid } = await this.form.validate({ showErrors: true });
+        if (isValid) {
+            this.confirmModal.open({
+                onCancel: () => this.confirmModal.close(),
+                form: this.form,
+                paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
+                bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value)
+            });
+        }
+    }
+
+    @action.bound
+    onSelectPaymentType(id) {
+        this.form.clear();
+        this.bankAccountDropdownStore.onChange(null);
+        this.form.$('paymentTypeId').set(id);
+        const paymentType = this.paymentTypes.find(c => c.id === id);
+        this.form.$('donorBankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
+        this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check')
+        this.form.$('transactionId').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
+        this.form.$('memo').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
+        this.nextStep(2);
+    }
+
+    @action.bound
+    nextStep(step) {
+        if (step)
+            this.step = step;
+        else
+            this.step = this.step + 1;
+    }
+
+    @action.bound
+    onAddBankAccountClick() {
+        this.bankAccountModal.open({
+            donorId: this.donorId,
+            onAfterAction: async () => {
+                await this.bankAccountDropdownStore.filterAsync(null);
+                const lastBankAccountAdded = this.bankAccountDropdownStore.items[this.bankAccountDropdownStore.items.length - 1] //it's ordered by dateCreated when it's fetched
+                this.form.$('donorBankAccountId').set(lastBankAccountAdded.id);
+                this.bankAccountModal.close();
+            }
+        })
     }
 }
 

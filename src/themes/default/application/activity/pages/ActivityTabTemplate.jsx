@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page, PageNavigation } from 'core/layouts';
 import { GrantTab } from 'application/grant/pages';
-import { Transaction } from 'application/activity/pages';
+import { ActivityTransaction } from 'application/activity/pages';
 
 function ActivityTabTemplate({ activityTabViewStore, t }) {
     const {
@@ -32,7 +32,7 @@ function ActivityTabTemplate({ activityTabViewStore, t }) {
                     </div>
                 </div>
             </PageNavigation>
-            {activeHeaderTab === 1 && <Transaction />}
+            {activeHeaderTab === 1 && <ActivityTransaction />}
             {activeHeaderTab === 2 && <span>2</span>}
             {activeHeaderTab === 3 && <GrantTab />}
         </Page>

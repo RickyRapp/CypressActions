@@ -28,7 +28,7 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
                     },
                     {
                         name: 'master.app.main.contribution.edit',
-                        pattern: '/edit/:id/:editId',
+                        pattern: '/edit/:editId',
                         component: ContributionEdit,
                         authorization: 'theDonorsFundContributionSection.update',
                         data: {

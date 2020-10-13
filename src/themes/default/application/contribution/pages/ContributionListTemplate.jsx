@@ -9,8 +9,7 @@ import {
     BaasicModal,
     BaasicDropdown,
     BaasicInput,
-    DateRangeQueryPicker,
-    QueryNullableSwitch
+    DateRangeQueryPicker
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
@@ -30,9 +29,7 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
         paymentTypeDropdownStore,
         reviewModal,
         contributionStatusDropdownStore,
-        accountTypes,
-        dateCreatedDateRangeQueryStore,
-        timePeriodDropdownStore
+        dateCreatedDateRangeQueryStore
     } = contributionViewStore;
 
     const {
@@ -48,18 +45,6 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
                             {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
                                 <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                     <BaasicDropdown store={searchDonorDropdownStore} />
-                                </div>}
-                            {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
-                                <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
-                                    {accountTypes &&
-                                        <QueryNullableSwitch
-                                            queryUtility={queryUtility}
-                                            propertyName='accountTypeId'
-                                            yesValue={_.find(accountTypes, { abrv: 'regular' }).id}
-                                            noValue={_.find(accountTypes, { abrv: 'private' }).id}
-                                            yesLabel='CONTRIBUTION.LIST.FILTER.REGULAR_PLACEHOLDER'
-                                            noLabel='CONTRIBUTION.LIST.FILTER.PRIVATE_PLACEHOLDER'
-                                        />}
                                 </div>}
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicInput
@@ -77,17 +62,6 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
                                     placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
                                 />
                             </div>
-                            {/* TODO
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumericInputRange
-                                    valueMin={queryUtility.filter['amountRangeMin'] || undefined}
-                                    valueMax={queryUtility.filter['amountRangeMax'] || undefined}
-                                    onChangeMin={(value) => queryUtility.filter['amountRangeMin'] = value}
-                                    onChangeMax={(value) => queryUtility.filter['amountRangeMax'] = value}
-                                    placeholderMin='CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER'
-                                    placeholderMax='CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER'
-                                />
-                            </div> */}
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicDropdown
                                     store={paymentTypeDropdownStore}
@@ -114,10 +88,6 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
                                     store={dateCreatedDateRangeQueryStore}
                                     fromPropertyName='dateCreatedFrom'
                                     toPropertyName='dateCreatedTo'
-                                />
-                                <BaasicDropdown
-                                    store={timePeriodDropdownStore}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.CHOOSE_A_TIME_PERIOD_PLACEHOLDER'
                                 />
                             </div>
                         </TableFilter>
@@ -154,8 +124,8 @@ ContributionListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onReview, onPreview } = actions;
-    if (!isSome(onEdit) && !isSome(onReview) && !isSome(onPreview)) return null;
+    const { onEdit, onReview, onPreview, onCancel } = actions;
+    if (!isSome(onEdit) && !isSome(onReview) && !isSome(onPreview) && !isSome(onCancel)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -178,6 +148,13 @@ function renderActions({ item, actions, actionsRender }) {
         }
     }
 
+    let cancelRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onCancelRender) {
+            cancelRender = actionsRender.onCancelRender(item);
+        }
+    }
+
     return (
         <td className="table__body--data right">
             <div className="table__icons">
@@ -197,7 +174,7 @@ function renderActions({ item, actions, actionsRender }) {
                         icon='u-icon u-icon--approved u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
-                        onClick={() => onReview(item.id)}>
+                        onClick={() => onReview(item)}>
                     </BaasicButton>
                 ) : null}
                 {isSome(onPreview) && previewRender ? (
@@ -207,6 +184,15 @@ function renderActions({ item, actions, actionsRender }) {
                         label='CONTRIBUTION.LIST.BUTTON.PREVIEW'
                         onlyIcon={true}
                         onClick={() => onPreview(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onCancel) && cancelRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--close u-icon--sml'
+                        label='CONTRIBUTION.LIST.BUTTON.CANCEL'
+                        onlyIcon={true}
+                        onClick={() => onCancel(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

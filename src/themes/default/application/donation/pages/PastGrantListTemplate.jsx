@@ -20,13 +20,19 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
         authorization,
         charityDropdownStore,
         donationTypeDropdownStore,
-        donationStatusDropdownStore
+        donationStatusDropdownStore,
+        hasAdministratorPermission,
+        searchDonorDropdownStore
     } = pastGrantViewStore;
 
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
+                    {hasAdministratorPermission &&
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicDropdown store={searchDonorDropdownStore} />
+                        </div>}
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicDropdown store={charityDropdownStore} />
                     </div>

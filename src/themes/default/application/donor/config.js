@@ -41,7 +41,6 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
                 name: 'master.app.main.profile',
                 pattern: '/profile',
                 component: DonorTab,
-                // authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 role: ['Users'],
                 data: {
                     title: "DONOR.EDIT.TITLE"
@@ -50,9 +49,15 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
         ],
         menu: [
             {
+                title: 'MENU.DONORS',
+                order: 5,
+                role: ['Administrators'],
+                icon: 'users',
+                route: 'master.app.main.donor.list',
+            },
+            {
                 title: 'MENU.MANAGE_FUND',
                 order: 6,
-                // authorization: (route, rootStore) => { return rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users'); },
                 role: ['Users'],
                 icon: 'administration',
                 subMenu: [

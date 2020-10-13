@@ -12,7 +12,6 @@ import { ActivityTab } from 'application/activity/pages';
                         name: 'master.app.main.activity.transactions',
                         pattern: '/transaction',
                         component: ActivityTab,
-                        role: ['Users'],
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         }
@@ -21,7 +20,6 @@ import { ActivityTab } from 'application/activity/pages';
                         name: 'master.app.main.activity.deposits',
                         pattern: '/deposits',
                         component: ActivityTab,
-                        role: ['Users'],
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         }
@@ -30,7 +28,6 @@ import { ActivityTab } from 'application/activity/pages';
                         name: 'master.app.main.activity.grants',
                         pattern: '/grants',
                         component: ActivityTab,
-                        role: ['Users'],
                         data: {
                             title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
                         }

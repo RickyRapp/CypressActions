@@ -1,11 +1,12 @@
-import { BaseListViewStore, DateRangeQueryPickerStore, TableViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { BaasicDropdownStore, BaseListViewStore, DateRangeQueryPickerStore, TableViewStore } from 'core/stores';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { ActivityListFilter } from 'application/activity/models';
 import { ActivityService } from 'application/activity/services';
 import { action, observable } from 'mobx';
+import { DonorService } from 'application/donor/services';
 
 @applicationContext
-class TransactionViewStore extends BaseListViewStore {
+class ActivityTransactionViewStore extends BaseListViewStore {
     @observable donor = null;
     @observable isPendingTransactionVisible = null;
     @observable activeIndex = 0;
@@ -25,6 +26,7 @@ class TransactionViewStore extends BaseListViewStore {
                 filter: filter,
                 onResetFilter: () => {
                     this.dateCreatedDateRangeQueryStore.reset();
+                    this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -35,6 +37,18 @@ class TransactionViewStore extends BaseListViewStore {
                         let userId = null;
                         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
                             userId = rootStore.userStore.user.id
+                        }
+                        else {
+                            if (params.donorId) {
+                                if (!this.donor || params.donorId != this.donor.id) {
+                                    this.donorId = params.donorId;
+                                    this.fetchDonorData();
+                                }
+                            }
+                            else {
+                                this.donorId = null;
+                                this.donor = null;
+                            }
                         }
 
                         const response = await service.findTransactions({ userId: userId, ...params });
@@ -49,7 +63,7 @@ class TransactionViewStore extends BaseListViewStore {
         }
 
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-            this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id;
+            this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId;
         }
         else {
             this.donorId = rootStore.userStore.user.id;
@@ -60,7 +74,8 @@ class TransactionViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'ACTIVITY.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read'),
+                    onClick: this.onDonorTableClick
                 },
                 {
                     key: 'paymentTransaction.dateCreated',
@@ -131,6 +146,67 @@ class TransactionViewStore extends BaseListViewStore {
         });
 
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
+        const donorService = new DonorService(rootStore.application.baasic.apiClient);
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'coreUser.firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'firstName',
+                            'lastName',
+                            'securityPin',
+                            'donorAddresses'
+                        ]
+                    });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                initValueFunc: async () => {
+                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = rootStore.routerStore.routerState.queryParams.donorId;
+                        const params = {
+                            embed: [
+                                'donorAddresses'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'firstName',
+                                'lastName',
+                                'securityPin',
+                                'donorAddresses'
+                            ]
+                        }
+                        const response = await donorService.get(id, params);
+                        return { id: response.data.id, name: response.data.donorName };
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorId) => {
+                    this.queryUtility.filter.donorId = donorId;
+                }
+            });
     }
 
     @action
@@ -152,10 +228,22 @@ class TransactionViewStore extends BaseListViewStore {
     }
 
     @action.bound async fetchDonorData() {
-        const service = new ActivityService(this.rootStore.application.baasic.apiClient);
-        const response = await service.loadDonorData(this.donorId);
-        this.donor = response.data;
-        this.pendingTransactionTableStore.setData(this.donor.pendingTransactions)
+        debugger
+        if (this.donorId) {
+            const service = new ActivityService(this.rootStore.application.baasic.apiClient);
+            const response = await service.loadDonorData(this.donorId);
+            this.donor = response.data;
+            this.pendingTransactionTableStore.setData(this.donor.pendingTransactions)
+        }
+    }
+
+    @action.bound
+    async onDonorTableClick(item) {
+        this.donorId = item.donorId;
+        await this.fetchDonorData();
+        this.queryUtility.filter.donorId = this.donorId;
+        this.searchDonorDropdownStore.setValue({ id: this.donorId, name: item.donor.donorName });
+        this.queryUtility.fetch();
     }
 
     @action.bound onExpandPendingTransactionClick() {
@@ -163,4 +251,4 @@ class TransactionViewStore extends BaseListViewStore {
     }
 }
 
-export default TransactionViewStore;
+export default ActivityTransactionViewStore;

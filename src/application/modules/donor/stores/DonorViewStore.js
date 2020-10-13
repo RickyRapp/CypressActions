@@ -36,6 +36,8 @@ class DonorViewStore extends BaseListViewStore {
                         params.fields = [
                             'id',
                             'donorName',
+                            'firstName',
+                            'lastName',
                             'accountNumber',
                             'accountType',
                             'accountType.name',
@@ -74,7 +76,7 @@ class DonorViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (user) => this.routes.edit(user.id),
+                onEdit: (donor) => this.routes.edit(donor.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));

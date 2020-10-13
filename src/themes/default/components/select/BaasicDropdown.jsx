@@ -28,8 +28,7 @@ const BaasicDropdownTemplate = function (props) {
 
     function onChangeFn(e) {
         if (props.onChange) {
-            props.onChange(e);
-            return;
+            props.onChange(e.target.value);
         }
         store.onChange(e.target.value);
     }

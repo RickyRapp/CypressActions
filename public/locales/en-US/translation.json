@@ -186,6 +186,8 @@
         "5000": "Setting not enabled.",
         "5001": "Cannot have two low balance settings.",
         "5003": "Please, enter minimum amount.",
+        "5005": "Time expired for editing.",
+        "5028": "Cannot edit in this status.",
         "6000": "Missing bank account.",
         "6001": "Missing address.",
         "6002": "Only donations per one charity.",
@@ -257,7 +259,8 @@
         "ERROR_UPDATE": "Error occurred while trying to update resource language"
     },
     "DATEPICKER": {
-        "CLEAR_BUTTON": "Clear"
+        "CLEAR_BUTTON": "Clear",
+        "CHOOSE_A_TIME_PERIOD_PLACEHOLDER": "Choose a time period"
     },
     "DROPDOWN": {
         "CLEAR_BUTTON": "Clear"
@@ -915,6 +918,7 @@
         "LIST": {
             "COLUMNS": {
                 "CHARITY_LABEL": "DESCRIPTION",
+                "DONOR_NAME_LABEL": "Donor",
                 "DATE_CREATED_LABEL": "Date created",
                 "AMOUNT_LABEL": "Balance",
                 "STATUS_LABEL": "Status",
@@ -1161,8 +1165,7 @@
                 "PRIVATE_PLACEHOLDER": "Private",
                 "NAME_ON_CHECK_PLACEHOLDER": "Name on check",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
-                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
-                "CHOOSE_A_TIME_PERIOD_PLACEHOLDER": "Choose a time period"
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },
             "EMPTY_STATE": {
                 "TITLE": "No contributions",
@@ -1172,7 +1175,8 @@
                 "EDIT": "Edit",
                 "CREATE": "Create",
                 "DELETE": "Delete",
-                "REVIEW": "Review"
+                "REVIEW": "Review",
+                "CANCEL": "Cancel"
             }
         },
         "CONFIRM": {

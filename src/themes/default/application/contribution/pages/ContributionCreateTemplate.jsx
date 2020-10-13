@@ -115,7 +115,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                         <React.Fragment>
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <BaasicFieldDropdown
-                                                    field={form.$('bankAccountId')}
+                                                    field={form.$('donorBankAccountId')}
                                                     store={bankAccountDropdownStore}
                                                     additionalLabel={addButton}
                                                 />
@@ -188,11 +188,11 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12">
                                             {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
-                                            {bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value).name}
+                                            {bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
                                         </div>
                                         <div className="col col-sml-12 col-lrg-12">
                                             {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
-                                            xxxx-xxxx-xxxx-{bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value).accountNumber}
+                                            xxxx-xxxx-xxxx-{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).accountNumber}
                                         </div>
                                     </React.Fragment>}
                                 {paymentType.abrv === 'check' &&

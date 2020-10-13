@@ -1,2 +1,2 @@
 export { default as ActivityTab } from './ActivityTab'
-export { default as Transaction } from './Transaction'
+export { default as ActivityTransaction } from './ActivityTransaction'

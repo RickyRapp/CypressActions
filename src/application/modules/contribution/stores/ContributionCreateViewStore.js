@@ -20,7 +20,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             autoInit: false,
             actions: () => {
                 return {
-                    create: async (resource) => {
+                    create: (resource) => {
                         if (!resource.isThirdParty) {
                             resource.name = this.donor.donorName;
                             resource.addressLine1 = this.donor.donorAddress.addressLine1;
@@ -144,7 +144,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                 },
                 form: this.form,
                 paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
-                bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value)
+                bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value)
             });
         }
     }
@@ -154,10 +154,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.form.clear();
         this.bankAccountDropdownStore.onChange(null);
         this.form.$('paymentTypeId').set(id);
-        this.form.$('paymentTypeId').resetValidation()
-        this.form.$('paymentTypeId').setDisabled(true);
         const paymentType = this.paymentTypes.find(c => c.id === id);
-        this.form.$('bankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
+        this.form.$('donorBankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
         this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check')
         this.form.$('transactionId').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
         this.form.$('memo').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
@@ -181,7 +179,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             onAfterAction: async () => {
                 await this.bankAccountDropdownStore.filterAsync(null);
                 const lastBankAccountAdded = this.bankAccountDropdownStore.items[this.bankAccountDropdownStore.items.length - 1] //it's ordered by dateCreated when it's fetched
-                this.form.$('bankAccountId').set(lastBankAccountAdded.id);
+                this.form.$('donorBankAccountId').set(lastBankAccountAdded.id);
                 this.bankAccountModal.close();
             }
         })

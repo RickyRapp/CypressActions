@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { defaultTemplate } from 'core/hoc';
-import { DateRangePicker } from 'core/components';
+import { BaasicDropdown, DateRangePicker } from 'core/components';
 import { QueryUtility } from 'core/utils';
 import { DateRangeQueryPickerStore } from 'core/stores';
 
@@ -22,6 +22,35 @@ class DateRangeQueryPickerTemplate extends React.Component {
             end: this.queryUtility.filter[this.toPropertyName] ? new Date(this.queryUtility.filter[this.toPropertyName]) : null,
         }
 
+        if (this.store.options.advancedSearch) {
+            this.timePeriodDropdownStoreOnChange = (item) => {
+                if (item) {
+                    const currentDate = new Date();
+                    const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
+                    let start = null;
+                    let end = null;
+                    if (item.id === 0) {
+                        start = moment(new Date(now_utc)).startOf('week').toDate();
+                        end = moment(new Date(now_utc)).endOf('week').toDate();
+                    }
+                    else if (item.id === 1) {
+                        start = moment(new Date(now_utc)).startOf('month').toDate();
+                        end = moment(new Date(now_utc)).endOf('month').toDate();
+                    }
+                    else if (item.id === 2) {
+                        start = moment(new Date(now_utc)).add(-7, 'days').startOf('week').toDate();
+                        end = moment(new Date(now_utc)).add(-7, 'days').endOf('week').toDate();
+                    }
+                    else if (item.id === 3) {
+                        start = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate();
+                        end = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate();
+                    }
+                    this.store.setValue({ start: start, end: end });
+                }
+                this.queryUtility.filter[this.fromPropertyName] = moment(this.store.value.start).format('YYYY-MM-DD');
+                this.queryUtility.filter[this.toPropertyName] = moment(this.store.value.end).format('YYYY-MM-DD');
+            }
+        }
         this.store.setValue(val)
     }
 
@@ -53,7 +82,17 @@ class DateRangeQueryPickerTemplate extends React.Component {
     }
 
     render() {
-        return <DateRangePicker value={this.store.value} onChange={this.onValueChange} t={this.t} errors={this.store.errors} />;
+        return (
+            <React.Fragment >
+                <DateRangePicker value={this.store.value} onChange={this.onValueChange} t={this.t} errors={this.store.errors} />
+                {this.store.options.advancedSearch &&
+                    <BaasicDropdown
+                        store={this.store.timePeriodDropdownStore}
+                        onChange={this.timePeriodDropdownStoreOnChange}
+                    />
+                }
+            </React.Fragment >
+        )
     }
 }
 

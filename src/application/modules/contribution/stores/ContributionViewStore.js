@@ -12,6 +12,7 @@ import moment from 'moment';
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
     @observable accountTypes = null;
+    contributionStatuses = [];
 
     constructor(rootStore) {
         let filter = new ContributionListFilter('dateCreated', 'desc')
@@ -25,23 +26,25 @@ class ContributionViewStore extends BaseListViewStore {
             name: 'contribution',
             authorization: 'theDonorsFundContributionSection',
             routes: {
-                edit: (id, editId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { id: id, editId: editId });
+                edit: (editId, donorId) => {
+                    let queryParams = null;
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+                        queryParams = { donorId: donorId }
+                    }
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId }, queryParams);
                 },
                 create: () => {
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create'))
                         this.openSelectDonorModal();
-                    }
-                    else {
+                    else
                         this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
-                    }
                 },
                 preview: (id, donorId) => {
                     let queryParams = null;
                     if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
                         queryParams = { donorId: donorId }
                     }
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id },);
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id }, queryParams);
                 },
             },
             queryConfig: {
@@ -51,7 +54,6 @@ class ContributionViewStore extends BaseListViewStore {
                     this.searchDonorDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
-                    this.timePeriodDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
             },
@@ -66,26 +68,6 @@ class ContributionViewStore extends BaseListViewStore {
                             'paymentType',
                             'contributionStatus'
                         ];
-                        params.fields = [
-                            'id',
-                            'donorId',
-                            'donor',
-                            'donor.donorName',
-                            'amount',
-                            'dateCreated',
-                            'confirmationNumber',
-                            'contributionStatus',
-                            'contributionStatus.name',
-                            'contributionStatus.abrv',
-                            'paymentType',
-                            'paymentType.name',
-                            'paymentType.abrv',
-                            'payerInformation',
-                            'payerInformation.name',
-                            'bankAccount',
-                            'bankAccount.accountNumber'
-                        ];
-
                         let userId = null;
                         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
                             userId = rootStore.userStore.user.id
@@ -151,29 +133,43 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (contribution) => this.routes.edit(contribution.donorId, contribution.id),
-                onReview: (contributionId) => this.openReviewDonorModal(contributionId),
+                onEdit: (contribution) => this.routes.edit(contribution.id, contribution.donorId),
+                onCancel: (contribution) => this.openCancelContribution(contribution),
+                onReview: (contribution) => this.openReviewContribution(contribution),
                 onPreview: (contribution) => this.routes.preview(contribution.id, contribution.donorId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onEditRender: (item) => {
-                    return false;
                     if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
                         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
                             return true;
                         }
                         else {
                             if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add('minutes', 15);
-                                return moment().isBetween(item.dateCreated, dateToEdit);
+                                const dateToEdit = moment(item.dateCreated).add(15, 'm');
+                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
                             }
                         }
                     }
                     return false;
                 },
-                onReviewRender: () => {
-                    return true;//item.confirmationNumber > 20000 // import from old app
+                onCancelRender: (item) => {
+                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+                            return true;
+                        }
+                        else {
+                            if (item.contributionStatus.abrv === 'pending') {
+                                const dateToEdit = moment(item.dateCreated).add(30, 'm');
+                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
+                            }
+                        }
+                    }
+                    return false;
+                },
+                onReviewRender: (item) => {
+                    return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
                 }
             }
         }));
@@ -260,72 +256,14 @@ class ContributionViewStore extends BaseListViewStore {
                 fetchFunc: async () => {
                     const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-status');
                     const response = await service.getAll();
+                    this.contributionStatuses = response.data;
                     return response.data;
                 },
                 onChange: (contributionStatus) => {
                     this.queryUtility.filter.contributionStatusIds = contributionStatus.map(status => { return status.id });
                 }
             });
-        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
-        this.timePeriodDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    const timePeriods =
-                        [
-                            {
-                                id: 0,
-                                name: 'This week'
-                            },
-                            {
-                                id: 1,
-                                name: 'This month'
-                            },
-                            {
-                                id: 2,
-                                name: 'Last week'
-                            },
-                            {
-                                id: 3,
-                                name: 'Last month'
-                            }
-                        ]
-                    return timePeriods;
-                },
-                onChange: (item) => {
-                    if (isSome(item)) {
-                        const currentDate = new Date();
-                        const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
-                        if (item === 0) {
-                            const thisWeekFirstDate = moment(new Date(now_utc)).startOf('week').toDate();
-                            const thisWeekLastDate = moment(new Date(now_utc)).endOf('week').toDate();
-                            this.dateCreatedDateRangeQueryStore.setValue({ start: thisWeekFirstDate, end: thisWeekLastDate });
-                            this.queryUtility.filter['dateCreatedFrom'] = moment(thisWeekFirstDate).format('YYYY-MM-DD');
-                            this.queryUtility.filter['dateCreatedTo'] = moment(thisWeekLastDate).format('YYYY-MM-DD');
-                        }
-                        else if (item === 1) {
-                            const thisMonthFirstDate = moment(new Date(now_utc)).startOf('month').toDate();
-                            const thisMonthLastDate = moment(new Date(now_utc)).endOf('month').toDate();
-                            this.dateCreatedDateRangeQueryStore.setValue({ start: thisMonthFirstDate, end: thisMonthLastDate });
-                            this.queryUtility.filter['dateCreatedFrom'] = moment(thisMonthFirstDate).format('YYYY-MM-DD');
-                            this.queryUtility.filter['dateCreatedTo'] = moment(thisMonthLastDate).format('YYYY-MM-DD');
-                        }
-                        else if (item === 2) {
-                            const lastWeekFirstDate = moment(new Date(now_utc)).add(-7, 'days').startOf('week').toDate();
-                            const lastWeekLastDate = moment(new Date(now_utc)).add(-7, 'days').endOf('week').toDate();
-                            this.dateCreatedDateRangeQueryStore.setValue({ start: lastWeekFirstDate, end: lastWeekLastDate });
-                            this.queryUtility.filter['dateCreatedFrom'] = moment(lastWeekFirstDate).format('YYYY-MM-DD');
-                            this.queryUtility.filter['dateCreatedTo'] = moment(lastWeekLastDate).format('YYYY-MM-DD');
-                        }
-                        else if (item === 3) {
-                            const lastMonthFirstDate = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate();
-                            const lastMonthLastDate = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate();
-                            this.dateCreatedDateRangeQueryStore.setValue({ start: lastMonthFirstDate, end: lastMonthLastDate });
-                            this.queryUtility.filter['dateCreatedFrom'] = moment(lastMonthFirstDate).format('YYYY-MM-DD');
-                            this.queryUtility.filter['dateCreatedTo'] = moment(lastMonthLastDate).format('YYYY-MM-DD');
-                        }
-                    }
-                }
-            });
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
 
     @action.bound
@@ -334,9 +272,7 @@ class ContributionViewStore extends BaseListViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
-            await this.fetch([
-                this.fetchAccountTypes()
-            ]);
+            this.loaderStore.resume();
         }
     }
 
@@ -380,10 +316,68 @@ class ContributionViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async fetchAccountTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
-        const response = await service.getAll();
-        this.accountTypes = response.data;
+    async openCancelContribution(item) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to cancel contribution (#${item.confirmationNumber}) created 
+            on: ${moment(item.dateCreated).format('dddd, MMMM Do YYYY, h:mm:ss a')} with amount: $${item.amount.toFixed(2)}`,
+            async () => {
+                this.loaderStore.suspend();
+                try {
+                    const service = new ContributionService(this.rootStore.application.baasic.apiClient);
+                    await service.review({ id: item.id, contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id });
+                    this.queryUtility.fetch();
+                    this.rootStore.notificationStore.success('Contribution canceled');
+                }
+                catch (err) {
+                    this.rootStore.notificationStore.error('Failed to cancel contribution');
+                }
+                finally {
+                    this.loaderStore.resume();
+                }
+            }
+        )
+    }
+
+    @action.bound
+    async openReviewContribution(item) {
+        let message = 'You are about to set contribution to '
+        let newStatusId = null;
+        if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'pending').id) {
+            newStatusId = this.contributionStatuses.find(c => c.abrv === 'in-process').id;
+            message += 'in-process'
+        }
+        else if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'in-process').id) {
+            newStatusId = this.contributionStatuses.find(c => c.abrv === 'funded').id;
+            message += 'funded'
+        }
+        else if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'funded').id) {
+            newStatusId = this.contributionStatuses.find(c => c.abrv === 'declined').id;
+            message += 'declined'
+        }
+        else {
+            return;
+        }
+
+        message += ' status';
+
+        this.rootStore.modalStore.showConfirm(
+            message,
+            async () => {
+                this.loaderStore.suspend();
+                try {
+                    const service = new ContributionService(this.rootStore.application.baasic.apiClient);
+                    await service.review({ id: item.id, contributionStatusId: newStatusId });
+                    this.queryUtility.fetch();
+                    this.rootStore.notificationStore.success('Contribution reviewed.');
+                }
+                catch (err) {
+                    this.rootStore.notificationStore.error('Failed to review contribution');
+                }
+                finally {
+                    this.loaderStore.resume();
+                }
+            }
+        )
     }
 }
 

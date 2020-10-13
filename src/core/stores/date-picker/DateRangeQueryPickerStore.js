@@ -1,6 +1,44 @@
-import {action, observable} from 'mobx';
+import { merge } from 'lodash';
+import { action, observable } from 'mobx';
+import { BaasicDropdownStore } from 'core/stores';
 
-class DateRangeQueryPickerStore{
+class DateRangeQueryPickerStore {
+    options = {
+        advancedSearch: false,
+    };
+
+    constructor(options = null) {
+        if (options) merge(this.options, options);
+
+        this.timePeriodDropdownStore = new BaasicDropdownStore(
+            {
+                clearable: true,
+                placeholder: 'DATEPICKER.CHOOSE_A_TIME_PERIOD_PLACEHOLDER'
+            },
+            {
+                fetchFunc: () => {
+                    return [
+                        {
+                            id: 0,
+                            name: 'This week'
+                        },
+                        {
+                            id: 1,
+                            name: 'This month'
+                        },
+                        {
+                            id: 2,
+                            name: 'Last week'
+                        },
+                        {
+                            id: 3,
+                            name: 'Last month'
+                        }
+                    ]
+                }
+            })
+    }
+
     @observable value = {
         start: null,
         end: null
@@ -15,7 +53,7 @@ class DateRangeQueryPickerStore{
         this.value = v;
     }
 
-    @action.bound 
+    @action.bound
     setError = e => {
         this.errors = e;
     }
@@ -30,6 +68,7 @@ class DateRangeQueryPickerStore{
             fromError: null,
             toError: null
         }
+        this.timePeriodDropdownStore.setValue(null);
     }
 }
 

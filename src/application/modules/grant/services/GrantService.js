@@ -12,6 +12,11 @@ class GrantService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
+    getDetails(id, params) {
+        const url = this.routeService.getDetails(id, params);
+        return this.apiClient.get(url);
+    }
+
     review(resource) {
         const url = this.routeService.review(resource);
         return this.apiClient.put(url, resource);
