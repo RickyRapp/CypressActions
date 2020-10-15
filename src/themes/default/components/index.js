@@ -58,10 +58,10 @@ export { default as LineChartTemplate } from './charts/LineChart';
 export { default as AreaChartTemplate } from './charts/AreaChart';
 export { default as MinMaxAvgTemplate } from './charts/MinMaxAvg';
 
-export { default as DatePickerTemplate } from './date-picker/DatePicker';
+export { default as DatePickerTemplate } from './date-picker/DatePickerTemplate';
 export { default as DateQueryPickerTemplate } from './date-picker/DateQueryPickerTemplate';
 export { default as AdvancedCalendar } from './date-picker/AdvancedCalendar';
-export { default as DatePickerFieldTemplate } from './date-picker/DatePickerField';
+export { default as DatePickerFieldTemplate } from './date-picker/DatePickerFieldTemplate';
 
 export { default as DateRangePickerTemplate } from './date-picker/DateRangePicker';
 export { default as DateRangeQueryPickerTemplate } from './date-picker/DateRangeQueryPicker';
@@ -72,8 +72,8 @@ export { default as BaasicTreeViewSearchTemplate } from './tree/BaasicTreeViewSe
 
 export { default as BaasicButtonTemplate } from './buttons/BaasicButton';
 
-export { default as BaasicDropdownTemplate } from './select/BaasicDropdown';
-export { default as BaasicFieldDropdownTemplate } from './select/BaasicFieldDropdown';
+export { default as BaasicDropdownTemplate } from './select/BaasicDropdownTemplate';
+export { default as BaasicFieldDropdownTemplate } from './select/BaasicFieldDropdownTemplate';
 export { default as DynamicDropdownTemplate } from './select/DynamicDropdownTemplate';
 
 export { default as LocalizationTableRowTemplate } from './localization/LocalizationTableRowTemplate';

@@ -17,7 +17,7 @@ export default class TestEmailCreateForm extends FormBase {
                         validateOnChange: false
                     },
                     handlers: {
-                        onBlur: (field) => (event) => {
+                        onBlur: (field) => () => {
                             field.validate({ showErrors: true });
                         }
                     }

@@ -6,8 +6,23 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdown } from 'core/components';
 import { isSome, renderIf } from 'core/utils';
 
-const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, itemRender, valueRender, additionalLabel = null, t }) {
-    function onChange(value) {
+const BaasicFieldDropdownTemplate = function ({
+    store,
+    field,
+    multi,
+    className,
+    itemRender,
+    valueRender,
+    disabled = false,
+    showLabel = true,
+    t,
+}) {
+    function onChange(event) {
+        const value = event.target.value;
+        if (store && store.options) {
+            store.options.disabled = disabled;
+        }
+
         if (value) {
             if (store.options.multi) {
                 field.set(value);
@@ -18,9 +33,6 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
                 field.set(value[store.options.dataItemKey]);
             }
         }
-        else {
-            field.clear();
-        }
         store.onChange(value);
     }
 
@@ -29,10 +41,16 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
         'input--warning': !field.isValid && field.touched && !field.isDirty
     });
 
+    store.options.disabled = field.disabled;
+
     return (
         <div>
-            {field.label &&
-                <div className='form__group__label'>{t(field.label)}{requiredMark}{additionalLabel}</div>}
+            {showLabel && (
+                <div className="form__group__label">
+                    {t(field.label)}
+                    {requiredMark}
+                </div>
+            )}
             <BaasicDropdown
                 {...field.bind()}
                 store={store}
@@ -47,7 +65,7 @@ const BaasicFieldDropdownTemplate = function ({ store, field, multi, className, 
             />
             {(!field.isValid || field.hasError) &&
                 renderIf(isSome(field.localizedError))(
-                    <div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>
+                    <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
                 )}
         </div>
     );
@@ -60,8 +78,9 @@ BaasicFieldDropdownTemplate.propTypes = {
     className: PropTypes.string,
     itemRender: PropTypes.any,
     valueRender: PropTypes.any,
-    additionalLabel: PropTypes.any,
-    t: PropTypes.any
+    disabled: PropTypes.bool,
+    showLabel: PropTypes.bool,
+    t: PropTypes.any,
 };
 
 export default defaultTemplate(BaasicFieldDropdownTemplate);

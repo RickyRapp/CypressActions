@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/grant/pages';
+import { GrantList, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/grant/pages';
+import { GrantModuleStore } from 'application/grant/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -8,6 +9,15 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                 name: 'master.app.main.grant',
                 pattern: '/grant',
                 children: [
+                    {
+                        name: 'master.app.main.grant.list',
+                        pattern: '',
+                        component: GrantList,
+                        authorization: 'theDonorsFundAdministrationSection.read',
+                        data: {
+                            title: "GRANT.LIST.TITLE"
+                        }
+                    },
                     {
                         name: 'master.app.main.grant.create',
                         pattern: '/create/:id?',
@@ -19,7 +29,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                     },
                     {
                         name: 'master.app.main.grant.edit',
-                        pattern: '/edit/:id/:editId',
+                        pattern: '/edit/:editId',
                         component: GrantEdit,
                         authorization: 'theDonorsFundGrantSection.update',
                         data: {
@@ -49,6 +59,13 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
         ],
         menu: [
             {
+                title: 'MENU.GRANTS',
+                order: 3,
+                role: ['Administrators'],
+                icon: 'grant',
+                route: 'master.app.main.grant.list'
+            },
+            {
                 title: 'MENU.GIVE',
                 order: 2,
                 role: ['Users'],
@@ -71,6 +88,11 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                     }
                 ]
             },
-        ]
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.grant': new GrantModuleStore(context.rootStore),
+            };
+        },
     });
 })();

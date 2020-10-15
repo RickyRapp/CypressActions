@@ -16,7 +16,6 @@ import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { ContributionReview } from 'application/contribution/components'
 import { SelectDonor } from 'application/donor/components';
-import _ from 'lodash'
 
 const ContributionListTemplate = function ({ contributionViewStore, rootStore }) {
     const {

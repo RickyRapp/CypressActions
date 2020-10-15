@@ -7,10 +7,9 @@ class FeeService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async calculateFee(options) {
+    calculateFee(options) {
         const url = this.routeService.calculateFee(options);
-        const response = await this.apiClient.get(url, options);
-        return response.data || null;
+        return this.apiClient.get(url, options);
     }
 }
 

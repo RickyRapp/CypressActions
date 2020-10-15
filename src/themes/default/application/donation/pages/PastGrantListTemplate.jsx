@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    BaasicButton,
     BaasicTable,
     TableFilter,
     EmptyState,
     BaasicDropdown
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { Content } from 'core/layouts';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore }) {
     const {

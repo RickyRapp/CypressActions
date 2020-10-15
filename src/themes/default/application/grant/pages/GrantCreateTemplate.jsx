@@ -17,7 +17,6 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
-import { GrantPurposeTypeForm } from 'themes/application/grant/components';
 import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/charity/components';
 import logo from 'themes/assets/img/logo.svg';
@@ -31,22 +30,17 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantScheduleTypeDropdownStore,
         charityDropdownStore,
         charityTypeDropdownStore,
-        onRecurringChange,
         isNoteToAdministratorIncluded,
         onIncludeNoteToAdministratorChange,
         donor,
-        onBlurAmount,
         amountWithFee,
-        onChangeEndDate,
-        onChangeNumberOfPayments,
-        onChangeNoEndDate,
         onCharitySelected,
         advancedSearchModal,
         openAdvancedSearchModal,
         previousGrantsTableStore,
         similarGrantsTableStore,
         loaderStore,
-        onNewCharityChange
+        grantAcknowledgmentName
     } = grantCreateViewStore;
 
     return (
@@ -77,7 +71,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <BasicFieldCheckbox field={form.$('isNewCharity')} onChange={onNewCharityChange} />
+                                        <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                     </div>
                                 </div>
 
@@ -89,10 +83,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <BasicInput field={form.$('charityName')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <NumberFormatInputField
-                                                    field={form.$('charityTaxId')}
-                                                // onChange={taxIdExists}
-                                                />
+                                                <NumberFormatInputField field={form.$('charityTaxId')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityDba')} />
@@ -135,7 +126,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>}
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <NumericInputField field={form.$('amount')} onBlur={onBlurAmount} />
+                                        <NumericInputField field={form.$('amount')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         {amountWithFee &&
@@ -156,28 +147,28 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <BasicFieldCheckbox field={form.$('isRecurring')} onChange={onRecurringChange} />
+                                        <BasicFieldCheckbox field={form.$('isRecurring')} />
                                     </div>
                                 </div>
                                 {form.$('isRecurring').value &&
                                     <div className="card card--form card--primary card--med u-mar--bottom--med">
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <DatePickerField field={form.$('recurringDate')} />
+                                                <DatePickerField field={form.$('recurringDate')} showLabel={false} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} />
+                                                <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} showLabel={false} />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-5 u-mar--bottom--sml">
-                                                <NumericInputField field={form.$('numberOfPayments')} onChange={onChangeNumberOfPayments} showLabel={false} />
+                                                <NumericInputField field={form.$('numberOfPayments')} showLabel={false} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-5 u-mar--bottom--sml">
-                                                <DatePickerField field={form.$('endDate')} onChange={onChangeEndDate} />
+                                                <DatePickerField field={form.$('endDate')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-2 u-mar--bottom--sml">
-                                                <BasicFieldCheckbox field={form.$('noEndDate')} onChange={onChangeNoEndDate} />
+                                                <BasicFieldCheckbox field={form.$('noEndDate')} />
                                             </div>
                                         </div>
                                     </div>}
@@ -185,14 +176,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                                     </div>
-                                    {grantAcknowledgmentTypeDropdownStore.value &&
+                                    {grantAcknowledgmentName &&
                                         <div className="form__group col col-sml-12 col-lrg-6 u-mar--top--med">
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
-                                                `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
-                                                `${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donor.fundName}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'remain-anonymous' && 'Anonymous'}
+                                            {grantAcknowledgmentName}
                                         </div>}
                                 </div>
                                 <div className="row">
@@ -202,8 +188,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        {grantPurposeTypeDropdownStore.value &&
-                                            <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
+                                        {/* {grantPurposeTypeDropdownStore.value &&
+                                            <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />} */}
                                     </div>
                                 </div>
                                 <div className="row">

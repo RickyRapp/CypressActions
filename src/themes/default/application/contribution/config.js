@@ -57,7 +57,7 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
             },
             {
                 title: 'MENU.CONTRIBUTIONS',
-                order: 3,
+                order: 2,
                 route: 'master.app.main.contribution.list',
                 role: ['Administrators'],
                 icon: 'contribution'

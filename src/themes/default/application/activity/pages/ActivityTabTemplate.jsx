@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Page, TabLayout } from 'core/layouts';
+import { TabLayout } from 'core/layouts';
 import { ActivityTransactionTab, ActivityGrantTab } from 'application/activity/pages';
 
-function ActivityTabTemplate({ activityTabViewStore, t }) {
+function ActivityTabTemplate({ activityTabViewStore }) {
 
     return (
         <div className='container'>
@@ -24,8 +24,7 @@ function ActivityTabTemplate({ activityTabViewStore, t }) {
 }
 
 ActivityTabTemplate.propTypes = {
-    activityTabViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    activityTabViewStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(ActivityTabTemplate);

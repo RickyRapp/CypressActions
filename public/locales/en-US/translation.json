@@ -1360,6 +1360,7 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "GRANT_STATUS_NAME_LABEL": "Status",
+                "GRANT_TYPE_NAME_LABEL": "Type",
                 "CHARITY_LABEL": "Charity",
                 "GRANT_PURPOSE_TYPE_LABEL": "Purpose"
             },
@@ -1429,6 +1430,7 @@
                 "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Choose What Info You Want to Share",
                 "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Select",
                 "GRANT_SCHEDULE_TYPE_PLACEHOLDER": "Select Recurring Option",
+                "GRANT_SCHEDULE_TYPE_LABEL": "Recurring Option",
                 "START_FUTURE_DATE_LABEL": "Schedule the Donation",
                 "START_FUTURE_DATE_PLACEHOLDER": "Select the Date",
                 "NAME_LABEL": "Name",
@@ -1452,7 +1454,7 @@
                 "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below.",
                 "INTERNATIONAL_COMPANY_LABEL": "Are you an international company?",
                 "IS_RECURRING_LABEL": "Make this a Recurring Donation",
-                "RECURRING_DATE_LABEL": "Make this a Recurring Donation",
+                "RECURRING_DATE_LABEL": "Starting Date",
                 "RECURRING_DATE_PLACEHOLDER": "Select Starting Date",
                 "IS_NEW_CHARITY_LABEL": "Add New Charity"
             }

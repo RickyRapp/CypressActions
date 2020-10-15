@@ -1,7 +1,7 @@
 import { BaseTabViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 
 @applicationContext
 class GrantTabViewStore extends BaseTabViewStore {

@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { ContributionService } from 'application/contribution/services';
 import { DonorService } from 'application/donor/services';
-import { applicationContext, donorFormatter, isSome } from 'core/utils';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { LookupService } from 'common/services';
 import { ContributionListFilter } from 'application/contribution/models';
@@ -239,10 +239,8 @@ class ContributionViewStore extends BaseListViewStore {
             multi: true
         },
             {
-                fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-                    const response = await service.getAll();
-                    return response.data;
+                fetchFunc: () => {
+                    return this.rootStore.application.lookup.paymentTypeStore.find();
                 },
                 onChange: (paymentType) => {
                     this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });

@@ -1,5 +1,6 @@
 import { moduleProviderFactory, moduleBuilder } from 'core/providers';
 import { MainLayout, PublicLayout } from 'core/layouts';
+import { LookupModuleStore } from 'application/lookup/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -42,6 +43,9 @@ import { MainLayout, PublicLayout } from 'core/layouts';
                     }
                 ]
             }
-        ]
+        ],
+        moduleStore: function (context) {
+            return { 'application.lookup': new LookupModuleStore(context.rootStore) };
+        },
     });
 }());

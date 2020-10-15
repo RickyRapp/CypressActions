@@ -23,20 +23,14 @@ class BookletOrderViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundBookletOrderSection',
             routes: {
                 edit: (id, editId) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.booklet-order.edit',
-                        {
-                            id: id,
-                            editId: editId
-                        }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.booklet-order.edit', { id: id, editId: editId });
                 },
                 create: () => {
                     if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
                         this.openSelectDonorModal();
                     }
                     else {
-                        this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: id });
+                        this.rootStore.routerStore.goTo('master.app.main.booklet-order.create');
                     }
                 },
                 review: (id) => {
@@ -47,7 +41,7 @@ class BookletOrderViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: filter,
-                onResetFilter: (filter) => {
+                onResetFilter: () => {
                     this.deliveryMethodTypeDropdownStore.setValue(null);
                     this.bookletOrderStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();

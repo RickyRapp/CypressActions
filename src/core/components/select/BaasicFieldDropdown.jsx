@@ -7,29 +7,13 @@ import { BaasicFieldDropdownTemplate } from 'themes/components';
 @observer
 class BaasicFieldDropdown extends Component {
     render() {
-        const { field, store, multi, className, itemRender, valueRender, additionalLabel } = this.props;
-        return (
-            <BaasicFieldDropdownTemplate
-                store={store}
-                field={field}
-                multi={multi}
-                className={className}
-                itemRender={itemRender}
-                valueRender={valueRender}
-                additionalLabel={additionalLabel}
-            />
-        );
+        const { store, ...restProps } = this.props;
+        return <BaasicFieldDropdownTemplate {...restProps} store={store} />;
     }
 }
 
 BaasicFieldDropdown.propTypes = {
-    field: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired,
-    multi: PropTypes.bool,
-    className: PropTypes.string,
-    itemRender: PropTypes.any,
-    valueRender: PropTypes.any,
-    additionalLabel: PropTypes.any
 };
 
 export default BaasicFieldDropdown;

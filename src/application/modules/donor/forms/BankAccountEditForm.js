@@ -92,7 +92,7 @@ export default class BankAccountEditForm extends FormBase {
                         validateOnChange: false
                     },
                     handlers: {
-                        onBlur: (field) => (event) => {
+                        onBlur: (field) => () => {
                             field.validate({ showErrors: true });
                         }
                     }

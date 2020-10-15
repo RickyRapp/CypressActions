@@ -46,7 +46,8 @@ function TransactionTemplate({ transactionViewStore, rootStore }) {
 
 TransactionTemplate.propTypes = {
     transactionViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    rootStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(TransactionTemplate);

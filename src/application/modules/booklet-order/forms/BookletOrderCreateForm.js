@@ -28,7 +28,6 @@ export default class BookletOrderCreateForm extends FormBase {
             },
             placeholders: {
                 'customizedName': 'BOOKLET_ORDER.CREATE.FIELDS.CUSTOMIZED_NAME_PLACEHOLDER',
-                'customizedName': 'BOOKLET_ORDER.CREATE.FIELDS.CUSTOMIZED_NAME_PLACEHOLDER',
                 'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL'
             },
             rules: {

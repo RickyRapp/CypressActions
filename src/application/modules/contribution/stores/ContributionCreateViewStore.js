@@ -3,13 +3,13 @@ import { LookupService } from 'common/services';
 import { ContributionCreateForm } from 'application/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
-import { DonorBankAccountService, DonorService } from 'application/donor/services';
+import { DonorBankAccountService } from 'application/donor/services';
 import { ModalParams } from 'core/models';
 import { ContributionService } from 'application/contribution/services';
 
 @applicationContext
 class ContributionCreateViewStore extends BaseEditViewStore {
-    @observable paymentTypes = null;
+    @observable paymentTypes = [];
     @observable step = 1;
     donor = null;
 
@@ -65,10 +65,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-                    const response = await service.getAll();
-                    this.paymentTypes = response.data;
-                    return response.data;
+                    this.paymentTypes = await rootStore.application.lookup.paymentTypeStore.find();
+                    return this.paymentTypes;
                 }
             });
 

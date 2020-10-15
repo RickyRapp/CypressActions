@@ -78,7 +78,7 @@ export default class GrantCreateForm extends FormBase {
                 },
                 {
                     name: 'recurringDate',
-                    placeholder: 'GRANT.CREATE.FIELDS.RECURRING_DATE_PLACEHOLDER',
+                    label: 'GRANT.CREATE.FIELDS.RECURRING_DATE_LABEL',
                     rules: `required_if:isRecurring,true|min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`,
                     type: 'date',
                     options: {
@@ -87,24 +87,25 @@ export default class GrantCreateForm extends FormBase {
                 },
                 {
                     name: 'grantScheduleTypeId',
+                    label: 'GRANT.CREATE.FIELDS.GRANT_SCHEDULE_TYPE_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.GRANT_SCHEDULE_TYPE_PLACEHOLDER',
                     rules: 'required_if:isRecurring,true|string'
                 },
                 {
                     name: 'endDate',
-                    rules: `required_if:isRecurring,true|min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`, //TODO not working with non required field -> returns invalid date
+                    rules: `min_date:${moment().add(1, 'days').format('YYYY-MM-DD')}`, //TODO not working with non required field -> returns invalid date
                     type: 'date'
                 },
                 {
                     name: 'numberOfPayments',
                     placeholder: 'GRANT.CREATE.FIELDS.NUMBER_OF_PAYMENTS_PLACEHOLDER',
-                    rules: 'required_if:isRecurring,true|numeric',
+                    rules: 'numeric|min:1',
                     type: 'integer'
                 },
                 {
                     name: 'noEndDate',
                     label: 'GRANT.CREATE.FIELDS.NO_END_DATE_LABEL',
-                    rules: 'required_if:isRecurring,true|boolean',
+                    rules: 'boolean',
                     type: 'checkbox',
                     value: false
                 },

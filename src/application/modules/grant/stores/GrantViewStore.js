@@ -5,12 +5,10 @@ import { DonorService } from 'application/donor/services';
 import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/grant/models';
-import { LookupService } from 'common/services';
 import moment from 'moment'
-import _ from 'lodash';
 
 class GrantViewStore extends BaseListViewStore {
-    constructor(rootStore, { onChangeDonorFilter }) {
+    constructor(rootStore) {
         const filter = new GrantListFilter('dateCreated', 'desc')
         if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
@@ -22,22 +20,14 @@ class GrantViewStore extends BaseListViewStore {
             name: 'grant',
             authorization: 'theDonorsFundGrantSection',
             routes: {
-                edit: (id, editId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.grant.edit', { id: id, editId: editId });
+                edit: (editId, donorId) => {
+                    this.rootStore.routerStore.goTo('master.app.main.grant.edit', { editId: editId }, { donorId: donorId });
                 },
                 scheduledGrantsList: (name) => {
                     this.rootStore.routerStore.goTo('master.app.main.grant.tab', null, { tab: 1, name: name });
                 },
                 preview: (editId) => {
                     this.rootStore.routerStore.goTo('master.app.main.grant.preview', { editId: editId });
-                },
-                create: () => {
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                        this.openSelectDonorModal();
-                    }
-                    else {
-                        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: this.donorId });
-                    }
                 }
             },
             queryConfig: {
@@ -58,6 +48,7 @@ class GrantViewStore extends BaseListViewStore {
                             'createdByCoreUser',
                             'donor',
                             'donationStatus',
+                            'donationType',
                             'grantScheduledPayment'
                         ];
                         params.fields = [
@@ -70,6 +61,7 @@ class GrantViewStore extends BaseListViewStore {
                             'amount',
                             'confirmationNumber',
                             'donationStatus',
+                            'donationType',
                             'grantPurposeType',
                             'dateCreated',
                             'scheduledGrantPayment'
@@ -87,7 +79,9 @@ class GrantViewStore extends BaseListViewStore {
             }
         });
 
-        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+        this.hasAdministratorPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update');
+
+        if (this.hasAdministratorPermission) {
             this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id;
         }
         else {
@@ -100,9 +94,9 @@ class GrantViewStore extends BaseListViewStore {
                     key: 'donor.donorName',
                     title: 'GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
                     onClick: (grant) => grant.donationStatus.abrv === 'pending' ?
-                        this.routes.edit(grant.donor.id, grant.id) :
+                        this.routes.edit(grant.id, grant.donor.id) :
                         this.routes.preview(grant.id),
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
+                    visible: this.hasAdministratorPermission
                 },
                 {
                     key: 'charity.name',
@@ -125,6 +119,10 @@ class GrantViewStore extends BaseListViewStore {
                     title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
                 },
                 {
+                    key: 'donationType.name',
+                    title: 'GRANT.LIST.COLUMNS.GRANT_TYPE_NAME_LABEL',
+                },
+                {
                     key: 'grantPurposeType.name',
                     title: 'GRANT.LIST.COLUMNS.GRANT_PURPOSE_TYPE_LABEL',
                 },
@@ -138,7 +136,7 @@ class GrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (grant) => this.routes.edit(grant.donor.id, grant.id),
+                onEdit: (grant) => this.routes.edit(grant.id, grant.donor.id),
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
@@ -146,11 +144,11 @@ class GrantViewStore extends BaseListViewStore {
             actionsRender: {
                 onEditRender: (grant) => {
                     if (grant.donationStatus.abrv === 'pending') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+                        if (this.hasAdministratorPermission) {
                             return true;
                         }
                         else {
-                            const dateToEdit = moment(grant.dateCreated).add('minutes', 15);
+                            const dateToEdit = moment(grant.dateCreated).add(15, 'minutes');
                             return moment().isBetween(grant.dateCreated, dateToEdit);
                         }
                     }
@@ -178,7 +176,7 @@ class GrantViewStore extends BaseListViewStore {
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
-                        sort: 'coreUser.firstName|asc',
+                        sort: 'firstName|asc',
                         embed: [
                             'donorAddresses'
                         ],
@@ -186,11 +184,13 @@ class GrantViewStore extends BaseListViewStore {
                             'id',
                             'accountNumber',
                             'donorName',
+                            'firstName',
+                            'lastName',
                             'securityPin',
                             'donorAddresses'
                         ]
                     });
-                    return _.map(response.data.item, x => {
+                    return response.data.item.map(x => {
                         return {
                             id: x.id,
                             name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
@@ -208,6 +208,8 @@ class GrantViewStore extends BaseListViewStore {
                                 'id',
                                 'accountNumber',
                                 'donorName',
+                                'firstName',
+                                'lastName',
                                 'securityPin',
                                 'donorAddresses'
                             ]
@@ -221,8 +223,7 @@ class GrantViewStore extends BaseListViewStore {
                     }
                 },
                 onChange: (donorId) => {
-                    this.queryUtility.filter['donorId'] = donorId;
-                    onChangeDonorFilter(donorId);
+                    this.queryUtility.filter.donorId = donorId;
                 }
             });
 
@@ -230,13 +231,11 @@ class GrantViewStore extends BaseListViewStore {
             multi: true
         },
             {
-                fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'donation-status');
-                    const response = await service.getAll();
-                    return response.data;
+                fetchFunc: () => {
+                    return this.rootStore.application.lookup.donationStatusStore.find();
                 },
                 onChange: (donationStatus) => {
-                    this.queryUtility.filter['donationStatusIds'] = _.map(donationStatus, (status) => { return status.id });
+                    this.queryUtility.filter.donationStatusIds = donationStatus.map(c => { return c.id });
                 }
             });
 
@@ -270,7 +269,10 @@ class GrantViewStore extends BaseListViewStore {
     openReviewDonorModal(id) {
         this.reviewModal.open({
             id: id,
-            onAfterReview: () => { this.reviewModal.close(); this.queryUtility.fetch(); }
+            onAfterReview: () => {
+                this.reviewModal.close();
+                this.queryUtility.fetch();
+            }
         });
     }
 }

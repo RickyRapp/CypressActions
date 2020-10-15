@@ -74,7 +74,7 @@ export default class DonorCreateForm extends FormBase {
                         validateOnChange: false
                     },
                     handlers: {
-                        onBlur: (field) => (event) => {
+                        onBlur: (field) => () => {
                             field.validate({ showErrors: true });
                         }
                     }

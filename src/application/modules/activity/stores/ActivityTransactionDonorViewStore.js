@@ -1,5 +1,4 @@
 import { BaseViewStore, TableViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
 import { ActivityService } from 'application/activity/services';
 

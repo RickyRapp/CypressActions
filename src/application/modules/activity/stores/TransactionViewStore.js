@@ -2,7 +2,7 @@ import { BaasicDropdownStore, BaseListViewStore, DateRangeQueryPickerStore, Tabl
 import { applicationContext, donorFormatter } from 'core/utils';
 import { ActivityListFilter } from 'application/activity/models';
 import { ActivityService } from 'application/activity/services';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { DonorService } from 'application/donor/services';
 
 @applicationContext
@@ -140,7 +140,7 @@ class TransactionViewStore extends BaseListViewStore {
                             'donorAddresses'
                         ]
                     });
-                    return _.map(response.data.item, x => {
+                    return response.data.item.map(x => {
                         return {
                             id: x.id,
                             name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })

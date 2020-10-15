@@ -8,27 +8,20 @@ import { isSome } from 'core/utils';
 import { BaasicButton } from 'core/components';
 
 const BaasicDropdownTemplate = function (props) {
-    const { store, t, placeholder, className, warningClassName, ...assignProps } = props;
+    const { store, t, placeholder, className, activeClassName, warningClassName, tag, ...assignProps } = props;
 
     function onChange(event) {
         onChangeFn(event);
     }
 
     function onFilter(event) {
-        onFilterFn(event);
-    }
-
-    function onFilterFn(e) {
-        if (props.onFilter) {
-            props.onFilter(e.filter.value);
-            return;
-        }
-        store.onFilter(e.filter.value);
+        store.onFilter(event.filter.value);
     }
 
     function onChangeFn(e) {
         if (props.onChange) {
-            props.onChange(e.target.value);
+            props.onChange(e);
+            return;
         }
         store.onChange(e.target.value);
     }
@@ -42,22 +35,6 @@ const BaasicDropdownTemplate = function (props) {
         else {
             return value;
         }
-    }
-
-    function getFilterable() {
-        if (isSome(props.filterable)) {
-            return props.filterable;
-        }
-
-        return store.options.filterable;
-    }
-
-    function getDisabled() {
-        if (isSome(props.disabled)) {
-            return props.disabled;
-        }
-
-        return store.options.disabled;
     }
 
     function getDefaultItem() {
@@ -78,13 +55,16 @@ const BaasicDropdownTemplate = function (props) {
 
     const Component = isMulti() ? MultiSelect : DropDownList;
 
-    const hasCustomClass = (className != null && className !== '');
-    const hasWarningClass = (warningClassName != null && warningClassName !== '');
+    const hasCustomClass = className != null && className !== '';
+    const hasActiveClass = tag && tag.value && store.value && store.value.id === tag.value.id;
+    const hasWarningClass = warningClassName != null && warningClassName !== '';
     const styleClasses = classNames({
         [className]: hasCustomClass,
+        [activeClassName]: hasActiveClass,
         [warningClassName]: hasWarningClass,
-        'input--multiselect': isMulti() && !hasCustomClass,
-        'input--dropdown': !isMulti() && !hasCustomClass
+        'k-textbox-container k-dropdown input--multiselect': isMulti() && !hasCustomClass,
+        'input--dropdown': !isMulti() && !hasCustomClass,
+        focused: store.isOpen || null,
     });
 
     return (
@@ -98,19 +78,15 @@ const BaasicDropdownTemplate = function (props) {
                     filter={store.filterTerm}
                     autoClose={store.options.autoClose}
                     dataItemKey={store.options.dataItemKey}
-                    filterable={getFilterable()}
-                    disabled={getDisabled()}
+                    filterable={store.options.filterable}
+                    disabled={store.options.disabled}
                     onFilterChange={onFilter}
                     onChange={onChange}
                     loading={store.loading}
                     onOpen={store.onOpen}
                     onClose={store.onClose}
                     value={getValue()}
-                    label={
-                        placeholder
-                            ? t(placeholder)
-                            : t(store.options.placeholder)
-                    }
+                    label={placeholder ? t(placeholder) : t(store.options.placeholder)}
                     defaultItem={getDefaultItem()}
                     popupSettings={store.options.popupSettings}
                     ref={multiselect => multiselect && multiselect.setState({ focusedIndex: -1 })}
@@ -122,8 +98,7 @@ const BaasicDropdownTemplate = function (props) {
                         icon='u-icon u-icon--unapproved--secondary u-icon--sml'
                         label="DROPDOWN.CLEAR_BUTTON"
                         onlyIcon
-                        value={null}
-                        disabled={getDisabled()}
+                        disabled={store.options.disabled}
                     />}
             </div>
         </React.Fragment>
@@ -133,15 +108,14 @@ const BaasicDropdownTemplate = function (props) {
 BaasicDropdownTemplate.propTypes = {
     store: PropTypes.object.isRequired,
     onChange: PropTypes.func,
-    onFilter: PropTypes.func,
     className: PropTypes.string,
+    activeClassName: PropTypes.string,
     warningClassName: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.any,
     multi: PropTypes.bool,
-    filterable: PropTypes.bool,
-    disabled: PropTypes.bool,
-    t: PropTypes.func
+    tag: PropTypes.object,
+    t: PropTypes.func,
 };
 
 export default defaultTemplate(BaasicDropdownTemplate);

@@ -100,7 +100,14 @@ class BaseEditViewStore extends BaseViewStore {
 
     @action.bound
     async getResource(id, updateForm = true) {
-        const item = await this.actions.get(id);
+        let item;
+        try {
+            item = await this.actions.get(id);
+        } catch (err) {
+            console.log(err)
+            item = null;
+            this.rootStore.notificationStore.error('ERROR_MESSAGES.FETCH');
+        }
         runInAction(() => {
             this.setItem(item);
             if (updateForm) {
@@ -135,8 +142,6 @@ class BaseEditViewStore extends BaseViewStore {
                 ...resource,
             });
 
-            this.form.setFieldsDisabled(false);
-
             if (this.onAfterAction) {
                 this.onAfterAction();
             }
@@ -146,9 +151,9 @@ class BaseEditViewStore extends BaseViewStore {
             }
         }
         catch (err) {
-            this.form.setFieldsDisabled(false);
             return this.onUpdateError(err);
         } finally {
+            this.form.setFieldsDisabled(false);
             this.loaderStore.resume();
         }
     }

@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import { RouterState, HistoryAdapter } from 'mobx-state-router';
 import { history } from 'common/utils';
-import { ApplicationStore, AppStore } from 'common/stores';
+import { AppStore } from 'common/stores';
 import { EventHandler, cacheService } from 'core/services';
 import { moduleBuilder } from 'core/providers';
 import { getDefaultRouteDataMap } from 'core/utils';
@@ -19,21 +20,20 @@ import {
     TimeZoneStore,
     LocalizationStore
 } from 'core/stores';
+import { baasicApp } from 'common/infrastructure';
 
 export default class RootStore {
     eventHandler = new EventHandler();
     initialState = new RouterState('master.app.main.dashboard');
 
-    get application() {
-        return this.applicationStore.app;
-    }
-
     constructor(configuration) {
         this.configuration = configuration;
+        this.application = { baasic: baasicApp };
 
         const moduleContext = { rootStore: this };
         const { routes, routerMaps } = moduleBuilder.buildRoutes(configuration.routes, moduleContext);
-        moduleBuilder.buildStores(configuration.stores, moduleContext);
+        const { application } = moduleBuilder.buildStores(configuration.stores, moduleContext);
+        applyModules(this.application, application, ['baasic']);
 
         this.routerStore = new RouterStore(this, [...routes], new RouterState('master.not-found'));
         this.routerStore.routeDataMap = getDefaultRouteDataMap(routes);
@@ -49,7 +49,7 @@ export default class RootStore {
         this.notificationStore = new NotificationStore(this);
         this.viewStore = new MainViewStore(this);
         this.baasicMessageStore = new BaasicMessageStore(this);
-        this.applicationStore = new ApplicationStore(this);
+        // this.applicationStore = new ApplicationStore(this);
         this.modalStore = new ModalStore(this);
         this.timeZoneStore = new TimeZoneStore(this);
 
@@ -104,4 +104,17 @@ export default class RootStore {
         }
         return Promise.resolve();
     }
+}
+
+function applyModules(root, moduleRoot, restrictedKeys = []) {
+    if (!root) return;
+    if (!moduleRoot) return;
+
+    const reservedKeys = _.isArray(restrictedKeys) ? restrictedKeys : [restrictedKeys];
+
+    _.forOwn(moduleRoot, (value, key) => {
+        if (!_.some(reservedKeys, k => k === key)) {
+            root[key] = value;
+        }
+    });
 }

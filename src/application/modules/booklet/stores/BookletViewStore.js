@@ -21,7 +21,7 @@ class BookletViewStore extends BaseListViewStore {
             routes: {},
             queryConfig: {
                 filter: filter,
-                onResetFilter: (filter) => {
+                onResetFilter: () => {
                     this.denominationTypeDropdownStore.setValue(null);
                 }
             },

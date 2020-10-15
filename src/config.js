@@ -18,10 +18,8 @@ import { NotFound, DisplayError, Unauthorized } from 'common/pages';
                     // eslint-disable-next-line
                     async (fromState, toState, routerStore) => {
                         const {
-                            applicationStore,
                             authStore
                         } = routerStore.rootStore;
-                        applicationStore.register(ApplicationSettings); // eslint-disable-line
 
                         try {
                             await authStore.initialize();

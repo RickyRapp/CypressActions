@@ -1,10 +1,10 @@
-import {localStorageProvider} from 'core/providers';
+import { localStorageProvider } from 'core/providers';
 
-const CACHE_PREFIX = 'CS';
+const CACHE_PREFIX = 'TDF';
 
-class CacheService  {
+class CacheService {
     composeKey(key, region = null) {
-        if(region) {
+        if (region) {
             return `${CACHE_PREFIX}-${region}-${key}`;
         }
         return `${CACHE_PREFIX}-${key}`;

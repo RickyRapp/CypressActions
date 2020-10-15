@@ -21,7 +21,7 @@ export default class ContributionCreateForm extends FormBase {
                         validateOnChange: false
                     },
                     handlers: {
-                        onBlur: (field) => (event) => {
+                        onBlur: (field) => () => {
                             field.validate({ showErrors: true });
                         }
                     }
@@ -104,7 +104,7 @@ export default class ContributionCreateForm extends FormBase {
                         validateOnChange: false
                     },
                     handlers: {
-                        onBlur: (field) => (event) => {
+                        onBlur: (field) => () => {
                             field.validate({ showErrors: true });
                         }
                     }

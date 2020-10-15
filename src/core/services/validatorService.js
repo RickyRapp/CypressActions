@@ -7,9 +7,9 @@ class ValidatorService {
     callbacks = [];
 
     constructor() {
-        const localizeMessages = (obj) => {
+        const localizeMessages = obj => {
             let messages = {};
-            _.forOwn(obj, (value, key) => {                
+            _.forOwn(obj, (value, key) => {
                 if (_.isObject(value)) {
                     messages[key] = localizeMessages(value);
                 } else {
@@ -18,24 +18,31 @@ class ValidatorService {
             });
 
             return messages;
-        }
+        };
 
-        localizationService.on('languageChanged', (lng) => {            
+        localizationService.on('languageChanged', lng => {
             if (!Validator.getMessages(lng)) {
                 Validator.setMessages(lng, localizeMessages(validationErrors));
-            }            
+            }
 
             Validator.useLang(lng);
 
-            _.each(this.callbacks, (c) => {
-                if (c.name === 'onMessageSourceChange')
-                    c.action();
+            _.each(this.callbacks, c => {
+                if (c.name === 'onMessageSourceChange') c.action();
             });
-        }); 
+        });
     }
 
     on(name, callback) {
         this.callbacks.push({ name: name, action: callback });
+    }
+
+    registerValidator(name, callback, errorMessage) {
+        Validator.register(name, callback, errorMessage);
+    }
+
+    registerAsyncValidator(name, callback) {
+        Validator.registerAsync(name, callback);
     }
 }
 

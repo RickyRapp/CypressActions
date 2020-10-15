@@ -22,6 +22,25 @@ class DonorFormatter {
                 }
                 break;
             }
+            case 'grant-acknowledgment-type': {
+                switch (format.value) {
+                    case 'name-fund-name-and-address': {
+                        return `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`
+                    }
+                    case 'fund-name-and-address': {
+                        return `${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`
+                    }
+                    case 'fund-name': {
+                        return donor.fundName;
+                    }
+                    case 'remain-anonymous': {
+                        return 'Anonymous'
+                    }
+                    default:
+                        break;
+                }
+                break;
+            }
             default:
                 break;
         }

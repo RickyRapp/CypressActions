@@ -12,7 +12,7 @@ import {
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { Content } from 'core/layouts';
+import { ApplicationListLayout, Content } from 'core/layouts';
 
 const GrantListTemplate = function ({ grantViewStore, rootStore }) {
     const {
@@ -30,44 +30,46 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
     } = rootStore
 
     return (
-        <Content emptyRenderer={renderEmpty(routes)} >
-            <div className="card--form card--secondary card--med u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+        <ApplicationListLayout store={grantViewStore} authorization={authorization}>
+            <Content emptyRenderer={renderEmpty(routes)} >
+                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                        {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown store={searchDonorDropdownStore} />
+                            </div>}
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicDropdown store={searchDonorDropdownStore} />
-                        </div>}
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicInput
-                            className='input input--sml'
-                            value={queryUtility.filter['confirmationNumber'] || ""}
-                            onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
-                            placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                        />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown
-                            store={donationStatusDropdownStore}
-                            placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
-                        />
-                    </div>
-                </TableFilter>
-            </div>
-            <div className=" card--form card--secondary card--med u-mar--bottom--sml">
-                <div className="row">
-                    <div className="col col-sml-12 col-med-12 col-lrg-12">
-                        <Export config={exportConfig} />
+                            <BaasicInput
+                                className='input input--sml'
+                                value={queryUtility.filter['confirmationNumber'] || ""}
+                                onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicDropdown
+                                store={donationStatusDropdownStore}
+                                placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
+                            />
+                        </div>
+                    </TableFilter>
+                </div>
+                <div className=" card--form card--secondary card--med u-mar--bottom--sml">
+                    <div className="row">
+                        <div className="col col-sml-12 col-med-12 col-lrg-12">
+                            <Export config={exportConfig} />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="card--form card--primary card--med">
-                <BaasicTable
-                    authorization={authorization}
-                    tableStore={tableStore}
-                    actionsComponent={renderActions}
-                />
-            </div>
-        </Content>
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
+                </div>
+            </Content>
+        </ApplicationListLayout>
     )
 };
 
