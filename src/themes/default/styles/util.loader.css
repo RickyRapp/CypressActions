@@ -1,0 +1,158 @@
+/*------------------------------------*\
+    # utils.loader
+\*------------------------------------*/
+
+$loader-style: double;
+$loader-size: 70px;
+$loader-speed: 1000ms;
+
+.loader {
+  position: fixed;
+  top: $header-height;
+  left: $aside-width;
+  height: 4px;
+  display: block;
+  width: 100%;
+  background-color: color($color-primary a(30%));
+  border-radius: 2px;
+  background-clip: padding-box;
+  overflow: hidden;
+  z-index: 999;
+​
+  &__progress {
+    background-color: $color-primary;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background-color: inherit;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: auto;
+      will-change: left, right;
+      -webkit-animation: loader 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+      animation: loader 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+      border: 0;
+      border-radius: 0;
+    }
+    
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: inherit;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: auto;
+      will-change: left, right;
+      -webkit-animation: loader-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+      animation: loader-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+      -webkit-animation-delay: 1.15s;
+      animation-delay: 1.15s;
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  &--login {
+    display: inline-block;
+    vertical-align: -3px;
+
+    position: relative;
+
+    width: calc($unit * 3);
+    height: calc($unit * 3);
+    margin-right: calc($unit * 1.5);
+
+    font-size: $loader-size;
+
+    @media (max-width: $loader-size * 1.5), (max-height: $loader-size * 1.5) {}
+
+    &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: calc($unit * 3);
+        height: calc($unit * 3);
+
+        border-width: calc($unit * 1.5);
+        border-style: $loader-style;
+        border-color: transparent;
+        border-radius: 50px;
+
+        animation: spin $loader-speed infinite;
+        box-sizing: border-box;
+      }
+
+      &:after {
+        left: 0;
+        border-left-color: #fff;
+      }
+
+      &:before {
+        border-right-color: #fff;
+        animation-delay: $loader-speed/-4;
+      }
+  }
+}
+​
+@-webkit-keyframes loader {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+@keyframes loader {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+@-webkit-keyframes loader-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}
+@keyframes loader-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}

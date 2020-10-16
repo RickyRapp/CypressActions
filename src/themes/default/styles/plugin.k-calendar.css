@@ -1,0 +1,50 @@
+/*------------------------------------*\
+    # plugins.k-calendar
+\*------------------------------------*/
+
+.k-calendar {
+    .k-calendar-header {
+        .k-today {
+            color: $color-primary;
+
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+
+    .k-state-selected {
+        .k-link {
+            border-color: $color-primary;
+            background-color: $color-primary;
+        }
+    }
+    
+    .k-calendar-monthview {
+        .k-link {
+            &:hover {
+                background-color: color($color-primary a(0.1));
+            }
+        }
+    }
+    
+    .k-calendar-navigation {
+        li {
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+
+    .k-content {
+        .k-today {
+            color: $color-primary;
+        }
+
+        .k-link {
+            &:hover {
+                background-color: color($color-primary a(0.1));
+            }
+        }
+    }
+}

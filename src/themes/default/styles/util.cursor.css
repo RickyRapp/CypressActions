@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    # utils.cursor
+\*------------------------------------*/
+
+.cursor {
+	&--pointer {
+        cursor: pointer;
+    }
+    
+    &--default {
+        cursor: default;
+    }
+}

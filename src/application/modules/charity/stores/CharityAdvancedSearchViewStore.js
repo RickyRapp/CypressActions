@@ -1,7 +1,6 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
 import { CharityListFilter } from 'application/charity/models';
-import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 class CharityAdvancedSearchViewStore extends BaseListViewStore {
@@ -68,12 +67,10 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.charityTypeStore.find();
                 },
                 onChange: (charityType) => {
-                    this.queryUtility.filter['charityTypeIds'] = _.map(charityType, (type) => { return type.id });
+                    this.queryUtility.filter.charityTypeIds = charityType.map((type) => { return type.id });
                 }
             });
     }

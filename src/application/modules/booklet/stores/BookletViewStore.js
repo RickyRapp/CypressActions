@@ -3,7 +3,6 @@ import { BookletService } from 'application/booklet/services';
 import { applicationContext } from 'core/utils';
 import { BookletListFilter } from 'application/booklet/models';
 import _ from 'lodash';
-import { LookupService } from 'common/services';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
@@ -111,9 +110,7 @@ class BookletViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.denominationTypeStore.find();
                 },
                 onChange: (denominationType) => {
                     this.queryUtility.filter['denominationTypeIds'] = _.map(denominationType, (type) => { return type.id });

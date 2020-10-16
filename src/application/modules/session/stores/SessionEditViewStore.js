@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
-import { LookupService } from 'common/services';
 import { applicationContext, charityFormatter } from 'core/utils';
 import { SessionEditForm } from 'application/session/forms';
 import { SessionService } from 'application/session/services';
@@ -63,9 +62,7 @@ class SessionEditViewStore extends BaseEditViewStore {
 
         this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'certificate-status');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.certificateStatusStore.find();
             }
         });
 

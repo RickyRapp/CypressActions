@@ -3,9 +3,8 @@ import { defaultTemplate } from 'core/hoc';
 import NumberFormat from 'react-number-format';
 
 const NumberFormatInputTemplate = defaultTemplate((props) => {
-    const { t, onChange, onBlur, required } = props;
+    const { t, onChange, onBlur, labelClassName, label } = props;
 
-    const requiredMark = required ? <span>*</span> : null;
     const handleFocus = (event) => { event.target.select(); }
 
     let formatedPlaceholder = '';
@@ -21,7 +20,10 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
 
     return (
         <div onFocus={handleFocus}>
-            {props.showLabel && <div className='form__group__label'>{t(props.label)}{requiredMark}</div>}
+            {props.showLabel &&
+                <label className={labelClassName || ''}>
+                    {t(label)}
+                </label>}
             <NumberFormat
                 className={props.className}
                 name={props.name}

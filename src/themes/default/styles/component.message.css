@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    # component.message
+\*------------------------------------*/
+
+.message {
+    padding: calc($unit * 2);
+    border-radius: $radius-base;
+
+    &--warning {
+        background-color: color($color-warning lightness(+20%));
+        color: $color-text;
+    }
+
+    &--note {
+        background-color: color($color-note lightness(+20%));
+        color: $color-text;
+    }
+}

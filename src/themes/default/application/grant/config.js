@@ -62,32 +62,20 @@ import { GrantModuleStore } from 'application/grant/stores';
                 title: 'MENU.GRANTS',
                 order: 3,
                 role: ['Administrators'],
-                icon: 'grant',
                 route: 'master.app.main.grant.list'
             },
             {
-                title: 'MENU.GIVE',
+                title: 'MENU.NEW_GRANT',
                 order: 2,
                 role: ['Users'],
-                icon: 'grant',
-                subMenu: [
-                    {
-                        title: 'MENU.NEW_GRANT',
-                        order: 1,
-                        route: 'master.app.main.grant.create'
-                    },
-                    {
-                        title: 'MENU.NEW_PLEDGE',
-                        order: 2,
-                        route: 'master.app.main.booklet-order.create'
-                    },
-                    {
-                        title: 'MENU.NEW_REMAINDER',
-                        order: 3,
-                        route: 'master.app.main.grant.create'
-                    }
-                ]
+                route: 'master.app.main.grant.create'
             },
+            {
+                title: 'MENU.NEW_PLEDGE',
+                order: 3,
+                role: ['Users'],
+                route: 'master.app.main.booklet-order.create'
+            }
         ],
         moduleStore: function (context) {
             return {

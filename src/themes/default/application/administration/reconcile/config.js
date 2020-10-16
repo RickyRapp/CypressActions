@@ -22,17 +22,10 @@ import { ReconcileList } from 'application/administration/reconcile/pages';
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
+                title: 'MENU.RECONCILE',
                 order: 9,
-                authorization: 'theDonorsFundAdministrationSection.update',
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.RECONCILE',
-                        order: 6,
-                        route: 'master.app.main.reconcile.check.list'
-                    }
-                ]
+                route: 'master.app.main.reconcile.check.list',
+                role: ['Administrators']
             }
         ]
     });

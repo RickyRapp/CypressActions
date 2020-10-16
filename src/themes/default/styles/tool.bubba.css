@@ -78,6 +78,7 @@ $grid-columns: 12;
  * Column
  */
 .col {
+    float: left;
     padding-left: calc($grid-gutter / 2);
     padding-right: calc($grid-gutter / 2);
 }

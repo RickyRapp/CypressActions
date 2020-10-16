@@ -103,8 +103,6 @@ export { default as LanguageMetadata } from './formatters/LanguageMetadata';
 export { default as FormatterResolver } from './formatters/FormatterResolver';
 export { default as Address } from './formatters/Address';
 
-export { default as TabContent } from './content/TabContent';
-
 export { default as Export } from './export/Export';
 
 export { default as Scanner } from './barcode-scanner/Scanner';

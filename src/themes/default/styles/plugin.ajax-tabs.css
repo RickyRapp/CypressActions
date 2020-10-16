@@ -1,0 +1,51 @@
+/*------------------------------------*\
+    # plugins.ajax-tabs
+\*------------------------------------*/
+.Tab .ajax__tab_body {
+    border: none;
+}
+
+.Tab .ajax__tab_active .ajax__tab_outer,
+.Tab .ajax__tab_active .ajax__tab_inner,
+.Tab .ajax__tab_active .ajax__tab_tab {
+    background: none !important;
+}
+
+.Tab .ajax__tab_outer,
+.Tab .ajax__tab_inner,
+.Tab .ajax__tab_tab {
+    background: none !important;
+}
+
+.Tab .ajax__tab_hover .ajax__tab_outer,
+.Tab .ajax__tab_hover .ajax__tab_inner,
+.Tab .ajax__tab_hover .ajax__tab_tab {
+    background: none !important;
+}
+
+.Tab .ajax__tab_header {
+    border-bottom: 1px solid $grey-2;
+    color: $color-text;
+    font-family: $ff-sans;
+    @mixin type-scale $type-base, 1;
+}
+
+.Tab .ajax__tab_active .ajax__tab_tab {
+    color: $color-primary !important;
+    background: none !important;
+}
+
+.Tab .ajax__tab_tab {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: $color-text;
+    background: none !important;
+
+    &:hover {
+        color: $color-primary;
+    }
+}
+
+.Tab .ajax__tab_active {
+    border-bottom: 2px solid $color-primary;
+}

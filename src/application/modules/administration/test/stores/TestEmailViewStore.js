@@ -2,7 +2,6 @@ import { action } from 'mobx'
 import { TableViewStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { LookupService } from 'common/services';
 
 @applicationContext
 class TestEmailViewStore extends BaseViewStore {
@@ -26,15 +25,13 @@ class TestEmailViewStore extends BaseViewStore {
             }
         });
 
-        this.setData();
+        this.settableStore();
         this.emailModal = new ModalParams({});
     }
 
-    @action.bound
-    async setData() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'email-type');
-        const response = await service.getAll();
-        this.tableStore.setData(response.data)
+    async settableStore() {
+        const data = await this.rootStore.application.lookup.emailTypeStore.find();
+        this.tableStore.setData(data)
     }
 
     @action.bound

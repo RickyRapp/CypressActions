@@ -2,7 +2,6 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonorThirdPartyWebsiteSettingForm } from 'application/donor/forms';
 import { action } from 'mobx';
 import { DonorService } from '../services';
-import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
@@ -13,6 +12,7 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'third-party-website-edit',
             id: donorId,
+            autoInit: false,
             actions: () => {
                 return {
                     update: async (resource) => {
@@ -40,17 +40,13 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
         this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.grantPurposeTypeStore.find();
                 },
             });
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
                 },
             });
     }

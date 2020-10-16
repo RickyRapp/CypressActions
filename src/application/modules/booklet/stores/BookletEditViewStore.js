@@ -3,7 +3,6 @@ import { BookletEditForm } from 'application/booklet/forms';
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletService } from 'application/booklet/services';
-import { LookupService } from 'common/services';
 
 @applicationContext
 class BookletEditViewStore extends BaseViewStore {
@@ -120,9 +119,7 @@ class BookletEditViewStore extends BaseViewStore {
     @action.bound
     async fetchCertificateStatuses() {
         this.certificateStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'certificate-status');
-        const response = await service.getAll();
-        this.certificateStatuses = response.data;
+        this.certificateStatuses = await this.rootStore.application.lookup.certificateStatusStore.find();
         runInAction(() => {
             this.certificateStatusDropdownStore.setItems(response.data);
             this.certificateStatusDropdownStore.setLoading(false);

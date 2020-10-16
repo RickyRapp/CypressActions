@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { inject, observer } from 'mobx-react';
 import { isSome, renderIf } from 'core/utils';
 import { DatePicker } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import moment from 'moment';
 
 const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true, ...otherProps }) {
     const { value, onChange, ...otherFieldProps } = field.bind();
@@ -60,6 +58,7 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
 DatePickerFieldTemplate.propTypes = {
     field: PropTypes.object.isRequired,
     disabled: PropTypes.bool,
+    showLabel: PropTypes.bool,
     t: PropTypes.any,
 };
 

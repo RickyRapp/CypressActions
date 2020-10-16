@@ -1,0 +1,8 @@
+/*------------------------------------*\
+    # plugin.ajax-fileupload
+\*------------------------------------*/
+.ajax__fileupload_selectFileButton {
+    background-color: $color-primary !important;
+    color: #ffffff !important;
+    border-radius: 3px;
+}

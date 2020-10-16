@@ -1,0 +1,53 @@
+/*------------------------------------*\
+    # plugins.k-timepicker
+\*------------------------------------*/
+
+.k-timepicker {
+    width: 100%;
+
+    &:hover {
+        .k-select {
+            background-image: none;
+            background-color: color($color-primary blackness(+10%));
+        }
+    }
+
+    .k-picker-wrap {
+        border: 0;
+    }
+
+    /* Input */
+    .k-dateinput {
+        border: 1px solid $grey-2;
+        border-right: 0;
+        border-radius: $radius-base 0 0 $radius-base;
+        padding: 0 calc($unit * 2);
+        padding-right: calc($unit * 6);
+
+        input {
+            height: calc($unit * 6 - 2px);
+            line-height: calc($unit * 6 - 2px);
+        }
+    }
+
+    /* Button */
+    .k-select {
+        background-color: $color-primary;
+        background-image: none;
+        border-color: $color-primary;
+        border-radius: 0 $radius-base $radius-base 0;
+        width: calc($unit * 6);
+        height: calc($unit * 6);
+
+        .k-icon {
+            color: #ffffff;
+        }
+    }
+}
+
+.k-timepicker-reset {
+    position: absolute;
+    top: 1px;
+    right: 38px;
+    bottom: 1px;
+}

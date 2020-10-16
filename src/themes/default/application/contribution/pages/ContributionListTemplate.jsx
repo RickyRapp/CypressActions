@@ -40,24 +40,23 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
             <ApplicationListLayout store={contributionViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
                     <div className="card--form card--secondary card--med u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+                        <TableFilter searchClassName="w--300--px" queryUtility={queryUtility} >
                             {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
                                 <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                     <BaasicDropdown store={searchDonorDropdownStore} />
                                 </div>}
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="u-mar--bottom--sml col col-sml-12 col-lrg-2">
                                 <BaasicInput
                                     className='input input--sml'
-                                    value={queryUtility.filter['confirmationNumber'] || ""}
-                                    onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                                />
+                                    value={queryUtility.filter.confirmationNumber}
+                                    onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
+                                    placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER' />
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicInput
                                     className='input input--sml'
-                                    value={queryUtility.filter['paymentNumber'] || ""}
-                                    onChange={(event) => queryUtility.filter['paymentNumber'] = event.target.value}
+                                    value={queryUtility.filter.paymentNumber || ""}
+                                    onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
                                     placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
                                 />
                             </div>
@@ -76,8 +75,8 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicInput
                                     className='input input--sml'
-                                    value={queryUtility.filter['nameOnCheck'] || ""}
-                                    onChange={(event) => queryUtility.filter['nameOnCheck'] = event.target.value}
+                                    value={queryUtility.filter.nameOnCheck || ""}
+                                    onChange={(event) => queryUtility.filter.nameOnCheck = event.target.value}
                                     placeholder='CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER'
                                 />
                             </div>
@@ -106,7 +105,7 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
             <BaasicModal modalParams={reviewModal}>
                 <ContributionReview />
             </BaasicModal>
-        </React.Fragment>
+        </React.Fragment >
     )
 };
 

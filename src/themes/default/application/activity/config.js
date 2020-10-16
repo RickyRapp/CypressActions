@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { ActivityTab } from 'application/activity/pages';
+import { ActivityModuleStore } from 'application/activity/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,27 +10,11 @@ import { ActivityTab } from 'application/activity/pages';
                 pattern: '/activity',
                 children: [
                     {
-                        name: 'master.app.main.activity.transactions',
-                        pattern: '/transaction',
+                        name: 'master.app.main.activity.all',
+                        pattern: '',
                         component: ActivityTab,
                         data: {
-                            title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.activity.deposits',
-                        pattern: '/deposits',
-                        component: ActivityTab,
-                        data: {
-                            title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.activity.grants',
-                        pattern: '/grants',
-                        component: ActivityTab,
-                        data: {
-                            title: "ACTIVITY_AND_HISTORY.LIST.DONOR"
+                            title: "ACTIVITY_AND_HISTORY.LIST"
                         }
                     }
                 ]
@@ -39,10 +24,14 @@ import { ActivityTab } from 'application/activity/pages';
             {
                 title: 'MENU.ACTIVITY',
                 order: 3,
-                route: 'master.app.main.activity.transactions',
-                role: ['Users'],
-                icon: 'activity'
+                route: 'master.app.main.activity.all',
+                role: ['Users']
             }
-        ]
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.activity': new ActivityModuleStore(context.rootStore)
+            };
+        },
     });
 })();

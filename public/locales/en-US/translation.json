@@ -922,6 +922,11 @@
             "CERTIFICATE_LIST": "Certificates",
             "BOOKLET_ORDER_LIST": "Booklet orders"
         },
+        "DEPOSIT_TAB": {
+            "CONTRIBUTION": "Contributions",
+            "SCHEDULED_CONTRIBUTION": "Scheduled Contributions",
+            "FUND_TRANSFER": "Fund Transfers"
+        },
         "LIST": {
             "COLUMNS": {
                 "CHARITY_LABEL": "DESCRIPTION",

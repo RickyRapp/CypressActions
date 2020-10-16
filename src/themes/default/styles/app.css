@@ -29,10 +29,9 @@
 /**
 * Tools .......... typography mixin, floted grid and clearfix
 */
-@import "tool.typomatic.css";
-@import "tool.animation.css";
-@import "tool.bubba.css";
-/* @import "tool.ricky.css"; */
+@import 'tool.typomatic.css';
+@import 'tool.bubba.css';
+@import "tool.ricky.css";
 
 /**
 * Generic .......... normalize or reset CSS, box sizing
@@ -50,29 +49,32 @@
 * Components .......... resuable components for all projects
 */
 @import "component.container.css";
-@import "component.content.css";
-@import "component.section.css";
 @import "component.table.css";
 @import "component.btn.css";
-@import "component.input.css";
-@import "component.nav.css";
 @import "component.layout.css";
 @import "component.header.css";
-@import "component.card.css";
-@import "component.inputgroup.css";
-@import "component.filter.css";
-@import "component.form.css";
-@import "component.breadcrumbs.css";
-@import "component.loader.css";
+@import 'component.search.css';
 @import "component.modal.css";
+@import 'component.message.css';
+@import 'component.box.css';
+@import 'component.badge.css';
+@import 'component.tabs.css';
+@import 'component.login.css';
+@import "component.breadcrumbs.css";
+@import "component.inputgroup.css";
+@import "component.form.css";
+@import "component.content.css";
+@import 'component.flex.css';
+@import 'component.scrollbar.css';
+@import "component.filter.css";
+@import 'component.tags.css';
 @import "component.empty-state.css";
-
+@import "component.section.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
 */
 @import "view.404.css";
-@import "view.login.css";
 
 /**
 * Utils .......... reusable utilities such as floats, spacers etc.
@@ -94,18 +96,34 @@
 @import "util.radius.css";
 @import "util.visibility.css";
 @import "util.rotate.css";
+@import 'util.loader.css';
+@import 'util.flexgrid.css';
+@import 'util.height.css';
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc
 * Note: when importing code from a 3rd party it should be stripped off
 * any vendor prefixes since autoprefixer will use project specific vendor prefixes
 */
-@import "plugins.fontface.css";
-@import "plugins.k-general.css";
-@import "plugins.k-inputs.css";
-@import "plugins.k-table.css";
-@import "plugins.k-datepicker.css";
-@import "plugins.toastify.css";
+@import 'plugin.fontface.css';
+@import 'plugin.devex.css';
+@import 'plugin.ajax-tabs.css';
+@import 'plugin.combobox.css';
+@import 'plugin.ajax-calendar.css';
+@import 'plugin.ajax-fileupload.css';
+@import 'plugin.k-datepicker.css';
+@import 'plugin.k-grid.css';
+@import 'plugin.k-textbox.css';
+@import 'plugin.toastify.css';
+@import 'plugin.k-timepicker.css';
+@import 'plugin.k-numeric.css';
+@import 'plugin.k-tooltip.css';
+@import 'plugin.k-loader.css';
+@import 'plugin.k-calendar.css';
+@import 'plugin.k-dateinput.css';
+@import 'plugin.k-upload.css';
+@import 'plugin.multi-select.css';
+@import 'plugin.rbc-calendar.css';
 
 /**
 * Shame .......... CSS shame file, to be avoided, exists only if REALLY necessary or legacy code.

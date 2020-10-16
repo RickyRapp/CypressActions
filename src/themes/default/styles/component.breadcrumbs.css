@@ -3,21 +3,40 @@
 \*------------------------------------*/
 
 .breadcrumbs {
-    @mixin type-scale $type-small, 0.75;
-    color: $grey-5;
     margin-bottom: calc($unit * 2);
 
     &__item {
-    	text-decoration: underline;
-    	cursor: pointer;
+        @mixin type-scale $type-small, 1;
+        color: $grey-4;
 
-    	&.disabled {
-    		text-decoration: none;
-    		cursor: default;
-    	}
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        &:last-child {
+            color: $color-primary;
+
+            font-weight: $type-weight-bold;
+            text-decoration: none;
+
+            cursor: default;
+        }
     }
-
+    
     &__spacer {
-    	margin: 0 calc($unit * 1);
+        display: inline-block;
+        margin: 0 $unit;
+        width: calc($unit * 2);
+        height: calc($unit * 2);
+        
+        background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-4);
+        background-size: calc($unit * 2);
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        transform: rotate(-90deg);
+        vertical-align: -1px;
+
     }
 }

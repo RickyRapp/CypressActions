@@ -17,7 +17,7 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
                 <Header />
                 <Menu />
                 <div
-                    className={'layout__content' + (menuStore.isCollapsed ? ' is-collapsed' : '') + (menuStore.secondaryMenuVisible ? ' active' : '')}>{render(props)}
+                    className={'layout__content' + (menuStore.isCollapsed ? '' : ' is-collapsed') + (menuStore.secondaryMenuVisible ? ' active' : '')}>{render(props)}
                 </div>
                 <BaasicConfirmModal />
             </div>

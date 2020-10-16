@@ -1,0 +1,14 @@
+/*------------------------------------*\
+    # component.login
+\*------------------------------------*/
+
+.login {
+    &__border {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: calc($unit - 1px);
+        background-color: $color-tertiary;
+    }
+}

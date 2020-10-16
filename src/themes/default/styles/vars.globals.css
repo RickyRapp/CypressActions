@@ -13,4 +13,9 @@ $unit: 6px;
  */
 $radius-full: 1000px;
 $radius-base: 3px;
-$radius-med: 6px;
+
+/* Global heights and widths */
+$header-height: 50px;
+$aside-width: 50px;
+$form-width-med: 1024px;
+$form-width-sml: 544px;

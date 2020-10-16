@@ -4,8 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     DonorAutomaticContributionSetting,
     DonorThirdPartyWebsiteSetting,
-    DonorCertificateSetting,
-    DonorContributionSetting
+    DonorCertificateSetting
 } from 'application/donor/components';
 
 function DonorSecurityAndPreferencesData({ donorId }) {
@@ -20,9 +19,6 @@ function DonorSecurityAndPreferencesData({ donorId }) {
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorCertificateSetting donorId={donorId} />
-                </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorContributionSetting donorId={donorId} />
                 </div>
             </div>
         </div>

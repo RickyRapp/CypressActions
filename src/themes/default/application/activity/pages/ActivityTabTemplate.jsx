@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { ActivityTransactionTab, ActivityGrantTab } from 'application/activity/pages';
+import { GrantTab } from 'application/activity/grant/pages';
+import { DepositTab } from 'application/activity/deposit/pages';
+import { TransactionTab } from 'application/activity/transaction/pages';
 
 function ActivityTabTemplate({ activityTabViewStore }) {
 
@@ -10,13 +12,13 @@ function ActivityTabTemplate({ activityTabViewStore }) {
         <div className='container'>
             <TabLayout store={activityTabViewStore}>
                 <div label={'ACTIVITY.TRANSACTIONS'}>
-                    <ActivityTransactionTab />
+                    <TransactionTab />
                 </div>
                 <div label={'ACTIVITY.DEPOSITS'}>
-                    2
-            </div>
+                    <DepositTab />
+                </div>
                 <div label={'ACTIVITY.GRANTS'}>
-                    <ActivityGrantTab />
+                    <GrantTab />
                 </div>
             </TabLayout>
         </div>

@@ -10,108 +10,537 @@
         background-position: center center;
         vertical-align: middle;
 
-        background-size: cover; 
+        transition: all 250ms ease-in-out;
+
+        &--btn {
+            width: 18px;
+            height: 18px;
+            background-size: 18px;
+        }
 
         &--tny {
-            width: calc($unit * 1.5); 
+            width: calc($unit * 1.5);
             height: calc($unit * 1.5);
+            background-size: calc($unit * 1.5);
         }
 
         &--sml {
-            width: calc($unit * 2.5);
-            height: calc($unit * 2.5);
+            width: calc($unit * 2);
+            height: calc($unit * 2);
+            background-size: calc($unit * 2);
         }
 
-        &--xmed {
+        &--xxmed {
             width: calc($unit * 3);
             height: calc($unit * 3);
+            background-size: calc($unit * 3);
         }
 
         &--med {
             width: calc($unit * 4);
             height: calc($unit * 4);
+            background-size: calc($unit * 4);
         }
 
         &--lrg {
             width: calc($unit * 6);
             height: calc($unit * 6);
+            background-size: calc($unit * 6);
         }
 
-        &--close {
-            background-image: svg-load('postcss-svg/close.svg', fill: $grey-4);
+        /* Icon align */
+        &--middle {
+            vertical-align: middle;
         }
 
-        &--back {
-            background-image: svg-load('postcss-svg/arrow-left.svg', fill: $grey-4);
+        &--arrow-up {
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            transform: rotate(-180deg);
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                transform: rotate(-180deg);
+            }
+            &--primary {
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
+                transform: rotate(-180deg);
+            }
         }
-
-        &--menu {
-            background-image: svg-load('postcss-svg/menu.svg', fill: white);
-        }
-
-        &--edit {
-             background-image: svg-load('postcss-svg/edit.svg', fill: $color-primary);
-        }
-
-        &--delete {
-             background-image: svg-load('postcss-svg/delete.svg', fill: $color-warning);
-        }
-
-        &--preview {
-             background-image: svg-load('postcss-svg/eye.svg', fill: $color-note);
-        }
-
-        &--approved {
-             background-image: svg-load('postcss-svg/check-on.svg', fill: $color-success);
-        }
-
-        &--unapproved {
-             background-image: svg-load('postcss-svg/check-off.svg', fill: $color-warning);
-
-             &--secondary {
-                background-image: svg-load('postcss-svg/check-off.svg', fill: $grey-3);
-             }
-        }
-
-        &--locked {
-            background-image: svg-load('postcss-svg/lock.svg', fill: $color-warning);
-        }
-
-        &--unlocked {
-            background-image: svg-load('postcss-svg/unlock.svg', fill: $grey-4);
-        }
-
-        &--reset-pass {
-            background-image: svg-load('postcss-svg/password-key.svg', fill: $grey-4);
-        }
-
-        &--email-pass {
-            background-image: svg-load('postcss-svg/email-lock.svg', fill: $grey-4);
-        }
-
-        &--arrow-right {
-            background-image: svg-load('postcss-svg/arrow-right.svg', fill: $grey-4);
+        
+        &--arrow-down {
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+            }
+            &--primary {
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
+            }
         }
 
         &--arrow-left {
-            background-image: svg-load('postcss-svg/arrow-left-s.svg', fill: $grey-4);
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            transform: rotate(90deg);
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                transform: rotate(90deg);
+            }
         }
 
-        &--arrow-down {
-            background-image: svg-load('postcss-svg/arrow-down.svg', fill: $grey-4);
+        &--arrow-right {
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            transform: rotate(-90deg);
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                transform: rotate(-90deg);
+            }
         }
 
-        &--circle-right {
-            background-image: svg-load('postcss-svg/circle-right.svg', fill: $grey-4);
+        &--search-circle {
+            background-image: svg-load('../styles/postcss-svg/search-icon.svg', fill: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/search-icon.svg', fill: $color-primary);
+            }
+        }
+
+        &--menu {
+            background-image: svg-load('../styles/postcss-svg/menu-icon.svg', stroke: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/menu-icon.svg', stroke: $color-primary);
+            }
+        }
+
+        &--dashboard {
+            background-image: svg-load('../styles/postcss-svg/dashboard-icon.svg', fill: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/dashboard-icon.svg', fill: $color-primary);
+            }
+        }
+
+        &--images {
+            background-image: svg-load('../styles/postcss-svg/images-icon.svg', stroke: $grey-6);
+            
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/images-icon.svg', stroke: $color-primary);
+            }
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/images-icon.svg', stroke: #ffffff);
+            }
+        }
+
+        &--report {
+            background-image: svg-load('../styles/postcss-svg/reports-icon.svg', fill: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/reports-icon.svg', fill: $color-primary);
+            }
+        }
+
+        &--tool {
+            background-image: svg-load('../styles/postcss-svg/tools-icon.svg', fill: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/tools-icon.svg', fill: $color-primary);
+            }
+        }
+
+        &--calendar {
+            background-image: svg-load('../styles/postcss-svg/calendar-icon.svg', fill: $grey-6);
+            
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/calendar-icon.svg', fill: $color-primary);
+            }
+            
+            &--primary {
+                background-image: svg-load('../styles/postcss-svg/calendar-icon.svg', fill: $color-primary);
+            }
+        }
+        &--notification {
+            background-image: svg-load('../styles/postcss-svg/notification.svg', stroke: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/notification.svg', stroke: $color-primary);
+            }
+        }
+        &--administration {
+            background-image: svg-load('../styles/postcss-svg/administration-icon.svg', stroke: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/administration-icon.svg', stroke: $color-primary);
+            }
+        }
+        &--sms {
+            background-image: svg-load('../styles/postcss-svg/sms.svg', stroke: $grey-6);
+
+            &:hover,
+            &:active,
+            &:focus,
+            &.active {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/sms.svg', stroke: $color-primary);
+            }
+        }
+        &--log {
+            background-image: svg-load('../styles/postcss-svg/log-icon.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/log-icon.svg', stroke: $color-primary);
+            }
+        }
+        &--email {
+            background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $color-primary);
+            }
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: #ffffff);
+            }
+        }
+        &--print {
+            background-image: svg-load('../styles/postcss-svg/print-icon.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/print-icon.svg', stroke: $color-primary);
+            }
+        }
+        &--image {
+            background-image: svg-load('../styles/postcss-svg/image-icon.svg', stroke: $color-primary);
+            
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/image-icon.svg', fill: $color-primary);
+            }
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/image-icon.svg', fill: #ffffff);
+            }
+        }
+
+        &--clear {
+            background-image: svg-load('../styles/postcss-svg/clear_circle.svg', fill: $grey-4);
+        }
+
+        &--user {
+            background-image: svg-load('../styles/postcss-svg/user.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/user.svg', stroke: $color-primary);
+            }
+        }
+
+        &--edit {
+            background-image: svg-load('../styles/postcss-svg/edit.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/edit.svg', fill: $color-primary);
+            }
+        }
+
+        &--schedule {
+            background-image: svg-load('../styles/postcss-svg/schedule.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/schedule.svg', stroke: $color-primary);
+            }
+        }
+
+        &--preview {
+            background-image: svg-load('../styles/postcss-svg/preview.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/preview.svg', fill: $color-primary);
+            }
+        }
+
+        &--decline {
+            background-image: svg-load('../styles/postcss-svg/decline.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/decline.svg', fill: $color-primary);
+            }
+            
+            &--warning {
+                background-image: svg-load('../styles/postcss-svg/decline.svg', fill: $color-warning);
+            }
+        }
+
+        &--approve {
+            background-image: svg-load('../styles/postcss-svg/approve.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/approve.svg', fill: $color-primary);
+            }
+            
+            &--success {
+                background-image: svg-load('../styles/postcss-svg/approve.svg', fill: $color-success);
+            }
+        }
+
+        &--lock {
+            background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-primary);
+            }
+            
+            &--warning {
+                background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-warning);
+            }
+        }
+
+        &--unlock {
+            background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-primary);
+            }
+            
+            &--success {
+                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-success);
+            }
+        }
+
+        &--mail {
+            background-image: svg-load('../styles/postcss-svg/mail.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/mail.svg', fill: $color-primary);
+            }
+        }
+
+        &--password {
+            background-image: svg-load('../styles/postcss-svg/password.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/password.svg', fill: $color-primary);
+            }
+        }
+
+        &--roles {
+            background-image: svg-load('../styles/postcss-svg/roles.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/roles.svg', stroke: $color-primary);
+            }
+        }
+
+        &--close-modal {
+            background-image: svg-load('../styles/postcss-svg/close-modal.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/close-modal.svg', fill: $color-primary);
+            }
+            
+            &--warning {
+                background-image: svg-load('../styles/postcss-svg/close-modal.svg', fill: $color-warning);
+            }
+
+            &--grey {
+                background-image: svg-load('../styles/postcss-svg/close-modal.svg', fill: $grey-4);
+            }
+        }
+
+        &--delete {
+            background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-primary);
+            }
+            
+            &--warning {
+                background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-warning);
+            }
+        }
+
+        &--briefcase {
+            background-image: svg-load('../styles/postcss-svg/briefcase.svg', stroke: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/briefcase.svg', stroke: $color-primary);
+            }
+        }
+        
+        &--notes {
+            background-image: svg-load('../styles/postcss-svg/notes.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/notes.svg', fill: $color-primary);
+            }
+        }
+
+        &--add-image {
+            background-image: svg-load('../styles/postcss-svg/add-image.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/add-image.svg', fill: $color-primary);
+            }
+        }
+
+        &--close {
+            background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-primary);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-primary);
+            }
+        }
+
+        &--robot {
+            background-image: svg-load('../styles/postcss-svg/robot.svg');
+        }
+
+        &--add {
+            background-image: svg-load('../styles/postcss-svg/add_circle_outlined.svg', fill: $color-primary);
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/add_circle_outlined.svg', fill: white);
+            }
+        }
+
+        &--filter {
+            background-image: svg-load('../styles/postcss-svg/filter.svg', fill: $color-primary);
+            transition: all 250ms ease-out;
         }
 
         &--info {
-            background-image: svg-load('postcss-svg/donations.svg', fill: $grey-4);
+            background-image: svg-load('../styles/postcss-svg/info.svg', fill: $grey-4);
+            
+            &--positive {
+                background-image: svg-load('../styles/postcss-svg/info.svg', fill: #ffffff);
+            }
+        }
+
+        &--search {
+            background-image: svg-load('../styles/postcss-svg/search.svg', fill: $color-primary);
+        }
+
+        &--move-all {
+            background-image: svg-load('../styles/postcss-svg/move-all.svg', fill: #ffffff);
+        }
+        
+        &--return-all {
+            background-image: svg-load('../styles/postcss-svg/return-all.svg', fill: #ffffff);
+        }
+
+        &--refresh {
+            background-image: svg-load('../styles/postcss-svg/refresh.svg', fill: $color-primary);
+        }
+
+        &--download {
+            background-image: svg-load('../styles/postcss-svg/download.svg', fill: #ffffff);
+        }
+
+        &--document {
+            background-image: svg-load('../styles/postcss-svg/document.svg', fill: $color-primary);
+        }
+
+        &--upload {
+            background-image: svg-load('../styles/postcss-svg/upload.svg', fill: $color-primary);
+        }
+
+        &--check-circle {
+            background-image: svg-load('../styles/postcss-svg/check-circle.svg', fill: $color-success);
         }
     }
-}
-
-
-.Toastify__toast--default {
-    color: red;
 }

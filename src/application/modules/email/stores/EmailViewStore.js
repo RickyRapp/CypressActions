@@ -1,7 +1,6 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { EmailService } from 'application/email/services';
 import { EmailListFilter } from 'application/email/models';
-import { LookupService } from 'common/services';
 import _ from 'lodash';
 import { ModalParams } from 'core/models';
 import { action } from 'mobx';
@@ -86,12 +85,10 @@ class EmailViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'email-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return rootStore.application.lookup.emailTypeStore.find();
                 },
                 onChange: (emailType) => {
-                    this.queryUtility.filter['emailTypeIds'] = _.map(emailType, (type) => { return type.id });
+                    this.queryUtility.filter.emailTypeIds = emailType.map((type) => { return type.id });
                 }
             });
 
@@ -100,12 +97,10 @@ class EmailViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'email-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return rootStore.application.lookup.emailSenderStore.find();
                 },
                 onChange: (emailSender) => {
-                    this.queryUtility.filter['emailSenderIds'] = _.map(emailSender, (sender) => { return sender.id });
+                    this.queryUtility.filter.emailSenderIds = emailSender.map((sender) => { return sender.id });
                 }
             });
 

@@ -5,6 +5,8 @@ import { BaasicDropdownStore } from 'core/stores';
 class DateRangeQueryPickerStore {
     options = {
         advancedSearch: false,
+        fromPropertyName: 'dateCreatedFrom',
+        toPropertyName: 'dateCreatedTo'
     };
 
     constructor(options = null) {

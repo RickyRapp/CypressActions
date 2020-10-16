@@ -3,20 +3,19 @@
 \*------------------------------------*/
 
 .content {
-    max-width: 1440px;
-    padding: calc($unit * 4);
-
-    &__header {
-    	padding-bottom: calc($unit * 2);
-    	margin-bottom: calc($unit * 4);
-    	border-bottom: 1px solid $grey-2;
+    &__main {
+        &--form {
+            max-width: $form-width-med;
+        }
     }
 
     &__footer {
-    	padding: calc($unit * 4) 0;
-    }
-
-    &__empty-state {
-        text-align: center;
+        &__wrap {
+            &--buttons {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+        }
     }
 }

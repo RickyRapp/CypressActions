@@ -1,0 +1,50 @@
+/*------------------------------------*\
+    # plugins.combobox
+\*------------------------------------*/
+.ajax__combobox_textboxcontainer input {
+    display: inline-block;
+    width: 100%;
+
+    height: calc($unit * 6);
+    line-height: calc($unit * 6);
+    padding: 0 calc($unit * 2);
+
+    vertical-align: middle;
+    cursor: pointer;
+    touch-action: manipulation;
+    appearance: none;
+    transition: border-color 200ms;
+    -webkit-appearance: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: $radius-base;
+    border-top-left-radius: $radius-base;
+    background-color: white;
+
+    font-family: $ff-sans;
+    @mixin type-scale $type-xsmall, 1;
+    border: 1px solid color(white blackness(+30%));
+    border-right: none;
+
+    &::placeholder {
+        color: color(white blackness(+60%));
+    }
+}
+
+.ajax__combobox_buttoncontainer button {
+    background-image: svg-load('../styles/postcss-svg/defaults/icon--arrow-down.svg', fill: color($grey-8 a(0.5))) !important;
+    background-repeat: no-repeat;
+    background-size: calc($unit * 2) calc($unit * 2);
+    background-position: center;
+    background-color: $grey-1;
+    vertical-align: middle;
+    border-bottom-right-radius: $radius-base;
+    border-top-right-radius: $radius-base;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border: 1px solid color(white blackness(+30%));
+    
+    &:hover {
+        cursor: pointer;
+    } 
+}

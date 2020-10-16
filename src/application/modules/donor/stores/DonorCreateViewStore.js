@@ -2,7 +2,6 @@ import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorCreateForm } from 'application/donor/forms';
-import { LookupService } from 'common/services';
 import { DonorService } from 'application/donor/services';
 
 const ErrorType = {
@@ -47,9 +46,7 @@ class DonorCreateViewStore extends BaseEditViewStore {
                     item.json = JSON.stringify({ prefixTypeId: item.prefixTypeId });
                     item.dateOfBirth = new Date(Date.UTC(item.dateOfBirth.getFullYear(), item.dateOfBirth.getMonth(), item.dateOfBirth.getDate()));
 
-                    const serviceAplicationDefaultSetting = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-                    const response = await serviceAplicationDefaultSetting.getAll();
-                    const applicationDefaultSetting = response.data[0];
+                    const applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find()
 
                     const model = {
                         activationUrl: `${window.location.origin}/app/account-activation/?activationToken={activationToken}`,
@@ -116,17 +113,13 @@ class DonorCreateViewStore extends BaseEditViewStore {
         this.prefixTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.prefixTypeStore.find();
                 }
             });
         this.howDidYouHearAboutUsDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'how-did-you-hear-about-us');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.howDidYouHearAboutUsStore.find();
                 }
             });
     }

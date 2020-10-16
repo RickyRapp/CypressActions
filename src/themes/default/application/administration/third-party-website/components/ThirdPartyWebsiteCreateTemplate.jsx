@@ -28,16 +28,16 @@ const ThirdPartyWebsiteCreateTemplate = function ({ t, thirdPartyWebsiteCreateVi
             >
                 <h3 className="u-mar--bottom--med">{t(id ? 'THIRD_PARTY_WEBSITE.EDIT.TITLE' : 'THIRD_PARTY_WEBSITE.CREATE.TITLE')}</h3>
                 <div className="row">
-                    <div className="form__group col col-lrg-12">
+                    <div className="u-mar--bottom--sml col col-lrg-12">
                         <BasicInput field={form.$('name')} />
                     </div>
-                    <div className="form__group col col-lrg-12">
+                    <div className="u-mar--bottom--sml col col-lrg-12">
                         <NumberFormatInputField field={form.$('ip')} onBlur={validateIPaddress} />
                     </div>
-                    <div className="form__group col col-lrg-12">
+                    <div className="u-mar--bottom--sml col col-lrg-12">
                         <BasicInput field={form.$('url')} />
                     </div>
-                    <div className="form__group col col-lrg-12">
+                    <div className="u-mar--bottom--sml col col-lrg-12">
                         <BaasicFieldDropdown
                             field={form.$('charityId')}
                             store={charityDropdownStore}

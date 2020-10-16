@@ -8,7 +8,8 @@
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-family: $ff-sans;
-    font-weight: $type-weight-regular;
+    font-weight: $type-weight-extra-bold;
+    color: $color-text;
 }
 
 h1 {
@@ -31,7 +32,9 @@ h4, h5, h6 {
  * Paragraphs
  */
 p {
+    @mixin type-scale $type-base, 1;
     margin: 0;
+    color: $color-text;
 }
 
 /**
@@ -56,8 +59,9 @@ dl dd {}
 a {
     color: $color-primary;
     text-decoration: none;
-    cursor: pointer;
     text-decoration-skip-ink: auto; /* Ensure that underlines don’t pass through descenders. */
+    cursor: pointer;
+    transition: all 250ms ease-out;
 }
 a:link {}
 a:hover {
@@ -65,7 +69,7 @@ a:hover {
 }
 a:focus {
     outline: 0;
-    color: color($color-primary lightness(+30));
+    color: color($color-primary lightness(+10));
 }
 a:visited {}
 
@@ -74,6 +78,7 @@ a:visited {}
  */
 hr {
     border-top: 1px solid #bfbfbf;
+    border-bottom: 0;
 }
 em {}
 b, strong {

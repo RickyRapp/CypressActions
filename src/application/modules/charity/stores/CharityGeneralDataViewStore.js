@@ -1,8 +1,7 @@
 import { CharityEditForm, CharityOnlineAccountForm } from 'application/charity/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
-import { LookupService } from 'common/services';
-import { action, runInAction } from 'mobx';
+import { action } from 'mobx';
 import { applicationContext } from 'core/utils';
 import _ from 'lodash';
 
@@ -69,38 +68,17 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         this.charityTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(rootStore.application.baasic.apiClient, 'charity-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.charityTypeStore.find();
                 }
             });
 
         this.charityStatusDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(rootStore.application.baasic.apiClient, 'charity-status');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.charityStatusStore.find();
                 }
             });
 
-        this.subscriptionTypeDropdownStore = new BaasicDropdownStore(null, {
-            fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'subscription-type');
-                const response = await service.getAll();
-                return response.data;
-            },
-            onChange: () => {
-                this.setSubscriptionAmount();
-            }
-        });
-
-        this.charityAccountTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                onChange: () => {
-                    this.setSubscriptionAmount();
-                }
-            });
     }
 
     @action.bound
@@ -112,13 +90,9 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchAccountTypes(),
                 this.fetchApplicationDefaultSetting(),
                 this.getResource(this.charityId)
             ]);
-
-            this.charityAccountTypeDropdownStore.setValue(_.find(this.charityAccountTypes, { abrv: 'regular' }));
-            this.formOnlineAccount.$('charityAccountTypeId').set(_.find(this.charityAccountTypes, { abrv: 'regular' }).id);
 
             this.setDisabledFields();
         }
@@ -201,21 +175,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
-    }
-
-    @action.bound
-    async fetchAccountTypes() {
-        this.charityAccountTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'charity-account-type');
-        const response = await service.getAll();
-        this.charityAccountTypes = response.data;
-        runInAction(() => {
-            this.charityAccountTypeDropdownStore.setItems(this.charityAccountTypes);
-            this.charityAccountTypeDropdownStore.setLoading(false);
-        });
+        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
     }
 
 }

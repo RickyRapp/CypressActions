@@ -22,17 +22,11 @@ import { ApplicationDefaultSettingEdit } from 'application/administration/applic
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.update',
-                subMenu: [
-                    {
-                        title: 'MENU.APPLICATION_DEFAULT_SETTING',
-                        order: 1,
-                        route: 'master.app.main.application-default-setting.edit'
-                    },
-                ]
-            }
+                title: 'MENU.APPLICATION_DEFAULT_SETTING',
+                order: 12,
+                route: 'master.app.main.application-default-setting.edit',
+                role: ['Administrators']
+            },
         ]
     });
 })();

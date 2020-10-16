@@ -24,7 +24,7 @@ $header-height: 72px;
         left: 0;
         bottom: 0;
         width: 0;
-        background-color: $color-tertiary;
+        background-color: #192A48;
         z-index: 9;
 
         @media (--screen-from-sml) {

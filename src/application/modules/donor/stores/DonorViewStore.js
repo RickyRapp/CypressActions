@@ -2,7 +2,6 @@ import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { DonorService } from 'application/donor/services';
 import { applicationContext } from 'core/utils';
-import { LookupService } from 'common/services';
 import { DonorListFilter } from 'application/donor/models';
 
 @applicationContext
@@ -98,9 +97,7 @@ class DonorViewStore extends BaseListViewStore {
 
     @action.bound
     async fetchAccountTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
-        const response = await service.getAll();
-        this.accountTypes = response.data;
+        this.accountTypes = await this.rootStore.application.lookup.accountTypeStore.find();
     }
 }
 

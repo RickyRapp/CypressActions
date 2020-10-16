@@ -3,7 +3,6 @@ import { ContributionReviewForm } from 'application/contribution/forms';
 import { applicationContext } from 'core/utils';
 import { ContributionService } from 'application/contribution/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 @applicationContext
@@ -102,9 +101,7 @@ class ContributionReviewViewStore extends BaseEditViewStore {
     @action.bound
     async fetchContributionStatuses() {
         this.contributionStatusDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'contribution-status');
-        const response = await service.getAll();
-        this.contributionStatuses = response.data;
+        this.contributionStatuses = await this.rootStore.application.lookup.contributionStatusStore.find();;
         const availableStatuses = this.getDefaults();
         runInAction(() => {
             this.contributionStatusDropdownStore.setItems(availableStatuses);

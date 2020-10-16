@@ -52,8 +52,7 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
                 title: 'MENU.BOOKLET_ORDERS',
                 order: 4,
                 route: 'master.app.main.booklet-order.list',
-                role: ['Administrators'],
-                icon: 'booklet-orders'
+                role: ['Administrators']
             }
         ]
     });

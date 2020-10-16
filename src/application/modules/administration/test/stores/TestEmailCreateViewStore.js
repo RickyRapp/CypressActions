@@ -2,7 +2,6 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { TestEmailCreateForm } from 'application/administration/test/forms';
 import { AdministrationService } from 'application/administration/test/services';
 import { observable } from 'mobx';
-import { LookupService } from 'common/services';
 import _ from 'lodash'
 
 class TestEmailCreateViewStore extends BaseEditViewStore {
@@ -99,27 +98,21 @@ class TestEmailCreateViewStore extends BaseEditViewStore {
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.paymentTypeStore.find();
                 }
             });
 
         this.accountTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'account-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.accountTypeStore.find();
                 }
             });
 
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.deliveryMethodTypeStore.find();
                 }
             });
 

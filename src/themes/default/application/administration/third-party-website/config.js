@@ -22,17 +22,10 @@ import { ThirdPartyWebsiteList } from 'application/administration/third-party-we
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.update',
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.THIRD_PARTY_WEBSITE',
-                        order: 5,
-                        route: 'master.app.main.third-party-website.list'
-                    }
-                ]
+                title: 'MENU.THIRD_PARTY_WEBSITE',
+                order: 7,
+                route: 'master.app.main.third-party-website.list',
+                role: ['Administrators']
             }
         ]
     });

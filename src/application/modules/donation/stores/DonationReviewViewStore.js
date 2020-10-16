@@ -2,7 +2,6 @@ import { action, runInAction } from 'mobx';
 import { SelectTableWithRowDetailsViewStore, BasePreviewViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonationService } from 'application/donation/services';
 import { applicationContext } from 'core/utils';
-import { LookupService } from 'common/services';
 import { DonationReviewForm } from 'application/donation/forms';
 import _ from 'lodash';
 
@@ -153,24 +152,19 @@ class DonationReviewViewStore extends BasePreviewViewStore {
 
     @action.bound
     async fetchDonationStatuses() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'donation-status');
-        const response = await service.getAll();
-        this.statusId = _.find(response.data, { abrv: 'pending' }).id;
+        const data = await this.rootStore.application.lookup.donationStatusStore.find();
+        this.statusId = data.map(c => c.abrv === 'pending').id;
     }
 
     @action.bound
     async fetchDonationTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'donation-type');
-        const response = await service.getAll();
-        this.donationTypes = response.data;
+        this.donationTypes = await this.rootStore.application.lookup.donationTypeStore.find();
     }
 
     @action.bound
     async fetchPaymentTypes() {
         this.paymentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-        const response = await service.getAll();
-        this.paymentTypes = response.data;
+        this.paymentTypes = this.rootStore.application.lookup.paymentTypeStore.find();;
         const availableStatuses = this.getDefaults();
         runInAction(() => {
             this.paymentTypeDropdownStore.setItems(availableStatuses);

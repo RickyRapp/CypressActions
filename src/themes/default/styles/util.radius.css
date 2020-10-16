@@ -9,7 +9,7 @@
         }
 
         &--full {
-            border-radius:$radius-full;
+            border-radius: $radius-full;
         }
     }
 }

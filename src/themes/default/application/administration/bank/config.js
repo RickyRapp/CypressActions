@@ -22,18 +22,12 @@ import { BankTab } from 'application/administration/bank/pages';
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.update',
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.BANKS',
-                        order: 7,
-                        route: 'master.app.main.bank.tab',
-                    }
-                ]
+                title: 'MENU.BANKS',
+                order: 11,
+                route: 'master.app.main.bank.tab',
+                role: ['Administrators']
             }
         ]
+
     });
 })();

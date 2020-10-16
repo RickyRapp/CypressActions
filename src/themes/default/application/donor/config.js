@@ -52,21 +52,13 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
                 title: 'MENU.DONORS',
                 order: 5,
                 role: ['Administrators'],
-                icon: 'users',
                 route: 'master.app.main.donor.list',
             },
             {
-                title: 'MENU.MANAGE_FUND',
+                title: 'MENU.PROFILE_SETTING',
                 order: 6,
                 role: ['Users'],
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.PROFILE_SETTING',
-                        order: 1,
-                        route: 'master.app.main.profile'
-                    }
-                ]
+                route: 'master.app.main.profile'
             },
         ]
     });

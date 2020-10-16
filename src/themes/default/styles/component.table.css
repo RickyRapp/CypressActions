@@ -9,6 +9,8 @@
 		table-layout: fixed;
 		width: 100%;
 		border-collapse: collapse;
+		background-color: #ffffff;
+		border: 1px solid $grey-2;
 
 		&__thead {
 			display: table-header-group;
@@ -27,16 +29,19 @@
 		}
 
 		&__th {
+			@mixin type-scale $type-small, 1;
 			display: table-cell;
-			padding: calc($unit * 2);
-			border: 1px solid $grey-2;
+			padding: calc($unit * 1.5) calc($unit * 2);
 			text-align: left;
+			color: #ffffff;
+			background-color: $color-primary;
+			font-weight: $type-weight-regular;
 		}
 
 		&__td {
 			display: table-cell;
-			padding: calc($unit * 2);
-			border: 1px solid $grey-2;
+			padding: calc($unit * 1.5) calc($unit * 2);
+			border-bottom: 1px solid $grey-2;
 			text-align: left;
 			font-weight: $type-weight-regular;
 		}

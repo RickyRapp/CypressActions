@@ -70,7 +70,6 @@ import { PublicLayout } from 'core/layouts';
             //     title: 'MENU.SESSION',
             //     order: 8,
             //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     icon: 'session',
             //     route: 'master.app.main.session.tab'
             // }
         ]

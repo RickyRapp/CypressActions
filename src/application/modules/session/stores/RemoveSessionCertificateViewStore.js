@@ -2,7 +2,6 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { RemoveSessionCertificateForm } from 'application/session/forms';
 import { SessionService } from 'application/session/services';
-import { LookupService } from 'common/services';
 
 @applicationContext
 class RemoveSessionCertificateViewStore extends BaseEditViewStore {
@@ -53,9 +52,7 @@ class RemoveSessionCertificateViewStore extends BaseEditViewStore {
 
         this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'certificate-status');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.certificateStatusStore.find();
             },
             initValueFunc: async () => {
                 this.form.$('certificateStatusId').set(sessionCertificate.certificate.certificateStatus.id)

@@ -104,7 +104,6 @@ import { CharityService } from 'application/charity/services';
                 title: 'MENU.MANAGE_CHARITY_ACCOUNT',
                 order: 5,
                 role: ['CharitiesRegular', 'CharitiesAdvanced'],
-                icon: 'profile',
                 subMenu: [
                     {
                         title: 'MENU.PROFILE_SETTING',
@@ -117,8 +116,7 @@ import { CharityService } from 'application/charity/services';
                 title: 'MENU.CHARITY_GRANT_REQUESTS',
                 order: 3,
                 route: 'master.app.main.charity-grant-requests',
-                role: ['CharitiesRegular', 'CharitiesAdvanced'],
-                icon: 'grant'
+                role: ['CharitiesRegular', 'CharitiesAdvanced']
             }
         ]
     });

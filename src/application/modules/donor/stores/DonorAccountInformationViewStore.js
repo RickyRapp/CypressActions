@@ -1,6 +1,5 @@
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorEditForm } from 'application/donor/forms';
-import { LookupService } from 'common/services';
 import { DonorService } from 'application/donor/services';
 
 class DonorAccountInformationViewStore extends BaseEditViewStore {
@@ -15,7 +14,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                     return response.data;
                 },
                 update: async (resource) => {
-                    return await service.updateGeneralData({ id: this.id, ...resource });
+                    return service.updateGeneralData({ id: this.id, ...resource });
                 }
             },
             FormClass: DonorEditForm,
@@ -23,9 +22,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
 
         this.prefixTypeDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'prefix-type');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.prefixTypeStore.find();
             }
         });
     }

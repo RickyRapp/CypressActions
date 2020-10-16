@@ -8,13 +8,13 @@
  * $f-grid-columns - number of columns of the grid
  */
 
-$f-grid-gutter: 36px;
+$f-grid-gutter: 20px;
 $f-grid-columns: 12;
 
 /**
  * The flex-col mixin is used for building flexbox grid columns
  */
-@define-mixin col $flex-span: 1, $context: $f-grid-columns {
+@define-mixin f-col $flex-span: 1, $context: $f-grid-columns {
     width: calc($(flex-span) / $(context) * 100%);
 }
 
@@ -28,18 +28,18 @@ $f-grid-columns: 12;
 /**
  * Row
  */
-.row {
+.f-row {
     margin-left: calc(-$f-grid-gutter / 2);
     margin-right: calc(-$f-grid-gutter / 2);
     display: flex;
     justify-content: left;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 /**
  * Column
  */
-.col {
+.f-col {
     padding-left: calc($f-grid-gutter / 2);
     padding-right: calc($f-grid-gutter / 2);
     transition: all 250ms ease-out;

@@ -1,7 +1,6 @@
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonorCertificateSettingForm } from 'application/donor/forms';
 import { DonorService } from '../services';
-import { LookupService } from 'common/services';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
@@ -37,17 +36,13 @@ class DonorCertificateSettingViewStore extends BaseEditViewStore {
         this.grantAcknowledgmentTypeByAmountDropwdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.grantPurposeTypeStore.find();
                 },
             });
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
                 },
             });
     }

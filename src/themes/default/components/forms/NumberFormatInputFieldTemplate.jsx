@@ -40,7 +40,7 @@ const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = tru
     return (
         <React.Fragment>
             <NumberFormatInput
-                className={"input input--med input--text " + (field.localizedError ? "input--warning" : null)}
+                className={'input input--med input--text' + (field.touched && !field.isValid ? ' input--warning' : '')}
                 required={required}
                 showLabel={showLabel}
                 label={field.label}
@@ -53,8 +53,8 @@ const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = tru
                 defaultValue={null}
                 value={value}
             />
-            {renderIf(isSome(field.localizedError))(<div
-                className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}
+            {renderIf(isSome(field.localizedError))(
+                <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>)}
         </React.Fragment>
     )
 });

@@ -12,7 +12,7 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
                         name: 'master.app.main.fund-transfer.list',
                         pattern: '',
                         component: FundTransferList,
-                        authorization: 'theDonorsFundContributionSection.read',
+                        authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "FUND_TRANSFER.LIST.TITLE"
                         }
@@ -31,17 +31,10 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
         ],
         menu: [
             {
-                title: 'MENU.MANAGE_FUND',
-                order: 5,
-                role: ['Users'],
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.FUND_TRANSFERS',
-                        order: 7,
-                        route: 'master.app.main.fund-transfer.list',
-                    },
-                ]
+                title: 'MENU.FUND_TRANSFERS',
+                role: ['Administrators'],
+                order: 7,
+                route: 'master.app.main.fund-transfer.list'
             },
         ]
     });

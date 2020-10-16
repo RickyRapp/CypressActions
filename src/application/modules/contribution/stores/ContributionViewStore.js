@@ -4,7 +4,6 @@ import { ContributionService } from 'application/contribution/services';
 import { DonorService } from 'application/donor/services';
 import { applicationContext, donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { LookupService } from 'common/services';
 import { ContributionListFilter } from 'application/contribution/models';
 import _ from 'lodash';
 import moment from 'moment';

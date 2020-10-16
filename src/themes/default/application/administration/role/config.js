@@ -32,20 +32,6 @@ import { noApplicationRedirectPromise } from 'core/utils';
                     },
                 ]
             }
-        ],
-        menu: [
-            {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                subMenu: [
-                    {
-                        title: 'MENU.ROLES',
-                        order: 4,
-                        route: 'master.app.main.role.list'
-                    },
-                ]
-            }
         ]
     });
 })();

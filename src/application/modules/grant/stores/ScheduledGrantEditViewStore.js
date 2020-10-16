@@ -3,7 +3,7 @@ import { applicationContext, charityFormatter } from 'core/utils';
 import { ScheduledGrantEditForm } from 'application/grant/forms';
 import { ScheduledGrantService } from 'application/grant/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { LookupService, FeeService } from 'common/services';
+import { FeeService } from 'common/services';
 import { CharityService } from 'application/charity/services';
 import _ from 'lodash';
 import moment from 'moment';
@@ -296,9 +296,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
     @action.bound
     async fetchGrantPurposeTypes() {
         this.grantPurposeTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
-        const response = await service.getAll();
-        this.grantPurposeTypes = response.data;
+        this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
         runInAction(() => {
             this.grantPurposeTypeDropdownStore.setItems(response.data);
             this.grantPurposeTypeDropdownStore.setLoading(false);
@@ -308,9 +306,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
     @action.bound
     async fetchGrantAcknowledgmentTypes() {
         this.grantAcknowledgmentTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-        const response = await service.getAll();
-        this.grantAcknowledgmentTypes = response.data;
+        this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
         runInAction(() => {
             this.grantAcknowledgmentTypeDropdownStore.setItems(response.data);
             this.grantAcknowledgmentTypeDropdownStore.setLoading(false);
@@ -320,9 +316,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
     @action.bound
     async fetchGrantScheduleTypes() {
         this.grantScheduleTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-schedule-type');
-        const response = await service.getAll();
-        this.grantScheduleTypes = response.data;
+        this.grantScheduleTypes = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
         runInAction(() => {
             this.grantScheduleTypeDropdownStore.setItems(response.data);
             this.grantScheduleTypeDropdownStore.setLoading(false);
@@ -331,16 +325,12 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
+        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
     }
 
     @action.bound
     async fetchFeeTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'fee-type');
-        const response = await service.getAll();
-        this.feeTypes = response.data;
+        this.feeTypes = await this.rootStore.application.lookup.feeTypeStore.find();
     }
 }
 

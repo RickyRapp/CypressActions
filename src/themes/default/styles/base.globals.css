@@ -17,9 +17,8 @@ body {
     overflow-x: hidden;
     margin: 0;
     
-    font-family: $ff-sans;
+    font-family: $ff-sans !important;
     color: $color-text;
-    background-color: $grey-1;
 }
 
 img {

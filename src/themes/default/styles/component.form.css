@@ -4,60 +4,15 @@
 
 .form {
     &__group {
-        position: relative;
         margin-bottom: calc($unit * 2);
 
         &__label {
-            @mixin type-scale $type-small, 1;
-            display: block;
-            margin-bottom: calc($unit / 2);
-            color: $grey-5;
-
-            span {
-                color: $color-warning;
-            }
+            font-weight: $type-weight-bold;
+            line-height: 25px;
         }
     }
 
-    &__icon {
-
-        &__btn {
-
-            .form__icon {
-                opacity: 0.85;
-                transition: opacity 250ms ease-in-out;
-            }
-
-            &:hover {
-
-                .form__icon {
-                    opacity: 1;
-                }
-            }
-        }
-
-        &--reset-pass {
-            background-image: svg-load('postcss-svg/password-key.svg', fill: $color-primary);
-        }
-
-        &--email-pass {
-            background-image: svg-load('postcss-svg/email-lock.svg', fill: $color-primary);
-        }
-
-        &--approved {
-            background-image: svg-load('postcss-svg/check-on.svg', fill: $color-primary);
-        }
-
-        &--unapproved {
-             background-image: svg-load('postcss-svg/check-off.svg', fill: $color-primary);
-        }
-
-        &--locked {
-            background-image: svg-load('postcss-svg/lock.svg', fill: $color-primary);
-        }
-
-        &--unlocked {
-            background-image: svg-load('postcss-svg/unlock.svg', fill: $color-primary);
-        }
+    &--inline {
+        display: flex;
     }
 }

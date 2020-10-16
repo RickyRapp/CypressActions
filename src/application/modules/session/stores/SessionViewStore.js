@@ -4,7 +4,6 @@ import { SessionService, SessionScanService } from 'application/session/services
 import { CharityService } from 'application/charity/services';
 import { SessionListFilter } from 'application/session/models';
 import { ModalParams } from 'core/models';
-import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 class SessionViewStore extends BaseListViewStore {
@@ -149,9 +148,7 @@ class SessionViewStore extends BaseListViewStore {
 
         this.scannerDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'scanner');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.scannerStore.find();
             },
             onChange: async () => {
                 await this.setScannerConnection(this.scannerDropdownStore.value.code);
@@ -163,12 +160,10 @@ class SessionViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.paymentTypeStore.find();
                 },
                 onChange: (paymentType) => {
-                    this.queryUtility.filter['paymentTypeIds'] = _.map(paymentType, (type) => { return type.id });
+                    this.queryUtility.filter.paymentTypeIds = paymentType.map((type) => { return type.id });
                 }
             });
         this.donationStatusDropdownStore = new BaasicDropdownStore({
@@ -176,12 +171,10 @@ class SessionViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'donation-status');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.donationStatusStore.find();
                 },
                 onChange: (donationStatus) => {
-                    this.queryUtility.filter['donationStatusIds'] = _.map(donationStatus, (status) => { return status.id });
+                    this.queryUtility.filter.donationStatusIds = donationStatus.map((status) => { return status.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();

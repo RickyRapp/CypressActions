@@ -15,7 +15,7 @@ function TestEmailListTemplate({ testEmailViewStore }) {
 
     return (
         <Content emptyRenderer={renderEmpty()} >
-            <div className="card--form card--primary card--med">
+            <div className="u-clearfix u-mar--bottom--sml">
                 <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}

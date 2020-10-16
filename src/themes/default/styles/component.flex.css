@@ -1,0 +1,35 @@
+/*------------------------------------*\
+    # component.flex
+\*------------------------------------*/
+
+.flex {
+    display: flex;
+
+    &--primary {
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &--secondary {
+        align-items: center;
+    }
+
+    &--bottom {
+        align-items: flex-end;
+    }
+
+    &--vertical {
+        flex-direction: column;
+    }
+
+    &--g {
+
+        &--1 {
+            flex-grow: 1;
+        }
+
+        &--2 {
+            flex-grow: 2;
+        }
+    }
+}

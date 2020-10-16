@@ -1,7 +1,6 @@
 import { ApplicationDefaultSettingEditForm } from 'application/administration/application-default-setting/forms';
 import { ApplicationDefaultSettingService } from 'application/administration/application-default-setting/services';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { LookupService } from 'common/services';
 
 class ApplicationDefaultSettingEditViewStore extends BaseEditViewStore {
     constructor(rootStore) {
@@ -28,23 +27,17 @@ class ApplicationDefaultSettingEditViewStore extends BaseEditViewStore {
 
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.deliveryMethodTypeStore.find();
             }
         });
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-acknowledgment-type');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
             }
         });
         this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'grant-purpose-type');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.grantPurposeTypeStore.find();
             }
         });
     }

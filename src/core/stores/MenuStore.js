@@ -1,6 +1,6 @@
-import _ from "lodash";
-import { action, observable, computed } from "mobx";
-import { MenuItem } from "core/models";
+import _ from 'lodash';
+import { action, observable, computed } from 'mobx';
+import { MenuItem } from 'core/models';
 
 export default class MenuStore {
     constructor(rootStore) {
@@ -11,38 +11,28 @@ export default class MenuStore {
     @observable selectedRootMenuItemTitle = '';
 
     @computed get secondaryMenuVisible() {
-        return (
-            (this.selectedPath && this.selectedPath.length > 0)
-        );
+        return this.selectedPath && this.selectedPath.length > 0;
     }
     @computed get secondaryMenu() {
-        const path =
-            this.selectedPath.length === 0
-                ? this.activePath
-                : this.selectedPath;
+        const path = this.selectedPath.length === 0 ? this.activePath : this.selectedPath;
 
-        const parent = _.find(this.menu, (item) => item.isActiveByPath(path));
+        const parent = _.find(this.menu, item => item.isActiveByPath(path));
         return parent ? parent.subMenu : [];
     }
     @computed get terniaryMenuVisible() {
-        return (
-            (this.selectedPath && this.selectedPath.length > 1)
-        );
+        return this.selectedPath && this.selectedPath.length > 1;
     }
     @computed get terniaryMenu() {
-        const path =
-            this.selectedPath.length === 1
-                ? this.activePath
-                : this.selectedPath;
+        const path = this.selectedPath.length === 1 ? this.activePath : this.selectedPath;
 
-        const parent = _.find(this.secondaryMenu, (item) => item.isActiveByPath(path));
+        const parent = _.find(this.secondaryMenu, item => item.isActiveByPath(path));
         return parent ? parent.subMenu : [];
     }
 
     @computed get tabMenu() {
-        const parent = _.find(this.secondaryMenu, (item) => item.isActiveByPath(this.activePath));
+        const parent = _.find(this.secondaryMenu, item => item.isActiveByPath(this.activePath));
         const activeSecondaryItems = parent ? parent.subMenu : [];
-        const terniaryActive = _.find(activeSecondaryItems, (item) => item.isActiveByPath(this.activePath));
+        const terniaryActive = _.find(activeSecondaryItems, item => item.isActiveByPath(this.activePath));
         return terniaryActive ? terniaryActive.subMenu : [];
     }
 
@@ -54,9 +44,13 @@ export default class MenuStore {
         this.rawMenu = menu;
         this.menu = [];
         const menuItems = [];
-        _.each(menu, (value, idx) => { // eslint-disable-line
-
-            const menuItem = new MenuItem({ title: value.title, subMenu: value.subMenu, route: value.route ? value.route : undefined });
+        // eslint-disable-next-line
+        _.each(menu, (value, idx) => {
+            const menuItem = new MenuItem({
+                title: value.title,
+                subMenu: value.subMenu,
+                route: value.route ? value.route : undefined,
+            });
 
             if (value.icon) {
                 menuItem.icon = value.icon;
@@ -64,25 +58,22 @@ export default class MenuStore {
 
             menuItems.push({
                 order: value ? value.order : undefined,
-                menuItem: menuItem
+                menuItem: menuItem,
             });
         });
 
-        this.menu = _.map(
-            _.orderBy(menuItems, item => item.order, "asc"),
-            i => i.menuItem
-        );
+        this.menu = _.map(_.orderBy(menuItems, item => item.order, 'asc'), i => i.menuItem);
         this.syncMenuRoute(toState);
-
     }
 
     syncMenuRoute(toState) {
         if (!this.menu || this.menu.length === 0) return;
         const activeRoute = _.find(this.rootStore.routerStore.routes, {
-            name: toState.routeName
+            name: toState.routeName,
         });
         const activeItem = findActiveMenuItem(this.menu, activeRoute.name);
         if (activeItem) {
+            this.setSelectedPath([]);
             this.setActivePath(activeItem.path);
         } else {
             // default to organization active (only root menu), and nothing selected
@@ -102,10 +93,10 @@ export default class MenuStore {
     @observable menu = null;
     @observable activePath = [];
     @observable selectedPath = [];
-    @observable isCollapsed = window.innerWidth > 1024 ? false : true;
+    @observable isCollapsed = true;
     @observable isOpen = false;
 
-    //toggle collapse, closes menu on collapse 
+    //toggle collapse, closes menu on collapse
     @action.bound toggleCollapse() {
         this.isCollapsed = !this.isCollapsed;
         if (this.isCollapsed) {
@@ -127,7 +118,7 @@ export default class MenuStore {
         this.isCollapsed = false;
     }
 
-    @action selectMenuItem = item => {
+    @action selectMenuItem = (item, e) => {
         const route = item.getRoute();
         // if middle menu item is set, route is null so just update path (which should reveal next level menu but not navigate), else navigate to route
         if (route !== null) {
@@ -138,7 +129,8 @@ export default class MenuStore {
         } else {
             this.setSelectedPath(item.path);
         }
-        this.menuExpand()
+        this.menuExpand();
+        e && e.preventDefault();
     };
 
     @action closeMenu = () => {
@@ -148,14 +140,12 @@ export default class MenuStore {
     @action.bound onMenuPin() {
         this.menuPinned = !this.menuPinned;
     }
-
 }
 
 function findActiveMenuItem(menu, route) {
     let bestMatch = {
         difference: 0,
-        item: null,
-        partsLength: 0
+        item: { path: [] },
     };
 
     for (let i = 0; i < menu.length; i++) {
@@ -169,15 +159,9 @@ function findActiveMenuItem(menu, route) {
                 // find menu item that has 'closest' route match to specified route
                 // e.g. master.platform.main.user.create doesn't have menu definition
                 // so its closest match would be master.platform.main.user.list
-                // addition: also check which route has more route parts equals
-                const differenceAndLength = getDifference(menuRoute, route);
-                if (differenceAndLength.difference >= 0
-                    && differenceAndLength.difference <= bestMatch.difference
-                    && bestMatch.partsLength <= differenceAndLength.partsLength
-                ) {
-                    bestMatch.item = item;
-                    bestMatch.difference = differenceAndLength.difference;
-                    bestMatch.partsLength = differenceAndLength.partsLength;
+                const match = isMatch(menuRoute, route);
+                if (match) {
+                    return item;
                 }
             }
         }
@@ -193,15 +177,23 @@ function findActiveMenuItem(menu, route) {
     return bestMatch.item;
 }
 
-function getDifference(menuRoute, route) {
+function isMatch(menuRoute, route) {
     let menuParts = _.split(menuRoute, '.');
     let routeParts = _.split(route, '.');
 
-    const diff = routeParts.length - menuParts.length;
-    if (diff < 0) return -1;
+    let diff = routeParts.length - menuParts.length;
+    if (diff < 0) {
+        return false;
+    }
 
-    return {
-        difference: _.difference(menuParts.slice(0, -1), routeParts.slice(0, -(diff + 1))).length,
-        partsLength: menuParts.slice(0, -1).length
-    };
+    let valDiff = _.difference(menuParts, routeParts.slice(0, routeParts.length - diff));
+
+    if (valDiff.length > 0 && menuParts.length > 4) {
+        menuParts = menuParts.slice(0, 4);
+        routeParts = routeParts.slice(0, 4);
+
+        valDiff = _.difference(menuParts, routeParts);
+    }
+
+    return valDiff.length === 0 ? true : false;
 }

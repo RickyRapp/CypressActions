@@ -22,18 +22,12 @@ import { TestTab } from 'application/administration/test/pages';
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.TESTING',
-                        order: 2,
-                        route: 'master.app.main.administration.test-tab'
-                    },
-                ]
-            }
+                title: 'MENU.TESTING',
+                order: 8,
+                route: 'master.app.main.administration.test-tab',
+                role: ['Administrators']
+            },
         ]
+
     });
 })();

@@ -28,8 +28,7 @@ import { RouterState } from 'mobx-state-router';
             {
                 title: 'MENU.DASHBOARD',
                 order: 2,
-                route: 'master.app.main.dashboard',
-                icon: 'dashboard'
+                route: 'master.app.main.dashboard'
             }
         ]
     });

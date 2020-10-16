@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    # plugins.k-dateinput
+\*------------------------------------*/
+
+.k-dateinput {
+
+    .k-dateinput-wrap {
+        height: 100%;
+        background-color: transparent;
+        border: 0;
+
+        .k-input {
+            height: 100%;
+            padding: 0 calc($unit * 2);
+        }
+    }
+}

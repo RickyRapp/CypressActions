@@ -1,3 +1,3 @@
-export { default as NotFoundTemplate } from './NotFound';
-export { default as DisplayErrorTemplate } from './DisplayError';
-export { default as UnauthorizedTemplate } from './Unauthorized';
+export { default as NotFoundTemplate } from './NotFoundTemplate';
+export { default as DisplayErrorTemplate } from './DisplayErrorTemplate';
+export { default as UnauthorizedTemplate } from './UnauthorizedTemplate';

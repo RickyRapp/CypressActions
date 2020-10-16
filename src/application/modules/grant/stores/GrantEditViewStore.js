@@ -1,6 +1,6 @@
-import { action, runInAction, computed, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
-import { LookupService, FeeService } from 'common/services';
+import { FeeService } from 'common/services';
 import { applicationContext, isNullOrUndefinedOrEmpty } from 'core/utils';
 import { GrantEditForm } from 'application/grant/forms';
 import { GrantService } from 'application/grant/services';
@@ -338,16 +338,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
+        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
     }
 
     @action.bound
     async fetchFeeTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'fee-type');
-        const response = await service.getAll();
-        this.feeTypes = response.data;
+        this.feeTypes = await this.rootStore.application.lookup.feeTypeStore.find();
     }
 
     @action.bound

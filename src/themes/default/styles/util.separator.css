@@ -1,16 +1,57 @@
 /*------------------------------------*\
     # components.separator
-    * use separators exclusively on <
-    *div> elements
 \*------------------------------------*/
 
-
 .u {
-
     &-separator {
-
         &--primary {
             border-bottom: 1px solid color($color-text lightness(+55%));
+        
+            &--calendar {
+                border-right: 1px solid color($color-text lightness(+55%));
+
+                &:last-child {
+                    border-right: transparent;
+                }
+            }
+        }
+
+        &--last {
+            &:last-child {
+                border-bottom: 1px solid transparent;
+            }
+        }
+
+        &--top {
+            &--primary {
+                border-top: 1px solid color($color-text lightness(+55%));
+            }
+        }
+
+        &--right {
+            &--primary {
+                border-right: 1px solid color($color-text lightness(+55%));
+            }
+        }
+
+        &--left {
+            &--primary {
+                border-left: 1px solid color($color-text lightness(+55%));
+            }
+        }
+
+        &--mar {
+            &--18 {
+                margin-right: calc($unit * 3);
+                margin-left: calc($unit * 3);
+            }
+        }
+
+        &--neg {
+            &--12 {
+                margin-right: calc($unit * -2);
+                margin-left: calc($unit * -2);
+            }
         }
     }
 }

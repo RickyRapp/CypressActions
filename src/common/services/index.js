@@ -1,5 +1,3 @@
-export { default as LookupService } from './LookupService'
-export { default as LookupRouteService } from './LookupRouteService'
 export { default as CharityFileStreamService } from './CharityFileStreamService'
 export { default as CharityFileStreamRouteService } from './CharityFileStreamRouteService'
 export { default as DonorFileStreamService } from './DonorFileStreamService'

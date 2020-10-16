@@ -22,17 +22,10 @@ import { FidelityRecommendationCardList } from 'application/administration/fidel
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.update',
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.FIDELITY_RECOMMENDATION_CARDS',
-                        order: 7,
-                        route: 'master.app.main.fidelity-recommendation-card.list',
-                    }
-                ]
+                title: 'MENU.FIDELITY_RECOMMENDATION_CARDS',
+                order: 10,
+                route: 'master.app.main.fidelity-recommendation-card.list',
+                role: ['Administrators']
             }
         ]
     });

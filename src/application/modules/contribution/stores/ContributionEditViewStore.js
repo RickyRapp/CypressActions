@@ -1,5 +1,4 @@
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
-import { LookupService } from 'common/services';
 import { ContributionCreateForm } from 'application/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
@@ -71,10 +70,8 @@ class ContributionEditViewStore extends BaseEditViewStore {
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'payment-type');
-                    const response = await service.getAll();
-                    this.paymentTypes = response.data;
-                    return response.data;
+                    this.paymentTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
+                    return this.paymentTypes;
                 }
             });
 

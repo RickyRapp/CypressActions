@@ -4,7 +4,6 @@ import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorService } from 'application/donor/services';
 import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { LookupService } from 'common/services';
 import { BookletOrderListFilter } from 'application/booklet-order/models';
 import _ from 'lodash';
 import moment from 'moment';
@@ -210,12 +209,10 @@ class BookletOrderViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-order-status');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.bookletOrderStatusStore.find();
                 },
                 onChange: (bookletOrderStatus) => {
-                    this.queryUtility.filter['bookletOrderStatusIds'] = _.map(bookletOrderStatus, (status) => { return status.id });
+                    this.queryUtility.filter.bookletOrderStatusIds = bookletOrderStatus.map((status) => { return status.id });
                 }
             });
         this.deliveryMethodTypeDropdownStore = new BaasicDropdownStore({
@@ -223,12 +220,10 @@ class BookletOrderViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async () => {
-                    const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-                    const response = await service.getAll();
-                    return response.data;
+                    return this.rootStore.application.lookup.deliveryMethodTypeStore.find();
                 },
                 onChange: (deliveryMethodType) => {
-                    this.queryUtility.filter['deliveryMethodTypeIds'] = _.map(deliveryMethodType, (type) => { return type.id });
+                    this.queryUtility.filter.deliveryMethodTypeIds = deliveryMethodType.map((type) => { return type.id });
                 }
             });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();

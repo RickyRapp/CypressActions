@@ -1,5 +1,4 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { DatePicker } from '@progress/kendo-react-dateinputs';
 import { dateFormatter } from 'core/utils';
@@ -32,7 +31,7 @@ const DatePickerTemplate = function ({ value, onChange, format = 'kendo-input-sh
                 <BaasicButton
                     onClick={onChange}
                     className="btn k-datepicker__btn tooltip"
-                    icon="u-icon u-icon--unapproved--secondary u-icon--sml"
+                    icon="u-icon u-icon--clear--secondary u-icon--sml"
                     label="DATEPICKER.CLEAR_BUTTON"
                     onlyIcon
                     value={null}

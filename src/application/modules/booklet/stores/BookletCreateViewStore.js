@@ -3,7 +3,6 @@ import { BookletCreateForm } from 'application/booklet/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletService } from 'application/booklet/services';
-import { LookupService } from 'common/services';
 
 @applicationContext
 class BookletCreateViewStore extends BaseEditViewStore {
@@ -44,16 +43,12 @@ class BookletCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchDenominationTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-        const response = await service.getAll();
-        this.denominationTypes = response.data;
+        this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
     }
 
     @action.bound
     async fetchBookletTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-type');
-        const response = await service.getAll();
-        this.bookletTypes = response.data;
+        this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
     }
 }
 

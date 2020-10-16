@@ -4,7 +4,6 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletOrderService } from 'application/booklet-order/services';
 import { DonorService } from 'application/donor/services';
-import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 const ErrorType = {
@@ -75,15 +74,16 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
             placeholder: 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_PLACEHOLDER'
         }, {
             fetchFunc: async () => {
-                const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-                const response = await service.getAll();
-                return response.data;
+                return this.rootStore.application.lookup.deliveryMethodTypeStore.find();
             }
         });
         this.denominationTypeDropdownStore = new BaasicDropdownStore({
             placeholder: 'BOOKLET_ORDER.CREATE.FIELDS.DENOMINATION_PLACEHOLDER'
         },
             {
+                fetchFunc: async () => {
+                    return this.rootStore.application.lookup.denominationTypeStore.find();
+                },
                 onChange: (value) => {
                     this.denominationError = !(value !== null && value !== undefined && value !== '');
                 }
@@ -113,14 +113,6 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
     @action.bound
     setFormDefaults() {
-        if (this.donor.accountType.abrv === 'regular') {
-            this.denominationTypes = _.filter(this.denominationTypes, (item) => { return item.abrv !== 'blank' });
-        }
-        runInAction(() => {
-            this.denominationTypeDropdownStore.setItems(this.denominationTypes);
-            this.denominationTypeDropdownStore.setLoading(false);
-        });
-
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             if (!this.donor.isInitialContributionDone) {
                 this.rootStore.notificationStore.warning('BOOKLET_ORDER.CREATE.MISSING_INITIAL_CONTRIBUTION');
@@ -225,17 +217,13 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
+        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
     }
 
     @action.bound
     async fetchDenominationTypes() {
         this.denominationTypeDropdownStore.setLoading(true);
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-        const response = await service.getAll();
-        this.denominationTypes = response.data;
+        this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();;
         runInAction(() => {
             this.denominationTypeDropdownStore.setItems(this.denominationTypes);
             this.denominationTypeDropdownStore.setLoading(false);

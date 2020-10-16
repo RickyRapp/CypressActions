@@ -16,6 +16,10 @@
 .u {
     &-mar {
         &--top {
+            &--nano {
+                margin-top: calc($unit / 2);
+            }
+
             &--tny {
                 margin-top: $unit;
             }
@@ -30,10 +34,18 @@
 
             &--med {
                 margin-top: calc($unit * 4);
+                
+                &--alt {
+                    margin-top: calc($unit * 5);
+                }
             }
 
             &--lrg {
                 margin-top: calc($unit * 6);
+
+                &--alt {
+                    margin-top: calc($unit * 7);
+                }
             }
 
             &--xlrg {
@@ -50,6 +62,10 @@
         }
 
         &--right {
+            &--nano {
+                margin-right: calc($unit / 2);
+            }
+
             &--tny {
                 margin-right: $unit;
             }
@@ -60,6 +76,10 @@
 
             &--sml {
                 margin-right: calc($unit * 2);
+            }
+
+            &--xmed {
+                margin-right: calc($unit * 3);
             }
 
             &--med {
@@ -84,6 +104,10 @@
         }
 
         &--bottom {
+            &--nano {
+                margin-bottom: calc($unit / 2);
+            }
+
             &--tny {
                 margin-bottom: $unit;
             }
@@ -94,6 +118,18 @@
 
             &--sml {
                 margin-bottom: calc($unit * 2);
+            }
+
+            &--xxxmed {
+                margin-bottom: calc($unit * 2.5);
+            }
+
+            &--xxmed {
+                margin-bottom: calc($unit * 3);
+            }
+
+            &--xmed {
+                margin-bottom: calc($unit * 3.5);
             }
 
             &--med {
@@ -118,6 +154,10 @@
         }
 
         &--left {
+            &--nano {
+                margin-left: calc($unit / 2);
+            }
+
             &--tny {
                 margin-left: $unit;
             }

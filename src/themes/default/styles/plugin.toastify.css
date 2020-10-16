@@ -1,0 +1,53 @@
+/*------------------------------------*\
+    # plugin.toastify
+\*------------------------------------*/
+.Toastify {
+    .Toastify__toast {
+        border-radius: $radius-base;
+    }
+
+    .green-background {
+        background-color: color($toastify-green a(0.7));
+        color: #044734;
+        
+        /* Progress bar */
+        .Toastify__progress-bar--default {
+            background: $toastify-green;
+        }
+        
+        /* Close button */
+        .Toastify__close-button--default {
+            opacity: 1;
+        }
+    }
+
+    .red-background {
+        background-color: color($toastify-red a(0.7));
+        color: #044734;
+        
+        /* Progress bar */
+        .Toastify__progress-bar--default {
+            background: $toastify-red;
+        }
+        
+        /* Close button */
+        .Toastify__close-button--default {
+            opacity: 1;
+        }
+    }
+
+    .orange-background {
+        background-color: color($color-note a(0.7));
+        color: #044734;
+        
+        /* Progress bar */
+        .Toastify__progress-bar--default {
+            background: $color-note;
+        }
+        
+        /* Close button */
+        .Toastify__close-button--default {
+            opacity: 1;
+        }
+    }
+}

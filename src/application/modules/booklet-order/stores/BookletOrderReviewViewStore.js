@@ -4,7 +4,6 @@ import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletOrderService } from 'application/booklet-order/services';
 import { BookletService } from 'application/booklet/services';
-import { LookupService } from 'common/services';
 import _ from 'lodash';
 
 const ErrorType = {
@@ -137,16 +136,12 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchBookletStatuses() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-status');
-        const response = await service.getAll();
-        this.bookletStatuses = response.data;
+        this.bookletStatuses = await this.rootStore.application.lookup.bookletStatusStore.find();
     }
 
     @action.bound
     async fetchDenominationTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-        const response = await service.getAll();
-        this.denominationTypes = response.data;
+        this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
     }
 }
 

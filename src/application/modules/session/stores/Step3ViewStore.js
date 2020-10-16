@@ -3,7 +3,6 @@ import { BaseEditViewStore } from 'core/stores';
 import { SessionScanService } from 'application/session/services';
 import { Step3CreateForm } from 'application/session/forms';
 import { applicationContext, isSome } from 'core/utils';
-import { LookupService } from 'common/services';
 import { ModalParams } from 'core/models';
 import _ from 'lodash';
 import 'signalr';
@@ -155,9 +154,7 @@ class Step3ViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchDenominationTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-        const response = await service.getAll();
-        this.denominationTypes = response.data;
+        this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
     }
 
     @computed get blankDenominationTypeId() {

@@ -17,10 +17,13 @@
     text-decoration: none;
     text-align: center;
     border: 0;
+    border-radius: $radius-base;
+
+    transition: all 250ms ease-in-out;
 
     &:focus {
         outline: 0;
-        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        box-shadow: transparent;
     }
 
     /**
@@ -29,11 +32,17 @@
     font-family: $ff-sans;
     font-weight: $type-weight-regular;
     text-transform: none;
-    border-radius: $radius-base;
 
     /**
      * Button sizes
     */
+    &--tny {
+        font-size: 12px;
+        height: calc($unit * 3.5);
+        padding: 0 calc($unit * 1);
+        line-height: calc($unit * 3.5);
+    }
+
     &--sml {
         font-size: 14px;
         height: calc($unit * 6);
@@ -42,18 +51,10 @@
     }
 
     &--base {
-        font-size: 14px;
-        height: calc($unit * 6);
-        padding: 0 calc($unit * 2);
-        line-height: calc($unit * 6);
-
-        &.btn--ghost {
-            line-height: calc($unit * 6 - 1px)
-        }
-
-        &--link {
-            padding: 0;
-        }
+        font-size: 16px;
+        height: calc($unit * 7);
+        padding: 0 calc($unit * 3);
+        line-height: calc($unit * 7);
     }
 
     &--med {
@@ -81,11 +82,19 @@
         }
     }
     &--secondary {
-        background: $color-secondary; 
+        background: $color-secondary;
         color: white;
 
         &:hover {
             background: color($color-secondary blackness(+10%));
+        }
+    }
+    &--warning {
+        background: $color-warning;
+        color: white;
+
+        &:hover {
+            background: color($color-warning blackness(+10%));
         }
     }
     &--neutral {
@@ -106,34 +115,41 @@
         }
     }
 
-    &--icon {
+    &--blank {
         background-color: transparent;
-        color: $grey-4;
-        opacity: 0.8;
-        transition: all 250ms ease-in-out;
-        box-shadow: none;
-
+        color: $color-primary;
+        border: transparent;
+        
         &:hover {
-            color: $grey-5;
-            opacity: 1;
-            box-shadow: none;
-        }
-
-        &:focus {
-            box-shadow: none;
+            color: color($color-primary blackness(+10%));
         }
     }
+    
+    &--link {
+        padding: 0;
+        color: $color-primary;
+        background-color: transparent;
+    }
 
-    &--block {
-        display: block;
-        width: 100%;
+    /* Fake button as Kendo tooltip position fix */
+    &--icon {
+        padding: 0;
+        background-color: transparent;
+
+        .u-icon {
+            border-radius: $radius-base;
+        }
+
+        /* Sizes */
+        &--sml {
+            padding: calc($unit * 3 - 1px) calc($unit * 3 - 1px);
+        }
     }
 
     &.is-disabled,
     &[disabled] {
         pointer-events: none;
-        opacity: 0.5;
-        border-color: transparent;
+        opacity: 0.6;
     }
 
     &[aria-busy="true"] {
@@ -148,6 +164,13 @@
         &:active {
             transform: none !important;
         }
+    }
+
+    &--back-to-top {
+        position: fixed;
+        bottom: 48px;
+        right: 48px;
+        padding-top: calc($unit * 1.5);
     }
 }
 

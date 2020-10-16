@@ -4,18 +4,11 @@ import { defaultTemplate } from 'core/hoc';
 import shouldRenderContentChildren from './shouldRenderContentChildren';
 
 function ListContentTemplate({ children }) {
-    return (
-        <React.Fragment>
-            {shouldRenderContentChildren(children)
-                ? children
-                : <div>{children}</div>
-            }
-        </React.Fragment>
-    )
+    return <React.Fragment>{shouldRenderContentChildren(children) ? children : <React.Fragment>{children}</React.Fragment>}</React.Fragment>;
 }
 
 ListContentTemplate.propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
 };
 
 export default defaultTemplate(ListContentTemplate);

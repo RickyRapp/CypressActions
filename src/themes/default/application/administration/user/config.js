@@ -45,19 +45,11 @@ import { noApplicationRedirectPromise } from 'core/utils';
         ],
         menu: [
             {
-                title: 'MENU.ADMINISTRATION',
-                order: 9,
-                authorization: 'theDonorsFundAdministrationSection.read',
-                icon: 'administration',
-                subMenu: [
-                    {
-                        title: 'MENU.USERS',
-                        order: 3,
-                        icon: 'user icon',
-                        route: 'master.app.main.user.list'
-                    },
-                ]
-            }
+                title: 'MENU.USERS',
+                order: 6,
+                route: 'master.app.main.user.list',
+                role: ['Administrators']
+            },
         ]
     });
 })();

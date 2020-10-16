@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    # component.box
+\*------------------------------------*/
+
+.box {
+    padding: calc($unit * 2);
+    padding-bottom: 0;
+    background-color: #fff;
+    border: 1px solid $grey-2;
+
+    &--administration {
+        max-width: 320px;
+        padding-left: calc($unit * 3);
+        border-left: 3px solid $color-primary;
+    }
+
+    &__title {
+        color: $color-text;
+    }
+
+    &--secondary {
+        border-left: 3px solid $color-primary;
+        padding-left: calc($unit * 1.5);
+    }
+
+    &--tertiary {
+        background-color: #f7f7f7;
+        border: 0;
+
+        &__header {
+            padding-bottom: calc($unit * 1.5);
+            margin-bottom: calc($unit * 1.5);
+            border-bottom: 1px solid $grey-2;
+        }
+
+        &--email {
+            padding-top: 0;
+            padding-bottom: calc($unit * 2);
+        }
+
+        &--allergen {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+    }
+
+    &--yellow {
+        background-color: #ffe68d;
+        border: 0;
+    }
+
+    &--fullheight {
+        height: 100%;
+    }
+}

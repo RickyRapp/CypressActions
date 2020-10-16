@@ -1,26 +1,38 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import { defaultTemplate } from 'core/hoc';
-import { setCurrentView } from "core/utils";
-import { TableFilterTemplate } from "themes/components";
+import React from 'react';
+import { action, observable } from 'mobx';
+import { observer } from 'mobx-react';
+import { setCurrentView, isSome } from 'core/utils';
+import { TableFilterTemplate } from 'themes/components';
 
-const TableFilter = function (props) {
-    return <TableFilterTemplate {...props} />;
-};
-
-TableFilter.propTypes = {
-    queryUtility: PropTypes.object.isRequired,
-    showClear: PropTypes.bool,
-};
-
-export default setCurrentView(
-    (rootStore, props) => new TableFilterStore(rootStore, props),
-    "filterStore"
-)(defaultTemplate(TableFilter));
-
-class TableFilterStore {
-    constructor(rootStore) {
-        this.rootStore = rootStore;
-
+@setCurrentView((rootStore, props) => new TableFilterStore(rootStore, props), 'filterStore')
+@observer
+class TableFilter extends React.Component {
+    render() {
+        return <TableFilterTemplate {...this.props} />;
     }
 }
+
+class TableFilterStore {
+    @observable filterVisible = false;
+
+    constructor(rootStore, props) {
+        this.rootStore = rootStore;
+        if (props.onFilterVisibilityChange) {
+            this.onFilterVisibilityChange = props.onFilterVisibilityChange;
+        }
+
+        if (isSome(props.visibleByDefault)) {
+            this.filterVisible = props.visibleByDefault;
+        }
+    }
+
+    @action.bound
+    toggleFilterVisibility() {
+        this.filterVisible = !this.filterVisible;
+        if (this.onFilterVisibilityChange) {
+            this.onFilterVisibilityChange(this.filterVisible);
+        }
+    }
+}
+
+export default TableFilter;

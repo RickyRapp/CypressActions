@@ -43,8 +43,7 @@ import { GroupedDonationList, DonationReview, CharityProcessedDonation } from 'a
             //     title: 'MENU.DONATIONS',
             //     authorization: 'theDonorsFundAdministrationSection.read',
             //     order: 6,
-            //     route: 'master.app.main.donation.list',
-            //     icon: 'donations'
+            //     route: 'master.app.main.donation.list'
             // }
         ]
     });

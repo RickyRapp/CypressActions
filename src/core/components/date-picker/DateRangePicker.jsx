@@ -42,14 +42,21 @@ const CustomDateInput = function (props) {
     const { label, error, required, ...other } = props;
 
     return (
-        <div className="display--ib align--v--top">
-            <span className="form__group__label">{label}{required ? <span>*</span> : null}</span>
-            <DateInput {...other} label={undefined} className={error ? "input--warning" : ""} />
-            {renderIf(isSome(error))(
-                <div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{error}</div>
-            )}
-        </div>
-    )
+        <React.Fragment>
+            <label>
+                {label}
+                {required ? <span>*</span> : null}
+            </label>
+            <div className="u-display--flex">
+                <DateInput
+                    {...other}
+                    label={undefined}
+                    className={error ? 'input input--med input--warning' : 'input'}
+                />
+                {renderIf(isSome(error))(<p className="type--tny type--color--warning u-mar--top--nano">{error}</p>)}
+            </div>
+        </React.Fragment>
+    );
 };
 
 CustomDateInput.propTypes = {

@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import * as _ from 'lodash';
 import { DropDownList, MultiSelect } from '@progress/kendo-react-dropdowns';
 import { defaultTemplate } from 'core/hoc';
-import { isSome } from 'core/utils';
 import { BaasicButton } from 'core/components';
 
 const BaasicDropdownTemplate = function (props) {
@@ -91,11 +90,11 @@ const BaasicDropdownTemplate = function (props) {
                     popupSettings={store.options.popupSettings}
                     ref={multiselect => multiselect && multiselect.setState({ focusedIndex: -1 })}
                 />
-                {store.options.clearable &&
+                {store.options.clearable && getValue() &&
                     <BaasicButton
                         onClick={() => onChange({ target: { value: null } })}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--unapproved--secondary u-icon--sml'
+                        icon='u-icon u-icon--sml u-icon--close'
                         label="DROPDOWN.CLEAR_BUTTON"
                         onlyIcon
                         disabled={store.options.disabled}

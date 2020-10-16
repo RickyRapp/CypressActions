@@ -104,7 +104,6 @@ class BaseEditViewStore extends BaseViewStore {
         try {
             item = await this.actions.get(id);
         } catch (err) {
-            console.log(err)
             item = null;
             this.rootStore.notificationStore.error('ERROR_MESSAGES.FETCH');
         }

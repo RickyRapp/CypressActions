@@ -10,22 +10,25 @@ $z-depth-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 $z-depth-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 $z-depth-6: 0 0px 38px rgba(0,0,0,0.2), 0 3px 4px rgba(0,0,0,0.1);
 
-/*you can use grey variables for match your background*/
-/*[grey-1, grey2...]*/
+/* you can use grey variables for match your background
+[grey-1, grey2...]
 
-/*tested on #efefef background and #fff box*/
+tested on #efefef background and #fff box */
 
-/*really close*/
-$shadow-tny: 0 1px 8px 0px $grey-3;
+/* Really close */
+$shadow-tny: 0 1px 8px 0px $grey-7;
 
-/*//close/**/
-$shadow-sml: 0 1px 15px -3px $grey-3;
+/* Close */
+$shadow-sml: 0 1px 15px -3px $grey-7;
 
-/*//regular/**/
-$shadow-base: 0 2px 26px -4px color(black a(25%));
+/* Regular */
+$shadow-base: 0 2px 26px -4px $grey-7;
 
-/*//smooth/**/
-$shadow-med: 0 2px 36px -6px $grey-3;
+/* Smooth */
+$shadow-med: 0 2px 36px -6px $grey-7;
 
-/*//apple like/**/
-$shadow-lrg: -1px 2px 50px -14px $grey-3;
+/* Apple like */
+$shadow-lrg: -1px 2px 50px -14px $grey-7;
+
+/* Aside secondary navigation */
+$shadow-lrg: 0px 2px 26px -4px $grey-7;

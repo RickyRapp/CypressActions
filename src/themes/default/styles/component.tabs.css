@@ -1,0 +1,66 @@
+/*------------------------------------*\
+    # component.tabs
+\*------------------------------------*/
+
+.tabs {
+    &--primary {
+        display: inline-block;
+        border-bottom: 1px solid $grey-2;
+        &__item {
+            display: block;
+            padding: 0 calc($unit * 2);
+            padding-bottom: $unit;
+            
+            @mixin type-scale $type-small, 1;
+            font-weight: $type-weight-bold;
+            text-align: center;
+            color: $grey-4;
+            
+            float: left;
+            border-bottom: 2px solid transparent;
+            
+            &:hover {
+                color: color($color-primary a(0.5));
+            }
+
+            &.active {
+                color: $color-primary;
+                border-bottom: 2px solid $color-primary;
+            }
+        }
+    }
+
+    &--secondary {
+        border-right: 0;
+        border-radius: $radius-base;
+
+        &__item {
+            opacity: 0.6;
+            display: block;
+
+            padding: $unit;
+            background-color: white;
+
+            @mixin type-scale $type-small, 1;
+            font-weight: $type-weight-bold;
+
+            border-right: 1px solid $grey-2;
+            border-left: 1px solid transparent;
+            border-top: 1px solid white;
+            border-bottom: 1px solid white;
+            cursor: pointer;
+            transition: all 150ms ease-in-out;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &.is-active {
+                border: 1px solid $grey-2;
+                border-right: white;
+                opacity: 1;
+            }
+        }
+    }
+}
+

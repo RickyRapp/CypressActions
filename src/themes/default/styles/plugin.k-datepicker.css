@@ -1,0 +1,175 @@
+/*------------------------------------*\
+    # plugin.k-datepicker
+\*------------------------------------*/
+.k-datepicker {
+    width: 100%;
+
+    &:hover {
+        border-color: color(white blackness(+30%));
+
+        .k-select {
+            color: #fff;
+            background-color: $color-primary;
+            background-image: none;
+        }
+    }
+
+    .k-input {
+        @mixin type-scale $type-xsmall, 1;
+    
+        background-color: white;
+        border: 1px solid color(white blackness(+30%));
+        border-right: 0;
+        border-radius: $radius-base 0 0 $radius-base;
+    
+        &::placeholder {
+            color: color(white blackness(+60%));
+        }
+
+        &::selection {
+            background: $color-primary;
+        }
+    }
+
+    /* Clear button */
+    &__btn {
+        position: absolute;
+        top: 1px;
+        right: 38px;
+        bottom: 1px;
+        background-color: transparent;
+
+        &:focus {
+            box-shadow: none !important;
+        }
+    }
+
+    /* Removing outter border */
+    .k-picker-wrap {
+        border: 0;
+    }
+    
+    /* Focus state */
+    .k-state-focused {
+        outline: 0;
+        border-radius: $radius-base;
+        box-shadow: none;
+        
+        input {
+            border: 1px solid $color-primary !important;
+        }
+    }
+
+    /* Datepicker button */
+    .k-select {
+        width: calc($unit * 6);
+        height: calc($unit * 6);
+
+        color: #fff;
+        background-color: $color-primary;
+        background-image: none;
+
+        border-radius: 0 $radius-base $radius-base 0;
+        
+        &:hover {
+            color: #fff;
+            background-color: $color-primary;
+            background-image: none;
+        }
+    }
+
+    /* k-datepicker sizes */
+    &--med {
+        input {
+            height: calc($unit * 6) !important;
+            line-height: calc($unit * 6) !important;
+            padding: 0 calc($unit * 2) !important;
+            padding-right: calc($unit * 6) !important;
+        }
+    }
+}
+
+/* k-calendar dropdown */
+.k-calendar-container {
+
+    /* Today button and date in calendar */
+    .k-today {
+        color: $color-primary !important;
+    }
+    
+    /* Hovering calendar month list */
+    .k-calendar-navigation li:hover {
+        color: $color-primary !important;
+    }
+
+    /* Selected date in calendar styling */
+    .k-content {
+        table tbody td {
+            &.k-state-selected .k-link {
+                background-color: $color-primary;
+                border-color: $color-primary;
+            }
+        }
+    }
+}
+
+/* Kendo date range picker */
+.k-daterangepicker {
+    display: block;
+
+    .k-daterangepicker-wrap {
+        display: flex !important;
+        align-items: center;
+
+        label:nth-of-type(2) {
+            margin: 0 $unit;
+            font-weight: $type-weight-bold;
+        }
+
+        & > span {
+            display: none;
+        }
+    }
+}
+
+/*
+k-calendar date range
+*/
+
+/* Today button in header and footer */
+.k-calendar .k-footer .k-nav-today, .k-calendar .k-calendar-header .k-today {
+    color: $color-primary;
+}
+
+.k-calendar .k-footer .k-nav-today:hover, .k-calendar .k-footer .k-nav-today:focus, .k-calendar .k-calendar-header .k-today:hover, .k-calendar .k-calendar-header .k-today:focus {
+    color: $color-primary;
+}
+
+/* Today in calednar grid */
+.k-calendar .k-content .k-today {
+    color: $color-primary;
+}
+
+/* Range */
+.k-calendar.k-calendar-range .k-range-start, .k-calendar.k-calendar-range .k-range-end, .k-calendar.k-calendar-range .k-range-mid {
+    background-image: none;
+    background-color: color($color-primary a(.25));
+}
+
+.k-calendar.k-calendar-range .k-range-split-start:after {
+    background-image: none;
+}
+
+.k-calendar.k-calendar-range .k-range-split-end:after {
+    background-image: none;
+}
+
+/* Start & End date */
+.k-calendar.k-calendar-range .k-range-start .k-link, .k-calendar.k-calendar-range .k-range-end .k-link {
+    background-color: $color-primary;
+}
+
+.k-calendar .k-state-selected .k-link {
+    border-color: $color-primary;
+}
+

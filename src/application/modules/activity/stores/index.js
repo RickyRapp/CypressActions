@@ -1,5 +1,3 @@
 export { default as ActivityTabViewStore } from './ActivityTabViewStore'
-export { default as ActivityTransactionTabViewStore } from './ActivityTransactionTabViewStore'
-export { default as TransactionViewStore } from './TransactionViewStore'
-export { default as ActivityTransactionDonorViewStore } from './ActivityTransactionDonorViewStore'
-export { default as ActivityGrantTabViewStore } from './ActivityGrantTabViewStore'
+export { default as ActivityModuleStore } from './ActivityModuleStore'
+export { default as ActivityStore } from './ActivityStore'

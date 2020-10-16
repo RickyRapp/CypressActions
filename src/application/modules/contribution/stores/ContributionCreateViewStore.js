@@ -1,5 +1,4 @@
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
-import { LookupService } from 'common/services';
 import { ContributionCreateForm } from 'application/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
@@ -43,7 +42,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
         this.routes = {
             allContributions: () => {
-                this.rootStore.routerStore.goTo('master.app.main.contribution.list');
+                this.rootStore.routerStore.goTo('master.app.main.activity.all', {}, { headerTab: 1 });
             }
         }
 

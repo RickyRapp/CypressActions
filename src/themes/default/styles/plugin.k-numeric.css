@@ -1,0 +1,44 @@
+/*------------------------------------*\
+    # plugin.k-numeric
+\*------------------------------------*/
+
+.k-numeric-wrap {
+    border: 0;
+
+    .k-input {
+        height: calc($unit * 6);
+        line-height: calc($unit * 6);
+        padding: 0 calc($unit * 2);
+
+        border: 1px solid color(white blackness(+30%));
+        border-right: 0;
+        border-radius: $radius-base 0 0 $radius-base;
+    }
+
+    .k-select {
+        height: calc($unit * 6);
+        width: calc($unit * 6);
+        background-image: none;
+        background-color: $color-primary;
+
+        color: #ffffff;
+        
+        border-radius: 0 $radius-base $radius-base 0;
+        
+        &:hover {
+            background: $color-primary;
+            color: #ffffff;
+        }
+        
+        .k-link {
+            &:hover {
+                background: color($color-primary blackness(+10%));
+            }
+        }
+    }
+}
+
+/* Make input fullwidth */
+.k-numerictextbox {
+    width: 100%;
+}

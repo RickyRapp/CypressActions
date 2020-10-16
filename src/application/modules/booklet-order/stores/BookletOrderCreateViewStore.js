@@ -2,7 +2,6 @@ import { action, observable, computed } from 'mobx';
 import { BookletOrderCreateForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { LookupService } from 'common/services';
 import { BookletOrderService } from 'application/booklet-order/services';
 
 @applicationContext
@@ -172,30 +171,22 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async fetchApplicationDefaultSetting() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'application-default-setting');
-        const response = await service.getAll();
-        this.applicationDefaultSetting = response.data[0];
+        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
     }
 
     @action.bound
     async fetchDenominationTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'denomination-type');
-        const response = await service.getAll();
-        this.denominationTypes = response.data;
+        this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
     }
 
     @action.bound
     async fetchDeliveryMethodTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'delivery-method-type');
-        const response = await service.getAll();
-        this.deliveryMethodTypes = response.data;
+        this.deliveryMethodTypes = await this.rootStore.application.lookup.deliveryMethodTypeStore.find();
     }
 
     @action.bound
     async fetchBookletTypes() {
-        const service = new LookupService(this.rootStore.application.baasic.apiClient, 'booklet-type');
-        const response = await service.getAll();
-        this.bookletTypes = response.data;
+        this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
     }
 }
 
