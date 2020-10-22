@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {TableWithRowDetailsViewStore, SelectTableWithRowDetailsViewStore} from "core/stores";
-import {BaasicTable, BaasicTableRowDetail} from "core/components";
+import { TableWithRowDetailsViewStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
+import { BaasicTable, BaasicTableRowDetail } from 'core/components';
 
 class BaasicTableWithRowDetails extends Component {
     render() {
@@ -26,11 +26,11 @@ BaasicTableWithRowDetails.propTypes = {
     actionsComponent: PropTypes.any,
     noRecordsComponent: PropTypes.any,
     editField: PropTypes.string,
-    detailComponent: PropTypes.any
+    detailComponent: PropTypes.any,
 };
 
 BaasicTableWithRowDetails.defaultProps = {
-    detailComponent: BaasicTableRowDetail
+    detailComponent: BaasicTableRowDetail,
 };
 
 export default BaasicTableWithRowDetails;

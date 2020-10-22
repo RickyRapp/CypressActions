@@ -27,9 +27,39 @@ import { RouterState } from 'mobx-state-router';
         menu: [
             {
                 title: 'MENU.DASHBOARD',
-                order: 2,
+                order: 1,
                 route: 'master.app.main.dashboard'
-            }
+            },
+            {
+                title: 'MENU.ACTIVITY',
+                order: 2,
+                route: 'master.app.main.activity.all',
+                role: ['Users']
+            },
+            {
+                title: 'MENU.CONTRIBUTIONS',
+                order: 3,
+                route: 'master.app.main.contribution.create',
+                role: ['Users']
+            },
+            {
+                title: 'MENU.NEW_GRANT',
+                order: 4,
+                role: ['Users'],
+                route: 'master.app.main.grant.create',
+            },
+            {
+                title: 'MENU.PROFILE_SETTING',
+                order: 5,
+                role: ['Users'],
+                route: 'master.app.main.profile'
+            },
+            {
+                title: 'MENU.ORDER_VOUCHERS',
+                order: 6,
+                role: ['Users'],
+                route: 'master.app.main.booklet-order.create'
+            },
         ]
     });
 })();

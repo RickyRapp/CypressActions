@@ -5,7 +5,7 @@ import { dateFormatter } from 'core/utils';
 import { BaasicButton } from 'core/components';
 import moment from 'moment';
 
-const DatePickerTemplate = function ({ value, onChange, format = 'kendo-input-short', max, min, disabled, ...otherProps }) {
+const DatePickerTemplate = function ({ value, onChange, format = 'kendo-input-short', max, min, disabled, clearable, ...otherProps }) {
     const handleChange = e => {
         const value = e.value;
         let date = moment(value).format('YYYY-MM-DD');
@@ -27,16 +27,16 @@ const DatePickerTemplate = function ({ value, onChange, format = 'kendo-input-sh
                     onChange={handleChange}
                     disabled={disabled}
                 />
-
-                <BaasicButton
-                    onClick={onChange}
-                    className="btn k-datepicker__btn tooltip"
-                    icon="u-icon u-icon--clear--secondary u-icon--sml"
-                    label="DATEPICKER.CLEAR_BUTTON"
-                    onlyIcon
-                    value={null}
-                    disabled={disabled}
-                />
+                {clearable &&
+                    <BaasicButton
+                        onClick={onChange}
+                        className="btn k-datepicker__btn tooltip"
+                        icon="u-icon u-icon--clear u-icon--sml"
+                        label="DATEPICKER.CLEAR_BUTTON"
+                        onlyIcon
+                        value={null}
+                        disabled={disabled}
+                    />}
             </div>
         </React.Fragment>
     );

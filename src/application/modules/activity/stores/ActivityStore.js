@@ -25,5 +25,10 @@ class ActivityStore {
 		const response = await this.charityService.search(params);
 		return response.data.item;
 	}
+
+	async loadDonorData(id) {
+		const response = await this.activityService.loadDonorData(id);
+		return response.data;
+	}
 }
 export default ActivityStore;

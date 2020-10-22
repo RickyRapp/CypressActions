@@ -121,7 +121,7 @@ class BookletEditViewStore extends BaseViewStore {
         this.certificateStatusDropdownStore.setLoading(true);
         this.certificateStatuses = await this.rootStore.application.lookup.certificateStatusStore.find();
         runInAction(() => {
-            this.certificateStatusDropdownStore.setItems(response.data);
+            this.certificateStatusDropdownStore.setItems(this.certificateStatuses);
             this.certificateStatusDropdownStore.setLoading(false);
         });
     }

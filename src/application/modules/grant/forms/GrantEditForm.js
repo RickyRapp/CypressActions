@@ -18,7 +18,7 @@ export default class GrantEditForm extends FormBase {
                     name: 'amount',
                     label: 'GRANT.CREATE.FIELDS.AMOUNT_LABEL',
                     placeholder: 'GRANT.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric',
+                    rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     }

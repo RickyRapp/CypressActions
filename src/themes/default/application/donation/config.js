@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GroupedDonationList, DonationReview, CharityProcessedDonation } from 'application/donation/pages';
+import { DonationReview } from 'application/donation/pages';
+import { DonationModuleStore } from 'application/donation/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -11,40 +12,27 @@ import { GroupedDonationList, DonationReview, CharityProcessedDonation } from 'a
                     {
                         name: 'master.app.main.donation.list',
                         pattern: '',
-                        component: GroupedDonationList,
-                        authorization: 'theDonorsFundAdministrationSection.read',
-                        data: {
-                            title: "DONATION.LIST.GROUPED_TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.donation.review',
-                        pattern: '/review/:id',
                         component: DonationReview,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
-                            title: "DONATION.LIST.OVERVIEW_TITLE"
+                            title: "DONATION.REVIEW.LIST.TITLE"
                         }
-                    },
-                    {
-                        name: 'master.app.main.donation.processed',
-                        pattern: '/processed',
-                        component: CharityProcessedDonation,
-                        authorization: 'theDonorsFundAdministrationSection.read',
-                        data: {
-                            title: "DONATION.LIST.CHARITY_PROCESSED"
-                        }
-                    },
+                    }
                 ]
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.DONATIONS',
-            //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     order: 6,
-            //     route: 'master.app.main.donation.list'
-            // }
-        ]
+            {
+                title: 'MENU.DONATIONS',
+                authorization: 'theDonorsFundAdministrationSection.read',
+                order: 6,
+                route: 'master.app.main.donation.list'
+            }
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.donation': new DonationModuleStore(context.rootStore),
+            };
+        },
     });
 })();

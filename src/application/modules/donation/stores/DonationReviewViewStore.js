@@ -1,189 +1,79 @@
-import { action, runInAction } from 'mobx';
-import { SelectTableWithRowDetailsViewStore, BasePreviewViewStore, BaasicDropdownStore } from 'core/stores';
-import { DonationService } from 'application/donation/services';
+import { SelectTableWithRowDetailsViewStore, BaseListViewStore } from 'core/stores';
+import { FilterParams } from 'core/models';
 import { applicationContext } from 'core/utils';
-import { DonationReviewForm } from 'application/donation/forms';
-import _ from 'lodash';
 
 @applicationContext
-class DonationReviewViewStore extends BasePreviewViewStore {
-    statusId = null;
-    paymentTypes = null;
-    donationTypes = null;
-
-    form = new DonationReviewForm({
-        onSuccess: async form => {
-            const item = form.values();
-            if (!item.grantIds && !item.sessionIds) {
-                this.rootStore.notificationStore.warning('DONATION.REVIEW.SELECT_DONATIONS_WARNING')
-                return;
-            }
-            if (item.paymentTypeId === '-1') {
-                item.paymentTypeId = null;
-            }
-            await this.service.review({ ...item });
-            this.rootStore.routerStore.goBack();
-        }
-    });
-
+class DonationReviewViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const id = rootStore.routerStore.routerState.params.id;
-        const service = new DonationService(rootStore.application.baasic.apiClient);
-
         super(rootStore, {
-            name: 'donation',
-            id: id,
+            name: 'grant',
+            authorization: 'theDonorsFundAdministrationSection',
             autoInit: false,
-            routes: {
-                editGrant: (donorId, editId) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.edit',
-                        {
-                            id: donorId,
-                            editId: editId
-                        }
-                    );
-                },
+            routes: {},
+            queryConfig: {
+                filter: new FilterParams(),
+                onResetFilter: () => { }
             },
             actions: () => {
                 return {
-                    get: async (id) => {
-                        const response = await service.findOverview({ id: id, statusId: this.statusId });
-                        return response.data;
+                    find: async (params) => {
+                        params.embed = [
+                            'charity'
+                        ];
+
+                        return rootStore.application.donation.donationStore.findPendingDonation(params);
                     }
                 }
             }
         });
-        this.service = service;
-        this.form.$('charityId').set(id);
 
-        this.tableStore = new SelectTableWithRowDetailsViewStore(null, {
-            columns: [
-                {
-                    key: 'totalAmountPerType',
-                    title: 'DONATION.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
+        this.setTableStore(
+            new SelectTableWithRowDetailsViewStore(
+                this.queryUtility, {
+                columns: [
+                    {
+                        key: 'charity.name',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_LABEL'
                     },
-                },
-                {
-                    key: 'donationType.name',
-                    title: 'DONATION.LIST.COLUMNS.DONATION_TYPE_NAME_LABEL'
-                }
-            ],
-            actions: {
-                onEdit: (item) => this.routes.editGrant(item.grant.donor.id, item.grant.id)
+                    {
+                        key: 'totalAmount',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.AMOUNT_LABEL',
+                        format: {
+                            type: 'currency',
+                            value: '$'
+                        },
+                    },
+                    {
+                        key: 'online',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.ONLINE_LABEL'
+                    },
+                    {
+                        key: 'charityWebsite',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_WEBSITE_LABEL'
+                    },
+                    {
+                        key: 'grantRequest',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.GRANT_REQUEST_LABEL'
+                    },
+                    {
+                        key: 'givingCard',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.GIVING_CARD_LABEL'
+                    },
+                    {
+                        key: 'session',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.SESSION_LABEL'
+                    },
+                ],
+                actions: {}
             },
-            actionsRender: {
-                onEditRender: (item) => item.donationType.abrv === 'grant'
-            },
-            onSetSelectedItems: this.setSelectedItems,
-            selectedField: 'selected'
-        });
-
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
-            onChange: () => {
-                this.form.$('addressLine1').clear();
-                this.form.$('addressLine2').clear();
-                this.form.$('city').clear();
-                this.form.$('state').clear();
-                this.form.$('zipCode').clear();
-                this.form.$('bankAccountId').clear();
-                this.form.$('addressLine1').setRequired(false);
-                this.form.$('city').setRequired(false);
-                this.form.$('state').setRequired(false);
-                this.form.$('zipCode').setRequired(false);
-                this.form.$('bankAccountId').setRequired(false);
-                this.form.$('paymentTypeId').setRequired(true);
-                this.form.$('paymentNumber').setRequired(true);
-                if (this.paymentTypeDropdownStore.value.abrv === 'check') {
-                    this.form.$('addressLine1').setRequired(true);
-                    this.form.$('city').setRequired(true);
-                    this.form.$('state').setRequired(true);
-                    this.form.$('zipCode').setRequired(true);
-                    const address = _.find(this.item.charityAddresses, { isPrimary: true });
-                    this.form.$('addressLine1').set(address.addressLine1);
-                    this.form.$('city').set(address.city);
-                    this.form.$('state').set(address.state);
-                    this.form.$('zipCode').set(address.zipCode);
-                }
-                else if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
-                    this.form.$('bankAccountId').setRequired(true);
-                    this.form.$('bankAccountId').set(this.item.charityBankAccounts[0].id);
-                }
-                else if (this.paymentTypeDropdownStore.value.abrv === 'transfer-to-charity-account') {
-                    this.form.$('paymentTypeId').setRequired(false);
-                    this.form.$('paymentNumber').setRequired(false);
-                }
-            }
-        });
+                true));
     }
 
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetchDonationStatuses();
-            await this.fetch([this.getResource(this.id)]);
-            await this.fetchPaymentTypes();
-            await this.fetchDonationTypes();
-            this.tableStore.setData(this.item.donations)
-        }
-    }
+    // @action.bound
+    // async onInit() {
+    //     this.queryUtility.fetch();
+    // }
 
-    @action.bound
-    setSelectedItems(selectedItems) {
-        let donationGrantIds = [];
-        let donationSessionIds = [];
-        if (selectedItems.length > 0) {
-            donationGrantIds = _.join(_.map(_.filter(selectedItems, function (params) {
-                return params.donationType.abrv === 'combined-grant' || params.donationType.abrv === 'grant'
-            }), 'id'), ',');
-            donationSessionIds = _.join(_.map(_.filter(selectedItems, function (params) {
-                return params.donationType.abrv === 'session'
-            }), 'id'), ',');
-        }
-        this.form.$('grantIds').set(donationGrantIds);
-        this.form.$('sessionIds').set(donationSessionIds);
-    }
-
-    @action.bound
-    async fetchDonationStatuses() {
-        const data = await this.rootStore.application.lookup.donationStatusStore.find();
-        this.statusId = data.map(c => c.abrv === 'pending').id;
-    }
-
-    @action.bound
-    async fetchDonationTypes() {
-        this.donationTypes = await this.rootStore.application.lookup.donationTypeStore.find();
-    }
-
-    @action.bound
-    async fetchPaymentTypes() {
-        this.paymentTypeDropdownStore.setLoading(true);
-        this.paymentTypes = this.rootStore.application.lookup.paymentTypeStore.find();;
-        const availableStatuses = this.getDefaults();
-        runInAction(() => {
-            this.paymentTypeDropdownStore.setItems(availableStatuses);
-            this.paymentTypeDropdownStore.setLoading(false);
-        });
-    }
-
-    getDefaults() {
-        let availableStatuses = [];
-        availableStatuses.push(_.find(this.paymentTypes, { abrv: 'check' }));
-        availableStatuses.push(_.find(this.paymentTypes, { abrv: 'chase-quickpay' }));
-        availableStatuses.push(_.find(this.paymentTypes, { abrv: 'credit-card' }));
-        if (this.item.charityBankAccounts && this.item.charityBankAccounts.length > 0) {
-            availableStatuses.push(_.find(this.paymentTypes, { abrv: 'ach' }))
-            availableStatuses.push(_.find(this.paymentTypes, { abrv: 'wire-transfer' }));
-        }
-        availableStatuses.push({ id: '-1', name: 'Transfer to charity account', abrv: 'transfer-to-charity-account' });
-        return availableStatuses;
-    }
 }
 
 export default DonationReviewViewStore;

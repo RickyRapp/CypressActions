@@ -298,7 +298,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         this.grantPurposeTypeDropdownStore.setLoading(true);
         this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
         runInAction(() => {
-            this.grantPurposeTypeDropdownStore.setItems(response.data);
+            this.grantPurposeTypeDropdownStore.setItems(this.grantPurposeTypes);
             this.grantPurposeTypeDropdownStore.setLoading(false);
         });
     }
@@ -308,7 +308,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         this.grantAcknowledgmentTypeDropdownStore.setLoading(true);
         this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
         runInAction(() => {
-            this.grantAcknowledgmentTypeDropdownStore.setItems(response.data);
+            this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
             this.grantAcknowledgmentTypeDropdownStore.setLoading(false);
         });
     }
@@ -318,7 +318,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         this.grantScheduleTypeDropdownStore.setLoading(true);
         this.grantScheduleTypes = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
         runInAction(() => {
-            this.grantScheduleTypeDropdownStore.setItems(response.data);
+            this.grantScheduleTypeDropdownStore.setItems(this.grantScheduleTypes);
             this.grantScheduleTypeDropdownStore.setLoading(false);
         });
     }

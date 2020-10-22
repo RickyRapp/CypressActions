@@ -3,7 +3,6 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
 import { action } from 'mobx';
 import { applicationContext } from 'core/utils';
-import _ from 'lodash';
 
 @applicationContext
 class CharityGeneralDataViewStore extends BaseEditViewStore {

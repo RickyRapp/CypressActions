@@ -69,14 +69,23 @@ class BaseListViewStore extends BaseViewStore {
     setTableStore(tableStore) {
         const primaryColumn = _.first(tableStore.config.columns);
         if (!primaryColumn.onClick && !primaryColumn.disableClick && this.routes.edit) {
-            if (this.hasEditPermissions())
-                primaryColumn.onClick = (item) => this.routes.edit(item.id);
+            if (this.hasEditPermissions()) primaryColumn.onClick = item => this.routes.edit(item.id);
         } else if (primaryColumn.onClick && primaryColumn.authorization) {
-            if (!this.rootStore.permissionStore.hasPermission(primaryColumn.authorization)) {
+            if (!this.hasPermission(primaryColumn.authorization)) {
                 delete primaryColumn.onClick;
             }
         }
 
+        const nonPrimaryColumns = _.slice(tableStore.config.columns, 1);
+        _.map(nonPrimaryColumns, column => {
+            if (column.onClick && column.authorization) {
+                if (!this.hasPermission(column.authorization)) {
+                    delete column.onClick;
+                }
+            }
+        });
+
+        tableStore.config.columns = [primaryColumn, ...nonPrimaryColumns];
         this.tableStore = tableStore;
         this.isReady.set(true);
     }

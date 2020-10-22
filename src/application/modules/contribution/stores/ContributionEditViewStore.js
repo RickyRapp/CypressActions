@@ -171,6 +171,11 @@ class ContributionEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+    goBack() {
+        this.rootStore.routerStore.goBack();
+    }
+
+    @action.bound
     onSelectPaymentType(id) {
         this.form.clear();
         this.bankAccountDropdownStore.onChange(null);

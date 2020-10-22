@@ -1,167 +1,231 @@
-import React from 'react';
 import _ from 'lodash';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { GridColumn, GridToolbar, GridHeaderCell } from '@progress/kendo-react-grid';
-import { PropTypes } from 'prop-types';
-import { BaasicTableActions, LanguageMetadata, FormatterResolver, BaasicButton } from 'core/components';
-import { defaultTemplate } from 'core/hoc';
+import { BaasicTableActions, LanguageMetadata, FormatterResolver, BaasicButton, EmptyState } from 'core/components';
 import { isSome } from 'core/utils';
-import ReactTooltip from 'react-tooltip'
+import NoResults from 'themes/assets/img/result.svg';
 
 function hasAction(actions) {
     return actions && (actions.onEdit || actions.onDelete);
 }
 
-const LocalizedCell = defaultTemplate(({ onClick, className, dataItem, field, icon, format }) => {
+function hasBatchAction(actions) {
+    return actions && !_.isEmpty(actions);
+}
+
+const LocalizedCell = ({ onClick, className, dataItem, field, icon, format }) => {
     return (
         <td className={className} {...(onClick ? { onClick: () => onClick(dataItem, field) } : {})}>
-            {icon && <i className={"icomoon icon-" + dataItem[icon] + " spc--right--sml align--v--sub"} />}
+            {icon && <i className={'icomoon icon-' + dataItem[icon] + ' spc--right--sml align--v--sub'} />}
 
-            {
-                _.isNil(format)
-                    ? <LanguageMetadata item={dataItem} propertyName={field} />
-                    : <FormatterResolver item={dataItem} field={field} format={format} />
-            }
+            {_.isNil(format) ? (
+                <LanguageMetadata item={dataItem} propertyName={field} />
+            ) : (
+                    <FormatterResolver item={dataItem} field={field} format={format} />
+                )}
         </td>
-    )
-});
+    );
+};
 
-//Cannot set title as component, it needs to be string
-const HeaderCell = defaultTemplate(({ t, header }) => {
-    return (
-        <span className="k-link">
-            {t(header.title)}
-            {header.tooltip &&
-                <React.Fragment>
-                    <i
-                        data-tip={t(header.tooltip.text)}
-                        data-for={header.tooltip.text}
-                        data-place='bottom'
-                        className={`u-icon u-icon--sml u-icon--${header.tooltip.icon || 'info'}`}></i>
-                    <ReactTooltip id={header.tooltip.text} />
-                </React.Fragment>}
-        </span>
-    )
-});
+LocalizedCell.propTypes = {
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    dataItem: PropTypes.object,
+    field: PropTypes.any,
+    icon: PropTypes.string,
+    format: PropTypes.object,
+};
+
+function rowRender(trElement, gridRowProps) {
+    const trProps = {
+        className: `${trElement.props.className}${gridRowProps.dataItem.onClick ? ' c-pointer table--clickable' : ''}`,
+    };
+    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+}
 
 function defaultRenderColumnsTemplate({ t, columns }) {
-    return columns.map(({ key = null, title = null, cell = null, icon = null, onClick = null, innerColumns = null, format, visible, header, ...otherProps }, idx) => {
-        const defaultCell = cell ? cell : (props) => <LocalizedCell onClick={onClick} icon={icon} {...props}
-            format={format} />;
-
-        const headerCell = header ? () => <HeaderCell t={t} header={header} /> : null;
-
-        if (visible === false) {
-            return null;
+    return columns.map(
+        (
+            {
+                key = null,
+                title = null,
+                cell = null,
+                icon = null,
+                onClick = null,
+                innerColumns = null,
+                format = null,
+                className = '',
+                showColumn = true,
+                headerCell = null,
+                ...otherProps
+            },
+            idx
+        ) => {
+            const defaultCell = cell
+                ? props => React.createElement(cell, { ...props, ...otherProps, onClick, icon, format })
+                : props => <LocalizedCell onClick={onClick} icon={icon} {...props} {...otherProps} format={format} />;
+            return showColumn ? (
+                <GridColumn
+                    className={onClick ? `c-pointer table--clickable ${className || ''}` : ''}
+                    key={key || idx}
+                    field={key}
+                    title={t(title)}
+                    cell={innerColumns ? null : defaultCell}
+                    headerCell={headerCell ? props => React.createElement(headerCell, { ...props, ...otherProps }) : null}
+                    {...otherProps}
+                >
+                    {innerColumns ? defaultRenderColumnsTemplate({ t, columns: innerColumns }) : null}
+                </GridColumn>
+            ) : null;
         }
-        else {
-            return <GridColumn
-                className={onClick ? "c-pointer table--clickable" : ""}
-                key={key || idx}
-                field={key}
-                title={t(title)}
-                headerCell={headerCell}
-                cell={innerColumns ? null : defaultCell}
-                {...otherProps}
-            >
-                {innerColumns ? defaultRenderColumnsTemplate({ t, columns: innerColumns }) : null}
-            </GridColumn>
-        }
-    }
     );
 }
 
-function defaultRenderActionsTemplate({ actions, actionsRender, actionsComponent, authorization, t }) {
+function defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth, authorization, t }) {
     const actionCount = (actions ? actions.visible : null) || _.size(actions);
 
-    return hasAction(actions) || actionsComponent ?
+    return hasAction(actions) || actionsComponent ? (
         <GridColumn
-            headerCell={() => <GridHeaderCell
-                render={() => <a className="k-link type--right">{t('GRID.ACTIONS_COLUMN')}</a>} />}
+            headerCell={() => (
+                <GridHeaderCell
+                    render={() => <a className="k-link k-no-sortable flex--bottom">{t('GRID.ACTIONS_COLUMN')}</a>}
+                />
+            )}
             groupable={false}
             sortable={false}
             filterable={false}
             resizable={false}
-            width={30 * actionCount}
-            cell={(cellProps) => <BaasicTableActions
-                {...cellProps}
-                actions={actions}
-                actionsRender={actionsRender}
-                authorization={authorization}
-                actionsComponent={actionsComponent}
-                t={t}
-            />}
-        /> : null;
+            width={actionsWidth ? actionsWidth : 30 * actionCount}
+            cell={cellProps => (
+                <BaasicTableActions
+                    {...cellProps}
+                    actions={actions}
+                    authorization={authorization}
+                    actionsComponent={actionsComponent}
+                    t={t}
+                />
+            )}
+        />
+    ) : null;
 }
 
-function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization) {
-    const { isBatchSelect, config: { batchActions }, hasSelectedItems, hasDirtyItems, selectedItems, resetGridItems, data } = tableStore;
-    const { onBatchDelete, onBatchUpdate } = batchActions;
-    if (!isSome(onBatchDelete) && !isSome(onBatchUpdate)) {
-        return null;
-    }
+function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization, batchActionsComponent) {
+    const {
+        isBatchSelect,
+        config: { batchActions },
+        hasSelectedItems,
+        hasDirtyItems,
+        selectedItems,
+        resetGridItems,
+        data,
+    } = tableStore;
+    const { onBatchCreate, onBatchDelete, onBatchUpdate } = batchActions;
 
-    return (
-        <GridToolbar>
-            <div className="sticky--left">
-                {isSome(onBatchUpdate) && authorization.update && (
-                    <React.Fragment>
+    return hasBatchAction(batchActions) && batchActionsComponent ? (
+        <GridToolbar>{batchActionsComponent({ tableStore, authorization, batchActions })}</GridToolbar>
+    ) : (
+            <GridToolbar>
+                <div className="sticky--left">
+                    {isSome(onBatchCreate) && authorization.edit && (
                         <BaasicButton
-                            authorization={authorization ? authorization.update : null}
-                            className="icon-floppy-disk btn btn--icon spc--right--tny"
-                            disabled={!hasDirtyItems}
-                            icon='update'
+                            authorization={authorization ? authorization.edit : null}
+                            className="icon-floppy-disk btn btn--link spc--right--tny"
+                            disabled={!hasSelectedItems}
+                            icon="u-icon u-icon--edit u-icon--xxmed"
                             onlyIcon={true}
-                            onClick={() => onBatchUpdate(data.toJS())}>
-                        </BaasicButton>
-                        {hasDirtyItems && (
+                            onClick={() => onBatchCreate(selectedItems)}
+                        />
+                    )}
+                    {isSome(onBatchUpdate) && authorization.edit && (
+                        <React.Fragment>
                             <BaasicButton
-                                className="btn btn--icon spc--right--tny"
+                                authorization={authorization ? authorization.edit : null}
+                                className="icon-floppy-disk btn btn--link spc--right--tny"
+                                disabled={!hasDirtyItems}
+                                icon="u-icon u-icon--edit u-icon--xxmed"
                                 onlyIcon={true}
-                                icon='clear'
-                                onClick={() => resetGridItems()}>
-                            </BaasicButton>
-                        )}
-                    </React.Fragment>
-                )}
-                {isSome(onBatchDelete) && isBatchSelect && (
-                    <BaasicButton
-                        authorization={authorization ? authorization.delete : null}
-                        className="btn btn--icon btn--icon--primary icon-bin align--v--middle"
-                        disabled={!hasSelectedItems}
-                        icon='delete'
-                        onlyIcon={true}
-                        label='delete'
-                        onClick={() => onBatchDelete(selectedItems.toJS())}>
-                    </BaasicButton>
-                )}
-            </div>
-        </GridToolbar>
-    );
+                                onClick={() => onBatchUpdate(data.toJS())}
+                            />
+                            {hasDirtyItems && (
+                                <BaasicButton
+                                    className="btn btn--link spc--right--tny"
+                                    onlyIcon={true}
+                                    icon="u-icon u-icon--edit u-icon--xxmed"
+                                    onClick={() => resetGridItems()}
+                                />
+                            )}
+                        </React.Fragment>
+                    )}
+                    {isSome(onBatchDelete) && isBatchSelect && (
+                        <BaasicButton
+                            authorization={authorization ? authorization.delete : null}
+                            className="btn btn--link btn--link--primary icon-bin align--v--middle"
+                            disabled={!hasSelectedItems}
+                            icon="u-icon u-icon--delete u-icon--xxmed"
+                            onlyIcon={true}
+                            label="delete"
+                            onClick={() => onBatchDelete(selectedItems.toJS())}
+                        ></BaasicButton>
+                    )}
+                </div>
+            </GridToolbar>
+        );
 }
 
-function defaultRenderNoRecordsTemplate(noRecordsComponent) {
-    if (!noRecordsComponent) return 'No records available';
+function defaultRenderSelectableColumnTemplate(data) {
+    const value = data.length ? !data.some(dataItem => dataItem.selected === false) : false;
+    return <GridColumn field="selected" headerSelectionValue={value} />;
+}
 
-    return noRecordsComponent;
+function defaultRenderNoRecordsTemplate(noRecordsComponent, noRecordsState = {}) {
+    if (noRecordsComponent) return noRecordsComponent;
+
+    const {
+        image = NoResults,
+        title = 'GRID.NO_RECORDS.TITLE',
+        description = 'GRID.NO_RECORDS.DESCRIPTION',
+        className = '',
+    } = noRecordsState;
+    return <EmptyState image={image} title={title} description={description} className={className} />;
+}
+
+function defaultRenderEmptyStateTemplate(emptyStateComponent, emptyState = {}) {
+    if (emptyStateComponent) return emptyStateComponent;
+
+    const {
+        image = NoResults,
+        title = 'GRID.EMPTY_STATE.TITLE',
+        description = 'GRID.EMPTY_STATE.DESCRIPTION',
+        className = 'u-mar--top--xxlrg',
+    } = emptyState;
+    return <EmptyState image={image} title={title} description={description} className={className} />;
 }
 
 defaultRenderActionsTemplate.propTypes = {
     actions: PropTypes.object,
-    actionsRender: PropTypes.object,
     actionsComponent: PropTypes.array,
+    actionsWidth: PropTypes.number,
     authorization: PropTypes.any,
-    t: PropTypes.func
-}
+    t: PropTypes.func,
+};
 
 defaultRenderBatchActionsToolbarTemplate.propTypes = {
     tableStore: PropTypes.object,
     authorization: PropTypes.any,
-    t: PropTypes.func
-}
+    t: PropTypes.func,
+};
+
+defaultRenderSelectableColumnTemplate.propTypes = {
+    data: PropTypes.object,
+};
 
 export {
     defaultRenderActionsTemplate,
     defaultRenderColumnsTemplate,
+    defaultRenderEmptyStateTemplate,
     defaultRenderBatchActionsToolbarTemplate,
-    defaultRenderNoRecordsTemplate
-}
+    defaultRenderSelectableColumnTemplate,
+    defaultRenderNoRecordsTemplate,
+    rowRender,
+};

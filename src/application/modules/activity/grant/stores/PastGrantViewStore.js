@@ -25,8 +25,7 @@ class PastGrantViewStore extends BaseListViewStore {
                             'donationStatus',
                             'donor'
                         ];
-
-                        return rootStore.application.activity.activityStore.findPastGrants({ userId: this.donorId, ...params });
+                        return rootStore.application.activity.activityStore.findPastGrants({ donorId: this.donorId, ...params });
                     }
                 }
             }

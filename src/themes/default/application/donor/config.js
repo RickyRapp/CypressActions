@@ -54,12 +54,7 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
                 role: ['Administrators'],
                 route: 'master.app.main.donor.list',
             },
-            {
-                title: 'MENU.PROFILE_SETTING',
-                order: 6,
-                role: ['Users'],
-                route: 'master.app.main.profile'
-            },
+
         ]
     });
 })();

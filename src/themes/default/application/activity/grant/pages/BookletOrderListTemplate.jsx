@@ -15,7 +15,6 @@ import { Content } from 'core/layouts';
 const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         deliveryMethodTypeDropdownStore,
@@ -24,7 +23,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     } = bookletOrderViewStore;
 
     return (
-        <Content emptyRenderer={renderEmpty(routes)} >
+        <Content >
             <div className="card--form card--secondary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">

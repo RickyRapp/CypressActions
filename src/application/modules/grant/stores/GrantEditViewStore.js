@@ -1,11 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
-import { FeeService } from 'common/services';
-import { applicationContext, isNullOrUndefinedOrEmpty } from 'core/utils';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { GrantEditForm } from 'application/grant/forms';
-import { GrantService } from 'application/grant/services';
-import moment from 'moment';
-import { CharityService } from 'application/charity/services';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -20,18 +16,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
             id: rootStore.routerStore.routerState.params.editId,
             autoInit: false,
             actions: () => {
-                const service = new GrantService(rootStore.application.baasic.apiClient);
                 return {
                     update: async (resource) => {
                         resource.donorId = this.donorId;
-
-                        if (resource.endDate == 'Invalid date') {
-                            resource.endDate = null;
-                        }
-                        this.onBlurAmount();
-                        if (!this.form.isValid) {
-                            throw { data: { message: "There is a problem with form." } };
-                        }
+                        resource.id = this.id;
 
                         if (resource.isNewCharity) {
                             const charity = {
@@ -54,17 +42,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
                                 }
                             }
 
-                            const charityResponse = await this.charityService.suggest(charity);
-                            resource.charityId = charityResponse.data.response; //charityId
+                            resource.charityId = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId
                         }
 
-                        await service.update({ id: this.id, ...resource });
+                        await this.rootStore.application.grant.grantStore.update(resource);
                     },
                     get: async (id) => {
-                        const service = new GrantService(rootStore.application.baasic.apiClient);
-                        const response = await service.getDetails(id, { embed: 'donationStatus,charity,charity.charityAddresses', donorId: this.donorId });
-                        return response.data;
-
+                        return this.rootStore.application.grant.grantStore.getDetails(id, { embed: 'donationStatus,charity,charity.charityAddresses', donorId: this.donorId });
                     }
                 }
             },
@@ -82,30 +66,197 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.donorId = rootStore.routerStore.routerState.queryParams.donorId;
         }
 
-        this.feeService = new FeeService(rootStore.application.baasic.apiClient);
-        this.charityService = new CharityService(rootStore.application.baasic.apiClient);
+        this.createCharityDropdownStore();
+        this.createCharityTypeDropdownStore();
+        this.createGrantPurposeTypeDropdownStore();
+        this.createGrantAcknowledgmentTypeDropdownStore();
+        this.createPreviousGrantsTableStore();
+        this.createSimilarGrantsTableStore();
 
+        this.advancedSearchModal = new ModalParams({});
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.getResource(this.id),
+                this.setDonor(),
+                this.loadLookups()
+            ]);
+
+            if (!this.donor.isInitialContributionDone) {
+                if (!this.hasAdministratorsPermission) {
+                    this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
+                }
+            }
+
+            this.charityDropdownStore.setValue({
+                id: this.item.charityId,
+                name: charityFormatter.format(this.item.charity, { value: 'charity-name-display' }),
+                item: this.item.charity
+            })
+            this.setPreviousGrantsTableStore(this.item.charityId);
+            this.setSimilarGrantsTableStore(this.item.grantPurposeTypeId);
+
+            this.form.$('isNewCharity').observe(({ field }) => {
+                this.onNewCharityChange(field.value)
+            });
+            this.form.$('grantAcknowledgmentTypeId').observe(({ field }) => {
+                this.onGrantAcknowledgmentTypeChange(field.value)
+            });
+            this.form.$('grantPurposeTypeId').observe(({ field }) => {
+                this.onGrantPurposeTypeChange(field.value)
+            });
+            this.form.$('charityId').observe(({ field }) => {
+                this.onCharityChange(field.value)
+            });
+            this.form.$('amount').onBlur = (event) => {
+                this.onBlurAmount(event.target.value)
+            };
+        }
+    }
+
+    @action.bound
+    onGrantPurposeTypeChange(value) {
+        this.setSimilarGrantsTableStore(value);
+    }
+
+    setSimilarGrantsTableStore(value) {
+        this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value))
+    }
+
+    @action.bound
+    onNewCharityChange(value) {
+        this.form.$('charityId').clear();
+        this.form.$('charityId').setDisabled(value);
+        this.charityDropdownStore.setValue(null);
+    }
+
+    @action.bound
+    onIncludeNoteToAdministratorChange(checked) {
+        this.isNoteToAdministratorIncluded = checked;
+    }
+
+    @action.bound
+    openAdvancedSearchModal() {
+        this.advancedSearchModal.open();
+    }
+
+    @action.bound
+    onGrantAcknowledgmentTypeChange(value) {
+        if (value)
+            this.grantAcknowledgmentName = donorFormatter.format(this.donor, { type: 'grant-acknowledgment-type', value: this.grantAcknowledgmentTypes.find(c => c.id === value).abrv })
+        else
+            this.grantAcknowledgmentName = null
+    }
+
+    @action.bound
+    async onBlurAmount(value) {
+        if (!this.donor.isGrantFeePayedByCharity) {
+            if (value) {
+                const params = {
+                    id: this.donorId,
+                    feeTypeId: this.feeTypes.find((item) => item.abrv === 'grant-fee').id,
+                    amount: value,
+                }
+                const feeAmount = await this.rootStore.application.grant.grantStore.calculateFee(params);
+                this.amountWithFee = params.amount + feeAmount;
+
+                if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) { //combined
+                    this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
+                    this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
+                    this.grantAcknowledgmentTypeDropdownStore.setValue(this.grantAcknowledgmentTypes.find((item) => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId));
+
+                    this.form.$('grantPurposeTypeId').setDisabled(true);
+                    this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
+                    this.grantPurposeTypeDropdownStore.setValue(this.grantPurposeTypes.find((item) => item.id === this.applicationDefaultSetting.grantPurposeTypeId));
+
+                    this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
+                    this.form.$('grantPurposeTypeId').validate({ showErrors: true });
+                }
+                else { //regular
+                    this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
+                    this.form.$('grantPurposeTypeId').setDisabled(false);
+                }
+            }
+            else {
+                this.amountWithFee = null;
+                this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
+                this.form.$('grantPurposeTypeId').setDisabled(false);
+            }
+        }
+    }
+
+    @action.bound
+    async onCharityChange(value) {
+        this.setPreviousGrantsTableStore(value)
+    }
+
+    async setPreviousGrantsTableStore(value) {
+        let data = [];
+        if (value) {
+            const params = {
+                donorId: this.donorId,
+                embed: [
+                    'donationStatus'
+                ],
+                fields: [
+                    'id',
+                    'amount',
+                    'dateCreated'
+                ],
+                charityId: this.form.$('charityId').value
+            }
+            data = await this.rootStore.application.grant.grantStore.findPreviousGrants(params);
+        }
+        this.previousGrantsTableStore.setData(data)
+    }
+
+    @action.bound
+    async setDonor() {
+        this.donor = await this.rootStore.application.grant.grantStore.getDonorInformation(this.donorId);
+    }
+
+    async loadLookups() {
+        this.feeTypes = await this.rootStore.application.lookup.feeTypeStore.find();
+        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
+        this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
+        this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
+    }
+
+    createGrantPurposeTypeDropdownStore() {
         this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null,
             {
-                fetchFunc: () => {
+                fetchFunc: async () => {
                     return this.rootStore.application.lookup.grantPurposeTypeStore.find();
-                },
-                onChange: (value) => {
-                    this.onGrantPurposeTypeChange(value)
                 }
             });
+    }
+
+    createGrantAcknowledgmentTypeDropdownStore() {
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
             {
-                fetchFunc: () => {
+                fetchFunc: async () => {
                     return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
                 },
             });
+    }
+
+    createCharityTypeDropdownStore() {
         this.charityTypeDropdownStore = new BaasicDropdownStore(null,
             {
-                fetchFunc: () => {
+                fetchFunc: async () => {
                     return this.rootStore.application.lookup.charityTypeStore.find();
                 },
             });
+    }
+
+    createCharityDropdownStore() {
         this.charityDropdownStore = new BaasicDropdownStore({
             placeholder: 'GRANT.CREATE.FIELDS.SELECT_CHARITY',
             initFetch: false,
@@ -113,7 +264,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await this.charityService.search({
+                    const data = await this.rootStore.application.grant.grantStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
@@ -130,22 +281,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
                             'charityAddresses'
                         ]
                     });
-                    return response.data.item.map(x => {
+                    return data.map(x => {
                         return {
                             id: x.id,
-                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
-                            item: x
+                            name: charityFormatter.format(x, { value: 'charity-name-display' })
                         }
                     });
-                },
-                onChange: () => {
-                    this.onBlurAmount();
-                    this.fetchDonorGrantsToCharity();
                 }
             });
+    }
 
-        this.advancedSearchModal = new ModalParams({});
-
+    createPreviousGrantsTableStore() {
         this.previousGrantsTableStore = new TableViewStore(null, {
             columns: [
                 {
@@ -166,7 +312,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 }
             ]
         });
+    }
 
+    createSimilarGrantsTableStore() {
         this.similarGrantsTableStore = new TableViewStore(null, {
             columns: [
                 {
@@ -187,172 +335,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 }
             ]
         });
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                super.getResource(this.id),
-                this.setDonor(),
-                this.fetchApplicationDefaultSetting(),
-                this.fetchFeeTypes()
-            ])
-
-            if (this.hasAdministratorsPermission) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
-            }
-            else {
-                if (this.donor.isInitialContributionDone) {
-                    this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.grantMinimumAmount}`);
-                }
-                else {
-                    this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
-                    return;
-                }
-            }
-
-            const dateToEdit = moment(this.item.dateCreated).add(15, 'm');
-            if (!moment().isBetween(moment(this.item.dateCreated), dateToEdit)) {
-                if (!this.hasAdministratorsPermission) {
-                    this.rootStore.notificationStore.warning('ERROR_CODE.5005')
-                    this.rootStore.routerStore.goBack();
-                }
-            }
-            if (this.item.donationStatus.abrv != 'pending') {
-                this.rootStore.notificationStore.warning('ERROR_CODE.5028')
-                this.rootStore.routerStore.goBack();
-            }
-
-            if (!this.hasAdministratorsPermission) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.grantMinimumAmount}`);
-            }
-            else {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
-            }
-
-            if (!this.donor.isInitialContributionDone) {
-                if (!this.hasAdministratorsPermission) {
-                    this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
-                    return;
-                }
-            }
-
-            this.isNoteToAdministratorIncluded = !isNullOrUndefinedOrEmpty(this.item.noteToAdministrator);
-            this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === this.item.grantPurposeTypeId));
-            this.fetchDonorGrantsToCharity();
-            this.onBlurAmount();
-        }
-    }
-
-    @action.bound
-    onNewCharityChange() {
-        this.form.$('charityId').clear();
-        this.form.$('charityId').setDisabled(this.form.$('isNewCharity').value);
-        this.charityDropdownStore.setValue(null);
-    }
-
-    @action.bound
-    onGrantPurposeTypeChange(grantPurposeTypeId) {
-        this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === grantPurposeTypeId))
-    }
-
-    @action.bound
-    onIncludeNoteToAdministratorChange(checked) {
-        this.isNoteToAdministratorIncluded = checked;
-    }
-
-    @action.bound
-    openAdvancedSearchModal() {
-        this.advancedSearchModal.open();
-    }
-
-    @action.bound
-    async onBlurAmount() {
-        if (this.form.$('amount').value) {
-            const params = {};
-            params.id = this.donorId;
-            params.feeTypeId = this.feeTypes.find((item) => item.abrv === 'grant-fee').id;
-            params.amount = this.form.$('amount').value;
-            const feeAmount = await this.feeService.calculateFee(params);
-            this.amountWithFee = params.amount + feeAmount;
-
-            if (this.form.$('amount').value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
-                //combined
-                this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
-                this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
-                this.grantAcknowledgmentTypeDropdownStore.onChange(this.grantAcknowledgmentTypeDropdownStore.items.find((item) => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId));
-                this.grantPurposeTypeDropdownStore.onChange(this.grantPurposeTypeDropdownStore.items.find((item) => item.id === this.applicationDefaultSetting.grantPurposeTypeId));
-                this.form.$('grantAcknowledgmentTypeId').set('disabled', true);
-                this.form.$('grantAcknowledgmentTypeId').resetValidation();
-                this.form.$('grantPurposeTypeId').set('disabled', true);
-                this.form.$('grantPurposeTypeId').resetValidation();
-            }
-            else { //regular
-                this.form.$('grantAcknowledgmentTypeId').set('disabled', false);
-                this.form.$('grantPurposeTypeId').set('disabled', false);
-            }
-        }
-        else {
-            this.amountWithFee = null;
-        }
-    }
-
-    @action.bound
-    async fetchDonorGrantsToCharity() {
-        if (this.form.$('charityId').value) {
-            const service = new GrantService(this.rootStore.application.baasic.apiClient);
-            const params = {
-                embed: [
-                    'donationStatus'
-                ],
-                fields: [
-                    'id',
-                    'amount',
-                    'dateCreated'
-                ],
-                charityId: this.form.$('charityId').value
-            }
-            if (this.hasAdministratorsPermission) {
-                params.donorId = this.donorId;
-            }
-            else {
-                params.userId = this.donorId;
-            }
-            const response = await service.find(params);
-            this.previousGrantsTableStore.setData(response.data.item)
-        }
-    }
-
-    @action.bound
-    async setDonor() {
-        const service = new GrantService(this.rootStore.application.baasic.apiClient);
-        const response = await service.getDonorInformation(this.donorId);
-        this.donor = response.data;
-    }
-
-    @action.bound
-    async fetchApplicationDefaultSetting() {
-        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
-    }
-
-    @action.bound
-    async fetchFeeTypes() {
-        this.feeTypes = await this.rootStore.application.lookup.feeTypeStore.find();
-    }
-
-    @action.bound
-    onCharitySelected(item) {
-        this.charityDropdownStore.setValue({ id: item.id, name: charityFormatter.format(item, { value: 'charity-name-display' }), item: item });
-        this.form.$('charityId').set(item.id);
-        this.onBlurAmount();
-        this.fetchDonorGrantsToCharity();
-        this.advancedSearchModal.close();
     }
 }
 

@@ -10,34 +10,9 @@ export default defaultTemplate(({ tableStore, dataItem, dataIndex }) => {
             <BasicCheckbox
                 id={dataIndex}
                 checked={checked}
-                onChange={() => {
-                    const item = _.find(
-                        tableStore.selectedItems,
-                        e => e.id === dataItem.id
-                    );
-                    if (item) {
-                        _.remove(tableStore.selectedItems, item);
-                    } else {
-                        tableStore.selectedItems.push(dataItem);
-                    }
-
-                    var allChecked = true;
-                    _.each(tableStore.data, item => {
-                        if (
-                            _.findIndex(
-                                tableStore.selectedItems,
-                                e => e.id === item.id
-                            ) === -1
-                        ) {
-                            allChecked = false;
-                        }
-                    });
-
-                    tableStore.setGlobalCheck(allChecked);
-                    if (tableStore.config && tableStore.config.onSetSelectedItems) {
-                        tableStore.config.onSetSelectedItems(tableStore.selectedItems);
-                    }
-                }}
+                onChange={() => tableStore.selectItem(dataItem)}
+                disabled={dataItem.disabled}
+                classSuffix=" input--check--nolabel"
             />
         </td>
     );

@@ -1,7 +1,6 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { EmailService } from 'application/email/services';
 import { EmailListFilter } from 'application/email/models';
-import _ from 'lodash';
 import { ModalParams } from 'core/models';
 import { action } from 'mobx';
 

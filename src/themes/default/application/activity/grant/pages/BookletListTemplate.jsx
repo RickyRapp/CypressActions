@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState, BaasicInput, BaasicDropdown } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
+import { BaasicButton, BaasicTable, TableFilter, BaasicInput, BaasicDropdown } from 'core/components';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 

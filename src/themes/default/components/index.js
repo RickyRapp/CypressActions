@@ -16,6 +16,7 @@ export { default as BaasicTableRowDetailTemplate } from './table/BaasicTableRowD
 export { default as TableFilterTemplate } from './table/TableFilterTemplate';
 export { default as TableDateColumnCellTemplate } from './table/TableDateColumnCellTemplate';
 export { default as GridNumericCellTemplate } from './table/GridNumericCellTemplate';
+export { default as ContentWithEmptyStateTemplate } from './table/ContentWithEmptyStateTemplate';
 
 export * from './table/utils';
 export { default as SearchFilterTemplate } from './SearchFilter';

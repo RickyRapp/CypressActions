@@ -63,18 +63,6 @@ import { GrantModuleStore } from 'application/grant/stores';
                 order: 3,
                 role: ['Administrators'],
                 route: 'master.app.main.grant.list'
-            },
-            {
-                title: 'MENU.NEW_GRANT',
-                order: 2,
-                role: ['Users'],
-                route: 'master.app.main.grant.create'
-            },
-            {
-                title: 'MENU.NEW_PLEDGE',
-                order: 3,
-                role: ['Users'],
-                route: 'master.app.main.booklet-order.create'
             }
         ],
         moduleStore: function (context) {

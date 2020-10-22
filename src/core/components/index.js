@@ -22,6 +22,7 @@ export { default as BaasicTableRowDetail } from './table/BaasicTableRowDetail';
 export { default as TableFilter } from './table/TableFilter';
 export { default as TableDateColumnCell } from './table/TableDateColumnCell';
 export { default as GridNumericCell } from './table/GridNumericCell';
+export { default as ContentWithEmptyState } from './table/ContentWithEmptyState';
 export { default as SearchFilter } from './SearchFilter';
 
 export { default as BasicInput } from './forms/BasicInput';

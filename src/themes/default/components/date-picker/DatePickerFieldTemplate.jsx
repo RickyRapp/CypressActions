@@ -47,6 +47,7 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
                 value={value ? new Date(value) : null}
                 onChange={onChange}
                 disabled={disabled || otherFieldProps.disabled}
+                clearable={!requiredMark}
             />
             {renderIf(isSome(field.localizedError))(
                 <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>

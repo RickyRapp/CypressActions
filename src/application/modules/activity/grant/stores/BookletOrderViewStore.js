@@ -3,7 +3,6 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryP
 import { BookletOrderService } from 'application/booklet-order/services';
 import { ModalParams } from 'core/models';
 import { BookletOrderListFilter } from 'application/activity/grant/models';
-import _ from 'lodash';
 import moment from 'moment';
 
 class BookletOrderViewStore extends BaseListViewStore {

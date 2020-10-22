@@ -1501,31 +1501,17 @@
             }
         },
         "REVIEW": {
-            "TITLE": "Review",
-            "SELECT_DONATIONS_WARNING": "Please, select at least one donation.",
-            "FIELDS": {
-                "STATUS_LABEL": "Status",
-                "STATUS_PLACEHOLDER": "Status",
-                "DONOR_NAME_LABEL": "Donor",
-                "CHARITY_NAME_LABEL": "Charity",
-                "PAYMENT_TYPE_LABEL": "Payment type",
-                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
-                "PAYMENT_NUMBER_LABEL": "Payment number",
-                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
-                "ATT_OF_LABEL": "Att of",
-                "ATT_OF_PLACEHOLDER": "Att of",
-                "BANK_ACCOUNT_NAME_LABEL": "Bank account",
-                "AMOUNT_LABEL": "Amount",
-                "ADDRESS_LINE_1_LABEL": "Address line 1",
-                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
-                "ADDRESS_LINE_2_LABEL": "Address line 2",
-                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
-                "CITY_LABEL": "City",
-                "CITY_PLACEHOLDER": "City",
-                "STATE_LABEL": "State",
-                "STATE_PLACEHOLDER": "State",
-                "ZIPCODE_LABEL": "Zip code",
-                "ZIPCODE_PLACEHOLDER": "Zip code"
+            "LIST": {
+                "TITLE": "Review Pending Donations",
+                "COLUMNS": {
+                    "CHARITY_LABEL": "Charity",
+                    "AMOUNT_LABEL": "Amount",
+                    "ONLINE_LABEL": "Online",
+                    "CHARITY_WEBSITE_LABEL": "Charity Website",
+                    "GRANT_REQUEST_LABEL": "Grant Request",
+                    "GIVING_CARD_LABEL": "Giving Card",
+                    "SESSION_LABEL": "Session"
+                }
             }
         }
     },

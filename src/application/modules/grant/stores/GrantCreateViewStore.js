@@ -2,7 +2,6 @@ import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
 import { applicationContext, donorFormatter } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
-import { ScheduledGrantService } from 'application/grant/services';
 import moment from 'moment';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -25,18 +24,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
             id: undefined,
             autoInit: false,
             actions: () => {
-                const scheduledGrantService = new ScheduledGrantService(rootStore.application.baasic.apiClient);
                 return {
                     create: async (resource) => {
                         resource.donorId = this.donorId;
-
-                        if (resource.endDate == 'Invalid date') {
-                            resource.endDate = null;
-                        }
-                        this.onBlurAmount();
-                        if (!this.form.isValid) {
-                            throw { data: { message: "There is a problem with form." } };
-                        }
 
                         if (resource.isNewCharity) {
                             const charity = {
@@ -59,24 +49,21 @@ class GrantCreateViewStore extends BaseEditViewStore {
                                 }
                             }
 
-                            const charityResponse = await this.charityService.suggest(charity);
-                            resource.charityId = charityResponse.data.response; //charityId
+                            resource.charityId = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId
                         }
 
                         if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
-                            this.scheduledGrant = true;
-                            await scheduledGrantService.create(resource);
+                            await this.rootStore.application.grant.grantStore.createScheduledGrant(resource);
                         }
                         else {
-                            this.scheduledGrant = false;
-                            await this.service.create(resource);
+                            await this.rootStore.application.grant.grantStore.create(resource);
                         }
                     }
                 }
             },
             FormClass: GrantCreateForm,
             onAfterAction: () => {
-                this.rootStore.routerStore.goTo('master.app.main.activity.grants')
+                this.rootStore.routerStore.goTo('master.app.main.activity.all', {}, { headerTab: 2 });
             }
         });
 
@@ -178,7 +165,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     onGrantPurposeTypeChange(value) {
-        this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value))
+        this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
+        if (!this.similarGrantsTableStore.dataInitialized) {
+            this.similarGrantsTableStore.dataInitialized = true;
+        }
     }
 
     @action.bound
@@ -217,10 +207,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
         }
         else {
-            if (this.donor.isInitialContributionDone) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.grantMinimumAmount}`);
-            }
-            else {
+            if (!this.donor.isInitialContributionDone) {
                 this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
                 this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
             }
@@ -229,36 +216,38 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async onBlurAmount(value) {
-        if (value) {
-            const params = {
-                id: this.donorId,
-                feeTypeId: this.feeTypes.find((item) => item.abrv === 'grant-fee').id,
-                amount: value,
+        if (!this.donor.isGrantFeePayedByCharity) {
+            if (value) {
+                const params = {
+                    id: this.donorId,
+                    feeTypeId: this.feeTypes.find((item) => item.abrv === 'grant-fee').id,
+                    amount: value,
+                }
+                const feeAmount = await this.rootStore.application.grant.grantStore.calculateFee(params);
+                this.amountWithFee = params.amount + feeAmount;
+
+                if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) { //combined
+                    this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
+                    this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
+                    this.grantAcknowledgmentTypeDropdownStore.setValue(this.grantAcknowledgmentTypes.find((item) => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId));
+
+                    this.form.$('grantPurposeTypeId').setDisabled(true);
+                    this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
+                    this.grantPurposeTypeDropdownStore.setValue(this.grantPurposeTypes.find((item) => item.id === this.applicationDefaultSetting.grantPurposeTypeId));
+
+                    this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
+                    this.form.$('grantPurposeTypeId').validate({ showErrors: true });
+                }
+                else { //regular
+                    this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
+                    this.form.$('grantPurposeTypeId').setDisabled(false);
+                }
             }
-            const feeAmount = await this.rootStore.application.grant.grantStore.calculateFee(params);
-            this.amountWithFee = params.amount + feeAmount;
-
-            if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) { //combined
-                this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
-                this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
-                this.grantAcknowledgmentTypeDropdownStore.setValue(this.grantAcknowledgmentTypes.find((item) => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId));
-
-                this.form.$('grantPurposeTypeId').setDisabled(true);
-                this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
-                this.grantPurposeTypeDropdownStore.setValue(this.grantPurposeTypes.find((item) => item.id === this.applicationDefaultSetting.grantPurposeTypeId));
-
-                this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
-                this.form.$('grantPurposeTypeId').validate({ showErrors: true });
-            }
-            else { //regular
+            else {
+                this.amountWithFee = null;
                 this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
                 this.form.$('grantPurposeTypeId').setDisabled(false);
             }
-        }
-        else {
-            this.amountWithFee = null;
-            this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
-            this.form.$('grantPurposeTypeId').setDisabled(false);
         }
     }
 
@@ -267,6 +256,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         let data = [];
         if (value) {
             const params = {
+                donorId: this.donorId,
                 embed: [
                     'donationStatus'
                 ],
@@ -277,15 +267,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 ],
                 charityId: this.form.$('charityId').value
             }
-            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                params.donorId = this.donorId;
-            }
-            else {
-                params.userId = this.donorId;
-            }
             data = await this.rootStore.application.grant.grantStore.findPreviousGrants(params);
         }
-        this.previousGrantsTableStore.setData(data)
+        this.previousGrantsTableStore.setData(data);
+        if (!this.previousGrantsTableStore.dataInitialized) {
+            this.previousGrantsTableStore.dataInitialized = true;
+        }
     }
 
     @action.bound

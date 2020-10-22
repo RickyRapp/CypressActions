@@ -12,8 +12,8 @@ class DonationService extends BaseService {
         return this.apiClient.put(url, resource);
     }
 
-    findOverview(params) {
-        const url = this.routeService.findOverview(params);
+    findPendingDonation(params) {
+        const url = this.routeService.findPendingDonation(params);
         return this.apiClient.get(url);
     }
 

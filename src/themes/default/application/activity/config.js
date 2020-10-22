@@ -20,14 +20,14 @@ import { ActivityModuleStore } from 'application/activity/stores';
                 ]
             }
         ],
-        menu: [
-            {
-                title: 'MENU.ACTIVITY',
-                order: 3,
-                route: 'master.app.main.activity.all',
-                role: ['Users']
-            }
-        ],
+        // menu: [
+        //     {
+        //         title: 'MENU.ACTIVITY',
+        //         order: 3,
+        //         route: 'master.app.main.activity.all',
+        //         role: ['Users']
+        //     }
+        // ],
         moduleStore: function (context) {
             return {
                 'application.activity': new ActivityModuleStore(context.rootStore)

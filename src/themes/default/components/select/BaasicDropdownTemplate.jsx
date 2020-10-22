@@ -94,7 +94,7 @@ const BaasicDropdownTemplate = function (props) {
                     <BaasicButton
                         onClick={() => onChange({ target: { value: null } })}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--sml u-icon--close'
+                        icon='u-icon u-icon--sml u-icon--clear'
                         label="DROPDOWN.CLEAR_BUTTON"
                         onlyIcon
                         disabled={store.options.disabled}

@@ -16,7 +16,6 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
-import { GrantPurposeTypeForm } from 'themes/application/grant/components';
 import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/charity/components';
 import logo from 'themes/assets/img/logo.svg';
@@ -32,7 +31,6 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
         isNoteToAdministratorIncluded,
         onIncludeNoteToAdministratorChange,
         donor,
-        onBlurAmount,
         amountWithFee,
         onCharitySelected,
         advancedSearchModal,
@@ -40,7 +38,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
         previousGrantsTableStore,
         similarGrantsTableStore,
         loaderStore,
-        onNewCharityChange
+        grantAcknowledgmentName
     } = grantEditViewStore;
 
     return (
@@ -71,7 +69,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                 </div>
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <BasicFieldCheckbox field={form.$('isNewCharity')} onChange={onNewCharityChange} />
+                                        <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                     </div>
                                 </div>
 
@@ -83,10 +81,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                                 <BasicInput field={form.$('charityName')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <NumberFormatInputField
-                                                    field={form.$('charityTaxId')}
-                                                // onChange={taxIdExists}
-                                                />
+                                                <NumberFormatInputField field={form.$('charityTaxId')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityDba')} />
@@ -129,7 +124,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                     </div>}
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                        <NumericInputField field={form.$('amount')} onBlur={onBlurAmount} />
+                                        <NumericInputField field={form.$('amount')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         {amountWithFee &&
@@ -147,14 +142,9 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                                     </div>
-                                    {grantAcknowledgmentTypeDropdownStore.value &&
+                                    {grantAcknowledgmentName &&
                                         <div className="form__group col col-sml-12 col-lrg-6 u-mar--top--med">
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
-                                                `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
-                                                `${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name' && donor.fundName}
-                                            {grantAcknowledgmentTypeDropdownStore.value.abrv === 'remain-anonymous' && 'Anonymous'}
+                                            {grantAcknowledgmentName}
                                         </div>}
                                 </div>
                                 <div className="row">
@@ -164,8 +154,8 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                 </div>
                                 <div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        {grantPurposeTypeDropdownStore.value &&
-                                            <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
+                                        {/* {grantPurposeTypeDropdownStore.value &&
+                                            <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />} */}
                                     </div>
                                 </div>
                                 <div className="row">

@@ -12,7 +12,7 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
                         name: 'master.app.main.contribution.list',
                         pattern: '',
                         component: ContributionList,
-                        authorization: 'theDonorsFundContributionSection.read',
+                        authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "CONTRIBUTION.LIST.TITLE"
                         }
@@ -48,12 +48,12 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
             }
         ],
         menu: [
-            {
-                title: 'MENU.CONTRIBUTIONS',
-                order: 4,
-                route: 'master.app.main.contribution.create',
-                role: ['Users']
-            },
+            // {
+            //     title: 'MENU.CONTRIBUTIONS',
+            //     order: 4,
+            //     route: 'master.app.main.contribution.create',
+            //     role: ['Users']
+            // },
             {
                 title: 'MENU.CONTRIBUTIONS',
                 order: 2,

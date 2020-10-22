@@ -1,4 +1,4 @@
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { FundTransferService } from 'application/fund-transfer/services';
 import { applicationContext } from 'core/utils';
 import { FundTransferListFilter } from 'application/activity/deposit/models';

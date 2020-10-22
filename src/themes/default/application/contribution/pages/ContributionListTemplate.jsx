@@ -5,22 +5,19 @@ import {
     BaasicButton,
     BaasicTable,
     TableFilter,
-    EmptyState,
     BaasicModal,
     BaasicDropdown,
     BaasicInput,
     DateRangeQueryPicker
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { ContributionReview } from 'application/contribution/components'
 import { SelectDonor } from 'application/donor/components';
 
-const ContributionListTemplate = function ({ contributionViewStore, rootStore }) {
+const ContributionListTemplate = function ({ contributionViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         selectDonorModal,
@@ -31,20 +28,15 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
         dateCreatedDateRangeQueryStore
     } = contributionViewStore;
 
-    const {
-        permissionStore
-    } = rootStore;
-
     return (
         <React.Fragment>
             <ApplicationListLayout store={contributionViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
+                <Content>
                     <div className="card--form card--secondary card--med u-mar--bottom--sml">
                         <TableFilter searchClassName="w--300--px" queryUtility={queryUtility} >
-                            {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
-                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                    <BaasicDropdown store={searchDonorDropdownStore} />
-                                </div>}
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown store={searchDonorDropdownStore} />
+                            </div>
                             <div className="u-mar--bottom--sml col col-sml-12 col-lrg-2">
                                 <BaasicInput
                                     className='input input--sml'
@@ -109,13 +101,8 @@ const ContributionListTemplate = function ({ contributionViewStore, rootStore })
     )
 };
 
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='CONTRIBUTION.LIST.EMPTY_STATE.TITLE' actionLabel='CONTRIBUTION.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
-
 ContributionListTemplate.propTypes = {
     contributionViewStore: PropTypes.object.isRequired,
-    rootStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 

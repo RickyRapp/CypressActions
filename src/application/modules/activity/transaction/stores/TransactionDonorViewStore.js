@@ -1,6 +1,5 @@
 import { BaseViewStore, TableViewStore } from 'core/stores';
 import { action, observable } from 'mobx';
-import { ActivityService } from 'application/activity/services';
 
 class TransactionTabViewStore extends BaseViewStore {
     @observable donor = null;
@@ -33,16 +32,21 @@ class TransactionTabViewStore extends BaseViewStore {
             ],
             actions: {}
         });
+
+        this.fetchDonorData();
     }
 
-    @action.bound async fetchDonorData(id) {
-        const service = new ActivityService(this.rootStore.application.baasic.apiClient);
-        const response = await service.loadDonorData(id);
-        this.donor = response.data;
-        this.pendingTransactionTableStore.setData(this.donor.pendingTransactions)
+    @action.bound
+    async fetchDonorData() {
+        this.donor = await this.rootStore.application.activity.activityStore.loadDonorData(this.rootStore.userStore.applicationUser.id);
+        this.pendingTransactionTableStore.setData(this.donor.pendingTransactions.sort((a, b) => { return new Date(b.paymentTransaction.dateCreated) - new Date(a.paymentTransaction.dateCreated); }));
+        if (!this.pendingTransactionTableStore.dataInitialized) {
+            this.pendingTransactionTableStore.dataInitialized = true;
+        }
     }
 
-    @action.bound onExpandPendingTransactionClick() {
+    @action.bound
+    onExpandPendingTransactionClick() {
         this.isPendingTransactionVisible = !this.isPendingTransactionVisible;
     }
 }

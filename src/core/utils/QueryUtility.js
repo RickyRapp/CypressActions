@@ -1,32 +1,34 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import _ from 'lodash';
 import { FilterParams } from 'core/models';
 
 const sortDirection = {
     asc: 'asc',
-    desc: 'desc'
+    desc: 'desc',
 };
 
 class QueryUtility {
     @observable filter; // = new FilterParams();
     @observable recordCount; //= 0;
     @observable totalPages; //= 0;
+    debounce = 500;
 
     constructor(rootStore, fetchFunc, options = {}) {
         this.rootStore = rootStore;
         this.fetchFunc = fetchFunc;
 
         if (options.filter) {
-            this.filter = options.filter;
-        }
-        else {
+            this.filter = typeof options.filter === 'function' ? options.filter() : options.filter;
+        } else {
             this.filter = new FilterParams();
         }
+        this.initFetch = options.initFetch;
 
         this.recordCount = 0;
         this.totalPages = 0;
 
         this._init(options);
+        this.debouncedFetch = _.debounce(this.fetch, this.debounce);
     }
 
     _init(options) {
@@ -70,22 +72,31 @@ class QueryUtility {
             this.onResetFilter = options.onResetFilter;
         }
 
-        if (options.disableChangeOrder) {
-            this.disableChangeOrder = options.disableChangeOrder;
+        if (options.onReloadCollection) {
+            this.onReloadCollection = options.onReloadCollection;
+        }
+
+        if (options.resetPageOnOrderChange) {
+            this.resetPageOnOrderChange = options.resetPageOnOrderChange;
+        }
+
+        if (options.debounce) {
+            this.debounce = options.fetchDebounce;
         }
     }
 
     @action
     async initialize(updateUrlParams = true) {
         this.updateFilter();
-        return this._reloadCollection(updateUrlParams);
+        return this._reloadCollection(updateUrlParams, this.initFetch);
     }
 
     fetch = (updateUrlParams = true) => {
         this.changePage(1, updateUrlParams);
     };
 
-    @action.bound changePage = (page, updateUrlParams = true) => {
+    @action.bound
+    changePage(page, updateUrlParams = true) {
         this.filter.pageNumber = page;
 
         if (this.onChangePage) {
@@ -93,9 +104,10 @@ class QueryUtility {
         }
 
         return this._reloadCollection(updateUrlParams);
-    };
+    }
 
-    @action.bound changePageSize = (pageSize, updateUrlParams = true) => {
+    @action.bound
+    changePageSize(pageSize, updateUrlParams = true) {
         this.filter.pageSize = pageSize;
         this.filter.pageNumber = 1;
 
@@ -104,11 +116,10 @@ class QueryUtility {
         }
 
         return this._reloadCollection(updateUrlParams);
-    };
+    }
 
-    @action.bound changeOrder = (sort, updateUrlParams = true) => {
-        if (this.disableChangeOrder) return;
-
+    @action.bound
+    changeOrder(sort, updateUrlParams = true) {
         let direction = sortDirection.asc;
         if (this.filter.orderBy === sort && this.filter.orderDirection === sortDirection.asc) {
             direction = sortDirection.desc;
@@ -118,13 +129,19 @@ class QueryUtility {
         if (this.onChangeOrder) {
             this.onChangeOrder({ sort, direction });
         }
+        if (this.resetPageOnOrderChange) {
+            this.filter.pageNumber = 1;
+        }
 
         return this._reloadCollection(updateUrlParams);
-    };
+    }
 
-    @action.bound handleResponse = (response, updateUrlParams = false) => {
-        this.filter.pageNumber = response.page;
-        this.filter.pageSize = response.recordsPerPage;
+    @action.bound
+    handleResponse(response, updateUrlParams = false, setFilter = true) {
+        if (setFilter) {
+            this.filter.pageNumber = response.page;
+            this.filter.pageSize = response.recordsPerPage;
+        }
         this.recordCount = response.totalRecords;
         this.totalPages = Math.ceil(this.recordCount / this.filter.pageSize);
 
@@ -138,7 +155,7 @@ class QueryUtility {
         if (updateUrlParams) {
             this.updateUrlParams();
         }
-    };
+    }
 
     getFilterUrlParams = () => {
         const {
@@ -164,7 +181,7 @@ class QueryUtility {
             rpp: pageSize,
             orderBy: sortSlug,
             search: search || undefined,
-            ...others
+            ...others,
         });
     };
 
@@ -175,11 +192,11 @@ class QueryUtility {
                 return true;
             }
 
-            return this.ignoreQueryParams ? _.some(this.ignoreQueryParams, (ignore) => ignore === key) : false;
+            return this.ignoreQueryParams ? _.some(this.ignoreQueryParams, ignore => ignore === key) : false;
         });
     }
 
-    updateUrlParams = () => {
+    updateUrlParams = async () => {
         if (this.disableUpdateQueryParams) return;
 
         const { routerStore } = this.rootStore;
@@ -194,15 +211,14 @@ class QueryUtility {
             });
         }
 
-        routerStore.setQueryParams(queryParams);
+        await routerStore.setQueryParams(queryParams);
     };
 
     removeUrlParams = (paramsToRemove = []) => {
         const { routerStore } = this.rootStore;
         let queryParams = this.getFilterUrlParams();
 
-        if (paramsToRemove.length == 0)
-            routerStore.setQueryParams();
+        if (paramsToRemove.length == 0) routerStore.setQueryParams();
         else {
             paramsToRemove.forEach(param => {
                 if (hasOwnProperty(queryParams, param)) {
@@ -215,11 +231,9 @@ class QueryUtility {
 
         function hasOwnProperty(obj, prop) {
             var proto = obj.__proto__ || obj.constructor.prototype;
-            return (prop in obj) &&
-                (!(prop in proto) || proto[prop] !== obj[prop]);
+            return prop in obj && (!(prop in proto) || proto[prop] !== obj[prop]);
         }
-
-    }
+    };
 
     updateFilter = (useDefault = false) => {
         if (useDefault) {
@@ -227,13 +241,7 @@ class QueryUtility {
             return;
         }
 
-        const {
-            page,
-            rpp,
-            orderBy,
-            search,
-            ...others
-        } = this.rootStore.routerStore.routerState.queryParams;
+        const { page, rpp, orderBy, search, ...others } = this.rootStore.routerStore.routerState.queryParams;
 
         this.filter.pageNumber = parseInt(page < 0 ? 1 : page) || this.filter.pageNumber;
         this.filter.pageSize = parseInt(rpp) || this.filter.pageSize;
@@ -267,7 +275,10 @@ class QueryUtility {
                         return [queryParamValue];
                     }
 
-                    return eval(queryParamValue);
+                    // TODO: figure out a better way of handling booleans?
+                    if (queryParamValue === 'true' || queryParamValue === 'false') return eval(queryParamValue);
+
+                    return queryParamValue;
                 } catch (ex) {
                     return queryParamValue;
                 }
@@ -279,23 +290,32 @@ class QueryUtility {
         }
     };
 
-    @action.bound resetFilter(fetch = true) {
-        this.filter.reset();
-
+    @action.bound
+    resetFilter(fetch = true) {
         if (this.onResetFilter) {
             this.onResetFilter(this.filter);
+        } else {
+            if (_.isFunction(this.filter.reset)) {
+                this.filter.reset();
+            }
         }
 
-        if (fetch)
-            this.fetch();
+        if (fetch) this.fetch();
     }
 
-    _reloadCollection(updateUrlParams = true) {
+    @action.bound
+    async _reloadCollection(updateUrlParams = true, initFetch = true) {
         if (updateUrlParams) {
             this.updateUrlParams();
         }
-
-        return this.fetchFunc(this.filter, { updateUrlParams });
+        if (this.onReloadCollection) {
+            this.onReloadCollection();
+        }
+        if (initFetch) {
+            runInAction(() => {
+                this.fetchFunc(this.filter, { updateUrlParams });
+            });
+        }
     }
 }
 
@@ -318,7 +338,7 @@ class QueryUtility {
 
 function withoutProperties(obj, properties) {
     return _.omitBy(obj, (param, key) => {
-        return !_.isUndefined(properties) && !_.isNull(obj) ? _.some(properties, (ignore) => ignore === key) : false;
+        return !_.isUndefined(properties) && !_.isNull(obj) ? _.some(properties, ignore => ignore === key) : false;
     });
 }
 
