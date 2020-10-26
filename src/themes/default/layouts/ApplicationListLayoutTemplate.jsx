@@ -9,10 +9,9 @@ function ApplicationListLayout({ store, children }) {
     const {
         routes,
         tableStore,
-        cardViewStore,
         authorization
     } = store;
-    const loaderStore = tableStore ? tableStore.loaderStore : cardViewStore.loaderStore;
+    const loaderStore = tableStore.loaderStore;
     return (
         <ListLayout onCreate={routes.create} authorization={authorization} loading={loaderStore.initial && loaderStore.loading}>
             {children}

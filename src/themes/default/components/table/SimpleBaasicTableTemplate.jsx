@@ -32,7 +32,6 @@ const SimpleBaasicTableTemplate = function ({
     } = tableStore;
 
     const isLoading = !_.isNil(loading) ? loading : tableStore.loading;
-    debugger
     return (
         <Fragment>
             <ContentWithEmptyState

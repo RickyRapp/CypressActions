@@ -1511,6 +1511,17 @@
                     "GRANT_REQUEST_LABEL": "Grant Request",
                     "GIVING_CARD_LABEL": "Giving Card",
                     "SESSION_LABEL": "Session"
+                },
+                "GRANT": {
+                    "COLUMNS": {
+                        "CHECKED": "",
+                        "DONOR_NAME": "Donor",
+                        "CHARITY_AMOUNT": "Amount for charity"
+                    },
+                    "FIELDS": {
+                        "IS_TRANSFER_TO_CHARITY_ACCOUNT": "Transfer to charity account",
+                        "PAYMENT_NUMBER": "Payment Number"
+                    }
                 }
             }
         }

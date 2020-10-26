@@ -7,7 +7,7 @@ class DonationService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    review(resource) {
+    reviewPendingDonations(resource) {
         const url = this.routeService.review(resource);
         return this.apiClient.put(url, resource);
     }

@@ -81,7 +81,6 @@ class SelectTableViewStore extends TableViewStore {
 
 /* eslint-disable */
 function getSelectConfiguration(getStore, config) {
-    debugger
     const columnOverride = _.assign(config, {
         columns: [
             {

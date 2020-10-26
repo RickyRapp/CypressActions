@@ -10,5 +10,10 @@ class DonationStore {
         const response = await this.donationService.findPendingDonation(params);
         return response.data;
     }
+
+    async reviewPendingDonations(resource) {
+        const response = await this.donationService.reviewPendingDonations(resource);
+        return response.data;
+    }
 }
 export default DonationStore;

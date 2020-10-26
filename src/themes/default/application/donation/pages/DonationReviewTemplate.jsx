@@ -3,28 +3,103 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
+    BaasicDropdown,
+    BaasicInput,
     BaasicTableWithRowDetails,
+    BasicCheckbox,
+    FormatterResolver,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
-const DonationReviewTemplate = function ({ donationReviewViewStore }) {
+const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
     const {
         authorization,
         tableStore,
+        onChangeChecked,
+        onReviewClick,
+        disableSave,
+        onPaymentNumberChange,
+        paymentNumber,
+        paymentTypeDropdownStore,
+        onIsTransferToCharityAccountChange,
+        isTransferToCharityAccount
     } = donationReviewViewStore;
 
-    const DetailComponent = () => {
-        return "TODO"
+    const DetailComponent = ({ dataItem }) => {
+        {
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th style={{ width: '50px' }}>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHECKED')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DONOR_NAME')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHARITY_AMOUNT')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataItem.pendingDonations.map((item, index) => {
+                            return (
+                                <tr key={item.id}>
+                                    <td>
+                                        <BasicCheckbox
+                                            id={`${item.id}_${index}`}
+                                            checked={item.checked}
+                                            onChange={(event) => onChangeChecked(dataItem, item.id, event.target.checked)}
+                                            classSuffix=" input--check--nolabel"
+                                        />
+                                    </td>
+                                    <td>{item.donorName}</td>
+                                    <td><FormatterResolver
+                                        item={{ charityAmount: item.charityAmount }}
+                                        field='charityAmount'
+                                        format={{ type: 'currency' }}
+                                    /></td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>)
+        }
     }
 
     DetailComponent.propTypes = {
         dataItem: PropTypes.object.isRequired
     };
 
+    const selectedGrants = tableStore.data.filter(c => c.pendingDonations.filter(d => d.checked).length > 0).length;
+
     return (
         <ApplicationListLayout store={donationReviewViewStore} authorization={authorization}>
             <Content>
+                <div className="row">
+                    <div className="col col-sml-12 col-lrg-3">
+                        <BasicCheckbox
+                            id='1'
+                            className='input input--sml'
+                            checked={isTransferToCharityAccount}
+                            onChange={onIsTransferToCharityAccountChange}
+                            label='DONATION.REVIEW.LIST.GRANT.FIELDS.IS_TRANSFER_TO_CHARITY_ACCOUNT' />
+                    </div>
+                    {!isTransferToCharityAccount &&
+                        <React.Fragment>
+                            <div className="col col-sml-12 col-lrg-3">
+                                <BaasicInput
+                                    id='2'
+                                    className='input input--sml'
+                                    value={paymentNumber}
+                                    onChange={onPaymentNumberChange}
+                                    placeholder='DONATION.REVIEW.LIST.GRANT.FIELDS.PAYMENT_NUMBER' />
+                                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' && paymentNumber && selectedGrants > 0 &&
+                                    <div>
+                                        Check Numbers From: {Number(paymentNumber)} to {selectedGrants + Number(paymentNumber) - 1}
+                                    </div>}
+                            </div>
+                            <div className="col col-sml-6 col-lrg-3">
+                                <BaasicDropdown store={paymentTypeDropdownStore} />
+                            </div>
+                        </React.Fragment>}
+                </div>
                 <div className="card--form card--primary card--med">
                     <div className="table--dragrow--expandable-row">
                         <BaasicTableWithRowDetails
@@ -36,8 +111,17 @@ const DonationReviewTemplate = function ({ donationReviewViewStore }) {
                         />
                     </div>
                 </div>
+
+                <BaasicButton
+                    type="button"
+                    label='FORM_CONTROLS.SAVE_BUTTON'
+                    className='btn btn--sml btn--primary u-mar--right--tny'
+                    onClick={onReviewClick}
+                    disabled={disableSave}
+                    rotate
+                />
             </Content>
-        </ApplicationListLayout>
+        </ApplicationListLayout >
     )
 };
 
