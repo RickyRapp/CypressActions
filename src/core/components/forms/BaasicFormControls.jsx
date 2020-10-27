@@ -13,10 +13,6 @@ class BaasicFormControls extends Component {
     }
 }
 
-// const BaasicFormControls = function (props) {
-//     return <BaasicFormControlsTemplate {...props} />
-// };
-
 BaasicFormControls.propTypes = {
     form: PropTypes.any.isRequired,
     validation: PropTypes.object,

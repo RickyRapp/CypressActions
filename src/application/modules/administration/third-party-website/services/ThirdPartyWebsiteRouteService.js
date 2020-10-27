@@ -2,7 +2,7 @@ import { BaseRouteService } from 'core/services';
 
 class ThirdPartyWebsiteRouteService extends BaseRouteService {
     constructor() {
-        super('third-party-website');
+        super('third-party');
     }
 
     find(filter) {

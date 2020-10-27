@@ -20,6 +20,7 @@ const BaasicInputTemplate = function (props) {
         checked,
         labelBeforeInput,
         onClick,
+        maxLength
     } = props;
 
     return (
@@ -40,6 +41,7 @@ const BaasicInputTemplate = function (props) {
                 value={value}
                 onChange={onChange}
                 onClick={onClick}
+                maxLength={maxLength}
             />
             {showLabel && !labelBeforeInput && (
                 <label className={labelClassName || ''} htmlFor={id}>
@@ -67,6 +69,7 @@ BaasicInputTemplate.propTypes = {
     labelBeforeInput: PropTypes.bool,
     t: PropTypes.func,
     onClick: PropTypes.func,
+    maxLength: PropTypes.number,
 };
 
 BaasicInputTemplate.defaultProps = {

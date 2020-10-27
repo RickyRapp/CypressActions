@@ -1,6 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { SessionTab, SessionEdit, SessionPreview, SessionCreate, ReviewCertificate } from 'application/session/pages';
 import { PublicLayout } from 'core/layouts';
+import { SessionModuleStore } from 'application/session/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -46,32 +47,20 @@ import { PublicLayout } from 'core/layouts';
                         }
                     }
                 ]
-            },
-            {
-                name: 'master.app.review',
-                pattern: '/review-certificate',
-                component: [PublicLayout],
-                beforeEnter: async (fromState, toState, routerStore) => {
-                    const { rootStore } = routerStore;
-                    await rootStore.userStore.resolveUser();
-                },
-                children: [
-                    {
-                        name: 'master.app.review.certificate',
-                        pattern: '/:reviewToken',
-                        component: ReviewCertificate,
-                        authorization: 'theDonorsFundDonorSection.read',
-                    },
-                ],
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.SESSION',
-            //     order: 8,
-            //     authorization: 'theDonorsFundAdministrationSection.read',
-            //     route: 'master.app.main.session.tab'
-            // }
-        ]
+            {
+                title: 'MENU.SESSION',
+                order: 8,
+                authorization: 'theDonorsFundAdministrationSection.read',
+                route: 'master.app.main.session.tab'
+            }
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.session': new SessionModuleStore(context.rootStore),
+            };
+        },
     });
 })();

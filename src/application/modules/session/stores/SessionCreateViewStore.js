@@ -1,24 +1,62 @@
 import { action, observable } from 'mobx';
-import { BaseViewStore } from 'core/stores';
+import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
+import { SessionCreateForm } from 'application/session/forms';
+import { charityFormatter } from 'core/utils';
 
-class SessionViewStore extends BaseViewStore {
+class SessionViewStore extends BaseEditViewStore {
     steps = [1, 2, 3, 4];
     @observable currentStep = 1;
-    @observable sessionKeyIdentifier = null;
-    @observable language = '';
+    @observable barcode = '';
+    @observable sessionCertificates = [];
 
     constructor(rootStore) {
-        super(rootStore);
+        super(rootStore, {
+            name: 'session-create',
+            id: undefined,
+            autoInit: false,
+            actions: () => {
+                return {
+                    create: async (resource) => {
+                        console.log(resource)
+                        console.log(this.sessionCertificates)
+                    }
+                }
+            },
+            FormClass: SessionCreateForm,
+            onAfterAction: () => {
+                this.nextStep(4);
+            }
+        });
 
-        const key = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.key;
-        if (key) {
-            this.setSessionKeyIdentifier(key);
+        this.createCharityDropdownStore();
+    }
+
+    @action.bound
+    onNextStep1Click(language) {
+        this.form.$('language').set(language);
+        this.nextStep(2);
+    }
+
+    @action.bound
+    async onNextStep2Click() {
+        const { isValid } = await this.form.validate({ showErrors: true });
+        if (isValid) {
+            const data = await this.rootStore.application.session.sessionStore.createInitialSession(this.form.values());
+            this.form.$('key').set(data.response);
             this.nextStep(3);
-            rootStore.routerStore.setQueryParams(null);
         }
     }
 
     @action.bound
+    onPreviousStep2Click() {
+        this.nextStep(1);
+    }
+
+    @action.bound
+    onPreviousStep3Click() {
+        this.nextStep(2);
+    }
+
     nextStep(step) {
         if (step) {
             this.currentStep = step;
@@ -29,8 +67,23 @@ class SessionViewStore extends BaseViewStore {
     }
 
     @action.bound
-    previousStep() {
-        --this.currentStep;
+    async onBarcodeChange(event) {
+        this.barcode = event.target.value;
+        if (this.barcode && this.barcode.length === 10) {
+            let data = null;
+            try {
+                data = await this.rootStore.application.session.sessionStore.addCertificate({ key: this.form.$('key').value, barcode: this.barcode });
+            } catch (ex) {
+                data = ex.data;
+            }
+            if (data.isEligible) {
+                this.sessionCertificates.push(data.certificate);
+            }
+            else {
+                this.handleResponse(data.errorCode);
+            }
+            this.barcode = '';
+        }
     }
 
     @action.bound
@@ -44,37 +97,42 @@ class SessionViewStore extends BaseViewStore {
         this.nextStep()
     }
 
-    @action.bound
-    handleResponse(data, err) {
-        if (data.statusCode === 4000000001) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.SCANNER_CONNECTION_NOT_INITIALIZED_ERROR', err);
-        }
-        else if (data.statusCode === 4000000002) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.SESSION_ALREADY_ACTIVE_ERROR', err);
-        }
-        else if (data.statusCode === 4000000003) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.BARCODE_NOT_FOUND_ERROR', err);
-        }
-        else if (data.statusCode === 4000000004) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.CERTIFICATE_NOT_CLEAN_ERROR', err);
-        }
-        else if (data.statusCode === 4000000005) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.BOOKLET_NOT_ASSIGNED_ERROR', err);
-        }
-        else if (data.statusCode === 4000000006) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.CERTIFICATE_NOT_ACTIVE_ERROR', err);
-        }
-        else if (data.statusCode === 4000000007) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.CHARITY_NOT_ACTIVE_ERROR', err);
-        }
-        else if (data.statusCode === 4000000008) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.CERTIFICATE_ALREADY_USED_IN_OPEN_SESSION_ERROR', err);
-        }
-        else if (data.statusCode === 4000000009) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.INSUFFICIENT_FUNDS_ERROR', err);
-        }
-        else if (data.statusCode === 4000000010) {
-            this.rootStore.notificationStore.error('SESSION.STATUS_CODE.CERTIFICATE_ALREADY_SCANNED_ERROR', err);
+    createCharityDropdownStore() {
+        this.charityDropdownStore = new BaasicDropdownStore({
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.session.sessionStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses',
+                        ],
+                        fields: [
+                            'id',
+                            'taxId',
+                            'name',
+                            'charityAddresses'
+                        ]
+                    });
+                    return _.map(data, x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                            item: x
+                        }
+                    });
+                }
+            });
+    }
+
+    handleResponse(errorCode) {
+        if (errorCode >= 4001 && errorCode <= 4010) {
+            this.rootStore.notificationStore.error('ERROR_CODE.' + errorCode);
         }
         else {
             this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');

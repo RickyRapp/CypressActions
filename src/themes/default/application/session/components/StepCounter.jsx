@@ -21,7 +21,7 @@ StepCounter.propTypes = {
     steps: PropTypes.array.isRequired
 };
 
-const Step = ({ step, selected }) => <span className="u-mar--left--sml">{selected ? <span className="type--color--error">{step}</span> : step}</span>
+const Step = ({ step, selected }) => <span className="u-mar--left--sml">{selected ? <strong>{step}</strong> : step}</span>
 
 Step.propTypes = {
     selected: PropTypes.bool.isRequired,

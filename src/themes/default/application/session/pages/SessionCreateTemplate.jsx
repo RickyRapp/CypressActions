@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
-import { StepCounter } from 'themes/application/session/components';
-import { Step1, Step2, Step3, Step4 } from 'application/session/components';
+import { StepCounter, Step1Template, Step2Template, Step3Template } from 'themes/application/session/components';
 
-const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
+const SessionCreateTemplate = function ({ sessionCreateViewStore, t }) {
     const {
+        form,
         steps,
         currentStep,
-        setLanguage,
-        nextStep,
-        previousStep,
-        setSessionKeyIdentifier,
-        sessionKeyIdentifier,
-        handleResponse,
-        language
+        onNextStep1Click,
+        onNextStep2Click,
+        onPreviousStep2Click,
+        charityDropdownStore,
+        onPreviousStep3Click,
+        barcode,
+        onBarcodeChange,
+        sessionCertificates
     } = sessionCreateViewStore;
 
     return (
@@ -26,36 +27,38 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                     currentStep={currentStep}
                 />
             </div>
-            {currentStep === 1 &&
-                <div className="card card--form card--primary card--med u-mar--bottom--sml">
-                    <Step1
-                        nextStep={setLanguage}
-                    />
-                </div>}
-            {currentStep === 2 &&
-                <div className="card card--form card--primary card--med u-mar--bottom--sml">
-                    <Step2
-                        nextStep={nextStep}
-                        previousStep={previousStep}
-                        setSessionKeyIdentifier={setSessionKeyIdentifier}
-                        handleResponse={handleResponse}
-                        sessionKeyIdentifier={sessionKeyIdentifier}
-                        language={language}
-                    />
-                </div>}
-            {currentStep === 3 &&
-                <Step3
-                    nextStep={nextStep}
-                    previousStep={previousStep}
-                    sessionKeyIdentifier={sessionKeyIdentifier}
-                    setSessionKeyIdentifier={setSessionKeyIdentifier}
-                    handleResponse={handleResponse}
-                />}
+
+            <form onSubmit={form.onSubmit}>
+                {currentStep === 1 &&
+                    <div className="card card--form card--primary card--med u-mar--bottom--sml">
+                        <Step1Template onNextStepClick={onNextStep1Click} />
+                    </div>}
+
+                {currentStep === 2 &&
+                    <div className="card card--form card--primary card--med u-mar--bottom--sml">
+                        <Step2Template
+                            form={form}
+                            onNextStepClick={onNextStep2Click}
+                            onPreviousStepClick={onPreviousStep2Click}
+                            charityDropdownStore={charityDropdownStore}
+                        />
+                    </div>}
+
+                {currentStep === 3 &&
+                    <Step3Template
+                        onPreviousStepClick={onPreviousStep3Click}
+                        form={form}
+                        sessionCertificates={sessionCertificates}
+                        barcode={barcode}
+                        onBarcodeChange={onBarcodeChange}
+                    />}
+                {/* 
             {currentStep === 4 &&
                 <Step4
                     nextStep={nextStep}
                     sessionKeyIdentifier={sessionKeyIdentifier}
-                />}
+                />} */}
+            </form>
         </Page >
     )
 };

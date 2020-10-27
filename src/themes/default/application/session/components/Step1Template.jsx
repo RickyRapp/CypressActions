@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components'
 
-const Step1Template = function ({ nextStep, t }) {
+const Step1Template = function ({ onNextStepClick, t }) {
     return (
         <div>
             <div>
@@ -15,18 +15,18 @@ const Step1Template = function ({ nextStep, t }) {
             <BaasicButton
                 className="btn btn--base btn--ghost"
                 label='SESSION.CREATE.STEP1.ENG_LANGUAGE'
-                onClick={() => nextStep('eng')}
+                onClick={() => onNextStepClick('eng')}
             />
             <BaasicButton
                 className="btn btn--base btn--ghost"
                 label='SESSION.CREATE.STEP1.HEB_LANGUAGE'
-                onClick={() => nextStep('heb')}
+                onClick={() => onNextStepClick('heb')}
             />
         </div>)
 }
 
 Step1Template.propTypes = {
-    nextStep: PropTypes.func.isRequired,
+    onNextStepClick: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired
 };
 
