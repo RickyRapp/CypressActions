@@ -3,6 +3,7 @@ import { BaseRouteService } from 'core/services';
 class SessionRouteService extends BaseRouteService {
     constructor() {
         super('session');
+        this.sessionScanBase = 'session-scan';
     }
 
     find(filter) {
@@ -17,8 +18,8 @@ class SessionRouteService extends BaseRouteService {
         return super.create(this.base);
     }
 
-    createSessionInformation(resource) {
-        return super.create(this.base + '/session-info', resource);
+    createInitialSession(resource) {
+        return super.create(this.sessionScanBase + '/initial', resource);
     }
 
     update(resource) {
@@ -38,7 +39,7 @@ class SessionRouteService extends BaseRouteService {
     }
 
     addCertificate(resource) {
-        return super.find(this.base + '/add-certificate/{key}/{id}', resource);
+        return super.update(this.sessionScanBase + '/add-certificate', resource);
     }
 
     inActivateSession(resource) {

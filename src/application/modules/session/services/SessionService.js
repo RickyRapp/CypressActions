@@ -7,8 +7,8 @@ class SessionService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    createSessionInformation(resource) {
-        var url = this.routeService.createSessionInformation();
+    createInitialSession(resource) {
+        var url = this.routeService.createInitialSession();
         return this.apiClient.post(url, resource);
     }
 
@@ -29,7 +29,7 @@ class SessionService extends BaseService {
 
     addCertificate(resource) {
         var url = this.routeService.addCertificate(resource);
-        return this.apiClient.get(url);
+        return this.apiClient.put(url, resource);
     }
 
     inActivateSession(resource) {
