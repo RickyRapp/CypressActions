@@ -27,35 +27,41 @@ import { RouterState } from 'mobx-state-router';
         menu: [
             {
                 title: 'MENU.DASHBOARD',
+                icon: 'dashboard',
                 order: 1,
                 route: 'master.app.main.dashboard'
             },
             {
                 title: 'MENU.ACTIVITY',
+                icon: 'activity',
                 order: 2,
                 route: 'master.app.main.activity.all',
                 role: ['Users']
             },
             {
                 title: 'MENU.CONTRIBUTIONS',
+                icon: 'contribution',
                 order: 3,
                 route: 'master.app.main.contribution.create',
                 role: ['Users']
             },
             {
                 title: 'MENU.NEW_GRANT',
+                icon: 'grant',
                 order: 4,
                 role: ['Users'],
                 route: 'master.app.main.grant.create',
             },
             {
                 title: 'MENU.PROFILE_SETTING',
+                icon: 'profile',
                 order: 5,
                 role: ['Users'],
                 route: 'master.app.main.profile'
             },
             {
                 title: 'MENU.ORDER_VOUCHERS',
+                icon: 'booklet-order',
                 order: 6,
                 role: ['Users'],
                 route: 'master.app.main.booklet-order.create'

@@ -18,14 +18,14 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
 
     return (
         <header className="layout__header header">
-            <img
+            {/* <img
                 className='header__logo'
                 src={logo}
                 alt='logo'
                 onClick={() =>
                     routerStore.goTo('master.public.main.home')
                 }
-            />
+            /> */}
             <div className="header__options">
                 <div className="header__hamburger"
                     onClick={() => menuStore.toggleMenuOpen()}>
@@ -56,7 +56,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                                         />
                                         <span className="header__profile__name">
                                             <span>{rootStore.userStore.user.displayName}</span>
-                                            <i className="k-icon k-i-arrow-s type--color--negative header__profile__icon"></i>
+                                            <i className="k-icon k-i-arrow-s header__profile__icon"></i>
                                         </span>
                                     </div>
                                 ) : null}

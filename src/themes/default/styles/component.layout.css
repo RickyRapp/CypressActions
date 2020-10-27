@@ -13,7 +13,7 @@ $header-height: 72px;
         position: fixed;
         top: 0;
         right: 0;
-        left: 0;
+        left: 210px;
         height: $header-height;
         z-index: 6;
     }
@@ -22,9 +22,10 @@ $header-height: 72px;
         position: fixed;
         top: $header-height;
         left: 0;
+        top: 0;
         bottom: 0;
         width: 0;
-        background-color: #192A48;
+        background-color: $color-text;
         z-index: 9;
 
         @media (--screen-from-sml) {

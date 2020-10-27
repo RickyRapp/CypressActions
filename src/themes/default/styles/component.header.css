@@ -6,9 +6,10 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    background-color: #192A48;
+    background-color: $color-background;
     align-items: center;
 
+    border-bottom: 1px solid color($color-text a(10%));
     padding: 0 calc($unit * 2);
 
     @media (--screen-from-sml) {
@@ -16,7 +17,7 @@
     }
 
     &__logo {
-        height: 28px;
+        height: 35px;
     }
 
     &__hamburger {
@@ -34,7 +35,7 @@
 
     &__profile {
         position: relative;
-        color: white;
+        color: $color-text;
         cursor: pointer;
         display: inline-block;
 

@@ -19,6 +19,7 @@ body {
     
     font-family: $ff-sans !important;
     color: $color-text;
+    background-color: $color-background;
 }
 
 img {

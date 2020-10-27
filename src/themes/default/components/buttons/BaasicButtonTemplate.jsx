@@ -32,9 +32,9 @@ function DefaultContent({
             {isSome(content) ? (
                 content
             ) : (
-                    <span>
-                        <span className={`${iconName(icon)}`} />
+                    <span className="u-display--flex u-display--flex--align--center">
                         {!onlyIcon && t(label)}
+                        <span className={`${iconName(icon)} u-mar--left--lrg`} />
                     </span>
                 )}
         </button>

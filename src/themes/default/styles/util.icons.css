@@ -54,7 +54,7 @@
         }
 
         &--arrow-up {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
             transform: rotate(-180deg);
             &--positive {
                 background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
@@ -67,7 +67,7 @@
         }
         
         &--arrow-down {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
             &--positive {
                 background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
             }
@@ -77,7 +77,7 @@
         }
 
         &--arrow-left {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
             transform: rotate(90deg);
             
             &--positive {
@@ -87,7 +87,7 @@
         }
 
         &--arrow-right {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
             transform: rotate(-90deg);
             
             &--positive {

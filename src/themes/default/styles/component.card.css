@@ -1,0 +1,38 @@
+/*------------------------------------*\
+    # component.card
+\*------------------------------------*/
+
+.card {
+    &--primary {
+        background-color: $white;
+        border-radius: $radius-base;
+        box-shadow: $shadow-card; 
+    }
+
+    &--secondary {
+       background-color: $aqua-blue;
+       border-radius: $radius-base;
+       box-shadow: $shadow-card; 
+    }
+
+    &--form {
+        border-radius: $radius-base;
+        background-color: $color-background;
+    }
+
+    &--tny {
+        padding: calc($unit * 2);
+    }
+
+    &--sml {
+        padding: calc($unit * 3);
+    }
+
+    &--med {
+        padding: calc($unit * 4);
+    }
+
+    &--lrg {
+        padding: calc($unit * 6);
+    }
+}

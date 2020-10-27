@@ -52,6 +52,8 @@
 @import "component.table.css";
 @import "component.btn.css";
 @import "component.layout.css";
+@import "component.card.css";
+@import "component.nav.css";
 @import "component.header.css";
 @import 'component.search.css';
 @import "component.modal.css";

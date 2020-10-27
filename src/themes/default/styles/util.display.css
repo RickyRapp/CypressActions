@@ -18,6 +18,24 @@
 
 		&--flex {
 			display: flex;
+
+			&--align {
+				
+				&--center {
+					align-items: center;
+				}
+			}
+
+			&--justify {
+				
+				&--center {
+					jusitfy-content: center;
+				}
+
+				&--space-around {
+					justify-content: space-around;
+				}
+			}
 		}
 
 		&--none {

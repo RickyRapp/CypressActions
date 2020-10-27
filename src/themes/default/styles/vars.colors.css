@@ -10,6 +10,7 @@
 /**
 * Brand colors
 */
+$aqua-blue:             #B3DBD3;
 $dodger-blue: 			#348cfc;
 $eastern-blue: 	        #00909e;
 $smalt-blue:            #517d97;
@@ -17,16 +18,17 @@ $smalt-blue:            #517d97;
 /**
 * Global text color
 */
-$color-text:        #323232;
+$color-text:        #182A48;
+$white:             #ffffff;
 
 /**
 * Theme colors
 */
-$color-primary:     $dodger-blue;
+$color-primary:     $aqua-blue;
 $color-secondary: 	$eastern-blue;
 $color-tertiary: 	$smalt-blue;
 
-$color-background: #e9edf0;
+$color-background:  #EFF3F2;
 
 /*
     Shades of gray (pure gray)
@@ -48,7 +50,7 @@ $grey-9: #0f0f0f;  /* 94% - lightness */
 */
 $color-warning:     #ff4553;
 $color-success:     #4caf50;
-$color-note:        #ff9e2c;
+$color-note:        #C36C36;
 
 /* Toastify colors */
 

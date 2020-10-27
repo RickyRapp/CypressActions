@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { PropTypes } from 'prop-types';
 import { NotifyOutsideClick } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
 
 const SecondaryMenu = inject(i => ({
     items: i.rootStore.menuStore.secondaryMenu,
@@ -30,6 +31,16 @@ function MenuTemplate({ menuStore, t }) {
 function renderPrimary(menu, menuStore, translate) {
     return (
         <div>
+            <div className="nav--primary__logo">
+                <img
+                    className='header__logo'
+                    src={logo}
+                    alt='logo'
+                    onClick={() =>
+                        routerStore.goTo('master.public.main.home')
+                    }
+                    />
+            </div>
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 <div className="nav--primary__item" onClick={() => menuStore.toggleCollapse()}>
                     <i className="u-icon u-icon--med u-icon--menu"></i>
@@ -64,7 +75,7 @@ function renderPrimary(menu, menuStore, translate) {
                         return (
                             <a
                                 key={title}
-                                className="u-position--rel"
+                                // className="u-position--rel"
                                 onClick={e => {
                                     menuStore.selectMenuItem(item, e);
                                 }}
@@ -72,10 +83,10 @@ function renderPrimary(menu, menuStore, translate) {
                             >
                                 <div key={title} aria-label={title} className={className} label={title}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} title={title} />
+                                    <span title={title} className="nav--secondary__text u-mar--left--sml">
+                                        {title}
+                                    </span>
                                 </div>
-                                <span title={title} className="nav--secondary__text">
-                                    {title}
-                                </span>
                             </a>
                         );
                     }

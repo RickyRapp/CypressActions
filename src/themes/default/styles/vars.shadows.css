@@ -32,3 +32,5 @@ $shadow-lrg: -1px 2px 50px -14px $grey-7;
 
 /* Aside secondary navigation */
 $shadow-lrg: 0px 2px 26px -4px $grey-7;
+
+$shadow-card: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 10px 20px rgba(0, 0, 0, 0.04);

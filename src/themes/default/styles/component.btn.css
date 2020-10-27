@@ -74,19 +74,19 @@
      * Button styles
     */
     &--primary {
-        background: $color-primary;
-        color: white;
+        background: $white;
+        color: $color-note;
 
         &:hover {
-            background: color($color-primary blackness(+10%));
+            background: color($white blackness(+5%));
         }
     }
     &--secondary {
-        background: $color-secondary;
-        color: white;
+        background: $aqua-blue;
+        color: $color-note;
 
         &:hover {
-            background: color($color-secondary blackness(+10%));
+            background: color($aqua-blue blackness(+5%));
         }
     }
     &--warning {
