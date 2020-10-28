@@ -1,7 +1,6 @@
 import { action, observable } from 'mobx';
 import { BasePreviewViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { GrantService } from 'application/grant/services';
 import moment from 'moment';
 
 @applicationContext
@@ -9,63 +8,57 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
     @observable isEditable = false;
 
     constructor(rootStore) {
-        const id = rootStore.routerStore.routerState.params.editId;
-
         super(rootStore, {
             name: 'user',
-            autoInit: true,
-            id: id,
+            id: rootStore.routerStore.routerState.params.editId,
+            autoInit: false,
             routes: {
                 edit: () => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.edit',
-                        {
-                            id: this.item.donor.id,
-                            editId: this.id
-                        }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.grant.edit', { editId: this.id }, { donorId: this.item.donorId });
                 }
             },
             actions: () => {
-                const service = new GrantService(rootStore.application.baasic.apiClient);
                 return {
                     get: async (id) => {
-                        let params = {
+                        const params = {
                             embed: [
                                 'charity',
-                                'debitCharityTransaction',
-                                'debitCharityTransaction.paymentTransaction',
-                                'debitCharityTransaction.paymentType',
                                 'donor',
                                 'donor.donorAddresses',
                                 'grantPurposeType',
                                 'donationStatus',
                                 'grantAcknowledgmentType',
-                                'grantDonorTransactions',
-                                'grantDonorTransactions.paymentTransaction',
-                                'grantDonorTransactions.paymentTransaction.paymentTransactionStatus',
-                                'grantDonorTransactions.paymentTransaction.paymentTransactionType',
                                 'thirdPartyWebsite'
-                            ]
+                            ],
+                            donorId: this.donorId
                         }
-                        let response = await service.get(id, params);
-                        return response.data;
+                        return this.rootStore.application.grant.grantStore.getDetails(id, params);
                     }
                 }
             }
         });
+
+        this.hasAdministratorsPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')
+        if (!this.hasAdministratorsPermission) {
+            this.donorId = rootStore.userStore.user.id;
+        }
     }
 
     @action.bound
-    async getResource(id) {
-        await super.getResource(id);
-        if (this.item.donationStatus.abrv === 'pending') {
-            if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                this.isEditable = true;
-            }
-            else {
-                const dateToEdit = moment(this.item.dateCreated).add('minutes', 15);
-                this.isEditable = moment().isBetween(this.item.dateCreated, dateToEdit);
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([this.getResource(this.id)]);
+            if (this.item.donationStatus.abrv === 'pending') {
+                if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+                    this.isEditable = true;
+                }
+                else {
+                    const dateToEdit = moment(this.item.dateCreated).add(15, 'minutes');
+                    this.isEditable = moment().isBetween(this.item.dateCreated, dateToEdit);
+                }
             }
         }
     }

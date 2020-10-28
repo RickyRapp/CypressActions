@@ -61,10 +61,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                     }
                 }
             },
-            FormClass: GrantCreateForm,
-            onAfterAction: () => {
-                this.rootStore.routerStore.goTo('master.app.main.activity.all', {}, { headerTab: 2 });
-            }
+            FormClass: GrantCreateForm
         });
 
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
@@ -267,7 +264,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 ],
                 charityId: this.form.$('charityId').value
             }
-            data = await this.rootStore.application.grant.grantStore.findPreviousGrants(params);
+            data = await this.rootStore.application.grant.grantStore.findGrants(params);
         }
         this.previousGrantsTableStore.setData(data);
         if (!this.previousGrantsTableStore.dataInitialized) {

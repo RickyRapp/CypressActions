@@ -11,11 +11,7 @@ class GrantRouteService extends BaseRouteService {
     }
 
     get(id, options) {
-        return super.get(this.base + '/{id}/{?embed,fields}', id, options);
-    }
-
-    getDetails(id, options) {
-        return super.get(this.base + '/details/{donorId}/{id}/{?embed,fields}', id, options);
+        return super.get(this.base + '/{id}/{?donorId,embed,fields}', id, options);
     }
 
     getDonorInformation(id) {

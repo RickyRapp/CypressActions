@@ -98,7 +98,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
 
     createUniqueConstraintValidators() {
         validatorService.registerAsyncValidator('usernameUnique', async (value, attribute, req, passes) => {
-            console.log(this)
             try {
                 const { statusCode } = await this.rootStore.application.baasic.membershipModule.user.exists(value);
                 if (statusCode === 204) {

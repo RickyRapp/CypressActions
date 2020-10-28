@@ -1,4 +1,5 @@
 import { CharityService } from 'application/charity/services';
+import { DonorService } from 'application/donor/services';
 import { GrantService, ScheduledGrantService } from 'application/grant/services';
 import { FeeService } from 'common/services';
 
@@ -9,6 +10,7 @@ class GrantStore {
         this.scheduledGrantService = moduleStore.rootStore.createApplicationService(ScheduledGrantService);
         this.charityService = moduleStore.rootStore.createApplicationService(CharityService);
         this.feeService = moduleStore.rootStore.createApplicationService(FeeService);
+        this.donorService = moduleStore.rootStore.createApplicationService(DonorService);
     }
 
     async create(resource) {
@@ -36,6 +38,11 @@ class GrantStore {
         return response.data;
     }
 
+    async getDonor(id, params) {
+        const response = await this.donorService.get(id, params);
+        return response.data;
+    }
+
     async calculateFee(params) {
         const response = await this.feeService.calculateFee(params);
         return response.data;
@@ -46,13 +53,18 @@ class GrantStore {
         return response.data.item;
     }
 
-    async findPreviousGrants(params) {
-        const response = await this.grantService.find(params);
+    async searchDonor(params) {
+        const response = await this.donorService.search(params);
         return response.data.item;
     }
 
+    async findGrants(params) {
+        const response = await this.grantService.find(params);
+        return response.data;
+    }
+
     async getDetails(id, params) {
-        const response = await this.grantService.getDetails(id, params);
+        const response = await this.grantService.get(id, params);
         return response.data;
     }
 

@@ -16,9 +16,7 @@ class SessionViewStore extends BaseEditViewStore {
             autoInit: false,
             actions: () => {
                 return {
-                    create: async (resource) => {
-                        console.log(resource)
-                        console.log(this.sessionCertificates)
+                    create: async () => {
                     }
                 }
             },

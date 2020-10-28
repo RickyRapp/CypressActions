@@ -11,7 +11,6 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
         rootStore: { menuStore },
     } = viewStore;
 
-    console.log(menuStore.isCollapsed)
     return (
         <div>
             <div className="layout">

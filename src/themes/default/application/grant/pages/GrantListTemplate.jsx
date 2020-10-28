@@ -40,9 +40,10 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
                             </div>}
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
+                                id='confirmationNumber'
                                 className='input input--sml'
-                                value={queryUtility.filter['confirmationNumber'] || ""}
-                                onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                value={queryUtility.filter.confirmationNumber || ""}
+                                onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
                                 placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
                             />
                         </div>
