@@ -42,16 +42,16 @@ function TransactionTemplate({ transactionViewStore }) {
 
                     <div className="col col-sml-6 u-display--flex u-display--flex--justify--flex-end"> 
                         <div className="type--sml type--wgt--bold type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--sml u-icon--download u-mar--right--tny"></span>
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--download u-mar--right--tny"></span>
                         </div>
                         <div className="type--sml type--wgt--bold type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--sml u-icon--document u-mar--right--tny"></span>
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--document u-mar--right--tny"></span>
                         </div>
                         <div className="type--sml type--wgt--bold type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--sml u-icon--upload u-mar--right--tny"></span>
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--upload u-mar--right--tny"></span>
                         </div>
                         <div className="type--sml type--wgt--bold type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--sml u-icon--edit u-mar--right--tny"></span>
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--edit u-mar--right--tny"></span>
                         </div>
                     </div>
                     <div className="col col-sml-6"></div>
