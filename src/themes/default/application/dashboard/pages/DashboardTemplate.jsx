@@ -84,7 +84,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                     </div>
                     {donor && (!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) &&
                         <div className="col col-sml-12 col-lrg-12">
-                            <div className="card card--secondary card--med u-mar--bottom--med u-mar--top--med">
+                            <div className="card card--tertiary card--med u-mar--bottom--med u-mar--top--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}</h3>
                                 <div className="u-display--flex">
                                     {!donor.IsInvestmentMade &&

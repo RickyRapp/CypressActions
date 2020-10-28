@@ -39,6 +39,10 @@
 				&--space-beetween  {
 					justify-content: space-beetween;
 				}
+
+				&--flex-end {
+					justify-content: flex-end;
+				}
 			}
 		}
 

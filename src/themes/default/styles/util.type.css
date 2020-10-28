@@ -97,7 +97,7 @@
         }
 
         &--opaque {
-            color: color($color-text a(0.4));
+            color: $color-opaque;
         }
 
         &--primary {

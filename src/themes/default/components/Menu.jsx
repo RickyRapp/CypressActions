@@ -62,11 +62,11 @@ function renderPrimary(menu, menuStore, translate) {
                             <div className="u-position--rel" key={title}>
                                 <div className={className} aria-label={title} onClick={() => menuStore.closeMenu()}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} />
-                                </div>
                                 {!menuStore.isCollapsed &&
-                                    <span title={title} className="nav--secondary__text">
+                                    <span title={title} className="nav--secondary__text  u-mar--left--sml">
                                         {title}
                                     </span>}
+                                </div>
                                 <SecondaryMenu />
                             </div>
                         );

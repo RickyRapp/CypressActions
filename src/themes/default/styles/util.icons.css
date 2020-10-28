@@ -528,7 +528,7 @@
         }
 
         &--download {
-            background-image: svg-load('../styles/postcss-svg/download.svg', fill: #ffffff);
+            background-image: svg-load('../styles/postcss-svg/download.svg', fill: $color-primary);
         }
 
         &--document {
