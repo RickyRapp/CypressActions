@@ -35,6 +35,10 @@
 				&--space-around {
 					justify-content: space-around;
 				}
+				
+				&--space-beetween  {
+					justify-content: space-beetween;
+				}
 			}
 		}
 
