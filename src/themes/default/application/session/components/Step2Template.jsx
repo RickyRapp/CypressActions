@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BasicInput,
-    BaasicFormControls,
-    EditFormContent,
     BaasicButton,
-    NumberFormatInputField,
     BaasicFieldDropdown
 } from 'core/components';
 

@@ -16,3 +16,5 @@ export { default as DonorInvestmentPoolHistoryViewStore } from './DonorInvestmen
 export { default as DonorAccountSettingViewStore } from './DonorAccountSettingViewStore'
 export { default as DonorCommunicationPreferenceViewStore } from './DonorCommunicationPreferenceViewStore'
 export { default as BankAccountFormViewStore } from './BankAccountFormViewStore'
+export { default as DonorStore } from './DonorStore'
+export { default as DonorModuleStore } from './DonorModuleStore'

@@ -5,7 +5,6 @@ import {
     NotifyOutsideClick,
     Gravatar
 } from 'core/components';
-import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
 import { defaultTemplate } from 'core/hoc';
 function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
     const {

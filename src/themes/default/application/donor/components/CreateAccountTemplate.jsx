@@ -2,31 +2,38 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BasicInput, BaasicButton } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import { action, observable } from 'mobx';
 
-class CreateLoginForm extends Component {
+class CreateAccountTemplate extends Component {
+    @observable showForm = false;
+
+    @action.bound
+    onShowFormChange(visiblity) {
+        this.showForm = visiblity;
+    }
+
     render() {
-        const { form,
+        const {
+            form,
             t,
-            title,
-            onBlurUsername,
-            show,
-            onChangeShow
+            title
         } = this.props;
+
         return (
             <React.Fragment>
                 <h3 className="u-mar--bottom--med">{t(title)}
                     <BaasicButton
                         className="btn btn--icon"
-                        icon={`u-icon u-icon--${show ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
-                        label={show ? t('DONOR.CREATE.LOGIN_FORM_FIELDS.HIDE') : t('DONOR.CREATE.LOGIN_FORM_FIELDS.SHOW')}
+                        icon={`u-icon u-icon--${this.showForm ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
+                        label={this.showForm ? t('DONOR.CREATE.LOGIN_FORM_FIELDS.HIDE') : t('DONOR.CREATE.LOGIN_FORM_FIELDS.SHOW')}
                         onlyIcon={true}
-                        onClick={() => onChangeShow(!show)}
+                        onClick={() => this.onShowFormChange(!this.showForm)}
                     />
                 </h3>
-                {show &&
+                {this.showForm &&
                     <div className="row">
                         <div className="form__group col col-lrg-3">
-                            <BasicInput field={form.$('username')} onBlur={onBlurUsername} />
+                            <BasicInput field={form.$('username')} />
                         </div>
                         <div className="form__group col col-lrg-3">
                             <BasicInput field={form.$('password')} />
@@ -40,13 +47,10 @@ class CreateLoginForm extends Component {
     }
 }
 
-CreateLoginForm.propTypes = {
+CreateAccountTemplate.propTypes = {
     form: PropTypes.object.isRequired,
-    t: PropTypes.func,
     title: PropTypes.string.isRequired,
-    onBlurUsername: PropTypes.func.isRequired,
-    show: PropTypes.bool,
-    onChangeShow: PropTypes.func,
+    t: PropTypes.func
 };
 
-export default defaultTemplate(CreateLoginForm);
+export default defaultTemplate(CreateAccountTemplate);

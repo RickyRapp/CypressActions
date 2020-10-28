@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { DonorService } from 'application/donor/services';
 import { applicationContext } from 'core/utils';
 import { DonorListFilter } from 'application/donor/models';
 
@@ -14,21 +13,16 @@ class DonorViewStore extends BaseListViewStore {
             routes: {
                 edit: (id) => {
                     this.setChildNavigationTitle(i => i.id === id, item => item.donorName);
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.donor.edit',
-                        { id: id }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.donor.edit', { id: id });
                 },
-                create: () =>
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.donor.create'
-                    )
+                create: () => {
+                    this.rootStore.routerStore.goTo('master.app.main.donor.create')
+                }
             },
             queryConfig: {
                 filter: new DonorListFilter('dateCreated', 'desc')
             },
             actions: () => {
-                const service = new DonorService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = ['accountType'];
@@ -42,13 +36,32 @@ class DonorViewStore extends BaseListViewStore {
                             'accountType.name',
                             'presentBalance'
                         ];
-                        const response = await service.find(params);
-                        return response.data;
+                        return this.rootStore.application.donor.donorStore.findDonors(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.loadLookups()
+            ]);
+        }
+    }
+
+    async loadLookups() {
+        this.accountTypes = await this.rootStore.application.lookup.accountTypeStore.find();
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -79,25 +92,6 @@ class DonorViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goTo(
-                'master.app.main.donor.list'
-            )
-        }
-        else {
-            await this.fetch([
-                this.fetchAccountTypes()
-            ]);
-        }
-    }
-
-    @action.bound
-    async fetchAccountTypes() {
-        this.accountTypes = await this.rootStore.application.lookup.accountTypeStore.find();
     }
 }
 

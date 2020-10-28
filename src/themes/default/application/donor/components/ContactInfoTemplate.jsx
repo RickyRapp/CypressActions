@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BasicInput, NumberFormatInputField } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-class ContactInfoForm extends Component {
+class ContactInfoTemplate extends Component {
     render() {
         const { form, t } = this.props;
         return (
@@ -50,9 +50,9 @@ class ContactInfoForm extends Component {
     }
 }
 
-ContactInfoForm.propTypes = {
+ContactInfoTemplate.propTypes = {
     form: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
-export default defaultTemplate(ContactInfoForm);
+export default defaultTemplate(ContactInfoTemplate);

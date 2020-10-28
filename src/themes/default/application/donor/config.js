@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
+import { DonorModuleStore } from 'application/donor/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -53,8 +54,12 @@ import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
                 order: 5,
                 role: ['Administrators'],
                 route: 'master.app.main.donor.list',
-            },
-
-        ]
+            }
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.donor': new DonorModuleStore(context.rootStore),
+            };
+        },
     });
 })();

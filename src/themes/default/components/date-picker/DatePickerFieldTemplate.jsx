@@ -13,14 +13,11 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
     const warningClasses = classNames({
         'input--warning': !field.isValid && field.touched && !field.isDirty
     });
-    let maxValue =
-        field.rules && field.rules.indexOf('before_or_equal_date') !== -1
-            ? field.rules.substring(field.rules.indexOf('before_or_equal_date')).split(':')[1]
-            : null;
+    let maxValue = field.rules && field.rules.indexOf('before_or_equal_date') !== -1 ? field.rules.substring(field.rules.indexOf('before_or_equal_date')).split(':')[1] : null;
     if (maxValue && maxValue.includes('|')) {
         maxValue = maxValue.substring(0, maxValue.indexOf('|'));
     }
-    let minValue = field.rules && field.rules.indexOf('min_date') !== -1 ? field.rules.substring(field.rules.indexOf('min_date')).split(':')[1] : null;
+    let minValue = field.rules && field.rules.indexOf('min_date') !== -1 ? field.rules.substring(field.rules.indexOf('min_date')).split(':')[1] : '1900-01-01';
     if (minValue && minValue.includes('|')) {
         minValue = minValue.substring(0, minValue.indexOf('|'));
     }

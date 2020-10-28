@@ -37,9 +37,9 @@ function renderPrimary(menu, menuStore, translate) {
                     src={logo}
                     alt='logo'
                     onClick={() =>
-                        routerStore.goTo('master.public.main.home')
+                        menuStore.rootStore.routerStore.goTo('master.public.main.home')
                     }
-                    />
+                />
             </div>
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 <div className="nav--primary__item" onClick={() => menuStore.toggleCollapse()}>

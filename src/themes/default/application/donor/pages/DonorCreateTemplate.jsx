@@ -10,19 +10,14 @@ import {
     DatePickerField
 } from 'core/components';
 import { Page } from 'core/layouts';
-import { ContactInfoForm } from 'application/donor/components';
-import { CreateLoginForm } from 'common/components';
+import { CreateAccountTemplate, ContactInfoTemplate } from 'themes/application/donor/components';
 
 function DonorCreateTemplate({ donorCreateViewStore }) {
     const {
         form,
         prefixTypeDropdownStore,
         loaderStore,
-        howDidYouHearAboutUsDropdownStore,
-        onBlurUsername,
-        onBlurFundName,
-        loginShow,
-        onChangeLoginShow
+        howDidYouHearAboutUsDropdownStore
     } = donorCreateViewStore;
 
     return (
@@ -47,7 +42,7 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                                         <DatePickerField field={form.$('dateOfBirth')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
-                                        <BasicInput field={form.$('fundName')} onBlur={onBlurFundName} />
+                                        <BasicInput field={form.$('fundName')} />
                                     </div>
                                     <div className="form__group col col-lrg-3">
                                         <NumberFormatInputField field={form.$('securityPin')} />
@@ -61,15 +56,12 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                                 </div>
                             </div>
                             <div className="u-mar--bottom--sml">
-                                <ContactInfoForm form={form} />
+                                <ContactInfoTemplate form={form} />
                             </div>
                             <div className="u-mar--bottom--sml">
-                                <CreateLoginForm
+                                <CreateAccountTemplate
                                     form={form}
                                     title='DONOR.CREATE.LOGIN_FORM_FIELDS.TITLE'
-                                    onBlurUsername={onBlurUsername}
-                                    show={loginShow}
-                                    onChangeShow={onChangeLoginShow}
                                 />
                             </div>
                         </div>

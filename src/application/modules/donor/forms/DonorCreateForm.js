@@ -25,18 +25,17 @@ export default class DonorCreateForm extends FormBase {
                     name: 'dateOfBirth',
                     label: 'DONOR.CREATE.DATE_OF_BIRTH_LABEL',
                     placeholder: 'DONOR.CREATE.DATE_OF_BIRTH_PLACEHOLDER',
-                    rules: `required|before_or_equal_date:${moment().format('YYYY-MM-DD')}`,
+                    rules: `required|before_or_equal_date:${moment().add(-18, 'years').format('YYYY-MM-DD')}`,
                     type: 'date'
-                },
-                {
-                    name: 'activationUrl',
-                    rules: 'string'
                 },
                 {
                     name: 'fundName',
                     label: 'DONOR.CREATE.FUND_NAME_LABEL',
                     placeholder: 'DONOR.CREATE.FUND_NAME_PLACEHOLDER',
-                    rules: ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`]
+                    rules: ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`, 'fundNameUnique'],
+                    options: {
+                        validateOnChange: false
+                    }
                 },
                 {
                     name: 'securityPin',
@@ -44,6 +43,9 @@ export default class DonorCreateForm extends FormBase {
                     rules: 'required|string|digits:4',
                     extra: {
                         format: '####'
+                    },
+                    options: {
+                        validateOnChange: false
                     }
                 },
                 {
@@ -68,22 +70,17 @@ export default class DonorCreateForm extends FormBase {
                     name: 'username',
                     label: 'DONOR.CREATE.LOGIN_FORM_FIELDS.USERNAME_LABEL',
                     placeholder: 'DONOR.CREATE.LOGIN_FORM_FIELDS.USERNAME_PLACEHOLDER',
-                    rules: 'email',
+                    rules: 'required_with:password|email|usernameUnique',
                     autoComplete: 'off',
                     options: {
                         validateOnChange: false
-                    },
-                    handlers: {
-                        onBlur: (field) => () => {
-                            field.validate({ showErrors: true });
-                        }
                     }
                 },
                 {
                     name: 'password',
                     label: 'DONOR.CREATE.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
                     placeholder: 'DONOR.CREATE.LOGIN_FORM_FIELDS.PASSWORD_PLACEHOLDER',
-                    rules: ['string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
+                    rules: ['required_with:username', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
                     type: 'password',
                     autoComplete: 'off'
                 },
@@ -134,7 +131,10 @@ export default class DonorCreateForm extends FormBase {
                     name: 'email',
                     label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
                     placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                    rules: 'required|email'
+                    rules: 'required|email',
+                    options: {
+                        validateOnChange: false
+                    }
                 },
                 {
                     name: 'emailAddressDescription',

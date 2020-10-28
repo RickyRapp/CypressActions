@@ -119,7 +119,7 @@ class SessionViewStore extends BaseEditViewStore {
                             'charityAddresses'
                         ]
                     });
-                    return _.map(data, x => {
+                    return data.map(x => {
                         return {
                             id: x.id,
                             name: charityFormatter.format(x, { value: 'charity-name-display' }),

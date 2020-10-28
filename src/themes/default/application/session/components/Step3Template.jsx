@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicFormControls,
-    EditFormContent,
     BaasicButton,
-    BaasicModal,
     BaasicInput
 } from 'core/components';
-import { BlankCertificateModal } from 'themes/application/session/components';
 
 function Step3Template({
     form,
@@ -101,7 +98,12 @@ function Step3Template({
 }
 
 Step3Template.propTypes = {
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    form: PropTypes.object.isRequired,
+    onPreviousStepClick: PropTypes.func.isRequired,
+    barcode: PropTypes.string.isRequired,
+    onBarcodeChange: PropTypes.func.isRequired,
+    sessionCertificates: PropTypes.any.isRequired,
 };
 
 export default defaultTemplate(Step3Template);

@@ -39,6 +39,73 @@ class DonationReviewViewStore extends BaseListViewStore {
         });
 
         this.createPaymentTypeDropdownStore();
+        this.createTableStore();
+    }
+
+    @action.bound
+    onChangeChecked(dataItem, grantId, checked) {
+        const data = this.tableStore.data.map(item => {
+            if (item.id === dataItem.id) {
+                item.pendingDonations = item.pendingDonations.map(element => {
+                    if (element.id === grantId) {
+                        element.checked = checked;
+                    }
+                    return element;
+                })
+            }
+            return item;
+        });
+        this.tableStore.updateDataItems(data);
+
+        if (checked) {
+            if (this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.filter(c => c.checked).length ===
+                this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.length) {
+                this.tableStore.selectedItems.push(dataItem);
+            }
+        }
+        else {
+            const item = _.find(this.tableStore.selectedItems, e => e.id === dataItem.id);
+            if (item) {
+                _.remove(this.tableStore.selectedItems, item);
+            }
+        }
+    }
+
+    @action.bound
+    async onPaymentNumberChange(event) {
+        this.paymentNumber = event.target.value;
+    }
+
+    @action.bound
+    async onIsTransferToCharityAccountChange(event) {
+        this.isTransferToCharityAccount = event.target.checked;
+    }
+
+    @action.bound
+    async onReviewClick() {
+        this.disableSave = true;
+        await this.rootStore.application.donation.donationStore.reviewPendingDonations(
+            {
+                paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,
+                paymentTypeId: this.isTransferToCharityAccount ? null : this.paymentTypeDropdownStore.value.id,
+                isTransferToCharityAccount: this.isTransferToCharityAccount,
+                groupedPendingDonations: this.tableStore.data
+            });
+        this.disableSave = false;
+    }
+
+    createPaymentTypeDropdownStore() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    const data = await this.rootStore.application.lookup.paymentTypeStore.find();
+                    const availablePaymentTypes = ['check', 'ach'];
+                    return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
+                },
+            });
+    }
+
+    createTableStore() {
 
         this.setTableStore(
             new SelectTableWithRowDetailsViewStore(
@@ -106,69 +173,6 @@ class DonationReviewViewStore extends BaseListViewStore {
                 }
             },
                 true));
-    }
-
-    @action.bound
-    onChangeChecked(dataItem, grantId, checked) {
-        const data = this.tableStore.data.map(item => {
-            if (item.id === dataItem.id) {
-                item.pendingDonations = item.pendingDonations.map(element => {
-                    if (element.id === grantId) {
-                        element.checked = checked;
-                    }
-                    return element;
-                })
-            }
-            return item;
-        });
-        this.tableStore.updateDataItems(data);
-
-        if (checked) {
-            if (this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.filter(c => c.checked).length ===
-                this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.length) {
-                this.tableStore.selectedItems.push(dataItem);
-            }
-        }
-        else {
-            const item = _.find(this.tableStore.selectedItems, e => e.id === dataItem.id);
-            if (item) {
-                _.remove(this.tableStore.selectedItems, item);
-            }
-        }
-    }
-
-    @action.bound
-    async onPaymentNumberChange(event) {
-        this.paymentNumber = event.target.value;
-    }
-
-    @action.bound
-    async onIsTransferToCharityAccountChange(event) {
-        this.isTransferToCharityAccount = event.target.checked;
-    }
-
-    @action.bound
-    async onReviewClick() {
-        this.disableSave = true;
-        const response = await this.rootStore.application.donation.donationStore.reviewPendingDonations(
-            {
-                paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,
-                paymentTypeId: this.isTransferToCharityAccount ? null : this.paymentTypeDropdownStore.value.id,
-                isTransferToCharityAccount: this.isTransferToCharityAccount,
-                groupedPendingDonations: this.tableStore.data
-            });
-        this.disableSave = false;
-    }
-
-    createPaymentTypeDropdownStore() {
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    const data = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    const availablePaymentTypes = ['check', 'ach'];
-                    return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
-                },
-            });
     }
 }
 

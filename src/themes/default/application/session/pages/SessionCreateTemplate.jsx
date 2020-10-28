@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
 import { StepCounter, Step1Template, Step2Template, Step3Template } from 'themes/application/session/components';
 
-const SessionCreateTemplate = function ({ sessionCreateViewStore, t }) {
+const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
     const {
         form,
         steps,

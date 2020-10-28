@@ -561,7 +561,14 @@
                 "CONFIRM_PASSWORD_LABEL": "Confirm password",
                 "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password",
                 "SHOW": "Show",
-                "HIDE": "Hide"
+                "HIDE": "Hide",
+                "ERROR_MESSAGES": {
+                    "USERNAME_CONFLICT": "Username already exist"
+                }
+            },
+            "ERROR_MESSAGES": {
+                "FUND_NAME_CONFLICT": "Fund name already exist",
+                "GENERAL_ERROR": "Something gone wrong."
             }
         },
         "ACCOUNT_INFORMATION_FIELDS": {

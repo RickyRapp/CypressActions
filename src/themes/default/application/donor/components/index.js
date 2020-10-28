@@ -13,3 +13,5 @@ export { default as DonorInvestmentPoolHistoryTemplate } from './DonorInvestment
 export { default as DonorAccountSettingTemplate } from './DonorAccountSettingTemplate'
 export { default as DonorCommunicationPreferenceTemplate } from './DonorCommunicationPreferenceTemplate'
 export { default as BankAccountFormTemplate } from './BankAccountFormTemplate'
+export { default as CreateAccountTemplate } from './CreateAccountTemplate'
+export { default as ContactInfoTemplate } from './ContactInfoTemplate'
