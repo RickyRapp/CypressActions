@@ -10,7 +10,8 @@ class PastGrantViewStore extends BaseListViewStore {
             routes: {},
             queryConfig: {
                 filter: new DonationListFilter(),
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.charityDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                     this.donationTypeDropdownStore.setValue(null);

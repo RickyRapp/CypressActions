@@ -22,7 +22,8 @@ class GrantRequestViewStore extends BaseListViewStore {
             routes: {},
             queryConfig: {
                 filter: filter,
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.searchDonorDropdownStore.setValue(null);
                 }
             },

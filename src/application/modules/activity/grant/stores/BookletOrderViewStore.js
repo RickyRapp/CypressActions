@@ -30,7 +30,8 @@ class BookletOrderViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: new BookletOrderListFilter('dateCreated', 'desc'),
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.deliveryMethodTypeDropdownStore.setValue(null);
                     this.bookletOrderStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();

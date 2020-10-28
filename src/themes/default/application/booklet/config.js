@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletTab, BookletCreate, BookletEdit } from 'application/booklet/pages';
+import { BookletList, BookletCreate, BookletEdit } from 'application/booklet/pages';
+import { BookletModuleStore } from 'application/booklet/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -11,19 +12,10 @@ import { BookletTab, BookletCreate, BookletEdit } from 'application/booklet/page
                     {
                         name: 'master.app.main.booklet.tab',
                         pattern: '',
-                        component: BookletTab,
+                        component: BookletList,
                         authorization: 'theDonorsFundBookletSection.read',
                         data: {
                             title: "BOOKLET.LIST.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.booklet.edit',
-                        pattern: '/edit/:id',
-                        component: BookletEdit,
-                        authorization: 'theDonorsFundAdministrationSection.update',
-                        data: {
-                            title: "BOOKLET.EDIT.TITLE"
                         }
                     },
                     {
@@ -34,18 +26,32 @@ import { BookletTab, BookletCreate, BookletEdit } from 'application/booklet/page
                         data: {
                             title: "BOOKLET.CREATE.TITLE"
                         }
+                    },
+                    {
+                        name: 'master.app.main.booklet.edit',
+                        pattern: '/edit/:id',
+                        component: BookletEdit,
+                        authorization: 'theDonorsFundAdministrationSection.update',
+                        data: {
+                            title: "BOOKLET.EDIT.TITLE"
+                        }
                     }
                 ]
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.BOOKLET',
-            //     authorization: 'theDonorsFundBookletSection.read',
-            //     order: 3,
-            //     icon: 'booklet',
-            //     route: 'master.app.main.booklet.tab'
-            // }
-        ]
+            {
+                title: 'MENU.BOOKLET',
+                role: ['Administrators'],
+                order: 3,
+                icon: 'booklet',
+                route: 'master.app.main.booklet.tab'
+            }
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.booklet': new BookletModuleStore(context.rootStore),
+            };
+        },
     });
 })();

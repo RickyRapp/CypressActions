@@ -13,7 +13,8 @@ class BookletViewStore extends BaseListViewStore {
             routes: {},
             queryConfig: {
                 filter: new BookletListFilter('code', 'desc'),
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.denominationTypeDropdownStore.setValue(null);
                 }
             },
@@ -36,7 +37,7 @@ class BookletViewStore extends BaseListViewStore {
             }
         });
 
-        this.donorId = rootStore.userStore.applciationUser.id;
+        this.donorId = rootStore.userStore.applicationUser.id;
 
         this.createTableStore();
         this.createDenominationDropdownStore();

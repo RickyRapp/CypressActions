@@ -1,56 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState, BaasicInput, BaasicDropdown } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
+import { BaasicButton, BaasicTable, TableFilter, BaasicInput, BaasicDropdown } from 'core/components';
 import { isSome } from 'core/utils';
-import { Content } from 'core/layouts';
+import { ApplicationListLayout, Content } from 'core/layouts';
 
 const BookletListTemplate = function ({ bookletViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         denominationTypeDropdownStore
     } = bookletViewStore;
 
     return (
-        <Content emptyRenderer={renderEmpty(routes)} >
-            <div className="u-mar--bottom--sml">
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} >
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--sml'
-                                value={queryUtility.filter.codes || ""}
-                                onChange={(event) => queryUtility.filter.codes = event.target.value}
-                                placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicDropdown
-                                store={denominationTypeDropdownStore}
-                                placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
-                            />
-                        </div>
-                    </TableFilter>
+        <ApplicationListLayout store={bookletViewStore} authorization={authorization}>
+            <Content>
+                <div className="u-mar--bottom--sml">
+                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                        <TableFilter queryUtility={queryUtility} >
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id='codes'
+                                    className='input input--sml'
+                                    value={queryUtility.filter.codes || ""}
+                                    onChange={(event) => queryUtility.filter.codes = event.target.value}
+                                    placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={denominationTypeDropdownStore}
+                                    placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
+                                />
+                            </div>
+                        </TableFilter>
+                    </div>
                 </div>
-            </div>
-            <div className="card--form card--primary card--med">
-                <BaasicTable
-                    authorization={authorization}
-                    tableStore={tableStore}
-                    actionsComponent={renderActions}
-                />
-            </div>
-        </Content>
+                <div className="card--form card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
+                </div>
+            </Content>
+        </ApplicationListLayout>
     )
 };
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='BOOKLET.LIST.EMPTY_STATE.TITLE' actionLabel='BOOKLET.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 BookletListTemplate.propTypes = {
     bookletViewStore: PropTypes.object.isRequired,

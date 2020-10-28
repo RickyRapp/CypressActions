@@ -11,7 +11,8 @@ class TransactionViewStore extends BaseListViewStore {
             routes: {},
             queryConfig: {
                 filter: new TransactionListFilter(),
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
             },

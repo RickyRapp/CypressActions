@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { BookletList } from 'application/booklet/pages';
-import { BookletOrderList } from 'application/booklet-order/pages';
-import { PastGrantList, GrantRequestList, ScheduledGrantList } from 'application/activity/grant/pages';
+import { PastGrantList, GrantRequestList, ScheduledGrantList, BookletList, BookletOrderList } from 'application/activity/grant/pages';
 
 const GrantTabTemplate = function ({ grantTabViewStore }) {
     return (

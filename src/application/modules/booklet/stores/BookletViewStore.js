@@ -1,31 +1,24 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
-import { BookletService } from 'application/booklet/services';
 import { applicationContext } from 'core/utils';
-import { BookletListFilter } from 'application/booklet/models';
-import _ from 'lodash';
+import { BookletListFilter } from 'application/activity/grant/models';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const filter = new BookletListFilter('code', 'desc')
-        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
-                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
-            }
-        }
-
         super(rootStore, {
             name: 'booklet',
             authorization: 'theDonorsFundAdministrationSection',
-            routes: {},
+            routes: {
+                create: () => { this.rootStore.routerStore.goTo('master.app.main.booklet.create') },
+            },
             queryConfig: {
-                filter: filter,
-                onResetFilter: () => {
+                filter: new BookletListFilter('code', 'desc'),
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.denominationTypeDropdownStore.setValue(null);
                 }
             },
             actions: () => {
-                const service = new BookletService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -36,18 +29,17 @@ class BookletViewStore extends BaseListViewStore {
                             'certificates.certificateStatus'
                         ];
 
-                        let userId = null;
-                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                            userId = rootStore.userStore.user.id
-                        }
-
-                        const response = await service.find({ userId: userId, ...params });
-                        return response.data;
+                        return this.rootStore.application.booklet.bookletStore.findBooklets(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+        this.createDenominationDropdownStore();
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -69,12 +61,12 @@ class BookletViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             if (item.bookletType.abrv === 'mixed') {
-                                const denominations = _.uniq(_.map(item.certificates, 'denominationType'))
+                                const denominations = _.uniq(item.certificates.map(c => { return c.denominationType.name }))
                                 let wording = denominations.join(', ');
-                                return `${item.bookletType.name} - ${wording}`
+                                return `${item.bookletType.name} - ${wording}`;
                             }
                             else {
-                                return `${item.certificates[0].denominationType.name} - `
+                                return item.certificates[0].denominationType.name;
                             }
                         }
                     }
@@ -84,10 +76,10 @@ class BookletViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            const clean = _.filter(item.certificates, { certificateStatus: { abrv: 'clean' } }).length;
-                            const used = _.filter(item.certificates, { certificateStatus: { abrv: 'used' } }).length;
-                            const canceled = _.filter(item.certificates, { certificateStatus: { abrv: 'canceled' } }).length;
-                            const active = _.filter(item.certificates, { isActive: true }).length;
+                            const clean = item.certificates.filter(c => c.certificateStatus.abrv === 'clean').length;
+                            const used = item.certificates.filter(c => c.certificateStatus.abrv === 'used').length;
+                            const canceled = item.certificates.filter(c => c.certificateStatus.abrv === 'canceled').length;
+                            const active = item.certificates.filter(c => c.isActive).length;
                             return `${clean} / ${used} / ${canceled} | ${active}`;
                         }
                     },
@@ -104,7 +96,9 @@ class BookletViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
+    }
 
+    createDenominationDropdownStore() {
         this.denominationTypeDropdownStore = new BaasicDropdownStore({
             multi: true
         },
@@ -113,7 +107,7 @@ class BookletViewStore extends BaseListViewStore {
                     return this.rootStore.application.lookup.denominationTypeStore.find();
                 },
                 onChange: (denominationType) => {
-                    this.queryUtility.filter['denominationTypeIds'] = _.map(denominationType, (type) => { return type.id });
+                    this.queryUtility.filter.denominationTypeIds = denominationType.map((type) => { return type.id });
                 }
             });
     }
