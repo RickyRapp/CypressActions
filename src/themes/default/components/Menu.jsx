@@ -20,7 +20,7 @@ function MenuTemplate({ menuStore, t }) {
 
     return (
         <NotifyOutsideClick action={() => menuStore.closeMenu()}>
-            <div className={menuStore.isCollapsed ? 'layout__aside' : 'layout__aside is-collapsed'}>
+            <div className={menuStore.isCollapsed ? 'layout__aside is-collapsed' : 'layout__aside'}>
                 <React.Fragment>{renderPrimary(menuStore.menu, menuStore, t)}</React.Fragment>
                 <div className="nav--secondary__wrapper"></div>
             </div>
@@ -63,9 +63,10 @@ function renderPrimary(menu, menuStore, translate) {
                                 <div className={className} aria-label={title} onClick={() => menuStore.closeMenu()}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} />
                                 </div>
-                                <span title={title} className="nav--secondary__text">
-                                    {title}
-                                </span>
+                                {!menuStore.isCollapsed &&
+                                    <span title={title} className="nav--secondary__text">
+                                        {title}
+                                    </span>}
                                 <SecondaryMenu />
                             </div>
                         );
@@ -83,9 +84,10 @@ function renderPrimary(menu, menuStore, translate) {
                             >
                                 <div key={title} aria-label={title} className={className} label={title}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} title={title} />
-                                    <span title={title} className="nav--secondary__text u-mar--left--sml">
-                                        {title}
-                                    </span>
+                                    {!menuStore.isCollapsed &&
+                                        <span title={title} className="nav--secondary__text u-mar--left--sml">
+                                            {title}
+                                        </span>}
                                 </div>
                             </a>
                         );

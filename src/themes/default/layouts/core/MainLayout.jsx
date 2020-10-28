@@ -8,16 +8,23 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
     if (!initialized) return <Loader />;
 
     const {
-        rootStore: { menuStore }
+        rootStore: { menuStore },
     } = viewStore;
 
+    console.log(menuStore.isCollapsed)
     return (
         <div>
-            <div className='layout'>
+            <div className="layout">
                 <Header />
                 <Menu />
                 <div
-                    className={'layout__content' + (menuStore.isCollapsed ? '' : ' is-collapsed') + (menuStore.secondaryMenuVisible ? ' active' : '')}>{render(props)}
+                    className={
+                        'layout__content' +
+                        (menuStore.isCollapsed ? ' is-collapsed' : '') +
+                        (menuStore.secondaryMenuVisible ? ' active' : '')
+                    }
+                >
+                    {render(props)}
                 </div>
                 <BaasicConfirmModal />
             </div>
@@ -28,7 +35,7 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
 MainLayoutTemplate.propTypes = {
     render: PropTypes.func,
     initialized: PropTypes.bool,
-    viewStore: PropTypes.any
+    viewStore: PropTypes.any,
 };
 
 export default defaultTemplate(MainLayoutTemplate);

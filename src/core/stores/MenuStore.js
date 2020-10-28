@@ -93,7 +93,7 @@ export default class MenuStore {
     @observable menu = null;
     @observable activePath = [];
     @observable selectedPath = [];
-    @observable isCollapsed = true;
+    @observable isCollapsed = false;
     @observable isOpen = false;
 
     //toggle collapse, closes menu on collapse
