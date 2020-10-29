@@ -12,7 +12,7 @@ function TransactionTemplate({ transactionViewStore }) {
 
     return (
         <div>
-            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+            <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} >
                     <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                         <DateRangeQueryPicker
@@ -22,8 +22,41 @@ function TransactionTemplate({ transactionViewStore }) {
                     </div>
                 </TableFilter>
             </div>
-            <div className="card--form card--primary card--med">
-                <h3 className="u-mar--bottom--med"></h3>
+            <div className="card--primary card--med">
+                <div className="row">
+
+                    <div className="col col-sml-6 u-display--flex">
+                        <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
+                            <span className="u-icon u-icon--sml u-icon--download u-mar--right--tny"></span>
+                            Export
+                        </div>
+                        <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
+                            <span className="u-icon u-icon--sml u-icon--document u-mar--right--tny"></span>
+                            Print
+                        </div>
+                        <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
+                            <span className="u-icon u-icon--sml u-icon--upload u-mar--right--tny"></span>
+                            Send
+                        </div>
+                    </div>
+
+                    <div className="col col-sml-6 u-display--flex u-display--flex--justify--flex-end"> 
+                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--download u-mar--right--tny"></span>
+                        </div>
+                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--document u-mar--right--tny"></span>
+                        </div>
+                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--upload u-mar--right--tny"></span>
+                        </div>
+                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
+                            <span className="card--form card--tny u-icon u-icon--sml u-icon--edit u-mar--right--tny"></span>
+                        </div>
+                    </div>
+                    <div className="col col-sml-6"></div>
+                </div>
+
                 <BaasicTable
                     tableStore={tableStore}
                 />

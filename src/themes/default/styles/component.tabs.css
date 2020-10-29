@@ -5,7 +5,7 @@
 .tabs {
     &--primary {
         display: inline-block;
-        border-bottom: 1px solid $grey-2;
+
         &__item {
             display: block;
             padding: 0 calc($unit * 2);

@@ -51,7 +51,7 @@
         &__item {
             position: relative;
             display: flex;
-            padding: calc($unit * 3) calc($unit * 4);
+            padding: calc($unit * 3) calc($unit * 3);
 
             border-top: 1px solid color($aqua-blue a(20%));
             font-weight: $type-weight-regular;

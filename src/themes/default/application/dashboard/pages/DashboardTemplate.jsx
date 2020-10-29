@@ -11,9 +11,9 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 
     return (
         <Page >
-            <div className="card--lrg">
+            <div className="u-padd--left--med u-padd--right--med u-padd--top--sml">
                 <div className="row">
-                    <div className="col col-sml-12 col-lrg-6">
+                    <div className="col col-sml-12 col-med-6">
                         <div className="card card--primary card--med u-mar--bottom--med u-mar--right--sml">
                             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
                             <div className="row u-mar--bottom--med">
@@ -61,14 +61,14 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                         />}
                                 </div>
                             </div>
-                            <div className="u-display--flex">
-                                <div className="u-mar--right--lrg">
+                            <div className="row">
+                                <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                     <BaasicButton
                                         className="btn btn--base btn--secondary type--sml type--wgt--medium type--uppercase u-padd--left--xxxlrg u-padd--right--xxxlrg"
                                         label='DASHBOARD.BUTTON.DEPOSIT_FUNDS'
                                     />
                                 </div>
-                                <div className="u-mar--right--lrg">
+                                <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                     <BaasicButton
                                         className="btn btn--base btn--secondary type--sml type--wgt--medium type--uppercase u-padd--left--xxxlrg u-padd--right--xxxlrg"
                                         label='DASHBOARD.BUTTON.INVEST_FUNDS'
@@ -77,18 +77,18 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                             </div>
                         </div>
                     </div>
-                    <div className="col col-sml-12 col-lrg-6">
+                    <div className="col col-sml-12 col-med-6">
                         <div className="card card--primary card--med u-mar--bottom--med u-mar--left--sml">
                             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
                         </div>
                     </div>
                     {donor && (!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) &&
                         <div className="col col-sml-12 col-lrg-12">
-                            <div className="card card--secondary card--med u-mar--bottom--med u-mar--top--med">
+                            <div className="card card--tertiary card--med u-mar--bottom--med u-mar--top--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}</h3>
-                                <div className="u-display--flex">
+                                <div className="row">
                                     {!donor.IsInvestmentMade &&
-                                        <div className="u-mar--right--lrg">
+                                        <div className="col col-sml-12 col-med-4">
                                             <BaasicButton
                                                 className="btn btn--base btn--primary type--sml type--uppercase type--wide u-padd--left--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
@@ -96,7 +96,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                             />
                                         </div>}
                                     {!donor.isBookletOrderMade &&
-                                        <div className="u-mar--right--lrg">
+                                        <div className="col col-sml-12 col-med-4">
                                             <BaasicButton
                                                 className="btn btn--base btn--primary type--sml type--uppercase type--wide u-padd--left--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
@@ -104,7 +104,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                             />
                                         </div>}
                                     {!donor.isContributionMade &&
-                                        <div className="u-mar--right--lrg">
+                                        <div className="col col-sml-12 col-med-4">
                                             <BaasicButton
                                                 className="btn btn--base btn--primary type--sml type--uppercase type--wide u-padd--left--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'

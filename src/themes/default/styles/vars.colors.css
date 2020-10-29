@@ -14,21 +14,25 @@ $aqua-blue:             #B3DBD3;
 $dodger-blue: 			#348cfc;
 $eastern-blue: 	        #00909e;
 $smalt-blue:            #517d97;
+$orange:                #C36C36;
 
 /**
 * Global text color
 */
 $color-text:        #182A48;
+$color-opaque:      #95999F;
 $white:             #ffffff;
 
 /**
 * Theme colors
 */
-$color-primary:     $aqua-blue;
+$color-primary:     $orange;
 $color-secondary: 	$eastern-blue;
 $color-tertiary: 	$smalt-blue;
 
 $color-background:  #EFF3F2;
+$color-background-orange-light: #FFF4EB;
+$color-background-aqua-light: #ECF6F4;
 
 /*
     Shades of gray (pure gray)

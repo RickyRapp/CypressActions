@@ -18,7 +18,7 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
                 <Menu />
                 <div
                     className={
-                        'layout__content' +
+                        'layout__content u-padd--top--sml' +
                         (menuStore.isCollapsed ? ' is-collapsed' : '') +
                         (menuStore.secondaryMenuVisible ? ' active' : '')
                     }
