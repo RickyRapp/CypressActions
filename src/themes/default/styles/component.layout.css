@@ -68,13 +68,11 @@ $header-height: 72px;
     &__content {
         position: fixed;
         top: $header-height;
-        top: 42px;
         right: 0;
         left: 0;
         bottom: 0;
         overflow: hidden;
-        overflow-y: auto; 
-        z-index: 10;
+        overflow-y: auto;
 
         &.is-collapsed {
 
