@@ -101,6 +101,7 @@
 @import 'util.loader.css';
 @import 'util.flexgrid.css';
 @import 'util.height.css';
+@import 'util.cursor.css';
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc
