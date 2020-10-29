@@ -121,7 +121,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 {grantPurposeTypeDropdownStore.value &&
-                                    <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
+                                <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
                             </div>
                         </div>
                     </div>

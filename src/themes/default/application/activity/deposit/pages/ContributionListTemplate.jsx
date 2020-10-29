@@ -24,7 +24,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 
     return (
         <Content>
-            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+            <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter searchClassName="w--300--px" queryUtility={queryUtility} >
                     <div className="u-mar--bottom--sml col col-sml-12 col-lrg-2">
                         <BaasicInput

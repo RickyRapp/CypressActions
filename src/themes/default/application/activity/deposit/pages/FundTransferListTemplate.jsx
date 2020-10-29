@@ -16,7 +16,7 @@ const FundTransferListTemplate = function ({ fundTransferViewStore }) {
 
     return (
         <Content>
-            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+            <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} >
                 </TableFilter>
             </div>
