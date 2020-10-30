@@ -25,7 +25,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                 </TableFilter>
             </div>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

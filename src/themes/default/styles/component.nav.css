@@ -53,7 +53,7 @@
             display: flex;
             padding: calc($unit * 3) calc($unit * 3);
 
-            border-top: 1px solid color($aqua-blue a(20%));
+            border-top: 1px solid color($scandal a(20%));
             font-weight: $type-weight-regular;
             color: color(white a(50%));
             transition: color, background-color 250ms ease-out;
@@ -145,7 +145,7 @@
                 background-color: color(white a(10%));
                 
                 &:before {
-                    background-color: $aqua-blue;
+                    background-color: $scandal;
                 }
 
                 .u-icon {

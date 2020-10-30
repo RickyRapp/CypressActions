@@ -10,13 +10,13 @@
     }
 
     &--secondary {
-        background-color: $color-background-orange-light;
+        background-color: $color-background-seashellt;
         border-radius: $radius-base;
         box-shadow: $shadow-card; 
     }
     
     &--tertiary {
-       background-color: $aqua-blue;
+       background-color: $scandal;
        border-radius: $radius-base;
        box-shadow: $shadow-card; 
     }

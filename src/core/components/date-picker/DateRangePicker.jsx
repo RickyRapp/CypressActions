@@ -43,11 +43,11 @@ const CustomDateInput = function (props) {
 
     return (
         <React.Fragment>
-            <label>
-                {label}
-                {required ? <span>*</span> : null}
-            </label>
-            <div className="u-display--flex">
+            <div className="u-mar--right--med">
+                <label>
+                    {label}
+                    {required ? <span>*</span> : null}
+                </label>
                 <DateInput
                     {...other}
                     label={undefined}

@@ -69,18 +69,18 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                             </div>}
                         <div className="col col-sml-12 type--base type--wgt--medium type--color--opaque">
                             <div className="row u-mar--bottom--tny">
-                                <div className="col col-sml-3">
+                                <div className="col col-sml-12 col-lrg-3">
                                     Pending grants: 
                                 </div>
-                                <div className="col col-sml-3">
+                                <div className="col col-sml-12 col-lrg-3">
                                     $123 (TODO)
                                 </div>
                             </div>
                             <div className="row u-mar--bottom--tny">
-                                <div className="col col-sml-3">
+                                <div className="col col-sml-12 col-lrg-3">
                                     Checks on hold: 
                                 </div>
-                                <div className="col col-sml-3">
+                                <div className="col col-sml-12 col-lrg-3">
                                     $123 (TODO) 
                                 </div>
                             </div>

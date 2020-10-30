@@ -116,7 +116,6 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
         <React.Fragment>
             {!filterStore.filterVisible ? null : (
                 <form
-                    className=""
                     onSubmit={e => {
                         queryUtility.fetch();
                         e.preventDefault();
@@ -124,17 +123,17 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
                 >
                     {/* <h5 className="spc--top--sml">{t('GRID.FILTERS_TITLE')}</h5> */}
                     {showSeparator && <div className="u-separator u-separator--primary u-mar--bottom--sml" />}
-                    <div className="f-row flex--bottom">{filters}</div>
+                    <div>{filters}</div>
                     {!nextToSearch && (
                         <div>
                             <BaasicButton
-                                className="btn btn--sml btn--primary u-mar--right--tny"
+                                className="btn btn--sml btn--primary u-mar--right--tny u-padd--left--xxxlrg u-padd--right--xxxlrg"
                                 label="GRID.FILTER.SEARCH_BUTTON"
                                 onClick={() => queryUtility.fetch()}
                                 disabled={fetchDisabled}
                             />
                             <BaasicButton
-                                className="btn btn--sml btn--ghost"
+                                className="btn btn--sml btn--ghost u-padd--left--xxxlrg u-padd--right--xxxlrg"
                                 label="GRID.FILTER.CLEAR_BUTTON"
                                 onClick={() => queryUtility.resetFilter()}
                                 disabled={fetchDisabled}

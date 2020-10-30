@@ -25,18 +25,20 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
         <Content emptyRenderer={renderEmpty(routes)} >
             <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={charityDropdownStore} />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={donationTypeDropdownStore} />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={donationStatusDropdownStore} />
+                    <div className="row">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown store={charityDropdownStore} />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown store={donationTypeDropdownStore} />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown store={donationStatusDropdownStore} />
+                        </div>
                     </div>
                 </TableFilter>
             </div>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

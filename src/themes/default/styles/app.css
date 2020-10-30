@@ -64,6 +64,7 @@
 @import 'component.login.css';
 @import "component.breadcrumbs.css";
 @import "component.inputgroup.css";
+@import "component.input.css";
 @import "component.form.css";
 @import "component.content.css";
 @import 'component.flex.css';

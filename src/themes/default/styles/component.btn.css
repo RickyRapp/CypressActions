@@ -82,11 +82,11 @@
         }
     }
     &--secondary {
-        background: $aqua-blue;
+        background: $scandal;
         color: $color-note;
 
         &:hover {
-            background: color($aqua-blue blackness(+5%));
+            background: color($scandal blackness(+5%));
         }
     }
     &--warning {
