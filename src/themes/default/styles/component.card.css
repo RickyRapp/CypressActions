@@ -41,4 +41,8 @@
     &--lrg {
         padding: calc($unit * 6);
     }
+    
+    &--xlrg {
+        padding: calc($unit * 7.5);
+    }
 }

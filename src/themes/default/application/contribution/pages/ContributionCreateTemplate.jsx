@@ -41,42 +41,49 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
         <Page loading={loaderStore.loading}>
             {step === 1 && paymentTypes && paymentTypes.map(c => {
                 return (
-                    <div key={c.id} className="row">
-                        <div className="col col-sml-12 col-lrg-3">
-                            <div className="card card--primary card--med u-mar--bottom--med">
-                                <h5 className="u-mar--bottom--med">{c.name}</h5>
+                    <div key={c.id} className="row u-padd--right--med u-padd--left--med">
+                        <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--med">
+                            <div className="card card--primary card--xlrg">
+                                <div className="row">
+                                    <div className="col col-sml-2">
+                                        <i className="u-icon u-icon--med u-icon--download"></i>
+                                    </div>
+                                    <div className="col col-sml-6">
+                                        <h5 className="type--med type--wgt--medium">{c.name}</h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {step === 1 &&
-                            <React.Fragment>
-                                <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                    </div>
+                        <React.Fragment>
+                            <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                <div className="card card--primary card--med u-mar--bottom--med">
+                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                 </div>
-                                <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                    </div>
+                            </div>
+                            <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                <div className="card card--primary card--med u-mar--bottom--med">
+                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                 </div>
-                                <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                    </div>
+                            </div>
+                            <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                <div className="card card--primary card--med u-mar--bottom--med">
+                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                 </div>
-                                <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                    </div>
+                            </div>
+                            <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                <div className="card card--primary card--med u-mar--bottom--med">
+                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                 </div>
-                                <div className="col col-sml-12 col-lrg-1">
-                                    <BaasicButton
-                                        className="btn btn--base btn--primary"
-                                        label={t('CONTRIBUTION.CREATE.LINK')}
-                                        onClick={() => onSelectPaymentType(c.id)}
-                                    />
-                                </div>
-                            </React.Fragment>}
+                            </div>
+                            <div className="col col-sml-12 col-lrg-1">
+                                <BaasicButton
+                                    className="btn btn--base btn--tertiary"
+                                    label={t('CONTRIBUTION.CREATE.LINK')}
+                                    onClick={() => onSelectPaymentType(c.id)}
+                                />
+                            </div>
+                        </React.Fragment>}
                     </div>
                 )
             })}
