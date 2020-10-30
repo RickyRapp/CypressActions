@@ -84,6 +84,7 @@
     "react": "^16.8.2",
     "react-dev-utils": "^5.0.3",
     "react-dom": "^16.8.2",
+    "react-helmet": "^6.1.0",
     "react-i18next": "^8.3.8",
     "react-modal": "^3.8.1",
     "react-number-format": "^4.3.1",
