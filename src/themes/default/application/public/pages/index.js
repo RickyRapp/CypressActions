@@ -1,2 +1,5 @@
 export { default as HomeTemplate } from './HomeTemplate'
 export { default as RegisterTemplate } from './RegisterTemplate'
+export { default as WhatWeOfferTemplate } from './WhatWeOfferTemplate'
+export { default as Daf101Template } from './Daf101Template'
+export { default as CompanyTemplate } from './CompanyTemplate'

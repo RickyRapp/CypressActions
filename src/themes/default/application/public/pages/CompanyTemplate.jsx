@@ -1,13 +1,13 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 
-function HomeTemplate() {
+function CompanyTemplate() {
 
     return (
         <div>
-            Home
+            Company
         </div>
     );
 }
 
-export default defaultTemplate(HomeTemplate);
+export default defaultTemplate(CompanyTemplate);

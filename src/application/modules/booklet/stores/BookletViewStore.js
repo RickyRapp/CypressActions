@@ -1,6 +1,7 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { BookletListFilter } from 'application/activity/grant/models';
+import _ from 'lodash';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {

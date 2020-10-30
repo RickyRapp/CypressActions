@@ -1,6 +1,6 @@
-export { default as MainLayoutTemplate } from './core/MainLayout';
-export { default as PublicLayoutTemplate } from './core/PublicLayout';
-export { default as MasterLayoutTemplate } from './core/MasterLayout';
+export { default as MainLayoutTemplate } from './core/MainLayoutTemplate';
+export { default as PublicLayoutTemplate } from './core/PublicLayoutTemplate';
+export { default as MasterLayoutTemplate } from './core/MasterLayoutTemplate';
 
 export { default as PageTemplate } from './page/PageTemplate';
 export { default as PageHeaderTemplate } from './page/PageHeaderTemplate';

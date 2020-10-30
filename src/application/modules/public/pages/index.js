@@ -1,2 +1,5 @@
 export { default as Home } from './Home'
 export { default as Register } from './Register'
+export { default as WhatWeOffer } from './WhatWeOffer'
+export { default as Daf101 } from './Daf101'
+export { default as Company } from './Company'

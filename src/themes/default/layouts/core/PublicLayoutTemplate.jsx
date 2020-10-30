@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'themes/styles/public.css';
 import phone from 'themes/styles/postcss-svg/old/phone.svg'
+import { Link } from 'mobx-state-router';
 
 function PublicLayoutTemplate({ render, rootStore, ...props }) {
     return (
@@ -34,16 +35,16 @@ function PublicLayoutTemplate({ render, rootStore, ...props }) {
                             <div className="nav">
                                 <ul className="nav__list">
                                     <li className="nav__list__item">
-                                        <a className="nav__list__link" href="#">What We Offer</a>
+                                        <a className="nav__list__link" href="/what-we-offer" onClick={(e) => { rootStore.routerStore.goTo('master.public.main.what-we-offer'); e.preventDefault(); }} >What We Offer</a>
                                     </li>
                                     <li className="nav__list__item">
-                                        <a className="nav__list__link" href="#">DAF 101</a>
+                                        <a className="nav__list__link" href="/daf-101" onClick={(e) => { rootStore.routerStore.goTo('master.public.main.daf-101'); e.preventDefault(); }}>DAF 101</a>
                                     </li>
                                     <li className="nav__list__item">
-                                        <a className="nav__list__link" href="#">Company</a>
+                                        <a className="nav__list__link" href="7company" onClick={(e) => { rootStore.routerStore.goTo('master.public.main.company'); e.preventDefault(); }}>Company</a>
                                     </li>
                                     <li className="nav__list__item">
-                                        <span className="nav__list__link btn btn--primary btn--med" onClick={() => rootStore.routerStore.goTo('master.public.main.register')}>Get Started</span>
+                                        <span className="nav__list__link btn btn--primary btn--med" href="/register" onClick={(e) => { rootStore.routerStore.goTo('master.public.main.register'); e.preventDefault(); }}>Get Started</span>
                                     </li>
                                 </ul>
                             </div>

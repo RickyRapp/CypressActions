@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { Home, Register } from 'application/public/pages';
+import { Home, Register, WhatWeOffer, Daf101, Company } from 'application/public/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -10,6 +10,25 @@ import { Home, Register } from 'application/public/pages';
                 isPublic: true,
                 component: Home
             },
+            {
+                name: 'master.public.main.what-we-offer',
+                pattern: '/what-we-offer',
+                isPublic: true,
+                component: WhatWeOffer
+            },
+            {
+                name: 'master.public.main.daf-101',
+                pattern: '/daf-101',
+                isPublic: true,
+                component: Daf101
+            },
+            {
+                name: 'master.public.main.company',
+                pattern: '/company',
+                isPublic: true,
+                component: Company
+            },
+
             {
                 name: 'master.public.main.register',
                 pattern: '/register',

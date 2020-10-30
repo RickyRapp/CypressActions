@@ -1,13 +1,13 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 
-function HomeTemplate() {
+function Daf101Template() {
 
     return (
         <div>
-            Home
+            DAF 101
         </div>
     );
 }
 
-export default defaultTemplate(HomeTemplate);
+export default defaultTemplate(Daf101Template);
