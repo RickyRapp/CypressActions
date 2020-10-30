@@ -44,29 +44,29 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                 return (
                     <div key={c.id} className="row">
                         <div className="col col-sml-12 col-lrg-3">
-                            <div className="card card--form card--primary card--med u-mar--bottom--med">
+                            <div className="card card--primary card--med u-mar--bottom--med">
                                 <h5 className="u-mar--bottom--med">{c.name}</h5>
                             </div>
                         </div>
                         {step === 1 &&
                             <React.Fragment>
                                 <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
                                         <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                     </div>
                                 </div>
                                 <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
                                         <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                     </div>
                                 </div>
                                 <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
                                         <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                     </div>
                                 </div>
                                 <div className="col col-sml-12 col-lrg-2">
-                                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
                                         <p className="u-mar--bottom--med">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card card--form card--primary card--med u-mar--bottom--med">
+                                        <div className="card card--primary card--med u-mar--bottom--med">
                                             <h5 className="u-mar--bottom--med">{c.name}</h5>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         <EditFormContent form={form}>
                             {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
                                 <h5>{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
-                            <div className="card card--form card--primary card--med u-mar--bottom--med">
+                            <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">
                                         <h5>{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
@@ -157,7 +157,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         </EditFormContent>
                     </div>
                     <div className="col col-sml-12 col-lrg-3">
-                        <div className="card card--form card--primary card--med u-mar--bottom--med">
+                        <div className="card card--primary card--med u-mar--bottom--med">
                             <h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                             <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                             <BaasicButton
@@ -177,7 +177,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                 <h3>{t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
                             </div>
                         </div>
-                        <div className="card card--form card--primary card--med u-mar--bottom--med">
+                        <div className="card card--primary card--med u-mar--bottom--med">
                             <div className="row">
                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                     <h4>{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
@@ -226,7 +226,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         </div>
                     </div>
                     <div className="col col-sml-12 col-lrg-3">
-                        <div className="card card--form card--primary card--med u-mar--bottom--med">
+                        <div className="card card--primary card--med u-mar--bottom--med">
                             <h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                             <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                             <BaasicButton
