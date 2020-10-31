@@ -17,14 +17,6 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
 
     return (
         <header className="layout__header header">
-            {/* <img
-                className='header__logo'
-                src={logo}
-                alt='logo'
-                onClick={() =>
-                    routerStore.goTo('master.public.main.home')
-                }
-            /> */}
             <div className="header__options">
                 <div className="header__hamburger"
                     onClick={() => menuStore.toggleMenuOpen()}>

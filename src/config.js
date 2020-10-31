@@ -7,41 +7,21 @@ import { NotFound, DisplayError, Unauthorized } from 'common/pages';
         routes: [
             {
                 name: 'master',
-                pattern: '',
+                pattern: '/app',
                 component: [MasterLayout],
-                hookCondition:
-                    // eslint-disable-next-line
-                    (fromState, toState, routerStore) => {
-                        return fromState.params.applicationIdentifier !== toState.params.applicationIdentifier;
-                    },
-                beforeEnter:
-                    // eslint-disable-next-line
-                    async (fromState, toState, routerStore) => {
-                        const {
-                            authStore
-                        } = routerStore.rootStore;
-
-                        try {
-                            await authStore.initialize();
-                        } catch (ex) {
-                            return Promise.reject(ex);
-                        }
-
-                        return Promise.resolve();
-                    },
                 children: [
                     {
                         name: 'master.not-found',
                         pattern: '/not-found',
                         isPublic: true,
-                        component: NotFound
+                        component: NotFound,
                     },
                     {
                         name: 'unauthorized',
                         pattern: '/unauthorized',
                         isPublic: true,
-                        component: Unauthorized
-                    }
+                        component: Unauthorized,
+                    },
                 ],
             },
             {
@@ -57,8 +37,8 @@ import { NotFound, DisplayError, Unauthorized } from 'common/pages';
                     // might cause circular loop
                     // Any unhandled error navigates to route 'error' -> beforeEnter -> Error -> navigate to 'error' ....
                     routerStore.rootStore.appStore.setInitialized();
-                }
-            }
-        ]
+                },
+            },
+        ],
     });
-}());
+})();

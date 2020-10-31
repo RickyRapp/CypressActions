@@ -1,5 +1,0 @@
-export { default as HomeViewStore } from './HomeViewStore'
-export { default as RegisterViewStore } from './RegisterViewStore'
-export { default as WhatWeOfferViewStore } from './WhatWeOfferViewStore'
-export { default as CompanyViewStore } from './CompanyViewStore'
-export { default as Daf101ViewStore } from './Daf101ViewStore'

@@ -36,9 +36,6 @@ function renderPrimary(menu, menuStore, translate) {
                     className='header__logo'
                     src={logo}
                     alt='logo'
-                    onClick={() =>
-                        menuStore.rootStore.routerStore.goTo('master.public.main.home')
-                    }
                 />
             </div>
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
@@ -62,10 +59,10 @@ function renderPrimary(menu, menuStore, translate) {
                             <div className="u-position--rel" key={title}>
                                 <div className={className} aria-label={title} onClick={() => menuStore.closeMenu()}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} />
-                                {!menuStore.isCollapsed &&
-                                    <span title={title} className="nav--secondary__text  u-mar--left--sml">
-                                        {title}
-                                    </span>}
+                                    {!menuStore.isCollapsed &&
+                                        <span title={title} className="nav--secondary__text  u-mar--left--sml">
+                                            {title}
+                                        </span>}
                                 </div>
                                 <SecondaryMenu />
                             </div>
