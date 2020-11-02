@@ -49,7 +49,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                 <Content loading={contentLoading} >
                     <div className="row u-padd--right--med u-padd--left--med">
                         <div className="col col-sml-12 col-lrg-6">
-                            <div className="card card--primary card--med u-mar--bottom--med">
+                            <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
                                     <div className="form__group col col-sml-11 u-mar--bottom--sml">
@@ -76,7 +76,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
 
                                 {form.$('isNewCharity').value &&
-                                    <div className="card card--form card--med u-mar--bottom--med">
+                                    <div className="card--form card--med u-mar--bottom--med">
                                         <h4>{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
@@ -151,7 +151,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 </div>
                                 {form.$('isRecurring').value &&
-                                    <div className="card card--form card--med u-mar--bottom--med">
+                                    <div className="card--form card--med u-mar--bottom--med">
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <DatePickerField field={form.$('recurringDate')} showLabel={false} />
@@ -211,35 +211,41 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                             </div>
                         </div>
                         <div className="col col-sml-12 col-lrg-6">
-                            <div className="card card--primary card--med u-mar--bottom--med">
+                            <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                 <div className="row">
-                                    <div className="card card--secondary card--med type--center col col-sml-12 col-lrg-5 u-mar--bottom--med u-mar--right--xlrg">
-                                        <div className="type--lrg type--color--note">
-                                            {donor && <FormatterResolver
-                                                item={{ balance: donor.availableBalance }}
-                                                field='balance'
-                                                format={{ type: 'currency' }}
-                                                />}
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                        <div className="card--secondary card--med type--center">
+                                            <div className="type--lrg type--wgt--medium type--color--note">
+                                                {donor && <FormatterResolver
+                                                    item={{ balance: donor.availableBalance }}
+                                                    field='balance'
+                                                    format={{ type: 'currency' }}
+                                                    />}
+                                            </div>
+                                            <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.CURRENT_BALANCE')}</p>
                                         </div>
-                                        <p className="type--sml type--wgt--medium type--color--text">{t('GRANT.CREATE.CURRENT_BALANCE')}</p>
                                     </div>
-                                    <div className="card card--secondary card--med type--center col col-sml-12 col-lrg-5 u-mar--bottom--med">
-                                        {donor && <FormatterResolver
-                                            item={{ balance: donor.upcomingGrantsThisYear }}
-                                            field='balance'
-                                            format={{ type: 'currency' }}
-                                        />}
-                                        <p className="type--sml type--wgt--medium type--color--text">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                        <div className="card--secondary card--med type--center">
+                                            <div className="type--lrg type--wgt--medium type--color--note">
+                                                {donor && <FormatterResolver
+                                                    item={{ balance: donor.upcomingGrantsThisYear }}
+                                                    field='balance'
+                                                    format={{ type: 'currency' }}
+                                                    />}
+                                            </div>
+                                            <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
+                                        </div>
                                     </div>
                                     {charityDropdownStore && charityDropdownStore.value &&
-                                        <div className="card card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row">
                                                 <div className="col col-sml-12 col-lrg-6">
                                                     <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
                                                 </div>
                                             </div>
-                                            <div className="row">
+                                            <div className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <img src={logo} alt={"logo"} />
                                                 </div>
@@ -247,21 +253,24 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                     {charityDropdownStore.value.item.name}
                                                 </div>
                                             </div>
-                                            <div className="row">
+                                            <div className="row u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
+                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
                                                     <p>{charityDropdownStore.value.item.rullingYear}</p>
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
+                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.EIN')}</strong>
                                                     <p>{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
+                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
                                                     <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
                                                 </div>
                                             </div>
-                                            <div className="row">
+                                            <div className="row u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
                                                     <p>{charityDropdownStore.value.item.principalOfficer}</p>
@@ -275,7 +284,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                     <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
                                                 </div>
                                             </div>
-                                            <div className="row">
+                                            <div className="row u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
                                                     <p>{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
@@ -285,17 +294,17 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
 
                                 <div className="row u-mar--bottom--med">
-                                    <div className="card card--secondary card--med col col-sml-12 col-lrg-12">
+                                    <div className="card--secondary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
                                         <SimpleBaasicTable tableStore={previousGrantsTableStore} />
                                     </div>
                                 </div>
 
                                 <div className="row">
-                                    <div className="card card--secondary card--med col col-sml-12 col-lrg-12">
+                                    <div className="card--secondary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
-                                        <div className="card card--primary card--med">
-                                            <h5>{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
+                                        <div className="card--primary card--med">
+                                            <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
                                             <SimpleBaasicTable tableStore={similarGrantsTableStore} />
                                         </div>
                                     </div>

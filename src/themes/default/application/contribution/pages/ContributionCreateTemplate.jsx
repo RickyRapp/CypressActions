@@ -41,14 +41,14 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
         <Page loading={loaderStore.loading}>
             {step === 1 && paymentTypes && paymentTypes.map(c => {
                 return (
-                    <div key={c.id} className="row u-padd--right--med u-padd--left--med">
+                    <div key={c.id} className="row u-padd--right--med u-padd--left--med u-display--flex u-display--flex--align--center u-display--flex--wrap">
                         <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--med">
                             <div className="card card--primary card--xlrg">
                                 <div className="row">
                                     <div className="col col-sml-2">
                                         <i className="u-icon u-icon--med u-icon--download"></i>
                                     </div>
-                                    <div className="col col-sml-6">
+                                    <div className="col col-sml-10">
                                         <h5 className="type--med type--wgt--medium">{c.name}</h5>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                 </div>
                             </div>
-                            <div className="col col-sml-12 col-lrg-1">
+                            <div className="col col-sml-12 col-lrg-1 u-mar--bottom--med">
                                 <BaasicButton
                                     className="btn btn--base btn--primary"
                                     label={t('CONTRIBUTION.CREATE.LINK')}
@@ -89,31 +89,40 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
             })}
 
             {step === 2 && !isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                <div className="row">
+                <div className="row u-padd--left--med u-padd--right--med">
                     <div className="col col-sml-12 col-lrg-3">
                         {paymentTypes.map(c => {
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card card--primary card--med u-mar--bottom--med">
-                                            <h5 className="u-mar--bottom--med">{c.name}</h5>
+                                        <div className="card card--primary card--med u-mar--bottom--med cursor--pointer">
+                                            <div className="row u-display--flex u-display--flex--align--center">
+                                                <div className="col col-sml-2">
+                                                    <i className="u-icon u-icon--med u-icon--download u-push"></i>
+                                                </div>
+                                                <div className="col col-sml-10">
+                                                    <h5 className="type--med type--wgt--medium">{c.name}</h5>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>)
                         })
                         }
                     </div>
+                    <div className="col col-sml-9">
+                        {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                            <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
+                    </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <EditFormContent form={form}>
-                            {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                                <h5>{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                             <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <h5>{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
+                                        <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <strong>{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</strong>
+                                        <p className="type--sml type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</p>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
@@ -163,10 +172,10 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                     </div>
                     <div className="col col-sml-12 col-lrg-3">
                         <div className="card card--primary card--med u-mar--bottom--med">
-                            <h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
+                            <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                             <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                             <BaasicButton
-                                className="btn btn--base btn--secondary u-mar--top--med"
+                                className="btn btn--base btn--tertiary type--uppercase u-mar--top--med"
                                 label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                 onClick={routes.allContributions}>
                             </BaasicButton>
@@ -235,7 +244,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                             <h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                             <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                             <BaasicButton
-                                className="btn btn--base btn--secondary u-mar--top--med"
+                                className="btn btn--base btn--secondary type--uppercase u-mar--top--med"
                                 label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                 onClick={routes.allContributions}>
                             </BaasicButton>

@@ -92,11 +92,12 @@
     }
 
     &--tertiary {
-        background: $white;
-        color: $color-note;
+        background: $$color-note;
+        color: $zest;
 
         &:hover {
-            background: color($white blackness(+5%));
+            background: color($color-note blackness(+5%));
+            color: $white;
         }
     }
 

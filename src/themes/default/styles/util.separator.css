@@ -5,7 +5,7 @@
 .u {
     &-separator {
         &--primary {
-            border-bottom: 1px solid color($color-text lightness(+55%));
+            border-bottom: 1px solid color($grey-9 lightness(+55%));
         
             &--calendar {
                 border-right: 1px solid color($color-text lightness(+55%));

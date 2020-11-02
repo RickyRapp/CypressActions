@@ -125,19 +125,21 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
                     {showSeparator && <div className="u-separator u-separator--primary u-mar--bottom--sml" />}
                     <div>{filters}</div>
                     {!nextToSearch && (
-                        <div>
-                            <BaasicButton
-                                className="btn btn--sml btn--primary u-mar--right--tny u-padd--left--xxxlrg u-padd--right--xxxlrg"
-                                label="GRID.FILTER.SEARCH_BUTTON"
-                                onClick={() => queryUtility.fetch()}
-                                disabled={fetchDisabled}
-                            />
-                            <BaasicButton
-                                className="btn btn--sml btn--ghost u-padd--left--xxxlrg u-padd--right--xxxlrg"
-                                label="GRID.FILTER.CLEAR_BUTTON"
-                                onClick={() => queryUtility.resetFilter()}
-                                disabled={fetchDisabled}
-                            />
+                        <div className="row">
+                            <div className="col col-sml-12">
+                                <BaasicButton
+                                    className="btn btn--sml btn--primary u-mar--right--tny u-padd--left--xxxlrg u-padd--right--xxxlrg"
+                                    label="GRID.FILTER.SEARCH_BUTTON"
+                                    onClick={() => queryUtility.fetch()}
+                                    disabled={fetchDisabled}
+                                    />
+                                <BaasicButton
+                                    className="btn btn--sml btn--ghost u-padd--left--xxxlrg u-padd--right--xxxlrg"
+                                    label="GRID.FILTER.CLEAR_BUTTON"
+                                    onClick={() => queryUtility.resetFilter()}
+                                    disabled={fetchDisabled}
+                                    />
+                            </div>
                         </div>
                     )}
                 </form>

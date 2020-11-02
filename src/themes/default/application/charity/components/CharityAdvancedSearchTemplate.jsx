@@ -29,7 +29,7 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--med'
                                 value={queryUtility.filter['name'] || ""}
@@ -37,7 +37,7 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
                                 placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--med'
                                 value={queryUtility.filter['dba'] || ""}
@@ -45,7 +45,7 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
                                 placeholder='CHARITY.LIST.FILTER.DBA_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--med'
                                 value={queryUtility.filter['emails'] || ""}
@@ -53,13 +53,13 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
                                 placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicDropdown
                                 store={charityTypeDropdownStore}
                                 placeholder='CHARITY.LIST.FILTER.CHARITY_TYPE_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--med'
                                 value={queryUtility.filter['address'] || ""}
@@ -67,7 +67,7 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
                                 placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <NumberFormatInput
                                 className='input input--med'
                                 value={queryUtility.filter['taxId']}

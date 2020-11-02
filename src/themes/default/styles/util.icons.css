@@ -528,7 +528,11 @@
         }
 
         &--download {
-            background-image: svg-load('../styles/postcss-svg/download.svg', fill: $color-primary);
+            background-image: svg-load('../styles/postcss-svg/download.svg', fill: $scandal);
+
+            &--active {
+                background-image: svg-load('../styles/postcss-svg/download.svg', fill: $color-primary);
+            }
         }
 
         &--document {
