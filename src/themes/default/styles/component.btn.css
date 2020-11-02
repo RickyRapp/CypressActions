@@ -74,11 +74,11 @@
      * Button styles
     */
     &--primary {
-        background: $white;
-        color: $color-note;
+        background: $color-text;
+        color: $white;
 
         &:hover {
-            background: color($white blackness(+5%));
+            background: $zest;
         }
     }
 
@@ -92,11 +92,11 @@
     }
 
     &--tertiary {
-        background: $color-text;
-        color: $white;
+        background: $white;
+        color: $color-note;
 
         &:hover {
-            background: $zest;
+            background: color($white blackness(+5%));
         }
     }
 

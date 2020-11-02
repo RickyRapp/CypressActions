@@ -78,7 +78,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                             </div>
                             <div className="col col-sml-12 col-lrg-1">
                                 <BaasicButton
-                                    className="btn btn--base btn--tertiary"
+                                    className="btn btn--base btn--primary"
                                     label={t('CONTRIBUTION.CREATE.LINK')}
                                     onClick={() => onSelectPaymentType(c.id)}
                                 />

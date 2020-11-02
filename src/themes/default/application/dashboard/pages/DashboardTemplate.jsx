@@ -90,7 +90,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                     {!donor.IsInvestmentMade &&
                                         <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                             <BaasicButton
-                                                className="btn btn--base btn--primary type--sml type--uppercase type--wide u-padd--left--med"
+                                                className="btn btn--base btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS'
                                             />
@@ -98,7 +98,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                     {!donor.isBookletOrderMade &&
                                         <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                             <BaasicButton
-                                                className="btn btn--base btn--primary type--sml type--uppercase type--wide u-padd--left--med"
+                                                className="btn btn--base btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.ORDER_CERTIFICATES'
                                             />
@@ -106,7 +106,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                     {!donor.isContributionMade &&
                                         <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                             <BaasicButton
-                                                className="btn btn--base btn--primary type--sml type--uppercase type--wide u-padd--left--med"
+                                                className="btn btn--base btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.NEW_CONTRIBUTION'
                                             />

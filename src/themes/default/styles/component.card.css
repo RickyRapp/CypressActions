@@ -10,9 +10,8 @@
     }
 
     &--secondary {
-        background-color: $color-background-seashellt;
         border-radius: $radius-base;
-        box-shadow: $shadow-card; 
+        background-color: $color-background;
     }
     
     &--tertiary {
@@ -22,8 +21,9 @@
     }
 
     &--form {
+        background-color: $color-background-seashellt;
         border-radius: $radius-base;
-        background-color: $color-background;
+        box-shadow: $shadow-card; 
     }
 
     &--tny {
