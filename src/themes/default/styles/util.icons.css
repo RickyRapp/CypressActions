@@ -528,11 +528,7 @@
         }
 
         &--download {
-            background-image: svg-load('../styles/postcss-svg/download.svg', fill: $scandal);
-
-            &--active {
-                background-image: svg-load('../styles/postcss-svg/download.svg', fill: $color-primary);
-            }
+            background-image: svg-load('../styles/postcss-svg/download.svg', fill: $color-primary);
         }
 
         &--document {
@@ -545,6 +541,14 @@
 
         &--check-circle {
             background-image: svg-load('../styles/postcss-svg/check-circle.svg', fill: $color-success);
+        }
+        
+        &--plus {
+            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $scandal);
+        }
+       
+        &--minus {
+            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $scandal);
         }
     }
 }

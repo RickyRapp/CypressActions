@@ -215,7 +215,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                                        <div className="card--secondary card--med type--center">
+                                        <div className="card--tertiary--light card--med type--center">
                                             <div className="type--lrg type--wgt--medium type--color--note">
                                                 {donor && <FormatterResolver
                                                     item={{ balance: donor.availableBalance }}
@@ -227,7 +227,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                                        <div className="card--secondary card--med type--center">
+                                        <div className="card--secondary--light card--med type--center">
                                             <div className="type--lrg type--wgt--medium type--color--note">
                                                 {donor && <FormatterResolver
                                                     item={{ balance: donor.upcomingGrantsThisYear }}
@@ -239,7 +239,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>
                                     {charityDropdownStore && charityDropdownStore.value &&
-                                        <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        <div className="card--tertiary--light card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row">
                                                 <div className="col col-sml-12 col-lrg-6">
                                                     <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>

@@ -30,164 +30,191 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
     return (
         <ApplicationEditLayout store={bookletOrderCreateViewStore}>
             <Content loading={contentLoading} >
-                <div className="card card--form card--primary card--med u-mar--bottom--med">
-                    <h4 style={{ display: "inline-block" }}>{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
-                    <span className="u-push">
-                        <h2>Balance: {donor && <FormatterResolver
-                            item={{ availableBalance: donor.availableBalance }}
-                            field='availableBalance'
-                            format={{ type: 'currency' }}
-                        />}</h2>
-                    </span>
+                <div className="u-padd--right--med u-padd--left--med">
+                    <div className="card--primary card--med u-mar--bottom--med">
+                        <div className="u-mar--bottom--med">
+                            <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
+                            <span className="u-push">
+                                <div className="card--sml card--tertiary--light">
+                                    <h2 className="type--med type--wgt--medium type--color--note"> <span className="type--color--text">Balance:</span> {donor && <FormatterResolver
+                                        item={{ availableBalance: donor.availableBalance }}
+                                        field='availableBalance'
+                                        format={{ type: 'currency' }}
+                                        />}</h2>
+                                </div>
+                            </span>
+                        </div>
 
-                    {bookletTypes.map(bt => {
-                        return (
-                            <div key={bt.id} className="row u-mar--top--xlrg u-mar--bottom--xlrg">
-                                {bt.abrv === 'classic' ?
-                                    <React.Fragment>
-                                        {denominationTypes.map(dt => {
-                                            const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
-                                                orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) : null;
-                                            const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
+                        {bookletTypes.map(bt => {
+                            return (
+                                <div key={bt.id} className="row">
+                                    {bt.abrv === 'classic' ?
+                                        <React.Fragment>
+                                            {denominationTypes.map(dt => {
+                                                const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
+                                                    orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) : null;
+                                                const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
 
-                                            return (
-                                                <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-6 u-mar--bottom--sml">
-                                                    <div className="row">
-                                                        <div className="col col-sml-12 col-med-12 col-lrg-4">
-                                                            <FormatterResolver
-                                                                item={{ value: dt.value }}
+                                                return (
+                                                    <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml card--med">
+                                                        <div className="u-separator--primary">
+                                                            <div className="row u-mar--bottom--sml">
+                                                                <div className="col col-sml-12 col-med-12 col-lrg-3 ">
+                                                                    <div className="type--base type--wgt--regular">
+                                                                        <FormatterResolver
+                                                                            item={{ value: dt.value }}
+                                                                            field='value'
+                                                                            format={{ type: 'currency' }}
+                                                                            />
+                                                                    </div>
+                                                                    {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
+                                                                        <div className="type--tny type--color--note">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
+                                                                </div>
+                                                                <div className="col col-sml-12 col-med-12 col-lrg-6">
+                                                                    <BaasicButton
+                                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                                        icon={'u-icon u-icon--minus u-icon--med'}
+                                                                        label='REMOVE'
+                                                                        onlyIcon={true}
+                                                                        onClick={() => onRemoveBookletClick(bt.id, dt.id)}>
+                                                                    </BaasicButton>
+                                                                    <BaasicButton
+                                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med type--color--text"
+                                                                        label={order && order.bookletCount.toString() || '0'}
+                                                                        onClick={() => { }}>
+                                                                    </BaasicButton>
+                                                                    <BaasicButton
+                                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                                        icon={'u-icon u-icon--plus u-icon--med'}
+                                                                        label='ADD'
+                                                                        onlyIcon={true}
+                                                                        onClick={() => onAddBookletClick(bt.id, dt.id)}>
+                                                                    </BaasicButton>
+                                                                </div>
+                                                                <div className="col col-sml-12 col-med-12 col-lrg-3">
+                                                                    <FormatterResolver
+                                                                        item={{ total: bookletAmount }}
+                                                                        field='total'
+                                                                        format={{ type: 'currency' }}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                        </React.Fragment>
+                                        :
+                                        <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml card--med">
+                                            <div className="row">
+                                                {denominationTypes.length > 0 &&
+                                                    <div className="col col-sml-12 col-med-12 col-lrg-3">
+                                                        <FormatterResolver
+                                                            item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
+                                                            field='value'
+                                                            format={{ type: 'currency' }}
+                                                        />,
+                                                        {" "}
+                                                        <FormatterResolver
+                                                                item={{ value: denominationTypes.find(dt => dt.value === 2).value }}
+                                                                field='value'
+                                                                format={{ type: 'currency' }}
+                                                            />,
+                                                        {" "}
+                                                        <FormatterResolver
+                                                                item={{ value: denominationTypes.find(dt => dt.value === 3).value }}
                                                                 field='value'
                                                                 format={{ type: 'currency' }}
                                                             />
-                                                            {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
-                                                                <div><strong><small>{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</small></strong></div>}
+                                                        <div className="type--tny type--color--note">
+                                                            {t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}
                                                         </div>
-                                                        <div className="col col-sml-12 col-med-12 col-lrg-4">
-                                                            <BaasicButton
-                                                                className="btn btn--base btn--ghost btn--med"
-                                                                icon={'u-icon u-icon--locked u-icon--sml'}
-                                                                label='REMOVE'
-                                                                onlyIcon={true}
-                                                                onClick={() => onRemoveBookletClick(bt.id, dt.id)}>
-                                                            </BaasicButton>
-                                                            <BaasicButton
-                                                                className="btn btn--base btn--ghost btn--med"
-                                                                label={order && order.bookletCount.toString() || '0'}
-                                                                onClick={() => { }}>
-                                                            </BaasicButton>
-                                                            <BaasicButton
-                                                                className="btn btn--base btn--ghost btn--med"
-                                                                icon={'u-icon u-icon--unlocked u-icon--sml'}
-                                                                label='ADD'
-                                                                onlyIcon={true}
-                                                                onClick={() => onAddBookletClick(bt.id, dt.id)}>
-                                                            </BaasicButton>
-                                                        </div>
-                                                        <div className="col col-sml-12 col-med-12 col-lrg-4">
-                                                            <FormatterResolver
-                                                                item={{ total: bookletAmount }}
-                                                                field='total'
-                                                                format={{ type: 'currency' }}
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                    </div> 
+                                                    }
+                                                <div className="col col-sml-12 col-med-12 col-lrg-6">
+                                                    <BaasicButton
+                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                        icon={'u-icon u-icon--minus u-icon--med'}
+                                                        label='REMOVE'
+                                                        onlyIcon={true}
+                                                        onClick={() => onRemoveBookletClick(bt.id, null)}>
+                                                    </BaasicButton>
+                                                    <BaasicButton
+                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med type--color--text"
+                                                        label={
+                                                            orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
+                                                                orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'
+                                                        }
+                                                        onClick={() => { }}>
+                                                    </BaasicButton>
+                                                    <BaasicButton
+                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                        icon={'u-icon u-icon--plus u-icon--med'}
+                                                        label='ADD'
+                                                        onlyIcon={true}
+                                                        onClick={() => onAddBookletClick(bt.id, null)}>
+                                                    </BaasicButton>
                                                 </div>
-                                            )
-                                        })}
-                                    </React.Fragment>
-                                    :
-                                    <div className="col col-sml-12 col-med-12 col-lrg-6 u-mar--bottom--sml">
-                                        <div className="row">
-                                            {denominationTypes.length > 0 &&
-                                                <div className="col col-sml-12 col-med-12 col-lrg-4">
+                                                <div className="col col-sml-12 col-med-12 col-lrg-3">
                                                     <FormatterResolver
-                                                        item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
-                                                        field='value'
-                                                        format={{ type: 'currency' }}
-                                                    />,
-                                                <FormatterResolver
-                                                        item={{ value: denominationTypes.find(dt => dt.value === 2).value }}
-                                                        field='value'
-                                                        format={{ type: 'currency' }}
-                                                    />,
-                                                <FormatterResolver
-                                                        item={{ value: denominationTypes.find(dt => dt.value === 3).value }}
-                                                        field='value'
+                                                        item={{ total: mixedBookletAmount }}
+                                                        field='total'
                                                         format={{ type: 'currency' }}
                                                     />
-                                                    <div><strong><small>{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</small></strong></div>
-                                                </div>}
-                                            <div className="col col-sml-12 col-med-12 col-lrg-4">
-                                                <BaasicButton
-                                                    className="btn btn--base btn--ghost btn--med"
-                                                    icon={'u-icon u-icon--locked u-icon--sml'}
-                                                    label='REMOVE'
-                                                    onlyIcon={true}
-                                                    onClick={() => onRemoveBookletClick(bt.id, null)}>
-                                                </BaasicButton>
-                                                <BaasicButton
-                                                    className="btn btn--base btn--ghost btn--med"
-                                                    label={
-                                                        orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
-                                                            orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'
-                                                    }
-                                                    onClick={() => { }}>
-                                                </BaasicButton>
-                                                <BaasicButton
-                                                    className="btn btn--base btn--ghost btn--med"
-                                                    icon={'u-icon u-icon--unlocked u-icon--sml'}
-                                                    label='ADD'
-                                                    onlyIcon={true}
-                                                    onClick={() => onAddBookletClick(bt.id, null)}>
-                                                </BaasicButton>
-                                            </div>
-                                            <div className="col col-sml-12 col-med-12 col-lrg-4">
-                                                <FormatterResolver
-                                                    item={{ total: mixedBookletAmount }}
-                                                    field='total'
-                                                    format={{ type: 'currency' }}
-                                                />
+                                                </div>
                                             </div>
                                         </div>
+                                    }
+                                </div>
+                            )
+                        })}
+
+                        <div className="card--tertiary--light card--med u-mar--bottom--med">
+                            <div className="row u-display--flex u-display--flex--align--center">
+                                <div className="col col-sml-8">
+                                    <div className="type--sml type--wgt--medium">
+                                        Current Balance: 
+                                        <span className="type--base type--color--note u-mar--left--sml">
+                                            {donor && <FormatterResolver
+                                                item={{ availableBalance: donor.availableBalance }}
+                                                field='availableBalance'
+                                                format={{ type: 'currency' }}
+                                                />}
+                                        </span>
                                     </div>
-                                }
+                                </div>
+                                <div className="col col-sml-4">
+                                    <div className="type--med type--wgt--medium u-push">Total: 
+                                        <span className="type--lrg type--wgt--bold type--color--note u-mar--left--sml">
+                                            <FormatterResolver
+                                            item={{ total: totalAmount }}
+                                            field='total'
+                                            format={{ type: 'currency' }}
+                                        />
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        )
-                    })}
-
-                    <div className="card card--form card--primary card--med u-mar--bottom--med">
-                        <div style={{ display: "inline-block" }}>
-                            Current Balance: {donor && <FormatterResolver
-                                item={{ availableBalance: donor.availableBalance }}
-                                field='availableBalance'
-                                format={{ type: 'currency' }}
-                            />}
                         </div>
-                        <span className="u-push">
-                            <h3>Total: <FormatterResolver
-                                item={{ total: totalAmount }}
-                                field='total'
-                                format={{ type: 'currency' }}
-                            />
-                            </h3>
-                        </span>
-                    </div>
 
-                    <div className="row u-mar--top--xlrg">
-                        <div className="col col-sml-12 col-med-12 col-lrg-8 u-mar--bottom--sml">
-                            <BasicFieldCheckbox
-                                field={form.$('isCustomizedBook')}
-                                onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
-                            />
-                            <BasicInput field={form.$('customizedName')} />
+                        <div className="row u-mar--top--lrg">
+                            <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml">
+                                <BasicFieldCheckbox
+                                    field={form.$('isCustomizedBook')}
+                                    onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
+                                    />
+                                <BasicInput field={form.$('customizedName')} />
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="card card--form card--primary card--med u-mar--bottom--med">
+                <div className="card card--primary card--med u-mar--bottom--med u-mar--right--med u-mar--left--med">
                     <div className="row">
                         <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
-                            {t('BOOKLET_ORDER.CREATE.DELIVERY_OPTIONS')}
+                            <span className="type--med type--wgt--medium type--color--note">
+                                {t('BOOKLET_ORDER.CREATE.DELIVERY_OPTIONS')}
+                            </span>
                         </div>
                         {deliveryMethodTypes.map(c => {
                             return (
@@ -200,12 +227,12 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                 </div>
                             )
                         })}
-
                     </div>
                 </div>
 
-                <div className="card card--form card--primary card--med u-mar--bottom--med">
-                    <div className="row">
+                <div className="card card--primary card--med u-mar--bottom--med u-mar--right--med u-mar--left--med">
+                    <h4 className="type--med type--wgt--medium type--color--note">Shipping Address</h4>
+                    <div className="row card--med">
                         <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--sml">
                             <BasicInput field={form.$('addressLine1')} />
                         </div>
@@ -223,7 +250,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                         </div>
                     </div>
                     <BaasicButton
-                        className="btn btn--base btn--secondary btn--med"
+                        className="btn btn--base btn--tertiary btn--med u-mar--left--med"
                         label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
                         onClick={() => onChangeShippingAddressClick(!form.$('addressLine1').disabled)}>
                     </BaasicButton>
@@ -252,7 +279,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                             denominationTypeDropdownStore.setItems(denominationTypes);
 
                             return (
-                                <div key={item.key} className="card card--form card--primary card--med u-mar--bottom--sml">
+                                < key={item.key} className="cardcard--primary card--med u-mar--bottom--sml">
                                     <div className="row">
                                         <div className="col col-sml-6 col-lrg-3">
                                             <NumericInputField field={item.$('bookletCount')} />

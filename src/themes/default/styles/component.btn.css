@@ -92,12 +92,11 @@
     }
 
     &--tertiary {
-        background: $$color-note;
+        background: $color-background-seashellt;
         color: $zest;
 
         &:hover {
-            background: color($color-note blackness(+5%));
-            color: $white;
+            background: color($color-background-seashellt blackness(+5%));
         }
     }
 
@@ -123,6 +122,10 @@
         background-color: transparent;
         color: $color-primary;
         border: 1px solid $color-primary;
+        
+        &--primary {
+            border: 1px solid $scandal;
+        }
 
         &:hover {
             color: color($color-primary blackness(+10%));
