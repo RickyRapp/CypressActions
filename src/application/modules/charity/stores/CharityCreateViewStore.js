@@ -1,202 +1,145 @@
 import { action, observable } from 'mobx';
 import { CharityCreateForm } from 'application/charity/forms';
-import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseEditViewStore, BaasicDropdownStore, BaasicUploadStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
 import { CharityFileStreamService } from 'common/services';
 import { applicationContext } from 'core/utils';
-
-const ErrorType = {
-    Unique: 0
-};
+import { localizationService, validatorService } from 'core/services';
 
 @applicationContext
 class CharityCreateViewStore extends BaseEditViewStore {
-    attachment = null;
-    uploadTypes = null;
-    @observable image = null;
-    @observable uploadLoading = false;
-    uploadTypes = ['.png', '.jpg', '.jpeg'];
-    @observable loginShow = false;
-    @observable bankAccountShow = false;
-    charityAccountTypes = null;
-    applicationDefaultSetting = null;
-
     constructor(rootStore) {
-        const service = new CharityService(rootStore.application.baasic.apiClient);
-
         super(rootStore, {
             name: 'charity',
             id: undefined,
             actions: () => {
                 return {
-                    create: async (item) => {
-                        await this.fetch([
-                            this.usernameExists(item.coreUser.username),
-                            this.taxIdExists(item.taxId)
-                        ])
-                        if (item.isOnlineAccountEnabled === true) {
-                            if (!item.coreUser.username) {
-                                this.form.$('coreUser.username').invalidate('The Username is required if you want create online account.')
-                            }
-                            if (!item.coreUser.coreMembership.password) {
-                                this.form.$('coreUser.coreMembership.password').invalidate('The Password is required if you want create online account.')
-                            }
-                            if (!item.coreUser.coreMembership.confirmPassword) {
-                                this.form.$('coreUser.coreMembership.confirmPassword').invalidate('The Confirm password is required if you want create online account.')
-                            }
-                        }
-                        else {
-                            item.coreUser = null;
-                        }
-                        if (item.bankAccount.name || item.bankAccount.accountNumber || item.bankAccount.routingNumber) {
-                            if (!item.bankAccount.name) {
-                                this.form.$('bankAccount.name').invalidate('The Name is required if you want create bank account.')
-                            }
-                            if (!item.bankAccount.accountNumber) {
-                                this.form.$('bankAccount.accountNumber').invalidate('The Account number is required if you want create bank account.')
-                            }
-                            if (!item.bankAccount.routingNumber) {
-                                this.form.$('bankAccount.routingNumber').invalidate('The routing number is required if you want create bank account.')
+                    create: async (resource) => {
+                        const model = {
+                            activationUrl: `${window.location.origin}/app/account-activation/?activationToken={activationToken}`,
+                            name: resource.name,
+                            taxId: resource.taxId,
+                            dba: resource.dba,
+                            charityTypeId: resource.charityTypeId,
+                            charityStatusId: resource.charityStatusId,
+                            suggestedById: null,
+                            address: {
+                                addressLine1: resource.addressAddressLine1,
+                                addressLine2: resource.addressAddressLine2,
+                                city: resource.addressCity,
+                                state: resource.addressState,
+                                zipCode: resource.addressZipCode,
+                                decription: resource.addressDescription
+                            },
+                            contactInformation: {
+                                name: resource.contactInformationName,
+                                email: resource.contactInformationEmail,
+                                number: resource.contactInformationNumber
                             }
                         }
-                        else {
-                            item.bankAccount = null;
+
+                        if (resource.isNewBankAccount) {
+                            model.bankAccount = {
+                                name: resource.bankAccountName,
+                                accountNumber: resource.bankAccountAccountNumber,
+                                routingNumber: resource.bankAccountRoutingNumber,
+                                description: resource.bankAccountDescription,
+                                accountHolder: {
+                                    addressLine1: resource.bankAccountAccountHolderAddressLine1,
+                                    addressLine2: resource.bankAccountAccountHolderAddressLine2,
+                                    city: resource.bankAccountAccountHolderCity,
+                                    state: resource.bankAccountAccountHolderState,
+                                    zipCode: resource.bankAccountAccountHolderZipCode,
+                                    email: resource.bankAccountAccountHolderEmail,
+                                    number: resource.bankAccountAccountHolderNumber
+                                },
+                            }
                         }
-                        if (!this.form.isValid) {
-                            throw { type: ErrorType.Unique };
+
+                        if (resource.isNewOnlineAccount) {
+                            model.coreUser = {
+                                userName: resource.username,
+                                coreMembership: {
+                                    password: resource.password,
+                                    confirmPassword: resource.confirmPassword
+                                }
+                            }
                         }
-                        if (item.isOnlineAccountEnabled) {
-                            item.subscriptionNextDate =
-                                new Date(Date.UTC(item.subscriptionNextDate.getFullYear(), item.subscriptionNextDate.getMonth(), item.subscriptionNextDate.getDate()));
+
+                        const data = await this.rootStore.application.charity.charityStore.createCharity(model);
+                        if (resource.isNewBankAccount && this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
+                            await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], data.response.charityId, data.response.bankAccountId);
                         }
-                        try {
-                            const response = await service.create(item);
-                            await this.insertImage(response.data.response);
-                        } catch (err) {
-                            throw { error: err }
-                        }
-                    }
-                }
-            },
-            errorActions: {
-                onCreateError: ({ type, error }) => {
-                    switch (type) {
-                        case ErrorType.Unique:
-                            break;
-                        default:
-                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE', error);
-                            break;
                     }
                 }
             },
             FormClass: CharityCreateForm,
-        });
-
-        this.service = service;
-        this.charityTypeDropdownStore = new BaasicDropdownStore(null, {
-            fetchFunc: async () => {
-                return this.rootStore.application.lookup.charityTypeStore.find();
-            }
-        });
-        this.charityStatusDropdownStore = new BaasicDropdownStore(null, {
-            fetchFunc: async () => {
-                return this.rootStore.application.lookup.charityStatusStore.find();
-            }
-        });
-
-        this.charityAccountTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                onChange: () => {
-                    this.setSubscriptionAmount();
+            errorActions: {
+                onCreateError: () => {
+                    this.setBankAccountFieldsDisabled(this.form.$('isNewBankAccount').value);
+                    this.setOnlineAccountFieldsDisabled(this.form.$('isNewOnlineAccount').value);
                 }
-            });
+            },
+        });
+
+        this.createCharityTypeDropdownStore();
+        this.createCharityStatusDropdownStore();
+        this.createUniqueConstraintValidators();
+        this.createImageUploadStore();
     }
 
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {
-            this.rootStore.routerStore.goTo(
-                'master.app.main.charity.list'
-            )
+            this.rootStore.routerStore.goBack();
         }
         else {
             await this.fetch([
-                this.fetchApplicationDefaultSetting(),
+                this.loadLookups()
             ]);
+
+            this.form.$('isNewBankAccount').observe(({ field }) => {
+                this.onNewBankAccountChange(field.value)
+            });
+            this.form.$('isNewOnlineAccount').observe(({ field }) => {
+                this.onNewOnlineAccountChange(field.value)
+            });
         }
     }
 
     @action.bound
-    onChangeLoginShow(visiblity) {
-        this.loginShow = visiblity;
+    onNewBankAccountChange(value) {
+        this.setBankAccountFieldsDisabled(value);
+    }
+
+    setBankAccountFieldsDisabled(value) {
+        this.form.$('bankAccountName').setDisabled(!value);
+        this.form.$('bankAccountAccountNumber').setDisabled(!value);
+        this.form.$('bankAccountRoutingNumber').setDisabled(!value);
+        this.form.$('bankAccountDescription').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderAddressLine1').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderAddressLine2').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderCity').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderState').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderZipCode').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderEmail').setDisabled(!value);
+        this.form.$('bankAccountAccountHolderNumber').setDisabled(!value);
+        this.form.$('coreMediaVaultEntryId').setDisabled(!value);
     }
 
     @action.bound
-    onChangeBankAccountShow(visiblity) {
-        this.bankAccountShow = visiblity;
+    onNewOnlineAccountChange(value) {
+        this.setOnlineAccountFieldsDisabled(value);
     }
 
-    @action.bound
-    onBlurUsername(event) {
-        this.usernameExists(event.target ? event.target.value : null)
+    setOnlineAccountFieldsDisabled(value) {
+        this.form.$('username').setDisabled(!value);
+        this.form.$('password').setDisabled(!value);
+        this.form.$('confirmPassword').setDisabled(!value);
     }
 
-    @action.bound
-    onChangeIsOnlineAccountEnabled() {
-        this.form.$('charityAccountTypeId').setRequired(this.form.$('isOnlineAccountEnabled').value);
-        this.form.$('charityAccountTypeId').resetValidation();
-        this.form.$('coreUser.username').setRequired(this.form.$('isOnlineAccountEnabled').value);
-        this.form.$('coreUser.username').resetValidation();
-        this.form.$('coreUser.coreMembership.password').setRequired(this.form.$('isOnlineAccountEnabled').value);
-        this.form.$('coreUser.coreMembership.password').resetValidation();
-        this.form.$('subscriptionTypeId').setRequired(this.form.$('isOnlineAccountEnabled').value);
-        this.form.$('subscriptionTypeId').resetValidation();
-        this.form.$('subscriptionAmount').setRequired(this.form.$('isOnlineAccountEnabled').value);
-        this.form.$('subscriptionAmount').resetValidation();
-        this.form.$('subscriptionNextDate').setRequired(this.form.$('isOnlineAccountEnabled').value);
-        this.form.$('subscriptionNextDate').resetValidation();
-    }
-
-    @action.bound
-    async fetchApplicationDefaultSetting() {
+    async loadLookups() {
         this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
-    }
-
-    @action.bound
-    async usernameExists(username) {
-        if (this.form.$('coreUser.username').isValid) {
-            try {
-                const response = await this.rootStore.application.baasic.membershipModule.user.exists(username);
-                if (response.statusCode === 204) {
-                    this.form.$('coreUser.username').invalidate('Username already exists.')
-                    return;
-                }
-            } catch (err) {
-                if (err.statusCode === 404) {
-                    this.form.$('coreUser.username').resetValidation();
-                    return;
-                }
-            }
-        }
-    }
-
-    @action.bound
-    async taxIdExists(taxId) {
-        this.form.$('taxId').validate();
-        if (this.form.$('taxId').isValid) {
-            try {
-                const response = await this.service.taxIdExists(taxId);
-                if (response.statusCode === 204) {
-                    this.form.$('taxId').invalidate('Tax Id already exists.')
-                    return;
-                }
-            } catch (err) {
-                if (err.statusCode === 404) {
-                    this.form.$('taxId').resetValidation();
-                    return;
-                }
-            }
-        }
     }
 
     @action.bound
@@ -217,11 +160,55 @@ class CharityCreateViewStore extends BaseEditViewStore {
         return null;
     }
 
-    @action.bound async onAttachmentDrop(item) {
-        this.attachment = item.affectedFiles[0].getRawFile();
-        const binaryData = [];
-        binaryData.push(this.attachment);
-        this.image = window.URL.createObjectURL(new Blob(binaryData, { type: this.attachment.type }));
+    createUniqueConstraintValidators() {
+        validatorService.registerAsyncValidator('usernameUnique', async (value, attribute, req, passes) => {
+            try {
+                const { statusCode } = await this.rootStore.application.baasic.membershipModule.user.exists(value);
+                if (statusCode === 204) {
+                    return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.USERNAME_CONFLICT'))
+                }
+            } catch (err) {
+                if (err.statusCode === 404) {
+                    return passes();
+                }
+                return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
+            }
+        });
+
+        validatorService.registerAsyncValidator('taxIdUnique', async (value, attribute, req, passes) => {
+            try {
+                const statusCode = await this.rootStore.application.charity.charityStore.taxIdExists(value);
+                debugger
+                if (statusCode === 204) {
+                    return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.TAX_ID_CONFLICT'))
+                }
+            } catch (err) {
+                if (err.statusCode === 404) {
+                    return passes();
+                }
+                return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
+            }
+        });
+    }
+
+    createCharityStatusDropdownStore() {
+        this.charityStatusDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                return this.rootStore.application.lookup.charityStatusStore.find();
+            }
+        });
+    }
+
+    createCharityTypeDropdownStore() {
+        this.charityTypeDropdownStore = new BaasicDropdownStore(null, {
+            fetchFunc: async () => {
+                return this.rootStore.application.lookup.charityTypeStore.find();
+            }
+        });
+    }
+
+    createImageUploadStore() {
+        this.imageUploadStore = new BaasicUploadStore();
     }
 }
 

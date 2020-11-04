@@ -6,7 +6,13 @@ class CharityTabViewStore extends BaseTabViewStore {
     constructor(rootStore) {
         super(rootStore);
         this.loaderStore.resume();
-        this.charityId = rootStore.routerStore.routerState.params.id;
+        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+            this.charityId = rootStore.routerStore.routerState.params.id;
+        }
+        else {
+
+            this.charityId = rootStore.userStore.user.id;
+        }
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
             this.activeIndex = Number(rootStore.routerStore.routerState.queryParams.tab);
         }

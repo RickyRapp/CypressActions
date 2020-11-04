@@ -266,9 +266,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
             }
             data = await this.rootStore.application.grant.grantStore.findGrants(params);
         }
-        this.previousGrantsTableStore.setData(data);
-        if (!this.previousGrantsTableStore.dataInitialized) {
-            this.previousGrantsTableStore.dataInitialized = true;
+        debugger
+        if (data) {
+            this.previousGrantsTableStore.setData(data.item);
+            if (!this.previousGrantsTableStore.dataInitialized) {
+                this.previousGrantsTableStore.dataInitialized = true;
+            }
         }
     }
 

@@ -17,6 +17,10 @@ class CharityBankAccountRouteService extends BaseRouteService {
     return super.create(this.base);
   }
 
+  delete(resource) {
+    return super.delete(this.base + '/{charityId}/{id}', resource);
+  }
+
   update(resource) {
     return super.update(this.base + '/{id}', resource);
   }

@@ -24,37 +24,6 @@ export default class CharityOnlineAccountForm extends FormBase {
                     type: 'checkbox'
                 },
                 {
-                    name: 'activationUrl',
-                    rules: 'string'
-                },
-                {
-                    name: 'charityAccountTypeId',
-                    label: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'subscriptionTypeId',
-                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_TYPE_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_TYPE_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
-                    name: 'subscriptionAmount',
-                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_AMOUNT_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric|min:0',
-                    extra: {
-                        type: 'c2'
-                    }
-                },
-                {
-                    name: 'subscriptionNextDate',
-                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_LABEL',
-                    rules: `required|min_date:${moment().format('YYYY-MM-DD')}|before_or_equal_date:${moment().add(30, 'days').format('YYYY-MM-DD')}`,
-                    type: 'date'
-                },
-                {
                     name: 'coreUser',
                     fields: [
                         {

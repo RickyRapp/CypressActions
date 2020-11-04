@@ -981,7 +981,13 @@
             }
         },
         "CREATE": {
-            "TITLE": "Add charity",
+            "TITLE": "Add New Charity",
+            "CONATCT_INFO_TITLE": "Add Contact Informations",
+            "ERROR_MESSAGES": {
+                "TAX_ID_CONFLICT": "Tax ID already exist",
+                "USERNAME_CONFLICT": "Username already exist",
+                "GENERAL_ERROR": "Something gone wrong"
+            },
             "FIELDS": {
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",

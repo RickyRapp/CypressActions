@@ -33,33 +33,23 @@ export default class CharityEditForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'contactInformation',
-                    label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_TITLE',
-                    fields: [
-                        {
-                            name: 'id',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'name',
-                            label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'email',
-                            label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
-                            placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                            rules: 'required|email'
-                        },
-                        {
-                            name: 'number',
-                            label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
-                            rules: 'required|string',
-                            extra: {
-                                format: '(###) ###-####'
-                            }
-                        }
-                    ]
+                    name: 'contactInformationName',
+                    label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'contactInformationEmail',
+                    label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
+                    placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
+                    rules: 'required|email'
+                },
+                {
+                    name: 'contactInformationNumber',
+                    label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
+                    rules: 'required|string',
+                    extra: {
+                        format: '(###) ###-####'
+                    }
                 }
             ]
         };

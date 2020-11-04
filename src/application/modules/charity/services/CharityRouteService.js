@@ -5,6 +5,10 @@ class CharityRouteService extends BaseRouteService {
         super('charity');
     }
 
+    getCharityLoginProfile(id) {
+        return super.find(this.base + '/login-profile/{id}', id);
+    }
+
     find(filter) {
         return super.find(this.base + '/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
     }

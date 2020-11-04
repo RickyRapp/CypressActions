@@ -41,10 +41,10 @@ class BaasicUploadStore {
     @action.bound
     setInitialItems(files) {
         if (_.isArray(files)) {
-            this.originalFiles.concat(files);
+            this.originalFiles = files;
         }
         else if (_.isString(files)) { //coreMediaVaultEntryId
-            this.originalFiles.push(files)
+            this.originalFiles = [files];
         }
     }
 

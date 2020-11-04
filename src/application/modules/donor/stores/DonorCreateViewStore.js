@@ -11,18 +11,18 @@ class DonorCreateViewStore extends BaseEditViewStore {
             name: 'donor',
             id: undefined,
             actions: {
-                create: async (item) => {
-                    item.dateOfBirth = new Date(Date.UTC(item.dateOfBirth.getFullYear(), item.dateOfBirth.getMonth(), item.dateOfBirth.getDate()));
+                create: async (resource) => {
+                    resource.dateOfBirth = new Date(Date.UTC(resource.dateOfBirth.getFullYear(), resource.dateOfBirth.getMonth(), resource.dateOfBirth.getDate()));
                     const applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find()
                     const model = {
                         activationUrl: `${window.location.origin}/app/account-activation/?activationToken={activationToken}`,
-                        firstName: item.firstName,
-                        lastName: item.lastName,
-                        dateOfBirth: item.dateOfBirth,
-                        fundName: item.fundName,
-                        howDidYouHearAboutUsDescription: item.howDidYouHearAboutUsDescription,
-                        howDidYouHearAboutUsId: item.howDidYouHearAboutUsId,
-                        securityPin: item.securityPin,
+                        firstName: resource.firstName,
+                        lastName: resource.lastName,
+                        dateOfBirth: resource.dateOfBirth,
+                        fundName: resource.fundName,
+                        howDidYouHearAboutUsDescription: resource.howDidYouHearAboutUsDescription,
+                        howDidYouHearAboutUsId: resource.howDidYouHearAboutUsId,
+                        securityPin: resource.securityPin,
                         lineOfCredit: applicationDefaultSetting.regularLineOfCreditAmount,
                         contributionMinimumInitialAmount: applicationDefaultSetting.regularMinimumInitialContributionAmount,
                         contributionMinimumAdditionalAmount: applicationDefaultSetting.regularMinimumAdditionalContributionAmount,
@@ -31,29 +31,29 @@ class DonorCreateViewStore extends BaseEditViewStore {
                         notificationLimitRemainderAmount: applicationDefaultSetting.regularNotificationLimitRemainderAmount,
                         blankBookletMaxAmount: applicationDefaultSetting.blankBookletMaxAmount,
                         address: {
-                            addressLine1: item.addressLine1,
-                            addressLine2: item.addressLine2,
-                            city: item.city,
-                            state: item.state,
-                            zipCode: item.zipCode,
-                            decription: item.addressDescription
+                            addressLine1: resource.addressLine1,
+                            addressLine2: resource.addressLine2,
+                            city: resource.city,
+                            state: resource.state,
+                            zipCode: resource.zipCode,
+                            decription: resource.addressDescription
                         },
                         emailAddress: {
-                            email: item.email,
-                            decription: item.emailAddressDescription
+                            email: resource.email,
+                            decription: resource.emailAddressDescription
                         },
                         phoneNumber: {
-                            number: item.number,
-                            decription: item.phoneNumberDescription
+                            number: resource.number,
+                            decription: resource.phoneNumberDescription
                         }
                     }
 
-                    if (!isNullOrUndefinedOrEmpty(item.username)) {
+                    if (!isNullOrUndefinedOrEmpty(resource.username)) {
                         model.coreUser = {
-                            userName: item.username,
+                            userName: resource.username,
                             coreMembership: {
-                                password: item.password,
-                                confirmPassword: item.confirmPassword
+                                password: resource.password,
+                                confirmPassword: resource.confirmPassword
                             }
                         }
                     }

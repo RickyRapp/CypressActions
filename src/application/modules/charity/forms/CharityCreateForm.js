@@ -18,7 +18,10 @@ export default class CharityCreateForm extends FormBase {
                 {
                     name: 'taxId',
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
-                    rules: 'required|string|size:9',
+                    rules: 'required|string|size:9|taxIdUnique',
+                    options: {
+                        validateOnChange: false
+                    },
                     extra: {
                         format: '##-#######'
                     }
@@ -42,218 +45,192 @@ export default class CharityCreateForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
-                    name: 'address',
-                    fields: [
-                        {
-                            name: 'addressLine1',
-                            label: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'addressLine2',
-                            label: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'city',
-                            label: 'CHARITY.CREATE.FIELDS.CITY_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.CITY_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'state',
-                            label: 'CHARITY.CREATE.FIELDS.STATE_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.STATE_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'zipCode',
-                            label: 'CHARITY.CREATE.FIELDS.ZIPCODE_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.ZIPCODE_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'description',
-                            label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.DESCRIPTION_PLACEHOLDER',
-                            rules: 'string'
-                        }
-                    ]
+
+                    name: 'addressAddressLine1',
+                    label: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                    rules: 'required|string'
                 },
                 {
-                    name: 'contactInformation',
-                    fields: [
-                        {
-                            name: 'name',
-                            label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NAME_PLACEHOLDER',
-                            rules: 'required|string'
-                        },
-                        {
-                            name: 'email',
-                            label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_PLACEHOLDER',
-                            rules: 'required|email'
-                        },
-                        {
-                            name: 'number',
-                            label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NUMBER_LABEL',
-                            rules: 'required|string',
-                            extra: {
-                                format: '(###) ###-####'
-                            }
-                        }
-                    ]
-                },
-                {
-                    name: 'bankAccount',
-                    fields: [
-                        {
-                            name: 'name',
-                            label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_NAME_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_NAME_PLACEHOLDER',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'accountNumber',
-                            label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER',
-                            rules: 'string'
-                        },
-                        {
-                            name: 'routingNumber',
-                            label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ROUTING_NUMBER_LABEL',
-                            rules: 'string|digits:9',
-                            extra: {
-                                format: '###-###-###'
-                            }
-                        },
-                        {
-                            name: 'description',
-                            label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_DESCRIPTION_LABEL',
-                        },
-                        {
-                            name: 'accountHolder',
-                            fields: [
-                                {
-                                    name: 'addressLine1',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER',
-                                    rules: 'string'
-                                },
-                                {
-                                    name: 'addressLine2',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER',
-                                    rules: 'string'
-                                },
-                                {
-                                    name: 'city',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_CITY_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_CITY_PLACEHOLDER',
-                                    rules: 'string'
-                                },
-                                {
-                                    name: 'state',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_STATE_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_STATE_PLACEHOLDER',
-                                    rules: 'string'
-                                },
-                                {
-                                    name: 'zipCode',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ZIPCODE_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER',
-                                    rules: 'string'
-                                },
-                                {
-                                    name: 'email',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_EMAIL_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_EMAIL_PLACEHOLDER',
-                                    rules: 'email'
-                                },
-                                {
-                                    name: 'number',
-                                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_NUMBER_LABEL',
-                                    rules: 'string',
-                                    extra: {
-                                        format: '(###) ###-####'
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    name: 'isOnlineAccountEnabled',
-                    label: 'CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_PLACEHOLDER',
-                    rules: 'required|boolean',
-                    type: 'checkbox'
-                },
-                {
-                    name: 'charityAccountTypeId',
-                    label: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.CHARITY_ACCOUNT_PLACEHOLDER',
+                    name: 'addressAddressLine2',
+                    label: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
                     rules: 'string'
                 },
                 {
-                    name: 'subscriptionTypeId',
-                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_TYPE_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_TYPE_PLACEHOLDER',
+                    name: 'addressCity',
+                    label: 'CHARITY.CREATE.FIELDS.CITY_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.CITY_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'addressState',
+                    label: 'CHARITY.CREATE.FIELDS.STATE_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.STATE_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'addressZipCode',
+                    label: 'CHARITY.CREATE.FIELDS.ZIPCODE_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ZIPCODE_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'addressDescription',
+                    label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.DESCRIPTION_PLACEHOLDER',
                     rules: 'string'
                 },
                 {
-                    name: 'subscriptionAmount',
-                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_AMOUNT_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_AMOUNT_PLACEHOLDER',
-                    rules: 'numeric|min:0',
+                    name: 'contactInformationName',
+                    label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NAME_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'contactInformationEmail',
+                    label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_PLACEHOLDER',
+                    rules: 'required|email'
+                },
+                {
+                    name: 'contactInformationNumber',
+                    label: 'CHARITY.CREATE.FIELDS.CONTACT_INFORMATION_NUMBER_LABEL',
+                    rules: 'required|string',
                     extra: {
-                        type: 'c2'
+                        format: '(###) ###-####'
                     }
                 },
                 {
-                    name: 'subscriptionNextDate',
-                    label: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_LABEL',
-                    placeholder: 'CHARITY.CREATE.FIELDS.SUBSCRIPTION_NEXT_DATE_PLACEHOLDER',
-                    rules: `min_date:${moment().format('YYYY-MM-DD')}|before_or_equal_date:${moment().add(30, 'days').format('YYYY-MM-DD')}`,
-                    type: 'date'
+                    name: 'isNewBankAccount',
+                    label: 'CHARITY.CREATE.FIELDS.IS_NEW_BANK_ACCOUNT_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.IS_NEW_BANK_ACCOUNT_PLACEHOLDER',
+                    rules: 'required|boolean',
+                    type: 'checkbox',
+                    value: false
                 },
                 {
-                    name: 'coreUser',
-                    fields: [
-                        {
-                            name: 'username',
-                            label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_LABEL',
-                            placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_PLACEHOLDER',
-                            rules: 'email',
-                            autoComplete: 'off'
-                        },
-                        {
-                            name: 'coreMembership',
-                            fields: [
-                                {
-                                    name: 'password',
-                                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_PLACEHOLDER',
-                                    rules: ['string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
-                                    type: 'password',
-                                    autoComplete: 'off'
-                                },
-                                {
-                                    name: 'confirmPassword',
-                                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_LABEL',
-                                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_PLACEHOLDER',
-                                    rules: 'string|same:coreUser.coreMembership.password',
-                                    type: 'password'
-                                }
-                            ]
-                        }
-                    ]
+                    name: 'bankAccountName',
+                    label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_NAME_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_NAME_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    disabled: true
                 },
-            ],
+                {
+                    name: 'bankAccountAccountNumber',
+                    label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountRoutingNumber',
+                    label: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_ROUTING_NUMBER_LABEL',
+                    rules: 'required_if:isNewBankAccount,true|string|digits:9',
+                    extra: {
+                        format: '###-###-###'
+                    },
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountDescription',
+                    label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.BANK_ACCOUNT_DESCRIPTION_LABEL',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderAddressLine1',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderAddressLine2',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER',
+                    rules: 'string',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderCity',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_CITY_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_CITY_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderState',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_STATE_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_STATE_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderZipCode',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ZIPCODE_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderEmail',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_EMAIL_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_EMAIL_PLACEHOLDER',
+                    rules: 'required_if:isNewBankAccount,true|email',
+                    disabled: true
+                },
+                {
+                    name: 'bankAccountAccountHolderNumber',
+                    label: 'CHARITY.CREATE.FIELDS.ACCOUNT_HOLDER_NUMBER_LABEL',
+                    rules: 'required_if:isNewBankAccount,true|string',
+                    extra: {
+                        format: '(###) ###-####'
+                    },
+                    disabled: true
+                },
+                {
+                    name: 'coreMediaVaultEntryId',
+                    rules: 'string',
+                    disabled: true
+                },
+                {
+                    name: 'isNewOnlineAccount',
+                    label: 'CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_PLACEHOLDER',
+                    rules: 'required|boolean',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
+                    name: 'username',
+                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.USERNAME_PLACEHOLDER',
+                    rules: 'required_if:isNewOnlineAccount,true|email|usernameUnique',
+                    autoComplete: 'off',
+                    disabled: true,
+                    options: {
+                        validateOnChange: false
+                    }
+                },
+                {
+                    name: 'password',
+                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_PLACEHOLDER',
+                    rules: ['required_if:isNewOnlineAccount,true', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
+                    type: 'password',
+                    autoComplete: 'off',
+                    disabled: true
+                },
+                {
+                    name: 'confirmPassword',
+                    label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_PLACEHOLDER',
+                    rules: 'string|same:password',
+                    type: 'password',
+                    disabled: true
+                }
+            ]
         };
     }
 }

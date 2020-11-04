@@ -12,17 +12,10 @@ class CharityFileStreamService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    uploadCharityBankAccount(file, charityId) {
+    uploadCharityBankAccount(file, charityId, bankAccountId) {
         let formData = new FormData();
-        formData.append('file', file, file.name);
-        const url = this.routeService.uploadCharityBankAccount(charityId, file.name);
-        return this.apiClient.post(url, formData);
-    }
-
-    uploadCharityUpdateFile(file) {
-        let formData = new FormData();
-        formData.append('file', file, file.name);
-        const url = this.routeService.uploadCharityUpdateFile(file.name);
+        formData.append('file', file.getRawFile(), file.name);
+        const url = this.routeService.uploadCharityBankAccount(charityId, bankAccountId, file.name);
         return this.apiClient.post(url, formData);
     }
 }

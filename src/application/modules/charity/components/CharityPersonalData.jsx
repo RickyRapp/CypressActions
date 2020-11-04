@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     CharityAddressListTable,
-    CharityBankAccountEdit
+    CharityBankAccount
 } from 'application/charity/components';
 
-function CharityPersonalDataTemplate() {
+function CharityPersonalDataTemplate(props) {
     return (
         <div className="card--form card--primary card--med">
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <CharityBankAccountEdit />
+                    <CharityBankAccount charityId={props.charityId} />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <CharityAddressListTable />
+                    <CharityAddressListTable charityId={props.charityId} />
                 </div>
             </div>
         </div>

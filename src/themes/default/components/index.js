@@ -49,6 +49,7 @@ export { default as QueryNullableSwitchTemplate } from './checkbox/QueryNullable
 export { default as EmptyMessageTemplate } from './EmptyMessageTemplate';
 export { default as GravatarTemplate } from './GravatarTemplate';
 export { default as BaasicDropzoneTemplate } from './upload/BaasicDropzoneTemplate';
+export { default as BaasicFieldDropzoneTemplate } from './upload/BaasicFieldDropzoneTemplate';
 
 export { default as BaasicMessageItemTemplate } from './messages/BaasicMessageItemTemplate';
 export { default as BaasicMessageListTemplate } from './messages/BaasicMessageListTemplate';

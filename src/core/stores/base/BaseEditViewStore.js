@@ -29,7 +29,7 @@ class BaseEditViewStore extends BaseViewStore {
 
     constructor(
         rootStore,
-        { name, id, actions, errorActions, form, FormClass, autoInit = true, localization = true, title, onAfterAction }
+        { name, id, actions, errorActions, form, FormClass, autoInit = true, localization = true, title, setNavigationTitle = true, onAfterAction }
     ) {
         super(rootStore);
 
@@ -67,11 +67,17 @@ class BaseEditViewStore extends BaseViewStore {
             }
         }
 
-        const { navigationTitle } = this.rootStore.routerStore.transitionData;
-        if (navigationTitle || (this.isEdit && title)) {
-            this.rootStore.viewStore.setNavigationOptions({
-                title: navigationTitle || title
-            });
+        if (setNavigationTitle) {
+            const { navigationTitle } = this.rootStore.routerStore.transitionData;
+            if (navigationTitle || (this.isEdit && title)) {
+                this.rootStore.viewStore.setNavigationOptions({
+                    title: navigationTitle || title,
+                });
+            } else if (!this.isEdit) {
+                this.rootStore.viewStore.setNavigationOptions({
+                    title: 'EDIT_LAYOUT.NEW',
+                });
+            }
         }
 
         if (autoInit) {
@@ -88,7 +94,7 @@ class BaseEditViewStore extends BaseViewStore {
         if (this.isEdit) {
             await this.getResource(this.id);
         } else {
-            this.form.clear()
+            this.form.clear();
         }
     }
 
@@ -150,6 +156,7 @@ class BaseEditViewStore extends BaseViewStore {
             }
         }
         catch (err) {
+            console.log(err)
             return this.onUpdateError(err);
         } finally {
             this.form.setFieldsDisabled(false);
@@ -182,6 +189,7 @@ class BaseEditViewStore extends BaseViewStore {
             }
         }
         catch (err) {
+            console.log(err)
             this.form.setFieldsDisabled(false);
             return this.onCreateError(err);
         } finally {

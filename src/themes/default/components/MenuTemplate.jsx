@@ -20,7 +20,7 @@ function MenuTemplate({ menuStore, t }) {
 
     return (
         <NotifyOutsideClick action={() => menuStore.closeMenu()}>
-            <div className={menuStore.isCollapsed ? 'layout__aside is-collapsed' : 'layout__aside'}>
+            <div className={menuStore.isCollapsed ? 'layout__aside is-collapsed' : 'layout__aside'} style={{ overflow: 'auto' }}>
                 <React.Fragment>{renderPrimary(menuStore.menu, menuStore, t)}</React.Fragment>
                 <div className="nav--secondary__wrapper"></div>
             </div>

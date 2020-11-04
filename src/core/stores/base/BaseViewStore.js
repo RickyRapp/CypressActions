@@ -40,8 +40,8 @@ class BaseViewStore {
     }
 
     destroy() {
-        _.each(this.observeDisposers, (disposer) => disposer());
-        _.each(this.eventDisposers, (disposer) => disposer());
+        _.each(this.observeDisposers, disposer => disposer());
+        _.each(this.eventDisposers, disposer => disposer());
     }
 }
 

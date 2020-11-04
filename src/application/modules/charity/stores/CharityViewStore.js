@@ -1,5 +1,4 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { CharityService } from 'application/charity/services';
 import { applicationContext } from 'core/utils';
 import { CharityListFilter } from 'application/charity/models';
 
@@ -11,32 +10,29 @@ class CharityViewStore extends BaseListViewStore {
             routes: {
                 edit: (id) => {
                     this.setChildNavigationTitle(i => i.id === id, item => item.name);
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.charity.edit',
-                        { id: id }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.charity.edit', { id: id });
                 },
                 create: () =>
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.charity.create'
-                    )
+                    this.rootStore.routerStore.goTo('master.app.main.charity.create')
             },
             queryConfig: {
                 filter: new CharityListFilter('dateCreated', 'desc')
             },
             actions: () => {
-                const service = new CharityService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [];
-                        params.fields = [];
-                        const response = await service.find(params);
-                        return response.data;
+                        params.fields = ['id', 'name', 'taxId', 'dateCreated', 'availableBalance'];
+                        return rootStore.application.charity.charityStore.findCharity(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -62,7 +58,7 @@ class CharityViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'balance',
+                    key: 'availableBalance',
                     title: 'CHARITY.LIST.COLUMNS.BALANCE_LABEL',
                     format: {
                         type: 'currency',
@@ -71,7 +67,7 @@ class CharityViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (user) => this.routes.edit(user.id),
+                onEdit: (item) => this.routes.edit(item.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));

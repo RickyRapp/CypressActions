@@ -57,6 +57,7 @@ export { default as BaasicButton } from './buttons/BaasicButton';
 export { default as EmptyMessage } from './EmptyMessage';
 export { default as Gravatar } from './Gravatar';
 export { default as BaasicDropzone } from './upload/BaasicDropzone';
+export { default as BaasicFieldDropzone } from './upload/BaasicFieldDropzone';
 
 export { default as BaasicMessageItem } from './messages/BaasicMessageItem'
 export { default as BaasicMessageList } from './messages/BaasicMessageList'

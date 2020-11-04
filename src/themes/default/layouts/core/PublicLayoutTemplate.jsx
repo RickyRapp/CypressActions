@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'themes/styles/public.css';
 
-function PublicLayoutTemplate({ render, rootStore, ...props }) {
+function PublicLayoutTemplate({ render, ...props }) {
     return (
         <main>
             {render(props)}
@@ -11,9 +11,7 @@ function PublicLayoutTemplate({ render, rootStore, ...props }) {
 }
 
 PublicLayoutTemplate.propTypes = {
-    render: PropTypes.func,
-    rootStore: PropTypes.object.isRequired
-
+    render: PropTypes.func
 }
 
 export default PublicLayoutTemplate;

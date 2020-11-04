@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { CharityGeneralDataTemplate } from 'themes/application/charity/components';
 import { CharityGeneralDataViewStore } from 'application/charity/stores';
 
-@setCurrentView((rootStore) => new CharityGeneralDataViewStore(rootStore), 'charityGeneralDataViewStore')
+@setCurrentView((rootStore, props) => new CharityGeneralDataViewStore(rootStore, props), 'charityGeneralDataViewStore')
 @observer
 class CharityGeneralData extends React.Component {
     render() {

@@ -48,12 +48,6 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
             }
         ],
         menu: [
-            // {
-            //     title: 'MENU.CONTRIBUTIONS',
-            //     order: 4,
-            //     route: 'master.app.main.contribution.create',
-            //     role: ['Users']
-            // },
             {
                 title: 'MENU.CONTRIBUTIONS',
                 order: 2,

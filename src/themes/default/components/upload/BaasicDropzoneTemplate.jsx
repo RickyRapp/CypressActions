@@ -19,7 +19,6 @@ const BaasicDropzoneTemplate = function (props) {
      function onChangeFn(e) {
           if (props.onChange) {
                props.onChange(e);
-               return;
           }
           store.onChange(e);
      }
@@ -28,6 +27,9 @@ const BaasicDropzoneTemplate = function (props) {
           props.modalStore.showConfirm(
                'Are you sure you want to delete image?',
                async () => {
+                    if (props.onDelete) {
+                         props.onDelete(e);
+                    }
                     store.onDeleteUploaded(e);
                }
           );

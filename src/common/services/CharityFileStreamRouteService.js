@@ -21,12 +21,8 @@ class CharityFileStreamRouteService extends BaseRouteService {
         return super.create(this.base, resource);
     }
 
-    uploadCharityBankAccount(charityId, filename) {
-        return super.create(this.base + '/{charityId}/bank-account/{filename}/{?embed}', { charityId: charityId, filename: filename });
-    }
-
-    uploadCharityUpdateFile(filename) {
-        return super.create(this.base + '/update-file/{filename}', { filename: filename });
+    uploadCharityBankAccount(charityId, bankAccountId, filename) {
+        return super.create(this.base + '/{charityId}/bank-account/{id}/{filename}/{?embed}', { charityId: charityId, id: bankAccountId, filename: filename });
     }
 
     update(resource) {

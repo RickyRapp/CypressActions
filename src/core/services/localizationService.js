@@ -20,7 +20,7 @@ i18n
         },
         preload: ['en-US'],
         backend: {
-            loadPath: '/app/locales/{{lng}}/{{ns}}.json',
+            loadPath: '/locales/{{lng}}/{{ns}}.json',
         },
         whitelist: ApplicationSettings.availableLanguages // eslint-disable-line
     });
