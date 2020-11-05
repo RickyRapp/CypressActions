@@ -26,14 +26,14 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
     return (
         <div>
             <ListContent>
-                <h3 className="u-mar--bottom--tny">
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
                     {t('EMAIL_ADDRESS.LIST.TITLE')}
                     {maxEmailAddressesEntered ?
-                        <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
+                        <span className="u-icon u-icon--add u-icon--xxmed u-mar--left--tny" />
                         :
                         <BaasicButton
                             className="btn btn--icon"
-                            icon='u-icon u-icon--unlocked u-icon--sml'
+                            icon='u-icon u-icon--add u-icon--xxmed'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openEmailAddressModal()}>

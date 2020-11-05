@@ -33,7 +33,6 @@ $table-width: 1024px;
         tbody {
             .k-master-row {
                 transition: all 250ms ease-out;
-
                 &.k-alt {
                     background-color: transparent;
                 }
@@ -103,6 +102,7 @@ $table-width: 1024px;
         }
     }
 }
+
 /*Grid details row action header bug*/
 .k-hierarchy-cell {
     background: transparent !important;
