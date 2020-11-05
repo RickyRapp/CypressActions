@@ -14,7 +14,7 @@ class DonorInvestmentEditForm extends Component {
         return (
             <section>
                 <form className='form' onSubmit={form.onSubmit}>
-                    <h3 className="u-mar--bottom--med">{t('DONOR_INVESTMENT.CREATE.TITLE')}</h3>
+                    <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR_INVESTMENT.CREATE.TITLE')}</h3>
                     <div className="row">
                         <div className="form__group col col-lrg-12">
                             <span>Pool: <strong>{investmentPool.name}</strong></span>

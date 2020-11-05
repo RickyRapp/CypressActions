@@ -24,7 +24,7 @@ function InvestmentPoolChangeTemplate({ investmentPoolChangeViewStore, t }) {
                         <div className="form__group col col-lrg-3">
                             <span>{element.investmentPool.name} </span>
                         </div>
-                        <div className="form__group col col-lrg-4">
+                        <div className="form__group col col-sml-12 col-lrg-4">
                             <NumericInputField field={_c.$('percentageChange')} />
                             <small>
                                 New pool value: <FormatterResolver

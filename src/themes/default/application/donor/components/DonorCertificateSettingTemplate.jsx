@@ -24,13 +24,13 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
         >
             <h3 className="u-mar--bottom--tny">{t('DONOR.CERTIFICATE_SETTING.TITLE')}</h3>
             <div className="row">
-                <div className="form__group col col-lrg-4">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                 </div>
-                <div className="form__group col col-lrg-4">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <NumericInputField field={form.$('acknowledgmentByAmount')} />
                 </div>
-                <div className="form__group col col-lrg-4">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeByAmountId')} store={grantAcknowledgmentTypeByAmountDropwdownStore} />
                 </div>
             </div>

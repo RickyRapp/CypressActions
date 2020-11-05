@@ -12,7 +12,7 @@ class AccountSettingsPartialForm extends Component {
         const { form, t, isPrivateAccount, show, onChangeShow } = this.props;
         return (
             <React.Fragment>
-                <h3 className="u-mar--bottom--med">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.TITLE')}
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.TITLE')}
                     <BaasicButton
                         className="btn btn--icon"
                         icon={`u-icon u-icon--${show ? 'arrow-down' : 'arrow-right'} u-icon--sml`}

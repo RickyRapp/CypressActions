@@ -27,15 +27,15 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
             >
                 <h3 className="u-mar--bottom--tny">{t('DONOR.THIRD_PARTY_WEBSITE_SETTING.TITLE')}</h3>
                 <div className="row">
-                    <div className="form__group col col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-4">
                         <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form__group col col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-4">
                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-4">
                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                     </div>
                     <div className="form__group col col-lrg-2">

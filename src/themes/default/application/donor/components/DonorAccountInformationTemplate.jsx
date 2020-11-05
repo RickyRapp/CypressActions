@@ -39,13 +39,13 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form__group col col-lrg-4">
+                                <div className="form__group col col-sml-12 col-lrg-4">
                                     <BasicInput field={form.$('firstName')} />
                                 </div>
-                                <div className="form__group col col-lrg-4">
+                                <div className="form__group col col-sml-12 col-lrg-4">
                                     <BasicInput field={form.$('lastName')} />
                                 </div>
-                                <div className="form__group col col-lrg-4">
+                                <div className="form__group col col-sml-12 col-lrg-4">
                                     <div>
                                         <label className="form__group__label">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.DATE_OF_BIRTH')}</label>
                                         {item &&
@@ -54,10 +54,10 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                             </span>}
                                     </div>
                                 </div>
-                                <div className="form__group col col-lrg-4">
+                                <div className="form__group col col-sml-12 col-lrg-4">
                                     <BasicInput field={form.$('fundName')} />
                                 </div>
-                                <div className="form__group col col-lrg-4">
+                                <div className="form__group col col-sml-12 col-lrg-4">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
                             </div>

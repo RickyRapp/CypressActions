@@ -18,7 +18,7 @@ class DonorEmailAddressEditForm extends Component {
         return (
             <section >
                 <EditFormContent form={formContributionSetting}>
-                    <h3 className="u-mar--bottom--med">{t('DONOR_CONTRIBUTION_SETTING.EDIT.TITLE')}</h3>
+                    <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR_CONTRIBUTION_SETTING.EDIT.TITLE')}</h3>
                     <div className="row">
                         <div className="form__group col col-lrg-6">
                             <NumericInputField field={formContributionSetting.$('amount')} />
