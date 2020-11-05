@@ -135,26 +135,34 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                     <div className="col col-sml-12 col-lrg-4">
                         <div className="card card--primary card--med u-mar--bottom--med">
                             <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
-                            <div className="row u-padd--left--sml">
-                                <div className="col col-sml-12 col-lrg-5 card--tertiary--light card--med type--center">
-                                    <div className="type--lrg type--wgt--bold type--color--note">
-                                        <FormatterResolver
-                                            item={{ amount: 1500 }}
-                                            field='amount'
-                                            format={{ type: 'currency' }}
-                                        />
+                            <div className="row">
+                                <div className="col col-sml-12 col-lrg-6">
+                                    <div className="card--tertiary--light card--med type--center">
+                                        <div className="type--lrg type--wgt--bold type--color--note">
+                                            <FormatterResolver
+                                                item={{ amount: 1500 }}
+                                                field='amount'
+                                                format={{ type: 'currency' }}
+                                            />
+                                        </div>
+                                        <div className="type--base type--wgt--medium">
+                                            {t('CONTRIBUTION.DETAILS.TOTAL_MONEY_GIVEN')}
+                                        </div>
                                     </div>
-                                    <div className="type--base type--wgt--medium">{t('CONTRIBUTION.DETAILS.TOTAL_MONEY_GIVEN')}</div>
                                 </div>
-                                <div className="col col-sml-12 col-lrg-5 card--secondary--light card--med type--center u-mar--left--med">
-                                    <div className="type--lrg type--wgt--bold type--color--note">
-                                        <FormatterResolver
-                                            item={{ amount: 2500 }}
-                                            field='amount'
-                                            format={{ type: 'currency' }}
-                                        />
+                                <div className="col col-sml-12 col-lrg-6">
+                                    <div className="card--secondary--light card--med type--center">
+                                        <div className="type--lrg type--wgt--bold type--color--note">
+                                            <FormatterResolver
+                                                item={{ amount: 2500 }}
+                                                field='amount'
+                                                format={{ type: 'currency' }}
+                                                />
+                                        </div>
+                                        <div className="type--base type--wgt--medium">
+                                            {t('CONTRIBUTION.DETAILS.TOTAL_MONEY_UPCOMING')}
+                                        </div>
                                     </div>
-                                    <div className="type--base type--wgt--medium">{t('CONTRIBUTION.DETAILS.TOTAL_MONEY_UPCOMING')}</div>
                                 </div>
                             </div>
                         </div>
