@@ -12,58 +12,58 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
     } = donorCommunicationPreferenceViewStore;
 
     return (
-        <div className="card--form card--primary card--med">
+        <div className="card--primary card--med">
             <EditFormContent form={form}>
                 <div className="row">
-                    <div className="col col-sml-12 col-lrg-12">
-                        <div className="u-mar--bottom--sml">
-                            <h3>{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
-                            <div className="row">
-                                <div className="form__group col col-lrg-3">
-                                    <NumericInputField field={form.$('cardTransactionAmountExceeding')} />
-                                </div>
-                                <div className="form__group col col-lrg-3">
-                                    <NumericInputField field={form.$('cardNonPresentTransactionAmountExceeding')} />
-                                </div>
+                    <div className="col col-sml-12 col-lrg-6">
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('cardTransactionAmountExceeding')} />
                             </div>
-                            <h3>{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
-                            <div className="row">
-                                <div className="form__group col col-lrg-3">
-                                    <NumericInputField field={form.$('checkAmountExceeding')} />
-                                </div>
-                                <div className="form__group col col-lrg-3">
-                                    <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
-                                </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('cardNonPresentTransactionAmountExceeding')} />
                             </div>
-                            <h3>{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_THIRD_PARY_WEBSITE')}</h3>
-                            <div className="row">
-                                <div className="form__group col col-lrg-3">
-                                    <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />
-                                </div>
+                        </div>
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
                             </div>
-                            <h3>{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
-                            <div className="row">
-                                <div className="form__group col col-lrg-3">
-                                    <BasicFieldCheckbox field={form.$('isNewGrantRequestEnabled')} />
-                                </div>
-                                <div className="form__group col col-lrg-3">
-                                    <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
-                                </div>
-                                <div className="form__group col col-lrg-3">
-                                    <BasicFieldCheckbox field={form.$('isDonorStatementAvailableEnabled')} />
-                                </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('checkAmountExceeding')} />
                             </div>
-                            <h3>{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
-                            <div className="row">
-                                <div className="form__group col col-lrg-3">
-                                    <NumericInputField field={form.$('investmentPoolDropsBelow')} />
-                                </div>
+                        </div>
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_THIRD_PARY_WEBSITE')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col col-sml-12 col-lrg-6">
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg12">
+                                <BasicFieldCheckbox field={form.$('isNewGrantRequestEnabled')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('isDonorStatementAvailableEnabled')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
+                            </div>
+                        </div>
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('investmentPoolDropsBelow')} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="u-mar--bottom--med">
+                <div className="u-mar--bottom--sml">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </EditFormContent>

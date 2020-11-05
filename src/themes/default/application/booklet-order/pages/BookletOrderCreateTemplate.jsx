@@ -199,10 +199,12 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
 
                         <div className="row u-mar--top--lrg">
                             <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml">
-                                <BasicFieldCheckbox
-                                    field={form.$('isCustomizedBook')}
-                                    onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
+                                <div className="u-mar--bottom--med">
+                                    <BasicFieldCheckbox
+                                        field={form.$('isCustomizedBook')}
+                                        onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
                                     />
+                                </div>
                                 <BasicInput field={form.$('customizedName')} />
                             </div>
                         </div>

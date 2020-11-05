@@ -22,7 +22,7 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
             emptyRenderer={<ApplicationEmptyState />}
             loading={loaderStore.loading}
         >
-            <h3 className="u-mar--bottom--tny">{t('DONOR.CERTIFICATE_SETTING.TITLE')}</h3>
+            <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.CERTIFICATE_SETTING.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />

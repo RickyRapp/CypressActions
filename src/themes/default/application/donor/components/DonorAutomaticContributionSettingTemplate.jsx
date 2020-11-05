@@ -23,7 +23,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
             emptyRenderer={<ApplicationEmptyState />}
             loading={loaderStore.loading}
         >
-            <h3 className="u-mar--bottom--tny">{t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
+            <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
