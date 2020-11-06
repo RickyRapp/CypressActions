@@ -49,7 +49,7 @@ const SessionExpireModalTemplate = function (props) {
                         placeholder={t(passwordField.placeholder)}
                         onChange={handleOnChange}
                     />
-                    {renderIf(error)(<p className='type--tiny type--color--error'>{error}</p>)}
+                    {renderIf(error)(<p className='type--tiny type--color--warning'>{error}</p>)}
                 </div>
 
                 <BaasicButton className='btn btn--med btn--tertiary spc--top--med' type='submit' //disabled={form.submitting}

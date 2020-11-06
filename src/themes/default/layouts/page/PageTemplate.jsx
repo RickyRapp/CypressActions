@@ -52,7 +52,7 @@ const MainContent = defaultTemplate(({ loading, header, footer, content, isError
                         </div>
                     }
 
-                    <div className="content__main">
+                    <div className="content__main u-padd--left--med u-padd--right--med">
                         {content.children}
                     </div>
 

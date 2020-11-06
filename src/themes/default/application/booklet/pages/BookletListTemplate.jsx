@@ -20,7 +20,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                     <div className="card--tertiary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
                             <div className="row">
-                                <div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
+                                <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                     <BaasicInput
                                         id='codes'
                                         className='input input--med'
@@ -29,7 +29,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                                         placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
                                         />
                                 </div>
-                                <div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
+                                <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                     <BaasicDropdown
                                         store={denominationTypeDropdownStore}
                                         placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
@@ -39,7 +39,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                         </TableFilter>
                     </div>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

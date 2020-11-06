@@ -38,7 +38,7 @@ const FundTransferCreateTemplate = function ({ fundTransferCreateViewStore, t })
                                     <React.Fragment>
                                         <span>{senderDonor.donorName}: ${senderDonor.presentBalance}</span>
                                         {setErrorInsuficientFunds &&
-                                            <div className="type--med type--color--error u-mar--top--tny">{t('FUND_TRANSFER.CREATE.INSUFICIENT_FUNDS_MESSAGE')}</div>}
+                                            <div className="type--med type--color--warning u-mar--top--tny">{t('FUND_TRANSFER.CREATE.INSUFICIENT_FUNDS_MESSAGE')}</div>}
                                     </React.Fragment>}
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">

@@ -35,7 +35,7 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                         required={true}>
                     </NumericInput>
                     {renderIf(maxAmountError)(<div
-                        className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{t('SESSION.EDIT.MAX_BLANK_CERTIFICATE_AMOUNT_ERROR')}</div>)}
+                        className="type--tny type--color--warning u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{t('SESSION.EDIT.MAX_BLANK_CERTIFICATE_AMOUNT_ERROR')}</div>)}
                 </div>
                 {sessionCertificate.certificate.booklet.denominationType.abrv === 'blank' &&
                     <div className="form__group col col-lrg-12">
