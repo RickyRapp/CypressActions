@@ -32,17 +32,19 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
             <Content loading={contentLoading} >
                 <div className="u-padd--right--med u-padd--left--med">
                     <div className="card--primary card--med u-mar--bottom--med">
-                        <div className="u-mar--bottom--med">
-                            <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
-                            <span className="u-push">
+                        <div className="row u-mar--bottom--xxlrg">
+                            <div className="col col-sml-12 col-med-6 col-lrg-8 col-xlrg-10">
+                                <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
+                            </div>
+                            <div className="col col-sml-8 col-med-6 col-lrg-4 col-xlrg-2">            
                                 <div className="card--sml card--tertiary--light">
-                                    <h2 className="type--med type--wgt--medium type--color--note"> <span className="type--color--text">Balance:</span> {donor && <FormatterResolver
+                                    <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span> {donor && <FormatterResolver
                                         item={{ availableBalance: donor.availableBalance }}
                                         field='availableBalance'
                                         format={{ type: 'currency' }}
                                         />}</h2>
                                 </div>
-                            </span>
+                            </div>
                         </div>
 
                         {bookletTypes.map(bt => {
@@ -60,7 +62,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                                         <div className="u-separator--primary">
                                                             <div className="row u-mar--bottom--sml">
                                                                 <div className="col col-sml-12 col-med-12 col-lrg-3 ">
-                                                                    <div className="type--base type--wgt--regular">
+                                                                    <div className="type--med type--wgt--regular">
                                                                         <FormatterResolver
                                                                             item={{ value: dt.value }}
                                                                             field='value'
@@ -72,19 +74,19 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                                                 </div>
                                                                 <div className="col col-sml-12 col-med-12 col-lrg-6">
                                                                     <BaasicButton
-                                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                                        className="btn btn--base btn--ghost btn--ghost--primary"
                                                                         icon={'u-icon u-icon--minus u-icon--med'}
                                                                         label='REMOVE'
                                                                         onlyIcon={true}
                                                                         onClick={() => onRemoveBookletClick(bt.id, dt.id)}>
                                                                     </BaasicButton>
                                                                     <BaasicButton
-                                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med type--color--text"
+                                                                        className="btn btn--base btn--ghost btn--ghost--primary type--color--text"
                                                                         label={order && order.bookletCount.toString() || '0'}
                                                                         onClick={() => { }}>
                                                                     </BaasicButton>
                                                                     <BaasicButton
-                                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                                        className="btn btn--base btn--ghost btn--ghost--primary"
                                                                         icon={'u-icon u-icon--plus u-icon--med'}
                                                                         label='ADD'
                                                                         onlyIcon={true}
@@ -92,11 +94,13 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                                                     </BaasicButton>
                                                                 </div>
                                                                 <div className="col col-sml-12 col-med-12 col-lrg-3">
-                                                                    <FormatterResolver
-                                                                        item={{ total: bookletAmount }}
-                                                                        field='total'
-                                                                        format={{ type: 'currency' }}
-                                                                    />
+                                                                    <div className="type--med type--wgt--regular">
+                                                                        <FormatterResolver
+                                                                            item={{ total: bookletAmount }}
+                                                                            field='total'
+                                                                            format={{ type: 'currency' }}
+                                                                        />
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -133,14 +137,14 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                                     }
                                                 <div className="col col-sml-12 col-med-12 col-lrg-6">
                                                     <BaasicButton
-                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                        className="btn btn--base btn--ghost btn--ghost--primary"
                                                         icon={'u-icon u-icon--minus u-icon--med'}
                                                         label='REMOVE'
                                                         onlyIcon={true}
                                                         onClick={() => onRemoveBookletClick(bt.id, null)}>
                                                     </BaasicButton>
                                                     <BaasicButton
-                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med type--color--text"
+                                                        className="btn btn--base btn--ghost btn--ghost--primary type--color--text"
                                                         label={
                                                             orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
                                                                 orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'
@@ -148,7 +152,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                                         onClick={() => { }}>
                                                     </BaasicButton>
                                                     <BaasicButton
-                                                        className="btn btn--base btn--ghost btn--ghost--primary btn--med"
+                                                        className="btn btn--base btn--ghost btn--ghost--primary"
                                                         icon={'u-icon u-icon--plus u-icon--med'}
                                                         label='ADD'
                                                         onlyIcon={true}
@@ -174,7 +178,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                 <div className="col col-sml-8">
                                     <div className="type--sml type--wgt--medium">
                                         Current Balance: 
-                                        <span className="type--base type--color--note u-mar--left--sml">
+                                        <span className="type--med type--color--note u-mar--left--sml">
                                             {donor && <FormatterResolver
                                                 item={{ availableBalance: donor.availableBalance }}
                                                 field='availableBalance'
@@ -185,7 +189,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                 </div>
                                 <div className="col col-sml-4">
                                     <div className="type--med type--wgt--medium u-push">Total: 
-                                        <span className="type--lrg type--wgt--bold type--color--note u-mar--left--sml">
+                                        <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml">
                                             <FormatterResolver
                                             item={{ total: totalAmount }}
                                             field='total'
@@ -252,7 +256,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                         </div>
                     </div>
                     <BaasicButton
-                        className="btn btn--base btn--tertiary btn--med u-mar--left--med"
+                        className="btn btn--base btn--secondary--light u-mar--left--med"
                         label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
                         onClick={() => onChangeShippingAddressClick(!form.$('addressLine1').disabled)}>
                     </BaasicButton>

@@ -85,9 +85,18 @@
     &--secondary {
         background: $scandal;
         color: $color-note;
-
+        
         &:hover {
             background: color($scandal blackness(+5%));
+        }
+        
+        &--light {
+            background: $color-background-clear-day;
+            color: $color-note;
+            
+            &:hover {
+                background: color($color-background-clear-day blackness(+5%));
+            }
         }
     }
 
