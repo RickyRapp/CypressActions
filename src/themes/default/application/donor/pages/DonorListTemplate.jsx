@@ -26,52 +26,58 @@ const DonorListTemplate = function ({ donorViewStore }) {
     return (
         <ApplicationListLayout store={donorViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['firstName'] || ""}
-                                onChange={(event) => queryUtility.filter['firstName'] = event.target.value}
-                                placeholder='DONOR.LIST.FILTER.FIRST_NAME_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['lastName'] || ""}
-                                onChange={(event) => queryUtility.filter['lastName'] = event.target.value}
-                                placeholder='DONOR.LIST.FILTER.LAST_NAME_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--top--sml u-mar--bottom--sml">
-                            {accountTypes &&
-                                <NullableSwitch
-                                    value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'regular' }).id}
-                                    onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'regular' : 'private' }).id}
-                                    yesLabel='DONOR.LIST.FILTER.REGULAR_PLACEHOLDER'
-                                    noLabel='DONOR.LIST.FILTER.PRIVATE_PLACEHOLDER'
-                                />}
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['emails'] || ""}
-                                onChange={(event) => queryUtility.filter['emails'] = event.target.value}
-                                placeholder='DONOR.LIST.FILTER.EMAILS_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['accountNumber'] || ""}
-                                onChange={(event) => queryUtility.filter['accountNumber'] = event.target.value}
-                                placeholder='DONOR.LIST.FILTER.ACCOUNT_NUMBER_PLACEHOLDER'
-                            />
+                        <div className="row">
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['firstName'] || ""}
+                                    onChange={(event) => queryUtility.filter['firstName'] = event.target.value}
+                                    placeholder='DONOR.LIST.FILTER.FIRST_NAME_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['lastName'] || ""}
+                                    onChange={(event) => queryUtility.filter['lastName'] = event.target.value}
+                                    placeholder='DONOR.LIST.FILTER.LAST_NAME_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 u-mar--top--sml u-mar--bottom--med">
+                                {accountTypes &&
+                                    <NullableSwitch
+                                        value={!isSome(queryUtility.filter['accountTypeId']) ? null : queryUtility.filter['accountTypeId'] === _.find(accountTypes, { abrv: 'regular' }).id}
+                                        onChange={(newValue) => queryUtility.filter['accountTypeId'] = !isSome(newValue) ? null : _.find(accountTypes, { abrv: newValue ? 'regular' : 'private' }).id}
+                                        yesLabel='DONOR.LIST.FILTER.REGULAR_PLACEHOLDER'
+                                        noLabel='DONOR.LIST.FILTER.PRIVATE_PLACEHOLDER'
+                                    />}
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="row">
+                                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                        <BaasicInput
+                                            className='input input--med'
+                                            value={queryUtility.filter['emails'] || ""}
+                                            onChange={(event) => queryUtility.filter['emails'] = event.target.value}
+                                            placeholder='DONOR.LIST.FILTER.EMAILS_PLACEHOLDER'
+                                        />
+                                    </div>
+                                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                        <BaasicInput
+                                            className='input input--med'
+                                            value={queryUtility.filter['accountNumber'] || ""}
+                                            onChange={(event) => queryUtility.filter['accountNumber'] = event.target.value}
+                                            placeholder='DONOR.LIST.FILTER.ACCOUNT_NUMBER_PLACEHOLDER'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -98,7 +104,7 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton

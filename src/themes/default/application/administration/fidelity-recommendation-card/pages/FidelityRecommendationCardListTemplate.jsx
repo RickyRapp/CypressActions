@@ -53,7 +53,7 @@ function renderActions({ item, actions }) {
     if (!isSome(onToggleLock)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onToggleLock) ? (
                     <BaasicButton

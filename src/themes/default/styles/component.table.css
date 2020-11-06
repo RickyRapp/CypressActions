@@ -51,4 +51,12 @@
 		display: flex;
 		text-align: right;
 	}
+
+	&__body {
+
+		&--data {
+			display: flex;
+			align-items: center;
+		}
+	}
 }

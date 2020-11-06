@@ -55,7 +55,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onPreview) && previewRender ? (
                     <BaasicButton

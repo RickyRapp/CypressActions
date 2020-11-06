@@ -103,12 +103,12 @@ function renderActions({ item, actions }) {
     if (!isSome(onSelect)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onSelect) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml' //TODO replace icon with mark primary icon
+                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
                         label='CHARITY.LIST.BUTTON.SELECT'
                         onlyIcon={true}
                         onClick={() => onSelect(item)}>

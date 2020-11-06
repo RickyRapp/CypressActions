@@ -5,8 +5,15 @@
 /* Header sort icon color */
 .k-grid-header {
 	.k-icon {
-		color: #ffffff;
+		color: $color-note;
 		order: 1;
+	}
+
+	.k-header {
+		&:last-child {		
+			width: calc($unit * 25);
+			float: right;			
+		}
 	}
 
 	.k-link {
@@ -150,6 +157,11 @@
 				border-bottom: 1px solid $grey-1;
 				border-left: 0;
 				background-color: #ffffff;
+
+				&:last-child {		
+					width: calc($unit * 25);
+					float: right;			
+				}
 
 				&.actions {
 					text-align: right;

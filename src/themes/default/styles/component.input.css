@@ -102,7 +102,7 @@
     }
     
     &--preview {
-        border: 1px solid color(white blackness(+20%));
+        /* border: 1px solid color(white blackness(+20%)); */
         cursor: default;
     }
 

@@ -91,12 +91,12 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onComplete) && completeRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='GRANT_REQUEST.LIST.BUTTON.COMPLETE'
                         onlyIcon={true}
                         onClick={() => onComplete(item)}>

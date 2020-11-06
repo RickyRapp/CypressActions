@@ -147,7 +147,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
@@ -162,7 +162,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         authorization='theDonorsFundAdministrationSection.update'
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item)}>

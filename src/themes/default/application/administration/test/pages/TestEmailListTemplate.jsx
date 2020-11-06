@@ -43,12 +43,12 @@ function renderActions({ item, actions }) {
     if (!isSome(onSend)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onSend) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='TEST.TEST_EMAIL.LIST.BUTTON.SEND'
                         onlyIcon={true}
                         onClick={() => onSend(item)}>

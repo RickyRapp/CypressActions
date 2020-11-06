@@ -8,3 +8,7 @@ $table-width: 1024px;
 .k-widget {
     border-style: none;
 }
+
+.k-pager-wrap {
+    background-color: $white;
+}

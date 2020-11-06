@@ -17,8 +17,8 @@ const DonorNoteListTemplate = function ({ donorNoteViewStore, t }) {
     } = donorNoteViewStore;
 
     return (
-        <div className="card--form card--primary card--med">
-            <h3 className="u-mar--bottom--tny">
+        <div className="card--primary card--med">
+            <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
                 {t('DONOR_NOTE.LIST.TITLE')}
             </h3>
             <form className='form'>
@@ -26,7 +26,7 @@ const DonorNoteListTemplate = function ({ donorNoteViewStore, t }) {
                     <div className="form__group col col-lrg-6">
                         <BasicTextArea field={form.$('note')} rows={3} />
                     </div>
-                    <div className="form__group col col-lrg-6 u-mar--top--med">
+                    <div className="form__group col col-sml-12 u-mar--bottom--med">
                         <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                         {form.$('id').value &&
                             <BaasicButton
@@ -65,7 +65,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton

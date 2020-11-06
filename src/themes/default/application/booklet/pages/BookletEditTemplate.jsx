@@ -38,7 +38,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
     return (
         <ApplicationEditLayout store={bookletEditViewStore}>
             <Content loading={contentLoading} >
-                <div className="card card--form card--primary card--med u-mar--bottom--med">
+                <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row">
                         {booklet &&
                             <div className="form__group col col-lrg-3">

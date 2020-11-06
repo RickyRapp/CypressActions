@@ -67,7 +67,7 @@ function defaultRenderColumnsTemplate({ t, columns }) {
                 : props => <LocalizedCell onClick={onClick} icon={icon} {...props} {...otherProps} format={format} />;
             return showColumn ? (
                 <GridColumn
-                    className={onClick ? `c-pointer table--clickable ${className || ''}` : ''}
+                    className={onClick ? `cursor--pointer table--clickable ${className || ''}` : ''}
                     key={key || idx}
                     field={key}
                     title={t(title)}
