@@ -1,0 +1,10 @@
+/*------------------------------------*\
+    # plugins.kendo-table
+\*------------------------------------*/
+
+$table-width: 1024px;
+
+/*table style*/
+.k-widget {
+    border-style: none;
+}

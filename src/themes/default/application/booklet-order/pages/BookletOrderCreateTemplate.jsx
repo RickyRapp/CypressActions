@@ -58,7 +58,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                                 const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
 
                                                 return (
-                                                    <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml card--med">
+                                                    <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-5  card--med">
                                                         <div className="u-separator--primary">
                                                             <div className="row u-mar--bottom--sml">
                                                                 <div className="col col-sml-12 col-med-12 col-lrg-3 ">
@@ -109,7 +109,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                                             })}
                                         </React.Fragment>
                                         :
-                                        <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml card--med">
+                                        <div className="col col-sml-12 col-med-12 col-lrg-5 card--med">
                                             <div className="row">
                                                 {denominationTypes.length > 0 &&
                                                     <div className="col col-sml-12 col-med-12 col-lrg-3">
