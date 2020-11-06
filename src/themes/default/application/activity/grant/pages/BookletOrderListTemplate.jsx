@@ -63,7 +63,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER'
                                 />
                         </div>
-                        <div className="col col-sml-12 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
                             <DateRangeQueryPicker
                                 queryUtility={queryUtility}
                                 store={dateCreatedDateRangeQueryStore}

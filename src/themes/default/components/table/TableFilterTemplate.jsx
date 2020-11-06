@@ -128,13 +128,13 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
                         <div className="row">
                             <div className="col col-sml-12">
                                 <BaasicButton
-                                    className="btn btn--sml btn--primary u-mar--right--tny u-padd--left--xxxlrg u-padd--right--xxxlrg"
+                                    className="btn btn--sml btn--primary u-mar--right--tny u-padd--left--xxlrg u-padd--right--xxlrg u-mar--top--tny"
                                     label="GRID.FILTER.SEARCH_BUTTON"
                                     onClick={() => queryUtility.fetch()}
                                     disabled={fetchDisabled}
                                     />
                                 <BaasicButton
-                                    className="btn btn--sml btn--ghost u-padd--left--xxxlrg u-padd--right--xxxlrg"
+                                    className="btn btn--sml btn--ghost u-padd--left--xxlrg u-padd--right--xxlrg u-mar--top--tny"
                                     label="GRID.FILTER.CLEAR_BUTTON"
                                     onClick={() => queryUtility.resetFilter()}
                                     disabled={fetchDisabled}

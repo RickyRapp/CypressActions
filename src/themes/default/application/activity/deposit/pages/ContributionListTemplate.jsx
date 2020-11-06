@@ -63,12 +63,16 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                             />
                         </div>
                         <div className="col col-sml-12 u-mar--bottom--sml">
-                            <DateRangeQueryPicker
-                                queryUtility={queryUtility}
-                                store={dateCreatedDateRangeQueryStore}
-                                fromPropertyName='dateCreatedFrom'
-                                toPropertyName='dateCreatedTo'
-                            />
+                            <div className="row">
+                                <div className="col col-sml-12 col-med-6 col-lrg-4">
+                                    <DateRangeQueryPicker
+                                        queryUtility={queryUtility}
+                                        store={dateCreatedDateRangeQueryStore}
+                                        fromPropertyName='dateCreatedFrom'
+                                        toPropertyName='dateCreatedTo'
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </TableFilter>
