@@ -48,8 +48,8 @@ function NavigationTemplate({ title, navigationOptions, breadcrumbs, routerStore
             </div> */}
             <div className="content__header">
                 <div className="row">
-                    <div className='col col-sml-8'>
-                        <h2>
+                    <div className='col col-sml-8 u-padd--left--lrg u-mar--bottom--med'>
+                        <h2 className="type--lrg type--wgt--medium">
                             {t(title)}
 
                             <NavigationOptions options={navigationOptions} />

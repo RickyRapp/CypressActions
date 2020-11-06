@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import { NotifyOutsideClick } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
+import logo_collapsed from 'themes/styles/postcss-svg/old/logo-collapsed.svg';
 
 const SecondaryMenu = inject(i => ({
     items: i.rootStore.menuStore.secondaryMenu,
@@ -32,11 +33,11 @@ function renderPrimary(menu, menuStore, translate) {
     return (
         <div>
             <div className="nav--primary__logo">
-                <img
+                <img 
                     className='header__logo'
-                    src={logo}
+                    src={menuStore.isCollapsed ? logo_collapsed : logo} 
                     alt='logo'
-                />
+                /> 
             </div>
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 <div className="nav--primary__item" onClick={() => menuStore.toggleCollapse()}>

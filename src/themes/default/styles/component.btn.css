@@ -74,21 +74,41 @@
      * Button styles
     */
     &--primary {
-        background: $white;
-        color: $color-note;
+        background: $color-text;
+        color: $white;
 
         &:hover {
-            background: color($white blackness(+5%));
+            background: $zest;
         }
     }
+
     &--secondary {
-        background: $aqua-blue;
+        background: $scandal;
         color: $color-note;
-
+        
         &:hover {
-            background: color($aqua-blue blackness(+5%));
+            background: color($scandal blackness(+5%));
+        }
+        
+        &--light {
+            background: $color-background-clear-day;
+            color: $color-note;
+            
+            &:hover {
+                background: color($color-background-clear-day blackness(+5%));
+            }
         }
     }
+
+    &--tertiary {
+        background: $color-background-seashellt;
+        color: $zest;
+
+        &:hover {
+            background: color($color-background-seashellt blackness(+5%));
+        }
+    }
+
     &--warning {
         background: $color-warning;
         color: white;
@@ -97,6 +117,7 @@
             background: color($color-warning blackness(+10%));
         }
     }
+
     &--neutral {
         background: $grey-6;
         color: white;
@@ -105,10 +126,15 @@
             background: color($grey-6 blackness(+10%));
         }
     }
+
     &--ghost {
         background-color: transparent;
         color: $color-primary;
         border: 1px solid $color-primary;
+        
+        &--primary {
+            border: 1px solid $scandal;
+        }
 
         &:hover {
             color: color($color-primary blackness(+10%));

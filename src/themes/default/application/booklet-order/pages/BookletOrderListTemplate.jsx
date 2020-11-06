@@ -28,7 +28,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 
     return (
         <Content emptyRenderer={renderEmpty(routes)} >
-            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+            <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                     <AuthDropdown
                         searchDonorDropdownStore={searchDonorDropdownStore}
@@ -36,7 +36,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicInput
-                            className='input input--sml'
+                            className='input input--med'
                             value={queryUtility.filter['bookletCodes'] || ""}
                             onChange={(event) => queryUtility.filter['bookletCodes'] = event.target.value}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
@@ -44,7 +44,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicInput
-                            className='input input--sml'
+                            className='input input--med'
                             value={queryUtility.filter['confirmationNumber'] || ""}
                             onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
@@ -52,7 +52,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <BaasicInput
-                            className='input input--sml'
+                            className='input input--med'
                             value={queryUtility.filter['trackingNumber'] || ""}
                             onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'

@@ -57,7 +57,7 @@ function Step3Template({
                         </div>
 
                         <div className="row">
-                            <div className="form__group col col-lrg-4">
+                            <div className="form__group col col-sml-12 col-lrg-4">
                                 <BaasicInput
                                     id='barcode'
                                     className="input input--med input--text"

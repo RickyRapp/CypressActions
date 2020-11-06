@@ -47,8 +47,10 @@ const BaasicFieldDropdownTemplate = function ({
         <div>
             {showLabel && (
                 <div className="form__group__label">
-                    {t(field.label)}
-                    {requiredMark}
+                    <div className="type--base type--wgt--medium">
+                        {t(field.label)}
+                        {requiredMark}
+                    </div>
                 </div>
             )}
             <BaasicDropdown

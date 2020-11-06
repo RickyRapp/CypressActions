@@ -64,15 +64,15 @@ const RemoveSessionCertificateTemplate = function ({ removeSessionCertificateVie
                             <div className="form__group col col-lrg-12">
                                 <h5>{t('SESSION.EDIT.LIST.REMOVE_BASIC_SESSION_CERTIFICATE')}</h5>
                             </div>
-                            <div className="form__group col col-lrg-4">
+                            <div className="form__group col col-sml-12 col-lrg-4">
                                 <BasicFieldCheckbox field={form.$('makeRefund')} />
                             </div>
                             {form.$('makeRefund').value === true &&
                                 <React.Fragment>
-                                    <div className="form__group col col-lrg-4">
+                                    <div className="form__group col col-sml-12 col-lrg-4">
                                         <BasicFieldCheckbox field={form.$('makeRefundFee')} />
                                     </div>
-                                    <div className="form__group col col-lrg-4">
+                                    <div className="form__group col col-sml-12 col-lrg-4">
                                         {t('SESSION.EDIT.LIST.TOTAL_REFUND')}
                                         {form.$('makeRefundFee').value === true ?
                                             <FormatterResolver

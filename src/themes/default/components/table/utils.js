@@ -197,7 +197,7 @@ function defaultRenderEmptyStateTemplate(emptyStateComponent, emptyState = {}) {
         image = NoResults,
         title = 'GRID.EMPTY_STATE.TITLE',
         description = 'GRID.EMPTY_STATE.DESCRIPTION',
-        className = 'u-mar--top--xxlrg',
+        className = 'u-mar--top--med',
     } = emptyState;
     return <EmptyState image={image} title={title} description={description} className={className} />;
 }

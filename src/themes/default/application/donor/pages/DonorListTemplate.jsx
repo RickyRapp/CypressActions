@@ -30,7 +30,7 @@ const DonorListTemplate = function ({ donorViewStore }) {
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['firstName'] || ""}
                                 onChange={(event) => queryUtility.filter['firstName'] = event.target.value}
                                 placeholder='DONOR.LIST.FILTER.FIRST_NAME_PLACEHOLDER'
@@ -38,7 +38,7 @@ const DonorListTemplate = function ({ donorViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['lastName'] || ""}
                                 onChange={(event) => queryUtility.filter['lastName'] = event.target.value}
                                 placeholder='DONOR.LIST.FILTER.LAST_NAME_PLACEHOLDER'
@@ -55,7 +55,7 @@ const DonorListTemplate = function ({ donorViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['emails'] || ""}
                                 onChange={(event) => queryUtility.filter['emails'] = event.target.value}
                                 placeholder='DONOR.LIST.FILTER.EMAILS_PLACEHOLDER'
@@ -63,7 +63,7 @@ const DonorListTemplate = function ({ donorViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['accountNumber'] || ""}
                                 onChange={(event) => queryUtility.filter['accountNumber'] = event.target.value}
                                 placeholder='DONOR.LIST.FILTER.ACCOUNT_NUMBER_PLACEHOLDER'

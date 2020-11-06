@@ -346,13 +346,13 @@
         }
 
         &--lock {
-            background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-primary);
+            background-image: svg-load('../styles/postcss-svg/lock.svg', stroke: $color-note);
 
             &:hover,
             &:active,
             &:focus {
                 outline: 0;
-                background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-primary);
+                background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-note);
             }
             
             &--warning {
@@ -361,13 +361,13 @@
         }
 
         &--unlock {
-            background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-primary);
+            background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-note);
 
             &:hover,
             &:active,
             &:focus {
                 outline: 0;
-                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-primary);
+                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-note);
             }
             
             &--success {
@@ -541,6 +541,18 @@
 
         &--check-circle {
             background-image: svg-load('../styles/postcss-svg/check-circle.svg', fill: $color-success);
+        }
+        
+        &--plus {
+            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $scandal);
+        }
+        
+        &--add {
+            background-image: svg-load('../styles/postcss-svg/add.svg', stroke: $color-note);
+        }
+
+        &--minus {
+            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $scandal);
         }
     }
 }

@@ -37,7 +37,7 @@ const SessionCertificateListTemplate = function ({ sessionCertificateViewStore }
 
                     <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                         <NumberFormatInput
-                            className='input input--sml'
+                            className='input input--med'
                             value={queryUtility.filter['bookletCertificateCode']}
                             onChange={(event) => queryUtility.filter['bookletCertificateCode'] = event.formattedValue}
                             format='#####-##'

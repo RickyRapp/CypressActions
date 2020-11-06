@@ -29,47 +29,47 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--form card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['name'] || ""}
                                 onChange={(event) => queryUtility.filter['name'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['dba'] || ""}
                                 onChange={(event) => queryUtility.filter['dba'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.DBA_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['emails'] || ""}
                                 onChange={(event) => queryUtility.filter['emails'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicDropdown
                                 store={charityTypeDropdownStore}
                                 placeholder='CHARITY.LIST.FILTER.CHARITY_TYPE_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['address'] || ""}
                                 onChange={(event) => queryUtility.filter['address'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <NumberFormatInput
-                                className='input input--sml'
+                                className='input input--med'
                                 value={queryUtility.filter['taxId']}
                                 onChange={(event) => queryUtility.filter['taxId'] = event.value}
                                 format='##-#######'

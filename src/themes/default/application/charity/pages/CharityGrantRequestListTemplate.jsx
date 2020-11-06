@@ -34,11 +34,11 @@ const CharityGrantRequestListTemplate = function ({ charityGrantRequestViewStore
                     onClick={routes.create} />
             </PageNavigation>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--secondary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                     </TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

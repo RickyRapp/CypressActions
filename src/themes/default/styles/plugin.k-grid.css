@@ -68,8 +68,8 @@
 	}
 
 	th {
-		color: #ffffff;
-		background-color: $color-primary;
+		color: $color-text;
+		background-color: $color-background;
 		border-width: 0;
 
 		&.k-hierarchy-cell {
@@ -145,6 +145,8 @@
 
 			td {
 				position: relative;
+				height: calc($unit * 5.5);
+				
 				border-bottom: 1px solid $grey-1;
 				border-left: 0;
 				background-color: #ffffff;

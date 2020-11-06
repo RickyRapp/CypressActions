@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const TabHeader = ({ onClick, label, isActive, t }) => {
     return (
         <a
-            className={'tabs--primary__item' + (isActive ? ' active' : '')}
+            className={'tabs--primary__item u-mar--right--med' + (isActive ? ' active' : '')}
             onClick={e => {
                 onClick(e);
                 e.preventDefault();

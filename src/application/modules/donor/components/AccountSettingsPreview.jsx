@@ -14,7 +14,7 @@ class AccountSettingsPreview extends Component {
 
         return (
             <React.Fragment>
-                <h3 className="u-mar--bottom--med">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.TITLE')}</h3>
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                         <label className="form__group__label">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.LINE_OF_CREDIT_LABEL')}</label>

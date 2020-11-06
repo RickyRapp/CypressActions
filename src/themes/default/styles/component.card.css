@@ -10,20 +10,30 @@
     }
 
     &--secondary {
-        background-color: $color-background-orange-light;
         border-radius: $radius-base;
-        box-shadow: $shadow-card; 
+        background-color: $color-background;
+
+        &--light {
+            background-color: $color-background-seashellt; 
+            border: 1px solid $almond;
+        }
     }
     
     &--tertiary {
-       background-color: $aqua-blue;
+       background-color: $scandal;
        border-radius: $radius-base;
        box-shadow: $shadow-card; 
+
+       &--light {
+        background-color: $color-background-clear-day;
+        border: 1px solid $scandal;
+       }
     }
 
     &--form {
+        background-color: $color-background-seashellt;
         border-radius: $radius-base;
-        background-color: $color-background;
+        box-shadow: $shadow-card; 
     }
 
     &--tny {
@@ -40,5 +50,9 @@
 
     &--lrg {
         padding: calc($unit * 6);
+    }
+    
+    &--xlrg {
+        padding: calc($unit * 7.5);
     }
 }

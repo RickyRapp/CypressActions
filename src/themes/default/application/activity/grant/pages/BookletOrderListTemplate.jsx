@@ -24,58 +24,60 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 
     return (
         <Content >
-            <div className="card--form card--secondary card--med u-mar--bottom--sml">
+            <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicInput
-                            className='input input--sml'
-                            value={queryUtility.filter['bookletCodes'] || ""}
-                            onChange={(event) => queryUtility.filter['bookletCodes'] = event.target.value}
-                            placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
-                        />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicInput
-                            className='input input--sml'
-                            value={queryUtility.filter['confirmationNumber'] || ""}
-                            onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
-                            placeholder='BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                        />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicInput
-                            className='input input--sml'
-                            value={queryUtility.filter['trackingNumber'] || ""}
-                            onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
-                            placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'
-                        />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown
-                            store={deliveryMethodTypeDropdownStore}
-                            placeholder='BOOKLET_ORDER.LIST.FILTER.DELIVERY_TYPE_PLACEHOLDER'
-                        />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown
-                            store={bookletOrderStatusDropdownStore}
-                            placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER'
-                        />
-                    </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                        <DateRangeQueryPicker
-                            queryUtility={queryUtility}
-                            store={dateCreatedDateRangeQueryStore}
-                        />
+                    <div className="row">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--med'
+                                value={queryUtility.filter['bookletCodes'] || ""}
+                                onChange={(event) => queryUtility.filter['bookletCodes'] = event.target.value}
+                                placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
+                                />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--med'
+                                value={queryUtility.filter['confirmationNumber'] || ""}
+                                onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                placeholder='BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--med'
+                                value={queryUtility.filter['trackingNumber'] || ""}
+                                onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
+                                placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'
+                                />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown
+                                store={deliveryMethodTypeDropdownStore}
+                                placeholder='BOOKLET_ORDER.LIST.FILTER.DELIVERY_TYPE_PLACEHOLDER'
+                                />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown
+                                store={bookletOrderStatusDropdownStore}
+                                placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER'
+                                />
+                        </div>
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <DateRangeQueryPicker
+                                queryUtility={queryUtility}
+                                store={dateCreatedDateRangeQueryStore}
+                                />
+                        </div>
                     </div>
                 </TableFilter>
             </div>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}
                     actionsComponent={renderActions}
-                />
+                    />
             </div>
         </Content>
     )

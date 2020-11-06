@@ -18,7 +18,7 @@ function DonorTabTemplate({ donorTabViewStore, rootStore }) {
 
     return (
         <Page loading={loaderStore.loading} >
-            <div className='u-mar--bottom--med'>
+            <div className='u-mar--bottom--med u-padd--right--med u-padd--left--med'>
                 <TabLayout store={donorTabViewStore}>
                     <div label={'DONOR.TAB.ACCOUNT_INFORMATION'}>
                         <DonorAccountInformation donorId={donorId} />

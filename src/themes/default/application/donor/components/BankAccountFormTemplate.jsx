@@ -21,7 +21,7 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
     return (
         <section >
             <form className='form' onSubmit={form.onSubmit}>
-                <h3 className="u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-sml-12 col-lrg-6">
                         <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} />
@@ -59,7 +59,7 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                     <div className="form__group col col-sml-6 col-lrg-3">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('address')}
-                            className='btn btn--tny btn--secondary'
+                            className='btn btn--tny btn--tertiary u-mar--top--med--alt'
                             type='button'
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS"
                         />
@@ -67,24 +67,24 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                 </div>
 
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-5 col-lrg-4">
                         <BasicInput field={form.$('email')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-2">
+                    <div className="form__group col col-sml-5 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('emailAddress')}
-                            className='btn btn--tny btn--secondary'
+                            className='btn btn--tny btn--tertiary u-mar--top--med--alt'
                             type='button'
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
                         />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-5 col-lrg-4">
                         <NumberFormatInputField field={form.$('number')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-2">
+                    <div className="form__group col col-sml-5 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('phoneNumber')}
-                            className='btn btn--tny btn--secondary'
+                            className='btn btn--tny btn--tertiary u-mar--top--med--alt'
                             type='button'
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER"
                         />
@@ -92,15 +92,13 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                 </div>
 
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-12">
+                    <div className="form__group col col-sml-12">
                         <BasicFieldCheckbox field={form.$('isThirdPartyAccount')} />
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-12">
-                        <BaasicDropzone store={imageUploadStore} disabled={!isNullOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
-                    </div>
+                <div className="row u-mar--bottom--med">
+                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
                 </div>
 
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />

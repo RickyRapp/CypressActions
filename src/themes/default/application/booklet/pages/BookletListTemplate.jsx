@@ -17,22 +17,24 @@ const BookletListTemplate = function ({ bookletViewStore }) {
         <ApplicationListLayout store={bookletViewStore} authorization={authorization}>
             <Content>
                 <div className="u-mar--bottom--sml">
-                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <div className="card--tertiary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id='codes'
-                                    className='input input--sml'
-                                    value={queryUtility.filter.codes || ""}
-                                    onChange={(event) => queryUtility.filter.codes = event.target.value}
-                                    placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={denominationTypeDropdownStore}
-                                    placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
-                                />
+                            <div className="row">
+                                <div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
+                                    <BaasicInput
+                                        id='codes'
+                                        className='input input--med'
+                                        value={queryUtility.filter.codes || ""}
+                                        onChange={(event) => queryUtility.filter.codes = event.target.value}
+                                        placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
+                                        />
+                                </div>
+                                <div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
+                                    <BaasicDropdown
+                                        store={denominationTypeDropdownStore}
+                                        placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
+                                        />
+                                </div>
                             </div>
                         </TableFilter>
                     </div>
