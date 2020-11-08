@@ -213,7 +213,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                     </div>
                 </div>
 
-                <div className="card card--primary card--med u-mar--bottom--med u-mar--right--med u-mar--left--med">
+                <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row">
                         <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                             <span className="type--med type--wgt--medium type--color--note">
@@ -234,7 +234,7 @@ const BookletOrderCreateTemplate = function ({ bookletOrderCreateViewStore, t })
                     </div>
                 </div>
 
-                <div className="card card--primary card--med u-mar--bottom--med u-mar--right--med u-mar--left--med">
+                <div className="card--primary card--med u-mar--bottom--med">
                     <h4 className="type--med type--wgt--medium type--color--note">Shipping Address</h4>
                     <div className="row card--med">
                         <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--sml">

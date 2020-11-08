@@ -13,7 +13,7 @@ function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
 
     return (
         <Content emptyRenderer={renderEmpty()} >
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}

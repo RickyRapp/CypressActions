@@ -20,7 +20,7 @@ const UserListTemplate = function ({ userViewStore }) {
                 <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} />
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

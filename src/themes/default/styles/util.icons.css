@@ -428,7 +428,7 @@
         }
 
         &--delete {
-            background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-note);
+            background-image: svg-load('../styles/postcss-svg/delete.svg', fill: $color-note);
 
             &:hover,
             &:active,

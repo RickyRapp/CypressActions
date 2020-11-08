@@ -9,7 +9,7 @@ import { TransactionTab } from 'application/activity/transaction/pages';
 function ActivityTabTemplate({ activityTabViewStore }) {
 
     return (
-        <div className='container u-padd--left--lrg u-padd--right--lrg'>
+        <div className='container'>
             <TabLayout store={activityTabViewStore}>
                 <div label={'ACTIVITY.TRANSACTIONS'}>
                     <TransactionTab />

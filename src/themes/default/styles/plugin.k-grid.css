@@ -10,6 +10,7 @@
 	}
 
 	.k-header {
+
 		&:last-child {		
 			width: calc($unit * 25);
 			float: right;			
@@ -160,6 +161,7 @@
 
 				&:last-child {		
 					width: calc($unit * 25);
+					height: calc($unit * 7);
 					float: right;			
 				}
 
@@ -187,6 +189,9 @@
 
 		.k-hierarchy-cell {
 			.k-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				color: $color-primary;
 			}
 		}

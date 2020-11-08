@@ -72,8 +72,8 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
     return (
         <ApplicationListLayout store={donationReviewViewStore} authorization={authorization}>
             <Content>
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-3">
+                <div className="row u-mar--bottom--med">
+                    <div className="col col-sml-12 u-mar--bottom--sml">
                         <BasicCheckbox
                             id='1'
                             className='input input--med'

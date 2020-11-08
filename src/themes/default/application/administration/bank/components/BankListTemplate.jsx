@@ -26,7 +26,7 @@ const BankListTemplate = function ({ bankViewStore }) {
                     className="btn btn--base btn--primary"
                     label={'LIST_LAYOUT.CREATE_BUTTON'}
                     onClick={routes.create} />
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med u-mar--top--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

@@ -26,7 +26,7 @@ const ThirdPartyWebsiteCreateTemplate = function ({ t, thirdPartyWebsiteCreateVi
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-                <h3 className="u-mar--bottom--med">{t(id ? 'THIRD_PARTY_WEBSITE.EDIT.TITLE' : 'THIRD_PARTY_WEBSITE.CREATE.TITLE')}</h3>
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(id ? 'THIRD_PARTY_WEBSITE.EDIT.TITLE' : 'THIRD_PARTY_WEBSITE.CREATE.TITLE')}</h3>
                 <div className="row">
                     <div className="u-mar--bottom--sml col col-lrg-12">
                         <BasicInput field={form.$('name')} />

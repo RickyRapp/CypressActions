@@ -23,7 +23,7 @@ const FundTransferCreateTemplate = function ({ fundTransferCreateViewStore, t })
         <React.Fragment>
             <ApplicationEditLayout store={fundTransferCreateViewStore}>
                 <Content loading={contentLoading} >
-                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                    <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row">
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('senderDonorId')} store={senderDonorDropdownStore} />
@@ -36,14 +36,14 @@ const FundTransferCreateTemplate = function ({ fundTransferCreateViewStore, t })
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 {senderDonor &&
                                     <React.Fragment>
-                                        <span>{senderDonor.donorName}: ${senderDonor.presentBalance}</span>
+                                        <span className="type--base type--wgt--medium">{senderDonor.donorName}: <span className="type--color--success">${senderDonor.presentBalance}</span></span>
                                         {setErrorInsuficientFunds &&
                                             <div className="type--med type--color--warning u-mar--top--tny">{t('FUND_TRANSFER.CREATE.INSUFICIENT_FUNDS_MESSAGE')}</div>}
                                     </React.Fragment>}
                             </div>
                             <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 {recipientDonor &&
-                                    <span>{recipientDonor.donorName}: ${recipientDonor.presentBalance}</span>}
+                                    <span className="type--base type--wgt--medium">{recipientDonor.donorName}: <span className="type--color--success">${recipientDonor.presentBalance}</span></span>}
                             </div>
                         </div>
                         <div className="row">
