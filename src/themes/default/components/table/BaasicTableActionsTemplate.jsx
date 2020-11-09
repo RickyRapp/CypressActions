@@ -57,7 +57,7 @@ class CommandCell extends GridCell {
                         <button key={idx} type="button" className="btn btn--icon" onClick={() => item.action(dataItem)}>
                             <i
                                 className={`${item.icon} align--v--middle ${
-                                    idx !== 0 ? ' spc--left--sml ' : ''
+                                    idx !== 0 ? ' u-mar--left--med ' : ''
                                     }`}
                                 title={item.title}
 

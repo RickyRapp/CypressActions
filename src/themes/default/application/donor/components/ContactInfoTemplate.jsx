@@ -8,24 +8,24 @@ class ContactInfoTemplate extends Component {
         const { form, t } = this.props;
         return (
             <React.Fragment>
-                <h3 className="u-mar--bottom--med">{t('DONOR.CREATE.CONTACT_INFO_FIELDS.TITLE')}</h3>
+                <h3 className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('DONOR.CREATE.CONTACT_INFO_FIELDS.TITLE')}</h3>
                 <div className="row">
-                    <div className="form__group col col-lrg-3">
+                    <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('addressLine1')} />
                     </div>
-                    <div className="form__group col col-lrg-3">
+                    <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('addressLine2')} />
                     </div>
-                    <div className="form__group col col-lrg-2">
+                    <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('city')} />
                     </div>
-                    <div className="form__group col col-lrg-2">
+                    <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('state')} />
                     </div>
-                    <div className="form__group col col-lrg-2">
+                    <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('zipCode')} />
                     </div>
-                    <div className="form__group col col-lrg-2">
+                    <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('addressDescription')} />
                     </div>
                 </div>
@@ -36,8 +36,6 @@ class ContactInfoTemplate extends Component {
                     <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('emailAddressDescription')} />
                     </div>
-                </div>
-                <div className="row">
                     <div className="form__group col col-lrg-3">
                         <NumberFormatInputField field={form.$('number')} />
                     </div>

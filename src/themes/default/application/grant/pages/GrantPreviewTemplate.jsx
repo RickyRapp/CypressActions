@@ -21,7 +21,7 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
     function DonorNameRow() {
         return <div className="row">
             <div className="col col-sml-12 col-lrg-6">
-                <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
+                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
                 <span className="input--preview">
                     {item && <React.Fragment>{item.donor.donorName}</React.Fragment>}
                 </span>
@@ -39,14 +39,14 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
-                        <div className="card card--form card--primary card--med u-mar--bottom--med">
+                        <div className="card--primary card--med u-mar--bottom--med">
                             <GrantProgressTimeline item={item} />
                         </div>}
-                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                    <div className="card--primary card--med u-mar--bottom--med">
                         <AuthDonorNameRow authorization='theDonorsFundAdministrationSection.update' />
                         <div className="row">
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
+                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
                                         item={{ charity: item.charity }}
@@ -55,8 +55,8 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}</div>
+                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
                                         item={{ amount: item.amount }}
@@ -65,20 +65,20 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')}</div>
+                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.confirmationNumber}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.PURPOSE_TYPE_LABEL')}</div>
+                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.PURPOSE_TYPE_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.grantPurposeType.name}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</div>
+                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>
                                         {item.grantAcknowledgmentType.abrv === 'name-fund-name-and-address' &&
@@ -91,8 +91,8 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                 </span>
                             </div>
                             {item && item.thirdPartyWebsite &&
-                                <div className="col col-sml-12 col-lrg-4">
-                                    <div className="form__group__label">{t('GRANT.PREVIEW.FIELDS.THIRD_PARTY_WEBSITE_LABEL')}</div>
+                                <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.THIRD_PARTY_WEBSITE_LABEL')}</div>
                                     <span className="input--preview">
                                         {item && <React.Fragment>{item.thirdPartyWebsite.name} - {item.thirdPartyWebsite.url}</React.Fragment>}
                                     </span>

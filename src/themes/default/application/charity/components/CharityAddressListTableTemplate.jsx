@@ -72,13 +72,13 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit, onMarkPrimary)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onMarkPrimary) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml' //TODO replace icon with mark primary icon
+                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
                         label='ADDRESS.LIST.BUTTON.MARK_PRIMARY'
                         onlyIcon={true}
                         onClick={() => onMarkPrimary(item)}>

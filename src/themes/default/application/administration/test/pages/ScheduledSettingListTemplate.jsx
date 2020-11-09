@@ -13,7 +13,7 @@ function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
 
     return (
         <Content emptyRenderer={renderEmpty()} >
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}
@@ -39,12 +39,12 @@ function renderActions({ item, actions }) {
     if (!isSome(onRun)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onRun) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN'
                         onlyIcon={true}
                         onClick={() => onRun(item.abrv)}>

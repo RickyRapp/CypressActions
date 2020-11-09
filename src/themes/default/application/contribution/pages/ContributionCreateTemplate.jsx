@@ -41,7 +41,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
         <Page loading={loaderStore.loading}>
             {step === 1 && paymentTypes && paymentTypes.map(c => {
                 return (
-                    <div key={c.id} className="row u-padd--right--med u-padd--left--med u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                    <div key={c.id} className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
                         <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--med">
                             <div className="card card--primary card--xlrg">
                                 <div className="row">
@@ -89,7 +89,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
             })}
 
             {step === 2 && !isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                <div className="row u-padd--left--med u-padd--right--med">
+                <div className="row">
                     <div className="col col-sml-12 col-lrg-3">
                         {paymentTypes.map(c => {
                             return (

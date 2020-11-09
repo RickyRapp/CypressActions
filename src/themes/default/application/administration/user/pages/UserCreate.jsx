@@ -16,33 +16,37 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
         <ApplicationEditLayout store={userCreateViewStore}>
             <Content loading={contentLoading} >
                 <React.Fragment>
-                    <div className="row card card--form card--primary card--med">
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('firstName')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('lastName')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('userName')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('userEmail')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('confirmUserEmail')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('password')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BasicInput field={form.$('confirmPassword')} />
-                        </div>
-                        <div className="form__group col col-lrg-6">
-                            <BaasicFieldDropdown field={form.$('roles')} store={roleMultiselectStore} />
+                    <div className="card--primary card--med">
+                        <div className="row">
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('firstName')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('lastName')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('userName')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('userEmail')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('confirmUserEmail')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('password')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BasicInput field={form.$('confirmPassword')} />
+                            </div>
+                            <div className="form__group col col-lrg-6">
+                                <BaasicFieldDropdown field={form.$('roles')} store={roleMultiselectStore} />
+                            </div>
                         </div>
                     </div>
-                    <FormDebug form={form}></FormDebug>
+                    <div className="card--primary card--med u-mar--top--med u-mar--bottom--med">
+                        <FormDebug form={form}></FormDebug>
+                    </div>
                 </React.Fragment>
             </Content>
         </ApplicationEditLayout>

@@ -50,7 +50,7 @@ const TransactionEditTemplate = function ({ transactionEditViewStore }) {
                             onChange={(event) => onChangeVoid(event.target.checked)}
                             label='Void'
                         />
-                        {renderIf(form.$('isCashed').localizedError)(<div className="type--tny type--color--error u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Select either Cashed or Void.</div>)}
+                        {renderIf(form.$('isCashed').localizedError)(<div className="type--tny type--color--warning u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Select either Cashed or Void.</div>)}
                     </div>
                     {form.$('isCashed').value === false &&
                         <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">

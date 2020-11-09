@@ -45,7 +45,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                     <div key={c.id} className="row">
                         <div className="col col-sml-12 col-lrg-3">
                             <div className="card card--primary card--med u-mar--bottom--med">
-                                <h5 className="u-mar--bottom--med">{c.name}</h5>
+                                <h5 className="type--med type--wgt--medium u-mar--bottom--med">{c.name}</h5>
                             </div>
                         </div>
                         {step === 1 &&
@@ -89,25 +89,36 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card card--primary card--med u-mar--bottom--med">
-                                            <h5 className="u-mar--bottom--med">{c.name}</h5>
+                                        <div className="card card--primary card--med u-mar--bottom--med cursor--pointer">
+                                            <div className="row u-display--flex u-display--flex--align--center">
+                                                <div className="col col-sml-2">
+                                                    <i className="u-icon u-icon--med u-icon--download u-push"></i>
+                                                </div>
+                                                <div className="col col-sml-10">
+                                                    <h5 className="type--med type--wgt--medium">{c.name}</h5>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>)
                         })
                         }
                     </div>
+                    <div className="col col-sml-9">
+                        {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                            <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">
+                                {t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}
+                            </h5>}
+                    </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <EditFormContent form={form}>
-                            {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                                <h5>{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                             <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <h5>{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
+                                        <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <strong>{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</strong>
+                                        <p className="type--sml type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</p>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
@@ -158,10 +169,10 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                     </div>
                     <div className="col col-sml-12 col-lrg-3">
                         <div className="card card--primary card--med u-mar--bottom--med">
-                            <h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
+                            <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                             <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                             <BaasicButton
-                                className="btn btn--base btn--secondary u-mar--top--med"
+                                className="btn btn--base btn--tertiary type--uppercase u-mar--top--med"
                                 label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                 onClick={routes.allContributions}>
                             </BaasicButton>

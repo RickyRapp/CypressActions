@@ -32,37 +32,39 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
     return (
         <ApplicationListLayout store={grantViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                        <div className="row">
+                            {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
+                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                    <BaasicDropdown store={searchDonorDropdownStore} />
+                                </div>}
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchDonorDropdownStore} />
-                            </div>}
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                id='confirmationNumber'
-                                className='input input--med'
-                                value={queryUtility.filter.confirmationNumber || ""}
-                                onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
-                                placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicDropdown
-                                store={donationStatusDropdownStore}
-                                placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
-                            />
+                                <BaasicInput
+                                    id='confirmationNumber'
+                                    className='input input--med'
+                                    value={queryUtility.filter.confirmationNumber || ""}
+                                    onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
+                                    placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={donationStatusDropdownStore}
+                                    placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
+                                />
+                            </div>
                         </div>
                     </TableFilter>
                 </div>
-                <div className=" card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--primary card--med u-mar--bottom--sml">
                     <div className="row">
                         <div className="col col-sml-12 col-med-12 col-lrg-12">
                             <Export config={exportConfig} />
                         </div>
                     </div>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -105,7 +107,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
@@ -119,7 +121,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onRedirect) && redirectRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml' //TODO: change with redirect icon
+                        icon='u-icon u-icon--approve u-icon--sml' //TODO: change with redirect icon
                         label='GRANT.LIST.BUTTON.REDIRECT'
                         onlyIcon={true}
                         onClick={() => onRedirect(item)}>

@@ -22,11 +22,11 @@ const FidelityRecommendationCardListTemplate = function ({ fidelityRecommendatio
     return (
         <ApplicationListLayout store={fidelityRecommendationCardViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >
                     </TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -53,7 +53,7 @@ function renderActions({ item, actions }) {
     if (!isSome(onToggleLock)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onToggleLock) ? (
                     <BaasicButton

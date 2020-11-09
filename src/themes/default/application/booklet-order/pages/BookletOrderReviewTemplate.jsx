@@ -19,7 +19,7 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
             {bookletOrder &&
                 <AuthPageHeader donorId={bookletOrder.donorId} type={3} authorization='theDonorsFundAdministrationSection.read' />}
             <Content loading={contentLoading} >
-                <div className="card card--form card--primary card--med u-mar--bottom--med">
+                <div className="card--primary card--med u-mar--bottom--med">
                     <h3 className="u-mar--bottom--med">General Data</h3>
                     {form.$('bookletOrderItems').map((item) => {
                         return (

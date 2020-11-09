@@ -72,8 +72,8 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
     return (
         <ApplicationListLayout store={donationReviewViewStore} authorization={authorization}>
             <Content>
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-3">
+                <div className="row u-mar--bottom--med">
+                    <div className="col col-sml-12 u-mar--bottom--sml">
                         <BasicCheckbox
                             id='1'
                             className='input input--med'
@@ -100,7 +100,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                             </div>
                         </React.Fragment>}
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <div className="table--dragrow--expandable-row">
                         <BaasicTableWithRowDetails
                             tableStore={tableStore}
@@ -151,7 +151,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
@@ -165,7 +165,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onReview) && reviewRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='DONATION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item)}>

@@ -16,7 +16,7 @@ const DonorInvestmentPoolHistoryTemplate = function ({ donorInvestmentPoolHistor
     return (
         <ListContent>
             <Content >
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

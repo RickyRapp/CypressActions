@@ -24,43 +24,45 @@ const CharityListTemplate = function ({ charityViewStore }) {
     return (
         <ApplicationListLayout store={charityViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['name'] || ""}
-                                onChange={(event) => queryUtility.filter['name'] = event.target.value}
-                                placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['emails'] || ""}
-                                onChange={(event) => queryUtility.filter['emails'] = event.target.value}
-                                placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['address'] || ""}
-                                onChange={(event) => queryUtility.filter['address'] = event.target.value}
-                                placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <NumberFormatInput
-                                className='input input--med'
-                                value={queryUtility.filter['taxId']}
-                                onChange={(event) => queryUtility.filter['taxId'] = event.value}
-                                format='##-#######'
-                            />
+                        <div className="row">
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['name'] || ""}
+                                    onChange={(event) => queryUtility.filter['name'] = event.target.value}
+                                    placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['emails'] || ""}
+                                    onChange={(event) => queryUtility.filter['emails'] = event.target.value}
+                                    placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['address'] || ""}
+                                    onChange={(event) => queryUtility.filter['address'] = event.target.value}
+                                    placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                                <NumberFormatInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['taxId']}
+                                    onChange={(event) => queryUtility.filter['taxId'] = event.value}
+                                    format='##-#######'
+                                />
+                            </div>
                         </div>
                     </TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -87,7 +89,7 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton

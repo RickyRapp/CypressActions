@@ -31,25 +31,27 @@ const RoutingNumberListTemplate = function ({ routingNumberViewStore }) {
                     className="btn btn--base btn--primary"
                     label={'LIST_LAYOUT.CREATE_BUTTON'}
                     onClick={routes.create} />
-                <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                <div className="card--tertiary card--med u-mar--top--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicDropdown
-                                store={bankDropdownStore}
-                                placeholder='ROUTING_NUMBER.LIST.FILTER.BANK_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter['number'] || ""}
-                                onChange={(event) => queryUtility.filter['number'] = event.target.value}
-                                placeholder='ROUTING_NUMBER.LIST.FILTER.NUMBER_PLACEHOLDER'
-                            />
+                        <div className="row">
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicDropdown
+                                    store={bankDropdownStore}
+                                    placeholder='ROUTING_NUMBER.LIST.FILTER.BANK_PLACEHOLDER'
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <BaasicInput
+                                    className='input input--med'
+                                    value={queryUtility.filter['number'] || ""}
+                                    onChange={(event) => queryUtility.filter['number'] = event.target.value}
+                                    placeholder='ROUTING_NUMBER.LIST.FILTER.NUMBER_PLACEHOLDER'
+                                />
+                            </div>
                         </div>
                     </TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

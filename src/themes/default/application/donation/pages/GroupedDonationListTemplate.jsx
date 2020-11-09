@@ -61,12 +61,12 @@ function renderActions({ item, actions }) {
     if (!isSome(onReview)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onReview) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='DONATION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item)}>

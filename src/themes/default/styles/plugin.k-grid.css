@@ -5,8 +5,16 @@
 /* Header sort icon color */
 .k-grid-header {
 	.k-icon {
-		color: #ffffff;
+		color: $color-note;
 		order: 1;
+	}
+
+	.k-header {
+
+		&:last-child {		
+			width: calc($unit * 25);
+			float: right;			
+		}
 	}
 
 	.k-link {
@@ -151,6 +159,12 @@
 				border-left: 0;
 				background-color: #ffffff;
 
+				&:last-child {		
+					width: calc($unit * 25);
+					height: calc($unit * 7);
+					float: right;			
+				}
+
 				&.actions {
 					text-align: right;
 				}
@@ -175,6 +189,9 @@
 
 		.k-hierarchy-cell {
 			.k-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				color: $color-primary;
 			}
 		}

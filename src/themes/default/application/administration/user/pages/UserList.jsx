@@ -20,7 +20,7 @@ const UserListTemplate = function ({ userViewStore }) {
                 <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} />
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -47,7 +47,7 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit) && !isSome(onLock) && !isSome(onUnlock) && !isSome(onApprove) && !isSome(onDisapprove)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton
@@ -72,7 +72,7 @@ function renderActions({ item, actions, authorization }) {
                         <BaasicButton
                             authorization={authorization ? authorization.update : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--approved u-icon--sml'
+                            icon='u-icon u-icon--approve u-icon--sml'
                             label='Approve'
                             onlyIcon={true}
                             onClick={() => onApprove(item)}>

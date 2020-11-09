@@ -23,102 +23,102 @@ function ApplicationDefaultSettingEditTemplate({ applicationDefaultSettingEditVi
 
     return (
         <EditFormLayout store={applicationDefaultSettingEditViewStore} emptyRenderer={<ApplicationEmptyState />} loading={loaderStore.loading}>
-            <div className="row">
-                <div className="col col-sml-12 col-lrg-8">
-                    <div className="card card--form card--primary card--med">
-                        <div className="row">
-                            <div className="form__group col col-lrg-12 u-mar--bottom--sml">
+            <div className="row u-mar--bottom--med">
+                <div className="col col-sml-12">
+                    <div className="card--primary card--med">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <BasicInput field={form.$('name')} />
                             </div>
-                            <div className="form__group col col-lrg-12 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <BasicTextArea rows={5} field={form.$('description')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularCertificateDeductionPercentage')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateCertificateDeductionPercentage')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularCertificateFeePercentage')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateCertificateFeePercentage')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularGrantFeePercentage')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateGrantFeePercentage')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularLineOfCreditAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateLineOfCreditAmount')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularMinimumAdditionalContributionAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateMinimumAdditionalContributionAmount')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularMinimumInitialContributionAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateMinimumInitialContributionAmount')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularMinimumGrantAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateMinimumGrantAmount')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('regularNotificationLimitRemainderAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('privateNotificationLimitRemainderAmount')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('blankBookletMaxAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('extraBookletPercentage')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('expressMailFeeAmount')} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <NumericInputField field={form.$('grantMinimumRegularAmount')} />
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-lrg-6">
                                 <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                             </div>
-                            <div className="form__group col col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-lrg-6">
                                 <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                             </div>
                         </div>

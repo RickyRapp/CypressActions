@@ -22,7 +22,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
         <ApplicationEditLayout store={bookletCreateViewStore}>
             <Content loading={contentLoading} >
                 {form.has('items') &&
-                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                    <div className="card--primary card--med u-mar--bottom--med">
                         <BaasicButton
                             className='btn btn--base btn--primary u-mar--bottom--sml'
                             type='button'
@@ -55,17 +55,21 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                             const isMixedBooklet = bookletTypes.find(c => c.abrv === 'mixed').id === item.$('bookletTypeId').value;
 
                             return (
-                                <div key={item.key} className="card card--form card--primary card--med u-mar--bottom--med">
-                                    <div className="row">
-                                        <div className="col col-sml-6 col-lrg-6">
-                                            <BaasicFieldDropdown store={bookletTypeDropdownStore} field={item.$('bookletTypeId')} />
+                                <div key={item.key} className="card--secondary card--med u-mar--bottom--med">
+                                    <div className="row u-mar--bottom--med">
+                                        <div className="col col-sml-6">
+                                            <div className="row">
+                                                <div className="col col-sml-12 u-mar--bottom--sml">
+                                                    <BaasicFieldDropdown store={bookletTypeDropdownStore} field={item.$('bookletTypeId')} />
+                                                </div>
+                                                <div className="col col-sml-12 u-mar--bottom--sml">
+                                                    <NumericInputField field={item.$('bookletCount')} />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="col col-sml-4 col-lrg-4">
-                                            <NumericInputField field={item.$('bookletCount')} />
-                                        </div>
-                                        <div className="col col-sml-2 col-lrg-2">
+                                        <div className="col col-sml-12 col-lrg-12 u-mar--top--sml">
                                             <BaasicButton
-                                                className='btn btn--base btn--secondary'
+                                                className='btn btn--base btn--ghost'
                                                 type='button'
                                                 label='Delete booklet'
                                                 onClick={item.onDel}
@@ -73,10 +77,10 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                         </div>
                                     </div>
                                     {item.$('bookletTypeId').value && item.has('bookletContents') &&
-                                        <div className="card--med">
+                                        <div className="">
                                             {isMixedBooklet &&
                                                 <BaasicButton
-                                                    className='btn btn--base btn--primary'
+                                                    className='btn btn--base btn--primary u-mar--bottom--sml'
                                                     type='button'
                                                     label='Add denomination'
                                                     onClick={() => {
@@ -98,21 +102,29 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                                     <div key={content.key} >
                                                         <div className="row">
                                                             <div className="col col-sml-6 col-lrg-6">
-                                                                <BaasicFieldDropdown store={denominationTypeDropdownStore} field={content.$('denominationTypeId')} />
-                                                            </div>
-                                                            <div className="col col-sml-3 col-lrg-3">
-                                                                <NumericInputField field={content.$('certificateCount')} />
-                                                                {isMixedBooklet && arr.length - 1 === i &&
-                                                                    <span>Total certificates per booklet: {_.sumBy(item.$('bookletContents').values(), (o) => { return o.certificateCount })}</span>}
+                                                                <div className="row">
+                                                                    <div className="col col-sml-12 u-mar--bottom--sml">
+                                                                        <BaasicFieldDropdown store={denominationTypeDropdownStore} field={content.$('denominationTypeId')} />
+                                                                    </div>
+                                                                    <div className="col col-sml-12 u-mar--bottom--sml">
+                                                                        <NumericInputField field={content.$('certificateCount')} />
+                                                                        {isMixedBooklet && arr.length - 1 === i &&
+                                                                            <span className="type--sml type--wgt--medium type--color--note"><span className="type--color--text">Total certificates per booklet:</span> {_.sumBy(item.$('bookletContents').values(), (o) => { return o.certificateCount })}</span>}
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             {isMixedBooklet && item.$('bookletContents').size > 1 &&
-                                                                <div className="col col-sml-3 col-lrg-3">
-                                                                    <BaasicButton
-                                                                        className='btn btn--base btn--secondary'
-                                                                        type='button'
-                                                                        label='Delete denomination'
-                                                                        onClick={content.onDel}
-                                                                    />
+                                                                <div className="col col-sml-12 u-mar--bottom--sml ">
+                                                                    <div className="row">
+                                                                        <div className="col col-sml-6 u-mar--bottom--sml u-padd--bottom--med u-separator--primary">
+                                                                            <BaasicButton
+                                                                                className='btn btn--base btn--ghost'
+                                                                                type='button'
+                                                                                label='Delete denomination'
+                                                                                onClick={content.onDel}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
                                                                 </div>}
                                                         </div>
                                                     </div>

@@ -33,7 +33,7 @@ function DefaultContent({
                 content
             ) : (
                 <div className="u-display--flex u-display--flex--align--center">
-                    <span className={icon && label ? "u-mar--right--med" : ""}>
+                    <span className={icon && label ? "" : ""}>
                         {!onlyIcon && t(label)}
                     </span>
                     {onlyIcon ? <i className={`${iconName(icon)} u-mar--right--med`} /> : <i className={`${iconName(icon)}`} />}

@@ -11,7 +11,7 @@ class GrantProgressTimeline extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('1. Submited')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('1. Submited')}</div>
                         <span className="input--preview">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
@@ -21,7 +21,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('2. Processed')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('2. Processed')}</div>
                         <span className="input--preview">
                             {item && item.debitCharityTransaction ?
                                 <React.Fragment>
@@ -54,7 +54,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('3. Cashed')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('3. Cashed')}</div>
                         <span className="input--preview">
                             {item && item.debitCharityTransaction && item.debitCharityTransaction.isCashed ?
                                 <FormatterResolver

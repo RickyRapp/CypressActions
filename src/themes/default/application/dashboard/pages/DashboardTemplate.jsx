@@ -11,7 +11,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 
     return (
         <Page >
-            <div className="u-padd--left--med u-padd--right--med u-padd--top--sml">
+            <div className="u-padd--top--sml">
                 <div className="row">
                     <div className="col col-sml-12 col-med-6">
                         <div className="card card--primary card--med u-mar--bottom--med u-mar--right--sml">

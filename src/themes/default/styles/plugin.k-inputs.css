@@ -25,6 +25,7 @@
 .k-dropdown {
     
     &.k-header {
+        width: 100px;
         border-bottom: 0px;
     }
     .k-input {

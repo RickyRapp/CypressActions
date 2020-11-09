@@ -7,7 +7,7 @@
         margin-bottom: calc($unit * 2);
 
         &__label {
-            font-weight: $type-weight-bold;
+            font-weight: $type-weight-medium;
             line-height: 25px;
         }
     }

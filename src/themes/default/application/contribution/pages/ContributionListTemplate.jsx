@@ -32,57 +32,63 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
         <React.Fragment>
             <ApplicationListLayout store={contributionViewStore} authorization={authorization}>
                 <Content>
-                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <div className="card--tertiary card--med u-mar--bottom--sml">
                         <TableFilter searchClassName="w--300--px" queryUtility={queryUtility} >
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchDonorDropdownStore} />
-                            </div>
-                            <div className="u-mar--bottom--sml col col-sml-12 col-lrg-2">
-                                <BaasicInput
-                                    className='input input--med'
-                                    value={queryUtility.filter.confirmationNumber}
-                                    onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER' />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    className='input input--med'
-                                    value={queryUtility.filter.paymentNumber || ""}
-                                    onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={paymentTypeDropdownStore}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={contributionStatusDropdownStore}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    className='input input--med'
-                                    value={queryUtility.filter.nameOnCheck || ""}
-                                    onChange={(event) => queryUtility.filter.nameOnCheck = event.target.value}
-                                    placeholder='CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <DateRangeQueryPicker
-                                    queryUtility={queryUtility}
-                                    store={dateCreatedDateRangeQueryStore}
-                                    fromPropertyName='dateCreatedFrom'
-                                    toPropertyName='dateCreatedTo'
-                                />
+                            <div className="row">
+                                <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BaasicDropdown store={searchDonorDropdownStore} />
+                                </div>
+                                <div className="u-mar--bottom--sml col col-sml-12 col-lrg-4">
+                                    <BaasicInput
+                                        className='input input--med'
+                                        value={queryUtility.filter.confirmationNumber}
+                                        onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
+                                        placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER' />
+                                </div>
+                                <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BaasicInput
+                                        className='input input--med'
+                                        value={queryUtility.filter.paymentNumber || ""}
+                                        onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
+                                        placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
+                                    />
+                                </div>
+                                <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BaasicDropdown
+                                        store={paymentTypeDropdownStore}
+                                        placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER'
+                                    />
+                                </div>
+                                <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BaasicDropdown
+                                        store={contributionStatusDropdownStore}
+                                        placeholder='CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER'
+                                    />
+                                </div>
+                                <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                    <BaasicInput
+                                        className='input input--med'
+                                        value={queryUtility.filter.nameOnCheck || ""}
+                                        onChange={(event) => queryUtility.filter.nameOnCheck = event.target.value}
+                                        placeholder='CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER'
+                                    />
+                                </div>
+                                <div className="col col-sml-12 u-mar--bottom--sml">
+                                    <div className="row">                        
+                                        <div className="col col-sml-12 col-med-6 col-lrg-4">
+                                            <DateRangeQueryPicker
+                                                queryUtility={queryUtility}
+                                                store={dateCreatedDateRangeQueryStore}
+                                                fromPropertyName='dateCreatedFrom'
+                                                toPropertyName='dateCreatedTo'
+                                                />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </TableFilter>
                     </div>
-                    <div className="card--form card--primary card--med">
+                    <div className="card--primary card--med">
                         <BaasicTable
                             authorization={authorization}
                             tableStore={tableStore}
@@ -141,7 +147,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
@@ -156,7 +162,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         authorization='theDonorsFundAdministrationSection.update'
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item)}>

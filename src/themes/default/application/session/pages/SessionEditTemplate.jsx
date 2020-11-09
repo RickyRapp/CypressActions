@@ -140,10 +140,10 @@ function renderActions({ item, actions, actionsRender, t }) {
     }
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {item.isApproved ? (
-                    <span className={'u-icon u-icon--approved u-icon--sml'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
+                    <span className={'u-icon u-icon--approve u-icon--sml'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
                 ) : null}
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton

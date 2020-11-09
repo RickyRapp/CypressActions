@@ -50,7 +50,7 @@ function UserEditTemplate({ userEditViewStore, t }) {
                         <a className="display--b spc--bottom--tny" onClick={openChangePassword}><span className="u-icon u-icon--sml u-icon--reset-pass" /> Change Password</a>
 
                         {item && <React.Fragment>
-                            <a className="display--b spc--bottom--tny" onClick={toggleApprove}>{item.isApproved ? <span><span className="u-icon u-icon--sml u-icon--approved" /><span> Disapprove</span></span> : <span><span className="u-icon u-icon--sml u-icon--unapproved"></span><span> Approve</span></span>}</a>
+                            <a className="display--b spc--bottom--tny" onClick={toggleApprove}>{item.isApproved ? <span><span className="u-icon u-icon--sml u-icon--approve" /><span> Disapprove</span></span> : <span><span className="u-icon u-icon--sml u-icon--unapproved"></span><span> Approve</span></span>}</a>
                             <a className="display--b spc--bottom--tny" onClick={toggleLock}>{item.isLockedOut ? <span><span className="u-icon u-icon--sml u-icon--locked" /><span> Unlock</span></span> : <span><span className="u-icon u-icon--sml u-icon--locked"></span><span> Lock</span></span>}</a>
                         </React.Fragment>
                         }

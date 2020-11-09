@@ -32,7 +32,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                         <span className="u-icon u-icon--add u-icon--xxmed u-mar--left--tny" />
                         :
                         <BaasicButton
-                            className="btn btn--icon"
+                            className="btn btn--icon u-mar--left--sml"
                             icon='u-icon u-icon--add u-icon--xxmed'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
@@ -69,13 +69,13 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit) && !isSome(onMarkPrimary) && !isSome(onDelete)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onMarkPrimary) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--approved u-icon--sml' //TODO replace icon with mark primary icon
+                        className="btn btn--icon u-mar--left--sml"
+                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
                         label='EMAIL_ADDRESS.LIST.BUTTON.MARK_PRIMARY'
                         onlyIcon={true}
                         onClick={() => onMarkPrimary(item)}>
@@ -84,7 +84,7 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onEdit) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
+                        className="btn btn--icon u-mar--left--sml"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='EMAIL_ADDRESS.LIST.BUTTON.EDIT'
                         onlyIcon={true}
@@ -94,7 +94,7 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onDelete) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
+                        className="btn btn--icon u-mar--left--sml"
                         icon='u-icon u-icon--delete u-icon--sml'
                         label='EMAIL_ADDRESS.LIST.BUTTON.DELETE'
                         onlyIcon={true}

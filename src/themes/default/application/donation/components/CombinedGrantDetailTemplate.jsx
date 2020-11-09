@@ -58,7 +58,7 @@ function renderActions({ item, actions }) {
     if (!isSome(onEdit)) return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data ">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton

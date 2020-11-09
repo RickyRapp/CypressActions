@@ -51,4 +51,13 @@
 		display: flex;
 		text-align: right;
 	}
+
+	&__body {
+
+		&--data {
+			display: flex;
+			align-items: center;
+			height: calc($unit * 10);
+		}
+	}
 }
