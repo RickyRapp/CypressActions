@@ -60,7 +60,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-5 card--med">
                                                     <div className="u-separator--primary">
                                                         <div className="row u-mar--bottom--sml">
-                                                            <div className="col col-sml-12 col-med-12 col-lrg-3 ">
+                                                            <div className="col col-sml-3">
                                                                 <div className="type--med type--wgt--regular">
                                                                     <FormatterResolver
                                                                         item={{ value: dt.value }}
@@ -71,29 +71,29 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
                                                                     <div className="type--tny type--color--note">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
                                                             </div>
-                                                            <div className="col col-sml-12 col-med-12 col-lrg-6">
+                                                            <div className="col col-sml-6 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                                 <BaasicButton
-                                                                    className="btn btn--base btn--ghost btn--ghost--primary"
-                                                                    icon={'u-icon u-icon--minus u-icon--med'}
+                                                                    className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
+                                                                    icon={'u-icon u-icon--minus u-icon--sml'}
                                                                     label='REMOVE'
                                                                     onlyIcon={true}
                                                                     onClick={() => onRemoveBookletClick(bt.id, dt.id)}>
                                                                 </BaasicButton>
                                                                 <BaasicButton
-                                                                    className="btn btn--base btn--ghost btn--ghost--primary type--color--text"
+                                                                    className="btn--sml btn--ghost btn--ghost--primary u-mar--right--tny type--color--text"
                                                                     label={order && order.bookletCount.toString() || '0'}
                                                                     onClick={() => { }}>
                                                                 </BaasicButton>
                                                                 <BaasicButton
-                                                                    className="btn btn--base btn--ghost btn--ghost--primary"
-                                                                    icon={'u-icon u-icon--plus u-icon--med'}
+                                                                    className="btn btn--sml btn--ghost btn--ghost--primary"
+                                                                    icon={'u-icon u-icon--plus u-icon--sml'}
                                                                     label='ADD'
                                                                     onlyIcon={true}
                                                                     onClick={() => onAddBookletClick(bt.id, dt.id)}>
                                                                 </BaasicButton>
                                                             </div>
-                                                            <div className="col col-sml-12 col-med-12 col-lrg-3">
-                                                                <div className="type--med type--wgt--regular">
+                                                            <div className="col col-sml-3">
+                                                                <div className="type--med type--wgt--regular type--right">
                                                                     <FormatterResolver
                                                                         item={{ total: bookletAmount }}
                                                                         field='total'
@@ -111,39 +111,45 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="col col-sml-12 col-med-12 col-lrg-5 card--med">
                                         <div className="row">
                                             {denominationTypes.length > 0 &&
-                                                <div className="col col-sml-12 col-med-12 col-lrg-3">
-                                                    <FormatterResolver
-                                                        item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
-                                                        field='value'
-                                                        format={{ type: 'currency' }}
-                                                    />,
+                                                <div className="col col-sml-3">
+                                                    <span className="type--med type--wgt--regular">
+                                                        <FormatterResolver
+                                                            item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
+                                                            field='value'
+                                                            format={{ type: 'currency' }}
+                                                        />,
+                                                    </span>
                                                     {" "}
-                                                    <FormatterResolver
-                                                        item={{ value: denominationTypes.find(dt => dt.value === 2).value }}
-                                                        field='value'
-                                                        format={{ type: 'currency' }}
-                                                    />,
+                                                    <span className="type--med type--wgt--regular">
+                                                        <FormatterResolver
+                                                            item={{ value: denominationTypes.find(dt => dt.value === 2).value }}
+                                                            field='value'
+                                                            format={{ type: 'currency' }}
+                                                        />,
+                                                    </span>
                                                     {" "}
-                                                    <FormatterResolver
-                                                        item={{ value: denominationTypes.find(dt => dt.value === 3).value }}
-                                                        field='value'
-                                                        format={{ type: 'currency' }}
-                                                    />
+                                                    <span className="type--med type--wgt--regular">
+                                                        <FormatterResolver
+                                                            item={{ value: denominationTypes.find(dt => dt.value === 3).value }}
+                                                            field='value'
+                                                            format={{ type: 'currency' }}
+                                                        />
+                                                    </span>
                                                     <div className="type--tny type--color--note">
                                                         {t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}
                                                     </div>
                                                 </div>
                                             }
-                                            <div className="col col-sml-12 col-med-12 col-lrg-6">
+                                            <div className="col col-sml-6 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                 <BaasicButton
-                                                    className="btn btn--base btn--ghost btn--ghost--primary"
-                                                    icon={'u-icon u-icon--minus u-icon--med'}
+                                                    className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
+                                                    icon={'u-icon u-icon--minus u-icon--sml'}
                                                     label='REMOVE'
                                                     onlyIcon={true}
                                                     onClick={() => onRemoveBookletClick(bt.id, null)}>
                                                 </BaasicButton>
                                                 <BaasicButton
-                                                    className="btn btn--base btn--ghost btn--ghost--primary type--color--text"
+                                                    className="btn--sml btn--ghost btn--ghost--primary u-mar--right--tny type--color--text"
                                                     label={
                                                         orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
                                                             orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'
@@ -151,19 +157,21 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     onClick={() => { }}>
                                                 </BaasicButton>
                                                 <BaasicButton
-                                                    className="btn btn--base btn--ghost btn--ghost--primary"
-                                                    icon={'u-icon u-icon--plus u-icon--med'}
+                                                    className="btn btn--sml btn--ghost btn--ghost--primary"
+                                                    icon={'u-icon u-icon--plus u-icon--sml'}
                                                     label='ADD'
                                                     onlyIcon={true}
                                                     onClick={() => onAddBookletClick(bt.id, null)}>
                                                 </BaasicButton>
                                             </div>
-                                            <div className="col col-sml-12 col-med-12 col-lrg-3">
-                                                <FormatterResolver
-                                                    item={{ total: mixedBookletAmount }}
-                                                    field='total'
-                                                    format={{ type: 'currency' }}
-                                                />
+                                            <div className="col col-sml-3">
+                                                <div className="type--med type--wgt--regular type--right">
+                                                    <FormatterResolver
+                                                        item={{ total: mixedBookletAmount }}
+                                                        field='total'
+                                                        format={{ type: 'currency' }}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +222,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </div>
 
                 <div className="card--primary card--med u-mar--bottom--med">
-                    <div className="row">
+                    <div className="row u-display--flex u-display--flex--align--center">
                         <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                             <span className="type--med type--wgt--medium type--color--note">
                                 {t('BOOKLET_ORDER.CREATE.DELIVERY_OPTIONS')}
@@ -236,7 +244,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                 <div className="card--primary card--med u-mar--bottom--med">
                     <h4 className="type--med type--wgt--medium type--color--note">Shipping Address</h4>
-                    <div className="row card--med">
+                    <div className="row u-mar--top--sml u-mar--bottom--sml u-padd--right--sml u-padd--left--sml">
                         <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--sml">
                             <BasicInput field={form.$('addressLine1')} />
                         </div>
@@ -254,7 +262,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         </div>
                     </div>
                     <BaasicButton
-                        className="btn btn--base btn--secondary--light u-mar--left--med"
+                        className="btn btn--sml btn--secondary--light u-mar--left--sml"
                         label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
                         onClick={() => onChangeShippingAddressClick(!form.$('addressLine1').disabled)}>
                     </BaasicButton>
