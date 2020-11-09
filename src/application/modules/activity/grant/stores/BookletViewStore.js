@@ -2,7 +2,6 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/sto
 import { applicationContext } from 'core/utils';
 import { BookletListFilter } from 'application/activity/grant/models';
 import _ from 'lodash';
-import { BookletService } from 'application/booklet/services';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
@@ -19,7 +18,6 @@ class BookletViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new BookletService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -30,14 +28,11 @@ class BookletViewStore extends BaseListViewStore {
                             'certificates.certificateStatus'
                         ];
 
-                        const response = await service.find({ userId: this.donorId, ...params });
-                        return response.data;
+                        return this.rootStore.application.booklet.bookletStore.find({ ...params, donorId: this.rootStore.userStore.applicationUser.id });
                     }
                 }
             }
         });
-
-        this.donorId = rootStore.userStore.applicationUser.id;
 
         this.createTableStore();
         this.createDenominationDropdownStore();
@@ -70,7 +65,7 @@ class BookletViewStore extends BaseListViewStore {
                                 return `${item.bookletType.name} - ${wording}`
                             }
                             else {
-                                return `${item.certificates[0].denominationType.name} - `
+                                return `${item.certificates[0].denominationType.name}`
                             }
                         }
                     }
@@ -85,12 +80,6 @@ class BookletViewStore extends BaseListViewStore {
                             const canceled = _.filter(item.certificates, { certificateStatus: { abrv: 'canceled' } }).length;
                             const active = _.filter(item.certificates, { isActive: true }).length;
                             return `${clean} / ${used} / ${canceled} | ${active}`;
-                        }
-                    },
-                    header: {
-                        title: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_LABEL',
-                        tooltip: {
-                            text: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_TOOLTIP_LABEL'
                         }
                     }
                 }

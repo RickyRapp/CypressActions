@@ -9,6 +9,7 @@ class BookletListFilter extends FilterParams {
     @observable denominationTypeIds;
     @observable trackingNumber;
     @observable deliveryMethodTypeIds;
+    @observable donorId;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -20,6 +21,7 @@ class BookletListFilter extends FilterParams {
     @action.bound
     reset() {
         super.reset();
+        this.donorId = null;
         this.dateCreatedStartDate = null;
         this.dateCreatedEndDate = null;
         this.bookletStatusIds = null;
