@@ -5,9 +5,8 @@ import {
     BasicInput,
     BaasicFormControls,
     NumberFormatInputField,
-    BaasicDropzone, BasicFieldCheckbox, BaasicButton
+    BasicFieldCheckbox, BaasicButton, BaasicFieldDropzone
 } from 'core/components';
-import { isNullOrUndefinedOrEmpty } from 'core/utils';
 
 function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
     const {
@@ -98,7 +97,7 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                 </div>
 
                 <div className="row u-mar--bottom--med">
-                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
+                    <BaasicFieldDropzone store={imageUploadStore} field={form.$('coreMediaVaultEntryId')} />
                 </div>
 
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />

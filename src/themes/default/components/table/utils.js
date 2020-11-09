@@ -82,7 +82,7 @@ function defaultRenderColumnsTemplate({ t, columns }) {
     );
 }
 
-function defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth, authorization, t }) {
+function defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender }) {
     const actionCount = (actions ? actions.visible : null) || _.size(actions);
 
     return hasAction(actions) || actionsComponent ? (
@@ -104,6 +104,7 @@ function defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth,
                     authorization={authorization}
                     actionsComponent={actionsComponent}
                     t={t}
+                    actionsRender={actionsRender}
                 />
             )}
         />
@@ -207,6 +208,7 @@ defaultRenderActionsTemplate.propTypes = {
     actionsComponent: PropTypes.array,
     actionsWidth: PropTypes.number,
     authorization: PropTypes.any,
+    actionsRender: PropTypes.object,
     t: PropTypes.func,
 };
 

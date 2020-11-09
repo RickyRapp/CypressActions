@@ -285,18 +285,16 @@ class GrantCreateViewStore extends BaseEditViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses',
-                            'charityAccountType'
+                            'charityAddresses'
                         ],
                         fields: [
                             'id',
                             'taxId',
                             'name',
-                            'charityAccountType',
                             'charityAddresses'
                         ]
                     });
-                    return data.map(x => {
+                    return data.item.map(x => {
                         return {
                             id: x.id,
                             name: charityFormatter.format(x, { value: 'charity-name-display' }),

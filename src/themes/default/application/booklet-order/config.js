@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderReview } from 'application/booklet-order/pages';
+import { BookletOrderList, BookletOrderCreate, BookletOrderReview } from 'application/booklet-order/pages';
+import { BookletOrderModuleStore } from 'application/booklet-order/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -15,15 +16,6 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
                         authorization: 'theDonorsFundBookletOrderSection.read',
                         data: {
                             title: "BOOKLET_ORDER.LIST.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.booklet-order.edit',
-                        pattern: '/edit/:editId',
-                        component: BookletOrderEdit,
-                        authorization: 'theDonorsFundBookletOrderSection.update',
-                        data: {
-                            title: "BOOKLET_ORDER.EDIT.TITLE"
                         }
                     },
                     {
@@ -54,6 +46,11 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderEdit, BookletOrderRev
                 route: 'master.app.main.booklet-order.list',
                 role: ['Administrators']
             }
-        ]
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.bookletOrder': new BookletOrderModuleStore(context.rootStore),
+            };
+        },
     });
 })();

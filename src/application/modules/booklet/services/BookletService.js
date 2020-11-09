@@ -7,10 +7,9 @@ class BookletService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    async updateCertificate(resource) {
+    updateCertificate(resource) {
         const url = this.routeService.updateCertificate(resource);
-        const response = await this.apiClient.put(url, resource);
-        return response || null;
+        return this.apiClient.put(url, resource);
     }
 }
 

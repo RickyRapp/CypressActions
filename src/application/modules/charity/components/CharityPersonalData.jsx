@@ -22,7 +22,8 @@ function CharityPersonalDataTemplate(props) {
 }
 
 CharityPersonalDataTemplate.propTypes = {
-    t: PropTypes.func
+    t: PropTypes.func,
+    charityId: PropTypes.string.isRequired
 };
 
 export default defaultTemplate(CharityPersonalDataTemplate);

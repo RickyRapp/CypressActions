@@ -6,14 +6,23 @@ import {
     BaasicButton,
     BasicCheckbox
 } from 'core/components';
+import { BaasicDropdownStore } from 'core/stores';
 
-function BookletEditRowTemplate({
+function CertificateEditRowTemplate({
     item,
-    certificateStatusDropdownStore,
     saveRowChanges,
-    onRowStatusChange,
-    isMixedBooklet
+    isMixedBooklet,
+    certificateStatuses
 }) {
+
+    const certificateStatusDropdownStore = new BaasicDropdownStore(null, {
+        fetchFunc: async () => {
+            return certificateStatuses;
+        },
+        onChange: async (value) => {
+            item.certificateStatus = certificateStatuses.find(c => c.id === value)
+        }
+    });
 
     return (
         <tr>
@@ -32,14 +41,13 @@ function BookletEditRowTemplate({
                 <BaasicDropdown
                     store={certificateStatusDropdownStore}
                     value={item.certificateStatus}
-                    onChange={(e) => onRowStatusChange(e, item)}
                 />
             </td>
             <td className="table__body--data">
                 <input
                     className="input input--med input--text"
                     type="text"
-                    value={item.note}
+                    value={item.note || ''}
                     onChange={event => item.note = event.target.value} />
             </td>
             <td className="table__body--data">
@@ -61,12 +69,12 @@ function BookletEditRowTemplate({
     );
 }
 
-BookletEditRowTemplate.propTypes = {
+CertificateEditRowTemplate.propTypes = {
     item: PropTypes.object.isRequired,
-    certificateStatusDropdownStore: PropTypes.object.isRequired,
+    certificateStatuses: PropTypes.any.isRequired,
     saveRowChanges: PropTypes.func.isRequired,
     onRowStatusChange: PropTypes.func.isRequired,
     isMixedBooklet: PropTypes.bool
 };
 
-export default defaultTemplate(BookletEditRowTemplate);
+export default defaultTemplate(CertificateEditRowTemplate);

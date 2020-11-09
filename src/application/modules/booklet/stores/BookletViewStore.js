@@ -10,6 +10,7 @@ class BookletViewStore extends BaseListViewStore {
             name: 'booklet',
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
+                edit: (id) => { this.rootStore.routerStore.goTo('master.app.main.booklet.edit', { id: id }) },
                 create: () => { this.rootStore.routerStore.goTo('master.app.main.booklet.create') },
             },
             queryConfig: {
@@ -30,7 +31,7 @@ class BookletViewStore extends BaseListViewStore {
                             'certificates.certificateStatus'
                         ];
 
-                        return this.rootStore.application.booklet.bookletStore.findBooklets(params);
+                        return this.rootStore.application.booklet.bookletStore.find(params);
                     }
                 }
             }
@@ -74,6 +75,7 @@ class BookletViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'certificates',
+                    title: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_LABEL',
                     format: {
                         type: 'function',
                         value: (item) => {
@@ -83,13 +85,11 @@ class BookletViewStore extends BaseListViewStore {
                             const active = item.certificates.filter(c => c.isActive).length;
                             return `${clean} / ${used} / ${canceled} | ${active}`;
                         }
-                    },
-                    header: {
-                        title: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_LABEL',
-                        tooltip: {
-                            text: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_TOOLTIP_LABEL'
-                        }
                     }
+                },
+                {
+                    key: 'bookletStatus.name',
+                    title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL'
                 }
             ],
             actions: {

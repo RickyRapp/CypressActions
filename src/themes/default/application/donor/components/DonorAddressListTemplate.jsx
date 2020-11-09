@@ -30,7 +30,8 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                     {t('ADDRESS.LIST.TITLE')}
                     {maxAddressesEntered ?
                         <BaasicButton
-                            className="btn btn--icon u-mar--left--sml"
+                            className="btn btn--icon"
+                            onlyIconClassName="u-mar--right--tny"
                             icon='u-icon u-icon--add u-icon--xxmed'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
@@ -38,7 +39,8 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                         </BaasicButton>
                         :
                         <BaasicButton
-                            className="btn btn--icon u-mar--left--sml"
+                            className="btn btn--icon"
+                            onlyIconClassName="u-mar--right--tny"
                             icon='u-icon u-icon--add u-icon--xxmed'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
@@ -80,7 +82,8 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onMarkPrimary) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon u-mar--left--sml"
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
                         label='ADDRESS.LIST.BUTTON.MARK_PRIMARY'
                         onlyIcon={true}
@@ -90,7 +93,8 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onEdit) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon u-mar--left--sml"
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='ADDRESS.LIST.BUTTON.EDIT'
                         onlyIcon={true}
@@ -100,7 +104,8 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onDelete) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon u-mar--left--sml"
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--delete u-icon--sml'
                         label='ADDRESS.LIST.BUTTON.DELETE'
                         onlyIcon={true}

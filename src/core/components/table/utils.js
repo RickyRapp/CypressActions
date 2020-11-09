@@ -109,8 +109,8 @@ function defaultRenderColumns({ t, columns }) {
     return defaultRenderColumnsTemplate({ t, columns });
 }
 
-function defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t }) {
-    return defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth, authorization, t });
+function defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender }) {
+    return defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender });
 }
 
 function defaultRenderBatchActionsToolbar(tableStore, authorization, batchActionsComponent) {

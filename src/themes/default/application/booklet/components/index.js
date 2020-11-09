@@ -1,1 +1,1 @@
-export { default as BookletEditRowTemplate } from './BookletEditRowTemplate'
+export { default as CertificateEditRowTemplate } from './CertificateEditRowTemplate'

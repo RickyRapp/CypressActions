@@ -4,7 +4,7 @@ import { DonorFileStreamService } from 'common/services';
 import { DonorBankAccountService, DonorService } from 'application/donor/services';
 import { RoutingNumberService } from 'application/administration/bank/services';
 import { action } from 'mobx';
-import { applicationContext } from 'core/utils';
+import { applicationContext, isSome } from 'core/utils';
 
 @applicationContext
 class BankAccountFormViewStore extends BaseEditViewStore {
@@ -86,13 +86,7 @@ class BankAccountFormViewStore extends BaseEditViewStore {
         });
 
         this.donorId = props.donorId;
-        this.imageUploadStore = new BaasicUploadStore(null, {
-            onDelete: () => { // eslint-disable-line
-                //async call to delete if needed
-                this.form.$('coreMediaVaultEntryId').clear();
-            }
-        });
-
+        this.createImageUploadStore();
     }
 
     @action.bound
@@ -105,7 +99,13 @@ class BankAccountFormViewStore extends BaseEditViewStore {
                 this.getDonorInfo()
             ]);
 
-            if (!this.isEdit) {
+            if (this.isEdit) {
+                if (this.form.$('coreMediaVaultEntryId').value) {
+                    this.imageUploadStore.setInitialItems(this.form.$('coreMediaVaultEntryId').value)
+                    this.form.$('coreMediaVaultEntryId').setDisabled(true);
+                }
+            }
+            else {
                 this.form.update({
                     accountHolderName: this.donor.donorName,
                     addressLine1: this.primaryAddress.addressLine1,
@@ -138,7 +138,6 @@ class BankAccountFormViewStore extends BaseEditViewStore {
         }
     }
 
-    @action.bound
     async getDonorInfo() {
         if (!this.donor) {
             const service = new DonorService(this.rootStore.application.baasic.apiClient);
@@ -170,6 +169,19 @@ class BankAccountFormViewStore extends BaseEditViewStore {
         }
     }
 
+    createImageUploadStore() {
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onChange: (value) => {
+                this.form.$('coreMediaVaultEntryId').setDisabled(isSome(value));
+            },
+            onDelete: () => {
+                this.form.$('coreMediaVaultEntryId').setDisabled(false);
+            },
+            onRemoveFromBuffer: () => {
+                this.form.$('coreMediaVaultEntryId').setDisabled(false);
+            }
+        });
+    }
 }
 
 export default BankAccountFormViewStore;

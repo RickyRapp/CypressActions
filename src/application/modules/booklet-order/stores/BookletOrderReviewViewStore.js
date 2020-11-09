@@ -1,112 +1,43 @@
 import { action, observable } from 'mobx';
 import { BookletOrderReviewForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
-import { BookletOrderService } from 'application/booklet-order/services';
-import { BookletService } from 'application/booklet/services';
-import _ from 'lodash';
-
-const ErrorType = {
-    AssignError: 0
-};
+import { applicationContext, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
+import { join } from 'lodash';
 
 @applicationContext
 class BookletOrderReviewViewStore extends BaseEditViewStore {
-    bookletStatuses = null;
-    @observable bookletOrder = null;
+    @observable orderContents = [];
 
     constructor(rootStore) {
-        const service = new BookletOrderService(rootStore.application.baasic.apiClient);
-        const id = rootStore.routerStore.routerState.params.id;
-
         super(rootStore, {
             name: 'booklet-order-create',
-            id: id,
+            id: rootStore.routerStore.routerState.params.id,
             autoInit: false,
             actions: () => {
                 return {
                     update: async (resource) => {
-                        _.forEach(resource.bookletOrderItems, function (params) {
-                            if (params.count !== params.bookletOrderItemBooklets.length) {
-                                throw { type: ErrorType.AssignError };
-                            }
-                        })
-
-                        try {
-                            return await service.review({
-                                id: id,
-                                ...resource
-                            });
-                        } catch (err) {
-                            //TODO:send status code/type from backend
-                            // throw { type: ErrorType.InsufficientFunds, error: err };
-                        }
+                        await this.rootStore.application.bookletOrder.bookletOrderStore.review({ ...resource, bookletOrderContents: this.orderContents });
                     },
                     get: async (id) => {
                         const params = {
-                            embed: [
-                                'bookletOrderItems',
-                                'bookletOrderItems.bookletOrderItemBooklets',
-                                'bookletOrderItems.bookletOrderItemBooklets.booklet'
-                            ],
                             fields: [
                                 'id',
                                 'donorId',
-                                'bookletOrderItems',
-                                'bookletOrderItems.id',
-                                'bookletOrderItems.count',
-                                'bookletOrderItems.denominationTypeId',
-                                'bookletOrderItems.bookletOrderItemBooklets'
+                                'json'
                             ]
                         }
-                        const response = await service.get(id, params);
-                        this.bookletOrder = response.data;
-                        return response.data;
-                    }
-                }
-            },
-            errorActions: {
-                onUpdateError: ({ type }) => {
-                    switch (type) {
-                        case ErrorType.AssignError:
-                            break;
-                        default:
-                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
-                            break;
+                        const data = await this.rootStore.application.bookletOrder.bookletOrderStore.get(id, params);
+                        const temp = JSON.parse(data.json)
+                        temp.forEach(c => { c.booklets = []; })
+                        this.orderContents = temp;
+                        return { id: data.id };
                     }
                 }
             },
             FormClass: BookletOrderReviewForm
         });
 
-        this.id = id;
-        const bookletService = new BookletService(rootStore.application.baasic.apiClient);
-
-        this.fetchFunc = async (searchQuery, denominationTypeId, usedBookletIds) => {
-            let options = {
-                pageNumber: 1,
-                pageSize: 10,
-                exceptIds: usedBookletIds,
-                fields: [
-                    'id',
-                    'code'
-                ]
-            };
-
-            if (searchQuery) {
-                if (searchQuery.length <= 6) {
-                    options.codes = searchQuery;
-                }
-                else {
-                    options.certificateBarcodes = searchQuery;
-                }
-            }
-            options.bookletStatusIds = [_.find(this.bookletStatuses, { abrv: 'clean' }).id]
-            options.denominationTypeIds = [denominationTypeId];
-
-            const response = await bookletService.find(options);
-            return _.map(response.data.item, x => { return { id: x.id, name: x.code } });
-        }
+        this.createFetchFunc();
     }
 
     @action.bound
@@ -115,33 +46,55 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
+            await this.loadLookups();
             await this.fetch([
-                this.fetchBookletStatuses(),
-                this.fetchDenominationTypes()
+                this.getResource(this.id),
             ]);
-
-            await this.getResource(this.id);
-            let arra = [];
-            _.map(this.bookletOrder.bookletOrderItems, (item) => {
-                let arra2 = []
-                _.map(item.bookletOrderItemBooklets, (item2) => {
-                    arra2.push({ bookletId: item2.bookletId, booklet: { code: item2.booklet.code } })
-                });
-                arra.push({ id: item.id, count: item.count, denominationTypeId: item.denominationTypeId, bookletOrderItemBooklets: arra2 });
-            });
-            this.form.$('bookletOrderItems').add(arra);
-            this.form.$('id').set(this.id);
         }
     }
 
     @action.bound
-    async fetchBookletStatuses() {
-        this.bookletStatuses = await this.rootStore.application.lookup.bookletStatusStore.find();
+    async onAddBookletsChange(item, booklets) {
+        this.orderContents.find(c => c.bookletTypeId === item.bookletTypeId && c.denominationTypeId === item.denominationTypeId).booklets = booklets;
     }
 
-    @action.bound
-    async fetchDenominationTypes() {
+    async loadLookups() {
+        this.bookletStatuses = await this.rootStore.application.lookup.bookletStatusStore.find();
+        this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
         this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
+    }
+
+    createFetchFunc() {
+        this.fetchFunc = async (searchQuery, denominationTypeId, bookletTypeId) => {
+            if (isNullOrWhiteSpacesOrUndefinedOrEmpty(searchQuery)) {
+                return [];
+            }
+
+            let options = {
+                pageNumber: 1,
+                pageSize: 10,
+                exceptIds: join(this.orderContents.filter(c => c.booklets.length > 0).map(c => { return c.booklets.map(x => { return x.id }) }), ','),
+                fields: ['id', 'code']
+            };
+
+            if (searchQuery.length === 5 || searchQuery.length === 6) {
+                options.codes = searchQuery;
+            }
+            else if (searchQuery.length === 10) {
+                options.certificateBarcodes = searchQuery;
+            }
+            else {
+                return [];
+            }
+
+            options.bookletStatusIds = [this.bookletStatuses.find(c => c.abrv === 'clean').id]
+            options.bookletTypeIds = bookletTypeId;
+            if (bookletTypeId === this.bookletTypes.find(c => c.abrv === 'classic').id) {
+                options.denominationTypeIds = [denominationTypeId];
+            }
+            const data = await this.rootStore.application.bookletOrder.bookletOrderStore.findBooklets(options);
+            return data.item.map(c => { return { id: c.id, code: c.code.toString() } });
+        }
     }
 }
 

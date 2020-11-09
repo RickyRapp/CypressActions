@@ -88,8 +88,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <BasicInput field={form.$('charityDba')} />
                                         </div>
                                         <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            {charityTypeDropdownStore &&
-                                                <BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />}
+                                            <BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />
                                         </div>
                                         <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                             <BasicInput field={form.$('charityAddressLine1')} />
@@ -220,7 +219,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 item={{ balance: donor.availableBalance }}
                                                 field='balance'
                                                 format={{ type: 'currency' }}
-                                                />}
+                                            />}
                                         </div>
                                         <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.CURRENT_BALANCE')}</p>
                                     </div>
@@ -232,7 +231,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 item={{ balance: donor.upcomingGrantsThisYear }}
                                                 field='balance'
                                                 format={{ type: 'currency' }}
-                                                />}
+                                            />}
                                         </div>
                                         <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
                                     </div>

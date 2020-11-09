@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
 import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BaasicModal, BasicFieldCheckbox, BasicInput, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
-import { isNullOrUndefinedOrEmpty } from 'core/utils';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { BankAccountForm } from 'application/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/contribution/components';
 
@@ -26,7 +26,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
     } = contributionEditViewStore;
 
     let paymentType = {};
-    if (!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value)) {
+    if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value)) {
         paymentType = paymentTypes.find(c => c.id === form.$('paymentTypeId').value)
     }
 
@@ -82,7 +82,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                 )
             })}
 
-            {step === 2 && !isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+            {step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-3">
                         {paymentTypes.map(c => {
@@ -105,13 +105,15 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         }
                     </div>
                     <div className="col col-sml-9">
-                        {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
                             <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">
                                 {t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}
                             </h5>}
                     </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <EditFormContent form={form}>
+                            {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                                <h5>{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                             <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">

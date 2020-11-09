@@ -6,8 +6,18 @@ class BookletStore {
         this.bookletService = moduleStore.rootStore.createApplicationService(BookletService);
     }
 
-    async findBooklets(params) {
+    async get(id, options) {
+        const response = await this.bookletService.get(id, options);
+        return response.data;
+    }
+
+    async find(params) {
         const response = await this.bookletService.find(params);
+        return response.data;
+    }
+
+    async updateCertificate(resource){
+        const response = await this.bookletService.updateCertificate(resource);
         return response.data;
     }
 }

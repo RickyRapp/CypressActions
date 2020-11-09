@@ -2,75 +2,56 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdownStore } from 'core/stores';
-import {
-    BaasicDropdown
-} from 'core/components';
-import _ from 'lodash';
+import { BaasicDropdown } from 'core/components';
 
-const BookletOrderReviewRowTemplate = function ({ item, fetchFunc, denominationTypes }) {
-    const denominationType = _.find(denominationTypes, { id: item.$('denominationTypeId').value });
-    const usedBookletIds = _.map(item.$('bookletOrderItemBooklets').value, (params) => { return params.bookletId });
-
-    let bookletDropdownStore = new BaasicDropdownStore(
+const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc }) {
+    const isMaxBookletsSelected = item.bookletCount === item.booklets.length;
+    const denominationType = denominationTypes.find(c => { return c.id === item.denominationTypeId });
+    const bookletDropdownStore = new BaasicDropdownStore(
         {
             multi: true,
             placeholder: 'BOOKLET_ORDER.REVIEW.FIELDS.BOOKLET_PLACEHOLDER',
             initFetch: false,
-            filterable: true
+            filterable: true,
+            textField: 'code'
         },
         {
             fetchFunc: async (searchQuery) => {
-                if (searchQuery && searchQuery.length >= 5) {
-                    return fetchFunc(searchQuery, denominationType.id, usedBookletIds);
+                return fetchFunc(searchQuery, denominationType.id, item.bookletTypeId);
+            },
+            onChange: (value) => {
+                let booklets = [];
+                if (value) {
+                    if (value.length > item.bookletCount) {
+                        return;
+                    }
+                    booklets = value.map(c => { return { id: c.id, code: c.code }; });
                 }
-
-                return [];
+                onAddBookletsChange(item, booklets)
             }
         }
     );
 
     return (
-        <div className="row" key={item.$('id').value}>
+        <div className="row">
             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                 {denominationType.name}
             </div>
             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
-                {item.$('count').value}
+                {item.bookletCount}
             </div>
             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                 <BaasicDropdown
                     store={bookletDropdownStore}
-                    value={item.$('bookletOrderItemBooklets').value ?
-                        _.map(item.$('bookletOrderItemBooklets').value, (params) => {
-                            return {
-                                id: params.bookletId,
-                                name: String(params.booklet.code)
-                            }
-                        })
-                        :
-                        null
-                    }
-                    onChange={(e) => {
-                        let booklets = [];
-                        if (e) {
-                            if (e.target.value.length > item.$('count').value) {
-                                return;
-                            }
-                            _.map(e.target.value, function (item) {
-                                booklets.push({ bookletId: item.id, booklet: { code: item.name } });
-                            })
-                        }
-                        const size = item.$('bookletOrderItemBooklets').size;
-                        for (let index = 0; index < size; index++) {
-                            item.$('bookletOrderItemBooklets').del(index);
-                        }
-                        item.$('bookletOrderItemBooklets').add(booklets);
-                    }}
-                    listNoDataRender={(element) => listNoDataRender(element, item.$('bookletOrderItemBooklets').values().length >= item.$('count').value)}
-                    filterable={item.$('bookletOrderItemBooklets').values().length < item.$('count').value}
+                    value={item.booklets.slice()}
+                    listNoDataRender={(element) => listNoDataRender(element, isMaxBookletsSelected)}
+                    filterable={!isMaxBookletsSelected}
                 />
-                {item.$('count').value !== item.$('bookletOrderItemBooklets').values().length &&
-                    <div className="type--tny type--color--warning u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Need to assign {item.$('count').value - item.$('bookletOrderItemBooklets').values().length} more booklet/s.</div>
+                {!isMaxBookletsSelected &&
+                    <div className="type--tny type--color--warning u-mar--top--tny">
+                        <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>
+                        Need to assign {item.bookletCount - item.booklets.length} more booklet/s.
+                        </div>
                 }
             </div>
         </div>
@@ -80,10 +61,11 @@ const BookletOrderReviewRowTemplate = function ({ item, fetchFunc, denominationT
 BookletOrderReviewRowTemplate.propTypes = {
     item: PropTypes.object.isRequired,
     fetchFunc: PropTypes.func.isRequired,
+    onAddBookletsChange: PropTypes.func.isRequired,
     denominationTypes: PropTypes.array.isRequired
 };
 
-const listNoDataRender = (element, maxItemSelected) => {
+const listNoDataRender = (element, isMaxBookletsSelected) => {
     const noData = (
         <h4 style={{ fontSize: '1em' }}>
             <span className="k-icon k-i-warning" style={{ fontSize: '2.5em' }} />
@@ -100,7 +82,7 @@ const listNoDataRender = (element, maxItemSelected) => {
         </h4>
     );
 
-    return React.cloneElement(element, { ...element.props }, maxItemSelected ? maxData : noData);
+    return React.cloneElement(element, { ...element.props }, isMaxBookletsSelected ? maxData : noData);
 }
 
 export default defaultTemplate(BookletOrderReviewRowTemplate);

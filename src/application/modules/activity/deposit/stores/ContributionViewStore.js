@@ -76,16 +76,6 @@ class ContributionViewStore extends BaseListViewStore {
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
 
-    // @action.bound
-    // async onInit({ initialLoad }) {
-    //     if (!initialLoad) {
-    //         this.rootStore.routerStore.goBack();
-    //     }
-    //     else {
-    //         this.loaderStore.resume();
-    //     }
-    // }
-
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open(

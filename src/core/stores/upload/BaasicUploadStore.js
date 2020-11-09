@@ -97,6 +97,8 @@ class BaasicUploadStore {
                 this.files = this.files.filter((c, i) => i !== index);
             }
         }
+
+        this.actions.onRemoveFromBuffer(file);
     }
 
     @action.bound

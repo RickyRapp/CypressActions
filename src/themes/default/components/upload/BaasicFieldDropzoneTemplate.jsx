@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Upload } from '@progress/kendo-react-upload';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicDropzone } from 'core/components';
-import { isSome } from 'core/utils';
+import { BaasicDropzone } from 'core/components';
 
 const BaasicFieldDropzoneTemplate = function (props) {
      const {
@@ -12,7 +10,7 @@ const BaasicFieldDropzoneTemplate = function (props) {
           loading
      } = props;
 
-     function onDelete(e) { //eslint-disable-line
+     function onDelete() { //eslint-disable-line
           field.clear();
      }
 
@@ -23,7 +21,8 @@ const BaasicFieldDropzoneTemplate = function (props) {
 
 BaasicFieldDropzoneTemplate.propTypes = {
      store: PropTypes.object.isRequired,
-     field: PropTypes.object.isRequired
+     field: PropTypes.object.isRequired,
+     loading: PropTypes.bool
 };
 
 export default defaultTemplate(BaasicFieldDropzoneTemplate);

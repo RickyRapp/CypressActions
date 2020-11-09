@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
 import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BaasicModal, BasicFieldCheckbox, BasicInput, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
-import { isNullOrUndefinedOrEmpty } from 'core/utils';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { BankAccountForm } from 'application/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/contribution/components';
 
@@ -25,7 +25,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
     } = contributionCreateViewStore;
 
     let paymentType = {};
-    if (!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value)) {
+    if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value)) {
         paymentType = paymentTypes.find(c => c.id === form.$('paymentTypeId').value)
     }
 
@@ -55,41 +55,41 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                             </div>
                         </div>
                         {step === 1 &&
-                        <React.Fragment>
-                            <div className="col col-sml-12 col-med-3 col-lrg-2">
-                                <div className="card card--primary card--med u-mar--bottom--med">
-                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <React.Fragment>
+                                <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
+                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col col-sml-12 col-med-3 col-lrg-2">
-                                <div className="card card--primary card--med u-mar--bottom--med">
-                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
+                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col col-sml-12 col-med-3 col-lrg-2">
-                                <div className="card card--primary card--med u-mar--bottom--med">
-                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
+                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col col-sml-12 col-med-3 col-lrg-2">
-                                <div className="card card--primary card--med u-mar--bottom--med">
-                                    <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <div className="col col-sml-12 col-med-3 col-lrg-2">
+                                    <div className="card card--primary card--med u-mar--bottom--med">
+                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col col-sml-12 col-lrg-1 u-mar--bottom--med">
-                                <BaasicButton
-                                    className="btn btn--base btn--primary"
-                                    label={t('CONTRIBUTION.CREATE.LINK')}
-                                    onClick={() => onSelectPaymentType(c.id)}
-                                />
-                            </div>
-                        </React.Fragment>}
+                                <div className="col col-sml-12 col-lrg-1 u-mar--bottom--med">
+                                    <BaasicButton
+                                        className="btn btn--base btn--primary"
+                                        label={t('CONTRIBUTION.CREATE.LINK')}
+                                        onClick={() => onSelectPaymentType(c.id)}
+                                    />
+                                </div>
+                            </React.Fragment>}
                     </div>
                 )
             })}
 
-            {step === 2 && !isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                <div className="row">
+            {step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                <div className="row u-padd--left--med u-padd--right--med">
                     <div className="col col-sml-12 col-lrg-3">
                         {paymentTypes.map(c => {
                             return (
@@ -111,11 +111,13 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                         }
                     </div>
                     <div className="col col-sml-9">
-                        {!isNullOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
                             <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                     </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <EditFormContent form={form}>
+                            {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                                <h5>{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                             <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">

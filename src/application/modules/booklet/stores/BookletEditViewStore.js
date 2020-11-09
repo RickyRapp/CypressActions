@@ -1,8 +1,7 @@
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { BookletEditForm } from 'application/booklet/forms';
-import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { BookletService } from 'application/booklet/services';
 
 @applicationContext
 class BookletEditViewStore extends BaseViewStore {
@@ -15,20 +14,16 @@ class BookletEditViewStore extends BaseViewStore {
         onSuccess: async form => {
             this.loaderStore.suspend();
             const item = form.values();
-            const response = await this.service.updateCertificate(item);
-            this.rootStore.notificationStore.success((response && response.data && response.data.message) ? response.data.message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
+            const data = await this.rootStore.application.booklet.bookletStore.updateCertificate(item);
+            this.rootStore.notificationStore.success((data && data.message) ? data.message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.loaderStore.resume();
-            return response;
+            return data;
         }
     });
 
     constructor(rootStore) {
         super(rootStore);
-
         this.id = rootStore.routerStore.routerState.params.id;
-        this.rootStore = rootStore;
-        this.service = new BookletService(rootStore.application.baasic.apiClient);
-        this.certificateStatusDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound
@@ -37,9 +32,8 @@ class BookletEditViewStore extends BaseViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
-            this.form.clear();
             await this.fetch([
-                this.fetchCertificateStatuses(),
+                this.loadLookups(),
                 this.getResource(this.id)
             ]);
         }
@@ -51,23 +45,21 @@ class BookletEditViewStore extends BaseViewStore {
             embed: [
                 'bookletOrder',
                 'bookletOrder.accountType',
+                'bookletOrder.donor',
                 'certificates',
                 'certificates.certificateStatus',
                 'certificates.denominationType',
-                'donor',
-                'createdByCoreUser',
                 'bookletType'
             ]
         }
-        const response = await this.service.get(this.id, params);
-        this.booklet = response.data;
+        this.booklet = await this.rootStore.application.booklet.bookletStore.get(this.id, params);
     }
 
     @action.bound
     async saveRowChanges(item) {
         item.bookletId = this.booklet.id;
         this.form.update(item);
-        await this.form.submit();
+        this.form.submit();
     }
 
     @action.bound
@@ -90,14 +82,13 @@ class BookletEditViewStore extends BaseViewStore {
                     note: ''
                 });
 
-                this.getResource();
+                await this.getResource();
                 this.loaderStore.resume();
             }
         );
     }
 
-    @action.bound
-    async certificateStatusIdConfirm(status) {
+    async changeCertificatesStatus(status) {
         this.rootStore.modalStore.showConfirm(
             `Are You Sure You Want To Set Status ${status.name} For All Certificates In This Booklet?`,
             async () => {
@@ -109,21 +100,20 @@ class BookletEditViewStore extends BaseViewStore {
                     certificateStatusId: status.id,
                     note: ''
                 });
-
-                this.getResource();
+                await this.getResource();
                 this.loaderStore.resume();
             }
         );
     }
 
     @action.bound
-    async fetchCertificateStatuses() {
-        this.certificateStatusDropdownStore.setLoading(true);
+    async onSetCleanStatusClick() {
+        const status = this.certificateStatuses.find(c => c.abrv === 'clean');
+        await this.changeCertificatesStatus(status);
+    }
+
+    async loadLookups() {
         this.certificateStatuses = await this.rootStore.application.lookup.certificateStatusStore.find();
-        runInAction(() => {
-            this.certificateStatusDropdownStore.setItems(this.certificateStatuses);
-            this.certificateStatusDropdownStore.setLoading(false);
-        });
     }
 }
 

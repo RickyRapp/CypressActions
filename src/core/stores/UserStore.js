@@ -64,7 +64,7 @@ class UserStore {
             if (user.roles.includes('User')) {
                 const data = await donor.donorStore.getDonorLoginProfile(user.id);
                 if (data) {
-
+                    //do something for donor user if needed
                 }
             }
         } catch (ex) {

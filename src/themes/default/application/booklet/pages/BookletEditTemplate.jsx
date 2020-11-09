@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BookletEditRowTemplate } from 'themes/application/booklet/components';
+import { CertificateEditRowTemplate } from 'themes/application/booklet/components';
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
-import { BaasicButton } from 'core/components';
-import moment from 'moment';
+import { BaasicButton, Date } from 'core/components';
 import _ from 'lodash';
 
 function BookletEditTemplate({ bookletEditViewStore }) {
@@ -13,9 +12,8 @@ function BookletEditTemplate({ bookletEditViewStore }) {
         onRowStatusChange,
         booklet,
         isActiveConfirm,
-        certificateStatusIdConfirm,
         saveRowChanges,
-        certificateStatusDropdownStore,
+        onSetCleanStatusClick,
         certificateStatuses
     } = bookletEditViewStore;
 
@@ -46,7 +44,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                                 {!isMixedBooklet &&
                                     <span>
                                         {" "}({booklet.certificates[0].denominationType.name})
-                                    </span>}
+                                </span>}
                             </div>}
                         <div className="form__group col col-lrg-2">
                             <strong>Code:</strong> {booklet && booklet.code}
@@ -56,11 +54,11 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         </div>
                         <div className="form__group col col-lrg-2">
                             <strong>Donor: </strong>
-                            {booklet && booklet.donor ?
-                                <span>{booklet.donor.donorName} {bookletOrder.accountType.name}</span> : 'N/A'}
+                            {bookletOrder ?
+                                <span>{bookletOrder.donor.donorName} - PrePaid: {booklet.isPrePaid ? 'Yes' : 'No'}</span> : 'N/A'}
                         </div>
                         <div className="form__group col col-lrg-3">
-                            <strong>Assigned On:</strong> {booklet && booklet.dateAssigned ? moment(booklet.dateAssigned).format('YYYY-MM-DD HH:mm') : 'N/A'}
+                            <strong>Assigned On:</strong> {booklet && booklet.dateAssigned ? <Date value={booklet.dateAssigned} format='full' /> : 'N/A'}
                         </div>
                         <div className="form__group col col-lrg-2">
                             <BaasicButton
@@ -76,14 +74,9 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         </div>
                         <div className="form__group col col-lrg-2">
                             <BaasicButton
-                                className="btn btn--base btn--primary"
-                                label='BOOKLET.EDIT.BUTTON.CLEAN_CERTIFICATE_STATUS'
-                                onClick={() => certificateStatusIdConfirm(_.find(certificateStatuses, { abrv: 'clean' }))}
-                            />
-                            <BaasicButton
                                 className="btn btn--base btn--secondary u-mar--left--sml"
-                                label='BOOKLET.EDIT.BUTTON.CANCELED_CERTIFICATE_STATUS'
-                                onClick={() => certificateStatusIdConfirm(_.find(certificateStatuses, { abrv: 'canceled' }))}
+                                label='BOOKLET.EDIT.BUTTON.CLEAN_CERTIFICATE_STATUS'
+                                onClick={onSetCleanStatusClick}
                             />
                         </div>
                     </div>
@@ -100,18 +93,17 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                                 <th className="table__head--data">Actions</th>
                             </tr>
                         </thead>
-                        {booklet &&
-                            <tbody className="table__body">
-                                {_.orderBy(booklet.certificates, ['code'], ['asc']).map(item => {
-                                    return <BookletEditRowTemplate
-                                        key={item.id}
-                                        item={item}
-                                        certificateStatusDropdownStore={certificateStatusDropdownStore}
-                                        saveRowChanges={saveRowChanges}
-                                        onRowStatusChange={onRowStatusChange}
-                                        isMixedBooklet={isMixedBooklet} />
-                                })}
-                            </tbody>}
+                        <tbody className="table__body">
+                            {_.orderBy(booklet && booklet.certificates, ['code'], ['asc']).map(item => {
+                                return <CertificateEditRowTemplate
+                                    key={`${item.id}_${item.dateUpdated}`}
+                                    item={item}
+                                    certificateStatuses={certificateStatuses}
+                                    saveRowChanges={saveRowChanges}
+                                    onRowStatusChange={onRowStatusChange}
+                                    isMixedBooklet={isMixedBooklet} />
+                            })}
+                        </tbody>
                     </table>
                 </div>
             </Content>

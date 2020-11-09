@@ -10,9 +10,14 @@ class SessionStore {
         this.charityService = moduleStore.rootStore.createApplicationService(CharityService);
     }
 
+    async findSession(params) {
+        const response = await this.sessionService.find(params);
+        return response.data;
+    }
+
     async searchCharity(params) {
         const response = await this.charityService.search(params);
-        return response.data.item;
+        return response.data;
     }
 
     async createInitialSession(resource) {

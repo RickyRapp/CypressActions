@@ -19,6 +19,7 @@ import { CharityStatusStore } from 'application/lookup/charity-status/stores';
 import { HowDidYouHearAboutUsStore } from 'application/lookup/how-did-you-hear-about-us/stores';
 import { EmailSenderStore } from 'application/lookup/email-sender/stores';
 import { BookletOrderStatusStore } from 'application/lookup/booklet-order-status/stores';
+import { BookletStatusStore } from 'application/lookup/booklet-status/stores';
 
 class LookupModuleStore {
     constructor(rootStore) {
@@ -39,6 +40,7 @@ class LookupModuleStore {
         this.denominationTypeStore = new DenominationTypeStore(this);
         this.deliveryMethodTypeStore = new DeliveryMethodTypeStore(this);
         this.bookletTypeStore = new BookletTypeStore(this);
+        this.bookletStatusStore = new BookletStatusStore(this);
         this.certificateStatusStore = new CertificateStatusStore(this);
         this.charityStatusStore = new CharityStatusStore(this);
         this.howDidYouHearAboutUsStore = new HowDidYouHearAboutUsStore(this);

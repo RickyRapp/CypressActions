@@ -1677,6 +1677,7 @@
             }
         },
         "EDIT": {
+            "TITLE": "Edit booklet",
             "BUTTON": {
                 "ACTIVE": "Active",
                 "INACTIVE": "Inactive",
@@ -1685,7 +1686,6 @@
                 "SAVE_ROW_CHANGES": "Save row",
                 "IS_ACTIVE": "Is active"
             },
-            "TITLE": "Create booklet",
             "FIELDS": {
                 "COUNT_LABEL": "Count",
                 "COUNT_PLACEHOLDER": "Count",

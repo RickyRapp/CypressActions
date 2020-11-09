@@ -1,24 +1,23 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
-import { SessionService, SessionScanService } from 'application/session/services';
-import { CharityService } from 'application/charity/services';
+import { SessionScanService } from 'application/session/services';
 import { SessionListFilter } from 'application/session/models';
-import { ModalParams } from 'core/models';
-import _ from 'lodash';
+import { applicationContext } from 'core/utils';
 
+@applicationContext
 class SessionViewStore extends BaseListViewStore {
     scanners = null;
 
     constructor(rootStore) {
         let filter = new SessionListFilter('dateCreated', 'desc')
-        const service = new SessionService(rootStore.application.baasic.apiClient);
 
         super(rootStore, {
             name: 'session',
             authorization: 'theDonorsFundAdministrationSection',
+            autoInit: true,
             routes: {
                 create: async () => {
-                    this.openSelectScanner();
+                    this.rootStore.routerStore.goTo('master.app.main.session.create');
                 },
                 edit: async (id) => {
                     rootStore.routerStore.goTo('master.app.main.session.edit',
@@ -35,7 +34,8 @@ class SessionViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: filter,
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.paymentTypeDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
@@ -50,27 +50,24 @@ class SessionViewStore extends BaseListViewStore {
                             'charity',
                             'sessionCertificates',
                             'sessionCertificates.certificate',
-                            'sessionCertificates.certificate.booklet',
-                            'sessionCertificates.certificate.booklet.denominationType',
-                            'sessionCertificates.certificate.booklet.bookletOrderItemBooklets',
-                            'sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem',
-                            'sessionCertificates.certificate.booklet.bookletOrderItemBooklets.bookletOrderItem.bookletOrder',
+                            'sessionCertificates.certificate.denominationType',
+                            // 'sessionCertificates.certificate.booklet',
+                            // 'sessionCertificates.certificate.booklet.bookletOrder',
                         ];
-                        params.fields = [
-                            'id',
-                            'confirmationNumber',
-                            'charity',
-                            'amount',
-                            'donationStatus',
-                            'dateCreated',
-                        ]
-                        const response = await service.find(params);
-                        return response.data;
+                        return this.rootStore.application.session.sessionStore.findSession(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+        this.createSearchCharityDropdownStore();
+        this.createPaymentTypeDropdownStore();
+        this.createDonationStatusDropdownStore();
+        this.createDateCreatedDateRangeQueryStore();
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -115,9 +112,9 @@ class SessionViewStore extends BaseListViewStore {
             }
         }));
 
-        this.selectScannerModal = new ModalParams({});
+    }
 
-        const charityService = new CharityService(rootStore.application.baasic.apiClient);
+    createSearchCharityDropdownStore() {
         this.searchCharityDropdownStore = new BaasicDropdownStore({
             placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
             initFetch: false,
@@ -125,7 +122,7 @@ class SessionViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await charityService.search({
+                    const data = await this.rootStore.application.session.sessionStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
@@ -139,22 +136,15 @@ class SessionViewStore extends BaseListViewStore {
                             'name'
                         ]
                     });
-                    return _.map(response.item, x => { return { id: x.id, name: x.name } });
+                    return data.item.map(x => { return { id: x.id, name: x.name } });
                 },
                 onChange: (charityId) => {
-                    this.queryUtility.filter['charityId'] = charityId;
+                    this.queryUtility.filter.charityId = charityId;
                 }
             });
+    }
 
-        this.scannerDropdownStore = new BaasicDropdownStore(null, {
-            fetchFunc: async () => {
-                return this.rootStore.application.lookup.scannerStore.find();
-            },
-            onChange: async () => {
-                await this.setScannerConnection(this.scannerDropdownStore.value.code);
-            }
-        })
-
+    createPaymentTypeDropdownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
             multi: true
         },
@@ -166,6 +156,9 @@ class SessionViewStore extends BaseListViewStore {
                     this.queryUtility.filter.paymentTypeIds = paymentType.map((type) => { return type.id });
                 }
             });
+    }
+
+    createDonationStatusDropdownStore() {
         this.donationStatusDropdownStore = new BaasicDropdownStore({
             multi: true
         },
@@ -177,6 +170,9 @@ class SessionViewStore extends BaseListViewStore {
                     this.queryUtility.filter.donationStatusIds = donationStatus.map((status) => { return status.id });
                 }
             });
+    }
+
+    createDateCreatedDateRangeQueryStore() {
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
     }
 

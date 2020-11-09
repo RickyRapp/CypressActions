@@ -1,4 +1,4 @@
-import { applicationContext, isNullOrUndefinedOrEmpty } from 'core/utils';
+import { applicationContext, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { action } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorCreateForm } from 'application/donor/forms';
@@ -48,7 +48,7 @@ class DonorCreateViewStore extends BaseEditViewStore {
                         }
                     }
 
-                    if (!isNullOrUndefinedOrEmpty(resource.username)) {
+                    if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(resource.username)) {
                         model.coreUser = {
                             userName: resource.username,
                             coreMembership: {

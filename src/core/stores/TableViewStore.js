@@ -5,6 +5,7 @@ import { LoaderStore } from 'core/stores';
 const DefaultConfig = {
     columns: [],
     actions: {},
+    actionsRender: {},
     batchActions: {},
     onRowClick: () => { },
     // eslint-disable-next-line

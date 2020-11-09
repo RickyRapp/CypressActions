@@ -5,11 +5,10 @@ import {
     BaasicFormControls,
     EditFormContent,
     BaasicDropzone,
-    NumberFormatInputField,
-    BasicFieldCheckbox
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import { isNullOrUndefinedOrEmpty } from 'core/utils';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, t }) {
     const {
@@ -68,7 +67,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
 
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12">
-                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
+                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
                 </div>
             </div>
 

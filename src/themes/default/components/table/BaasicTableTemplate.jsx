@@ -31,7 +31,7 @@ const BaasicTableTemplate = function ({
     const {
         isBatchSelect,
         data,
-        config: { columns, actions, actionsWidth, onRowClick, customRowRender, ...otherStoreFields },
+        config: { columns, actions, actionsRender, actionsWidth, onRowClick, customRowRender, ...otherStoreFields },
         onInfiniteScroll,
         hasData,
         dataInitialized,
@@ -61,7 +61,7 @@ const BaasicTableTemplate = function ({
                 >
                     {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization, batchActionsComponent) : null}
                     {defaultRenderColumns({ t, columns })}
-                    {defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t })}
+                    {defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender })}
                 </Grid>
             </ContentWithEmptyState>
             {isLoading ? <BaasicTableLoader /> : null}

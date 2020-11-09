@@ -27,7 +27,8 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                 <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
                     {t('BANK_ACCOUNT.LIST.TITLE')}
                     <BaasicButton
-                        className="btn btn--icon u-mar--left--sml"
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--add u-icon--xxmed'
                         label='BANK_ACCOUNT.LIST.BUTTON.CREATE'
                         onlyIcon={true}
@@ -69,7 +70,8 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onEdit) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon u-mar--left--sml"
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='BANK_ACCOUNT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
@@ -79,7 +81,8 @@ function renderActions({ item, actions, authorization }) {
                 {isSome(onDelete) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon u-mar--left--sml"
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--delete u-icon--sml'
                         label='BANK_ACCOUNT.LIST.BUTTON.DELETE'
                         onlyIcon={true}

@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { DropDownList, MultiSelect } from '@progress/kendo-react-dropdowns';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
+import { isSome } from 'core/utils';
 
 const BaasicDropdownTemplate = function (props) {
     const { store, t, placeholder, className, activeClassName, warningClassName, tag, ...assignProps } = props;
@@ -34,6 +35,14 @@ const BaasicDropdownTemplate = function (props) {
         else {
             return value;
         }
+    }
+
+    function getFilterable() {
+        if (isSome(props.filterable)) {
+            return props.filterable;
+        }
+
+        return store.options.disabled;
     }
 
     function getDefaultItem() {
@@ -77,7 +86,7 @@ const BaasicDropdownTemplate = function (props) {
                     filter={store.filterTerm}
                     autoClose={store.options.autoClose}
                     dataItemKey={store.options.dataItemKey}
-                    filterable={store.options.filterable}
+                    filterable={getFilterable()}
                     disabled={store.options.disabled}
                     onFilterChange={onFilter}
                     onChange={onChange}
@@ -114,6 +123,7 @@ BaasicDropdownTemplate.propTypes = {
     value: PropTypes.any,
     multi: PropTypes.bool,
     tag: PropTypes.object,
+    filterable: PropTypes.bool,
     t: PropTypes.func,
 };
 

@@ -22,6 +22,7 @@ function DefaultContent({
     content = null,
     type = 'button',
     className,
+    onlyIconClassName,
     onAction,
     label,
     icon,
@@ -32,12 +33,12 @@ function DefaultContent({
             {isSome(content) ? (
                 content
             ) : (
-                <div className="u-display--flex u-display--flex--align--center">
-                    <span className={icon && label ? "" : ""}>
-                        {!onlyIcon && t(label)}
-                    </span>
-                    {onlyIcon ? <i className={`${iconName(icon)} u-mar--right--med`} /> : <i className={`${iconName(icon)}`} />}
-                </div>
+                    <div className="u-display--flex u-display--flex--align--center">
+                        <span className={onlyIcon ? onlyIconClassName : ""}>
+                            {!onlyIcon && t(label)}
+                        </span>
+                        {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName}`} /> : <i className={`${iconName(icon)}`} />}
+                    </div>
                 )}
         </button>
     ) : null;
@@ -49,6 +50,7 @@ DefaultContent.propTypes = {
     content: PropTypes.any,
     type: PropTypes.string,
     className: PropTypes.string,
+    onlyIconClassName: PropTypes.string,
     onAction: PropTypes.func,
     label: PropTypes.string,
     icon: PropTypes.string,

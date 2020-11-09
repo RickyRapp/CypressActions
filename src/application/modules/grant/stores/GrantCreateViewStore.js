@@ -266,7 +266,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
             }
             data = await this.rootStore.application.grant.grantStore.findGrants(params);
         }
-        debugger
         if (data) {
             this.previousGrantsTableStore.setData(data.item);
             if (!this.previousGrantsTableStore.dataInitialized) {
@@ -339,18 +338,16 @@ class GrantCreateViewStore extends BaseEditViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses',
-                            'charityAccountType'
+                            'charityAddresses'
                         ],
                         fields: [
                             'id',
                             'taxId',
                             'name',
-                            'charityAccountType',
                             'charityAddresses'
                         ]
                     });
-                    return data.map(x => {
+                    return data.item.map(x => {
                         return {
                             id: x.id,
                             name: charityFormatter.format(x, { value: 'charity-name-display' }),

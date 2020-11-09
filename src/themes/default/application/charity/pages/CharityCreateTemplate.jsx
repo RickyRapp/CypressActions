@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
     BasicInput,
     BaasicFieldDropdown,
-    BaasicDropzone,
     NumberFormatInputField,
     BasicFieldCheckbox,
     BaasicFieldDropzone

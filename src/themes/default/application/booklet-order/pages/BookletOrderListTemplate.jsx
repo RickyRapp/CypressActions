@@ -1,23 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate, withAuth } from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
     BaasicTable,
     TableFilter,
-    EmptyState,
     BaasicDropdown,
     BaasicInput,
     DateRangeQueryPicker
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { Content } from 'core/layouts';
+import { ApplicationListLayout, Content } from 'core/layouts';
 
 const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         searchDonorDropdownStore,
@@ -27,35 +24,38 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     } = bookletOrderViewStore;
 
     return (
-        <Content emptyRenderer={renderEmpty(routes)} >
-            <div className="card--tertiary card--med u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                    <div className="row">
-                        <AuthDropdown
-                            searchDonorDropdownStore={searchDonorDropdownStore}
-                            authorization='theDonorsFundAdministrationSection.read' />
+        <ApplicationListLayout store={bookletOrderViewStore} authorization={authorization}>
+            <Content>
+                <div className="card--tertiary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} visibleByDefault={false}>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown store={searchDonorDropdownStore} />
+                        </div>
 
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id='bookletCodes'
                                 className='input input--med'
-                                value={queryUtility.filter['bookletCodes'] || ""}
-                                onChange={(event) => queryUtility.filter['bookletCodes'] = event.target.value}
+                                value={queryUtility.filter.bookletCodes || ""}
+                                onChange={(event) => queryUtility.filter.bookletCodes = event.target.value}
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id='confirmationNumber'
                                 className='input input--med'
-                                value={queryUtility.filter['confirmationNumber'] || ""}
-                                onChange={(event) => queryUtility.filter['confirmationNumber'] = event.target.value}
+                                value={queryUtility.filter.confirmationNumber || ""}
+                                onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id='trackingNumber'
                                 className='input input--med'
-                                value={queryUtility.filter['trackingNumber'] || ""}
-                                onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
+                                value={queryUtility.filter.trackingNumber || ""}
+                                onChange={(event) => queryUtility.filter.trackingNumber = event.target.value}
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'
                             />
                         </div>
@@ -83,37 +83,19 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </TableFilter>
-            </div>
-            <div className="card--primary card--med">
-                <BaasicTable
-                    authorization={authorization}
-                    tableStore={tableStore}
-                    actionsComponent={renderActions}
-                />
-            </div>
-        </Content>
+                    </TableFilter>
+                </div>
+                <div className="card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
+                </div>
+            </Content>
+        </ApplicationListLayout>
     )
 };
-
-const AuthDropdown = withAuth(DropdownComponent);
-
-function DropdownComponent({ searchDonorDropdownStore }) {
-    return (
-        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-            <BaasicDropdown store={searchDonorDropdownStore} />
-        </div>
-    );
-}
-
-DropdownComponent.propTypes = {
-    searchDonorDropdownStore: PropTypes.object.isRequired
-};
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='BOOKLET_ORDER.LIST.EMPTY_STATE.TITLE' actionLabel='BOOKLET_ORDER.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 BookletOrderListTemplate.propTypes = {
     bookletOrderViewStore: PropTypes.object.isRequired,

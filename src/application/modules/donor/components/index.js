@@ -7,7 +7,6 @@ export { default as DonorEmailAddressEditForm } from './DonorEmailAddressEditFor
 export { default as DonorAddressEditForm } from './DonorAddressEditForm'
 export { default as DonorPhoneNumberEditForm } from './DonorPhoneNumberEditForm'
 export { default as BankAccountForm } from './BankAccountForm'
-export { default as DonorPageHeaderOverview } from './DonorPageHeaderOverview'
 export { default as SelectDonor } from './SelectDonor'
 export { default as DonorThirdPartyWebsiteSetting } from './DonorThirdPartyWebsiteSetting'
 export { default as DonorAutomaticContributionSetting } from './DonorAutomaticContributionSetting'

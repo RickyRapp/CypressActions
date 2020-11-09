@@ -2,7 +2,6 @@ import { action, observable, computed } from 'mobx';
 import { BookletOrderCreateForm } from 'application/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { BookletOrderService } from 'application/booklet-order/services';
 
 @applicationContext
 class BookletOrderCreateViewStore extends BaseEditViewStore {
@@ -17,18 +16,15 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'booklet-order-create',
             id: undefined,
-            autoInit: false,
             actions: () => {
                 return {
                     create: async (resource) => {
-
-                        const response = await this.service.create({
+                        await this.rootStore.application.bookletOrder.bookletOrderStore.create({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
                             ...resource,
                             bookletOrderContents: this.orderContents.filter(c => c.bookletCount > 0)
                         });
-                        return response;
                     }
                 }
             },
@@ -41,8 +37,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         else {
             this.donorId = rootStore.userStore.user.id;
         }
-
-        this.service = new BookletOrderService(rootStore.application.baasic.apiClient);
     }
 
     @action.bound
@@ -53,10 +47,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         else {
             await this.fetch([
                 this.fetchDonor(),
-                this.fetchApplicationDefaultSetting(),
-                this.fetchDenominationTypes(),
-                this.fetchDeliveryMethodTypes(),
-                this.fetchBookletTypes()
+                this.loadLookups()
             ]);
 
             if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
@@ -154,8 +145,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         }
     }
 
-    @action.bound
-    async setDefaultShippingAddress() {
+    setDefaultShippingAddress() {
         this.form.$('addressLine1').set(this.donor.donorAddress.addressLine1);
         this.form.$('addressLine2').set(this.donor.donorAddress.addressLine2);
         this.form.$('city').set(this.donor.donorAddress.city);
@@ -163,29 +153,14 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.form.$('zipCode').set(this.donor.donorAddress.zipCode);
     }
 
-    @action.bound
     async fetchDonor() {
-        const response = await this.service.getDonorInformation(this.donorId);
-        this.donor = response.data;
+        this.donor = await this.rootStore.application.bookletOrder.bookletOrderStore.getDonorInformation(this.donorId);
     }
 
-    @action.bound
-    async fetchApplicationDefaultSetting() {
+    async loadLookups() {
         this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
-    }
-
-    @action.bound
-    async fetchDenominationTypes() {
         this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
-    }
-
-    @action.bound
-    async fetchDeliveryMethodTypes() {
         this.deliveryMethodTypes = await this.rootStore.application.lookup.deliveryMethodTypeStore.find();
-    }
-
-    @action.bound
-    async fetchBookletTypes() {
         this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
     }
 }

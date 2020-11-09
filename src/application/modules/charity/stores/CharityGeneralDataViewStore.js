@@ -1,6 +1,5 @@
-import { CharityEditForm, CharityOnlineAccountForm } from 'application/charity/forms';
+import { CharityEditForm } from 'application/charity/forms';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { CharityService } from 'application/charity/services';
 import { action } from 'mobx';
 import { applicationContext } from 'core/utils';
 
@@ -27,8 +26,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             charityStatusId: data.charityStatusId,
                             charityTypeId: data.charityTypeId,
                             contactInformationName: data.contactInformation.name,
-                            contactInformationName: data.contactInformation.email,
-                            contactInformationName: data.contactInformation.number
+                            contactInformationEmail: data.contactInformation.email,
+                            contactInformationNumber: data.contactInformation.number
 
                         }
                     },

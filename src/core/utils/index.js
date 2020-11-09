@@ -5,7 +5,7 @@ export { default as flattenArray } from './flattenArray';
 export { default as unionArray } from './unionArray';
 export { default as isFunction } from './isFunction';
 export { default as isSome } from './isSome';
-export { default as isNullOrUndefinedOrEmpty } from './isNullOrUndefinedOrEmpty';
+export { default as isNullOrWhiteSpacesOrUndefinedOrEmpty } from './isNullOrWhiteSpacesOrUndefinedOrEmpty';
 export { default as flattenRoutes } from './flattenRoutes';
 export { default as translate } from './translate';
 export { default as QueryUtility } from './QueryUtility';

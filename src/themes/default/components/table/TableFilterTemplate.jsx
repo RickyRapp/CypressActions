@@ -102,7 +102,7 @@ TableFilterTemplate.defaultProps = {
     showClear: false,
     nextToSearch: false,
     showButtons: true,
-    showSearch: false,
+    showSearch: true,
     showToggle: true,
     fetchDisabled: false,
     hideOnFetch: false,

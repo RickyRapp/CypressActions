@@ -156,7 +156,6 @@ class BaseEditViewStore extends BaseViewStore {
             }
         }
         catch (err) {
-            console.log(err)
             return this.onUpdateError(err);
         } finally {
             this.form.setFieldsDisabled(false);
@@ -189,7 +188,6 @@ class BaseEditViewStore extends BaseViewStore {
             }
         }
         catch (err) {
-            console.log(err)
             this.form.setFieldsDisabled(false);
             return this.onCreateError(err);
         } finally {

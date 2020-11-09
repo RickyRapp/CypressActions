@@ -1,7 +1,6 @@
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { CharityCreateForm } from 'application/charity/forms';
 import { BaseEditViewStore, BaasicDropdownStore, BaasicUploadStore } from 'core/stores';
-import { CharityService } from 'application/charity/services';
 import { CharityFileStreamService } from 'common/services';
 import { applicationContext } from 'core/utils';
 import { localizationService, validatorService } from 'core/services';
@@ -178,7 +177,6 @@ class CharityCreateViewStore extends BaseEditViewStore {
         validatorService.registerAsyncValidator('taxIdUnique', async (value, attribute, req, passes) => {
             try {
                 const statusCode = await this.rootStore.application.charity.charityStore.taxIdExists(value);
-                debugger
                 if (statusCode === 204) {
                     return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.TAX_ID_CONFLICT'))
                 }
