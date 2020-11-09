@@ -78,18 +78,23 @@ const BaasicDropzoneTemplate = function (props) {
                               <div key={c} className="col col-sml-6 col-lrg-3">
                                    {store.options.showPreview &&
                                         <React.Fragment>
-                                             <label className="form__group__label">
-                                                  {store.options.deleteUploaded &&
-                                                       <BaasicButton
-                                                            className="btn btn--icon"
-                                                            icon={'u-icon u-icon--delete u-icon--tny'}
-                                                            label={t('')}
-                                                            onlyIcon={true}
-                                                            onClick={() => onDeleteFn(c)}
-                                                       />}
-                                             </label>
-
-                                             <ImagePreview image={store.options.routeService.getPreview(c)} />
+                                             <div className="row">
+                                                  <div className="col col-sml-12">
+                                                       <ImagePreview image={store.options.routeService.getPreview(c)} />
+                                                  </div>
+                                                  <div className="col col-sml-6 u-display--flex u-display--flex--justify--center">
+                                                       <label className="form__group__label u-mar--right--tny">
+                                                            {store.options.deleteUploaded &&
+                                                            <BaasicButton
+                                                                 className="btn btn--icon"
+                                                                 icon={'u-icon u-icon--delete u-icon--sml'}
+                                                                 label={t('')}
+                                                                 onlyIcon={true}
+                                                                 onClick={() => onDeleteFn(c)}
+                                                                 />}
+                                                       </label>
+                                                  </div>
+                                             </div>
                                         </React.Fragment>}
                               </div>
                          )
@@ -107,7 +112,7 @@ const BaasicDropzoneTemplate = function (props) {
                                                   {c.name}
                                                   {store.options.removeFromBuffer &&
                                                        <BaasicButton
-                                                            className="btn btn--icon"
+                                                            className="btn btn--icon u-mar--left--tny"
                                                             icon={'u-icon u-icon--close u-icon--tny'}
                                                             label={t('')}
                                                             onlyIcon={true}

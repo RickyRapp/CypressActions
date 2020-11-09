@@ -33,27 +33,25 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
         <ApplicationListLayout store={grantViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="row">
-                            {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
-                                <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                    <BaasicDropdown store={searchDonorDropdownStore} />
-                                </div>}
+                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>                    
+                        {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id='confirmationNumber'
-                                    className='input input--med'
-                                    value={queryUtility.filter.confirmationNumber || ""}
-                                    onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
-                                    placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={donationStatusDropdownStore}
-                                    placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
-                                />
-                            </div>
+                                <BaasicDropdown store={searchDonorDropdownStore} />
+                            </div>}
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                id='confirmationNumber'
+                                className='input input--med'
+                                value={queryUtility.filter.confirmationNumber || ""}
+                                onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
+                                placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicDropdown
+                                store={donationStatusDropdownStore}
+                                placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
+                            />
                         </div>
                     </TableFilter>
                 </div>
@@ -107,7 +105,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton

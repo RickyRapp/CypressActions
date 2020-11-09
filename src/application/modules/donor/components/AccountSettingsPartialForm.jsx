@@ -15,6 +15,7 @@ class AccountSettingsPartialForm extends Component {
                 <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_SETTINGS_FIELDS.TITLE')}
                     <BaasicButton
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon={`u-icon u-icon--${show ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
                         label={show ? t('DONOR.ACCOUNT_SETTINGS_FIELDS.SHOW') : t('DONOR.ACCOUNT_SETTINGS_FIELDS.HIDE')}
                         onlyIcon={true}

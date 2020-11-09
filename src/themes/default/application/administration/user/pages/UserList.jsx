@@ -47,12 +47,13 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit) && !isSome(onLock) && !isSome(onUnlock) && !isSome(onApprove) && !isSome(onDisapprove)) return null;
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='Edit'
                         onlyIcon={true}
@@ -63,6 +64,7 @@ function renderActions({ item, actions, authorization }) {
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--unapproved u-icon--sml'
                         label='Disapprove'
                         onlyIcon={true}
@@ -72,6 +74,7 @@ function renderActions({ item, actions, authorization }) {
                         <BaasicButton
                             authorization={authorization ? authorization.update : null}
                             className="btn btn--icon"
+                            onlyIconClassName="u-mar--right--tny"
                             icon='u-icon u-icon--approve u-icon--sml'
                             label='Approve'
                             onlyIcon={true}
@@ -82,6 +85,7 @@ function renderActions({ item, actions, authorization }) {
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--unlocked u-icon--sml'
                         label='Unlock'
                         onlyIcon={true}
@@ -91,6 +95,7 @@ function renderActions({ item, actions, authorization }) {
                         <BaasicButton
                             authorization={authorization ? authorization.update : null}
                             className="btn btn--icon"
+                            onlyIconClassName="u-mar--right--tny"
                             icon='u-icon u-icon--locked u-icon--sml'
                             label='Lock'
                             onlyIcon={true}

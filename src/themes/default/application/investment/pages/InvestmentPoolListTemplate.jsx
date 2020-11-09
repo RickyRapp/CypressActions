@@ -29,17 +29,18 @@ const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
         <React.Fragment>
             <ApplicationListLayout store={investmentPoolViewStore} authorization={authorization}>
                 <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="card--form card--secondary card--med u-mar--bottom--sml">
+                    <div className="card--tertiary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
                         </TableFilter>
                         <BaasicButton
-                            className="btn btn--base btn--secondary"
-                            icon={`u-icon u-icon--unlocked u-icon--sml`}
+                            className="btn btn--base btn--tertiary"
+                            onlyIconClassName="u-mar--right--tny"
+                            icon={`u-icon u-icon--unlock u-icon--sml`}
                             label='Enter change'
                             onClick={openInvestmentPoolChange}>
                         </BaasicButton>
                     </div>
-                    <div className="card--form card--primary card--med">
+                    <div className="card--primary card--med">
                         <BaasicTable
                             authorization={authorization}
                             tableStore={tableStore}
@@ -86,7 +87,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onSelect) && selectRender ? (
                     <BaasicButton

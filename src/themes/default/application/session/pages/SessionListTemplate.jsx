@@ -27,12 +27,12 @@ const SessionListTemplate = function ({ sessionViewStore }) {
     return (
         <ApplicationListLayout store={sessionViewStore} authorization={authorization}>
             <Content>
-                <div className="card--secondary card--med u-mar--bottom--sml">
+                <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicDropdown store={searchCharityDropdownStore} />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--med'
                                 value={queryUtility.filter.confirmationNumber || ""}
@@ -40,7 +40,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                                 placeholder='SESSION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 className='input input--med'
                                 value={queryUtility.filter.paymentNumber || ""}
@@ -48,19 +48,19 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                                 placeholder='SESSION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicDropdown
                                 store={paymentTypeDropdownStore}
                                 placeholder='SESSION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicDropdown
                                 store={donationStatusDropdownStore}
                                 placeholder='SESSION.LIST.FILTER.SESSION_STATUS_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <NumberFormatInput
                                 className='input input--med'
                                 value={queryUtility.filter.bookletCertificateCode}
@@ -69,17 +69,21 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                                 mask=''
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                            <DateRangeQueryPicker
-                                queryUtility={queryUtility}
-                                store={dateCreatedDateRangeQueryStore}
-                                fromPropertyName='dateCreatedFrom'
-                                toPropertyName='dateCreatedTo'
-                            />
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <div className="row">
+                                <div className="col col-sml-12 col-lrg-8">
+                                    <DateRangeQueryPicker
+                                        queryUtility={queryUtility}
+                                        store={dateCreatedDateRangeQueryStore}
+                                        fromPropertyName='dateCreatedFrom'
+                                        toPropertyName='dateCreatedTo'
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -117,7 +121,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton

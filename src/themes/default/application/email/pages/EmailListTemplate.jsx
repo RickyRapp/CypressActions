@@ -19,7 +19,7 @@ const EmailListTableTemplate = function ({ emailViewStore }) {
 
     return (
         <ListContent>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <Content emptyRenderer={renderEmpty(routes)} >
                     <BaasicTable
                         authorization={authorization}
@@ -55,7 +55,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onPreview) && previewRender ? (
                     <BaasicButton

@@ -78,7 +78,7 @@ function renderActions({ item, actions, actionsRender, authorization }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onCancel) && cancelRender ? (
                     <BaasicButton

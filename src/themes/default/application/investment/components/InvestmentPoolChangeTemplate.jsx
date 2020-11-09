@@ -13,38 +13,43 @@ function InvestmentPoolChangeTemplate({ investmentPoolChangeViewStore, t }) {
 
     return (
         <section>
-            <h3 className="u-mar--bottom--med">{t('INVESTMENT_POOL.EDIT.TITLE')}</h3>
+            <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('INVESTMENT_POOL.EDIT.TITLE')}</h3>
             {form.$('investmentPoolHistory').map((_c) => {
                 const element = item.investmentPoolHistory.find(_d => _d.investmentPoolId === _c.$('investmentPoolId').value);
                 const newPoolValue = element.totalPoolValue + (_c.$('percentageChange').value * element.totalPoolValue)
                 const difference = Math.abs(_c.$('totalPoolValue').value - (newPoolValue));
 
                 return (
-                    <div key={_c.key} className="row">
-                        <div className="form__group col col-lrg-3">
-                            <span>{element.investmentPool.name} </span>
-                        </div>
-                        <div className="form__group col col-sml-12 col-lrg-4">
-                            <NumericInputField field={_c.$('percentageChange')} />
-                            <small>
-                                New pool value: <FormatterResolver
-                                    item={{ amount: newPoolValue }}
-                                    field='amount'
-                                    format={{ type: 'currency' }}
-                                />
-                            </small>
-                        </div>
-                        <div className="form__group col col-lrg-5">
-                            <NumericInputField field={_c.$('totalPoolValue')} />
-                            <small>
-                                Difference: <span style={{ backgroundColor: difference >= 1 ? "red" : "green" }}>
-                                    <FormatterResolver
-                                        item={{ difference: difference }}
-                                        field='difference'
+                    <div className="u-separator--primary u-mar--bottom--sml">
+                        <div key={_c.key} className="row u-mar--bottom--med">
+                            <div className="col col-lrg-12">
+                                <span className="type--med type--wgt--medium type--color--note u-mar--bottom--tny">{element.investmentPool.name} </span>
+                            </div>
+                            <div className="col col-sml-12 col-lrg-6">
+                                <NumericInputField field={_c.$('percentageChange')} />
+                                <p className="type--tny type--wgt--regular">
+                                    New pool value: 
+                                    <span className="type--color--note u-mar--left--tny">
+                                        <FormatterResolver
+                                        item={{ amount: newPoolValue }}
+                                        field='amount'
                                         format={{ type: 'currency' }}
-                                    />
-                                </span>
-                            </small>
+                                        />
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="col col-lrg-6">
+                                <NumericInputField field={_c.$('totalPoolValue')} />
+                                <p className="type--tny type--wgt--regular">
+                                    Difference: <span className="u-mar--left--tny" style={{ backgroundColor: difference >= 1 ? "#ff4553" : "#00c48c" }}>
+                                        <FormatterResolver
+                                            item={{ difference: difference }}
+                                            field='difference'
+                                            format={{ type: 'currency' }}
+                                        />
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 )

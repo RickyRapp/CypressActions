@@ -51,7 +51,7 @@ class CommandCell extends GridCell {
         }
 
         return (
-            <td className='right'>
+            <td className='table__body--data table__body--data--last'>
                 {_.map(iconItems, (item, idx) => {
                     return item.action ? (
                         <button key={idx} type="button" className="btn btn--icon" onClick={() => item.action(dataItem)}>

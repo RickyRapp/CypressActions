@@ -44,10 +44,10 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
             <ApplicationEditLayout store={scheduledGrantEditViewStore}>
                 <Content loading={contentLoading} >
                     {donorName && <h3 className="u-mar--bottom--med">{donorName}</h3>}
-                    <div className="card card--form card--primary card--med u-mar--bottom--med">
+                    <div className="card--primary card--med u-mar--bottom--med">
                         <h3 className="u-mar--bottom--med">General Data</h3>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                                 <BaasicButton
                                     className="btn btn--icon"
@@ -57,43 +57,43 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                     onClick={openAdvancedSearchModal}
                                 />
                             </div>
-                            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                 <Scanner onBarcodeDetected={onScanned} />
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} />
                             </div>
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <DatePickerField field={form.$('startFutureDate')} />
                             </div>
                             {grantScheduleTypeDropdownStore.value && form.$('startFutureDate').value &&
                                 <React.Fragment>
                                     {moment(form.$('startFutureDate').value).isAfter(moment()) &&
-                                        <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+                                        <div className="col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                                             <BasicInput field={form.$('name')} />
                                         </div>}
                                     {grantScheduleTypeDropdownStore.value &&
                                         (grantScheduleTypeDropdownStore.value.abrv === 'monthly' || grantScheduleTypeDropdownStore.value.abrv === 'annual') &&
                                         <React.Fragment>
-                                            <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml">
+                                            <div className="col col-sml-6 col-lrg-1 u-mar--bottom--sml">
                                                 <NumericInputField field={form.$('numberOfPayments')} onChange={onChangeNumberOfPayments} />
                                             </div>
-                                            <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+                                            <div className="col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                                                 <DatePickerField field={form.$('endDate')} onChange={onChangeEndDate} />
                                             </div>
-                                            <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml">
+                                            <div className="col col-sml-6 col-lrg-1 u-mar--bottom--sml">
                                                 <BasicFieldCheckbox field={form.$('noEndDate')} onChange={onChangeNoEndDate} />
                                             </div>
                                         </React.Fragment>}
                                 </React.Fragment>}
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <NumericInputField field={form.$('amount')} onChange={onChangeAmount} />
                             </div>
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 {amountWithFee &&
                                     <React.Fragment><label className="form__group__label">Total amount with fee</label>
                                         <span className={"input input--med input--text input--disabled"}>{amountWithFee}</span>
@@ -101,11 +101,11 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                             </div>
                             {donor && grantAcknowledgmentTypeDropdownStore.value &&
-                                <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                                <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'name-fund-name-and-address' &&
                                         `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(_.find(donor.donorAddresses, { isPrimary: true }), 'full')}`}
                                     {grantAcknowledgmentTypeDropdownStore.value.abrv === 'fund-name-and-address' &&
@@ -114,12 +114,12 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                 </div>}
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                            <div className="col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                                 {grantPurposeTypeDropdownStore.value &&
                                 <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
                             </div>

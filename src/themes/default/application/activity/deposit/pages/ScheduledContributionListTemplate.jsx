@@ -44,12 +44,13 @@ function renderActions({ item, actions, actionsRender, authorization }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='DONOR_CONTRIBUTION_SETTING.LIST.BUTTON.EDIT'
                         onlyIcon={true}

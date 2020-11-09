@@ -25,7 +25,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
     return (
         <Content>
             <div className="card--tertiary card--med u-mar--bottom--sml">
-                <TableFilter searchClassName="w--300--px" queryUtility={queryUtility} >
+                <TableFilter queryUtility={queryUtility} >
                     <div className="row">
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
                             <BaasicInput
@@ -121,7 +121,7 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton

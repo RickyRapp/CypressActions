@@ -19,24 +19,22 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                 <div className="u-mar--bottom--sml">
                     <div className="card--tertiary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
-                            <div className="row">
-                                <div className="col col-sml-6 u-mar--bottom--sml">
-                                    <div className="row">
-                                        <div className="col col-sml-12 u-mar--bottom--sml">
-                                            <BaasicInput
-                                                id='codes'
-                                                className='input input--med'
-                                                value={queryUtility.filter.codes || ""}
-                                                onChange={(event) => queryUtility.filter.codes = event.target.value}
-                                                placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
-                                                />
-                                        </div>
-                                        <div className="col col-sml-12 u-mar--bottom--sml">
-                                            <BaasicDropdown
-                                                store={denominationTypeDropdownStore}
-                                                placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
-                                                />
-                                        </div>
+                            <div className="col col-sml-6 u-mar--bottom--sml">
+                                <div className="row">
+                                    <div className="col col-sml-12 u-mar--bottom--sml">
+                                        <BaasicInput
+                                            id='codes'
+                                            className='input input--med'
+                                            value={queryUtility.filter.codes || ""}
+                                            onChange={(event) => queryUtility.filter.codes = event.target.value}
+                                            placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
+                                            />
+                                    </div>
+                                    <div className="col col-sml-12 u-mar--bottom--sml">
+                                        <BaasicDropdown
+                                            store={denominationTypeDropdownStore}
+                                            placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
+                                            />
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +65,7 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit)) return null;
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton

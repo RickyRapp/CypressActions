@@ -10,10 +10,8 @@
 	}
 
 	.k-header {
-
 		&:last-child {		
-			width: calc($unit * 25);
-			float: right;			
+			max-width: calc($unit * 26);	
 		}
 	}
 
@@ -81,8 +79,8 @@
 		border-width: 0;
 
 		&.k-hierarchy-cell {
-			background: $color-primary !important;
-
+			background-color: $color-background !important;
+			
 			.k-link {
 				&:after {
 					display: none;
@@ -159,10 +157,9 @@
 				border-left: 0;
 				background-color: #ffffff;
 
-				&:last-child {		
-					width: calc($unit * 25);
-					height: calc($unit * 7);
-					float: right;			
+				&.table__body--data--last {		
+					max-width: calc($unit * 26);
+					height: calc($unit * 7);		
 				}
 
 				&.actions {

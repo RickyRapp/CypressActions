@@ -21,7 +21,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
 
     return (
         <Page>
-            <div className="card card--form card--primary card--med u-mar--bottom--sml">
+            <div className="card--primary card--med u-mar--bottom--sml">
                 <StepCounter
                     steps={steps}
                     currentStep={currentStep}
@@ -30,12 +30,12 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
 
             <form onSubmit={form.onSubmit}>
                 {currentStep === 1 &&
-                    <div className="card card--form card--primary card--med u-mar--bottom--sml">
+                    <div className="card--primary card--med u-mar--bottom--sml">
                         <Step1Template onNextStepClick={onNextStep1Click} />
                     </div>}
 
                 {currentStep === 2 &&
-                    <div className="card card--form card--primary card--med u-mar--bottom--sml">
+                    <div className="card--primary card--med u-mar--bottom--sml">
                         <Step2Template
                             form={form}
                             onNextStepClick={onNextStep2Click}

@@ -140,7 +140,7 @@ function renderActions({ item, actions, actionsRender, t }) {
     }
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {item.isApproved ? (
                     <span className={'u-icon u-icon--approve u-icon--sml'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />

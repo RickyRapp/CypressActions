@@ -56,7 +56,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
 
                             return (
                                 <div key={item.key} className="card--secondary card--med u-mar--bottom--med">
-                                    <div className="row u-mar--bottom--med">
+                                    <div className="row u-mar--bottom--sml">
                                         <div className="col col-sml-6">
                                             <div className="row">
                                                 <div className="col col-sml-12 u-mar--bottom--sml">

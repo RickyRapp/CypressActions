@@ -26,39 +26,37 @@ const CharityListTemplate = function ({ charityViewStore }) {
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        <div className="row">
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    className='input input--med'
-                                    value={queryUtility.filter['name'] || ""}
-                                    onChange={(event) => queryUtility.filter['name'] = event.target.value}
-                                    placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    className='input input--med'
-                                    value={queryUtility.filter['emails'] || ""}
-                                    onChange={(event) => queryUtility.filter['emails'] = event.target.value}
-                                    placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicInput
-                                    className='input input--med'
-                                    value={queryUtility.filter['address'] || ""}
-                                    onChange={(event) => queryUtility.filter['address'] = event.target.value}
-                                    placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <NumberFormatInput
-                                    className='input input--med'
-                                    value={queryUtility.filter['taxId']}
-                                    onChange={(event) => queryUtility.filter['taxId'] = event.value}
-                                    format='##-#######'
-                                />
-                            </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--med'
+                                value={queryUtility.filter['name'] || ""}
+                                onChange={(event) => queryUtility.filter['name'] = event.target.value}
+                                placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--med'
+                                value={queryUtility.filter['emails'] || ""}
+                                onChange={(event) => queryUtility.filter['emails'] = event.target.value}
+                                placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <BaasicInput
+                                className='input input--med'
+                                value={queryUtility.filter['address'] || ""}
+                                onChange={(event) => queryUtility.filter['address'] = event.target.value}
+                                placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
+                            />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                            <NumberFormatInput
+                                className='input input--med'
+                                value={queryUtility.filter['taxId']}
+                                onChange={(event) => queryUtility.filter['taxId'] = event.value}
+                                format='##-#######'
+                            />
                         </div>
                     </TableFilter>
                 </div>
@@ -89,7 +87,7 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit)) return null;
 
     return (
-        <td className="table__body--data ">
+        <td className="table__body--data table__body--data--last">
             <div className="table__icons">
                 {isSome(onEdit) ? (
                     <BaasicButton

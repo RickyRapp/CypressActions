@@ -9,7 +9,7 @@ class FormDebug extends Component {
         const style = { wordBreak: 'break-all' }
 
         return (
-            <div className="card card--form card--primary card--med u-mar--bottom--med">
+            <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">Errors</h3>
                 <div className="row" style={style}>
                     {JSON.stringify(this.props.form.errors())}
