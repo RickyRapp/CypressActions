@@ -39,6 +39,7 @@
         "INVESTMENT": "Investments",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
+        "CHARITY_PROFILE_SETTING": "Profile Settings",
         "MANAGE_CHARITIES": "Manage Charities",
         "COMMUNICATION_PREFERENCES": "Communication Preferences",
         "LEGACY": "Legacy",
@@ -48,7 +49,9 @@
         "NEW_PLEDGE": "New Pledge",
         "GIVE": "Give",
         "NEW_REMAINDER": "New Remainder",
-        "ACTIVITY": "Activity"
+        "ACTIVITY": "Activity",
+        "CHARITY_PROFILE": "Profile",
+        "GRANT_REQUEST": "Grant Request"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -1143,18 +1146,6 @@
             }
         }
     },
-    "CHARITY_GRANT_REQUESTS": {
-        "LIST": {
-            "TITLE": "Grants",
-            "COLUMNS": {
-                "DONOR_LABEL": "Donor",
-                "AMOUNT_LABEL": "Amount",
-                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
-                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
-                "DATE_CREATED_LABEL": "Date created"
-            }
-        }
-    },
     "CHARITY_CERTIFICATES": {
         "LIST": {
             "TITLE": "Certificates",
@@ -1488,6 +1479,35 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount"
             }
+        }
+    },
+    "GRANT_REQUEST": {
+        "TITLE": "Grant Request",
+        "LIST": {
+            "TITLE": "Grant Requests",
+            "COLUMNS": {
+                "CHARITY_LABEL": "Charity",
+                "PHONE_NUMBER_LABEL": "Phone Number",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status"
+            }
+        },
+        "CREATE": {
+            "TITLE": "New Grant Request",
+            "FIELDS": {
+                "PHONE_NUMBER_LABEL": "Phone Number",
+                "PHONE_NUMBER_PLACEHOLDER": "Phone Number",
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount"
+            },
+            "ERROR_MESSAGES": {
+                "PHONE_NUMBER_NOT_EXIST": "Phone Number Does Not Exist In Our System."
+            }
+        },
+        "BUTTON": {
+            "COMPLETE": "Complete Request",
+            "DECLINE": "Decline"
         }
     },
     "DONATION": {
@@ -2315,41 +2335,6 @@
                 "BANK_PLACEHOLDER": "Bank",
                 "REGION_LABEL": "Region",
                 "REGION_PLACEHOLDER": "Region",
-                "NUMBER_LABEL": "Number",
-                "NUMBER_PLACEHOLDER": "Number"
-            }
-        }
-    },
-    "GRANT_REQUEST": {
-        "LIST": {
-            "TITLE": "Grant requests",
-            "COLUMNS": {
-                "DONOR_NAME_LABEL": "Donor",
-                "AMOUNT_LABEL": "Amount",
-                "DATE_CREATED_LABEL": "Date created",
-                "CHARITY_LABEL": "Charity",
-                "STATUS_LABEL": "Status"
-            },
-            "FILTER": {
-                "SELECT_DONOR_PLACEHOLDER": "Donor",
-                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
-                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
-            },
-            "EMPTY_STATE": {
-                "TITLE": "No grant requests",
-                "ACTION": "Create new grant requests"
-            },
-            "BUTTON": {
-                "EDIT": "Edit",
-                "COMPLETE": "Complete",
-                "DECLINE": "Decline"
-            }
-        },
-        "CREATE": {
-            "TITLE": "Create grant request",
-            "FIELDS": {
-                "AMOUNT_LABEL": "Amount",
-                "AMOUNT_PLACEHOLDER": "Amount",
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number"
             }

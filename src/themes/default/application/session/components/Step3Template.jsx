@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicFormControls,
     BaasicButton,
-    BaasicInput
+    BaasicInput,
+    FormDebug
 } from 'core/components';
 
 function Step3Template({
@@ -78,7 +79,7 @@ function Step3Template({
                             <BaasicFormControls
                                 form={form}
                                 onSubmit={form.onSubmit}
-                                disableSave={sessionCertificates.length === 0}
+                                // disableSave={sessionCertificates.length === 0}
                                 label='SESSION.CREATE.STEP2.BUTTONS.SAVE'
                             />
                         </div>

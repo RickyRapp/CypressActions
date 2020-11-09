@@ -58,8 +58,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                                         <li className='header__profile__dropdown__item'
                                             onClick={() => {
                                                 toggleProfileMenu();
-                                                routerStore.goTo(rootStore.userStore.user.roles.includes('Users') ? 'master.app.main.profile' : 'master.app.main.profile',
-                                                    { id: rootStore.userStore.user.id })
+                                                routerStore.goTo('master.app.main.donor-profile', { id: rootStore.userStore.user.id })
                                             }}> {t('HEADER.USER_MENU.MY_PROFILE')}
                                         </li>}
                                     <li className='header__profile__dropdown__item'

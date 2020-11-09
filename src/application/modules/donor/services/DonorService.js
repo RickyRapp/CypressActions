@@ -37,6 +37,11 @@ class DonorService extends BaseService {
     return this.apiClient.get(url);
   }
 
+  phoneNumberExists(phoneNumber) {
+    const url = this.routeService.phoneNumberExists(phoneNumber);
+    return this.apiClient.get(url);
+  }
+
   editThirdPartyWebsiteSetting(resource) {
     const url = this.routeService.editThirdPartyWebsiteSetting(resource);
     return this.apiClient.put(url, resource);

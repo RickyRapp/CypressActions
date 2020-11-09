@@ -22,8 +22,7 @@ class CharityAddressViewStore extends BaseListViewStore {
         }
     });
 
-    constructor(rootStore) {
-        const charityId = rootStore.routerStore.routerState.params.id;
+    constructor(rootStore, props) {
         super(rootStore, {
             name: 'charity-addresses',
             routes: {
@@ -36,7 +35,7 @@ class CharityAddressViewStore extends BaseListViewStore {
                 this.addressService = new CharityAddressService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
-                        params.charityId = charityId;
+                        params.charityId = this.charityId;
                         params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
                         const response = await this.addressService.find(params);
@@ -46,7 +45,7 @@ class CharityAddressViewStore extends BaseListViewStore {
             }
         });
 
-        this.charityId = charityId;
+        this.charityId = props.charityId;
         this.addressModal = new ModalParams({});
 
         this.setTableStore(new TableViewStore(this.queryUtility, {

@@ -39,14 +39,14 @@ import { DonorModuleStore } from 'application/donor/stores';
                 ]
             },
             {
-                name: 'master.app.main.profile',
+                name: 'master.app.main.donor-profile',
                 pattern: '/profile',
+                authorization: 'theDonorsFundDonorSection.create',
                 component: DonorTab,
-                role: ['Users'],
                 data: {
                     title: "DONOR.EDIT.TITLE"
                 }
-            },
+            }
         ],
         menu: [
             {

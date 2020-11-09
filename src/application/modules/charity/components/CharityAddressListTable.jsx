@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { CharityAddressListTableTemplate } from 'themes/application/charity/components';
 import { CharityAddressViewStore } from 'application/charity/stores';
 
-@setCurrentView((rootStore) => new CharityAddressViewStore(rootStore), 'charityAddressViewStore')
+@setCurrentView((rootStore, props) => new CharityAddressViewStore(rootStore, props), 'charityAddressViewStore')
 @observer
 class CharityAddressListTable extends React.Component {
     render() {

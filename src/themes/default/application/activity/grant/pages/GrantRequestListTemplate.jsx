@@ -5,33 +5,25 @@ import {
     BaasicButton,
     BaasicTable,
     TableFilter,
-    EmptyState,
-    BaasicDropdown
+    BaasicModal
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
+import { GrantCreateOverviewTemplate } from 'themes/application/grant/components';
 
-const GrantRequestListTemplate = function ({ grantRequestViewStore, rootStore }) {
+const GrantRequestListTemplate = function ({ grantRequestViewStore, t }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
-        searchDonorDropdownStore } = grantRequestViewStore;
-
-    const {
-        permissionStore
-    } = rootStore
+        grantCreateOverviewModal,
+        onConfirm
+    } = grantRequestViewStore;
 
     return (
-        <Content emptyRenderer={renderEmpty(routes)} >
+        <Content>
             <div className="card--tertiary card--med u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                            <BaasicDropdown store={searchDonorDropdownStore} />
-                        </div>}
+                <TableFilter queryUtility={queryUtility}>
                 </TableFilter>
             </div>
             <div className="card--primary card--med">
@@ -41,33 +33,23 @@ const GrantRequestListTemplate = function ({ grantRequestViewStore, rootStore })
                     actionsComponent={renderActions}
                 />
             </div>
-            {/* <BaasicModal modalParams={grantCreateOVerviewModalParams}>
-                <GrantCreateOverviewTemplate >
+            <BaasicModal modalParams={grantCreateOverviewModal}>
+                <GrantCreateOverviewTemplate>
                     <BaasicButton
                         type='button'
                         className="btn btn--base btn--primary u-mar--right--sml"
                         onClick={onConfirm}
                         label={t('FORM_CONTROLS.CONFIRM_BUTTON')}
                     />
-                    <BaasicButton
-                        className="btn btn--base btn--ghost u-mar--right--sml"
-                        label={t('FORM_CONTROLS.EDIT_BUTTON')}
-                        onClick={onEdit}
-                    />
                 </GrantCreateOverviewTemplate>
-            </BaasicModal> */}
+            </BaasicModal>
         </Content>
     )
 };
 
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='GRANT_REQUEST.LIST.EMPTY_STATE.TITLE' actionLabel='GRANT_REQUEST.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
-
 GrantRequestListTemplate.propTypes = {
     grantRequestViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func,
-    rootStore: PropTypes.object
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {
@@ -96,8 +78,9 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onComplete) && completeRender ? (
                     <BaasicButton
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--approve u-icon--sml'
-                        label='GRANT_REQUEST.LIST.BUTTON.COMPLETE'
+                        label='GRANT_REQUEST.BUTTON.COMPLETE'
                         onlyIcon={true}
                         onClick={() => onComplete(item)}>
                     </BaasicButton>
@@ -105,8 +88,9 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onDecline) && declineRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--unapproved u-icon--sml'
-                        label='GRANT_REQUEST.LIST.BUTTON.DECLINE'
+                        onlyIconClassName="u-mar--right--tny"
+                        icon='u-icon u-icon--decline u-icon--sml'
+                        label='GRANT_REQUEST.BUTTON.DECLINE'
                         onlyIcon={true}
                         onClick={() => onDecline(item)}>
                     </BaasicButton>

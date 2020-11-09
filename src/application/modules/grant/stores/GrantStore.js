@@ -1,6 +1,6 @@
 import { CharityService } from 'application/charity/services';
 import { DonorService } from 'application/donor/services';
-import { GrantService, ScheduledGrantService } from 'application/grant/services';
+import { GrantRequestService, GrantService, ScheduledGrantService } from 'application/grant/services';
 import { FeeService } from 'common/services';
 
 class GrantStore {
@@ -11,6 +11,7 @@ class GrantStore {
         this.charityService = moduleStore.rootStore.createApplicationService(CharityService);
         this.feeService = moduleStore.rootStore.createApplicationService(FeeService);
         this.donorService = moduleStore.rootStore.createApplicationService(DonorService);
+        this.grantRequestService = moduleStore.rootStore.createApplicationService(GrantRequestService);
     }
 
     async create(resource) {
@@ -20,6 +21,11 @@ class GrantStore {
 
     async createScheduledGrant(resource) {
         const response = await this.scheduledGrantService.create(resource);
+        return response.data;
+    }
+
+    async createRequest(resource) {
+        const response = await this.grantRequestService.create(resource);
         return response.data;
     }
 

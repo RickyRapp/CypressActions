@@ -6,7 +6,7 @@ class CharityRouteService extends BaseRouteService {
     }
 
     getCharityLoginProfile(id) {
-        return super.find(this.base + '/login-profile/{id}', id);
+        return super.get(this.base + '/login-profile/{id}', id);
     }
 
     find(filter) {
@@ -51,10 +51,6 @@ class CharityRouteService extends BaseRouteService {
 
     createOnlineAccount(resource) {
         return super.create(this.base + '/create-online-account/{id}', resource);
-    }
-
-    phoneNumberExists(phoneNumber) {
-        return super.get(this.base + '/phone-number/{phoneNumber}/exists/', null, { phoneNumber: phoneNumber });
     }
 }
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Page } from 'core/layouts';
-import { StepCounter, Step1Template, Step2Template, Step3Template } from 'themes/application/session/components';
+import { StepCounter, Step1Template, Step2Template, Step3Template, Step4Template } from 'themes/application/session/components';
 
 const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
     const {
@@ -12,15 +11,18 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         onNextStep1Click,
         onNextStep2Click,
         onPreviousStep2Click,
+        onNextStep4Click,
         charityDropdownStore,
         onPreviousStep3Click,
         barcode,
         onBarcodeChange,
-        sessionCertificates
+        sessionCertificates,
+        currentCount,
+        session
     } = sessionCreateViewStore;
 
     return (
-        <Page>
+        <React.Fragment>
             <div className="card--primary card--med u-mar--bottom--sml">
                 <StepCounter
                     steps={steps}
@@ -52,14 +54,14 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         barcode={barcode}
                         onBarcodeChange={onBarcodeChange}
                     />}
-                {/* 
-            {currentStep === 4 &&
-                <Step4
-                    nextStep={nextStep}
-                    sessionKeyIdentifier={sessionKeyIdentifier}
-                />} */}
+                {currentStep === 4 &&
+                    <Step4Template
+                        onNextStepClick={onNextStep4Click}
+                        currentCount={currentCount}
+                        session={session}
+                    />}
             </form>
-        </Page >
+        </React.Fragment>
     )
 };
 

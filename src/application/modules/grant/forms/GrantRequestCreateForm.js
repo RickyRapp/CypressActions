@@ -1,6 +1,7 @@
 import { FormBase } from 'core/components';
+import moment from 'moment';
 
-export default class CharityGrantRequestCreateForm extends FormBase {
+export default class GrantRequestCreateForm extends FormBase {
     constructor(hooks) {
         super(hooks);
     }
@@ -10,11 +11,14 @@ export default class CharityGrantRequestCreateForm extends FormBase {
             fields: [
                 {
                     name: 'phoneNumber',
-                    label: 'GRANT_REQUEST.CREATE.FIELDS.NUMBER_LABEL',
-                    rules: 'required|string',
+                    label: 'GRANT_REQUEST.CREATE.FIELDS.PHONE_NUMBER_LABEL',
+                    rules: 'required|string|phoneNumberExist',
+                    options: {
+                        validateOnChange: false
+                    },
                     extra: {
                         format: '(###) ###-####'
-                    },
+                    }
                 },
                 {
                     name: 'amount',
@@ -26,6 +30,6 @@ export default class CharityGrantRequestCreateForm extends FormBase {
                     }
                 }
             ]
-        }
+        };
     }
 }

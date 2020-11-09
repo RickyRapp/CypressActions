@@ -17,7 +17,7 @@ class SessionViewStore extends BaseListViewStore {
             autoInit: true,
             routes: {
                 create: async () => {
-                    this.rootStore.routerStore.goTo('master.app.main.session.create');
+                    this.rootStore.routerStore.goTo('master.public.new-session');
                 },
                 edit: async (id) => {
                     rootStore.routerStore.goTo('master.app.main.session.edit',

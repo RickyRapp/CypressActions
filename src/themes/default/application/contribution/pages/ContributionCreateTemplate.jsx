@@ -116,8 +116,6 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                     </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <EditFormContent form={form}>
-                            {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                                <h5>{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                             <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">

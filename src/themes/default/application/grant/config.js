@@ -1,6 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { GrantList, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/grant/pages';
 import { GrantModuleStore } from 'application/grant/stores';
+import GrantRequest from 'application/grant/pages/GrantRequest';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -52,6 +53,15 @@ import { GrantModuleStore } from 'application/grant/stores';
                         authorization: 'theDonorsFundGrantSection.read',
                         data: {
                             title: "GRANT.PREVIEW.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.grant.request',
+                        pattern: '/request',
+                        component: GrantRequest,
+                        authorization: 'theDonorsFundCharitySection.update',
+                        data: {
+                            title: "GRANT_REQUEST.TITLE"
                         }
                     }
                 ]

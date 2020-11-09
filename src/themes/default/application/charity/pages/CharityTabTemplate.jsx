@@ -5,11 +5,15 @@ import { TabLayout, Page } from 'core/layouts';
 import { CharityGeneralData, CharityPersonalData } from 'application/charity/components';
 import { EmailList } from 'application/email/pages';
 
-function CharityTabTemplate({ charityTabViewStore }) {
+function CharityTabTemplate({ charityTabViewStore, rootStore }) {
     const {
         loaderStore,
         charityId
     } = charityTabViewStore;
+
+    const {
+        permissionStore
+    } = rootStore;
 
     return (
         <Page loading={loaderStore.loading} >
@@ -21,9 +25,11 @@ function CharityTabTemplate({ charityTabViewStore }) {
                     <div label={'CHARITY.TAB.PERSONAL_DATA'}>
                         <CharityPersonalData charityId={charityId} />
                     </div>
-                    <div label={'CHARITY.TAB.EMAIL'}>
-                        <EmailList charityId={charityId} />
-                    </div>
+
+                    {permissionStore.hasPermission('theDonorsFundAdministrationSection.create') &&
+                        <div label={'CHARITY.TAB.EMAIL'}>
+                            <EmailList charityId={charityId} />
+                        </div>}
                 </TabLayout>
             </div>
         </Page>
@@ -31,7 +37,8 @@ function CharityTabTemplate({ charityTabViewStore }) {
 }
 
 CharityTabTemplate.propTypes = {
-    charityTabViewStore: PropTypes.object.isRequired
+    charityTabViewStore: PropTypes.object.isRequired,
+    rootStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(CharityTabTemplate);

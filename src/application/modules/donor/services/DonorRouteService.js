@@ -49,6 +49,10 @@ class DonorRouteService extends BaseRouteService {
     return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: fundName });
   }
 
+  phoneNumberExists(phoneNumber) {
+    return super.get(this.base + '/phone-number/{phoneNumber}/exists/', null, { phoneNumber: phoneNumber });
+  }
+
   getThirdPartyWebsiteSetting(id) {
     return super.get('third-party-website-setting/{id}', id);
   }

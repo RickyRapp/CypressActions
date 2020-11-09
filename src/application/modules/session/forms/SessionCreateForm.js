@@ -10,7 +10,7 @@ export default class SessionCreateForm extends FormBase {
             fields: [
                 {
                     name: 'key',
-                    rules: 'string'
+                    rules: 'numeric'
                 },
                 {
                     name: 'charityId',

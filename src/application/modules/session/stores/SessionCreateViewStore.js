@@ -8,6 +8,8 @@ class SessionViewStore extends BaseEditViewStore {
     @observable currentStep = 1;
     @observable barcode = '';
     @observable sessionCertificates = [];
+    @observable currentCount = 30;
+    @observable session = 30;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -17,6 +19,16 @@ class SessionViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async () => {
+                        this.session = { amount: 568, confirmationNumber: 12312 }
+                        this.nextStep(4);
+                        this.form.clear();
+                        this.charityDropdownStore.setValue(null);
+                        setInterval(() => {
+                            --this.currentCount;
+                            if (this.currentCount == 0) {
+                                this.nextStep(1);
+                            }
+                        }, 1000);
                     }
                 }
             },
@@ -53,6 +65,11 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     onPreviousStep3Click() {
         this.nextStep(2);
+    }
+
+    @action.bound
+    async onNextStep4Click() {
+        this.nextStep(1);
     }
 
     nextStep(step) {

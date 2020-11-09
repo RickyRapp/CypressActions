@@ -9,6 +9,7 @@ import {
 	RegistrationSuccess,
 	ActivationConfirm
 } from 'application/membership/pages';
+import { SessionCreate } from 'application/session/pages';
 
 (function () {
 	moduleProviderFactory.application.register({
@@ -60,6 +61,12 @@ import {
 						pattern: '/password-change',
 						isPublic: true,
 						component: PasswordChange
+					},
+					{
+						name: 'master.public.new-session',
+						pattern: '/new-session',
+						isPublic: false,
+						component: SessionCreate
 					}
 				]
 			},

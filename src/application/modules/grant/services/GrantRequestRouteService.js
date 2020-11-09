@@ -3,11 +3,10 @@ import { BaseRouteService } from 'core/services';
 class GrantRequestRouteService extends BaseRouteService {
     constructor() {
         super('grant-request');
-        this.filterFields = ''
     }
 
     find(filter) {
-        return super.find(this.base + '/{?userId,donorId,charityId,search,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorId,charityId,search,page,rpp,sort,embed,fields}', filter);
     }
 
     findCharityGrantRequest(filter) {

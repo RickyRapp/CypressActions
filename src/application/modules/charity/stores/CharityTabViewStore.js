@@ -11,7 +11,7 @@ class CharityTabViewStore extends BaseTabViewStore {
         }
         else {
 
-            this.charityId = rootStore.userStore.user.id;
+            this.charityId = rootStore.userStore.user.charityId;
         }
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.tab) {
             this.activeIndex = Number(rootStore.routerStore.routerState.queryParams.tab);

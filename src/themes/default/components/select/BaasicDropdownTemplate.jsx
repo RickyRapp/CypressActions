@@ -42,7 +42,7 @@ const BaasicDropdownTemplate = function (props) {
             return props.filterable;
         }
 
-        return store.options.disabled;
+        return store.options.filterable;
     }
 
     function getDefaultItem() {
@@ -74,6 +74,7 @@ const BaasicDropdownTemplate = function (props) {
         'input--dropdown': !isMulti() && !hasCustomClass,
         focused: store.isOpen || null,
     });
+
 
     return (
         <React.Fragment>

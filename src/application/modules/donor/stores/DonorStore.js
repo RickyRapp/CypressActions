@@ -20,5 +20,10 @@ class DonorStore {
         const response = await this.donorService.fundNameExists(params);
         return response;
     }
+
+    async phoneNumberExists(params) {
+        const response = await this.donorService.phoneNumberExists(params);
+        return response;
+    }
 }
 export default DonorStore;

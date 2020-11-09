@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { UserProfilePartialForm } from 'application/administration/user/components';
-import { BasicInput, BaasicFieldDropdown, FormDebug } from 'core/components';
+import { BasicInput, BaasicFieldDropdown } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 
@@ -43,9 +42,6 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
                                 <BaasicFieldDropdown field={form.$('roles')} store={roleMultiselectStore} />
                             </div>
                         </div>
-                    </div>
-                    <div className="card--primary card--med u-mar--top--med u-mar--bottom--med">
-                        <FormDebug form={form}></FormDebug>
                     </div>
                 </React.Fragment>
             </Content>

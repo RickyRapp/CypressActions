@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
 
-function Step4Template({ step4ViewStore, t }) {
-    const {
-        session,
-        currentCount,
-        onNextStepClick
-    } = step4ViewStore;
-
+function Step4Template({
+    t,
+    onNextStepClick,
+    currentCount,
+    session
+}) {
     return (
         <div className="card card--form card--primary card--med u-mar--bottom--sml">
             <div className="row">
                 <div className="form__group col col-lrg-12">
-                    <span>{t('SESSION.CREATE.STEP4.SESSION_NUMBER')}: {session && session.confirmationNumber}   {t('SESSION.CREATE.STEP4.TOTAL')}:{session && session.amount}</span>
+                    <span>{t('SESSION.CREATE.STEP4.SESSION_NUMBER')}: {session && session.confirmationNumber} {t('SESSION.CREATE.STEP4.TOTAL')}:{session && session.amount}</span>
                 </div>
                 <div className="form__group col col-lrg-12 u-mar--top--lrg">
                     {t('SESSION.CREATE.STEP4.FINISH_MESSAGE')}

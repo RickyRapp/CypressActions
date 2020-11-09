@@ -1,76 +1,91 @@
 import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { GrantRequestService } from 'application/grant/services';
-import { DonorService } from 'application/donor/services';
-import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantRequestListFilter } from 'application/grant/models';
 import _ from 'lodash';
 
 class GrantRequestViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        let filter = new GrantRequestListFilter('dateCreated', 'desc')
-        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
-                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
-            }
-        }
-
         super(rootStore, {
             name: 'grant-request',
             authorization: 'theDonorsFundGrantRequestSection',
             routes: {},
             queryConfig: {
-                filter: filter,
+                filter: new GrantRequestListFilter('dateCreated', 'desc'),
                 onResetFilter: (filter) => {
                     filter.reset();
-                    this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
-                const service = new GrantRequestService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
                             'charity',
-                            'donor',
                             'grantRequestStatus',
                             'grant'
                         ];
                         params.fields = [
                             'id',
-                            'charity',
-                            'charity.name',
-                            'charity.taxId',
-                            'donor',
-                            'donor.id',
-                            'donor.donorName',
                             'amount',
                             'dateCreated',
+                            'charity',
                             'grantRequestStatus',
                             'grant'
                         ];
 
-                        let userId = null;
-                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                            userId = rootStore.userStore.user.id
-                        }
-
-                        const response = await service.find({ userId: userId, ...params });
-                        return response.data;
+                        params.donorId = rootStore.userStore.user.id;
+                        return rootStore.application.activity.activityStore.findGrantRequest(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+        this.createGrantCreateOverviewModal();
+    }
+
+    @action.bound
+    async setAndOpenCompleteModal(item) {
+        const grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
+        const grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
+
+        item.grantAcknowledgmentType = grantAcknowledgmentTypes.find(c => c.abrv === 'remain-anonymous');
+        item.grantPurposeType = grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed');
+
+        this.grantCreateOverviewModal.open({
+            item: item
+        });
+    }
+
+    @action.bound
+    async onConfirm() {
+        this.loaderStore.suspend();
+        const id = this.grantCreateOverviewModal.data.item.id;
+        await this.rootStore.application.activity.activityStore.completeGrantRequest({ id: id });
+        await this.queryUtility.fetch();
+        this.grantCreateOverviewModal.close();
+        this.rootStore.notificationStore.success('Successfully declined');
+        this.loaderStore.resume();
+    }
+
+    @action.bound
+    async declineRequest(item) {
+        this.rootStore.modalStore.showConfirm(
+            'Are you sure you want to decline request?',
+            async () => {
+                this.loaderStore.suspend();
+                await this.rootStore.application.activity.activityStore.declineGrantRequest({ id: item.id });
+                await this.queryUtility.fetch();
+                this.rootStore.notificationStore.success('Successfully declined');
+                this.loaderStore.resume();
+            }
+        );
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
-                {
-                    key: 'donor.donorName',
-                    title: 'GRANT_REQUEST.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    onClick: (grant) => this.routes.edit(grant.donor.id, grant.id),
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
-                },
                 {
                     key: 'charity.name',
                     title: 'GRANT_REQUEST.LIST.COLUMNS.CHARITY_LABEL',
@@ -110,117 +125,14 @@ class GrantRequestViewStore extends BaseListViewStore {
                 }
             }
         }));
-
-        const donorService = new DonorService(rootStore.application.baasic.apiClient);
-        this.searchDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'GRANT_REQUEST.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const response = await donorService.search({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'coreUser.firstName|asc',
-                        embed: [
-                            'donorAddresses'
-                        ],
-                        fields: [
-                            'id',
-                            'accountNumber',
-                            'donorName',
-                            'securityPin',
-                            'donorAddresses'
-                        ]
-                    });
-                    return _.map(response.data.item, x => {
-                        return {
-                            id: x.id,
-                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
-                    });
-                },
-                initValueFunc: async () => {
-                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
-                        const id = rootStore.routerStore.routerState.queryParams.id;
-                        const params = {
-                            embed: [
-                                'donorAddresses'
-                            ],
-                            fields: [
-                                'id',
-                                'accountNumber',
-                                'donorName',
-                                'securityPin',
-                                'donorAddresses'
-                            ]
-                        }
-                        const response = await donorService.get(id, params);
-                        rootStore.routerStore.setQueryParams(null);
-                        return { id: response.data.id, name: response.data.donorName };
-                    }
-                    else {
-                        return null;
-                    }
-                },
-                onChange: (donorId) => {
-                    this.queryUtility.filter.donorId = donorId;
-                }
-            });
-
-        this.grantCreateOVerviewModalParams = new ModalParams({});
     }
 
-    @action.bound
-    async setAndOpenCompleteModal(item) {
-        const grantAcknowledgmentTypes = this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
-        const grantPurposeTypes = this.rootStore.application.lookup.grantPurposeTypeStore.find();
-
-        item.grantAcknowledgmentType = grantAcknowledgmentTypes.find(c => c.abrv === 'remain-anonymous');
-        item.grantPurposeType = grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed');
-
-        this.grantCreateOVerviewModalParams.open({
-            item: item
-        });
-    }
-
-    @action.bound
-    onEdit() {
-        const donorId = this.grantCreateOVerviewModalParams.data.item.donor.id;
-        const id = this.grantCreateOVerviewModalParams.data.item.id;
-        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId }, { grantRequestId: id });
-    }
-
-    @action.bound
-    async onConfirm() {
-        this.loaderStore.suspend();
-        const service = new GrantRequestService(this.rootStore.application.baasic.apiClient);
-        const id = this.grantCreateOVerviewModalParams.data.item.id;
-        await service.complete({ id: id });
-        await this.queryUtility.fetch();
-        this.grantCreateOVerviewModalParams.close();
-        this.rootStore.notificationStore.success('Successfully declined');
-        this.loaderStore.resume();
-    }
-
-    @action.bound
-    async declineRequest(item) {
-        this.rootStore.modalStore.showConfirm(
-            'Are you sure you want to decline request?',
-            async () => {
-                this.loaderStore.suspend();
-                if (item.grantRequestStatus.abrv === 'open') {
-                    const service = new GrantRequestService(this.rootStore.application.baasic.apiClient);
-                    await service.decline({ id: item.id });
-                }
-
-                await this.queryUtility.fetch();
-                this.rootStore.notificationStore.success('Successfully declined');
-                this.loaderStore.resume();
+    createGrantCreateOverviewModal() {
+        this.grantCreateOverviewModal = new ModalParams({
+            onClose: () => {
+                this.grantCreateOverviewModal.data = {};
             }
-        );
+        });
     }
 }
 

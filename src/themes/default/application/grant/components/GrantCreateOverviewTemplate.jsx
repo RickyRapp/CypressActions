@@ -3,7 +3,7 @@ import { defaultTemplate } from 'core/hoc'
 import PropTypes from 'prop-types';
 import { FormatterResolver } from 'core/components';
 import shouldRenderContentChildren from 'themes/components/content/shouldRenderContentChildren';
-import { addressFormatter } from 'core/utils';
+import { addressFormatter, donorFormatter } from 'core/utils';
 import _ from 'lodash';
 
 class GrantCreateOverviewTemplate extends React.Component {
@@ -41,14 +41,10 @@ class GrantCreateOverviewTemplate extends React.Component {
                     </div>
                     <div className="form__group u-mar--bottom--sml">
                         <label className="form__group__label">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</label>
-                        {item && <React.Fragment>
-                            {item.grantAcknowledgmentType.abrv === 'name-fund-name-and-address' &&
-                                `${item.donor.donorName} - ${item.donor.fundName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
-                            {item.grantAcknowledgmentType.abrv === 'fund-name-and-address' &&
-                                `${item.donor.fundName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
-                            {item.grantAcknowledgmentType.abrv === 'fund-name' && item.donor.fundName}
-                            {item.grantAcknowledgmentType.abrv === 'remain-anonymous' && 'Anonymous'}
-                        </React.Fragment>}
+                        <div className="form__group col col-sml-11 u-mar--top--med">
+                            {item &&
+                                donorFormatter.format(item.donor, { type: 'grant-acknowledgment-type', value: item.grantAcknowledgmentType.abrv })}
+                        </div>
                     </div>
                 </div>
 
