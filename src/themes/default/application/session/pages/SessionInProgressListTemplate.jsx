@@ -25,7 +25,7 @@ const SessionInProgressListTemplate = function ({ sessionInProgressViewStore }) 
                 <TableFilter queryUtility={queryUtility} >
                 </TableFilter>
             </div>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

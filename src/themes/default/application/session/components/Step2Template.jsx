@@ -15,38 +15,39 @@ function Step2Template({
 }) {
     return (
         <React.Fragment>
-            <h3 className="u-mar--bottom--med">General Data</h3>
-            <div className="row">
-                <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('fullName')} />
+            <div className="u-display--flex u-display--flex--column u-display--flex--align--center">
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">General Data</h3>
+                <div className="row">
+                    <div className="col col-sml-12 u-mar--bottom--med">
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <BasicInput field={form.$('fullName')} />
+                        </div>
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <BasicInput field={form.$('phoneNumber')} />
+                        </div>
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <BasicInput field={form.$('email')} />
+                        </div>
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+                        </div>
+                        <div className="col col-sml-12 u-mar--bottom--med">
+                            <BasicInput field={form.$('description')} />
+                        </div>
+                        <div className="col col-sml-12">
+                            <BaasicButton
+                                className="btn btn--base btn--primary u-mar--right--sml"
+                                onClick={onNextStepClick}
+                                label='SESSION.CREATE.STEP2.BUTTONS.SAVE'
+                                />
+                            <BaasicButton
+                                className="btn btn--base btn--ghost"
+                                onClick={onPreviousStepClick}
+                                label='SESSION.CREATE.STEP2.BUTTONS.BACK'
+                                />
+                        </div>
+                    </div>
                 </div>
-                <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('phoneNumber')} />
-                </div>
-                <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('email')} />
-                </div>
-            </div>
-            <div className="row">
-                <div className="form__group col col-lrg-6">
-                    <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-                </div>
-                <div className="form__group col col-lrg-3">
-                    <BasicInput field={form.$('description')} />
-                </div>
-            </div>
-
-            <div className="u-mar--bottom--med">
-                <BaasicButton
-                    className="btn btn--base btn--primary u-mar--right--sml"
-                    onClick={onNextStepClick}
-                    label='SESSION.CREATE.STEP2.BUTTONS.SAVE'
-                />
-                <BaasicButton
-                    className="btn btn--base btn--ghost"
-                    onClick={onPreviousStepClick}
-                    label='SESSION.CREATE.STEP2.BUTTONS.BACK'
-                />
             </div>
         </React.Fragment>
     )

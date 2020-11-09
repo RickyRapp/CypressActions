@@ -8,7 +8,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable currentStep = 1;
     @observable barcode = '';
     @observable sessionCertificates = [];
-    @observable currentCount = 30;
+    @observable currentCount = 3000;
     @observable session = 30;
 
     constructor(rootStore) {
