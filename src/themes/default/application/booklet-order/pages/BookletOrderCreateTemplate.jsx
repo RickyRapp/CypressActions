@@ -109,9 +109,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     </React.Fragment>
                                     :
                                     <div className="col col-sml-12 col-med-12 col-lrg-5 card--med">
-                                        <div className="row">
+                                        <div className="row u-mar--top--med">
                                             {denominationTypes.length > 0 &&
-                                                <div className="col col-sml-3">
+                                                <div className="col col-sml-4">
                                                     <span className="type--med type--wgt--regular">
                                                         <FormatterResolver
                                                             item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
@@ -140,7 +140,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     </div>
                                                 </div>
                                             }
-                                            <div className="col col-sml-6 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
+                                            <div className="col col-sml-5 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                 <BaasicButton
                                                     className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
                                                     icon={'u-icon u-icon--minus u-icon--sml'}
