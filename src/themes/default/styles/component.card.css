@@ -36,6 +36,13 @@
         box-shadow: $shadow-card; 
     }
 
+    &--session {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: calc($unit * 99);
+    }
+
     &--tny {
         padding: calc($unit * 2);
     }

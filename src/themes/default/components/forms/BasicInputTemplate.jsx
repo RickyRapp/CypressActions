@@ -12,7 +12,7 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, showMa
     const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
 
     return (
-        <div>
+        <React.Fragment>
             {showLabel && (
                 <label className="form__group__label" htmlFor={field.id}>
                     {t(field.label)}
@@ -30,7 +30,7 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, showMa
             {renderIf(isSome(field.localizedError))(
                 <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
             )}
-        </div>
+        </React.Fragment>
     );
 });
 

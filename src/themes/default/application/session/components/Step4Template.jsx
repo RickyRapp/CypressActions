@@ -10,28 +10,26 @@ function Step4Template({
     session
 }) {
     return (
-        <div className="u-display--flex u-display--flex--justify--center">
-            <div className="container--sml card--primary card--med u-mar--bottom--sml">
-                <div className="row">
-                    <div className="col col-lrg-12 u-separator--primary u-padd--bottom--sml">
-                        <span className="type--med type--wgt--medium">{t('SESSION.CREATE.STEP4.SESSION_NUMBER')}:<span className="type--color--note type--wgt--medium u-mar--left--sml">{session && session.confirmationNumber}</span></span>
+        <div className="card--primary card--med">
+            <div className="row">
+                <div className="col col-lrg-12 u-separator--primary u-padd--bottom--sml">
+                    <span className="type--med type--wgt--medium">{t('SESSION.CREATE.STEP4.SESSION_NUMBER')}:<span className="type--color--note type--wgt--medium u-mar--left--sml">{session && session.confirmationNumber}</span></span>
 
-                        <span className="type--med type--wgt--medium u-push">{t('SESSION.CREATE.STEP4.TOTAL')}: <span className="type--color--note type--wgt--medium u-mar--left--sml">${session && session.amount}</span></span>
-                    </div>
-                    <div className="col col-lrg-12 type--base type--wgt--regular type--center u-mar--top--lrg">
-                        {t('SESSION.CREATE.STEP4.FINISH_MESSAGE')}
-                    </div>
-                    <div className="col col-lrg-12 type--center u-separator--top--primary u-mar--top--lrg u-mar--bottom--med u-padd--top--med">
-                        <BaasicButton
-                            className="btn btn--base btn--primary u-padd--left--lrg u-padd--right--lrg"
-                            onClick={onNextStepClick}
-                            label='SESSION.CREATE.STEP4.BUTTONS.FINISH'
-                        />
-                    </div>
+                    <span className="type--med type--wgt--medium u-push">{t('SESSION.CREATE.STEP4.TOTAL')}: <span className="type--color--note type--wgt--medium u-mar--left--sml">${session && session.amount}</span></span>
                 </div>
-                <div className="card--tertiary card--med u-mar--bottom--sml type--centerx">
-                    <span>{t('SESSION.CREATE.STEP4.AUTOCLOSE_MESSAGE')}{currentCount}</span>
+                <div className="col col-lrg-12 type--base type--wgt--regular type--center u-mar--top--lrg">
+                    {t('SESSION.CREATE.STEP4.FINISH_MESSAGE')}
                 </div>
+                <div className="col col-lrg-12 type--center u-separator--top--primary u-mar--top--lrg u-mar--bottom--med u-padd--top--med">
+                    <BaasicButton
+                        className="btn btn--base btn--primary u-padd--left--lrg u-padd--right--lrg"
+                        onClick={onNextStepClick}
+                        label='SESSION.CREATE.STEP4.BUTTONS.FINISH'
+                    />
+                </div>
+            </div>
+            <div className="card--tertiary card--med u-mar--bottom--sml type--centerx">
+                <span>{t('SESSION.CREATE.STEP4.AUTOCLOSE_MESSAGE')}{currentCount}</span>
             </div>
         </div>
     )
