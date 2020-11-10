@@ -41,6 +41,10 @@
         flex-direction: column;
         justify-content: center;
         height: calc($unit * 99);
+
+        &--start {
+            justify-content: start;
+        }
     }
 
     &--tny {

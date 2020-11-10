@@ -47,13 +47,15 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                     </div>}
 
                 {currentStep === 3 &&
-                    <Step3Template
-                        onPreviousStepClick={onPreviousStep3Click}
-                        form={form}
-                        sessionCertificates={sessionCertificates}
-                        barcode={barcode}
-                        onBarcodeChange={onBarcodeChange}
-                    />}
+                    <div className="u-padd--left--sml u-padd--right--sml">
+                        <Step3Template
+                            onPreviousStepClick={onPreviousStep3Click}
+                            form={form}
+                            sessionCertificates={sessionCertificates}
+                            barcode={barcode}
+                            onBarcodeChange={onBarcodeChange}
+                            />
+                    </div>}
                 {currentStep === 4 &&
                     <div className="container container--sml">
                         <Step4Template

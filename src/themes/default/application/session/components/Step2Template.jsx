@@ -15,8 +15,8 @@ function Step2Template({
 }) {
     return (
         <React.Fragment>
-            <div className="card--primary card--med card--session">
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">General Data</h3>
+            <div className="card--primary card--med card--session card--session--start">
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med u-mar--left--sml">General Data</h3>
                 <div className="row">
                     <div className="col col-sml-12 u-mar--bottom--med">
                         <div className="col col-sml-12 u-mar--bottom--sml">
