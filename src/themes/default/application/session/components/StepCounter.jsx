@@ -6,7 +6,7 @@ import _ from 'lodash';
 const StepCounter = function ({ currentStep, steps }) {
     return (
         <div className="card--primary card--med type--center">
-            <span className="type--base type--wgt--medium u-mar--right--sml">
+            <span className="type--base type--wgt--medium">
                 {_.map(steps, step => {
                     return <Step
                     key={step}
@@ -23,7 +23,7 @@ StepCounter.propTypes = {
     steps: PropTypes.array.isRequired
 };
 
-const Step = ({ step, selected }) => <span className="u-mar--left--sml">{selected ? <strong>{step}</strong> : step}</span>
+const Step = ({ step, selected }) => <span className="type--wgt--regular u-mar--left--med">{selected ? <span className="type--wgt--bold type--color--note u-separator--primary">{step}</span> : step}</span>
 
 Step.propTypes = {
     selected: PropTypes.bool.isRequired,
