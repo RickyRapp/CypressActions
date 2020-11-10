@@ -5,15 +5,17 @@ import _ from 'lodash';
 
 const StepCounter = function ({ currentStep, steps }) {
     return (
-        <span>
-            {_.map(steps, step => {
-                return <Step
+        <div className="card--primary card--med type--center">
+            <span className="type--base type--wgt--medium u-mar--right--sml">
+                {_.map(steps, step => {
+                    return <Step
                     key={step}
                     step={step}
                     selected={step === currentStep}
-                />
-            })}
-        </span>)
+                    />
+                })}
+            </span>
+        </div>)
 }
 
 StepCounter.propTypes = {

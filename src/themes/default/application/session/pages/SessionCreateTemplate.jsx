@@ -23,7 +23,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
 
     return (
         <React.Fragment>
-            <div className="card--primary card--med u-mar--bottom--sml">
+            <div className="container u-mar--bottom--sml">
                 <StepCounter
                     steps={steps}
                     currentStep={currentStep}
@@ -32,12 +32,12 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
 
             <form onSubmit={form.onSubmit}>
                 {currentStep === 1 &&
-                    <div className="card--primary card--med u-mar--bottom--sml">
+                    <div className="container container--sml">
                         <Step1Template onNextStepClick={onNextStep1Click} />
                     </div>}
 
                 {currentStep === 2 &&
-                    <div className="card--primary card--med u-mar--bottom--sml">
+                    <div className="container container--sml">
                         <Step2Template
                             form={form}
                             onNextStepClick={onNextStep2Click}
@@ -55,11 +55,13 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         onBarcodeChange={onBarcodeChange}
                     />}
                 {currentStep === 4 &&
-                    <Step4Template
-                        onNextStepClick={onNextStep4Click}
-                        currentCount={currentCount}
-                        session={session}
-                    />}
+                    <div className="container container--sml">
+                        <Step4Template
+                            onNextStepClick={onNextStep4Click}
+                            currentCount={currentCount}
+                            session={session}
+                            />
+                    </div>}
             </form>
         </React.Fragment>
     )

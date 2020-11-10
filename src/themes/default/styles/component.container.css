@@ -11,6 +11,10 @@
     }
     
     &--base {
+        max-width: 1024px;
+    }
+
+    &--lrg {
         max-width: 1440px;
     }
 }

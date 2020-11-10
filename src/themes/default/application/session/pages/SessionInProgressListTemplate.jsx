@@ -25,7 +25,7 @@ const SessionInProgressListTemplate = function ({ sessionInProgressViewStore }) 
                 <TableFilter queryUtility={queryUtility} >
                 </TableFilter>
             </div>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}
@@ -68,7 +68,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onSetInactive) && setInactiveRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--unapproved u-icon--sml'
+                        icon='u-icon u-icon--decline u-icon--sml'
                         label='SESSION.LIST.IN_PROGRESS.BUTTON.SET_INACTIVE'
                         onlyIcon={true}
                         onClick={() => onSetInactive(item)}>
