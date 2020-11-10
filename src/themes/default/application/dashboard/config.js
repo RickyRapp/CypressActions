@@ -11,10 +11,10 @@ import { RouterState } from 'mobx-state-router';
                 authorization: '',
                 component: Dashboard,
                 beforeEnter: async (fromState, toState, routerStore) => {
-                    if (routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) { //TODO: refactor this
+                    if (routerStore.rootStore.userStore.applicationUser.roles.includes('Administrators')) { //TODO: refactor this
                         return Promise.reject(new RouterState('master.app.main.admin-dashboard'));
                     }
-                    else if (routerStore.rootStore.permissionStore.hasPermission('theDonorsFundCharitySection.read')) { //TODO: refactor this
+                    else if (routerStore.rootStore.userStore.applicationUser.roles.includes('Charities')) { //TODO: refactor this
                         return Promise.reject(new RouterState('master.app.main.charity-dashboard'));
                     }
                     return Promise.resolve();
@@ -26,7 +26,7 @@ import { RouterState } from 'mobx-state-router';
                 authorization: '',
                 component: CharityDashboard,
                 beforeEnter: async (fromState, toState, routerStore) => {
-                    if (routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) { //TODO: refactor this
+                    if (routerStore.rootStore.userStore.applicationUser.roles.includes('Administrators')) { //TODO: refactor this
                         return Promise.reject(new RouterState('master.app.main.admin-dashboard'));
                     }
                     return Promise.resolve();

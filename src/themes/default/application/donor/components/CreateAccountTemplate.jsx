@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { BasicInput, BaasicButton, BasicFieldCheckbox } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { action, observable } from 'mobx';
+import { Tooltip } from '@progress/kendo-react-tooltip';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 class CreateAccountTemplate extends Component {
     @observable showForm = false;
@@ -18,6 +20,15 @@ class CreateAccountTemplate extends Component {
             t,
             title
         } = this.props;
+
+        class TooltipContentTemplate extends React.Component {
+            render() {
+                return (
+                    <a> A template for: <strong>{this.props.title}</strong></a>
+                );
+            }
+        }
+
 
         return (
             <React.Fragment>
@@ -46,6 +57,14 @@ class CreateAccountTemplate extends Component {
                         </div>
                         <div className="form__group col col-lrg-3">
                             <BasicFieldCheckbox field={form.$('sendApproveEmail')} />
+                            {form.$('sendApproveEmail').value &&
+                                <Tooltip
+                                    position='top'
+                                    anchorElement='target'
+                                    openDelay={0}
+                                    content={() => (form.$('username').value)}>
+                                    <i className="u-mar--left--sml u-icon u-icon--mail u-icon--med" title={isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('username').value) ? '' : ' '} />
+                                </Tooltip>}
                         </div>
                     </div>}
             </React.Fragment>

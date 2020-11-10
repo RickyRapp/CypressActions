@@ -75,7 +75,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                 <div className="row u-mar--bottom--med">
                     <div className="col col-sml-12 u-mar--bottom--sml">
                         <BasicCheckbox
-                            id='1'
+                            id='DONATION.REVIEW.LIST.GRANT.FIELDS.IS_TRANSFER_TO_CHARITY_ACCOUNT'
                             className='input input--med'
                             checked={isTransferToCharityAccount}
                             onChange={onIsTransferToCharityAccountChange}
@@ -85,7 +85,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                         <React.Fragment>
                             <div className="col col-sml-12 col-lrg-3">
                                 <BaasicInput
-                                    id='2'
+                                    id='DONATION.REVIEW.LIST.GRANT.FIELDS.PAYMENT_NUMBER'
                                     className='input input--med'
                                     value={paymentNumber}
                                     onChange={onPaymentNumberChange}
