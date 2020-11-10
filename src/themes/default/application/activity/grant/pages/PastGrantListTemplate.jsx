@@ -104,14 +104,23 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
                     </div>
                 </div>
                 <div className="card--primary card--sml col col-sml-12 col-lrg-4 u-mar--bottom--med">
-                    <div className="row u-mar--bottom--med">
-                        <div className="col col-sml-12 col-lrg-6">
-                            ${summaryData && summaryData.totalMoneyGiven}
-                            Total money given
+                    <div className="row">
+                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                            <div className="card--tertiary--light card--med type--center">
+                                <div className="type--lrg type--wgt--medium type--color--note">
+                                    ${summaryData && summaryData.totalMoneyGiven}
+                                    <p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col col-sml-12 col-lrg-6">
-                            ${summaryData && summaryData.totalMoneyUpcoming}
-                            Total money upcoming
+                   
+                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                            <div className="card--secondary--light card--med type--center">
+                                <div className="type--lrg type--wgt--medium type--color--note">
+                                    ${summaryData && summaryData.totalMoneyUpcoming}
+                                    <p className="type--xsml type--wgt--medium type--color--text"> Total money upcoming</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="row u-mar--bottom--med">
