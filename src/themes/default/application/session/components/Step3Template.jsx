@@ -25,32 +25,32 @@ function Step3Template({
                             <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">General Data</h3>
                             <div className="u-mar--bottom--lrg">
                                 <div className="row">
-                                    <div className="col col-lrg-3">
+                                    <div className="col col-lrg-3 type--base type--wgt--medium">
                                         {t('Certificate Number')}
                                     </div>
-                                    <div className="col col-lrg-3">
+                                    <div className="col col-lrg-3 type--base type--wgt--medium">
                                         {t('Barcode')}
                                     </div>
-                                    <div className="col col-lrg-3">
+                                    <div className="col col-lrg-3 type--base type--wgt--medium">
                                         {t('Denomination')}
                                     </div>
-                                    <div className="col col-lrg-3">
+                                    <div className="col col-lrg-3 type--base type--wgt--medium">
                                         {t('Amount')}
                                     </div>
                                 </div>
                                 {sessionCertificates.map(c => {
                                     return (
                                         <div className="row" key={c.barcode}>
-                                            <div className="col col-lrg-3">
+                                            <div className="col col-lrg-3 type--base type--wgt--medium">
                                                 {c.bookletCode}-{c.certificateCode}
                                             </div>
-                                            <div className="col col-lrg-3">
+                                            <div className="col col-lrg-3 type--base type--wgt--medium">
                                                 {c.barcode}
                                             </div>
-                                            <div className="col col-lrg-3">
+                                            <div className="col col-lrg-3 type--base type--wgt--medium">
                                                 {`$${c.certificateValue}`} {c.insufficientFunds ? ` - maybe insufficient funds` : ''}
                                             </div>
-                                            <div className="col col-lrg-3">
+                                            <div className="col col-lrg-3 type--base type--wgt--medium">
                                                 ${c.certificateValue - c.deductionCertificateAmount}
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@ function Step3Template({
                         </div>
                     </div>
                     <div className="col col-lrg-6">
-                        <div className="card--primary card--med u-mar--bottom--sml">
+                        <div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
                             How to scan certificates
                         </div>
                     </div>
