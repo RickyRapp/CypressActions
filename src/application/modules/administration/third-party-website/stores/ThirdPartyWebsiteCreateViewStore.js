@@ -120,7 +120,8 @@ class ThirdPartyWebsiteCreateViewStore extends BaseEditViewStore {
             }
         }
         else {
-            this.form.$('charityId').resetValidation()
+            this.charityDropdownStore.setValue(null)
+            this.form.$('charityId').resetValidation();
         }
     }
 

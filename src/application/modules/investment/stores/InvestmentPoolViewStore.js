@@ -20,7 +20,10 @@ class InvestmentPoolViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = ['investmentPool']
                         const response = await service.overview(params);
-                        return response.data;
+                        return {
+                            item: response.data,
+                            totalRecords: response.data.length
+                        };
                     }
                 }
             }

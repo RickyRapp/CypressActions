@@ -26,47 +26,41 @@ const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
     } = investmentPoolViewStore;
 
     return (
-        <React.Fragment>
-            <ApplicationListLayout store={investmentPoolViewStore} authorization={authorization}>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <div className="card--tertiary card--med u-mar--bottom--sml">
-                        <TableFilter queryUtility={queryUtility} >
-                        </TableFilter>
-                        <BaasicButton
-                            className="btn btn--base btn--tertiary"
-                            onlyIconClassName="u-mar--right--tny"
-                            icon={`u-icon u-icon--unlock u-icon--sml`}
-                            label='Enter change'
-                            onClick={openInvestmentPoolChange}>
-                        </BaasicButton>
-                    </div>
-                    <div className="card--primary card--med">
-                        <BaasicTable
-                            authorization={authorization}
-                            tableStore={tableStore}
-                            actionsComponent={renderActions}
-                        />
-                    </div>
-                </Content>
-                {investmentPoolDetailsId &&
-                    <div
-                        key={investmentPoolDetailsId}
-                        className="u-mar--top--sml">
-                        <InvestmentPoolHistory
-                            investmentPoolId={investmentPoolDetailsId}
-                        />
-                    </div>}
-            </ApplicationListLayout>
+        <ApplicationListLayout store={investmentPoolViewStore} authorization={authorization}>
+            <Content>
+                <div className="card--tertiary card--med u-mar--bottom--sml">
+                    <TableFilter queryUtility={queryUtility} >
+                    </TableFilter>
+                    <BaasicButton
+                        className="btn btn--base btn--tertiary"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon={`u-icon u-icon--unlock u-icon--sml`}
+                        label='Enter change'
+                        onClick={openInvestmentPoolChange}>
+                    </BaasicButton>
+                </div>
+                <div className="card--primary card--med">
+                    <BaasicTable
+                        authorization={authorization}
+                        tableStore={tableStore}
+                        actionsComponent={renderActions}
+                    />
+                </div>
+            </Content>
+            {investmentPoolDetailsId &&
+                <div
+                    key={investmentPoolDetailsId}
+                    className="u-mar--top--sml">
+                    <InvestmentPoolHistory
+                        investmentPoolId={investmentPoolDetailsId}
+                    />
+                </div>}
             <BaasicModal modalParams={investmentPoolChangeModal}>
                 <InvestmentPoolChange />
             </BaasicModal>
-        </React.Fragment>
+        </ApplicationListLayout>
     )
 };
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='FUND_TRANSFER.LIST.EMPTY_STATE.TITLE' actionLabel='FUND_TRANSFER.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 InvestmentPoolListTemplate.propTypes = {
     investmentPoolViewStore: PropTypes.object.isRequired,

@@ -2414,11 +2414,15 @@
     "INVESTMENT_POOL": {
         "LIST": {
             "TITLE": "Investments",
+            "HISTORY_TITLE": "Pool History",
             "COLUMNS": {
                 "NAME": "Pool name",
                 "CURRENT_SHARE_VALUE": "Value per share",
                 "TOTAL_VALUE_IN_POOL": "Total pool value",
-                "NUMBER_OF_SHARES": "Number of shares"
+                "NUMBER_OF_SHARES": "Number of shares",
+                "VALUE": "Value",
+                "CHANGE": "Change",
+                "DATE_CREATED": "Date Created"
             }
         },
         "EDIT": {

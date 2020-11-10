@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, ListContent } from 'core/components';
 
-const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore }) {
+const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore, t }) {
     const {
         tableStore,
         authorization
@@ -11,7 +11,8 @@ const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore
 
     return (
         <ListContent store={investmentPoolHistoryViewStore} authorization={authorization}>
-            <div className="card--form card--primary card--med">
+            <div className="card--primary card--med">
+                <h5 className="u-mar--bottom--sml">{t('INVESTMENT_POOL.LIST.HISTORY_TITLE')}</h5>
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

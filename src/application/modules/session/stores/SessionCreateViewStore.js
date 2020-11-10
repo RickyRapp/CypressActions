@@ -10,6 +10,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable sessionCertificates = [];
     @observable currentCount = 30;
     @observable session = 30;
+    refreshIntervalId = null;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -23,7 +24,7 @@ class SessionViewStore extends BaseEditViewStore {
                         this.nextStep(4);
                         this.form.clear();
                         this.charityDropdownStore.setValue(null);
-                        setInterval(() => {
+                        this.refreshIntervalId = setInterval(() => {
                             --this.currentCount;
                             if (this.currentCount == 0) {
                                 this.nextStep(1);
@@ -69,6 +70,7 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async onNextStep4Click() {
+        clearInterval(this.refreshIntervalId);
         this.nextStep(1);
     }
 

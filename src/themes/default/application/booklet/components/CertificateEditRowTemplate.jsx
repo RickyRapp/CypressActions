@@ -26,10 +26,10 @@ function CertificateEditRowTemplate({
 
     return (
         <tr>
-            <td className="table__body--data">{item.code}</td>
-            {isMixedBooklet && <td className="table__body--data">{item.denominationType.name}</td>}
-            <td className="table__body--data">{item.barcode}</td>
-            <td className="table__body--data">
+            <td className="">{item.code}</td>
+            {isMixedBooklet && <td className="">{item.denominationType.name}</td>}
+            <td className="">{item.barcode}</td>
+            <td className="">
                 <BasicCheckbox
                     id={item.id}
                     checked={item.isActive}
@@ -37,20 +37,20 @@ function CertificateEditRowTemplate({
                     label='BOOKLET.EDIT.BUTTON.IS_ACTIVE'
                 />
             </td>
-            <td className="table__body--data">
+            <td className="">
                 <BaasicDropdown
                     store={certificateStatusDropdownStore}
                     value={item.certificateStatus}
                 />
             </td>
-            <td className="table__body--data">
+            <td className="">
                 <input
                     className="input input--med input--text"
                     type="text"
                     value={item.note || ''}
                     onChange={event => item.note = event.target.value} />
             </td>
-            <td className="table__body--data">
+            <td className="">
                 <BaasicButton
                     className="btn btn--base btn--primary btn--sml"
                     label='BOOKLET.EDIT.BUTTON.SAVE_ROW_CHANGES'
