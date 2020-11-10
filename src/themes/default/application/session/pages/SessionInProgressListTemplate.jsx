@@ -68,7 +68,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onSetInactive) && setInactiveRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--unapproved u-icon--sml'
+                        icon='u-icon u-icon--decline u-icon--sml'
                         label='SESSION.LIST.IN_PROGRESS.BUTTON.SET_INACTIVE'
                         onlyIcon={true}
                         onClick={() => onSetInactive(item)}>

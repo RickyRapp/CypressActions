@@ -346,7 +346,7 @@
         }
 
         &--lock {
-            background-image: svg-load('../styles/postcss-svg/lock.svg', stroke: $color-note);
+            background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-note);
 
             &:hover,
             &:active,

@@ -65,7 +65,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--unapproved u-icon--sml'
+                        icon='u-icon u-icon--decline u-icon--sml'
                         label='Disapprove'
                         onlyIcon={true}
                         onClick={() => onDisapprove(item)}>
@@ -96,7 +96,7 @@ function renderActions({ item, actions, authorization }) {
                             authorization={authorization ? authorization.update : null}
                             className="btn btn--icon"
                             onlyIconClassName="u-mar--right--tny"
-                            icon='u-icon u-icon--locked u-icon--sml'
+                            icon='u-icon u-icon--lock u-icon--sml'
                             label='Lock'
                             onlyIcon={true}
                             onClick={() => onLock(item)}>

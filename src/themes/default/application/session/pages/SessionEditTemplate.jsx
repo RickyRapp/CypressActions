@@ -157,7 +157,7 @@ function renderActions({ item, actions, actionsRender, t }) {
                 {isSome(onRemove) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--unapproved u-icon--sml'
+                        icon='u-icon u-icon--decline u-icon--sml'
                         label='SESSION.EDIT.LIST.BUTTON.REMOVE_SESSION_CERTIFICATE'
                         onlyIcon={true}
                         onClick={() => onRemove(item)}>

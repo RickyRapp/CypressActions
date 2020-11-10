@@ -30,7 +30,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                 <h3 className="u-mar--bottom--tny">
                     {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
                     {maxAddressesEntered ?
-                        <span className="u-icon u-icon--locked u-icon--sml u-mar--left--tny" />
+                        <span className="u-icon u-icon--lock u-icon--sml u-mar--left--tny" />
                         :
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
