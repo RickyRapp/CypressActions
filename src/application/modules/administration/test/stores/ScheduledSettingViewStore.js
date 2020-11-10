@@ -81,6 +81,9 @@ class ScheduledSettingViewStore extends BaseViewStore {
         ];
 
         this.tableStore.setData(data)
+        if (!this.tableStore.dataInitialized) {
+            this.tableStore.dataInitialized = true;
+        }
     }
 }
 

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
-import { SimpleBaasicTable, EmptyState, BaasicButton } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
+import { SimpleBaasicTable, BaasicButton } from 'core/components';
 import { Content } from 'core/layouts';
 
 function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
@@ -12,7 +11,7 @@ function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
     } = scheduledSettingViewStore;
 
     return (
-        <Content emptyRenderer={renderEmpty()} >
+        <Content>
             <div className="card--primary card--med">
                 <SimpleBaasicTable
                     tableStore={tableStore}
@@ -22,10 +21,6 @@ function ScheduledSettingListTemplate({ scheduledSettingViewStore }) {
             </div>
         </Content>
     )
-}
-
-function renderEmpty() {
-    return <EmptyState image={EmptyIcon} title='TEST.SCHEDULED_SETTING.LIST.EMPTY_STATE.TITLE' description='TEST.SCHEDULED_SETTING.LIST.EMPTY_STATE.DESCRIPTION' />
 }
 
 ScheduledSettingListTemplate.propTypes = {

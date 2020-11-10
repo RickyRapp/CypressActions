@@ -565,6 +565,8 @@
                 "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password",
                 "SHOW": "Show",
                 "HIDE": "Hide",
+                "IS_APPROVED_LABEL": "Is Donor Approved?",
+                "SEND_APPROVE_EMAIL_LABEL": "Send Approve Account Email",
                 "ERROR_MESSAGES": {
                     "USERNAME_CONFLICT": "Username already exist"
                 }

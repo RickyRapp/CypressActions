@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BasicInput, BaasicButton } from 'core/components';
+import { BasicInput, BaasicButton, BasicFieldCheckbox } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { action, observable } from 'mobx';
 
@@ -40,6 +40,12 @@ class CreateAccountTemplate extends Component {
                         </div>
                         <div className="form__group col col-lrg-3">
                             <BasicInput field={form.$('confirmPassword')} />
+                        </div>
+                        <div className="form__group col col-lrg-3">
+                            <BasicFieldCheckbox field={form.$('isApproved')} />
+                        </div>
+                        <div className="form__group col col-lrg-3">
+                            <BasicFieldCheckbox field={form.$('sendApproveEmail')} />
                         </div>
                     </div>}
             </React.Fragment>

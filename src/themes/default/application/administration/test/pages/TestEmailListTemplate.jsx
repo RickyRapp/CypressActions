@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
-import { SimpleBaasicTable, EmptyState, BaasicButton, BaasicModal } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
+import { SimpleBaasicTable, BaasicButton, BaasicModal } from 'core/components';
 import { Content } from 'core/layouts';
 import { TestEmailCreate } from 'application/administration/test/components';
 
@@ -14,8 +13,8 @@ function TestEmailListTemplate({ testEmailViewStore }) {
     } = testEmailViewStore;
 
     return (
-        <Content emptyRenderer={renderEmpty()} >
-            <div className="u-clearfix u-mar--bottom--sml">
+        <Content>
+            <div className="card--primary card--med">
                 <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}
@@ -26,10 +25,6 @@ function TestEmailListTemplate({ testEmailViewStore }) {
             </BaasicModal>
         </Content>
     )
-}
-
-function renderEmpty() {
-    return <EmptyState image={EmptyIcon} title='TEST.TEST_EMAIL.LIST.EMPTY_STATE.TITLE' description='TEST.TEST_EMAIL.LIST.EMPTY_STATE.DESCRIPTION' />
 }
 
 TestEmailListTemplate.propTypes = {

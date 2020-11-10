@@ -92,6 +92,20 @@ export default class DonorCreateForm extends FormBase {
                     type: 'password'
                 },
                 {
+                    name: 'isApproved',
+                    label: 'DONOR.CREATE.LOGIN_FORM_FIELDS.IS_APPROVED_LABEL',
+                    rules: 'boolean',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
+                    name: 'sendApproveEmail',
+                    label: 'DONOR.CREATE.LOGIN_FORM_FIELDS.SEND_APPROVE_EMAIL_LABEL',
+                    rules: 'boolean',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
                     name: 'addressLine1',
                     label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
                     placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',

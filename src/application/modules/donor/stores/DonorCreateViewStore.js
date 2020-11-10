@@ -30,6 +30,8 @@ class DonorCreateViewStore extends BaseEditViewStore {
                         extraBookletPercentage: applicationDefaultSetting.extraBookletPercentage,
                         notificationLimitRemainderAmount: applicationDefaultSetting.regularNotificationLimitRemainderAmount,
                         blankBookletMaxAmount: applicationDefaultSetting.blankBookletMaxAmount,
+                        isApproved: resource.isApproved,
+                        sendApproveEmail: resource.sendApproveEmail,
                         address: {
                             addressLine1: resource.addressLine1,
                             addressLine2: resource.addressLine2,

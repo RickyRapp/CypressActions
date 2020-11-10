@@ -25,13 +25,16 @@ class TestEmailViewStore extends BaseViewStore {
             }
         });
 
-        this.settableStore();
+        this.setTableStore();
         this.emailModal = new ModalParams({});
     }
 
-    async settableStore() {
+    async setTableStore() {
         const data = await this.rootStore.application.lookup.emailTypeStore.find();
-        this.tableStore.setData(data)
+        this.tableStore.setData(data);
+        if (!this.tableStore.dataInitialized) {
+            this.tableStore.dataInitialized = true;
+        }
     }
 
     @action.bound
