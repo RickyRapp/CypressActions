@@ -104,14 +104,12 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         })
                         }
                     </div>
-                    <div className="col col-sml-9">
-                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                            <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">
-                                {t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}
-                            </h5>}
-                    </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <EditFormContent form={form}>
+                            {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                                <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">
+                                    {t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}
+                                </h5>}
                             <div className="card card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-12">

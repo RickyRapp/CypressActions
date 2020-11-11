@@ -26,52 +26,50 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
         <Content>
             <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} >
-                    <div className="row">
-                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter.confirmationNumber}
-                                onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
-                                placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER' />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter.paymentNumber || ""}
-                                onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
-                                placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                            <BaasicDropdown
-                                store={paymentTypeDropdownStore}
-                                placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                            <BaasicDropdown
-                                store={contributionStatusDropdownStore}
-                                placeholder='CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                            <BaasicInput
-                                className='input input--med'
-                                value={queryUtility.filter.nameOnCheck || ""}
-                                onChange={(event) => queryUtility.filter.nameOnCheck = event.target.value}
-                                placeholder='CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER'
-                            />
-                        </div>
-                        <div className="col col-sml-12 u-mar--bottom--sml">
-                            <div className="row">
-                                <div className="col col-sml-12 col-med-6 col-lrg-4">
-                                    <DateRangeQueryPicker
-                                        queryUtility={queryUtility}
-                                        store={dateCreatedDateRangeQueryStore}
-                                        fromPropertyName='dateCreatedFrom'
-                                        toPropertyName='dateCreatedTo'
-                                    />
-                                </div>
+                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
+                        <BaasicInput
+                            className='input input--med'
+                            value={queryUtility.filter.confirmationNumber}
+                            onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
+                            placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER' />
+                    </div>
+                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                        <BaasicInput
+                            className='input input--med'
+                            value={queryUtility.filter.paymentNumber || ""}
+                            onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
+                            placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
+                        />
+                    </div>
+                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                        <BaasicDropdown
+                            store={paymentTypeDropdownStore}
+                            placeholder='CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER'
+                        />
+                    </div>
+                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                        <BaasicDropdown
+                            store={contributionStatusDropdownStore}
+                            placeholder='CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER'
+                        />
+                    </div>
+                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                        <BaasicInput
+                            className='input input--med'
+                            value={queryUtility.filter.nameOnCheck || ""}
+                            onChange={(event) => queryUtility.filter.nameOnCheck = event.target.value}
+                            placeholder='CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER'
+                        />
+                    </div>
+                    <div className="col col-sml-12 u-mar--bottom--sml">
+                        <div className="row">
+                            <div className="col col-sml-12 col-med-6 col-lrg-4">
+                                <DateRangeQueryPicker
+                                    queryUtility={queryUtility}
+                                    store={dateCreatedDateRangeQueryStore}
+                                    fromPropertyName='dateCreatedFrom'
+                                    toPropertyName='dateCreatedTo'
+                                />
                             </div>
                         </div>
                     </div>

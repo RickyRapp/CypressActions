@@ -86,9 +86,7 @@ class DateRangeQueryPickerTemplate extends React.Component {
     render() {
         return (
             <React.Fragment >
-                <div className="row">
-                    <DateRangePicker value={this.store.value} options={this.store.options} onChange={this.onValueChange} t={this.t} errors={this.store.errors} />
-                </div>
+                <DateRangePicker value={this.store.value} options={this.store.options} onChange={this.onValueChange} t={this.t} errors={this.store.errors} />
                 {this.store.options.advancedSearch &&
                     <BaasicDropdown
                         store={this.store.timePeriodDropdownStore}
