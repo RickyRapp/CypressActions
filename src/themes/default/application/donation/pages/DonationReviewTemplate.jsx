@@ -100,7 +100,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                             </div>
                         </React.Fragment>}
                 </div>
-                <div className="card--primary card--med">
+                <div className="card--primary card--med u-mar--bottom--med">
                     <div className="table--dragrow--expandable-row">
                         <BaasicTableWithRowDetails
                             tableStore={tableStore}

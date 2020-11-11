@@ -133,6 +133,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                         <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                             <BaasicButton
                                                 className="btn btn--base btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
+                                                onlyIconClassName="u-mar--right--tny"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS'
                                             />
@@ -141,6 +142,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                         <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                             <BaasicButton
                                                 className="btn btn--base btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
+                                                onlyIconClassName="u-mar--right--tny"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.ORDER_CERTIFICATES'
                                             />
@@ -149,6 +151,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                                         <div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
                                             <BaasicButton
                                                 className="btn btn--base btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
+                                                onlyIconClassName="u-mar--right--tny"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.NEW_CONTRIBUTION'
                                             />

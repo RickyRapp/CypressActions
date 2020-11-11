@@ -10,8 +10,9 @@
 	}
 
 	.k-header {
+
 		&:last-child {		
-			max-width: calc($unit * 26);	
+			max-width: calc($unit * 26);
 		}
 	}
 
@@ -151,7 +152,7 @@
 
 			td {
 				position: relative;
-				height: calc($unit * 5.5);
+				min-height: calc($unit * 5.5);
 				
 				border-bottom: 1px solid $grey-1;
 				border-left: 0;
@@ -159,7 +160,7 @@
 
 				&.table__body--data--last {		
 					max-width: calc($unit * 26);
-					height: calc($unit * 7);		
+					min-height: calc($unit * 7);		
 				}
 
 				&.actions {
