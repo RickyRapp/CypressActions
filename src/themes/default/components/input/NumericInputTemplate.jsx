@@ -31,6 +31,7 @@ const NumericInputTemplate = defaultTemplate(props => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                spinners={false}
             />
         </div>
     );

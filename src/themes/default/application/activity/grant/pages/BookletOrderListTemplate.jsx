@@ -32,7 +32,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                             value={queryUtility.filter['bookletCodes'] || ""}
                             onChange={(event) => queryUtility.filter['bookletCodes'] = event.target.value}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
-                            />
+                        />
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                         <BaasicInput
@@ -48,25 +48,25 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                             value={queryUtility.filter['trackingNumber'] || ""}
                             onChange={(event) => queryUtility.filter['trackingNumber'] = event.target.value}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'
-                            />
+                        />
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                         <BaasicDropdown
                             store={deliveryMethodTypeDropdownStore}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.DELIVERY_TYPE_PLACEHOLDER'
-                            />
+                        />
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                         <BaasicDropdown
                             store={bookletOrderStatusDropdownStore}
                             placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER'
-                            />
+                        />
                     </div>
                     <div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
                         <DateRangeQueryPicker
                             queryUtility={queryUtility}
                             store={dateCreatedDateRangeQueryStore}
-                            />
+                        />
                     </div>
                 </TableFilter>
             </div>
@@ -75,7 +75,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                     authorization={authorization}
                     tableStore={tableStore}
                     actionsComponent={renderActions}
-                    />
+                />
             </div>
         </Content>
     )
@@ -100,8 +100,8 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="u-push">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"

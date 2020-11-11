@@ -1,7 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
-import { SessionTab, SessionEdit, SessionPreview, SessionCreate } from 'application/session/pages';
+import { SessionTab, SessionEdit, SessionPreview } from 'application/session/pages';
 import { SessionModuleStore } from 'application/session/stores';
-import { MainLayout, MasterLayout, PublicLayout } from 'core/layouts';
 
 (function () {
     moduleProviderFactory.application.register({

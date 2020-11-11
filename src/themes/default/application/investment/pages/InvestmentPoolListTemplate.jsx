@@ -4,11 +4,9 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicTable,
     TableFilter,
-    EmptyState,
     BaasicButton,
     BaasicModal
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { InvestmentPoolChange } from 'application/investment/components';
 import { InvestmentPoolHistory } from 'application/investment/pages';
@@ -17,7 +15,6 @@ import { isSome } from 'core/utils';
 const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         investmentPoolChangeModal,
@@ -81,8 +78,8 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onSelect) && selectRender ? (
                     <BaasicButton
                         className="btn btn--icon"

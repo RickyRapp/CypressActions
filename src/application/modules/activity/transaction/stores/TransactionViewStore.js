@@ -82,6 +82,14 @@ class TransactionViewStore extends BaseListViewStore {
                         type: 'transaction-currency',
                         value: '$'
                     }
+                },
+                {
+                    key: 'paymentTransaction.presentBalance',
+                    title: 'ACTIVITY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
                 }
             ],
             actions: {

@@ -73,14 +73,14 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                                 />
                             </div>
                             <div className="col col-sml-12 u-mar--bottom--sml">
-                                <div className="row">                        
+                                <div className="row">
                                     <div className="col col-sml-12 col-med-6 col-lrg-4">
                                         <DateRangeQueryPicker
                                             queryUtility={queryUtility}
                                             store={dateCreatedDateRangeQueryStore}
                                             fromPropertyName='dateCreatedFrom'
                                             toPropertyName='dateCreatedTo'
-                                            />
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -145,8 +145,8 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--lasttable__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"

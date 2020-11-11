@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import _ from 'lodash'
-import { BasicInput, NumberFormatInputField, NumericInputField } from 'core/components';
+import { BasicInput, NumericInputField } from 'core/components';
 
 function GrantRequestTemplate({ grantRequestEditViewStore, t }) {
     const {

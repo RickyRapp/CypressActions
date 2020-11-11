@@ -73,8 +73,8 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="u-push">
                 {isSome(onComplete) && completeRender ? (
                     <BaasicButton
                         className="btn btn--icon"
@@ -96,7 +96,7 @@ function renderActions({ item, actions, actionsRender }) {
                     </BaasicButton>
                 ) : null}
             </div>
-        </td>
+        </td >
     )
 }
 

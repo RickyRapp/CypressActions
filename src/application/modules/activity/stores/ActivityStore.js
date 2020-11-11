@@ -23,6 +23,11 @@ class ActivityStore {
 		return response.data;
 	}
 
+	async findSummaryPastGrants(params) {
+		const response = await this.donationService.findSummaryPastGrants(params);
+		return response.data;
+	}
+
 	async findGrantRequest(params) {
 		const response = await this.grantRequestService.find(params);
 		return response.data;

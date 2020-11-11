@@ -17,6 +17,11 @@ class DonationService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    findSummaryPastGrants(params) {
+        const url = this.routeService.findSummaryPastGrants(params);
+        return this.apiClient.get(url);
+    }
+
     findPastGrant(params) {
         const url = this.routeService.findPastGrant(params);
         return this.apiClient.get(url);

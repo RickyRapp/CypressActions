@@ -44,8 +44,8 @@ function renderActions({ item, actions, actionsRender, authorization }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="u-push">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}

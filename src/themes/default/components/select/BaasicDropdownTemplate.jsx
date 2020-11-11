@@ -75,7 +75,6 @@ const BaasicDropdownTemplate = function (props) {
         focused: store.isOpen || null,
     });
 
-
     return (
         <React.Fragment>
             <div className="u-pos--relative">

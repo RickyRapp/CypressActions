@@ -28,13 +28,13 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                                             value={queryUtility.filter.codes || ""}
                                             onChange={(event) => queryUtility.filter.codes = event.target.value}
                                             placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'
-                                            />
+                                        />
                                     </div>
                                     <div className="col col-sml-12 u-mar--bottom--sml">
                                         <BaasicDropdown
                                             store={denominationTypeDropdownStore}
                                             placeholder='BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER'
-                                            />
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -65,8 +65,8 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit)) return null;
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onEdit) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}

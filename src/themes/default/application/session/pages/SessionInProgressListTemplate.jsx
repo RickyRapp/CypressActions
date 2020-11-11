@@ -63,8 +63,8 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onSetInactive) && setInactiveRender ? (
                     <BaasicButton
                         className="btn btn--icon"

@@ -4,8 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicFormControls,
     BaasicButton,
-    BaasicInput,
-    FormDebug
+    BaasicInput
 } from 'core/components';
 
 function Step3Template({

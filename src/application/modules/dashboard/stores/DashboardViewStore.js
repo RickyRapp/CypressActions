@@ -1,5 +1,5 @@
 import { DonorService } from 'application/donor/services';
-import { BaseViewStore } from 'core/stores';
+import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
 
@@ -9,6 +9,8 @@ class DashboardViewStore extends BaseViewStore {
 
     constructor(rootStore) {
         super(rootStore);
+
+        this.createYearDropdownStore();
     }
 
     @action.bound
@@ -26,7 +28,14 @@ class DashboardViewStore extends BaseViewStore {
     @action.bound async fetchDonorData() {
         const service = new DonorService(this.rootStore.application.baasic.apiClient);
         const response = await service.loadDonorData(this.rootStore.userStore.user.id);
+        this.yearDropdownStore.setItems(response.data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
+        const initialValue = response.data.donationsPerYear.find(c => c.year === new Date().getFullYear()).year;
+        this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
         this.donor = response.data;
+    }
+
+    createYearDropdownStore() {
+        this.yearDropdownStore = new BaasicDropdownStore();
     }
 }
 

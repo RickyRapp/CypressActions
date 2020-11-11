@@ -89,14 +89,14 @@ function defaultRenderActionsTemplate({ actions, actionsComponent, actionsWidth,
         <GridColumn
             headerCell={() => (
                 <GridHeaderCell
-                    render={() => <a className="k-link k-no-sortable flex--bottom">{t('GRID.ACTIONS_COLUMN')}</a>}
+                    render={() => <a className="k-link k-no-sortable flex--bottom u-push">{t('GRID.ACTIONS_COLUMN')}</a>}
                 />
             )}
             groupable={false}
             sortable={false}
             filterable={false}
             resizable={false}
-            width={actionsWidth ? actionsWidth : 30 * actionCount}
+            width={actionsWidth ? actionsWidth : (actionCount <= 3 ? 100 : (100 + 30 * (actionCount - 3)))} //for 3 icons is enough 100px but for every additional add 30px
             cell={cellProps => (
                 <BaasicTableActions
                     {...cellProps}

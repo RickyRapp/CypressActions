@@ -1,9 +1,7 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { GrantRequestService } from 'application/grant/services';
 import { ModalParams } from 'core/models';
 import { GrantRequestListFilter } from 'application/grant/models';
-import _ from 'lodash';
 
 class GrantRequestViewStore extends BaseListViewStore {
     constructor(rootStore) {

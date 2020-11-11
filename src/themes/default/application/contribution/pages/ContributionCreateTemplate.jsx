@@ -90,7 +90,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 
             {step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
                 <div className="row u-padd--left--med u-padd--right--med">
-                    <div className="col col-sml-12 col-lrg-3">
+                    <div className="col col-sml-12 col-lrg-4">
                         {paymentTypes.map(c => {
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
@@ -110,75 +110,79 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                         })
                         }
                     </div>
-                    <div className="col col-sml-9">
-                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                            <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
-                    </div>
-                    <div className="col col-sml-12 col-lrg-6">
-                        <EditFormContent form={form}>
-                            <div className="card card--primary card--med u-mar--bottom--med">
-                                <div className="row">
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
-                                    </div>
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <p className="type--sml type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</p>
-                                    </div>
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
-                                    </div>
-                                    {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&
-                                        <React.Fragment>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                <BaasicFieldDropdown
-                                                    field={form.$('donorBankAccountId')}
-                                                    store={bankAccountDropdownStore}
-                                                    additionalLabel={addButton}
-                                                />
-                                            </div>
-                                            <BaasicModal modalParams={bankAccountModal}>
-                                                <BankAccountForm />
-                                            </BaasicModal>
-                                        </React.Fragment>}
-                                    {paymentType.abrv === 'check' &&
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BasicInput field={form.$('checkNumber')} showLabel={false} />
-                                        </div>}
-                                    {paymentType.abrv === 'chase-quickpay' &&
-                                        <React.Fragment>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                <BasicInput field={form.$('transactionId')} showLabel={false} />
-                                            </div>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                <BasicInput field={form.$('memo')} showLabel={false} />
-                                            </div>
-                                        </React.Fragment>}
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <NumericInputField field={form.$('amount')} showLabel={false} />
-                                    </div>
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <BasicFieldCheckbox field={form.$('isThirdParty')} />
-                                    </div>
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
-                                    </div>
-                                </div>
-                                <BaasicFormControls form={form} onSubmit={onSubmitClick} type='button' />
+                    <div className="col col-sml-9 col-lrg-8">
+                        <div className="row">
+                            <div className="col col-sml-12 col-lrg-12">
+                                {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                                    <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
                             </div>
-                            <BaasicModal modalParams={confirmModal}>
-                                <ContributionConfirmTemplate form={form} />
-                            </BaasicModal>
-                        </EditFormContent>
-                    </div>
-                    <div className="col col-sml-12 col-lrg-3">
-                        <div className="card card--primary card--med u-mar--bottom--med">
-                            <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
-                            <SimpleBaasicTable tableStore={previousContributionsTableStore} />
-                            <BaasicButton
-                                className="btn btn--base btn--tertiary type--uppercase u-mar--top--med"
-                                label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
-                                onClick={routes.allContributions}>
-                            </BaasicButton>
+                            <div className="col col-sml-12 col-lrg-6">
+                                <EditFormContent form={form}>
+                                    <div className="card card--primary card--med u-mar--bottom--med">
+                                        <div className="row">
+                                            <div className="col col-sml-12 col-lrg-12">
+                                                <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <p className="type--sml type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</p>
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
+                                            </div>
+                                            {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&
+                                                <React.Fragment>
+                                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                        <BaasicFieldDropdown
+                                                            field={form.$('donorBankAccountId')}
+                                                            store={bankAccountDropdownStore}
+                                                            additionalLabel={addButton}
+                                                        />
+                                                    </div>
+                                                    <BaasicModal modalParams={bankAccountModal}>
+                                                        <BankAccountForm />
+                                                    </BaasicModal>
+                                                </React.Fragment>}
+                                            {paymentType.abrv === 'check' &&
+                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                    <BasicInput field={form.$('checkNumber')} showLabel={false} />
+                                                </div>}
+                                            {paymentType.abrv === 'chase-quickpay' &&
+                                                <React.Fragment>
+                                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                        <BasicInput field={form.$('transactionId')} showLabel={false} />
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                        <BasicInput field={form.$('memo')} showLabel={false} />
+                                                    </div>
+                                                </React.Fragment>}
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <NumericInputField field={form.$('amount')} showLabel={false} />
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BasicFieldCheckbox field={form.$('isThirdParty')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
+                                            </div>
+                                        </div>
+                                        <BaasicFormControls form={form} onSubmit={onSubmitClick} type='button' />
+                                    </div>
+                                    <BaasicModal modalParams={confirmModal}>
+                                        <ContributionConfirmTemplate form={form} />
+                                    </BaasicModal>
+                                </EditFormContent>
+                            </div>
+                            <div className="col col-sml-12 col-lrg-6">
+                                <div className="card card--primary card--med u-mar--bottom--med">
+                                    <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
+                                    <SimpleBaasicTable tableStore={previousContributionsTableStore} />
+                                    <BaasicButton
+                                        className="btn btn--base btn--tertiary type--uppercase u-mar--top--med"
+                                        label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
+                                        onClick={routes.allContributions}>
+                                    </BaasicButton>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>}

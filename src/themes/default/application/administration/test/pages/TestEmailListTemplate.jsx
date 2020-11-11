@@ -38,8 +38,8 @@ function renderActions({ item, actions }) {
     if (!isSome(onSend)) return null;
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onSend) ? (
                     <BaasicButton
                         className="btn btn--icon"

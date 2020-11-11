@@ -20,20 +20,20 @@ function InvestmentPoolChangeTemplate({ investmentPoolChangeViewStore, t }) {
                 const difference = Math.abs(_c.$('totalPoolValue').value - (newPoolValue));
 
                 return (
-                    <div className="u-separator--primary u-mar--bottom--sml">
-                        <div key={_c.key} className="row u-mar--bottom--med">
+                    <div key={_c.key} className="u-separator--primary u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--med">
                             <div className="col col-lrg-12">
                                 <span className="type--med type--wgt--medium type--color--note u-mar--bottom--tny">{element.investmentPool.name} </span>
                             </div>
                             <div className="col col-sml-12 col-lrg-6">
                                 <NumericInputField field={_c.$('percentageChange')} />
                                 <p className="type--tny type--wgt--regular">
-                                    New pool value: 
+                                    New pool value:
                                     <span className="type--color--note u-mar--left--tny">
                                         <FormatterResolver
-                                        item={{ amount: newPoolValue }}
-                                        field='amount'
-                                        format={{ type: 'currency' }}
+                                            item={{ amount: newPoolValue }}
+                                            field='amount'
+                                            format={{ type: 'currency' }}
                                         />
                                     </span>
                                 </p>

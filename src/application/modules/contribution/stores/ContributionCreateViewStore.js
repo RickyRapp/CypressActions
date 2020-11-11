@@ -121,6 +121,9 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             const response = await this.service.getDonorInformation(this.donorId);
             this.donor = response.data;
             this.previousContributionsTableStore.setData(this.donor.previousContributions);
+            if (!this.previousContributionsTableStore.dataInitialized) {
+                this.previousContributionsTableStore.dataInitialized = true;
+            }
 
             if (this.donor.isInitialContributionDone) {
                 this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumAdditionalAmount}`);

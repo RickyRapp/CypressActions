@@ -1,13 +1,45 @@
 import React from 'react';
 import { Page } from 'core/layouts';
-import { BaasicButton, FormatterResolver } from 'core/components';
+import { BaasicButton, BaasicDropdown, FormatterResolver } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
+import {
+    Chart,
+    ChartSeries,
+    ChartSeriesItem,
+    ChartCategoryAxis,
+    ChartCategoryAxisItem,
+    ChartLegend,
+    ChartTooltip
+} from '@progress/kendo-react-charts';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
     const {
-        donor
+        donor,
+        yearDropdownStore
     } = dashboardViewStore
+
+    let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    let dataGrants = [];
+    let dataContributions = [];
+    if (donor) {
+        dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
+        dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
+    }
+
+    const LineChartContainer = () => (
+        <Chart>
+            <ChartCategoryAxis>
+                <ChartCategoryAxisItem categories={categories} />
+            </ChartCategoryAxis>
+            <ChartTooltip render={({ point }) => <FormatterResolver item={{ amount: point.value }} field='amount' format={{ type: 'currency' }} />} />
+            <ChartLegend position="bottom" orientation="horizontal" />
+            <ChartSeries>
+                <ChartSeriesItem name="Total Contributed" type="line" data={dataContributions} />
+                <ChartSeriesItem name="Total Granted" type="line" data={dataGrants} />
+            </ChartSeries>
+        </Chart>
+    );
 
     return (
         <Page >
@@ -80,6 +112,16 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                     <div className="col col-sml-12 col-med-6">
                         <div className="card card--primary card--med u-mar--bottom--med u-mar--left--sml">
                             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+                            <div className="row u-mar--bottom--med">
+                                <div className="col col-sml-12 col-med-5">
+                                    Donation This <BaasicDropdown store={yearDropdownStore} />
+                                </div>
+                            </div>
+                            <div className="row u-mar--bottom--med">
+                                <div className="col col-sml-12 col-med-12">
+                                    <LineChartContainer />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {donor && (!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) &&

@@ -949,7 +949,8 @@
                 "STATUS_LABEL": "Status",
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
                 "PENDING_TRANSACTION_DESCRIPTION_LABEL": "Description",
-                "PENDING_TRANSACTION_AMOUNT_LABEL": "Amount"
+                "PENDING_TRANSACTION_AMOUNT_LABEL": "Amount",
+                "PRESENT_BALANCE_LABEL": "Present Balance"
             }
         }
     },
@@ -1533,6 +1534,12 @@
                     "SELECT_CHARITY_PLACEHOLDER": "Charity",
                     "SELECT_DONATION_STATUS_PLACEHOLDER": "Status",
                     "SELECT_DONATION_TYPE_PLACEHOLDER": "Type"
+                },
+                "SUMMARY": {
+                    "TITLE": "Summary",
+                    "SLIDER_LABEL": "Amount given this year",
+                    "DONAUT_CHART_TITLE": "Amount donated by category",
+                    "LINE_CHART_TITLE": "Amount donated by time period"
                 }
             }
         },

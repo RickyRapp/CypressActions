@@ -3,8 +3,7 @@ import { defaultTemplate } from 'core/hoc'
 import PropTypes from 'prop-types';
 import { FormatterResolver } from 'core/components';
 import shouldRenderContentChildren from 'themes/components/content/shouldRenderContentChildren';
-import { addressFormatter, donorFormatter } from 'core/utils';
-import _ from 'lodash';
+import { donorFormatter } from 'core/utils';
 
 class GrantCreateOverviewTemplate extends React.Component {
     render() {

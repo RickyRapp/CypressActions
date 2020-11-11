@@ -2,7 +2,6 @@ import { action } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { GrantRequestCreateForm } from 'application/grant/forms';
-import { ModalParams } from 'core/models';
 import { localizationService, validatorService } from 'core/services';
 
 @applicationContext

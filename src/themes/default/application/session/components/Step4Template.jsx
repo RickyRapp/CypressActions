@@ -37,7 +37,10 @@ function Step4Template({
 
 Step4Template.propTypes = {
     step4ViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    onNextStepClick: PropTypes.func.isRequired,
+    session: PropTypes.object.isRequired,
+    currentCount: PropTypes.number.isRequired
 };
 
 export default defaultTemplate(Step4Template);

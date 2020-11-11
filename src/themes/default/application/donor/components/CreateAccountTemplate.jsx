@@ -21,15 +21,6 @@ class CreateAccountTemplate extends Component {
             title
         } = this.props;
 
-        class TooltipContentTemplate extends React.Component {
-            render() {
-                return (
-                    <a> A template for: <strong>{this.props.title}</strong></a>
-                );
-            }
-        }
-
-
         return (
             <React.Fragment>
                 <h3 className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t(title)}

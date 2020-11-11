@@ -5,8 +5,8 @@ class DonationRouteService extends BaseRouteService {
         super('donation');
     }
 
-    find(filter) {
-        return super.find(this.base + '/{?charityId,amountRangeMin,amountRangeMax,countRangeMin,countRangeMax,donationStatusIds,page,rpp,sort,embed,fields}', filter);
+    findSummaryPastGrants(params) {
+        return super.find(this.base + '/summary/{?donorId,charityId,donationStatusIds,donationTypeIds,embed,fields}', params);
     }
 
     findPendingDonation(params) {

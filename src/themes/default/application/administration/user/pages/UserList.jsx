@@ -47,8 +47,8 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit) && !isSome(onLock) && !isSome(onUnlock) && !isSome(onApprove) && !isSome(onDisapprove)) return null;
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onEdit) ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}

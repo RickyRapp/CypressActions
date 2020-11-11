@@ -70,8 +70,8 @@ function renderActions({ item, actions, authorization }) {
     if (!isSome(onEdit) && !isSome(onMarkPrimary) && !isSome(onDelete)) return null;
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onMarkPrimary) && !item.isPrimary ? (
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}

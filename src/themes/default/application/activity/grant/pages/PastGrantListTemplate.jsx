@@ -5,7 +5,8 @@ import {
     BaasicTable,
     TableFilter,
     EmptyState,
-    BaasicDropdown
+    BaasicDropdown,
+    FormatterResolver
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { Content } from 'core/layouts';
@@ -18,11 +19,12 @@ import {
     ChartSeries,
     ChartSeriesItem,
     ChartSeriesLabels,
-    ChartTitle
+    ChartTitle,
+    ChartTooltip
 } from '@progress/kendo-react-charts';
 import { Slider, SliderLabel } from '@progress/kendo-react-inputs';
 
-const PastGrantListTemplate = function ({ pastGrantViewStore }) {
+const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
     const {
         tableStore,
         routes,
@@ -43,7 +45,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
     const DonutChartContainer = () => {
         return (
             <Chart>
-                <ChartTitle text="Amount donated by category" />
+                <ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
                 <ChartLegend visible={false} />
                 <ChartArea background="none" />
                 <ChartSeries>
@@ -69,10 +71,11 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
     }
     const LineChartContainer = () => (
         <Chart>
-            <ChartTitle text="Amount donated by time period" />
+            <ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
             <ChartCategoryAxis>
                 <ChartCategoryAxisItem categories={categories} />
             </ChartCategoryAxis>
+            <ChartTooltip render={({ point }) => <FormatterResolver item={{ amount: point.value }} field='amount' format={{ type: 'currency' }} />} />
             <ChartSeries>
                 <ChartSeriesItem type="line" data={dataLine} />
             </ChartSeries>
@@ -104,20 +107,29 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
                     </div>
                 </div>
                 <div className="card--primary card--sml col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                    <h4 className="u-mar--bottom--med">{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}</h4>
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                             <div className="card--tertiary--light card--med type--center">
                                 <div className="type--lrg type--wgt--medium type--color--note">
-                                    ${summaryData && summaryData.totalMoneyGiven}
+                                    {summaryData &&
+                                        <FormatterResolver
+                                            item={{ amount: summaryData.totalMoneyGiven }}
+                                            field='amount'
+                                            format={{ type: 'currency' }} />}
                                     <p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
                                 </div>
                             </div>
                         </div>
-                   
+
                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                             <div className="card--secondary--light card--med type--center">
                                 <div className="type--lrg type--wgt--medium type--color--note">
-                                    ${summaryData && summaryData.totalMoneyUpcoming}
+                                    {summaryData &&
+                                        <FormatterResolver
+                                            item={{ amount: summaryData.totalMoneyUpcoming }}
+                                            field='amount'
+                                            format={{ type: 'currency' }} />}
                                     <p className="type--xsml type--wgt--medium type--color--text"> Total money upcoming</p>
                                 </div>
                             </div>
@@ -125,6 +137,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore }) {
                     </div>
                     <div className="row u-mar--bottom--med">
                         <div className="col col-sml-12 col-lrg-12">
+                            <span>{t('DONATION.PAST_GRANT.LIST.SUMMARY.SLIDER_LABEL')}</span>
                             {summaryData &&
                                 <Slider
                                     buttons={false}

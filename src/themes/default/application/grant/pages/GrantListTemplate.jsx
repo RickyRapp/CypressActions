@@ -33,7 +33,7 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
         <ApplicationListLayout store={grantViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>                    
+                    <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
                             <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                 <BaasicDropdown store={searchDonorDropdownStore} />
@@ -105,8 +105,8 @@ function renderActions({ item, actions, actionsRender }) {
     }
 
     return (
-        <td className="table__body--data table__body--data--last">
-            <div className="table__icons">
+        <td>
+            <div className="type--right">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"

@@ -91,8 +91,7 @@ class ContributionViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true,
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
+                    disableClick: true
                 },
                 {
                     key: 'amount',
@@ -314,7 +313,7 @@ class ContributionViewStore extends BaseListViewStore {
     async openCancelContribution(item) {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to cancel contribution (#${item.confirmationNumber}) created 
-            on: ${moment(item.dateCreated).format('dddd, MMMM Do YYYY, h:mm:ss a')} with amount: $${item.amount.toFixed(2)}`,
+            on: ${moment(item.dateCreated).format('dddd, MMMM Do YYYY, h:mm:ss A')} with amount: $${item.amount.toFixed(2)}`,
             async () => {
                 this.loaderStore.suspend();
                 try {
