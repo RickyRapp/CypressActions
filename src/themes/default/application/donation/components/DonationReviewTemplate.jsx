@@ -24,11 +24,11 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
             <div className="row">
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.CHARITY_NAME_LABEL')}</label>
-                    <span className={"input input--med input--text input--disabled"}>{charity.name}</span>
+                    <span className={"input input--lrg input--text input--disabled"}>{charity.name}</span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                     <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.AMOUNT_LABEL')}</label>
-                    <span className={"input input--med input--text input--disabled"}>
+                    <span className={"input input--lrg input--text input--disabled"}>
                         <FormatterResolver
                             item={{ totalAmount: _.sumBy(selectedItems, 'amount') }}
                             field='totalAmount'
@@ -52,7 +52,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t, selectedI
                     {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
                         <div className="form__group col col-lrg-6">
                             <label className="form__group__label">{t('DONATION.REVIEW.FIELDS.BANK_ACCOUNT_NAME_LABEL')}</label>
-                            <span className={"input input--med input--text input--disabled"}>{charity.bankAccount.name}</span>
+                            <span className={"input input--lrg input--text input--disabled"}>{charity.bankAccount.name}</span>
                         </div>}
                     {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' &&
                         <React.Fragment>

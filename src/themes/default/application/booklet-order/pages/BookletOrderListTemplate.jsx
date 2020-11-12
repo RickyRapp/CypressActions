@@ -35,7 +35,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 id='bookletCodes'
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter.bookletCodes || ""}
                                 onChange={(event) => queryUtility.filter.bookletCodes = event.target.value}
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER'
@@ -44,7 +44,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 id='confirmationNumber'
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter.confirmationNumber || ""}
                                 onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
@@ -53,7 +53,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 id='trackingNumber'
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter.trackingNumber || ""}
                                 onChange={(event) => queryUtility.filter.trackingNumber = event.target.value}
                                 placeholder='BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER'

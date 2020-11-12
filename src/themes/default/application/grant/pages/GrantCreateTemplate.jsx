@@ -130,7 +130,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     <div className="form__group col col-sml-11 u-mar--bottom--sml">
                                         {amountWithFee &&
                                             <React.Fragment><label className="form__group__label">Total amount with fee</label>
-                                                <span className={"input input--med input--text input--disabled"}>
+                                                <span className={"input input--lrg input--text input--disabled"}>
                                                     <FormatterResolver
                                                         item={{ amount: amountWithFee }}
                                                         field='amount'

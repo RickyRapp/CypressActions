@@ -28,7 +28,7 @@ const CharityListTemplate = function ({ charityViewStore }) {
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter['name'] || ""}
                                 onChange={(event) => queryUtility.filter['name'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
@@ -36,7 +36,7 @@ const CharityListTemplate = function ({ charityViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter['emails'] || ""}
                                 onChange={(event) => queryUtility.filter['emails'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
@@ -44,7 +44,7 @@ const CharityListTemplate = function ({ charityViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter['address'] || ""}
                                 onChange={(event) => queryUtility.filter['address'] = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
@@ -52,7 +52,7 @@ const CharityListTemplate = function ({ charityViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                             <NumberFormatInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter['taxId']}
                                 onChange={(event) => queryUtility.filter['taxId'] = event.value}
                                 format='##-#######'

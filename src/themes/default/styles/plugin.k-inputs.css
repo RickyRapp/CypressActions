@@ -3,7 +3,7 @@
 \*------------------------------------*/
 
 .k-textbox-container.k-state-empty > .k-label {
-    top: calc($unit * 2.9);
+    top: 50%;
     left: calc($unit * 2.6);
 
     font-size: calc($unit * 2);

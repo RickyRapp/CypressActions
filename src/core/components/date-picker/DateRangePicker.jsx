@@ -51,7 +51,7 @@ const CustomDateInput = function (props) {
                 <DateInput
                     {...other}
                     label={undefined}
-                    className={error ? 'input input--med input--warning' : 'input'}
+                    className={error ? 'input input--lrg input--warning' : 'input'}
                 />
                 {renderIf(isSome(error))(<p className="type--tny type--color--warning u-mar--top--nano">{error}</p>)}
             </div>

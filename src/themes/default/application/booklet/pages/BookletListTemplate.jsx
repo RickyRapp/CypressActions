@@ -24,7 +24,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
                                     <div className="col col-sml-12 u-mar--bottom--sml">
                                         <BaasicInput
                                             id='codes'
-                                            className='input input--med'
+                                            className='input input--lrg'
                                             value={queryUtility.filter.codes || ""}
                                             onChange={(event) => queryUtility.filter.codes = event.target.value}
                                             placeholder='BOOKLET.LIST.FILTER.CODES_PLACEHOLDER'

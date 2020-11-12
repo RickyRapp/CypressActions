@@ -30,7 +30,7 @@ function TableFilterTemplate(props) {
             <div className={`u-mar--bottom--sml ${searchClassName || ''}`.trim()}>
                 {showSearch && (
                     <SearchFilter
-                        className={`input input--med input--search ${filterStore.filterVisible ? 'is-expanded' : ''}`}
+                        className={`input input--lrg input--search ${filterStore.filterVisible ? 'is-expanded' : ''}`}
                         inputWrapperClass={`${inputWrapperClass} u-mar--right--sml`}
                         queryUtility={queryUtility}
                         clearVisible={clearVisible}

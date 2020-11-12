@@ -45,7 +45,7 @@ const SessionExpireModalTemplate = function (props) {
                     <div className='form__group__label'>{t(passwordField.label)}*</div>
                     <input
                         type={passwordField.type}
-                        className={'input input--med input--text' + (error ? ' input--warning' : '')} //{...otherProps}
+                        className={'input input--lrg input--text' + (error ? ' input--warning' : '')} //{...otherProps}
                         placeholder={t(passwordField.placeholder)}
                         onChange={handleOnChange}
                     />

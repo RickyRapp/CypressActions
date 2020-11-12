@@ -28,7 +28,7 @@ const TransactionEditTemplate = function ({ transactionEditViewStore }) {
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                         <div>
                             <label className="form__group__label">Check number</label>
-                            <span className={"input input--med input--text input--disabled"}>
+                            <span className={"input input--lrg input--text input--disabled"}>
                                 {item && item.paymentNumber}
                             </span>
                         </div>

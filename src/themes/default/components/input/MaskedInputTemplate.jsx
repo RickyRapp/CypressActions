@@ -45,7 +45,7 @@ MaskedInputTemplate.defaultProps = {
     type: 'text',
     showLabel: true,
     labelClassName: 'form__group__label',
-    className: 'input input--med input--text'
+    className: 'input input--lrg input--text'
 };
 
 export default MaskedInputTemplate;

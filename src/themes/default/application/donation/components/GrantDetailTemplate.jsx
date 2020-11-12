@@ -7,13 +7,13 @@ const GrantDetailTemplate = function ({ item, t }) {
         <div className="row">
             <div className="col col-sml-5 col-lrg-5">
                 <label className="form__group__label">{t('DONOR')}</label>
-                <span className={"input input--med input--text input--disabled"}>
+                <span className={"input input--lrg input--text input--disabled"}>
                     {item.donor.donorName}
                 </span>
             </div>
             <div className="col col-sml-5 col-lrg-5">
                 <label className="form__group__label">{t('AMOUNT')}</label>
-                <span className={"input input--med input--text input--disabled"}>
+                <span className={"input input--lrg input--text input--disabled"}>
                     {item.amount}
                 </span>
             </div>

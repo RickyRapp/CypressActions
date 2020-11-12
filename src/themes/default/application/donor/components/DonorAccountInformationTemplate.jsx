@@ -45,7 +45,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                     <div>
                                         <label className="form__group__label">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.DATE_OF_BIRTH')}</label>
                                         {item &&
-                                            <span className={"input input--med input--text input--disabled"}>
+                                            <span className={"input input--lrg input--text input--disabled"}>
                                                 <Date format="full-date" value={item.dateOfBirth} />
                                             </span>}
                                     </div>

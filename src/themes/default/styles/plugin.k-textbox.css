@@ -4,10 +4,6 @@
 
 .k-textbox-container, .k-dropdown {
     width: 100%;
-    min-height: calc($unit * 6);
-    padding-top: 0;
-
-    @mixin type-scale $type-xsmall, 1;
 
     &.focused {
         .k-dropdown-wrap {
@@ -161,6 +157,37 @@
             background-color: $color-primary !important;
         }
     }
+}
+
+.k-numeric-wrap .k-input {
+    min-height: calc($unit * 8);
+    padding-top: 0;
+
+     @mixin type-scale $type-base, 1;
+    font-family: $ff-serif;
+    border-right: 1px solid $grey-3 !important;
+    background-color: #F3F6FB;
+}
+
+.k-textbox-container.k-state-empty {
+    min-height: calc($unit * 8);
+    padding-top: 0;
+    
+     @mixin type-scale $type-base, 1;
+    font-family: $ff-serif;
+}
+
+.k-textbox-container .k-dropdown-wrap, .k-dropdown .k-dropdown-wrap {
+    min-height: calc($unit * 8);
+    padding-top: 0;
+    margin-top: calc($unit / 2);
+
+    @mixin type-scale $type-base, 1;
+    font-family: $ff-serif;
+    font-weight: $type-weight-medium;
+    
+    background-color: #F3F6FB;
+    color: #E9EDF6;
 }
 
 .k-list-container {

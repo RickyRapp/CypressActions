@@ -12,7 +12,7 @@ const BasicQueryInput = defaultTemplate(({ id, label, type, queryUtility, proper
             <input
                 id={id}
                 type={type}
-                className="input input--med input--text"
+                className="input input--lrg input--text"
                 value={queryUtility.filter[propertyName] || ''}
                 onChange={e => {
                     queryUtility.filter.set(propertyName, e.target.value);

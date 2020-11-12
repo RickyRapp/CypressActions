@@ -21,7 +21,7 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, showMa
             )}
             {!showLabel && showMark ? requiredMark : null}
             <input
-                className={'input input--med input--text' + (field.touched && !field.isValid ? ' input--warning' : '')}
+                className={'input input--lrg input--text' + (field.touched && !field.isValid ? ' input--warning' : '')}
                 {...otherProps}
                 disabled={disabled || otherProps.disabled}
                 autoFocus={field.initialSetup.autoFocus}

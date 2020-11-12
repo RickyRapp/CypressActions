@@ -34,7 +34,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter.confirmationNumber || ""}
                                 onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
                                 placeholder='SESSION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
@@ -42,7 +42,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter.paymentNumber || ""}
                                 onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
                                 placeholder='SESSION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER'
@@ -62,7 +62,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <NumberFormatInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter.bookletCertificateCode}
                                 onChange={(event) => queryUtility.filter.bookletCertificateCode = event.formattedValue}
                                 format='#####-##'

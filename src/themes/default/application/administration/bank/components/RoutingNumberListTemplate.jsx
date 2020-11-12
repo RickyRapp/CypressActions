@@ -41,7 +41,7 @@ const RoutingNumberListTemplate = function ({ routingNumberViewStore }) {
                         </div>
                         <div className="col col-sml-3 u-mar--bottom--sml">
                             <BaasicInput
-                                className='input input--med'
+                                className='input input--lrg'
                                 value={queryUtility.filter['number'] || ""}
                                 onChange={(event) => queryUtility.filter['number'] = event.target.value}
                                 placeholder='ROUTING_NUMBER.LIST.FILTER.NUMBER_PLACEHOLDER'

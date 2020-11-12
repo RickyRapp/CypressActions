@@ -76,7 +76,7 @@ BaasicInputTemplate.defaultProps = {
     type: 'text',
     checked: null,
     showLabel: true,
-    className: 'input input--med input--text',
+    className: 'input input--lrg input--text',
     labelClassName: '',
     wrapperClassName: '',
     labelBeforeInput: true,

@@ -76,7 +76,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                     <div className="col col-sml-12 u-mar--bottom--sml">
                         <BasicCheckbox
                             id='DONATION.REVIEW.LIST.GRANT.FIELDS.IS_TRANSFER_TO_CHARITY_ACCOUNT'
-                            className='input input--med'
+                            className='input input--lrg'
                             checked={isTransferToCharityAccount}
                             onChange={onIsTransferToCharityAccountChange}
                             label='DONATION.REVIEW.LIST.GRANT.FIELDS.IS_TRANSFER_TO_CHARITY_ACCOUNT' />
@@ -86,7 +86,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                             <div className="col col-sml-12 col-lrg-3">
                                 <BaasicInput
                                     id='DONATION.REVIEW.LIST.GRANT.FIELDS.PAYMENT_NUMBER'
-                                    className='input input--med'
+                                    className='input input--lrg'
                                     value={paymentNumber}
                                     onChange={onPaymentNumberChange}
                                     placeholder='DONATION.REVIEW.LIST.GRANT.FIELDS.PAYMENT_NUMBER' />
