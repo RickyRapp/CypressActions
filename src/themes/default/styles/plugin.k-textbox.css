@@ -166,6 +166,8 @@
      @mixin type-scale $type-base, 1;
     font-family: $ff-serif;
     border-right: 1px solid $grey-3 !important;
+
+    color: #223A5E;
     background-color: #F3F6FB;
 }
 
@@ -173,7 +175,7 @@
     min-height: calc($unit * 8);
     padding-top: 0;
     
-     @mixin type-scale $type-base, 1;
+    @mixin type-scale $type-base, 1;
     font-family: $ff-serif;
 }
 
@@ -187,7 +189,7 @@
     font-weight: $type-weight-medium;
     
     background-color: #F3F6FB;
-    color: #E9EDF6;
+    color: #223A5E;
 }
 
 .k-list-container {

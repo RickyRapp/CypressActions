@@ -73,14 +73,14 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                             </div>
                                                             <div className="col col-sml-6 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                                 <BaasicButton
-                                                                    className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
+                                                                    className="btn btn--sml btn--ghost btn--ghost--primary"
                                                                     icon={'u-icon u-icon--minus u-icon--sml'}
                                                                     label='REMOVE'
                                                                     onlyIcon={true}
                                                                     onClick={() => onRemoveBookletClick(bt.id, dt.id)}>
                                                                 </BaasicButton>
                                                                 <BaasicButton
-                                                                    className="btn--sml btn--ghost btn--ghost--primary u-mar--right--tny type--color--text"
+                                                                    className="btn--sml btn--ghost btn--ghost--primary type--color--text"
                                                                     label={order && order.bookletCount.toString() || '0'}
                                                                     onClick={() => { }}>
                                                                 </BaasicButton>
@@ -108,7 +108,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         })}
                                     </React.Fragment>
                                     :
-                                    <div className="col col-sml-12 col-med-12 col-lrg-5 card--med">
+                                    <div className="col col-sml-12 col-med-12 col-lrg-5 card--med u-padd--left--xxlrg">
                                         <div className="row u-mar--top--med">
                                             {denominationTypes.length > 0 &&
                                                 <div className="col col-sml-4">
@@ -142,14 +142,14 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             }
                                             <div className="col col-sml-5 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                 <BaasicButton
-                                                    className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
+                                                    className="btn btn--sml btn--ghost btn--ghost--primary"
                                                     icon={'u-icon u-icon--minus u-icon--sml'}
                                                     label='REMOVE'
                                                     onlyIcon={true}
                                                     onClick={() => onRemoveBookletClick(bt.id, null)}>
                                                 </BaasicButton>
                                                 <BaasicButton
-                                                    className="btn--sml btn--ghost btn--ghost--primary u-mar--right--tny type--color--text"
+                                                    className="btn--sml btn--ghost btn--ghost--primary type--color--text"
                                                     label={
                                                         orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
                                                             orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'

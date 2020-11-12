@@ -32,8 +32,12 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                         <div className="u-mar--bottom--sml">
                             <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}</h3>
                             <div className="row">
-                                <div className="form__group col col-sml-12 col-lrg-2">
-                                    <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
+                                <div className="form__group col col-sml-12">
+                                    <div className="row">
+                                        <div className="col col-sml-1">
+                                            <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="form__group col col-sml-12 col-lrg-4">
                                     <BasicInput field={form.$('firstName')} />
@@ -41,7 +45,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                 <div className="form__group col col-sml-12 col-lrg-4">
                                     <BasicInput field={form.$('lastName')} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-lrg-2">
+                                <div className="form__group col col-sml-12 col-lrg-4">
                                     <div>
                                         <label className="form__group__label">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.DATE_OF_BIRTH')}</label>
                                         {item &&
