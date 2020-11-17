@@ -106,7 +106,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityZipCode')} />
                                             </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
+                                            <div className="form__group col col-sml-12 u-mar--bottom--sml type--color--note">
                                                 <BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
                                             </div>
                                         </div>

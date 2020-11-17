@@ -83,11 +83,11 @@
     }
 
     &--secondary {
-        background: $scandal;
-        color: $color-note;
+        background: $zest;;
+        color: $white;
         
         &:hover {
-            background: color($scandal blackness(+5%));
+            background: $color-text;
         }
         
         &--light {

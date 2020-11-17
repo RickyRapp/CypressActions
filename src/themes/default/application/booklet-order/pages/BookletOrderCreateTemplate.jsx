@@ -32,11 +32,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
             <Content loading={contentLoading} >
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row u-mar--bottom--lrg">
-                        <div className="col col-sml-12 col-med-6 col-lrg-8 col-xlrg-10">
+                        <div className="col col-sml-12 col-med-6 col-lrg-8 col-xlrg-9">
                             <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
                         </div>
-                        <div className="col col-sml-8 col-med-6 col-lrg-4 col-xlrg-2">
-                            <div className="card--sml card--tertiary--light">
+                        <div className="col col-sml-8 col-med-6 col-lrg-4 col-xlrg-3">
+                            <div className="card--sml card--tertiary--light type--center">
                                 <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span> {donor && <FormatterResolver
                                     item={{ availableBalance: donor.availableBalance }}
                                     field='availableBalance'
@@ -57,7 +57,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
 
                                             return (
-                                                <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-5 card--med">
+                                                <React.Fragment>
+                                                <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-4 card--med">
                                                     <div className="u-separator--primary">
                                                         <div className="row u-mar--bottom--sml">
                                                             <div className="col col-sml-3">
@@ -104,11 +105,13 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div className="col col-sml-1"></div>
+                                                </React.Fragment>
                                             )
                                         })}
                                     </React.Fragment>
                                     :
-                                    <div className="col col-sml-12 col-med-12 col-lrg-5 card--med u-padd--left--xxlrg">
+                                    <div className="col col-sml-12 col-med-12 col-lrg-5 card--med">
                                         <div className="row u-mar--top--med">
                                             {denominationTypes.length > 0 &&
                                                 <div className="col col-sml-4">

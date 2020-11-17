@@ -39,7 +39,7 @@ class SearchFilterTemplate extends React.Component {
 
         return <React.Fragment>
             <div className="row">
-                <div className="col col-sml-12 col-lrg-3">
+                <div className="col col-sml-12">
                     <div className='inputgroup u-mar--bottom--sml'>
                         <div className='inputgroup--main'>
                             <input className={className} type="text" placeholder={placeholder}
@@ -54,8 +54,8 @@ class SearchFilterTemplate extends React.Component {
                         </div>
 
                         <div className="inputgroup--aside">
-                            <button className='btn btn--sml btn--primary spc--right--sml' onClick={() => queryUtility.fetch()}>
-                                <i className='icomoon icon-search tiny align--v--baseline spc--right--tny' />
+                            <button className='btn btn--med btn--secondary' onClick={() => queryUtility.fetch()}>
+                                <i className='icomoon icon-search tiny align--v--baseline' />
                                 <span className='align--v--bottom'>
                                     {t('GRID.FILTER.SEARCH_BUTTON')}
                                 </span>

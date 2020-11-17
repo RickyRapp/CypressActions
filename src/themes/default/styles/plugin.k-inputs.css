@@ -8,3 +8,11 @@
 
     font-size: calc($unit * 2);
 }
+
+.k-multiselect-wrap.k-floatwrap {
+    height: calc($unit * 8);
+}
+
+.k-widget.k-multiselect.k-header.k-textbox-container.k-dropdown.input--multiselect {
+    padding-top: 0;
+}
