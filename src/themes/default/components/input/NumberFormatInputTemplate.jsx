@@ -47,7 +47,7 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
 
 NumberFormatInputTemplate.defaultProps = {
     labelClassName: 'form__group__label',
-    className: 'input input--med input--text',
+    className: 'input input--lrg input--text',
     mask: '_'
 };
 

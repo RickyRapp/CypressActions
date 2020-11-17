@@ -45,38 +45,38 @@ const SessionDetailTemplate = function ({ item }) {
             <div className="row u-mar--bottom--lrg">
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Organization Name/Email/Tax ID</label>
-                    <span className={"input input--med input--text input--disabled"}>
+                    <span className={"input input--lrg input--text input--disabled"}>
                         {item.charityName} / {item.charityEmail || '-'} / {item.taxId || '-'}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Full name</label>
-                    <span className={"input input--med input--text input--disabled"}>
+                    <span className={"input input--lrg input--text input--disabled"}>
                         {item.fullName}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Phone number</label>
-                    <span className={"input input--med input--text input--disabled"}>
+                    <span className={"input input--lrg input--text input--disabled"}>
                         {item.phoneNumber}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <label className="form__group__label">Email</label>
-                    <span className={"input input--med input--text input--disabled"}>
+                    <span className={"input input--lrg input--text input--disabled"}>
                         {item.email}
                     </span>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <div>
                         <label className="form__group__label">Confirmation Number</label>
-                        <span className={"input input--med input--text input--disabled"}>{item.confirmationNumber}</span>
+                        <span className={"input input--lrg input--text input--disabled"}>{item.confirmationNumber}</span>
                     </div>
                 </div>
                 <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                     <div>
                         <label className="form__group__label">Created on</label>
-                        <span className={"input input--med input--text input--disabled"}><Date format="full" value={item.dateCreated} /></span>
+                        <span className={"input input--lrg input--text input--disabled"}><Date format="full" value={item.dateCreated} /></span>
                     </div>
                 </div>
             </div>

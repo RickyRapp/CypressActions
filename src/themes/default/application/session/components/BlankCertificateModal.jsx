@@ -20,7 +20,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                     <div>
                         <label className="form__group__label">{t('SESSION.CREATE.STEP3.BLANK_CERTIFICATE_CODE')}</label>
                         {sessionCertificate &&
-                            <span className={"input input--med input--text input--disabled"}>{sessionCertificate.bookletCode}-{sessionCertificate.certificateCode}</span>}
+                            <span className={"input input--lrg input--text input--disabled"}>{sessionCertificate.bookletCode}-{sessionCertificate.certificateCode}</span>}
                     </div>
                 </div>
                 <div className="form__group col col-lrg-12">

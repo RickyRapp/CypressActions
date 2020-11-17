@@ -3,6 +3,7 @@
 \*------------------------------------*/
 .k-datepicker {
     width: 100%;
+    height: calc($unit * 8);
 
     &:hover {
         border-color: color(white blackness(+30%));
@@ -13,9 +14,9 @@
             background-image: none;
         }
     }
-
+    
     .k-input {
-        @mixin type-scale $type-xsmall, 1;
+         @mixin type-scale $type-base, 1;
 
         background-color: white;
         border: 1px solid color(white blackness(+30%));
@@ -62,8 +63,8 @@
 
     /* Datepicker button */
     .k-select {
-        width: calc($unit * 6);
-        height: calc($unit * 6);
+        width: calc($unit * 8);
+        height: calc($unit * 8);
 
         color: #fff;
         background-color: $color-primary;

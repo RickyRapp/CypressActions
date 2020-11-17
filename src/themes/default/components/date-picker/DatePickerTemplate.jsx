@@ -31,7 +31,7 @@ const DatePickerTemplate = function ({ value, onChange, format = 'kendo-input-sh
                     <BaasicButton
                         onClick={onChange}
                         className="btn k-datepicker__btn tooltip"
-                        icon="u-icon u-icon--clear u-icon--sml"
+                        icon="u-icon u-icon--clear u-icon--sml u-mar--right--sml"
                         label="DATEPICKER.CLEAR_BUTTON"
                         onlyIcon
                         value={null}

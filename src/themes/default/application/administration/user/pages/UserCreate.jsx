@@ -15,7 +15,7 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
         <ApplicationEditLayout store={userCreateViewStore}>
             <Content loading={contentLoading} >
                 <React.Fragment>
-                    <div className="card--primary card--med">
+                    <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row">
                             <div className="form__group col col-lrg-6">
                                 <BasicInput field={form.$('firstName')} />

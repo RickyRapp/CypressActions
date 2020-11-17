@@ -43,7 +43,7 @@ const CustomDateInput = function (props) {
 
     return (
         <React.Fragment>
-            <div className="col col-sml-12">
+            <div className="col col-sml-6">
                 <label className="type--sml type--wgt--medium">
                     {label}
                     {required ? <span>*</span> : null}
@@ -51,7 +51,7 @@ const CustomDateInput = function (props) {
                 <DateInput
                     {...other}
                     label={undefined}
-                    className={error ? 'input input--med input--warning' : 'input'}
+                    className={error ? 'input input--lrg input--warning' : 'input'}
                 />
                 {renderIf(isSome(error))(<p className="type--tny type--color--warning u-mar--top--nano">{error}</p>)}
             </div>

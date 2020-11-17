@@ -45,7 +45,7 @@ function CertificateEditRowTemplate({
             </td>
             <td className="">
                 <input
-                    className="input input--med input--text"
+                    className="input input--lrg input--text"
                     type="text"
                     value={item.note || ''}
                     onChange={event => item.note = event.target.value} />

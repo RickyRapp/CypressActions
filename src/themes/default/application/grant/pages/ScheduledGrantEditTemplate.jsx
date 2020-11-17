@@ -96,7 +96,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                             <div className="col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                                 {amountWithFee &&
                                     <React.Fragment><label className="form__group__label">Total amount with fee</label>
-                                        <span className={"input input--med input--text input--disabled"}>{amountWithFee}</span>
+                                        <span className={"input input--lrg input--text input--disabled"}>{amountWithFee}</span>
                                     </React.Fragment>}
                             </div>
                         </div>

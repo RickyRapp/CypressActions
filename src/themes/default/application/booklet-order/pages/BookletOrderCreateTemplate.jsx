@@ -32,11 +32,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
             <Content loading={contentLoading} >
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row u-mar--bottom--lrg">
-                        <div className="col col-sml-12 col-med-6 col-lrg-8 col-xlrg-10">
+                        <div className="col col-sml-12 col-med-6 col-lrg-8 col-xlrg-9">
                             <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
                         </div>
-                        <div className="col col-sml-8 col-med-6 col-lrg-4 col-xlrg-2">
-                            <div className="card--sml card--tertiary--light">
+                        <div className="col col-sml-8 col-med-6 col-lrg-4 col-xlrg-3">
+                            <div className="card--sml card--tertiary--light type--center">
                                 <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span> {donor && <FormatterResolver
                                     item={{ availableBalance: donor.availableBalance }}
                                     field='availableBalance'
@@ -57,7 +57,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
 
                                             return (
-                                                <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-5 card--med">
+                                                <React.Fragment>
+                                                <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-4 card--med">
                                                     <div className="u-separator--primary">
                                                         <div className="row u-mar--bottom--sml">
                                                             <div className="col col-sml-3">
@@ -73,14 +74,14 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                             </div>
                                                             <div className="col col-sml-6 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                                 <BaasicButton
-                                                                    className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
+                                                                    className="btn btn--sml btn--ghost btn--ghost--primary"
                                                                     icon={'u-icon u-icon--minus u-icon--sml'}
                                                                     label='REMOVE'
                                                                     onlyIcon={true}
                                                                     onClick={() => onRemoveBookletClick(bt.id, dt.id)}>
                                                                 </BaasicButton>
                                                                 <BaasicButton
-                                                                    className="btn--sml btn--ghost btn--ghost--primary u-mar--right--tny type--color--text"
+                                                                    className="btn--sml btn--ghost btn--ghost--primary type--color--text"
                                                                     label={order && order.bookletCount.toString() || '0'}
                                                                     onClick={() => { }}>
                                                                 </BaasicButton>
@@ -104,6 +105,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div className="col col-sml-1"></div>
+                                                </React.Fragment>
                                             )
                                         })}
                                     </React.Fragment>
@@ -142,14 +145,14 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             }
                                             <div className="col col-sml-5 u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--top--sml u-mar--bottom--sml">
                                                 <BaasicButton
-                                                    className="btn btn--sml btn--ghost btn--ghost--primary u-mar--right--tny"
+                                                    className="btn btn--sml btn--ghost btn--ghost--primary"
                                                     icon={'u-icon u-icon--minus u-icon--sml'}
                                                     label='REMOVE'
                                                     onlyIcon={true}
                                                     onClick={() => onRemoveBookletClick(bt.id, null)}>
                                                 </BaasicButton>
                                                 <BaasicButton
-                                                    className="btn--sml btn--ghost btn--ghost--primary u-mar--right--tny type--color--text"
+                                                    className="btn--sml btn--ghost btn--ghost--primary type--color--text"
                                                     label={
                                                         orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
                                                             orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'

@@ -12,15 +12,17 @@ const DateRangePickerTemplate = function (props) {
     store.setErrors(props.errors);
 
     return (
-        <DateRangePicker
-            {...otherProps}
-            format={t(format)}
-            startDateInput={store.d1}
-            endDateInput={store.d2}
-            onChange={internalOnChange}
-            startDateInputSettings={store.componentProps.options.startDateInputSettings}
-            endDateInputSettings={store.componentProps.options.endDateInputSettings}
-        />
+        <div className="row">
+            <DateRangePicker
+                {...otherProps}
+                format={t(format)}
+                startDateInput={store.d1}
+                endDateInput={store.d2}
+                onChange={internalOnChange}
+                startDateInputSettings={store.componentProps.options.startDateInputSettings}
+                endDateInputSettings={store.componentProps.options.endDateInputSettings}
+                />
+        </div>
     );
 };
 

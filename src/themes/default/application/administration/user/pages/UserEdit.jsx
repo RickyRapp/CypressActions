@@ -33,7 +33,7 @@ function UserEditTemplate({ userEditViewStore, t }) {
                 <div className="row">
                     <div className="form__group col col-lrg-6">
                         <div className="form__group__label">{t('USER.EDIT.USERNAME_LABEL')}</div>
-                        <span className="input input--text input--med padd--top--tny input--disabled">
+                        <span className="input input--text input--lrg padd--top--tny input--disabled">
                             {item && <React.Fragment>{item.userName}</React.Fragment>}
                         </span>
                     </div>

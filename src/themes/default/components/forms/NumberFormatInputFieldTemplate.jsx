@@ -40,7 +40,7 @@ const NumberFormatInputFieldTemplate = defaultTemplate(({ field, showLabel = tru
     return (
         <React.Fragment>
             <NumberFormatInput
-                className={'input input--med input--text' + (field.touched && !field.isValid ? ' input--warning' : '')}
+                className={'input input--lrg input--text' + (field.touched && !field.isValid ? ' input--warning' : '')}
                 required={required}
                 showLabel={showLabel}
                 label={field.label}

@@ -60,7 +60,7 @@ function Step3Template({
                             <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                                 <BaasicInput
                                     id='barcode'
-                                    className="input input--med input--text"
+                                    className="input input--lrg input--text"
                                     value={barcode}
                                     onChange={onBarcodeChange}
                                     maxLength={10}

@@ -22,7 +22,7 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                 <div className="form__group col col-lrg-6">
                     <div>
                         <label className="form__group__label">{t('SESSION.EDIT.BLANK_CERTIFICATE_CODE')}</label>
-                        <span className={"input input--med input--text input--disabled"}>{sessionCertificate.certificate.booklet.code}-{sessionCertificate.certificate.code}</span>
+                        <span className={"input input--lrg input--text input--disabled"}>{sessionCertificate.certificate.booklet.code}-{sessionCertificate.certificate.code}</span>
                     </div>
                 </div>
                 <div className="form__group col col-lrg-12">
