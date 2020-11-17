@@ -43,7 +43,7 @@ const CustomDateInput = function (props) {
 
     return (
         <React.Fragment>
-            <div className="col col-sml-12">
+            <div className="col col-sml-6">
                 <label className="type--sml type--wgt--medium">
                     {label}
                     {required ? <span>*</span> : null}

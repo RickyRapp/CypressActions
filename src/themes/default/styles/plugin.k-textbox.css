@@ -126,7 +126,7 @@
         }
 
         .k-clear-value {
-            top: 7px;
+            top: 28%;
         }
     }
 
@@ -173,7 +173,6 @@
 
 .k-textbox-container.k-state-empty {
     min-height: calc($unit * 8);
-    padding-top: 0;
     
     @mixin type-scale $type-base, 1;
     font-family: $ff-serif;

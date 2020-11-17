@@ -10,6 +10,9 @@
 }
 
 .k-multiselect-wrap.k-floatwrap {
+    display: flex;
+    align-items: center;
+
     height: calc($unit * 8);
 }
 

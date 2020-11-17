@@ -5,10 +5,13 @@
 .k-dateinput {
 
     .k-dateinput-wrap {
-        height: 100%;
+        width: 100%;
+        height: calc($unit * 8);
+        align-items: center;
+        
         background-color: transparent;
         border: 0;
-
+        
         .k-input {
             height: 100%;
             padding: 0 calc($unit * 2);

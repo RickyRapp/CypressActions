@@ -16,7 +16,7 @@
     }
     
     .k-input {
-        @mixin type-scale $type-base, 1;
+         @mixin type-scale $type-base, 1;
 
         background-color: white;
         border: 1px solid color(white blackness(+30%));
