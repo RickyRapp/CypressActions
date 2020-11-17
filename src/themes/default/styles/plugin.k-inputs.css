@@ -9,6 +9,15 @@
     font-size: calc($unit * 2);
 }
 
+.k-textbox-container {
+    padding: 0;
+    /* margin-top: calc($unit * 2.5); */
+}
+
+.k-textbox-container.k-state-empty {
+    padding: 0;
+}
+
 .k-multiselect-wrap.k-floatwrap {
     display: flex;
     align-items: center;
@@ -18,4 +27,8 @@
 
 .k-widget.k-multiselect.k-header.k-textbox-container.k-dropdown.input--multiselect {
     padding-top: 0;
+}
+
+.k-dropdown .k-dropdown-wrap {
+    margin-top: 0;
 }

@@ -22,7 +22,7 @@
      * Input base project styling
      */
     font-family: $ff-sans;
-    @mixin type-scale $type-xsmall, 1;
+    @mixin type-scale $type-small, 1;
     border: 1px solid color(white blackness(+30%));
 
     &::placeholder {
