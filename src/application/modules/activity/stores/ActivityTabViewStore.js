@@ -7,6 +7,13 @@ class ActivityTabViewStore extends BaseTabViewStore {
         super(rootStore, 'headerTab');
         this.loaderStore.resume();
     }
+
+    async handleTabClick(tabIndex, tabQueryParams = {}) {
+        const { queryParams } = this.rootStore.routerStore.routerState;
+        queryParams.tab = 0;
+        await this.rootStore.routerStore.setQueryParams({ ...queryParams });
+        super.handleTabClick(tabIndex, tabQueryParams)
+    }
 }
 
 export default ActivityTabViewStore;

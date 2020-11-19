@@ -17,6 +17,10 @@ class DonorRouteService extends BaseRouteService {
     return super.get(this.base + '/settings/' + '{id}', id);
   }
 
+  getDonorLoginProfile(id) {
+    return super.get(this.base + '/login-donor-data/' + '{id}', id);
+  }
+
   create() {
     return super.create(this.base);
   }

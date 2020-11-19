@@ -52,6 +52,11 @@ class DonorService extends BaseService {
     return this.apiClient.get(url);
   }
 
+  getDonorLoginProfile(id) {
+    const url = this.routeService.getDonorLoginProfile(id);
+    return this.apiClient.get(url);
+  }
+
   getAutomaticContributionSetting(id) {
     const url = this.routeService.getAutomaticContributionSetting(id);
     return this.apiClient.get(url);

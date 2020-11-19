@@ -30,3 +30,4 @@ export { default as addressFormatter } from './formatters/addressFormatter';
 export { default as charityFormatter } from './formatters/charityFormatter';
 export { default as donorFormatter } from './formatters/donorFormatter';
 export { generatePassword } from './passwordGenerator';
+export { renderTabsContent } from './renderTabsContent';

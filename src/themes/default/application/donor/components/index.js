@@ -14,3 +14,4 @@ export { default as DonorCommunicationPreferenceTemplate } from './DonorCommunic
 export { default as BankAccountFormTemplate } from './BankAccountFormTemplate'
 export { default as CreateAccountTemplate } from './CreateAccountTemplate'
 export { default as ContactInfoTemplate } from './ContactInfoTemplate'
+export { default as AccountManagerTemplate } from './AccountManagerTemplate'

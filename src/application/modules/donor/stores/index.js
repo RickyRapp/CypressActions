@@ -17,3 +17,4 @@ export { default as DonorCommunicationPreferenceViewStore } from './DonorCommuni
 export { default as BankAccountFormViewStore } from './BankAccountFormViewStore'
 export { default as DonorStore } from './DonorStore'
 export { default as DonorModuleStore } from './DonorModuleStore'
+export { default as AccountManagerViewStore } from './AccountManagerViewStore'

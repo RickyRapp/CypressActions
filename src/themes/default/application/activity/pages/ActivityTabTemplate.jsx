@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { TabLayout } from 'core/layouts';
+import { Page, PageHeader, TabLayout } from 'core/layouts';
 import { GrantTab } from 'application/activity/grant/pages';
 import { DepositTab } from 'application/activity/deposit/pages';
 import { TransactionTab } from 'application/activity/transaction/pages';
+import { TabsHeader } from 'core/components';
+import renderTabsContent from 'core/utils/renderTabsContent';
 
 function ActivityTabTemplate({ activityTabViewStore }) {
+    const { activeIndex } = activityTabViewStore;
 
-    return (
-        <div className='container'>
-            <TabLayout store={activityTabViewStore}>
-                <div label={'ACTIVITY.TRANSACTIONS'} className="u-padd--top--med">
+    const children = () => {
+        return (
+            <React.Fragment>
+                <div label={'ACTIVITY.TRANSACTIONS'}>
                     <TransactionTab />
                 </div>
                 <div label={'ACTIVITY.DEPOSITS'} className="u-padd--top--med">
@@ -20,8 +23,20 @@ function ActivityTabTemplate({ activityTabViewStore }) {
                 <div label={'ACTIVITY.GRANTS'} className="u-padd--top--med">
                     <GrantTab />
                 </div>
-            </TabLayout>
-        </div>
+            </React.Fragment>
+        )
+    }
+
+    return (
+        <Page>
+            <PageHeader>
+                <TabsHeader tabsStore={activityTabViewStore}>{children().props.children}</TabsHeader>
+            </PageHeader>
+
+            <div className='container'>
+                {renderTabsContent(activeIndex, children().props.children)}
+            </div>
+        </Page>
     );
 }
 

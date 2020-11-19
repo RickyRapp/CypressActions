@@ -61,8 +61,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
 
                                             return (
-                                                <React.Fragment>
-                                                    <div key={dt.id} className="col col-sml-12 col-med-12 col-lrg-4 card--tny" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
+                                                <React.Fragment key={dt.id}>
+                                                    <div className="col col-sml-12 col-med-12 col-lrg-4 card--med" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
                                                         <div className="u-separator--primary">
                                                             <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                 <div className="col col-sml-3">
@@ -190,7 +190,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         <div className="col col-sml-12 col-med-9 type--center">
                             <button className="btn btn--lrg btn--show type--wgt--medium" onClick={onShowMoreOptionsClick}>
                                 <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
-                                    {showMoreOptions ? t('BOOKLET_ORDER.CREATE.HIDE_MORE_OPTIONS') : t('BOOKLET_ORDER.CREATE.SHOW_MORE_OPTIONS')}
+                                {showMoreOptions ? t('BOOKLET_ORDER.CREATE.HIDE_MORE_OPTIONS') : t('BOOKLET_ORDER.CREATE.SHOW_MORE_OPTIONS')}
                                 <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
                             </button>
                         </div>
@@ -199,21 +199,21 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         <div className="col col-sml-12 col-med-9 u-mar--bottom--sml type--center">
                             <button className="btn btn--lrg btn--show type--wgt--medium" onClick={onShowCustomizeBooksClick}>
                                 <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
-                                    {!showCustomizeBooks ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
+                                {!showCustomizeBooks ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
                                 <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
                             </button>
                         </div>
                         {showCustomizeBooks &&
-                                <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml u-padd--left--xlrg">
-                                    <div className="u-mar--bottom--med">
-                                        <BasicFieldCheckbox
-                                            field={form.$('isCustomizedBook')}
-                                            onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
-                                        />
-                                    </div>
-                                    <BasicInput field={form.$('customizedName')} />
+                            <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml u-padd--left--xlrg">
+                                <div className="u-mar--bottom--med">
+                                    <BasicFieldCheckbox
+                                        field={form.$('isCustomizedBook')}
+                                        onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
+                                    />
                                 </div>
-                          }
+                                <BasicInput field={form.$('customizedName')} />
+                            </div>
+                        }
                     </div>
 
                     <div className="card--tertiary--light card--med u-mar--bottom--med">

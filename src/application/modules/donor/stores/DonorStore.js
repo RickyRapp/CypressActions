@@ -25,5 +25,10 @@ class DonorStore {
         const response = await this.donorService.phoneNumberExists(params);
         return response;
     }
+
+    async getDonorLoginProfile(id) {
+        const response = await this.donorService.getDonorLoginProfile(id);
+        return response.data;
+    }
 }
 export default DonorStore;

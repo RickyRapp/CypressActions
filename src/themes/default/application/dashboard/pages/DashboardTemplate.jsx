@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page } from 'core/layouts';
+import { Page, PageHeader } from 'core/layouts';
 import { BaasicButton, BaasicDropdown, FormatterResolver } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import {
     ChartLegend,
     ChartTooltip
 } from '@progress/kendo-react-charts';
+import { AccountManager } from 'application/donor/components';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
     const {
@@ -43,6 +44,9 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 
     return (
         <Page >
+            <PageHeader>
+                <AccountManager />
+            </PageHeader>
             <div className="u-padd--top--sml">
                 <div className="row">
                     <div className="col col-sml-12 col-med-6">

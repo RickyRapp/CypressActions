@@ -6,6 +6,7 @@ import { PageNavigation, Content } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 
 import _ from 'lodash';
+import renderTabsContent from 'core/utils/renderTabsContent';
 
 const TabLayoutTemplate = function ({ title, children, store, showNavigation, loading, activeClassName }) {
     const { activeIndex, isError = false } = store;
@@ -36,16 +37,6 @@ function resolveProps({ loading, store }) {
     return {
         isLoading: _.isBoolean(loading) ? loading : store ? store.loaderStore.initial && store.loaderStore.loading : false,
     };
-}
-
-function renderTabsContent(activeIndex, children) {
-    const tabs = React.Children.toArray(children);
-    const tab = tabs[activeIndex < 0 || activeIndex > tabs.length - 1 ? (activeIndex = 0) : activeIndex];
-    if (tab) {
-        return tab;
-    }
-
-    return null;
 }
 
 export default defaultTemplate(TabLayoutTemplate);

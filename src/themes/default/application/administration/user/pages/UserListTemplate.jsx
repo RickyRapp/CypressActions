@@ -1,23 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
+import { BaasicButton, BaasicTable, TableFilter } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
 const UserListTemplate = function ({ userViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization
     } = userViewStore;
 
     return (
         <ApplicationListLayout store={userViewStore} authorization={authorization}>
-            <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="u-mar--bottom--sml">
+            <Content>
+                <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} />
                 </div>
                 <div className="card--primary card--med">
@@ -31,10 +29,6 @@ const UserListTemplate = function ({ userViewStore }) {
         </ApplicationListLayout>
     )
 };
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='USER.LIST.EMPTY_STATE.TITLE' actionLabel='USER.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 UserListTemplate.propTypes = {
     userViewStore: PropTypes.object.isRequired

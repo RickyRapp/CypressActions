@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListLayoutTemplate } from 'themes/layouts';
 
-const ListLayout = function(props) {
+const ListLayout = function (props) {
     return <ListLayoutTemplate {...props} />;
 };
 

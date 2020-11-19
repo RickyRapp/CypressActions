@@ -14,7 +14,7 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
     return (
         <div>
             <div className="layout">
-                <Header />
+                {/* <Header /> */}
                 <Menu />
                 <div
                     className={
