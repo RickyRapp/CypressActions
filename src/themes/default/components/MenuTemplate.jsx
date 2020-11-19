@@ -33,11 +33,13 @@ function renderPrimary(menu, menuStore, translate) {
     return (
         <div>
             <div className="nav--primary__logo">
-                <img 
-                    className='header__logo'
-                    src={menuStore.isCollapsed ? logo_collapsed : logo} 
-                    alt='logo'
-                /> 
+                <a href="/">
+                    <img
+                        className='header__logo'
+                        src={menuStore.isCollapsed ? logo_collapsed : logo}
+                        alt='logo'
+                    />
+                </a>
             </div>
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 <div className="nav--primary__item" onClick={() => menuStore.toggleCollapse()}>

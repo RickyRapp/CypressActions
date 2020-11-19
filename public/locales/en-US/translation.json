@@ -1768,6 +1768,10 @@
             "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
             "PRIVATE_FEE_APPLIED": "Fee Will Be Applied When Scanning Certificate.",
             "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
+            "HIDE_MORE_OPTIONS": "SHOW LESS OPTIONS",
+            "SHOW_MORE_OPTIONS": "SHOW MORE OPTIONS",
+            "HIDE_CUSTOMIZE_BOOKS": "HIDE CUSTOMIZE BOOKS",
+            "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
             "BUTTON": {
                 "ADD": "Add new",
                 "REVIEW": "Review",

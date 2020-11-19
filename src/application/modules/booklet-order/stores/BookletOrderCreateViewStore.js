@@ -10,6 +10,8 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable bookletTypes = [];
     @observable orderContents = [];
     @observable donor = null;
+    @observable showMoreOptions = false;
+    @observable showCustomizeBooks = false;
     applicationDefaultSetting = null;
 
     constructor(rootStore) {
@@ -143,6 +145,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         if (setDefault) {
             this.setDefaultShippingAddress();
         }
+    }
+
+    @action.bound
+    async onShowMoreOptionsClick() {
+        this.showMoreOptions = !this.showMoreOptions;
+    }
+
+    @action.bound
+    async onShowCustomizeBooksClick() {
+        this.showCustomizeBooks = !this.showCustomizeBooks;
     }
 
     setDefaultShippingAddress() {
