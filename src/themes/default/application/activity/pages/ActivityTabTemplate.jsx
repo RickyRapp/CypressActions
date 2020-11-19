@@ -11,13 +11,13 @@ function ActivityTabTemplate({ activityTabViewStore }) {
     return (
         <div className='container'>
             <TabLayout store={activityTabViewStore}>
-                <div label={'ACTIVITY.TRANSACTIONS'}>
+                <div label={'ACTIVITY.TRANSACTIONS'} className="u-padd--top--med">
                     <TransactionTab />
                 </div>
-                <div label={'ACTIVITY.DEPOSITS'}>
+                <div label={'ACTIVITY.DEPOSITS'} className="u-padd--top--med">
                     <DepositTab />
                 </div>
-                <div label={'ACTIVITY.GRANTS'}>
+                <div label={'ACTIVITY.GRANTS'} className="u-padd--top--med">
                     <GrantTab />
                 </div>
             </TabLayout>

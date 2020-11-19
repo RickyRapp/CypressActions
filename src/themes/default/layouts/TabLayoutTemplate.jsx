@@ -7,7 +7,7 @@ import { defaultTemplate } from 'core/hoc';
 
 import _ from 'lodash';
 
-const TabLayoutTemplate = function ({ title, children, store, showNavigation, loading }) {
+const TabLayoutTemplate = function ({ title, children, store, showNavigation, loading, activeClassName }) {
     const { activeIndex, isError = false } = store;
     const { isLoading } = resolveProps({ loading, store });
 
@@ -15,7 +15,7 @@ const TabLayoutTemplate = function ({ title, children, store, showNavigation, lo
         <Content isError={isError} loading={isLoading}>
             {/*TODO: insert page header?*/}
             {showNavigation && <PageNavigation></PageNavigation>}
-            <TabsHeader tabsStore={store}>{children}</TabsHeader> {/* jshint ignore:line */}
+            <TabsHeader activeClassName={activeClassName} tabsStore={store}>{children}</TabsHeader> {/* jshint ignore:line */}
             {title}
             {/* TODO: give parent route name? */}
             {renderTabsContent(activeIndex, children)}
