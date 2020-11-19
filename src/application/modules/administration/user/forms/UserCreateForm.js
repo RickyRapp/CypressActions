@@ -13,13 +13,19 @@ export default class UserCreateForm extends FormBase {
                     name: 'userName',
                     label: 'USER.CREATE.USERNAME_LABEL',
                     placeholder: 'USER.CREATE.USERNAME_PLACEHOLDER',
-                    rules: 'required|string|min:5|max:20'
+                    rules: 'required|string|min:5|max:50'
                 },
                 {
                     name: 'userEmail',
                     label: 'USER.CREATE.EMAIL_LABEL',
                     placeholder: 'USER.CREATE.EMAIL_PLACEHOLDER',
                     rules: 'required|email|string'
+                },
+                {
+                    name: 'confirmUserEmail',
+                    label: 'USER.CREATE.CONFIRM_EMAIL_LABEL',
+                    placeholder: 'USER.CREATE.CONFIRM_EMAIL_PLACEHOLDER',
+                    rules: 'required|email|same:userEmail'
                 },
                 {
                     name: 'firstName',
@@ -30,12 +36,6 @@ export default class UserCreateForm extends FormBase {
                     name: 'lastName',
                     label: 'USER.CREATE.LAST_NAME_LABEL',
                     rules: 'required|string|min:1|max:40'
-                },
-                {
-                    name: 'confirmUserEmail',
-                    label: 'USER.CREATE.CONFIRM_EMAIL_LABEL',
-                    placeholder: 'USER.CREATE.CONFIRM_EMAIL_PLACEHOLDER',
-                    rules: 'required|email|same:userEmail'
                 },
                 {
                     name: 'password',
@@ -60,9 +60,6 @@ export default class UserCreateForm extends FormBase {
                 ...userProfileFormProperties.fields,
 
             ],
-            // initials: {
-            //     ...userProfileFormProperties.initials
-            // }
         };
     }
 }

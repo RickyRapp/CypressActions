@@ -17,9 +17,6 @@ function RegisterTemplate({ viewStore }) {
                         <BasicInput field={registerForm.$('username')} />
                     </div>
                     <div className="form__group">
-                        <BasicInput field={registerForm.$('email')} />
-                    </div>
-                    <div className="form__group">
                         <BasicInput field={registerForm.$('password')} />
                     </div>
                     <div className="form__group">
@@ -50,7 +47,7 @@ function RegisterTemplate({ viewStore }) {
                             disabled={registerForm.submitting}
                             label='Back to login'
                             className="btn btn--base btn--primary"
-                        />  
+                        />
                     </p>
                 </form>
             </div>

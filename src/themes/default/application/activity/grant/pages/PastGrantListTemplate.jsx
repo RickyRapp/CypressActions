@@ -41,7 +41,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
         dataDonut = summaryData.donationsByCharityType.map(c => { return { charityType: c.charityType.name, value: c.amount, color: c.color } })
     }
 
-    const labelContent = (e) => (`${e.category}: \n $${e.value}`);
+    const labelContent = (e) => (`${e.category}: \n $${e.value.toFixed(2)}`);
     const DonutChartContainer = () => {
         return (
             <Chart>

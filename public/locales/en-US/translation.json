@@ -396,7 +396,7 @@
             "TITLE": "User",
             "USERNAME_LABEL": "Username",
             "USERNAME_PLACEHOLDER": "Enter username",
-            "EMAIL_LABEL": "EMAIL",
+            "EMAIL_LABEL": "Email",
             "EMAIL_PLACEHOLDER": "Enter email",
             "FIRST_NAME_LABEL": "First name",
             "LAST_NAME_LABEL": "Last name",
@@ -1392,7 +1392,8 @@
                 "EDIT": "Edit",
                 "CREATE": "Create",
                 "DELETE": "Delete",
-                "REVIEW": "Review"
+                "REVIEW": "Review",
+                "PREVIEW": "Preview"
             }
         },
         "PREVIEW": {
@@ -2213,7 +2214,8 @@
                 "DESCRIPTION_LABEL": "Description",
                 "LOST_OR_STOLEN_LABEL": "Lost or stolen",
                 "POSSIBLE_LOST_OR_STOLEN_LABEL": "Possible lost or stolen",
-                "LOCKED_LABEL": "Locked"
+                "LOCKED_LABEL": "Locked",
+                "CVV_LABEL": "CVV"
             },
             "EMPTY_STATE": {
                 "TITLE": "No fidelity recommendation cards"

@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { UserList, UserEdit, UserCreate } from 'application/administration/user/pages';
-import { noApplicationRedirectPromise } from 'core/utils';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -34,9 +33,6 @@ import { noApplicationRedirectPromise } from 'core/utils';
                         authorization: 'coreUserSection.update',
                         data: {
                             title: "USER.EDIT.TITLE"
-                        },
-                        beforeEnter: (fromState, toState, routerStore) => {
-                            return noApplicationRedirectPromise(routerStore.rootStore, 'master.app.main.user.list');
                         }
                     },
 

@@ -13,7 +13,7 @@ export default class UserEditForm extends FormBase {
                     name: 'email',
                     label: 'USER.EDIT.EMAIL_LABEL',
                     placeholder: 'USER.EDIT.EMAIL_PLACEHOLDER',
-                    rules: 'required|email|string'
+                    rules: 'email|string'
                 },
                 {
                     name: 'firstName',

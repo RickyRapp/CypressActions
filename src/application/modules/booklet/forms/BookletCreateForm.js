@@ -25,8 +25,8 @@ export default class BookletCreateForm extends FormBase {
             },
             rules: {
                 'items[].bookletTypeId': 'required|string',
-                'items[].bookletCount': 'required|integer|min:1|max:1000',
-                'items[].bookletContents[].certificateCount': 'required|integer|min:1|max:1000',
+                'items[].bookletCount': 'required|integer|min:1|max:2000',
+                'items[].bookletContents[].certificateCount': 'required|integer|min:1|max:50',
                 'items[].bookletContents[].denominationTypeId': 'required|string'
             },
             extra: {

@@ -70,7 +70,7 @@ export default class DonorCreateForm extends FormBase {
                     name: 'username',
                     label: 'DONOR.CREATE.LOGIN_FORM_FIELDS.USERNAME_LABEL',
                     placeholder: 'DONOR.CREATE.LOGIN_FORM_FIELDS.USERNAME_PLACEHOLDER',
-                    rules: 'required_with:password|email|usernameUnique',
+                    rules: 'required_with:password|email|usernameUnique|between:5,50',
                     autoComplete: 'off',
                     options: {
                         validateOnChange: false

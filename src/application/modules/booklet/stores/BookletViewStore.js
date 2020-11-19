@@ -63,8 +63,9 @@ class BookletViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             if (item.bookletType.abrv === 'mixed') {
-                                const denominations = _.uniq(item.certificates.map(c => { return c.denominationType.name }))
-                                let wording = denominations.join(', ');
+                                const denominations = _.orderBy(item.certificates.map(c => { return c.denominationType }), ['value'], ['asc'])
+                                const uniqueDenominationNames = _.uniq(denominations.map(c => { return `$${c.value.toFixed(2)}` }))
+                                let wording = uniqueDenominationNames.join(', ');
                                 return `${item.bookletType.name} - ${wording}`;
                             }
                             else {

@@ -15,7 +15,7 @@ class FidelityRecommendationCardViewStore extends BaseListViewStore {
             routes: {
             },
             queryConfig: {
-                filter: new FidelityRecommendationCardListFilter('dateCreated', 'desc'),
+                filter: new FidelityRecommendationCardListFilter('cardNumber', 'desc'),
             },
             actions: () => {
                 return {
@@ -41,6 +41,10 @@ class FidelityRecommendationCardViewStore extends BaseListViewStore {
                     title: 'FIDELITY_RECOMMENDATION_CARD.LIST.COLUMNS.CARD_NUMBER_LABEL'
                 },
                 {
+                    key: 'cvv',
+                    title: 'FIDELITY_RECOMMENDATION_CARD.LIST.COLUMNS.CVV_LABEL'
+                },
+                {
                     key: 'donor.donorName',
                     title: 'FIDELITY_RECOMMENDATION_CARD.LIST.COLUMNS.DONOR_NAME_LABEL'
                 },
@@ -61,7 +65,7 @@ class FidelityRecommendationCardViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'locked',
+                    key: 'isLockedOut',
                     title: 'FIDELITY_RECOMMENDATION_CARD.LIST.COLUMNS.LOCKED_LABEL',
                     format: {
                         type: 'boolean',

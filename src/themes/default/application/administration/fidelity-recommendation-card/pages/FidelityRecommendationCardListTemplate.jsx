@@ -58,7 +58,7 @@ function renderActions({ item, actions }) {
                 {isSome(onToggleLock) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon={`u-icon u-icon--${item.isLockedOut ? 'unlocked' : 'locked'} u-icon--sml`}
+                        icon={`u-icon u-icon--${item.isLockedOut ? 'unlock' : 'lock'} u-icon--sml`}
                         label={`FIDELITY_RECOMMENDATION_CARD.LIST.BUTTON.${item.isLockedOut ? 'UNLOCK' : 'LOCK'}`}
                         onlyIcon={true}
                         onClick={() => onToggleLock(item)}>

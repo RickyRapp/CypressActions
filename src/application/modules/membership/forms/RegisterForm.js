@@ -11,12 +11,7 @@ export default class RegisterForm extends FormBase {
                 name: 'username',
                 label: 'Username',
                 placeholder: 'Enter username',
-                rules: 'required|string|between:5,25'
-            }, {
-                name: 'email',
-                label: 'Email',
-                placeholder: 'Enter email',
-                rules: 'required|email|string'
+                rules: 'required|email|between:5,50'
             }, {
                 name: 'password',
                 label: 'Password',

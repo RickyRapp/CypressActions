@@ -1,7 +1,7 @@
 import { FormBase } from 'core/components';
 
 export default class LoginForm extends FormBase {
-    constructor(hooks) {        
+    constructor(hooks) {
         super(hooks);
     }
 
@@ -11,13 +11,13 @@ export default class LoginForm extends FormBase {
                 name: 'email',
                 label: 'LOGIN.USERNAME_LABEL',
                 placeholder: 'LOGIN.USERNAME_PLACEHOLDER',
-                rules: 'required|string|between:5,25'
+                rules: 'required|string|between:5,50'
             }, {
                 name: 'password',
                 label: 'LOGIN.PASSWORD_LABEL',
                 type: 'password',
                 placeholder: 'LOGIN.PASSWORD_PLACEHOLDER',
-                rules: 'required|string|between:5,25',
+                rules: 'required|string|min:8',
             }],
         };
     }
