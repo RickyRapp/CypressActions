@@ -41,7 +41,7 @@ class TransactionPreviewTemplate extends React.Component {
             <section>
                 <div className="row">
                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                        <h3>Voided checks</h3>
+                        <h3 className="type--lrg type--wgt--medium">Voided checks</h3>
                         <SimpleBaasicTable tableStore={tableStore} />
                     </div>
                 </div>

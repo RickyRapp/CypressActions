@@ -178,7 +178,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                         </div>
                         <div className="col col-sml-12 col-lrg-6">
                             <div className="card card--form card--primary card--med u-mar--bottom--med">
-                                <h3>{t('GRANT.CREATE.INSIGHTS')}</h3>
+                                <h3 className="type--lrg type--wgt--medium">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                 <div className="row">
                                     <div className="card card--form card--primary card--med col col-sml-12 col-lrg-5 u-mar--bottom--med u-mar--right--med">
                                         {donor && <FormatterResolver

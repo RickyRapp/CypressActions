@@ -122,7 +122,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
                     }}
                 >
                     {/* <h5 className="spc--top--sml">{t('GRID.FILTERS_TITLE')}</h5> */}
-                    {showSeparator && <div className="u-mar--bottom--sml" />}
+                    {showSeparator && <div />}
                     <div className="row">{filters}</div>
                     {!nextToSearch && (
                         <div className="row">
