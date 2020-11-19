@@ -50,20 +50,20 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                             <div className="card card--form card--primary card--med u-mar--bottom--med">
                                 <h3 className="u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 col-lrg-11 u-mar--bottom--sml">
-                                        <BaasicFieldDropdown
-                                            field={form.$('charityId')}
-                                            store={charityDropdownStore}
-                                            additionalLabel='My Favorite Charities'
-                                        />
-                                    </div>
-                                    <div className="col col-sml-1 col-lrg-1 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                         <BaasicButton
                                             className="btn btn--icon"
                                             icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
                                             label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
                                             onlyIcon={true}
                                             onClick={openAdvancedSearchModal}
+                                        />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                        <BaasicFieldDropdown
+                                            field={form.$('charityId')}
+                                            store={charityDropdownStore}
+                                            additionalLabel='My Favorite Charities'
                                         />
                                     </div>
                                 </div>
@@ -282,7 +282,7 @@ GrantEditTemplate.propTypes = {
 };
 
 function renderEditLayoutFooterContent({ form }) {
-    return <div className="u-mar--bottom--med">
+    return <div className="u-mar--top--sml u-mar--bottom--sml type--right">
         <BaasicFormControls form={form} onSubmit={form.onSubmit} label='GRANT.CREATE.BUTTON.CREATE' />
     </div>
 }

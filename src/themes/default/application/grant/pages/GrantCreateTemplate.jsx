@@ -52,20 +52,20 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
-                                        <BaasicFieldDropdown
-                                            field={form.$('charityId')}
-                                            store={charityDropdownStore}
-                                            additionalLabel='My Favorite Charities'
-                                        />
-                                    </div>
-                                    <div className="col col-sml-1 col-lrg-1 u-mar--bottom--sml">
+                                    <div className="col col-sml-1 col-lrg-12 u-mar--bottom--sml type--right">
                                         <BaasicButton
                                             className="btn btn--icon"
                                             icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
                                             label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
                                             onlyIcon={true}
                                             onClick={openAdvancedSearchModal}
+                                        />
+                                    </div>
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                        <BaasicFieldDropdown
+                                            field={form.$('charityId')}
+                                            store={charityDropdownStore}
+                                            additionalLabel='My Favorite Charities'
                                         />
                                     </div>
                                 </div>
@@ -124,10 +124,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>}
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         {amountWithFee &&
                                             <React.Fragment><label className="form__group__label">Total amount with fee</label>
                                                 <span className={"input input--lrg input--text input--disabled"}>
@@ -140,12 +140,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <DatePickerField field={form.$('startFutureDate')} />
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <BasicFieldCheckbox field={form.$('isRecurring')} />
                                     </div>
                                 </div>
@@ -172,16 +172,16 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>}
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                                     </div>
                                     {grantAcknowledgmentName &&
-                                        <div className="form__group col col-sml-11 u-mar--top--med">
+                                        <div className="form__group col col-sml-12 u-mar--top--med">
                                             {grantAcknowledgmentName}
                                         </div>}
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-11 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                                     </div>
                                 </div>
@@ -295,7 +295,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <div className="row u-mar--bottom--med">
                                     <div className="card--secondary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
-                                        <SimpleBaasicTable tableStore={previousGrantsTableStore} />
+                                        <div className="card--primary">                                            
+                                            <SimpleBaasicTable tableStore={previousGrantsTableStore} />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -304,7 +306,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
                                         <div className="card--primary card--med">
                                             <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
-                                            <SimpleBaasicTable tableStore={similarGrantsTableStore} />
+                                            <div className="card--primary">                                            
+                                                <SimpleBaasicTable tableStore={similarGrantsTableStore} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -326,7 +330,7 @@ GrantCreateTemplate.propTypes = {
 };
 
 function renderEditLayoutFooterContent({ form }) {
-    return <div className="u-mar--bottom--med">
+    return <div className="u-mar--top--sml u-mar--bottom--sml type--right">
         <BaasicFormControls form={form} onSubmit={form.onSubmit} label='GRANT.CREATE.BUTTON.CREATE' />
     </div>
 }

@@ -8,7 +8,7 @@ const GrantTabTemplate = function ({ grantTabViewStore }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-med-12 col-lrg-12 u-mar--bottom--lrg">
-                <TabLayout store={grantTabViewStore}>
+                <TabLayout store={grantTabViewStore} activeClassName="tabs--filter__item">
                     <div label={'ACTIVITY.GRANT_TAB.PAST_GRANT'}>
                         <PastGrantList />
                     </div>

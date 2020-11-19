@@ -9,6 +9,7 @@
         &__label {
             font-weight: $type-weight-medium;
             line-height: 25px;
+            margin-bottom: calc($unit / 2);
         }
     }
 

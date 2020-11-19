@@ -8,7 +8,7 @@ const DepositTabTemplate = function ({ depositTabViewStore }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-med-12 col-lrg-12">
-                <TabLayout store={depositTabViewStore}>
+                <TabLayout store={depositTabViewStore} activeClassName="tabs--filter__item">
                     <div label={'ACTIVITY.DEPOSIT_TAB.CONTRIBUTION'}>
                         <ContributionList />
                     </div>

@@ -13,7 +13,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 
     return (
         <div className="row">
-            <div className="col col-sml-12 u-mar--top--med u-mar--bottom--sml">
+            <div className="col col-sml-12 u-mar--bottom--sml">
                 <div className="card--form card--med u-mar--bottom--sml">
                     <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
                     <div className="row u-mar--bottom--med">

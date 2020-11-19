@@ -73,6 +73,7 @@
 @import 'component.tags.css';
 @import "component.empty-state.css";
 @import "component.section.css";
+@import "component.counter.css";
 @import "component.material-icons.css";
 
 /**

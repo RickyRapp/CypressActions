@@ -12,7 +12,7 @@ const TransactionTabTemplate = function ({ transactionTabViewStore }) {
                 <TransactionDonor />
             </div>
             <div className="col col-sml-12 col-med-12 col-lrg-12 u-mar--bottom--lrg">
-                <TabLayout store={transactionTabViewStore}>
+                <TabLayout store={transactionTabViewStore} activeClassName="tabs--filter__item">
                     <div label={'ACTIVITY.TRANSACTION_TAB.ALL'}>
                         <Transaction />
                     </div>

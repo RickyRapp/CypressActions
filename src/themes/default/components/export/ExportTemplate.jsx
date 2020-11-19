@@ -15,20 +15,20 @@ const ExportTemplate = function ({ store, t }) {
     return (
         <div className="row">
             <div className="col col-sml-1">
-                <label>{t('EXPORT_TYPES')}</label>
+                <label className="form__group__label">{t('EXPORT_TYPES')}</label>
                 <BaasicDropdown store={exportTypeStore} />
             </div>
             <div className="col col-sml-1">
-                <label>{t('EXPORT_LIMITS')}</label>
+                <label className="form__group__label">{t('EXPORT_LIMITS')}</label>
                 <BaasicDropdown store={exportLimitStore} />
             </div>
             <div className="col col-sml-8">
-                <label>{t('EXPORT_FIELDS')}</label>
+                <label className="form__group__label">{t('EXPORT_FIELDS')}</label>
                 <BaasicDropdown store={exportFieldStore} />
             </div>
             <div className="col col-sml-2">
                 <BaasicButton
-                    className="btn btn--primary btn--sml u-mar--top--xlrg"
+                    className="btn btn--primary btn--sml u-mar--top--med"
                     onClick={onExportClick}
                     label={t('EXPORT')}
                     icon={loading ? 'synchronize-arrows-1 rotate' : ''}

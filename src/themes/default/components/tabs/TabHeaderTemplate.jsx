@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TabHeader = ({ onClick, label, isActive, t }) => {
+const TabHeader = ({ onClick, label, isActive, t, activeClassName}) => {
     return (
         <a
-            className={'tabs--primary__item u-mar--right--med' + (isActive ? ' active' : '')}
+            className={`${activeClassName ? activeClassName : 'tabs--primary__item'}`  + (isActive ? ' active' : '')}
             onClick={e => {
                 onClick(e);
                 e.preventDefault();

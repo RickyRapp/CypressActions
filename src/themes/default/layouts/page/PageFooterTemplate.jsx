@@ -8,7 +8,7 @@ function PageFooterTemplate({ children, ...props }) {
         if (contentRender) {
             return (
                 <div className='content__footer u-padd--bottom--med'>
-                    <div>{contentRender}</div>
+                    <div className="type--right">{contentRender}</div>
                 </div>
             )
         }

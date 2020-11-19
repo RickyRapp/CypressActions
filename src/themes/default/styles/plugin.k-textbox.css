@@ -164,7 +164,7 @@
     padding-top: 0;
 
     @mixin type-scale $type-base, 1;
-    font-family: $ff-serif;
+    font-family: $ff-sans;
     border-right: 1px solid $grey-3 !important;
 
     background-color: $white;
@@ -175,7 +175,7 @@
     min-height: calc($unit * 8);
     
     @mixin type-scale $type-base, 1;
-    font-family: $ff-serif;
+    font-family: $ff-sans;
 }
 
 .k-textbox-container .k-dropdown-wrap, .k-dropdown .k-dropdown-wrap {
@@ -184,7 +184,7 @@
     margin-top: calc($unit / 2);
 
     @mixin type-scale $type-base, 1;
-    font-family: $ff-serif;
+    font-family: $ff-sans;
     font-weight: $type-weight-medium;
     
     background-color: $white;

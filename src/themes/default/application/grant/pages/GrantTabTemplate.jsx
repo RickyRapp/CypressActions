@@ -18,7 +18,7 @@ function GrantTabTemplate({ grantTabViewStore }) {
     return (
         <Content loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
-                <TabLayout store={grantTabViewStore}>
+                <TabLayout store={grantTabViewStore} activeClassName="tabs--filter__item">
                     <div label={'GRANT.TAB.PAST_GRANT'}>
                         <PastGrantList />
                     </div>

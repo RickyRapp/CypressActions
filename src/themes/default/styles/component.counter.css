@@ -1,0 +1,74 @@
+/*------------------------------------*\
+    # component.counter
+\*------------------------------------*/
+
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__btn {       
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        width: calc($unit * 7);
+        height: calc($unit * 7);
+        padding: 0 calc($unit * 2);
+        line-height: calc($unit * 6);
+        
+        font-size: 14px;
+        color: $grey-5;
+        outline: none;
+        border: 1px solid $grey-2;
+        background-color: $white;
+        
+        cursor: pointer;
+    
+        transition: all 250ms ease-in-out;
+
+        &:first-child {
+            border-top-left-radius: $radius-base;
+            border-bottom-left-radius: $radius-base;
+    
+            &:hover {
+                border: 1px solid $zest;
+            }
+        }
+        
+        &:last-child {
+            border-top-right-radius: $radius-base;
+            border-bottom-right-radius: $radius-base;
+    
+            &:hover {
+                border: 1px solid $zest;
+            }
+        }
+        
+        &--count {
+            cursor: default;
+        }
+    }
+
+    &__icon {
+        width: calc($unit * 2);
+        height: calc($unit * 2);
+        background-size: calc($unit * 2);
+        transition: all 250ms ease-in-out;
+        
+        &--plus {
+            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
+            
+            &:hover {
+                background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $color-note);
+            }
+        }
+        
+        &--minus {
+            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
+            
+            &:hover {
+                background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $color-note);
+            }
+        }
+    }
+}

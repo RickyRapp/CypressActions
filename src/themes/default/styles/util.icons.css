@@ -57,7 +57,7 @@
             background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
             transform: rotate(-180deg);
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
                 transform: rotate(-180deg);
             }
             &--primary {
@@ -69,7 +69,7 @@
         &--arrow-down {
             background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
             }
             &--primary {
                 background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
@@ -81,7 +81,7 @@
             transform: rotate(90deg);
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
                 transform: rotate(90deg);
             }
         }
@@ -91,7 +91,7 @@
             transform: rotate(-90deg);
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
                 transform: rotate(-90deg);
             }
         }
@@ -142,7 +142,7 @@
             }
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/images-icon.svg', stroke: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/images-icon.svg', stroke: $white);
             }
         }
 
@@ -239,7 +239,7 @@
             }
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $white);
             }
         }
         &--print {
@@ -263,7 +263,7 @@
             }
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/image-icon.svg', fill: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/image-icon.svg', fill: $white);
             }
         }
 
@@ -507,7 +507,7 @@
             background-image: svg-load('../styles/postcss-svg/info.svg', fill: $grey-4);
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/info.svg', fill: #ffffff);
+                background-image: svg-load('../styles/postcss-svg/info.svg', fill: $white);
             }
         }
 
@@ -516,11 +516,11 @@
         }
 
         &--move-all {
-            background-image: svg-load('../styles/postcss-svg/move-all.svg', fill: #ffffff);
+            background-image: svg-load('../styles/postcss-svg/move-all.svg', fill: $white);
         }
         
         &--return-all {
-            background-image: svg-load('../styles/postcss-svg/return-all.svg', fill: #ffffff);
+            background-image: svg-load('../styles/postcss-svg/return-all.svg', fill: $white);
         }
 
         &--refresh {
@@ -544,7 +544,7 @@
         }
         
         &--plus {
-            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $scandal);
+            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
         }
         
         &--add {
@@ -552,7 +552,7 @@
         }
 
         &--minus {
-            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $scandal);
+            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
         }
     }
 }

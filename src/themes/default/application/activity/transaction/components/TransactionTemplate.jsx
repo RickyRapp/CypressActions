@@ -56,9 +56,11 @@ function TransactionTemplate({ transactionViewStore }) {
                     <div className="col col-sml-6"></div>
                 </div>
 
-                <BaasicTable
-                    tableStore={tableStore}
-                />
+                <div className="card--primary">
+                    <BaasicTable
+                        tableStore={tableStore}
+                        />
+                </div>
             </div>
         </div >
     );
