@@ -81,7 +81,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         </div>
                     </div>
 
-                    <table className="table w--100">
+                    <table className="table w--100 card--primary">
                         <thead className="table__head">
                             <tr>
                                 <th className="table__head--data">Certificate Code</th>
