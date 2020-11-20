@@ -35,18 +35,18 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-                <h5 className="u-mar--bottom--med">{t('TEST.TEST_EMAIL.CREATE.TITLE')}</h5>
-                <h3>{item.name}</h3>
+                <h5 className="type--med type--wgt--bold u-mar--bottom--sml">{t('TEST.TEST_EMAIL.CREATE.TITLE')}</h5>
+                <h3 className="type--med type--wgt--medium type--color--note u-mar--bottom--tny">{item.name}</h3>
                 <div className="row">
                     <div className="form__group col col-lrg-12">
                         <BasicInput field={form.$('email')} />
                         <BaasicButton
-                            className="btn btn--icon"
+                            className="btn btn--icon u-display--b u-mar--bottom--tny"
                             label={'jperak@mono.hr'}
                             onClick={() => form.$('email').set('jperak@mono.hr')}
                         />
                         <BaasicButton
-                            className="btn btn--icon"
+                            className="btn btn--icon u-display--b u-mar--bottom--tny"
                             label={'aronschlesinger@gmail.com'}
                             onClick={() => form.$('email').set('aronschlesinger@gmail.com')}
                         />

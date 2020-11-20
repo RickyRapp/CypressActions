@@ -13,10 +13,10 @@ function BankTabTemplate({ bankTabViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={bankTabViewStore}>
-                    <div label={'BANK.TAB.LIST'}>
+                    <div label={'BANK.TAB.LIST'} className="u-mar--top--sml">
                         <BankList />
                     </div>
-                    <div label={'BANK.TAB.ROUTING_NUMBER'}>
+                    <div label={'BANK.TAB.ROUTING_NUMBER'} className="u-mar--top--sml">
                         <RoutingNumberList />
                     </div>
                 </TabLayout>

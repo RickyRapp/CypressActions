@@ -47,6 +47,70 @@
         }
     }
 
+    &--contribution {
+        position: relative;
+        background-color: $white;
+        border-radius: $radius-base;
+        box-shadow: $shadow-card; 
+
+        transition: all 250ms ease-in-out;
+
+        &:hover {
+            background-color: $color-background-seashellt;
+            
+            &::after {
+                content: "";
+                width: calc($unit / 1.7);
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: $color-note;
+
+            }
+
+            &::before {
+                content: "";
+                width: calc($unit * 1.6);
+                height: calc($unit * 1.6);
+                position: absolute;
+                top: 42%;
+                right: calc(-$unit * 0.9);
+                transform: translate(-50%, -50%);
+                transform: rotate(45deg);
+                background-color: $color-note;
+                border-bottom-left-radius: calc($unit * 2);
+            }
+        }
+
+        &.checked {
+            background-color: $zest-dark; 
+            
+            &::after {
+                content: "";
+                width: calc($unit / 1.7);
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: $color-note;
+            }
+
+            &::before {
+                content: "";
+                width: calc($unit * 1.6);
+                height: calc($unit * 1.6);
+                position: absolute;
+                top: 42%;
+                right: calc(-$unit * 0.9);
+                transform: translate(-50%, -50%);
+                transform: rotate(45deg);
+                background-color: $color-note;
+                border-bottom-left-radius: calc($unit * 2);
+            }
+        }
+    }
+
     &--tny {
         padding: calc($unit * 2);
     }

@@ -97,7 +97,7 @@ function renderHeaderContent(children, props, t, title) {
         }
     }
 
-    return <h3>{t(title)}</h3>;
+    return <h3 className="type--lrg type--wgt--medium">{t(title)}</h3>;
 }
 
 export default defaultTemplate(PageHeaderTemplate);

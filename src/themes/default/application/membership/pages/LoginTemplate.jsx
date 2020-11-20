@@ -14,7 +14,7 @@ function LoginTemplate({ currentView, t }) {
             <div className="type--center">
                 <img src={logo} className="u-padd--bottom--lrg u-padd--top--lrg w--300--px" alt="Logo" />
             </div>
-            <div className="box">
+            <div className="card--primary card--sml">
                 <form className="form card card--lrg card--primary" onSubmit={loginForm.onSubmit}>
                     <h4 className="box__title u-mar--bottom--sml">{t('LOGIN.TITLE')}</h4>
                     <p className="u-mar--bottom--sml type--color--dark">{t('LOGIN.DESCRIPTION')}</p>
@@ -33,6 +33,7 @@ function LoginTemplate({ currentView, t }) {
                         <div className="u-pull">
                             <BaasicButton
                                 className="btn btn--base btn--primary"
+                                onlyIconClassName="u-mar--right--sml"
                                 type="submit"
                                 disabled={loginForm.submitting}
                                 icon={loginForm.submitting || loginForm.validating ? 'loader--login' : ''}

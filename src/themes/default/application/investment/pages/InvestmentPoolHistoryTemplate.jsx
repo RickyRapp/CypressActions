@@ -12,7 +12,7 @@ const InvestmentPoolHistoryTemplate = function ({ investmentPoolHistoryViewStore
     return (
         <ListContent store={investmentPoolHistoryViewStore} authorization={authorization}>
             <div className="card--primary card--med">
-                <h5 className="u-mar--bottom--sml">{t('INVESTMENT_POOL.LIST.HISTORY_TITLE')}</h5>
+                <h5 className="type--med type--wgt--medium u-mar--bottom--sml">{t('INVESTMENT_POOL.LIST.HISTORY_TITLE')}</h5>
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}

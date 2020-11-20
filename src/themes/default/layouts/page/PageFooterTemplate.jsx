@@ -7,8 +7,8 @@ function PageFooterTemplate({ children, ...props }) {
         const contentRender = typeof children === 'function' ? children(props) : children;
         if (contentRender) {
             return (
-                <div className='content__footer u-padd--bottom--med'>
-                    <div className="type--right">{contentRender}</div>
+                <div className='content__footer'>
+                    <div className="type--right u-mar--top--sml">{contentRender}</div>
                 </div>
             )
         }

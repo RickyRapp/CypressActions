@@ -27,7 +27,7 @@ function CharityTabTemplate({ charityTabViewStore, rootStore }) {
                     </div>
 
                     {permissionStore.hasPermission('theDonorsFundAdministrationSection.create') &&
-                        <div label={'CHARITY.TAB.EMAIL'}>
+                        <div label={'CHARITY.TAB.EMAIL'} className="u-mar--top--sml">
                             <EmailList charityId={charityId} />
                         </div>}
                 </TabLayout>
