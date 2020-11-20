@@ -346,7 +346,7 @@
         }
 
         &--lock {
-            background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-note);
+            background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-primary);
 
             &:hover,
             &:active,
@@ -361,7 +361,7 @@
         }
 
         &--unlock {
-            background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-note);
+            background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-primary);
 
             &:hover,
             &:active,
@@ -525,6 +525,17 @@
 
         &--refresh {
             background-image: svg-load('../styles/postcss-svg/refresh.svg', fill: $color-primary);
+        }
+        
+        &--reset {
+            background-image: svg-load('../styles/postcss-svg/reset.svg', stroke: $color-note);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/reset.svg', stroke: $color-primary);
+            }
         }
 
         &--download {

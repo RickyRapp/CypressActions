@@ -54,8 +54,9 @@ function InvestmentPoolChangeTemplate({ investmentPoolChangeViewStore, t }) {
                     </div>
                 )
             })}
-
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            <div className="u-push">
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            </div>
         </section>
     )
 }

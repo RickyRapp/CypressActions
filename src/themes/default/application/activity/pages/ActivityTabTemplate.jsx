@@ -17,10 +17,10 @@ function ActivityTabTemplate({ activityTabViewStore }) {
                 <div label={'ACTIVITY.TRANSACTIONS'}>
                     <TransactionTab />
                 </div>
-                <div label={'ACTIVITY.DEPOSITS'} className="u-padd--top--med">
+                <div label={'ACTIVITY.DEPOSITS'}>
                     <DepositTab />
                 </div>
-                <div label={'ACTIVITY.GRANTS'} className="u-padd--top--med">
+                <div label={'ACTIVITY.GRANTS'}>
                     <GrantTab />
                 </div>
             </React.Fragment>

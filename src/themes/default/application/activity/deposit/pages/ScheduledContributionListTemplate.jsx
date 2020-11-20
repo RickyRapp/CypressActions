@@ -16,11 +16,13 @@ const ScheduledContributionListTemplate = function ({ scheduledContributionViewS
 
     return (
         <Content>
-            <BaasicTable
-                authorization={authorization}
-                tableStore={tableStore}
-                actionsComponent={renderActions}
-            />
+            <div className="card--tertiary card--med">
+                <BaasicTable
+                    authorization={authorization}
+                    tableStore={tableStore}
+                    actionsComponent={renderActions}
+                    />
+            </div>
         </Content>
     )
 };

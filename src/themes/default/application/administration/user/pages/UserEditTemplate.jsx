@@ -29,7 +29,7 @@ function UserEditTemplate({ userEditViewStore, t }) {
 
     return (
         <EditFormLayout store={userEditViewStore} emptyRenderer={<ApplicationEmptyState />} loading={loaderStore.loading}>
-            <div className="card card--form card--primary card--med">
+            <div className="card--primary card--med">
                 <div className="row">
                     <div className="form__group col col-lrg-6">
                         <div className="form__group__label">{t('USER.EDIT.USERNAME_LABEL')}</div>
@@ -40,18 +40,18 @@ function UserEditTemplate({ userEditViewStore, t }) {
                     <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('email')} />
                     </div>
-                    <div className="form__group col col-lrg-6 spc--bottom--sml">
+                    <div className="form__group col col-lrg-6 u-mar--right--med">
                         <BaasicFieldDropdown field={form.$('roles')} store={roleMultiselectStore} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col col-med-6">
-                        <a className="display--b spc--bottom--tny" onClick={openMailPasswordReset}><span className="u-icon u-icon--sml u-icon--email-pass" /> Send password reset mail</a>
-                        <a className="display--b spc--bottom--tny" onClick={openChangePassword}><span className="u-icon u-icon--sml u-icon--reset-pass" /> Change Password</a>
+                        <a className="display--b u-mar--right--med" onClick={openMailPasswordReset}><span className="u-icon u-icon--sml u-icon--email" /> Send password reset mail</a>
+                        <a className="display--b u-mar--right--med" onClick={openChangePassword}><span className="u-icon u-icon--sml u-icon--reset" /> Change Password</a>
 
                         {item && <React.Fragment>
-                            <a className="display--b spc--bottom--tny" onClick={toggleApprove}>{item.isApproved ? <span><span className="u-icon u-icon--sml u-icon--approve" /><span> Disapprove</span></span> : <span><span className="u-icon u-icon--sml u-icon--decline"></span><span> Approve</span></span>}</a>
-                            <a className="display--b spc--bottom--tny" onClick={toggleLock}>{item.isLockedOut ? <span><span className="u-icon u-icon--sml u-icon--locked" /><span> Unlock</span></span> : <span><span className="u-icon u-icon--sml u-icon--locked"></span><span> Lock</span></span>}</a>
+                            <a className="display--b u-mar--right--med" onClick={toggleApprove}>{item.isApproved ? <span><span className="u-icon u-icon--sml u-icon--approve" /><span> Disapprove</span></span> : <span><span className="u-icon u-icon--sml u-icon--decline"></span><span> Approve</span></span>}</a>
+                            <a className="display--b u-mar--right--med" onClick={toggleLock}>{item.isLockedOut ? <span><span className="u-icon u-icon--sml u-icon--lock" /><span> Unlock</span></span> : <span><span className="u-icon u-icon--sml u-icon--unlock"></span><span> Lock</span></span>}</a>
                         </React.Fragment>
                         }
                     </div>

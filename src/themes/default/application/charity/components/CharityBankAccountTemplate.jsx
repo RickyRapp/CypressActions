@@ -19,7 +19,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
 
     return (
         <EditFormContent form={form}>
-            <h3 className="u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
+            <h3 className="type--med type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-6">
                     <BasicInput field={form.$('routingNumber')} />

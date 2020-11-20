@@ -13,10 +13,10 @@ function TestTabTemplate({ testTabViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={testTabViewStore}>
-                    <div label={'TEST.TAB.EMAIL'}>
+                    <div label={'TEST.TAB.EMAIL'} className="u-mar--top--sml">
                         <TestEmailList />
                     </div>
-                    <div label={'TEST.TAB.SCHEDULED_TASK'}>
+                    <div label={'TEST.TAB.SCHEDULED_TASK'} className="u-mar--top--sml">
                         <ScheduledSettingList />
                     </div>
                 </TabLayout>
