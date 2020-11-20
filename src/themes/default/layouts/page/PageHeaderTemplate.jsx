@@ -7,12 +7,12 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-function PageHeaderTemplate({ children, rootStore, t, coreResolving, ...props }) {
+function PageHeaderTemplate({ children, rootStore, t, coreResolving, menuStore, ...props }) {
     const {
         viewStore: {
             toggleProfileMenu,
             setProfileMenu,
-            profileMenuOpen,
+            profileMenuOpen
         },
     } = rootStore;
 

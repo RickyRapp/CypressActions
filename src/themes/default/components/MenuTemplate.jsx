@@ -8,14 +8,8 @@ import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
 import logo_collapsed from 'themes/styles/postcss-svg/old/logo-collapsed.svg';
 
 const SecondaryMenu = inject(i => ({
-    items: i.rootStore.menuStore.secondaryMenu,
     menuStore: i.rootStore.menuStore
 }))(defaultTemplate(SecondaryItems));
-
-const TerniaryMenu = inject(i => ({
-    items: i.rootStore.menuStore.terniaryMenu,
-    menuStore: i.rootStore.menuStore
-}))(defaultTemplate(TerniaryItems));
 
 function MenuTemplate({ menuStore, t }) {
 
@@ -60,14 +54,19 @@ function renderPrimary(menu, menuStore, translate) {
                     if (className.includes('selected') || (item.hasChildren && className.includes('active'))) {
                         return (
                             <div className="u-position--rel" key={title}>
-                                <div className={className} aria-label={title} onClick={() => menuStore.closeMenu()}>
+                                <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} />
                                     {!menuStore.isCollapsed &&
                                         <span title={title} className="nav--secondary__text  u-mar--left--sml">
                                             {title}
                                         </span>}
+                                    {item.hasChildren ? (
+                                        <span className="nav--primary__icon">
+                                            <span className="u-icon u-icon--tny u-icon--arrow-down"></span>
+                                        </span>
+                                    ) : null}
                                 </div>
-                                <SecondaryMenu />
+                                <SecondaryMenu items={item.subMenu} />
                             </div>
                         );
                     } else {
@@ -76,11 +75,10 @@ function renderPrimary(menu, menuStore, translate) {
                         return (
                             <a
                                 key={title}
-                                // className="u-position--rel"
+                                href={route && route.pattern ? route.pattern : '/'}
                                 onClick={e => {
                                     menuStore.selectMenuItem(item, e);
                                 }}
-                                href={route && route.pattern ? route.pattern : '/'}
                             >
                                 <div key={title} aria-label={title} className={className} label={title}>
                                     <span className={'u-icon u-icon--med u-icon--' + item.icon} title={title} />
@@ -88,6 +86,11 @@ function renderPrimary(menu, menuStore, translate) {
                                         <span title={title} className="nav--secondary__text u-mar--left--sml">
                                             {title}
                                         </span>}
+                                    {item.hasChildren ? (
+                                        <span className="nav--primary__icon">
+                                            <span className="u-icon u-icon--tny u-icon--arrow-down"></span>
+                                        </span>
+                                    ) : null}
                                 </div>
                             </a>
                         );
@@ -128,7 +131,7 @@ function SecondaryItems({ items, menuStore, t }) {
                     if (className.includes('selected')) {
                         return (
                             <ul key={title}>
-                                <li className={className} title={title} onClick={() => menuStore.selectMenuItem(item)}>
+                                <li className={className} title={title} style={{ backgroundColor: "yellow" }} onClick={() => menuStore.selectMenuItem(item)}>
                                     {title}
                                     {item.hasChildren ? (
                                         <span className="u-push">
@@ -136,12 +139,11 @@ function SecondaryItems({ items, menuStore, t }) {
                                         </span>
                                     ) : null}
                                 </li>
-                                <TerniaryMenu />
                             </ul>
                         );
                     } else {
                         return (
-                            <li key={title} title={title} className={className} onClick={() => menuStore.selectMenuItem(item)}>
+                            <li key={title} title={title} className={className} style={{ backgroundColor: "red" }} onClick={() => menuStore.selectMenuItem(item)}>
                                 {title}
                                 {item.hasChildren ? (
                                     <span className="u-push">
@@ -156,45 +158,7 @@ function SecondaryItems({ items, menuStore, t }) {
         </div>
     );
 }
-function TerniaryItems({ items, menuStore, t }) {
-    if (!items || items.length === 0) return null;
-    return (
-        <div className={'nav--tertiary layout__aside--secondary' + (menuStore.terniaryMenuVisible ? ' active' : '')}>
-            <ul>
-                <li className="nav--tertiary__back" onClick={() => menuStore.setSelectedPath(items[0].parent.parent.path)}>
-                    <i className="u-icon u-icon--xmed u-icon--back"></i>
-                </li>
-                {items.map(item => {
-                    let className = 'nav--tertiary__item';
-                    if (menuItemActive(item, menuStore.activePath)) {
-                        className += ' active';
-                    }
-                    if (menuItemActive(item, menuStore.selectedPath)) {
-                        className += ' selected';
-                    }
 
-                    const title = t(item.title);
-                    return (
-                        <li key={title} title={title} className={className} onClick={() => menuStore.selectMenuItem(item)}>
-                            {title}
-                            {item.hasChildren ? (
-                                <span className="u-push">
-                                    <span className="u-icon u-icon--tny u-icon--arrow-right"></span>
-                                </span>
-                            ) : null}
-                        </li>
-                    );
-                })}
-            </ul>
-        </div>
-    );
-}
-
-TerniaryItems.propTypes = {
-    items: PropTypes.array,
-    menuStore: PropTypes.object,
-    t: PropTypes.func,
-};
 SecondaryItems.propTypes = {
     items: PropTypes.array,
     menuStore: PropTypes.object,

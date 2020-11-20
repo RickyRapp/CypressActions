@@ -12,7 +12,7 @@ function PageTemplate({ children, rootStore, loading = false, isError = false, e
 
     return (
         <React.Fragment>
-            <PageHeader {...(header ? header[0].props : {})} coreResolving={coreResolving} rootStore={rootStore} />
+            <PageHeader {...(header ? header[0].props : {})} coreResolving={coreResolving} />
 
             <div className='container'>
                 {/* {

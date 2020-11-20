@@ -3,41 +3,16 @@ import { action, observable, computed } from 'mobx';
 import { MenuItem } from 'core/models';
 
 export default class MenuStore {
-    constructor(rootStore) {
-        this.rootStore = rootStore;
-    }
-
+    @observable menu = null;
+    @observable activePath = [];
+    @observable selectedPath = [];
+    @observable isCollapsed = false;
+    @observable isOpen = false;
     rawMenu = null;
     @observable selectedRootMenuItemTitle = '';
 
-    @computed get secondaryMenuVisible() {
-        return this.selectedPath && this.selectedPath.length > 0;
-    }
-    @computed get secondaryMenu() {
-        const path = this.selectedPath.length === 0 ? this.activePath : this.selectedPath;
-
-        const parent = _.find(this.menu, item => item.isActiveByPath(path));
-        return parent ? parent.subMenu : [];
-    }
-    @computed get terniaryMenuVisible() {
-        return this.selectedPath && this.selectedPath.length > 1;
-    }
-    @computed get terniaryMenu() {
-        const path = this.selectedPath.length === 1 ? this.activePath : this.selectedPath;
-
-        const parent = _.find(this.secondaryMenu, item => item.isActiveByPath(path));
-        return parent ? parent.subMenu : [];
-    }
-
-    @computed get tabMenu() {
-        const parent = _.find(this.secondaryMenu, item => item.isActiveByPath(this.activePath));
-        const activeSecondaryItems = parent ? parent.subMenu : [];
-        const terniaryActive = _.find(activeSecondaryItems, item => item.isActiveByPath(this.activePath));
-        return terniaryActive ? terniaryActive.subMenu : [];
-    }
-
-    @computed get activeMenuItem() {
-        return _.last(this.activePath);
+    constructor(rootStore) {
+        this.rootStore = rootStore;
     }
 
     @action.bound setMenu(menu, toState) {
@@ -90,12 +65,6 @@ export default class MenuStore {
         this.selectedPath = path;
     }
 
-    @observable menu = null;
-    @observable activePath = [];
-    @observable selectedPath = [];
-    @observable isCollapsed = false;
-    @observable isOpen = false;
-
     //toggle collapse, closes menu on collapse
     @action.bound toggleCollapse() {
         this.isCollapsed = !this.isCollapsed;
@@ -103,13 +72,6 @@ export default class MenuStore {
             this.closeMenu();
         }
         this.isOpen = false;
-    }
-
-    //Expands menu when secondary menu opens
-    @action.bound menuExpand() {
-        if (this.isCollapsed && this.secondaryMenu.length > 0) {
-            this.isCollapsed = false;
-        }
     }
 
     //toggles menu open/close is-open, for mobile
@@ -129,7 +91,6 @@ export default class MenuStore {
         } else {
             this.setSelectedPath(item.path);
         }
-        this.menuExpand();
         e && e.preventDefault();
     };
 
@@ -137,12 +98,17 @@ export default class MenuStore {
         this.setSelectedPath([]);
     };
 
-    @action.bound onMenuPin() {
-        this.menuPinned = !this.menuPinned;
+    @computed get secondaryMenuVisible() {
+        return this.selectedPath && this.selectedPath.length === 1 && this.selectedPath[0].subMenu && this.selectedPath[0].subMenu.length > 0;
+    }
+
+    @computed get activeMenuItem() {
+        return _.last(this.activePath);
     }
 }
 
 function findActiveMenuItem(menu, route) {
+    debugger
     let bestMatch = {
         difference: 0,
         item: { path: [] },
@@ -168,12 +134,12 @@ function findActiveMenuItem(menu, route) {
 
         if (item.hasChildren) {
             const child = findActiveMenuItem(item.subMenu, route);
-            if (child) {
+            if (child && child.path && child.path.length > 0) {
                 return child;
             }
         }
     }
-
+    console.log(bestMatch)
     return bestMatch.item;
 }
 
