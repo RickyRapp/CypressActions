@@ -108,7 +108,6 @@ export default class MenuStore {
 }
 
 function findActiveMenuItem(menu, route) {
-    debugger
     let bestMatch = {
         difference: 0,
         item: { path: [] },
@@ -139,7 +138,6 @@ function findActiveMenuItem(menu, route) {
             }
         }
     }
-    console.log(bestMatch)
     return bestMatch.item;
 }
 

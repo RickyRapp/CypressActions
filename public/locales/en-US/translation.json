@@ -1,5 +1,10 @@
 {
     "MENU": {
+        "FOOTER": {
+            "LOGOUT": "Logout",
+            "COLLAPSE": "Collapse",
+            "EXPAND": "Expand"
+        },
         "USERS": "Users",
         "ROLES": "Roles",
         "PERMISSIONS": "Permissions",
