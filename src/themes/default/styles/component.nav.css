@@ -38,7 +38,7 @@
         }
 
         &__icon {
-            float: right;
+            margin-left: auto;
         }
 
         &__logo {
@@ -55,7 +55,7 @@
 
             border-top: 1px solid color($scandal a(20%));
             font-weight: $type-weight-regular;
-            color: color(white a(50%));
+            color: color($white a(50%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
 
@@ -71,68 +71,71 @@
             }
 
             .u-icon {
+                &--give {
+                    background-image: svg-load('postcss-svg/give.svg', fill: color($white a(60%))); 
+                }
                 &--dashboard {
-                    background-image: svg-load('postcss-svg/dashboard.svg', fill: color(white a(60%))); 
+                    background-image: svg-load('postcss-svg/dashboard.svg', fill: color($white a(60%))); 
                 }
 
                 &--administration {
-                    background-image: svg-load('postcss-svg/cog.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/cog.svg', fill: color($white a(60%)));
                 }
 
                 &--profile {
-                    background-image: svg-load('postcss-svg/profile.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(60%)));
                 }
 
                 &--users {
-                    background-image: svg-load('postcss-svg/users.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/users.svg', fill: color($white a(60%)));
                 }
 
                 &--activity {
-                    background-image: svg-load('postcss-svg/archive.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/archive.svg', fill: color($white a(60%)));
                 }
 
                 &--booklet {
-                    background-image: svg-load('postcss-svg/booklets.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/booklets.svg', fill: color($white a(60%)));
                 }
 
                 &--booklet-order {
-                    background-image: svg-load('postcss-svg/booklets.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/booklets.svg', fill: color($white a(60%)));
                 }
 
                 &--donors {
-                    background-image: svg-load('postcss-svg/users.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/users.svg', fill: color($white a(60%)));
                 }
 
                 &--charities {
-                    background-image: svg-load('postcss-svg/donations.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/donations.svg', fill: color($white a(60%)));
                 }
 
                 &--contribution {
-                    background-image: svg-load('postcss-svg/contribution.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/contribution.svg', fill: color($white a(60%)));
                 }
 
                 &--contribution-settings {
-                    background-image: svg-load('postcss-svg/contribution.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/contribution.svg', fill: color($white a(60%)));
                 }
 
                 &--donations {
-                    background-image: svg-load('postcss-svg/donations.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/donations.svg', fill: color($white a(60%)));
                 }
 
                 &--grant {
-                    background-image: svg-load('postcss-svg/grant.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/grant.svg', fill: color($white a(60%)));
                 }
 
                 &--scheduled-grant {
-                    background-image: svg-load('postcss-svg/grant.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/grant.svg', fill: color($white a(60%)));
                 }
 
                 &--fund-transfer {
-                    background-image: svg-load('postcss-svg/grant.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/grant.svg', fill: color($white a(60%)));
                 }
 
                 &--session {
-                    background-image: svg-load('postcss-svg/sessions.svg', fill: color(white a(60%)));
+                    background-image: svg-load('postcss-svg/sessions.svg', fill: color($white a(60%)));
                 }
             } 
 
@@ -142,7 +145,7 @@
             &.active,
             &.selected {
                 color: $color-primary;
-                background-color: color(white a(10%));
+                background-color: color($white a(10%));
                 
                 &:before {
                     background-color: $scandal;
@@ -150,23 +153,23 @@
 
                 .u-icon {
                     &--dashboard {
-                        background-image: svg-load('postcss-svg/dashboard.svg', fill: color(white a(100%))); 
+                        background-image: svg-load('postcss-svg/dashboard.svg', fill: color($white a(100%))); 
                     }
 
                     &--administration {
-                        background-image: svg-load('postcss-svg/cog.svg', fill: color(white a(100%)));
+                        background-image: svg-load('postcss-svg/cog.svg', fill: color($white a(100%)));
                     }
 
                     &--profile {
-                        background-image: svg-load('postcss-svg/profile.svg', fill: color(white a(100%)));
+                        background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(100%)));
                     }
     
                     &--users {
-                        background-image: svg-load('postcss-svg/users.svg', fill: color(white a(100%)));
+                        background-image: svg-load('postcss-svg/users.svg', fill: color($white a(100%)));
                     }
 
                     &--activity {
-                        background-image: svg-load('postcss-svg/archive.svg', fill: color(white a(100%)));
+                        background-image: svg-load('postcss-svg/archive.svg', fill: color($white a(100%)));
                     }
                 }
 
@@ -196,7 +199,7 @@
             display: block;
 
             font-weight: $type-weight-regular;
-            color: color(white a(50%));
+            color: color($white a(50%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
 
@@ -204,7 +207,28 @@
             &:focus,
             &:active,
             &.active {
-                color: color(white a(100%));
+                color: color($white a(100%));
+            }
+        }
+
+        &__item {
+            margin-left: calc($unit * 1);
+            padding: calc($unit * 2) 0 calc($unit * 2) calc($unit * 8);
+            
+            @mixin type-scale $type-xsmall, 1;
+            
+            color: color($white a(75%));
+            
+            border-bottom: 1px solid color($white a(10%));
+            background-color: color($smalt-blue a(20%));
+            
+            cursor: pointer;
+
+            transition: all 250ms ease-out;
+
+            &:hover {
+                color: $white;
+                background-color: color($smalt-blue a(35%));
             }
         }
     }
@@ -231,7 +255,7 @@
             padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 4);
 
             font-weight: $type-weight-regular;
-            color: color(white a(50%));
+            color: color($white a(50%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
 
@@ -244,7 +268,7 @@
             &:active,
             &.active {
                 color: $color-primary;
-                background-color: color(white a(10%));
+                background-color: color($white a(10%));
             }
         }
     }

@@ -42,7 +42,7 @@ import { RouterState } from 'mobx-state-router';
         menu: [
             {
                 title: 'MENU.GIVE',
-                icon: '',
+                icon: 'give',
                 order: 1,
                 role: ['Users'],
                 subMenu: [

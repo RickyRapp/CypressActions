@@ -4,7 +4,7 @@ import { TabHeader } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
 function TabsHeader({ tabsStore, children, t, activeClassName}) {
-    return <div className="tabs tabs--primary u-mar--bottom--sml">{renderTabs(tabsStore, children, t, activeClassName)}</div>;
+    return <div className="tabs tabs--primary">{renderTabs(tabsStore, children, t, activeClassName)}</div>;
 }
 
 function renderTabs(tabsStore, children, t, activeClassName) {

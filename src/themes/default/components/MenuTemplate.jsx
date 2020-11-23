@@ -42,12 +42,12 @@ function renderPrimary(menu, menuStore, translate) {
                                     <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
                                         <span className={'u-icon u-icon--med u-icon--' + item.icon} />
                                         {!menuStore.isCollapsed &&
-                                            <span title={title} className="nav--secondary__text  u-mar--left--sml">
+                                            <span title={title} className="nav--secondary__text u-mar--left--sml">
                                                 {title}
                                             </span>}
                                         {item.hasChildren ? (
                                             <span className="nav--primary__icon">
-                                                <span className="u-icon u-icon--tny u-icon--arrow-down"></span>
+                                                <span className="u-icon u-icon--tny u-icon--arrow-up"></span>
                                             </span>
                                         ) : null}
                                     </div>
@@ -132,7 +132,7 @@ function SecondaryItems({ items, menuStore, t }) {
                         );
                     } else {
                         return (
-                            <li key={title} title={title} className={className} style={{ backgroundColor: "red" }} onClick={() => menuStore.selectMenuItem(item)}>
+                            <li key={title} title={title} className={className} onClick={() => menuStore.selectMenuItem(item)}>
                                 {title}
                                 {item.hasChildren ? (
                                     <span className="u-push">
