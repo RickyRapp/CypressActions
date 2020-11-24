@@ -39,7 +39,7 @@ function renderPrimary(menu, menuStore, translate) {
                             <React.Fragment key={title}>
                                 <div className="u-position--rel">
                                     <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                        <span className={'u-icon u-icon--med u-icon--' + item.icon} />
+                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} />
                                         {!menuStore.isCollapsed &&
                                             <span title={title} className="nav--secondary__text u-mar--left--sml">
                                                 {title}
@@ -61,7 +61,7 @@ function renderPrimary(menu, menuStore, translate) {
                             <React.Fragment key={title}>
                                 <div className="u-position--rel">
                                     <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                        <span className={'u-icon u-icon--med u-icon--' + item.icon} title={title} />
+                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} title={title} />
                                         {!menuStore.isCollapsed &&
                                             <span title={title} className="nav--secondary__text u-mar--left--sml">
                                                 {title}
@@ -170,7 +170,8 @@ function renderMenuFooter(menuStore, t) {
                 }
             </div>
             <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
-                <i className="u-icon u-icon--tny u-icon--menu"></i>
+                {menuStore.isCollapsed ? <i className="u-icon u-icon--tny u-icon--menu u-rotate--180"></i> : <i className="u-icon u-icon--tny u-icon--menu"></i>}
+                
             </div>
         </React.Fragment>
     )

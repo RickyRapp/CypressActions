@@ -80,6 +80,9 @@ $header-height: 72px;
                 left: $aside-sml-width;
             }
 
+            & .layout__header {
+                left: $aside-sml-width;
+            }
         }
 
         @media (--screen-from-sml) {

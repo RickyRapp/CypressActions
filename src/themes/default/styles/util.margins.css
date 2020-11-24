@@ -219,5 +219,9 @@
                 margin: calc($unit * 8) inherit; 
             }
         }
+
+        &--center {
+            margin: 0 auto;
+        }
     }
 }    

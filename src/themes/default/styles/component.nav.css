@@ -40,6 +40,10 @@
 
         &__icon {
             margin-left: auto;
+
+            &--collapsed {
+                margin: 0 auto;
+            }
         }
 
         &__logo {
@@ -47,6 +51,7 @@
             align-items: center;
             justify-content: center;
             height: $header-height;
+            border-bottom: 1px solid color($scandal a(20%));
         }
 
         &__item {
@@ -60,6 +65,7 @@
             color: color($white a(50%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
+            
 
             &--logout {
                 position: absolute;
@@ -76,6 +82,16 @@
                 border: 1px solid color($scandal a(20%));
                 border-radius: calc($unit / 1.6);  
                 cursor: pointer;
+                transition: all 250ms ease-out;
+
+                &:hover {
+                    color: color($color-note a(70%));  
+                    border-color: color($color-note a(70%));  
+
+                    & .u-icon--logout {
+                        background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-note);
+                    }
+                }
             }
 
             &--menu {
