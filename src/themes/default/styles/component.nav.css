@@ -62,28 +62,33 @@
             cursor: pointer;
 
             &--logout {
+                position: absolute;
+                right: calc($unit * 1);
+                left: calc($unit * 1);
+                bottom: calc(-$unit * 12);
+                
                 display: flex;
                 justify-content: center;
-                position: absolute;
-                right: calc($unit * 2);
-                left: calc($unit * 2);
-                bottom: calc(-$unit * 12);
                 padding: calc($unit * 2) calc($unit * 1);
+                
+                color: color($white a(80%));     
+                
                 border: 1px solid color($scandal a(20%));
                 border-radius: calc($unit / 1.6);  
-                color: color($white a(80%));     
                 cursor: pointer;
             }
 
             &--menu {
-                display: flex;
                 position: absolute;
                 right: 0;
                 bottom: calc(-$unit * 27);
-                padding: calc($unit * 2) calc($unit * 1);
-                background-color: $lavander;
+                
+                display: flex;
+                padding: calc($unit * 3) calc($unit * 1);
+                
                 border-top-left-radius: calc($unit * 1);
                 border-bottom-left-radius: calc($unit * 1);
+                background-color: $lavander;
                 cursor: pointer;
             }
 

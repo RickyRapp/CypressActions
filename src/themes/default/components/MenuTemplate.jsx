@@ -170,7 +170,7 @@ function renderMenuFooter(menuStore, t) {
                 }
             </div>
             <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
-                <i className="u-icon u-icon--sml u-icon--menu"></i>
+                <i className="u-icon u-icon--tny u-icon--menu"></i>
             </div>
         </React.Fragment>
     )

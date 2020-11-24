@@ -12,7 +12,7 @@
             /* margin-bottom: calc($unit / 2); */
         }
     }
-
+    
     &--inline {
         display: flex;
     }
