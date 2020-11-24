@@ -42,7 +42,6 @@ class BookletOrderViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'donor',
                             'bookletOrderStatus'
                         ];
 
@@ -52,9 +51,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                             'dateCreated',
                             'amount',
                             'confirmationNumber',
-                            'bookletOrderStatus',
-                            'donor',
-                            'donor.donorName'
+                            'bookletOrderStatus'
                         ];
 
                         const response = await service.find({ userId: this.donorId, ...params });
@@ -113,12 +110,6 @@ class BookletOrderViewStore extends BaseListViewStore {
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
-                {
-                    key: 'donor.donorName',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true,
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
-                },
                 {
                     key: 'dateCreated',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DATE_CREATED_LABEL',

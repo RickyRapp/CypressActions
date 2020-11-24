@@ -956,6 +956,13 @@
                 "PENDING_TRANSACTION_DESCRIPTION_LABEL": "Description",
                 "PENDING_TRANSACTION_AMOUNT_LABEL": "Amount",
                 "PRESENT_BALANCE_LABEL": "Present Balance"
+            },
+            "MONTHLY_FEE": {
+                "COLUMNS": {
+                    "FEE_AMOUNT_LABEL": "Fee amount",
+                    "GRANT_AMOUNT_LABEL": "Grant amount",
+                    "CONFIRMATION_NUMBER_LABEL": "Confirmation number"
+                }
             }
         }
     },

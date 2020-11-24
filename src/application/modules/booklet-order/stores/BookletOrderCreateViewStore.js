@@ -64,24 +64,33 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get totalAmount() {
-        return this.mixedBookletAmount + this.classicBookletAmount;
+        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
     }
 
-    @computed get mixedBookletAmount() {
+    @computed get mixed500BookletAmount() {
+        let amount = 0;
         if (this.orderContents.length > 0) {
-            const mixedBookletTypeId = this.bookletTypes.find(c => c.abrv === 'mixed').id
-            if (this.orderContents.some(c => c.bookletTypeId === mixedBookletTypeId)) {
-                const order = this.orderContents.find(c => c.bookletTypeId === mixedBookletTypeId)
-                const denominationType1 = this.denominationTypes.find(c => c.value === 1);
-                const denominationType2 = this.denominationTypes.find(c => c.value === 2);
-                const denominationType3 = this.denominationTypes.find(c => c.value === 3);
-
-                const oneBookletValue = denominationType1.value * 20 + denominationType2.value * 20 + denominationType3.value * 10;
-                return oneBookletValue * order.bookletCount;
+            const mixed500BookletTypeId = this.bookletTypes.find(c => c.abrv === 'mixed_500').id;
+            if (this.orderContents.some(c => c.bookletTypeId === mixed500BookletTypeId)) {
+                const order = this.orderContents.find(c => c.bookletTypeId === mixed500BookletTypeId)
+                amount += 500 * order.bookletCount;
             }
         }
 
-        return 0;
+        return amount;
+    }
+
+    @computed get mixed2000BookletAmount() {
+        let amount = 0;
+        if (this.orderContents.length > 0) {
+            const mixed2000BookletTypeId = this.bookletTypes.find(c => c.abrv === 'mixed_2000').id;
+            if (this.orderContents.some(c => c.bookletTypeId === mixed2000BookletTypeId)) {
+                const order = this.orderContents.find(c => c.bookletTypeId === mixed2000BookletTypeId)
+                amount += 2000 * order.bookletCount;
+            }
+        }
+
+        return amount;
     }
 
     @computed get classicBookletAmount() {

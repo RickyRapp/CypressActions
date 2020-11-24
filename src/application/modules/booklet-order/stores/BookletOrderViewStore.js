@@ -37,7 +37,6 @@ class BookletOrderViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'donor',
-                            'createdByCoreUser',
                             'bookletOrderStatus'
                         ];
 

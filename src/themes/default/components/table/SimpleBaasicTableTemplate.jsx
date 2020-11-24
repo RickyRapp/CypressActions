@@ -26,7 +26,7 @@ const SimpleBaasicTableTemplate = function ({
     const {
         isBatchSelect,
         data,
-        config: { columns, actions, actionsWidth, ...otherStoreFields },
+        config: { columns, actions, actionsRender, actionsWidth, ...otherStoreFields },
         hasData,
         dataInitialized,
     } = tableStore;
@@ -48,7 +48,7 @@ const SimpleBaasicTableTemplate = function ({
                     {/*{children ? children(tableStore) : defaultRenderColumns(columns)}*/}
                     {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization) : null}
                     {defaultRenderColumns({ columns, t })}
-                    {defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t })}
+                    {defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender })}
                 </Grid>
             </ContentWithEmptyState>
             {isLoading ? <BaasicTableLoader /> : null}

@@ -1,4 +1,6 @@
+import { ModalParams } from 'core/models';
 import { BaseViewStore, TableViewStore } from 'core/stores';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { action, observable } from 'mobx';
 
 class TransactionTabViewStore extends BaseViewStore {
@@ -30,9 +32,17 @@ class TransactionTabViewStore extends BaseViewStore {
                     }
                 },
             ],
-            actions: {}
+            actions: {
+                onPreview: (item) => this.openModalStore(item),
+            },
+            actionsRender: {
+                onPreviewRender: (item) => {
+                    return !isNullOrWhiteSpacesOrUndefinedOrEmpty(item.json);
+                }
+            }
         });
 
+        this.createModalStore();
         this.fetchDonorData();
     }
 
@@ -48,6 +58,14 @@ class TransactionTabViewStore extends BaseViewStore {
     @action.bound
     onExpandPendingTransactionClick() {
         this.isPendingTransactionVisible = !this.isPendingTransactionVisible;
+    }
+
+    createModalStore() {
+        this.previewFeesModal = new ModalParams({});
+    }
+
+    openModalStore(item) {
+        this.previewFeesModal.open(item);
     }
 }
 
