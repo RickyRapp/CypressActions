@@ -109,13 +109,24 @@
         }
 
         &--menu {
-            background-image: svg-load('../styles/postcss-svg/arrow-left.svg', stroke: $grey-6);
+            background-image: svg-load('../styles/postcss-svg/arrow-left.svg', stroke: $color-text);
 
             &:hover,
             &:active,
             &:focus {
                 outline: 0;
                 background-image: svg-load('../styles/postcss-svg/arrow-left.svg', stroke: $color-primary);
+            }
+        }
+        
+        &--logout {
+            background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: color($white a(60%)));
+    
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-primary);
             }
         }
         

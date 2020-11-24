@@ -164,11 +164,13 @@ function renderMenuHeader(menuStore) {
 function renderMenuFooter(menuStore, t) {
     return (
         <React.Fragment>
-            <div className="nav--primary__item">
-                <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
+            <div className="nav--primary__item--logout">
+                {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i> 
+                : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
+                }
             </div>
-            <div className="nav--primary__item" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
-                <i className="u-icon u-icon--med u-icon--menu"></i>
+            <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
+                <i className="u-icon u-icon--tny u-icon--menu"></i>
             </div>
         </React.Fragment>
     )

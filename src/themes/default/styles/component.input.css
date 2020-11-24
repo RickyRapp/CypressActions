@@ -142,6 +142,71 @@
         background-image: svg-load('../styles/postcss-svg/defaults/icon--currency.svg', fill: color($color-primary a(0.5)));
     }
 
+    &--switch {
+        display: flex;
+        padding: calc($unit / 2);
+        background-color: #ffffff;
+        border: 1px solid color($white blackness(+30%));
+        border-radius: $radius-base;
+
+        &__wrapper {
+            width: 100%;
+
+            & input {
+                position: absolute !important;
+                height: 1px;
+                width: 1px;
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                overflow: hidden;
+
+                &:checked + label {
+                    background-color: $color-primary;
+                    color: #fff;
+                    border: 1px solid $color-primary;
+                    font-weight: $type-weight-bold;
+                    &:hover {
+                        background-color: color($color-primary blackness(+10%));
+                    }
+                }
+            }
+
+            & label {
+                display: block;
+                height: 28px;
+                padding: 0 calc($unit * 1.5);
+                color: $grey-5;
+                background-color: #fff;
+                @mixin type-scale $type-xsmall, 1.25;
+                text-align: center;
+                font-weight: $type-weight-regular;
+                border-radius: $radius-base;
+                transition: all 250ms ease-in-out;
+                &:hover{
+                    color: $grey-7;
+                    background-color: color($color-primary a(0.1));
+                    cursor: pointer;
+                }
+            }
+        }
+        &.checked {
+            & label {
+                background-color: $color-primary;
+                color: #fff;
+            }
+        }
+        /* Size */
+        &--sml {
+            padding: 0;
+
+            & label {
+                height: calc($unit * 4);
+                border-radius: 1px;
+                line-height: calc($unit * 4);
+            }
+        }
+    }
+
     &--clear {
         position: absolute;
         top: $unit;
