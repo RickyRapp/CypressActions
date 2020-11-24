@@ -51,6 +51,7 @@
         &__item {
             position: relative;
             display: flex;
+            align-items: center;
             padding: calc($unit * 3) calc($unit * 3);
 
             border-top: 1px solid color($scandal a(20%));
@@ -72,70 +73,99 @@
 
             .u-icon {
                 &--give {
-                    background-image: svg-load('postcss-svg/give.svg', fill: color($white a(60%))); 
+                    background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(60%))); 
                 }
+
                 &--dashboard {
-                    background-image: svg-load('postcss-svg/dashboard.svg', fill: color($white a(60%))); 
+                    background-image: svg-load('postcss-svg/dashboard.svg', stroke: color($white a(60%))); 
                 }
 
                 &--administration {
-                    background-image: svg-load('postcss-svg/cog.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/cog.svg', stroke: color($white a(60%)));
                 }
 
                 &--profile {
-                    background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(60%)));
-                }
-
-                &--users {
-                    background-image: svg-load('postcss-svg/users.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/profile.svg', stroke: color($white a(60%)));
                 }
 
                 &--activity {
-                    background-image: svg-load('postcss-svg/archive.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/activity.svg', stroke: color($white a(60%)));
                 }
 
                 &--booklet {
-                    background-image: svg-load('postcss-svg/booklets.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/booklets.svg', stroke: color($white a(60%)));
                 }
 
                 &--booklet-order {
-                    background-image: svg-load('postcss-svg/booklets.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/booklet-order.svg', stroke: color($white a(60%)));
+                }
+
+                &--investment {
+                    background-image: svg-load('postcss-svg/investment.svg', stroke: color($white a(60%)));
                 }
 
                 &--donors {
-                    background-image: svg-load('postcss-svg/users.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/donors.svg', stroke: color($white a(60%)));
+                }
+                
+                &--users {
+                    background-image: svg-load('postcss-svg/users.svg', stroke: color($white a(60%)));
                 }
 
                 &--charities {
-                    background-image: svg-load('postcss-svg/donations.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/charities.svg', stroke: color($white a(60%)));
+                }
+                
+                &--third-party-website {
+                    background-image: svg-load('postcss-svg/third-party-website.svg', stroke: color($white a(60%)));
                 }
 
                 &--contribution {
-                    background-image: svg-load('postcss-svg/contribution.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(60%)));
                 }
 
                 &--contribution-settings {
-                    background-image: svg-load('postcss-svg/contribution.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(60%)));
                 }
 
                 &--donations {
-                    background-image: svg-load('postcss-svg/donations.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/donations.svg', stroke: color($white a(60%)));
                 }
 
                 &--grant {
-                    background-image: svg-load('postcss-svg/grant.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(60%)));
                 }
 
                 &--scheduled-grant {
-                    background-image: svg-load('postcss-svg/grant.svg', fill: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(60%)));
                 }
 
-                &--fund-transfer {
-                    background-image: svg-load('postcss-svg/grant.svg', fill: color($white a(60%)));
+                &--transfer {
+                    background-image: svg-load('postcss-svg/transfer.svg', stroke: color($white a(60%)));
+                }
+               
+                &--test {
+                    background-image: svg-load('postcss-svg/test.svg', stroke: color($white a(60%)));
                 }
 
-                &--session {
-                    background-image: svg-load('postcss-svg/sessions.svg', fill: color($white a(60%)));
+                &--sessions {
+                    background-image: svg-load('postcss-svg/sessions.svg', stroke: color($white a(60%)));
+                }
+               
+                &--reconcile {
+                    background-image: svg-load('postcss-svg/reconcile.svg', stroke: color($white a(60%)));
+                }
+                
+                &--fidelity-cards {
+                    background-image: svg-load('postcss-svg/fidelity-cards.svg', stroke: color($white a(60%)));
+                }
+                
+                &--banks {
+                    background-image: svg-load('postcss-svg/banks.svg', stroke: color($white a(60%)));
+                }
+              
+                &--default-settings {
+                    background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($white a(60%)));
                 }
             } 
 
@@ -152,24 +182,100 @@
                 }
 
                 .u-icon {
-                    &--dashboard {
-                        background-image: svg-load('postcss-svg/dashboard.svg', fill: color($white a(100%))); 
-                    }
-
-                    &--administration {
-                        background-image: svg-load('postcss-svg/cog.svg', fill: color($white a(100%)));
-                    }
-
-                    &--profile {
-                        background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(100%)));
+                    &--give {
+                        background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(100%))); 
                     }
     
-                    &--users {
-                        background-image: svg-load('postcss-svg/users.svg', fill: color($white a(100%)));
+                    &--dashboard {
+                        background-image: svg-load('postcss-svg/dashboard.svg', stroke: color($white a(100%))); 
                     }
-
+    
+                    &--administration {
+                        background-image: svg-load('postcss-svg/cog.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--profile {
+                        background-image: svg-load('postcss-svg/profile.svg', stroke: color($white a(100%)));
+                    }
+    
                     &--activity {
-                        background-image: svg-load('postcss-svg/archive.svg', fill: color($white a(100%)));
+                        background-image: svg-load('postcss-svg/activity.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--booklet {
+                        background-image: svg-load('postcss-svg/booklets.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--booklet-order {
+                        background-image: svg-load('postcss-svg/booklet-order.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--investment {
+                        background-image: svg-load('postcss-svg/investment.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--donors {
+                        background-image: svg-load('postcss-svg/donors.svg', stroke: color($white a(100%)));
+                    }
+                    
+                    &--users {
+                        background-image: svg-load('postcss-svg/users.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--charities {
+                        background-image: svg-load('postcss-svg/charities.svg', stroke: color($white a(100%)));
+                    }
+                    
+                    &--third-party-website {
+                        background-image: svg-load('postcss-svg/third-party-website.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--contribution {
+                        background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--contribution-settings {
+                        background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--donations {
+                        background-image: svg-load('postcss-svg/donations.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--grant {
+                        background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--scheduled-grant {
+                        background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--transfer {
+                        background-image: svg-load('postcss-svg/transfer.svg', stroke: color($white a(100%)));
+                    }
+                   
+                    &--test {
+                        background-image: svg-load('postcss-svg/test.svg', stroke: color($white a(100%)));
+                    }
+    
+                    &--sessions {
+                        background-image: svg-load('postcss-svg/sessions.svg', stroke: color($white a(100%)));
+                    }
+                   
+                    &--reconcile {
+                        background-image: svg-load('postcss-svg/reconcile.svg', stroke: color($white a(100%)));
+                    }
+                    
+                    &--fidelity-cards {
+                        background-image: svg-load('postcss-svg/fidelity-cards.svg', stroke: color($white a(100%)));
+                    }
+                    
+                    &--banks {
+                        background-image: svg-load('postcss-svg/banks.svg', stroke: color($white a(100%)));
+                    }
+                  
+                    &--default-settings {
+                        background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($white a(100%)));
                     }
                 }
 

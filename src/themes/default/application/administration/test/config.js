@@ -23,6 +23,7 @@ import { TestTab } from 'application/administration/test/pages';
         menu: [
             {
                 title: 'MENU.TESTING',
+                icon: 'test',
                 order: 8,
                 route: 'master.app.main.administration.test-tab',
                 role: ['Administrators']

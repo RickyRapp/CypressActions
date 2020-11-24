@@ -23,6 +23,7 @@ import { InvestmentPoolList } from 'application/investment/pages';
         menu: [
             {
                 title: 'MENU.INVESTMENT',
+                icon: 'investment',
                 order: 4,
                 role: ['Administrators'],
                 route: 'master.app.main.investment.list'

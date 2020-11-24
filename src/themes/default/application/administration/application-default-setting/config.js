@@ -23,6 +23,7 @@ import { ApplicationDefaultSettingEdit } from 'application/administration/applic
         menu: [
             {
                 title: 'MENU.APPLICATION_DEFAULT_SETTING',
+                icon: 'default-settings',
                 order: 12,
                 route: 'master.app.main.application-default-setting.edit',
                 role: ['Administrators']

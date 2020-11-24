@@ -23,6 +23,7 @@ import { BankTab } from 'application/administration/bank/pages';
         menu: [
             {
                 title: 'MENU.BANKS',
+                icon: 'banks',
                 order: 11,
                 route: 'master.app.main.bank.tab',
                 role: ['Administrators']

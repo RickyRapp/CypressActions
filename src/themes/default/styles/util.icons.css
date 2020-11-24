@@ -118,18 +118,7 @@
                 background-image: svg-load('../styles/postcss-svg/menu-icon.svg', stroke: $color-primary);
             }
         }
-
-        &--dashboard {
-            background-image: svg-load('../styles/postcss-svg/dashboard-icon.svg', fill: $grey-6);
-
-            &:hover,
-            &:active,
-            &:focus {
-                outline: 0;
-                background-image: svg-load('../styles/postcss-svg/dashboard-icon.svg', fill: $color-primary);
-            }
-        }
-
+        
         &--images {
             background-image: svg-load('../styles/postcss-svg/images-icon.svg', stroke: $grey-6);
             

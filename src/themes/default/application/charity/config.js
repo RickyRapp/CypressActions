@@ -51,6 +51,7 @@ import { CharityModuleStore } from 'application/charity/stores';
         menu: [
             {
                 title: 'MENU.CHARITIES',
+                icon: 'charities',
                 order: 6,
                 route: 'master.app.main.charity.list',
                 role: ['Administrators']

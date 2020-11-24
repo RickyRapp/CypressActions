@@ -23,6 +23,7 @@ import { ReconcileList } from 'application/administration/reconcile/pages';
         menu: [
             {
                 title: 'MENU.RECONCILE',
+                icon: 'reconcile',
                 order: 9,
                 route: 'master.app.main.reconcile.check.list',
                 role: ['Administrators']

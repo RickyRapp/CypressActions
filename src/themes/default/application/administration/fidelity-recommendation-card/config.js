@@ -23,6 +23,7 @@ import { FidelityRecommendationCardList } from 'application/administration/fidel
         menu: [
             {
                 title: 'MENU.FIDELITY_RECOMMENDATION_CARDS',
+                icon: 'fidelity-cards',
                 order: 10,
                 route: 'master.app.main.fidelity-recommendation-card.list',
                 role: ['Administrators']
