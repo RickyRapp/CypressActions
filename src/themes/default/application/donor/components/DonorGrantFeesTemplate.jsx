@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     EditFormContent,
     BaasicFormControls,
-    BasicFieldCheckbox
+    BaasicFieldSwitch
 } from 'core/components'
 
 const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
@@ -13,24 +13,26 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
         form,
     } = donorGrantFeesViewStore;
 
+    console.log(form.values())
+
     return (
         <EditFormContent form={form} loading={loaderStore.loading}>
             <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.GRANT_FEES.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-2">
-                    Online are free!
+                    {t('DONOR.GRANT_FEES.FIELDS.ONLINE_LABEL')}
                 </div>
                 <div className="form__group col col-sml-12 col-lrg-2">
-                    <BasicFieldCheckbox field={form.$('isGrantRequestFeePayedByCharity')} />
+                    <BaasicFieldSwitch field={form.$('isGrantRequestFeePayedByCharity')} />
                 </div>
                 <div className="form__group col col-sml-12 col-lrg-2">
-                    <BasicFieldCheckbox field={form.$('isCharityWebsiteFeePayedByCharity')} />
+                    <BaasicFieldSwitch field={form.$('isCharityWebsiteFeePayedByCharity')} />
                 </div>
                 <div className="form__group col col-sml-12 col-lrg-2">
-                    <BasicFieldCheckbox field={form.$('isGivingCardFeePayedByCharity')} />
+                    <BaasicFieldSwitch field={form.$('isGivingCardFeePayedByCharity')} />
                 </div>
                 <div className="form__group col col-sml-12 col-lrg-2">
-                    <BasicFieldCheckbox field={form.$('isSessionFeePayedByCharity')} />
+                    <BaasicFieldSwitch field={form.$('isSessionFeePayedByCharity')} />
                 </div>
             </div>
             <BaasicFormControls form={form} onSubmit={form.onSubmit} />

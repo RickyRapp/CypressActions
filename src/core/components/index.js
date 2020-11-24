@@ -49,6 +49,8 @@ export { default as BasicFieldRecaptcha } from './forms/BasicFieldRecaptcha';
 export { default as TabHeader } from './tabs/TabHeader';
 export { default as TabsHeader } from './tabs/TabsHeader';
 export { default as BasicCheckbox } from './checkbox/BasicCheckbox';
+export { default as BaasicSwitch } from './checkbox/BaasicSwitch';
+export { default as BaasicFieldSwitch } from './checkbox/BaasicFieldSwitch';
 export { default as BasicQueryCheckbox } from './checkbox/BasicQueryCheckbox';
 export { default as BasicFieldCheckbox } from './checkbox/BasicFieldCheckbox';
 export { default as NullableSwitch } from './checkbox/NullableSwitch';

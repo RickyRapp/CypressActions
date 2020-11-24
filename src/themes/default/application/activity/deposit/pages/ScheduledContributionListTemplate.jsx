@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
-    BaasicTable
+    BaasicTable,
+    TableFilter
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
@@ -11,17 +12,22 @@ import { Content } from 'core/layouts';
 const ScheduledContributionListTemplate = function ({ scheduledContributionViewStore }) {
     const {
         tableStore,
-        authorization
+        authorization,
+        queryUtility
     } = scheduledContributionViewStore;
 
     return (
         <Content>
-            <div className="card--tertiary card--med">
+            <div className="card--tertiary card--med u-mar--bottom--sml">
+                <TableFilter queryUtility={queryUtility} >
+                </TableFilter>
+            </div>
+            <div className="card--primary card--med">
                 <BaasicTable
                     authorization={authorization}
                     tableStore={tableStore}
                     actionsComponent={renderActions}
-                    />
+                />
             </div>
         </Content>
     )

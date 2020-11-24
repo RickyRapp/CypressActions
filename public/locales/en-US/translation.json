@@ -446,6 +446,7 @@
     "GRID": {
         "FILTERS_TITLE": "Filters",
         "FILTERS_BUTTON": "Show/Hide",
+        "EXPAND_FILTERS_BUTTON": "Expand/Collapse",
         "FILTER": {
             "SEARCH_BUTTON": "Search",
             "CLEAR_BUTTON": "Clear"
@@ -600,7 +601,7 @@
                 "CARD_NON_PRESENT_TRANSACTION_AMOUNT_EXCEEDING_PLACEHOLDER": "",
                 "CHECK_AMOUNT_EXCEEDING_LABEL": "Notify me for checks exceeding",
                 "CHECK_AMOUNT_EXCEEDING_PLACEHOLDER": "",
-                "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_LABEL": "Notify me when check inventory runngin low",
+                "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_LABEL": "Notify me when check inventory running low",
                 "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_PLACEHOLDER": "",
                 "THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_LABEL": "Notify me for tranasctions exceed",
                 "THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER": "",
@@ -689,11 +690,19 @@
         "GRANT_FEES": {
             "TITLE": "Fees",
             "FIELDS": {
-                "ONLINE_LABEL": "Online",
-                "GRANT_REQUEST_LABEL": "Grant Request",
-                "CHARITY_WEBSITE_LABEL": "Charity Website",
-                "GIVING_CARD_LABEL": "Giving Card",
-                "SESSION_LABEL": "Checks"
+                "ONLINE_LABEL": "Online grants are free!",
+                "GRANT_REQUEST_LABEL": "Grant request fee is payed by:",
+                "GRANT_REQUEST_LABEL_TRUE": "Me",
+                "GRANT_REQUEST_LABEL_FALSE": "Charity",
+                "CHARITY_WEBSITE_LABEL": "Charity website fee is payed by:",
+                "CHARITY_WEBSITE_LABEL_TRUE": "Me",
+                "CHARITY_WEBSITE_LABEL_FALSE": "Charity",
+                "GIVING_CARD_LABEL": "Giving card fee is payed by:",
+                "GIVING_CARD_LABEL_TRUE": "Me",
+                "GIVING_CARD_LABEL_FALSE": "Charity",
+                "SESSION_LABEL": "Checks fee is payed by:",
+                "SESSION_LABEL_TRUE": "Me",
+                "SESSION_LABEL_FALSE": "Charity"
             }
         }
     },
@@ -941,9 +950,8 @@
             "BOOKLET_ORDER_LIST": "Booklet orders"
         },
         "DEPOSIT_TAB": {
-            "CONTRIBUTION": "Contributions",
-            "SCHEDULED_CONTRIBUTION": "Scheduled Contributions",
-            "FUND_TRANSFER": "Fund Transfers"
+            "CONTRIBUTION": "Deposits",
+            "SCHEDULED_CONTRIBUTION": "Scheduled Deposits"
         },
         "LIST": {
             "COLUMNS": {
@@ -1208,7 +1216,8 @@
                 "CREATE": "Create",
                 "DELETE": "Delete",
                 "REVIEW": "Review",
-                "CANCEL": "Cancel"
+                "CANCEL": "Cancel",
+                "PREVIEW": "Preview"
             }
         },
         "CONFIRM": {

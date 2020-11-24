@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { ContributionList, FundTransferList, ScheduledContributionList } from 'application/activity/deposit/pages';
+import { ContributionList, ScheduledContributionList } from 'application/activity/deposit/pages';
 
 const DepositTabTemplate = function ({ depositTabViewStore }) {
     return (
@@ -14,9 +14,6 @@ const DepositTabTemplate = function ({ depositTabViewStore }) {
                     </div>
                     <div label={'ACTIVITY.DEPOSIT_TAB.SCHEDULED_CONTRIBUTION'}>
                         <ScheduledContributionList />
-                    </div>
-                    <div label={'ACTIVITY.DEPOSIT_TAB.FUND_TRANSFER'}>
-                        <FundTransferList />
                     </div>
                 </TabLayout>
             </div>

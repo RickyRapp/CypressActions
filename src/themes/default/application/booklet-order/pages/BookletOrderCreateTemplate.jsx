@@ -5,10 +5,11 @@ import {
     FormatterResolver,
     BasicInput,
     BasicFieldCheckbox,
-    BasicRadio
+    BasicRadio,
+    BaasicFormControls
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import { ApplicationEditLayout, Content } from 'core/layouts';
+import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
@@ -168,9 +169,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 format={{ type: 'currency' }}
                                                             />
                                                         </span>
-                                                        <div className="type--tny type--color--note">
-                                                            {t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}
-                                                        </div>
+                                                        <div className="type--tny type--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
                                                     </div>
                                                 }
                                                 <div className="col col-sml-5 counter">
@@ -266,9 +265,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 format={{ type: 'currency' }}
                                                             />
                                                         </span>
-                                                        <div className="type--tny type--color--note">
-                                                            {t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}
-                                                        </div>
+                                                        <div className="type--tny type--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
                                                     </div>
                                                 }
                                                 <div className="col col-sml-5 counter">
@@ -416,13 +413,29 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     </BaasicButton>
                 </div>
             </Content>
-        </ApplicationEditLayout >
+            {renderEditLayoutFooterContent({ form })}
+        </ApplicationEditLayout>
     )
 };
 
 BookletOrderCreateTemplate.propTypes = {
     store: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
+};
+
+
+function renderEditLayoutFooterContent({ form }) {
+    return <PageFooter>
+        <div>
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+        </div>
+    </PageFooter>
+}
+
+renderEditLayoutFooterContent.propTypes = {
+    form: PropTypes.any,
+    goBack: PropTypes.func,
+    t: PropTypes.func
 };
 
 export default defaultTemplate(BookletOrderCreateTemplate);

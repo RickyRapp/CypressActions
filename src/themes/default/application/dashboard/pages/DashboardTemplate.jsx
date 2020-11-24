@@ -118,7 +118,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
                             <div className="row u-mar--bottom--med">
                                 <div className="col col-sml-12 col-med-5">
-                                    Donation This <BaasicDropdown store={yearDropdownStore} />
+                                    Donations Per Year <BaasicDropdown store={yearDropdownStore} />
                                 </div>
                             </div>
                             <div className="row u-mar--bottom--med">

@@ -42,6 +42,8 @@ export { default as BaasicRecaptchaTemplate } from './BaasicRecaptchaTemplate';
 export { default as TabHeaderTemplate } from './tabs/TabHeaderTemplate';
 export { default as TabsHeaderTemplate } from './tabs/TabsHeaderTemplate';
 export { default as BasicCheckboxTemplate } from './checkbox/BasicCheckboxTemplate';
+export { default as BaasicSwitchTemplate } from './checkbox/BaasicSwitchTemplate';
+export { default as BaasicFieldSwitchTemplate } from './checkbox/BaasicFieldSwitchTemplate';
 export { default as BasicQueryCheckboxTemplate } from './checkbox/BasicQueryCheckboxTemplate';
 export { default as BasicFieldCheckboxTemplate } from './checkbox/BasicFieldCheckboxTemplate';
 export { default as NullableSwitchTemplate } from './checkbox/NullableSwitchTemplate';
