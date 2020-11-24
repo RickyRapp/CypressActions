@@ -4,6 +4,7 @@
 
 .nav {
     &--primary { 
+        position: relative;
 
         &__close {
             position: absolute;
@@ -54,11 +55,42 @@
             align-items: center;
             padding: calc($unit * 3) calc($unit * 3);
 
-            border-top: 1px solid color($scandal a(20%));
+            border-bottom: 1px solid color($scandal a(20%));
             font-weight: $type-weight-regular;
             color: color($white a(50%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
+
+            &--logout {
+                display: flex;
+                justify-content: center;
+                position: absolute;
+                right: calc($unit * 2);
+                left: calc($unit * 2);
+                bottom: calc(-$unit * 12);
+                padding: calc($unit * 2) calc($unit * 1);
+                border: 1px solid color($scandal a(20%));
+                border-radius: calc($unit / 1.6);  
+                color: color($white a(80%));     
+                cursor: pointer;
+            }
+
+            &--menu {
+                display: flex;
+                position: absolute;
+                right: 0;
+                bottom: calc(-$unit * 27);
+                padding: calc($unit * 2) calc($unit * 1);
+                background-color: $lavander;
+                border-top-left-radius: calc($unit * 1);
+                border-bottom-left-radius: calc($unit * 1);
+                cursor: pointer;
+            }
+
+            &.active {
+                color: $white;
+                background-color: $smalt-blue;
+            }
 
             &:before {
                 content: '';
@@ -335,6 +367,11 @@
             &:hover {
                 color: $white;
                 background-color: color($smalt-blue a(35%));
+            }
+
+            &.active {
+                color: $white;
+                background-color: $smalt-blue;
             }
         }
     }
