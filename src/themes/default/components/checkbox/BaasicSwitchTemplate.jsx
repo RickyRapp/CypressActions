@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicInput } from 'core/components';
+import _ from 'lodash';
 
-function BaasicSwitchTemplate({ id, label, value, onChange, t, disabled }) {
+function BaasicSwitchTemplate({ label, value, onChange, t, disabled }) {
     const onId = _.uniqueId('on_');
     const offId = _.uniqueId('off_');
     return (
         <div className="item u-mar--bottom--sml">
             {label &&
-                <label htmlFor={id}>{t(label)}</label>}
+                <label >{t(label)}</label>}
             <div className="input--switch u-clearfix">
                 <BaasicInput
                     type="radio"

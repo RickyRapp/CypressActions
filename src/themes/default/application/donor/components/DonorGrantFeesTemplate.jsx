@@ -13,8 +13,6 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
         form,
     } = donorGrantFeesViewStore;
 
-    console.log(form.values())
-
     return (
         <EditFormContent form={form} loading={loaderStore.loading}>
             <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.GRANT_FEES.TITLE')}</h3>

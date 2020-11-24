@@ -423,7 +423,6 @@ BookletOrderCreateTemplate.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-
 function renderEditLayoutFooterContent({ form }) {
     return <PageFooter>
         <div>

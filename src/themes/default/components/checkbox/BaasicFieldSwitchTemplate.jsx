@@ -4,7 +4,7 @@ import { BaasicSwitch } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
 function BaasicFieldSwitchTemplate({ field, disabled, onChange }) {
-    const { value, ...otherProps } = field.bind();
+    const { ...otherProps } = field.bind();
     const onChangeFn = e => {
         field.onChange(e);
         if (onChange) {

@@ -142,6 +142,7 @@ function renderActions({ item, actions, actionsRender }) {
 renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
+    actionsRender: PropTypes.object
 };
 
 export default defaultTemplate(TransactionDonorTemplate);

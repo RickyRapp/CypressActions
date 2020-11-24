@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { isSome } from 'core/utils';
 import { TableViewStore } from 'core/stores';
 import { SimpleBaasicTable } from 'core/components';
 
-const MonthlyFeeJsonTemplate = function ({ modalParams, t }) {
+const MonthlyFeeJsonTemplate = function ({ modalParams }) {
     const {
         data
     } = modalParams;
