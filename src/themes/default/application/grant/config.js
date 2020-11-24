@@ -70,6 +70,7 @@ import GrantRequest from 'application/grant/pages/GrantRequest';
         menu: [
             {
                 title: 'MENU.GRANTS',
+                icon: 'grant',
                 order: 3,
                 role: ['Administrators'],
                 route: 'master.app.main.grant.list'

@@ -42,6 +42,7 @@ import { SessionModuleStore } from 'application/session/stores';
         menu: [
             {
                 title: 'MENU.SESSION',
+                icon: 'sessions',
                 order: 8,
                 authorization: 'theDonorsFundAdministrationSection.read',
                 route: 'master.app.main.session.tab'

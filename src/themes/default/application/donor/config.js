@@ -51,6 +51,7 @@ import { DonorModuleStore } from 'application/donor/stores';
         menu: [
             {
                 title: 'MENU.DONORS',
+                icon: 'donors',
                 order: 5,
                 role: ['Administrators'],
                 route: 'master.app.main.donor.list',

@@ -7,18 +7,16 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-function PageHeaderTemplate({ children, rootStore, t, coreResolving, ...props }) {
+function PageHeaderTemplate({ children, rootStore, t, coreResolving, menuStore, ...props }) {
     const {
         viewStore: {
             toggleProfileMenu,
             setProfileMenu,
-            profileMenuOpen,
+            profileMenuOpen
         },
     } = rootStore;
 
-    const activeRoute = _.find(rootStore.routerStore.routes, {
-        name: rootStore.routerStore.routerState.routeName
-    });
+    const activeRoute = rootStore.routerStore.routes.find(c => c.name === rootStore.routerStore.routerState.routeName);
     const title = (activeRoute.data ? activeRoute.data.title : '');
 
     return (
@@ -57,7 +55,7 @@ function PageHeaderTemplate({ children, rootStore, t, coreResolving, ...props })
                                             <li className='header__profile__dropdown__item'
                                                 onClick={() => {
                                                     toggleProfileMenu();
-                                                    routerStore.goTo('master.app.main.donor-profile', { id: rootStore.userStore.user.id })
+                                                    rootStore.routerStore.goTo('master.app.main.donor-profile', { id: rootStore.userStore.user.id })
                                                 }}> {t('HEADER.USER_MENU.MY_PROFILE')}
                                             </li>}
                                         <li className='header__profile__dropdown__item'
@@ -82,7 +80,8 @@ PageHeaderTemplate.propTypes = {
     children: PropTypes.any,
     t: PropTypes.func,
     coreResolving: PropTypes.bool,
-    rootStore: PropTypes.object
+    rootStore: PropTypes.object,
+    menuStore: PropTypes.object,
 };
 
 function renderHeaderContent(children, props, t, title) {

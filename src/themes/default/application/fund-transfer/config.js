@@ -33,6 +33,7 @@ import { FundTransferList, FundTransferCreate } from 'application/fund-transfer/
             {
                 title: 'MENU.FUND_TRANSFERS',
                 role: ['Administrators'],
+                icon: 'transfer',
                 order: 7,
                 route: 'master.app.main.fund-transfer.list'
             },

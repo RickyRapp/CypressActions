@@ -17,6 +17,11 @@ class DonorService extends BaseService {
     return this.apiClient.put(url, resource);
   }
 
+  updateGrantFees(resource) {
+    const url = this.routeService.updateGrantFees(resource);
+    return this.apiClient.put(url, resource);
+  }
+
   register(resource) {
     var url = this.routeService.register();
     return this.apiClient.post(url, resource);
@@ -54,6 +59,11 @@ class DonorService extends BaseService {
 
   getDonorLoginProfile(id) {
     const url = this.routeService.getDonorLoginProfile(id);
+    return this.apiClient.get(url);
+  }
+
+  getDonor(id, options) {
+    const url = this.routeService.get(id, options);
     return this.apiClient.get(url);
   }
 

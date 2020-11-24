@@ -36,7 +36,7 @@ class DonorEmailAddressEditForm extends Component {
                         </div>
                     </div>
                     <BaasicButton
-                        className='btn btn--base btn--primary'
+                        className='btn btn--base btn--primary u-push'
                         type='submit'
                         label='Submit'
                     />

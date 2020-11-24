@@ -1,5 +1,10 @@
 {
     "MENU": {
+        "FOOTER": {
+            "LOGOUT": "Logout",
+            "COLLAPSE": "Collapse",
+            "EXPAND": "Expand"
+        },
         "USERS": "Users",
         "ROLES": "Roles",
         "PERMISSIONS": "Permissions",
@@ -654,15 +659,15 @@
             }
         },
         "AUTOMATIC_CONTRIBUTION_SETTING": {
-            "TITLE": "Automatic contribution setting",
+            "TITLE": "Balance protection plan",
             "EDIT": {
                 "FIELDS": {
                     "BANK_ACCOUNT_LABEL": "Bank account",
                     "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
-                    "AMOUNT_LABEL": "Max amount",
-                    "AMOUNT_PLACEHOLDER": "Max amount",
-                    "LOW_BALANCE_AMOUNT_LABEL": "Low balance amount",
-                    "LOW_BALANCE_AMOUNT_PLACEHOLDER": "Low balance amount",
+                    "AMOUNT_LABEL": "Amount",
+                    "AMOUNT_PLACEHOLDER": "Amount",
+                    "LOW_BALANCE_AMOUNT_LABEL": "When my balance falls below",
+                    "LOW_BALANCE_AMOUNT_PLACEHOLDER": "",
                     "IS_ENABLED_LABEL": "Is enabled",
                     "IS_ENABLED_PLACEHOLDER": "Is enabled"
                 }
@@ -681,14 +686,14 @@
                 }
             }
         },
-        "PAGE_HEADER": {
-            "OVERVIEW": {
-                "PRESENT_BALANCE": "Present:",
-                "AVAILABLE_BALANCE": "Available:",
-                "ACTIVITY": "Activity",
-                "CONTRIBUTION": "Contributions",
-                "GRANT": "Grants",
-                "LOGIN": "Login"
+        "GRANT_FEES": {
+            "TITLE": "Fees",
+            "FIELDS": {
+                "ONLINE_LABEL": "Online",
+                "GRANT_REQUEST_LABEL": "Grant Request",
+                "CHARITY_WEBSITE_LABEL": "Charity Website",
+                "GIVING_CARD_LABEL": "Giving Card",
+                "SESSION_LABEL": "Checks"
             }
         }
     },

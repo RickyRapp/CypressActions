@@ -41,45 +41,61 @@ import { RouterState } from 'mobx-state-router';
         ],
         menu: [
             {
+                title: 'MENU.GIVE',
+                icon: 'give',
+                order: 1,
+                role: ['Users'],
+                subMenu: [
+                    {
+                        title: 'MENU.NEW_GRANT',
+                        icon: 'grant',
+                        order: 1,
+                        role: ['Users'],
+                        route: 'master.app.main.grant.create',
+                    }
+                ]
+            },
+            {
                 title: 'MENU.DASHBOARD',
                 icon: 'dashboard',
-                order: 1,
+                order: 2,
                 route: 'master.app.main.dashboard'
             },
             {
                 title: 'MENU.ACTIVITY',
                 icon: 'activity',
-                order: 2,
+                order: 3,
                 route: 'master.app.main.activity.all',
                 role: ['Users']
             },
             {
                 title: 'MENU.CONTRIBUTIONS',
                 icon: 'contribution',
-                order: 3,
+                order: 4,
                 route: 'master.app.main.contribution.create',
                 role: ['Users']
             },
             {
-                title: 'MENU.NEW_GRANT',
-                icon: 'grant',
-                order: 4,
-                role: ['Users'],
-                route: 'master.app.main.grant.create',
-            },
-            {
-                title: 'MENU.PROFILE_SETTING',
-                icon: 'profile',
+                title: 'MENU.MANAGE_FUND',
+                icon: 'administration',
                 order: 5,
                 role: ['Users'],
-                route: 'master.app.main.donor-profile'
-            },
-            {
-                title: 'MENU.ORDER_VOUCHERS',
-                icon: 'booklet-order',
-                order: 6,
-                role: ['Users'],
-                route: 'master.app.main.booklet-order.create'
+                subMenu: [
+                    {
+                        title: 'MENU.PROFILE_SETTING',
+                        icon: 'profile',
+                        order: 1,
+                        role: ['Users'],
+                        route: 'master.app.main.donor-profile'
+                    },
+                    {
+                        title: 'MENU.ORDER_VOUCHERS',
+                        icon: 'booklet-order',
+                        order: 2,
+                        role: ['Users'],
+                        route: 'master.app.main.booklet-order.create'
+                    },
+                ]
             },
             {
                 title: 'MENU.CHARITY_PROFILE_SETTING',

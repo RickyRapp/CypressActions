@@ -7,9 +7,9 @@
         margin-bottom: calc($unit * 2);
 
         &__label {
+            @mixin type-scale $type-small, 1;
             font-weight: $type-weight-medium;
-            line-height: 25px;
-            margin-bottom: calc($unit / 2);
+            /* margin-bottom: calc($unit / 2); */
         }
     }
 

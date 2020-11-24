@@ -1,18 +1,18 @@
 import React from 'react';
-import { PageNavigation, PageHeader, PageFooter, Content } from 'core/layouts';
+import { PageHeader, PageFooter, Content } from 'core/layouts';
 import { getPageObject } from 'core/utils';
 import { defaultTemplate } from 'core/hoc';
 import { PropTypes } from 'prop-types';
 
 function PageTemplate({ children, rootStore, loading = false, isError = false, empty = false, emptyRenderer = null }) {
-    const { header, footer, navigation, content } = getPageObject(children);
+    const { header, footer, content } = getPageObject(children);
 
     // we should hide whole content when user or application is being resolved
     let coreResolving = rootStore.userStore.resolving;
 
     return (
         <React.Fragment>
-            <PageHeader {...(header ? header[0].props : {})} coreResolving={coreResolving} rootStore={rootStore} />
+            <PageHeader {...(header ? header[0].props : {})} coreResolving={coreResolving} />
 
             <div className='container'>
                 {/* {
@@ -38,7 +38,7 @@ function PageTemplate({ children, rootStore, loading = false, isError = false, e
     );
 }
 
-const MainContent = defaultTemplate(({ loading, header, footer, content, isError }) => {
+const MainContent = defaultTemplate(({ loading, content, isError }) => {
     return (
         <React.Fragment>
             {/* can't wrap header and footer in Content so hide them while loading (because loader needs content__main as parent) */}

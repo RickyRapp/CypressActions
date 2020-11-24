@@ -84,8 +84,8 @@
         }
 
         &.checked {
-            background-color: $zest-dark; 
-            
+            background-color: $color-background-seashellt;  
+
             &::after {
                 content: "";
                 width: calc($unit / 1.7);

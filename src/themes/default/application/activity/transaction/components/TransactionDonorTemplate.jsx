@@ -57,6 +57,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                             <span className="type--base type--wgt--bold type--color--note">SHOW PENDING TRANSACTIONS</span>
                             <BaasicButton
                                 className="btn btn--icon"
+                                onlyIconClassName="u-mar--right--sml"
                                 icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down'} u-icon--sml`}
                                 label='EXPAND'
                                 onlyIcon={true}

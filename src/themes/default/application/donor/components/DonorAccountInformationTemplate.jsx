@@ -13,7 +13,9 @@ import {
     DonorAddressList,
     DonorEmailAddressList,
     DonorPhoneNumberList,
-    DonorBankAccountList
+    DonorBankAccountList,
+    DonorAutomaticContributionSetting,
+    DonorGrantFees
 } from 'application/donor/components';
 
 function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }) {
@@ -78,6 +80,12 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorBankAccountList donorId={id} />
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <DonorAutomaticContributionSetting donorId={id} />
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <DonorGrantFees donorId={id} />
                 </div>
             </div>
         </div>

@@ -102,7 +102,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                                     <i className="u-icon u-icon--med u-icon--download u-push"></i>
                                                 </div>
                                                 <div className="col col-sml-10">
-                                                    <h5 className="type--med type--wgt--medium">{c.name}</h5>
+                                                    <h5 className={c.id !== form.$('paymentTypeId').value ? "type--med type--wgt--medium" : "type--med type--wgt--medium type--color--note"}>{c.name}</h5>
                                                 </div>
                                             </div>
                                         </div>

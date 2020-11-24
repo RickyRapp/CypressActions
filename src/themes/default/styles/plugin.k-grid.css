@@ -4,6 +4,7 @@
 
 /* Header sort icon color */
 .k-grid-header {
+
 	.k-icon {
 		color: $color-note;
 		order: 1;
@@ -11,8 +12,14 @@
 
 	.k-header {
 
+		color: $color-opaque;
+		@mixin type-scale $type-small, 1;
+		font-weight: $type-weight-bold;
+		border-bottom: 1px solid $grey-3;
+
 		&:last-child {		
 			max-width: calc($unit * 26);
+			text-align: right;
 		}
 	}
 
@@ -112,7 +119,9 @@
 
 	tbody {
 		tr {
+			color: $color-text;
 			background-color: #ffffff;
+			font-weight: $type-weight-regular;
 
 			&:hover {
 				background-color: #f6f8f9;

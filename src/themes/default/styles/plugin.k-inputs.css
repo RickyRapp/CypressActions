@@ -50,3 +50,7 @@
         background-color: $downy !important;  
     }
 }
+
+.k-numerictextbox .k-numeric-wrap {
+    border-width: 0;
+}

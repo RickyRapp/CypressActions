@@ -42,6 +42,7 @@ import { UserList, UserEdit, UserCreate } from 'application/administration/user/
         menu: [
             {
                 title: 'MENU.USERS',
+                icon: 'users',
                 order: 6,
                 route: 'master.app.main.user.list',
                 role: ['Administrators']

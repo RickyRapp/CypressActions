@@ -42,6 +42,7 @@ import { BookletOrderModuleStore } from 'application/booklet-order/stores';
         menu: [
             {
                 title: 'MENU.BOOKLET_ORDERS',
+                icon: 'booklet-order',
                 order: 4,
                 route: 'master.app.main.booklet-order.list',
                 role: ['Administrators']

@@ -23,6 +23,7 @@ import { ThirdPartyWebsiteList } from 'application/administration/third-party-we
         menu: [
             {
                 title: 'MENU.THIRD_PARTY_WEBSITE',
+                icon: 'third-party-website',
                 order: 7,
                 route: 'master.app.main.third-party-website.list',
                 role: ['Administrators']
