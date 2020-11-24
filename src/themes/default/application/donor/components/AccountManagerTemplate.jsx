@@ -5,7 +5,7 @@ import { Gravatar } from 'core/components';
 
 class AccountManagerTemplate extends Component {
     render() {
-        const { rootStore, t } = this.props;
+        const { rootStore } = this.props;
 
         return (
             <React.Fragment>
@@ -27,7 +27,8 @@ class AccountManagerTemplate extends Component {
 }
 
 AccountManagerTemplate.propTypes = {
-    t: PropTypes.func
+    t: PropTypes.func,
+    rootStore: PropTypes.object
 };
 
 export default defaultTemplate(AccountManagerTemplate);

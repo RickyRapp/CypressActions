@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
     BasicFieldCheckbox,
@@ -19,10 +18,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
     } = donorAutomaticContributionSettingViewStore;
 
     return (
-        <EditFormContent form={form}
-            emptyRenderer={<ApplicationEmptyState />}
-            loading={loaderStore.loading}
-        >
+        <EditFormContent form={form} loading={loaderStore.loading}>
             <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-4">

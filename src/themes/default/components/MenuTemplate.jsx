@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { inject } from 'mobx-react';
 import { PropTypes } from 'prop-types';
 import { NotifyOutsideClick } from 'core/components';

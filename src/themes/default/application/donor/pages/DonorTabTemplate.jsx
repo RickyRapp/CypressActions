@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate, withAuth } from 'core/hoc';
-import { TabLayout, Page, PageHeader } from 'core/layouts';
+import { Page, PageHeader } from 'core/layouts';
 import { DonorAccountInformation, DonorSecurityAndPreferencesData, DonorCommunicationPreference } from 'application/donor/components';
 import { DonorNoteList } from 'application/donor-note/pages';
 import { EmailList } from 'application/email/pages';

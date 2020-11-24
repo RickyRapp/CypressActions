@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Loader, Menu } from 'core/components';
+import { Loader, Menu } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicConfirmModal } from 'core/components';
 

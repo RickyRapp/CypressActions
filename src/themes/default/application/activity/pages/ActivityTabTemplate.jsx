@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Page, PageHeader, TabLayout } from 'core/layouts';
+import { Page, PageHeader } from 'core/layouts';
 import { GrantTab } from 'application/activity/grant/pages';
 import { DepositTab } from 'application/activity/deposit/pages';
 import { TransactionTab } from 'application/activity/transaction/pages';

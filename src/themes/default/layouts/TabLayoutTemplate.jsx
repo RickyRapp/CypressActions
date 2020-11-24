@@ -30,6 +30,7 @@ TabLayoutTemplate.propTypes = {
     children: PropTypes.any,
     showNavigation: PropTypes.bool,
     loading: PropTypes.bool,
+    activeClassName: PropTypes.string,
 };
 
 // vice-versa compatibility with settings props as well as using store
