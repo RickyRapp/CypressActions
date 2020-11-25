@@ -643,19 +643,14 @@
             "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
         },
         "THIRD_PARTY_WEBSITE_SETTING": {
-            "TITLE": "Third party website setting",
+            "TITLE": "Third party websites",
             "EDIT": {
                 "FIELDS": {
-                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Grant acknowledgment",
-                    "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Grant acknowledgment",
-                    "GRANT_PURPOSE_TYPE_LABEL": "Purpose type",
-                    "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Purpose type",
-                    "MAX_AMOUNT_LABEL": "Max amount",
-                    "MAX_AMOUNT_PLACEHOLDER": "Max amount",
-                    "MAX_TIMES_PER_DAY_LABEL": "Max times per day",
-                    "MAX_TIMES_PER_DAY_PLACEHOLDER": "Max times per day",
-                    "IS_ENABLED_LABEL": "Is enabled",
-                    "IS_ENABLED_PLACEHOLDER": "Is enabled"
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
+                    "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                    "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                    "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                    "IS_ENABLED_LABEL": "Is enabled"
                 }
             }
         },
@@ -675,15 +670,12 @@
             }
         },
         "CERTIFICATE_SETTING": {
-            "TITLE": "Certificate setting",
+            "TITLE": "Checks",
             "EDIT": {
                 "FIELDS": {
-                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Default grant acknowledgment",
-                    "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Grant acknowledgment",
-                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Grant acknowledgment when exceed amount",
-                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_PLACEHOLDER": "Grant acknowledgment by amount",
-                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Grant acknowledgment when exceeding the amount",
-                    "ACKNOWLEDGMENT_BY_AMOUNT_PLACEHOLDER": "Amount"
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Default share information",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Share informations when exceed amount",
+                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Share information for transactions that exceeds amount"
                 }
             }
         },

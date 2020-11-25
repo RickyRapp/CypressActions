@@ -32,16 +32,16 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-lrg-2">
+                    <div className="form__group col col-lrg-3">
                         <NumericInputField field={form.$('maxAmount')} />
                     </div>
-                    <div className="form__group col col-lrg-2">
+                    <div className="form__group col col-lrg-3">
                         <NumericInputField field={form.$('maxTimesPerDay')} />
                     </div>
                 </div>
