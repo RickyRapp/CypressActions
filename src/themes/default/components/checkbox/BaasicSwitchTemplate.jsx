@@ -16,9 +16,9 @@ function BaasicSwitchTemplate({ label, value, onChange, t, disabled }) {
                     type="radio"
                     id={onId}
                     name={onId}
-                    checked={value === true}
+                    checked={value === false}
                     onChange={(e) => {
-                        e.target.checked = true;
+                        e.target.checked = false;
                         onChange(e);
                     }
                     }
@@ -30,9 +30,9 @@ function BaasicSwitchTemplate({ label, value, onChange, t, disabled }) {
                     type="radio"
                     id={offId}
                     name={offId}
-                    checked={value === false}
+                    checked={value === true}
                     onChange={(e) => {
-                        e.target.checked = false;
+                        e.target.checked = true;
                         onChange(e);
                     }
                     }
