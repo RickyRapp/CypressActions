@@ -24,8 +24,12 @@ function DashboardTemplate({ dashboardViewStore, t }) {
     let dataGrants = [];
     let dataContributions = [];
     if (donor) {
-        dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
-        dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
+        if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
+            dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
+        }
+        if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
+            dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
+        }
     }
 
     const LineChartContainer = () => (
