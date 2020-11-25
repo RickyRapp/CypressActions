@@ -115,7 +115,7 @@ const DonationReviewTemplate = function ({ donationReviewViewStore, t }) {
                 <BaasicButton
                     type="button"
                     label='FORM_CONTROLS.SAVE_BUTTON'
-                    className='btn btn--sml btn--primary u-push'
+                    className='btn btn--med btn--med--wide btn--primary u-push'
                     onClick={onReviewClick}
                     disabled={disableSave}
                     rotate

@@ -78,7 +78,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                 </div>
                                 <div className="col col-sml-12 col-lrg-1 u-mar--bottom--med">
                                     <BaasicButton
-                                        className="btn btn--med btn--primary"
+                                        className="btn btn--med btn--med--wide btn--primary"
                                         label={t('CONTRIBUTION.CREATE.LINK')}
                                         onClick={() => onSelectPaymentType(c.id)}
                                     />
@@ -164,8 +164,10 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
                                             </div>
+                                            <div className="col col-sml-12">
+                                                <BaasicFormControls form={form} onSubmit={onSubmitClick} type='button' className="btn btn--med btn--secondary u-push"/>
+                                            </div>
                                         </div>
-                                        <BaasicFormControls form={form} onSubmit={onSubmitClick} type='button' />
                                     </div>
                                     <BaasicModal modalParams={confirmModal}>
                                         <ContributionConfirmTemplate form={form} />
@@ -177,7 +179,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                                     <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                                     <BaasicButton
-                                        className="btn btn--base btn--tertiary type--uppercase u-mar--top--med"
+                                        className="btn btn--med btn--secondary  u-mar--top--med"
                                         label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                         onClick={routes.allContributions}>
                                     </BaasicButton>
@@ -248,7 +250,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                             <h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                             <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                             <BaasicButton
-                                className="btn btn--base btn--secondary type--uppercase u-mar--top--med"
+                                className="btn btn--base btn--secondary  u-mar--top--med"
                                 label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                 onClick={routes.allContributions}>
                             </BaasicButton>

@@ -33,7 +33,9 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
                     <BaasicFieldSwitch field={form.$('isSessionFeePayedByCharity')} />
                 </div>
             </div>
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            <div className="type--right">
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            </div>
         </EditFormContent>
     )
 }

@@ -63,7 +63,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                     </div>
                 </div>
 
-                <div className="u-mar--bottom--sml">
+                <div className="u-mar--bottom--sml type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </EditFormContent>

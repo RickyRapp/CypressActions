@@ -13,7 +13,7 @@ const ExportTemplate = function ({ store, t }) {
     } = store;
 
     return (
-        <div className="row">
+        <div className="row row__align--end">
             <div className="col col-sml-1">
                 <label className="form__group__label">{t('EXPORT_TYPES')}</label>
                 <BaasicDropdown store={exportTypeStore} />
@@ -28,7 +28,7 @@ const ExportTemplate = function ({ store, t }) {
             </div>
             <div className="col col-sml-2">
                 <BaasicButton
-                    className="btn btn--primary btn--sml u-mar--top--med"
+                    className="btn btn--primary btn--med btn--med--wide"
                     onClick={onExportClick}
                     label={t('EXPORT')}
                     icon={loading ? 'synchronize-arrows-1 rotate' : ''}

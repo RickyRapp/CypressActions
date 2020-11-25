@@ -63,7 +63,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                     </div>
                 </div>
 
-                <div className="u-mar--bottom--med">
+                <div className="u-mar--bottom--med type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </EditFormContent>

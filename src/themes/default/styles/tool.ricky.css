@@ -41,6 +41,13 @@ $grid-columns: 12;
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
+
+    &__align {
+        
+        &--end {
+            align-items: flex-end;
+        }
+    }
 }
 
 /**

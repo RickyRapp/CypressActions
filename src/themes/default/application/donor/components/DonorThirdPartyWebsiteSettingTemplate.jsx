@@ -45,7 +45,9 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
                         <NumericInputField field={form.$('maxTimesPerDay')} />
                     </div>
                 </div>
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                <div className="type--right">
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                </div>
             </EditFormContent>
         </div>
     )
