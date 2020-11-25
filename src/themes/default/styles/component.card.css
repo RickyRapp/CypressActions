@@ -20,9 +20,12 @@
     }
     
     &--tertiary {
-       background-color: $scandal;
+        background-color: $white;
+        border-radius: $radius-base;
+        box-shadow: $shadow-card; 
+       /* background-color: $scandal;
        border-radius: $radius-base;
-       box-shadow: $shadow-card; 
+       box-shadow: $shadow-card;  */
 
        &--light {
         background-color: $color-background-clear-day;
