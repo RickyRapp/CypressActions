@@ -83,11 +83,12 @@
     }
 
     &--secondary {
-        background: $zest;;
-        color: $white;
+        background: $lavander;
+        color: $color-text;
         
         &:hover {
-            background: $color-text;
+            color: color($color-text a(80%));
+            background: color($lavander a(80%));
         }
         
         &--light {
@@ -101,11 +102,12 @@
     }
 
     &--tertiary {
-        background: $color-background-seashellt;
+        background: $white;
         color: $zest;
 
         &:hover {
-            background: color($color-background-seashellt blackness(+5%));
+            background: $lavander;
+            color: $color-text;
         }
     }
 

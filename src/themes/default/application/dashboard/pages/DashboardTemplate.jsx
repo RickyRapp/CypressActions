@@ -130,31 +130,31 @@ function DashboardTemplate({ dashboardViewStore, t }) {
                     </div>
                     {donor && (!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) &&
                         <div className="col col-sml-12 col-lrg-12">
-                            <div className="card card--tertiary card--med u-mar--bottom--med u-mar--top--med">
-                                <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}</h3>
-                                <div className="row">
+                            <div className="card card--med u-mar--bottom--med u-mar--top--med">
+                                <h3 className="type--med type--wgt--medium u-mar--bottom--med type--center">{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}</h3>
+                                <div className="u-display--flex u-display--flex--justify--center">
                                     {!donor.IsInvestmentMade &&
-                                        <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--bottom--sml">
+                                        <div className="u-mar--right--med">
                                             <BaasicButton
-                                                className="btn btn--med btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
+                                                className="btn btn--med btn--tertiary type--uppercase"
                                                 onlyIconClassName="u-mar--right--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS'
                                             />
                                         </div>}
                                     {!donor.isBookletOrderMade &&
-                                        <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--bottom--sml">
+                                        <div className="u-mar--right--med">
                                             <BaasicButton
-                                                className="btn btn--med btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
+                                                className="btn btn--med btn--tertiary type--uppercase"
                                                 onlyIconClassName="u-mar--right--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.ORDER_CERTIFICATES'
                                             />
                                         </div>}
                                     {!donor.isContributionMade &&
-                                        <div className="col col-sml-12 col-med-4 col-lrg-3 u-mar--bottom--sml">
+                                        <div className="u-mar--right--med">
                                             <BaasicButton
-                                                className="btn btn--med btn--tertiary type--sml type--uppercase type--wide u-padd--left--med"
+                                                className="btn btn--med btn--tertiary type--uppercase"
                                                 onlyIconClassName="u-mar--right--med"
                                                 icon='u-icon u-icon--arrow-right u-icon--sml'
                                                 label='DASHBOARD.BUTTON.NEW_CONTRIBUTION'
