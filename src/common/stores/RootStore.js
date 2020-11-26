@@ -49,7 +49,6 @@ export default class RootStore {
         this.notificationStore = new NotificationStore(this);
         this.viewStore = new MainViewStore(this);
         this.baasicMessageStore = new BaasicMessageStore(this);
-        // this.applicationStore = new ApplicationStore(this);
         this.modalStore = new ModalStore(this);
         this.timeZoneStore = new TimeZoneStore(this);
 

@@ -28,6 +28,9 @@ class LoginViewStore extends BaseViewStore {
 
     @action async login({ username, password }) {
         this.loaderStore.suspend();
+        if (this.rootStore.authStore.isAuthenticated) {
+            await this.rootStore.viewStore.logout();
+        }
         try {
             await this.app.membershipModule.login.login({ username, password, options: ['sliding'] });
             const redirect = this.rootStore.authStore.getSignInRedirect();
