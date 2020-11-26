@@ -55,7 +55,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                 <div className="form__group col col-sml-12 col-lrg-4">
                                     <BasicInput field={form.$('fundName')} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-lrg-4">
+                                <div className="form__group col col-sml-12 col-lrg-3">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
                             </div>

@@ -7,6 +7,21 @@
     justify-content: center;
     align-items: center;
 
+    &__icon {
+        width: calc($unit * 2);
+        height: calc($unit * 2);
+        background-size: calc($unit * 2);
+        transition: all 250ms ease-in-out;
+        
+        &--plus {
+            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
+        }
+        
+        &--minus {
+            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
+        }
+    }
+
     &__btn {       
         display: flex;
         justify-content: center;
@@ -26,49 +41,35 @@
     
         transition: all 250ms ease-in-out;
 
-        &:first-child {
+        &--minus {
             border-top-left-radius: $radius-base;
             border-bottom-left-radius: $radius-base;
-    
+
             &:hover {
                 border: 1px solid $zest;
+
+                & .counter__icon--minus {
+                    background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $color-note);
+                }
             }
         }
         
-        &:last-child {
+        &--plus{
             border-top-right-radius: $radius-base;
             border-bottom-right-radius: $radius-base;
     
             &:hover {
                 border: 1px solid $zest;
+
+                & .counter__icon--plus {
+                    background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $color-note);
+                }
             }
         }
         
         &--count {
             cursor: default;
-        }
-    }
-
-    &__icon {
-        width: calc($unit * 2);
-        height: calc($unit * 2);
-        background-size: calc($unit * 2);
-        transition: all 250ms ease-in-out;
-        
-        &--plus {
-            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
-            
-            &:hover {
-                background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $color-note);
-            }
-        }
-        
-        &--minus {
-            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
-            
-            &:hover {
-                background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $color-note);
-            }
+            border-radius: 0;
         }
     }
 }

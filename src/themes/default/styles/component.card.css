@@ -23,13 +23,10 @@
         background-color: $white;
         border-radius: $radius-base;
         box-shadow: $shadow-card; 
-       /* background-color: $scandal;
-       border-radius: $radius-base;
-       box-shadow: $shadow-card;  */
 
        &--light {
-        background-color: $color-background-clear-day;
-        border: 1px solid $scandal;
+        background-color: $color-background-seashellt;
+        border: 1px solid $zest-dark;
        }
     }
 

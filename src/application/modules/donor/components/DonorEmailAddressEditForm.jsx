@@ -29,7 +29,7 @@ class DonorEmailAddressEditForm extends Component {
                         </div>
                     </div>
 
-                    <BaasicFormControls form={formEmailAddress} onSubmit={formEmailAddress.onSubmit} className="btn btn--base btn--primary u-push" />
+                    <BaasicFormControls form={formEmailAddress} onSubmit={formEmailAddress.onSubmit} className="btn btn--base btn--secondary u-push" />
                 </form>
             </section>
         );

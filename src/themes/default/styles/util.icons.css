@@ -72,7 +72,7 @@
                 background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
             }
             &--primary {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-text);
             }
         }
 

@@ -25,7 +25,7 @@ class DonorPhoneNumberEditForm extends Component {
                         </div>
                     </div>
 
-                    <BaasicFormControls form={formPhoneNumber} onSubmit={formPhoneNumber.onSubmit} className="btn btn--base btn--primary u-push" />
+                    <BaasicFormControls form={formPhoneNumber} onSubmit={formPhoneNumber.onSubmit} className="btn btn--base btn--secondary u-push" />
                 </form>
             </section>
         );
