@@ -41,7 +41,7 @@ BaasicFormControlsTemplate.propTypes = {
 BaasicFormControlsTemplate.defaultProps = {
     validation: {},
     label: 'FORM_CONTROLS.SAVE_BUTTON',
-    className: 'btn btn--med btn--med--wide btn--secondary',
+    className: 'btn btn--med btn--med--wide btn--primary',
 };
 
 export default defaultTemplate(BaasicFormControlsTemplate);

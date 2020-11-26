@@ -13,13 +13,13 @@ function SessionTabTemplate({ sessionTabViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={sessionTabViewStore}>
-                    <div label={'SESSION.TAB.LIST'}>
+                    <div label={'SESSION.TAB.LIST'} className="u-mar--top--sml">
                         <SessionList />
                     </div>
-                    <div label={'SESSION.TAB.IN_PROGRESS'}>
+                    <div label={'SESSION.TAB.IN_PROGRESS'} className="u-mar--top--sml">
                         <SessionInProgressList />
                     </div>
-                    <div label={'SESSION.TAB.PENDING_CERTIFICATE'}>
+                    <div label={'SESSION.TAB.PENDING_CERTIFICATE'} className="u-mar--top--sml">
                         <SessionPendingCertificateList />
                     </div>
                 </TabLayout>

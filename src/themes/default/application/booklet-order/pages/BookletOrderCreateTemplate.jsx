@@ -270,7 +270,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 }
                                                 <div className="col col-sml-5 counter">
                                                     <BaasicButton
-                                                        className="counter__btn"
+                                                        className="counter__btn counter__btn--minus"
                                                         icon={'counter__icon counter__icon--minus'}
                                                         label='REMOVE'
                                                         onlyIcon={true}
@@ -285,7 +285,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                         onClick={() => { }}>
                                                     </BaasicButton>
                                                     <BaasicButton
-                                                        className="counter__btn"
+                                                        className="counter__btn counter__btn--plus"
                                                         icon={'counter__icon counter__icon--plus'}
                                                         label='ADD'
                                                         onlyIcon={true}

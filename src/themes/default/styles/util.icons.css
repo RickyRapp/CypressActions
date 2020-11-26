@@ -367,7 +367,7 @@
             &:active,
             &:focus {
                 outline: 0;
-                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-note);
+                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: color($color-note a(80%)));
             }
             
             &--success {

@@ -46,15 +46,16 @@
 .k-pager-nav {
 	color: $color-primary;
 	border-radius: $radius-base;
+	cursor: pointer;
 
 	&:hover {
 		color: $color-primary;
-		background-color: color($color-primary a(0.1));
+		background-color: color($bali-hai a(0.1));
 	}
 }
 
 .k-pager-numbers .k-state-selected {
-	background-color: $color-primary;
+	background-color: $bali-hai;
 	color: #fff;
 
 	border-radius: $radius-base;
@@ -62,7 +63,7 @@
 	transition: all 250ms ease-in-out;
 
 	&:hover {
-		background: color($color-primary blackness(+10%));
+		background: color($bali-hai blackness(+10%));
 		color: #fff;
 	}
 }

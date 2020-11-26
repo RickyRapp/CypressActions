@@ -25,13 +25,13 @@
         box-shadow: $shadow-card; 
 
        &--light {
-        background-color: $color-background-seashellt;
-        border: 1px solid $zest-dark;
+        background-color: $color-background-clear-day;
+        border: 1px solid $scandal;
        }
     }
 
     &--form {
-        background-color: $color-background-seashellt;
+        background-color: color($color-background-seashellt a(60%));
         border-radius: $radius-base;
         box-shadow: $shadow-card; 
     }
@@ -56,7 +56,7 @@
         transition: all 250ms ease-in-out;
 
         &:hover {
-            background-color: $color-background-seashellt;
+            background-color: color($color-background-seashellt a(85%));
             
             &::after {
                 content: "";

@@ -40,14 +40,14 @@
 .k-list .k-item {
     height: calc($unit * 7);
     color: $color-text;
-    background-color: $color-background-clear-day;
+    background-color: $color-background;
 
     &:hover {
-        background-color: $scandal;
+        background-color: color($bali-hai a(40%));
     }
 
     &.k-state-selected {
-        background-color: $downy !important;  
+        background-color: $bali-hai !important;  
     }
 }
 
