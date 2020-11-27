@@ -39,8 +39,8 @@ class SearchFilterTemplate extends React.Component {
 
         return <React.Fragment>
             <div className="row">
-                <div className="col col-sml-12">
-                    <div className='inputgroup u-mar--bottom--sml w--400--px'>
+                <div className="col col-sml-12 col-med-4">
+                    <div className='inputgroup u-mar--bottom--sml'>
                         <div className='inputgroup--main u-mar--top--sml'>
                             <input className={className} type="text" placeholder={placeholder}
                                 value={queryUtility.filter[propertyName] || ""}

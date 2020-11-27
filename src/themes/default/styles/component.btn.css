@@ -48,6 +48,10 @@
         height: calc($unit * 6);
         padding: 0 calc($unit * 2);
         line-height: calc($unit * 6);
+
+        &--wide {
+            padding: 0 calc($unit * 4);
+        }
     }
     
     &--base {
@@ -121,8 +125,8 @@
         justify-content: space-between;
         align-items: center;
 
-        color: $color-primary;
-        background-color: $color-background-clear-day;
+        color: $color-text;
+        background-color: $color-background;
         border-radius: calc($unit * 4);
     }
 

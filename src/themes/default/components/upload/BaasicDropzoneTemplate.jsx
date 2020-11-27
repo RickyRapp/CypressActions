@@ -105,14 +105,16 @@ const BaasicDropzoneTemplate = function (props) {
                     store.files.map(c => {
                          let rawAttachment = c.getRawFile();
                          return (
-                              <div key={c.uid} className="col col-sml-6 col-lrg-3">
+                              <div key={c.uid} className="col col-sml-6 col-lrg-3 u-display--flex u-display--flex--column">
                                    {store.options.showLivePreview &&
                                         <React.Fragment>
                                              <label className="form__group__label">
-                                                  {c.name}
+                                                  <span className="u-mar--right--tny">
+                                                       {c.name}
+                                                  </span>
                                                   {store.options.removeFromBuffer &&
                                                        <BaasicButton
-                                                            className="btn btn--icon u-mar--left--tny"
+                                                            className="btn btn--icon u-mar--right--tny"
                                                             icon={'u-icon u-icon--close u-icon--tny'}
                                                             label={t('')}
                                                             onlyIcon={true}

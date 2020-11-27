@@ -29,7 +29,7 @@ const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
                     <TableFilter queryUtility={queryUtility} >
                     </TableFilter>
                     <BaasicButton
-                        className="btn btn--base btn--tertiary"
+                        className="btn btn--med btn--med--wide btn--ghost"
                         onlyIconClassName="u-mar--right--tny"
                         icon={`u-icon u-icon--unlock u-icon--sml`}
                         label='Enter change'

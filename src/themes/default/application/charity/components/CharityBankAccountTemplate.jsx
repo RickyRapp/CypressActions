@@ -36,22 +36,22 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
             </div>
 
             <div className="row">
-                <div className="form__group col col-sml-12 col-lrg-12">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('accountHolderName')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('addressLine1')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('addressLine2')} />
                 </div>
-                <div className="form__group col col-sml-6 col-lrg-3">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('city')} />
                 </div>
-                <div className="form__group col col-sml-6 col-lrg-3">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('state')} />
                 </div>
-                <div className="form__group col col-sml-6 col-lrg-3">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('zipCode')} />
                 </div>
             </div>
@@ -71,7 +71,9 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </div>
             </div>
 
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            <div className="type--right">
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            </div>
         </EditFormContent >
     )
 };

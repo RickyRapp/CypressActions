@@ -72,7 +72,7 @@
                 background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
             }
             &--primary {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
+                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-text);
             }
         }
 
@@ -367,7 +367,7 @@
             &:active,
             &:focus {
                 outline: 0;
-                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-note);
+                background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: color($color-note a(80%)));
             }
             
             &--success {

@@ -41,12 +41,12 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
                     <div className="form__group col col-lrg-12">
                         <BasicInput field={form.$('email')} />
                         <BaasicButton
-                            className="btn btn--icon u-display--b u-mar--bottom--tny"
+                            className="btn btn--tny btn--primary u-display--b u-mar--top--tny u-mar--bottom--nano"
                             label={'jperak@mono.hr'}
                             onClick={() => form.$('email').set('jperak@mono.hr')}
                         />
                         <BaasicButton
-                            className="btn btn--icon u-display--b u-mar--bottom--tny"
+                            className="btn btn--tny btn--primary u-display--b u-mar--bottom--nano"
                             label={'aronschlesinger@gmail.com'}
                             onClick={() => form.$('email').set('aronschlesinger@gmail.com')}
                         />
@@ -79,12 +79,16 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
                 </div>
             </EditFormContent>
             <PageFooter>
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                <BaasicButton
-                    className="btn btn--icon"
-                    label='Set all custom data'
-                    onClick={setAllCustom}
-                />
+                <div className="u-display--flex u-push">
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                    <div className="u-mar--left--sml">
+                        <BaasicButton
+                            className="btn btn--med btn--ghost"
+                            label='Set all custom data'
+                            onClick={setAllCustom}
+                            />
+                    </div>
+                </div>
             </PageFooter>
         </section>
     )

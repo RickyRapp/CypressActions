@@ -26,11 +26,11 @@ const DonorNoteListTemplate = function ({ donorNoteViewStore, t }) {
                     <div className="form__group col col-lrg-6">
                         <BasicTextArea field={form.$('note')} rows={3} />
                     </div>
-                    <div className="form__group col col-sml-12 u-mar--bottom--med">
+                    <div className="form__group col col-sml-12 u-mar--bottom--med type--right">
                         <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                         {form.$('id').value &&
                             <BaasicButton
-                                className="btn btn--base btn--ghost"
+                                className="btn btn--med btn--ghost"
                                 label={t('EDIT_FORM_LAYOUT.CANCEL')}
                                 onClick={() => { form.$('note').clear(); form.$('id').clear() }}
                             />}

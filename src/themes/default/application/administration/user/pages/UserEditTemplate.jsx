@@ -80,7 +80,7 @@ function renderEditLayoutFooterContent({ form, goBack, t }) {
         <div>
             <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             <BaasicButton
-                className="btn btn--base btn--ghost"
+                className="btn btn--med btn--med--wide btn--ghost u-mar--left--sml"
                 label={t('EDIT_FORM_LAYOUT.CANCEL')}
                 onClick={goBack}
             />

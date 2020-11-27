@@ -8,7 +8,7 @@ import {
 
 function DonorSecurityAndPreferencesData({ donorId }) {
     return (
-        <div className="card--primary card--med">
+        <div className="card--primary card--med u-mar--bottom--med">
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorThirdPartyWebsiteSetting donorId={donorId} />

@@ -80,7 +80,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 </div>
                                                                 <div className="col col-sml-6 counter">
                                                                     <BaasicButton
-                                                                        className="counter__btn"
+                                                                        className="counter__btn counter__btn--minus"
                                                                         icon={'counter__icon counter__icon--minus'}
                                                                         label='REMOVE'
                                                                         onlyIcon={true}
@@ -92,7 +92,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                         onClick={() => { }}>
                                                                     </BaasicButton>
                                                                     <BaasicButton
-                                                                        className="counter__btn"
+                                                                        className="counter__btn counter__btn--plus"
                                                                         icon={'counter__icon counter__icon--plus'}
                                                                         label='ADD'
                                                                         onlyIcon={true}
@@ -270,7 +270,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 }
                                                 <div className="col col-sml-5 counter">
                                                     <BaasicButton
-                                                        className="counter__btn"
+                                                        className="counter__btn counter__btn--minus"
                                                         icon={'counter__icon counter__icon--minus'}
                                                         label='REMOVE'
                                                         onlyIcon={true}
@@ -285,7 +285,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                         onClick={() => { }}>
                                                     </BaasicButton>
                                                     <BaasicButton
-                                                        className="counter__btn"
+                                                        className="counter__btn counter__btn--plus"
                                                         icon={'counter__icon counter__icon--plus'}
                                                         label='ADD'
                                                         onlyIcon={true}
@@ -310,18 +310,18 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     <div className="row u-mar--top--sml u-mar--bottom--sml">
                         <div className="col col-sml-12 col-med-9 type--center">
                             <button type="button" className="btn btn--lrg btn--show type--wgt--medium" onClick={onShowMoreOptionsClick}>
-                                <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
+                                <i className={!showMoreOptions ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
                                 {showMoreOptions ? t('BOOKLET_ORDER.CREATE.HIDE_MORE_OPTIONS') : t('BOOKLET_ORDER.CREATE.SHOW_MORE_OPTIONS')}
-                                <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
+                                <i className={!showMoreOptions ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
                             </button>
                         </div>
                     </div>
                     <div className="row u-mar--bottom--sml">
                         <div className="col col-sml-12 col-med-9 u-mar--bottom--sml type--center">
                             <button type="button" className="btn btn--lrg btn--show type--wgt--medium" onClick={onShowCustomizeBooksClick}>
-                                <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
+                                <i className={!showCustomizeBooks ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
                                 {!showCustomizeBooks ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
-                                <i className="u-icon u-icon--sml u-icon--arrow-down"></i>
+                                <i className={!showCustomizeBooks ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
                             </button>
                         </div>
                         {showCustomizeBooks &&
@@ -337,7 +337,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         }
                     </div>
 
-                    <div className="card--tertiary--light card--med u-mar--bottom--med">
+                    <div className="card--sml">
                         <div className="row u-display--flex u-display--flex--align--center">
                             <div className="col col-sml-8">
                                 <div className="type--sml type--wgt--medium">
@@ -407,7 +407,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         </div>
                     </div>
                     <BaasicButton
-                        className="btn btn--med btn--secondary--light u-mar--left--sml"
+                        className="btn btn--med btn--med--wide btn--primary u-mar--left--sml"
                         label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
                         onClick={() => onChangeShippingAddressClick(!form.$('addressLine1').disabled)}>
                     </BaasicButton>

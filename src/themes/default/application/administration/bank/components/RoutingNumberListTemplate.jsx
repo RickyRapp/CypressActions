@@ -27,10 +27,12 @@ const RoutingNumberListTemplate = function ({ routingNumberViewStore }) {
     return (
         <React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <BaasicButton
-                    className="btn btn--base btn--primary"
-                    label={'LIST_LAYOUT.CREATE_BUTTON'}
-                    onClick={routes.create} />
+                <div className="type--right">
+                    <BaasicButton
+                        className="btn btn--base btn--primary"
+                        label={'LIST_LAYOUT.CREATE_BUTTON'}
+                        onClick={routes.create} />
+                </div>
                 <div className="card--tertiary card--med u-mar--top--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <div className="col col-sml-3 u-mar--bottom--sml">

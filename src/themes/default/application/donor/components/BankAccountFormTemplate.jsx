@@ -52,13 +52,13 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                     <div className="form__group col col-sml-6 col-lrg-3">
                         <BasicInput field={form.$('state')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-3">
+                    <div className="form__group col col-sml-6 col-lrg-4">
                         <BasicInput field={form.$('zipCode')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-3">
+                    <div className="form__group col col-sml-6 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('address')}
-                            className='btn btn--tny btn--tertiary u-mar--top--med--alt'
+                            className='btn btn--sml btn--tertiary u-mar--top--med'
                             type='button'
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS"
                         />
@@ -72,7 +72,7 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                     <div className="form__group col col-sml-5 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('emailAddress')}
-                            className='btn btn--tny btn--tertiary u-mar--top--med--alt'
+                            className='btn btn--sml btn--tertiary u-mar--top--med'
                             type='button'
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
                         />
@@ -83,7 +83,7 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                     <div className="form__group col col-sml-5 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('phoneNumber')}
-                            className='btn btn--tny btn--tertiary u-mar--top--med--alt'
+                            className='btn btn--sml btn--tertiary u-mar--top--med'
                             type='button'
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER"
                         />
@@ -100,7 +100,9 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                     <BaasicFieldDropzone store={imageUploadStore} field={form.$('coreMediaVaultEntryId')} />
                 </div>
 
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                <div className="type--right">
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                </div>
             </form>
         </section>
     );
