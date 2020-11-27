@@ -63,4 +63,38 @@
             max-width: 500px;
         }
     }
+
+    &--primary {
+        background-color: $white;
+        border-radius: calc($unit * 1);
+        
+        &__body {
+            padding: calc($unit * 10) 0;
+            text-align: center;
+    
+            &--title {
+                margin-bottom: calc($unit * 4);
+                color: $color-text;
+                font-weight: $type-weight-bold;
+                @mixin type-scale $type-medium, 1.25;
+                @media (--screen-from-med) {
+                    @mixin type-scale $type-large, 1.5;
+                }
+                
+            }
+    
+            &--info {
+                margin-bottom: calc($unit * 8);
+                color: $color-opaque;
+                @mixin type-scale $type-base, 1;
+                font-weight: $type-weight-semi-bold;
+            }
+
+            & .btn {
+                width: 100%;
+                max-width: 300px;
+                padding: 0 calc($unit * 4);
+            }
+        }
+    }
 }

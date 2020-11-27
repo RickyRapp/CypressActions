@@ -43,7 +43,10 @@ $grid-columns: 12;
     flex-wrap: wrap;
 
     &__align {
-        
+        &--center {
+            align-items: center;
+        }
+
         &--end {
             align-items: flex-end;
         }

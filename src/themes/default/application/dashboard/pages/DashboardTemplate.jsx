@@ -132,23 +132,41 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								</div>
 							</div>
 						) : (
-							<div>empty state</div>
+							<div className="emptystate--primary card--med u-mar--bottom--med">
+								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+								<div className="emptystate--primary__body">
+									<p className="emptystate--primary__body--title">No Activity yet!</p>
+									<p className="emptystate--primary__body--info">Make your first contribution today</p>
+									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
+								</div>
+							</div>
 						)}
 					</div>
 					<div className="col col-sml-12 col-med-6">
-						<div className="card card--primary card--med u-mar--bottom--med">
-							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12 col-med-5">
-									Donations Per Year <BaasicDropdown store={yearDropdownStore} />
+							{donor && donor.isContributionMade ? 
+							<div className="card card--primary card--med u-mar--bottom--med">
+								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+									<div className="row u-mar--bottom--med">
+									<div className="col col-sml-12 col-med-5">
+										Donations Per Year <BaasicDropdown store={yearDropdownStore} />
+									</div>
+								</div>
+								<div className="row u-mar--bottom--med">
+									<div className="col col-sml-12 col-med-12">
+										<LineChartContainer />
+									</div>
 								</div>
 							</div>
-							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12 col-med-12">
-									<LineChartContainer />
+							:
+							<div className="emptystate--primary card--med">
+								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+								<div className="emptystate--primary__body">
+									<p className="emptystate--primary__body--title">No Activity yet!</p>
+									<p className="emptystate--primary__body--info">Make your first contribution today</p>
+									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
 								</div>
 							</div>
-						</div>
+							}
 					</div>
 					{donor &&
 						(!donor.isGrantMade ||
@@ -156,46 +174,42 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							!donor.isBookletOrderMade ||
 							!donor.isInvestmentMade) && (
 							<div className="col col-sml-12 col-lrg-12">
-								<div className="card card--med u-mar--bottom--med u-mar--top--med">
+								<div className="u-mar--bottom--med u-mar--top--med">
 									<h3 className="type--med type--wgt--medium u-mar--bottom--med type--center">
 										{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
 									</h3>
-									<div className="u-display--flex u-display--flex--justify--center">
+									<div className="row type--center">
 										{!donor.IsInvestmentMade && (
-											<div className="u-mar--right--med">
+											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 												<BaasicButton
-													className="btn btn--med btn--med--wide btn--tertiary "
-													onlyIconClassName="u-mar--right--med"
+													className="btn btn--med btn--med--100 btn--tertiary "
 													icon="u-icon u-icon--arrow-right u-icon--sml"
 													label="DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS"
 												/>
 											</div>
 										)}
 										{!donor.isBookletOrderMade && (
-											<div className="u-mar--right--med">
+											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 												<BaasicButton
-													className="btn btn--med btn--med--wide btn--tertiary "
-													onlyIconClassName="u-mar--right--med"
+													className="btn btn--med btn--med--100 btn--tertiary "
 													icon="u-icon u-icon--arrow-right u-icon--sml"
 													label="DASHBOARD.BUTTON.ORDER_CERTIFICATES"
 												/>
 											</div>
 										)}
 										{!donor.isContributionMade && (
-											<div className="u-mar--right--med">
+											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 												<BaasicButton
-													className="btn btn--med btn--med--wide btn--tertiary "
-													onlyIconClassName="u-mar--right--med"
+													className="btn btn--med btn--med--100 btn--tertiary "
 													icon="u-icon u-icon--arrow-right u-icon--sml"
 													label="DASHBOARD.BUTTON.NEW_CONTRIBUTION"
 												/>
 											</div>
 										)}
 										{!donor.isGrantMade && (
-											<div className="u-mar--right--med">
+											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 												<BaasicButton
-													className="btn btn--med btn--med--wide btn--tertiary "
-													onlyIconClassName="u-mar--right--med"
+													className="btn btn--med btn--med--100 btn--tertiary "
 													icon="u-icon u-icon--arrow-right u-icon--sml"
 													label="DASHBOARD.BUTTON.NEW_GRANT"
 												/>

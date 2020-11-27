@@ -92,6 +92,10 @@
                         background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-note);
                     }
                 }
+
+                @media (--screen-to-sml) {
+                    bottom: calc($unit * 82);
+                } 
             }
 
             &--menu {
@@ -106,6 +110,10 @@
                 border-bottom-left-radius: calc($unit * 1);
                 background-color: $lavander;
                 cursor: pointer;
+
+                @media (--screen-to-sml) {
+                    bottom: calc($unit * 65);
+                } 
             }
 
             &.active {

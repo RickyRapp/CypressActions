@@ -154,6 +154,10 @@
         }
 
         &--left {
+            &--auto {
+                margin-left: auto;
+            }
+
             &--nano {
                 margin-left: calc($unit / 2);
             }

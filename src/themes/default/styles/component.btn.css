@@ -70,6 +70,17 @@
         &--wide {
             padding: 0 calc($unit * 8);
         }
+
+        &--100 {
+            width: 100%;
+            max-width: 350px;
+            padding: 0 calc($unit * 4);
+            @mixin type-scale $type-small, 1;
+
+            & .u-icon--arrow-right {
+                margin-left: auto;
+            }
+        }
     }
 
     &--lrg {
