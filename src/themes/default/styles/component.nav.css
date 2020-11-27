@@ -94,7 +94,8 @@
                 }
 
                 @media (--screen-to-sml) {
-                    bottom: calc($unit * 82);
+                    position: relative;
+                    bottom: calc(-$unit * 4);
                 } 
             }
 
@@ -112,7 +113,7 @@
                 cursor: pointer;
 
                 @media (--screen-to-sml) {
-                    bottom: calc($unit * 65);
+                    bottom: calc($unit * 56);
                 } 
             }
 
