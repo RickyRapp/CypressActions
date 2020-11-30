@@ -18,7 +18,7 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
                 <Menu />
                 <div
                     className={
-                        'layout__content card--xlrg' +
+                        'layout__content card--med' +
                         (menuStore.isCollapsed ? ' is-collapsed' : '') +
                         (menuStore.secondaryMenuVisible ? ' active' : '')
                     }

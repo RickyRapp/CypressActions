@@ -19,7 +19,7 @@
          @mixin type-scale $type-base, 1;
 
         background-color: white;
-        border: 1px solid color(white blackness(+30%));
+        /* border: 1px solid color(white blackness(+30%)); */
         border-right: 0;
         border-radius: $radius-base 0 0 $radius-base;
     

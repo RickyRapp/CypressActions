@@ -178,7 +178,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 									<h3 className="type--med type--wgt--medium u-mar--bottom--med type--center">
 										{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
 									</h3>
-									<div className="row type--center">
+									<div className="row type--center u-display--flex u-display--flex--justify--center">
 										{!donor.IsInvestmentMade && (
 											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 												<BaasicButton
@@ -220,7 +220,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							</div>
 						)}
 					<div className="col col-sml-12 col-lrg-12">
-						<div className="card card--primary card--med u-mar--bottom--med u-mar--top--med">
+						<div className="card card--primary card--med u-mar--bottom--med">
 							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						</div>
 					</div>

@@ -69,6 +69,10 @@
 
         &--wide {
             padding: 0 calc($unit * 8);
+            
+            @media (--screen-to-sml) {
+                padding: 0 calc($unit * 4);
+            }
         }
 
         &--100 {

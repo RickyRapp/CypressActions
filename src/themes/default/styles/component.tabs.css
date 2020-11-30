@@ -26,6 +26,11 @@
                 color: $color-primary;
                 border-bottom: 2px solid $color-primary;
             }
+
+            @media (--screen-to-sml) {
+                padding: calc($unit * 1) calc($unit * 2);
+                @mixin type-scale $type-xsmall, 1;
+            }
         }
     }
 
@@ -87,6 +92,11 @@
                 border-top-left-radius: 10px;
                 border-top-right-radius: 10px;
                 background-color: $white;
+            }
+
+            @media (--screen-to-sml) {
+                padding: calc($unit * 1) calc($unit * 2);
+                @mixin type-scale $type-xsmall, 1;
             }
         }
     }

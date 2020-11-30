@@ -165,7 +165,8 @@
 
     @mixin type-scale $type-base, 1;
     font-family: $ff-sans;
-    border-right: 1px solid $grey-3 !important;
+    border-right: 1px solid $grey-2 !important;
+    border-radius: $radius-base !important;
 
     background-color: $white;
     color: $color-text;

@@ -55,7 +55,7 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                     <div className="form__group col col-sml-6 col-lrg-4">
                         <BasicInput field={form.$('zipCode')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-2">
+                    <div className="form__group col col-sml-4 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('address')}
                             className='btn btn--sml btn--tertiary u-mar--top--med'
@@ -66,10 +66,10 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                 </div>
 
                 <div className="row">
-                    <div className="form__group col col-sml-5 col-lrg-4">
+                    <div className="form__group col col-sml-6 col-lrg-4">
                         <BasicInput field={form.$('email')} />
                     </div>
-                    <div className="form__group col col-sml-5 col-lrg-2">
+                    <div className="form__group col col-sml-4 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('emailAddress')}
                             className='btn btn--sml btn--tertiary u-mar--top--med'
@@ -77,10 +77,10 @@ function BankAccountFormTemplate({ bankAccountFormViewStore, t }) {
                             label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
                         />
                     </div>
-                    <div className="form__group col col-sml-5 col-lrg-4">
+                    <div className="form__group col col-sml-6 col-lrg-4">
                         <NumberFormatInputField field={form.$('number')} />
                     </div>
-                    <div className="form__group col col-sml-5 col-lrg-2">
+                    <div className="form__group col col-sml-4 col-lrg-2">
                         <BaasicButton
                             onClick={() => useDonorContactInformations('phoneNumber')}
                             className='btn btn--sml btn--tertiary u-mar--top--med'

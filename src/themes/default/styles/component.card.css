@@ -121,13 +121,25 @@
 
     &--med {
         padding: calc($unit * 4);
+        
+        @media (--screen-to-sml) {
+            padding: calc($unit * 3);
+        }
     }
 
     &--lrg {
         padding: calc($unit * 6);
+        
+        @media (--screen-to-sml) {
+            padding: calc($unit * 4);
+        }
     }
     
     &--xlrg {
         padding: calc($unit * 7.5);
+        
+        @media (--screen-to-sml) {
+            padding: calc($unit * 5);
+        }
     }
 }

@@ -111,7 +111,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         })
                         }
                     </div>
-                    <div className="col col-sml-9 col-lrg-8">
+                    <div className="col col-sml-12 col-lrg-8">
                         <div className="row">
                             <div className="col col-sml-12 col-lrg-12">
                                 {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
