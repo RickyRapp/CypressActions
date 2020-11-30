@@ -76,7 +76,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                         />
                                                                     </div>
                                                                     {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
-                                                                        <div className="type--tny type--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
+                                                                        <div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
                                                                 </div>
                                                                 <div className="col col-sml-6 counter">
                                                                     <BaasicButton
@@ -171,7 +171,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 format={{ type: 'currency' }}
                                                             />
                                                         </span>
-                                                        <div className="type--tny type--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
+                                                        <div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
                                                     </div>
                                                 }
                                                 <div className="col col-sml-5 counter">
@@ -267,7 +267,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 format={{ type: 'currency' }}
                                                             />
                                                         </span>
-                                                        <div className="type--tny type--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
+                                                        <div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
                                                     </div>
                                                 }
                                                 <div className="col col-sml-5 counter">
@@ -341,7 +341,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                     <div className="card--sml">
                         <div className="row u-display--flex u-display--flex--align--end">
-                            <div className="col col-sml-8">
+                            <div className="col col-sml-6 col-med-8">
                                 <div className="type--sml type--wgt--medium">
                                     Current Balance:
                                     <span className="type--med type--color--note u-mar--left--sml">
@@ -353,7 +353,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     </span>
                                 </div>
                             </div>
-                            <div className="col col-sml-4">
+                            <div className="col col-sml-6 col-med-4">
                                 <div className="type--med type--wgt--medium u-push">Total:
                                     <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml">
                                         <FormatterResolver
