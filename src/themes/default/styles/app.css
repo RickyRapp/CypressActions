@@ -74,6 +74,8 @@
 @import "component.empty-state.css";
 @import "component.section.css";
 @import "component.counter.css";
+@import "component.transaction.css";
+@import "component.dashboard-card.css";
 @import "component.material-icons.css";
 
 /**

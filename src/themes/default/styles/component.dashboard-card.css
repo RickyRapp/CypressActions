@@ -1,0 +1,92 @@
+/*------------------------------------*\
+    # component.dashboard-card
+\*------------------------------------*/
+
+.dashboard-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 617px;
+    padding: calc($unit * 4);
+    
+    border-radius: $radius-base;
+    background-color: $white;
+    box-shadow: $shadow-card;
+    
+    @media (--screen-to-xlrg) {
+        height: 638px;
+    }
+    
+    @media (--screen-to-sml) {
+        height: 538px;
+    }
+
+    &__body {
+        text-align: center;
+        margin-bottom: calc($unit * 6);
+
+        &--amount {
+            margin-bottom: calc($unit * 2);
+            @mixin type-scale $type-xlarge, 1.5;
+            color: $color-text;
+
+            @media (--screen-from-med) {
+                @mixin type-scale $type-xxxlarge, 2;
+            }
+        }
+
+        &--title {
+            margin-bottom: calc($unit * 10);
+
+            color: $bali-hai;
+            text-transform: uppercase;
+            font-weight: $type-weight-medium;
+            font-size: 14px;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        flex-wrap: wrap;
+
+        @media (--screen-from-xlrg) {
+            padding: 0 calc($unit * 6);
+        }
+    }
+
+    &--emptystate {
+        background-color: $white;
+        border-radius: calc($unit * 1);
+        
+        &__body {
+            padding: calc($unit * 10) 0;
+            text-align: center;
+    
+            &--title {
+                margin-bottom: calc($unit * 4);
+                color: $color-text;
+                font-weight: $type-weight-bold;
+                @mixin type-scale $type-medium, 1.25;
+                @media (--screen-from-med) {
+                    @mixin type-scale $type-large, 1.5;
+                }
+                
+            }
+    
+            &--info {
+                margin-bottom: calc($unit * 8);
+                color: $color-opaque;
+                @mixin type-scale $type-base, 1;
+                font-weight: $type-weight-semi-bold;
+            }
+
+            & .btn {
+                width: 100%;
+                max-width: 300px;
+                padding: 0 calc($unit * 4);
+            }
+        }
+    }
+}

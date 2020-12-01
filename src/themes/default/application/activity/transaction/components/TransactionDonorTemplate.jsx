@@ -18,82 +18,74 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
         <React.Fragment>
             <div className="row">
                 <div className="col col-sml-12 u-mar--bottom--sml">
-                    <div className="card--form card--med u-mar--bottom--sml">
-                        <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-                        <div className="row u-mar--bottom--med">
-                            <div className="col col-sml-12 col-lrg-3">
-                                <h5 className="type--base type--wgt--bold type--color--note type--underline">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5 >
-                                <div>
-                                    <p className="type--base type--wgt--medium type--color--opaque">{t('DASHBOARD.AVAILABLE_BALANCE_DESCRIPTION')}</p >
-                                </div>
-                            </div>
-                            <div className="col col-sml-12 col-lrg-3 type--base type--wgt--bold type--color--note">
-                                {donor &&
-                                    <FormatterResolver
+                    {/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
+                    <div className="row">
+                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
+                            <div className="transaction__card">
+                                    {donor &&
+                                <div className={`${donor.availableBalance >= 0 && "transaction__card--amount--plus"} transaction__card--amount`}>
+                                        <FormatterResolver
                                         item={{ balance: donor.availableBalance }}
                                         field='balance'
                                         format={{ type: 'currency' }}
-                                    />}
+                                        />
+                                </div>
+                                        }
+                            
+                                <h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5 >
                             </div>
                         </div>
-                        <div className="row u-mar--bottom--med">
-                            <div className="col col-sml-12 col-lrg-3">
-                                <h5 className="type--base type--wgt--bold type--color--note type--underline">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
-                                <div>
-                                    <p className="type--base type--wgt--medium type--color--opaque">{t('DASHBOARD.PRESENT_BALANCE_DESCRIPTION')}</p >
-                                </div>
-                            </div>
-                            <div className="col col-sml-12 col-lrg-3 type--base type--wgt--bold type--color--note">
+                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
+                            <div className="transaction__card">
                                 {donor &&
-                                    <FormatterResolver
-                                        item={{ balance: donor.presentBalance }}
-                                        field='balance'
-                                        format={{ type: 'currency' }}
-                                    />}
+                                    <div className={`${donor.presentBalance >= 0 && "transaction__card--amount--plus"} transaction__card--amount`}>
+                                            <FormatterResolver
+                                                item={{ balance: donor.presentBalance }}
+                                                field='balance'
+                                                format={{ type: 'currency' }}/>
+                                    </div>
+                                }
+                            
+                                <h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
+                            </div>
+                        </div>
+                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
+                           <div className="transaction__card">
+                                <div className="transaction__card--amount">
+                                    {donor &&
+                                        <FormatterResolver
+                                            item={{ balance: donor.presentBalance }}
+                                            field='balance'
+                                            format={{ type: 'currency' }}
+                                        />}
+                                </div>
+                            
+                                <h5 className="transaction__card--title">Investments balance</h5>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col col-sml-12 u-mar--bottom--tny">
-                    <div className="card--primary card--med u-mar--bottom--sml">
-                        <div className="row">
-                            <div className="col col-sml-12 u-mar--bottom--sml">
-                                <span className="type--base type--wgt--bold type--color--note">SHOW PENDING TRANSACTIONS</span>
-                                <BaasicButton
-                                    className="btn btn--icon"
-                                    onlyIconClassName="u-mar--right--sml"
-                                    icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down'} u-icon--sml`}
-                                    label='EXPAND'
-                                    onlyIcon={true}
-                                    onClick={() => onExpandPendingTransactionClick()}>
-                                </BaasicButton>
-                            </div>
-                            {isPendingTransactionVisible &&
-                                <div className="col col-sml-12 u-mar--bottom--sml">
-                                    <SimpleBaasicTable
-                                        tableStore={pendingTransactionTableStore}
-                                        actionsComponent={renderActions}
-                                    />
-                                </div>}
-                            <div className="col col-sml-12 type--base type--wgt--medium type--color--opaque">
-                                <div className="row u-mar--bottom--tny">
-                                    <div className="col col-sml-12 col-lrg-3">
-                                        Pending grants:
-                                </div>
-                                    <div className="col col-sml-12 col-lrg-3">
-                                        $123 (TODO)
-                                </div>
-                                </div>
-                                <div className="row u-mar--bottom--tny">
-                                    <div className="col col-sml-12 col-lrg-3">
-                                        Checks on hold:
-                                </div>
-                                    <div className="col col-sml-12 col-lrg-3">
-                                        $123 (TODO)
-                                </div>
-                                </div>
-                            </div>
+                <div className="col col-sml-12 u-mar--bottom--sml">
+                    <div className="transaction__show">
+                        <div className="transaction__show--body">
+                            <span className="type--base type--wgt--bold type--color--text">Pending Transaction: $100,000</span>
+                            <BaasicButton
+                                className="btn btn--icon"
+                                onlyIconClassName="u-mar--right--sml"
+                                icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'} u-icon--sml`}
+                                label='EXPAND'
+                                onlyIcon={true}
+                                onClick={() => onExpandPendingTransactionClick()}>
+                            </BaasicButton>
                         </div>
+
+                        {isPendingTransactionVisible &&
+                            <div className="col col-sml-12 u-mar--top--sml">
+                                <SimpleBaasicTable
+                                    tableStore={pendingTransactionTableStore}
+                                    actionsComponent={renderActions}
+                                    />
+                            </div>}
                     </div>
                 </div>
             </div>
