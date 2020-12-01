@@ -64,7 +64,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                                             return (
                                                 <React.Fragment key={dt.id}>
-                                                    <div className="col col-sml-12 col-xlrg-6 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
+                                                    <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
                                                         <div className="u-separator--primary">
                                                             <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                 <div className="col col-sml-3">
@@ -121,7 +121,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     :
                                     <div className="col col-sml-12 col-xxlrg-5 card--med" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
                                         {bt.abrv === 'mixed_500' &&
-                                            <div className="row u-mar--top--med">
+                                            <div className="row row__align--center u-mar--top--med">
                                                 {denominationTypes.length > 0 &&
                                                     <div className="col col-sml-4">
                                                         <span className="type--med type--wgt--regular">
@@ -209,7 +209,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 </div>
                                             </div>}
                                         {bt.abrv === 'mixed_2000' &&
-                                            <div className="row u-mar--top--med">
+                                            <div className="row row__align--center u-mar--top--med">
                                                 {denominationTypes.length > 0 &&
                                                     <div className="col col-sml-4">
                                                         <span className="type--med type--wgt--regular">
@@ -327,7 +327,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </button>
                         </div>
                         {showCustomizeBooks &&
-                            <div className="col col-sml-12 col-med-12 col-lrg-5 u-mar--bottom--sml u-padd--left--xlrg">
+                            <div className="col col-sml-12 u-padd--left--xlrg u-padd--right--xlrg">
                                 <div className="u-mar--bottom--med">
                                     <BasicFieldCheckbox
                                         field={form.$('isCustomizedBook')}

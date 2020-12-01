@@ -119,13 +119,13 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								<div className="row">
 									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
 										<BaasicButton
-											className="btn btn--med btn--med--wide btn--secondary"
+											className="btn btn--med btn--med--wide btn--primary--light"
 											label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
 										/>
 									</div>
 									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
 										<BaasicButton
-											className="btn btn--med btn--med--wide btn--secondary"
+											className="btn btn--med btn--med--wide btn--primary--light"
 											label="DASHBOARD.BUTTON.INVEST_FUNDS"
 										/>
 									</div>

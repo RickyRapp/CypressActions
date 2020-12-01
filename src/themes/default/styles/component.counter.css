@@ -74,7 +74,7 @@
     }
 
     &--prepaid {
-        min-width: calc($unit * 11);
+        min-width: calc($unit * 17);
         max-width: calc($unit * 22);
         text-align: center;
 
@@ -83,6 +83,7 @@
 
         border: 1px solid $zest-dark;
         border-radius: 25px;
+        @mixin type-scale $type-xsmall, 1;
 
         @media (--screen-to-sml) {
             @mixin type-scale $type-tiny, 0.70;
