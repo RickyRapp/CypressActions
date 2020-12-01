@@ -15,7 +15,7 @@
 
         &--light {
             background-color: $color-background-seashellt; 
-            border: 1px solid $almond;
+            border-radius: $radius-base;
         }
     }
     
@@ -23,11 +23,6 @@
         background-color: $white;
         border-radius: $radius-base;
         box-shadow: $shadow-card; 
-
-       &--light {
-        background-color: $color-background-clear-day;
-        border: 1px solid $scandal;
-       }
     }
 
     &--form {
@@ -44,6 +39,61 @@
 
         &--start {
             justify-content: start;
+        }
+    }
+
+    &__dashboard {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 617px;
+        padding: calc($unit * 4);
+        
+        border-radius: $radius-base;
+        background-color: $white;
+        box-shadow: $shadow-card;
+        
+        @media (--screen-to-xlrg) {
+            height: 638px;
+        }
+        
+        @media (--screen-to-sml) {
+            height: 538px;
+        }
+
+        &--body {
+            text-align: center;
+            margin-bottom: calc($unit * 6);
+
+            &--amount {
+                margin-bottom: calc($unit * 2);
+                @mixin type-scale $type-xlarge, 1.5;
+                color: $color-text;
+
+                @media (--screen-from-med) {
+                    @mixin type-scale $type-xxxlarge, 2;
+                }
+            }
+
+            &--title {
+                margin-bottom: calc($unit * 10);
+
+                color: $bali-hai;
+                text-transform: uppercase;
+                font-weight: $type-weight-medium;
+                font-size: 14px;
+            }
+        }
+
+        &--footer {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            flex-wrap: wrap;
+
+            @media (--screen-from-xlrg) {
+                padding: 0 calc($unit * 6);
+            }
         }
     }
 

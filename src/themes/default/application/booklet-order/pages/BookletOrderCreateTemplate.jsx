@@ -42,7 +42,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
                         </div>
                         <div className="col col-sml-12 col-xlrg-4 col-xxlrg-3">
-                            <div className="card--sml card--tertiary--light type--center">
+                            <div className="card--sml card--secondary type--center">
                                 <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span> {donor && <FormatterResolver
                                     item={{ availableBalance: donor.availableBalance }}
                                     field='availableBalance'
