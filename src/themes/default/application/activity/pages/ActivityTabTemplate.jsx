@@ -29,7 +29,7 @@ function ActivityTabTemplate({ activityTabViewStore }) {
 
     return (
         <Page>
-            <PageHeader>
+            <PageHeader hideTitle={true}>
                 <TabsHeader tabsStore={activityTabViewStore}>{children().props.children}</TabsHeader>
             </PageHeader>
 

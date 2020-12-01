@@ -12,6 +12,9 @@ class GrantViewStore extends BaseListViewStore {
             name: 'grant',
             authorization: 'theDonorsFundGrantSection',
             routes: {
+                create: () => {
+                    this.openSelectDonorModal();
+                },
                 edit: (editId, donorId) => {
                     this.rootStore.routerStore.goTo('master.app.main.grant.edit', { editId: editId }, { donorId: donorId });
                 },
@@ -69,6 +72,23 @@ class GrantViewStore extends BaseListViewStore {
         this.createDonationStatusDropdownStore();
         this.createExportConfig();
         this.reviewModal = new ModalParams({});
+        this.selectDonorModal = new ModalParams({});
+    }
+
+    @action.bound
+    openSelectDonorModal() {
+        this.selectDonorModal.open(
+            {
+                donorId: this.queryUtility.filter.donorId,
+                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { id: donorId }),
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { id: donorId })
+            }
+        );
+    }
+
+    @action.bound
+    onClickDonorFromFilter(donorId) {
+        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId })
     }
 
     @action.bound
@@ -160,6 +180,7 @@ class GrantViewStore extends BaseListViewStore {
 
     createSearchDonorDropdownStore() {
         this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'GRANT.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: false,
             filterable: true
         },

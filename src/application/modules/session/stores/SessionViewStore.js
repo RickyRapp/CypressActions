@@ -46,13 +46,10 @@ class SessionViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'donationStatus',
                             'charity',
-                            'sessionCertificates',
-                            'sessionCertificates.certificate',
-                            'sessionCertificates.certificate.denominationType',
-                            // 'sessionCertificates.certificate.booklet',
-                            // 'sessionCertificates.certificate.booklet.bookletOrder',
+                            'grants',
+                            'grants.certificate',
+                            'grants.certificate.denominationType'
                         ];
                         return this.rootStore.application.session.sessionStore.findSession(params);
                     }
@@ -88,10 +85,6 @@ class SessionViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'donationStatus.name',
-                    title: 'SESSION.LIST.COLUMNS.STATUS_LABEL'
-                },
-                {
                     key: 'dateCreated',
                     title: 'SESSION.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
@@ -105,11 +98,7 @@ class SessionViewStore extends BaseListViewStore {
                 onPreview: (session) => this.routes.preview(session.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            actionsRender: {
-                onEditRender: (session) => {
-                    return session.donationStatus.abrv === 'pending';
-                }
-            }
+            actionsRender: {}
         }));
 
     }

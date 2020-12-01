@@ -11,6 +11,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
     @observable isNoteToAdministratorIncluded = false;
     @observable amountWithFee = false;
     @observable grantAcknowledgmentName = null;
+    @observable isChangedDefaultAddress = null;
     feeTypes = [];
     donor = null;
     applicationDefaultSetting = {};
@@ -65,10 +66,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
         });
 
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-            this.donorId = rootStore.routerStore.routerState.params.id;
+            this.donorId = rootStore.routerStore.routerState.queryParams.id;
         }
         else {
-            this.donorId = rootStore.userStore.user.id;
+            this.donorId = rootStore.userStore.applicationUser.id;
         }
 
         this.createCharityDropdownStore();
@@ -89,7 +90,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.setDonor(),
+                this.fetchDonor(),
                 this.loadLookups()
             ]);
 
@@ -121,6 +122,21 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.form.$('amount').onBlur = (event) => {
                 this.onBlurAmount(event.target.value)
             };
+            this.form.$('charityAddressLine1').observe(({ field }) => {
+                this.form.$('addressLine1').set(field.value);
+            });
+            this.form.$('charityAddressLine2').observe(({ field }) => {
+                this.form.$('addressLine2').set(field.value);
+            });
+            this.form.$('charityState').observe(({ field }) => {
+                this.form.$('state').set(field.value);
+            });
+            this.form.$('charityCity').observe(({ field }) => {
+                this.form.$('city').set(field.value);
+            });
+            this.form.$('charityZipCode').observe(({ field }) => {
+                this.form.$('zipCode').set(field.value);
+            });
         }
     }
 
@@ -173,6 +189,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
         this.form.$('charityId').clear();
         this.form.$('charityId').setDisabled(value);
         this.charityDropdownStore.setValue(null);
+        this.form.$('addressLine1').set('')
+        this.form.$('addressLine2').set('')
+        this.form.$('city').set('')
+        this.form.$('state').set('')
+        this.form.$('zipCode').set('')
     }
 
     @action.bound
@@ -202,12 +223,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
     setFormDefaultRules() {
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
-        }
-        else {
-            if (!this.donor.isInitialContributionDone) {
-                this.rootStore.notificationStore.warning('Missing Initial Contribution. You Are Redirected On Contribution Page.');
-                this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
-            }
         }
     }
 
@@ -275,8 +290,38 @@ class GrantCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async setDonor() {
+    async fetchDonor() {
         this.donor = await this.rootStore.application.grant.grantStore.getDonorInformation(this.donorId);
+    }
+
+    @action.bound
+    async onCharitySelected(charity) {
+        this.charityDropdownStore.setValue({
+            id: charity.id,
+            name: charityFormatter.format(charity, { value: 'charity-name-display' }),
+            item: charity
+        });
+        this.form.$("charityId").set(charity.id);
+        const address = charity.charityAddresses.find(c => c.isPrimary);
+        this.setAddress(address);
+        this.advancedSearchModal.close();
+    }
+
+    @action.bound
+    async onChangeDefaultAddressClick() {
+        this.isChangedDefaultAddress = !this.isChangedDefaultAddress;
+        if (!this.isChangedDefaultAddress && this.charityDropdownStore.value) {
+            const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+            this.setAddress(address);
+        }
+    }
+
+    setAddress(address) {
+        this.form.$('addressLine1').set(address.addressLine1)
+        this.form.$('addressLine2').set(address.addressLine2)
+        this.form.$('city').set(address.city)
+        this.form.$('state').set(address.state)
+        this.form.$('zipCode').set(address.zipCode)
     }
 
     async loadLookups() {
@@ -354,6 +399,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
                             item: x
                         }
                     });
+                },
+                onChange: (value) => {
+                    if (value) {
+                        const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+                        this.setAddress(address);
+                    }
                 }
             });
     }

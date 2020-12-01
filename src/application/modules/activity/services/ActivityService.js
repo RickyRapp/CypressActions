@@ -17,6 +17,11 @@ class ActivityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    findCharityTransactions(filter) {
+        const url = this.routeService.findCharityTransactions(filter);
+        return this.apiClient.get(url);
+    }
+
     loadDonorData(donorId) {
         const url = this.routeService.loadDonorData(donorId);
         return this.apiClient.get(url);

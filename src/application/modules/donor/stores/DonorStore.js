@@ -6,6 +6,21 @@ class DonorStore {
         this.donorService = moduleStore.rootStore.createApplicationService(DonorService);
     }
 
+    async findDonors(params) {
+        const response = await this.donorService.find(params);
+        return response.data;
+    }
+
+    async getDonorLoginProfile(id) {
+        const response = await this.donorService.getDonorLoginProfile(id);
+        return response.data;
+    }
+
+    async getDonor(id, options) {
+        const response = await this.donorService.getDonor(id, options);
+        return response.data;
+    }
+
     async createAccount(resource) {
         const response = await this.donorService.create(resource);
         return response.data;
@@ -13,11 +28,6 @@ class DonorStore {
 
     async updateGrantFees(resource) {
         const response = await this.donorService.updateGrantFees(resource);
-        return response.data;
-    }
-
-    async findDonors(params) {
-        const response = await this.donorService.find(params);
         return response.data;
     }
 
@@ -29,16 +39,6 @@ class DonorStore {
     async phoneNumberExists(params) {
         const response = await this.donorService.phoneNumberExists(params);
         return response;
-    }
-
-    async getDonorLoginProfile(id) {
-        const response = await this.donorService.getDonorLoginProfile(id);
-        return response.data;
-    }
-
-    async getDonor(id, options) {
-        const response = await this.donorService.getDonor(id, options);
-        return response.data;
     }
 }
 export default DonorStore;

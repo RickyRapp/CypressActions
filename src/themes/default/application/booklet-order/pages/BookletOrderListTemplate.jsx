@@ -7,24 +7,29 @@ import {
     TableFilter,
     BaasicDropdown,
     BaasicInput,
-    DateRangeQueryPicker
+    DateRangeQueryPicker,
+    BaasicModal
 } from 'core/components';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
+import { SelectDonor } from 'application/donor/components';
 
 const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     const {
+        routes,
         tableStore,
         queryUtility,
         authorization,
         searchDonorDropdownStore,
         deliveryMethodTypeDropdownStore,
         bookletOrderStatusDropdownStore,
-        dateCreatedDateRangeQueryStore
+        dateCreatedDateRangeQueryStore,
+        selectDonorModal
     } = bookletOrderViewStore;
 
     return (
         <ApplicationListLayout store={bookletOrderViewStore} authorization={authorization}>
+            <PageHeader routes={routes}></PageHeader>
             <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} visibleByDefault={false}>
@@ -93,6 +98,9 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                     />
                 </div>
             </Content>
+            <BaasicModal modalParams={selectDonorModal}>
+                <SelectDonor />
+            </BaasicModal>
         </ApplicationListLayout>
     )
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import { SelectTableWithRowDetailsViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { FilterParams } from 'core/models';
 import { action, observable } from 'mobx';
@@ -7,6 +8,7 @@ class DonationReviewViewStore extends BaseListViewStore {
     @observable disableSave = false;
     @observable paymentNumber = '';
     @observable isTransferToCharityAccount = false;
+    data = null;
 
     constructor(rootStore) {
         const filter = new FilterParams();
@@ -28,10 +30,10 @@ class DonationReviewViewStore extends BaseListViewStore {
                             'charity'
                         ];
 
-                        const data = await rootStore.application.donation.donationStore.findPendingDonation(params);
+                        this.data = await rootStore.application.donation.donationStore.findPendingDonation(params);
                         return {
-                            item: data,
-                            totalRecords: data.length
+                            item: this.data,
+                            totalRecords: this.data.length
                         };
                     }
                 }
@@ -89,7 +91,7 @@ class DonationReviewViewStore extends BaseListViewStore {
                 paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,
                 paymentTypeId: this.isTransferToCharityAccount ? null : this.paymentTypeDropdownStore.value.id,
                 isTransferToCharityAccount: this.isTransferToCharityAccount,
-                groupedPendingDonations: this.tableStore.data
+                groupedPendingDonations: this.tableStore.data.map(d => { return { ...d, pendingDonations: d.pendingDonations.filter(c => { return c.checked }) } })
             });
         this.disableSave = false;
     }
@@ -102,18 +104,44 @@ class DonationReviewViewStore extends BaseListViewStore {
                     const availablePaymentTypes = ['check', 'ach'];
                     return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
                 },
+                onChange: (item) => {
+                    this.tableStore.clearSelected();
+                    if (item) {
+                        if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
+                            this.tableStore.setData(this.data.filter(c => c.isAchAvailable));
+                        }
+                        else {
+                            this.tableStore.setData(this.data);
+                        }
+                    }
+                }
             });
     }
 
     createTableStore() {
-
         this.setTableStore(
             new SelectTableWithRowDetailsViewStore(
                 this.queryUtility, {
                 columns: [
                     {
-                        key: 'charityName',
-                        title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_LABEL'
+                        key: 'id',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_LABEL',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
+                                return <div>
+                                    {item.charityName} <small style={{ display: "block" }}>{item.id.item2}</small>
+                                </div>
+                            }
+                        },
+                    },
+                    {
+                        key: 'isAchAvailable',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.ACH_AVAILABLE_LABEL',
+                        format: {
+                            type: 'boolean',
+                            value: 'yes-no'
+                        },
                     },
                     {
                         key: 'totalAmount',

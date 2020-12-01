@@ -11,10 +11,11 @@ import {
     DateRangeQueryPicker
 } from 'core/components';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
 const SessionListTemplate = function ({ sessionViewStore }) {
     const {
+        routes,
         tableStore,
         queryUtility,
         authorization,
@@ -26,6 +27,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 
     return (
         <ApplicationListLayout store={sessionViewStore} authorization={authorization}>
+            <PageHeader routes={routes}></PageHeader>
             <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} >

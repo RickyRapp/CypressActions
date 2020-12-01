@@ -1,6 +1,7 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityService } from 'application/charity/services';
 import { CharityListFilter } from 'application/charity/models';
+import { action } from 'mobx';
 
 class CharityAdvancedSearchViewStore extends BaseListViewStore {
     constructor(rootStore, onSelected) {
@@ -12,6 +13,8 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 filter: new CharityListFilter('dateCreated', 'desc', 10),
                 onResetFilter: (filter) => {
+                    filter.reset();
+                    this.charityTypeDropdownStore.setValue(null);
                     filter.pageSize = 10;
                 }
             },
@@ -20,8 +23,7 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'charityAddresses',
-                            'charityAccountType'
+                            'charityAddresses'
                         ];
                         const response = await service.search(params);
                         return response.data;
@@ -72,6 +74,23 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                     this.queryUtility.filter.charityTypeIds = charityType.map((type) => { return type.id });
                 }
             });
+    }
+
+    @action.bound
+    async loadMoreClick() {
+        const service = new CharityService(this.rootStore.application.baasic.apiClient);
+        await this.tableStore.fetchMore(async (params) => {
+            params.embed = [
+                'charityAddresses',
+                'charityAccountType'
+            ];
+            const response = await service.search(params);
+            return response.data;
+        });
+
+        if (this.tableStore.data.length < this.tableStore.pageSize * this.tableStore.pageNumber) {
+            this.tableStore.hasRemainingData = false;
+        }
     }
 }
 

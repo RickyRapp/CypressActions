@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BasicInput,
     BaasicButton,
-    BaasicFieldDropdown
+    BaasicFieldDropdown,
+    NumberFormatInputField
 } from 'core/components';
 
 function Step2Template({
@@ -23,7 +24,7 @@ function Step2Template({
                             <BasicInput field={form.$('fullName')} />
                         </div>
                         <div className="col col-sml-12 u-mar--bottom--sml">
-                            <BasicInput field={form.$('phoneNumber')} />
+                            <NumberFormatInputField field={form.$('phoneNumber')} />
                         </div>
                         <div className="col col-sml-12 u-mar--bottom--sml">
                             <BasicInput field={form.$('email')} />
@@ -39,12 +40,12 @@ function Step2Template({
                                 className="btn btn--base btn--ghost u-mar--right--sml"
                                 onClick={onPreviousStepClick}
                                 label='SESSION.CREATE.STEP2.BUTTONS.BACK'
-                                />
+                            />
                             <BaasicButton
                                 className="btn btn--base btn--primary"
                                 onClick={onNextStepClick}
                                 label='SESSION.CREATE.STEP2.BUTTONS.SAVE'
-                                />
+                            />
                         </div>
                     </div>
                 </div>

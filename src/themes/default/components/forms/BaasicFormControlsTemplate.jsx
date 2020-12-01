@@ -11,7 +11,7 @@ const BaasicFormControlsTemplate = function (props) {
             {(!controls || controls.onSubmit) && (
                 <BaasicButton
                     authorization={authorization}
-                    type="submit"
+                    type='submit'
                     className={className}
                     onClick={onSubmit || form.onSubmit}
                     disabled={disableSave}
@@ -41,7 +41,7 @@ BaasicFormControlsTemplate.propTypes = {
 BaasicFormControlsTemplate.defaultProps = {
     validation: {},
     label: 'FORM_CONTROLS.SAVE_BUTTON',
-    className: 'btn btn--med btn--med--wide btn--primary',
+    className: 'btn btn--med btn--med--wide btn--primary'
 };
 
 export default defaultTemplate(BaasicFormControlsTemplate);

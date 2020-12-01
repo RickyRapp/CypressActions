@@ -54,7 +54,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             sessionCertificates={sessionCertificates}
                             barcode={barcode}
                             onBarcodeChange={onBarcodeChange}
-                            />
+                        />
                     </div>}
                 {currentStep === 4 &&
                     <div className="container container--sml">
@@ -62,7 +62,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             onNextStepClick={onNextStep4Click}
                             currentCount={currentCount}
                             session={session}
-                            />
+                        />
                     </div>}
             </form>
         </React.Fragment>

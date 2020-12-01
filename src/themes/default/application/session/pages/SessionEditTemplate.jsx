@@ -8,7 +8,8 @@ import {
     BaasicFormControls,
     SimpleBaasicTable,
     ApplicationEmptyState,
-    BaasicButton
+    BaasicButton,
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
@@ -55,7 +56,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                         <BasicInput field={form.$('fullName')} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                        <BasicInput field={form.$('phoneNumber')} />
+                        <NumberFormatInputField field={form.$('phoneNumber')} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                         <BasicInput field={form.$('email')} />

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { ListContent, BaasicButton } from "core/components";
-import { Page, PageNavigation } from "core/layouts";
+import { ListContent } from "core/components";
+import { Page } from "core/layouts";
 import { defaultTemplate } from 'core/hoc';
 import { getPageObject } from 'core/utils';
 
@@ -14,27 +14,13 @@ const ListLayoutTemplate = function ({
     authorization,
     store
 }) {
-    const { header, footer, navigation, content } = getPageObject(children);
-
+    const { header, footer, content } = getPageObject(children);
     const {
-        createFunc,
-        auth,
         isLoading
     } = resolveProps({ onCreate, loading, authorization, store });
 
     return (
         <Page title={title} loading={isLoading}>
-            {navigation
-                ? navigation
-                : (<PageNavigation>
-                    {createFunc &&
-                        <BaasicButton
-                            authorization={auth ? auth.create : null}
-                            className="btn btn--base btn--primary"
-                            label={'LIST_LAYOUT.CREATE_BUTTON'}
-                            onClick={createFunc} />}
-                </PageNavigation>)
-            }
             {header}
             {content.header}
             {content.sidebar}

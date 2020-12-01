@@ -29,7 +29,7 @@ const CharityCreateTemplate = function ({ charityCreateViewStore, t }) {
                             <BasicInput field={form.$('name')} />
                         </div>
                         <div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
-                            <BasicInput field={form.$('taxId')} />
+                            <NumberFormatInputField field={form.$('taxId')} />
                         </div>
                         <div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                             <BasicInput field={form.$('dba')} />

@@ -8,13 +8,15 @@ import {
     EmptyState,
     BaasicDropdown,
     BaasicInput,
-    Export
+    Export,
+    BaasicModal
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
+import { SelectDonor } from 'application/donor/components';
 
-const GrantListTemplate = function ({ grantViewStore, rootStore }) {
+const GrantListTemplate = function ({ grantViewStore }) {
     const {
         tableStore,
         routes,
@@ -22,23 +24,20 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
         authorization,
         searchDonorDropdownStore,
         donationStatusDropdownStore,
-        exportConfig
+        exportConfig,
+        selectDonorModal
     } = grantViewStore;
-
-    const {
-        permissionStore
-    } = rootStore
 
     return (
         <ApplicationListLayout store={grantViewStore} authorization={authorization}>
+            <PageHeader routes={routes}></PageHeader>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
-                        {permissionStore.hasPermission('theDonorsFundAdministrationSection.read') &&
-                            <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                                <BaasicDropdown store={searchDonorDropdownStore} />
-                            </div>}
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            <BaasicDropdown store={searchDonorDropdownStore} />
+                        </div>
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
                                 id='confirmationNumber'
                                 className='input input--lrg'
@@ -47,7 +46,7 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
                                 placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
                             />
                         </div>
-                        <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicDropdown
                                 store={donationStatusDropdownStore}
                                 placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
@@ -70,6 +69,9 @@ const GrantListTemplate = function ({ grantViewStore, rootStore }) {
                     />
                 </div>
             </Content>
+            <BaasicModal modalParams={selectDonorModal}>
+                <SelectDonor />
+            </BaasicModal>
         </ApplicationListLayout>
     )
 };
@@ -80,8 +82,7 @@ function renderEmpty(routes) {
 
 GrantListTemplate.propTypes = {
     grantViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func,
-    rootStore: PropTypes.object
+    t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {

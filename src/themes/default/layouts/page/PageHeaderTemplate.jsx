@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import {
     NotifyOutsideClick,
-    Gravatar
+    Gravatar,
+    BaasicButton
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
-function PageHeaderTemplate({ children, rootStore, t, coreResolving, menuStore, ...props }) {
+function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false, coreResolving, menuStore, ...props }) {
     const {
         viewStore: {
             toggleProfileMenu,
@@ -22,7 +23,7 @@ function PageHeaderTemplate({ children, rootStore, t, coreResolving, menuStore, 
     return (
         <div className="layout__header header">
 
-            {!coreResolving ? renderHeaderContent(children, props, t, title) : null}
+            {!coreResolving ? renderHeaderContent(children, props, routes, hideTitle, t, title) : null}
 
             {!coreResolving &&
                 <div className="header__options">
@@ -80,23 +81,34 @@ PageHeaderTemplate.propTypes = {
     children: PropTypes.any,
     t: PropTypes.func,
     coreResolving: PropTypes.bool,
+    hideTitle: PropTypes.bool,
     rootStore: PropTypes.object,
     menuStore: PropTypes.object,
 };
 
-function renderHeaderContent(children, props, t, title) {
+function renderHeaderContent(children, props, routes, hideTitle, t, title) {
+    let contentRender = null;
     if (children) {
-        const contentRender = typeof children === 'function' ? children(props) : children;
-        if (contentRender) {
-            return (
-                <div className='content__header'>
-                    <div>{contentRender}</div>
-                </div>
-            )
-        }
+        contentRender = typeof children === 'function' ? children(props) : children;
     }
 
-    return <h3 className="type--lrg type--wgt--medium">{t(title)}</h3>;
+    return (
+        <React.Fragment>
+            {!hideTitle && <h3 className="type--lrg type--wgt--medium u-mar--right--sml">{t(title)}</h3>}
+            {routes && routes.create ?
+                <BaasicButton
+                    className="btn btn--base btn--primary u-mar--right--sml"
+                    label={'LIST_LAYOUT.CREATE_BUTTON'}
+                    onClick={routes.create} />
+                : null}
+            {children && contentRender ?
+                <div className="content__header">
+                    <div>{contentRender}</div>
+                </div>
+                :
+                null}
+        </React.Fragment>
+    )
 }
 
 export default defaultTemplate(PageHeaderTemplate);

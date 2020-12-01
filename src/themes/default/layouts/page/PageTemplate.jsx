@@ -6,18 +6,20 @@ import { PropTypes } from 'prop-types';
 
 function PageTemplate({ children, rootStore, loading = false, isError = false, empty = false, emptyRenderer = null }) {
     const { header, footer, content } = getPageObject(children);
-
     // we should hide whole content when user or application is being resolved
     let coreResolving = rootStore.userStore.resolving;
 
     return (
         <React.Fragment>
-            <PageHeader {...(header ? header[0].props : {})} coreResolving={coreResolving} />
+            <PageHeader
+                {...(header ? header[0].props : {})}
+                coreResolving={coreResolving}
+            />
 
             <div className='container'>
                 {/* {
                     !coreResolving &&
-                        <PageNavigation {...(navigation ? navigation[0].props : {})} />
+                    <PageNavigation {...(navigation ? navigation[0].props : {})} />
                 } */}
                 {
                     (!empty &&

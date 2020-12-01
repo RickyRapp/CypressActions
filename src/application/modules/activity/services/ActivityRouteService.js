@@ -14,7 +14,11 @@ class ActivityRouteService extends BaseRouteService {
     }
 
     findTransactions(filter) {
-        return super.find(this.base + '/transactions/{?userId,donorId,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/transactions/{?donorId,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
+    }
+
+    findCharityTransactions(filter) {
+        return super.find(this.base + '/charity-transactions/{?charityId,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
     }
 
     loadDonorData(id) {

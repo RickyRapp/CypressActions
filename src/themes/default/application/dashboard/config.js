@@ -111,6 +111,13 @@ import { RouterState } from 'mobx-state-router';
                 role: ['Charities'],
                 route: 'master.app.main.grant.request'
             },
+            {
+                title: 'MENU.ACTIVITY',
+                icon: 'activity',
+                order: 4,
+                role: ['Charities'],
+                route: 'master.app.main.charity-activity.list'
+            }
         ]
     });
 })();

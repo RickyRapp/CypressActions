@@ -9,9 +9,9 @@ const StepCounter = function ({ currentStep, steps }) {
             <span className="type--base type--wgt--medium">
                 {_.map(steps, step => {
                     return <Step
-                    key={step}
-                    step={step}
-                    selected={step === currentStep}
+                        key={step}
+                        step={step}
+                        selected={step === currentStep}
                     />
                 })}
             </span>

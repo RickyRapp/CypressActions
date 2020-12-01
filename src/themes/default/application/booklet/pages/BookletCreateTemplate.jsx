@@ -53,7 +53,8 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                 }
                             });
                             bookletTypeDropdownStore.setItems(bookletTypes);
-                            const isMixedBooklet = bookletTypes.find(c => c.abrv === 'mixed').id === item.$('bookletTypeId').value;
+                            const isMixed500Booklet = bookletTypes.find(c => c.abrv === 'mixed_500').id === item.$('bookletTypeId').value;
+                            const isMixed2000Booklet = bookletTypes.find(c => c.abrv === 'mixed_2000').id === item.$('bookletTypeId').value;
 
                             return (
                                 <div key={item.key} className="card--secondary card--med u-mar--bottom--med">
@@ -75,7 +76,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                     </div>
                                     {item.$('bookletTypeId').value && item.has('bookletContents') &&
                                         <div className="">
-                                            {isMixedBooklet &&
+                                            {isMixed500Booklet &&
                                                 <BaasicButton
                                                     className='btn btn--base btn--primary u-mar--bottom--sml'
                                                     type='button'
@@ -102,22 +103,22 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                                                     store={denominationTypeDropdownStore}
                                                                     field={content.$('denominationTypeId')}
                                                                     itemRender={(li, itemProps) => {
-                                                                        const itemChildren = <FormatterResolver format={{ type: 'denomination', value: isMixedBooklet ? 'short' : 'long' }} item={{ dataItem: itemProps.dataItem }} field='dataItem' />
+                                                                        const itemChildren = <FormatterResolver format={{ type: 'denomination', value: isMixed500Booklet ? 'short' : 'long' }} item={{ dataItem: itemProps.dataItem }} field='dataItem' />
                                                                         return React.cloneElement(li, li.props, itemChildren);
                                                                     }}
                                                                     valueRender={(element, value) => {
                                                                         if (!value) return element;
-                                                                        const itemChildren = <FormatterResolver format={{ type: 'denomination', value: isMixedBooklet ? 'short' : 'long' }} item={{ dataItem: value }} field='dataItem' />
+                                                                        const itemChildren = <FormatterResolver format={{ type: 'denomination', value: isMixed500Booklet ? 'short' : 'long' }} item={{ dataItem: value }} field='dataItem' />
                                                                         return React.cloneElement(element, { ...element.props }, itemChildren);
                                                                     }}
                                                                 />
                                                             </div>
                                                             <div className="col col-sml-12 col-lrg-5">
                                                                 <NumericInputField field={content.$('certificateCount')} />
-                                                                {isMixedBooklet && arr.length - 1 === i &&
+                                                                {isMixed500Booklet && arr.length - 1 === i &&
                                                                     <span className="type--sml type--wgt--medium type--color--note"><span className="type--color--text">Total certificates per booklet:</span> {_.sumBy(item.$('bookletContents').values(), (o) => { return o.certificateCount })}</span>}
                                                             </div>
-                                                            {isMixedBooklet && item.$('bookletContents').size > 1 &&
+                                                            {isMixed500Booklet && item.$('bookletContents').size > 1 &&
                                                                 <div className="col col-sml-12 col-lrg-2">
                                                                     <BaasicButton
                                                                         className='btn btn--base btn--ghost'

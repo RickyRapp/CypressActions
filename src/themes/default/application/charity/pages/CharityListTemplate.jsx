@@ -11,7 +11,7 @@ import {
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
 const CharityListTemplate = function ({ charityViewStore }) {
     const {
@@ -23,6 +23,7 @@ const CharityListTemplate = function ({ charityViewStore }) {
 
     return (
         <ApplicationListLayout store={charityViewStore} authorization={authorization}>
+            <PageHeader routes={routes}></PageHeader>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>

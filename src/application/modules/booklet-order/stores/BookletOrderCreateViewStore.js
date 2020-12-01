@@ -34,10 +34,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         });
 
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-            this.donorId = rootStore.routerStore.routerState.params.id;
+            this.donorId = rootStore.routerStore.routerState.queryParams.id;
         }
         else {
-            this.donorId = rootStore.userStore.user.id;
+            this.donorId = rootStore.userStore.applicationUser.id;
         }
     }
 
@@ -51,13 +51,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 this.fetchDonor(),
                 this.loadLookups()
             ]);
-
-            if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                if (!this.donor.isInitialContributionDone) {
-                    this.rootStore.notificationStore.warning('BOOKLET_ORDER.CREATE.MISSING_INITIAL_CONTRIBUTION');
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
-                }
-            }
 
             this.setDefaultShippingAddress();
         }

@@ -40,14 +40,16 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         previousGrantsTableStore,
         similarGrantsTableStore,
         loaderStore,
-        grantAcknowledgmentName
+        grantAcknowledgmentName,
+        isChangedDefaultAddress,
+        onChangeDefaultAddressClick
     } = grantCreateViewStore;
 
     return (
         <React.Fragment>
             <EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
                 <Content loading={contentLoading} >
-                   <div className="row">
+                    <div className="row">
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
@@ -176,7 +178,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                                     </div>
                                     {grantAcknowledgmentName &&
-                                        <div className="form__group col col-sml-12 u-mar--top--med">
+                                        <div className="form__group col col-sml-12 u-mar--bottom--med">
                                             {grantAcknowledgmentName}
                                         </div>}
                                 </div>
@@ -204,6 +206,30 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     <div className="row">
                                         <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                             <BasicTextArea field={form.$('noteToAdministrator')} />
+                                        </div>
+                                    </div>}
+
+                                <BaasicButton
+                                    className="btn btn--med btn--secondary--light"
+                                    label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
+                                    onClick={onChangeDefaultAddressClick}>
+                                </BaasicButton>
+                                {isChangedDefaultAddress &&
+                                    <div className="row">
+                                        <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('addressLine1')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('addressLine2')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('city')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('state')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('zipCode')} />
                                         </div>
                                     </div>}
                                 {renderEditLayoutFooterContent({ form })}
@@ -237,6 +263,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <p className="type--xsml type--wgt--medium type--color--note">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
                                         </div>
                                     </div>
+
+
                                     {charityDropdownStore && charityDropdownStore.value &&
                                         <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row">
@@ -295,7 +323,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <div className="row u-mar--bottom--med">
                                     <div className="card--secondary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
-                                        <div className="card--primary">                                            
+                                        <div className="card--primary">
                                             <SimpleBaasicTable tableStore={previousGrantsTableStore} />
                                         </div>
                                     </div>
@@ -306,7 +334,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
                                         <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>
                                             <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
-                                            <div className="card--primary">                                            
+                                            <div className="card--primary">
                                                 <SimpleBaasicTable tableStore={similarGrantsTableStore} />
                                             </div>
                                         </div>
@@ -314,7 +342,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
                             </div>
                         </div>
-                   </div>
+                    </div>
                 </Content>
             </EditFormLayout >
             <BaasicModal modalParams={advancedSearchModal}>

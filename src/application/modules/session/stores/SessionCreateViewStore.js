@@ -19,8 +19,9 @@ class SessionViewStore extends BaseEditViewStore {
             autoInit: false,
             actions: () => {
                 return {
-                    create: async () => {
-                        this.session = { amount: 568, confirmationNumber: 12312 }
+                    create: async (resource) => {
+                        const response = await this.rootStore.application.session.sessionStore.finishSession({ key: resource.key });
+                        this.session = response.response;
                         this.nextStep(4);
                         this.form.clear();
                         this.charityDropdownStore.setValue(null);

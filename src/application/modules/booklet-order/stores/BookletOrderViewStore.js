@@ -6,11 +6,6 @@ import { BookletOrderListFilter } from 'application/booklet-order/models';
 
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const filter = new BookletOrderListFilter('dateCreated', 'desc')
-        if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
-            filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
-        }
-
         super(rootStore, {
             name: 'booklet-order',
             authorization: 'theDonorsFundBookletOrderSection',
@@ -23,7 +18,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                 }
             },
             queryConfig: {
-                filter: filter,
+                filter: new BookletOrderListFilter('dateCreated', 'desc'),
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.deliveryMethodTypeDropdownStore.setValue(null);
@@ -69,8 +64,8 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.selectDonorModal.open(
             {
                 donorId: this.queryUtility.filter.donorId,
-                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorId }),
-                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', { id: donorId })
+                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', null, { id: donorId }),
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.booklet-order.create', null, { id: donorId })
             });
     }
 
@@ -120,8 +115,8 @@ class BookletOrderViewStore extends BaseListViewStore {
 
     createDonorSearchDropdownStore() {
         this.searchDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
-            initFetch: false,
+            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: true,
             filterable: true
         },
             {
@@ -165,7 +160,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                             ]
                         }
                         const data = await this.rootStore.application.bookletOrder.bookletOrderStore.getDonor(id, params);
-                        return { id: data.id, name: data.donorName };
+                        return { id: data.id, name: donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' }) };
                     }
                     else {
                         return null;

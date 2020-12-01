@@ -3,53 +3,53 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
-    BaasicTable,
-    EmptyState,
     ListContent,
     BaasicInput,
     NumberFormatInput,
     TableFilter,
-    BaasicDropdown
+    BaasicDropdown,
+    SimpleBaasicTable
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 
 const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore }) {
     const {
         tableStore,
-        routes,
-        authorization,
+        loadMoreClick,
         queryUtility,
         charityTypeDropdownStore
     } = charityAdvancedSearchViewStore;
 
     return (
         <ListContent>
-            <Content emptyRenderer={renderEmpty(routes)} >
+            <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id="name"
                                 className='input input--lrg'
-                                value={queryUtility.filter['name'] || ""}
-                                onChange={(event) => queryUtility.filter['name'] = event.target.value}
+                                value={queryUtility.filter.name || ""}
+                                onChange={(event) => queryUtility.filter.name = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.NAME_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id="dba"
                                 className='input input--lrg'
-                                value={queryUtility.filter['dba'] || ""}
-                                onChange={(event) => queryUtility.filter['dba'] = event.target.value}
+                                value={queryUtility.filter.dba || ""}
+                                onChange={(event) => queryUtility.filter.dba = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.DBA_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id="emails"
                                 className='input input--lrg'
-                                value={queryUtility.filter['emails'] || ""}
-                                onChange={(event) => queryUtility.filter['emails'] = event.target.value}
+                                value={queryUtility.filter.emails || ""}
+                                onChange={(event) => queryUtility.filter.emails = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER'
                             />
                         </div>
@@ -61,35 +61,38 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <BaasicInput
+                                id="address"
                                 className='input input--lrg'
-                                value={queryUtility.filter['address'] || ""}
-                                onChange={(event) => queryUtility.filter['address'] = event.target.value}
+                                value={queryUtility.filter.address || ""}
+                                onChange={(event) => queryUtility.filter.address = event.target.value}
                                 placeholder='CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER'
                             />
                         </div>
                         <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                             <NumberFormatInput
                                 className='input input--lrg'
-                                value={queryUtility.filter['taxId']}
-                                onChange={(event) => queryUtility.filter['taxId'] = event.value}
+                                value={queryUtility.filter.taxId || ""}
+                                onChange={(event) => queryUtility.filter.taxId = event.value}
                                 format='##-#######'
                             />
                         </div>
                     </TableFilter>
                 </div>
-                <BaasicTable
-                    authorization={authorization}
+                <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}
                 />
+                {tableStore.dataInitialized &&
+                    <BaasicButton
+                        className="btn btn--primary"
+                        label='CHARITY.LIST.BUTTON.LOAD_MORE'
+                        disabled={!tableStore.hasRemainingData}
+                        onClick={loadMoreClick}>
+                    </BaasicButton>}
             </Content>
         </ListContent>
     )
 };
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='ADDRESS.LIST.EMPTY_STATE.TITLE' actionLabel='ADDRESS.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 CharityAdvancedSearchTemplate.propTypes = {
     charityAdvancedSearchViewStore: PropTypes.object.isRequired,
@@ -108,7 +111,7 @@ function renderActions({ item, actions }) {
                 {isSome(onSelect) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
+                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace correct icon
                         label='CHARITY.LIST.BUTTON.SELECT'
                         onlyIcon={true}
                         onClick={() => onSelect(item)}>

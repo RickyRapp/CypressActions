@@ -1,4 +1,4 @@
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { DonationListFilter } from 'application/donation/models';
 import { charityFormatter } from 'core/utils';
 import { observable } from 'mobx';
@@ -111,13 +111,8 @@ class PastGrantViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
+        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
             columns: [
-                {
-                    key: 'donor.donorName',
-                    title: 'ACTIVITY.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: this.hasAdministratorPermission
-                },
                 {
                     key: 'dateCreated',
                     title: 'DONATION.PAST_GRANT.LIST.COLUMNS.DATE_CREATED_LABEL',
@@ -150,7 +145,8 @@ class PastGrantViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
-        }));
+        },
+            true));
     }
 }
 

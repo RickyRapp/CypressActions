@@ -17,31 +17,21 @@ class ContributionViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundContributionSection',
             autoInit: true,
             routes: {
-                edit: (editId, donorId) => {
-                    let queryParams = null;
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                        queryParams = { donorId: donorId }
-                    }
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId }, queryParams);
+                edit: (editId) => {
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId });
                 },
                 create: () => {
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create'))
-                        this.openSelectDonorModal();
-                    else
-                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
                 },
-                preview: (id, donorId) => {
-                    let queryParams = null;
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                        queryParams = { donorId: donorId }
-                    }
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id }, queryParams);
+                preview: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id });
                 },
             },
             queryConfig: {
                 filter: new ContributionListFilter('dateCreated', 'desc'),
                 disableUpdateQueryParams: false,
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
@@ -59,14 +49,14 @@ class ContributionViewStore extends BaseListViewStore {
                             'contributionStatus'
                         ];
 
-                        const response = await service.find({ userId: this.donorId, ...params });
+                        const response = await service.find({ donorId: this.donorId, ...params });
                         return response.data;
                     }
                 }
             }
         });
 
-        this.donorId = rootStore.userStore.user.id;
+        this.donorId = rootStore.userStore.applicationUser.id;
         this.createTableStore();
         this.createPaymentTypeDropdownStore();
         this.createContributionStatusDropdownStore();
@@ -74,30 +64,6 @@ class ContributionViewStore extends BaseListViewStore {
         this.selectDonorModal = new ModalParams({});
         this.reviewModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
-    }
-
-    @action.bound
-    openSelectDonorModal() {
-        this.selectDonorModal.open(
-            {
-                donorId: this.queryUtility.filter.donorId,
-                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorId }),
-                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorId })
-            }
-        );
-    }
-
-    @action.bound
-    onClickDonorFromFilter(donorId) {
-        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorId })
-    }
-
-    @action.bound
-    openReviewDonorModal(id) {
-        this.reviewModal.open({
-            id: id,
-            onAfterReview: () => { this.reviewModal.close(); this.queryUtility.fetch(); }
-        });
     }
 
     @action.bound
@@ -138,57 +104,9 @@ class ContributionViewStore extends BaseListViewStore {
         )
     }
 
-    @action.bound
-    async openReviewContribution(item) {
-        let message = 'You are about to set contribution to '
-        let newStatusId = null;
-        if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'pending').id) {
-            newStatusId = this.contributionStatuses.find(c => c.abrv === 'in-process').id;
-            message += 'in-process'
-        }
-        else if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'in-process').id) {
-            newStatusId = this.contributionStatuses.find(c => c.abrv === 'funded').id;
-            message += 'funded'
-        }
-        else if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'funded').id) {
-            newStatusId = this.contributionStatuses.find(c => c.abrv === 'declined').id;
-            message += 'declined'
-        }
-        else {
-            return;
-        }
-
-        message += ' status';
-
-        this.rootStore.modalStore.showConfirm(
-            message,
-            async () => {
-                this.loaderStore.suspend();
-                try {
-                    const service = new ContributionService(this.rootStore.application.baasic.apiClient);
-                    await service.review({ id: item.id, contributionStatusId: newStatusId });
-                    this.queryUtility.fetch();
-                    this.rootStore.notificationStore.success('Contribution reviewed.');
-                }
-                catch (err) {
-                    this.rootStore.notificationStore.error('Failed to review contribution');
-                }
-                finally {
-                    this.loaderStore.resume();
-                }
-            }
-        )
-    }
-
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
-                {
-                    key: 'donor.donorName',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true,
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
-                },
                 {
                     key: 'amount',
                     title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
@@ -229,7 +147,6 @@ class ContributionViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (contribution) => this.routes.edit(contribution.id, contribution.donorId),
                 onCancel: (contribution) => this.openCancelContribution(contribution),
-                onReview: (contribution) => this.openReviewContribution(contribution),
                 onPreview: (contribution) => this.routes.preview(contribution.id, contribution.donorId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
@@ -261,16 +178,12 @@ class ContributionViewStore extends BaseListViewStore {
                         }
                     }
                     return false;
-                },
-                onReviewRender: (item) => {
-                    return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
                 }
             }
         }));
     }
 
     createPaymentTypeDropdownStore() {
-
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
             multi: true
         },

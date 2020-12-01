@@ -1,6 +1,7 @@
 import { moduleProviderFactory } from 'core/providers';
 import { BookletOrderList, BookletOrderCreate, BookletOrderReview } from 'application/booklet-order/pages';
 import { BookletOrderModuleStore } from 'application/booklet-order/stores';
+import { RouterState } from 'mobx-state-router';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -25,7 +26,25 @@ import { BookletOrderModuleStore } from 'application/booklet-order/stores';
                         authorization: 'theDonorsFundBookletOrderSection.create',
                         data: {
                             title: "BOOKLET_ORDER.CREATE.TITLE"
-                        }
+                        },
+                        beforeEnter:
+                            // eslint-disable-next-line
+                            async (fromState, toState, routerStore) => {
+                                const { donor: { donorStore } } = routerStore.rootStore.application;
+
+                                if (!routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                                    let donorId = routerStore.rootStore.userStore.user.id;
+                                    const data = await donorStore.getDonor(donorId, { fields: 'isInitialContributionDone' });
+                                    if (data.isInitialContributionDone) {
+                                        return Promise.resolve();
+                                    }
+                                    else {
+                                        routerStore.rootStore.notificationStore.warning('BOOKLET_ORDER.CREATE.MISSING_INITIAL_CONTRIBUTION');
+                                        return Promise.reject(new RouterState('master.app.main.contribution.create'));
+                                    }
+                                }
+                                return Promise.resolve();
+                            }
                     },
                     {
                         name: 'master.app.main.booklet-order.review',

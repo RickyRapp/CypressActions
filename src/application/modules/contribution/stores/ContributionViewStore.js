@@ -14,42 +14,25 @@ class ContributionViewStore extends BaseListViewStore {
     contributionStatuses = [];
 
     constructor(rootStore) {
-        let filter = new ContributionListFilter('dateCreated', 'desc')
-        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
-                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
-            }
-        }
-
         super(rootStore, {
             name: 'contribution',
             authorization: 'theDonorsFundContributionSection',
             routes: {
                 edit: (editId, donorId) => {
-                    let queryParams = null;
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                        queryParams = { donorId: donorId }
-                    }
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId }, queryParams);
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId }, { donorId: donorId });
                 },
                 create: () => {
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create'))
-                        this.openSelectDonorModal();
-                    else
-                        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
+                    this.openSelectDonorModal();
                 },
                 preview: (id, donorId) => {
-                    let queryParams = null;
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                        queryParams = { donorId: donorId }
-                    }
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id }, queryParams);
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id }, { donorId: donorId });
                 },
             },
             queryConfig: {
-                filter: filter,
+                filter: new ContributionListFilter('dateCreated', 'desc'),
                 disableUpdateQueryParams: false,
-                onResetFilter: () => {
+                onResetFilter: (filter) => {
+                    filter.reset();
                     this.searchDonorDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
@@ -67,196 +50,20 @@ class ContributionViewStore extends BaseListViewStore {
                             'paymentType',
                             'contributionStatus'
                         ];
-                        let userId = null;
-                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                            userId = rootStore.userStore.user.id
-                        }
-
-                        const response = await service.find({ userId: userId, ...params });
+                        const response = await service.find(params);
                         return response.data;
                     }
                 }
             }
         });
 
-        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-            this.donorId = rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id;
-        }
-        else {
-            this.donorId = rootStore.userStore.user.id;
-        }
-
-        this.setTableStore(new TableViewStore(this.queryUtility, {
-            columns: [
-                {
-                    key: 'donor.donorName',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true
-                },
-                {
-                    key: 'amount',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
-                    }
-                },
-                {
-                    key: 'confirmationNumber',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
-                },
-                {
-                    key: 'contributionStatus.name',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
-                },
-                {
-                    key: 'paymentType.name',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
-                    format: {
-                        type: 'function',
-                        value: this.renderPaymentType
-                    }
-                },
-                {
-                    key: 'payerInformation.name',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
-                },
-                {
-                    key: 'dateCreated',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
-                    }
-                }
-            ],
-            actions: {
-                onEdit: (contribution) => this.routes.edit(contribution.id, contribution.donorId),
-                onCancel: (contribution) => this.openCancelContribution(contribution),
-                onReview: (contribution) => this.openReviewContribution(contribution),
-                onPreview: (contribution) => this.routes.preview(contribution.id, contribution.donorId),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
-            },
-            actionsRender: {
-                onEditRender: (item) => {
-                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                            return true;
-                        }
-                        else {
-                            if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add(15, 'm');
-                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
-                            }
-                        }
-                    }
-                    return false;
-                },
-                onCancelRender: (item) => {
-                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                            return true;
-                        }
-                        else {
-                            if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add(30, 'm');
-                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
-                            }
-                        }
-                    }
-                    return false;
-                },
-                onReviewRender: (item) => {
-                    return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
-                }
-            }
-        }));
+        this.createTableStore();
+        this.createDonorSearch();
+        this.createContributionStatusDropodownStore();
+        this.createPaymentTypeDropodownStore();
 
         this.selectDonorModal = new ModalParams({});
         this.reviewModal = new ModalParams({});
-
-        const donorService = new DonorService(rootStore.application.baasic.apiClient);
-        this.searchDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const response = await donorService.search({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'coreUser.firstName|asc',
-                        embed: [
-                            'donorAddresses'
-                        ],
-                        fields: [
-                            'id',
-                            'accountNumber',
-                            'donorName',
-                            'securityPin',
-                            'donorAddresses'
-                        ]
-                    });
-                    return _.map(response.data.item, x => {
-                        return {
-                            id: x.id,
-                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
-                    });
-                },
-                initValueFunc: async () => {
-                    if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.id) {
-                        const id = rootStore.routerStore.routerState.queryParams.id;
-                        const params = {
-                            embed: [
-                                'donorAddresses'
-                            ],
-                            fields: [
-                                'id',
-                                'accountNumber',
-                                'donorName',
-                                'securityPin',
-                                'donorAddresses'
-                            ]
-                        }
-                        const response = await donorService.get(id, params);
-                        return { id: response.data.id, name: response.data.donorName };
-                    }
-                    else {
-                        return null;
-                    }
-                },
-                onChange: (donorId) => {
-                    this.queryUtility.filter.donorId = donorId;
-                }
-            });
-
-        this.paymentTypeDropdownStore = new BaasicDropdownStore({
-            multi: true
-        },
-            {
-                fetchFunc: () => {
-                    return this.rootStore.application.lookup.paymentTypeStore.find();
-                },
-                onChange: (paymentType) => {
-                    this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });
-                }
-            });
-
-        this.contributionStatusDropdownStore = new BaasicDropdownStore({
-            multi: true
-        },
-            {
-                fetchFunc: async () => {
-                    this.contributionStatuses = await this.rootStore.application.lookup.contributionStatusStore.find();
-                    return this.contributionStatuses;
-                },
-                onChange: (contributionStatus) => {
-                    this.queryUtility.filter.contributionStatusIds = contributionStatus.map(status => { return status.id });
-                }
-            });
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
 
@@ -275,8 +82,8 @@ class ContributionViewStore extends BaseListViewStore {
         this.selectDonorModal.open(
             {
                 donorId: this.queryUtility.filter.donorId,
-                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorId }),
-                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorId })
+                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', null, { id: donorId }),
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.contribution.create', null, { id: donorId })
             }
         );
     }
@@ -372,6 +179,187 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             }
         )
+    }
+
+    createTableStore() {
+        this.setTableStore(new TableViewStore(this.queryUtility, {
+            columns: [
+                {
+                    key: 'donor.donorName',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    disableClick: true
+                },
+                {
+                    key: 'amount',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
+                },
+                {
+                    key: 'confirmationNumber',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+                },
+                {
+                    key: 'contributionStatus.name',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
+                },
+                {
+                    key: 'paymentType.name',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
+                    format: {
+                        type: 'function',
+                        value: this.renderPaymentType
+                    }
+                },
+                {
+                    key: 'payerInformation.name',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
+                },
+                {
+                    key: 'dateCreated',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
+                }
+            ],
+            actions: {
+                onEdit: (contribution) => this.routes.edit(contribution.id, contribution.donorId),
+                onCancel: (contribution) => this.openCancelContribution(contribution),
+                onReview: (contribution) => this.openReviewContribution(contribution),
+                onPreview: (contribution) => this.routes.preview(contribution.id, contribution.donorId),
+                onSort: (column) => this.queryUtility.changeOrder(column.key)
+            },
+            actionsRender: {
+                onEditRender: (item) => {
+                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+                            return true;
+                        }
+                        else {
+                            if (item.contributionStatus.abrv === 'pending') {
+                                const dateToEdit = moment(item.dateCreated).add(15, 'm');
+                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
+                            }
+                        }
+                    }
+                    return false;
+                },
+                onCancelRender: (item) => {
+                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
+                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
+                            return true;
+                        }
+                        else {
+                            if (item.contributionStatus.abrv === 'pending') {
+                                const dateToEdit = moment(item.dateCreated).add(30, 'm');
+                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
+                            }
+                        }
+                    }
+                    return false;
+                },
+                onReviewRender: (item) => {
+                    return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
+                }
+            }
+        }));
+    }
+
+    createDonorSearch() {
+        const donorService = new DonorService(this.rootStore.application.baasic.apiClient);
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: true,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const response = await donorService.search({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'coreUser.firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'securityPin',
+                            'donorAddresses'
+                        ]
+                    });
+                    return _.map(response.data.item, x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                initValueFunc: async () => {
+                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = this.rootStore.routerStore.routerState.queryParams.donorId;
+                        const params = {
+                            embed: [
+                                'donorAddresses'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'securityPin',
+                                'donorAddresses'
+                            ]
+                        }
+                        const response = await donorService.get(id, params);
+                        return {
+                            id: response.data.id,
+                            name: donorFormatter.format(response.data, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorId) => {
+                    this.queryUtility.filter.donorId = donorId;
+                }
+            });
+    }
+
+    createContributionStatusDropodownStore() {
+        this.contributionStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: async () => {
+                    this.contributionStatuses = await this.rootStore.application.lookup.contributionStatusStore.find();
+                    return this.contributionStatuses;
+                },
+                onChange: (contributionStatus) => {
+                    this.queryUtility.filter.contributionStatusIds = contributionStatus.map(status => { return status.id });
+                }
+            });
+    }
+
+    createPaymentTypeDropodownStore() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: () => {
+                    return this.rootStore.application.lookup.paymentTypeStore.find();
+                },
+                onChange: (paymentType) => {
+                    this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });
+                }
+            });
+
     }
 }
 

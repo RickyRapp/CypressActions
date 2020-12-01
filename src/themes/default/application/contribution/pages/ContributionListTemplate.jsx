@@ -11,12 +11,13 @@ import {
     DateRangeQueryPicker
 } from 'core/components';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content } from 'core/layouts';
+import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 import { ContributionReview } from 'application/contribution/components'
 import { SelectDonor } from 'application/donor/components';
 
 const ContributionListTemplate = function ({ contributionViewStore }) {
     const {
+        routes,
         tableStore,
         queryUtility,
         authorization,
@@ -31,6 +32,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
     return (
         <React.Fragment>
             <ApplicationListLayout store={contributionViewStore} authorization={authorization}>
+                <PageHeader routes={routes}></PageHeader>
                 <Content>
                     <div className="card--tertiary card--med u-mar--bottom--sml">
                         <TableFilter queryUtility={queryUtility} >
@@ -39,13 +41,15 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                             </div>
                             <div className="u-mar--bottom--sml col col-sml-12 col-lrg-4">
                                 <BaasicInput
+                                    id="confirmationNumber"
                                     className='input input--lrg'
-                                    value={queryUtility.filter.confirmationNumber}
+                                    value={queryUtility.filter.confirmationNumber || ""}
                                     onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
                                     placeholder='CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER' />
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                 <BaasicInput
+                                    id="paymentNumber"
                                     className='input input--lrg'
                                     value={queryUtility.filter.paymentNumber || ""}
                                     onChange={(event) => queryUtility.filter.paymentNumber = event.target.value}
@@ -66,6 +70,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                 <BaasicInput
+                                    id="nameOnCheck"
                                     className='input input--lrg'
                                     value={queryUtility.filter.nameOnCheck || ""}
                                     onChange={(event) => queryUtility.filter.nameOnCheck = event.target.value}

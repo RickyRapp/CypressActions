@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
-import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BaasicModal, BasicFieldCheckbox, BasicInput, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
+import { BaasicButton, BaasicFieldDropdown, BaasicModal, BasicFieldCheckbox, BasicInput, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { BankAccountForm } from 'application/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/contribution/components';
@@ -15,7 +15,6 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
         paymentTypes,
         step,
         onSelectPaymentType,
-        paymentTypeDropdownStore,
         bankAccountDropdownStore,
         bankAccountModal,
         onAddBankAccountClick,
@@ -95,7 +94,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                         <div className={c.id !== form.$('paymentTypeId').value ? "card card--contribution card--med u-mar--bottom--med cursor--pointer" : "card card--contribution checked card--med u-mar--bottom--med cursor--pointer"}> 
+                                        <div className={c.id !== form.$('paymentTypeId').value ? "card card--contribution card--med u-mar--bottom--med cursor--pointer" : "card card--contribution checked card--med u-mar--bottom--med cursor--pointer"}>
                                             <div className="row u-display--flex u-display--flex--align--center">
                                                 <div className="col col-sml-2">
                                                     <i className="u-icon u-icon--med u-icon--download u-push"></i>
@@ -125,9 +124,6 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                             </div>
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <p className="type--sml type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.DONATE_SECURITIES')}</p>
-                                            </div>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                                             </div>
                                             {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&
                                                 <React.Fragment>
@@ -165,7 +161,13 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                                 <BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
                                             </div>
                                             <div className="col col-sml-12">
-                                                <BaasicFormControls form={form} onSubmit={onSubmitClick} type='button' className="btn btn--med btn--secondary u-push"/>
+                                                <BaasicButton
+                                                    type="button"
+                                                    className="btn btn--med btn--secondary u-push"
+                                                    onClick={onSubmitClick}
+                                                    icon={form.validating ? 'synchronize-arrows-1 rotate' : ''}
+                                                    label={'FORM_CONTROLS.SAVE_BUTTON'}
+                                                />
                                             </div>
                                         </div>
                                     </div>

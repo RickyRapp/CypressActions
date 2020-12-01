@@ -47,7 +47,7 @@ class SessionRouteService extends BaseRouteService {
     }
 
     finishSession(resource) {
-        return super.create(this.base + '/finish/{key}', resource);
+        return super.create(this.sessionScanBase + '/step4/{key}', resource);
     }
 
     removeCertificate() {

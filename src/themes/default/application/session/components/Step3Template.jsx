@@ -46,10 +46,10 @@ function Step3Template({
                                             {c.barcode}
                                         </div>
                                         <div className="col col-lrg-3 type--base type--wgt--medium">
-                                            {`$${c.certificateValue}`} {c.insufficientFunds ? ` - maybe insufficient funds` : ''}
+                                            {`$${c.denominationTypeValue}`}
                                         </div>
                                         <div className="col col-lrg-3 type--base type--wgt--medium">
-                                            ${c.certificateValue - c.deductionCertificateAmount}
+                                            ${c.certificateValue} {c.insufficientFunds ? ` - maybe insufficient funds` : ''}
                                         </div>
                                     </div>
                                 )

@@ -15,6 +15,11 @@ class SessionStore {
         return response.data;
     }
 
+    async getSession(id, params) {
+        const response = await this.sessionService.get(id, params);
+        return response.data;
+    }
+
     async searchCharity(params) {
         const response = await this.charityService.search(params);
         return response.data;
@@ -22,6 +27,11 @@ class SessionStore {
 
     async createInitialSession(resource) {
         const response = await this.sessionService.createInitialSession(resource);
+        return response.data;
+    }
+
+    async finishSession(resource) {
+        const response = await this.sessionService.finishSession(resource);
         return response.data;
     }
 

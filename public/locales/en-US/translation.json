@@ -447,6 +447,7 @@
         "FILTERS_TITLE": "Filters",
         "FILTERS_BUTTON": "Show/Hide",
         "EXPAND_FILTERS_BUTTON": "Expand/Collapse",
+        "COLLAPSE_FILTERS_BUTTON": "Expand/Collapse",
         "FILTER": {
             "SEARCH_BUTTON": "Search",
             "CLEAR_BUTTON": "Clear"
@@ -464,7 +465,7 @@
     "NO": "NO",
     "Are you sure you want to disapprove user?": "Are you sure you want to disapprove user?",
     "Are you sure you want to lock user?": "Are you sure you want to lock user?",
-    "SELECT_DONOR": "Select DONOR",
+    "SELECT_DONOR": "Select donor",
     "SELECT_DONOR_PLACEHOLDER": "Select donor",
     "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
     "CHOOSE_TYPE_EXPORT": "Export type",
@@ -927,7 +928,7 @@
     },
     "ACTIVITY": {
         "MY_GIVING": "My Giving",
-        "TRANSACTIONS": "Transactions",
+        "TRANSACTIONS": "All Transactions",
         "DEPOSITS": "Deposits",
         "GRANTS": "Grants",
         "TRANSACTION_TAB": {
@@ -963,6 +964,19 @@
                     "GRANT_AMOUNT_LABEL": "Grant amount",
                     "CONFIRMATION_NUMBER_LABEL": "Confirmation number"
                 }
+            }
+        }
+    },
+    "CHARITY_ACTIVITY": {
+        "TAB_TITLE": "Activity",
+        "ALL_TRANSACTIONS": "All Transactions",
+        "GRANTS": "Grants",
+        "LIST": {
+            "COLUMNS": {
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Balance",
+                "TRANSACTION_TYPE_LABEL": "Transaction Type",
+                "PRESENT_BALANCE_LABEL": "Present Balance"
             }
         }
     },
@@ -1036,6 +1050,7 @@
                 "CONTACT_INFORMATION_EMAIL_PLACEHOLDER": "Email",
                 "CONTACT_INFORMATION_NUMBER_LABEL": "Number",
                 "CONTACT_INFORMATION_NUMBER_PLACEHOLDER": "Number",
+                "IS_NEW_BANK_ACCOUNT_LABEL": "Add bank account",
                 "BANK_ACCOUNT_NAME_LABEL": "Name",
                 "BANK_ACCOUNT_NAME_PLACEHOLDER": "Name",
                 "BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL": "Account number",
@@ -1065,12 +1080,6 @@
                     "CONFIRM_PASSWORD_LABEL": "Confirm password",
                     "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password"
                 },
-                "SUBSCRIPTION_TYPE_LABEL": "Subscription type",
-                "SUBSCRIPTION_TYPE_PLACEHOLDER": "Subscription type",
-                "SUBSCRIPTION_NEXT_DATE_LABEL": "Subscription first date",
-                "SUBSCRIPTION_NEXT_DATE_PLACEHOLDER": "Subscription first date",
-                "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
-                "SUBSCRIPTION_AMOUNT_PLACEHOLDER": "Subscription amount",
                 "IS_ONLINE_ACCOUNT_ENABLED_LABEL": "Is online account enabled?",
                 "NOTIFY_ADMINISTRATORS_LABEL": "Notify administrators?",
                 "SEND_WELCOME_EMAIL_LABEL": "Send welcome email?"
@@ -1444,8 +1453,11 @@
             "INSIGHTS": "Insights",
             "NEW_CHARITY_TITLE": "Charity Information",
             "NEW_CHARITY_CONTACT_TITLE": "Contact Information",
+            "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
             "BUTTON": {
-                "CREATE": "Create"
+                "CREATE": "Create",
+                "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
+                "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
             },
             "FIELDS": {
                 "AMOUNT_LABEL": "Grant Information",
@@ -1536,7 +1548,7 @@
                     "CHARITY_LABEL": "Charity name",
                     "AMOUNT_LABEL": "Amount",
                     "DATE_CREATED_LABEL": "Date",
-                    "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                    "CONFIRMATION_NUMBER_LABEL": "Voucher #",
                     "DONATION_STATUS_LABEL": "Status",
                     "DONATION_TYPE_LABEL": "Transaction Type"
                 },
@@ -1567,7 +1579,8 @@
                     "CHARITY_WEBSITE_LABEL": "Charity Website",
                     "GRANT_REQUEST_LABEL": "Grant Request",
                     "GIVING_CARD_LABEL": "Giving Card",
-                    "SESSION_LABEL": "Session"
+                    "SESSION_LABEL": "Session",
+                    "ACH_AVAILABLE_LABEL": "ACH available"
                 },
                 "GRANT": {
                     "COLUMNS": {
@@ -2245,7 +2258,7 @@
     },
     "THIRD_PARTY_WEBSITE": {
         "LIST": {
-            "TITLE": "Third party websites",
+            "TITLE": "Charity websites",
             "COLUMNS": {
                 "NAME_LABEL": "Name",
                 "IP_LABEL": "IP address",
