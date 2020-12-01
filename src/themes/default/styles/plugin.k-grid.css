@@ -75,7 +75,7 @@
 /* Table */
 .k-grid {
 	position: relative;
-	overflow-y: auto;
+	overflow: auto;
 	max-height: calc(100vh - 98px);
 
 	table {

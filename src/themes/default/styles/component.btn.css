@@ -202,6 +202,10 @@
         &--sml {
             padding: calc($unit * 3 - 1px) calc($unit * 3 - 1px);
         }
+        
+        &--lrg {
+            padding: calc($unit * 4 - 1px) calc($unit * 4 - 1px);
+        }
     }
 
     &.is-disabled,
