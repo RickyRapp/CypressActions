@@ -86,6 +86,8 @@
         @mixin type-scale $type-xsmall, 1;
 
         @media (--screen-to-sml) {
+            min-width: calc($unit * 11);
+            
             @mixin type-scale $type-tiny, 0.70;
             font-size: calc($unit * 1.3);
         }
