@@ -113,7 +113,7 @@
                 cursor: pointer;
 
                 @media (--screen-to-sml) {
-                    bottom: calc($unit * 56);
+                    bottom: calc($unit * 31);
                 } 
             }
 

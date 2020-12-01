@@ -43,7 +43,7 @@ function TableFilterTemplate(props) {
                         {showToggle && (
                             <BaasicButton
                                 className={`btn btn--icon filter__expand ${filterStore.filterVisible ? 'is-active' : ''}`}
-                                icon="btn--ghost btn--icon--sml u-icon u-icon--filter u-icon--xxmed"
+                                icon="btn--ghost btn--icon--lrg u-icon u-icon--filter u-icon--xxmed"
                                 onlyIcon={true}
                                 onClick={filterStore.toggleFilterVisibility}
                                 label={filterStore.filterVisible ? 'GRID.COLLAPSE_FILTERS_BUTTON' : 'GRID.EXPAND_FILTERS_BUTTON'}

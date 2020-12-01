@@ -12,7 +12,7 @@
 
 	.k-header {
 
-		color: $color-opaque;
+		color: $heather;
 		@mixin type-scale $type-small, 1;
 		font-weight: $type-weight-bold;
 		border-bottom: 1px solid $grey-3;
@@ -362,4 +362,8 @@
 .k-block ::selection,
 .k-panel ::selection {
 	background-color: $color-primary;
+}
+
+.k-grid th, .k-grid td {
+	width: calc($unit * 20);
 }

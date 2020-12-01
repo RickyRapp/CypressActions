@@ -40,7 +40,7 @@
 
     &--lrg {
         @mixin type-scale $type-medium, 1.25;
-        
+
         @media (--screen-from-med) {
             @mixin type-scale $type-large, 1.5;
         }
@@ -124,7 +124,7 @@
             color: $color-note;
         }
     }
-    
+
     /* Type case */
     &--uppercase {
         text-transform: uppercase;
@@ -137,7 +137,7 @@
     &--underline {
         text-decoration: underline;
     }
-        
+
     &--narrow {
         letter-spacing: 0.0625em;
     }
@@ -171,15 +171,5 @@
         width: 100%;
         overflow: hidden;
         white-space: nowrap;
-    }
-
-    &--prepaid {
-        text-align: center;
-
-        background-color: $zest-light;
-        color: $color-note;
-
-        border: 1px solid $zest-dark;
-        border-radius: 25px;
     }
 }

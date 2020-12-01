@@ -48,7 +48,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
             <EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
                 <Content loading={contentLoading} >
                    <div className="row">
-                        <div className="col col-sml-12 col-lrg-6">
+                        <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
@@ -209,7 +209,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 {renderEditLayoutFooterContent({ form })}
                             </div>
                         </div>
-                        <div className="col col-sml-12 col-lrg-6">
+                        <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                 <div className="row">
@@ -304,7 +304,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <div className="row">
                                     <div className="card--secondary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
-                                        <div className="card--primary card--med">
+                                        <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>
                                             <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
                                             <div className="card--primary">                                            
                                                 <SimpleBaasicTable tableStore={similarGrantsTableStore} />

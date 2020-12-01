@@ -38,5 +38,11 @@
 				vertical-align: baseline;
 			}
 		}
+
+		&--self {
+			&--end {
+				align-self: flex-end;
+			}
+		}
 	}
 }

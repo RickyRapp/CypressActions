@@ -72,4 +72,21 @@
             border-radius: 0;
         }
     }
+
+    &--prepaid {
+        min-width: calc($unit * 11);
+        max-width: calc($unit * 22);
+        text-align: center;
+
+        background-color: $zest-light;
+        color: $color-note;
+
+        border: 1px solid $zest-dark;
+        border-radius: 25px;
+
+        @media (--screen-to-sml) {
+            @mixin type-scale $type-tiny, 0.70;
+            font-size: calc($unit * 1.3);
+        }
+    }
 }

@@ -14,7 +14,7 @@ function TransactionTemplate({ transactionViewStore }) {
         <div>
             <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility} >
-                    <div className="col col-sml-6 u-mar--bottom--sml">
+                    <div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
                         <DateRangeQueryPicker
                             queryUtility={queryUtility}
                             store={dateCreatedDateRangeQueryStore}

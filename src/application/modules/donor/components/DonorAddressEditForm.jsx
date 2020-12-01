@@ -16,22 +16,22 @@ class DonorEmailAddressEditForm extends Component {
                 <form className='form' onSubmit={formAddress.onSubmit}>
                     <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{formAddress.$('id').value ? t('ADDRESS.EDIT.TITLE') : t('ADDRESS.CREATE.TITLE')}</h3>
                     <div className="row u-mar--bottom--sml">
-                        <div className="form__group col col-lrg-6">
+                        <div className="form__group col col-sml-12 col-lrg-6">
                             <BasicInput field={formAddress.$('addressLine1')} />
                         </div>
-                        <div className="form__group col col-lrg-6">
+                        <div className="form__group col col-sml-12 col-lrg-6">
                             <BasicInput field={formAddress.$('addressLine2')} />
                         </div>
-                        <div className="form__group col col-lrg-3">
+                        <div className="form__group col col-sml-12 col-lrg-3">
                             <BasicInput field={formAddress.$('city')} />
                         </div>
-                        <div className="form__group col col-lrg-3">
+                        <div className="form__group col col-sml-12 col-lrg-3">
                             <BasicInput field={formAddress.$('state')} />
                         </div>
-                        <div className="form__group col col-lrg-3">
+                        <div className="form__group col col-sml-12 col-lrg-3">
                             <BasicInput field={formAddress.$('zipCode')} />
                         </div>
-                        <div className="form__group col col-lrg-3">
+                        <div className="form__group col col-sml-12 col-lrg-3">
                             <BasicInput field={formAddress.$('description')} />
                         </div>
                     </div>
