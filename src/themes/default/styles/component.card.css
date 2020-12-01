@@ -15,7 +15,7 @@
 
         &--light {
             background-color: $color-background-seashellt; 
-            border: 1px solid $almond;
+            border-radius: $radius-base;
         }
     }
     
@@ -23,11 +23,6 @@
         background-color: $white;
         border-radius: $radius-base;
         box-shadow: $shadow-card; 
-
-       &--light {
-        background-color: $color-background-clear-day;
-        border: 1px solid $scandal;
-       }
     }
 
     &--form {

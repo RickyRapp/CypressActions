@@ -1,0 +1,61 @@
+/*------------------------------------*\
+    # component.transaction
+\*------------------------------------*/
+
+.transaction {
+    &__card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        padding: $unit calc($unit * 4);
+
+        border-right: 2px solid color($color-opaque a(30%));
+
+        @media (--screen-to-lrg) {
+            padding-bottom: calc($unit * 2);
+            margin-bottom: calc($unit * 2);
+
+            border-right: 0;
+            border-bottom: 2px solid color($color-opaque a(30%));
+        }
+        
+        &--amount {
+            margin-right: calc($unit * 2);
+
+            font-weight: $type-weight-bold;
+            @mixin type-scale $type-xlarge, 1.5;
+            color: $color-text;
+            
+            @media (--screen-from-med) {
+                @mixin type-scale $type-xxxlarge, 2;
+            }
+            
+            &--plus {
+                padding-left: calc($unit * 3.1);
+            }
+        }
+        
+        &--title {
+            width: calc($unit * 18);
+
+            color: $bali-hai;
+            text-transform: uppercase;
+            @mixin type-scale $type-small, 1;
+            font-weight: $type-weight-medium;
+        }
+    }
+
+    &__show {
+        padding: calc($unit * 3) calc($unit * 4);
+        
+        border-radius: $radius-base;
+        box-shadow: $shadow-card; 
+        background-color: $white;
+        
+        &--body {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

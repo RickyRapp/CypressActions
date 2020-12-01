@@ -214,8 +214,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                                        <div className="card--tertiary--light card--med type--center">
-                                            <div className="type--lrg type--wgt--medium type--color--note">
+                                        <div className="card--secondary card--med type--center">
+                                            <div className="type--xlrg type--wgt--bold type--color--text">
                                                 {donor && <FormatterResolver
                                                     item={{ balance: donor.availableBalance }}
                                                     field='balance'
@@ -227,18 +227,18 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                                         <div className="card--secondary--light card--med type--center">
-                                            <div className="type--lrg type--wgt--medium type--color--note">
+                                            <div className="type--xlrg type--wgt--bold type--color--note">
                                                 {donor && <FormatterResolver
                                                     item={{ balance: donor.upcomingGrantsThisYear }}
                                                     field='balance'
                                                     format={{ type: 'currency' }}
                                                 />}
                                             </div>
-                                            <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
+                                            <p className="type--xsml type--wgt--medium type--color--note">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
                                         </div>
                                     </div>
                                     {charityDropdownStore && charityDropdownStore.value &&
-                                        <div className="card--tertiary--light card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row">
                                                 <div className="col col-sml-12 col-lrg-6">
                                                     <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>

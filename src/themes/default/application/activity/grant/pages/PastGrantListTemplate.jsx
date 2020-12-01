@@ -110,7 +110,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                     <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}</h4>
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                            <div className="card--tertiary--light card--med type--center">
+                            <div className="card--secondary card--med type--center">
                                 <div className="type--lrg type--wgt--medium type--color--note">
                                     {summaryData &&
                                         <FormatterResolver

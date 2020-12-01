@@ -136,7 +136,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                         <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
                         <div className="row">
                             <div className="col col-sml-12 col-lrg-6">
-                                <div className="card--tertiary--light card--med type--center">
+                                <div className="card--secondary card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
                                         <FormatterResolver
                                             item={{ amount: 1500 }}

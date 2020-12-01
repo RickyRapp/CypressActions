@@ -54,76 +54,45 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 			</PageHeader>
 			<div className="u-padd--top--sml">
 				<div className="row">
-					<div className="col col-sml-12 col-med-6">
+					<div className="col col-sml-12 col-xlrg-6">
 						{donor && donor.isContributionMade ? (
-							<div className="card card--primary card--med u-mar--bottom--med">
+							<div className="dashboard-card u-mar--bottom--med">
 								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-								<div className="row u-mar--bottom--med">
-									<div className="col col-sml-12 col-lrg-6">
-										<h5 className="type--base type--wgt--bold type--color--note type--underline">
+									<div className="dashboard-card__body">
+										<h5 className="dashboard-card__body--amount">
+											{donor && (
+												<FormatterResolver
+													item={{ balance: donor.availableBalance }}
+													field="balance"
+													format={{ type: 'currency' }}
+												/>
+											)}
+										</h5>
+										<p className="dashboard-card__body--title">
 											{t('DASHBOARD.AVAILABLE_BALANCE')}
-										</h5>
-										<div>
-											<p className="type--base type--wgt--medium type--color--opaque">
-												{t('DASHBOARD.AVAILABLE_BALANCE_DESCRIPTION')}
-											</p>
+										</p>
+
+										<div className="dashboard-card__body--amount">
+											{donor && (
+												<FormatterResolver
+													item={{ balance: donor.presentBalance }}
+													field="balance"
+													format={{ type: 'currency' }}
+												/>
+											)}
 										</div>
-									</div>
-									<div className="col col-sml-12 col-lrg-6 type--base type--wgt--bold type--color--note">
-										{donor && (
-											<FormatterResolver
-												item={{ balance: donor.availableBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										)}
-									</div>
-								</div>
-								<div className="row u-mar--bottom--med">
-									<div className="col col-sml-12 col-med-6">
-										<h5 className="type--base type--wgt--bold type--color--note type--underline">
+										<p className="dashboard-card__body--title">
 											{t('DASHBOARD.PRESENT_BALANCE')}
-										</h5>
-										<div>
-											<p className="type--base type--wgt--medium type--color--opaque">
-												{t('DASHBOARD.PRESENT_BALANCE_DESCRIPTION')}
-											</p>
-										</div>
+										</p>
 									</div>
-									<div className="col col-sml-12 col-med-6 type--base type--wgt--bold type--color--note">
-										{donor && (
-											<FormatterResolver
-												item={{ balance: donor.presentBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										)}
-									</div>
-								</div>
-								<div className="row u-mar--bottom--lrg">
-									<div className="col col-sml-12 col-med-6">
-										<h5 className="type--base type--wgt--bold type--color--note type--underline">
-											{t('DASHBOARD.INVESTMENTS')}
-										</h5>
-									</div>
-									<div className="col col-sml-12 col-med-6 type--medium type--wgt--bold type--color--note">
-										{donor && (
-											<FormatterResolver
-												item={{ balance: donor.investmentBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										)}
-									</div>
-								</div>
-								<div className="row">
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+								<div className="dashboard-card__footer">
+									<div className="u-mar--bottom--sml">
 										<BaasicButton
 											className="btn btn--med btn--med--wide btn--primary--light"
 											label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
 										/>
 									</div>
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+									<div className="u-mar--bottom--sml">
 										<BaasicButton
 											className="btn btn--med btn--med--wide btn--primary--light"
 											label="DASHBOARD.BUTTON.INVEST_FUNDS"
@@ -132,17 +101,17 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								</div>
 							</div>
 						) : (
-							<div className="emptystate--primary card--med u-mar--bottom--med">
+							<div className="dashboard-card--emptystate card--med u-mar--bottom--med">
 								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-								<div className="emptystate--primary__body">
-									<p className="emptystate--primary__body--title">No Activity yet!</p>
-									<p className="emptystate--primary__body--info">Make your first contribution today</p>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
 									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
 								</div>
 							</div>
 						)}
 					</div>
-					<div className="col col-sml-12 col-med-6">
+					<div className="col col-sml-12 col-xlrg-6">
 							{donor && donor.isContributionMade ? 
 							<div className="card card--primary card--med u-mar--bottom--med">
 								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
@@ -158,11 +127,11 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								</div>
 							</div>
 							:
-							<div className="emptystate--primary card--med">
+							<div className="dashboard-card--emptystate card--med">
 								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-								<div className="emptystate--primary__body">
-									<p className="emptystate--primary__body--title">No Activity yet!</p>
-									<p className="emptystate--primary__body--info">Make your first contribution today</p>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
 									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
 								</div>
 							</div>
