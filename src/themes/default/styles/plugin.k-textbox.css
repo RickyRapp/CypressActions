@@ -160,7 +160,7 @@
 }
 
 .k-numeric-wrap .k-input {
-    min-height: calc($unit * 8);
+    min-height: calc($unit * 10);
     padding-top: 0;
 
     @mixin type-scale $type-base, 1;
@@ -173,14 +173,14 @@
 }
 
 .k-textbox-container.k-state-empty {
-    min-height: calc($unit * 8);
+    min-height: calc($unit * 10);
     
     @mixin type-scale $type-base, 1;
     font-family: $ff-sans;
 }
 
 .k-textbox-container .k-dropdown-wrap, .k-dropdown .k-dropdown-wrap {
-    min-height: calc($unit * 8);
+    min-height: calc($unit * 10);
     padding-top: 0;
     margin-top: calc($unit / 2);
 

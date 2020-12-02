@@ -24,7 +24,6 @@
 
             &.active {
                 color: $color-primary;
-                border-bottom: 2px solid $color-primary;
             }
 
             @media (--screen-to-sml) {

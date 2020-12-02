@@ -52,146 +52,145 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 			<PageHeader>
 				<AccountManager />
 			</PageHeader>
-			<div className="u-padd--top--sml">
-				<div className="row">
-					<div className="col col-sml-12 col-xlrg-6">
-						{donor && donor.isContributionMade ? (
-							<div className="dashboard-card u-mar--bottom--med">
-								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-									<div className="dashboard-card__body">
-										<h5 className="dashboard-card__body--amount">
-											{donor && (
-												<FormatterResolver
-													item={{ balance: donor.availableBalance }}
-													field="balance"
-													format={{ type: 'currency' }}
-												/>
-											)}
-										</h5>
-										<p className="dashboard-card__body--title">
-											{t('DASHBOARD.AVAILABLE_BALANCE')}
-										</p>
+			<div className="row">
+				<div className="col col-sml-12 col-xlrg-6">
+					{donor && donor.isContributionMade ? (
+						<div className="dashboard-card u-mar--bottom--med">
+							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+								<div className="dashboard-card__body">
+									<h5 className="dashboard-card__body--amount">
+										{donor && (
+											<FormatterResolver
+												item={{ balance: donor.availableBalance }}
+												field="balance"
+												format={{ type: 'currency' }}
+											/>
+										)}
+									</h5>
+									<p className="dashboard-card__body--title">
+										{t('DASHBOARD.AVAILABLE_BALANCE')}
+									</p>
 
-										<div className="dashboard-card__body--amount">
-											{donor && (
-												<FormatterResolver
-													item={{ balance: donor.presentBalance }}
-													field="balance"
-													format={{ type: 'currency' }}
-												/>
-											)}
-										</div>
-										<p className="dashboard-card__body--title">
-											{t('DASHBOARD.PRESENT_BALANCE')}
-										</p>
-									</div>
-								<div className="dashboard-card__footer">
-									<div className="u-mar--bottom--sml">
-										<BaasicButton
-											className="btn btn--med btn--med--wide btn--primary--light"
-											label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-										/>
-									</div>
-									<div className="u-mar--bottom--sml">
-										<BaasicButton
-											className="btn btn--med btn--med--wide btn--primary--light"
-											label="DASHBOARD.BUTTON.INVEST_FUNDS"
-										/>
-									</div>
-								</div>
-							</div>
-						) : (
-							<div className="dashboard-card--emptystate card--med u-mar--bottom--med">
-								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-								<div className="dashboard-card--emptystate__body">
-									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
-								</div>
-							</div>
-						)}
-					</div>
-					<div className="col col-sml-12 col-xlrg-6">
-							{donor && donor.isContributionMade ? 
-							<div className="card card--primary card--med u-mar--bottom--med">
-								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-									<div className="row u-mar--bottom--med">
-									<div className="col col-sml-12 col-med-5">
-										Donations Per Year <BaasicDropdown store={yearDropdownStore} />
-									</div>
-								</div>
-								<div className="row u-mar--bottom--med">
-									<div className="col col-sml-12 col-med-12">
-										<LineChartContainer />
-									</div>
-								</div>
-							</div>
-							:
-							<div className="dashboard-card--emptystate card--med">
-								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-								<div className="dashboard-card--emptystate__body">
-									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
-								</div>
-							</div>
-							}
-					</div>
-					{donor &&
-						(!donor.isGrantMade ||
-							!donor.isContributionMade ||
-							!donor.isBookletOrderMade ||
-							!donor.isInvestmentMade) && (
-							<div className="col col-sml-12 col-lrg-12">
-								<div className="u-mar--bottom--med u-mar--top--med">
-									<h3 className="type--med type--wgt--medium u-mar--bottom--med type--center">
-										{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
-									</h3>
-									<div className="row type--center u-display--flex u-display--flex--justify--center">
-										{!donor.IsInvestmentMade && (
-											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-												<BaasicButton
-													className="btn btn--med btn--med--100 btn--tertiary "
-													icon="u-icon u-icon--arrow-right u-icon--sml"
-													label="DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS"
-												/>
-											</div>
+										{donor && (
+									<p className="dashboard-card__body--amount--secondary">
+											<FormatterResolver
+												item={{ balance: donor.presentBalance }}
+												field="balance"
+												format={{ type: 'currency' }}
+											/>
+									</p>
 										)}
-										{!donor.isBookletOrderMade && (
-											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-												<BaasicButton
-													className="btn btn--med btn--med--100 btn--tertiary "
-													icon="u-icon u-icon--arrow-right u-icon--sml"
-													label="DASHBOARD.BUTTON.ORDER_CERTIFICATES"
-												/>
-											</div>
-										)}
-										{!donor.isContributionMade && (
-											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-												<BaasicButton
-													className="btn btn--med btn--med--100 btn--tertiary "
-													icon="u-icon u-icon--arrow-right u-icon--sml"
-													label="DASHBOARD.BUTTON.NEW_CONTRIBUTION"
-												/>
-											</div>
-										)}
-										{!donor.isGrantMade && (
-											<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-												<BaasicButton
-													className="btn btn--med btn--med--100 btn--tertiary "
-													icon="u-icon u-icon--arrow-right u-icon--sml"
-													label="DASHBOARD.BUTTON.NEW_GRANT"
-												/>
-											</div>
-										)}
-									</div>
+									<p className="dashboard-card__body--title">
+										{t('DASHBOARD.PRESENT_BALANCE')}
+									</p>
+								</div>
+							<div className="dashboard-card__footer">
+								<div className="u-mar--bottom--sml">
+									<BaasicButton
+										className="btn btn--med btn--med--wide btn--primary--light"
+										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+									/>
+								</div>
+								<div className="u-mar--bottom--sml">
+									<BaasicButton
+										className="btn btn--med btn--med--wide btn--primary--light"
+										label="DASHBOARD.BUTTON.INVEST_FUNDS"
+									/>
 								</div>
 							</div>
-						)}
-					<div className="col col-sml-12 col-lrg-12">
-						<div className="card card--primary card--med u-mar--bottom--med">
-							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						</div>
+					) : (
+						<div className="dashboard-card--emptystate">
+							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+							<div className="dashboard-card--emptystate__body">
+								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+								<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
+							</div>
+						</div>
+					)}
+				</div>
+				<div className="col col-sml-12 col-xlrg-6">
+						{donor && donor.isContributionMade ? 
+						<div className="dashboard-card">
+							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+								<div className="row u-mar--bottom--med">
+								<div className="col col-sml-12 col-med-5">
+									Donations Per Year <BaasicDropdown store={yearDropdownStore} />
+								</div>
+							</div>
+							<div className="row u-mar--bottom--med">
+								<div className="col col-sml-12 col-med-12">
+									<LineChartContainer />
+								</div>
+							</div>
+						</div>
+						:
+						<div className="dashboard-card--emptystate card--med">
+							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							<div className="dashboard-card--emptystate__body">
+								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+								<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
+							</div>
+						</div>
+						}
+				</div>
+				{donor &&
+					(!donor.isGrantMade ||
+						!donor.isContributionMade ||
+						!donor.isBookletOrderMade ||
+						!donor.isInvestmentMade) && (
+						<div className="col col-sml-12 col-lrg-12">
+							<div className="u-mar--bottom--med u-mar--top--med">
+								<h3 className="type--med type--wgt--medium u-mar--bottom--med type--center">
+									{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
+								</h3>
+								<div className="row type--center u-display--flex u-display--flex--justify--center">
+									{!donor.IsInvestmentMade && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-right u-icon--sml"
+												label="DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS"
+											/>
+										</div>
+									)}
+									{!donor.isBookletOrderMade && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-right u-icon--sml"
+												label="DASHBOARD.BUTTON.ORDER_CERTIFICATES"
+											/>
+										</div>
+									)}
+									{!donor.isContributionMade && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-right u-icon--sml"
+												label="DASHBOARD.BUTTON.NEW_CONTRIBUTION"
+											/>
+										</div>
+									)}
+									{!donor.isGrantMade && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-right u-icon--sml"
+												label="DASHBOARD.BUTTON.NEW_GRANT"
+											/>
+										</div>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+				<div className="col col-sml-12 col-lrg-12">
+					<div className="card card--primary card--med u-mar--bottom--med">
+						<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
+						<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
 					</div>
 				</div>
 			</div>

@@ -209,6 +209,8 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                 {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12">
+                                            <p className="type--sml"></p>
+                                            <p></p>
                                             {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
                                             {bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
                                         </div>

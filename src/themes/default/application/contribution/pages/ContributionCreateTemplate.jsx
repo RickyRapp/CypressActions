@@ -77,7 +77,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                 </div>
                                 <div className="col col-sml-12 col-xlrg-1 u-mar--bottom--med">
                                     <BaasicButton
-                                        className="btn btn--med btn--primary"
+                                        className="btn btn--med btn--med--wide btn--primary"
                                         label={t('CONTRIBUTION.CREATE.LINK')}
                                         onClick={() => onSelectPaymentType(c.id)}
                                     />
@@ -94,10 +94,10 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <div className={c.id !== form.$('paymentTypeId').value ? "card card--contribution card--med u-mar--bottom--med cursor--pointer" : "card card--contribution checked card--med u-mar--bottom--med cursor--pointer"}>
+                                         <div className={`card--primary card--med u-mar--bottom--med cursor--pointer ${c.id === form.$('paymentTypeId').value && "card--contribution checked"}`}> 
                                             <div className="row u-display--flex u-display--flex--align--center">
                                                 <div className="col col-sml-2">
-                                                    <i className="u-icon u-icon--med u-icon--download u-push"></i>
+                                                    <i className={`u-icon u-icon--med u-icon--${c.abr} ${c.id === form.$('paymentTypeId').value && "checked"} u-push`}></i>
                                                 </div>
                                                 <div className="col col-sml-10">
                                                     <h5 className={c.id !== form.$('paymentTypeId').value ? "type--med type--wgt--medium" : "type--med type--wgt--medium type--color--note"}>{c.name}</h5>
@@ -163,7 +163,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                             <div className="col col-sml-12">
                                                 <BaasicButton
                                                     type="button"
-                                                    className="btn btn--med btn--secondary u-push"
+                                                    className="btn btn--med btn--med--wide btn--secondary u-push"
                                                     onClick={onSubmitClick}
                                                     icon={form.validating ? 'synchronize-arrows-1 rotate' : ''}
                                                     label={'FORM_CONTROLS.SAVE_BUTTON'}
@@ -207,7 +207,9 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     <h4>{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
                                 </div>
                                 <div className="col col-sml-12 col-lrg-12">
-                                    {t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}
+                                    <p className="type--sml">
+                                        {t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}
+                                    </p>
                                     {paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name}
                                 </div>
                                 {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') &&

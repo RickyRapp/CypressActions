@@ -27,7 +27,8 @@
             @mixin type-scale $type-medium, 1;
             color: #4d4d4d;
             margin-bottom: calc($unit * 2);
-
+            overflow-wrap: break-word;
+            
             @media (--screen-to-sml) {
                 @mixin type-scale $type-base, 1;
             }

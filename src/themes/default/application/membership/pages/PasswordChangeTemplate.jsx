@@ -19,7 +19,7 @@ function PasswordChangeTemplate({ currentView, t }) {
                 )
             }
             <div>
-                <BaasicButton className="btn btn--med btn--primary spc--top--sml display--ib" type='submit' label={t('SAVE')} disabled={passwordChangeForm.submitting || !passwordChangeForm.isValid} />
+                <BaasicButton className="btn btn--med btn--med--wide btn--primary spc--top--sml display--ib" type='submit' label={t('SAVE')} disabled={passwordChangeForm.submitting || !passwordChangeForm.isValid} />
                 <a onClick={goToLogin}>{t('CANCEL')}</a>
             </div>
         </form>

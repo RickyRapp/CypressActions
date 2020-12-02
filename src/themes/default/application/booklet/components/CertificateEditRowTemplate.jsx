@@ -52,7 +52,7 @@ function CertificateEditRowTemplate({
             </td>
             <td className="type--center">
                 <BaasicButton
-                    className="btn btn--med btn--primary btn--sml"
+                    className="btn btn--med btn--med--wide btn--primary btn--sml"
                     label='BOOKLET.EDIT.BUTTON.SAVE_ROW_CHANGES'
                     onClick={() =>
                         saveRowChanges(
