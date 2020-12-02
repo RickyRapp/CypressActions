@@ -131,7 +131,7 @@ class FundTransferViewStore extends BaseListViewStore {
                     });
                 },
                 onChange: (donorId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId })
+                    this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { id: donorId })
                 }
             });
     }

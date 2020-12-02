@@ -37,6 +37,11 @@ class DonorService extends BaseService {
     return this.apiClient.get(url, filter);
   }
 
+  searchAccountManager(filter) {
+    const url = this.routeService.searchAccountManager(filter);
+    return this.apiClient.get(url, filter);
+  }
+
   fundNameExists(fundName) {
     const url = this.routeService.fundNameExists(fundName);
     return this.apiClient.get(url);

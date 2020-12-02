@@ -15,7 +15,14 @@ import {
 import { AccountManager } from 'application/donor/components';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
-	const { donor, yearDropdownStore } = dashboardViewStore;
+	const {
+		donor,
+		yearDropdownStore,
+		newContributionOnClick,
+		newGrantOnClick,
+		investmentOptionsOnClick,
+		orderBookletsOnClick
+	} = dashboardViewStore;
 
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let dataGrants = [];
@@ -57,38 +64,39 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card u-mar--bottom--med">
 							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-								<div className="dashboard-card__body">
-									<h5 className="dashboard-card__body--amount">
-										{donor && (
-											<FormatterResolver
-												item={{ balance: donor.availableBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										)}
-									</h5>
-									<p className="dashboard-card__body--title">
-										{t('DASHBOARD.AVAILABLE_BALANCE')}
-									</p>
+							<div className="dashboard-card__body">
+								<h5 className="dashboard-card__body--amount">
+									{donor && (
+										<FormatterResolver
+											item={{ balance: donor.availableBalance }}
+											field="balance"
+											format={{ type: 'currency' }}
+										/>
+									)}
+								</h5>
+								<p className="dashboard-card__body--title">
+									{t('DASHBOARD.AVAILABLE_BALANCE')}
+								</p>
 
-										{donor && (
+								{donor && (
 									<p className="dashboard-card__body--amount--secondary">
-											<FormatterResolver
-												item={{ balance: donor.presentBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
+										<FormatterResolver
+											item={{ balance: donor.presentBalance }}
+											field="balance"
+											format={{ type: 'currency' }}
+										/>
 									</p>
-										)}
-									<p className="dashboard-card__body--title">
-										{t('DASHBOARD.PRESENT_BALANCE')}
-									</p>
-								</div>
+								)}
+								<p className="dashboard-card__body--title">
+									{t('DASHBOARD.PRESENT_BALANCE')}
+								</p>
+							</div>
 							<div className="dashboard-card__footer">
 								<div className="u-mar--bottom--sml">
 									<BaasicButton
 										className="btn btn--med btn--med--wide btn--primary--light"
-										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										label="DASHBOARD.BUTTON.CONTRIBUTE"
+										onClick={newContributionOnClick}
 									/>
 								</div>
 								<div className="u-mar--bottom--sml">
@@ -100,21 +108,21 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							</div>
 						</div>
 					) : (
-						<div className="dashboard-card--emptystate">
-							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
+							<div className="dashboard-card--emptystate">
+								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 				</div>
 				<div className="col col-sml-12 col-xlrg-6">
-						{donor && donor.isContributionMade ? 
+					{donor && donor.isContributionMade ?
 						<div className="dashboard-card">
 							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-								<div className="row u-mar--bottom--med">
+							<div className="row u-mar--bottom--med">
 								<div className="col col-sml-12 col-med-5">
 									Donations Per Year <BaasicDropdown store={yearDropdownStore} />
 								</div>
@@ -134,7 +142,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								<button className="btn btn--secondary btn--med btn--med--wide">Contribute</button>
 							</div>
 						</div>
-						}
+					}
 				</div>
 				{donor &&
 					(!donor.isGrantMade ||
@@ -162,6 +170,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 												className="btn btn--med btn--med--100 btn--tertiary "
 												icon="u-icon u-icon--arrow-right u-icon--sml"
 												label="DASHBOARD.BUTTON.ORDER_CERTIFICATES"
+												onClick={orderBookletsOnClick}
 											/>
 										</div>
 									)}
@@ -171,6 +180,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 												className="btn btn--med btn--med--100 btn--tertiary "
 												icon="u-icon u-icon--arrow-right u-icon--sml"
 												label="DASHBOARD.BUTTON.NEW_CONTRIBUTION"
+												onClick={newContributionOnClick}
 											/>
 										</div>
 									)}
@@ -180,6 +190,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 												className="btn btn--med btn--med--100 btn--tertiary "
 												icon="u-icon u-icon--arrow-right u-icon--sml"
 												label="DASHBOARD.BUTTON.NEW_GRANT"
+												onClick={newGrantOnClick}
 											/>
 										</div>
 									)}

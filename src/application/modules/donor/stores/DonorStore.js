@@ -11,6 +11,11 @@ class DonorStore {
         return response.data;
     }
 
+    async searchAccountManager(params) {
+        const response = await this.donorService.searchAccountManager(params);
+        return response.data;
+    }
+
     async getDonorLoginProfile(id) {
         const response = await this.donorService.getDonorLoginProfile(id);
         return response.data;
@@ -28,6 +33,11 @@ class DonorStore {
 
     async updateGrantFees(resource) {
         const response = await this.donorService.updateGrantFees(resource);
+        return response.data;
+    }
+
+    async updateGeneralData(resource) {
+        const response = await this.donorService.updateGeneralData(resource);
         return response.data;
     }
 

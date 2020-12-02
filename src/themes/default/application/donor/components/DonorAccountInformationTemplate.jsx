@@ -18,13 +18,16 @@ import {
     DonorGrantFees
 } from 'application/donor/components';
 
-function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }) {
+function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t, rootStore }) {
     const {
         form,
         prefixTypeDropdownStore,
         item,
-        id
+        id,
+        accountManagerDropdownStore
     } = donorAccountInformationViewStore;
+
+    const { permissionStore } = rootStore;
 
     return (
         <div className="card--primary card--med">
@@ -58,6 +61,12 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                 <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-4">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
+                                {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') &&
+                                    <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+                                        <BaasicFieldDropdown
+                                            field={form.$('accountManagerId')}
+                                            store={accountManagerDropdownStore} />
+                                    </div>}
                             </div>
                         </div>
                     </div>
@@ -95,7 +104,8 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 
 DonorAccountInformationTemplate.propTypes = {
     donorAccountInformationViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    rootStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(DonorAccountInformationTemplate);

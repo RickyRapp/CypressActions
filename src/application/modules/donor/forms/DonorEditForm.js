@@ -33,6 +33,12 @@ export default class DonorEditForm extends FormBase {
                     rules: 'string'
                 },
                 {
+                    name: 'accountManagerId',
+                    label: 'DONOR.EDIT.ACCOUNT_MANAGER_LABEL',
+                    placeholder: 'DONOR.EDIT.ACCOUNT_MANAGER_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
                     name: 'securityPin',
                     label: 'DONOR.EDIT.SECURITY_PIN_LABEL',
                     rules: 'required|string|digits:4',

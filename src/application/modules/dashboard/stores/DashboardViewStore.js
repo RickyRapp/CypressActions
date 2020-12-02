@@ -25,7 +25,8 @@ class DashboardViewStore extends BaseViewStore {
         }
     }
 
-    @action.bound async fetchDonorData() {
+    @action.bound
+    async fetchDonorData() {
         const service = new DonorService(this.rootStore.application.baasic.apiClient);
         const response = await service.loadDonorData(this.rootStore.userStore.user.id);
         this.yearDropdownStore.setItems(response.data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
@@ -36,6 +37,26 @@ class DashboardViewStore extends BaseViewStore {
 
     createYearDropdownStore() {
         this.yearDropdownStore = new BaasicDropdownStore();
+    }
+
+    @action.bound
+    async newContributionOnClick() {
+        this.rootStore.routerStore.goTo('master.app.main.contribution.create');
+    }
+
+    @action.bound
+    async newGrantOnClick() {
+        this.rootStore.routerStore.goTo('master.app.main.grant.create');
+    }
+
+    @action.bound
+    async investmentOptionsOnClick() {
+        alert('todo')
+    }
+
+    @action.bound
+    async orderBookletsOnClick() {
+        this.rootStore.routerStore.goTo('master.app.main.booklet-order.create');
     }
 }
 

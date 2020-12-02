@@ -528,7 +528,9 @@
             "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
             "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
             "SECURITY_PIN_LABEL": "Security pin",
-            "SECURITY_PIN_PLACEHOLDER": "Security pin"
+            "SECURITY_PIN_PLACEHOLDER": "Security pin",
+            "ACCOUNT_MANAGER_LABEL": "Account manager",
+            "ACCOUNT_MANAGER_PLACEHOLDER": "Account manager"
         },
         "CREATE": {
             "TITLE": "Create",
@@ -2511,7 +2513,8 @@
             "NEW_CONTRIBUTION": "New Contribution",
             "NEW_GRANT": "New Grant",
             "INVEST_FUNDS": "Invest Funds",
-            "DEPOSIT_FUNDS": "Deposit Funds"
+            "DEPOSIT_FUNDS": "Deposit Funds",
+            "CONTRIBUTE": "Contribute"
         }
     }
 }

@@ -29,8 +29,8 @@ class GrantTabViewStore extends BaseTabViewStore {
         this.selectDonorModal.open(
             {
                 donorId: this.donorId,
-                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId }),
-                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId })
+                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { id: donorId }),
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { id: donorId })
             });
     }
 }
