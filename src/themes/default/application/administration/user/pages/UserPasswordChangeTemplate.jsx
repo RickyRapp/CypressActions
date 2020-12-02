@@ -17,7 +17,7 @@ function UserPasswordChangeTemplate(props) {
                 <BasicFieldCheckbox field={userPasswordChangeForm.$('sendMailNotification')} />
                 <div>
                     <BaasicButton
-                        className='btn btn--med btn--primary spc--top--sml display--ib'
+                        className='btn btn--med btn--med--wide btn--primary spc--top--sml display--ib'
                         type='submit'
                         label='Submit'
                         disabled={userPasswordChangeForm.submitting || userPasswordChangeForm.validating || !userPasswordChangeForm.isValid}

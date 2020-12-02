@@ -3,7 +3,7 @@
 \*------------------------------------*/
 .k-datepicker {
     width: 100%;
-    height: calc($unit * 8);
+    height: calc($unit * 10);
 
     &:hover {
         border-color: color(white blackness(+30%));
@@ -64,7 +64,7 @@
     /* Datepicker button */
     .k-select {
         width: calc($unit * 8);
-        height: calc($unit * 8);
+        height: calc($unit * 10);
 
         color: #fff;
         background-color: $color-primary;

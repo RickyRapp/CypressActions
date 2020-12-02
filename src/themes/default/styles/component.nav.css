@@ -58,27 +58,28 @@
             position: relative;
             display: flex;
             align-items: center;
-            padding: calc($unit * 3) calc($unit * 3);
+            padding: calc($unit * 5) calc($unit * 8.5);
 
             border-bottom: 1px solid color($scandal a(20%));
             font-weight: $type-weight-regular;
             color: color($white a(50%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
-            
 
             &--logout {
                 position: absolute;
-                right: calc($unit * 1);
-                left: calc($unit * 1);
-                bottom: calc(-$unit * 12);
+                right: calc($unit * 7);
+                left: calc($unit * 7);
+                bottom: calc(-$unit * 14);
                 
                 display: flex;
                 justify-content: center;
-                padding: calc($unit * 2) calc($unit * 1);
+                padding: calc($unit * 3) calc($unit * 1);
                 
                 color: color($white a(80%));     
-                
+    
+                @mixin type-scale $type-base, 1;            
+                text-transform: uppercase;
                 border: 1px solid color($scandal a(20%));
                 border-radius: calc($unit / 1.6);  
                 cursor: pointer;
@@ -372,8 +373,13 @@
             position: relative;
             display: block;
 
+            @mixin type-scale $type-base, 1;
+
+            @media (--screen-from-med) {
+                @mixin type-scale $type-medium, 1.25;
+            }
             font-weight: $type-weight-regular;
-            color: color($white a(50%));
+            color: color($white a(70%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
 
@@ -387,9 +393,9 @@
 
         &__item {
             margin-left: calc($unit * 1);
-            padding: calc($unit * 2) 0 calc($unit * 2) calc($unit * 8);
+            padding: calc($unit * 4) 0 calc($unit * 4) calc($unit * 13);
             
-            @mixin type-scale $type-xsmall, 1;
+            @mixin type-scale $type-base, 1;
             
             color: color($white a(75%));
             
@@ -478,6 +484,10 @@
                 border-radius: $radius-base;
             }
         }
+    }
+
+    .nav--primary__item {
+        padding: calc($unit * 3) calc($unit * 3);
     }
 
     .nav--primary__icon {

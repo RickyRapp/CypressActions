@@ -62,10 +62,10 @@
     }
 
     &--med {
-        font-size: 14px;
-        height: calc($unit * 8);
+        font-size: 15px;
+        height: calc($unit * 10);
         padding: 0 calc($unit * 4);
-        line-height: calc($unit * 8);
+        line-height: calc($unit * 10);
 
         &--wide {
             padding: 0 calc($unit * 8);
@@ -77,9 +77,9 @@
 
         &--100 {
             width: 100%;
-            max-width: 350px;
+            max-width: 283px;
             padding: 0 calc($unit * 4);
-            @mixin type-scale $type-small, 1;
+            @mixin type-scale $type-base, 1;
 
             & .u-icon--arrow-right {
                 margin-left: auto;

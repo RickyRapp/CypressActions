@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
 
-    height: calc($unit * 8);
+    height: calc($unit * 10);
 }
 
 .k-widget.k-multiselect.k-header.k-textbox-container.k-dropdown.input--multiselect {

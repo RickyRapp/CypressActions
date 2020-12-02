@@ -6,7 +6,7 @@
 
     .k-dateinput-wrap {
         width: 100%;
-        height: calc($unit * 8);
+        height: calc($unit * 10);
         align-items: center;
         
         background-color: transparent;

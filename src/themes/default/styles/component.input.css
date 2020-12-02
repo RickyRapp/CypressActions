@@ -70,8 +70,8 @@
     }
 
     &--lrg {
-        height: calc($unit * 8);
-        line-height: calc($unit * 8);
+        height: calc($unit * 10);
+        line-height: calc($unit * 10);
         padding: 0 calc($unit * 3);
     }
 
@@ -117,6 +117,8 @@
         background-size: calc($unit * 2) calc($unit * 2);
         background-position: calc(100% - $unit * 2) center;
         vertical-align: middle;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     &--date {

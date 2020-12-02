@@ -2,10 +2,10 @@
     # component.layout
 \*------------------------------------*/
 
-$aside-width: 210px;
+$aside-width: 362px;
 $aside-sml-width: 70px;
 $aside-secondary-width: 300px;
-$header-height: 72px;
+$header-height: 96px;
 
 .layout {
     
@@ -19,6 +19,10 @@ $header-height: 72px;
 
         @media (--screen-to-sml) {
             left: 0;
+        }
+
+        @media (--screen-to-lrg) {
+            padding: calc($unit * 3) calc($unit * 4);
         }
     }
 
@@ -78,6 +82,8 @@ $header-height: 72px;
         overflow: hidden;
         overflow-y: auto;
 
+        padding: calc($unit * 6) calc($unit * 12);
+
         &.is-collapsed {
 
             @media (--screen-from-sml) {
@@ -91,6 +97,10 @@ $header-height: 72px;
                     left: 0;
                 } 
             }
+        }
+
+        @media (--screen-to-lrg) {
+            padding: calc($unit * 3) calc($unit * 4);
         }
 
         @media (--screen-from-sml) {

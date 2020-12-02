@@ -6,18 +6,24 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    background-color: $color-background;
+    background-color: $white;
     align-items: center;
 
     border-bottom: 1px solid color($color-text a(10%));
-    padding: 0 calc($unit * 2);
+    padding: 0 calc($unit * 12);
+    @mixin type-scale $type-medium, 1.25;
 
-    @media (--screen-from-sml) {
+    @media (--screen-to-lrg) {
+        @mixin type-scale $type-base, 1;
+        padding: calc($unit * 3) calc($unit * 4);
+    }
+
+    @media (--screen-to-sml) {
         padding: 0 calc($unit * 4);
     }
 
     &__logo {
-        height: 35px;
+        height: 53px;
     }
 
     &__hamburger {
@@ -40,6 +46,7 @@
         display: inline-block;
 
         &__img {
+            margin-right: calc($unit * 2);
             border-radius: $radius-full;
             border: 1px solid color(white a(25%));
         }
@@ -67,10 +74,10 @@
         }
 
         &__name {
-            padding: 0 calc($unit * 1);
+            @mixin type-scale $type-medium, 1.25;
 
-            @media (--screen-from-sml) {
-                padding: 0 calc($unit * 2);
+            @media (--screen-to-lrg) {
+                @mixin type-scale $type-base, 1;
             }
         
             span {
