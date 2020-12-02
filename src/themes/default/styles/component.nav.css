@@ -95,8 +95,9 @@
                 }
 
                 @media (--screen-to-sml) {
-                    position: relative;
+                    position: relative; 
                     bottom: calc(-$unit * 4);
+
                 } 
             }
 
@@ -495,5 +496,10 @@
         top: calc($unit * 2);
         right: $unit;*/
         display: none;
+    }
+
+    .nav--primary__item--logout {
+        right: calc($unit * 1);
+        left: calc($unit * 1); 
     }
 }
