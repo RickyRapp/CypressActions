@@ -20,6 +20,7 @@ import { HowDidYouHearAboutUsStore } from 'application/lookup/how-did-you-hear-a
 import { EmailSenderStore } from 'application/lookup/email-sender/stores';
 import { BookletOrderStatusStore } from 'application/lookup/booklet-order-status/stores';
 import { BookletStatusStore } from 'application/lookup/booklet-status/stores';
+import { InvestmentPoolStore } from 'application/lookup/investment-pool/stores';
 
 class LookupModuleStore {
     constructor(rootStore) {
@@ -46,6 +47,7 @@ class LookupModuleStore {
         this.howDidYouHearAboutUsStore = new HowDidYouHearAboutUsStore(this);
         this.emailSenderStore = new EmailSenderStore(this);
         this.bookletOrderStatusStore = new BookletOrderStatusStore(this);
+        this.investmentPoolStore = new InvestmentPoolStore(this);
     }
 }
 export default LookupModuleStore;

@@ -6,27 +6,23 @@ class DonorInvestmentRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorId,page,rpp,sort,embed,searchFields}', filter);
+        return super.find(this.base + '/{?donorId,investmentPoolIds,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
-    findPoolHistory(filter) {
-        return super.find(this.base + '/pool-history/{?id,page,rpp,sort,embed,searchFields}', filter);
-    }
-
-    create() {
-        return super.create(this.base);
-    }
-
-    update(resource) {
-        return super.update(this.base + '/{id}', resource);
+    hasInvestments(id) {
+        return super.get(this.base + '/has-investments/{id}', id);
     }
 
     invest() {
         return super.create(this.base + '/invest');
+    }
+
+    update() {
+        return super.update(this.base);
     }
 }
 
