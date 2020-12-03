@@ -12,3 +12,9 @@ $table-width: 1024px;
 .k-pager-wrap {
     background-color: $white;
 }
+
+.k-chart {
+    @media (--screen-to-sml) {
+        display: none;
+    }
+}
