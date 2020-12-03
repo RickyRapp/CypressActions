@@ -8,7 +8,6 @@ export { default as DonorThirdPartyWebsiteSettingForm } from './DonorThirdPartyW
 export { default as DonorAutomaticContributionSettingForm } from './DonorAutomaticContributionSettingForm'
 export { default as DonorCertificateSettingForm } from './DonorCertificateSettingForm'
 export { default as DonorContributionSettingEditForm } from './DonorContributionSettingEditForm'
-export { default as DonorInvestmentForm } from './DonorInvestmentForm'
 export { default as DonorAccountSettingForm } from './DonorAccountSettingForm'
 export { default as DonorCommunicationPreferenceForm } from './DonorCommunicationPreferenceForm'
 export { default as DonorGrantFeesForm } from './DonorGrantFeesForm'

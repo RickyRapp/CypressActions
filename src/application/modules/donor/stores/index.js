@@ -10,8 +10,6 @@ export { default as DonorAutomaticContributionSettingViewStore } from './DonorAu
 export { default as DonorCertificateSettingViewStore } from './DonorCertificateSettingViewStore'
 export { default as DonorTabViewStore } from './DonorTabViewStore'
 export { default as DonorAccountInformationViewStore } from './DonorAccountInformationViewStore'
-export { default as DonorInvestmentListViewStore } from './DonorInvestmentListViewStore'
-export { default as DonorInvestmentPoolHistoryViewStore } from './DonorInvestmentPoolHistoryViewStore'
 export { default as DonorAccountSettingViewStore } from './DonorAccountSettingViewStore'
 export { default as DonorCommunicationPreferenceViewStore } from './DonorCommunicationPreferenceViewStore'
 export { default as BankAccountFormViewStore } from './BankAccountFormViewStore'

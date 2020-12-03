@@ -7,8 +7,6 @@ export { default as DonorThirdPartyWebsiteSettingTemplate } from './DonorThirdPa
 export { default as DonorAutomaticContributionSettingTemplate } from './DonorAutomaticContributionSettingTemplate'
 export { default as DonorCertificateSettingTemplate } from './DonorCertificateSettingTemplate'
 export { default as DonorAccountInformationTemplate } from './DonorAccountInformationTemplate'
-export { default as DonorInvestmentListTemplate } from './DonorInvestmentListTemplate'
-export { default as DonorInvestmentPoolHistoryTemplate } from './DonorInvestmentPoolHistoryTemplate'
 export { default as DonorAccountSettingTemplate } from './DonorAccountSettingTemplate'
 export { default as DonorCommunicationPreferenceTemplate } from './DonorCommunicationPreferenceTemplate'
 export { default as BankAccountFormTemplate } from './BankAccountFormTemplate'
