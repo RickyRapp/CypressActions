@@ -54,7 +54,20 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
-                                    <div className="col col-sml-1 col-lrg-12 u-mar--bottom--sml type--right">
+                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                        <BaasicFieldDropdown
+                                            field={form.$('charityId')}
+                                            store={charityDropdownStore}
+                                            additionalLabel='My Favorite Charities'
+                                        />
+                                        
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col col-sml-6 u-mar--bottom--sml type--color--note">
+                                        <BasicFieldCheckbox field={form.$('isNewCharity')} />
+                                    </div>
+                                    <div className="col col-sml-6 u-mar--bottom--sml type--right">
                                         <BaasicButton
                                             className="btn btn--icon"
                                             icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
@@ -62,18 +75,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             onlyIcon={true}
                                             onClick={openAdvancedSearchModal}
                                         />
-                                    </div>
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                        <BaasicFieldDropdown
-                                            field={form.$('charityId')}
-                                            store={charityDropdownStore}
-                                            additionalLabel='My Favorite Charities'
-                                        />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
-                                        <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                     </div>
                                 </div>
 
