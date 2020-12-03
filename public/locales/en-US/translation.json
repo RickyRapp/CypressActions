@@ -41,7 +41,7 @@
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
         "TESTING": "Test",
-        "INVESTMENT": "Investments",
+        "INVESTMENTS": "Investments",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
         "CHARITY_PROFILE_SETTING": "Profile Settings",
@@ -528,7 +528,9 @@
             "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
             "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
             "SECURITY_PIN_LABEL": "Security pin",
-            "SECURITY_PIN_PLACEHOLDER": "Security pin"
+            "SECURITY_PIN_PLACEHOLDER": "Security pin",
+            "ACCOUNT_MANAGER_LABEL": "Account manager",
+            "ACCOUNT_MANAGER_PLACEHOLDER": "Account manager"
         },
         "CREATE": {
             "TITLE": "Create",
@@ -2204,7 +2206,7 @@
     },
     "RECONCILE": {
         "LIST": {
-            "TITLE": "Recnncile",
+            "TITLE": "Reconcile",
             "COLUMNS": {
                 "AMOUNT_LABEL": "Amount",
                 "PAYMENT_NUMBER_LABEL": "Payment number",
@@ -2455,13 +2457,14 @@
             "TITLE": "Investments",
             "HISTORY_TITLE": "Pool History",
             "COLUMNS": {
-                "NAME": "Pool name",
-                "CURRENT_SHARE_VALUE": "Value per share",
+                "NAME": "Pool",
+                "CURRENT_SHARE_VALUE": "Current share value",
                 "TOTAL_VALUE_IN_POOL": "Total pool value",
                 "NUMBER_OF_SHARES": "Number of shares",
-                "VALUE": "Value",
-                "CHANGE": "Change",
-                "DATE_CREATED": "Date Created"
+                "POOL_HISTORY_NAME": "Pool",
+                "POOL_HISTORY_VALUE": "Value",
+                "POOL_HISTORY_CHANGE": "Change",
+                "POOL_HISTORY_DATE_CREATED": "Date created"
             }
         },
         "EDIT": {
@@ -2472,23 +2475,37 @@
                 "DOLLAR_CHANGE_LABEL": "Pool value",
                 "DOLLAR_VALUE_PLACEHOLDER": "Pool value"
             }
+        },
+        "CREATE": {
+            "TITLE": "Invest funds",
+            "POOL_TITLE": "Investment Pools",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount"
+            }
         }
     },
     "DONOR_INVESTMENT": {
         "LIST": {
-            "BUTTON": {
-                "INVEST": "Invest",
-                "HISTORY": "Show history"
-            },
+            "TITLE": "Investments",
+            "HISTORY_TITLE": "Pool History",
             "COLUMNS": {
-                "AMOUNT_LABEL": "Amount",
-                "PRESENT_BALANCE_LABEL": "Present balance",
-                "DATE_CREATED_LABEL": "Date created",
-                "DESCRIPTION_LABEL": "Description"
+                "NAME": "Pool",
+                "AMOUNT": "Amount"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Title",
+            "FIELDS": {
+                "PERCENTAGE_CHANGE_LABEL": "Percentage change",
+                "PERCENTAGE_CHANGE_PLACEHOLDER": "Change",
+                "DOLLAR_CHANGE_LABEL": "Pool value",
+                "DOLLAR_VALUE_PLACEHOLDER": "Pool value"
             }
         },
         "CREATE": {
-            "TITLE": "Invest",
+            "TITLE": "Invest funds",
+            "POOL_TITLE": "Investment Pools",
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
                 "AMOUNT_PLACEHOLDER": "Amount"
@@ -2511,7 +2528,8 @@
             "NEW_CONTRIBUTION": "New Contribution",
             "NEW_GRANT": "New Grant",
             "INVEST_FUNDS": "Invest Funds",
-            "DEPOSIT_FUNDS": "Deposit Funds"
+            "DEPOSIT_FUNDS": "Deposit Funds",
+            "CONTRIBUTE": "Contribute"
         }
     }
 }

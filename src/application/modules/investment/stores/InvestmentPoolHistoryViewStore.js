@@ -1,6 +1,5 @@
 import React from 'react';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { InvestmentPoolHistoryService } from 'application/investment/services';
 import { applicationContext } from 'core/utils';
 import { InvestmentPoolHistoryFilter } from '../models';
 import { FormatterResolver } from 'core/components';
@@ -18,26 +17,28 @@ class InvestmentPoolHistoryViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true
             },
             actions: () => {
-                const service = new InvestmentPoolHistoryService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = ['investmentPool']
-                        const response = await service.find(params);
-                        return response.data;
+                        return rootStore.application.investment.investmentStore.findHistory(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'investmentPool.name',
-                    title: 'INVESTMENT_POOL.LIST.COLUMNS.NAME'
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.POOL_HISTORY_NAME'
                 },
                 {
                     key: 'currentShareValue',
-                    title: 'INVESTMENT_POOL.LIST.COLUMNS.VALUE',
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.POOL_HISTORY_VALUE',
                     format: {
                         type: 'function',
                         value: (item) => {
@@ -67,8 +68,8 @@ class InvestmentPoolHistoryViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'change',
-                    title: 'INVESTMENT_POOL.LIST.COLUMNS.CHANGE',
+                    key: 'percentageChange',
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.POOL_HISTORY_CHANGE',
                     format: {
                         type: 'percentage',
                         decimalScale: 6
@@ -76,7 +77,7 @@ class InvestmentPoolHistoryViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'dateCreated',
-                    title: 'INVESTMENT_POOL.LIST.COLUMNS.DATE_CREATED',
+                    title: 'INVESTMENT_POOL.LIST.COLUMNS.POOL_HISTORY_DATE_CREATED',
                     format: {
                         type: 'date',
                         value: 'full'

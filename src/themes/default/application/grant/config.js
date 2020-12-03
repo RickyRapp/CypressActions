@@ -2,6 +2,7 @@ import { moduleProviderFactory } from 'core/providers';
 import { GrantList, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/grant/pages';
 import { GrantModuleStore } from 'application/grant/stores';
 import GrantRequest from 'application/grant/pages/GrantRequest';
+import { RouterState } from 'mobx-state-router';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -21,7 +22,7 @@ import GrantRequest from 'application/grant/pages/GrantRequest';
                     },
                     {
                         name: 'master.app.main.grant.create',
-                        pattern: '/create/:id?',
+                        pattern: '/create',
                         component: GrantCreate,
                         authorization: 'theDonorsFundGrantSection.create',
                         data: {

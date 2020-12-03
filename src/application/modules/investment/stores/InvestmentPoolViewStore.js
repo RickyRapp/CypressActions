@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { InvestmentPoolHistoryService } from 'application/investment/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams, ModalParams } from 'core/models';
 
@@ -15,20 +14,30 @@ class InvestmentPoolViewStore extends BaseListViewStore {
                 filter: new FilterParams()
             },
             actions: () => {
-                const service = new InvestmentPoolHistoryService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = ['investmentPool']
-                        const response = await service.overview(params);
-                        return {
-                            item: response.data,
-                            totalRecords: response.data.length
-                        };
+                        return rootStore.application.investment.investmentStore.findOverview(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+        this.investmentPoolChangeModal = new ModalParams({});
+    }
+
+    @action.bound
+    openInvestmentPoolChange() {
+        this.investmentPoolChangeModal.open({
+            onAfterAction: () => {
+                this.queryUtility.fetch();
+                this.investmentPoolChangeModal.close();
+            }
+        });
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -61,18 +70,6 @@ class InvestmentPoolViewStore extends BaseListViewStore {
             disablePaging: true,
             disableSorting: true
         }));
-
-        this.investmentPoolChangeModal = new ModalParams({});
-    }
-
-    @action.bound
-    openInvestmentPoolChange() {
-        this.investmentPoolChangeModal.open({
-            onAfterAction: () => {
-                this.queryUtility.fetch();
-                this.investmentPoolChangeModal.close();
-            }
-        });
     }
 }
 

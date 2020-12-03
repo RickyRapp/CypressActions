@@ -76,9 +76,16 @@ import { RouterState } from 'mobx-state-router';
                 role: ['Users']
             },
             {
+                title: 'MENU.INVESTMENTS',
+                icon: 'investment',
+                order: 5,
+                route: 'master.app.main.investment.donor',
+                role: ['Users']
+            },
+            {
                 title: 'MENU.MANAGE_FUND',
                 icon: 'administration',
-                order: 5,
+                order: 6,
                 role: ['Users'],
                 subMenu: [
                     {

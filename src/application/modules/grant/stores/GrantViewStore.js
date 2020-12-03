@@ -88,7 +88,7 @@ class GrantViewStore extends BaseListViewStore {
 
     @action.bound
     onClickDonorFromFilter(donorId) {
-        this.rootStore.routerStore.goTo('master.app.main.grant.create', { id: donorId })
+        this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { id: donorId })
     }
 
     @action.bound

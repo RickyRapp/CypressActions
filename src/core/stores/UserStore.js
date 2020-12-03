@@ -64,8 +64,11 @@ class UserStore {
             if (user.roles.includes('Users')) {
                 const data = await donor.donorStore.getDonorLoginProfile(user.id);
                 if (data) {
-                    //do something for donor user if needed
-                    user.accountManager = { name: 'John Doe' }
+                    user.donor = {
+                        accountManager: data.accountManager,
+                        fundName: data.fundName,
+                        accountNumber: data.accountNumber
+                    }
                 }
             }
         } catch (ex) {
