@@ -68,8 +68,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                     <div className="col col-sml-6 u-mar--bottom--sml type--right">
                                         <BaasicButton
-                                            className="btn btn--tny btn--tertiary"
-                                            icon="u-icon u-icon--preview u-icon--sml"
+                                            className="advanced-search"
+                                            icon="u-icon u-icon--arrow-down--positive u-icon--sml"
                                             disabled={form.$('isNewCharity').value}
                                             label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
                                             onClick={openAdvancedSearchModal}
@@ -128,31 +128,37 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
                                 {charityDropdownStore.value &&
                                     <React.Fragment>
-                                        <h3>{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
-                                        <div className="row">
-                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                                <span>{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
-                                                <span>{charityDropdownStore.value.item.name}</span>
+                                        <h3 className="type--med type--wgt--medium">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
+                                        <div className="row u-mar--top--sml">
+                                            <div className="col col-sml-12 u-mar--bottom--sml">
+                                                <div className="charity-information__card ">
+                                                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
+                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.name}</span>
+                                                </div>
                                             </div>
-                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                                <span>{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                                                <span>{charityDropdownStore.value.item.taxId}</span>
+                                            <div className="col col-sml-12 u-mar--bottom--sml">
+                                                <div className="charity-information__card ">
+                                                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
+                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.taxId}</span>
+                                                </div>
                                             </div>
                                             {!isChangedDefaultAddress &&
-                                                <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                                    <span>{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                                                    <span>{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
+                                                <div className="col col-sml-12 u-mar--bottom--sml">
+                                                    <div className="charity-information__card ">
+                                                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
+                                                        <span className="type--base type--wgt--medium">{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
+                                                    </div>
                                                 </div>}
                                         </div>
 
                                         <BaasicButton
-                                            className="btn btn--sml btn--secondary--light"
+                                            className="btn btn--sml btn--link u-mar--bottom--sml"
                                             label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
                                             onClick={onChangeDefaultAddressClick}>
                                         </BaasicButton>
                                     </React.Fragment>}
                                 {isChangedDefaultAddress &&
-                                    <div className="row">
+                                    <div className="row card--secondary card--med u-mar--bottom--sml">
                                         <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                             <BasicInput field={form.$('addressLine1')} />
                                         </div>
@@ -330,7 +336,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
 
                                 <div className="row u-mar--bottom--med">
-                                    <div className="card--secondary card--med col col-sml-12 col-lrg-12">
+                                    <div className="card--primary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
                                         <div className="card--primary">
                                             <SimpleBaasicTable tableStore={previousGrantsTableStore} />
@@ -339,7 +345,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
 
                                 <div className="row">
-                                    <div className="card--secondary card--med col col-sml-12 col-lrg-12">
+                                    <div className="card--primary card--med col col-sml-12 col-lrg-12">
                                         <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
                                         <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>
                                             <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>

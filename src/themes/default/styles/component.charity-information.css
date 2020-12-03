@@ -1,0 +1,14 @@
+/*------------------------------------*\
+    # component.charity-information
+\*------------------------------------*/
+
+.charity-information {
+    &__card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: calc($unit * 2) calc($unit * 4);
+        background-color: $color-background;
+    }
+}

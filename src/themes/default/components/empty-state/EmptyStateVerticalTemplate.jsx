@@ -5,8 +5,8 @@ import { defaultTemplate } from 'core/hoc';
 const EmptyStateVerticalTemplate = function (props) {
     const { t, image, title, actionLabel, callToAction, callToActionLabel, description, icon, className } = props;
     return (
-        <div className={`card--primary card--lrg emptystate--vertical ${className}`}>
-            {image && (
+        <div className={`card--primary card--lrg ${className}`}>
+            {/* {image && (
                 <div className="emptystate--vertical__image">
                     <img src={image} alt="" />
                 </div>
@@ -23,7 +23,8 @@ const EmptyStateVerticalTemplate = function (props) {
                         <span className="align--v--bottom">{t(callToActionLabel)}</span>
                     </button>
                 </div>
-            )}
+            )} */}
+            <p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
         </div>
     );
 };
