@@ -6,7 +6,7 @@
  * Project base line height (unitless in order to work with typomatic)
  */
 $base-line-height: 22;
-$base-font-size:   15;
+$base-font-size:   16;
 
 /**
 * Type scale sizes must be entered in their pixel size
