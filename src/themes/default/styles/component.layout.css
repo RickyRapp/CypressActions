@@ -20,10 +20,6 @@ $header-height: 96px;
         @media (--screen-to-sml) {
             left: 0;
         }
-
-        @media (--screen-to-lrg) {
-            padding: calc($unit * 3) calc($unit * 4);
-        }
     }
 
     &__aside {

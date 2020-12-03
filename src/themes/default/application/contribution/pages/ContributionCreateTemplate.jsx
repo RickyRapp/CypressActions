@@ -39,16 +39,17 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
     return (
         <Page loading={loaderStore.loading}>
             {step === 1 && paymentTypes && paymentTypes.map(c => {
+                let iconName = c.name.toLowerCase().split(' ').join('-');
                 return (
-                    <div key={c.id} className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                    <div key={c.id} className="row">
                         <div className="col col-sml-12 col-xxlrg-3 u-mar--bottom--med">
-                            <div className="card card--primary card--xlrg">
-                                <div className="row">
+                            <div className="card card--contribution card--med cursor--pointer" onClick={() => onSelectPaymentType(c.id)}>
+                                <div className="row row__align--center">
                                     <div className="col col-sml-2">
-                                        <i className="u-icon u-icon--med u-icon--download"></i>
+                                        <i className={`u-icon u-icon--med u-icon--${iconName} ${c.id === form.$('paymentTypeId').value && "checked"}`}></i>
                                     </div>
                                     <div className="col col-sml-10">
-                                        <h5 className="type--med type--wgt--medium">{c.name}</h5>
+                                        <h5 className="type--base type--color--text type--wgt--medium">{c.name}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -56,31 +57,24 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                         {step === 1 &&
                             <React.Fragment>
                                 <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <div className="card card--primary card--med type--center u-mar--bottom--med">
+                                        <p className="type--base type--color--text type--wgt--regular">2-3 Business days</p>
                                     </div>
                                 </div>
                                 <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <div className="card card--primary card--med type--center u-mar--bottom--med">
+                                        <p className="type--base type--color--text type--wgt--regular">60%</p>
                                     </div>
                                 </div>
                                 <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <div className="card card--primary card--med type--center u-mar--bottom--med">
+                                        <p className="type--base type--color--text type--wgt--regular">$250</p>
                                     </div>
                                 </div>
-                                <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <p className="type--sml">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
+                                    <div className="card card--primary card--med type--center u-mar--bottom--med">
+                                        <p className="type--base type--color--text type--wgt--regular">Recurring deposits available</p>
                                     </div>
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-1 u-mar--bottom--med">
-                                    <BaasicButton
-                                        className="btn btn--med btn--med--wide btn--primary"
-                                        label={t('CONTRIBUTION.CREATE.LINK')}
-                                        onClick={() => onSelectPaymentType(c.id)}
-                                    />
                                 </div>
                             </React.Fragment>}
                     </div>
@@ -91,16 +85,17 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                 <div className="row">
                     <div className="col col-sml-12 col-xlrg-4">
                         {paymentTypes.map(c => {
+                            let iconName = c.name.toLowerCase().split(' ').join('-');
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                         <div className={`card--primary card--med u-mar--bottom--med cursor--pointer ${c.id === form.$('paymentTypeId').value && "card--contribution checked"}`}> 
+                                         <div className={`card--contribution card--med u-mar--bottom--med cursor--pointer${c.id === form.$('paymentTypeId').value && "checked"}`}> 
                                             <div className="row u-display--flex u-display--flex--align--center">
                                                 <div className="col col-sml-2">
-                                                    <i className={`u-icon u-icon--med u-icon--${c.abr} ${c.id === form.$('paymentTypeId').value && "checked"} u-push`}></i>
+                                                    <i className={`u-icon u-icon--med u-icon--${iconName} ${c.id === form.$('paymentTypeId').value && "checked"} u-push`}></i>
                                                 </div>
                                                 <div className="col col-sml-10">
-                                                    <h5 className={c.id !== form.$('paymentTypeId').value ? "type--med type--wgt--medium" : "type--med type--wgt--medium type--color--note"}>{c.name}</h5>
+                                                    <h5 className={c.id !== form.$('paymentTypeId').value ? "type--base type--wgt--medium" : "type--base type--wgt--medium type--color--note"}>{c.name}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +177,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                                     <div className="type--right">
                                         <BaasicButton
-                                            className="btn btn--med btn--secondary  u-mar--top--med"
+                                            className="btn btn--med btn--primary u-mar--top--med"
                                             label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                             onClick={routes.allContributions}>
                                         </BaasicButton>

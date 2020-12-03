@@ -51,7 +51,7 @@
         transition: all 250ms ease-in-out;
 
         &:hover {
-            background-color: color($color-background-seashellt a(85%));
+            background-color: color($color-background-seashellt a(100%));
             
             &::after {
                 content: "";

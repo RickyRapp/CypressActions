@@ -70,6 +70,8 @@
 
             &__item {
                 padding: $unit calc($unit * 2);
+                
+                @mixin type-scale $type-base, 1;
             }
         }
 
