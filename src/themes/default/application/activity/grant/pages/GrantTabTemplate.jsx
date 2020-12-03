@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { PastGrantList, GrantRequestList, ScheduledGrantList, BookletList, BookletOrderList } from 'application/activity/grant/pages';
+import { PastGrantList, GrantRequestList, ScheduledGrantList } from 'application/activity/grant/pages';
 
 const GrantTabTemplate = function ({ grantTabViewStore }) {
     return (
@@ -17,12 +17,6 @@ const GrantTabTemplate = function ({ grantTabViewStore }) {
                     </div>
                     <div label={'ACTIVITY.GRANT_TAB.GRANT_REQUEST'}>
                         <GrantRequestList />
-                    </div>
-                    <div label={'ACTIVITY.GRANT_TAB.CERTIFICATE_LIST'}>
-                        <BookletList />
-                    </div>
-                    <div label={'ACTIVITY.GRANT_TAB.BOOKLET_ORDER_LIST'}>
-                        <BookletOrderList />
                     </div>
                 </TabLayout>
             </div>

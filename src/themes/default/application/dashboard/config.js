@@ -45,15 +45,7 @@ import { RouterState } from 'mobx-state-router';
                 icon: 'give',
                 order: 1,
                 role: ['Users'],
-                subMenu: [
-                    {
-                        title: 'MENU.NEW_GRANT',
-                        icon: 'grant',
-                        order: 1,
-                        role: ['Users'],
-                        route: 'master.app.main.grant.create',
-                    }
-                ]
+                route: 'master.app.main.grant.create'
             },
             {
                 title: 'MENU.DASHBOARD',

@@ -33,7 +33,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         isNoteToAdministratorIncluded,
         onIncludeNoteToAdministratorChange,
         donor,
-        amountWithFee,
         onCharitySelected,
         advancedSearchModal,
         openAdvancedSearchModal,
@@ -60,7 +59,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             store={charityDropdownStore}
                                             additionalLabel='My Favorite Charities'
                                         />
-                                        
+
                                     </div>
                                 </div>
                                 <div className="row">
@@ -69,10 +68,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                     <div className="col col-sml-6 u-mar--bottom--sml type--right">
                                         <BaasicButton
-                                            className="btn btn--icon"
-                                            icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
-                                            label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
-                                            onlyIcon={true}
+                                            className="btn btn--tny btn--tertiary"
+                                            icon="u-icon u-icon--preview u-icon--sml"
+                                            disabled={form.$('isNewCharity').value}
+                                            label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
                                             onClick={openAdvancedSearchModal}
                                         />
                                     </div>
@@ -126,20 +125,54 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             </div>
                                         </div>
                                     </div>}
+
+                                {charityDropdownStore.value &&
+                                    <React.Fragment>
+                                        <h3>{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
+                                        <div className="row">
+                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                                <span>{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
+                                                <span>{charityDropdownStore.value.item.name}</span>
+                                            </div>
+                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                                <span>{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
+                                                <span>{charityDropdownStore.value.item.taxId}</span>
+                                            </div>
+                                            {!isChangedDefaultAddress &&
+                                                <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                                    <span>{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
+                                                    <span>{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
+                                                </div>}
+                                        </div>
+
+                                        <BaasicButton
+                                            className="btn btn--sml btn--secondary--light"
+                                            label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
+                                            onClick={onChangeDefaultAddressClick}>
+                                        </BaasicButton>
+                                    </React.Fragment>}
+                                {isChangedDefaultAddress &&
+                                    <div className="row">
+                                        <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('addressLine1')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('addressLine2')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('city')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('state')} />
+                                        </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('zipCode')} />
+                                        </div>
+                                    </div>}
+
                                 <div className="row">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <NumericInputField field={form.$('amount')} />
-                                    </div>
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                        {amountWithFee &&
-                                            <React.Fragment><label className="form__group__label">Total amount with fee</label>
-                                                <span className={"input input--lrg input--text input--disabled"}>
-                                                    <FormatterResolver
-                                                        item={{ amount: amountWithFee }}
-                                                        field='amount'
-                                                        format={{ type: 'currency' }}
-                                                    /></span>
-                                            </React.Fragment>}
                                     </div>
                                 </div>
                                 <div className="row">
@@ -207,30 +240,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     <div className="row">
                                         <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                             <BasicTextArea field={form.$('noteToAdministrator')} />
-                                        </div>
-                                    </div>}
-
-                                <BaasicButton
-                                    className="btn btn--med btn--secondary--light"
-                                    label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
-                                    onClick={onChangeDefaultAddressClick}>
-                                </BaasicButton>
-                                {isChangedDefaultAddress &&
-                                    <div className="row">
-                                        <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('addressLine1')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('addressLine2')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('city')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('state')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('zipCode')} />
                                         </div>
                                     </div>}
                                 {renderEditLayoutFooterContent({ form })}

@@ -5,7 +5,7 @@ import { NumericTextBox } from '@progress/kendo-react-inputs';
 import '@progress/kendo-react-intl';
 
 const NumericInputTemplate = defaultTemplate(props => {
-    const { t, value, onChange, onBlur, format, label, max, min, required, className, disabled, name } = props;
+    const { t, value, onChange, onBlur, format, label, max, min, required, className, disabled, name, placeholder } = props;
     const showLabel = props.showLabel === undefined ? true : props.showLabel;
 
     const requiredMark = required ? <span>*</span> : null;
@@ -31,6 +31,7 @@ const NumericInputTemplate = defaultTemplate(props => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                placeholder={t(placeholder)}
                 spinners={false}
             />
         </div>

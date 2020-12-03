@@ -9,7 +9,6 @@ import { ModalParams } from 'core/models';
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
     @observable isNoteToAdministratorIncluded = false;
-    @observable amountWithFee = false;
     @observable grantAcknowledgmentName = null;
     @observable isChangedDefaultAddress = null;
     feeTypes = [];
@@ -90,9 +89,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonor(),
-                this.loadLookups()
+                this.fetchDonor()
             ]);
+            await this.fetch([this.loadLookups()]);
 
             this.setFormDefaultRules();
             this.form.$('isRecurring').observe(({ field }) => {
@@ -119,9 +118,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.form.$('noEndDate').observe(({ field }) => {
                 this.onChangeNoEndDate(field.value)
             });
-            this.form.$('amount').onBlur = (event) => {
-                this.onBlurAmount(event.target.value)
-            };
             this.form.$('charityAddressLine1').observe(({ field }) => {
                 this.form.$('addressLine1').set(field.value);
             });
@@ -178,10 +174,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     onGrantPurposeTypeChange(value) {
-        this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
-        if (!this.similarGrantsTableStore.dataInitialized) {
-            this.similarGrantsTableStore.dataInitialized = true;
-        }
+        this.setSimilarGrantTable(value);
     }
 
     @action.bound
@@ -213,53 +206,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     onGrantAcknowledgmentTypeChange(value) {
-        if (value)
-            this.grantAcknowledgmentName = donorFormatter.format(this.donor, { type: 'grant-acknowledgment-type', value: this.grantAcknowledgmentTypes.find(c => c.id === value).abrv })
-        else
-            this.grantAcknowledgmentName = null
+        this.setGrantAcknowledgmentName(value);
     }
 
     @action.bound
     setFormDefaultRules() {
         if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
-        }
-    }
-
-    @action.bound
-    async onBlurAmount(value) {
-        if (!this.donor.isGrantFeePayedByCharity) {
-            if (value) {
-                const params = {
-                    id: this.donorId,
-                    feeTypeId: this.feeTypes.find((item) => item.abrv === 'grant-fee').id,
-                    amount: value,
-                }
-                const feeAmount = await this.rootStore.application.grant.grantStore.calculateFee(params);
-                this.amountWithFee = params.amount + feeAmount;
-
-                if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) { //combined
-                    this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
-                    this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
-                    this.grantAcknowledgmentTypeDropdownStore.setValue(this.grantAcknowledgmentTypes.find((item) => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId));
-
-                    this.form.$('grantPurposeTypeId').setDisabled(true);
-                    this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
-                    this.grantPurposeTypeDropdownStore.setValue(this.grantPurposeTypes.find((item) => item.id === this.applicationDefaultSetting.grantPurposeTypeId));
-
-                    this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
-                    this.form.$('grantPurposeTypeId').validate({ showErrors: true });
-                }
-                else { //regular
-                    this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
-                    this.form.$('grantPurposeTypeId').setDisabled(false);
-                }
-            }
-            else {
-                this.amountWithFee = null;
-                this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
-                this.form.$('grantPurposeTypeId').setDisabled(false);
-            }
         }
     }
 
@@ -316,6 +269,22 @@ class GrantCreateViewStore extends BaseEditViewStore {
         }
     }
 
+    @action.bound
+    setSimilarGrantTable(value) {
+        this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
+        if (!this.similarGrantsTableStore.dataInitialized) {
+            this.similarGrantsTableStore.dataInitialized = true;
+        }
+    }
+
+    @action.bound
+    setGrantAcknowledgmentName(value) {
+        if (value)
+            this.grantAcknowledgmentName = donorFormatter.format(this.donor, { type: 'grant-acknowledgment-type', value: this.grantAcknowledgmentTypes.find(c => c.id === value).abrv })
+        else
+            this.grantAcknowledgmentName = null
+    }
+
     setAddress(address) {
         this.form.$('addressLine1').set(address.addressLine1)
         this.form.$('addressLine2').set(address.addressLine2)
@@ -330,6 +299,18 @@ class GrantCreateViewStore extends BaseEditViewStore {
         this.grantScheduleTypes = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
         this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
         this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
+
+        this.grantPurposeTypeDropdownStore.setItems(this.grantPurposeTypes);
+        const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;
+        this.grantPurposeTypeDropdownStore.setValue(defaultPurposeTypeId);
+        this.form.$('grantPurposeTypeId').set(defaultPurposeTypeId);
+        this.setSimilarGrantTable(defaultPurposeTypeId);
+
+        this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
+        const defaultGrantAcknowledgmentTypeId = this.grantAcknowledgmentTypes.find(c => c.abrv === 'name-fund-name-and-address').id;
+        this.grantAcknowledgmentTypeDropdownStore.setValue(defaultGrantAcknowledgmentTypeId);
+        this.form.$('grantAcknowledgmentTypeId').set(defaultGrantAcknowledgmentTypeId);
+        this.setGrantAcknowledgmentName(defaultGrantAcknowledgmentTypeId);
     }
 
     createGrantScheduleTypeDropdownStore() {
@@ -343,21 +324,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
     }
 
     createGrantPurposeTypeDropdownStore() {
-        this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    return this.rootStore.application.lookup.grantPurposeTypeStore.find();
-                }
-            });
+        this.grantPurposeTypeDropdownStore = new BaasicDropdownStore();
     }
 
     createGrantAcknowledgmentTypeDropdownStore() {
-        this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
-                },
-            });
+        this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore()
     }
 
     createCharityTypeDropdownStore() {
