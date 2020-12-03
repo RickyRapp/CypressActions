@@ -83,13 +83,17 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 
             {step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
                 <div className="row">
-                    <div className="col col-sml-12 col-xlrg-4">
+                    <div className="col col-sml-12 col-lrg-12">
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
+                            <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
+                    </div>
+                    <div className="col col-sml-12 col-xlrg-3">
                         {paymentTypes.map(c => {
                             let iconName = c.name.toLowerCase().split(' ').join('-');
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                         <div className={`card--contribution card--med u-mar--bottom--med cursor--pointer${c.id === form.$('paymentTypeId').value && "checked"}`}> 
+                                         <div className={`card--contribution card--med u-mar--bottom--med cursor--pointer ${c.id === form.$('paymentTypeId').value && "checked"}`}> 
                                             <div className="row u-display--flex u-display--flex--align--center">
                                                 <div className="col col-sml-2">
                                                     <i className={`u-icon u-icon--med u-icon--${iconName} ${c.id === form.$('paymentTypeId').value && "checked"} u-push`}></i>
@@ -104,13 +108,10 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                         })
                         }
                     </div>
-                    <div className="col col-sml-12 col-xlrg-8">
+                    <div className="col col-sml-12 col-xlrg-9">
                         <div className="row">
-                            <div className="col col-sml-12 col-lrg-12">
-                                {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) &&
-                                    <h5 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(`CONTRIBUTION.CREATE.${paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name.toUpperCase()}`)}</h5>}
-                            </div>
-                            <div className="col col-sml-12 col-xxlrg-6">
+                            
+                            <div className="col col-sml-12 col-xxlrg-7">
                                 <EditFormContent form={form}>
                                     <div className="card card--primary card--med u-mar--bottom--med">
                                         <div className="row">
@@ -171,13 +172,13 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
                                     </BaasicModal>
                                 </EditFormContent>
                             </div>
-                            <div className="col col-sml-12 col-xxlrg-6">
+                            <div className="col col-sml-12 col-xxlrg-5">
                                 <div className="card card--primary card--med u-mar--bottom--med">
                                     <h5 className="type--med type--wgt--medium u-mar--bottom--sml">{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
                                     <SimpleBaasicTable tableStore={previousContributionsTableStore} />
                                     <div className="type--right">
                                         <BaasicButton
-                                            className="btn btn--med btn--primary u-mar--top--med"
+                                            className="btn btn--100 btn--primary u-mar--top--med"
                                             label='CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS'
                                             onClick={routes.allContributions}>
                                         </BaasicButton>

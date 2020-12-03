@@ -93,15 +93,23 @@
         line-height: calc($unit * 10);
     }
 
+    &--100 {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: calc($unit * 4) 0;
+        @mixin type-scale $type-base, 1;
+    }
+
     /**
      * Button styles
     */
     &--primary {
-        background: $bali-hai;
-        color: $white;
+        background: color($bali-hai a(20%));
+        color: $color-text;
 
         &:hover {
-            background: color($bali-hai a(80%));
+            background: color($bali-hai a(35%));
         }
 
         &--light {

@@ -75,7 +75,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 
                                 {form.$('isNewCharity').value &&
                                     <div className="card card--form card--primary card--med u-mar--bottom--med">
-                                        <h4>{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
+                                        <h4 className="type--med type--wgt--medium">{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityName')} />
@@ -109,7 +109,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                                 <BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
                                             </div>
                                         </div>
-                                        <h4>{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
+                                        <h4 className="type--med type--wgt--medium">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityContactName')} />
@@ -200,7 +200,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                         <div className="card card--form card--primary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row">
                                                 <div className="col col-sml-12 col-lrg-6">
-                                                    <h4>{t('GRANT.CREATE.PROFILE_INFO')}</h4>
+                                                    <h4 className="type--med type--wgt--medium">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -250,14 +250,14 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 
                                 <div className="row u-mar--bottom--med">
                                     <div className="card card--form card--primary card--med col col-sml-12 col-lrg-12">
-                                        <h4>{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
+                                        <h4 className="type--med type--wgt--medium">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
                                         <SimpleBaasicTable tableStore={previousGrantsTableStore} />
                                     </div>
                                 </div>
 
                                 <div className="row">
                                     <div className="card card--form card--primary card--med col col-sml-12 col-lrg-12">
-                                        <h4>{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
+                                        <h4 className="type--med type--wgt--medium">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
                                         <div className="card card--form card--primary card--med">
                                             <h5>{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
                                             <SimpleBaasicTable tableStore={similarGrantsTableStore} />

@@ -60,7 +60,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 				<div className="col col-sml-12 col-xlrg-6">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card u-mar--bottom--med">
-							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 							<div className="dashboard-card__body">
 								<h5 className="dashboard-card__body--amount">
 									{donor && (
@@ -106,7 +106,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 						</div>
 					) : (
 							<div className="dashboard-card--emptystate">
-								<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 								<div className="dashboard-card--emptystate__body">
 									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
 									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
@@ -118,7 +118,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 				<div className="col col-sml-12 col-xlrg-6">
 					{donor && donor.isContributionMade ?
 						<div className="dashboard-card">
-							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
 							<div className="row u-mar--bottom--med">
 								<div className="col col-sml-12 col-med-12">
 									<div className="u-display--flex row__align--center">
@@ -135,7 +135,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 						</div>
 						:
 						<div className="dashboard-card--emptystate card--med">
-							<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
 							<div className="dashboard-card--emptystate__body">
 								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
 								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
@@ -151,7 +151,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 						!donor.isInvestmentMade) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
-								<h3 className="type--med type--wgt--medium u-mar--bottom--med type--center">
+								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med type--center">
 									{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
 								</h3>
 								<div className="row type--center u-display--flex u-display--flex--justify--center">
@@ -200,7 +200,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 					)}
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
-						<h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
+						<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
 					</div>
 				</div>
