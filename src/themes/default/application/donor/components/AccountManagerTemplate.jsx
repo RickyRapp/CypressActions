@@ -8,13 +8,13 @@ class AccountManagerTemplate extends Component {
 
         return (
             <React.Fragment>
-                {rootStore.userStore.user ? (
+                {rootStore.userStore.user && rootStore.userStore.user.donor ? (
                     <React.Fragment>
-                        {rootStore.userStore.user.accountManager ?
+                        {rootStore.userStore.user.donor.accountManager ?
                             <span>
                                 <span>Your Account Manager</span>:
                             <span>
-                                    <strong> {`${rootStore.userStore.user.accountManager.firstName} ${rootStore.userStore.user.accountManager.lastName}`}</strong>
+                                    <strong> {`${rootStore.userStore.user.donor.accountManager.firstName} ${rootStore.userStore.user.donor.accountManager.lastName}`}</strong>
                                 </span>
                             </span>
                             :

@@ -13,6 +13,7 @@ import {
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
 import { AccountManager } from 'application/donor/components';
+import { DashboardHeader } from 'application/dashboard/components';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
 	const {
@@ -56,9 +57,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 
 	return (
 		<Page>
-			<PageHeader>
-				<AccountManager />
-			</PageHeader>
+			<DashboardHeader />
 			<div className="row">
 				<div className="col col-sml-12 col-xlrg-6">
 					{donor && donor.isContributionMade ? (
