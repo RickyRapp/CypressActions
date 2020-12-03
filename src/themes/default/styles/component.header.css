@@ -20,6 +20,10 @@
 
     @media (--screen-to-sml) {
         padding: 0 calc($unit * 4);
+
+        & .account-manager {
+            display: none;
+        }
     }
 
     &__logo {

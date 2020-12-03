@@ -45,7 +45,7 @@ function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false,
                                             />
                                             <span className="header__profile__name">
                                                 <span>{rootStore.userStore.user.displayName}</span>
-                                                <i className="k-icon k-i-arrow-s header__profile__icon"></i>
+                                                {/* <i className="k-icon k-i-arrow-s header__profile__icon"></i> */}
                                             </span>
                                         </div>
                                     ) : null}
@@ -103,7 +103,7 @@ function renderHeaderContent(children, props, routes, hideTitle, t, title) {
                 : null}
             {children && contentRender ?
                 <div className="content__header">
-                    <div>{contentRender}</div>
+                    <div className="row row__align--end">{contentRender}</div>
                 </div>
                 :
                 null}

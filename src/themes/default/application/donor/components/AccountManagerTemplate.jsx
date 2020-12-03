@@ -11,12 +11,14 @@ class AccountManagerTemplate extends Component {
                 {rootStore.userStore.user && rootStore.userStore.user.donor ? (
                     <React.Fragment>
                         {rootStore.userStore.user.donor.accountManager ?
-                            <span>
-                                <span>Your Account Manager</span>:
-                            <span>
-                                    <strong> {`${rootStore.userStore.user.donor.accountManager.firstName} ${rootStore.userStore.user.donor.accountManager.lastName}`}</strong>
+                             <div className="u-mar--left--xlrg account-manager">
+                                <span className="type--base type--color--opaque">
+                                    Your Account Manager:
                                 </span>
-                            </span>
+                                <p className="type--med type--wgt--medium">
+                                    {`${rootStore.userStore.user.donor.accountManager.firstName} ${rootStore.userStore.user.donor.accountManager.lastName}`}
+                                </p>
+                            </div >
                             :
                             null}
                     </React.Fragment >)

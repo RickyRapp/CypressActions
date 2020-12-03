@@ -47,7 +47,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                                         />
                                         <span className="header__profile__name">
                                             <span>{rootStore.userStore.user.displayName}</span>
-                                            <i className="k-icon k-i-arrow-s header__profile__icon"></i>
+                                            {/* <i className="k-icon k-i-arrow-s header__profile__icon"></i> */}
                                         </span>
                                     </div>
                                 ) : null}

@@ -97,7 +97,7 @@
         }
 
         &--opaque {
-            color: $color-opaque;
+            color: $bali-hai;
         }
 
         &--primary {
