@@ -96,7 +96,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                             return (
                                 <div key={c.id} className="row" onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}>
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <div className={c.id !== form.$('paymentTypeId').value ? "card card--contribution card--med u-mar--bottom--med cursor--pointer" : "card card--contribution checked card--med u-mar--bottom--med cursor--pointer"}>
+                                        <div className={`${c.id !== form.$('paymentTypeId').value && "checked"} card--contribution card--med u-mar--bottom--med cursor--pointer`}>
                                             <div className="row u-display--flex u-display--flex--align--center">
                                                 <div className="col col-sml-2">
                                                     <i className="u-icon u-icon--med u-icon--download u-push"></i>

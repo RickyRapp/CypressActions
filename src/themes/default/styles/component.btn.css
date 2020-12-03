@@ -109,7 +109,8 @@
             color: $color-text;
 
             &:hover {
-                background: color($color-background a(80%));
+                background: color($color-text a(50%));
+                color: $white;
             }
         }
     }
