@@ -116,13 +116,13 @@
         }
 
         &--menu {
-            background-image: svg-load('../styles/postcss-svg/arrow-left.svg', stroke: $color-text);
+            background-image: svg-load('../styles/postcss-svg/menu.svg', stroke: $color-text);
 
             &:hover,
             &:active,
             &:focus {
                 outline: 0;
-                background-image: svg-load('../styles/postcss-svg/arrow-left.svg', stroke: $color-primary);
+                background-image: svg-load('../styles/postcss-svg/menu.svg', stroke: $color-primary);
             }
         }
         

@@ -98,7 +98,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                 </TableFilter>
             </div>
             <div className="row">
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-8 u-mar--bottom--med">
                     <div className="card--primary card--med">
                         <BaasicTable
                             authorization={authorization}
@@ -106,7 +106,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                         />
                     </div>
                 </div>
-                <div className="card--primary card--sml col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="card--primary card--sml col col-sml-12 col-lrg-4 u-mar--bottom--med">
                     <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}</h4>
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">

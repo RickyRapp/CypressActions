@@ -70,7 +70,7 @@
                 position: absolute;
                 right: calc($unit * 7);
                 left: calc($unit * 7);
-                bottom: calc(-$unit * 14);
+                top: calc($unit * 4);
                 
                 display: flex;
                 justify-content: center;
@@ -93,18 +93,12 @@
                         background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-note);
                     }
                 }
-
-                @media (--screen-to-sml) {
-                    position: relative; 
-                    bottom: calc(-$unit * 4);
-
-                } 
             }
 
             &--menu {
                 position: absolute;
                 right: 0;
-                bottom: calc(-$unit * 27);
+                top: calc($unit * 17);
                 
                 display: flex;
                 padding: calc($unit * 3) calc($unit * 1);
@@ -113,10 +107,6 @@
                 border-bottom-left-radius: calc($unit * 1);
                 background-color: $lavander;
                 cursor: pointer;
-
-                @media (--screen-to-sml) {
-                    bottom: calc($unit * 31);
-                } 
             }
 
             &.active {
