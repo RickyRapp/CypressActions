@@ -57,7 +57,6 @@ class DonorRouteService extends BaseRouteService {
     return super.find(this.base + '/search-account-manager/{?id,search,page,rpp,sort,embed,fields,exceptId}', filter);
   }
 
-
   fundNameExists(fundName) {
     return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: fundName });
   }

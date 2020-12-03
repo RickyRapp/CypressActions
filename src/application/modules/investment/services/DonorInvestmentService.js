@@ -14,7 +14,6 @@ class DonorInvestmentService extends BaseService {
 
     invest(resource) {
         const url = this.routeService.invest();
-        debugger
         return this.apiClient.post(url, resource);
     }
 }

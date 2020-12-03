@@ -2,6 +2,7 @@ import React from 'react';
 import { PageHeader } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 import { AccountManager } from 'application/donor/components';
+import PropTypes from 'prop-types';
 
 function DashboardHeaderTemplate(props) {
     const { rootStore } = props;
@@ -24,6 +25,7 @@ function DashboardHeaderTemplate(props) {
 }
 
 DashboardHeaderTemplate.propTypes = {
+    rootStore: PropTypes.object
 };
 
 export default defaultTemplate(DashboardHeaderTemplate);

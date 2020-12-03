@@ -10,7 +10,7 @@ const BaasicFieldDropzoneTemplate = function (props) {
           loading
      } = props;
 
-     function onDelete() { //eslint-disable-line
+     function onDelete() {
           field.clear();
      }
 

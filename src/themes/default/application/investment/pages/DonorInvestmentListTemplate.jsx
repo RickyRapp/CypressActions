@@ -29,6 +29,4 @@ DonorInvestmentListTemplate.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-
 export default defaultTemplate(DonorInvestmentListTemplate);
-

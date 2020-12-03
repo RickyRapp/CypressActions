@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
-import { BaasicButton, BaasicFormControls, BaasicInput, BasicCheckbox, BasicInput } from 'core/components';
+import { BaasicButton, BaasicFormControls, BaasicInput, BasicCheckbox } from 'core/components';
 
 const DonorInvestmentCreateTemplate = function ({ donorInvestmentCreateViewStore, t }) {
     const {
@@ -93,9 +93,9 @@ const DonorInvestmentCreateTemplate = function ({ donorInvestmentCreateViewStore
 
 DonorInvestmentCreateTemplate.propTypes = {
     donorInvestmentCreateViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    step: PropTypes.number
 };
-
 
 function renderEditLayoutFooterContent({ form, step }) {
     return <PageFooter>
@@ -107,8 +107,7 @@ function renderEditLayoutFooterContent({ form, step }) {
 
 renderEditLayoutFooterContent.propTypes = {
     form: PropTypes.any,
-    goBack: PropTypes.func,
-    t: PropTypes.func
+    step: PropTypes.number
 };
 
 export default defaultTemplate(DonorInvestmentCreateTemplate);

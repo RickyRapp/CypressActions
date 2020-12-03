@@ -54,7 +54,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                             });
                             bookletTypeDropdownStore.setItems(bookletTypes);
                             const isMixed500Booklet = bookletTypes.find(c => c.abrv === 'mixed_500').id === item.$('bookletTypeId').value;
-                            const isMixed2000Booklet = bookletTypes.find(c => c.abrv === 'mixed_2000').id === item.$('bookletTypeId').value;
+                            const isMixed2000Booklet = bookletTypes.find(c => c.abrv === 'mixed_2000').id === item.$('bookletTypeId').value;  //eslint-disable-line
 
                             return (
                                 <div key={item.key} className="card--secondary card--med u-mar--bottom--med">

@@ -8,7 +8,6 @@ import {
 } from 'core/components';
 import { Content } from 'core/layouts';
 
-
 const AllTransactionListTemplate = function ({ allTransactionViewStore }) {
     const {
         tableStore,

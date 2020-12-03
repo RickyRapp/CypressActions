@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, PageHeader } from 'core/layouts';
+import { Page } from 'core/layouts';
 import { BaasicButton, BaasicDropdown, FormatterResolver } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
@@ -12,7 +12,6 @@ import {
 	ChartLegend,
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
-import { AccountManager } from 'application/donor/components';
 import { DashboardHeader } from 'application/dashboard/components';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
@@ -21,7 +20,6 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 		yearDropdownStore,
 		newContributionOnClick,
 		newGrantOnClick,
-		investmentOptionsOnClick,
 		orderBookletsOnClick
 	} = dashboardViewStore;
 

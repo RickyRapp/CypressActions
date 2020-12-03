@@ -20,7 +20,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        return await service.update({ id: this.id, ...resource });
+                        await rootStore.application.session.sessionStore.update(resource);
                     },
                     get: async (id) => {
                         let params = {

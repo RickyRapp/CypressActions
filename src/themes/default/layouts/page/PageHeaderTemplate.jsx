@@ -84,6 +84,7 @@ PageHeaderTemplate.propTypes = {
     hideTitle: PropTypes.bool,
     rootStore: PropTypes.object,
     menuStore: PropTypes.object,
+    routes: PropTypes.array,
 };
 
 function renderHeaderContent(children, props, routes, hideTitle, t, title) {

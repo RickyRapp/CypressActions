@@ -1,4 +1,4 @@
-import { BaseEditViewStore, TableViewStore } from 'core/stores';
+import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { DonorInvestmentCreateForm } from 'application/investment/forms';
 import { action, observable } from 'mobx';
@@ -14,8 +14,7 @@ class DonorInvestmentPoolViewStore extends BaseEditViewStore {
             id: undefined,
             actions: () => {
                 return {
-                    create: async (resource) => {
-                        debugger
+                    create: async () => {
                         await rootStore.application.investment.investmentStore.invest(this.investmentPools.filter(c => { return c.checked }))
                     }
                 }
