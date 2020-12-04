@@ -111,7 +111,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                             <div className="card--secondary card--med type--center">
-                                <div className="type--lrg type--wgt--medium type--color--note">
+                                <div className="type--xxlrg type--wgt--medium type--color--text">
                                     {summaryData &&
                                         <FormatterResolver
                                             item={{ amount: summaryData.totalMoneyGiven }}
@@ -124,13 +124,13 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 
                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                             <div className="card--secondary--light card--med type--center">
-                                <div className="type--lrg type--wgt--medium type--color--note">
+                                <div className="type--xxlrg type--wgt--medium type--color--note">
                                     {summaryData &&
                                         <FormatterResolver
                                             item={{ amount: summaryData.totalMoneyUpcoming }}
                                             field='amount'
                                             format={{ type: 'currency' }} />}
-                                    <p className="type--xsml type--wgt--medium type--color--text"> Total money upcoming</p>
+                                    <p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming</p>
                                 </div>
                             </div>
                         </div>

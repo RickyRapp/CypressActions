@@ -16,6 +16,7 @@ import {
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { BankAccountForm } from 'application/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/contribution/components';
+import react from 'react';
 
 const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) {
 	const {
@@ -50,43 +51,45 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 
 	return (
 		<Page loading={loaderStore.loading}>
-			{/* <div className="row">
-				<div className="col col-sml-3">
-					<div className="card--sml type--med type--wgt--medium type--color--note type--center">Overview</div>
-				</div>
-				<div className="col col-sml-2">
-					<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Timeline</div>
-				</div>
-				<div className="col col-sml-2">
-					<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Deductible eligibility</div>
-				</div>
-				<div className="col col-sml-2">
-					<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Minimum Deposit</div>
-				</div>
-				<div className="col col-sml-3">
-					<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">More</div>
-				</div>
-			</div> */}
 			{step === 1 &&
-				paymentTypes &&
+				<React.Fragment>
+					<div className="row">
+						<div className="col col-sml-3">
+							<div className="card--sml type--med type--wgt--medium type--color--note type--center">Overview</div>
+						</div>
+						<div className="col col-sml-2">
+							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Timeline</div>
+						</div>
+						<div className="col col-sml-2">
+							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Deductible eligibility</div>
+						</div>
+						<div className="col col-sml-2">
+							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Minimum Deposit</div>
+						</div>
+						<div className="col col-sml-3">
+							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">More</div>
+						</div>
+					</div>
+
+				{paymentTypes &&
 				paymentTypes.map(c => {
 					let iconName = c.name
-						.toLowerCase()
-						.split(' ')
-						.join('-');
+					.toLowerCase()
+					.split(' ')
+					.join('-');
 					return (
 						<div key={c.id} className="row">
 							<div className="col col-sml-12 col-xxlrg-3 u-mar--bottom--med">
 								<div
 									className="card card--contribution card--med cursor--pointer"
 									onClick={() => onSelectPaymentType(c.id)}
-								>
+									>
 									<div className="row row__align--center">
 										<div className="col col-sml-4 col-lrg-2">
 											<i
 												className={`u-icon u-icon--med u-icon--${iconName} ${c.id === form.$('paymentTypeId').value &&
 													'checked'}`}
-											></i>
+													></i>
 										</div>
 										<div className="col col-sml-8 col-lrg-10">
 											<h5 className="type--base type--color--text type--wgt--medium">{c.name}</h5>
@@ -119,31 +122,24 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								</React.Fragment>
 							)}
 						</div>
-					);
-				})}
+					)})}
+					</React.Fragment>
+				}
 
 			{step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && (
 				<div className="row">
-					<div className="col col-sml-12 col-lrg-12">
-						{!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && (
-							<h5 className="type--lrg type--wgt--medium u-mar--bottom--med">
-								{t(
-									`CONTRIBUTION.CREATE.${paymentTypes
-										.find(c => c.id === form.$('paymentTypeId').value)
-										.name.toUpperCase()}`
-								)}
-							</h5>
-						)}
+					<div className="col col-sml-12">
+						<div className="card--sml type--med type--wgt--medium type--color--note">Overview</div>
 					</div>
 					<div className="col col-sml-12 col-xlrg-3">
 						{paymentTypes.map(c => {
 							let iconName = c.name
-								.toLowerCase()
+							.toLowerCase()
 								.split(' ')
 								.join('-');
 							return (
 								<div
-									key={c.id}
+								key={c.id}
 									className="row"
 									onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
 								>

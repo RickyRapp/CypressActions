@@ -16,5 +16,11 @@
             height: 100%;
             padding: 0 calc($unit * 2);
         }
+
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            @mixin type-scale $type-small, 1;
+        }
     }
 }

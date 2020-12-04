@@ -15,6 +15,7 @@ const DateRangePickerTemplate = function (props) {
         <div className="row">
             <DateRangePicker
                 {...otherProps}
+                calendarSettings={{views:1}}
                 format={t(format)}
                 startDateInput={store.d1}
                 endDateInput={store.d2}

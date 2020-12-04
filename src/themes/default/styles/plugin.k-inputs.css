@@ -41,7 +41,7 @@
     min-height: calc($unit * 7);
     color: $color-text;
     background-color: $color-background;
-
+    
     &:hover {
         background-color: color($bali-hai a(40%));
     }

@@ -6,13 +6,18 @@
     border: 0;
 
     .k-input {
-        height: calc($unit * 6);
-        line-height: calc($unit * 6);
+        height: calc($unit * 10);
         padding: 0 calc($unit * 2);
 
         border: 1px solid color(white blackness(+30%));
         border-right: 0;
         border-radius: $radius-base 0 0 $radius-base;
+
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            @mixin type-scale $type-small, 1;
+        }
     }
 
     .k-select {

@@ -63,17 +63,19 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col col-sml-6 u-mar--bottom--sml type--color--note">
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
                                         <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                     </div>
-                                    <div className="col col-sml-6 u-mar--bottom--sml type--right">
-                                        <BaasicButton
-                                            className="advanced-search"
-                                            icon="u-icon u-icon--arrow-down--positive u-icon--sml"
-                                            disabled={form.$('isNewCharity').value}
-                                            label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
-                                            onClick={openAdvancedSearchModal}
-                                        />
+                                    <div className="col col-sml-12 u-mar--bottom--sml">
+                                        <div className="u-push--from--med">
+                                            <BaasicButton
+                                                className="advanced-search"
+                                                icon="u-icon u-icon--arrow-down--positive u-icon--sml"
+                                                disabled={form.$('isNewCharity').value}
+                                                label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
+                                                onClick={openAdvancedSearchModal}
+                                                />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -257,7 +259,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                                         <div className="card--secondary card--med type--center">
-                                            <div className="type--xlrg type--wgt--bold type--color--text">
+                                            <div className="type--xxlrg type--wgt--medium type--color--text">
                                                 {donor && <FormatterResolver
                                                     item={{ balance: donor.availableBalance }}
                                                     field='balance'
@@ -269,7 +271,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                                         <div className="card--secondary--light card--med type--center">
-                                            <div className="type--xlrg type--wgt--bold type--color--note">
+                                            <div className="type--xxlrg type--wgt--medium type--color--note">
                                                 {donor && <FormatterResolver
                                                     item={{ balance: donor.upcomingGrantsThisYear }}
                                                     field='balance'

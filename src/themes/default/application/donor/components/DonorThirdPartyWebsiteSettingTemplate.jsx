@@ -27,21 +27,21 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
             >
                 <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.THIRD_PARTY_WEBSITE_SETTING.TITLE')}</h3>
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
                         <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-xxlrg-3">
                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-xxlrg-3">
                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-xxlrg-3">
                         <NumericInputField field={form.$('maxAmount')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-xxlrg-3">
                         <NumericInputField field={form.$('maxTimesPerDay')} />
                     </div>
                 </div>

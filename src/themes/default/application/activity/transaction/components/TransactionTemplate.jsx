@@ -23,7 +23,7 @@ function TransactionTemplate({ transactionViewStore }) {
                 </TableFilter>
             </div>
             <div className="card--primary card--med">
-                <div className="row">
+                {/* <div className="row">
                     <div className="col col-sml-6 u-display--flex">
                         <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
                             <span className="u-icon u-icon--sml u-icon--download u-mar--right--tny"></span>
@@ -54,13 +54,11 @@ function TransactionTemplate({ transactionViewStore }) {
                         </div>
                     </div>
                     <div className="col col-sml-6"></div>
-                </div>
+                </div> */}
 
-                <div className="card--primary">
-                    <BaasicTable
-                        tableStore={tableStore}
-                        />
-                </div>
+                <BaasicTable
+                    tableStore={tableStore}
+                    />
             </div>
         </div >
     );

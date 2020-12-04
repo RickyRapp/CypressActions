@@ -364,13 +364,13 @@
             position: relative;
             display: block;
 
-            @mixin type-scale $type-base, 1;
+            @mixin type-scale $type-medium, 1.25;
 
             @media (--screen-from-med) {
-                @mixin type-scale $type-medium, 1.25;
+                @mixin type-scale $type-large, 1.5;
             }
             font-weight: $type-weight-regular;
-            color: color($white a(70%));
+            color: color($white a(100%));
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
 

@@ -5,18 +5,13 @@
 .dashboard-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    max-height: 629px;
+    max-height: 537px;
     padding: calc($unit * 7) calc($unit * 7);
-    padding-bottom: calc($unit * 5);
+    padding-bottom: calc($unit * 2);
     
     border-radius: $radius-base;
     background-color: $white;
     box-shadow: $shadow-card;
-    
-    @media (--screen-from-lrg) {
-        height: 638px;
-    }
     
     @media (--screen-to-sml) {
         padding: calc($unit * 5) calc($unit * 3);
@@ -29,6 +24,14 @@
     &__body {
         text-align: center;
         margin-bottom: calc($unit * 6);
+
+        @media (--screen-to-lrg) {
+                margin-bottom: calc($unit * 8);
+            }
+
+        &--giving-goal {
+            padding: calc($unit * 3) 0;
+        }
 
         &--amount {
             margin-bottom: calc($unit * 2);
@@ -54,6 +57,10 @@
             text-transform: uppercase;
             font-weight: $type-weight-medium;
             font-size: 16px;
+
+            @media (--screen-to-lrg) {
+                margin-bottom: calc($unit * 8);
+            }
         }
     }
 
@@ -63,7 +70,7 @@
         text-align: center;
         flex-wrap: wrap;
 
-        @media (--screen-from-xlrg) {
+        @media (--screen-from-xxlrg) {
             padding: 0 calc($unit * 6);
         }
     }
