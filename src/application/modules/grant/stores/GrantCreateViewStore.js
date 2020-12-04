@@ -33,7 +33,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                                 name: resource.charityName,
                                 taxId: resource.charityTaxId,
                                 dba: resource.charityDba,
-                                charityTypeId: resource.charityCharityTypeId,
+                                charityTypeId: resource.charityTypeId,
                                 isInternationalCharity: resource.charityIsInternationalCharity,
                                 address: {
                                     addressLine1: resource.charityAddressLine1,
@@ -49,7 +49,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
                                 }
                             }
 
-                            resource.charityId = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId
+                            const charityData = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId,bankAccountId
+                            resource.charityId = charityData.charityId;
                         }
 
                         if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {

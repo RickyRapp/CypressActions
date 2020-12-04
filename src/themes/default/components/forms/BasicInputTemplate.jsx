@@ -16,10 +16,9 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, showMa
             {showLabel && (
                 <label className="form__group__label" htmlFor={field.id}>
                     {t(field.label)}
-                    {requiredMark}
+                    {showMark && requiredMark}
                 </label>
             )}
-            {!showLabel && showMark ? requiredMark : null}
             <input
                 className={'input input--lrg input--text' + (field.touched && !field.isValid ? ' input--warning' : '')}
                 {...otherProps}
