@@ -5,6 +5,12 @@
     width: 100%;
     height: calc($unit * 10);
 
+    @media (--screen-to-med) {
+        height: calc($unit * 8);
+        line-height: calc($unit * 8);
+        @mixin type-scale $type-small, 1;
+    }
+
     &:hover {
         border-color: color(white blackness(+30%));
 
@@ -72,6 +78,12 @@
 
         border-radius: 0 $radius-base $radius-base 0;
         
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            @mixin type-scale $type-small, 1;
+        }
+
         &:hover {
             color: #fff;
             background-color: $color-primary;
@@ -131,7 +143,7 @@
 
         .k-dateinput .k-dateinput-wrap .k-input {
             height: calc($unit * 6);
-            line-height: calc($unit * 6);
+            line-height: calc($unit * 10);
             padding: 0 calc($unit * 2);
         }
     }

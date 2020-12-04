@@ -128,7 +128,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
                         <div className="row">
                             <div className="col col-sml-12">
                                 <BaasicButton
-                                    className="btn btn--med btn--med--wide btn--primary u-mar--right--tny"
+                                    className="btn btn--med btn--primary u-mar--right--tny"
                                     label="GRID.FILTER.SEARCH_BUTTON"
                                     onClick={() => queryUtility.fetch()}
                                     disabled={fetchDisabled}

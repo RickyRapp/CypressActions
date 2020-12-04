@@ -66,18 +66,22 @@
         height: calc($unit * 10);
         padding: 0 calc($unit * 4);
         line-height: calc($unit * 10);
-
+        
         &--wide {
             padding: 0 calc($unit * 8);
-            
-            @media (--screen-to-sml) {
-                padding: 0 calc($unit * 4);
-            }
+
+        }
+
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            padding: 0 calc($unit * 4);
+            @mixin type-scale $type-small, 1;
         }
 
         &--100 {
             width: 100%;
-            max-width: 283px;
+            max-width: 360px;
             padding: 0 calc($unit * 4);
             @mixin type-scale $type-base, 1;
 
@@ -93,15 +97,31 @@
         line-height: calc($unit * 10);
     }
 
+    &--100 {
+        width: 100%;
+        height: calc($unit * 10);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @mixin type-scale $type-base, 1;
+
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            padding: 0 calc($unit * 4);
+            @mixin type-scale $type-small, 1;
+        }
+    }
+
     /**
      * Button styles
     */
     &--primary {
-        background: $bali-hai;
-        color: $white;
+        background: color($bali-hai a(20%));
+        color: $color-text;
 
         &:hover {
-            background: color($bali-hai a(80%));
+            background: color($bali-hai a(35%));
         }
 
         &--light {
@@ -145,10 +165,13 @@
 
     &--show {
         width: 100%;
+        height: calc($unit * 10);
         display: flex;
         justify-content: space-between;
+        padding: 0 calc($unit * 3);
+        line-height: calc($unit * 10);
+        
         align-items: center;
-
         color: $color-text;
         background-color: $color-background;
         border-radius: calc($unit * 4);
@@ -196,6 +219,10 @@
         padding: 0;
         color: $color-primary;
         background-color: transparent;
+        
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     /* Fake button as Kendo tooltip position fix */

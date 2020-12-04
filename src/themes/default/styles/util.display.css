@@ -60,6 +60,14 @@
 
 		&--none {
 			display: none;
+
+			&--sml {
+				@media (--screen-to-sml) {
+					height: calc($unit * 8);
+					line-height: calc($unit * 8);
+					@mixin type-scale $type-small, 1;
+				}
+			}
 		}
 	}
 }

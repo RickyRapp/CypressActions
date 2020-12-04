@@ -1,0 +1,26 @@
+/*------------------------------------*\
+    # component.advanced-search
+\*------------------------------------*/
+
+.advanced-search {
+	padding: calc($unit * 1.1) calc($unit * 1.8);
+    
+    background-color: $bali-hai;
+    color: $white;
+    @mixin type-scale $type-base, 1;
+    
+    border-radius: 25px;
+	border: none;
+	outline: none;
+    
+    cursor: pointer;
+    transition: all 250ms ease-in-out;
+
+    & .u-icon {
+        margin-left: calc($unit * 1);
+    }
+
+    &:hover {
+        background-color: color($bali-hai a(70%));
+    }
+}

@@ -19,6 +19,10 @@
             border-right: 0;
             border-bottom: 2px solid color($color-opaque a(30%));
         }
+
+        &--last {
+            border: none;
+        }
         
         &--amount {
             margin-right: calc($unit * 2);
@@ -32,7 +36,7 @@
             }
             
             &--plus {
-                padding-left: calc($unit * 3.1);
+                padding-left: calc($unit * 2);
             }
         }
         

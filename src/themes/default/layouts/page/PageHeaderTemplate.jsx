@@ -27,10 +27,6 @@ function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false,
 
             {!coreResolving &&
                 <div className="header__options">
-                    <div className="header__hamburger"
-                        onClick={() => menuStore.toggleMenuOpen()}>
-                        <i className="u-icon u-icon--med u-icon--menu"></i>
-                    </div>
                     <div className="header__profile">
                         <NotifyOutsideClick action={() => setProfileMenu(false)}>
                             <div>
@@ -69,8 +65,12 @@ function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false,
                                 </div>
                             </div>
                         </NotifyOutsideClick>
-
                     </div>
+                    <div className="header__hamburger"
+                        onClick={() => menuStore.toggleMenuOpen()}>
+                        <i className="u-icon u-icon--med u-icon--menu"></i>
+                    </div>
+
                 </div>}
 
         </div>

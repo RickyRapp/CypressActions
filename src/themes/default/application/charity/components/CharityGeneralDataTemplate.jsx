@@ -27,7 +27,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-12">
                         <div className="u-mar--bottom--sml">
-                            <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.TITLE')}</h3>
+                            <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.TITLE')}</h3>
                             <div className="row">
                                 <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                                     <div>

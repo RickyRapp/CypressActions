@@ -8,13 +8,17 @@ import {
 
 function DonorSecurityAndPreferencesData({ donorId }) {
     return (
-        <div className="card--primary card--med u-mar--bottom--med">
+        <div className="u-mar--bottom--med">
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorThirdPartyWebsiteSetting donorId={donorId} />
+                    <div className="card--primary card--med">
+                        <DonorThirdPartyWebsiteSetting donorId={donorId} />
+                    </div>
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <DonorCertificateSetting donorId={donorId} />
+                    <div className="card--primary card--med">
+                        <DonorCertificateSetting donorId={donorId} />
+                    </div>
                 </div>
             </div>
         </div>

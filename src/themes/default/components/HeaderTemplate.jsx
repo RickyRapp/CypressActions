@@ -18,11 +18,6 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
     return (
         <header className="layout__header header">
             <div className="header__options">
-                <div className="header__hamburger"
-                    onClick={() => menuStore.toggleMenuOpen()}>
-                    <i className="u-icon u-icon--med u-icon--menu"></i>
-                </div>
-
                 {/* 
                     uncomment this if you need to debug session expiration modal
                     
@@ -71,7 +66,10 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                             </div>
                         </div>
                     </NotifyOutsideClick>
-
+                </div>
+                <div className="header__hamburger"
+                    onClick={() => menuStore.toggleMenuOpen()}>
+                    <i className="u-icon u-icon--med u-icon--menu"></i>
                 </div>
             </div>
 

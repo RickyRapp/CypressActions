@@ -12,10 +12,9 @@
 
 	.k-header {
 
-		color: $heather;
+		color: $bali-hai;
 		@mixin type-scale $type-small, 1;
 		font-weight: $type-weight-bold;
-		border-bottom: 1px solid $grey-3;
 
 		&:last-child {		
 			max-width: calc($unit * 26);
