@@ -119,8 +119,8 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 					{donor && donor.isContributionMade ?
 						<div className="dashboard-card">
 							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12 col-med-12">
+							<div className="row u-mar--bottom--med remove--sml">
+								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
 										<span className="type--base type--wgt--medium u-mar--right--med">Donations Per Year</span> 
 										<BaasicDropdown store={yearDropdownStore} />
@@ -128,7 +128,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								</div>
 							</div>
 							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12 col-med-12">
+								<div className="col col-sml-12">
 									<LineChartContainer />
 								</div>
 							</div>

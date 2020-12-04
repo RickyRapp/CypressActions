@@ -20,6 +20,10 @@
     
     @media (--screen-to-sml) {
         padding: calc($unit * 5) calc($unit * 3);
+
+        & .remove--sml {
+            display: none;
+        }
     }
 
     &__body {
