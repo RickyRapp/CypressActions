@@ -50,6 +50,11 @@
 
         transition: all 250ms ease-in-out;
 
+        @media (--screen-to-sml) {
+           display: flex;
+           justify-content: center;
+        }
+
         &:hover {
             background-color: color($color-background-seashellt a(100%));
             

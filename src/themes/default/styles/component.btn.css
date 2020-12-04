@@ -69,15 +69,10 @@
 
         &--wide {
             padding: 0 calc($unit * 8);
-            
-            @media (--screen-to-sml) {
-                width: 100%;
-            }
         }
 
         &--100 {
-            width: 100%;
-            max-width: 283px;
+            min-width: 283px;
             padding: 0 calc($unit * 4);
             @mixin type-scale $type-base, 1;
 
@@ -153,10 +148,13 @@
 
     &--show {
         width: 100%;
+        height: calc($unit * 10);
         display: flex;
         justify-content: space-between;
+        padding: 0 calc($unit * 3);
+        line-height: calc($unit * 10);
+        
         align-items: center;
-
         color: $color-text;
         background-color: $color-background;
         border-radius: calc($unit * 4);
