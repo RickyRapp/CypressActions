@@ -22,16 +22,16 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                     <div className="row">
                         <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
                             <div className="transaction__card">
-                                    {donor &&
-                                <div className={`transaction__card--amount ${donor.availableBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
+                                {donor &&
+                                    <div className={`transaction__card--amount ${donor.availableBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
                                         <FormatterResolver
-                                        item={{ balance: donor.availableBalance }}
-                                        field='balance'
-                                        format={{ type: 'currency' }}
+                                            item={{ balance: donor.availableBalance }}
+                                            field='balance'
+                                            format={{ type: 'currency' }}
                                         />
-                                </div>
-                                        }
-                            
+                                    </div>
+                                }
+
                                 <h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5 >
                             </div>
                         </div>
@@ -39,27 +39,27 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                             <div className="transaction__card">
                                 {donor &&
                                     <div className={`transaction__card--amount ${donor.presentBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
-                                            <FormatterResolver
-                                                item={{ balance: donor.presentBalance }}
-                                                field='balance'
-                                                format={{ type: 'currency' }}/>
+                                        <FormatterResolver
+                                            item={{ balance: donor.presentBalance }}
+                                            field='balance'
+                                            format={{ type: 'currency' }} />
                                     </div>
                                 }
-                            
+
                                 <h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
                             </div>
                         </div>
                         <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
-                           <div className="transaction__card transaction__card--last">
+                            <div className="transaction__card transaction__card--last">
                                 <div className="transaction__card--amount">
                                     {donor &&
                                         <FormatterResolver
-                                            item={{ balance: donor.presentBalance }}
+                                            item={{ balance: 0 }}
                                             field='balance'
                                             format={{ type: 'currency' }}
                                         />}
                                 </div>
-                            
+
                                 <h5 className="transaction__card--title">Investments balance</h5>
                             </div>
                         </div>
@@ -84,7 +84,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                                 <SimpleBaasicTable
                                     tableStore={pendingTransactionTableStore}
                                     actionsComponent={renderActions}
-                                    />
+                                />
                             </div>}
                     </div>
                 </div>
