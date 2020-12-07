@@ -38,7 +38,7 @@ class CharityAddressEditForm extends Component {
 
                     <div className="type--right">
                         <BaasicButton
-                            className='btn btn--base btn--primary'
+                            className='btn btn--med btn--primary'
                             type='submit'
                             label='Submit'
                             />
