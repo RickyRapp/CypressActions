@@ -36,6 +36,11 @@
                     width: 100%;
                 }
             }
+            &-med {
+                @media (--screen-to-med) {
+                    width: 100%;
+                }
+            }
         }
     }
 
