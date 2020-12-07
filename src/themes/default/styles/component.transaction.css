@@ -31,16 +31,12 @@
             @mixin type-scale $type-xlarge, 1.5;
             color: $color-text;
             
-            @media (--screen-from-med) {
+            @media (--screen-from-xlrg) {
                 @mixin type-scale $type-xxxlarge, 2;
             }
             
             &--plus {
-                padding-left: calc($unit * 3);
-
-                @media (--screen-to-sml) {
-                    padding-left: calc($unit * 2);
-                }
+                padding-left: calc($unit * 2);
             }
         }
         
@@ -51,6 +47,10 @@
             text-transform: uppercase;
             @mixin type-scale $type-small, 1;
             font-weight: $type-weight-medium;
+
+            @media (--screen-to-xlrg) {
+                @mixin type-scale $type-xsmall, 1;
+            }
         }
     }
 

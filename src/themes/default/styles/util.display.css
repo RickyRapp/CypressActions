@@ -68,6 +68,12 @@
 					@mixin type-scale $type-small, 1;
 				}
 			}
+
+			&--xlrg {
+				@media (--screen-to-xlrg) {
+					display: none;
+				}
+			}
 		}
 	}
 }

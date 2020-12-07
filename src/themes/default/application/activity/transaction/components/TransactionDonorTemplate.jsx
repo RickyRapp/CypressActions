@@ -20,7 +20,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                 <div className="col col-sml-12 u-mar--bottom--sml">
                     {/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
                     <div className="row">
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-4 u-mar--bottom--sml">
                             <div className="transaction__card">
                                 {donor &&
                                     <div className={`transaction__card--amount ${donor.availableBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
@@ -35,7 +35,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                                 <h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5 >
                             </div>
                         </div>
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-4 u-mar--bottom--sml">
                             <div className="transaction__card">
                                 {donor &&
                                     <div className={`transaction__card--amount ${donor.presentBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
@@ -49,7 +49,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
                                 <h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
                             </div>
                         </div>
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-4 u-mar--bottom--sml">
                             <div className="transaction__card transaction__card--last">
                                 <div className="transaction__card--amount">
                                     {donor &&

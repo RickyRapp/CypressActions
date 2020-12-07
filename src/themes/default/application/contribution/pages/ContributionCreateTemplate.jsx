@@ -53,7 +53,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 		<Page loading={loaderStore.loading}>
 			{step === 1 &&
 				<React.Fragment>
-					<div className="row">
+					<div className="row u-display--none--xlrg">
 						<div className="col col-sml-3">
 							<div className="card--sml type--med type--wgt--medium type--color--note type--center">Overview</div>
 						</div>
@@ -242,7 +242,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								</EditFormContent>
 							</div>
 							<div className="col col-sml-12 col-xxlrg-5">
-								<div className="card card--primary card--med u-mar--bottom--med">
+								<div className="card card--primary card--med u-mar--bottom--med h--95">
 									<h5 className="type--med type--wgt--medium u-mar--bottom--sml">
 										{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
 									</h5>

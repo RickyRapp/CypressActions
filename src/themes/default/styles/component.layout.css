@@ -13,12 +13,16 @@ $header-height: 96px;
         position: fixed;
         top: 0;
         right: 0;
-        left: $aside-width;;
+        left: 0;
         height: $header-height;
         z-index: 6;
 
-        @media (--screen-to-lrg) {
-            left: 0;
+        @media (--screen-from-lrg) {
+            left: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
+            left: $aside-width;
         }
     }
 
@@ -33,6 +37,10 @@ $header-height: 96px;
         z-index: 9;
 
         @media (--screen-from-lrg) {
+            width: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
             width: $aside-width;
         }
 
@@ -78,7 +86,7 @@ $header-height: 96px;
         overflow: hidden;
         overflow-y: auto;
 
-        padding: calc($unit * 4) calc($unit * 12);
+        padding: calc($unit * 3) calc($unit * 8);
 
         &.is-collapsed {
 
@@ -95,11 +103,15 @@ $header-height: 96px;
             }
         }
 
-        @media (--screen-to-xxlrg) {
+        @media (--screen-to-xlrg) {
             padding: calc($unit * 3) calc($unit * 4);
         }
-
+        
         @media (--screen-from-lrg) {
+            left: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
             left: $aside-width;
         }
     }

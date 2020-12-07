@@ -30,8 +30,12 @@
                 color: $color-primary;
             }
 
-            @media (--screen-to-sml) {
+            @media (--screen-to-xlrg) {
                 padding: calc($unit * 1) calc($unit * 2);
+                @mixin type-scale $type-base, 1;
+            }
+
+            @media (--screen-to-med) {
                 @mixin type-scale $type-xsmall, 1;
             }
         }
@@ -79,9 +83,10 @@
             
             @mixin type-scale $type-base, 1;
 
-            @media (--screen-from-med) {
+            @media (--screen-from-xlrg) {
                 @mixin type-scale $type-medium, 1.25;
             }
+
             font-weight: $type-weight-medium;
             text-align: center;
             color: $grey-4;

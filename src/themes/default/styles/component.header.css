@@ -10,7 +10,7 @@
     align-items: center;
 
     border-bottom: 1px solid color($color-text a(10%));
-    padding: 0 calc($unit * 12);
+    padding: 0 calc($unit * 8);
     @mixin type-scale $type-medium, 1.25;
 
     @media (--screen-to-xxlrg) {
