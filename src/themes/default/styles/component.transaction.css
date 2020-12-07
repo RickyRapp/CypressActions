@@ -36,7 +36,11 @@
             }
             
             &--plus {
-                padding-left: calc($unit * 2);
+                padding-left: calc($unit * 3);
+
+                @media (--screen-to-sml) {
+                    padding-left: calc($unit * 2);
+                }
             }
         }
         

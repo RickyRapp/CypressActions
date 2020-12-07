@@ -16,7 +16,7 @@
             }
         }
 
-        @media (--screen-to-sml) {
+        @media (--screen-to-lrg) {
             position: fixed;
             top: 0;
             right: 0;

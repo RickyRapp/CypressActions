@@ -30,40 +30,38 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                 {/*<button type="button" onClick={clearToken}>CLEAR</button>*/}
                 <div className="header__profile">
                     <NotifyOutsideClick action={() => setProfileMenu(false)}>
-                        <div>
-                            <div onClick={toggleProfileMenu}>
-                                {rootStore.userStore.user ? (
-                                    <div>
-                                        <Gravatar
-                                            className='header__profile__img'
-                                            email={
-                                                rootStore.userStore.user.email
-                                            }
-                                        />
-                                        <span className="header__profile__name">
-                                            <span>{rootStore.userStore.user.displayName}</span>
-                                            {/* <i className="k-icon k-i-arrow-s header__profile__icon"></i> */}
-                                        </span>
-                                    </div>
-                                ) : null}
-                            </div>
-                            <div className={'header__profile__dropdown' + (profileMenuOpen ? ' active' : '')}>
-                                <ul>
-                                    {rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users', 'Charities') &&
-                                        <li className='header__profile__dropdown__item'
-                                            onClick={() => {
-                                                toggleProfileMenu();
-                                                routerStore.goTo('master.app.main.donor-profile', { id: rootStore.userStore.user.id })
-                                            }}> {t('HEADER.USER_MENU.MY_PROFILE')}
-                                        </li>}
+                        <div onClick={toggleProfileMenu}>
+                            {rootStore.userStore.user ? (
+                                <div>
+                                    <Gravatar
+                                        className='header__profile__img'
+                                        email={
+                                            rootStore.userStore.user.email
+                                        }
+                                    />
+                                    <span className="header__profile__name">
+                                        <span>{rootStore.userStore.user.displayName}</span>
+                                        {/* <i className="k-icon k-i-arrow-s header__profile__icon"></i> */}
+                                    </span>
+                                </div>
+                            ) : null}
+                        </div>
+                        <div className={'header__profile__dropdown' + (profileMenuOpen ? ' active' : '')}>
+                            <ul>
+                                {rootStore.userStore.user && rootStore.userStore.user.roles.includes('Users', 'Charities') &&
                                     <li className='header__profile__dropdown__item'
                                         onClick={() => {
-                                            rootStore.viewStore.logout();
                                             toggleProfileMenu();
-                                        }}> {t('HEADER.USER_MENU.LOGOUT')}
-                                    </li>
-                                </ul>
-                            </div>
+                                            routerStore.goTo('master.app.main.donor-profile', { id: rootStore.userStore.user.id })
+                                        }}> {t('HEADER.USER_MENU.MY_PROFILE')}
+                                    </li>}
+                                <li className='header__profile__dropdown__item'
+                                    onClick={() => {
+                                        rootStore.viewStore.logout();
+                                        toggleProfileMenu();
+                                    }}> {t('HEADER.USER_MENU.LOGOUT')}
+                                </li>
+                            </ul>
                         </div>
                     </NotifyOutsideClick>
                 </div>

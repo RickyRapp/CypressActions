@@ -5,7 +5,8 @@
 .dashboard-card {
     display: flex;
     flex-direction: column;
-    max-height: 537px;
+    min-height: 535px;
+    height: 100%;
     padding: calc($unit * 7) calc($unit * 7);
     padding-bottom: calc($unit * 2);
     
