@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import md5 from 'md5';
-
-const baseUrl = 'https://www.gravatar.com/avatar/';
 const imgUrl = 'https://www.pngkit.com/png/full/281-2812821_user-account-management-logo-user-icon-png.png'
 
-function GravatarTemplate({email, size}) {
-    const hash = md5(email, {encoding: 'binary'});
-
-    const src = baseUrl + hash;
+function GravatarTemplate({ email, size }) {
 
     return (
         <img

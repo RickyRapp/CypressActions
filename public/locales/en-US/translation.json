@@ -13,13 +13,13 @@
         "BOOKLET": "Certificates",
         "SESSION": "Session",
         "GRANT": "Grant",
-        "CONTRIBUTION": "Contribution",
+        "DEPOSIT": "Deposit",
         "DASHBOARD": "Dashboard",
         "DONORS": "Donors",
         "DONOR_EDIT": "Profile",
         "CHARITIES": "Charities",
         "MANAGE_CHARITY_ACCOUNT": "Manage Account",
-        "CONTRIBUTIONS": "Contributions",
+        "DEPOSITS": "Deposits",
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
@@ -64,7 +64,7 @@
             "full": "LLL",
             "full-time-offset": "LTS Z",
             "kendo-input-short": "M/d/y",
-            "kendo-input-medium": "M/d/y hh:mm",
+            "kendo-input-medium": "MM/DD/YYYY hh:mm",
             "full-date": "MMMM, dddd, MM/DD/YYYY"
         }
     },
@@ -1188,7 +1188,7 @@
     },
     "CONTRIBUTION": {
         "LIST": {
-            "TITLE": "Contributions",
+            "TITLE": "Deposits",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
@@ -1202,7 +1202,7 @@
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
-                "CONTRIBUTION_STATUS_PLACEHOLDER": "Contribution status",
+                "CONTRIBUTION_STATUS_PLACEHOLDER": "Deposit status",
                 "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
                 "REGULAR_PLACEHOLDER": "Regular",
                 "PRIVATE_PLACEHOLDER": "Private",
@@ -1211,8 +1211,8 @@
                 "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },
             "EMPTY_STATE": {
-                "TITLE": "No contributions",
-                "ACTION": "Create new contribution"
+                "TITLE": "No deposits",
+                "ACTION": "Create new deposit"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -1231,7 +1231,7 @@
             "AMOUNT": "Amount"
         },
         "CREATE": {
-            "TITLE": "New Contribution",
+            "TITLE": "New Deposit",
             "LINK": "Link",
             "ACH": "Via Ach",
             "BILL PAY": "Via Bill Pay",
@@ -1244,25 +1244,27 @@
             "FUND_YOUR_ACCOUNT": "Fund Your Account",
             "ADD_BANK_ACCOUNT_LABEL": "Add Bank Account",
             "DONATE_SECURITIES": "Maximize the tax advantages of your donation! Donate Securities.",
-            "PREVIOUS_CONTRIBUTIONS": "Recent Contributions",
-            "ALL_CONTRIBUTIONS": "All Contributions",
-            "SUCCESS": "Success! You've created your contribution!",
-            "SUMMARY": "Contribution Summary",
+            "PREVIOUS_CONTRIBUTIONS": "Recent Deposits",
+            "ALL_CONTRIBUTIONS": "All Deposits",
+            "SUCCESS": "Success! You've created your deposit!",
+            "SUMMARY": "Deposit Summary",
             "PAYMENT_TYPE": "Payment Type",
             "BANK_ACCOUNT_NAME": "Bank Account",
             "BANK_ACCOUNT_NUMBER": "Bank Account Number",
+            "CHECK_NUMBER": "Check Number",
             "AMOUNT": "Amount",
+            "ADD_BANK_ACCOUNT": "Add New Bank",
             "FIELDS": {
                 "PAYMENT_TYPE_LABEL": "Select Payment type",
                 "PAYMENT_TYPE_PLACEHOLDER": "Select",
                 "IS_AGREE_TO_POLICIES_AND_GUIDELINES_LABEL": "I agree to Policies and Guidelines",
                 "BANK_ACCOUNT_LABEL": "Choose Bank Account",
                 "BANK_ACCOUNT_PLACEHOLDER": "Select",
-                "AMOUNT_PLACEHOLDER": "Enter Amount",
                 "AMOUNT_LABEL": "Amount",
-                "IS_THIRD_PARTY_LABEL": "Is this a third-party contribution?",
+                "AMOUNT_PLACEHOLDER": "Enter Amount",
+                "IS_THIRD_PARTY_LABEL": "Is this a third-party deposit?",
                 "CHECK_NUMBER_LABEL": "Check number",
-                "CHECK_NUMBER_PLACEHOLDER": "Check number",
+                "CHECK_NUMBER_PLACEHOLDER": "Enter check number",
                 "FINANCIAL_INSTITUTION_LABEL": "Financial institution",
                 "FINANCIAL_INSTITUTION_PLACEHOLDER": "Financial institution",
                 "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_LABEL": "Address line 1",
@@ -1316,7 +1318,8 @@
             }
         },
         "EDIT": {
-            "TITLE": "Edit contribution"
+            "TITLE": "Edit deposit",
+            "SUCCESS": "You've edited your deposit!"
         },
         "REVIEW": {
             "TITLE": "Review",
@@ -1328,8 +1331,8 @@
             }
         },
         "DETAILS": {
-            "TITLE": "Contributions",
-            "DETAILS": "Contribution Details",
+            "TITLE": "Deposits",
+            "DETAILS": "Deposit Details",
             "GENERAL_INFORMATION": "General Information",
             "DONOR_NAME": "Donor's Name",
             "CONFRIMATION_NUMBER": "Confirmation Number",
@@ -1342,12 +1345,16 @@
             "AMOUNT": "Amount",
             "SUMMARY": "Summary",
             "TOTAL_MONEY_GIVEN": "Total money given",
-            "TOTAL_MONEY_UPCOMING": "Total money upcoming"
+            "TOTAL_MONEY_UPCOMING": "Total money upcoming",
+            "PAYER_ADDRESS": "Address",
+            "PAYER_NUMBER": "Number",
+            "PAYER_EMAIL": "Email",
+            "PAYER_NAME": "Name"
         }
     },
     "DONOR_CONTRIBUTION_SETTING": {
         "LIST": {
-            "TITLE": "Recurring contribution settings",
+            "TITLE": "Recurring deposit settings",
             "COLUMNS": {
                 "AMOUNT_LABEL": "Amount",
                 "DATE_CREATED_LABEL": "Date created",
@@ -1359,13 +1366,13 @@
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
-                "CONTRIBUTION_SETTING_TYPE_PLACEHOLDER": "Contribution type",
+                "CONTRIBUTION_SETTING_TYPE_PLACEHOLDER": "Deposit type",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
                 "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },
             "EMPTY_STATE": {
-                "TITLE": "No contributions",
-                "ACTION": "Create new contribution"
+                "TITLE": "No deposits",
+                "ACTION": "Create new deposit"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -1373,7 +1380,7 @@
             }
         },
         "EDIT": {
-            "TITLE": "Edit contribution setting",
+            "TITLE": "Edit deposit setting",
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
                 "START_DATE_LABEL": "Start date",

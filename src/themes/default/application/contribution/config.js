@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { ContributionList, ContributionCreate, ContributionEdit, ContributionDetails } from 'application/contribution/pages';
+import { ContributionModuleStore } from 'application/contribution/stores';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -28,7 +29,7 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
                     },
                     {
                         name: 'master.app.main.contribution.edit',
-                        pattern: '/edit/:editId',
+                        pattern: '/edit/:id',
                         component: ContributionEdit,
                         authorization: 'theDonorsFundContributionSection.update',
                         data: {
@@ -55,6 +56,11 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
                 route: 'master.app.main.contribution.list',
                 role: ['Administrators']
             }
-        ]
+        ],
+        moduleStore: function (context) {
+            return {
+                'application.contribution': new ContributionModuleStore(context.rootStore),
+            };
+        },
     });
 })();

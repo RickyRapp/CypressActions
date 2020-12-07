@@ -2,9 +2,8 @@ import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/sto
 import { ContributionCreateForm } from 'application/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
-import { DonorBankAccountService } from 'application/donor/services';
 import { ModalParams } from 'core/models';
-import { ContributionService } from 'application/contribution/services';
+import _ from 'lodash';
 
 @applicationContext
 class ContributionCreateViewStore extends BaseEditViewStore {
@@ -30,7 +29,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                             resource.email = this.donor.donorEmailAddress.email;
                             resource.number = this.donor.donorPhoneNumber.number;
                         }
-                        return this.service.create({ donorId: this.donorId, ...resource });
+                        return rootStore.application.contribution.contributionStore.createContribution({ donorId: this.donorId, ...resource });
                     }
                 }
             },
@@ -51,8 +50,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             }
         }
 
-        this.service = new ContributionService(this.rootStore.application.baasic.apiClient)
-
         if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
             this.donorId = rootStore.userStore.applicationUser.id;
         }
@@ -60,60 +57,11 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             this.donorId = rootStore.routerStore.routerState.queryParams.id;
         }
 
-        this.bankAccountModal = new ModalParams({
-            onClose: () => {
-                this.bankAccountModal.data = {};
-            }
-        });
-        this.confirmModal = new ModalParams({});
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    this.paymentTypes = await rootStore.application.lookup.paymentTypeStore.find();
-                    return this.paymentTypes;
-                }
-            });
-
-        const bankAccountService = new DonorBankAccountService(rootStore.application.baasic.apiClient);
-        this.bankAccountDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    let params = {
-                        embed: ['accountHolder'],
-                        orderBy: 'dateCreated',
-                        orderDirection: 'desc'
-                    }
-                    if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                        params.donorId = this.donorId;
-                    }
-                    else {
-                        params.userId = this.donorId;
-                    }
-                    const response = await bankAccountService.find(params);
-                    return response.data.item;
-                }
-            });
-
-        this.previousContributionsTableStore = new TableViewStore(null, {
-            columns: [
-                {
-                    key: 'dateCreated',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
-                    }
-                },
-                {
-                    key: 'amount',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
-                    }
-                }
-            ]
-        });
+        this.createBankAccountModalParams();
+        this.createConfirmModalParams();
+        this.createPaymentTypeDropdownStore();
+        this.createBankAccountDropdownStore();
+        this.createPreviousContributionsTableStore();
     }
 
     @action.bound
@@ -123,8 +71,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         }
         else {
             this.loaderStore.resume();
-            const response = await this.service.getDonorInformation(this.donorId);
-            this.donor = response.data;
+            this.donor = await this.rootStore.application.contribution.contributionStore.getDonorInformation(this.donorId);
             this.previousContributionsTableStore.setData(this.donor.previousContributions);
             if (!this.previousContributionsTableStore.dataInitialized) {
                 this.previousContributionsTableStore.dataInitialized = true;
@@ -169,12 +116,10 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     nextStep(step) {
-        if (step) {
+        if (step)
             this.step = step;
-        }
-        else {
+        else
             this.step = this.step + 1;
-        }
     }
 
     @action.bound
@@ -183,12 +128,71 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             donorId: this.donorId,
             onAfterAction: async () => {
                 await this.bankAccountDropdownStore.filterAsync(null);
-                const lastBankAccountAdded = this.bankAccountDropdownStore.items[this.bankAccountDropdownStore.items.length - 1] //it's ordered by dateCreated when it's fetched
-                this.form.$('donorBankAccountId').set(lastBankAccountAdded.id);
+                const sorted = _.orderBy(this.bankAccountDropdownStore.items, ['dateCreated'], ['desc'])
+                this.form.$('donorBankAccountId').set(sorted[0].id);
                 this.bankAccountModal.close();
             }
         })
     }
+
+    createBankAccountModalParams() {
+        this.bankAccountModal = new ModalParams({
+            onClose: () => { this.bankAccountModal.data = {}; }
+        });
+    }
+
+    createConfirmModalParams() {
+        this.confirmModal = new ModalParams({});
+    }
+
+    createPaymentTypeDropdownStore() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    this.paymentTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
+                    return this.paymentTypes;
+                }
+            });
+    }
+
+    createBankAccountDropdownStore() {
+        this.bankAccountDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    let params = {
+                        embed: ['accountHolder'],
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    params.donorId = this.donorId;
+                    return this.rootStore.application.contribution.contributionStore.findBankAccount(params);
+                }
+            });
+    }
+
+    createPreviousContributionsTableStore() {
+        this.previousContributionsTableStore = new TableViewStore(null, {
+            columns: [
+                {
+                    key: 'dateCreated',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
+                },
+                {
+                    key: 'amount',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
+                }
+            ]
+        });
+    }
+
 }
 
 export default ContributionCreateViewStore;

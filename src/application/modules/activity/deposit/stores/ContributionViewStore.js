@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
-import { ContributionService } from 'application/contribution/services';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/activity/deposit/models';
@@ -17,11 +16,11 @@ class ContributionViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundContributionSection',
             autoInit: true,
             routes: {
-                edit: (editId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId });
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { id: id });
                 },
                 create: () => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: this.donorId });
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.create');
                 },
                 preview: (id) => {
                     this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id });
@@ -29,7 +28,6 @@ class ContributionViewStore extends BaseListViewStore {
             },
             queryConfig: {
                 filter: new ContributionListFilter('dateCreated', 'desc'),
-                disableUpdateQueryParams: false,
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.paymentTypeDropdownStore.setValue(null);
@@ -38,7 +36,6 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new ContributionService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -49,8 +46,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'contributionStatus'
                         ];
 
-                        const response = await service.find({ donorId: this.donorId, ...params });
-                        return response.data;
+                        return rootStore.application.contribution.contributionStore.findContribution({ donorId: this.donorId, ...params });
                     }
                 }
             }
@@ -89,8 +85,7 @@ class ContributionViewStore extends BaseListViewStore {
             async () => {
                 this.loaderStore.suspend();
                 try {
-                    const service = new ContributionService(this.rootStore.application.baasic.apiClient);
-                    await service.review({ id: item.id, contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id });
+                    await this.rootStore.application.contribution.contributionStore.reviewContribution({ id: item.id, contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id });
                     this.queryUtility.fetch();
                     this.rootStore.notificationStore.success('Contribution canceled');
                 }
@@ -152,30 +147,16 @@ class ContributionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (item) => {
-                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                            return true;
-                        }
-                        else {
-                            if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add(15, 'm');
-                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
-                            }
-                        }
+                    if (item.contributionStatus.abrv === 'pending') {
+                        const dateToEdit = moment(item.dateCreated).add(15, 'm');
+                        return moment().isBetween(moment(item.dateCreated), dateToEdit);
                     }
                     return false;
                 },
                 onCancelRender: (item) => {
-                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                            return true;
-                        }
-                        else {
-                            if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add(30, 'm');
-                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
-                            }
-                        }
+                    if (item.contributionStatus.abrv === 'pending') {
+                        const dateToEdit = moment(item.dateCreated).add(30, 'm');
+                        return moment().isBetween(moment(item.dateCreated), dateToEdit);
                     }
                     return false;
                 }

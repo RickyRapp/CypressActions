@@ -61,7 +61,7 @@ import { RouterState } from 'mobx-state-router';
                 role: ['Users']
             },
             {
-                title: 'MENU.CONTRIBUTIONS',
+                title: 'MENU.DEPOSITS',
                 icon: 'contribution',
                 order: 4,
                 route: 'master.app.main.contribution.create',

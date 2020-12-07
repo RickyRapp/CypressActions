@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { BasicCheckbox } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import { isSome, renderIf } from 'core/utils';
 
 function BasicFieldCheckboxTemplate({ field, disabled, onChange }) {
     const { value, ...otherProps } = field.bind();
@@ -14,13 +15,18 @@ function BasicFieldCheckboxTemplate({ field, disabled, onChange }) {
         }
     };
     return (
-        <BasicCheckbox
-            {...field.bind()}
-            checked={value}
-            onChange={onChangeFn}
-            classSuffix={field.initialSetup.classSuffix}
-            disabled={disabled || otherProps.disabled}
-        />
+        <React.Fragment>
+            <BasicCheckbox
+                {...field.bind()}
+                checked={value}
+                onChange={onChangeFn}
+                classSuffix={field.initialSetup.classSuffix}
+                disabled={disabled || otherProps.disabled}
+            />
+            {renderIf(isSome(field.localizedError))(
+                <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
+            )}
+        </React.Fragment>
     );
 }
 
