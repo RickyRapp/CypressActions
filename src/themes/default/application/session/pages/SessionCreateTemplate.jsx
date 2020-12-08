@@ -57,7 +57,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         />
                     </div>}
                 {currentStep === 4 &&
-                    <div className="container container--sml">
+                    <div className="container container--base">
                         <Step4Template
                             onNextStepClick={onNextStep4Click}
                             currentCount={currentCount}
