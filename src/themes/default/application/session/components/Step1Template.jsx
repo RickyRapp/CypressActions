@@ -5,7 +5,7 @@ import { BaasicButton } from 'core/components'
 
 const Step1Template = function ({ onNextStepClick, t }) {
     return (
-        <div className="card--primary card--med card--session type--center">
+        <div className="card--med type--center">
             <div className="u-mar--bottom--tny">
                 {t('SESSION.CREATE.STEP1.SELECT_LANGUAGE_ENG')}
             </div>
@@ -14,12 +14,12 @@ const Step1Template = function ({ onNextStepClick, t }) {
             </div>
             <div>
                 <BaasicButton
-                    className="btn btn--base btn--ghost u-mar--right--sml"
+                    className="btn btn--med btn--med--wide btn--secondary u-mar--right--sml"
                     label='SESSION.CREATE.STEP1.ENG_LANGUAGE'
                     onClick={() => onNextStepClick('eng')}
                 />
                 <BaasicButton
-                    className="btn btn--base btn--ghost"
+                    className="btn btn--med btn--med--wide btn--secondary"
                     label='SESSION.CREATE.STEP1.HEB_LANGUAGE'
                     onClick={() => onNextStepClick('heb')}
                 />
