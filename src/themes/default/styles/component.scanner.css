@@ -48,6 +48,22 @@
 		}
     }
     
+    &__table {
+        &--head {
+            background: $color-background;
+            height: calc($unit * 10);
+            align-items: center;
+            color: $heather;
+        }
+
+        &--body{
+            height: calc($unit * 13);
+            align-items: center;
+            border-bottom: 1px solid color($color-text a(30%));
+            @mixin type-scale $type-small, 1;
+        }
+    }
+
     &__footer {
         display: flex;
         justify-content: space-between;

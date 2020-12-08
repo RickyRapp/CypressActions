@@ -117,11 +117,11 @@
      * Button styles
     */
     &--primary {
-        background: color($bali-hai a(20%));
-        color: $color-text;
+        background: $bali-hai;
+        color: $white;
 
         &:hover {
-            background: color($bali-hai a(35%));
+            background: color($bali-hai a(65%));
         }
 
         &--light {
