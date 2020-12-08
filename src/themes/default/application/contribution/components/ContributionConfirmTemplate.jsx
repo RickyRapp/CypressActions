@@ -71,12 +71,12 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     </div>
                 </section>
             </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--xlrg">
+            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--xlrg">
+            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med type--right">
                 <BaasicButton
-                    className="btn btn--base btn--ghost"
+                    className="btn btn--med btn--med--wide btn--ghost"
                     label={t('EDIT_FORM_LAYOUT.CANCEL')}
                     onClick={onCancel}
                 />

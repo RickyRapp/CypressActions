@@ -51,9 +51,9 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 
 	return (
 		<Page loading={loaderStore.loading}>
-			{step === 1 &&
+			{step === 1 && (
 				<React.Fragment>
-					<div className="row">
+					<div className="row u-display--none--xlrg">
 						<div className="col col-sml-3">
 							<div className="card--sml type--med type--wgt--medium type--color--note type--center">Overview</div>
 						</div>
@@ -61,70 +61,77 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Timeline</div>
 						</div>
 						<div className="col col-sml-2">
-							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Deductible eligibility</div>
+							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">
+								Deductible eligibility
+							</div>
 						</div>
 						<div className="col col-sml-2">
-							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">Minimum Deposit</div>
+							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">
+								Minimum Deposit
+							</div>
 						</div>
 						<div className="col col-sml-3">
 							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">More</div>
 						</div>
 					</div>
 
-				{paymentTypes &&
-				paymentTypes.map(c => {
-					let iconName = c.name
-					.toLowerCase()
-					.split(' ')
-					.join('-');
-					return (
-						<div key={c.id} className="row">
-							<div className="col col-sml-12 col-xxlrg-3 u-mar--bottom--med">
-								<div
-									className="card card--contribution card--med cursor--pointer"
-									onClick={() => onSelectPaymentType(c.id)}
-									>
-									<div className="row row__align--center">
-										<div className="col col-sml-4 col-lrg-2">
-											<i
-												className={`u-icon u-icon--med u-icon--${iconName} ${c.id === form.$('paymentTypeId').value &&
-													'checked'}`}
+					{paymentTypes &&
+						paymentTypes.map(c => {
+							let iconName = c.name
+								.toLowerCase()
+								.split(' ')
+								.join('-');
+							return (
+								<div key={c.id} className="row">
+									<div className="col col-sml-12 col-xxlrg-3 u-mar--bottom--med">
+										<div
+											className="card--contribution card--med cursor--pointer"
+											onClick={() => onSelectPaymentType(c.id)}
+										>
+											<div className="row row__align--center">
+												<div className="col col-sml-4 col-lrg-2">
+													<i
+														className={`u-icon u-icon--med u-icon--${iconName} ${c.id ===
+															form.$('paymentTypeId').value && 'checked'}`}
 													></i>
-										</div>
-										<div className="col col-sml-8 col-lrg-10">
-											<h5 className="type--base type--color--text type--wgt--medium">{c.name}</h5>
+												</div>
+												<div className="col col-sml-8 col-lrg-10">
+													<h5 className="type--base type--color--text type--wgt--medium">{c.name}</h5>
+												</div>
+											</div>
 										</div>
 									</div>
+									{step === 1 && (
+										<React.Fragment>
+											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
+												<div className="card--primary card--med type--center u-mar--bottom--med">
+													<p className="type--base type--color--text type--wgt--regular">2-3 Business days</p>
+												</div>
+											</div>
+											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
+												<div className="card--primary card--med type--center u-mar--bottom--med">
+													<p className="type--base type--color--text type--wgt--regular">60%</p>
+												</div>
+											</div>
+											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
+												<div className="card--primary card--med type--center u-mar--bottom--med">
+													<p className="type--base type--color--text type--wgt--regular">$250</p>
+												</div>
+											</div>
+											<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
+												<div className="card--primary card--med type--center u-mar--bottom--med">
+													<p className="type--base type--color--text type--wgt--regular">
+														Recurring deposits available
+													</p>
+												</div>
+											</div>
+										</React.Fragment>
+									)}
 								</div>
-							</div>
-							{step === 1 && (
-								<React.Fragment>
-									<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-										<div className="card card--primary card--med type--center u-mar--bottom--med">
-											<p className="type--base type--color--text type--wgt--regular">2-3 Business days</p>
-										</div>
-									</div>
-									<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-										<div className="card card--primary card--med type--center u-mar--bottom--med">
-											<p className="type--base type--color--text type--wgt--regular">60%</p>
-										</div>
-									</div>
-									<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-										<div className="card card--primary card--med type--center u-mar--bottom--med">
-											<p className="type--base type--color--text type--wgt--regular">$250</p>
-										</div>
-									</div>
-									<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
-										<div className="card card--primary card--med type--center u-mar--bottom--med">
-											<p className="type--base type--color--text type--wgt--regular">Recurring deposits available</p>
-										</div>
-									</div>
-								</React.Fragment>
-							)}
-						</div>
-					)})}
-					</React.Fragment>
-				}
+							);
+						})}
+				</React.Fragment>
+			)}
 
 			{step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && (
 				<div className="row">
@@ -134,12 +141,12 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 					<div className="col col-sml-12 col-xlrg-3">
 						{paymentTypes.map(c => {
 							let iconName = c.name
-							.toLowerCase()
+								.toLowerCase()
 								.split(' ')
 								.join('-');
 							return (
 								<div
-								key={c.id}
+									key={c.id}
 									className="row"
 									onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
 								>
@@ -177,7 +184,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 						<div className="row">
 							<div className="col col-sml-12 col-xxlrg-7">
 								<EditFormContent form={form}>
-									<div className="card card--primary card--med u-mar--bottom--med">
+									<div className="card--primary card--med u-mar--bottom--med">
 										<div className="row">
 											<div className="col col-sml-12 col-lrg-12">
 												<h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
@@ -242,7 +249,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								</EditFormContent>
 							</div>
 							<div className="col col-sml-12 col-xxlrg-5">
-								<div className="card card--primary card--med u-mar--bottom--med">
+								<div className="card--primary card--med u-mar--bottom--med h--95">
 									<h5 className="type--med type--wgt--medium u-mar--bottom--sml">
 										{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
 									</h5>
@@ -263,20 +270,26 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 
 			{step === 3 && (
 				<div className="row">
-					<div className="col col-sml-12 col-lrg-9">
+					<div className="col col-sml-12 col-lrg-8">
 						<div className="row">
 							<div className="col col-sml-12 col-lrg-12 u-mar--bottom--lrg">
-								<h3 className="type--lrg type--wgt--medium">{t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
+								<h3 className="type--lrg type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
 							</div>
 						</div>
-						<div className="card card--primary card--med u-mar--bottom--med">
+						<div className="card--primary card--med u-mar--bottom--med">
 							<div className="row">
 								<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-									<h4>{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
+									<h4 className="type--lrg type--wgt--medium">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
 								</div>
 								<div className="col col-sml-12 col-lrg-12">
-									<p className="type--sml">{t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}</p>
-									{paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name}
+									<div className="card--tny card--secondary u-mar--bottom--sml">
+										<span className="type--base type--wgt--medium type--color--opaque">
+											{t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}
+										</span>
+										<span className="type--base type--wgt--bold u-push">
+											{paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name}
+										</span>
+									</div>
 								</div>
 								{(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
 									<React.Fragment>
@@ -314,22 +327,30 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 									</React.Fragment>
 								)}
 								<div className="col col-sml-12 col-lrg-12">
-									{t('CONTRIBUTION.CREATE.AMOUNT')}
-									<FormatterResolver
-										item={{ amount: form.$('amount').value }}
-										field="amount"
-										format={{ type: 'currency' }}
-									/>
+									<div className="card--tny card--secondary u-mar--bottom--sml">
+										<span className="type--base type--wgt--medium type--color--opaque">
+											{t('CONTRIBUTION.CREATE.AMOUNT')}
+										</span>
+										<span className="type--base type--wgt--bold u-push">
+											<FormatterResolver
+												item={{ amount: form.$('amount').value }}
+												field="amount"
+												format={{ type: 'currency' }}
+											/>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className="col col-sml-12 col-lrg-3">
-						<div className="card card--primary card--med u-mar--bottom--med">
-							<h5>{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}</h5>
+					<div className="col col-sml-12 col-lrg-4">
+						<div className="card--primary card--med u-mar--bottom--med">
+							<h5 className="type--med type--wgt--medium u-mar--bottom--sml">
+								{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
+							</h5>
 							<SimpleBaasicTable tableStore={previousContributionsTableStore} />
 							<BaasicButton
-								className="btn btn--base btn--secondary  u-mar--top--med"
+								className="btn btn--100 btn--primary u-mar--top--med"
 								label="CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS"
 								onClick={routes.allContributions}
 							></BaasicButton>

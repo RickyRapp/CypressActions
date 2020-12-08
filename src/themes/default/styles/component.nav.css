@@ -16,7 +16,7 @@
             }
         }
 
-        @media (--screen-to-sml) {
+        @media (--screen-to-lrg) {
             position: fixed;
             top: 0;
             right: 0;
@@ -364,10 +364,14 @@
             position: relative;
             display: block;
 
-            @mixin type-scale $type-medium, 1.25;
+            @mixin type-scale $type-large, 1.5;
 
-            @media (--screen-from-med) {
-                @mixin type-scale $type-large, 1.5;
+            @media (--screen-to-xlrg) {
+                @mixin type-scale $type-base, 1;
+
+                @media (--screen-from-med) {
+                    @mixin type-scale $type-medium, 1.25;
+                }
             }
             font-weight: $type-weight-regular;
             color: color($white a(100%));

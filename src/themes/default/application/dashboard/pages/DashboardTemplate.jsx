@@ -57,9 +57,9 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 		<Page>
 			<DashboardHeader />
 			<div className="row">
-				<div className="col col-sml-12 col-xlrg-6 card--sml">
+				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
 					{donor && donor.isContributionMade ? (
-						<div className="dashboard-card u-mar--bottom--med">
+						<div className="dashboard-card">
 							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 							<div className="dashboard-card__body">
 								<h5 className="dashboard-card__body--amount">
@@ -89,16 +89,16 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								</p>
 							</div>
 							<div className="dashboard-card__footer">
-								<div className="u-mar--bottom--sml">
+								<div className="u-mar--bottom--sml w--100--to-med">
 									<BaasicButton
-										className="btn btn--med btn--med--wide btn--primary--light"
+										className="btn btn--med btn--100 btn--primary--light"
 										label="DASHBOARD.BUTTON.CONTRIBUTE"
 										onClick={newContributionOnClick}
 									/>
 								</div>
-								<div className="u-mar--bottom--sml">
+								<div className="u-mar--bottom--sml w--100--to-med">
 									<BaasicButton
-										className="btn btn--med btn--med--wide btn--primary--light"
+										className="btn btn--med btn--100 btn--primary--light"
 										label="DASHBOARD.BUTTON.INVEST_FUNDS"
 									/>
 								</div>
@@ -115,7 +115,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							</div>
 						)}
 				</div>
-				<div className="col col-sml-12 col-xlrg-6 card--sml">
+				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
 					{donor && donor.isContributionMade ?
 						<div className="dashboard-card">
 							<h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">{t('DASHBOARD.YOUR_GIVING')}</h3>

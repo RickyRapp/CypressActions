@@ -98,7 +98,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                 </TableFilter>
             </div>
             <div className="row">
-                <div className="col col-sml-12 col-lrg-8 u-mar--bottom--med">
+                <div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
                     <div className="card--primary card--med">
                         <BaasicTable
                             authorization={authorization}
@@ -106,61 +106,63 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                         />
                     </div>
                 </div>
-                <div className="card--primary card--sml col col-sml-12 col-lrg-4 u-mar--bottom--med">
-                    <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}</h4>
-                    <div className="row">
-                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                            <div className="card--secondary card--med type--center">
-                                <div className="type--xxlrg type--wgt--medium type--color--text">
-                                    {summaryData &&
-                                        <FormatterResolver
-                                            item={{ amount: summaryData.totalMoneyGiven }}
-                                            field='amount'
-                                            format={{ type: 'currency' }} />}
-                                    <p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
+                <div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
+                    <div className="card--primary card--med">
+                        <h4 className="type--med type--wgt--medium u-mar--bottom--med">{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}</h4>
+                        <div className="row">
+                            <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                <div className="card--secondary card--med type--center">
+                                    <div className="type--xxlrg type--wgt--medium type--color--text">
+                                        {summaryData &&
+                                            <FormatterResolver
+                                                item={{ amount: summaryData.totalMoneyGiven }}
+                                                field='amount'
+                                                format={{ type: 'currency' }} />}
+                                        <p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                <div className="card--secondary--light card--med type--center">
+                                    <div className="type--xxlrg type--wgt--medium type--color--note">
+                                        {summaryData &&
+                                            <FormatterResolver
+                                                item={{ amount: summaryData.totalMoneyUpcoming }}
+                                                field='amount'
+                                                format={{ type: 'currency' }} />}
+                                        <p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-sml-12 col-lrg-12">
+                                <span>{t('DONATION.PAST_GRANT.LIST.SUMMARY.SLIDER_LABEL')}</span>
+                                {summaryData &&
+                                    <Slider
+                                        buttons={false}
+                                        step={1}
+                                        defaultValue={summaryData.totalMoneyGivenThisYear}
+                                        min={0}
+                                        max={summaryData.totalMoneyUpcomingThisYear}
+                                        disabled={true}
+                                    >
+                                        <SliderLabel position={0}>{(summaryData.totalMoneyGivenThisYear / summaryData.totalMoneyUpcomingThisYear) * 100}%</SliderLabel>
 
-                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                            <div className="card--secondary--light card--med type--center">
-                                <div className="type--xxlrg type--wgt--medium type--color--note">
-                                    {summaryData &&
-                                        <FormatterResolver
-                                            item={{ amount: summaryData.totalMoneyUpcoming }}
-                                            field='amount'
-                                            format={{ type: 'currency' }} />}
-                                    <p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming</p>
-                                </div>
+                                        <SliderLabel position={summaryData.totalMoneyUpcomingThisYear}>${summaryData.totalMoneyUpcomingThisYear}</SliderLabel>
+                                    </Slider>}
                             </div>
                         </div>
-                    </div>
-                    <div className="row u-mar--bottom--med">
-                        <div className="col col-sml-12 col-lrg-12">
-                            <span>{t('DONATION.PAST_GRANT.LIST.SUMMARY.SLIDER_LABEL')}</span>
-                            {summaryData &&
-                                <Slider
-                                    buttons={false}
-                                    step={1}
-                                    defaultValue={summaryData.totalMoneyGivenThisYear}
-                                    min={0}
-                                    max={summaryData.totalMoneyUpcomingThisYear}
-                                    disabled={true}
-                                >
-                                    <SliderLabel position={0}>{(summaryData.totalMoneyGivenThisYear / summaryData.totalMoneyUpcomingThisYear) * 100}%</SliderLabel>
-
-                                    <SliderLabel position={summaryData.totalMoneyUpcomingThisYear}>${summaryData.totalMoneyUpcomingThisYear}</SliderLabel>
-                                </Slider>}
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-sml-12 col-lrg-12">
+                                <DonutChartContainer />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row u-mar--bottom--med">
-                        <div className="col col-sml-12 col-lrg-12">
-                            <DonutChartContainer />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col col-sml-12 col-lrg-12">
-                            <LineChartContainer />
+                        <div className="row">
+                            <div className="col col-sml-12 col-lrg-12">
+                                <LineChartContainer />
+                            </div>
                         </div>
                     </div>
                 </div>

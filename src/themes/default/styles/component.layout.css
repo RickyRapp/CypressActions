@@ -13,12 +13,16 @@ $header-height: 96px;
         position: fixed;
         top: 0;
         right: 0;
-        left: $aside-width;;
+        left: 0;
         height: $header-height;
         z-index: 6;
 
-        @media (--screen-to-sml) {
-            left: 0;
+        @media (--screen-from-lrg) {
+            left: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
+            left: $aside-width;
         }
     }
 
@@ -32,7 +36,11 @@ $header-height: 96px;
         background-color: $color-text;
         z-index: 9;
 
-        @media (--screen-from-sml) {
+        @media (--screen-from-lrg) {
+            width: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
             width: $aside-width;
         }
 
@@ -45,7 +53,7 @@ $header-height: 96px;
             background-color: $color-secondary;
             z-index: 99;
 
-            @media (--screen-from-sml) {
+            @media (--screen-from-lrg) {
                 top: $header-height;
                 left: $aside-width;
                 width: $aside-secondary-width;
@@ -55,7 +63,7 @@ $header-height: 96px;
 
         &.is-collapsed {
 
-            @media (--screen-from-sml) {
+            @media (--screen-from-lrg) {
                 width: $aside-sml-width;
 
                 .nav__text {
@@ -78,28 +86,32 @@ $header-height: 96px;
         overflow: hidden;
         overflow-y: auto;
 
-        padding: calc($unit * 4) calc($unit * 12);
+        padding: calc($unit * 3) calc($unit * 8);
 
         &.is-collapsed {
 
-            @media (--screen-from-sml) {
+            @media (--screen-from-lrg) {
                 left: $aside-sml-width;
             }
 
             & .layout__header {
                 left: $aside-sml-width;
 
-                @media (--screen-to-sml) {
+                @media (--screen-to-lrg) {
                     left: 0;
                 } 
             }
         }
 
-        @media (--screen-to-lrg) {
+        @media (--screen-to-xlrg) {
             padding: calc($unit * 3) calc($unit * 4);
         }
-
-        @media (--screen-from-sml) {
+        
+        @media (--screen-from-lrg) {
+            left: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
             left: $aside-width;
         }
     }
@@ -110,6 +122,4 @@ $header-height: 96px;
         
         background-color: $grey-1;
     }
-
-
 }

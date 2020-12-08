@@ -10,15 +10,15 @@
     align-items: center;
 
     border-bottom: 1px solid color($color-text a(10%));
-    padding: 0 calc($unit * 12);
+    padding: 0 calc($unit * 8);
     @mixin type-scale $type-medium, 1.25;
 
-    @media (--screen-to-lrg) {
+    @media (--screen-to-xxlrg) {
         @mixin type-scale $type-base, 1;
         padding: calc($unit * 3) calc($unit * 4);
     }
 
-    @media (--screen-to-sml) {
+    @media (--screen-to-xlrg) {
         padding: 0 calc($unit * 4);
 
         & .account-manager {
@@ -34,7 +34,7 @@
         display: inline-block;
         margin-right: calc($unit * 4);
 
-        @media (--screen-from-sml) {
+        @media (--screen-from-lrg) {
             display: none;
         }
     }
@@ -48,6 +48,10 @@
         color: $color-text;
         cursor: pointer;
         display: inline-block;
+
+        @media (--screen-to-lrg) {
+            margin-right: calc($unit * 3);
+        }
 
         &__img {
             margin-right: calc($unit * 2);

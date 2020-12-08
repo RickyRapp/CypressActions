@@ -123,10 +123,11 @@ function renderActions({ item, actions, actionsRender }) {
 
     return (
         <td>
-            <div className="u-push">
+            <div className="type--right">
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.EDIT'
                         onlyIcon={true}
@@ -136,6 +137,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onPreview) && previewRender ? (
                     <BaasicButton
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--preview u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.PREVIEW'
                         onlyIcon={true}
@@ -145,6 +147,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onCancel) && cancelRender ? (
                     <BaasicButton
                         className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--close u-icon--sml'
                         label='CONTRIBUTION.LIST.BUTTON.CANCEL'
                         onlyIcon={true}

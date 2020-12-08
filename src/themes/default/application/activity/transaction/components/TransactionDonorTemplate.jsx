@@ -5,136 +5,146 @@ import { BaasicButton, BaasicModal, FormatterResolver, SimpleBaasicTable } from 
 import { MonthlyFeeJsonTemplate } from 'themes/application/activity/transaction/components';
 import { isSome } from 'core/utils';
 
-const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
-    const {
-        donor,
-        isPendingTransactionVisible,
-        pendingTransactionTableStore,
-        onExpandPendingTransactionClick,
-        previewFeesModal
-    } = transactionDonorViewStore;
+const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
+	const {
+		donor,
+		isPendingTransactionVisible,
+		pendingTransactionTableStore,
+		onExpandPendingTransactionClick,
+		previewFeesModal,
+	} = transactionDonorViewStore;
 
-    return (
-        <React.Fragment>
-            <div className="row">
-                <div className="col col-sml-12 u-mar--bottom--sml">
-                    {/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
-                    <div className="row">
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
-                            <div className="transaction__card">
-                                {donor &&
-                                    <div className={`transaction__card--amount ${donor.availableBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
-                                        <FormatterResolver
-                                            item={{ balance: donor.availableBalance }}
-                                            field='balance'
-                                            format={{ type: 'currency' }}
-                                        />
-                                    </div>
-                                }
+	return (
+		<React.Fragment>
+			<div className="row">
+				<div className="col col-sml-12 u-mar--bottom--sml">
+					{/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
+					<div className="row">
+						<div className="col col-sml-12 col-lrg-6 col-xxlrg-4 u-mar--bottom--sml">
+							<div className="transaction__card">
+								{donor && (
+									<div
+										className={`transaction__card--amount ${
+											donor.availableBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										}`}
+									>
+										<FormatterResolver
+											item={{ balance: donor.availableBalance }}
+											field="balance"
+											format={{ type: 'currency' }}
+										/>
+									</div>
+								)}
 
-                                <h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5 >
-                            </div>
-                        </div>
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
-                            <div className="transaction__card">
-                                {donor &&
-                                    <div className={`transaction__card--amount ${donor.presentBalance >= 0 ? "transaction__card--amount--plus" : ""}`}>
-                                        <FormatterResolver
-                                            item={{ balance: donor.presentBalance }}
-                                            field='balance'
-                                            format={{ type: 'currency' }} />
-                                    </div>
-                                }
+								<h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5>
+							</div>
+						</div>
+						<div className="col col-sml-12 col-lrg-6 col-xxlrg-4 u-mar--bottom--sml">
+							<div className="transaction__card">
+								{donor && (
+									<div
+										className={`transaction__card--amount ${
+											donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										}`}
+									>
+										<FormatterResolver
+											item={{ balance: donor.presentBalance }}
+											field="balance"
+											format={{ type: 'currency' }}
+										/>
+									</div>
+								)}
 
-                                <h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
-                            </div>
-                        </div>
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-4 u-mar--bottom--sml">
-                            <div className="transaction__card transaction__card--last">
-                                <div className="transaction__card--amount">
-                                    {donor &&
-                                        <FormatterResolver
-                                            item={{ balance: 0 }}
-                                            field='balance'
-                                            format={{ type: 'currency' }}
-                                        />}
-                                </div>
+								<h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
+							</div>
+						</div>
+						<div className="col col-sml-12 col-lrg-6 col-xxlrg-4 u-mar--bottom--sml">
+							<div className="transaction__card transaction__card--last">
+								{donor && (
+									<div
+										className={`transaction__card--amount ${
+											donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										}`}
+									>
+										<FormatterResolver item={{ balance: 0 }} field="balance" format={{ type: 'currency' }} />
+									</div>
+								)}
 
-                                <h5 className="transaction__card--title">Investments balance</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col col-sml-12 u-mar--bottom--sml">
-                    <div className="transaction__show">
-                        <div className="transaction__show--body">
-                            <span className="type--base type--wgt--medium type--color--text">Pending Transaction: $100,000</span>
-                            <BaasicButton
-                                className="btn btn--icon"
-                                onlyIconClassName="u-mar--right--sml"
-                                icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'} u-icon--sml`}
-                                label='EXPAND'
-                                onlyIcon={true}
-                                onClick={() => onExpandPendingTransactionClick()}>
-                            </BaasicButton>
-                        </div>
+								<h5 className="transaction__card--title">Investments balance</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="col col-sml-12 u-mar--bottom--sml">
+					<div className="transaction__show">
+						<div className="transaction__show--body">
+							<span className="type--base type--wgt--medium type--color--text">Pending Transaction: $100,000</span>
+							<BaasicButton
+								className="btn btn--icon"
+								onlyIconClassName="u-mar--right--sml"
+								icon={`u-icon ${
+									isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
+								} u-icon--sml`}
+								label="EXPAND"
+								onlyIcon={true}
+								onClick={() => onExpandPendingTransactionClick()}
+							></BaasicButton>
+						</div>
 
-                        {isPendingTransactionVisible &&
-                            <div className="col col-sml-12 u-mar--top--sml">
-                                <SimpleBaasicTable
-                                    tableStore={pendingTransactionTableStore}
-                                    actionsComponent={renderActions}
-                                />
-                            </div>}
-                    </div>
-                </div>
-            </div>
-            <BaasicModal modalParams={previewFeesModal}>
-                <MonthlyFeeJsonTemplate />
-            </BaasicModal>
-        </React.Fragment>
-    )
-}
+						{isPendingTransactionVisible && (
+							<div className="col col-sml-12 u-mar--top--sml">
+								<SimpleBaasicTable tableStore={pendingTransactionTableStore} actionsComponent={renderActions} />
+							</div>
+						)}
+					</div>
+				</div>
+			</div>
+			<BaasicModal modalParams={previewFeesModal}>
+				<MonthlyFeeJsonTemplate />
+			</BaasicModal>
+		</React.Fragment>
+	);
+};
 
 TransactionDonorTemplate.propTypes = {
-    transactionDonorViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+	transactionDonorViewStore: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired,
 };
 
 function renderActions({ item, actions, actionsRender }) {
-    if (!isSome(actions)) return null;
+	if (!isSome(actions)) return null;
 
-    const { onPreview } = actions;
-    if (!isSome(onPreview)) return null;
+	const { onPreview } = actions;
+	if (!isSome(onPreview)) return null;
 
-    let previewRender = true;
-    if (isSome(actionsRender)) {
-        if (actionsRender.onPreviewRender) {
-            previewRender = actionsRender.onPreviewRender(item);
-        }
-    }
+	let previewRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onPreviewRender) {
+			previewRender = actionsRender.onPreviewRender(item);
+		}
+	}
 
-    return (
-        <td>
-            <div className="type--right">
-                {isSome(onPreview) && previewRender ? (
-                    <BaasicButton
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--preview u-icon--sml'
-                        label='TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN'
-                        onlyIcon={true}
-                        onClick={() => onPreview(item)}>
-                    </BaasicButton>
-                ) : null}
-            </div>
-        </td>
-    )
+	return (
+		<td>
+			<div className="type--right">
+				{isSome(onPreview) && previewRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						icon="u-icon u-icon--preview u-icon--sml"
+						label="TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN"
+						onlyIcon={true}
+						onClick={() => onPreview(item)}
+					></BaasicButton>
+				) : null}
+			</div>
+		</td>
+	);
 }
 
 renderActions.propTypes = {
-    item: PropTypes.object,
-    actions: PropTypes.object,
-    actionsRender: PropTypes.object
+	item: PropTypes.object,
+	actions: PropTypes.object,
+	actionsRender: PropTypes.object,
 };
 
 export default defaultTemplate(TransactionDonorTemplate);
