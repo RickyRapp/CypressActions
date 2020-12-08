@@ -365,4 +365,5 @@
 
 .k-grid th, .k-grid td {
 	width: calc($unit * 20);
+    @mixin type-scale $type-base, 1;
 }
