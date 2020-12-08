@@ -75,6 +75,7 @@
 @import "component.section.css";
 @import "component.counter.css";
 @import "component.transaction.css";
+@import "component.scanner.css";
 @import "component.dashboard-card.css";
 @import "component.advanced-search.css";
 @import "component.charity-information.css";

@@ -1,0 +1,67 @@
+/*------------------------------------*\
+    # component.scanner
+\*------------------------------------*/
+
+.scanner {
+	display: flex;
+	flex-direction: column;
+
+	&__logo {
+		height: calc($unit * 16);
+		margin: calc($unit * 17) 0;
+	}
+
+	&__stepper {
+		width: 50%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+        margin: 0 auto;
+        margin-bottom: calc($unit * 10);
+
+		&__step {
+			height: calc($unit * 7);
+			width: calc($unit * 7);
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			border-radius: calc($unit * 5);
+			background-color: $color-text;
+			color: $white;
+			font-weight: $type-weight-medium;
+
+			&--active {
+				background-color: $zest;
+			}
+
+			&--line {
+				height: calc($unit / 6);
+				width: 25%;
+				background-color: $color-text;
+
+				&:last-child {
+					display: none;
+				}
+			}
+		}
+    }
+    
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+	& input {
+		background-color: $white;
+		border: none;
+		border-radius: calc($unit / 2);
+	}
+
+	& .k-textbox-container .k-dropdown-wrap,
+	.k-dropdown .k-dropdown-wrap {
+		border: none;
+		border-radius: calc($unit / 2);
+	}
+}
