@@ -104,7 +104,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.donor.id, scheduledGrant.id),
+                onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.id),
                 onCancel: (scheduledGrant) => this.onCancel(scheduledGrant.id, scheduledGrant.name),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },

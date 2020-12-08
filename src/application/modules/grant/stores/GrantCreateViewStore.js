@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
-import { applicationContext, donorFormatter } from 'core/utils';
+import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { GrantCreateForm } from 'application/grant/forms';
 import moment from 'moment';
 import { charityFormatter } from 'core/utils';
@@ -16,6 +16,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
     grantScheduleTypes = [];
     grantAcknowledgmentTypes = [];
     grantPurposeTypes = [];
+    grantRequestId = null;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -27,36 +28,41 @@ class GrantCreateViewStore extends BaseEditViewStore {
                     create: async (resource) => {
                         resource.donorId = this.donorId;
 
-                        if (resource.isNewCharity) {
-                            const charity = {
-                                name: resource.charityName,
-                                taxId: resource.charityTaxId,
-                                dba: resource.charityDba,
-                                charityTypeId: resource.charityTypeId,
-                                isInternationalCharity: resource.charityIsInternationalCharity,
-                                address: {
-                                    addressLine1: resource.charityAddressLine1,
-                                    addressLine2: resource.charityAddressLine2,
-                                    city: resource.charityCity,
-                                    state: resource.charityState,
-                                    zipCode: resource.charityZipCode
-                                },
-                                contactInformation: {
-                                    name: resource.charityContactName,
-                                    email: resource.charityContactEmail,
-                                    number: resource.charityContactNumber
-                                }
-                            }
-
-                            const charityData = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId,bankAccountId
-                            resource.charityId = charityData.charityId;
-                        }
-
-                        if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
-                            await this.rootStore.application.grant.grantStore.createScheduledGrant(resource);
+                        if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId)) {
+                            await this.rootStore.application.grant.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
                         }
                         else {
-                            await this.rootStore.application.grant.grantStore.create(resource);
+                            if (resource.isNewCharity) {
+                                const charity = {
+                                    name: resource.charityName,
+                                    taxId: resource.charityTaxId,
+                                    dba: resource.charityDba,
+                                    charityTypeId: resource.charityTypeId,
+                                    isInternationalCharity: resource.charityIsInternationalCharity,
+                                    address: {
+                                        addressLine1: resource.charityAddressLine1,
+                                        addressLine2: resource.charityAddressLine2,
+                                        city: resource.charityCity,
+                                        state: resource.charityState,
+                                        zipCode: resource.charityZipCode
+                                    },
+                                    contactInformation: {
+                                        name: resource.charityContactName,
+                                        email: resource.charityContactEmail,
+                                        number: resource.charityContactNumber
+                                    }
+                                }
+
+                                const charityData = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId,bankAccountId
+                                resource.charityId = charityData.charityId;
+                            }
+
+                            if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
+                                await this.rootStore.application.grant.grantStore.createScheduledGrant(resource);
+                            }
+                            else {
+                                await this.rootStore.application.grant.grantStore.create(resource);
+                            }
                         }
                     }
                 }
@@ -69,6 +75,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
         }
         else {
             this.donorId = rootStore.userStore.applicationUser.id;
+        }
+
+        if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
+            this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
         }
 
         this.createCharityDropdownStore();
@@ -136,6 +146,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
             this.form.$('charityZipCode').observe(({ field }) => {
                 this.form.$('zipCode').set(field.value);
             });
+
+            if (this.grantRequestId) {
+                const data = await this.rootStore.application.grant.grantStore.getGrantRequest(this.grantRequestId, { embed: 'charity,charity.charityAddresses' });
+                this.form.$('charityId').set(data.charityId);
+                this.setCharity(data.charity)
+                this.form.$('amount').set(data.amount);
+                // this.form.$('charityId').setDisabled(true);
+                // this.form.$('isNewCharity').setDisabled(true);
+                // this.form.$('startFutureDate').setDisabled(true);
+                // this.form.$('isRecurring').setDisabled(true);
+            }
         }
     }
 
@@ -284,6 +305,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async onCharitySelected(charity) {
+        this.setCharity(charity)
+        this.advancedSearchModal.close();
+    }
+
+    setCharity(charity) {
         this.charityDropdownStore.setValue({
             id: charity.id,
             name: charityFormatter.format(charity, { value: 'charity-name-display' }),
@@ -292,7 +318,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
         this.form.$("charityId").set(charity.id);
         const address = charity.charityAddresses.find(c => c.isPrimary);
         this.setAddress(address);
-        this.advancedSearchModal.close();
     }
 
     @action.bound

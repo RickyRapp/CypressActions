@@ -17,6 +17,11 @@ class GrantRequestService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    createGrant(resource) {
+        const url = this.routeService.createGrant(resource);
+        return this.apiClient.post(url, resource);
+    }
+
     complete(resource) {
         const url = this.routeService.complete(resource);
         return this.apiClient.put(url, resource);

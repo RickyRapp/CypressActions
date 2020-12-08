@@ -76,7 +76,7 @@ import { RouterState } from 'mobx-state-router';
                     },
                     {
                         name: 'master.app.main.grant.scheduled-edit',
-                        pattern: '/scheduled-edit/:id/:editId',
+                        pattern: '/scheduled-edit/:id',
                         component: ScheduledGrantEdit,
                         authorization: 'theDonorsFundGrantSection.update',
                         data: {

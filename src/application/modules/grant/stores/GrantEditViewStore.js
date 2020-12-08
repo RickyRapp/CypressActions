@@ -86,7 +86,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
             if (!this.hasAdministratorsPermission) {
                 const dateToEdit = moment(this.item.dateCreated).add(15, 'm');
                 if (!moment().isBetween(moment(this.item.dateCreated), dateToEdit)) {
-                    this.rootStore.notificationStore.warning('ERROR_CODE.5005')
+                    this.rootStore.notificationStore.warning('ERROR_CODE.3012')
                     this.rootStore.routerStore.goBack();
                 }
                 if (!['pending', 'approved'].includes(this.item.donationStatus.abrv)) {

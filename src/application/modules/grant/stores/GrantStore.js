@@ -37,6 +37,16 @@ class GrantStore {
         return response.data;
     }
 
+    async getScheduledGrant(id, params) {
+        const response = await this.scheduledGrantService.get(id, params);
+        return response.data;
+    }
+
+    async getGrantRequest(id, params) {
+        const response = await this.grantRequestService.get(id, params);
+        return response.data;
+    }
+
     async searchCharity(params) {
         const response = await this.charityService.search(params);
         return response.data;
@@ -57,6 +67,11 @@ class GrantStore {
         return response.data;
     }
 
+    async createGrantRequest(resource) {
+        const response = await this.grantRequestService.createGrant(resource);
+        return response.data;
+    }
+
     async createRequest(resource) {
         const response = await this.grantRequestService.create(resource);
         return response.data;
@@ -64,6 +79,11 @@ class GrantStore {
 
     async update(resource) {
         const response = await this.grantService.update(resource);
+        return response.data;
+    }
+
+    async updateScheduledGrant(resource) {
+        const response = await this.scheduledGrantService.update(resource);
         return response.data;
     }
 

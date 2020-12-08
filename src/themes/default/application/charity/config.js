@@ -55,12 +55,6 @@ import { CharityModuleStore } from 'application/charity/stores';
                 order: 6,
                 route: 'master.app.main.charity.list',
                 role: ['Administrators']
-            },
-            {
-                title: 'MENU.CHARITY_PROFILE',
-                order: 7,
-                route: 'master.app.main.charity-profile',
-                role: ['Charities']
             }
         ],
         moduleStore: function (context) {
