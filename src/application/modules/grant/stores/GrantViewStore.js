@@ -151,7 +151,7 @@ class GrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (grant) => this.routes.edit(grant.id, grant.donor.id),
+                onEdit: (grant) => this.routes.edit(grant.id),
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)

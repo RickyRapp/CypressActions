@@ -50,7 +50,7 @@ import { ContributionModuleStore } from 'application/contribution/stores';
         ],
         menu: [
             {
-                title: 'MENU.CONTRIBUTIONS',
+                title: 'MENU.DEPOSITS',
                 icon: 'contribution',
                 order: 2,
                 route: 'master.app.main.contribution.list',

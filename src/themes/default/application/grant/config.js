@@ -49,12 +49,30 @@ import { RouterState } from 'mobx-state-router';
                     },
                     {
                         name: 'master.app.main.grant.edit',
-                        pattern: '/edit/:editId',
+                        pattern: '/edit/:id',
                         component: GrantEdit,
                         authorization: 'theDonorsFundGrantSection.update',
                         data: {
                             title: "GRANT.EDIT.TITLE"
-                        }
+                        },
+                        beforeEnter:
+                            // eslint-disable-next-line
+                            async (fromState, toState, routerStore) => {
+                                const { donor: { donorStore } } = routerStore.rootStore.application;
+
+                                if (!routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+                                    let donorId = routerStore.rootStore.userStore.user.id;
+                                    const data = await donorStore.getDonor(donorId, { fields: 'isInitialContributionDone' });
+                                    if (data.isInitialContributionDone) {
+                                        return Promise.resolve();
+                                    }
+                                    else {
+                                        routerStore.rootStore.notificationStore.warning('GRANT.CREATE.MISSING_INITIAL_CONTRIBUTION');
+                                        return Promise.reject(new RouterState('master.app.main.contribution.create'));
+                                    }
+                                }
+                                return Promise.resolve();
+                            }
                     },
                     {
                         name: 'master.app.main.grant.scheduled-edit',

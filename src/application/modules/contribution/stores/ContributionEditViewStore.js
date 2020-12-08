@@ -4,6 +4,7 @@ import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import moment from 'moment';
+import _ from 'lodash';
 
 @applicationContext
 class ContributionEditViewStore extends BaseEditViewStore {

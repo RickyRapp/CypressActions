@@ -176,6 +176,8 @@
         "3006": "Grant is processed.",
         "3007": "Missing reserved not done transaction.",
         "3008": "Scheduled payment already done.",
+        "3011": "Cannot edit in this status.",
+        "3012": "Time expired for editing.",
         "3100": "Invalid card number.",
         "3101": "Possible lost or stolen.",
         "3102": "Card reported as lost or stolen.",
@@ -1012,7 +1014,8 @@
             "BUTTON": {
                 "EDIT": "Edit",
                 "CREATE": "Create",
-                "DELETE": "Delete"
+                "DELETE": "Delete",
+                "LOAD_MORE": "Load more"
             }
         },
         "CREATE": {
@@ -1617,6 +1620,7 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "NAME_LABEL": "Name",
                 "AMOUNT_LABEL": "Amount",
+                "DONE_LABEL": "Done",
                 "GRANT_SCHEDULE_TYPE_NAME_LABEL": "Frequency",
                 "DATE_CREATED_LABEL": "Date created",
                 "NEXT_DATE_LABEL": "Next date"

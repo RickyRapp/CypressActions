@@ -74,7 +74,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 disabled={form.$('isNewCharity').value}
                                                 label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
                                                 onClick={openAdvancedSearchModal}
-                                                />
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -160,21 +160,23 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </BaasicButton>
                                     </React.Fragment>}
                                 {isChangedDefaultAddress &&
-                                    <div className="row card--secondary card--med u-mar--bottom--sml">
-                                        <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('addressLine1')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('addressLine2')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('city')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('state')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('zipCode')} />
+                                    <div className="card--secondary card--med u-mar--bottom--sml">
+                                        <div className="row">
+                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('addressLine1')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('addressLine2')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('city')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('state')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('zipCode')} />
+                                            </div>
                                         </div>
                                     </div>}
 

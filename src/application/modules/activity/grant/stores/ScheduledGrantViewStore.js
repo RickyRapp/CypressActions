@@ -1,46 +1,29 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { ScheduledGrantService } from 'application/grant/services';
-import { applicationContext } from 'core/utils';
-import { ScheduledGrantListFilter } from 'application/grant/models';
+import { ScheduledGrantListFilter } from 'application/activity/grant/models';
 import moment from 'moment'
 
-@applicationContext
 class ScheduledGrantViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        let filter = new ScheduledGrantListFilter('dateCreated', 'desc')
-        if (rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-            if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.donorId) {
-                filter.donorId = rootStore.routerStore.routerState.queryParams.donorId;
-            }
-        }
-
-        const service = new ScheduledGrantService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'scheduled-grant',
-            authorization: 'theDonorsFundGrantSection',
+            authorization: 'theDonorsFundDonationSection',
             routes: {
-                edit: (id, editId) => {
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.grant.scheduled-edit',
-                        {
-                            id: id,
-                            editId: editId
-                        }
-                    );
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.grant.scheduled-edit', { id: id });
                 }
             },
             queryConfig: {
-                filter: filter
+                filter: new ScheduledGrantListFilter('dateCreated', 'desc'),
+                onResetFilter: (filter) => {
+                    filter.reset();
+                }
             },
             actions: () => {
                 return {
                     find: async (params) => {
                         params.embed = [
-                            'createdByCoreUser',
                             'donor',
-                            'donor.coreUser',
-                            'donor.companyProfile',
                             'charity',
                             'grantScheduleType'
                         ];
@@ -49,8 +32,6 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'charity',
                             'charity.name',
                             'donor',
-                            'donor.id',
-                            'donor.donorName',
                             'amount',
                             'grantScheduleType',
                             'dateCreated',
@@ -63,25 +44,20 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'remainingNumberOfPayments'
                         ]
 
-                        let userId = null;
-                        if (!this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
-                            userId = rootStore.userStore.user.id
-                        }
-
-                        const response = await service.find({ userId: userId, ...params });
-                        return response.data;
+                        return rootStore.application.grant.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
                     }
                 }
             }
         });
 
+        this.donorId = rootStore.userStore.applicationUser.id;
+
+        this.createTableStore();
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
-                {
-                    key: 'donor.donorName',
-                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')
-                },
                 {
                     key: 'charity.name',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.CHARITY_NAME_LABEL',
@@ -108,6 +84,14 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     format: {
                         type: 'date',
                         value: 'short'
+                    }
+                },
+                {
+                    key: 'done',
+                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONE_LABEL',
+                    format: {
+                        type: 'boolean',
+                        value: 'yes-no'
                     }
                 },
                 {
@@ -140,16 +124,13 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             }
         }));
-
-        this.service = service;
-        this.rootStore = rootStore;
     }
 
     @action.bound async onCancel(id) {
         this.rootStore.modalStore.showConfirm('SCHEDULED_GRANT.CANCEL.QUESTION',
             async () => {
                 try {
-                    await this.service.cancel({ id: id });
+                    await this.rootStore.application.grant.grantStore.cancelScheduledGrant({ id: id });
                     this.rootStore.notificationStore.success('SCHEDULED_GRANT.CANCEL.SUCCESS');
                 } catch (error) {
                     this.rootStore.notificationStore.error('SCHEDULED_GRANT.CANCEL.ERROR');
