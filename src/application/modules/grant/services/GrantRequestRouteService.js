@@ -21,6 +21,10 @@ class GrantRequestRouteService extends BaseRouteService {
         return super.create(this.base);
     }
 
+    createGrant() {
+        return super.create(this.base + '/grant-changes');
+    }
+
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }

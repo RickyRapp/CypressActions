@@ -2,6 +2,7 @@ import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewSt
 import { DonationListFilter } from 'application/donation/models';
 import { charityFormatter } from 'core/utils';
 import { observable } from 'mobx';
+import moment from 'moment'
 
 class PastGrantViewStore extends BaseListViewStore {
     @observable summaryData = null;
@@ -10,9 +11,13 @@ class PastGrantViewStore extends BaseListViewStore {
         super(rootStore, {
             name: 'past-grant',
             authorization: 'theDonorsFundDonationSection',
-            routes: {},
+            routes: {
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.grant.edit', { id: id });
+                },
+            },
             queryConfig: {
-                filter: new DonationListFilter(),
+                filter: new DonationListFilter('dateCreated', 'desc'),
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.charityDropdownStore.setValue(null);
@@ -143,7 +148,17 @@ class PastGrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
+                onEdit: (grant) => this.routes.edit(grant.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
+            },
+            actionsRender: {
+                onEditRender: (grant) => {
+                    if (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved') {
+                        const dateToEdit = moment(grant.dateCreated).add(15, 'minutes');
+                        return moment().isBetween(grant.dateCreated, dateToEdit);
+                    }
+                    return false;
+                }
             }
         },
             true));

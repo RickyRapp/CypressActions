@@ -1,16 +1,12 @@
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
-import { ContributionService } from 'application/contribution/services';
-import { DonorService } from 'application/donor/services';
-import { applicationContext, donorFormatter } from 'core/utils';
+import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/contribution/models';
-import _ from 'lodash';
 import moment from 'moment';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
-    @observable accountTypes = null;
     contributionStatuses = [];
 
     constructor(rootStore) {
@@ -18,19 +14,18 @@ class ContributionViewStore extends BaseListViewStore {
             name: 'contribution',
             authorization: 'theDonorsFundContributionSection',
             routes: {
-                edit: (editId, donorId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { editId: editId }, { donorId: donorId });
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.edit', { id: id });
                 },
                 create: () => {
                     this.openSelectDonorModal();
                 },
-                preview: (id, donorId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id }, { donorId: donorId });
+                preview: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.contribution.details', { id: id });
                 },
             },
             queryConfig: {
                 filter: new ContributionListFilter('dateCreated', 'desc'),
-                disableUpdateQueryParams: false,
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.searchDonorDropdownStore.setValue(null);
@@ -40,7 +35,6 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             },
             actions: () => {
-                const service = new ContributionService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -50,8 +44,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'paymentType',
                             'contributionStatus'
                         ];
-                        const response = await service.find(params);
-                        return response.data;
+                        return rootStore.application.contribution.contributionStore.findContribution(params);
                     }
                 }
             }
@@ -90,7 +83,7 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     onClickDonorFromFilter(donorId) {
-        this.rootStore.routerStore.goTo('master.app.main.contribution.create', { id: donorId })
+        this.rootStore.routerStore.goTo('master.app.main.contribution.create', null, { id: donorId })
     }
 
     @action.bound
@@ -124,9 +117,8 @@ class ContributionViewStore extends BaseListViewStore {
             async () => {
                 this.loaderStore.suspend();
                 try {
-                    const service = new ContributionService(this.rootStore.application.baasic.apiClient);
-                    await service.review({ id: item.id, contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id });
-                    this.queryUtility.fetch();
+                    await this.rootStore.application.contribution.contributionStore.reviewContribution({ id: item.id, contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id });
+                    await this.queryUtility.fetch();
                     this.rootStore.notificationStore.success('Contribution canceled');
                 }
                 catch (err) {
@@ -166,8 +158,7 @@ class ContributionViewStore extends BaseListViewStore {
             async () => {
                 this.loaderStore.suspend();
                 try {
-                    const service = new ContributionService(this.rootStore.application.baasic.apiClient);
-                    await service.review({ id: item.id, contributionStatusId: newStatusId });
+                    await this.rootStore.application.contribution.contributionStore.reviewContribution({ id: item.id, contributionStatusId: newStatusId });
                     this.queryUtility.fetch();
                     this.rootStore.notificationStore.success('Contribution reviewed.');
                 }
@@ -235,32 +226,10 @@ class ContributionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (item) => {
-                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                            return true;
-                        }
-                        else {
-                            if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add(15, 'm');
-                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
-                            }
-                        }
-                    }
-                    return false;
+                    return item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process';
                 },
                 onCancelRender: (item) => {
-                    if (item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process') {
-                        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                            return true;
-                        }
-                        else {
-                            if (item.contributionStatus.abrv === 'pending') {
-                                const dateToEdit = moment(item.dateCreated).add(30, 'm');
-                                return moment().isBetween(moment(item.dateCreated), dateToEdit);
-                            }
-                        }
-                    }
-                    return false;
+                    return item.contributionStatus.abrv === 'pending' || item.contributionStatus.abrv === 'in-process';
                 },
                 onReviewRender: (item) => {
                     return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
@@ -270,7 +239,6 @@ class ContributionViewStore extends BaseListViewStore {
     }
 
     createDonorSearch() {
-        const donorService = new DonorService(this.rootStore.application.baasic.apiClient);
         this.searchDonorDropdownStore = new BaasicDropdownStore({
             placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: true,
@@ -278,11 +246,14 @@ class ContributionViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const response = await donorService.search({
+                    if (isNullOrWhiteSpacesOrUndefinedOrEmpty(searchQuery)) {
+                        return [];
+                    }
+                    const data = await this.rootStore.application.contribution.contributionStore.searchDonor({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
-                        sort: 'coreUser.firstName|asc',
+                        sort: 'firstName|asc',
                         embed: [
                             'donorAddresses'
                         ],
@@ -290,14 +261,13 @@ class ContributionViewStore extends BaseListViewStore {
                             'id',
                             'accountNumber',
                             'donorName',
-                            'securityPin',
                             'donorAddresses'
                         ]
                     });
-                    return _.map(response.data.item, x => {
+                    return data.map(c => {
                         return {
-                            id: x.id,
-                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                            id: c.id,
+                            name: donorFormatter.format(c, { type: 'donor-name', value: 'dropdown' })
                         }
                     });
                 },
@@ -316,10 +286,10 @@ class ContributionViewStore extends BaseListViewStore {
                                 'donorAddresses'
                             ]
                         }
-                        const response = await donorService.get(id, params);
+                        const data = await this.rootStore.application.contribution.contributionStore.getDonor(id, params);
                         return {
-                            id: response.data.id,
-                            name: donorFormatter.format(response.data, { type: 'donor-name', value: 'dropdown' })
+                            id: data.id,
+                            name: donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' })
                         }
                     }
                     else {

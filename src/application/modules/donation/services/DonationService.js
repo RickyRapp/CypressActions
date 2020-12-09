@@ -26,6 +26,11 @@ class DonationService extends BaseService {
         const url = this.routeService.findPastGrant(params);
         return this.apiClient.get(url);
     }
+
+    withdrawFundCharity(resource) {
+        const url = this.routeService.withdrawFundCharity(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default DonationService;

@@ -78,7 +78,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                     </div>
                                     <div className="col col-sml-6">
                                         <div className="type--wgt--medium u-push">
-                                            {item && <Date format="full-date" value={item.dateCreated} />}
+                                            {item && <Date format="kendo-input-medium" value={item.dateCreated} />}
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                     </div>
                                     <div className="col col-sml-6">
                                         <div className="type--wgt--medium u-push">
-                                            {item && <Date format="full-date" value={item.dateUpdated} />}
+                                            {item && <Date format="kendo-input-medium" value={item.dateUpdated} />}
                                         </div>
                                     </div>
                                 </div>
@@ -128,6 +128,61 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                     </div>
                                 </div>
                             </div>
+                            {item && item.isThirdParty &&
+                                <React.Fragment>
+                                    <div className="col col-sml-12">
+                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                            <div className="col col-sml-6">
+                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NAME')}</div>
+                                            </div>
+                                            <div className="col col-sml-6">
+                                                <div className="type--wgt--medium u-push">
+                                                    {item.payerInformation.name}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col col-sml-12">
+                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                            <div className="col col-sml-6">
+                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_EMAIL')}</div>
+                                            </div>
+                                            <div className="col col-sml-6">
+                                                <div className="type--wgt--medium u-push">
+                                                    {item.payerInformation.email}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col col-sml-12">
+                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                            <div className="col col-sml-6">
+                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NUMBER')}</div>
+                                            </div>
+                                            <div className="col col-sml-6">
+                                                <div className="type--wgt--medium u-push">
+                                                    {item.payerInformation.number}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col col-sml-12">
+                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                            <div className="col col-sml-6">
+                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_ADDRESS')}</div>
+                                            </div>
+                                            <div className="col col-sml-6">
+                                                <div className="type--wgt--medium u-push">
+                                                    {<FormatterResolver
+                                                        item={{ address: item.payerInformation }}
+                                                        field='address'
+                                                        format={{ type: 'address', value: 'full' }}
+                                                    />}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </React.Fragment>}
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,7 @@ const BaasicFieldDropdownTemplate = function ({
     disabled = false,
     showLabel = true,
     t,
+    rightLabelComponent
 }) {
     function onChange(event) {
         const value = event.target.value;
@@ -51,6 +52,7 @@ const BaasicFieldDropdownTemplate = function ({
                         {t(field.label)}
                         {requiredMark}
                     </div>
+                    {rightLabelComponent && rightLabelComponent()}
                 </div>
             )}
             <BaasicDropdown
@@ -83,6 +85,7 @@ BaasicFieldDropdownTemplate.propTypes = {
     disabled: PropTypes.bool,
     showLabel: PropTypes.bool,
     t: PropTypes.any,
+    rightLabelComponent: PropTypes.any
 };
 
 export default defaultTemplate(BaasicFieldDropdownTemplate);

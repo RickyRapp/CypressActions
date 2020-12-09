@@ -16,12 +16,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
 
     return (
         <ApplicationListLayout store={bookletViewStore} authorization={authorization}>
-            <PageHeader routes={routes}>
-                <BaasicButton
-                    className="btn btn--base btn--primary"
-                    label={'LIST_LAYOUT.CREATE_BUTTON'}
-                    onClick={routes.create} />
-            </PageHeader>
+            <PageHeader routes={routes} />
             <Content>
                 <div className="u-mar--bottom--sml">
                     <div className="card--tertiary card--med u-mar--bottom--sml">

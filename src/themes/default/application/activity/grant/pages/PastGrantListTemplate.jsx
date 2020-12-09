@@ -4,11 +4,10 @@ import { defaultTemplate } from 'core/hoc';
 import {
     BaasicTable,
     TableFilter,
-    EmptyState,
     BaasicDropdown,
-    FormatterResolver
+    FormatterResolver,
+    BaasicButton
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { Content } from 'core/layouts';
 import {
     Chart,
@@ -23,11 +22,11 @@ import {
     ChartTooltip
 } from '@progress/kendo-react-charts';
 import { Slider, SliderLabel } from '@progress/kendo-react-inputs';
+import { isSome } from 'core/utils';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         charityDropdownStore,
@@ -83,7 +82,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
     );
 
     return (
-        <Content emptyRenderer={renderEmpty(routes)} >
+        <Content>
             <div className="card--tertiary card--med u-mar--bottom--sml">
                 <TableFilter queryUtility={queryUtility}>
                     <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
@@ -103,6 +102,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
                         <BaasicTable
                             authorization={authorization}
                             tableStore={tableStore}
+                            actionsComponent={renderActions}
                         />
                     </div>
                 </div>
@@ -171,13 +171,81 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
     )
 };
 
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='DONATION.LIST.EMPTY_STATE.TITLE' actionLabel='DONATION.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
-
 PastGrantListTemplate.propTypes = {
     pastGrantViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
+};
+
+function renderActions({ item, actions, actionsRender }) {
+    if (!isSome(actions)) return null;
+
+    const { onEdit, onPreview, onCancel } = actions;
+    if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCancel)) return null;
+
+    let editRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onEditRender) {
+            editRender = actionsRender.onEditRender(item);
+        }
+    }
+
+    let previewRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onPreviewRender) {
+            previewRender = actionsRender.onPreviewRender(item);
+        }
+    }
+
+    let cancelRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onCancelRender) {
+            cancelRender = actionsRender.onCancelRender(item);
+        }
+    }
+
+    return (
+        <td>
+            <div className="type--right">
+                {isSome(onEdit) && editRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon='u-icon u-icon--edit u-icon--sml'
+                        label='CONTRIBUTION.LIST.BUTTON.EDIT'
+                        onlyIcon={true}
+                        onClick={() => onEdit(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onPreview) && previewRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon='u-icon u-icon--preview u-icon--sml'
+                        label='CONTRIBUTION.LIST.BUTTON.PREVIEW'
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onCancel) && cancelRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon='u-icon u-icon--close u-icon--sml'
+                        label='CONTRIBUTION.LIST.BUTTON.CANCEL'
+                        onlyIcon={true}
+                        onClick={() => onCancel(item)}>
+                    </BaasicButton>
+                ) : null}
+            </div>
+        </td>
+    )
+}
+
+renderActions.propTypes = {
+    item: PropTypes.object,
+    actions: PropTypes.object,
+    actionsRender: PropTypes.object,
+    authorization: PropTypes.any
 };
 
 export default defaultTemplate(PastGrantListTemplate);

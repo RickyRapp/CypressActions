@@ -26,7 +26,7 @@ const ReconcileListTemplate = function ({ reconcileViewStore }) {
 
     return (
         <ApplicationListLayout store={reconcileViewStore} authorization={authorization}>
-            <Content emptyRenderer={renderEmpty(routes)} >
+            <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility}>
                     </TableFilter>
@@ -48,10 +48,6 @@ const ReconcileListTemplate = function ({ reconcileViewStore }) {
         </ApplicationListLayout>
     )
 };
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='CHECK.LIST.EMPTY_STATE.TITLE' actionLabel='CHECK.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 ReconcileListTemplate.propTypes = {
     reconcileViewStore: PropTypes.object.isRequired,

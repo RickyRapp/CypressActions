@@ -17,7 +17,7 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
-import { addressFormatter, charityFormatter } from 'core/utils';
+import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/charity/components';
 import logo from 'themes/assets/img/logo.svg';
 
@@ -41,7 +41,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         loaderStore,
         grantAcknowledgmentName,
         isChangedDefaultAddress,
-        onChangeDefaultAddressClick
+        onChangeDefaultAddressClick,
+        grantRequestId
     } = grantCreateViewStore;
 
     return (
@@ -62,22 +63,23 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
-                                        <BasicFieldCheckbox field={form.$('isNewCharity')} />
-                                    </div>
-                                    <div className="col col-sml-12 u-mar--bottom--sml">
-                                        <div className="u-push--from--med">
-                                            <BaasicButton
-                                                className="advanced-search"
-                                                icon="u-icon u-icon--arrow-down--positive u-icon--sml"
-                                                disabled={form.$('isNewCharity').value}
-                                                label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
-                                                onClick={openAdvancedSearchModal}
-                                                />
+                                {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
+                                    <div className="row">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
+                                            <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                         </div>
-                                    </div>
-                                </div>
+                                        <div className="col col-sml-12 u-mar--bottom--sml">
+                                            <div className="u-push--from--med">
+                                                <BaasicButton
+                                                    className="advanced-search"
+                                                    icon="u-icon u-icon--arrow-down--positive u-icon--sml"
+                                                    disabled={form.$('isNewCharity').value}
+                                                    label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
+                                                    onClick={openAdvancedSearchModal}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>}
 
                                 {form.$('isNewCharity').value &&
                                     <div className="card--form card--med u-mar--bottom--med">
@@ -152,29 +154,31 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                     </div>
                                                 </div>}
                                         </div>
-
-                                        <BaasicButton
-                                            className="btn btn--sml btn--link u-mar--bottom--sml"
-                                            label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
-                                            onClick={onChangeDefaultAddressClick}>
-                                        </BaasicButton>
+                                        {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
+                                            <BaasicButton
+                                                className="btn btn--sml btn--link u-mar--bottom--sml"
+                                                label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
+                                                onClick={onChangeDefaultAddressClick}>
+                                            </BaasicButton>}
                                     </React.Fragment>}
                                 {isChangedDefaultAddress &&
-                                    <div className="row card--secondary card--med u-mar--bottom--sml">
-                                        <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('addressLine1')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('addressLine2')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('city')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('state')} />
-                                        </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('zipCode')} />
+                                    <div className="card--secondary card--med u-mar--bottom--sml">
+                                        <div className="row">
+                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('addressLine1')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('addressLine2')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('city')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('state')} />
+                                            </div>
+                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('zipCode')} />
+                                            </div>
                                         </div>
                                     </div>}
 
@@ -188,11 +192,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         <DatePickerField field={form.$('startFutureDate')} />
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
-                                        <BasicFieldCheckbox field={form.$('isRecurring')} />
-                                    </div>
-                                </div>
+                                {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
+                                    <div className="row">
+                                        <div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
+                                            <BasicFieldCheckbox field={form.$('isRecurring')} />
+                                        </div>
+                                    </div>}
                                 {form.$('isRecurring').value &&
                                     <div className="card--form card--med u-mar--bottom--med">
                                         <div className="row">
@@ -250,6 +255,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <BasicTextArea field={form.$('noteToAdministrator')} />
                                         </div>
                                     </div>}
+
                                 {renderEditLayoutFooterContent({ form })}
                             </div>
                         </div>

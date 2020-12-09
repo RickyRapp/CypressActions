@@ -36,6 +36,9 @@ class TransactionPreviewTemplate extends React.Component {
 
         const oldPaymentNumbers = JSON.parse(transaction.json)
         tableStore.setData(_.orderBy(oldPaymentNumbers, ['dateChanged'], ['desc']))
+        if (!tableStore.dataInitialized) {
+            tableStore.dataInitialized = true;
+        }
 
         return (
             <section>

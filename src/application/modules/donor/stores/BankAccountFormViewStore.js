@@ -58,6 +58,17 @@ class BankAccountFormViewStore extends BaseEditViewStore {
                     }
                 },
                 update: async (resource) => {
+                    if (!resource.isThirdPartyAccount) {
+                        resource.accountHolderName = this.donor.donorName;
+                        resource.addressLine1 = this.primaryAddress.addressLine1;
+                        resource.addressLine2 = this.primaryAddress.addressLine2;
+                        resource.city = this.primaryAddress.city;
+                        resource.state = this.primaryAddress.state;
+                        resource.zipCode = this.primaryAddress.zipCode;
+                        resource.email = this.primaryEmailAddress.email;
+                        resource.number = this.primaryPhoneNumber.number;
+                    }
+
                     await service.update({ id: this.editId, ...resource });
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
                         const fileStreamService = new DonorFileStreamService(this.rootStore.application.baasic.apiClient);
@@ -66,6 +77,17 @@ class BankAccountFormViewStore extends BaseEditViewStore {
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                 },
                 create: async (resource) => {
+                    if (!resource.isThirdPartyAccount) {
+                        resource.accountHolderName = this.donor.donorName;
+                        resource.addressLine1 = this.primaryAddress.addressLine1;
+                        resource.addressLine2 = this.primaryAddress.addressLine2;
+                        resource.city = this.primaryAddress.city;
+                        resource.state = this.primaryAddress.state;
+                        resource.zipCode = this.primaryAddress.zipCode;
+                        resource.email = this.primaryEmailAddress.email;
+                        resource.number = this.primaryPhoneNumber.number;
+                    }
+
                     const response = await service.create({
                         donorId: this.donorId,
                         ...resource
@@ -105,18 +127,6 @@ class BankAccountFormViewStore extends BaseEditViewStore {
                     this.form.$('coreMediaVaultEntryId').setDisabled(true);
                 }
             }
-            else {
-                this.form.update({
-                    accountHolderName: this.donor.donorName,
-                    addressLine1: this.primaryAddress.addressLine1,
-                    addressLine2: this.primaryAddress.addressLine2,
-                    city: this.primaryAddress.city,
-                    state: this.primaryAddress.state,
-                    zipCode: this.primaryAddress.zipCode,
-                    email: this.primaryEmailAddress.email,
-                    number: this.primaryPhoneNumber.number
-                });
-            }
         }
     }
 
@@ -133,7 +143,6 @@ class BankAccountFormViewStore extends BaseEditViewStore {
 
             if (response.data && response.data.item.length > 0) {
                 this.form.$('name').set(response.data.item[0].bank.name);
-                this.rootStore.notificationStore.success('Found!');
             }
         }
     }

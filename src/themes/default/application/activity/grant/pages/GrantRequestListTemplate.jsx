@@ -55,8 +55,15 @@ GrantRequestListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onComplete, onDecline } = actions;
-    if (!isSome(onComplete) && !isSome(onDecline)) return null;
+    const { onEdit, onComplete, onDecline } = actions;
+    if (!isSome(onEdit) && !isSome(onComplete) && !isSome(onDecline)) return null;
+
+    let editRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onEditRender) {
+            editRender = actionsRender.onEditRender(item);
+        }
+    }
 
     let completeRender = true;
     if (isSome(actionsRender)) {
@@ -75,6 +82,16 @@ function renderActions({ item, actions, actionsRender }) {
     return (
         <td>
             <div className="u-push">
+                {isSome(onEdit) && editRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon='u-icon u-icon--edit u-icon--sml'
+                        label='GRANT_REQUEST.BUTTON.EDIT'
+                        onlyIcon={true}
+                        onClick={() => onEdit(item)}>
+                    </BaasicButton>
+                ) : null}
                 {isSome(onComplete) && completeRender ? (
                     <BaasicButton
                         className="btn btn--icon"

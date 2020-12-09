@@ -1,14 +1,18 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { ModalParams } from 'core/models';
-import { GrantRequestListFilter } from 'application/grant/models';
+import { GrantRequestListFilter } from 'application/activity/grant/models';
 
 class GrantRequestViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant-request',
             authorization: 'theDonorsFundGrantRequestSection',
-            routes: {},
+            routes: {
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.grant.create', null, { grantRequestId: id });
+                },
+            },
             queryConfig: {
                 filter: new GrantRequestListFilter('dateCreated', 'desc'),
                 onResetFilter: (filter) => {
@@ -20,24 +24,23 @@ class GrantRequestViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'charity',
-                            'grantRequestStatus',
-                            'grant'
+                            'grantRequestStatus'
                         ];
                         params.fields = [
                             'id',
                             'amount',
                             'dateCreated',
                             'charity',
-                            'grantRequestStatus',
-                            'grant'
+                            'grantRequestStatus'
                         ];
 
-                        params.donorId = rootStore.userStore.user.id;
-                        return rootStore.application.activity.activityStore.findGrantRequest(params);
+                        return rootStore.application.activity.activityStore.findGrantRequest({ donorId: this.donorId, ...params });
                     }
                 }
             }
         });
+
+        this.donorId = rootStore.userStore.applicationUser.id;
 
         this.createTableStore();
         this.createGrantCreateOverviewModal();
@@ -110,12 +113,16 @@ class GrantRequestViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onEdit: (item) => this.routes.edit(item.id),
                 onComplete: (item) => this.setAndOpenCompleteModal(item),
-                onDecline: (item) => this.declineRequest(item)
+                onDecline: (item) => this.declineRequest(item),
+                onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
                 onCompleteRender: (item) => {
+                    return item.grantRequestStatus.abrv === 'open';
+                },
+                onEditRender: (item) => {
                     return item.grantRequestStatus.abrv === 'open';
                 },
                 onDeclineRender: (item) => {
