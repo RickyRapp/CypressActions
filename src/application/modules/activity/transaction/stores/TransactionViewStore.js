@@ -95,7 +95,8 @@ class TransactionViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            actionsRender: {}
+            actionsRender: {},
+            disableSorting: true
         }));
     }
 }

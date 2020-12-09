@@ -13,8 +13,7 @@ import {
     BasicTextArea,
     BaasicFormControls,
     BasicInput,
-    NumberFormatInputField,
-    FormDebug
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -257,7 +256,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>}
 
-                                <FormDebug form={form}></FormDebug>
                                 {renderEditLayoutFooterContent({ form })}
                             </div>
                         </div>

@@ -26,6 +26,9 @@ class TransactionEditViewStore extends BaseEditViewStore {
                         if (transaction.json) {
                             const oldPaymentNumbers = JSON.parse(transaction.json)
                             this.tableStore.setData(_.orderBy(oldPaymentNumbers, ['dateChanged'], ['desc']))
+                            if (!this.tableStore.dataInitialized) {
+                                this.tableStore.dataInitialized = true;
+                            }
                         }
                         return transaction;
                     }

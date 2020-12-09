@@ -952,7 +952,7 @@
         },
         "LIST": {
             "COLUMNS": {
-                "CHARITY_LABEL": "DESCRIPTION",
+                "CHARITY_LABEL": "Description",
                 "DONOR_NAME_LABEL": "Donor",
                 "DATE_CREATED_LABEL": "Date created",
                 "AMOUNT_LABEL": "Balance",
