@@ -24,6 +24,10 @@ class DonationRouteService extends BaseRouteService {
     review(resource) {
         return super.update(this.base + '/review', resource);
     }
+
+    withdrawFundCharity(resource) {
+        return super.update(this.base + '/withdraw-funds/{id}', resource);
+    }
 }
 
 export default DonationRouteService;

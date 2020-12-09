@@ -1,25 +1,22 @@
 import { CharityEditForm } from 'application/charity/forms';
+import { ModalParams } from 'core/models';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { action } from 'mobx';
 import { applicationContext } from 'core/utils';
+import { action } from 'mobx';
 
 @applicationContext
 class CharityGeneralDataViewStore extends BaseEditViewStore {
-    applicationDefaultSetting = null;
-    charityAccountTypes = null;
-
     constructor(rootStore, props) {
         super(rootStore, {
             name: 'charity',
             id: props.charityId,
-            autoInit: false,
             actions: () => {
                 return {
                     get: async (id) => {
                         const params = {
                             embed: ['contactInformation']
                         }
-                        const data = await this.rootStore.application.charity.charityStore.getCharity(id, params);
+                        const data = await rootStore.application.charity.charityStore.getCharity(id, params);
                         return {
                             name: data.name,
                             taxId: data.taxId,
@@ -27,8 +24,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             charityTypeId: data.charityTypeId,
                             contactInformationName: data.contactInformation.name,
                             contactInformationEmail: data.contactInformation.email,
-                            contactInformationNumber: data.contactInformation.number
-
+                            contactInformationNumber: data.contactInformation.number,
+                            availableBalance: data.availableBalance
                         }
                     },
                     update: async (resource) => {
@@ -39,25 +36,22 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
             FormClass: CharityEditForm,
             onAfterAction: () => { this.getResource(this.id); }
         });
+
         this.createCharityTypeDropdownStore();
         this.createCharityStatusDropdownStore();
+        this.createWithdrawFundModalParams();
     }
 
     @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.loadLookups(),
-                this.getResource(this.id)
-            ]);
-        }
-    }
-
-    async loadLookups() {
-        this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
+    async openWithdrawFundModalClick() {
+        this.withdrawFundModalParams.open({
+            charityId: this.id,
+            charity: this.item,
+            onAfterAction: () => {
+                this.getResource(this.id);
+                this.createModal.close();
+            }
+        });
     }
 
     createCharityStatusDropdownStore() {
@@ -76,6 +70,10 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                     return this.rootStore.application.lookup.charityTypeStore.find();
                 }
             });
+    }
+
+    createWithdrawFundModalParams() {
+        this.withdrawFundModalParams = new ModalParams({});
     }
 }
 

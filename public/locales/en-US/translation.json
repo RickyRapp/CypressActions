@@ -1092,6 +1092,9 @@
         },
         "EDIT": {
             "TITLE": "Edit charity",
+            "BUTTON": {
+                "WITHDRAW_FUNDS": "Withdraw Funds"
+            },
             "FIELDS": {
                 "TITLE": "General data",
                 "BALANCE_LABEL": "Balance",
@@ -1143,12 +1146,15 @@
                 "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
             }
         },
-        "PAGE_HEADER": {
-            "OVERVIEW": {
-                "BALANCE": "Balance: ",
-                "LOGIN": "Login",
-                "ACTIVITY": "Activity",
-                "ACCOUNT_TYPE": "Account: "
+        "WITHDRAW_FUND": {
+            "TITLE": "Withdraw funds",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount to withdraw",
+                "AMOUNT_PLACEHOLDER": "Enter amount",
+                "PAYMENT_TYPE_LABEL": "Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Select payment type",
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Enter payment number"
             }
         },
         "PREVIEW": {
