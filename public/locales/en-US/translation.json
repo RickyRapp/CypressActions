@@ -44,6 +44,7 @@
         "INVESTMENTS": "Investments",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
+        "PROFILE": "Profile",
         "CHARITY_PROFILE_SETTING": "Profile Settings",
         "MANAGE_CHARITIES": "Manage Charities",
         "COMMUNICATION_PREFERENCES": "Communication Preferences",
@@ -2548,7 +2549,7 @@
         "BUTTON": {
             "VIEW_INVESTMENT_OPTIONS": "View Investment Options",
             "ORDER_CERTIFICATES": "Order Certificates",
-            "NEW_CONTRIBUTION": "New Contribution",
+            "NEW_CONTRIBUTION": "New Deposit",
             "NEW_GRANT": "New Grant",
             "INVEST_FUNDS": "Invest Funds",
             "DEPOSIT_FUNDS": "Deposit Funds",

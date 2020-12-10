@@ -1,0 +1,93 @@
+import { CharityService } from 'application/donor/charity/services';
+import { GrantService, GrantRequestService, ScheduledGrantService } from 'application/common/grant/services';
+
+class GrantStore {
+    constructor(moduleStore) {
+        this.moduleStore = moduleStore;
+        this.grantService = moduleStore.rootStore.createApplicationService(GrantService);
+        this.grantRequestService = moduleStore.rootStore.createApplicationService(GrantRequestService);
+        this.scheduledGrantService = moduleStore.rootStore.createApplicationService(ScheduledGrantService);
+        this.charityService = moduleStore.rootStore.createApplicationService(CharityService);
+    }
+
+    async findGrants(params) {
+        const response = await this.grantService.find(params);
+        return response.data;
+    }
+
+    async findPastGrants(params) {
+        const response = await this.grantService.findPastGrant(params);
+        return response.data;
+    }
+
+    async findSummaryPastGrants(params) {
+        const response = await this.grantService.findSummaryPastGrants(params);
+        return response.data;
+    }
+
+    async findScheduledGrant(params) {
+        const response = await this.scheduledGrantService.find(params);
+        return response.data;
+    }
+
+    async findGrantRequest(params) {
+        const response = await this.grantRequestService.find(params);
+        return response.data;
+    }
+
+    async searchCharity(params) {
+        const response = await this.charityService.search(params);
+        return response.data;
+    }
+
+    async getGrant(id, params) {
+        const response = await this.grantService.get(id, params);
+        return response.data;
+    }
+
+    async getGrantRequest(id, params) {
+        const response = await this.grantRequestService.get(id, params);
+        return response.data;
+    }
+
+    async getDonorInformation(id) {
+        const response = await this.grantService.getDonorInformation(id);
+        return response.data;
+    }
+
+    async createGrant(resource) {
+        const response = await this.grantService.create(resource);
+        return response.data;
+    }
+
+    async createScheduledGrant(resource) {
+        const response = await this.scheduledGrantService.create(resource);
+        return response.data;
+    }
+
+    async createGrantRequest(resource) {
+        const response = await this.grantRequestService.createGrant(resource);
+        return response.data;
+    }
+
+    async suggest(resource) {
+        const response = await this.charityService.suggest(resource);
+        return response.data.response;
+    }
+
+    async updateGrant(resource) {
+        const response = await this.grantService.update(resource);
+        return response.data;
+    }
+
+    async updateScheduledGrant(resource) {
+        const response = await this.scheduledGrantService.update(resource);
+        return response.data;
+    }
+
+    async cancelScheduledGrant(resource) {
+        const response = await this.scheduledGrantService.cancel(resource);
+        return response.data;
+    }
+}
+export default GrantStore;

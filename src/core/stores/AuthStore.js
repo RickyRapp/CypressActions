@@ -44,7 +44,8 @@ class AuthStore {
             return this.signInRedirect;
         }
 
-        return this.rootStore.initialState;
+        // return this.rootStore.initialState;
+        return null;
     }
 
     @action syncToken() {

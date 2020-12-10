@@ -166,15 +166,15 @@ function renderMenuFooter(menuStore, t) {
         <React.Fragment>
             <div className="u-position--rel">
                 <div className="nav--primary__item--logout">
-                    {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i> 
-                    : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
+                    {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i>
+                        : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
                     }
                 </div>
             </div>
             <div className="u-position--rel">
                 <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--sml u-icon--arrow-right"></i> : <i className="u-icon u-icon--sml u-icon--arrow-left"></i>}
-                    
+
                 </div>
             </div>
         </React.Fragment>

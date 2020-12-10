@@ -24,7 +24,7 @@ import { baasicApp } from 'common/infrastructure';
 
 export default class RootStore {
     eventHandler = new EventHandler();
-    initialState = new RouterState('master.app.main.dashboard');
+    initialState = new RouterState('master.app.main.donor.dashboard');
 
     constructor(configuration) {
         this.configuration = configuration;
@@ -35,7 +35,7 @@ export default class RootStore {
         const { application } = moduleBuilder.buildStores(configuration.stores, moduleContext);
         applyModules(this.application, application, ['baasic']);
 
-        this.routerStore = new RouterStore(this, [...routes], new RouterState('master.not-found'));
+        this.routerStore = new RouterStore(this, [...routes], new RouterState('master.app.main.not-found'));
         this.routerStore.routeDataMap = getDefaultRouteDataMap(routes);
         this.routerMaps = routerMaps;
 
@@ -62,7 +62,7 @@ export default class RootStore {
                 title: error && error.message ? error.message : null,
                 description: error && error.stack ? error.stack : null
             });
-            return self.routerStore.goTo(new RouterState('error', { type: 'router' }));
+            return self.routerStore.goTo(new RouterState('master.app.main.error', { type: 'router' }));
         });
 
         this.historyAdapter = new HistoryAdapter(this.routerStore, history);
@@ -81,7 +81,7 @@ export default class RootStore {
 
     async routeChange({ fromState, toState, options }) {
         const { authStore, permissionStore } = this;
-        if (fromState && fromState.routeName === 'master.public.membership.login' && toState.routeName === 'error') {
+        if (fromState && fromState.routeName === 'master.public.membership.login' && toState.routeName === 'master.app.main.error') {
             return Promise.reject(this.initialState);
         }
 
@@ -92,16 +92,20 @@ export default class RootStore {
             }
             if (options.authorization && options.authorization.length > 0) {
                 if (!permissionStore.hasPermission(options.authorization)) {
-                    return Promise.reject(new RouterState('unauthorized'));
+                    return Promise.reject(new RouterState('master.app.main.unauthorized'));
                 }
             }
             else if (options.role && options.role.length > 0) {
                 if (!permissionStore.hasRolePermission(options.role)) {
-                    return Promise.reject(new RouterState('unauthorized'));
+                    return Promise.reject(new RouterState('master.app.main.unauthorized'));
                 }
             }
         }
         return Promise.resolve();
+    }
+
+    setInitialState(state) {
+        this.initialState = state;
     }
 }
 

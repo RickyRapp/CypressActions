@@ -1,2 +1,0 @@
-export { default as ApplicationDefaultSettingService } from './ApplicationDefaultSettingService'
-export { default as ApplicationDefaultSettingRouteService } from './ApplicationDefaultSettingRouteService'

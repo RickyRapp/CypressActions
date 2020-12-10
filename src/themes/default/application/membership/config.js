@@ -2,14 +2,12 @@ import { moduleProviderFactory } from 'core/providers';
 import { PublicLayout, MainLayout } from 'core/layouts';
 import {
 	Login,
-	Register,
 	PasswordChange,
 	PasswordRecovery,
 	UserPreferences,
 	RegistrationSuccess,
 	ActivationConfirm
-} from 'application/membership/pages';
-import { SessionCreate } from 'application/session/pages';
+} from 'application/common/membership/pages';
 
 (function () {
 	moduleProviderFactory.application.register({
@@ -31,12 +29,6 @@ import { SessionCreate } from 'application/session/pages';
 
 							return Promise.resolve();
 						}
-					},
-					{
-						name: 'master.public.membership.register',
-						pattern: '/register2',
-						isPublic: true,
-						component: Register
 					},
 					{
 						name: 'master.public.membership.registration-success',
@@ -61,17 +53,11 @@ import { SessionCreate } from 'application/session/pages';
 						pattern: '/password-change',
 						isPublic: true,
 						component: PasswordChange
-					},
-					{
-						name: 'master.public.new-session',
-						pattern: '/new-session',
-						isPublic: false,
-						component: SessionCreate
 					}
 				]
 			},
 			{
-				name: 'master.app.main.user-preferences',
+				name: 'master.app.main.donor.user-preferences',
 				pattern: '/user-preferences',
 				component: [MainLayout, UserPreferences],
 			}

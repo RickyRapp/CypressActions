@@ -7,7 +7,7 @@ function DisplayErrorTemplate({ errorStore }) {
     const backLink = (
         <button
             className="btn btn--sml btn--primary display--ib"
-            onClick={() => rootStore.routerStore.goTo('master.app.main.dashboard')}
+            onClick={() => rootStore.routerStore.goTo('master.app.main.donor.dashboard')}
         >
             GO TO DASHBOARD
         </button>

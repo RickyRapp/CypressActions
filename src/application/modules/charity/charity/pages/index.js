@@ -1,0 +1,1 @@
+export { default as CharityTab } from './CharityTab'

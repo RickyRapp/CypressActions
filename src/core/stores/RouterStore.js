@@ -22,7 +22,7 @@ class RouterStore {
         this.router = new MobxStateRouterStore(
             rootStore,
             routes,
-            new RouterState('master.not-found')
+            new RouterState('master.app.main.not-found')
         );
 
         observe(this, 'routerState',

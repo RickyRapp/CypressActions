@@ -39,17 +39,17 @@ class ErrorStore {
             event.stopPropagation();
             event.preventDefault();
             self.setError({ title: 'Something went wrong. Please contact support.' });
-            self.rootStore.routerStore.goTo('error')
+            self.rootStore.routerStore.goTo('master.app.main.error')
         });
     }
 }
 
 function handleApiError(rootStore, reason) {
-    const {data, message, statusCode, headers, config} = reason;
+    const { data, message, statusCode, headers, config } = reason;
     if (statusCode === 401 || statusCode === 403) {
         rootStore.authStore.syncToken();
         if (rootStore.authStore.isAuthenticated) {
-            return rootStore.routerStore.goTo('unauthorized');
+            return rootStore.routerStore.goTo('master.app.main.unauthorized');
         } else {
             return rootStore.navigateLogin();
         }
@@ -58,8 +58,8 @@ function handleApiError(rootStore, reason) {
     let error = errorFormatterService.getErrorObject(data, message, statusCode, headers, config);
 
     rootStore.errorStore.setError(error);
-    if (rootStore.routerStore.routerState.routerName !== 'error') {
-        rootStore.routerStore.goTo('error');
+    if (rootStore.routerStore.routerState.routerName !== 'master.app.main.error') {
+        rootStore.routerStore.goTo('master.app.main.error');
     }
 }
 

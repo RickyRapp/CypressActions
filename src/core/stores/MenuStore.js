@@ -152,9 +152,9 @@ function isMatch(menuRoute, route) {
 
     let valDiff = _.difference(menuParts, routeParts.slice(0, routeParts.length - diff));
 
-    if (valDiff.length > 0 && menuParts.length > 4) {
-        menuParts = menuParts.slice(0, 4);
-        routeParts = routeParts.slice(0, 4);
+    if (valDiff.length > 0 && menuParts.length > 5) {
+        menuParts = menuParts.slice(0, 5);
+        routeParts = routeParts.slice(0, 5);
 
         valDiff = _.difference(menuParts, routeParts);
     }
