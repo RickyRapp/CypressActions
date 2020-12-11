@@ -40,13 +40,23 @@ class LoginViewStore extends BaseViewStore {
             }
             else {
                 const { data: { roles: roles } } = await this.app.membershipModule.login.loadUserData({ embed: 'permissions' });
-                if (roles.includes('Charities')) {
-                    this.rootStore.setInitialState(new RouterState('master.app.main.charity.dashboard'));
+                if (roles) {
+                    if (roles.includes('Users')) {
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.donor.dashboard'));
+                    }
+                    else if (roles.includes('Charities')) {
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard'));
+                    }
+                    else if (roles.some(c => ['Administrators', 'Employees'].includes(c))) {
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.administration.dashboard'));
+                    }
+                    else if (roles.includes('Scanners')) {
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.session'));
+                    }
                 }
-                else if (roles.includes(['Administrators', 'Employees'])) {
-                    this.rootStore.setInitialState(new RouterState('master.app.main.admin.dashboard'));
+                else {
+                    this.rootStore.routerStore.goTo(new RouterState('master.app.unauthorized'));
                 }
-                await this.rootStore.routerStore.goTo(this.rootStore.initialState);
             }
         } catch (ex) {
             const { statusCode, data } = ex;

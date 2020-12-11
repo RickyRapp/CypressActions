@@ -98,8 +98,18 @@ function hasPermission(item, permissionFuncs) {
             }
         }
         else if (item.role) {
-            if (_.isString(item.role) || _.isArray(item.role)) {
+            if (_.isString(item.role)) {
                 authorized = permissionFuncs.roleAuthorization(item.role);
+            }
+            if (_.isArray(item.role)) {
+                let l = item.role.length;
+                let i = 0;
+                let tempAuth = false;
+                while (!tempAuth && i < l) {
+                    const role = item.role[i++];
+                    tempAuth = permissionFuncs.roleAuthorization(role);
+                }
+                authorized = tempAuth;
             }
         }
     }

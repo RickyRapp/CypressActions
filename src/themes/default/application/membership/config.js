@@ -1,10 +1,9 @@
 import { moduleProviderFactory } from 'core/providers';
-import { PublicLayout, MainLayout } from 'core/layouts';
+import { PublicLayout } from 'core/layouts';
 import {
 	Login,
 	PasswordChange,
 	PasswordRecovery,
-	UserPreferences,
 	RegistrationSuccess,
 	ActivationConfirm
 } from 'application/common/membership/pages';
@@ -24,7 +23,7 @@ import {
 						component: Login,
 						beforeEnter: function (fromState, toState, routerStore) {
 							if (routerStore.rootStore.authStore.isAuthenticated) {
-								return Promise.reject(routerStore.rootStore.initialState);
+								return Promise.reject(routerStore.rootStore.navigateDashboard());
 							}
 
 							return Promise.resolve();
@@ -55,11 +54,6 @@ import {
 						component: PasswordChange
 					}
 				]
-			},
-			{
-				name: 'master.app.main.donor.user-preferences',
-				pattern: '/user-preferences',
-				component: [MainLayout, UserPreferences],
 			}
 		]
 	});

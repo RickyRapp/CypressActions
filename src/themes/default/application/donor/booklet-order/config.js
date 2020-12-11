@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { BookletOrderList, BookletOrderCreate } from 'application/donor/booklet-order/pages';
-import { BookletOrderModuleStore } from 'application/common/booklet-order/stores';
 import { RouterState } from 'mobx-state-router';
 
 (function () {

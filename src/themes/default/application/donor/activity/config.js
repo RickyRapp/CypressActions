@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { ActivityTab } from 'application/donor/activity/pages';
-import { ActivityModuleStore } from 'application/donor/activity/stores';
 
 (function () {
     moduleProviderFactory.application.register({

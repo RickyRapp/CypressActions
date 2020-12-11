@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { ContributionCreate, ContributionEdit, ContributionDetails } from 'application/donor/contribution/pages';
-import { ContributionModuleStore } from 'application/common/contribution/stores';
 
 (function () {
     moduleProviderFactory.application.register({

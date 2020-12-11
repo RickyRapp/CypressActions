@@ -39,7 +39,7 @@ class ErrorStore {
             event.stopPropagation();
             event.preventDefault();
             self.setError({ title: 'Something went wrong. Please contact support.' });
-            self.rootStore.routerStore.goTo('master.app.main.error')
+            self.rootStore.routerStore.goTo('master.app.error')
         });
     }
 }
@@ -49,7 +49,7 @@ function handleApiError(rootStore, reason) {
     if (statusCode === 401 || statusCode === 403) {
         rootStore.authStore.syncToken();
         if (rootStore.authStore.isAuthenticated) {
-            return rootStore.routerStore.goTo('master.app.main.unauthorized');
+            return rootStore.routerStore.goTo('master.app.unauthorized');
         } else {
             return rootStore.navigateLogin();
         }
@@ -58,8 +58,8 @@ function handleApiError(rootStore, reason) {
     let error = errorFormatterService.getErrorObject(data, message, statusCode, headers, config);
 
     rootStore.errorStore.setError(error);
-    if (rootStore.routerStore.routerState.routerName !== 'master.app.main.error') {
-        rootStore.routerStore.goTo('master.app.main.error');
+    if (rootStore.routerStore.routerState.routerName !== 'master.app.error') {
+        rootStore.routerStore.goTo('master.app.error');
     }
 }
 

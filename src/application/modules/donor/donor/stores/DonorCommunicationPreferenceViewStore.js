@@ -2,7 +2,7 @@ import { BaseEditViewStore } from 'core/stores';
 import { DonorCommunicationPreferenceForm } from 'application/donor/donor/forms';
 
 class DonorCommunicationPreferenceViewStore extends BaseEditViewStore {
-    constructor(rootStore, donorId) {
+    constructor(rootStore) {
         super(rootStore, {
             name: 'donor-communication-preferences',
             id: rootStore.userStore.applicationUser.id,

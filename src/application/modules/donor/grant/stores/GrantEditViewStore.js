@@ -61,8 +61,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
             FormClass: GrantEditForm
         });
 
-        this.hasAdministratorsPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read');
-
         this.createCharityDropdownStore();
         this.createCharityTypeDropdownStore();
         this.createGrantPurposeTypeDropdownStore();
@@ -83,16 +81,14 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 this.getResource(this.id),
                 this.loadLookups()
             ]);
-            if (!this.hasAdministratorsPermission) {
-                const dateToEdit = moment(this.item.dateCreated).add(15, 'm');
-                if (!moment().isBetween(moment(this.item.dateCreated), dateToEdit)) {
-                    this.rootStore.notificationStore.warning('ERROR_CODE.3012')
-                    this.rootStore.routerStore.goBack();
-                }
-                if (!['pending', 'approved'].includes(this.item.donationStatus.abrv)) {
-                    this.rootStore.notificationStore.warning('ERROR_CODE.3011')
-                    this.rootStore.routerStore.goBack();
-                }
+            const dateToEdit = moment(this.item.dateCreated).add(15, 'm');
+            if (!moment().isBetween(moment(this.item.dateCreated), dateToEdit)) {
+                this.rootStore.notificationStore.warning('ERROR_CODE.3012')
+                this.rootStore.routerStore.goBack();
+            }
+            if (!['pending', 'approved'].includes(this.item.donationStatus.abrv)) {
+                this.rootStore.notificationStore.warning('ERROR_CODE.3011')
+                this.rootStore.routerStore.goBack();
             }
 
             await this.setDonor();

@@ -19,7 +19,7 @@ class DonorCertificateSettingViewStore extends BaseEditViewStore {
                 }
             },
             onAfterAction: async () => {
-                await this.getResource(donorId);
+                await this.getResource(this.id);
                 rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE')
             },
             FormClass: DonorCertificateSettingForm,

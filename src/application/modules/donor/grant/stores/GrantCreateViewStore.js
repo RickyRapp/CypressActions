@@ -70,12 +70,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
             FormClass: GrantCreateForm
         });
 
-        if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-            this.donorId = rootStore.routerStore.routerState.queryParams.id;
-        }
-        else {
-            this.donorId = rootStore.userStore.applicationUser.id;
-        }
+        this.donorId = rootStore.userStore.applicationUser.id;
 
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
             this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;

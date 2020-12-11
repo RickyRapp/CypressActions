@@ -14,7 +14,7 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
             autoInit: false,
             routes: {
                 edit: () => {
-                    this.rootStore.routerStore.goTo('master.app.main.donor.grant.edit', { editId: this.id }, { donorId: this.item.donorId });
+                    this.rootStore.routerStore.goTo('master.app.main.donor.grant.edit', { id: this.id });
                 }
             },
             actions: () => {
@@ -32,16 +32,13 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                             ],
                             donorId: this.donorId
                         }
-                        return this.rootStore.application.grant.grantStore.getDetails(id, params);
+                        return this.rootStore.application.donor.grantStore.getDetails(id, params);
                     }
                 }
             }
         });
 
-        this.hasAdministratorsPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')
-        if (!this.hasAdministratorsPermission) {
-            this.donorId = rootStore.userStore.user.id;
-        }
+        this.donorId = rootStore.userStore.applicationUser.id;
     }
 
     @action.bound
@@ -51,14 +48,9 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
         }
         else {
             await this.fetch([this.getResource(this.id)]);
-            if (this.item.donationStatus.abrv === 'pending') {
-                if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.update')) {
-                    this.isEditable = true;
-                }
-                else {
-                    const dateToEdit = moment(this.item.dateCreated).add(15, 'minutes');
-                    this.isEditable = moment().isBetween(this.item.dateCreated, dateToEdit);
-                }
+            if (this.item.donationStatus.abrv === 'pending' || this.item.donationStatus.abrv === 'approved') {
+                const dateToEdit = moment(this.item.dateCreated).add(15, 'minutes');
+                this.isEditable = moment().isBetween(this.item.dateCreated, dateToEdit);
             }
         }
     }

@@ -24,6 +24,7 @@ function renderPrimary(menu, menuStore, translate) {
 
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 {menu.map((item, i) => {
+
                     let className = 'nav--primary__item';
                     if (menuStore.selectedPath && menuStore.selectedPath.length > 0) {
                         if (menuItemActive(item, menuStore.selectedPath)) {

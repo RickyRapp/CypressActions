@@ -1,4 +1,4 @@
-import { moduleProviderFactory } from 'core/providers';
+import { moduleProviderFactory, moduleBuilder } from 'core/providers';
 import { MasterLayout } from 'core/layouts';
 
 (function () {
@@ -12,6 +12,7 @@ import { MasterLayout } from 'core/layouts';
                     {
                         name: 'master.app',
                         pattern: '',
+                        isPublic: false,
                         hookCondition:
                             // eslint-disable-next-line
                             (fromState, toState, routerStore) => {
@@ -20,13 +21,17 @@ import { MasterLayout } from 'core/layouts';
                         beforeEnter:
                             // eslint-disable-next-line
                             async (fromState, toState, routerStore) => {
-                                const { authStore } = routerStore.rootStore;
+                                const { rootStore } = routerStore;
 
                                 try {
-                                    await authStore.initialize();
+                                    await rootStore.authStore.initialize();
                                 } catch (ex) {
                                     return Promise.reject(ex);
                                 }
+
+                                await rootStore.userStore.resolveUser();
+                                const menu = moduleBuilder.buildMenus(rootStore.configuration.menus, { rootStore: rootStore });
+                                rootStore.menuStore.setMenu(menu, toState);
 
                                 return Promise.resolve();
                             },

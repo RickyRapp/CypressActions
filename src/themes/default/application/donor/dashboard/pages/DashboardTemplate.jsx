@@ -235,6 +235,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 DashboardTemplate.propTypes = {
 	dashboardViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired,
+	rootStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(DashboardTemplate);

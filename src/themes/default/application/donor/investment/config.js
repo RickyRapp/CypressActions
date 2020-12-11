@@ -1,6 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
 import { DonorInvestmentList, DonorInvestmentCreate } from 'application/donor/investment/pages';
-import { InvestmentModuleStore } from 'application/common/investment/stores';
 import { RouterState } from 'mobx-state-router';
 
 (function () {
