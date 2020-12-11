@@ -45,8 +45,8 @@ export default class DonorCommunicationPreferenceForm extends FormBase {
                 },
                 {
                     name: 'thirdPartyWebsiteAmountExceeding',
-                    label: 'DONOR.COMMUNICATION_PREFERENCE.FIELDS.THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_LABEL',
-                    placeholder: 'DONOR.COMMUNICATION_PREFERENCE.FIELDS.THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER',
+                    label: 'DONOR.COMMUNICATION_PREFERENCE.FIELDS.CHARITY_WEBSITE_AMOUNT_EXCEEDING_LABEL',
+                    placeholder: 'DONOR.COMMUNICATION_PREFERENCE.FIELDS.CHARITY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER',
                     rules: 'numeric|min:0',
                     extra: {
                         type: 'c2'

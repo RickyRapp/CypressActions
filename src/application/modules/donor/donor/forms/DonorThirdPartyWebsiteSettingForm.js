@@ -10,20 +10,20 @@ export default class DonorThirdPartyWebsiteSettingForm extends FormBase {
             fields: [
                 {
                     name: 'grantAcknowledgmentTypeId',
-                    label: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_LABEL',
-                    placeholder: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER',
+                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_LABEL',
+                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER',
                     rules: 'required|string'
                 },
                 {
                     name: 'grantPurposeTypeId',
-                    label: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_PURPOSE_TYPE_LABEL',
-                    placeholder: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_PURPOSE_TYPE_PLACEHOLDER',
+                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_PURPOSE_TYPE_LABEL',
+                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_PURPOSE_TYPE_PLACEHOLDER',
                     rules: 'required|string'
                 },
                 {
                     name: 'maxAmount',
-                    label: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.MAX_AMOUNT_LABEL',
-                    placeholder: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.MAX_AMOUNT_PLACEHOLDER',
+                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.MAX_AMOUNT_LABEL',
+                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.MAX_AMOUNT_PLACEHOLDER',
                     rules: 'numeric|min:0',
                     extra: {
                         type: 'c2'
@@ -31,8 +31,8 @@ export default class DonorThirdPartyWebsiteSettingForm extends FormBase {
                 },
                 {
                     name: 'maxTimesPerDay',
-                    label: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.MAX_TIMES_PER_DAY_LABEL',
-                    placeholder: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.MAX_TIMES_PER_DAY_PLACEHOLDER',
+                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.MAX_TIMES_PER_DAY_LABEL',
+                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.MAX_TIMES_PER_DAY_PLACEHOLDER',
                     rules: 'numeric|min:0',
                     extra: {
                         type: 'n0'
@@ -40,8 +40,8 @@ export default class DonorThirdPartyWebsiteSettingForm extends FormBase {
                 },
                 {
                     name: 'isEnabled',
-                    label: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_LABEL',
-                    placeholder: 'DONOR.THIRD_PARTY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_PLACEHOLDER',
+                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_LABEL',
+                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_PLACEHOLDER',
                     rules: 'required|boolean',
                     type: 'checkbox'
                 }

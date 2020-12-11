@@ -7,6 +7,12 @@ import { EmailStore } from 'application/administration/email/stores';
 import { BookletOrderStore } from 'application/administration/booklet-order/stores';
 import { BookletStore } from 'application/administration/booklet/stores';
 import { SessionStore } from 'application/administration/session/stores';
+import { GivingCardStore } from 'application/administration/giving-card/stores';
+import { CharityWebsiteStore } from 'application/administration/charity-website/stores';
+import { BankStore } from 'application/administration/bank/stores';
+import { DonationStore } from 'application/administration/donation/stores';
+import { DonorNoteStore } from 'application/administration/donor-note/stores';
+import { ReconcileStore } from 'application/administration/reconcile/stores';
 
 class AdministrationModuleStore {
     constructor(rootStore) {
@@ -20,6 +26,12 @@ class AdministrationModuleStore {
         this.bookletOrderStore = new BookletOrderStore(this);
         this.bookletStore = new BookletStore(this);
         this.sessionStore = new SessionStore(this);
+        this.givingCardStore = new GivingCardStore(this);
+        this.charityWebsiteStore = new CharityWebsiteStore(this);
+        this.bankStore = new BankStore(this);
+        this.donationStore = new DonationStore(this);
+        this.donorNoteStore = new DonorNoteStore(this);
+        this.reconcileStore = new ReconcileStore(this);
     }
 }
 export default AdministrationModuleStore;

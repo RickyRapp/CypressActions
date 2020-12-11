@@ -5,6 +5,7 @@ import { Page, PageHeader } from 'core/layouts';
 import { DonorAccountInformation, DonorSecurityAndPreferencesData, DonorCommunicationPreference } from 'application/administration/donor/components';
 import renderTabsContent from 'core/utils/renderTabsContent';
 import { TabsHeader } from 'core/components';
+import { DonorNoteList } from 'application/administration/donor-note/pages';
 
 function DonorTabTemplate({ donorTabViewStore }) {
     const {
@@ -37,6 +38,8 @@ function DonorTabTemplate({ donorTabViewStore }) {
             <div className='container'>
                 {renderTabsContent(activeIndex, children().props.children)}
             </div>
+
+            <DonorNoteList />
         </Page>
     );
 }

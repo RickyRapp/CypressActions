@@ -59,6 +59,48 @@ import { moduleProviderFactory } from 'core/providers';
                 order: 7,
                 route: 'master.app.main.administration.session.tab',
                 role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.USERS',
+                icon: 'users',
+                order: 7,
+                route: 'master.app.main.administration.user.list',
+                role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.GIVING_CARDS',
+                icon: 'fidelity-cards',
+                order: 7,
+                route: 'master.app.main.administration.giving-card.list',
+                role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.CHARITY_WEBSITE',
+                icon: 'third-party-website',
+                order: 8,
+                route: 'master.app.main.administration.charity-website.list',
+                role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.BANKS',
+                icon: 'banks',
+                order: 9,
+                route: 'master.app.main.administration.bank.tab',
+                role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.DONATIONS',
+                icon: 'donations',
+                order: 10,
+                route: 'master.app.main.administration.donation.list',
+                role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.RECONCILE',
+                icon: 'reconcile',
+                order: 11,
+                route: 'master.app.main.administration.reconcile.list',
+                role: ['Administrators', 'Employees']
             }
         ],
         moduleStore: function (context) {
