@@ -61,7 +61,7 @@ class GrantViewStore extends BaseListViewStore {
                             'scheduledGrantPayment'
                         ];
 
-                        return this.rootStore.application.administration.grantStore.findGrants(params);
+                        return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
             }

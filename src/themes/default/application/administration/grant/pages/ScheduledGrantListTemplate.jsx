@@ -6,25 +6,21 @@ import {
     BaasicTable,
     TableFilter,
     BaasicDropdown,
-    BaasicInput,
-    Export,
     BaasicModal
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const GrantListTemplate = function ({ grantViewStore }) {
+const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
     const {
         tableStore,
         routes,
         queryUtility,
         authorization,
         searchDonorDropdownStore,
-        donationStatusDropdownStore,
-        exportConfig,
         selectDonorModal
-    } = grantViewStore;
+    } = scheduledGrantViewStore;
 
     return (
         <Content>
@@ -35,21 +31,6 @@ const GrantListTemplate = function ({ grantViewStore }) {
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                 <BaasicDropdown store={searchDonorDropdownStore} />
                             </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id='confirmationNumber'
-                                    className='input input--lrg'
-                                    value={queryUtility.filter.confirmationNumber || ""}
-                                    onChange={(event) => queryUtility.filter.confirmationNumber = event.target.value}
-                                    placeholder='GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER'
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicDropdown
-                                    store={donationStatusDropdownStore}
-                                    placeholder='GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER'
-                                />
-                            </div>
                         </TableFilter>
                     </div>
                     <div className="col col-sml-12 col-med-2 col-lrg-2">
@@ -57,13 +38,6 @@ const GrantListTemplate = function ({ grantViewStore }) {
                             className="btn btn--base btn--primary u-mar--right--sml"
                             label={'LIST_LAYOUT.CREATE_BUTTON'}
                             onClick={routes.create} />
-                    </div>
-                </div>
-            </div>
-            <div className="card--primary card--med u-mar--bottom--sml">
-                <div className="row">
-                    <div className="col col-sml-12 col-med-12 col-lrg-12">
-                        <Export config={exportConfig} />
                     </div>
                 </div>
             </div>
@@ -81,16 +55,16 @@ const GrantListTemplate = function ({ grantViewStore }) {
     )
 };
 
-GrantListTemplate.propTypes = {
-    grantViewStore: PropTypes.object.isRequired,
+ScheduledGrantListTemplate.propTypes = {
+    scheduledGrantViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onRedirect, onPreview } = actions;
-    if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview)) return null;
+    const { onEdit, onRedirect } = actions;
+    if (!isSome(onEdit) && !isSome(onRedirect)) return null;
 
     let editRender = true;
     if (isSome(actionsRender)) {
@@ -127,15 +101,6 @@ function renderActions({ item, actions, actionsRender }) {
                         onClick={() => onRedirect(item)}>
                     </BaasicButton>
                 ) : null}
-                {isSome(onPreview) ? (
-                    <BaasicButton
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--preview u-icon--sml'
-                        label='GRANT.LIST.BUTTON.PREVIEW'
-                        onlyIcon={true}
-                        onClick={() => onPreview(item)}>
-                    </BaasicButton>
-                ) : null}
             </div>
         </td>
     )
@@ -148,5 +113,5 @@ renderActions.propTypes = {
     authorization: PropTypes.any
 };
 
-export default defaultTemplate(GrantListTemplate);
+export default defaultTemplate(ScheduledGrantListTemplate);
 

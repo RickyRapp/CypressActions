@@ -9,7 +9,7 @@ class DonationRouteService extends BaseRouteService {
         return super.find(this.base + '/overview/{?embed,fields}', params);
     }
 
-    findSummaryPastGrants(params) {
+    findSummaryPastGrant(params) {
         return super.find(this.base + '/summary/{?donorId,charityId,donationStatusIds,donationTypeIds,embed,fields}', params);
     }
 

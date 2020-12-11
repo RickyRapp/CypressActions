@@ -27,8 +27,8 @@ class GrantService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    findSummaryPastGrants(params) {
-        const url = this.routeService.findSummaryPastGrants(params);
+    findSummaryPastGrant(params) {
+        const url = this.routeService.findSummaryPastGrant(params);
         return this.apiClient.get(url);
     }
 

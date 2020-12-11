@@ -1406,6 +1406,11 @@
         }
     },
     "GRANT": {
+        "TAB": {
+            "LIST": "Grants",
+            "SCHEDULED_LIST": "Scheduled grants",
+            "REQUEST": "Grant requests"
+        },
         "LIST": {
             "TITLE": "Grants",
             "COLUMNS": {
@@ -1632,8 +1637,8 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "NEXT_DATE_LABEL": "Next date"
             },
-            "EMPTY_STATE": {
-                "TITLE": "No scheduled grants"
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Select donor"
             },
             "BUTTON": {
                 "EDIT": "Edit",

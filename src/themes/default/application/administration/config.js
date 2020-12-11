@@ -36,7 +36,7 @@ import { moduleProviderFactory } from 'core/providers';
                 title: 'MENU.GRANT',
                 icon: 'grant',
                 order: 4,
-                route: 'master.app.main.administration.grant.list',
+                route: 'master.app.main.administration.grant.tab',
                 role: ['Administrators', 'Employees']
             },
             {

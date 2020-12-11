@@ -10,18 +10,18 @@ class GrantStore {
         this.charityService = moduleStore.rootStore.createApplicationService(CharityService);
     }
 
-    async findGrants(params) {
+    async findGrant(params) {
         const response = await this.grantService.find(params);
         return response.data;
     }
 
-    async findPastGrants(params) {
+    async findPastGrant(params) {
         const response = await this.grantService.findPastGrant(params);
         return response.data;
     }
 
-    async findSummaryPastGrants(params) {
-        const response = await this.grantService.findSummaryPastGrants(params);
+    async findSummaryPastGrant(params) {
+        const response = await this.grantService.findSummaryPastGrant(params);
         return response.data;
     }
 

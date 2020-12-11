@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantList, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/administration/grant/pages';
+import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/administration/grant/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,9 +9,9 @@ import { GrantList, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } f
                 pattern: '/grant',
                 children: [
                     {
-                        name: 'master.app.main.administration.grant.list',
-                        pattern: '/list',
-                        component: GrantList,
+                        name: 'master.app.main.administration.grant.tab',
+                        pattern: '',
+                        component: GrantTab,
                         authorization: 'theDonorsFundGrantSection.read',
                         data: {
                             title: "GRANT.LIST.TITLE"

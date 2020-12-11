@@ -46,21 +46,19 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                                 }
                             }
 
-                            const charityData = await this.rootStore.application.grant.grantStore.suggest(charity);//charityId
+                            const charityData = await this.rootStore.application.administration.grantStore.suggest(charity);//charityId
                             resource.charityId = charityData.charityId;
                         }
 
-                        await this.rootStore.application.grant.grantStore.updateScheduledGrant(resource);
+                        await rootStore.application.administration.grantStore.updateScheduledGrant(resource);
                     },
                     get: async (id) => {
-                        return this.rootStore.application.grant.grantStore.getScheduledGrant(id, { embed: 'charity,charity.charityAddresses' });
+                        return rootStore.application.administration.grantStore.getScheduledGrant(id, { embed: 'charity,charity.charityAddresses' });
                     }
                 }
             },
             FormClass: GrantEditForm
         });
-
-        this.hasAdministratorsPermission = this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read');
 
         this.createCharityDropdownStore();
         this.createCharityTypeDropdownStore();
@@ -85,6 +83,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
             if (this.item.done) {
                 this.rootStore.notificationStore.warning('ERROR_CODE.3011')
                 this.rootStore.routerStore.goBack();
+                return;
             }
 
             await this.setDonor();
@@ -228,7 +227,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
                 ],
                 charityId: value
             }
-            data = await this.rootStore.application.grant.grantStore.findGrants(params);
+            data = await this.rootStore.application.administration.grantStore.findGrant(params);
         }
         if (data) {
             this.previousGrantsTableStore.setData(data.item);
@@ -240,7 +239,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async setDonor() {
-        this.donor = await this.rootStore.application.grant.grantStore.getDonorInformation(this.item.donorId);
+        this.donor = await this.rootStore.application.administration.grantStore.getDonorInformation(this.item.donorId);
     }
 
     @action.bound
@@ -331,7 +330,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.grant.grantStore.searchCharity({
+                    const data = await this.rootStore.application.administration.grantStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
