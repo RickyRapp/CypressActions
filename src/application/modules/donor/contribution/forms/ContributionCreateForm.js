@@ -13,7 +13,7 @@ export default class ContributionCreateForm extends FormBase {
                     name: 'amount',
                     label: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric|min:34',
+                    rules: 'required|numeric|min:0',
                     extra: {
                         type: 'c2'
                     },
@@ -188,18 +188,6 @@ export default class ContributionCreateForm extends FormBase {
                     label: 'CONTRIBUTION.CREATE.FIELDS.ESTIMATED_VALUE_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.ESTIMATED_VALUE_PLACEHOLDER',
                     rules: 'numeric|min:10000'
-                },
-                {
-                    name: 'transactionId',
-                    label: 'CONTRIBUTION.CREATE.FIELDS.TRANSACTION_ID_LABEL',
-                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.TRANSACTION_ID_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
-                    name: 'memo',
-                    label: 'CONTRIBUTION.CREATE.FIELDS.MEMO_LABEL',
-                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.MEMO_PLACEHOLDER',
-                    rules: 'string'
                 },
                 {
                     name: 'contributionSettingTypeId',

@@ -90,11 +90,12 @@ class ContributionEditViewStore extends BaseEditViewStore {
                 this.previousContributionsTableStore.dataInitialized = true;
             }
 
-            if (this.donor.isInitialContributionDone) {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumAdditionalAmount}`);
+            if (!this.donor.isInitialContributionDone) {
+                this.form.$('amount').set('rules', `required|numeric|min:${this.donor.contributionMinimumInitialAmount}`);
             }
-            else {
-                this.form.$('amount').set('rules', this.form.$('amount').rules + `|min:${this.donor.contributionMinimumInitialAmount}`);
+
+            if (this.item.donorBankAccount) {
+                this.bankAccountDropdownStore.setValue(this.item.donorBankAccount)
             }
         }
     }
@@ -130,8 +131,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
         const paymentType = this.paymentTypes.find(c => c.id === id);
         this.form.$('donorBankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
         this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check')
-        this.form.$('transactionId').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
-        this.form.$('memo').setRequired(paymentType && paymentType.abrv === 'chase-quickpay')
+        if (this.donor.isInitialContributionDone) {
+            const json = JSON.parse(paymentType.json);
+            this.form.$('amount').set('rules', `required|numeric|min:${json.minimumDeposit}`);
+        }
         this.nextStep(2);
     }
 
@@ -170,7 +173,8 @@ class ContributionEditViewStore extends BaseEditViewStore {
         this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    this.paymentTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
+                    const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
+                    this.paymentTypes = tempTypes.filter(c => { return c.abrv !== 'bill-pay' })
                     return this.paymentTypes;
                 }
             });

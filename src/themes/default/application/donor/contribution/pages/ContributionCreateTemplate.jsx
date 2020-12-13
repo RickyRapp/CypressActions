@@ -14,7 +14,7 @@ import {
 	SimpleBaasicTable,
 } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
-import { BankAccountForm } from 'application/donor/donor/components';
+import { DonorBankAccountEdit } from 'application/donor/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/donor/contribution/components';
 
 const ContributionCreateTemplate = function ({ contributionCreateViewStore, t }) {
@@ -74,6 +74,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 
 					{paymentTypes &&
 						paymentTypes.map(c => {
+							const json = JSON.parse(c.json)
 							return (
 								<div key={c.id} className="row">
 									<div className="col col-sml-12 col-xxlrg-3 u-mar--bottom--med">
@@ -98,23 +99,23 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 										<React.Fragment>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
 												<div className="card--primary card--med type--center u-mar--bottom--med">
-													<p className="type--base type--color--text type--wgt--regular">2-3 Business days</p>
+													<p className="type--base type--color--text type--wgt--regular">{json.timeline}</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
 												<div className="card--primary card--med type--center u-mar--bottom--med">
-													<p className="type--base type--color--text type--wgt--regular">60%</p>
+													<p className="type--base type--color--text type--wgt--regular">{json.deductibleEligibility}</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
 												<div className="card--primary card--med type--center u-mar--bottom--med">
-													<p className="type--base type--color--text type--wgt--regular">$250</p>
+													<p className="type--base type--color--text type--wgt--regular">{json.minimumDeposit}</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
 												<div className="card--primary card--med type--center u-mar--bottom--med">
 													<p className="type--base type--color--text type--wgt--regular">
-														Recurring deposits available
+														{json.more}
 													</p>
 												</div>
 											</div>
@@ -198,16 +199,6 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 												<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 													<BasicInput field={form.$('checkNumber')} />
 												</div>
-											)}
-											{paymentType.abrv === 'chase-quickpay' && (
-												<React.Fragment>
-													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-														<BasicInput field={form.$('transactionId')} />
-													</div>
-													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-														<BasicInput field={form.$('memo')} />
-													</div>
-												</React.Fragment>
 											)}
 											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<NumericInputField field={form.$('amount')} />
@@ -306,7 +297,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 										</span>
 									</div>
 								</div>
-								{(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
+								{(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
 									<React.Fragment>
 										<div className="col col-sml-12 col-lrg-12">
 											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
@@ -374,7 +365,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 				</div>
 			)}
 			<BaasicModal modalParams={bankAccountModal}>
-				<BankAccountForm />
+				<DonorBankAccountEdit />
 			</BaasicModal>
 		</Page>
 	);

@@ -72,10 +72,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
 
                     {paymentTypes &&
                         paymentTypes.map(c => {
-                            let iconName = c.name
-                                .toLowerCase()
-                                .split(' ')
-                                .join('-');
+                            const json = JSON.parse(c.json)
                             return (
                                 <div key={c.id} className="row">
                                     <div className="col col-sml-12 col-xxlrg-3 u-mar--bottom--med">
@@ -86,7 +83,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                             <div className="row row__align--center">
                                                 <div className="col col-sml-4 col-lrg-2">
                                                     <i
-                                                        className={`u-icon u-icon--med u-icon--${iconName} ${c.id === form.$('paymentTypeId').value &&
+                                                        className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
                                                             'checked'}`}
                                                     ></i>
                                                 </div>
@@ -99,23 +96,25 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                     {step === 1 && (
                                         <React.Fragment>
                                             <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                                <div className="card card--primary card--med type--center u-mar--bottom--med">
-                                                    <p className="type--base type--color--text type--wgt--regular">2-3 Business days</p>
+                                                <div className="card--primary card--med type--center u-mar--bottom--med">
+                                                    <p className="type--base type--color--text type--wgt--regular">{json.timeline}</p>
                                                 </div>
                                             </div>
                                             <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                                <div className="card card--primary card--med type--center u-mar--bottom--med">
-                                                    <p className="type--base type--color--text type--wgt--regular">60%</p>
+                                                <div className="card--primary card--med type--center u-mar--bottom--med">
+                                                    <p className="type--base type--color--text type--wgt--regular">{json.deductibleEligibility}</p>
                                                 </div>
                                             </div>
                                             <div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-                                                <div className="card card--primary card--med type--center u-mar--bottom--med">
-                                                    <p className="type--base type--color--text type--wgt--regular">$250</p>
+                                                <div className="card--primary card--med type--center u-mar--bottom--med">
+                                                    <p className="type--base type--color--text type--wgt--regular">{json.minimumDeposit}</p>
                                                 </div>
                                             </div>
                                             <div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
-                                                <div className="card card--primary card--med type--center u-mar--bottom--med">
-                                                    <p className="type--base type--color--text type--wgt--regular">Recurring deposits available</p>
+                                                <div className="card--primary card--med type--center u-mar--bottom--med">
+                                                    <p className="type--base type--color--text type--wgt--regular">
+                                                        {json.more}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </React.Fragment>
@@ -303,7 +302,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                     <p className="type--sml">{t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}</p>
                                     {paymentTypes.find(c => c.id === form.$('paymentTypeId').value).name}
                                 </div>
-                                {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
+                                {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12">
                                             {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}

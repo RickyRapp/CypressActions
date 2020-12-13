@@ -190,18 +190,6 @@ export default class ContributionCreateForm extends FormBase {
                     rules: 'numeric|min:10000'
                 },
                 {
-                    name: 'transactionId',
-                    label: 'CONTRIBUTION.CREATE.FIELDS.TRANSACTION_ID_LABEL',
-                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.TRANSACTION_ID_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
-                    name: 'memo',
-                    label: 'CONTRIBUTION.CREATE.FIELDS.MEMO_LABEL',
-                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.MEMO_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
                     name: 'contributionSettingTypeId',
                     label: 'CONTRIBUTION.CREATE.FIELDS.SETTING_TYPE_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.SETTING_TYPE_PLACEHOLDER',
