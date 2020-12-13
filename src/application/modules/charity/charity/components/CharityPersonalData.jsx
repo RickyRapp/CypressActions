@@ -6,15 +6,15 @@ import {
     CharityBankAccount
 } from 'application/charity/charity/components';
 
-function CharityPersonalDataTemplate(props) {
+function CharityPersonalDataTemplate() {
     return (
         <div className="card--primary card--med u-mar--top--sml">
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <CharityBankAccount charityId={props.charityId} />
+                    <CharityBankAccount />
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <CharityAddressListTable charityId={props.charityId} />
+                    <CharityAddressListTable />
                 </div>
             </div>
         </div>
@@ -22,8 +22,7 @@ function CharityPersonalDataTemplate(props) {
 }
 
 CharityPersonalDataTemplate.propTypes = {
-    t: PropTypes.func,
-    charityId: PropTypes.string.isRequired
+    t: PropTypes.func
 };
 
 export default defaultTemplate(CharityPersonalDataTemplate);

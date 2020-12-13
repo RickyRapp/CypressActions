@@ -11,7 +11,7 @@ export default class GrantRequestCreateForm extends FormBase {
                 {
                     name: 'phoneNumber',
                     label: 'GRANT_REQUEST.CREATE.FIELDS.PHONE_NUMBER_LABEL',
-                    rules: 'required|string|phoneNumberExist',
+                    rules: 'required|string',
                     options: {
                         validateOnChange: false
                     },

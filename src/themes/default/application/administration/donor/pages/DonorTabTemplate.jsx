@@ -6,8 +6,9 @@ import { DonorAccountInformation, DonorSecurityAndPreferencesData, DonorCommunic
 import renderTabsContent from 'core/utils/renderTabsContent';
 import { TabsHeader } from 'core/components';
 import { DonorNoteList } from 'application/administration/donor-note/pages';
+import { EmailList } from 'application/administration/email/pages';
 
-function DonorTabTemplate({ donorTabViewStore }) {
+function DonorTabTemplate({ donorTabViewStore, rootStore }) {
     const {
         loaderStore,
         activeIndex
@@ -24,6 +25,9 @@ function DonorTabTemplate({ donorTabViewStore }) {
                 </div>
                 <div label={'DONOR.TAB.COMMUNICATION_PREFERENCE'}>
                     <DonorCommunicationPreference />
+                </div>
+                <div label={'DONOR.TAB.EMAIL'}>
+                    <EmailList donorId={rootStore.routerStore.routerState.params.id} />
                 </div>
             </React.Fragment>
         )
@@ -45,7 +49,8 @@ function DonorTabTemplate({ donorTabViewStore }) {
 }
 
 DonorTabTemplate.propTypes = {
-    donorTabViewStore: PropTypes.object.isRequired
+    donorTabViewStore: PropTypes.object.isRequired,
+    rootStore: PropTypes.object
 };
 
 export default defaultTemplate(DonorTabTemplate);

@@ -6,10 +6,10 @@ import { action } from 'mobx';
 
 @applicationContext
 class CharityGeneralDataViewStore extends BaseEditViewStore {
-    constructor(rootStore, props) {
+    constructor(rootStore) {
         super(rootStore, {
             name: 'charity',
-            id: props.charityId,
+            id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
                     get: async (id) => {

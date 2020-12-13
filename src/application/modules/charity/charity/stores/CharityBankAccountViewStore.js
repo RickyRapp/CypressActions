@@ -46,7 +46,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             FormClass: CharityBankAccountEditForm
         });
 
-        this.charityId = props.charityId;
+        this.charityId = rootStore.userStore.applicationUser.id;
         this.createImageUploadStore();
     }
 

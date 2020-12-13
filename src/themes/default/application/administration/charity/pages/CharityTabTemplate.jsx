@@ -5,10 +5,9 @@ import { TabLayout, Page } from 'core/layouts';
 import { CharityGeneralData, CharityPersonalData } from 'application/administration/charity/components';
 import { EmailList } from 'application/administration/email/pages';
 
-function CharityTabTemplate({ charityTabViewStore }) {
+function CharityTabTemplate({ charityTabViewStore, rootStore }) {
     const {
-        loaderStore,
-        charityId
+        loaderStore
     } = charityTabViewStore;
 
     return (
@@ -16,13 +15,13 @@ function CharityTabTemplate({ charityTabViewStore }) {
             <div className='u-mar--bottom--med'>
                 <TabLayout store={charityTabViewStore}>
                     <div label={'CHARITY.TAB.GENERAL_DATA'}>
-                        <CharityGeneralData charityId={charityId} />
+                        <CharityGeneralData />
                     </div>
                     <div label={'CHARITY.TAB.PERSONAL_DATA'}>
-                        <CharityPersonalData charityId={charityId} />
+                        <CharityPersonalData />
                     </div>
                     <div label={'CHARITY.TAB.EMAIL'} className="u-mar--top--sml">
-                        <EmailList charityId={charityId} />
+                        <EmailList charityId={rootStore.routerStore.routerState.params.id} />
                     </div>
                 </TabLayout>
             </div>
@@ -31,7 +30,8 @@ function CharityTabTemplate({ charityTabViewStore }) {
 }
 
 CharityTabTemplate.propTypes = {
-    charityTabViewStore: PropTypes.object.isRequired
+    charityTabViewStore: PropTypes.object.isRequired,
+    rootStore: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(CharityTabTemplate);

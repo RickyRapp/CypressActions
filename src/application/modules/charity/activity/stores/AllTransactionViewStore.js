@@ -22,7 +22,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                             'donationType',
                             'donationStatus'
                         ];
-                        return rootStore.application.activity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+                        return rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
                     }
                 }
             }

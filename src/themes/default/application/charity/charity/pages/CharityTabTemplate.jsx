@@ -6,8 +6,7 @@ import { CharityGeneralData, CharityPersonalData } from 'application/charity/cha
 
 function CharityTabTemplate({ charityTabViewStore }) {
     const {
-        loaderStore,
-        charityId
+        loaderStore
     } = charityTabViewStore;
 
     return (
@@ -15,10 +14,10 @@ function CharityTabTemplate({ charityTabViewStore }) {
             <div className='u-mar--bottom--med'>
                 <TabLayout store={charityTabViewStore}>
                     <div label={'CHARITY.TAB.GENERAL_DATA'}>
-                        <CharityGeneralData charityId={charityId} />
+                        <CharityGeneralData />
                     </div>
                     <div label={'CHARITY.TAB.PERSONAL_DATA'}>
-                        <CharityPersonalData charityId={charityId} />
+                        <CharityPersonalData />
                     </div>
                 </TabLayout>
             </div>

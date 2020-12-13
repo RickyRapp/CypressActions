@@ -1,5 +1,5 @@
-export { default as CharityViewStore } from './CharityViewStore'
 export { default as CharityGeneralDataViewStore } from './CharityGeneralDataViewStore'
 export { default as CharityAddressViewStore } from './CharityAddressViewStore'
 export { default as CharityBankAccountViewStore } from './CharityBankAccountViewStore'
 export { default as CharityTabViewStore } from './CharityTabViewStore'
+export { default as CharityStore } from './CharityStore'

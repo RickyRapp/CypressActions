@@ -10,10 +10,10 @@ class CharityViewStore extends BaseListViewStore {
             routes: {
                 edit: (id) => {
                     this.setChildNavigationTitle(i => i.id === id, item => item.name);
-                    this.rootStore.routerStore.goTo('master.app.main.charity.edit', { id: id });
+                    this.rootStore.routerStore.goTo('master.app.main.administration.charity.edit', { id: id });
                 },
                 create: () =>
-                    this.rootStore.routerStore.goTo('master.app.main.charity.create')
+                    this.rootStore.routerStore.goTo('master.app.main.administration.charity.create')
             },
             queryConfig: {
                 filter: new CharityListFilter('dateCreated', 'desc')

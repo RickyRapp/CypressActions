@@ -5,7 +5,7 @@ import { CharityBankAccountEditForm } from 'application/administration/charity/f
 
 @applicationContext
 class CharityBankAccountViewStore extends BaseEditViewStore {
-    constructor(rootStore, props) {
+    constructor(rootStore) {
         super(rootStore, {
             name: 'bank-account',
             id: undefined,
@@ -46,7 +46,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             FormClass: CharityBankAccountEditForm
         });
 
-        this.charityId = props.charityId;
+        this.charityId = rootStore.routerStore.routerState.params.id;
         this.createImageUploadStore();
     }
 
