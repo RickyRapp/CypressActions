@@ -1,6 +1,6 @@
-import {action} from 'mobx';
-import { TableViewStore, BaseListViewStore} from 'core/stores';
-import {applicationContext} from 'core/utils';
+import { action } from 'mobx';
+import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { applicationContext } from 'core/utils';
 
 @applicationContext
 class UserViewStore extends BaseListViewStore {
@@ -9,17 +9,12 @@ class UserViewStore extends BaseListViewStore {
             name: 'user',
             autoInit: true,
             routes: {
-                edit: id =>{
+                edit: id => {
                     this.setChildNavigationTitle(i => i.id === id, item => item.userName);
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.user.edit',
-                        { id: id }
-                    );
+                    this.rootStore.routerStore.goTo('master.app.main.administration.user.edit', { id: id });
                 },
                 create: () =>
-                    this.rootStore.routerStore.goTo(
-                        'master.app.main.user.create'
-                    )
+                    this.rootStore.routerStore.goTo('master.app.main.administration.user.create')
             },
             actions: () => {
                 const service = rootStore.application.baasic.membershipModule.user;
@@ -33,40 +28,7 @@ class UserViewStore extends BaseListViewStore {
             }
         });
 
-        this.setTableStore(new TableViewStore(this.queryUtility, {
-            columns: [
-                {
-                    key: 'userName',
-                    title: 'USER.LIST.COLUMNS.USERNAME'
-                },
-                {
-                    key: 'email',
-                    title: 'USER.LIST.COLUMNS.EMAIL',
-                    onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
-                },
-                {
-                    key: 'isApproved',
-                    title: 'USER.LIST.COLUMNS.APPROVED',
-                    onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
-                },
-                {
-                    key: 'isLockedOut',
-                    title: 'USER.LIST.COLUMNS.LOCKED_OUT',
-                    onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
-                }
-            ],
-            actions: {
-                onEdit: (user) => this.routes.edit(user.id),
-                onLock: (user) => this.lockUser(user),
-                onUnlock: (user) => this.unlockUser(user),
-                onApprove: (user) => this.approveUser(user),
-                onDisapprove: (user) => this.disapproveUser(user),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
-            }
-        }));
+        this.createTableStore();
     }
 
     @action.bound
@@ -118,9 +80,41 @@ class UserViewStore extends BaseListViewStore {
         this.loaderStore.resume();
     }
 
-    @action
-    async getUser() {
-
+    createTableStore() {
+        this.setTableStore(new TableViewStore(this.queryUtility, {
+            columns: [
+                {
+                    key: 'userName',
+                    title: 'USER.LIST.COLUMNS.USERNAME'
+                },
+                {
+                    key: 'email',
+                    title: 'USER.LIST.COLUMNS.EMAIL',
+                    onClick: item => this.routes.edit(item.id),
+                    authorization: this.authorization.update
+                },
+                {
+                    key: 'isApproved',
+                    title: 'USER.LIST.COLUMNS.APPROVED',
+                    onClick: item => this.routes.edit(item.id),
+                    authorization: this.authorization.update
+                },
+                {
+                    key: 'isLockedOut',
+                    title: 'USER.LIST.COLUMNS.LOCKED_OUT',
+                    onClick: item => this.routes.edit(item.id),
+                    authorization: this.authorization.update
+                }
+            ],
+            actions: {
+                onEdit: (user) => this.routes.edit(user.id),
+                onLock: (user) => this.lockUser(user),
+                onUnlock: (user) => this.unlockUser(user),
+                onApprove: (user) => this.approveUser(user),
+                onDisapprove: (user) => this.disapproveUser(user),
+                onSort: (column) => this.queryUtility.changeOrder(column.key)
+            }
+        }));
     }
 }
 

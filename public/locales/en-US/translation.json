@@ -34,8 +34,8 @@
         "APPLICATION_DEFAULT_SETTING": "Default setting",
         "SCHEDULED_SETTINGS": "Scheduled settings",
         "RECONCILE": "Reconcile",
-        "FIDELITY_RECOMMENDATION_CARDS": "Fidelity cards",
-        "THIRD_PARTY_WEBSITE": "Third party websites",
+        "GIVING_CARDS": "Giving cards",
+        "CHARITY_WEBSITE": "Charity websites",
         "CHARITY_GRANTS": "Grants",
         "CHARITY_GRANT_REQUESTS": "Request Donation",
         "CHARITY_CERTIFICATES": "Certificates",
@@ -44,6 +44,7 @@
         "INVESTMENTS": "Investments",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
+        "PROFILE": "Profile",
         "CHARITY_PROFILE_SETTING": "Profile Settings",
         "MANAGE_CHARITIES": "Manage Charities",
         "COMMUNICATION_PREFERENCES": "Communication Preferences",
@@ -596,7 +597,7 @@
             "TITLE": "Communication Preferences",
             "TITLE_CARD": "Card",
             "TITLE_CHECK": "Check",
-            "TITLE_THIRD_PARY_WEBSITE": "Third Party Website",
+            "TITLE_CHARITY_WEBSITE": "Charity Website",
             "TITLE_GENERAL": "General",
             "TITLE_INVESTMENT": "Investment",
             "FIELDS": {
@@ -608,8 +609,8 @@
                 "CHECK_AMOUNT_EXCEEDING_PLACEHOLDER": "",
                 "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_LABEL": "Notify me when check inventory running low",
                 "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_PLACEHOLDER": "",
-                "THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_LABEL": "Notify me for tranasctions exceed",
-                "THIRD_PARTY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER": "",
+                "CHARITY_WEBSITE_AMOUNT_EXCEEDING_LABEL": "Notify me for tranasctions exceed",
+                "CHARITY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER": "",
                 "IS_NEW_GRANT_REQUEST_ENABLED_LABEL": "Notify me when charity sends request",
                 "IS_NEW_GRANT_REQUEST_ENABLED_PLACEHOLDER": "",
                 "DONOR_AVAILABLE_BALANCE_RUNS_BELOW_LABEL": "Notify me when my balance runs below",
@@ -647,7 +648,7 @@
             "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
             "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
         },
-        "THIRD_PARTY_WEBSITE_SETTING": {
+        "CHARITY_WEBSITE_SETTING": {
             "TITLE": "Third party websites",
             "EDIT": {
                 "FIELDS": {
@@ -1405,6 +1406,11 @@
         }
     },
     "GRANT": {
+        "TAB": {
+            "LIST": "Grants",
+            "SCHEDULED_LIST": "Scheduled grants",
+            "REQUEST": "Grant requests"
+        },
         "LIST": {
             "TITLE": "Grants",
             "COLUMNS": {
@@ -1448,7 +1454,7 @@
                 "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
                 "DONOR_NAME_LABEL": "Donor",
                 "SCHEDULED_LABEL": "Scheduled",
-                "THIRD_PARTY_WEBSITE_LABEL": "Created over third party website"
+                "CHARITY_WEBSITE_LABEL": "Created over charity website"
             }
         },
         "CREATE": {
@@ -1631,8 +1637,8 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "NEXT_DATE_LABEL": "Next date"
             },
-            "EMPTY_STATE": {
-                "TITLE": "No scheduled grants"
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Select donor"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -2259,9 +2265,9 @@
             }
         }
     },
-    "FIDELITY_RECOMMENDATION_CARD": {
+    "GIVING_CARD": {
         "LIST": {
-            "TITLE": "Fidelity recommendation cards",
+            "TITLE": "Giving cards",
             "COLUMNS": {
                 "CARD_NUMBER_LABEL": "Card number",
                 "DONOR_NAME_LABEL": "Assigned to donor",
@@ -2273,7 +2279,7 @@
                 "CVV_LABEL": "CVV"
             },
             "EMPTY_STATE": {
-                "TITLE": "No fidelity recommendation cards"
+                "TITLE": "No giving cards"
             },
             "BUTTON": {
                 "LOCK": "Lock",
@@ -2281,7 +2287,7 @@
             }
         }
     },
-    "THIRD_PARTY_WEBSITE": {
+    "CHARITY_WEBSITE": {
         "LIST": {
             "TITLE": "Charity websites",
             "COLUMNS": {
@@ -2548,7 +2554,7 @@
         "BUTTON": {
             "VIEW_INVESTMENT_OPTIONS": "View Investment Options",
             "ORDER_CERTIFICATES": "Order Certificates",
-            "NEW_CONTRIBUTION": "New Contribution",
+            "NEW_CONTRIBUTION": "New Deposit",
             "NEW_GRANT": "New Grant",
             "INVEST_FUNDS": "Invest Funds",
             "DEPOSIT_FUNDS": "Deposit Funds",

@@ -133,6 +133,7 @@ class StateRoute {
                         pattern: this.pattern,
                         data: this.data,
                         isPublic: this.isPublic,
+                        role: this.role
                     },
                 });
             } catch (ex) {

@@ -1,60 +1,72 @@
+import { DonorModuleStore } from 'application/donor/module';
 import { moduleProviderFactory } from 'core/providers';
-import { DonorList, DonorTab, DonorCreate } from 'application/donor/pages';
-import { DonorModuleStore } from 'application/donor/stores';
 
 (function () {
     moduleProviderFactory.application.register({
         routes: [
             {
                 name: 'master.app.main.donor',
-                pattern: '/donors',
-                children: [
-                    {
-                        name: 'master.app.main.donor.list',
-                        pattern: '',
-                        component: DonorList,
-                        authorization: 'theDonorsFundAdministrationSection.read',
-                        data: {
-                            title: "DONOR.LIST.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.donor.edit',
-                        pattern: '/edit/:id',
-                        component: DonorTab,
-                        authorization: 'theDonorsFundDonorSection.update',
-                        data: {
-                            title: "DONOR.EDIT.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.donor.create',
-                        pattern: '/create',
-                        component: DonorCreate,
-                        authorization: 'theDonorsFundAdministrationSection.create',
-                        data: {
-                            title: "DONOR.CREATE.TITLE"
-                        }
-                    }
-                ]
+                pattern: '/donor',
+                role: ['Users'],
             },
-            {
-                name: 'master.app.main.donor-profile',
-                pattern: '/profile',
-                authorization: 'theDonorsFundDonorSection.create',
-                component: DonorTab,
-                data: {
-                    title: "DONOR.EDIT.TITLE"
-                }
-            }
         ],
         menu: [
             {
-                title: 'MENU.DONORS',
-                icon: 'donors',
+                title: 'MENU.GIVE',
+                icon: 'give',
+                order: 1,
+                role: ['Users'],
+                route: 'master.app.main.donor.grant.create'
+            },
+            {
+                title: 'MENU.DASHBOARD',
+                icon: 'dashboard',
+                order: 2,
+                route: 'master.app.main.donor.dashboard',
+                role: ['Users']
+            },
+            {
+                title: 'MENU.ACTIVITY',
+                icon: 'activity',
+                order: 3,
+                route: 'master.app.main.donor.activity',
+                role: ['Users']
+            },
+            {
+                title: 'MENU.DEPOSITS',
+                icon: 'contribution',
+                order: 4,
+                route: 'master.app.main.donor.contribution.create',
+                role: ['Users']
+            },
+            {
+                title: 'MENU.INVESTMENTS',
+                icon: 'investment',
                 order: 5,
-                role: ['Administrators'],
-                route: 'master.app.main.donor.list',
+                route: 'master.app.main.donor.investment.donor',
+                role: ['Users']
+            },
+            {
+                title: 'MENU.MANAGE_FUND',
+                icon: 'administration',
+                order: 6,
+                role: ['Users'],
+                subMenu: [
+                    {
+                        title: 'MENU.PROFILE_SETTING',
+                        icon: 'profile',
+                        order: 1,
+                        role: ['Users'],
+                        route: 'master.app.main.donor.profile'
+                    },
+                    {
+                        title: 'MENU.ORDER_VOUCHERS',
+                        icon: 'booklet-order',
+                        order: 2,
+                        role: ['Users'],
+                        route: 'master.app.main.donor.booklet-order.create'
+                    },
+                ]
             }
         ],
         moduleStore: function (context) {

@@ -1,23 +1,20 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { ReconcileService } from 'application/administration/reconcile/services';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { ModalParams } from 'core/models';
 import { isSome } from 'core/utils';
-import { TransactionEditForm } from '../forms';
+import { ReconcileEditForm } from 'application/administration/reconcile/forms';
 
 class ReconcileViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
-            name: 'grant',
+            name: 'reconcile',
             authorization: 'theDonorsFundAdministrationSection',
-            routes: {
-            },
+            routes: {},
             queryConfig: {
                 filter: new ReconcileListFilter('dateCreated', 'desc')
             },
             actions: () => {
-                const service = new ReconcileService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
                         params.embed = [
@@ -25,13 +22,50 @@ class ReconcileViewStore extends BaseListViewStore {
                             'paymentTransaction',
                             'paymentType'
                         ]
-                        const response = await service.find(params);
-                        return response.data;
+                        return rootStore.application.administration.reconcileStore.findReconcile(params);
                     }
                 }
             }
         });
 
+        this.createTableStore();
+        this.editModal = new ModalParams({});
+        this.previewModal = new ModalParams({});
+    }
+
+    @action.bound
+    openEditModal(reconcile) {
+        this.editModal.open({
+            reconcile: reconcile,
+            onAfterEdit: () => {
+                this.editModal.close();
+                this.queryUtility.fetch()
+            }
+        });
+    }
+
+    @action.bound
+    openPreviewModal(reconcile) {
+        this.previewModal.open({
+            reconcile: reconcile
+        });
+    }
+
+    @action.bound
+    async cashConfirm(reconcile) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to mark transaction as cashed?`,
+            async () => {
+                let form = new ReconcileEditForm();
+                form.$('isCashed').set(true);
+                await this.rootStore.application.administration.reconcileStore.checkUpdate({ id: transaction.id, ...form.values() });
+                await this.queryUtility.fetch();
+                this.rootStore.notificationStore.success('Successfully cashed transaction');
+            }
+        );
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -85,39 +119,6 @@ class ReconcileViewStore extends BaseListViewStore {
                 }
             }
         }));
-
-        this.editModal = new ModalParams({});
-        this.previewModal = new ModalParams({});
-    }
-
-    @action.bound
-    openEditModal(transaction) {
-        this.editModal.open({
-            transaction: transaction,
-            onAfterEdit: () => { this.editModal.close(); this.queryUtility.fetch() }
-        });
-    }
-
-    @action.bound
-    openPreviewModal(transaction) {
-        this.previewModal.open({
-            transaction: transaction
-        });
-    }
-
-    @action.bound
-    async cashConfirm(transaction) {
-        this.rootStore.modalStore.showConfirm(
-            `Are you sure you want to mark transaction as cashed?`,
-            async () => {
-                let form = new TransactionEditForm();
-                form.$('isCashed').set(true);
-                const service = new ReconcileService(this.rootStore.application.baasic.apiClient);
-                await service.checkUpdate({ id: transaction.id, ...form.values() });
-                await this.queryUtility.fetch();
-                this.rootStore.notificationStore.success('Successfully cashed transaction');
-            }
-        );
     }
 }
 

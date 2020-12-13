@@ -5,19 +5,16 @@ import {
     BaasicButton,
     BaasicTable,
     TableFilter,
-    EmptyState,
     BaasicModal
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { isSome } from 'core/utils';
-import { TransactionEdit } from 'application/administration/reconcile/components';
-import { TransactionPreviewTemplate } from 'themes/application/administration/reconcile/components';
+import { ReconcileEdit } from 'application/administration/reconcile/components';
+import { ReconcilePreviewTemplate } from 'themes/application/administration/reconcile/components';
 
 const ReconcileListTemplate = function ({ reconcileViewStore }) {
     const {
         tableStore,
-        routes,
         queryUtility,
         authorization,
         editModal,
@@ -40,10 +37,10 @@ const ReconcileListTemplate = function ({ reconcileViewStore }) {
                 </div>
             </Content>
             <BaasicModal modalParams={editModal}>
-                <TransactionEdit />
+                <ReconcileEdit />
             </BaasicModal>
             <BaasicModal modalParams={previewModal}>
-                <TransactionPreviewTemplate />
+                <ReconcilePreviewTemplate />
             </BaasicModal>
         </ApplicationListLayout>
     )

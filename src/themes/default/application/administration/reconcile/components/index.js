@@ -1,2 +1,2 @@
-export { default as TransactionEditTemplate } from './TransactionEditTemplate'
-export { default as TransactionPreviewTemplate } from './TransactionPreviewTemplate'
+export { default as ReconcileEditTemplate } from './ReconcileEditTemplate'
+export { default as ReconcilePreviewTemplate } from './ReconcilePreviewTemplate'

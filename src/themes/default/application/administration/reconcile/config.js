@@ -5,12 +5,12 @@ import { ReconcileList } from 'application/administration/reconcile/pages';
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.reconcile',
+                name: 'master.app.main.administration.reconcile',
                 pattern: '/reconcile',
                 children: [
                     {
-                        name: 'master.app.main.reconcile.check.list',
-                        pattern: 'reconcile',
+                        name: 'master.app.main.administration.reconcile.list',
+                        pattern: '',
                         component: ReconcileList,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
@@ -18,15 +18,6 @@ import { ReconcileList } from 'application/administration/reconcile/pages';
                         }
                     }
                 ]
-            }
-        ],
-        menu: [
-            {
-                title: 'MENU.RECONCILE',
-                icon: 'reconcile',
-                order: 9,
-                route: 'master.app.main.reconcile.check.list',
-                role: ['Administrators']
             }
         ]
     });

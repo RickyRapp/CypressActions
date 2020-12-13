@@ -79,9 +79,10 @@ class UserStore {
     async getCharityProfile(user, charity) {
         try {
             if (user.roles.includes('Charities')) {
-                const data = await charity.charityStore.getCharityLoginProfile(user.id);
+                const data = await charity.charity.charityStore.getCharityLoginProfile(user.id);
                 if (data) {
                     user.charityId = data.id;
+                    user.charity = { name: 'test', taxId: 123456789 };
                 }
             }
         } catch (ex) {

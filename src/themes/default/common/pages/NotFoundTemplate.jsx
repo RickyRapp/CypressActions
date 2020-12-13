@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import Logo from 'themes/assets/img/logo-donors2.png';
 
-function NotFoundTemplate({ rootStore }) {
+function NotFoundTemplate() {
     return (
         <section>
             <div className="type--center u-mar--top--med u-mar--bottom--med">
@@ -29,12 +29,9 @@ function NotFoundTemplate({ rootStore }) {
                         <p>Page does not exist!</p>
                     </div>
                     <div className="u-mar--bottom--med">
-                        <button
-                            className="btn btn--base btn--primary"
-                            onClick={() => rootStore.routerStore.goTo(rootStore.initialState)}
-                        >
+                        <a className="btn btn--base btn--primary" href='/' >
                             Home
-						</button>
+						</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +40,7 @@ function NotFoundTemplate({ rootStore }) {
 }
 
 NotFoundTemplate.propTypes = {
-    rootStore: PropTypes.object.isRequired,
+    rootStore: PropTypes.object
 };
 
 export default defaultTemplate(NotFoundTemplate);

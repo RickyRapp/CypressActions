@@ -5,11 +5,11 @@ import { BankTab } from 'application/administration/bank/pages';
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.bank',
+                name: 'master.app.main.administration.bank',
                 pattern: '/bank',
                 children: [
                     {
-                        name: 'master.app.main.bank.tab',
+                        name: 'master.app.main.administration.bank.tab',
                         pattern: '',
                         component: BankTab,
                         authorization: 'theDonorsFundAdministrationSection.read',
@@ -19,16 +19,6 @@ import { BankTab } from 'application/administration/bank/pages';
                     }
                 ]
             }
-        ],
-        menu: [
-            {
-                title: 'MENU.BANKS',
-                icon: 'banks',
-                order: 11,
-                route: 'master.app.main.bank.tab',
-                role: ['Administrators']
-            }
         ]
-
     });
 })();

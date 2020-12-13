@@ -5,11 +5,11 @@ import { UserList, UserEdit, UserCreate } from 'application/administration/user/
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.user',
+                name: 'master.app.main.administration.user',
                 pattern: '/users',
                 children: [
                     {
-                        name: 'master.app.main.user.list',
+                        name: 'master.app.main.administration.user.list',
                         pattern: '',
                         component: UserList,
                         authorization: 'coreUserSection.read',
@@ -18,7 +18,7 @@ import { UserList, UserEdit, UserCreate } from 'application/administration/user/
                         }
                     },
                     {
-                        name: 'master.app.main.user.create',
+                        name: 'master.app.main.administration.user.create',
                         pattern: '/create',
                         component: UserCreate,
                         authorization: 'coreUserSection.create',
@@ -27,7 +27,7 @@ import { UserList, UserEdit, UserCreate } from 'application/administration/user/
                         }
                     },
                     {
-                        name: 'master.app.main.user.edit',
+                        name: 'master.app.main.administration.user.edit',
                         pattern: '/edit/:id',
                         component: UserEdit,
                         authorization: 'coreUserSection.update',
@@ -38,15 +38,6 @@ import { UserList, UserEdit, UserCreate } from 'application/administration/user/
 
                 ]
             }
-        ],
-        menu: [
-            {
-                title: 'MENU.USERS',
-                icon: 'users',
-                order: 6,
-                route: 'master.app.main.user.list',
-                role: ['Administrators']
-            },
         ]
     });
 })();

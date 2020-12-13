@@ -1,6 +1,5 @@
-import { moduleProviderFactory } from 'core/providers';
-import { CharityList, CharityCreate, CharityTab } from 'application/charity/pages';
-import { CharityModuleStore } from 'application/charity/stores';
+import { CharityModuleStore } from 'application/charity/module';
+import { moduleProviderFactory } from 'core/providers'
 
 (function () {
     moduleProviderFactory.application.register({
@@ -8,54 +7,38 @@ import { CharityModuleStore } from 'application/charity/stores';
             {
                 name: 'master.app.main.charity',
                 pattern: '/charity',
-                children: [
-                    {
-                        name: 'master.app.main.charity.list',
-                        pattern: '',
-                        component: CharityList,
-                        authorization: 'theDonorsFundAdministrationSection.read',
-                        data: {
-                            title: "CHARITY.LIST.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.charity.edit',
-                        pattern: '/edit/:id',
-                        component: CharityTab,
-                        authorization: 'theDonorsFundAdministrationSection.update',
-                        data: {
-                            title: "CHARITY.EDIT.TITLE"
-                        }
-                    },
-                    {
-                        name: 'master.app.main.charity.create',
-                        pattern: '/create',
-                        component: CharityCreate,
-                        authorization: 'theDonorsFundAdministrationSection.create',
-                        data: {
-                            title: "CHARITY.CREATE.TITLE"
-                        }
-                    }
-                ]
+                role: ['Charities']
             },
-            {
-                name: 'master.app.main.charity-profile',
-                pattern: '/charity-profile',
-                authorization: 'theDonorsFundCharitySection.read',
-                component: CharityTab,
-                data: {
-                    title: "DONOR.EDIT.TITLE"
-                }
-            }
         ],
         menu: [
             {
-                title: 'MENU.CHARITIES',
-                icon: 'charities',
-                order: 6,
-                route: 'master.app.main.charity.list',
-                role: ['Administrators']
-            }
+                title: 'MENU.DASHBOARD',
+                icon: 'dashboard',
+                order: 1,
+                role: ['Charities'],
+                route: 'master.app.main.charity.dashboard'
+            },
+            {
+                title: 'MENU.ACTIVITY',
+                icon: 'activity',
+                order: 2,
+                route: 'master.app.main.charity.activity',
+                role: ['Charities']
+            },
+            {
+                title: 'MENU.GRANT_REQUEST',
+                icon: 'grant-request',
+                order: 3,
+                route: 'master.app.main.charity.grant-request.create',
+                role: ['Charities']
+            },
+            {
+                title: 'MENU.PROFILE',
+                icon: 'profile',
+                order: 4,
+                route: 'master.app.main.charity.profile',
+                role: ['Charities']
+            },
         ],
         moduleStore: function (context) {
             return {

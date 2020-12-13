@@ -24,6 +24,7 @@ function renderPrimary(menu, menuStore, translate) {
 
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 {menu.map((item, i) => {
+
                     let className = 'nav--primary__item';
                     if (menuStore.selectedPath && menuStore.selectedPath.length > 0) {
                         if (menuItemActive(item, menuStore.selectedPath)) {
@@ -166,15 +167,15 @@ function renderMenuFooter(menuStore, t) {
         <React.Fragment>
             <div className="u-position--rel">
                 <div className="nav--primary__item--logout">
-                    {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i> 
-                    : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
+                    {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i>
+                        : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
                     }
                 </div>
             </div>
             <div className="u-position--rel">
                 <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--sml u-icon--arrow-right"></i> : <i className="u-icon u-icon--sml u-icon--arrow-left"></i>}
-                    
+
                 </div>
             </div>
         </React.Fragment>

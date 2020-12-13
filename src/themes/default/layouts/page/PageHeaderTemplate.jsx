@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
     NotifyOutsideClick,
-    Gravatar,
     BaasicButton
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
@@ -16,6 +15,8 @@ function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false,
             profileMenuOpen
         },
     } = rootStore;
+
+    const imgUrl = 'https://www.pngkit.com/png/full/281-2812821_user-account-management-logo-user-icon-png.png'
 
     const activeRoute = rootStore.routerStore.routes.find(c => c.name === rootStore.routerStore.routerState.routeName);
     const title = (activeRoute.data ? activeRoute.data.title : '');
@@ -33,11 +34,11 @@ function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false,
                                 <div onClick={toggleProfileMenu}>
                                     {rootStore.userStore.user ? (
                                         <div>
-                                            <Gravatar
-                                                className='header__profile__img'
-                                                email={
-                                                    rootStore.userStore.user.email
-                                                }
+                                            <img
+                                                src={imgUrl}
+                                                height={30}
+                                                width={30}
+                                                className={'header__profile__img'}
                                             />
                                             <span className="header__profile__name">
                                                 <span>{rootStore.userStore.user.displayName}</span>
@@ -52,7 +53,7 @@ function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false,
                                             <li className='header__profile__dropdown__item'
                                                 onClick={() => {
                                                     toggleProfileMenu();
-                                                    rootStore.routerStore.goTo('master.app.main.donor-profile', { id: rootStore.userStore.user.id })
+                                                    rootStore.routerStore.goTo('master.app.main.donor.profile')
                                                 }}> {t('HEADER.USER_MENU.MY_PROFILE')}
                                             </li>}
                                         <li className='header__profile__dropdown__item'

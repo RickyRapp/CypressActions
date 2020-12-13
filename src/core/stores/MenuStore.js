@@ -3,7 +3,7 @@ import { action, observable, computed } from 'mobx';
 import { MenuItem } from 'core/models';
 
 export default class MenuStore {
-    @observable menu = null;
+    @observable menu = [];
     @observable activePath = [];
     @observable selectedPath = [];
     @observable isCollapsed = false;
@@ -112,7 +112,6 @@ function findActiveMenuItem(menu, route) {
         difference: 0,
         item: { path: [] },
     };
-
     for (let i = 0; i < menu.length; i++) {
         const item = menu[i];
         if (item.route) {
@@ -152,9 +151,9 @@ function isMatch(menuRoute, route) {
 
     let valDiff = _.difference(menuParts, routeParts.slice(0, routeParts.length - diff));
 
-    if (valDiff.length > 0 && menuParts.length > 4) {
-        menuParts = menuParts.slice(0, 4);
-        routeParts = routeParts.slice(0, 4);
+    if (valDiff.length > 0 && menuParts.length > 5) {
+        menuParts = menuParts.slice(0, 5);
+        routeParts = routeParts.slice(0, 5);
 
         valDiff = _.difference(menuParts, routeParts);
     }

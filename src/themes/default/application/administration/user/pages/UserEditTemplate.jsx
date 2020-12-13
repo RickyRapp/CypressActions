@@ -10,7 +10,6 @@ import {
     ApplicationEmptyState
 } from 'core/components';
 import { PageFooter, EditFormLayout } from 'core/layouts';
-// import { UserProfilePartialForm } from 'application/administration/user/components';
 import { UserPasswordChange } from 'application/administration/user/pages';
 
 function UserEditTemplate({ userEditViewStore, t }) {
@@ -56,7 +55,6 @@ function UserEditTemplate({ userEditViewStore, t }) {
                         }
                     </div>
                 </div>
-                {/* <UserProfilePartialForm form={form} /> */}
                 <BaasicModal modalParams={changePasswordModal}>
                     <UserPasswordChange />
                 </BaasicModal>

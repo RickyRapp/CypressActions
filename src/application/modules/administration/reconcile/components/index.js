@@ -1,1 +1,1 @@
-export { default as TransactionEdit } from './TransactionEdit'
+export { default as ReconcileEdit } from './ReconcileEdit'

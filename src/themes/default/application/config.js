@@ -1,44 +1,47 @@
-import { moduleProviderFactory, moduleBuilder } from 'core/providers';
-import { MainLayout } from 'core/layouts';
-import { LookupModuleStore } from 'application/lookup/stores';
+import { moduleProviderFactory } from 'core/providers';
+import { MainLayout, MasterLayout, PublicLayout } from 'core/layouts';
+import { LookupModuleStore } from 'application/common/lookup/stores';
+import { SessionCreate } from 'application/administration/session/pages';
+import { NotFound, Unauthorized, DisplayError } from 'common/pages';
 
 (function () {
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app',
+                name: 'master.app.main',
                 pattern: '',
-                hookCondition:
-                    // eslint-disable-next-line
-                    (fromState, toState, routerStore) => {
-                        return fromState.params.applicationIdentifier !== toState.params.applicationIdentifier;
-                    },
-                beforeEnter:
-                    // eslint-disable-next-line
-                    async (fromState, toState, routerStore) => {
-                        const { authStore } = routerStore.rootStore;
-
-                        try {
-                            await authStore.initialize();
-                        } catch (ex) {
-                            return Promise.reject(ex);
-                        }
-
-                        return Promise.resolve();
-                    },
-                children: [
-                    {
-                        name: 'master.app.main',
-                        pattern: '',
-                        component: [MainLayout],
-                        beforeEnter: async (fromState, toState, routerStore) => {
-                            const { rootStore } = routerStore;
-                            await rootStore.userStore.resolveUser();
-                            const menu = moduleBuilder.buildMenus(rootStore.configuration.menus, { rootStore: rootStore });
-                            rootStore.menuStore.setMenu(menu, toState);
-                        },
-                    },
-                ],
+                component: [MainLayout]
+            },
+            {
+                name: 'master.app.not-found',
+                pattern: '/not-found',
+                component: NotFound,
+            },
+            {
+                name: 'master.app.unauthorized',
+                pattern: '/unauthorized',
+                component: Unauthorized,
+            },
+            {
+                name: 'master.app.error',
+                pattern: '/error',
+                component: [MasterLayout, DisplayError],
+                beforeEnter: async (fromState, toState, routerStore) => {
+                    // route to dashboard if initial route is error
+                    if (routerStore.isInitial() && toState.params.type !== 'router') {
+                        return Promise.reject(routerStore.rootStore.navigateDashboard());
+                    }
+                    // don't write any more code here because errors inside this block
+                    // might cause circular loop
+                    // Any unhandled error navigates to route 'error' -> beforeEnter -> Error -> navigate to 'error' ....
+                    routerStore.rootStore.appStore.setInitialized();
+                },
+            },
+            {
+                name: 'master.app.session',
+                pattern: '/new-session',
+                component: [PublicLayout, SessionCreate],
+                role: ['Administrators', 'Scanners']
             },
         ],
         moduleStore: function (context) {

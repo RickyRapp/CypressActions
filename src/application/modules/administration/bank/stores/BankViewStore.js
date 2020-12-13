@@ -1,15 +1,10 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { BankService } from 'application/administration/bank/services';
 import { BankListFilter } from 'application/administration/bank/models';
 import { ModalParams } from 'core/models';
 import { action } from 'mobx';
 
 class BankViewStore extends BaseListViewStore {
-    scanners = null;
-
     constructor(rootStore) {
-        const service = new BankService(rootStore.application.baasic.apiClient);
-
         super(rootStore, {
             name: 'bank',
             authorization: 'theDonorsFundAdministrationSection',
@@ -25,15 +20,40 @@ class BankViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = ['routingNumbers'];
-                        const response = await service.find(params);
-                        return response.data;
+                        return rootStore.application.administration.bankStore.findBank(params);
                     }
                 }
             }
         });
 
-        this.service = service;
+        this.createTableStore();
+        this.createModal = new ModalParams({});
+    }
 
+    @action.bound
+    openCreateModal(id) {
+        this.createModal.open({
+            id: id,
+            onAfterAction: () => {
+                this.queryUtility.fetch();
+                this.createModal.close();
+            }
+        });
+    }
+
+    @action.bound
+    async delete(item) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to delete bank${item.routingNumbers.length > 0 ? ' and ' + item.routingNumbers.length + ' routing number/s' : ''}?`,
+            async () => {
+                await this.rootStore.application.administration.bankStore.deleteBank(item);
+                this.rootStore.notificationStore.success('Successfully deleted bank');
+                await this.queryUtility.fetch();
+            }
+        );
+    }
+
+    createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -67,31 +87,6 @@ class BankViewStore extends BaseListViewStore {
             },
             actionsRender: {}
         }));
-
-        this.createModal = new ModalParams({});
-    }
-
-    @action.bound
-    openCreateModal(id) {
-        this.createModal.open({
-            id: id,
-            onAfterAction: () => {
-                this.queryUtility.fetch();
-                this.createModal.close();
-            }
-        });
-    }
-
-    @action.bound
-    async delete(item) {
-        this.rootStore.modalStore.showConfirm(
-            `Are you sure you want to delete bank${item.routingNumbers.length > 0 ? ' and ' + item.routingNumbers.length + ' routing number/s' : ''}?`,
-            async () => {
-                await this.service.delete(item);
-                this.rootStore.notificationStore.success('Successfully deleted bank');
-                await this.queryUtility.fetch();
-            }
-        );
     }
 }
 
