@@ -280,12 +280,84 @@
             }
         }
         
+        &--stock-and-securities {
+            background-image: svg-load('../styles/postcss-svg/stock-and-securities.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/stock-and-securities.svg', stroke: $color-note);
+            }
+        }
+        
+        &--third-party-donor-advised-funds {
+            background-image: svg-load('../styles/postcss-svg/third-party-donor-advised-funds.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/third-party-donor-advised-funds.svg', stroke: $color-note);
+            }
+        }
+        
         &--stock-and-mutual-funds {
             background-image: svg-load('../styles/postcss-svg/stock-and-mutual-funds.svg', stroke: $color-text);
             
             &.checked {
                 outline: 0;
                 background-image: svg-load('../styles/postcss-svg/stock-and-mutual-funds.svg', stroke: $color-note);
+            }
+        }
+        
+        &--business-and-private-interests {
+            background-image: svg-load('../styles/postcss-svg/business-and-private-interests.svg', stroke: $color-text);
+            
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/business-and-private-interests.svg', stroke: $color-note);
+            }
+        }
+        
+        &--real-estate {
+            background-image: svg-load('../styles/postcss-svg/real-estate.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/real-estate.svg', stroke: $color-note);
+            }
+        }
+
+        &--collectible-assets {
+            background-image: svg-load('../styles/postcss-svg/collectible-assets.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/collectible-assets.svg', stroke: $color-note);
+            }
+        }
+        
+        &--crypto-currency {
+            background-image: svg-load('../styles/postcss-svg/crypto-currency.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/crypto-currency.svg', stroke: $color-note);
+            }
+        }
+
+        &--zelle {
+            background-image: svg-load('../styles/postcss-svg/zelle.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/zelle.svg', stroke: $color-note);
+            }
+        }
+
+        &--paycheck-direct {
+            background-image: svg-load('../styles/postcss-svg/paycheck-direct.svg', stroke: $color-text);
+
+            &.checked {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/paycheck-direct.svg', stroke: $color-note);
             }
         }
         

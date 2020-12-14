@@ -145,7 +145,7 @@
                 }
 
                 &--profile {
-                    background-image: svg-load('postcss-svg/profile.svg', stroke: color($white a(60%)));
+                    background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(60%)));
                 }
 
                 &--activity {
@@ -255,7 +255,7 @@
                     }
     
                     &--profile {
-                        background-image: svg-load('postcss-svg/profile.svg', stroke: color($color-note a(100%)));
+                        background-image: svg-load('postcss-svg/profile.svg', fill: color($color-note a(100%)));
                     }
     
                     &--activity {

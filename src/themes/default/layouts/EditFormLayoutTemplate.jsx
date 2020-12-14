@@ -41,12 +41,12 @@ function renderEditLayoutFooterContent({ footer, form, visible, goBack, t }) {
             : (
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                         <BaasicButton
-                            className='btn btn--base btn--ghost'
+                            className='btn btn--med btn--med--wide btn--primary u-mar--right--sml'
                             label={t('EDIT_FORM_LAYOUT.CANCEL')}
                             onClick={goBack}
                         />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                     </div>
                 </PageFooter>
             )

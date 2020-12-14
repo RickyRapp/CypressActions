@@ -27,7 +27,7 @@ import { moduleProviderFactory } from 'core/providers'
             },
             {
                 title: 'MENU.GRANT_REQUEST',
-                icon: 'grant-request',
+                icon: 'grant',
                 order: 3,
                 route: 'master.app.main.charity.grant-request.create',
                 role: ['Charities']
