@@ -108,6 +108,13 @@ import { moduleProviderFactory } from 'core/providers';
                 order: 14,
                 route: 'master.app.main.administration.reconcile.list',
                 role: ['Administrators', 'Employees']
+            },
+            {
+                title: 'MENU.TESTING',
+                icon: 'test',
+                order: 15,
+                route: 'master.app.main.administration.test.tab',
+                role: ['Administrators']
             }
         ],
         moduleStore: function (context) {

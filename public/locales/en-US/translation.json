@@ -2416,6 +2416,7 @@
     "TEST": {
         "TAB": {
             "EMAIL": "Email",
+            "REPORT": "Report",
             "SCHEDULED_TASK": "Scheduled task"
         },
         "TEST_EMAIL": {
@@ -2446,6 +2447,27 @@
                     "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                     "DELIVERY_METHOD_TYPE_LABEL": "Delivery method",
                     "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery method"
+                }
+            }
+        },
+        "TEST_REPORT": {
+            "LIST": {
+                "TITLE": "Reports",
+                "COLUMNS": {
+                    "NAME_LABEL": "Template",
+                    "DESCRIPTION_LABEL": "Description"
+                },
+                "BUTTON": {
+                    "GENERATE": "Prepare for generating"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Set test data for report: ",
+                "FIELDS": {
+                    "NAME_LABEL": "Name",
+                    "NAME_PLACEHOLDER": "Name",
+                    "PREVIEW_PRINT_LABEL": "Preview print",
+                    "PREVIEW_PRINT_PLACEHOLDER": "Preview print"
                 }
             }
         },

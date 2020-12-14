@@ -22,7 +22,7 @@ class CharityAddressViewStore extends BaseListViewStore {
         }
     });
 
-    constructor(rootStore, props) {
+    constructor(rootStore) {
         super(rootStore, {
             name: 'charity-addresses',
             routes: {

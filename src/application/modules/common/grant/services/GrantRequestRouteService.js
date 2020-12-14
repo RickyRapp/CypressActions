@@ -18,7 +18,6 @@ class GrantRequestRouteService extends BaseRouteService {
     }
 
     create() {
-        debugger
         return super.create(this.base);
     }
 

@@ -17,7 +17,6 @@ class GrantStore {
     }
 
     async createGrantRequest(resource) {
-        debugger
         const response = await this.grantRequestService.create(resource);
         return response.data;
     }

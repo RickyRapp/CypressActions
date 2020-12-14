@@ -58,7 +58,7 @@ class ReconcileViewStore extends BaseListViewStore {
             async () => {
                 let form = new ReconcileEditForm();
                 form.$('isCashed').set(true);
-                await this.rootStore.application.administration.reconcileStore.checkUpdate({ id: transaction.id, ...form.values() });
+                await this.rootStore.application.administration.reconcileStore.checkUpdate({ id: reconcile.id, ...form.values() });
                 await this.queryUtility.fetch();
                 this.rootStore.notificationStore.success('Successfully cashed transaction');
             }

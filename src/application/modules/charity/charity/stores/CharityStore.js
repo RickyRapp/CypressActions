@@ -62,8 +62,8 @@ class CharityStore {
         return response.data;
     }
 
-    async updateCharity(resource) {
-        const response = await this.charityService.update(resource);
+    async updateCharityAddress(resource) {
+        const response = await this.charityAddressService.update(resource);
         return response.data;
     }
 

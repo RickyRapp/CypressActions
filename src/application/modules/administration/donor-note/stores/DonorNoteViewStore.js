@@ -24,7 +24,7 @@ class DonorNoteViewStore extends BaseListViewStore {
 
     constructor(rootStore) {
         let filter = new DonorNoteListFilter('dateCreated', 'desc')
-        filter.donorId = rootStore.routerStore.routerState.params.id;;
+        filter.donorId = rootStore.routerStore.routerState.params.id;
 
         super(rootStore, {
             name: 'donor-note',
@@ -36,7 +36,7 @@ class DonorNoteViewStore extends BaseListViewStore {
                 disableUpdateQueryParams: true,
                 onResetFilter: (filter) => {
                     filter.reset();
-                    filter.donorId = id;
+                    filter.donorId = this.donorId;
                 }
             },
             actions: () => {
