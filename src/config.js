@@ -1,5 +1,6 @@
 import { moduleProviderFactory, moduleBuilder } from 'core/providers';
 import { MasterLayout } from 'core/layouts';
+import { NotFound } from 'common/pages';
 
 (function () {
     moduleProviderFactory.common.register({
@@ -35,7 +36,12 @@ import { MasterLayout } from 'core/layouts';
 
                                 return Promise.resolve();
                             },
-                    }
+                    },
+                    {
+                        name: 'master.not-found',
+                        pattern: '/not-found',
+                        component: NotFound,
+                    },
                 ]
             },
         ],

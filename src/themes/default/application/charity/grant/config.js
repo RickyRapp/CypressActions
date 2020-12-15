@@ -1,20 +1,20 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantRequest } from 'application/charity/grant/pages';
+import { GrantGivingCardCreate, GrantRequest } from 'application/charity/grant/pages';
 
 (function () {
     moduleProviderFactory.application.register({
         routes: [
             {
-                name: 'master.app.main.charity.grant-request',
-                pattern: '/grant-request',
+                name: 'master.app.main.charity.giving-card',
+                pattern: '/giving-card',
                 children: [
                     {
-                        name: 'master.app.main.charity.grant-request.create',
+                        name: 'master.app.main.charity.giving-card.create',
                         pattern: '',
-                        component: GrantRequest,
+                        component: GrantGivingCardCreate,
                         authorization: 'theDonorsFundCharitySection.update',
                         data: {
-                            title: "GRANT_REQUEST.TITLE"
+                            title: "CHARITY_GIVING_CARD.TITLE"
                         }
                     }
                 ]

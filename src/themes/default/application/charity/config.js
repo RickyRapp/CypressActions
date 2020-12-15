@@ -33,9 +33,16 @@ import { moduleProviderFactory } from 'core/providers'
                 role: ['Charities']
             },
             {
+                title: 'MENU.CHARITY_GIVING_CARD',
+                icon: 'fidelity-cards',
+                order: 4,
+                route: 'master.app.main.charity.giving-card.create',
+                role: ['Charities']
+            },
+            {
                 title: 'MENU.PROFILE',
                 icon: 'profile',
-                order: 4,
+                order: 5,
                 route: 'master.app.main.charity.profile',
                 role: ['Charities']
             },

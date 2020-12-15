@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import Logo from 'themes/assets/img/logo-donors2.png';
 
-function UnauthorizedTemplate() {
+function UnauthorizedTemplate({ rootStore }) {
     return (
         <section>
             <div className="container--login">
@@ -13,9 +13,9 @@ function UnauthorizedTemplate() {
                         <p>You are not authorized to view selected content.</p>
                     </div>
                     <div className="u-mar--bottom--med">
-                        <a className="btn btn--base btn--primary" href='/'>
-                            Home
-						</a>
+                        <button className="btn btn--base btn--primary" onClick={() => rootStore.routerStore.goTo(rootStore.getDashboard())}>
+                            Dashboard
+						</button>
                     </div>
                 </div>
             </div>

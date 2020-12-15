@@ -1,13 +1,13 @@
 import React from 'react';
 import { Page } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, FormatterResolver, BaasicDropdown } from 'core/components';
+import { BaasicButton, FormatterResolver } from 'core/components';
 import PropTypes from 'prop-types';
 import { DashboardHeader } from 'application/charity/dashboard/components';
 
 function DashboardTemplate({ dashboardViewStore }) {
-	const { charity, yearDropdownStore, newContributionOnClick } = dashboardViewStore;
-	
+	const { charity, newContributionOnClick } = dashboardViewStore;
+
 	return (
 		<Page>
 			<DashboardHeader />
@@ -41,19 +41,19 @@ function DashboardTemplate({ dashboardViewStore }) {
 							</div>
 						</div>
 					) : (
-						<div className="dashboard-card--emptystate">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Funds</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
+							<div className="dashboard-card--emptystate">
+								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Funds</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<BaasicButton
+										className="btn btn--secondary btn--med btn--med--wide"
+										// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										onClick={newContributionOnClick}
+									/>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 				</div>
 
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
@@ -72,19 +72,19 @@ function DashboardTemplate({ dashboardViewStore }) {
 							</div>
 						</div>
 					) : (
-						<div className="dashboard-card--emptystate card--med">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Giving</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
+							<div className="dashboard-card--emptystate card--med">
+								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Giving</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<BaasicButton
+										className="btn btn--secondary btn--med btn--med--wide"
+										// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										onClick={newContributionOnClick}
+									/>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 				</div>
 			</div>
 		</Page>

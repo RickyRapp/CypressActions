@@ -22,7 +22,7 @@ class RouterStore {
         this.router = new MobxStateRouterStore(
             rootStore,
             routes,
-            new RouterState('master.app.not-found')
+            new RouterState('master.not-found')
         );
 
         observe(this, 'routerState',
@@ -113,7 +113,7 @@ class RouterStore {
             }
             else {
                 // route to dashboard if no back function present
-                return this.rootStore.navigateDashboard();
+                return this.goTo(this.rootStore.getDashboard());
             }
         } else {
             this.routeHistory.pop();

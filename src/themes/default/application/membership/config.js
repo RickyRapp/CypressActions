@@ -21,9 +21,10 @@ import {
 						pattern: '/login',
 						isPublic: true,
 						component: Login,
-						beforeEnter: function (fromState, toState, routerStore) {
+						beforeEnter: async (fromState, toState, routerStore) => {
 							if (routerStore.rootStore.authStore.isAuthenticated) {
-								return Promise.reject(routerStore.rootStore.navigateDashboard());
+								await routerStore.rootStore.userStore.resolveUser();
+								return Promise.reject(routerStore.rootStore.getDashboard());
 							}
 
 							return Promise.resolve();

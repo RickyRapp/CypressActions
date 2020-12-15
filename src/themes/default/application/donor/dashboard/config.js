@@ -8,7 +8,7 @@ import { Dashboard } from 'application/donor/dashboard/pages';
                 name: 'master.app.main.donor.dashboard',
                 pattern: '/dashboard',
                 authorization: 'theDonorsFundDonorSection.read',
-                component: Dashboard,
+                component: Dashboard
             },
         ]
     });

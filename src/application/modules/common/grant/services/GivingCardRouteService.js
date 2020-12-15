@@ -6,15 +6,11 @@ class GivingCardRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorId,search,name,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorId,charityId,search,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
-    }
-
-    update(resource) {
-        return super.update(this.base + '/{id}', resource);
     }
 }
 

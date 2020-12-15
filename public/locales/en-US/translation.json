@@ -57,7 +57,8 @@
         "NEW_REMAINDER": "New Remainder",
         "ACTIVITY": "Activity",
         "CHARITY_PROFILE": "Profile",
-        "GRANT_REQUEST": "Grant Request"
+        "GRANT_REQUEST": "Grant Request",
+        "CHARITY_GIVING_CARD": "Accept Card"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -1566,6 +1567,22 @@
         "BUTTON": {
             "COMPLETE": "Complete Request",
             "DECLINE": "Decline"
+        }
+    },
+    "CHARITY_GIVING_CARD": {
+        "TITLE": "Giving Card",
+        "CREATE": {
+            "TITLE": "New Grant Request",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Enter amount",
+                "CARD_NUMBER_LABEL": "Card number",
+                "EXPIRATION_DATE_LABEL": "Expiration date",
+                "EXPIRATION_DATE_PLACEHOLDER": "MM/YY",
+                "CVV_LABEL": "Cvv",
+                "NOTE_LABEL": "Note",
+                "NOTE_PLACEHOLDER": "Enter note"
+            }
         }
     },
     "DONATION": {

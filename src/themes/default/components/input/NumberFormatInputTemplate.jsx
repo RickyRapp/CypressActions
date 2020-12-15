@@ -8,11 +8,11 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
     const handleFocus = (event) => { event.target.select(); }
 
     let formatedPlaceholder = '';
-    if (props.placeholder && props.format) {
-        formatedPlaceholder = `${t(props.placeholder)} ${props.format}`;
-    }
-    else if (props.placeholder) {
+    if (props.placeholder) {
         formatedPlaceholder = t(props.placeholder);
+    }
+    else if (props.format) {
+        formatedPlaceholder = t(props.format);
     }
     else {
         formatedPlaceholder = props.format;

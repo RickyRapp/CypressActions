@@ -6,7 +6,7 @@ import { ContributionCreate, ContributionEdit, ContributionDetails } from 'appli
         routes: [
             {
                 name: 'master.app.main.donor.contribution',
-                pattern: '/contributions',
+                pattern: '/contribution',
                 children: [
                     {
                         name: 'master.app.main.donor.contribution.create',

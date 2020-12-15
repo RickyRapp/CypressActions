@@ -50,10 +50,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
                             resource.charityId = charityData.charityId;
                         }
 
-                        await this.rootStore.application.donor.grantStore.updateGrant(resource);
+                        await this.rootStore.application.administration.grantStore.updateGrant(resource);
                     },
                     get: async (id) => {
-                        return this.rootStore.application.donor.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses' });
+                        return this.rootStore.application.administration.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses' });
                     }
                 }
             },
@@ -229,7 +229,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 ],
                 charityId: value
             }
-            data = await this.rootStore.application.donor.grantStore.findGrants(params);
+            data = await this.rootStore.application.administration.grantStore.findGrant(params);
         }
         if (data) {
             this.previousGrantsTableStore.setData(data.item);
@@ -241,7 +241,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async setDonor() {
-        this.donor = await this.rootStore.application.donor.grantStore.getDonorInformation(this.item.donorId);
+        this.donor = await this.rootStore.application.administration.grantStore.getDonorInformation(this.item.donorId);
     }
 
     @action.bound
@@ -332,7 +332,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.donor.grantStore.searchCharity({
+                    const data = await this.rootStore.application.administration.grantStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,

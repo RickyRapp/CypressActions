@@ -34,7 +34,7 @@ export default class RootStore {
         const { application } = moduleBuilder.buildStores(configuration.stores, moduleContext);
         applyModules(this.application, application, ['baasic']);
 
-        this.routerStore = new RouterStore(this, [...routes], new RouterState('master.app.not-found'));
+        this.routerStore = new RouterStore(this, [...routes], new RouterState('master.not-found'));
         this.routerStore.routeDataMap = getDefaultRouteDataMap(routes);
         this.routerMaps = routerMaps;
 
@@ -74,25 +74,25 @@ export default class RootStore {
         return this.routerStore.goTo(new RouterState('master.public.membership.login'));
     }
 
-    navigateDashboard() {
+    getDashboard() {
         const user = this.userStore.applicationUser;
 
         if (user && user.roles) {
             if (user.roles.includes('Users')) {
-                this.routerStore.goTo(new RouterState('master.app.main.donor.dashboard'));
+                return new RouterState('master.app.main.donor.dashboard');
             }
             else if (user.roles.includes('Charities')) {
-                this.routerStore.goTo(new RouterState('master.app.main.charity.dashboard'));
+                return new RouterState('master.app.main.charity.dashboard');
             }
             else if (user.roles.some(c => ['Administrators', 'Employees'].includes(c))) {
-                this.routerStore.goTo(new RouterState('master.app.main.administration.dashboard'));
+                return new RouterState('master.app.main.administration.dashboard');
             }
             else if (user.roles.includes('Scanners')) {
-                this.routerStore.goTo(new RouterState('master.app.session'));
+                return new RouterState('master.app.session');
             }
         }
         else {
-            this.routerStore.goTo(new RouterState('master.app.unauthorized'));
+            return new RouterState('master.app.unauthorized');
         }
     }
 
@@ -100,11 +100,8 @@ export default class RootStore {
         return new Type(this.application.baasic.apiClient);
     }
 
-    async routeChange({ fromState, toState, options }) {
+    async routeChange({ toState, options }) {
         const { authStore, permissionStore } = this;
-        if (fromState && fromState.routeName === 'master.public.membership.login' && toState.routeName === 'master.app.error') {
-            return this.navigateDashboard();
-        }
 
         if (options.isPublic === false) {
             if (!authStore.isAuthenticated && toState.routeName !== 'master.public.membership.login') {
