@@ -109,6 +109,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
 						icon="u-icon u-icon--edit u-icon--sml"
 						label="GRANT.LIST.BUTTON.EDIT"
 						onlyIcon={true}
@@ -118,6 +119,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onRedirect) && redirectRender ? (
 					<BaasicButton
 						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
 						icon="u-icon u-icon--approve u-icon--sml" //TODO: change with redirect icon
 						label="GRANT.LIST.BUTTON.REDIRECT"
 						onlyIcon={true}
@@ -127,6 +129,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onPreview) ? (
 					<BaasicButton
 						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
 						icon="u-icon u-icon--preview u-icon--sml"
 						label="GRANT.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
