@@ -48,11 +48,10 @@ const BaasicFieldDropdownTemplate = function({
 		<div>
 			{showLabel && (
 				<div className="form__group__label">
-					<div className="u-display--flex u-display--flex--justify--space-between u-mar--bottom--tny">
-						<div className="type--base type--wgt--medium">
-							{t(field.label)}
-							{requiredMark}
-						</div>
+					<div className="u-display--flex u-display--flex--justify--space-between">
+						{t(field.label)}
+						{requiredMark}
+
 						{rightLabelComponent && rightLabelComponent()}
 					</div>
 				</div>
