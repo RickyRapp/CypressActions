@@ -5,7 +5,7 @@ import { BaasicButton, BaasicModal, FormatterResolver, SimpleBaasicTable } from 
 import { MonthlyFeeJsonTemplate } from 'themes/application/donor/activity/transaction/components';
 import { isSome } from 'core/utils';
 
-const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
+const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 	const {
 		donor,
 		isPendingTransactionVisible,
@@ -24,8 +24,9 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 							<div className="transaction__card">
 								{donor && (
 									<div
-										className={`transaction__card--amount ${donor.availableBalance >= 0 ? 'transaction__card--amount--plus' : ''
-											}`}
+										className={`transaction__card--amount ${
+											donor.availableBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										}`}
 									>
 										<FormatterResolver
 											item={{ balance: donor.availableBalance }}
@@ -42,8 +43,9 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 							<div className="transaction__card">
 								{donor && (
 									<div
-										className={`transaction__card--amount ${donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
-											}`}
+										className={`transaction__card--amount ${
+											donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										}`}
 									>
 										<FormatterResolver
 											item={{ balance: donor.presentBalance }}
@@ -60,8 +62,9 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 							<div className="transaction__card transaction__card--last">
 								{donor && (
 									<div
-										className={`transaction__card--amount ${donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
-											}`}
+										className={`transaction__card--amount ${
+											donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										}`}
 									>
 										<FormatterResolver item={{ balance: 0 }} field="balance" format={{ type: 'currency' }} />
 									</div>
@@ -76,13 +79,25 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 					<div className="transaction__show">
 						<div className="transaction__show--body">
 							<span className="type--base type--wgt--medium type--color--text">
-								Pending Transaction: {pendingTransactionTableStore.data.length > 0 && <FormatterResolver item={{ balance: pendingTransactionTableStore.data.map(c => c.paymentTransaction.amount).reduce((t, a) => t + a) }} field="balance" format={{ type: 'currency' }} />}
+								Pending Transaction:{' '}
+								{pendingTransactionTableStore.data.length > 0 && (
+									<FormatterResolver
+										item={{
+											balance: pendingTransactionTableStore.data
+												.map(c => c.paymentTransaction.amount)
+												.reduce((t, a) => t + a),
+										}}
+										field="balance"
+										format={{ type: 'currency' }}
+									/>
+								)}
 							</span>
 							<BaasicButton
 								className="btn btn--icon"
 								onlyIconClassName="u-mar--right--sml"
-								icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
-									} u-icon--sml`}
+								icon={`u-icon ${
+									isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
+								} u-icon--sml`}
 								label="EXPAND"
 								onlyIcon={true}
 								onClick={() => onExpandPendingTransactionClick()}
@@ -90,8 +105,10 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 						</div>
 
 						{isPendingTransactionVisible && (
-							<div className="col col-sml-12 u-mar--top--sml">
-								<SimpleBaasicTable tableStore={pendingTransactionTableStore} actionsComponent={renderActions} />
+							<div className="row">
+								<div className="col col-sml-12 u-mar--top--sml">
+									<SimpleBaasicTable tableStore={pendingTransactionTableStore} actionsComponent={renderActions} />
+								</div>
 							</div>
 						)}
 					</div>

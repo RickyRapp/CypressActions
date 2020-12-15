@@ -3,138 +3,146 @@
 \*------------------------------------*/
 
 .card {
-    &--primary {
-        background-color: $white;
-        border-radius: $radius-base;
-        box-shadow: $shadow-card; 
-    }
+	&--primary {
+		background-color: $white;
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
+	}
 
-    &--secondary {
-        border-radius: $radius-base;
-        background-color: $color-background;
+	&--secondary {
+		border-radius: $radius-base;
+		background-color: $color-background;
 
-        &--light {
-            background-color: $color-background-seashellt; 
-            border-radius: $radius-base;
-        }
-    }
-    
-    &--tertiary {
-        background-color: $white;
-        border-radius: $radius-base;
-        box-shadow: $shadow-card; 
-    }
+		&--light {
+			background-color: $color-background-seashellt;
+			border-radius: $radius-base;
+		}
+	}
 
-    &--form {
-        background-color: color($color-background-seashellt a(60%));
-        border-radius: $radius-base;
-        box-shadow: $shadow-card; 
-    }
+	&--tertiary {
+		background-color: $white;
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
+	}
 
-    &--session {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: calc($unit * 99);
+	&--form {
+		background-color: color($color-background-seashellt a(60%));
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
+	}
 
-        &--start {
-            justify-content: start;
-        }
-    }
+	&--session {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: calc($unit * 99);
 
-    &--contribution {
-        position: relative;
-        background-color: $white;
-        border-radius: $radius-base;
-        box-shadow: $shadow-card; 
+		&--start {
+			justify-content: start;
+		}
+	}
 
-        transition: all 250ms ease-in-out;
+	&--contribution {
+		position: relative;
 
-        &:hover {
-            background-color: color($color-background-seashellt a(100%));
-            
-            &::after {
-                content: "";
-                width: calc($unit / 1.7);
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                background-color: $color-note;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
-            }
+		height: calc($unit * 15);
 
-            &::before {
-                content: "";
-                width: calc($unit * 1.6);
-                height: calc($unit * 1.6);
-                position: absolute;
-                top: 42%;
-                right: calc(-$unit * 0.9);
-                transform: translate(-50%, -50%);
-                transform: rotate(45deg);
-                background-color: $color-note;
-                border-bottom-left-radius: calc($unit * 2);
-            }
-        }
+		background-color: $white;
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
 
-        &.checked {
-            background-color: $color-background-seashellt;  
+		transition: all 250ms ease-in-out;
 
-            &::after {
-                content: "";
-                width: calc($unit / 1.7);
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                background-color: $color-note;
-            }
+		&--primary {
+			&:hover {
+				background-color: color($color-background-seashellt a(100%));
 
-            &::before {
-                content: "";
-                width: calc($unit * 1.6);
-                height: calc($unit * 1.6);
-                position: absolute;
-                top: 42%;
-                right: calc(-$unit * 0.9);
-                transform: translate(-50%, -50%);
-                transform: rotate(45deg);
-                background-color: $color-note;
-                border-bottom-left-radius: calc($unit * 2);
-            }
-        }
-    }
+				&::after {
+					content: '';
+					width: calc($unit / 1.7);
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					background-color: $color-note;
+				}
 
-    &--tny {
-        padding: calc($unit * 2);
-    }
+				&::before {
+					content: '';
+					width: calc($unit * 1.6);
+					height: calc($unit * 1.6);
+					position: absolute;
+					top: 42%;
+					right: calc(-$unit * 0.9);
+					transform: translate(-50%, -50%);
+					transform: rotate(45deg);
+					background-color: $color-note;
+					border-bottom-left-radius: calc($unit * 2);
+				}
+			}
 
-    &--sml {
-        padding: calc($unit * 3);
-    }
+			&.checked {
+				background-color: $color-background-seashellt;
 
-    &--med {
-        padding: calc($unit * 4);
-        
-        @media (--screen-to-sml) {
-            padding: calc($unit * 3);
-        }
-    }
+				&::after {
+					content: '';
+					width: calc($unit / 1.7);
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					background-color: $color-note;
+				}
 
-    &--lrg {
-        padding: calc($unit * 6);
-        
-        @media (--screen-to-sml) {
-            padding: calc($unit * 4);
-        }
-    }
-    
-    &--xlrg {
-        padding: calc($unit * 7.5);
-        
-        @media (--screen-to-sml) {
-            padding: calc($unit * 5);
-        }
-    }
+				&::before {
+					content: '';
+					width: calc($unit * 1.6);
+					height: calc($unit * 1.6);
+					position: absolute;
+					top: 42%;
+					right: calc(-$unit * 0.9);
+					transform: translate(-50%, -50%);
+					transform: rotate(45deg);
+					background-color: $color-note;
+					border-bottom-left-radius: calc($unit * 2);
+				}
+			}
+		}
+	}
+
+	&--tny {
+		padding: calc($unit * 2);
+	}
+
+	&--sml {
+		padding: calc($unit * 3);
+	}
+
+	&--med {
+		padding: calc($unit * 4);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 3);
+		}
+	}
+
+	&--lrg {
+		padding: calc($unit * 6);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 4);
+		}
+	}
+
+	&--xlrg {
+		padding: calc($unit * 7.5);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 5);
+		}
+	}
 }

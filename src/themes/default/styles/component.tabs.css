@@ -95,15 +95,13 @@
             border-bottom: 2px solid transparent;
             
             &:hover {
-                color: color($color-primary a(0.5));
+                color: color($color-text a(0.5));
             }
 
             &.active {
-                color: $color-primary;
+                color: $color-text;
 
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-                background-color: $white;
+                border-bottom: 2px solid $color-text;
             }
 
             @media (--screen-to-sml) {

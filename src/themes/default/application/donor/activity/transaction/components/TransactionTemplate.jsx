@@ -4,26 +4,19 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, DateRangeQueryPicker, TableFilter } from 'core/components';
 
 function TransactionTemplate({ transactionViewStore }) {
-    const {
-        tableStore,
-        dateCreatedDateRangeQueryStore,
-        queryUtility
-    } = transactionViewStore
+	const { tableStore, dateCreatedDateRangeQueryStore, queryUtility } = transactionViewStore;
 
-    return (
-        <div>
-            <div className="card--tertiary card--med u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility} >
-                    <div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
-                        <DateRangeQueryPicker
-                            queryUtility={queryUtility}
-                            store={dateCreatedDateRangeQueryStore}
-                            />
-                    </div>
-                </TableFilter>
-            </div>
-            <div className="card--primary card--med">
-                {/* <div className="row">
+	return (
+		<div>
+			<div className="card--tertiary card--med">
+				<div className="u-mar--bottom--med">
+					<TableFilter queryUtility={queryUtility}>
+						<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
+							<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
+						</div>
+					</TableFilter>
+				</div>
+				{/* <div className="row">
                     <div className="col col-sml-6 u-display--flex">
                         <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
                             <span className="u-icon u-icon--sml u-icon--download u-mar--right--tny"></span>
@@ -56,17 +49,15 @@ function TransactionTemplate({ transactionViewStore }) {
                     <div className="col col-sml-6"></div>
                 </div> */}
 
-                <BaasicTable
-                    tableStore={tableStore}
-                    />
-            </div>
-        </div >
-    );
+				<BaasicTable tableStore={tableStore} />
+			</div>
+		</div>
+	);
 }
 
 TransactionTemplate.propTypes = {
-    transactionViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+	transactionViewStore: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired,
 };
 
 export default defaultTemplate(TransactionTemplate);
