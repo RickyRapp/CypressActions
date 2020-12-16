@@ -37,7 +37,7 @@ const BaasicFieldDropdownTemplate = function({
 		store.onChange(value);
 	}
 
-	const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
+	const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span className="type--color--note u-mar--left--tny">*</span> : null;
 	const warningClasses = classNames({
 		'input--warning': !field.isValid && field.touched && !field.isDirty,
 	});
@@ -48,7 +48,7 @@ const BaasicFieldDropdownTemplate = function({
 		<div>
 			{showLabel && (
 				<div className="form__group__label">
-					<div className="u-display--flex u-display--flex--justify--space-between">
+					<div className="u-display--flex">
 						{t(field.label)}
 						{requiredMark}
 
