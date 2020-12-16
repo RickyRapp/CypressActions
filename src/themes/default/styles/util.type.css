@@ -67,6 +67,20 @@
         }
     }
 
+    &--huge {
+        @mixin type-scale $type-xlarge, 1.5;
+        @media (--screen-from-med) {
+            @mixin type-scale $type-huge, 2;
+        }
+    }
+
+    &--huge {
+        @mixin type-scale $type-huge, 1.5;
+        @media (--screen-from-med) {
+            @mixin type-scale $type-xhuge, 3;
+        }
+    }
+
     /* Font weights */
     &--wgt {
         &--thin {

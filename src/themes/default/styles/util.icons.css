@@ -630,6 +630,10 @@
         &--close {
             background-image: svg-load('../styles/postcss-svg/close.svg', stroke: $color-primary);
 
+            &--secondary {
+                background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-note);
+            }
+
             &:hover,
             &:active,
             &:focus {

@@ -3,12 +3,92 @@
 \*------------------------------------*/
 
 .login {
-    &__border {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: calc($unit - 1px);
-        background-color: $color-tertiary;
-    }
+	height: 100vh;
+	display: flex;
+
+	background-color: $white;
+	/*     
+	&__border {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: calc($unit - 1px);
+		background-color: $color-tertiary;
+	} */
+
+	&__media {
+		width: 49%;
+		height: 100%;
+		background-color: $smalt-blue;
+
+		@media (--screen-to-lrg) {
+			display: none;
+		}
+	}
+
+	&__info {
+		width: 51%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: column;
+
+		padding: calc($unit * 22) 0;
+		padding-bottom: calc($unit * 5);
+		margin: 0 auto;
+
+		@media (--screen-to-lrg) {
+			width: 100%;
+			padding: calc($unit * 6) calc($unit * 5);
+			padding-bottom: calc($unit * 5);
+		}
+
+		&--logo {
+			width: 60%;
+
+			margin: 0 auto;
+			margin-bottom: calc($unit * 15);
+		}
+
+		&--title {
+			margin-bottom: calc($unit * 7);
+
+			text-align: center;
+			font-weight: $type-weight-thin;
+			font-family: $ff-serif;
+			@mixin type-scale $type-huge, 1.5;
+			@media (--screen-from-med) {
+				@mixin type-scale $type-xhuge, 3;
+			}
+		}
+
+		&--input {
+			margin-bottom: calc($unit * 3);
+
+			& .input {
+				border: 1px solid $zest-dark;
+				background-color: $color-background;
+
+				&:checked {
+					border: 1px solid $color-note;
+					background-color: $white;
+				}
+			}
+		}
+
+		&--rights {
+			color: $heather;
+			@mixin type-scale $type-small, 1;
+			text-align: center;
+			@media (--screen-to-sml) {
+				@mixin type-scale $type-xsmall, 1;
+			}
+		}
+	}
+
+	&__form {
+		width: 50%;
+		min-width: calc($unit * 55);
+	}
 }

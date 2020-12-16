@@ -23,6 +23,7 @@ $type-xlarge:   28;
 $type-xxlarge:  33;
 $type-xxxlarge: 40;
 $type-huge:     60;
+$type-xhuge:    80;
 
 /**
 * Type weights

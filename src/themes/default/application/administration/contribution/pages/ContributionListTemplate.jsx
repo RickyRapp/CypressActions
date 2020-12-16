@@ -185,7 +185,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--close u-icon--sml"
+						icon="u-icon u-icon--close--secondary u-icon--sml"
 						label="CONTRIBUTION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

@@ -291,10 +291,10 @@
     "LOGIN": {
         "TITLE": "The Donors Fund",
         "DESCRIPTION": "Login to app with your credentials. If you have problem with login, contact support.",
-        "FORGOT_PASSWORD_BUTTON": "Forgot Password?",
+        "FORGOT_PASSWORD_BUTTON": "Forgot you Password?",
         "SIGNIN_BUTTON": "Sign In",
-        "USERNAME_LABEL": "Username",
-        "USERNAME_PLACEHOLDER": "Enter user name",
+        "USERNAME_LABEL": "Email",
+        "USERNAME_PLACEHOLDER": "Enter Email",
         "PASSWORD_LABEL": "Password",
         "PASSWORD_PLACEHOLDER": "Enter password",
         "INVALID_CREDENTIALS": "Invalid username or password"
