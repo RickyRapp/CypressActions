@@ -9,7 +9,7 @@ const MaskedInputTemplate = defaultTemplate((props) => {
     const { t, value, onChange, mask, label, required, className, disabled, name } = props;
     const showLabel = props.showLabel === undefined ? true : props.showLabel;
 
-    const requiredMark = required ? <span>*</span> : null;
+    const requiredMark = required ? <span className="type--color--note u-mar--left--tny">*</span> : null;
     const handleFocus = (event) => { event.target.select(); }
 
     return (

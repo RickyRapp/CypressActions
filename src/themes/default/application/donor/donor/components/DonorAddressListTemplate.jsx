@@ -32,7 +32,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                         <BaasicButton
                             className="btn btn--icon"
                             onlyIconClassName="u-mar--right--tny"
-                            icon='u-icon u-icon--add u-icon--xxmed'
+                            icon='u-icon u-icon--add u-icon--base'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openAddressModal()}>
@@ -41,7 +41,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                         <BaasicButton
                             className="btn btn--icon"
                             onlyIconClassName="u-mar--right--tny"
-                            icon='u-icon u-icon--add u-icon--xxmed'
+                            icon='u-icon u-icon--add u-icon--base'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openAddressModal()}>

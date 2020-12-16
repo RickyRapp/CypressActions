@@ -54,7 +54,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row">
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown
                                             field={form.$('charityId')}
                                             store={charityDropdownStore}
@@ -64,7 +64,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 </div>
                                 {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
-                                    <div className="row">
+                                    <div className="row row__align--center">
                                         <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
                                             <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                         </div>
@@ -82,8 +82,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>}
 
                                 {form.$('isNewCharity').value &&
-                                    <div className="card--form card--med u-mar--bottom--med">
-                                        <h4 className="type--lrg type--wgt--medium">{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
+                                    <div className="card--form card--med u-mar--bottom--lrg">
+                                        <h4 className="type--med type--wgt--medium type--color--note u-mar--bottom--base">{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityName')} />
@@ -97,7 +97,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />
                                             </div>
-                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                            <div className="form__group col col-sml-12">
                                                 <BasicInput field={form.$('charityAddressLine1')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
@@ -106,17 +106,17 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityCity')} />
                                             </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <div className="form__group col col-sml-12 col-lrg-6">
                                                 <BasicInput field={form.$('charityState')} />
                                             </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <div className="form__group col col-sml-12 col-lrg-6">
                                                 <BasicInput field={form.$('charityZipCode')} />
                                             </div>
-                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                            <div className="form__group col col-sml-12 u-mar--bottom--xlrg u-mar--top--sml">
                                                 <BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
                                             </div>
                                         </div>
-                                        <h4 className="type--lrg type--wgt--medium">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
+                                        <h4 className="type--med type--wgt--medium type--color--note u-mar--bottom--base">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityContactName')} />
@@ -132,7 +132,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
                                 {charityDropdownStore.value &&
                                     <React.Fragment>
-                                        <h3 className="type--lrg type--wgt--medium">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
+                                        <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
                                         <div className="row u-mar--top--sml">
                                             <div className="col col-sml-12 u-mar--bottom--sml">
                                                 <div className="charity-information__card ">
@@ -164,7 +164,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row">
-                                            <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                            <div className="form__group col col-sml-12">
                                                 <BasicInput field={form.$('addressLine1')} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
@@ -183,23 +183,23 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>}
 
                                 <div className="row">
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12">
                                         <DatePickerField field={form.$('startFutureDate')} />
                                     </div>
                                 </div>
                                 {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
                                     <div className="row">
-                                        <div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
+                                        <div className="form__group col col-sml-12 type--color--note u-mar--bottom--med u-mar--top--sml">
                                             <BasicFieldCheckbox field={form.$('isRecurring')} />
                                         </div>
                                     </div>}
                                 {form.$('isRecurring').value &&
-                                    <div className="card--form card--med u-mar--bottom--med">
+                                    <div className="card--form card--med u-mar--bottom--lrg">
                                         <div className="row">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <DatePickerField field={form.$('recurringDate')} showLabel={false} />
@@ -221,7 +221,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>}
                                 <div className="row">
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                                     </div>
                                     {grantAcknowledgmentName &&
@@ -230,7 +230,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>}
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-12 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                                     </div>
                                 </div>

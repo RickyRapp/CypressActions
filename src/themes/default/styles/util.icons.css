@@ -30,7 +30,7 @@
             background-size: calc($unit * 2);
         }
 
-        &--xxmed {
+        &--base {
             width: calc($unit * 3);
             height: calc($unit * 3);
             background-size: calc($unit * 3);

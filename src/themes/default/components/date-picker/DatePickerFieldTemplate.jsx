@@ -8,7 +8,7 @@ import { defaultTemplate } from 'core/hoc';
 const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true, ...otherProps }) {
     const { value, onChange, ...otherFieldProps } = field.bind();
 
-    const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
+    const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span className="type--color--note u-mar--left--tny">*</span> : null;
 
     const warningClasses = classNames({
         'input--warning': !field.isValid && field.touched && !field.isDirty

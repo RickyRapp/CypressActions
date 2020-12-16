@@ -31,6 +31,10 @@
             &--sml {
                 margin-top: calc($unit * 2);
             }
+            
+            &--base {
+                margin-top: calc($unit * 3);
+            }
 
             &--med {
                 margin-top: calc($unit * 4);
@@ -78,7 +82,7 @@
                 margin-right: calc($unit * 2);
             }
 
-            &--xmed {
+            &--base {
                 margin-right: calc($unit * 3);
             }
 
@@ -124,7 +128,7 @@
                 margin-bottom: calc($unit * 2.5);
             }
 
-            &--xxmed {
+            &--base {
                 margin-bottom: calc($unit * 3);
             }
 

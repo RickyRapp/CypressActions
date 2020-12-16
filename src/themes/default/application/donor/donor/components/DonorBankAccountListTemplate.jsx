@@ -29,7 +29,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                     <BaasicButton
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--add u-icon--xxmed'
+                        icon='u-icon u-icon--add u-icon--base'
                         label='BANK_ACCOUNT.LIST.BUTTON.CREATE'
                         onlyIcon={true}
                         onClick={() => openBankAccountModal()}>
