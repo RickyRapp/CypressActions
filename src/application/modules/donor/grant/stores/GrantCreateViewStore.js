@@ -283,7 +283,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 ],
                 charityId: this.form.$('charityId').value
             }
-            data = await this.rootStore.application.donor.grantStore.findGrants(params);
+            data = await this.rootStore.application.donor.grantStore.findGrant(params);
         }
         if (data) {
             this.previousGrantsTableStore.setData(data.item);

@@ -4,7 +4,7 @@
 
 .form {
     &__group {
-        margin-bottom: calc($unit * 2);
+        margin-bottom: calc($unit * 3);
 
         &__label {
             @mixin type-scale $type-small, 1;
