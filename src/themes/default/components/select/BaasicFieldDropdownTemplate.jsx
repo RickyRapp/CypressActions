@@ -45,15 +45,15 @@ const BaasicFieldDropdownTemplate = function({
 	store.options.disabled = field.disabled;
 
 	return (
-		<div>
+		<React.Fragment>
 			{showLabel && (
 				<div className="form__group__label">
-					<div className="u-display--flex">
+					
 						{t(field.label)}
 						{requiredMark}
 
 						{rightLabelComponent && rightLabelComponent()}
-					</div>
+				
 				</div>
 			)}
 			<BaasicDropdown
@@ -72,7 +72,7 @@ const BaasicFieldDropdownTemplate = function({
 				renderIf(isSome(field.localizedError))(
 					<p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
 				)}
-		</div>
+		</React.Fragment>
 	);
 };
 

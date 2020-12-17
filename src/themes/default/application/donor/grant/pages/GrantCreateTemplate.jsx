@@ -411,7 +411,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 								<div className="row u-mar--bottom--med">
 									<div className="col col-sml-12 col-lrg-12">
 										<div className="card--primary card--med">
-											<h4 className="type--med type--wgt--medium u-mar--bottom--med">
+											<h4 className="type--base type--wgt--medium u-mar--bottom--med">
 												{t('GRANT.CREATE.PREVIOUS_GRANTS')}
 											</h4>
 											<SimpleBaasicTable tableStore={previousGrantsTableStore} />
@@ -422,7 +422,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 								<div className="row">
 									<div className="col col-sml-12 col-lrg-12">
 										<div className="card--med card--primary">
-											<h4 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">
+											<h4 className="type--base type--wgt--medium type--color--opaque u-mar--bottom--med">
 												{t('GRANT.CREATE.SIMILAR_GRANTS')}
 											</h4>
 											<div
