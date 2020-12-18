@@ -11,7 +11,7 @@
             font-weight: $type-weight-medium;
             /* margin-bottom: calc($unit / 2); */
 
-            & .btn {
+            & .btn--primary {
                 float: right;
             }
         }

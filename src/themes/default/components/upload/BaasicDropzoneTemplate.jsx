@@ -48,6 +48,7 @@ const BaasicDropzoneTemplate = function (props) {
                <div className="col col-sml-12 col-lrg-4">
                     <label className="form__group__label" >{t(store.options.label)}</label>
                     <Upload
+                         className="u-mar--top--tny"
                          {...store.options}
                          autoUpload={false}
                          batch={false}
@@ -105,7 +106,7 @@ const BaasicDropzoneTemplate = function (props) {
                     store.files.map(c => {
                          let rawAttachment = c.getRawFile();
                          return (
-                              <div key={c.uid} className="col col-sml-6 col-lrg-3 u-display--flex u-display--flex--column">
+                              <div key={c.uid} className="col col-sml-6 col-lrg-4 u-display--flex u-display--flex--column">
                                    {store.options.showLivePreview &&
                                         <React.Fragment>
                                              <label className="form__group__label">
@@ -154,9 +155,7 @@ const ImagePreview = function ({ image }) {
                display: 'inline-flex',
                borderRadius: 2,
                border: '1px solid #eaeaea',
-               marginTop: 8,
-               marginRight: 8,
-               width: 100,
+               width: "100%",
                height: 100,
                padding: 4,
                boxSizing: 'border-box'
