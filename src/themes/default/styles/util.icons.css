@@ -380,6 +380,17 @@
                 background-image: svg-load('../styles/postcss-svg/log-icon.svg', stroke: $color-primary);
             }
         }
+
+        &--sync {
+            background-image: svg-load('../styles/postcss-svg/sync.svg', stroke: $color-background);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/sync.svg', stroke: $color-background);
+            }
+        }
         &--email {
             background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $color-primary);
 

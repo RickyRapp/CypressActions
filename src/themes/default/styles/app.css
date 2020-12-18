@@ -32,6 +32,7 @@
 @import 'tool.typomatic.css';
 /* @import 'tool.bubba.css'; */
 @import "tool.ricky.css";
+@import "tool.animation.css";
 
 /**
 * Generic .......... normalize or reset CSS, box sizing

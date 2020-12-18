@@ -130,7 +130,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                     <div className="col col-sml-12">
                         <div className="card--sml type--med type--wgt--medium type--color--note">Overview</div>
                     </div>
-                    <div className="col col-sml-12 col-xlrg-3">
+                    <div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
                         {paymentTypes.map(c => {
                             return (
                                 <div
@@ -168,11 +168,11 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                             );
                         })}
                     </div>
-                    <div className="col col-sml-12 col-xlrg-9">
+                    <div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
                         <div className="row">
-                            <div className="col col-sml-12 col-xxlrg-7">
+                            <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
                                 <EditFormContent form={form}>
-                                    <div className="card card--primary card--med fullheight u-mar--bottom--med">
+                                    <div className="card card--primary card--med fullheight">
                                         <div className="row fullheight">
                                             <div className="col col-sml-12 col-lrg-12">
                                                 <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
@@ -256,7 +256,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                 </EditFormContent>
                             </div>
                             <div className="col col-sml-12 col-xxlrg-5">
-                                <div className="card card--primary fullheight card--med u-mar--bottom--med">
+                                <div className="card card--primary fullheight card--med">
                                     <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
                                         {t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
                                     </h5>

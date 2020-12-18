@@ -13,7 +13,7 @@ function LoginTemplate({ currentView, t }) {
 			<div className="login__info">
 				<form className="login__form" onSubmit={loginForm.onSubmit}>
 					<div className="login__info--logo">
-						<img src={logo}  alt="Logo" />
+						<img src={logo} alt="Logo" />
 					</div>
 					<h4 className="login__info--title">Welcome</h4>
 
@@ -40,9 +40,19 @@ function LoginTemplate({ currentView, t }) {
 							onlyIconClassName="u-mar--right--sml"
 							type="submit"
 							disabled={loginForm.submitting}
-							icon={loginForm.submitting || loginForm.validating ? 'loader--login' : ''}
+							icon={
+								loginForm.submitting || loginForm.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''
+							}
 							label={t('LOGIN.SIGNIN_BUTTON')}
 						/>
+						{/* <BaasicButton
+							className="btn btn--100 btn--secondary"
+							onlyIconClassName="u-mar--right--sml"
+							type="submit"
+							disabled={loginForm.submitting}
+							icon={loginForm.submitting || loginForm.validating ? 'loader--login' : ''}
+							label={t('LOGIN.SIGNIN_BUTTON')}
+						/> */}
 					</div>
 				</form>
 

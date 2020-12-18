@@ -1,13 +1,17 @@
 /*------------------------------------*\
     # utils.rotate
 \*------------------------------------*/
-
 .u {
-
     &-rotate {
-
         &--180 {
             transform: rotate(180deg);
+        }
+        
+        &--login {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: calc($unit * 2);
+            animation: rotate 2s linear infinite;
         }
     }
 }
