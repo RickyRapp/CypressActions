@@ -20,7 +20,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		yearDropdownStore,
 		newContributionOnClick,
 		newGrantOnClick,
-		orderBookletsOnClick
+		orderBookletsOnClick,
 	} = dashboardViewStore;
 
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -65,8 +65,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</p>
 						</div>
 						<AccountManager />
-					</React.Fragment >)
-					: null}
+					</React.Fragment>
+				) : null}
 			</PageHeader>
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
@@ -83,9 +83,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										/>
 									)}
 								</h5>
-								<p className="dashboard-card__body--title">
-									{t('DASHBOARD.AVAILABLE_BALANCE')}
-								</p>
+								<p className="dashboard-card__body--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</p>
 
 								{donor && (
 									<p className="dashboard-card__body--amount--secondary">
@@ -96,43 +94,46 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										/>
 									</p>
 								)}
-								<p className="dashboard-card__body--title">
-									{t('DASHBOARD.PRESENT_BALANCE')}
-								</p>
+								<p className="dashboard-card__body--title">{t('DASHBOARD.PRESENT_BALANCE')}</p>
 							</div>
-							<div className="dashboard-card__footer">
-								<div className="u-mar--bottom--sml w--100--to-med">
-									<BaasicButton
-										className="btn btn--med btn--100 btn--primary--light"
-										label="DASHBOARD.BUTTON.CONTRIBUTE"
-										onClick={newContributionOnClick}
-									/>
+
+							<div className="row">
+								<div className="col col-sml-12 col-med-6">
+									<div className="u-mar--bottom--sml w--100--to-med">
+										<BaasicButton
+											className="btn btn--med btn--100 btn--primary--light"
+											label="DASHBOARD.BUTTON.CONTRIBUTE"
+											onClick={newContributionOnClick}
+										/>
+									</div>
 								</div>
-								<div className="u-mar--bottom--sml w--100--to-med">
-									<BaasicButton
-										className="btn btn--med btn--100 btn--primary--light"
-										label="DASHBOARD.BUTTON.INVEST_FUNDS"
-									/>
+								<div className="col col-sml-12 col-med-6">
+									<div className="u-mar--bottom--sml w--100--to-med">
+										<BaasicButton
+											className="btn btn--med btn--100 btn--primary--light"
+											label="DASHBOARD.BUTTON.INVEST_FUNDS"
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
 					) : (
-							<div className="dashboard-card--emptystate">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-								<div className="dashboard-card--emptystate__body">
-									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-									<BaasicButton
-										className="btn btn--secondary btn--med btn--med--wide"
-										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-										onClick={newContributionOnClick}
-									/>
-								</div>
+						<div className="dashboard-card--emptystate">
+							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+							<div className="dashboard-card--emptystate__body">
+								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+								<BaasicButton
+									className="btn btn--secondary btn--med btn--med--wide"
+									label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+									onClick={newContributionOnClick}
+								/>
 							</div>
-						)}
+						</div>
+					)}
 				</div>
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
-					{donor && donor.isContributionMade ?
+					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
 							<h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">{t('DASHBOARD.YOUR_GIVING')}</h3>
 							<div className="dashboard-card__body--giving-goal">
@@ -152,7 +153,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								</div>
 							</div>
 						</div>
-						:
+					) : (
 						<div className="dashboard-card--emptystate card--med">
 							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
 							<div className="dashboard-card--emptystate__body">
@@ -165,13 +166,10 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								/>
 							</div>
 						</div>
-					}
+					)}
 				</div>
 				{donor &&
-					(!donor.isGrantMade ||
-						!donor.isContributionMade ||
-						!donor.isBookletOrderMade ||
-						!donor.isInvestmentMade) && (
+					(!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
 								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med type--center">
@@ -235,7 +233,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 DashboardTemplate.propTypes = {
 	dashboardViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired,
-	rootStore: PropTypes.object.isRequired
+	rootStore: PropTypes.object.isRequired,
 };
 
 export default defaultTemplate(DashboardTemplate);

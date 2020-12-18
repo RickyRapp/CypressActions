@@ -172,8 +172,8 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                         <div className="row">
                             <div className="col col-sml-12 col-xxlrg-7">
                                 <EditFormContent form={form}>
-                                    <div className="card card--primary card--med u-mar--bottom--med">
-                                        <div className="row">
+                                    <div className="card card--primary card--med fullheight u-mar--bottom--med">
+                                        <div className="row fullheight">
                                             <div className="col col-sml-12 col-lrg-12">
                                                 <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
                                             </div>
@@ -256,7 +256,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                 </EditFormContent>
                             </div>
                             <div className="col col-sml-12 col-xxlrg-5">
-                                <div className="card card--primary card--med u-mar--bottom--med">
+                                <div className="card card--primary fullheight card--med u-mar--bottom--med">
                                     <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
                                         {t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
                                     </h5>

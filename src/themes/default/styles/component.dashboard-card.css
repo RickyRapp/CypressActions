@@ -70,7 +70,7 @@
         }
     }
 
-    &__footer {
+    /* &__footer {
         display: flex;
         justify-content: space-around;
         text-align: center;
@@ -85,7 +85,7 @@
                 width: 200px;
             }
         }
-    }
+    } */
 
     &--emptystate {
         background-color: $white;
