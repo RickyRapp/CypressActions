@@ -45,6 +45,16 @@
 					display: none;
 				}
 			}
+
+			@media (--screen-to-lrg) {
+				height: calc($unit * 6);
+				width: calc($unit * 6);
+			}
+			
+			@media (--screen-to-med) {
+				height: calc($unit * 5);
+				width: calc($unit * 5);
+            }
 		}
 	}
 

@@ -25,7 +25,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                 {form.has('items') &&
                     <div className="card--primary card--med u-mar--bottom--med">
                         <BaasicButton
-                            className='btn btn--base btn--primary u-mar--bottom--sml'
+                            className='btn btn--med btn--primary'
                             type='button'
                             label='Add new booklet'
                             onClick={() => {
@@ -57,17 +57,17 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                             const isMixed2000Booklet = bookletTypes.find(c => c.abrv === 'mixed_2000').id === item.$('bookletTypeId').value;  //eslint-disable-line
 
                             return (
-                                <div key={item.key} className="card--secondary card--med u-mar--bottom--med">
-                                    <div className="row u-mar--bottom--sml">
-                                        <div className="col col-sml-12 col-lrg-5">
+                                <div key={item.key} className="card--secondary card--med u-mar--top--med">
+                                    <div className="row">
+                                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-5 u-mar--bottom--sml">
                                             <BaasicFieldDropdown store={bookletTypeDropdownStore} field={item.$('bookletTypeId')} />
                                         </div>
-                                        <div className="col col-sml-12 col-lrg-5">
+                                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-5 u-mar--bottom--sml">
                                             <NumericInputField field={item.$('bookletCount')} />
                                         </div>
-                                        <div className="col col-sml-12 col-lrg-2">
+                                        <div className="col col-sml-12 col-xxlrg-2">
                                             <BaasicButton
-                                                className='btn btn--base btn--ghost'
+                                                className='btn btn--med btn--ghost u-mar--top--base--alt'
                                                 type='button'
                                                 label='Delete booklet'
                                                 onClick={item.onDel}
@@ -78,7 +78,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                         <div className="">
                                             {isMixed500Booklet &&
                                                 <BaasicButton
-                                                    className='btn btn--base btn--primary u-mar--bottom--sml'
+                                                    className='btn btn--med btn--primary u-mar--bottom--sml'
                                                     type='button'
                                                     label='Add denomination'
                                                     onClick={() => {
@@ -97,8 +97,8 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                                 }, denominationTypes);
                                                 return (
                                                     <div key={content.key} >
-                                                        <div className="row">
-                                                            <div className="col col-sml-12 col-lrg-5">
+                                                        <div className="row u-mar--bottom--med">
+                                                            <div className="col col-sml-12 col-xxlrg-5 u-mar--bottom--sml">
                                                                 <BaasicFieldDropdown
                                                                     store={denominationTypeDropdownStore}
                                                                     field={content.$('denominationTypeId')}
@@ -113,20 +113,22 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
                                                                     }}
                                                                 />
                                                             </div>
-                                                            <div className="col col-sml-12 col-lrg-5">
+                                                            <div className="col col-sml-12 col-xxlrg-5 u-mar--bottom--sml">
                                                                 <NumericInputField field={content.$('certificateCount')} />
-                                                                {isMixed500Booklet && arr.length - 1 === i &&
-                                                                    <span className="type--sml type--wgt--medium type--color--note"><span className="type--color--text">Total certificates per booklet:</span> {_.sumBy(item.$('bookletContents').values(), (o) => { return o.certificateCount })}</span>}
+                                                                
                                                             </div>
                                                             {isMixed500Booklet && item.$('bookletContents').size > 1 &&
                                                                 <div className="col col-sml-12 col-lrg-2">
                                                                     <BaasicButton
-                                                                        className='btn btn--base btn--ghost'
+                                                                        className='btn btn--med btn--ghost u-mar--top--base--alt'
                                                                         type='button'
                                                                         label='Delete denomination'
                                                                         onClick={content.onDel}
                                                                     />
                                                                 </div>}
+                                                                <div className="col col-sml-12 col-med-5"></div>
+                                                                <div className="col col-sml-12 col-med-5">{isMixed500Booklet && arr.length - 1 === i &&
+                                                                    <span className="type--sml type--wgt--medium type--color--note"><span className="type--color--text">Total certificates per booklet:</span> {_.sumBy(item.$('bookletContents').values(), (o) => { return o.certificateCount })}</span>}</div>
                                                         </div>
                                                     </div>
                                                 )

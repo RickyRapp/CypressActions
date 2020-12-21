@@ -168,13 +168,21 @@
         height: calc($unit * 10);
         display: flex;
         justify-content: space-between;
-        padding: 0 calc($unit * 3);
+        padding: 0 calc($unit * 6);
         line-height: calc($unit * 10);
         
         align-items: center;
         color: $color-text;
         background-color: $color-background;
         border-radius: calc($unit * 4);
+
+        @mixin type-scale $type-base, 1;
+
+        @media (--screen-to-sml) {
+            padding: 0 calc($unit * 4);
+
+            @mixin type-scale $type-small, 1;
+        }
     }
 
     &--warning {

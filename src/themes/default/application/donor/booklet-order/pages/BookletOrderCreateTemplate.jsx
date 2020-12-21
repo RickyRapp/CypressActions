@@ -327,7 +327,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </button>
                         </div>
                         {showCustomizeBooks &&
-                            <div className="col col-sml-12 u-padd--left--xlrg u-padd--right--xlrg">
+                            <div className="col col-sml-12 u-padd--left--lrg u-padd--right--lrg">
                                 <div className="u-mar--bottom--med">
                                     <BasicFieldCheckbox
                                         field={form.$('isCustomizedBook')}

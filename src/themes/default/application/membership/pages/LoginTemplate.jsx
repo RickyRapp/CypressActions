@@ -8,7 +8,7 @@ function LoginTemplate({ currentView, t }) {
 	const { loginForm, routes } = currentView;
 	return (
 		<div className="login">
-			<div className="login__media">IMG</div>
+			<div className="login__media"></div>
 
 			<div className="login__info">
 				<form className="login__form" onSubmit={loginForm.onSubmit}>

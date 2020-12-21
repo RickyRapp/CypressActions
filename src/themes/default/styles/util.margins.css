@@ -34,13 +34,17 @@
             
             &--base {
                 margin-top: calc($unit * 3);
+
+                &--alt {
+                    margin-top: calc($unit * 3.5);
+                }
             }
 
             &--med {
                 margin-top: calc($unit * 4);
                 
                 &--alt {
-                    margin-top: calc($unit * 5);
+                    margin-top: calc($unit * 4.5);
                 }
             }
 

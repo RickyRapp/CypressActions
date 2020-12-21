@@ -80,10 +80,10 @@ const BaasicDropzoneTemplate = function (props) {
                                    {store.options.showPreview &&
                                         <React.Fragment>
                                              <div className="row">
-                                                  <div className="col col-sml-12">
+                                                  <div className="col col-sml-10">
                                                        <ImagePreview image={store.options.routeService.getPreview(c)} />
                                                   </div>
-                                                  <div className="col col-sml-3 u-display--flex u-display--flex--justify--center">
+                                                  <div className="col col-sml-2 u-display--flex u-display--flex--justify--center">
                                                        <label className="form__group__label u-mar--right--tny">
                                                             {store.options.deleteUploaded &&
                                                             <BaasicButton

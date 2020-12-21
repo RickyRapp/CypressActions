@@ -34,7 +34,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                         <div className="col col-sml-12 col-lrg-12">
                             <div className="u-mar--bottom--sml">
                                 <div className="u-mar--bottom--med">
-                                    <h3 className="type--lrg type--wgt--medium" style={{ display: 'inline' }}>
+                                    <h3 className="type--med type--wgt--medium" style={{ display: 'inline' }}>
                                         {t('CHARITY.EDIT.FIELDS.TITLE')}
                                     </h3>
                                     {item && item.availableBalance > 0 &&
@@ -79,7 +79,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                 </div>
                             </div>
                             <div className="u-mar--bottom--sml">
-                                <h3 className="u-mar--bottom--med">Contact info</h3>
+                                <h3 className="type--med type--wgt--medium u-mar--bottom--med">Contact info</h3>
                                 <div className="row">
                                     <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />

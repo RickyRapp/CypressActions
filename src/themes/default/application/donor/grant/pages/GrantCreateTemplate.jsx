@@ -146,7 +146,9 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 													<span className="type--base type--wgt--regular type--color--opaque">
 														{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}
 													</span>
-													<span className="type--base type--wgt--medium type--right">{charityDropdownStore.value.item.name}</span>
+													<span className="type--base type--wgt--medium type--right">
+														{charityDropdownStore.value.item.name}
+													</span>
 												</div>
 											</div>
 											<div className="col col-sml-12 u-mar--bottom--sml">
@@ -154,7 +156,9 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 													<span className="type--base type--wgt--regular type--color--opaque">
 														{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}
 													</span>
-													<span className="type--base type--wgt--medium type--right">{charityDropdownStore.value.item.taxId}</span>
+													<span className="type--base type--wgt--medium type--right">
+														{charityDropdownStore.value.item.taxId}
+													</span>
 												</div>
 											</div>
 											{!isChangedDefaultAddress && (
@@ -350,43 +354,45 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 													<div className="col col-sml-12 col-lrg-4">
 														<img src={logo} alt={'logo'} />
 													</div>
-													<div className="col col-sml-12 col-lrg-4">{charityDropdownStore.value.item.name}</div>
-												</div>
-												<div className="row u-padd--top--med">
 													<div className="col col-sml-12 col-lrg-4">
-														<div className="u-separator--primary u-mar--bottom--sml"></div>
-														<strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
-														<p>{charityDropdownStore.value.item.rullingYear}</p>
-													</div>
-													<div className="col col-sml-12 col-lrg-4">
-														<div className="u-separator--primary u-mar--bottom--sml"></div>
-														<strong>{t('GRANT.CREATE.EIN')}</strong>
-														<p>{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
-													</div>
-													<div className="col col-sml-12 col-lrg-4">
-														<div className="u-separator--primary u-mar--bottom--sml"></div>
-														<strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
-														<p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+														<div className="type--base type--wgt--bold">{charityDropdownStore.value.item.name}</div>
 													</div>
 												</div>
 												<div className="row u-padd--top--med">
 													<div className="col col-sml-12 col-lrg-4">
-														<strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
-														<p>{charityDropdownStore.value.item.principalOfficer}</p>
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.RULLING_YEAR')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityDropdownStore.value.item.rullingYear}</p>
 													</div>
 													<div className="col col-sml-12 col-lrg-4">
-														<strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
-														<p>{charityDropdownStore.value.item.nteeCode}</p>
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.EIN')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
 													</div>
 													<div className="col col-sml-12 col-lrg-4">
-														<strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
-														<p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityDropdownStore.value.item.irsFilingRequirement}</p>
 													</div>
 												</div>
 												<div className="row u-padd--top--med">
 													<div className="col col-sml-12 col-lrg-4">
-														<strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-														<p>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityDropdownStore.value.item.principalOfficer}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.CAUSE_AREA')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityDropdownStore.value.item.nteeCode}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityDropdownStore.value.item.irsFilingRequirement}</p>
+													</div>
+												</div>
+												<div className="row u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">
 															{addressFormatter.format(
 																charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true),
 																'full'
