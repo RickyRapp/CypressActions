@@ -32,15 +32,10 @@
 
     &__hamburger {
         display: inline-block;
-        margin-right: calc($unit * 4);
 
         @media (--screen-from-lrg) {
             display: none;
-        }
-
-        @media (--screen-to-lrg) {
-            margin-right: calc($unit * 2);
-        }        
+        }      
     }
 
     &__options {
@@ -52,7 +47,6 @@
         color: $color-text;
         cursor: pointer;
         display: inline-block;
-        margin-right: calc($unit * 2);
 
         &__img {
             margin-right: calc($unit * 2);
