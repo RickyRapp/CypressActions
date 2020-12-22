@@ -5,7 +5,7 @@
 .k-loading-mask {
     position: fixed;
     top: $header-height;
-    left: $aside-width;
+    /* left: $aside-width; */
     height: 4px;
     display: block;
     width: 100%;

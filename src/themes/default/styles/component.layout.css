@@ -103,7 +103,7 @@ $header-height: 96px;
             }
         }
 
-        @media (--screen-to-xxlrg) {
+        @media (--screen-to-xlrg) {
             padding: calc($unit * 3) calc($unit * 4);
         }
         
