@@ -63,6 +63,7 @@
 
     &--med {
         font-size: 15px;
+        min-width: calc($unit * 27);
         height: calc($unit * 10);
         padding: 0 calc($unit * 4);
         line-height: calc($unit * 10);

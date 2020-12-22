@@ -3,56 +3,67 @@
 \*------------------------------------*/
 
 .filter {
-    &__search {
-        padding: 0 calc($unit * 2);
-        padding-right: calc($unit * 6);
-        height: calc($unit * 6 - 2px);
+	&__search {
+		padding: 0 calc($unit * 2);
+		padding-right: calc($unit * 6);
+		height: calc($unit * 6 - 2px);
 
-        line-height: calc($unit * 6 - 2px);
-        
-        border: 0;
-        
-        &__wrapper {
-            display: flex;
-            align-items: center;
-            position: relative;
-            width: 100%;
+		line-height: calc($unit * 6 - 2px);
 
-            margin-right: calc($unit * 3.5);
+		border: 0;
 
-            border: 1px solid color(white blackness(+30%));
-            border-radius: $radius-base;
-        }
-    }
+		&__wrapper {
+			display: flex;
+			align-items: center;
+			position: relative;
+			width: 100%;
 
-    &__expand {
-        &.is-active {
-            background-color: $color-primary;
+			margin-right: calc($unit * 3.5);
 
-            .u-icon--filter {
-                background-image: svg-load('../styles/postcss-svg/filter.svg', fill: #ffffff);
-            }
-        }
+			border: 1px solid color(white blackness(+30%));
+			border-radius: $radius-base;
+		}
+	}
 
-        &--overlap {
-            z-index: 9;
-            position: absolute;
-            top: 60px;
-            left: -1px;
-            right: -1px;
+	&__expand {
+		&.is-active {
+			background-color: $color-primary;
 
-            padding-top: 0;
-            background-color: #ffffff;
-            
-            border: 1px solid #d4d4d4;
-            border-top: 0;
-            
-            form {
-                padding: calc($unit * 2);
-                padding-top: 0;
-                box-shadow: 0px 9px 8px color(black a(0.3));
-                overflow: initial;
-            }
-        }
-    }
+			.u-icon--filter {
+				background-image: svg-load('../styles/postcss-svg/filter.svg', fill: #ffffff);
+			}
+		}
+
+		&--overlap {
+			z-index: 9;
+			position: absolute;
+			top: 60px;
+			left: -1px;
+			right: -1px;
+
+			padding-top: 0;
+			background-color: #ffffff;
+
+			border: 1px solid #d4d4d4;
+			border-top: 0;
+
+			form {
+				padding: calc($unit * 2);
+				padding-top: 0;
+				box-shadow: 0px 9px 8px color(black a(0.3));
+				overflow: initial;
+			}
+		}
+	}
+
+	&__btn {
+		&--clear {
+			& .u-icon--close {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: calc($unit * 3);
+			}
+		}
+	}
 }

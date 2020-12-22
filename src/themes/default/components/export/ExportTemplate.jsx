@@ -14,19 +14,19 @@ const ExportTemplate = function ({ store, t }) {
 
     return (
         <div className="row row__align--end">
-            <div className="col col-sml-1">
+            <div className="col col-sml-6 col-lrg-3 col-xxlrg-2">
                 <label className="form__group__label">{t('EXPORT_TYPES')}</label>
                 <BaasicDropdown store={exportTypeStore} />
             </div>
-            <div className="col col-sml-1">
+            <div className="col col-sml-6 col-lrg-3 col-xxlrg-2">
                 <label className="form__group__label">{t('EXPORT_LIMITS')}</label>
                 <BaasicDropdown store={exportLimitStore} />
             </div>
-            <div className="col col-sml-8">
+            <div className="col col-sml-12 col-lrg-6 col-xxlrg-6 u-mar--top--sml">
                 <label className="form__group__label">{t('EXPORT_FIELDS')}</label>
                 <BaasicDropdown store={exportFieldStore} />
             </div>
-            <div className="col col-sml-2">
+            <div className="col col-sml-12 col-xxlrg-2 type--right u-mar--top--sml">
                 <BaasicButton
                     className="btn btn--primary btn--med btn--med--wide"
                     onClick={onExportClick}
