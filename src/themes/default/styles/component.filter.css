@@ -63,6 +63,7 @@
 				top: 50%;
 				transform: translateY(-50%);
 				right: calc($unit * 3);
+				cursor: pointer;
 			}
 		}
 	}
