@@ -29,7 +29,7 @@ const ScheduledGrantListTemplate = function({ scheduledGrantViewStore }) {
 					</div>
 					<div className="col col-sml-12 col-med-2 col-lrg-2">
 						<BaasicButton
-							className="btn btn--base btn--primary u-mar--right--sml"
+							className="btn btn--med btn--primary u-mar--right--sml"
 							label={'LIST_LAYOUT.CREATE_BUTTON'}
 							onClick={routes.create}
 						/>

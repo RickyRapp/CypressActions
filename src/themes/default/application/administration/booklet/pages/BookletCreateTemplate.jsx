@@ -54,15 +54,15 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 							return (
 								<div key={item.key} className="card--secondary card--med u-mar--top--med">
 									<div className="row">
-										<div className="col col-sml-12 col-xlrg-6 u-mar--bottom--sml">
+										<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
 											<BaasicFieldDropdown store={bookletTypeDropdownStore} field={item.$('bookletTypeId')} />
 										</div>
-										<div className="col col-sml-12 col-xlrg-6">
+										<div className="col col-sml-12 col-xlrg-4">
 											<NumericInputField field={item.$('bookletCount')} />
 										</div>
-										<div className="col col-sml-12 col-xxlrg-12 type--right">
+										<div className="col col-sml-12 col-xxlrg-4 type--right">
 											<BaasicButton
-												className="btn btn--med btn--ghost u-mar--top--sml"
+												className="btn btn--med btn--ghost u-mar--top--lrg"
 												type="button"
 												label="Delete booklet"
 												onClick={item.onDel}
