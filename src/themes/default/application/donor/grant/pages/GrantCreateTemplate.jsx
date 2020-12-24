@@ -224,7 +224,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row">
-										<div className="form__group col col-sml-12 type--color--note u-mar--bottom--med u-mar--top--sml">
+										<div className="form__group col col-sml-12 type--color--note u-mar--bottom--med">
 											<BasicFieldCheckbox field={form.$('isRecurring')} />
 										</div>
 									</div>
@@ -264,7 +264,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 										/>
 									</div>
 									{grantAcknowledgmentName && (
-										<div className="form__group col col-sml-12 u-mar--bottom--med">
+										<div className="form__group col col-sml-12">
 											<div className="charity-information__card charity-information__card--secondary">
 												{grantAcknowledgmentName}
 											</div>

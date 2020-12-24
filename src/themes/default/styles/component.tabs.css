@@ -13,7 +13,7 @@
             @mixin type-scale $type-medium, 1.25;
 
             @media (--screen-from-med) {
-                @mixin type-scale $type-large, 1.5;
+                @mixin type-scale $type-xmedium, 1.5;
             }
             font-weight: $type-weight-medium;
             text-align: center;

@@ -84,7 +84,7 @@ const CharityAdvancedSearchTemplate = function ({ charityAdvancedSearchViewStore
                 />
                 {tableStore.dataInitialized &&
                     <BaasicButton
-                        className="btn btn--primary"
+                    className="btn btn--med btn--primary u-mar--top--med u-push"
                         label='CHARITY.LIST.BUTTON.LOAD_MORE'
                         disabled={!tableStore.hasRemainingData}
                         onClick={loadMoreClick}>

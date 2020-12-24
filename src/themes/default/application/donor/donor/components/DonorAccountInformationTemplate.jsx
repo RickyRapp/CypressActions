@@ -77,22 +77,22 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t, 
             </EditFormContent>
 
             <div className="row row__align--end">
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
                     <DonorAddressList />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
                     <DonorEmailAddressList />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
                     <DonorPhoneNumberList />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
                     <DonorBankAccountList />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
                     <DonorAutomaticContributionSetting />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
                     <DonorGrantFees />
                 </div>
             </div>
