@@ -53,16 +53,16 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 
 							return (
 								<div key={item.key} className="card--secondary card--med u-mar--top--med">
-									<div className="row">
-										<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+									<div className="row row__align--end">
+										<div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
 											<BaasicFieldDropdown store={bookletTypeDropdownStore} field={item.$('bookletTypeId')} />
 										</div>
-										<div className="col col-sml-12 col-xlrg-4">
+										<div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
 											<NumericInputField field={item.$('bookletCount')} />
 										</div>
-										<div className="col col-sml-12 col-xxlrg-4 type--right">
+										<div className="form__group col col-sml-12 col-xlrg-12 col-xxlrg-4 type--right">
 											<BaasicButton
-												className="btn btn--med btn--ghost u-mar--top--lrg"
+												className="btn btn--med btn--med--wide btn--ghost"
 												type="button"
 												label="Delete booklet"
 												onClick={item.onDel}
@@ -100,8 +100,8 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 												);
 												return (
 													<div key={content.key}>
-														<div className="row u-mar--bottom--sml">
-															<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+														<div className="row row__align--end u-mar--bottom--sml u-mar--top--sml">
+															<div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
 																<BaasicFieldDropdown
 																	store={denominationTypeDropdownStore}
 																	field={content.$('denominationTypeId')}
@@ -128,29 +128,29 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 																	}}
 																/>
 															</div>
-															<div className="col col-sml-12 col-lrg-6">
+															<div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
 																<NumericInputField field={content.$('certificateCount')} />
 															</div>
 															{isMixed500Booklet && item.$('bookletContents').size > 1 && (
-																<div className="col col-sml-12 col-lrg-12 type--right">
+																<div className="form__group col col-sml-12 col-xlrg-12 col-xxlrg-4 type--right">
 																	<BaasicButton
-																		className="btn btn--med btn--ghost u-mar--bottom--sml u-mar--top--sml"
+																		className="btn btn--med btn--ghost"
 																		type="button"
 																		label="Delete denomination"
 																		onClick={content.onDel}
 																	/>
 																</div>
 															)}
-															<div className="col col-sml-12 u-mar--top--sml type--right">
-																{isMixed500Booklet && arr.length - 1 === i && (
+															{isMixed500Booklet && arr.length - 1 === i && (
+																<div className="form__group col col-sml-12 u-mar--top--med type--right">
 																	<span className="type--base type--wgt--medium type--color--note">
 																		<span className="type--sml type--color--text">Total certificates per booklet:</span>{' '}
 																		{_.sumBy(item.$('bookletContents').values(), o => {
 																			return o.certificateCount;
 																		})}
 																	</span>
-																)}
-															</div>
+																</div>
+															)}
 														</div>
 													</div>
 												);
