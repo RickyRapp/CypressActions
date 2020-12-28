@@ -39,7 +39,7 @@ function renderPrimary(menu, menuStore, translate) {
                         return (
                             <React.Fragment key={title}>
                                 <div className="u-position--rel">
-                                    <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
+                                    <div className={i === 0 ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
                                         <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} />
                                         {!menuStore.isCollapsed &&
                                             <span title={title} className="nav--secondary__text u-mar--left--sml">

@@ -190,3 +190,6 @@ k-calendar date range
     border-color: $color-primary;
 }
 
+.k-datepicker .k-select {
+    width: 60px;
+}
