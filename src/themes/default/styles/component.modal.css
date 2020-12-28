@@ -28,7 +28,6 @@
 		overflow-y: auto;
 		
 		padding: calc($unit * 4);
-		padding-top: calc($unit * 5.5);
 		border: none;
 		border-radius: $radius-base;
 

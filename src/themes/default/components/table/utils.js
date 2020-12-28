@@ -133,7 +133,7 @@ function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization, bat
                             authorization={authorization ? authorization.edit : null}
                             className="icon-floppy-disk btn btn--link spc--right--tny"
                             disabled={!hasSelectedItems}
-                            icon="u-icon u-icon--edit u-icon--xxmed"
+                            icon="u-icon u-icon--edit u-icon--base"
                             onlyIcon={true}
                             onClick={() => onBatchCreate(selectedItems)}
                         />
@@ -144,7 +144,7 @@ function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization, bat
                                 authorization={authorization ? authorization.edit : null}
                                 className="icon-floppy-disk btn btn--link spc--right--tny"
                                 disabled={!hasDirtyItems}
-                                icon="u-icon u-icon--edit u-icon--xxmed"
+                                icon="u-icon u-icon--edit u-icon--base"
                                 onlyIcon={true}
                                 onClick={() => onBatchUpdate(data.toJS())}
                             />
@@ -152,7 +152,7 @@ function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization, bat
                                 <BaasicButton
                                     className="btn btn--link spc--right--tny"
                                     onlyIcon={true}
-                                    icon="u-icon u-icon--edit u-icon--xxmed"
+                                    icon="u-icon u-icon--edit u-icon--base"
                                     onClick={() => resetGridItems()}
                                 />
                             )}
@@ -163,7 +163,7 @@ function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization, bat
                             authorization={authorization ? authorization.delete : null}
                             className="btn btn--link btn--link--primary icon-bin align--v--middle"
                             disabled={!hasSelectedItems}
-                            icon="u-icon u-icon--delete u-icon--xxmed"
+                            icon="u-icon u-icon--delete u-icon--base"
                             onlyIcon={true}
                             label="delete"
                             onClick={() => onBatchDelete(selectedItems.toJS())}

@@ -30,7 +30,7 @@
             background-size: calc($unit * 2);
         }
 
-        &--xxmed {
+        &--base {
             width: calc($unit * 3);
             height: calc($unit * 3);
             background-size: calc($unit * 3);
@@ -378,6 +378,17 @@
             &:focus {
                 outline: 0;
                 background-image: svg-load('../styles/postcss-svg/log-icon.svg', stroke: $color-primary);
+            }
+        }
+
+        &--sync {
+            background-image: svg-load('../styles/postcss-svg/sync.svg', stroke: $color-background);
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: 0;
+                background-image: svg-load('../styles/postcss-svg/sync.svg', stroke: $color-background);
             }
         }
         &--email {

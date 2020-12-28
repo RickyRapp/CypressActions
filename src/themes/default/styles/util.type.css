@@ -38,6 +38,14 @@
         }
     }
 
+    &--xmed {
+        @mixin type-scale $type-base, 1;
+
+        @media (--screen-from-med) {
+            @mixin type-scale $type-xmedium, 1.25;
+        }
+    }
+
     &--lrg {
         @mixin type-scale $type-medium, 1.25;
 

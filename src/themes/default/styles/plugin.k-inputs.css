@@ -3,54 +3,62 @@
 \*------------------------------------*/
 
 .k-textbox-container.k-state-empty > .k-label {
-    top: 50%;
-    left: calc($unit * 2.6);
+	top: 50%;
+	left: calc($unit * 2.6);
 
-    font-size: calc($unit * 2);
+	@mixin type-scale $type-base, 1;
+	@media (--screen-to-med) {
+		left: calc($unit * 4);
+
+		@mixin type-scale $type-small, 1;
+	}
 }
 
 .k-textbox-container {
-    padding: 0;
-    /* margin-top: calc($unit * 2.5); */
+	padding: 0;
+	/* margin-top: calc($unit * 2.5); */
 }
 
 .k-textbox-container.k-state-empty {
-    padding: 0;
+	padding: 0;
 }
 
 .k-multiselect-wrap.k-floatwrap {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 
-    height: calc($unit * 10);
+	height: calc($unit * 10);
+
+	@media (--screen-to-med) {
+		height: calc($unit * 8);
+		line-height: calc($unit * 8);
+		padding: 0 calc($unit * 4);
+		@mixin type-scale $type-small, 1;
+	}
 }
 
 .k-widget.k-multiselect.k-header.k-textbox-container.k-dropdown.input--multiselect {
-    padding-top: 0;
+	padding-top: 0;
 }
 
 .k-dropdown .k-dropdown-wrap {
-    margin-top: 0;
-}
-
-.k-textbox-container.k-state-empty > .k-label {
-    @mixin type-scale $type-base, 1;
+	margin-top: 0;
 }
 
 .k-list .k-item {
-    min-height: calc($unit * 7);
-    color: $color-text;
-    background-color: $color-background;
-    
-    &:hover {
-        background-color: color($bali-hai a(40%));
-    }
+	min-height: calc($unit * 7);
+	color: $color-text;
+	background-color: $color-background;
 
-    &.k-state-selected {
-        background-color: $bali-hai !important;  
-    }
+	&:hover {
+		background-color: color($bali-hai a(40%));
+	}
+
+	&.k-state-selected {
+		background-color: $bali-hai !important;
+	}
 }
 
 .k-numerictextbox .k-numeric-wrap {
-    border-width: 0;
+	border-width: 0;
 }

@@ -46,7 +46,7 @@ const CustomDateInput = function (props) {
             <div className="col col-sml-6">
                 <label className="type--sml type--wgt--medium">
                     {label}
-                    {required ? <span>*</span> : null}
+                    {required ? <span className="type--color--note u-mar--left--tny">*</span> : null}
                 </label>
                 <DateInput
                     {...other}

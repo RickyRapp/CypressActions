@@ -53,6 +53,11 @@
 				}
 			}
 
+			&--end {
+				justify-content: flex-end;
+				align-items: flex-end;
+			}
+
 			&--wrap {
 				flex-wrap: wrap;
 			}

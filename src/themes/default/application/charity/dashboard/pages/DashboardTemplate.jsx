@@ -27,17 +27,19 @@ function DashboardTemplate({ dashboardViewStore }) {
 								</h5>
 								<p className="dashboard-card__body--title">AVAILABLE BALANCE</p>
 							</div>
-							<div className="dashboard-card__footer">
-								<div className="u-mar--bottom--sml w--100--to-med">
+							<div className="row">
+								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
 									<BaasicButton
 										className="btn btn--med btn--100 btn--primary--light"
 										label="Deposit Funds"
 										onClick={newContributionOnClick}
 									/>
-								</div>
-								<div className="u-mar--bottom--sml w--100--to-med">
+								</div></div>
+								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
 									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Invest Funds" />
-								</div>
+								</div></div>
+								
+								
 							</div>
 						</div>
 					) : (

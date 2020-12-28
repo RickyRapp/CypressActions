@@ -25,6 +25,10 @@
             display: none;
         }
     }
+    
+    @media (--screen-to-sml) {
+        padding: calc($unit * 3) calc($unit * 1);
+    }
 
     &__logo {
         height: 53px;
@@ -32,11 +36,10 @@
 
     &__hamburger {
         display: inline-block;
-        margin-right: calc($unit * 4);
 
         @media (--screen-from-lrg) {
             display: none;
-        }
+        }      
     }
 
     &__options {
@@ -48,10 +51,6 @@
         color: $color-text;
         cursor: pointer;
         display: inline-block;
-
-        @media (--screen-to-lrg) {
-            margin-right: calc($unit * 3);
-        }
 
         &__img {
             margin-right: calc($unit * 2);

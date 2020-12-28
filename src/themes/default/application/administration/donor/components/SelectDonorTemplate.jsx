@@ -12,7 +12,7 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
 
     return (
         <section className="w--400--px">
-            <h3 className="u-mar--bottom--med">{t('SELECT_DONOR')}</h3>
+            <h3 className="type--med type--wgt--medium u-mar--bottom--sml">{t('SELECT_DONOR')}</h3>
             <div className="row">
                 {donorId &&
                     <div className="form__group col col-lrg-12">

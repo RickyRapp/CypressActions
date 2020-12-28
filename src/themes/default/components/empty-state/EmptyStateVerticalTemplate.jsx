@@ -6,7 +6,7 @@ const EmptyStateVerticalTemplate = function (props) {
 
     const { className } = props;
     return (
-        <div className={`card--primary card--lrg ${className}`}>
+        <div className={`${className}`}>
             <p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
         </div>
     );

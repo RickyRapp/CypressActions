@@ -104,6 +104,8 @@
 
     &--disabled,
     &[disabled] {
+        display: flex;
+        align-items: center;
         opacity: 0.6;
         cursor: default;
     }

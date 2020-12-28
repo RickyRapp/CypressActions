@@ -327,7 +327,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </button>
                         </div>
                         {showCustomizeBooks &&
-                            <div className="col col-sml-12 u-padd--left--xlrg u-padd--right--xlrg">
+                            <div className="col col-sml-12 u-padd--left--lrg u-padd--right--lrg">
                                 <div className="u-mar--bottom--med">
                                     <BasicFieldCheckbox
                                         field={form.$('isCustomizedBook')}
@@ -391,7 +391,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                 <div className="card--primary card--med u-mar--bottom--med">
                     <h4 className="type--med type--wgt--medium type--color--note">Shipping Address</h4>
-                    <div className="row u-mar--top--sml u-mar--bottom--sml u-padd--right--sml u-padd--left--sml">
+                    <div className="row u-mar--top--sml u-mar--bottom--sml">
                         <div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--sml">
                             <BasicInput field={form.$('addressLine1')} />
                         </div>

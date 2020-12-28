@@ -3,24 +3,61 @@
 \*------------------------------------*/
 
 .content {
-    &__main {
-        &--form {
-            max-width: $form-width-med;
-        }
+	&__main {
+		&--form {
+			max-width: $form-width-med;
+		}
 
-        & .tabs--primary {
-            width: 100%;
-            margin-bottom: calc($unit * 5);
-        }
-    }
+		& .tabs--primary {
+			width: 100%;
+			margin-bottom: calc($unit * 5);
 
-    &__footer {
-        &__wrap {
-            &--buttons {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
-        }
-    }
+			&__item {
+				display: block;
+				padding: calc($unit * 2) calc($unit * 4);
+
+				@mixin type-scale $type-base, 1;
+
+				@media (--screen-from-xlrg) {
+					@mixin type-scale $type-medium, 1.25;
+				}
+
+				font-weight: $type-weight-medium;
+				text-align: center;
+				color: $grey-4;
+
+				float: left;
+				border-bottom: 2px solid transparent;
+                
+                &:first-child {
+                    padding-left: 0;
+                }
+
+				&:hover {
+					color: color($color-text a(0.5));
+				}
+
+				&.active {
+					color: $color-text;
+
+					border-bottom: 2px solid $color-text;
+				}
+
+				@media (--screen-to-sml) {
+					padding: calc($unit * 1) calc($unit * 2);
+					@mixin type-scale $type-small, 1;
+				}
+			}
+		}
+	}
+
+	&__footer {
+		&__wrap {
+			&--buttons {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+		}
+	}
 }

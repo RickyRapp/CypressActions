@@ -3,7 +3,7 @@
 \*------------------------------------*/
 
 .login {
-	height: 100vh;
+	min-height: 100vh;
 	display: flex;
 
 	background-color: $white;
@@ -19,8 +19,10 @@
 
 	&__media {
 		width: 49%;
-		height: 100%;
-		background-color: $smalt-blue;
+		min-height: 100vh;
+		background: url('../assets/img/login-door.jpg');
+		background-position: center;
+		background-size: cover;
 
 		@media (--screen-to-lrg) {
 			display: none;
@@ -29,6 +31,8 @@
 
 	&__info {
 		width: 51%;
+		min-height: 100vh;
+
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -90,5 +94,7 @@
 	&__form {
 		width: 50%;
 		min-width: calc($unit * 55);
+
+		margin-bottom: calc($unit * 4);
 	}
 }

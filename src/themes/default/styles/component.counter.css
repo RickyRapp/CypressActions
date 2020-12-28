@@ -3,93 +3,90 @@
 \*------------------------------------*/
 
 .counter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-    &__icon {
-        width: calc($unit * 2);
-        height: calc($unit * 2);
-        background-size: calc($unit * 2);
-        transition: all 250ms ease-in-out;
-        
-        &--plus {
-            background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
-        }
-        
-        &--minus {
-            background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
-        }
-    }
+	&__icon {
+		width: calc($unit * 2);
+		height: calc($unit * 2);
+		background-size: calc($unit * 2);
+		transition: all 250ms ease-in-out;
 
-    &__btn {       
-        display: flex;
-        justify-content: center;
-        align-items: center; 
-        width: calc($unit * 7);
-        height: calc($unit * 7);
-        padding: 0 calc($unit * 2);
-        line-height: calc($unit * 6);
-        
-        font-size: 14px;
-        color: $grey-5;
-        outline: none;
-        border: 1px solid $grey-2;
-        background-color: $white;
-        
-        cursor: pointer;
-    
-        transition: all 250ms ease-in-out;
+		&--plus {
+			background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
+		}
 
-        &--minus {
-            border-top-left-radius: $radius-base;
-            border-bottom-left-radius: $radius-base;
+		&--minus {
+			background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
+		}
+	}
 
-            &:hover {
-                border: 1px solid $zest;
+	&__btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: calc($unit * 7);
+		height: calc($unit * 7);
+		padding: 0 calc($unit * 2);
+		line-height: calc($unit * 6);
 
-                & .counter__icon--minus {
-                    background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $color-note);
-                }
-            }
-        }
-        
-        &--plus{
-            border-top-right-radius: $radius-base;
-            border-bottom-right-radius: $radius-base;
-    
-            &:hover {
-                border: 1px solid $zest;
+		font-size: 14px;
+		color: $grey-5;
+		outline: none;
+		border: 1px solid $grey-2;
+		background-color: $white;
 
-                & .counter__icon--plus {
-                    background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $color-note);
-                }
-            }
-        }
-        
-        &--count {
-            cursor: default;
-            border-radius: 0;
-        }
-    }
+		cursor: pointer;
 
-    &--prepaid {
-        min-width: calc($unit * 17);
-        max-width: calc($unit * 22);
-        text-align: center;
+		transition: all 250ms ease-in-out;
 
-        background-color: $zest-light;
-        color: $color-note;
+		&--minus {
+			border-top-left-radius: $radius-base;
+			border-bottom-left-radius: $radius-base;
 
-        border: 1px solid $zest-dark;
-        border-radius: 25px;
-        @mixin type-scale $type-xsmall, 1;
+			&:hover {
+				& .counter__icon--minus {
+					background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $color-note);
+				}
+			}
+		}
 
-        @media (--screen-to-sml) {
-            min-width: calc($unit * 11);
-            
-            @mixin type-scale $type-tiny, 0.70;
-            font-size: calc($unit * 1.3);
-        }
-    }
+		&--plus {
+			border-top-right-radius: $radius-base;
+			border-bottom-right-radius: $radius-base;
+
+			&:hover {
+				& .counter__icon--plus {
+					background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $color-note);
+				}
+			}
+		}
+
+		&--count {
+			cursor: default;
+			border-radius: 0;
+			margin: 0 -1px;
+		}
+	}
+
+	&--prepaid {
+		min-width: calc($unit * 17);
+		max-width: calc($unit * 22);
+		text-align: center;
+
+		background-color: $zest-light;
+		color: $color-note;
+
+		border: 1px solid $zest-dark;
+		border-radius: 25px;
+		@mixin type-scale $type-xsmall, 1;
+
+		@media (--screen-to-sml) {
+			min-width: calc($unit * 11);
+
+			@mixin type-scale $type-tiny, 0.7;
+			font-size: calc($unit * 1.3);
+		}
+	}
 }

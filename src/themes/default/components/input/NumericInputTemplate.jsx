@@ -8,7 +8,7 @@ const NumericInputTemplate = defaultTemplate(props => {
     const { t, value, onChange, onBlur, format, label, max, min, required, className, disabled, name, placeholder } = props;
     const showLabel = props.showLabel === undefined ? true : props.showLabel;
 
-    const requiredMark = required ? <span>*</span> : null;
+    const requiredMark = required ? <span className="type--color--note u-mar--left--tny">*</span> : null;
     const handleFocus = event => {
         event.target.select();
     };

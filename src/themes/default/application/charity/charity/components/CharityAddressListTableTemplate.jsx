@@ -27,7 +27,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
     return (
         <div>
             <ListContent>
-                <h3 className="u-mar--bottom--tny">
+                <h3 className="type--med type--wgt--medium u-mar--bottom--med">
                     {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
                     {maxAddressesEntered ?
                         <span className="u-icon u-icon--lock u-icon--sml u-mar--left--tny" />

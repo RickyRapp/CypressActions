@@ -9,7 +9,7 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, showMa
         otherProps.value = otherProps.value.replace(/\s+/g, ' ');
     if (otherProps.value == null) otherProps.value = '';
 
-    const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span>*</span> : null;
+    const requiredMark = field.rules && field.rules.indexOf('required') !== -1 ? <span className="type--color--note u-mar--left--tny">*</span> : null;
 
     return (
         <React.Fragment>

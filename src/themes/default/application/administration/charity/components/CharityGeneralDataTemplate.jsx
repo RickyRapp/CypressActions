@@ -34,7 +34,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                         <div className="col col-sml-12 col-lrg-12">
                             <div className="u-mar--bottom--sml">
                                 <div className="u-mar--bottom--med">
-                                    <h3 className="type--lrg type--wgt--medium" style={{ display: 'inline' }}>
+                                    <h3 className="type--med type--wgt--medium" style={{ display: 'inline' }}>
                                         {t('CHARITY.EDIT.FIELDS.TITLE')}
                                     </h3>
                                     {item && item.availableBalance > 0 &&
@@ -46,14 +46,14 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                         />}
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-2 u-mar--bottom--sml">
                                         <div>
                                             <label className="form__group__label">Tax Id</label>
                                             {item &&
                                                 <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
                                         </div>
                                     </div>
-                                    <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-2 u-mar--bottom--sml">
                                         {item &&
                                             <Barcode
                                                 type={BarcodeFormat.QR_CODE}
@@ -64,30 +64,30 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('name')} />
                                     </div>
-                                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('dba')} />
                                     </div>
-                                    <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />
                                     </div>
-                                    <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('charityStatusId')} store={charityStatusDropdownStore} />
                                     </div>
                                 </div>
                             </div>
                             <div className="u-mar--bottom--sml">
-                                <h3 className="u-mar--bottom--med">Contact info</h3>
+                                <h3 className="type--med type--wgt--medium u-mar--bottom--med">Contact info</h3>
                                 <div className="row">
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
                                     </div>
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationEmail')} />
                                     </div>
-                                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                         <NumberFormatInputField field={form.$('contactInformationNumber')} />
                                     </div>
                                 </div>

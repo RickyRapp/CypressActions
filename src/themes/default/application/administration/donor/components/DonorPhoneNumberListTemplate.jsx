@@ -29,12 +29,12 @@ const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore,
                 <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
                     {t('PHONE_NUMBER.LIST.TITLE')}
                     {maxPhoneNumbersEntered ?
-                        <span className="u-icon u-icon--add u-icon--xxmed u-mar--left--tny" />
+                        <span className="u-icon u-icon--add u-icon--base u-mar--left--tny" />
                         :
                         <BaasicButton
                             className="btn btn--icon"
                             onlyIconClassName="u-mar--right--tny"
-                            icon='u-icon u-icon--add u-icon--xxmed'
+                            icon='u-icon u-icon--add u-icon--base'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openPhoneNumberModal()}>

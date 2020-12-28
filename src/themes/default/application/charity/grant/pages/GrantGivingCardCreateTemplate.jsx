@@ -11,21 +11,21 @@ function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
 		<ApplicationEditLayout store={grantGivingCardCreateViewStore}>
 			<Content loading={contentLoading}>
 				<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CHARITY_GIVING_CARD.CREATE.TITLE')}</h3>
-				<div className="card--sml card--primary">
+				<div className="card--med card--primary">
 					<div className="row">
-						<div className="form__group col col-sml-12 col-lrg-12">
+						<div className="form__group col col-sml-12 col-lrg-6">
 							<NumericInputField field={form.$('amount')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-12">
+						<div className="form__group col col-sml-12 col-lrg-6">
 							<NumberFormatInputField field={form.$('cardNumber')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-12">
+						<div className="form__group col col-sml-12 col-lrg-6">
 							<NumberFormatInputField field={form.$('expirationDate')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-12">
+						<div className="form__group col col-sml-12 col-lrg-6">
 							<NumberFormatInputField field={form.$('cvv')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-12">
+						<div className="form__group col col-sml-12 col-lrg-6">
 							<BasicInput field={form.$('note')} />
 						</div>
 					</div>

@@ -6,7 +6,7 @@ import '@progress/kendo-react-intl';
 
 const RowInput = defaultTemplate(({ field, t, showLabel = true, disabled }) => {
     const required = field.rules && field.rules.indexOf('required') !== -1;
-    const requiredMark = required ? <span>*</span> : null;
+    const requiredMark = required ? <span className="type--color--note u-mar--left--tny">*</span> : null;
     const maxValue =
         field.rules && field.rules.indexOf('max') !== -1 ? parseInt(/max:(\d+)/.exec(field.rules)[1]) : undefined;
     const minValue =

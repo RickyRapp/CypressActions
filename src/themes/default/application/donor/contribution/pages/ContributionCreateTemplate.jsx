@@ -130,7 +130,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 					<div className="col col-sml-12">
 						<div className="card--sml type--med type--wgt--medium type--color--note">Overview</div>
 					</div>
-					<div className="col col-sml-12 col-xlrg-3">
+					<div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
 						{paymentTypes.map(c => {
 							return (
 								<div
@@ -166,12 +166,12 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 							);
 						})}
 					</div>
-					<div className="col col-sml-12 col-xlrg-9">
+					<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
 						<div className="row">
-							<div className="col col-sml-12 col-xxlrg-7">
+							<div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
 								<EditFormContent form={form}>
-									<div className="card--primary card--med u-mar--bottom--med">
-										<div className="row">
+									<div className="card--primary card--med fullheight">
+										<div className="row fullheight">
 											<div className="col col-sml-12 col-lrg-12">
 												<h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
 											</div>
@@ -235,7 +235,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
 											</div>
-											<div className="col col-sml-12">
+											<div className="col col-sml-12 u-display--flex u-display--flex--end">
 												<BaasicButton
 													type="button"
 													className="btn btn--med btn--med--wide btn--secondary u-push"
@@ -251,13 +251,16 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 									</BaasicModal>
 								</EditFormContent>
 							</div>
-							<div className="col col-sml-12 col-xxlrg-5">
-								<div className="card--primary card--med u-mar--bottom--med h--95">
-									<h5 className="type--med type--wgt--medium u-mar--bottom--sml">
-										{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
-									</h5>
-									<SimpleBaasicTable tableStore={previousContributionsTableStore} />
-									<div className="type--right">
+							<div className="col col-sml-12 col-xxlrg-5 u-mar--bottom--med">
+								<div className="card--primary card--med fullheight">
+									<div className="u-display--flex u-display--flex--column u-display--flex--justify--space-between fullheight">
+										<div>
+											<h5 className="type--med type--wgt--medium u-mar--bottom--sml">
+												{t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
+											</h5>
+											<SimpleBaasicTable tableStore={previousContributionsTableStore} />
+										</div>
+
 										<BaasicButton
 											className="btn btn--100 btn--primary u-mar--top--med"
 											label="CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS"
