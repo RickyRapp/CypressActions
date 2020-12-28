@@ -24,8 +24,9 @@ function renderPrimary(menu, menuStore, translate) {
 
             <div className={menuStore.isOpen ? 'nav--primary is-open' : 'nav--primary'}>
                 {menu.map((item, i) => {
-
-                    let className = i === 0 ? 'nav--primary__item nav--primary__item--give' : 'nav--primary__item';
+                    const title = translate(item.title);
+                    let className = title === "Give" ? 'nav--primary__item nav--primary__item--give' : 'nav--primary__item';
+                    
                     if (menuStore.selectedPath && menuStore.selectedPath.length > 0) {
                         if (menuItemActive(item, menuStore.selectedPath)) {
                             className += ' selected';
@@ -34,15 +35,14 @@ function renderPrimary(menu, menuStore, translate) {
                     if (menuItemActive(item, menuStore.activePath)) {
                         className += ' active';
                     }
-                    const title = translate(item.title);
                     if (className.includes('selected') || (item.hasChildren && className.includes('active'))) {
                         return (
                             <React.Fragment key={title}>
                                 <div className="u-position--rel">
-                                    <div className={i === 0 ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
+                                    <div className={title === "Give" ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
                                         <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} />
                                         {!menuStore.isCollapsed &&
-                                            <span title={title} className={i === 0 ? "u-mar--left--sml" : "nav--secondary__text u-mar--left--sml"}>
+                                            <span title={title} className={title === "Give" ? "u-mar--left--sml" : "nav--secondary__text u-mar--left--sml"}>
                                                 {title}
                                             </span>}
                                         {item.hasChildren ? (
@@ -64,7 +64,7 @@ function renderPrimary(menu, menuStore, translate) {
                                     <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
                                         <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} title={title} />
                                         {!menuStore.isCollapsed &&
-                                            <span title={title} className={i === 0 ? "u-mar--left--sml" : "nav--secondary__text u-mar--left--sml"}>
+                                            <span title={title} className={title === "Give" ? "u-mar--left--sml" : "nav--secondary__text u-mar--left--sml"}>
                                                 {title}
                                             </span>}
                                         {item.hasChildren ? (
