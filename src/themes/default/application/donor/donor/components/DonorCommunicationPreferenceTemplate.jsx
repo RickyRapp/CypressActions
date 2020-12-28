@@ -43,7 +43,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                     </div>
                     <div className="col col-sml-12 col-lrg-6">
                         <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
-                        <div className="row u-mar--bottom--sml">
+                        <div className="row u-mar--bottom--sml u-padd--top--tny">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicFieldCheckbox field={form.$('isNewGrantRequestEnabled')} />
                             </div>
