@@ -77,7 +77,7 @@ const BaasicDropdownTemplate = function (props) {
 
     return (
         <React.Fragment>
-            <div className="u-pos--relative">
+            <div className="u-position--rel">
                 <Component
                     {...assignProps}
                     className={styleClasses}
@@ -103,7 +103,7 @@ const BaasicDropdownTemplate = function (props) {
                     <BaasicButton
                         onClick={() => onChange({ target: { value: null } })}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--sml u-icon--clear'
+                        icon='u-icon u-icon--base u-icon--clear u-icon--clear--absolute'
                         label="DROPDOWN.CLEAR_BUTTON"
                         onlyIcon
                         disabled={store.options.disabled}

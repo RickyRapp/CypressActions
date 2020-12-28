@@ -129,6 +129,7 @@
 /* Kendo date range picker */
 .k-daterangepicker {
     display: block;
+    width: 100%;
 
     .k-daterangepicker-wrap {
         display: flex !important;

@@ -97,7 +97,7 @@
 				position: absolute;
 				right: calc($unit * 7);
 				left: calc($unit * 7);
-				top: calc($unit * 4);
+				top: calc($unit * 3);
 
 				display: flex;
 				justify-content: center;
