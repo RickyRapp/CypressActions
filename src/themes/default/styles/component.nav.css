@@ -66,6 +66,33 @@
             transition: color, background-color 250ms ease-out;
             cursor: pointer;
 
+            &:first-child {
+                border-top: 1px solid color($scandal a(20%));
+            }
+
+            &--give {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: calc($unit * 2) calc($unit * 1);
+                margin: calc($unit * 3) calc($unit * 6);
+
+                @mixin type-scale $type-base, 1;            
+                border: 1px solid color($scandal a(20%));
+                border-radius: calc($unit / 1.6);  
+                cursor: pointer;
+                transition: all 250ms ease-out;
+
+                &:hover {
+                    color: color($color-note a(70%));  
+                    border-color: color($color-note a(70%));  
+                }
+
+                &:before {
+                    width: 0 !important;
+                }
+            }
+
             &--logout {
                 position: absolute;
                 right: calc($unit * 7);

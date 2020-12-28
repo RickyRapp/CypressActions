@@ -222,7 +222,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
 						<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
-						<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
+						<div className="card--med">
+							<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
+						</div>
 					</div>
 				</div>
 			</div>
