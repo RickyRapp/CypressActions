@@ -36,7 +36,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	}
 
 	const LineChartContainer = () => (
-		<Chart style={{ height: 300 }}>
+		<Chart style={{ height: 260, width: 525}}>
 			<ChartCategoryAxis>
 				<ChartCategoryAxisItem categories={categories} />
 			</ChartCategoryAxis>
@@ -136,9 +136,15 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
 							<h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">{t('DASHBOARD.YOUR_GIVING')}</h3>
-							<div className="dashboard-card__body--giving-goal">
-								<p className="type--med">Giving goal</p>
+							<div className="dashboard-card__giving-goal">
+								<p className="type--med type--wgt--medium">Giving goal:</p>
+								<div className="dashboard-card__giving-goal--range">
+									<div className="dashboard-card__giving-goal--range--progress">25%</div>
+								</div>
+								<p className="btn btn--sml btn--link">Manage</p>
 							</div>
+							<div className="type--med type--wgt--medium type--center u-mar--left--lrg">$25,000 / $100,000</div>
+							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml"></div>
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">

@@ -22,7 +22,7 @@
 			right: 0;
 			bottom: 0;
 			left: 0;
-			background-color: $color-tertiary;
+			background-color: $color-text;
 			z-index: 10;
 
 			padding: calc($unit * 8) 0 calc($unit * 6) 0;
@@ -60,15 +60,14 @@
 			align-items: center;
 			padding: calc($unit * 5) calc($unit * 8.5);
 
-			border-bottom: 1px solid color($scandal a(20%));
 			font-weight: $type-weight-regular;
 			color: color($white a(50%));
 			transition: color, background-color 250ms ease-out;
 			cursor: pointer;
+			margin: -1px 0;
 
-			&:first-child {
-				border-top: 1px solid color($scandal a(20%));
-			}
+			border-top: 1px solid color($scandal a(10%));
+			border-bottom: 1px solid color($scandal a(10%));
 
 			&--give {
 				display: flex;
@@ -78,6 +77,10 @@
 				margin: calc($unit * 3) calc($unit * 6);
 
 				@mixin type-scale $type-base, 1;
+
+				@media (--screen-from-med) {
+					@mixin type-scale $type-medium, 1.25;
+				}
 				border: 1px solid color($scandal a(20%));
 				border-radius: calc($unit / 1.6);
 				cursor: pointer;
@@ -86,6 +89,7 @@
 				&:hover {
 					color: color($color-note a(70%));
 					border-color: color($color-note a(70%));
+					background-color: $color-text !important;
 				}
 
 				&:before {
@@ -262,11 +266,11 @@
 			&.active,
 			&.selected {
 				color: $color-primary;
-				background-color: color($white a(10%));
+				background-color: color($grey-8 a(15%));
 
-				&:before {
+				/* &:before {
 					background-color: $scandal;
-				}
+				} */
 
 				.u-icon {
 					&--give {
