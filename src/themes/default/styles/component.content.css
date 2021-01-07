@@ -10,7 +10,7 @@
 
 		& .tabs--primary {
 			width: 100%;
-			margin-bottom: calc($unit * 5);
+			margin-bottom: calc($unit * 2);
 
 			&__item {
 				display: block;
@@ -28,10 +28,6 @@
 
 				float: left;
 				border-bottom: 2px solid transparent;
-                
-                &:first-child {
-                    padding-left: 0;
-                }
 
 				&:hover {
 					color: color($color-text a(0.5));

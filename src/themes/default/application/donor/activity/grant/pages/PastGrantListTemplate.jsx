@@ -176,7 +176,7 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 								</div>
 							</React.Fragment>
 						) : (
-							<div>
+							<div className="card--med">
 								<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
 							</div>
 						)}

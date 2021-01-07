@@ -68,7 +68,7 @@ const ContributionListTemplate = function({ contributionViewStore }) {
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--sml">
 							<div className="row">
-								<div className="col col-sml-12 col-med-6 col-lrg-4">
+								<div className="col col-sml-12 col-lrg-8">
 									<DateRangeQueryPicker
 										queryUtility={queryUtility}
 										store={dateCreatedDateRangeQueryStore}

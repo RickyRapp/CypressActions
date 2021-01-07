@@ -51,7 +51,7 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 							<div className="card--primary card--med u-mar--bottom--med">
 								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
 								<div className="row">
-									<div className="form__group col col-sml-12 u-mar--bottom--sml">
+									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
 											field={form.$('charityId')}
 											store={charityDropdownStore}
@@ -59,11 +59,11 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 										/>
 									</div>
 								</div>
-								<div className="row">
+								<div className="row row__align--center">
 									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
 										<BasicFieldCheckbox field={form.$('isNewCharity')} />
 									</div>
-									<div className="col col-sml-12 u-mar--bottom--sml">
+									<div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
 										<div className="u-push--from--med">
 											<BaasicButton
 												className="advanced-search"
@@ -80,46 +80,46 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 									<div className="card--form card--med u-mar--bottom--med">
 										<h4 className="type--lrg type--wgt--medium">{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
 										<div className="row">
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityName')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<NumberFormatInputField field={form.$('charityTaxId')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityDba')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />
 											</div>
-											<div className="form__group col col-sml-12 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12">
 												<BasicInput field={form.$('charityAddressLine1')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityAddressLine2')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityCity')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityState')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityZipCode')} />
 											</div>
-											<div className="form__group col col-sml-12 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12">
 												<BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
 											</div>
 										</div>
 										<h4 className="type--lrg type--wgt--medium">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
 										<div className="row">
-											<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-12">
 												<BasicInput field={form.$('charityContactName')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-12">
 												<BasicInput field={form.$('charityContactEmail')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-12">
 												<NumberFormatInputField field={form.$('charityContactNumber')} />
 											</div>
 										</div>
@@ -135,7 +135,7 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 													<span className="type--base type--wgt--regular type--color--opaque">
 														{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}
 													</span>
-													<span className="type--base type--wgt--medium">{charityDropdownStore.value.item.name}</span>
+													<span className="type--base type--wgt--medium type--right">{charityDropdownStore.value.item.name}</span>
 												</div>
 											</div>
 											<div className="col col-sml-12 u-mar--bottom--sml">
@@ -143,7 +143,7 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 													<span className="type--base type--wgt--regular type--color--opaque">
 														{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}
 													</span>
-													<span className="type--base type--wgt--medium">{charityDropdownStore.value.item.taxId}</span>
+													<span className="type--base type--wgt--medium type--right">{charityDropdownStore.value.item.taxId}</span>
 												</div>
 											</div>
 											{!isChangedDefaultAddress && (
@@ -152,7 +152,7 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 														<span className="type--base type--wgt--regular type--color--opaque">
 															{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}
 														</span>
-														<span className="type--base type--wgt--medium">
+														<span className="type--base type--wgt--medium type--right">
 															{addressFormatter.format(
 																charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true),
 																'full'
@@ -177,19 +177,19 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 								{isChangedDefaultAddress && (
 									<div className="card--secondary card--med u-mar--bottom--sml">
 										<div className="row">
-											<div className="form__group col col-sml-12 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12">
 												<BasicInput field={form.$('addressLine1')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('addressLine2')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('city')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('state')} />
 											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('zipCode')} />
 											</div>
 										</div>
@@ -197,34 +197,38 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 								)}
 
 								<div className="row">
-									<div className="form__group col col-sml-12 u-mar--bottom--sml">
+									<div className="form__group col col-sml-12">
 										<NumericInputField field={form.$('amount')} />
 									</div>
 								</div>
 								<div className="row">
-									<div className="form__group col col-sml-12 u-mar--bottom--sml">
+									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
 											field={form.$('grantAcknowledgmentTypeId')}
 											store={grantAcknowledgmentTypeDropdownStore}
 										/>
 									</div>
 									{grantAcknowledgmentName && (
-										<div className="form__group col col-sml-12 u-mar--bottom--med">{grantAcknowledgmentName}</div>
+										<div className="form__group col col-sml-12 u-mar--bottom--med">
+											<div className="charity-information__card charity-information__card--secondary">
+												{grantAcknowledgmentName}
+											</div>
+										</div>
 									)}
 								</div>
 								<div className="row">
-									<div className="form__group col col-sml-12 u-mar--bottom--sml">
+									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
 									</div>
 								</div>
 								<div className="row">
-									<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+									<div className="form__group col col-sml-12 col-lrg-12">
 										{/* {grantPurposeTypeDropdownStore.value &&
                                             <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />} */}
 									</div>
 								</div>
 								<div className="row">
-									<div className="form__group col col-sml-12 col-lrg-6 type--color--note u-mar--bottom--sml">
+									<div className="form__group col col-sml-12 col-lrg-6 type--color--note">
 										<BasicCheckbox
 											id="2"
 											checked={isNoteToAdministratorIncluded}
@@ -235,7 +239,7 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 								</div>
 								{isNoteToAdministratorIncluded && (
 									<div className="row">
-										<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+										<div className="form__group col col-sml-12 col-lrg-12">
 											<BasicTextArea field={form.$('noteToAdministrator')} />
 										</div>
 									</div>

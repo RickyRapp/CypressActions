@@ -44,7 +44,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
 
                 {form.$('isThirdPartyAccount').value &&
                     <React.Fragment>
-                        <div className="row">
+                        <div className="row row__align--end">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicInput field={form.$('accountHolderName')} />
                             </div>
@@ -63,24 +63,24 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                             <div className="form__group col col-sml-6 col-lrg-4">
                                 <BasicInput field={form.$('zipCode')} />
                             </div>
-                            <div className="form__group col col-sml-4 col-lrg-2">
+                            <div className="form__group col col-sml-6 col-lrg-2">
                                 <BaasicButton
                                     onClick={() => useDonorContactInformations('address')}
-                                    className='btn btn--sml btn--tertiary u-mar--top--med'
+                                    className='btn btn--100 btn--tertiary'
                                     type='button'
                                     label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_ADDRESS"
                                 />
                             </div>
                         </div>
 
-                        <div className="row">
+                        <div className="row row__align--end">
                             <div className="form__group col col-sml-6 col-lrg-4">
                                 <BasicInput field={form.$('email')} />
                             </div>
-                            <div className="form__group col col-sml-4 col-lrg-2">
+                            <div className="form__group col col-sml-6 col-lrg-2">
                                 <BaasicButton
                                     onClick={() => useDonorContactInformations('emailAddress')}
-                                    className='btn btn--sml btn--tertiary u-mar--top--med'
+                                    className='btn btn--100 btn--tertiary'
                                     type='button'
                                     label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_EMAIL_ADDRESS"
                                 />
@@ -88,10 +88,10 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                             <div className="form__group col col-sml-6 col-lrg-4">
                                 <NumberFormatInputField field={form.$('number')} />
                             </div>
-                            <div className="form__group col col-sml-4 col-lrg-2">
+                            <div className="form__group col col-sml-6 col-lrg-2">
                                 <BaasicButton
                                     onClick={() => useDonorContactInformations('phoneNumber')}
-                                    className='btn btn--sml btn--tertiary u-mar--top--med'
+                                    className='btn btn--100 btn--tertiary'
                                     type='button'
                                     label="BANK_ACCOUNT.EDIT.BUTTON.USE_PRIMARY_PHONE_NUMBER"
                                 />

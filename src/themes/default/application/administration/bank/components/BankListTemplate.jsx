@@ -24,7 +24,7 @@ const BankListTemplate = function ({ bankViewStore }) {
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="type--right">
                     <BaasicButton
-                        className="btn btn--med btn--primary"
+                        className="btn btn--med btn--primary u-mar--right--med"
                         label={'LIST_LAYOUT.CREATE_BUTTON'}
                         onClick={routes.create} />
                 </div>

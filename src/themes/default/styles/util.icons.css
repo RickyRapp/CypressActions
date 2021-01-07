@@ -432,6 +432,11 @@
 
         &--clear {
             background-image: svg-load('../styles/postcss-svg/clear_circle.svg', fill: $grey-4);
+
+            &--absolute {
+                position: absolute;
+                right: calc($unit * 7);
+            }
         }
 
         &--user {

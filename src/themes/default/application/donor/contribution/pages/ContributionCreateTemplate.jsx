@@ -40,7 +40,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 
 	const AddButton = () => (
 		<BaasicButton
-			className="btn btn--tny btn--primary"
+			className="btn btn--tny btn--primary u-mar--bottom--tny"
 			label="CONTRIBUTION.CREATE.ADD_BANK_ACCOUNT"
 			onClick={onAddBankAccountClick}
 		></BaasicButton>

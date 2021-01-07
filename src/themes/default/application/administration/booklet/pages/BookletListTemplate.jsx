@@ -15,24 +15,20 @@ const BookletListTemplate = function({ bookletViewStore }) {
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
 						<TableFilter queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-								<div className="row">
-									<div className="col col-sml-12 u-mar--bottom--sml">
-										<BaasicInput
-											id="codes"
-											className="input input--lrg"
-											value={queryUtility.filter.codes || ''}
-											onChange={event => (queryUtility.filter.codes = event.target.value)}
-											placeholder="BOOKLET.LIST.FILTER.CODES_PLACEHOLDER"
-										/>
-									</div>
-									<div className="col col-sml-12 u-mar--bottom--sml">
-										<BaasicDropdown
-											store={denominationTypeDropdownStore}
-											placeholder="BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER"
-										/>
-									</div>
-								</div>
+							<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="codes"
+									className="input input--lrg"
+									value={queryUtility.filter.codes || ''}
+									onChange={event => (queryUtility.filter.codes = event.target.value)}
+									placeholder="BOOKLET.LIST.FILTER.CODES_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={denominationTypeDropdownStore}
+									placeholder="BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER"
+								/>
 							</div>
 						</TableFilter>
 					</div>

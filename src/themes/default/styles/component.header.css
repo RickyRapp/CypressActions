@@ -25,10 +25,6 @@
             display: none;
         }
     }
-    
-    @media (--screen-to-sml) {
-        padding: calc($unit * 3) calc($unit * 1);
-    }
 
     &__logo {
         height: 53px;

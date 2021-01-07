@@ -10,7 +10,8 @@
 
         padding: calc($unit * 2) calc($unit * 4);
         background-color: $color-background;
-
+        text-align: center;
+        
         &--secondary {
             justify-content: center;
             
