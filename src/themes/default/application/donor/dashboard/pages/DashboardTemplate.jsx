@@ -36,7 +36,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	}
 
 	const LineChartContainer = () => (
-		<Chart style={{ height: 260, width: 525}}>
+		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
 				<ChartCategoryAxisItem categories={categories} />
 			</ChartCategoryAxis>
