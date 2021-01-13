@@ -57,7 +57,7 @@
         "NEW_REMAINDER": "New Remainder",
         "ACTIVITY": "Activity",
         "CHARITY_PROFILE": "Profile",
-        "GRANT_REQUEST": "Grant Request",
+        "GRANT_REQUEST": "Request donation",
         "CHARITY_GIVING_CARD": "Accept Card"
     },
     "CORE": {
@@ -650,13 +650,15 @@
             "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
         },
         "CHARITY_WEBSITE_SETTING": {
-            "TITLE": "Third party websites",
+            "TITLE": "Charity websites",
             "EDIT": {
                 "FIELDS": {
                     "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
                     "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
                     "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                    "MAX_AMOUNT_PLACEHOLDER": "Enter number",
                     "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                    "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
                     "IS_ENABLED_LABEL": "Is enabled"
                 }
             }
@@ -1404,6 +1406,33 @@
             "QUESTION": "Are you sure you want to cancel selected resource?",
             "SUCCESS": "Successfully canceled selected resource",
             "ERROR": "Error occurred while trying to cancel resource"
+        }
+    },
+    "DONOR_GIVING_CARD_SETTING": {
+        "LIST": {
+            "TITLE": "Giving cards",
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "ENABLED_LABEL": "Enabled"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit giving card setting",
+            "FIELDS": {
+                "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                "MAX_AMOUNT_PLACEHOLDER": "Enter number",
+                "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
+                "IS_ENABLED_LABEL": "Is enabled",
+                "GIVING_CARD_LABEL": "Giving card",
+                "SELECT_GIVING_CARD": "Select giving card"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Request new card"
         }
     },
     "GRANT": {
@@ -2316,7 +2345,7 @@
                 "CHARITY_LABEL": "Charity"
             },
             "EMPTY_STATE": {
-                "TITLE": "No third party websites"
+                "TITLE": "No charity websites"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -2324,7 +2353,7 @@
             }
         },
         "CREATE": {
-            "TITLE": "Create third party website access",
+            "TITLE": "Create charity website access",
             "FIELDS": {
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",
@@ -2336,7 +2365,7 @@
             }
         },
         "EDIT": {
-            "TITLE": "Edit third party website access",
+            "TITLE": "Edit charity website access",
             "FIELDS": {
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",

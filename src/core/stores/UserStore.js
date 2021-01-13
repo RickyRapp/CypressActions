@@ -67,7 +67,8 @@ class UserStore {
                     user.donor = {
                         accountManager: data.accountManager,
                         fundName: data.fundName,
-                        accountNumber: data.accountNumber
+                        accountNumber: data.accountNumber,
+                        accountType: data.accountType
                     }
                 }
             }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { ContributionList, ScheduledContributionList } from 'application/donor/activity/contribution/pages';
+import { ContributionList } from 'application/donor/activity/contribution/pages';
 
 const ContributionTabTemplate = function ({ contributionTabViewStore }) {
     return (
@@ -11,9 +11,6 @@ const ContributionTabTemplate = function ({ contributionTabViewStore }) {
                 <TabLayout store={contributionTabViewStore} activeClassName="tabs--filter__item">
                     <div label={'ACTIVITY.DEPOSIT_TAB.CONTRIBUTION'}>
                         <ContributionList />
-                    </div>
-                    <div label={'ACTIVITY.DEPOSIT_TAB.SCHEDULED_CONTRIBUTION'}>
-                        <ScheduledContributionList />
                     </div>
                 </TabLayout>
             </div>

@@ -34,7 +34,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                                 <NumericInputField field={form.$('checkAmountExceeding')} />
                             </div>
                         </div>
-                        <h3 className="type--lrg type--wgt--medium type--break--all u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_THIRD_PARY_WEBSITE')}</h3>
+                        <h3 className="type--lrg type--wgt--medium type--break--all u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />

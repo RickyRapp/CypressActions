@@ -4,7 +4,8 @@ import {
     DonorPhoneNumberService,
     DonorService,
     DonorCommunicationPreferenceService,
-    DonorBankAccountService
+    DonorBankAccountService,
+    DonorGivingCardSettingService
 } from 'application/common/donor/services';
 import { DonorFileStreamService } from 'common/services';
 
@@ -18,6 +19,7 @@ class DonorStore {
         this.donorBankAccountService = moduleStore.rootStore.createApplicationService(DonorBankAccountService);
         this.donorCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(DonorCommunicationPreferenceService);
         this.donorFileStreamService = moduleStore.rootStore.createApplicationService(DonorFileStreamService);
+        this.donorGivingCardSettingService = moduleStore.rootStore.createApplicationService(DonorGivingCardSettingService);
     }
 
     async findDonors(params) {
@@ -42,6 +44,11 @@ class DonorStore {
 
     async findBankAccount(params) {
         const response = await this.donorBankAccountService.find(params);
+        return response.data;
+    }
+
+    async findGivingCardSetting(params) {
+        const response = await this.donorGivingCardSettingService.find(params);
         return response.data;
     }
 
@@ -85,6 +92,11 @@ class DonorStore {
         return response.data;
     }
 
+    async getGivingCardSetting(id, options) {
+        const response = await this.donorGivingCardSettingService.get(id, options);
+        return response.data;
+    }
+
     async fundNameExists(params) {
         const response = await this.donorService.fundNameExists(params);
         return response;
@@ -117,6 +129,11 @@ class DonorStore {
 
     async createAutomaticContributionSetting(resource) {
         const response = await this.donorService.createAutomaticContributionSetting(resource);
+        return response.data;
+    }
+
+    async createGivingCardSetting(resource) {
+        const response = await this.donorGivingCardSettingService.create(resource);
         return response.data;
     }
 
@@ -167,6 +184,11 @@ class DonorStore {
 
     async uploadDonorBankAccount(file, donorId, bankAccountId) {
         const response = await this.donorFileStreamService.uploadDonorBankAccount(file, donorId, bankAccountId);
+        return response.data;
+    }
+
+    async updateGivingCardSetting(resource) {
+        const response = await this.donorGivingCardSettingService.update(resource);
         return response.data;
     }
 

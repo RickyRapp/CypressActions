@@ -11,3 +11,5 @@ export { default as DonorBankAccountEditTemplate } from './DonorBankAccountEditT
 export { default as ContactInfoTemplate } from './ContactInfoTemplate'
 export { default as DonorGrantFeesTemplate } from './DonorGrantFeesTemplate'
 export { default as SelectDonorTemplate } from './SelectDonorTemplate'
+export { default as DonorGivingCardSettingEditTemplate } from './DonorGivingCardSettingEditTemplate'
+export { default as DonorGivingCardSettingListTemplate } from './DonorGivingCardSettingListTemplate'

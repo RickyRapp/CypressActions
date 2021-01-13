@@ -64,7 +64,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								Account Number: <span className="type--wgt--bold">{rootStore.userStore.user.donor.accountNumber}</span>
 							</p>
 						</div>
-						<AccountManager />
+						{rootStore.userStore.user.donor.accountType.abrv === 'private' && <AccountManager />}
 					</React.Fragment>
 				) : null}
 			</PageHeader>
@@ -118,19 +118,19 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					) : (
-						<div className="dashboard-card--emptystate">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
+							<div className="dashboard-card--emptystate">
+								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<BaasicButton
+										className="btn btn--secondary btn--med btn--med--wide"
+										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										onClick={newContributionOnClick}
+									/>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 				</div>
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
 					{donor && donor.isContributionMade ? (
@@ -160,19 +160,19 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					) : (
-						<div className="dashboard-card--emptystate card--med">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
+							<div className="dashboard-card--emptystate card--med">
+								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<BaasicButton
+										className="btn btn--secondary btn--med btn--med--wide"
+										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										onClick={newContributionOnClick}
+									/>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 				</div>
 				{donor &&
 					(!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) && (

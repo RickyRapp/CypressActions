@@ -16,3 +16,5 @@ export { default as DonorContributionSettingEditForm } from './DonorContribution
 export { default as DonorAccountSetting } from './DonorAccountSetting'
 export { default as DonorGrantFees } from './DonorGrantFees'
 export { default as SelectDonor } from './SelectDonor'
+export { default as DonorGivingCardSettingEdit } from './DonorGivingCardSettingEdit'
+export { default as DonorGivingCardSettingList } from './DonorGivingCardSettingList'

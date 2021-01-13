@@ -18,15 +18,13 @@ import {
     DonorGrantFees
 } from 'application/administration/donor/components';
 
-function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t, rootStore }) {
+function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }) {
     const {
         form,
         prefixTypeDropdownStore,
         item,
         accountManagerDropdownStore
     } = donorAccountInformationViewStore;
-
-    const { permissionStore } = rootStore;
 
     return (
         <div className="card--primary card--med">
@@ -60,7 +58,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t, 
                                 <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-4">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
-                                {permissionStore.hasPermission('theDonorsFundAdministrationSection.update') &&
+                                {item && item.accountType.abrv === 'private' &&
                                     <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
                                         <BaasicFieldDropdown
                                             field={form.$('accountManagerId')}

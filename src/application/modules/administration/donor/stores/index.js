@@ -14,3 +14,5 @@ export { default as DonorBankAccountEditViewStore } from './DonorBankAccountEdit
 export { default as DonorStore } from './DonorStore'
 export { default as DonorGrantFeesViewStore } from './DonorGrantFeesViewStore'
 export { default as SelectDonorViewStore } from './SelectDonorViewStore'
+export { default as DonorGivingCardSettingEditViewStore } from './DonorGivingCardSettingEditViewStore'
+export { default as DonorGivingCardSettingListViewStore } from './DonorGivingCardSettingListViewStore'

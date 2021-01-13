@@ -15,8 +15,8 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                     return rootStore.application.administration.donorStore.getDonor(
                         id,
                         {
-                            fields: 'prefixTypeId,firstName,lastName,dateOfBirth,fundName,securityPin,accountManager,accountManagerId',
-                            embed: 'accountManager'
+                            fields: 'prefixTypeId,firstName,lastName,dateOfBirth,fundName,securityPin,accountType,accountManager,accountManagerId',
+                            embed: 'accountManager,accountType'
                         });
                 },
                 update: async (resource) => {

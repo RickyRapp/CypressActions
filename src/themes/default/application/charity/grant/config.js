@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantGivingCardCreate, GrantRequest } from 'application/charity/grant/pages';
+import { GrantGivingCardCreate } from 'application/charity/grant/pages';
 
 (function () {
     moduleProviderFactory.application.register({
