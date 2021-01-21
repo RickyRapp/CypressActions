@@ -6,7 +6,7 @@ import { ApplicationEditLayout, Content } from 'core/layouts';
 import _ from 'lodash';
 import { BaasicDropdownStore } from 'core/stores';
 
-const BookletCreateTemplate = function({ bookletCreateViewStore }) {
+const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
 	const { contentLoading, form, bookletTypes, denominationTypes } = bookletCreateViewStore;
 
 	return (
@@ -71,7 +71,7 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 									</div>
 									{item.$('bookletTypeId').value && item.has('bookletContents') && (
 										<div className="">
-											{isMixed500Booklet && (
+											{(isMixed500Booklet || isMixed2000Booklet) && (
 												<BaasicButton
 													className="btn btn--med btn--primary u-mar--bottom--sml u-mar--top--lrg"
 													type="button"
@@ -108,7 +108,7 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 																	itemRender={(li, itemProps) => {
 																		const itemChildren = (
 																			<FormatterResolver
-																				format={{ type: 'denomination', value: isMixed500Booklet ? 'short' : 'long' }}
+																				format={{ type: 'denomination', value: (isMixed500Booklet || isMixed2000Booklet) ? 'short' : 'long' }}
 																				item={{ dataItem: itemProps.dataItem }}
 																				field="dataItem"
 																			/>
@@ -119,7 +119,7 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 																		if (!value) return element;
 																		const itemChildren = (
 																			<FormatterResolver
-																				format={{ type: 'denomination', value: isMixed500Booklet ? 'short' : 'long' }}
+																				format={{ type: 'denomination', value: (isMixed500Booklet || isMixed2000Booklet) ? 'short' : 'long' }}
 																				item={{ dataItem: value }}
 																				field="dataItem"
 																			/>
@@ -131,7 +131,7 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 															<div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
 																<NumericInputField field={content.$('certificateCount')} />
 															</div>
-															{isMixed500Booklet && item.$('bookletContents').size > 1 && (
+															{(isMixed500Booklet || isMixed2000Booklet) && item.$('bookletContents').size > 1 && (
 																<div className="form__group col col-sml-12 col-xlrg-12 col-xxlrg-4 type--right">
 																	<BaasicButton
 																		className="btn btn--med btn--ghost"
@@ -141,7 +141,7 @@ const BookletCreateTemplate = function({ bookletCreateViewStore }) {
 																	/>
 																</div>
 															)}
-															{isMixed500Booklet && arr.length - 1 === i && (
+															{(isMixed500Booklet || isMixed2000Booklet) && arr.length - 1 === i && (
 																<div className="form__group col col-sml-12 u-mar--top--med type--right">
 																	<span className="type--base type--wgt--medium type--color--note">
 																		<span className="type--sml type--color--text">Total certificates per booklet:</span>{' '}
