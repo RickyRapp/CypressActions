@@ -513,7 +513,7 @@
             }
         },
         "EDIT": {
-            "TITLE": "Details",
+            "TITLE": "Profile Settings",
             "SUCCESS": "Successfully updated",
             "FIRST_NAME_LABEL": "First name",
             "FIRST_NAME_PLACEHOLDER": "First name",
@@ -592,6 +592,7 @@
         },
         "ACCOUNT_INFORMATION_FIELDS": {
             "TITLE_PROFILE": "Profile Information",
+            "TITLE_ADDRESS": "Address",
             "DATE_OF_BIRTH": "Date Of Birth"
         },
         "COMMUNICATION_PREFERENCE": {
