@@ -2,6 +2,7 @@ import { action } from 'mobx'
 import { TableViewStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
+import _ from 'lodash';
 
 @applicationContext
 class TestEmailViewStore extends BaseViewStore {
@@ -31,7 +32,8 @@ class TestEmailViewStore extends BaseViewStore {
 
     async setTableStore() {
         const data = await this.rootStore.application.lookup.emailTypeStore.find();
-        this.tableStore.setData(data);
+
+        this.tableStore.setData(_.orderBy(data, [item => item.name], ['asc']));
         if (!this.tableStore.dataInitialized) {
             this.tableStore.dataInitialized = true;
         }
