@@ -11,7 +11,7 @@ class DonorAddressViewStore extends BaseViewStore {
     @observable editId = null;
     @observable addresses = [];
 
-    formAddress = new DonorAddressEditForm({
+    form = new DonorAddressEditForm({
         onSuccess: async form => {
             const address = form.values();
 
@@ -43,23 +43,23 @@ class DonorAddressViewStore extends BaseViewStore {
 
     @action.bound
     onEnableEditClick(address) {
-        this.formAddress.clear();
+        this.form.clear();
         this.editId = null;
         if (address) {
-            this.formAddress.update(address);
+            this.form.update(address);
             this.editId = address.id;
         }
         else {
             this.editId = undefined;
         }
-        this.isEditEnabled = !this.isEditEnabled;
+        this.isEditEnabled = true;
     }
 
     @action.bound
     onCancelEditClick() {
-        this.formAddress.clear();
+        this.form.clear();
         this.editId = null;
-        this.isEditEnabled = !this.isEditEnabled;
+        this.isEditEnabled = false;
     }
 
     @action.bound

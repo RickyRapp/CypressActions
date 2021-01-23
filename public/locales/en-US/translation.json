@@ -593,6 +593,7 @@
         "ACCOUNT_INFORMATION_FIELDS": {
             "TITLE_PROFILE": "Profile Information",
             "TITLE_ADDRESS": "Address",
+            "TITLE_EMAIL_ADDRESS": "Email Address",
             "DATE_OF_BIRTH": "Date Of Birth"
         },
         "COMMUNICATION_PREFERENCE": {
@@ -744,7 +745,9 @@
                 "ZIPCODE_LABEL": "Zip code",
                 "ZIPCODE_PLACEHOLDER": "Zip code",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         },
         "EDIT": {
@@ -761,7 +764,9 @@
                 "ZIPCODE_LABEL": "Zip code",
                 "ZIPCODE_PLACEHOLDER": "Zip code",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         }
     },
@@ -790,7 +795,9 @@
                 "EMAIL_LABEL": "Email",
                 "EMAIL_PLACEHOLDER": "Email",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         },
         "EDIT": {
@@ -801,7 +808,9 @@
                 "DESCRIPTION_LABEL": "Description",
                 "DESCRIPTION_PLACEHOLDER": "Description",
                 "NOTIFY_LABEL": "Enable notifications",
-                "NOTIFY_PLACEHOLDER": "Enable notifications"
+                "NOTIFY_PLACEHOLDER": "Enable notifications",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         }
     },

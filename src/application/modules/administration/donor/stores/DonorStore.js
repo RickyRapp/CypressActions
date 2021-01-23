@@ -107,6 +107,11 @@ class DonorStore {
         return response;
     }
 
+    async createAccount(resource) {
+        const response = await this.donorService.create(resource);
+        return response.data;
+    }
+
     async createAddress(resource) {
         const response = await this.donorAddressService.create(resource);
         return response.data;

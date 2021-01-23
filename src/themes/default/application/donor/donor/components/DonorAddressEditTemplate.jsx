@@ -4,7 +4,8 @@ import {
     BasicInput,
     BaasicButton,
     EditFormContent,
-    BasicFieldCheckbox
+    BasicFieldCheckbox,
+    BaasicFormControls
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
@@ -41,11 +42,10 @@ class DonorEmailAddressEditFormTemplate extends Component {
                             <BasicFieldCheckbox field={form.$('isPrimary')} />
                         </div>}
                 </div>
-                <BaasicButton
-                    className='btn btn--base btn--secondary'
-                    type='submit'
-                    label='Submit'
-                />
+                <BaasicFormControls
+                    form={form}
+                    onSubmit={form.onSubmit}
+                    className="btn btn--base btn--secondary u-push" />
                 <BaasicButton
                     type='button'
                     className="btn btn--base btn--tertiary u-push"

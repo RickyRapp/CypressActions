@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     Address
 } from 'core/components';
-import { DonorAddressEditFormTemplate } from 'themes/application/donor/donor/components';
+import { DonorAddressEditTemplate } from 'themes/application/donor/donor/components';
 
 const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
     const {
@@ -12,7 +12,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
         onEnableEditClick,
         onCancelEditClick,
         isEditEnabled,
-        formAddress,
+        form,
         editId
     } = donorAddressViewStore;
 
@@ -35,8 +35,8 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                     <div className="row u-mar--bottom--sml">
                         <div className="col col-sml-12 col-lrg-12">
                             {isEditEnabled && primaryAddress && primaryAddress.id === editId ?
-                                <DonorAddressEditFormTemplate
-                                    form={formAddress}
+                                <DonorAddressEditTemplate
+                                    form={form}
                                     title="Primary"
                                     onCancelEditClick={onCancelEditClick}
                                     isAssignableAsPrimary={false} />
@@ -50,8 +50,8 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                         </div>
                         <div className="col col-sml-12 col-lrg-12">
                             {isEditEnabled && (secondaryAddress && secondaryAddress.id === editId || undefined === editId) ?
-                                <DonorAddressEditFormTemplate
-                                    form={formAddress}
+                                <DonorAddressEditTemplate
+                                    form={form}
                                     title="Secondary"
                                     onCancelEditClick={onCancelEditClick}
                                     isAssignableAsPrimary={true} />

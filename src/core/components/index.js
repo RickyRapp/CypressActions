@@ -106,6 +106,7 @@ export { default as Date } from './formatters/Date';
 export { default as LanguageMetadata } from './formatters/LanguageMetadata';
 export { default as FormatterResolver } from './formatters/FormatterResolver';
 export { default as Address } from './formatters/Address';
+export { default as EmailAddress } from './formatters/EmailAddress';
 
 export { default as Export } from './export/Export';
 

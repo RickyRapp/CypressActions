@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonorTab, DonorList } from 'application/administration/donor/pages';
+import { DonorTab, DonorList, DonorCreate } from 'application/administration/donor/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -22,6 +22,14 @@ import { DonorTab, DonorList } from 'application/administration/donor/pages';
                         component: DonorTab,
                         data: {
                             title: "DONOR.EDIT.TITLE"
+                        },
+                    },
+                    {
+                        name: 'master.app.main.administration.donor.create',
+                        pattern: '/create',
+                        component: DonorCreate,
+                        data: {
+                            title: "DONOR.CREATE.TITLE"
                         },
                     }
                 ]
