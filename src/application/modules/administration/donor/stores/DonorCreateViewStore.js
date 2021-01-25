@@ -12,7 +12,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
             id: undefined,
             actions: {
                 create: async (resource) => {
-                    debugger
                     resource.dateOfBirth = new Date(Date.UTC(resource.dateOfBirth.getFullYear(), resource.dateOfBirth.getMonth(), resource.dateOfBirth.getDate()));
                     const applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find()
                     const model = {
@@ -103,7 +102,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
     createUniqueConstraintValidators() {
         validatorService.registerAsyncValidator('usernameUnique', async (value, attribute, req, passes) => {
             try {
-                debugger
                 const { statusCode } = await this.rootStore.application.baasic.membershipModule.user.exists(value);
                 if (statusCode === 204) {
                     return passes(false, localizationService.t('DONOR.CREATE.LOGIN_FORM_FIELDS.ERROR_MESSAGES.USERNAME_CONFLICT'))
@@ -118,7 +116,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
 
         validatorService.registerAsyncValidator('fundNameUnique', async (value, attribute, req, passes) => {
             try {
-                debugger
                 const { statusCode } = await this.rootStore.application.administration.donorStore.fundNameExists(value);
                 if (statusCode === 204) {
                     return passes(false, localizationService.t('DONOR.CREATE.ERROR_MESSAGES.FUND_NAME_CONFLICT'))

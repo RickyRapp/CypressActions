@@ -42,7 +42,6 @@ class DonorEmailAddressViewStore extends BaseViewStore {
 
     @action.bound
     onEnableEditClick(emailAddress) {
-        debugger
         this.form.clear();
         this.editId = null;
         if (emailAddress) {

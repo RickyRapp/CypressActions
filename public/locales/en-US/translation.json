@@ -594,6 +594,7 @@
             "TITLE_PROFILE": "Profile Information",
             "TITLE_ADDRESS": "Address",
             "TITLE_EMAIL_ADDRESS": "Email Address",
+            "TITLE_PHONE_NUMBER": "Phone Number",
             "DATE_OF_BIRTH": "Date Of Birth"
         },
         "COMMUNICATION_PREFERENCE": {
@@ -838,7 +839,8 @@
                 "NUMBER_LABEL": "Phone",
                 "NUMBER_PLACEHOLDER": "Phone",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Primary"
             }
         },
         "EDIT": {
@@ -847,7 +849,8 @@
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Primary"
             }
         }
     },

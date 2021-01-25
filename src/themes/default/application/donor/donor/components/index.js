@@ -15,3 +15,4 @@ export { default as DonorGivingCardSettingEditTemplate } from './DonorGivingCard
 export { default as DonorGivingCardSettingListTemplate } from './DonorGivingCardSettingListTemplate'
 export { default as DonorAddressEditTemplate } from './DonorAddressEditTemplate'
 export { default as DonorEmailAddressEditTemplate } from './DonorEmailAddressEditTemplate'
+export { default as DonorPhoneNumberEditTemplate } from './DonorPhoneNumberEditTemplate'

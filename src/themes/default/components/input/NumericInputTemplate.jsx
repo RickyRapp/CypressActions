@@ -14,7 +14,7 @@ const NumericInputTemplate = defaultTemplate(props => {
     };
 
     return (
-        <React.Fragment onFocus={handleFocus}>
+        <div onFocus={handleFocus}>
             {showLabel && (
                 <div className="form__group__label">
                     {t(label)}
@@ -34,7 +34,7 @@ const NumericInputTemplate = defaultTemplate(props => {
                 placeholder={t(placeholder)}
                 spinners={false}
             />
-        </React.Fragment>
+        </div>
     );
 });
 
