@@ -16,14 +16,14 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
         editId
     } = donorAddressViewStore;
 
-    let primaryAddress = null;
-    let secondaryAddress = null;
-    if (addresses.length > 0) {
-        primaryAddress = addresses.find(c => c.isPrimary);
-        if (addresses.some(c => !c.isPrimary)) {
-            secondaryAddress = addresses.find(c => !c.isPrimary);
-        }
-    }
+	let primaryAddress = null;
+	let secondaryAddress = null;
+	if (addresses.length > 0) {
+		primaryAddress = addresses.find(c => c.isPrimary);
+		if (addresses.some(c => !c.isPrimary)) {
+			secondaryAddress = addresses.find(c => !c.isPrimary);
+		}
+	}
 
     return (
         <div>
@@ -31,7 +31,11 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                 <div className="col col-sml-12 col-lrg-3">
                     <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_ADDRESS')}</h3>
                 </div>
-                <div className="col col-sml-12 col-lrg-9">
+                <div
+					className={`col col-sml-12 col-lrg-${
+						(isEditEnabled && primaryAddress && primaryAddress.id === editId) || undefined === editId ? '12' : '9'
+					}`}
+				>
                     <div className="row u-mar--bottom--sml">
                         <div className="col col-sml-12 col-lrg-12">
                             {isEditEnabled && primaryAddress && primaryAddress.id === editId ?
@@ -41,12 +45,13 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                                     onCancelEditClick={onCancelEditClick}
                                     isAssignableAsPrimary={false} />
                                 :
-                                <strong
+                                <p
+									className="type--base type--wgt--medium scale"
                                     title='Click to edit'
                                     onClick={() => onEnableEditClick(primaryAddress)}>
                                     {primaryAddress ?
                                         <Address value={primaryAddress} format='full' /> : ''}
-                                </strong>}
+                                </p>}
                         </div>
                         <div className="col col-sml-12 col-lrg-12">
                             {isEditEnabled && (secondaryAddress && secondaryAddress.id === editId || undefined === editId) ?
@@ -73,9 +78,8 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
 };
 
 DonorAddressListTemplate.propTypes = {
-    donorAddressViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+	donorAddressViewStore: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired,
 };
 
 export default defaultTemplate(DonorAddressListTemplate);
-
