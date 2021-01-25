@@ -4,7 +4,7 @@ import { DonorBankAccountEditViewStore } from 'application/donor/donor/stores';
 import { setCurrentView } from 'core/utils';
 import { observer } from 'mobx-react';
 
-@setCurrentView((rootStore, props) => new DonorBankAccountEditViewStore(rootStore, props.modalParams.data), 'donorBankAccountEditViewStore')
+@setCurrentView((rootStore, props) => new DonorBankAccountEditViewStore(rootStore, props), 'donorBankAccountEditViewStore')
 @observer
 class DonorBankAccountEdit extends React.Component {
     render() {

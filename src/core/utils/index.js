@@ -30,5 +30,6 @@ export { default as addressFormatter } from './formatters/addressFormatter';
 export { default as charityFormatter } from './formatters/charityFormatter';
 export { default as donorFormatter } from './formatters/donorFormatter';
 export { default as emailAddressFormatter } from './formatters/emailAddressFormatter';
+export { default as bankAccountFormatter } from './formatters/bankAccountFormatter';
 export { generatePassword } from './passwordGenerator';
 export { renderTabsContent } from './renderTabsContent';

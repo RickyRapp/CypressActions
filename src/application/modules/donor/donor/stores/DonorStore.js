@@ -67,6 +67,11 @@ class DonorStore {
         return response.data;
     }
 
+    async getBankAccount(id, options) {
+        const response = await this.donorBankAccountService.get(id, options);
+        return response.data;
+    }
+
     async getThirdPartyWebsiteSetting(id, options) {
         const response = await this.donorService.getThirdPartyWebsiteSetting(id, options);
         return response.data;

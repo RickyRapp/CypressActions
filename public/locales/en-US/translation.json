@@ -595,6 +595,7 @@
             "TITLE_ADDRESS": "Address",
             "TITLE_EMAIL_ADDRESS": "Email Address",
             "TITLE_PHONE_NUMBER": "Phone Number",
+            "TITLE_BANK_ACCOUNT": "Bank Account",
             "DATE_OF_BIRTH": "Date Of Birth"
         },
         "COMMUNICATION_PREFERENCE": {

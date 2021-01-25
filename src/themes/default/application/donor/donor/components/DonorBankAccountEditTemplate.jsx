@@ -5,33 +5,33 @@ import {
     BasicInput,
     BaasicFormControls,
     NumberFormatInputField,
-    BasicFieldCheckbox, BaasicButton, BaasicFieldDropzone
+    BasicFieldCheckbox, BaasicButton, BaasicFieldDropzone, EditFormContent
 } from 'core/components';
 
 function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
     const {
+        title,
         form,
+        onCancelEditClick,
         onBlurRoutingNumber,
-        useDonorContactInformations,
-        imageUploadStore,
-        id
+        useDonorContactInformations
     } = donorBankAccountEditViewStore;
 
     return (
-        <section >
-            <form className='form' onSubmit={form.onSubmit}>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
-                <div className="row">
-                    <div className="form__group col col-sml-12 col-lrg-6">
+        <EditFormContent form={form} >
+            <div className="card--med card--primary">
+                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{title}</h3>
+                <div className="row u-mar--bottom--sml">
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-6">
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('name')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-6">
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('accountNumber')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-6">
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('description')} />
                     </div>
                 </div>
@@ -98,21 +98,24 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                             </div>
                         </div>
                     </React.Fragment>}
+            </div>
 
-                <div className="row u-mar--bottom--med">
-                    <BaasicFieldDropzone store={imageUploadStore} field={form.$('coreMediaVaultEntryId')} />
-                </div>
-
-                <div className="type--right">
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                </div>
-            </form>
-        </section>
+            <BaasicFormControls
+                form={form}
+                onSubmit={form.onSubmit}
+                className="btn btn--base btn--secondary u-push" />
+            <BaasicButton
+                type='button'
+                className="btn btn--base btn--tertiary u-push"
+                onClick={onCancelEditClick}
+                label='Cancel'
+            />
+        </EditFormContent>
     );
 }
 
 DonorBankAccountEditTemplate.propTypes = {
-    donorBankAccountEditViewStore: PropTypes.object.isRequired,
+    donorBankAccountEditViewStore: PropTypes.object,
     t: PropTypes.func
 };
 
