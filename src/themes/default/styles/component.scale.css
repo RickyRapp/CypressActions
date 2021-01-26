@@ -1,0 +1,18 @@
+
+/*------------------------------------*\
+    # component.scale
+\*------------------------------------*/
+
+
+.scale {
+    padding: 12px 0;
+    cursor: pointer;
+    transition: all 250ms ease-out;
+
+    &:hover {
+        padding: 12px 12px;
+        background-color: $white;
+		border-radius: $radius-base;
+        box-shadow: $shadow-card;
+    }
+}

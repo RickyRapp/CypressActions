@@ -29,7 +29,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                 <div className="col col-sml-12 col-lrg-3">
                     <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_EMAIL_ADDRESS')}</h3>
                 </div>
-                <div className="col col-sml-12 col-lrg-9">
+                <div className={`col col-sml-12 col-lrg-${isEditEnabled && primaryEmailAddress && primaryEmailAddress.id === editId || (secondaryEmailAddress && secondaryEmailAddress.id === editId || undefined === editId) ? "12" : "9"}`}>
                     <div className="row u-mar--bottom--sml">
                         <div className="col col-sml-12 col-lrg-12">
                             {isEditEnabled && primaryEmailAddress && primaryEmailAddress.id === editId ?
@@ -39,14 +39,15 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                                     onCancelEditClick={onCancelEditClick}
                                     isAssignableAsPrimary={false} />
                                 :
-                                <strong
+                                <p
+                                className="type--base type--wgt--bold scale"
                                     title='Click to edit'
                                     onClick={() => onEnableEditClick(primaryEmailAddress)}>
                                     {primaryEmailAddress ?
                                         <EmailAddress value={primaryEmailAddress} format='full' /> : ''}
-                                </strong>}
+                                </p>}
                         </div>
-                        <div className="col col-sml-12 col-lrg-12">
+                        <div className="col col-sml-12 col-lrg-12 u-mar--top--sml">
                             {isEditEnabled && (secondaryEmailAddress && secondaryEmailAddress.id === editId || undefined === editId) ?
                                 <DonorEmailAddressEditTemplate
                                     form={form}
@@ -60,7 +61,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                                     {secondaryEmailAddress ?
                                         <EmailAddress value={secondaryEmailAddress} format='full' />
                                         :
-                                        <span>Add new email address</span>}
+                                        <button className="btn btn--link btn--sml">Add new email address</button>}
                                 </span>}
                         </div>
                     </div>

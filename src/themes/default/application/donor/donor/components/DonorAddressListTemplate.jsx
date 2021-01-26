@@ -36,7 +36,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
 						(isEditEnabled && primaryAddress && primaryAddress.id === editId) || undefined === editId ? '12' : '9'
 					}`}
 				>
-                    <div className="row u-mar--bottom--sml">
+                    <div className="row">
                         <div className="col col-sml-12 col-lrg-12">
                             {isEditEnabled && primaryAddress && primaryAddress.id === editId ?
                                 <DonorAddressEditTemplate
@@ -46,14 +46,14 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                                     isAssignableAsPrimary={false} />
                                 :
                                 <p
-									className="type--base type--wgt--medium scale"
+									className="type--base type--wgt--bold scale"
                                     title='Click to edit'
                                     onClick={() => onEnableEditClick(primaryAddress)}>
                                     {primaryAddress ?
                                         <Address value={primaryAddress} format='full' /> : ''}
                                 </p>}
                         </div>
-                        <div className="col col-sml-12 col-lrg-12">
+                        <div className="col col-sml-12 col-lrg-12 u-mar--top--sml">
                             {isEditEnabled && (secondaryAddress && secondaryAddress.id === editId || undefined === editId) ?
                                 <DonorAddressEditTemplate
                                     form={form}
@@ -67,7 +67,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
                                     {secondaryAddress ?
                                         <Address value={secondaryAddress} format='full' />
                                         :
-                                        <span>Add new address</span>}
+                                        <button className="btn btn--link btn--sml">Add new address</button>}
                                 </span>}
                         </div>
                     </div>

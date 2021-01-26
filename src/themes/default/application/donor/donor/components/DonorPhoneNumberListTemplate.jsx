@@ -30,11 +30,11 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
                     <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PHONE_NUMBER')}</h3>
                 </div>
                 <div
-                    className={`col col-sml-12 col-lrg-${(isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId) || undefined === editId ? '12' : '9'
+                    className={`col col-sml-12 col-lrg-${(isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId) || undefined === editId || (secondaryPhoneNumber && secondaryPhoneNumber.id === editId) ? '12' : '9'
                         }`}
                 >
                     <div className="row u-mar--bottom--sml">
-                        <div className="col col-sml-12 col-lrg-12">
+                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                             {isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId ?
                                 <DonorPhoneNumberEditTemplate
                                     form={form}
@@ -43,7 +43,7 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
                                     isAssignableAsPrimary={false} />
                                 :
                                 <p
-                                    className="type--base type--wgt--medium scale"
+                                    className="type--base type--wgt--bold scale"
                                     title='Click to edit'
                                     onClick={() => onEnableEditClick(primaryPhoneNumber)}>
                                     {primaryPhoneNumber &&
@@ -63,6 +63,7 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
                                     isAssignableAsPrimary={true} />
                                 :
                                 <span
+                                    className="cursor--pointer"
                                     title={`Click to ${secondaryPhoneNumber ? 'edit' : 'insert'}`}
                                     onClick={() => onEnableEditClick(secondaryPhoneNumber)}>
                                     {secondaryPhoneNumber ?
@@ -72,7 +73,7 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
                                             format={{ type: 'phone-number' }}
                                         />
                                         :
-                                        <span>Add new phone number</span>}
+                                        <span className="type--base type--color--opaque type--wgt--medium">Add new phone number</span>}
                                 </span>}
                         </div>
                     </div>

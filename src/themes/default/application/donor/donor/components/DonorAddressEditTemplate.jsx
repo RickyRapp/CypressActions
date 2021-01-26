@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-    BasicInput,
-    BaasicButton,
-    EditFormContent,
-    BasicFieldCheckbox,
-    BaasicFormControls
-} from 'core/components';
+import { BasicInput, BaasicButton, EditFormContent, BasicFieldCheckbox, BaasicFormControls } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 
 class DonorEmailAddressEditFormTemplate extends Component {
 	render() {
 		const { title, form, onCancelEditClick, isAssignableAsPrimary } = this.props;
 
-        return (
-            <EditFormContent form={form}>
-				<div className="card--med card--primary">
-					<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{title}</h3>
-					<div className="row u-mar--bottom--sml">
+		return (
+			<EditFormContent form={form}>
+				<div className="card--med card--primary u-mar--bottom--sml">
+					<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
+					<div className="row">
 						<div className="form__group col col-sml-12 col-lrg-3">
 							<BasicInput field={form.$('addressLine1')} />
 						</div>
@@ -33,26 +27,25 @@ class DonorEmailAddressEditFormTemplate extends Component {
 						<div className="form__group col col-sml-12 col-lrg-2">
 							<BasicInput field={form.$('zipCode')} />
 						</div>
-						{isAssignableAsPrimary &&
+						{isAssignableAsPrimary && (
 							<div className="form__group col col-sml-12 col-lrg-2">
 								<BasicFieldCheckbox field={form.$('isPrimary')} />
-							</div>}
+							</div>
+						)}
 					</div>
-                </div>
-
-                <BaasicFormControls
-                    form={form}
-                    onSubmit={form.onSubmit}
-                    className="btn btn--base btn--secondary u-push" />
-                <BaasicButton
-                    type='button'
-                    className="btn btn--base btn--tertiary u-push"
-                    onClick={onCancelEditClick}
-                    label='Cancel'
-                />
-            </EditFormContent>
-        );
-    }
+				</div>
+				<div className="w--100 type--right u-mar--bottom--med u-mar--top--med">
+					<BaasicButton
+						type="button"
+						className="btn btn--med btn--ghost u-mar--right--sml"
+						onClick={onCancelEditClick}
+						label="Cancel"
+					/>
+					<BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--secondary" />
+				</div>
+			</EditFormContent>
+		);
+	}
 }
 
 DonorEmailAddressEditFormTemplate.propTypes = {

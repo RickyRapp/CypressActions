@@ -20,7 +20,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
     return (
         <EditFormContent form={form} >
             <div className="card--med card--primary">
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{title}</h3>
+                <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
                 <div className="row u-mar--bottom--sml">
                     <div className="form__group col col-sml-12 col-lrg-3">
                         <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} />
@@ -100,16 +100,18 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                     </React.Fragment>}
             </div>
 
-            <BaasicFormControls
-                form={form}
-                onSubmit={form.onSubmit}
-                className="btn btn--base btn--secondary u-push" />
-            <BaasicButton
-                type='button'
-                className="btn btn--base btn--tertiary u-push"
-                onClick={onCancelEditClick}
-                label='Cancel'
-            />
+            <div className="w--100 type--right u-mar--top--sml">
+                <BaasicButton
+                    type='button'
+                    className="btn btn--med btn--ghost"
+                    onClick={onCancelEditClick}
+                    label='Cancel'
+                    />
+                <BaasicFormControls
+                    form={form}
+                    onSubmit={form.onSubmit}
+                    className="btn btn--med btn--secondary u-mar--left--sml" />
+            </div>
         </EditFormContent>
     );
 }

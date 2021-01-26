@@ -25,9 +25,9 @@ const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) 
                         {bankAccounts.filter(c => c.id !== editId).map(c => {
 
                             return (
-                                <div key={c.id} className="col col-sml-12 col-lrg-12">
+                                <div key={c.id} className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                     <p
-                                        className="type--base type--wgt--medium scale"
+                                        className="type--base type--wgt--bold scale"
                                         title='Click to edit'
                                         onClick={() => onEnableEditClick(c)}>
                                         <BankAccount format='full' value={c} />
@@ -43,9 +43,10 @@ const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) 
                                     onEditCompleted={onEditCompleted} />
                                 :
                                 <span
+                                    className="cursor--pointer"
                                     title={'Click to insert'}
                                     onClick={() => onEnableEditClick(null)}>
-                                    <span>Add new bank account</span>
+                                    <button className="btn btn--link btn--sml">Add new bank account</button>
                                 </span>}
                         </div>
                     </div>

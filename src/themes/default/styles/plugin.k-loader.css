@@ -54,15 +54,3 @@
 .k-loading-color {
     display: none;
 }
-
-
-.scale {
-    cursor: pointer;
-
-    transition: all 250ms ease-out;
-    &:hover {
-        background-color: $white;
-		border-radius: $radius-base;
-        box-shadow: $shadow-card;
-    }
-}
