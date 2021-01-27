@@ -21,6 +21,7 @@ import { EmailSenderStore } from 'application/common/lookup/email-sender/stores'
 import { BookletOrderStatusStore } from 'application/common/lookup/booklet-order-status/stores';
 import { BookletStatusStore } from 'application/common/lookup/booklet-status/stores';
 import { InvestmentPoolStore } from 'application/common/lookup/investment-pool/stores';
+import { BusinessTypeStore } from 'application/common/lookup/business-type/stores';
 
 class LookupModuleStore {
     constructor(rootStore) {
@@ -48,6 +49,7 @@ class LookupModuleStore {
         this.emailSenderStore = new EmailSenderStore(this);
         this.bookletOrderStatusStore = new BookletOrderStatusStore(this);
         this.investmentPoolStore = new InvestmentPoolStore(this);
+        this.businessTypeStore = new BusinessTypeStore(this);
     }
 }
 export default LookupModuleStore;

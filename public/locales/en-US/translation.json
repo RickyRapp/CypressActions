@@ -1327,7 +1327,17 @@
                 "PAYER_INFORMATION_EMAIL_LABEL": "Email",
                 "PAYER_INFORMATION_EMAIL_PLACEHOLDER": "Email",
                 "PAYER_INFORMATION_NUMBER_LABEL": "Number",
-                "PAYER_INFORMATION_NUMBER_PLACEHOLDER": "Number"
+                "PAYER_INFORMATION_NUMBER_PLACEHOLDER": "Number",
+                "BUSINESS_TYPE_LABEL": "Business Type",
+                "BUSINESS_TYPE_PLACEHOLDER": "Business Type",
+                "OTHER_LABEL": "Additional information",
+                "OTHER_PLACEHOLDER": "Additional information",
+                "PROPERTY_TYPE_LABEL": "Property Type",
+                "PROPERTY_TYPE_PLACEHOLDER": "Property Type",
+                "COLLECTIBLE_TYPE_LABEL": "Collectible Type",
+                "COLLECTIBLE_TYPE_PLACEHOLDER": "Collectible Type",
+                "BROKERAGE_INSTITUTION_LABEL": "Brokerage Institution",
+                "BROKERAGE_INSTITUTION_PLACEHOLDER": "Brokerage Institution"
             }
         },
         "EDIT": {

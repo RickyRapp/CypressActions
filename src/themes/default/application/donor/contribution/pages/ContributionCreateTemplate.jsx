@@ -17,7 +17,7 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorBankAccountEdit } from 'application/donor/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/donor/contribution/components';
 
-const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) {
+const ContributionCreateTemplate = function ({ contributionCreateViewStore, t }) {
 	const {
 		loaderStore,
 		form,
@@ -31,6 +31,12 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 		onSubmitClick,
 		confirmModal,
 		previousContributionsTableStore,
+		brokerageInstitutionDropdownStore,
+		securityTypeDropdownStore,
+		businessTypeDropdownStore,
+		propertyTypeDropdownStore,
+		collectibleTypeDropdownStore,
+		isThirdPartyFundingAvailable
 	} = contributionCreateViewStore;
 
 	let paymentType = {};
@@ -196,42 +202,106 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 													<BasicInput field={form.$('checkNumber')} />
 												</div>
 											)}
+											{paymentType.abrv === 'stock-and-securities' && (
+												<React.Fragment>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BaasicFieldDropdown
+															field={form.$('brokerageInstitutionId')}
+															store={brokerageInstitutionDropdownStore} />
+													</div>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BaasicFieldDropdown
+															field={form.$('securityTypeId')}
+															store={securityTypeDropdownStore} />
+													</div>
+													{securityTypeDropdownStore && securityTypeDropdownStore.value && securityTypeDropdownStore.value.name === 'Other' &&
+														<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+															<BasicInput field={form.$('other')} />
+														</div>}
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BasicInput field={form.$('securitySymbol')} />
+													</div>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<NumericInputField field={form.$('numberOfShares')} />
+													</div>
+												</React.Fragment>
+											)}
+											{paymentType.abrv === 'business-and-private-interests' && (
+												<React.Fragment>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BaasicFieldDropdown
+															field={form.$('businessTypeId')}
+															store={businessTypeDropdownStore} />
+													</div>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BasicInput field={form.$('other')} />
+													</div>
+												</React.Fragment>
+											)}
+											{paymentType.abrv === 'real-estate' && (
+												<React.Fragment>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BaasicFieldDropdown
+															field={form.$('propertyTypeId')}
+															store={propertyTypeDropdownStore} />
+													</div>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BasicInput field={form.$('other')} />
+													</div>
+												</React.Fragment>
+											)}
+											{paymentType.abrv === 'collectible-assets' && (
+												<React.Fragment>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BaasicFieldDropdown
+															field={form.$('collectibleTypeId')}
+															store={collectibleTypeDropdownStore} />
+													</div>
+													{collectibleTypeDropdownStore && collectibleTypeDropdownStore.value && collectibleTypeDropdownStore.value.name === 'Other' &&
+														<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+															<BasicInput field={form.$('other')} />
+														</div>}
+												</React.Fragment>
+											)}
 											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<NumericInputField field={form.$('amount')} />
 											</div>
-											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-												<BasicFieldCheckbox field={form.$('isThirdParty')} />
-											</div>
-											{form.$('isThirdParty').value && (
-												<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-													<div className="row">
-														<div className="form__group col col-sml-12 col-lrg-12">
-															<BasicInput field={form.$('name')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-6">
-															<BasicInput field={form.$('addressLine1')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-6">
-															<BasicInput field={form.$('addressLine2')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-4">
-															<BasicInput field={form.$('city')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-4">
-															<BasicInput field={form.$('state')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-4">
-															<BasicInput field={form.$('zipCode')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-6">
-															<BasicInput field={form.$('email')} />
-														</div>
-														<div className="form__group col col-sml-12 col-lrg-6">
-															<BasicInput field={form.$('number')} />
-														</div>
+											{isThirdPartyFundingAvailable &&
+												<React.Fragment>
+													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+														<BasicFieldCheckbox field={form.$('isThirdParty')} />
 													</div>
-												</div>
-											)}
+													{form.$('isThirdParty').value && (
+														<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+															<div className="row">
+																<div className="form__group col col-sml-12 col-lrg-12">
+																	<BasicInput field={form.$('name')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-6">
+																	<BasicInput field={form.$('addressLine1')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-6">
+																	<BasicInput field={form.$('addressLine2')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-4">
+																	<BasicInput field={form.$('city')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-4">
+																	<BasicInput field={form.$('state')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-4">
+																	<BasicInput field={form.$('zipCode')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-6">
+																	<BasicInput field={form.$('email')} />
+																</div>
+																<div className="form__group col col-sml-12 col-lrg-6">
+																	<BasicInput field={form.$('number')} />
+																</div>
+															</div>
+														</div>
+													)}
+												</React.Fragment>}
 											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
 											</div>
@@ -299,21 +369,21 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								</div>
 								{(paymentType.abrv === 'ach' ||
 									(paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
-									<React.Fragment>
-										<div className="col col-sml-12 col-lrg-12">
-											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
-											{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
-										</div>
-										<div className="col col-sml-12 col-lrg-12">
-											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
+										<React.Fragment>
+											<div className="col col-sml-12 col-lrg-12">
+												{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
+												{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
+											</div>
+											<div className="col col-sml-12 col-lrg-12">
+												{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
 											xxxx-xxxx-xxxx-
 											{
-												bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)
-													.accountNumber
-											}
-										</div>
-									</React.Fragment>
-								)}
+													bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)
+														.accountNumber
+												}
+											</div>
+										</React.Fragment>
+									)}
 								{paymentType.abrv === 'check' && (
 									<div className="col col-sml-12 col-lrg-12">
 										{t('CONTRIBUTION.CREATE.CHECK_NUMBER')}

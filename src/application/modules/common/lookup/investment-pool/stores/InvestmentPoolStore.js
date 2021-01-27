@@ -1,7 +1,7 @@
 import { InvestmentPoolService } from 'application/common/lookup/investment-pool/services';
 import { cacheService } from 'core/services';
 
-const key = 'InvestmentPools';
+const key = 'investmentPools';
 
 class InvestmentPoolStore {
 	constructor(moduleStore) {

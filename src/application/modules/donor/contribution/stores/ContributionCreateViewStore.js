@@ -9,6 +9,7 @@ import _ from 'lodash';
 class ContributionCreateViewStore extends BaseEditViewStore {
     @observable paymentTypes = [];
     @observable step = 1;
+    @observable isThirdPartyFundingAvailable = false;
     donor = null;
 
     constructor(rootStore) {
@@ -51,6 +52,11 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         this.createConfirmModalParams();
         this.createPaymentTypeDropdownStore();
         this.createBankAccountDropdownStore();
+        this.createBrokerageInstitutionDropdownStore();
+        this.createSecurityTypeDropdownStore();
+        this.createBusinessTypeDropdownStore();
+        this.createPropertyTypeDropdownStore();
+        this.createCollectibleTypeDropdownStore();
         this.createPreviousContributionsTableStore();
     }
 
@@ -91,10 +97,64 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     @action.bound
     onSelectPaymentType(id) {
         this.form.clear();
-        this.bankAccountDropdownStore.onChange(null);
+        this.bankAccountDropdownStore.setValue(null);
+        this.brokerageInstitutionDropdownStore.setValue(null);
+        this.securityTypeDropdownStore.setValue(null);
+        this.businessTypeDropdownStore.setValue(null);
+        this.propertyTypeDropdownStore.setValue(null);
+        this.collectibleTypeDropdownStore.setValue(null);
         this.form.$('paymentTypeId').set(id);
         const paymentType = this.paymentTypes.find(c => c.id === id);
-        this.form.$('donorBankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
+        if (paymentType) {
+            this.form.$('donorBankAccountId').setRequired(false);
+            this.form.$('checkNumber').setRequired(false);
+            this.form.$('amount').set('rules', 'required|numeric|min:0');
+            this.form.$('brokerageInstitutionId').setRequired(false);
+            this.form.$('securityTypeId').setRequired(false);
+            this.form.$('businessTypeId').setRequired(false);
+            this.form.$('propertyTypeId').setRequired(false);
+            this.form.$('collectibleTypeId').setRequired(false);
+            this.isThirdPartyFundingAvailable = false;
+
+            if (paymentType.abrv === 'ach') {
+                this.form.$('donorBankAccountId').setRequired(true);
+                this.isThirdPartyFundingAvailable = true;
+            }
+            else if (paymentType.abrv === 'wire-transfer') {
+                this.isThirdPartyFundingAvailable = true;
+            }
+            else if (paymentType.abrv === 'stock-and-securities') {
+                this.form.$('amount').set('rules', 'required|numeric|min:1000');
+                this.form.$('brokerageInstitutionId').setRequired(true);
+                this.form.$('securityTypeId').setRequired(true);
+            }
+            else if (paymentType.abrv === 'zelle') {
+                this.isThirdPartyFundingAvailable = true;
+            }
+            else if (paymentType.abrv === 'third-party-donor-advised-funds') {
+
+            }
+            else if (paymentType.abrv === 'check') {
+                this.form.$('checkNumber').setRequired(true);
+                this.isThirdPartyFundingAvailable = true;
+            }
+            else if (paymentType.abrv === 'business-and-private-interests') {
+                this.form.$('businessTypeId').setRequired(true);
+                this.form.$('amount').set('rules', 'required|numeric|min:50000');
+            }
+            else if (paymentType.abrv === 'real-estate') {
+                this.form.$('propertyTypeId').setRequired(true);
+                this.form.$('amount').set('rules', 'required|numeric|min:50000');
+            }
+            else if (paymentType.abrv === 'collectible-assets') {
+                this.form.$('collectibleTypeId').setRequired(true);
+                this.form.$('amount').set('rules', 'required|numeric|min:25000');
+            }
+            else if (paymentType.abrv === 'crypto-currency') {
+            }
+            else if (paymentType.abrv === 'paycheck-direct') {
+            }
+        }
         this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check')
         if (this.donor.isInitialContributionDone) {
             const json = JSON.parse(paymentType.json);
@@ -156,6 +216,71 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                     }
                     params.donorId = this.donorId;
                     return this.rootStore.application.donor.contributionStore.findBankAccount(params);
+                }
+            });
+    }
+
+    createBrokerageInstitutionDropdownStore() {
+        this.brokerageInstitutionDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    let params = {
+                        embed: ['accountHolder'],
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    params.donorId = this.donorId;
+                    return this.rootStore.application.donor.contributionStore.findBankAccount(params);
+                }
+            });
+    }
+
+    createSecurityTypeDropdownStore() {
+        this.securityTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    return [
+                        { id: '1', name: 'Stocks' },
+                        { id: '2', name: 'Mutual Funds' },
+                        { id: '3', name: 'Bonds' },
+                        { id: '4', name: 'Other' }];
+                }
+            });
+    }
+
+    createBusinessTypeDropdownStore() {
+        this.businessTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    let params = {
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    return this.rootStore.application.lookup.businessTypeStore.find(params);
+                }
+            });
+    }
+
+    createPropertyTypeDropdownStore() {
+        this.propertyTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    return [
+                        { id: '1', name: 'Commercial' },
+                        { id: '2', name: 'Residental' }]
+                }
+            });
+    }
+
+    createCollectibleTypeDropdownStore() {
+        this.collectibleTypeDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    return [
+                        { id: '1', name: 'Boat' },
+                        { id: '2', name: 'Art' },
+                        { id: '3', name: 'Accessories' },
+                        { id: '4', name: 'Other' }]
                 }
             });
     }

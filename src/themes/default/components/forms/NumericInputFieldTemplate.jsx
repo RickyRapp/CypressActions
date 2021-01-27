@@ -11,7 +11,7 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
     const minValue = field.rules && field.rules.indexOf('min') !== -1 ? parseInt((/min:(\d+)/).exec(field.rules)[1]) : undefined;
 
     let type = 'n2';
-    if (field.type == 'integer')
+    if (field.type.indexOf('integer'))
         type = 'n0';
 
     let step = 1;

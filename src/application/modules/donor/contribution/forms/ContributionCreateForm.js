@@ -118,6 +118,24 @@ export default class ContributionCreateForm extends FormBase {
                     }
                 },
                 {
+                    name: 'brokerageInstitutionId',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.BROKERAGE_INSTITUTION_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.BROKERAGE_INSTITUTION_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'securityTypeId',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.SECURITY_TYPE_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.SECURITY_TYPE_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'businessTypeId',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.BUSINESS_TYPE_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.BUSINESS_TYPE_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
                     name: 'financialInstitution',
                     label: 'CONTRIBUTION.CREATE.FIELDS.FINANCIAL_INSTITUTION_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.FINANCIAL_INSTITUTION_PLACEHOLDER',
@@ -166,12 +184,6 @@ export default class ContributionCreateForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'securityType',
-                    label: 'CONTRIBUTION.CREATE.FIELDS.SECURITY_TYPE_LABEL',
-                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.SECURITY_TYPE_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
                     name: 'securitySymbol',
                     label: 'CONTRIBUTION.CREATE.FIELDS.SECURITY_SYMBOL_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.SECURITY_SYMBOL_PLACEHOLDER',
@@ -181,7 +193,7 @@ export default class ContributionCreateForm extends FormBase {
                     name: 'numberOfShares',
                     label: 'CONTRIBUTION.CREATE.FIELDS.NUMBER_OF_SHARES_LABEL',
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.NUMBER_OF_SHARES_PLACEHOLDER',
-                    rules: 'numeric|min:0'
+                    rules: 'integer|min:0'
                 },
                 {
                     name: 'estimatedValue',
@@ -201,6 +213,24 @@ export default class ContributionCreateForm extends FormBase {
                     placeholder: 'CONTRIBUTION.CREATE.FIELDS.SETTING_START_DATE_PLACEHOLDER',
                     rules: `min_date:${moment().format('YYYY-MM-DD')}`,
                     type: 'date'
+                },
+                {
+                    name: 'other',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.OTHER_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.OTHER_PLACEHOLDER',
+                    rules: 'string',
+                },
+                {
+                    name: 'propertyTypeId',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.PROPERTY_TYPE_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.PROPERTY_TYPE_PLACEHOLDER',
+                    rules: 'string',
+                },
+                {
+                    name: 'collectibleTypeId',
+                    label: 'CONTRIBUTION.CREATE.FIELDS.COLLECTIBLE_TYPE_LABEL',
+                    placeholder: 'CONTRIBUTION.CREATE.FIELDS.COLLECTIBLE_TYPE_PLACEHOLDER',
+                    rules: 'string',
                 }
             ],
         };
