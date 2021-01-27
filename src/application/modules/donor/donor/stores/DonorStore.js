@@ -112,6 +112,11 @@ class DonorStore {
         return response.data;
     }
 
+    async createAutomaticContributionSetting(resource) {
+        const response = await this.donorService.createAutomaticContributionSetting(resource);
+        return response.data;
+    }
+
     async createEmailAddress(resource) {
         const response = await this.donorEmailAddressService.create(resource);
         return response.data;
