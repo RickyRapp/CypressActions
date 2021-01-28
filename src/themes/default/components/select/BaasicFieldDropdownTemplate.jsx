@@ -6,7 +6,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdown } from 'core/components';
 import { isSome, renderIf } from 'core/utils';
 
-const BaasicFieldDropdownTemplate = function({
+const BaasicFieldDropdownTemplate = function ({
 	store,
 	field,
 	multi,
@@ -34,6 +34,10 @@ const BaasicFieldDropdownTemplate = function({
 				field.set(value[store.options.dataItemKey]);
 			}
 		}
+		else {
+			field.clear();
+		}
+
 		store.onChange(value);
 	}
 
@@ -48,12 +52,12 @@ const BaasicFieldDropdownTemplate = function({
 		<React.Fragment>
 			{showLabel && (
 				<div className="form__group__label">
-					
-						{t(field.label)}
-						{requiredMark}
 
-						{rightLabelComponent && rightLabelComponent()}
-				
+					{t(field.label)}
+					{requiredMark}
+
+					{rightLabelComponent && rightLabelComponent()}
+
 				</div>
 			)}
 			<BaasicDropdown

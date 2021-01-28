@@ -77,7 +77,6 @@ export default class MenuStore {
     //toggles menu open/close is-open, for mobile
     @action.bound toggleMenuOpen() {
         this.isOpen = !this.isOpen;
-        this.isCollapsed = false;
     }
 
     @action selectMenuItem = (item, e) => {
@@ -88,6 +87,7 @@ export default class MenuStore {
             this.setSelectedPath(item.path[0].path);
             this.setActivePath(item.path);
             this.rootStore.routerStore.goTo(route);
+            this.toggleMenuOpen();
         } else {
             this.setSelectedPath(item.path);
         }
