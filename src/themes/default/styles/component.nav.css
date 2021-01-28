@@ -25,11 +25,12 @@
 			background-color: $color-text;
 			z-index: 10;
 
-			padding: calc($unit * 8) 0 calc($unit * 6) 0;
+			padding: calc($unit * 2) 0 calc($unit * 6) 0;
 
 			opacity: 0;
 			visibility: hidden;
 
+			overflow-y: auto;
 			transition: opacity 250ms ease-in-out;
 
 			&.is-open {

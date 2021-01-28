@@ -42,7 +42,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 										<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-3">
 											<BasicInput field={form.$('firstName')} />
 										</div>
-										<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+										<div className="col col-sml-12 col-xlrg-5 col-xxlrg-4">
 											<BasicInput field={form.$('lastName')} />
 										</div>
 										<div className="form__group col col-sml-12 col-lrg-12 col-xxlrg-4">
@@ -77,25 +77,25 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 							</div>
 						</React.Fragment>
 					) : (
-						<div className="col col-sml-12 col-lrg-9 u-mar--bottom--sml" title="Click to edit" onClick={onEnableEditClick}>
+						<div className="col col-sml-12 col-lrg-9" title="Click to edit" onClick={onEnableEditClick}>
 							<div className="row scale">
-								<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Name:</p>
 									<p className="type--base type--wgt--bold">
 										{item ? `${item.prefixType ? item.prefixType.name : ''} ${item.firstName} ${item.lastName}` : ''}
 									</p>
 								</div>
-								<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Date Of Birth:</p>
 									<p className="type--base type--wgt--bold">
 										{item && <Date format="full-date" value={item.dateOfBirth} />}
 									</p>
 								</div>
-								<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Fund Name:</p>
 									<p className="type--base type--wgt--bold">{item && item.fundName}</p>
 								</div>
-								<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Security pin:</p>
 									<p className="type--base type--wgt--bold">{item && item.securityPin}</p>
 								</div>
