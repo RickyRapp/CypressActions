@@ -20,9 +20,14 @@
 		width: 100%;
 		text-align: right;
 		margin-top: calc($unit * 3);
-		margin-bottom: calc($unit * 5);
 
-		@media (--screen-to-xlrg) {
+		& .btn {
+			&:first-child {
+				margin-right: 12px;
+			}
+		}
+
+		@media (--screen-to-med) {
 			text-align: center;
 			& .btn {
 				min-width: 48%;

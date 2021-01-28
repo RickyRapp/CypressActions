@@ -107,7 +107,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 
 			<div className="row row__align--end">
 				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
-					<div className="u-separator--primary u-mar--bottom--xlrg"></div>
+					<div className="u-separator--primary u-mar--bottom--xlrg u-mar--top--lrg"></div>
 					<DonorAddressList />
 					<div className="u-separator--primary u-mar--top--xlrg"></div>
 				</div>
@@ -125,7 +125,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 				</div>
 				<div className="col col-sml-12 col-lrg-12">
 					<DonorAutomaticContributionSetting />
-					<div className="u-separator--primary u-mar--bottom--xlrg"></div>
+					<div className="u-separator--primary u-mar--bottom--xlrg u-mar--top--lrg"></div>
 				</div>
 				<div className="col col-sml-12 col-lrg-12">
 					<DonorGrantFees />

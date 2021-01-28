@@ -37,7 +37,7 @@ class DonorEmailAddressEditFormTemplate extends Component {
 				<div className="info-card--footer">
 					<BaasicButton
 						type="button"
-						className="btn btn--med btn--ghost u-mar--right--sml"
+						className="btn btn--med btn--ghost"
 						onClick={onCancelEditClick}
 						label="Cancel"
 					/>
