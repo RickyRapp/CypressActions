@@ -18,7 +18,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 
 	return (
 		<div>
-			<div className="row u-mar--bottom--sml">
+			<div className="row">
 				<div className="col col-sml-12 col-lrg-3">
 					<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
 						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_ADDRESS')}
@@ -40,38 +40,38 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 								/>
 							) : (
 								<div
-									className="type--base type--wgt--bold scale"
+									className="type--base type--wgt--bold info-card--scale"
 									title="Click to edit"
 									onClick={() => onEnableEditClick(primaryAddress)}
 								>
 									{primaryAddress ? (
 										// <Address value={primaryAddress} format='full' />
 										<div className="row">
-											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
 													Address Line 1:
 												</p>
 												<p className="type--base type--wgt--bold"> {primaryAddress.addressLine1} </p>
 											</div>
-											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
 													Address Line 2:
 												</p>
 												<p className="type--base type--wgt--bold"> {primaryAddress.addressLine2} </p>
 											</div>
-											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">City:</p>
 												<p className="type--base type--wgt--bold">{primaryAddress.city}</p>
 											</div>
-											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">State:</p>
 												<p className="type--base type--wgt--bold">{primaryAddress.state}</p>
 											</div>
-											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Zip Code:</p>
 												<p className="type--base type--wgt--bold">{primaryAddress.zipCode}</p>
 											</div>
-											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is primary?</p>
 												<p className="type--base type--wgt--bold">{primaryAddress.isPrimary ? "Yes" : "No"}</p>
 											</div>

@@ -15,7 +15,7 @@ class DonorEmailAddressEditForm extends Component {
             <section>
                 <form className='form' onSubmit={formAddress.onSubmit}>
                     <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{formAddress.$('id').value ? t('ADDRESS.EDIT.TITLE') : t('ADDRESS.CREATE.TITLE')}</h3>
-                    <div className="row u-mar--bottom--sml">
+                    <div className="row">
                         <div className="form__group col col-sml-12 col-lrg-6">
                             <BasicInput field={formAddress.$('addressLine1')} />
                         </div>

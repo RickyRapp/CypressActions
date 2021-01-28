@@ -34,7 +34,7 @@ class DonorEmailAddressEditFormTemplate extends Component {
 						)}
 					</div>
 				</div>
-				<div className="w--100 type--right u-mar--bottom--med u-mar--top--med">
+				<div className="info-card--footer">
 					<BaasicButton
 						type="button"
 						className="btn btn--med btn--ghost u-mar--right--sml"

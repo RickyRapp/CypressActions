@@ -25,7 +25,7 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
     
 	return (
 		<div>
-			<div className="row u-mar--bottom--sml">
+			<div className="row">
 				<div className="col col-sml-12 col-lrg-3">
 					<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
 						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_EMAIL_ADDRESS')}
@@ -50,22 +50,22 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
 								/>
 							) : (
 								<div
-									className="type--base type--wgt--bold scale"
+									className="info-card--scale"
 									title="Click to edit"
 									onClick={() => onEnableEditClick(primaryEmailAddress)}
 								>
 									{primaryEmailAddress ? (
 										// <EmailAddress value={primaryEmailAddress} format='full' />
 										<div className="row">
-                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Email:</p>
                                                 <p className="type--base type--wgt--bold"> {primaryEmailAddress.email} </p>
                                             </div>
-                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is notify enable?</p>
                                                 <p className="type--base type--wgt--bold">{primaryEmailAddress.isNotifyEnabled ? "Yes" : "No"}</p>
                                             </div>
-                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
                                                 <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is primary?</p>
                                                 <p className="type--base type--wgt--bold">{primaryEmailAddress.isPrimary ? "Yes" : "No"}</p>
                                             </div>

@@ -100,7 +100,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                     </React.Fragment>}
             </div>
 
-            <div className="w--100 type--right u-mar--top--sml">
+            <div className="info-card--footer">
                 <BaasicButton
                     type='button'
                     className="btn btn--med btn--ghost"
@@ -110,7 +110,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                 <BaasicFormControls
                     form={form}
                     onSubmit={form.onSubmit}
-                    className="btn btn--med btn--secondary u-mar--left--sml" />
+                    className="btn btn--med btn--secondary" />
             </div>
         </EditFormContent>
     );

@@ -44,7 +44,7 @@ const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
 								/>
 							) : (
 								<div
-									className="row scale"
+									className="row info-card--scale"
 									title="Click to edit"
 									onClick={() => onEnableEditClick(primaryPhoneNumber)}
 								>

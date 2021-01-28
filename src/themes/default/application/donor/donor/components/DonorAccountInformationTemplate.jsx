@@ -25,7 +25,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 	return (
 		<div className="card--primary card--med">
 			<EditFormContent form={form}>
-				<div className="row u-mar--bottom--sml">
+				<div className="row">
 					<div className="col col-sml-12 col-lrg-3">
 						<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
 							{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}
@@ -66,7 +66,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 									</div>
 								</div>
 							</div>
-							<div className="col col-sml-12 type--right u-mar--bottom--med u-mar--top--med">
+							<div className="col col-sml-12 info-card--footer">
 								<BaasicButton
 									type="button"
 									className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
@@ -78,24 +78,24 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 						</React.Fragment>
 					) : (
 						<div className="col col-sml-12 col-lrg-9" title="Click to edit" onClick={onEnableEditClick}>
-							<div className="row scale">
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
+							<div className="row info-card--scale">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Name:</p>
 									<p className="type--base type--wgt--bold">
 										{item ? `${item.prefixType ? item.prefixType.name : ''} ${item.firstName} ${item.lastName}` : ''}
 									</p>
 								</div>
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Date Of Birth:</p>
 									<p className="type--base type--wgt--bold">
 										{item && <Date format="full-date" value={item.dateOfBirth} />}
 									</p>
 								</div>
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Fund Name:</p>
 									<p className="type--base type--wgt--bold">{item && item.fundName}</p>
 								</div>
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--sml">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Security pin:</p>
 									<p className="type--base type--wgt--bold">{item && item.securityPin}</p>
 								</div>
@@ -123,10 +123,11 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 					<DonorBankAccountList />
 					<div className="u-separator--primary u-mar--top--xlrg"></div>
 				</div>
-				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
+				<div className="col col-sml-12 col-lrg-12">
 					<DonorAutomaticContributionSetting />
+					<div className="u-separator--primary u-mar--bottom--xlrg"></div>
 				</div>
-				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
+				<div className="col col-sml-12 col-lrg-12">
 					<DonorGrantFees />
 				</div>
 			</div>
