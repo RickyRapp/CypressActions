@@ -51,16 +51,16 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                             <NumericInputField field={form.$('lowBalanceAmount')} />
                                         </div>
                                     </div>
-                                    <div className="type--right">
-                                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                                        <BaasicButton
-                                            type="button"
-                                            className="btn btn--med btn--med--wide btn--ghost u-mar--left--sml"
-                                            onClick={onEnableEditClick}
-                                            label="Cancel"
-                                        />
-                                    </div>
                                 </EditFormContent>
+                            </div>
+                            <div className="info-card--footer">
+                                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                                <BaasicButton
+                                    type="button"
+                                    className="btn btn--med btn--med--wide btn--ghost"
+                                    onClick={onEnableEditClick}
+                                    label="Cancel"
+                                />
                             </div>
                         </div>
                     </React.Fragment>
