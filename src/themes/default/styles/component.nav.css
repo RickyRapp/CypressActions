@@ -5,6 +5,7 @@
 .nav {
 	&--primary {
 		position: relative;
+		flex-grow: 2;
 
 		&__close {
 			position: absolute;
@@ -17,26 +18,7 @@
 		}
 
 		@media (--screen-to-lrg) {
-			position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			background-color: $color-text;
-			z-index: 10;
-
-			padding: calc($unit * 2) 0 calc($unit * 6) 0;
-
-			opacity: 0;
-			visibility: hidden;
-
 			overflow-y: auto;
-			transition: opacity 250ms ease-in-out;
-
-			&.is-open {
-				opacity: 1;
-				visibility: visible;
-			}
 		}
 
 		&__icon {
@@ -50,16 +32,21 @@
 		&__logo {
 			display: flex;
 			align-items: center;
-			justify-content: center;
-			height: $header-height;
+			justify-content: flex-start;
+			padding: calc($unit * 3) calc($unit * 4);
 			border-bottom: 1px solid color($scandal a(20%));
+
+			@media (--screen-from-med) {
+				justify-content: center;
+				height: $header-height;
+			}
 		}
 
 		&__item {
 			position: relative;
 			display: flex;
 			align-items: center;
-			padding: calc($unit * 5) calc($unit * 8.5);
+			padding: calc($unit * 3) calc($unit * 4);
 
 			font-weight: $type-weight-regular;
 			color: color($white a(50%));
@@ -70,47 +57,48 @@
 			border-top: 1px solid color($scandal a(10%));
 			border-bottom: 1px solid color($scandal a(10%));
 
-			&--give {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				padding: calc($unit * 3) calc($unit * 1);
-				margin: calc($unit * 3) calc($unit * 6);
+			@media (--screen-from-sml) {
+				padding: calc($unit * 5) calc($unit * 8.5);
+			}
 
-				@mixin type-scale $type-base, 1;
+			&--give {
+				@media (--screen-from-sml) {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: calc($unit * 3) calc($unit * 1);
+					margin: calc($unit * 3) calc($unit * 4);
+					@mixin type-scale $type-base, 1;
+					border: 1px solid color($scandal a(20%));
+					border-radius: calc($unit / 1.6);
+					cursor: pointer;
+					transition: all 250ms ease-out;
+
+					&:hover {
+						color: color($color-note a(70%));
+						border-color: color($color-note a(70%));
+						background-color: $color-text !important;
+					}
+
+					&:before {
+						width: 0 !important;
+					}
+				}
 
 				@media (--screen-from-med) {
 					@mixin type-scale $type-medium, 1.25;
 				}
-				border: 1px solid color($scandal a(20%));
-				border-radius: calc($unit / 1.6);
-				cursor: pointer;
-				transition: all 250ms ease-out;
-
-				&:hover {
-					color: color($color-note a(70%));
-					border-color: color($color-note a(70%));
-					background-color: $color-text !important;
-				}
-
-				&:before {
-					width: 0 !important;
-				}
 			}
 
 			&--logout {
-				position: absolute;
-				right: calc($unit * 7);
-				left: calc($unit * 7);
-				top: calc($unit * 3);
-
+				@mixin type-scale $type-base, 1;
 				display: flex;
 				justify-content: center;
 				padding: calc($unit * 3) calc($unit * 1);
+				margin: calc($unit * 3) calc($unit * 4);
 
 				color: color($white a(80%));
 
-				@mixin type-scale $type-base, 1;
 				text-transform: uppercase;
 				border: 1px solid color($scandal a(20%));
 				border-radius: calc($unit / 1.6);
@@ -125,12 +113,22 @@
 						background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-note);
 					}
 				}
+
+				@media (--screen-to-sml) {
+					padding: calc($unit * 3) calc($unit * 1);
+					margin: calc($unit * 3) calc($unit * 4);
+				}
 			}
 
 			&--menu {
+
+				@media (--screen-to-sml) {
+					display: none;
+				}
+
 				position: absolute;
 				right: 0;
-				top: calc($unit * 18);
+				bottom: calc($unit * 18);
 
 				display: flex;
 				padding: calc($unit * 3) calc($unit * 1);
@@ -387,6 +385,22 @@
 				transform: rotate(180deg);
 			}
 		}
+
+		&__close {
+			position: absolute;
+			top: calc($unit * 4.5);
+			right: calc($unit * 3);
+		}
+
+		&__footer {
+
+			@media (--screen-from-sml) {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+		}
 	}
 
 	&--secondary {
@@ -417,8 +431,7 @@
 		}
 
 		&__item {
-			margin-left: calc($unit * 1);
-			padding: calc($unit * 4) 0 calc($unit * 4) calc($unit * 13);
+			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 12);
 
 			@mixin type-scale $type-base, 1;
 
@@ -521,6 +534,7 @@
 	.nav--primary__item--logout {
 		right: calc($unit * 1);
 		left: calc($unit * 1);
+		margin: calc($unit * 3) calc($unit * 1);
 	}
 
 	.header__logo {
