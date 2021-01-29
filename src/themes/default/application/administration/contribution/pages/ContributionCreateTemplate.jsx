@@ -79,7 +79,7 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								<div key={c.id} className="row">
 									<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
 										<div
-											className="card--contribution card--contribution--primary card--med cursor--pointer"
+											className="card--contribution card--contribution--primary"
 											onClick={() => onSelectPaymentType(c.id)}
 										>
 											<div className="col col-sml-4 col-lrg-2">
@@ -96,24 +96,24 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 									{step === 1 && (
 										<React.Fragment>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">{json.timeline}</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">
 														{json.deductibleEligibility}
 													</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">{json.minimumDeposit}</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">{json.more}</p>
 												</div>
 											</div>
@@ -140,13 +140,13 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								>
 									<div className="col col-sml-12 col-lrg-12">
 										<div
-											className={`card--contribution card--contribution--primary card--med u-mar--bottom--med cursor--pointer ${c.id ===
+											className={`card--contribution card--contribution--primary ${c.id ===
 												form.$('paymentTypeId').value && 'checked'}`}
 										>
 											<div className="col col-sml-2">
 												<i
 													className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
-														'checked'} u-push`}
+														'checked'}`}
 												></i>
 											</div>
 											<div className="col col-sml-10">

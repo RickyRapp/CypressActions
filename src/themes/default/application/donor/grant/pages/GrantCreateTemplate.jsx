@@ -64,10 +64,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row row__align--center">
-										<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
-											<BasicFieldCheckbox field={form.$('isNewCharity')} />
-										</div>
-										<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+										<div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
 											<div className="u-push--from--med">
 												<BaasicButton
 													className="advanced-search"
@@ -77,6 +74,9 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 													onClick={openAdvancedSearchModal}
 												/>
 											</div>
+										</div>
+										<div className="col col-sml-12 col-lrg-12 u-mar--bottom--lrg type--color--note">
+											<BasicFieldCheckbox field={form.$('isNewCharity')} />
 										</div>
 									</div>
 								)}
@@ -226,6 +226,10 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 									<div className="row">
 										<div className="form__group col col-sml-12 type--color--note u-mar--bottom--med">
 											<BasicFieldCheckbox field={form.$('isRecurring')} />
+											{/* <div className={`toggle ${form.$('isRecurring').value ? "toggle--active" : "toggle--deactive"}`}>
+												<button className={`toggle__btn ${form.$('isRecurring').value ? "" : "toggle__btn--active"}`} onClick={()=> form.$('isRecurring').value = !form.$('isRecurring').value}></button>
+												<button className={`toggle__btn ${form.$('isRecurring').value ? "toggle__btn--active" : ""}`} onClick={()=> form.$('isRecurring').value = !form.$('isRecurring').value}></button>
+											</div> */}
 										</div>
 									</div>
 								)}

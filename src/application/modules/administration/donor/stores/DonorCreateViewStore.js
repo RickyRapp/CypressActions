@@ -23,6 +23,7 @@ class DonorCreateViewStore extends BaseEditViewStore {
                         howDidYouHearAboutUsDescription: resource.howDidYouHearAboutUsDescription,
                         howDidYouHearAboutUsId: resource.howDidYouHearAboutUsId,
                         securityPin: resource.securityPin,
+                        confirmSecurityPin: resource.securityPin,
                         lineOfCredit: applicationDefaultSetting.regularLineOfCreditAmount,
                         contributionMinimumInitialAmount: applicationDefaultSetting.regularMinimumInitialContributionAmount,
                         contributionMinimumAdditionalAmount: applicationDefaultSetting.regularMinimumAdditionalContributionAmount,

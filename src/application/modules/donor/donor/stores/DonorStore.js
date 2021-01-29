@@ -67,6 +67,11 @@ class DonorStore {
         return response.data;
     }
 
+    async getBankAccount(id, options) {
+        const response = await this.donorBankAccountService.get(id, options);
+        return response.data;
+    }
+
     async getThirdPartyWebsiteSetting(id, options) {
         const response = await this.donorService.getThirdPartyWebsiteSetting(id, options);
         return response.data;
@@ -104,6 +109,11 @@ class DonorStore {
 
     async createAddress(resource) {
         const response = await this.donorAddressService.create(resource);
+        return response.data;
+    }
+
+    async createAutomaticContributionSetting(resource) {
+        const response = await this.donorService.createAutomaticContributionSetting(resource);
         return response.data;
     }
 

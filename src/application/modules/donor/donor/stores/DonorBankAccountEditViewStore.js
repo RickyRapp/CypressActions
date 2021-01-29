@@ -11,47 +11,23 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
             id: props.editId,
             actions: {
                 get: async () => {
-                    if (props.bankAccount) {
-                        return {
-                            name: props.bankAccount.name,
-                            accountNumber: props.bankAccount.accountNumber,
-                            routingNumber: props.bankAccount.routingNumber,
-                            description: props.bankAccount.description,
-                            coreMediaVaultEntryId: props.bankAccount.coreMediaVaultEntryId,
-                            isThirdPartyAccount: props.bankAccount.isThirdPartyAccount,
-                            accountHolderName: props.bankAccount.accountHolder.name,
-                            addressLine1: props.bankAccount.accountHolder.addressLine1,
-                            addressLine2: props.bankAccount.accountHolder.addressLine2,
-                            city: props.bankAccount.accountHolder.city,
-                            state: props.bankAccount.accountHolder.state,
-                            zipCode: props.bankAccount.accountHolder.zipCode,
-                            email: props.bankAccount.accountHolder.email,
-                            number: props.bankAccount.accountHolder.number
-                        };
-                    }
-                    else if (props.editId) {
-                        const data = await rootStore.application.donor.donorStore.getBankAccount(props.editId);
-                        return {
-                            name: data.name,
-                            accountNumber: data.accountNumber,
-                            routingNumber: data.routingNumber,
-                            description: data.description,
-                            coreMediaVaultEntryId: data.coreMediaVaultEntryId,
-                            isThirdPartyAccount: data.isThirdPartyAccount,
-                            accountHolderName: data.accountHolder.name,
-                            addressLine1: data.accountHolder.addressLine1,
-                            addressLine2: data.accountHolder.addressLine2,
-                            city: data.accountHolder.city,
-                            state: data.accountHolder.state,
-                            zipCode: data.accountHolder.zipCode,
-                            email: data.accountHolder.email,
-                            number: data.accountHolder.number
-                        };
-                    }
-                    else {
-                        rootStore.notificationStore.warning("Something went wrong. Please try again.");
-                        rootStore.routerStore.goBack();
-                    }
+                    const data = await rootStore.application.donor.donorStore.getBankAccount(props.editId, { embed: 'accountHolder' });
+                    return {
+                        name: data.name,
+                        accountNumber: data.accountNumber,
+                        routingNumber: data.routingNumber,
+                        description: data.description,
+                        coreMediaVaultEntryId: data.coreMediaVaultEntryId,
+                        isThirdPartyAccount: data.isThirdPartyAccount,
+                        accountHolderName: data.accountHolder && data.accountHolder.name,
+                        addressLine1: data.accountHolder && data.accountHolder.addressLine1,
+                        addressLine2: data.accountHolder && data.accountHolder.addressLine2,
+                        city: data.accountHolder && data.accountHolder.city,
+                        state: data.accountHolder && data.accountHolder.state,
+                        zipCode: data.accountHolder && data.accountHolder.zipCode,
+                        email: data.accountHolder && data.accountHolder.email,
+                        number: data.accountHolder && data.accountHolder.number
+                    };
                 },
                 update: async (resource) => {
                     if (!resource.isThirdPartyAccount) {
@@ -95,14 +71,15 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
             },
             FormClass: BankAccountEditForm,
             onAfterAction: () => {
-                if (props.onAfterAction) {
-                    props.onAfterAction()
+                if (props.onEditCompleted) {
+                    props.onEditCompleted()
                 }
             }
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
         this.createImageUploadStore();
+        this.onCancelEditClick = props.onCancelEditClick;
     }
 
     @action.bound

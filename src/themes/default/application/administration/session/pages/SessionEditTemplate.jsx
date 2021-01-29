@@ -52,23 +52,23 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                             onClick={openAdvancedSearchModal}
                         />}
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
                         <BasicInput field={form.$('fullName')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
                         <NumberFormatInputField field={form.$('phoneNumber')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
                         <BasicInput field={form.$('email')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
                         <div>
                             <label className="form__group__label">Confirmation Number</label>
                             {item &&
                                 <span className={"input input--lrg input--text input--disabled"}>{item.confirmationNumber}</span>}
                         </div>
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--sml">
+                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
                         <div>
                             <label className="form__group__label">Created on</label>
                             {item &&

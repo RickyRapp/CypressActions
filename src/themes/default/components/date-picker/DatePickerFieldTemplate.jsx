@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { isSome, renderIf } from 'core/utils';
 import { DatePicker } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import moment from 'moment';
 
 const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true, ...otherProps }) {
     const { value, onChange, ...otherFieldProps } = field.bind();
@@ -23,10 +24,15 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
     }
 
     if (maxValue) {
-        otherFieldProps.max = new Date(maxValue);
+        otherFieldProps.max = moment(maxValue).toDate();
     }
     if (minValue) {
-        otherFieldProps.min = new Date(minValue);
+        otherFieldProps.min = moment(minValue).toDate();
+    }
+
+    const convertToDate = (value) => {
+        console.log(moment(value).toDate())
+        return moment(value).toDate()
     }
 
     return (
@@ -41,7 +47,7 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
                 {...otherFieldProps}
                 format={field.initialSetup.format}
                 className={warningClasses}
-                value={value ? new Date(value) : null}
+                value={value ? convertToDate(value) : null}
                 onChange={onChange}
                 disabled={disabled || otherFieldProps.disabled}
                 clearable={!requiredMark}

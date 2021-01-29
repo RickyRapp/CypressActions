@@ -31,10 +31,15 @@ $header-height: 96px;
         top: $header-height;
         left: 0;
         top: 0;
+        right: 0;
         bottom: 0;
         width: 0;
+        overflow: hidden;
         background-color: $color-text;
         z-index: 9;
+        
+        display: flex;
+        flex-direction: column;
 
         @media (--screen-from-lrg) {
             width: calc($aside-width - calc($unit * 13));
@@ -79,6 +84,13 @@ $header-height: 96px;
                 margin: calc($unit * 3) calc($unit * 1);
                 padding: calc($unit * 3) calc($unit * 2);
             }  
+        }
+
+        &.is-open {
+
+            @media (--screen-to-med) {
+                width: 100%;
+            }
         }
     }
 

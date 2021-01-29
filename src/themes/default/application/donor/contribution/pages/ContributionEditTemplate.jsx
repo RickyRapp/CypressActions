@@ -128,7 +128,11 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
             {step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && (
                 <div className="row">
                     <div className="col col-sml-12">
-                        <div className="card--sml type--med type--wgt--medium type--color--note">Overview</div>
+                        <div className="row">
+                            <div className="col col-sml-12 col-lrg-3">
+                                <button className="btn btn--100 card--contribution--back">Overview</button>
+                            </div>
+                        </div>
                     </div>
                     <div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
                         {paymentTypes.map(c => {
@@ -147,7 +151,7 @@ const ContributionEditTemplate = function ({ contributionEditViewStore, t }) {
                                                 <div className="col col-sml-2">
                                                     <i
                                                         className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id ===
-                                                            form.$('paymentTypeId').value && 'checked'} u-push`}
+                                                            form.$('paymentTypeId').value && 'checked'}`}
                                                     ></i>
                                                 </div>
                                                 <div className="col col-sml-10">

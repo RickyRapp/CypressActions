@@ -1,120 +1,110 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import {
-    BaasicButton,
-    BaasicModal,
-    EmptyState,
-    ListContent,
-    SimpleBaasicTable
-} from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { isSome } from 'core/utils';
-import { Content } from 'core/layouts';
-import { DonorPhoneNumberEditForm } from 'application/donor/donor/components';
+import { FormatterResolver } from 'core/components';
+import { DonorPhoneNumberEditTemplate } from 'themes/application/donor/donor/components';
 
-const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore, t }) {
-    const {
-        tableStore,
-        routes,
-        phoneNumberModal,
-        openPhoneNumberModal
-    } = donorPhoneNumberViewStore;
+const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
+	const { phoneNumbers, onEnableEditClick, onCancelEditClick, isEditEnabled, form, editId } = donorPhoneNumberViewStore;
 
-    const maxPhoneNumbersEntered = tableStore.data && tableStore.data.length >= 2;
+	let primaryPhoneNumber = null;
+	let secondaryPhoneNumber = null;
+	if (phoneNumbers.length > 0) {
+		primaryPhoneNumber = phoneNumbers.find(c => c.isPrimary);
+		if (phoneNumbers.some(c => !c.isPrimary)) {
+			secondaryPhoneNumber = phoneNumbers.find(c => !c.isPrimary);
+		}
+	}
 
-    return (
-        <div>
-            <ListContent>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
-                    {t('PHONE_NUMBER.LIST.TITLE')}
-                    {maxPhoneNumbersEntered ?
-                        <span className="u-icon u-icon--add u-icon--base u-mar--left--tny" />
-                        :
-                        <BaasicButton
-                            className="btn btn--icon"
-                            onlyIconClassName="u-mar--right--tny"
-                            icon='u-icon u-icon--add u-icon--base'
-                            label='PHONE_NUMBER.LIST.BUTTON.CREATE'
-                            onlyIcon={true}
-                            onClick={() => openPhoneNumberModal()}>
-                        </BaasicButton>}
-                </h3>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <SimpleBaasicTable
-                        tableStore={tableStore}
-                        actionsComponent={renderActions}
-                    />
-                </Content>
-            </ListContent>
-            <BaasicModal modalParams={phoneNumberModal}>
-                <DonorPhoneNumberEditForm />
-            </BaasicModal>
-        </div>
-    )
+	return (
+		<React.Fragment>
+			<div className="row">
+				<div className="col col-sml-12 col-lrg-3">
+					<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
+						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PHONE_NUMBER')}
+					</h3>
+				</div>
+				<div
+					className={`col col-sml-12 col-lrg-${
+						(isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId) ||
+						undefined === editId ||
+						(secondaryPhoneNumber && secondaryPhoneNumber.id === editId)
+							? '12'
+							: '9'
+					}`}
+				>
+					<div className="row">
+						<div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+							{isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId ? (
+								<DonorPhoneNumberEditTemplate
+									form={form}
+									title="Primary"
+									onCancelEditClick={onCancelEditClick}
+									isAssignableAsPrimary={false}
+								/>
+							) : (
+								<div
+									className="row info-card--scale"
+									title="Click to edit"
+									onClick={() => onEnableEditClick(primaryPhoneNumber)}
+								>
+									{primaryPhoneNumber && (
+										<div
+											className="col col-sml-12 col-lrg-9"
+											title="Click to edit"
+											onClick={onEnableEditClick}
+										>
+											<div className="row">
+												<div className="col col-sml-6 col-xxlrg-4">
+													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Number:</p>
+													<p className="type--base type--wgt--bold">{primaryPhoneNumber.number}</p>
+												</div>
+
+												<div className="col col-sml-6 col-xxlrg-4">
+													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+														Is Primary?
+													</p>
+													<p className="type--base type--wgt--bold">{primaryPhoneNumber.isPrimary ? 'Yes' : 'No'}</p>
+												</div>
+											</div>
+										</div>
+									)}
+								</div>
+							)}
+						</div>
+						<div className="col col-sml-12 col-lrg-12">
+							{isEditEnabled &&
+							((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
+								<DonorPhoneNumberEditTemplate
+									form={form}
+									title="Secondary"
+									onCancelEditClick={onCancelEditClick}
+									isAssignableAsPrimary={true}
+								/>
+							) : (
+								<span
+                                    className="cursor--pointer type--color--opaque type--sml"
+                                    title={`Click to ${secondaryPhoneNumber ? 'edit' : 'insert'}`}
+									onClick={() => onEnableEditClick(secondaryPhoneNumber)}
+								>
+									{secondaryPhoneNumber ? (
+										<FormatterResolver item={secondaryPhoneNumber} field="number" format={{ type: 'phone-number' }} />
+									) : (
+										<span className="type--base type--color--opaque type--wgt--medium">Add new phone number</span>
+									)}
+								</span>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</React.Fragment>
+	);
 };
 
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='PHONE_NUMBER.LIST.EMPTY_STATE.TITLE' actionLabel='PHONE_NUMBER.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
-
-DonorPhoneNumberListTableTemplate.propTypes = {
-    donorPhoneNumberViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+DonorAddressListTemplate.propTypes = {
+	donorPhoneNumberViewStore: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired,
 };
 
-function renderActions({ item, actions, authorization }) {
-    if (!isSome(actions)) return null;
-
-    const { onEdit, onMarkPrimary, onDelete } = actions;
-    if (!isSome(onEdit) && !isSome(onMarkPrimary) && !isSome(onDelete)) return null;
-
-    return (
-        <td>
-            <div className="type--right">
-                {isSome(onMarkPrimary) && !item.isPrimary ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
-                        label='PHONE_NUMBER.LIST.BUTTON.MARK_PRIMARY'
-                        onlyIcon={true}
-                        onClick={() => onMarkPrimary(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onEdit) ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--edit u-icon--sml'
-                        label='PHONE_NUMBER.LIST.BUTTON.EDIT'
-                        onlyIcon={true}
-                        onClick={() => onEdit(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onDelete) && !item.isPrimary ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--delete u-icon--sml'
-                        label='PHONE_NUMBER.LIST.BUTTON.DELETE'
-                        onlyIcon={true}
-                        onClick={() => onDelete(item)}>
-                    </BaasicButton>
-                ) : null}
-            </div>
-        </td>
-    )
-}
-
-renderActions.propTypes = {
-    item: PropTypes.object,
-    actions: PropTypes.object,
-    authorization: PropTypes.any
-};
-
-export default defaultTemplate(DonorPhoneNumberListTableTemplate);
-
+export default defaultTemplate(DonorAddressListTemplate);

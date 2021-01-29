@@ -1,7 +1,8 @@
 import { action, observable, computed } from 'mobx';
-import { BookletOrderCreateForm } from 'application/donor/booklet-order/forms';
-import { BaseEditViewStore } from 'core/stores';
+import { BookletOrderCreateForm } from 'application/common/booklet-order/forms';
+import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
+import moment from 'moment';
 
 @applicationContext
 class BookletOrderCreateViewStore extends BaseEditViewStore {
@@ -11,10 +12,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable orderContents = [];
     @observable donor = null;
     @observable showMoreOptions = false;
-    @observable showCustomizeBooks = false;
+    @observable isDefaultShippingAddress = true;
     applicationDefaultSetting = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { donorId }) {
         super(rootStore, {
             name: 'booklet-order-create',
             id: undefined,
@@ -33,7 +34,8 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             FormClass: BookletOrderCreateForm,
         });
 
-        this.donorId = rootStore.userStore.applicationUser.id;
+        this.donorId = donorId;
+        this.createCustomizedExpirationDateDropdownStore();
     }
 
     @action.bound
@@ -121,37 +123,30 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onCustomizeYourBooksChange() {
-        if (this.form.$('isCustomizedBook').value) {
-            this.form.$('customizedName').setDisabled(false);
+    async onChangeShippingAddressClick() {
+        this.isDefaultShippingAddress = !this.isDefaultShippingAddress;
+
+        this.form.$('addressLine1').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('addressLine2').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('city').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('state').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('zipCode').setDisabled(this.isDefaultShippingAddress);
+
+        if (this.isDefaultShippingAddress) {
+            this.setDefaultShippingAddress();
         }
         else {
-            this.form.$('customizedName').set('');
-            this.form.$('customizedName').setDisabled(true);
-        }
-    }
-
-    @action.bound
-    async onChangeShippingAddressClick(setDefault) {
-        this.form.$('addressLine1').setDisabled(setDefault);
-        this.form.$('addressLine2').setDisabled(setDefault);
-        this.form.$('city').setDisabled(setDefault);
-        this.form.$('state').setDisabled(setDefault);
-        this.form.$('zipCode').setDisabled(setDefault);
-
-        if (setDefault) {
-            this.setDefaultShippingAddress();
+            this.form.$('addressLine1').clear();
+            this.form.$('addressLine2').clear();
+            this.form.$('city').clear();
+            this.form.$('state').clear();
+            this.form.$('zipCode').clear();
         }
     }
 
     @action.bound
     async onShowMoreOptionsClick() {
         this.showMoreOptions = !this.showMoreOptions;
-    }
-
-    @action.bound
-    async onShowCustomizeBooksClick() {
-        this.showCustomizeBooks = !this.showCustomizeBooks;
     }
 
     setDefaultShippingAddress() {
@@ -171,6 +166,21 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
         this.deliveryMethodTypes = await this.rootStore.application.lookup.deliveryMethodTypeStore.find();
         this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
+    }
+
+    createCustomizedExpirationDateDropdownStore() {
+        this.customizedExpirationDateDropdownStore = new BaasicDropdownStore(
+            {
+                clearable: true
+            },
+            {
+                fetchFunc: async () => {
+                    return [
+                        { id: '1', name: '90 days' },
+                        { id: '2', name: '180 days' },
+                        { id: '3', name: '365 days' }]
+                }
+            });
     }
 }
 

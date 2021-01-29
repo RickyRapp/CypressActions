@@ -4,9 +4,10 @@ import {
     BaasicButton,
     FormatterResolver,
     BasicInput,
-    BasicFieldCheckbox,
     BasicRadio,
-    BaasicFormControls
+    BaasicFormControls,
+    BaasicFieldDropdown,
+    Address
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
@@ -18,7 +19,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         donor,
         deliveryMethodTypes,
         denominationTypes,
-        onCustomizeYourBooksChange,
         onChangeShippingAddressClick,
         onRemoveBookletClick,
         onAddBookletClick,
@@ -30,7 +30,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         showMoreOptions,
         onShowMoreOptionsClick,
         onShowCustomizeBooksClick,
-        showCustomizeBooks
+        showCustomizeBooks,
+        customizedExpirationDateDropdownStore,
+        isDefaultShippingAddress
     } = store;
 
     return (
@@ -326,16 +328,36 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 <i className={!showCustomizeBooks ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
                             </button>
                         </div>
-                        {showCustomizeBooks &&
-                            <div className="col col-sml-12 u-padd--left--lrg u-padd--right--lrg">
-                                <div className="u-mar--bottom--med">
-                                    <BasicFieldCheckbox
-                                        field={form.$('isCustomizedBook')}
-                                        onChange={(event) => onCustomizeYourBooksChange(event.target.checked)}
-                                    />
+                        {form.$('isCustomizedBook').value &&
+                            <React.Fragment>
+                                {donor && donor.accountType.abrv === 'regular' &&
+                                    <div className="col col-sml-12 col-xlrg-12">
+                                        <strong>
+                                            Additional charge of $5 per book
+                                </strong>
+                                    </div>}
+                                <div className="col col-sml-12 col-xlrg-3">
+                                    <BasicInput field={form.$('customizedName')} />
                                 </div>
-                                <BasicInput field={form.$('customizedName')} />
-                            </div>
+                                <div className="col col-sml-12 col-xlrg-3">
+                                    <BasicInput field={form.$('customizedAddressLine1')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-3">
+                                    <BasicInput field={form.$('customizedAddressLine2')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-2">
+                                    <BasicInput field={form.$('customizedCity')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-2">
+                                    <BasicInput field={form.$('customizedState')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-2">
+                                    <BasicInput field={form.$('customizedZipCode')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-3">
+                                    <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
+                                </div>
+                            </React.Fragment>
                         }
                     </div>
 
@@ -370,7 +392,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row u-display--flex u-display--flex--align--center">
-                        <div className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--sml">
+                        <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                             <span className="type--med type--wgt--medium type--color--note">
                                 {t('BOOKLET_ORDER.CREATE.DELIVERY_OPTIONS')}
                             </span>
@@ -390,28 +412,40 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </div>
 
                 <div className="card--primary card--med u-mar--bottom--med">
-                    <h4 className="type--med type--wgt--medium type--color--note">Shipping Address</h4>
                     <div className="row u-mar--top--sml u-mar--bottom--sml">
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--sml">
-                            <BasicInput field={form.$('addressLine1')} />
+                        <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
+                            <span className="type--med type--wgt--medium type--color--note">
+                                {t('BOOKLET_ORDER.CREATE.SHIPPING_ADDRESS')}
+                            </span>
                         </div>
-                        <div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--sml">
-                            <BasicInput field={form.$('addressLine2')} />
-                        </div>
-                        <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                            <BasicInput field={form.$('city')} />
-                        </div>
-                        <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                            <BasicInput field={form.$('state')} />
-                        </div>
-                        <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                            <BasicInput field={form.$('zipCode')} />
-                        </div>
+                        {isDefaultShippingAddress ?
+                            <React.Fragment>
+                                {donor &&
+                                    <Address value={donor.donorAddress} format="booklet-order" />}
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                                <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('addressLine1')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('addressLine2')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('city')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('state')} />
+                                </div>
+                                <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
+                                    <BasicInput field={form.$('zipCode')} />
+                                </div>
+                            </React.Fragment>}
                     </div>
                     <BaasicButton
                         className="btn btn--med btn--med--100 btn--primary"
                         label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
-                        onClick={() => onChangeShippingAddressClick(!form.$('addressLine1').disabled)}>
+                        onClick={() => onChangeShippingAddressClick()}>
                     </BaasicButton>
                 </div>
             </Content>

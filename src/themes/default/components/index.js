@@ -101,6 +101,8 @@ export { default as DateTemplate } from './formatters/DateTemplate';
 export { default as LanguageMetadataTemplate } from './formatters/LanguageMetadataTemplate';
 export { default as FormatterResolverTemplate } from './formatters/FormatterResolverTemplate';
 export { default as AddressTemplate } from './formatters/AddressTemplate';
+export { default as EmailAddressTemplate } from './formatters/EmailAddressTemplate';
+export { default as BankAccountTemplate } from './formatters/BankAccountTemplate';
 
 export { default as ExportTemplate } from './export/ExportTemplate';
 

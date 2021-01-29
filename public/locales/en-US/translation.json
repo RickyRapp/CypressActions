@@ -513,7 +513,7 @@
             }
         },
         "EDIT": {
-            "TITLE": "Details",
+            "TITLE": "Profile Settings",
             "SUCCESS": "Successfully updated",
             "FIRST_NAME_LABEL": "First name",
             "FIRST_NAME_PLACEHOLDER": "First name",
@@ -592,6 +592,10 @@
         },
         "ACCOUNT_INFORMATION_FIELDS": {
             "TITLE_PROFILE": "Profile Information",
+            "TITLE_ADDRESS": "Address",
+            "TITLE_EMAIL_ADDRESS": "Email Address",
+            "TITLE_PHONE_NUMBER": "Phone Number",
+            "TITLE_BANK_ACCOUNT": "Bank Account",
             "DATE_OF_BIRTH": "Date Of Birth"
         },
         "COMMUNICATION_PREFERENCE": {
@@ -743,7 +747,9 @@
                 "ZIPCODE_LABEL": "Zip code",
                 "ZIPCODE_PLACEHOLDER": "Zip code",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         },
         "EDIT": {
@@ -760,7 +766,9 @@
                 "ZIPCODE_LABEL": "Zip code",
                 "ZIPCODE_PLACEHOLDER": "Zip code",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         }
     },
@@ -789,7 +797,9 @@
                 "EMAIL_LABEL": "Email",
                 "EMAIL_PLACEHOLDER": "Email",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         },
         "EDIT": {
@@ -800,7 +810,9 @@
                 "DESCRIPTION_LABEL": "Description",
                 "DESCRIPTION_PLACEHOLDER": "Description",
                 "NOTIFY_LABEL": "Enable notifications",
-                "NOTIFY_PLACEHOLDER": "Enable notifications"
+                "NOTIFY_PLACEHOLDER": "Enable notifications",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
             }
         }
     },
@@ -828,7 +840,8 @@
                 "NUMBER_LABEL": "Phone",
                 "NUMBER_PLACEHOLDER": "Phone",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Primary"
             }
         },
         "EDIT": {
@@ -837,7 +850,8 @@
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number",
                 "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description"
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Primary"
             }
         }
     },
@@ -1528,7 +1542,7 @@
                 "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
             },
             "FIELDS": {
-                "AMOUNT_LABEL": "Grant Information",
+                "AMOUNT_LABEL": "Amount",
                 "AMOUNT_PLACEHOLDER": "Enter Amount",
                 "CHARITY_LABEL": "Select a Charity to view profile info",
                 "CHARITY_PLACEHOLDER": "Search charities",
@@ -1871,6 +1885,7 @@
             "ORDER_VOUCHERS_BOOKS": "Order Vouchers Books (50 checks per book)",
             "PREPAID_ONLY": "PREPAID ONLY",
             "DELIVERY_OPTIONS": "Delivery Options",
+            "SHIPPING_ADDRESS": "Shipping Address",
             "CHANGE_SHIPPING_ADDRESS": "CHANGE SHIPPING ADDRESS",
             "SET_DEFAULT_SHIPPING_ADDRESS": "SET DEFAULT SHIPPING ADDRESS",
             "MOST_COMMON_DENOMINATIONS": "Common Denominations:",
@@ -1902,6 +1917,12 @@
                 "DENOMINATION_TYPE_PLACEHOLDER": "Denomination type",
                 "CUSTOMIZE_YOUR_BOOKS_LABEL": "Customize Your Books",
                 "CUSTOMIZED_NAME_PLACEHOLDER": "Enter Name",
+                "CUSTOMIZED_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "CUSTOMIZED_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CUSTOMIZED_CITY_PLACEHOLDER": "City",
+                "CUSTOMIZED_STATE_PLACEHOLDER": "State",
+                "CUSTOMIZED_ZIPCODE_PLACEHOLDER": "Zip code",
+                "CUSTOMIZED_EXPIRATION_DATE_PLACEHOLDER": "Expiration Date",
                 "ADDRESS_LINE_1_LABEL": "Address line 1",
                 "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
                 "ADDRESS_LINE_2_LABEL": "Address line 2",

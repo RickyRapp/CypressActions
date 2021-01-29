@@ -49,19 +49,24 @@
 		}
 
 		&--logo {
-			width: 60%;
+			width: 100%;
 
 			margin: 0 auto;
-			margin-bottom: calc($unit * 15);
+			margin-bottom: calc($unit * 6);
+
+			@media (--screen-from-med) {
+				width: 60%;
+				margin-bottom: calc($unit * 15);
+			}
 		}
 
 		&--title {
+			@mixin type-scale $type-large, 1.5;
 			margin-bottom: calc($unit * 7);
-
 			text-align: center;
 			font-weight: $type-weight-thin;
 			font-family: $ff-serif;
-			@mixin type-scale $type-huge, 1.5;
+			
 			@media (--screen-from-med) {
 				@mixin type-scale $type-xhuge, 3;
 			}
@@ -92,9 +97,13 @@
 	}
 
 	&__form {
-		width: 50%;
-		min-width: calc($unit * 55);
+		width: 100%;
 
-		margin-bottom: calc($unit * 4);
+		@media (--screen-from-med) {
+			width: 50%;
+			min-width: calc($unit * 55);
+
+			margin-bottom: calc($unit * 4);
+		}
 	}
 }

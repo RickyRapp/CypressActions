@@ -31,7 +31,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                     <NotifyOutsideClick action={() => setProfileMenu(false)}>
                         <div onClick={toggleProfileMenu}>
                             {rootStore.userStore.user ? (
-                                <div>
+                                <React.Fragment>
                                     <img
                                         src={imgUrl}
                                         height={30}
@@ -41,7 +41,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                                     <span className="header__profile__name">
                                         <span>{rootStore.userStore.user.displayName}</span>
                                     </span>
-                                </div>
+                                </React.Fragment>
                             ) : null}
                         </div>
                         <div className={'header__profile__dropdown' + (profileMenuOpen ? ' active' : '')}>

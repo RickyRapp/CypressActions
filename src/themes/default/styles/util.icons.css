@@ -658,6 +658,10 @@
             }
         }
 
+        &--close-menu {
+            background-image: svg-load('../styles/postcss-svg/close.svg', fill: white);
+        }
+
         &--robot {
             background-image: svg-load('../styles/postcss-svg/robot.svg');
         }

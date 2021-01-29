@@ -1,10 +1,12 @@
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/forms';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
 class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
+    @observable isEditEnabled = false;
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'automatic-contribution-setting',
@@ -15,20 +17,23 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
                         await rootStore.application.donor.donorStore.createAutomaticContributionSetting({ donorId: this.donorId, ...resource });
                     },
                     get: async () => {
-                        return rootStore.application.donor.donorStore.getAutomaticContributionSetting(this.donorId);
+                        try {
+                            return await rootStore.application.donor.donorStore.getAutomaticContributionSetting(this.donorId)
+                        } catch (error) {
+                            return null;
+                        }
                     }
                 }
             },
             onAfterAction: async () => {
                 await this.getResource();
-                this.onChangeIsEnabled();
+                this.onEnableEditClick();
                 rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE')
             },
             FormClass: DonorAutomaticContributionSettingForm,
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
-
         this.createBankAccountDropdownStore();
     }
 
@@ -41,12 +46,11 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource()
             ]);
-            this.onChangeIsEnabled();
         }
     }
 
     @action.bound
-    async onChangeIsEnabled() {
+    onChangeIsEnabled() {
         this.form.$('donorBankAccountId').set('disabled', !this.form.$('isEnabled').value);
         this.form.$('amount').set('disabled', !this.form.$('isEnabled').value);
         this.form.$('lowBalanceAmount').set('disabled', !this.form.$('isEnabled').value);
@@ -54,6 +58,14 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
         this.form.$('donorBankAccountId').setRequired(this.form.$('isEnabled').value);
         this.form.$('amount').setRequired(this.form.$('isEnabled').value);
         this.form.$('lowBalanceAmount').setRequired(this.form.$('isEnabled').value);
+    }
+
+    @action.bound
+    async onEnableEditClick() {
+        this.isEditEnabled = !this.isEditEnabled;
+        if (this.isEditEnabled) {
+            this.onChangeIsEnabled();
+        }
     }
 
     createBankAccountDropdownStore() {

@@ -1,103 +1,73 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { action, observable } from 'mobx';
+import { BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { FilterParams, ModalParams } from 'core/models';
 import { DonorEmailAddressEditForm } from 'application/donor/donor/forms';
 
 @applicationContext
-class DonorEmailAddressViewStore extends BaseListViewStore {
+class DonorEmailAddressViewStore extends BaseViewStore {
     emailAddressService = null;
+    @observable isEditEnabled = false;
+    @observable editId = null;
+    @observable emailAddresses = [];
 
-    formEmailAddress = new DonorEmailAddressEditForm({
+    form = new DonorEmailAddressEditForm({
         onSuccess: async form => {
-            const { id, email, description, isNotifyEnabled } = form.values();
+            const emailAddress = form.values();
 
-            if (id) {
-                await this.updateEmailAddressAsync({ id, email, description, isNotifyEnabled });
+            if (this.editId) {
+                await this.updateEmailAddressAsync(emailAddress);
             }
             else {
-                await this.createEmailAddressAsync({ email, description, isNotifyEnabled });
+                await this.createEmailAddressAsync(emailAddress);
             }
         }
     });
 
     constructor(rootStore) {
-        super(rootStore, {
-            name: 'donor-email-addresses',
-            routes: {},
-            queryConfig: {
-                filter: new FilterParams(),
-                disableUpdateQueryParams: true
-            },
-            actions: () => {
-                return {
-                    find: async (params) => {
-                        params.donorId = this.donorId;
-                        params.orderBy = 'isPrimary';
-                        params.orderDirection = 'desc';
-                        return rootStore.application.donor.donorStore.findEmailAddress(params);
-                    }
-                }
-            }
-        });
-
+        super(rootStore)
         this.donorId = rootStore.userStore.applicationUser.id;
-        this.emailAddressModal = new ModalParams({});
 
-        this.setTableStore(new TableViewStore(this.queryUtility, {
-            columns: [
-                {
-                    key: 'email',
-                    title: 'EMAIL_ADDRESS.LIST.COLUMNS.EMAIL_LABEL',
-                    onClick: (emailAddress) => this.openEmailAddressModal(emailAddress)
-                },
-                {
-                    key: 'isPrimary',
-                    title: 'EMAIL_ADDRESS.LIST.COLUMNS.PRIMARY_LABEL',
-                    format: {
-                        type: 'boolean',
-                        value: 'yes-no'
-                    }
-                },
-                {
-                    key: 'isNotifyEnabled',
-                    title: 'EMAIL_ADDRESS.LIST.COLUMNS.NOTIFY_LABEL',
-                    format: {
-                        type: 'boolean',
-                        value: 'yes-no'
-                    }
-                }
-            ],
-            actions: {
-                onEdit: (emailAddress) => this.openEmailAddressModal(emailAddress),
-                onMarkPrimary: (emailAddress) => this.markPrimary(emailAddress),
-                onDelete: (emailAddress) => this.deleteAddress(emailAddress),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
-            },
-            disablePaging: true,
-            disableSorting: true
-        }));
+        this.loadEmailAddress();
+    }
+
+    async loadEmailAddress() {
+        let params = {
+            donorId: this.donorId,
+            orderBy: 'isPrimary',
+            orderDirection: 'desc'
+        }
+        const data = await this.rootStore.application.donor.donorStore.findEmailAddress(params);
+        this.emailAddresses = data.item;
     }
 
     @action.bound
-    openEmailAddressModal(emailAddress) {
-        this.formEmailAddress.clear();
+    onEnableEditClick(emailAddress) {
+        this.form.clear();
+        this.editId = null;
         if (emailAddress) {
-            this.formEmailAddress.update(emailAddress);
+            this.form.update(emailAddress);
+            this.editId = emailAddress.id;
         }
-        this.emailAddressModal.open({
-            formEmailAddress: this.formEmailAddress
-        });
+        else {
+            this.editId = undefined;
+        }
+        this.isEditEnabled = true;
+    }
+
+    @action.bound
+    onCancelEditClick() {
+        this.form.clear();
+        this.editId = null;
+        this.isEditEnabled = false;
     }
 
     @action.bound
     async updateEmailAddressAsync(entity, message) {
         try {
-            await this.rootStore.application.donor.donorStore.updateEmailAddress(entity);
-
+            await this.rootStore.application.donor.donorStore.updateEmailAddress({ ...entity, id: this.editId });
             this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
-            this.emailAddressModal.close();
-            await this.queryUtility.fetch();
+            await this.loadEmailAddress();
+            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error("Error", err);
@@ -113,8 +83,8 @@ class DonorEmailAddressViewStore extends BaseListViewStore {
             });
 
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
-            this.emailAddressModal.close();
-            await this.queryUtility.fetch();
+            await this.loadEmailAddress();
+            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error("Error", err);
@@ -130,7 +100,7 @@ class DonorEmailAddressViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async deleteAddress(emailAddress) {
+    async deleteEmailAddress(emailAddress) {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to delete email address?`,
             async () => {

@@ -13,7 +13,7 @@ const DatePickerTemplate = function ({ value, onChange, format = 'kendo-input-sh
             onChange(new Date(date));
         }
     };
-
+    console.log(value)
     return (
         <React.Fragment>
             <div className="u-position--rel">

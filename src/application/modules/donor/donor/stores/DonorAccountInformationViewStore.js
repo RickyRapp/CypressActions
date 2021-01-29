@@ -1,9 +1,12 @@
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorEditForm } from 'application/donor/donor/forms';
 import { applicationContext } from 'core/utils';
+import { action, observable } from 'mobx';
 
 @applicationContext
 class DonorAccountInformationViewStore extends BaseEditViewStore {
+    @observable isEditEnabled = false;
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'general-data',
@@ -13,7 +16,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                     return rootStore.application.donor.donorStore.getDonor(
                         id,
                         {
-                            fields: 'prefixTypeId,firstName,lastName,dateOfBirth,fundName,securityPin'
+                            fields: 'prefixType,prefixTypeId,firstName,lastName,dateOfBirth,fundName,securityPin'
                         });
                 },
                 update: async (resource) => {
@@ -24,7 +27,6 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
         });
 
         this.donorId = this.id;
-
         this.createPrefixTypeDropdownStore();
     }
 
@@ -34,6 +36,11 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                 return this.rootStore.application.lookup.prefixTypeStore.find();
             }
         });
+    }
+
+    @action.bound
+    onEnableEditClick() {
+        this.isEditEnabled = !this.isEditEnabled;
     }
 }
 

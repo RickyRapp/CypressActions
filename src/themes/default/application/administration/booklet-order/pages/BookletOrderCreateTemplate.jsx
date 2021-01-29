@@ -11,14 +11,13 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 
-const BookletOrderCreateTemplate = function({ store, t }) {
+const BookletOrderCreateTemplate = function ({ store, t }) {
 	const {
 		contentLoading,
 		form,
 		donor,
 		deliveryMethodTypes,
 		denominationTypes,
-		onCustomizeYourBooksChange,
 		onChangeShippingAddressClick,
 		onRemoveBookletClick,
 		onAddBookletClick,
@@ -31,6 +30,8 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 		onShowMoreOptionsClick,
 		onShowCustomizeBooksClick,
 		showCustomizeBooks,
+		customizedExpirationDateDropdownStore,
+		isDefaultShippingAddress
 	} = store;
 
 	return (
@@ -105,7 +106,7 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 																	<BaasicButton
 																		className="counter__btn counter__btn--count type--wgt--medium"
 																		label={(order && order.bookletCount.toString()) || '0'}
-																		onClick={() => {}}
+																		onClick={() => { }}
 																	></BaasicButton>
 																	<BaasicButton
 																		className="counter__btn counter__btn--plus"
@@ -133,204 +134,204 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 										})}
 									</React.Fragment>
 								) : (
-									<div
-										className="col col-sml-12 col-xxlrg-5 card--med"
-										style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}
-									>
-										{bt.abrv === 'mixed_500' && (
-											<div className="row row__align--center u-mar--top--med">
-												{denominationTypes.length > 0 && (
-													<div className="col col-sml-4">
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+										<div
+											className="col col-sml-12 col-xxlrg-5 card--med"
+											style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}
+										>
+											{bt.abrv === 'mixed_500' && (
+												<div className="row row__align--center u-mar--top--med">
+													{denominationTypes.length > 0 && (
+														<div className="col col-sml-4">
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 1).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 5).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 5).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 10).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 10).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 18).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 18).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 25).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 25).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 50).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
-														</span>
-														<div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
-													</div>
-												)}
-												<div className="col col-sml-5 counter">
-													<BaasicButton
-														className="counter__btn"
-														icon={'counter__icon counter__icon--minus'}
-														label="REMOVE"
-														onlyIcon={true}
-														onClick={() => onRemoveBookletClick(bt.id, null)}
-													></BaasicButton>
-													<BaasicButton
-														className="counter__btn counter__btn--count type--wgt--medium"
-														label={
-															orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null)
-																? orderContents
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 50).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
+															</span>
+															<div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
+														</div>
+													)}
+													<div className="col col-sml-5 counter">
+														<BaasicButton
+															className="counter__btn"
+															icon={'counter__icon counter__icon--minus'}
+															label="REMOVE"
+															onlyIcon={true}
+															onClick={() => onRemoveBookletClick(bt.id, null)}
+														></BaasicButton>
+														<BaasicButton
+															className="counter__btn counter__btn--count type--wgt--medium"
+															label={
+																orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null)
+																	? orderContents
 																		.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null)
 																		.bookletCount.toString()
-																: '0'
-														}
-														onClick={() => {}}
-													></BaasicButton>
-													<BaasicButton
-														className="counter__btn"
-														icon={'counter__icon counter__icon--plus'}
-														label="ADD"
-														onlyIcon={true}
-														onClick={() => onAddBookletClick(bt.id, null)}
-													></BaasicButton>
-												</div>
-												<div className="col col-sml-3">
-													<div className="type--med type--wgt--regular type--right">
-														<FormatterResolver
-															item={{ total: mixed500BookletAmount }}
-															field="total"
-															format={{ type: 'currency' }}
-														/>
+																	: '0'
+															}
+															onClick={() => { }}
+														></BaasicButton>
+														<BaasicButton
+															className="counter__btn"
+															icon={'counter__icon counter__icon--plus'}
+															label="ADD"
+															onlyIcon={true}
+															onClick={() => onAddBookletClick(bt.id, null)}
+														></BaasicButton>
+													</div>
+													<div className="col col-sml-3">
+														<div className="type--med type--wgt--regular type--right">
+															<FormatterResolver
+																item={{ total: mixed500BookletAmount }}
+																field="total"
+																format={{ type: 'currency' }}
+															/>
+														</div>
 													</div>
 												</div>
-											</div>
-										)}
-										{bt.abrv === 'mixed_2000' && (
-											<div className="row row__align--center u-mar--top--med">
-												{denominationTypes.length > 0 && (
-													<div className="col col-sml-4">
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 0).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+											)}
+											{bt.abrv === 'mixed_2000' && (
+												<div className="row row__align--center u-mar--top--med">
+													{denominationTypes.length > 0 && (
+														<div className="col col-sml-4">
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 0).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 5).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 5).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 18).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 18).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 36).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 36).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 50).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 50).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 100).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 100).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
 															,
 														</span>{' '}
-														<span className="type--med type--wgt--regular">
-															<FormatterResolver
-																item={{ value: denominationTypes.find(dt => dt.value === 180).value }}
-																field="value"
-																format={{ type: 'currency' }}
-															/>
-														</span>
-														<div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
-													</div>
-												)}
-												<div className="col col-sml-5 counter">
-													<BaasicButton
-														className="counter__btn counter__btn--minus"
-														icon={'counter__icon counter__icon--minus'}
-														label="REMOVE"
-														onlyIcon={true}
-														onClick={() => onRemoveBookletClick(bt.id, null)}
-													></BaasicButton>
-													<BaasicButton
-														className="counter__btn counter__btn--count type--wgt--medium"
-														label={
-															orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null)
-																? orderContents
+															<span className="type--med type--wgt--regular">
+																<FormatterResolver
+																	item={{ value: denominationTypes.find(dt => dt.value === 180).value }}
+																	field="value"
+																	format={{ type: 'currency' }}
+																/>
+															</span>
+															<div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>
+														</div>
+													)}
+													<div className="col col-sml-5 counter">
+														<BaasicButton
+															className="counter__btn counter__btn--minus"
+															icon={'counter__icon counter__icon--minus'}
+															label="REMOVE"
+															onlyIcon={true}
+															onClick={() => onRemoveBookletClick(bt.id, null)}
+														></BaasicButton>
+														<BaasicButton
+															className="counter__btn counter__btn--count type--wgt--medium"
+															label={
+																orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null)
+																	? orderContents
 																		.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null)
 																		.bookletCount.toString()
-																: '0'
-														}
-														onClick={() => {}}
-													></BaasicButton>
-													<BaasicButton
-														className="counter__btn counter__btn--plus"
-														icon={'counter__icon counter__icon--plus'}
-														label="ADD"
-														onlyIcon={true}
-														onClick={() => onAddBookletClick(bt.id, null)}
-													></BaasicButton>
-												</div>
-												<div className="col col-sml-3">
-													<div className="type--med type--wgt--regular type--right">
-														<FormatterResolver
-															item={{ total: mixed2000BookletAmount }}
-															field="total"
-															format={{ type: 'currency' }}
-														/>
+																	: '0'
+															}
+															onClick={() => { }}
+														></BaasicButton>
+														<BaasicButton
+															className="counter__btn counter__btn--plus"
+															icon={'counter__icon counter__icon--plus'}
+															label="ADD"
+															onlyIcon={true}
+															onClick={() => onAddBookletClick(bt.id, null)}
+														></BaasicButton>
+													</div>
+													<div className="col col-sml-3">
+														<div className="type--med type--wgt--regular type--right">
+															<FormatterResolver
+																item={{ total: mixed2000BookletAmount }}
+																field="total"
+																format={{ type: 'currency' }}
+															/>
+														</div>
 													</div>
 												</div>
-											</div>
-										)}
-									</div>
-								)}
+											)}
+										</div>
+									)}
 							</div>
 						);
 					})}

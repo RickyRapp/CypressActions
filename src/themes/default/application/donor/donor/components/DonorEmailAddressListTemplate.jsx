@@ -1,120 +1,114 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import {
-    BaasicButton,
-    BaasicModal,
-    SimpleBaasicTable,
-    EmptyState,
-    ListContent
-} from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { isSome } from 'core/utils';
-import { Content } from 'core/layouts';
-import { DonorEmailAddressEditForm } from 'application/donor/donor/components';
+import { DonorEmailAddressEditTemplate } from 'themes/application/donor/donor/components';
+import { EmailAddress } from 'core/components';
 
-const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStore, t }) {
-    const {
-        tableStore,
-        routes,
-        emailAddressModal,
-        openEmailAddressModal
-    } = donorEmailAddressViewStore;
+const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore, t }) {
+	const {
+		emailAddresses,
+		onEnableEditClick,
+		onCancelEditClick,
+		isEditEnabled,
+		form,
+		editId,
+	} = donorEmailAddressViewStore;
 
-    const maxEmailAddressesEntered = tableStore.data && tableStore.data.length >= 2;
-
-    return (
-        <div>
-            <ListContent>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
-                    {t('EMAIL_ADDRESS.LIST.TITLE')}
-                    {maxEmailAddressesEntered ?
-                        <span className="u-icon u-icon--add u-icon--base u-mar--left--tny" />
-                        :
-                        <BaasicButton
-                            className="btn btn--icon"
-                            onlyIconClassName="u-mar--right--sml"
-                            icon='u-icon u-icon--add u-icon--base'
-                            label='PHONE_NUMBER.LIST.BUTTON.CREATE'
-                            onlyIcon={true}
-                            onClick={() => openEmailAddressModal()}>
-                        </BaasicButton>}
-                </h3>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <SimpleBaasicTable
-                        tableStore={tableStore}
-                        actionsComponent={renderActions}
-                    />
-                </Content>
-            </ListContent>
-            <BaasicModal modalParams={emailAddressModal}>
-                <DonorEmailAddressEditForm />
-            </BaasicModal>
-        </div>
-    )
+	let primaryEmailAddress = null;
+	let secondaryEmailAddress = null;
+	if (emailAddresses.length > 0) {
+		primaryEmailAddress = emailAddresses.find(c => c.isPrimary);
+		if (emailAddresses.some(c => !c.isPrimary)) {
+			secondaryEmailAddress = emailAddresses.find(c => !c.isPrimary);
+		}
+    }
+    
+	return (
+		<div>
+			<div className="row">
+				<div className="col col-sml-12 col-lrg-3">
+					<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
+						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_EMAIL_ADDRESS')}
+					</h3>
+				</div>
+				<div
+					className={`col col-sml-12 col-lrg-${
+						(isEditEnabled && primaryEmailAddress && primaryEmailAddress.id === editId) ||
+						((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId)
+							? '12'
+							: '9'
+					}`}
+				>
+					<div className="row u-mar--bottom--sml">
+						<div className="col col-sml-12 col-lrg-12">
+							{isEditEnabled && primaryEmailAddress && primaryEmailAddress.id === editId ? (
+								<DonorEmailAddressEditTemplate
+									form={form}
+									title="Primary"
+									onCancelEditClick={onCancelEditClick}
+									isAssignableAsPrimary={false}
+								/>
+							) : (
+								<div
+									className="info-card--scale"
+									title="Click to edit"
+									onClick={() => onEnableEditClick(primaryEmailAddress)}
+								>
+									{primaryEmailAddress ? (
+										// <EmailAddress value={primaryEmailAddress} format='full' />
+										<div className="row">
+                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Email:</p>
+                                                <p className="type--base type--wgt--bold"> {primaryEmailAddress.email} </p>
+                                            </div>
+                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is notify enable?</p>
+                                                <p className="type--base type--wgt--bold">{primaryEmailAddress.isNotifyEnabled ? "Yes" : "No"}</p>
+                                            </div>
+                                            <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+                                                <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is primary?</p>
+                                                <p className="type--base type--wgt--bold">{primaryEmailAddress.isPrimary ? "Yes" : "No"}</p>
+                                            </div>
+										</div>
+									) : (
+										''
+									)}
+								</div>
+							)}
+						</div>
+						<div className="col col-sml-12 col-lrg-12 u-mar--top--sml">
+							{isEditEnabled &&
+							((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId) ? (
+								<DonorEmailAddressEditTemplate
+									form={form}
+									title="Secondary"
+									onCancelEditClick={onCancelEditClick}
+									isAssignableAsPrimary={true}
+								/>
+							) : (
+								<span
+                                    className="cursor--pointer type--color--opaque type--sml"
+									title={`Click to ${secondaryEmailAddress ? 'edit' : 'insert'}`}
+									onClick={() => onEnableEditClick(secondaryEmailAddress)}
+								>
+									{secondaryEmailAddress ? (
+										<EmailAddress value={secondaryEmailAddress} format="full" />
+									) : (
+										<button className="btn btn--link btn--sml">Add new email address</button>
+									)}
+								</span>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
-
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='EMAIL_ADDRESS.LIST.EMPTY_STATE.TITLE' actionLabel='EMAIL_ADDRESS.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 DonorEmailAddressListTableTemplate.propTypes = {
-    donorEmailAddressViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
-};
-
-function renderActions({ item, actions, authorization }) {
-    if (!isSome(actions)) return null;
-
-    const { onEdit, onMarkPrimary, onDelete } = actions;
-    if (!isSome(onEdit) && !isSome(onMarkPrimary) && !isSome(onDelete)) return null;
-
-    return (
-        <td>
-            <div className="type--right">
-                {isSome(onMarkPrimary) && !item.isPrimary ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
-                        label='EMAIL_ADDRESS.LIST.BUTTON.MARK_PRIMARY'
-                        onlyIcon={true}
-                        onClick={() => onMarkPrimary(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onEdit) ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--edit u-icon--sml'
-                        label='EMAIL_ADDRESS.LIST.BUTTON.EDIT'
-                        onlyIcon={true}
-                        onClick={() => onEdit(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onDelete) && !item.isPrimary ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--delete u-icon--sml'
-                        label='EMAIL_ADDRESS.LIST.BUTTON.DELETE'
-                        onlyIcon={true}
-                        onClick={() => onDelete(item)}>
-                    </BaasicButton>
-                ) : null}
-            </div>
-        </td>
-    )
-}
-
-renderActions.propTypes = {
-    item: PropTypes.object,
-    actions: PropTypes.object,
-    authorization: PropTypes.any
+	donorEmailAddressViewStore: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired,
 };
 
 export default defaultTemplate(DonorEmailAddressListTableTemplate);
-

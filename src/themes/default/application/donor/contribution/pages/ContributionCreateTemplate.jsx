@@ -17,12 +17,13 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorBankAccountEdit } from 'application/donor/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/donor/contribution/components';
 
-const ContributionCreateTemplate = function ({ contributionCreateViewStore, t }) {
+const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) {
 	const {
 		loaderStore,
 		form,
 		routes,
 		paymentTypes,
+		nextStep,
 		step,
 		onSelectPaymentType,
 		bankAccountDropdownStore,
@@ -36,7 +37,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 		businessTypeDropdownStore,
 		propertyTypeDropdownStore,
 		collectibleTypeDropdownStore,
-		isThirdPartyFundingAvailable
+		isThirdPartyFundingAvailable,
 	} = contributionCreateViewStore;
 
 	let paymentType = {};
@@ -57,7 +58,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 			{step === 1 && (
 				<React.Fragment>
 					<div className="row u-display--none--xlrg">
-						<div className="col col-sml-4">
+						<div className="col col-sml-3">
 							<div className="card--sml type--med type--wgt--medium type--color--note type--center">Overview</div>
 						</div>
 						<div className="col col-sml-2">
@@ -73,7 +74,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 								Minimum Deposit
 							</div>
 						</div>
-						<div className="col col-sml-2">
+						<div className="col col-sml-3">
 							<div className="card--sml type--med type--wgt--medium type--color--opaque type--center">More</div>
 						</div>
 					</div>
@@ -83,9 +84,9 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 							const json = JSON.parse(c.json);
 							return (
 								<div key={c.id} className="row">
-									<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
+									<div className="col col-sml-12 col-xxlrg-3">
 										<div
-											className="card--contribution card--contribution--primary card--med cursor--pointer"
+											className="card--contribution card--contribution--primary"
 											onClick={() => onSelectPaymentType(c.id)}
 										>
 											<div className="col col-sml-4 col-lrg-2">
@@ -102,25 +103,25 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 									{step === 1 && (
 										<React.Fragment>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">{json.timeline}</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">
 														{json.deductibleEligibility}
 													</p>
 												</div>
 											</div>
 											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
+												<div className="card--contribution">
 													<p className="type--base type--color--text type--wgt--regular">{json.minimumDeposit}</p>
 												</div>
 											</div>
-											<div className="col col-sml-12 col-lrg-6 col-xxlrg-2">
-												<div className="card--contribution card--med type--center u-mar--bottom--med">
-													<p className="type--base type--color--text type--wgt--regular">{json.more}</p>
+											<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
+												<div className="card--contribution">
+													<p className="type--base type--color--text type--wgt--regular type--center">{json.more}</p>
 												</div>
 											</div>
 										</React.Fragment>
@@ -134,25 +135,41 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 			{step === 2 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && (
 				<div className="row">
 					<div className="col col-sml-12">
-						<div className="card--sml type--med type--wgt--medium type--color--note">Overview</div>
+						<div className="row">
+							<div className="col col-sml-12 col-lrg-4 col-xlrg-3">
+								<button className="btn btn--link btn--med card--contribution--back" onClick={() => nextStep(step - 1)}>
+									Overview
+								</button>
+							</div>
+						</div>
 					</div>
 					<div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
-						{paymentTypes.map(c => {
+						{paymentTypes.map((c, index) => {
 							return (
 								<div
 									key={c.id}
 									className="row"
 									onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
 								>
+									{/* {index === 0 && (
+										<div className="col col-sml-12">
+											<button
+												className="btn btn--100 card--contribution card--contribution--back"
+												onClick={() => nextStep(step - 1)}
+											>
+												Overview
+											</button>
+										</div>
+									)} */}
 									<div className="col col-sml-12 col-lrg-12">
 										<div
-											className={`card--contribution card--contribution--primary card--med u-mar--bottom--med cursor--pointer ${c.id ===
+											className={`card--contribution card--contribution--primary ${c.id ===
 												form.$('paymentTypeId').value && 'checked'}`}
 										>
 											<div className="col col-sml-2">
 												<i
 													className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
-														'checked'} u-push`}
+														'checked'}`}
 												></i>
 											</div>
 											<div className="col col-sml-10">
@@ -207,17 +224,19 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BaasicFieldDropdown
 															field={form.$('brokerageInstitutionId')}
-															store={brokerageInstitutionDropdownStore} />
+															store={brokerageInstitutionDropdownStore}
+														/>
 													</div>
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-														<BaasicFieldDropdown
-															field={form.$('securityTypeId')}
-															store={securityTypeDropdownStore} />
+														<BaasicFieldDropdown field={form.$('securityTypeId')} store={securityTypeDropdownStore} />
 													</div>
-													{securityTypeDropdownStore && securityTypeDropdownStore.value && securityTypeDropdownStore.value.name === 'Other' &&
-														<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-															<BasicInput field={form.$('other')} />
-														</div>}
+													{securityTypeDropdownStore &&
+														securityTypeDropdownStore.value &&
+														securityTypeDropdownStore.value.name === 'Other' && (
+															<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+																<BasicInput field={form.$('other')} />
+															</div>
+														)}
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BasicInput field={form.$('securitySymbol')} />
 													</div>
@@ -229,9 +248,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 											{paymentType.abrv === 'business-and-private-interests' && (
 												<React.Fragment>
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-														<BaasicFieldDropdown
-															field={form.$('businessTypeId')}
-															store={businessTypeDropdownStore} />
+														<BaasicFieldDropdown field={form.$('businessTypeId')} store={businessTypeDropdownStore} />
 													</div>
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BasicInput field={form.$('other')} />
@@ -241,9 +258,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 											{paymentType.abrv === 'real-estate' && (
 												<React.Fragment>
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-														<BaasicFieldDropdown
-															field={form.$('propertyTypeId')}
-															store={propertyTypeDropdownStore} />
+														<BaasicFieldDropdown field={form.$('propertyTypeId')} store={propertyTypeDropdownStore} />
 													</div>
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BasicInput field={form.$('other')} />
@@ -255,18 +270,22 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BaasicFieldDropdown
 															field={form.$('collectibleTypeId')}
-															store={collectibleTypeDropdownStore} />
+															store={collectibleTypeDropdownStore}
+														/>
 													</div>
-													{collectibleTypeDropdownStore && collectibleTypeDropdownStore.value && collectibleTypeDropdownStore.value.name === 'Other' &&
-														<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-															<BasicInput field={form.$('other')} />
-														</div>}
+													{collectibleTypeDropdownStore &&
+														collectibleTypeDropdownStore.value &&
+														collectibleTypeDropdownStore.value.name === 'Other' && (
+															<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+																<BasicInput field={form.$('other')} />
+															</div>
+														)}
 												</React.Fragment>
 											)}
 											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<NumericInputField field={form.$('amount')} />
 											</div>
-											{isThirdPartyFundingAvailable &&
+											{isThirdPartyFundingAvailable && (
 												<React.Fragment>
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BasicFieldCheckbox field={form.$('isThirdParty')} />
@@ -301,7 +320,8 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 															</div>
 														</div>
 													)}
-												</React.Fragment>}
+												</React.Fragment>
+											)}
 											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
 											</div>
@@ -369,21 +389,21 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore, t })
 								</div>
 								{(paymentType.abrv === 'ach' ||
 									(paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
-										<React.Fragment>
-											<div className="col col-sml-12 col-lrg-12">
-												{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
-												{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
-											</div>
-											<div className="col col-sml-12 col-lrg-12">
-												{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
+									<React.Fragment>
+										<div className="col col-sml-12 col-lrg-12">
+											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
+											{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
+										</div>
+										<div className="col col-sml-12 col-lrg-12">
+											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
 											xxxx-xxxx-xxxx-
 											{
-													bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)
-														.accountNumber
-												}
-											</div>
-										</React.Fragment>
-									)}
+												bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)
+													.accountNumber
+											}
+										</div>
+									</React.Fragment>
+								)}
 								{paymentType.abrv === 'check' && (
 									<div className="col col-sml-12 col-lrg-12">
 										{t('CONTRIBUTION.CREATE.CHECK_NUMBER')}

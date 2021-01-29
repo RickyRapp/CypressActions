@@ -40,7 +40,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                 <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-3">
                                     <BasicInput field={form.$('firstName')} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+                                <div className="col col-sml-12 col-xlrg-5 col-xxlrg-4">
                                     <BasicInput field={form.$('lastName')} />
                                 </div>
                                 <div className="form__group col col-sml-12 col-lrg-12 col-xxlrg-4">
@@ -59,7 +59,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
                                 {item && item.accountType.abrv === 'private' &&
-                                    <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-4">
+                                    <div className="col col-sml-12 col-xlrg-5 col-xxlrg-4">
                                         <BaasicFieldDropdown
                                             field={form.$('accountManagerId')}
                                             store={accountManagerDropdownStore} />
