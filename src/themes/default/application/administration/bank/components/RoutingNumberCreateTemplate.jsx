@@ -25,7 +25,7 @@ const RoutingNumberCreateTemplate = function ({ t, routingNumberCreateViewStore 
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t(id ? 'ROUTING_NUMBER.EDIT.TITLE' : 'ROUTING_NUMBER.CREATE.TITLE')}</h3>
+                <h3 className=" u-mar--bottom--med">{t(id ? 'ROUTING_NUMBER.EDIT.TITLE' : 'ROUTING_NUMBER.CREATE.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-lrg-12">
                         <BasicInput field={form.$('region')} />

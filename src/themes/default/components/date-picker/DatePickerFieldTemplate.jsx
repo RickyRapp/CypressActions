@@ -53,7 +53,7 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
                 clearable={!requiredMark}
             />
             {renderIf(isSome(field.localizedError))(
-                <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
+                <p className="validation__message">{field.localizedError}</p>
             )}
         </div>
     );

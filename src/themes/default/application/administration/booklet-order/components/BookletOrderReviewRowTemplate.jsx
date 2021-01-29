@@ -48,7 +48,7 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
                     filterable={!isMaxBookletsSelected}
                 />
                 {!isMaxBookletsSelected &&
-                    <div className="type--tny type--color--warning u-mar--top--tny">
+                    <div className="validation__message">
                         <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>
                         Need to assign {item.bookletCount - item.booklets.length} more booklet/s.
                         </div>

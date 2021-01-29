@@ -404,6 +404,7 @@
 	}
 
 	&--secondary {
+
 		&__text {
 			position: relative;
 			display: block;
@@ -431,17 +432,15 @@
 		}
 
 		&__item {
-			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 12);
-
 			@mixin type-scale $type-base, 1;
+			font-weight: $type-weight-light;
 
+			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 12);
 			color: color($white a(75%));
-
 			border-bottom: 1px solid color($white a(10%));
 			background-color: color($color-text a(15%));
 
 			cursor: pointer;
-
 			transition: all 250ms ease-out;
 
 			&:hover {

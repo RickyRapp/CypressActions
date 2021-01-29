@@ -1,0 +1,12 @@
+/*------------------------------------*\
+    # component.validation
+\*------------------------------------*/
+
+.validation {
+
+    &__message {
+        @mixin type-scale $type-small, 1;
+        color: $color-warning;
+        margin-top: calc($unit * 1);
+    }
+}

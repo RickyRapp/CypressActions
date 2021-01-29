@@ -24,7 +24,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
     return (
         <div>
             <ListContent>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
+                <h3 className=" u-mar--bottom--tny">
                     {t('BANK_ACCOUNT.LIST.TITLE')}
                     <BaasicButton
                         className="btn btn--icon"

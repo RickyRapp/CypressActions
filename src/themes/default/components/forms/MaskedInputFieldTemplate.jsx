@@ -39,7 +39,7 @@ const MaskedInputFieldTemplate = defaultTemplate(({ field, showLabel = true, dis
                 value={value}
             />
             {renderIf(isSome(field.localizedError))(<div
-                className="type--tny type--color--warning u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}
+                className="validation__message"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}
         </React.Fragment>
     )
 });

@@ -92,7 +92,7 @@ function renderHeaderContent(children, props, routes, hideTitle, t, title) {
 		<React.Fragment>
 			{!hideTitle && (
 				<h3
-					className={`type--lrg type--wgt--medium u-mar--right--sml ${
+					className={` u-mar--right--sml ${
 						t(title) === 'Profile Settings' ? 'u-display--none--xlrg' : ''
 					}`}
 				>

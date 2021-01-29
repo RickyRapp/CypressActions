@@ -159,6 +159,7 @@
             &--xxxlrg {
                 margin-bottom: calc($unit * 12);
             }
+
         }
 
         &--left {
@@ -236,4 +237,4 @@
             margin: 0 auto;
         }
     }
-}    
+}

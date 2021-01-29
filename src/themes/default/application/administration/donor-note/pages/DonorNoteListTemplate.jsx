@@ -20,7 +20,7 @@ const DonorNoteListTemplate = function ({ donorNoteViewStore, t }) {
 
     return (
         <div className="card--primary card--med">
-            <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
+            <h3 className=" u-mar--bottom--tny">
                 {t('DONOR_NOTE.LIST.TITLE')}
             </h3>
             <form className='form'>

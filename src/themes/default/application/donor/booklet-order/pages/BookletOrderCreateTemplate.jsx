@@ -41,7 +41,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row u-mar--bottom--lrg">
                         <div className="col col-sml-12 col-xxlrg-8">
-                            <h4 style={{ display: "inline-block" }} className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
+                            <h4 style={{ display: "inline-block" }} className=" type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
                         </div>
                         <div className="col col-sml-12 col-xxlrg-4">
                             <div className="card--sml card--secondary type--center">

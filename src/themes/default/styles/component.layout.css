@@ -6,6 +6,7 @@ $aside-width: 362px;
 $aside-sml-width: 70px;
 $aside-secondary-width: 300px;
 $header-height: 96px;
+$header-height-mobile: 72px;
 
 .layout {
     
@@ -14,8 +15,12 @@ $header-height: 96px;
         top: 0;
         right: 0;
         left: 0;
-        height: $header-height;
+        height: $header-height-mobile;
         z-index: 6;
+
+        @media (--screen-from-med) {
+            height: $header-height;
+        }
 
         @media (--screen-from-lrg) {
             left: calc($aside-width - calc($unit * 13));
@@ -28,7 +33,7 @@ $header-height: 96px;
 
     &__aside {
         position: fixed;
-        top: $header-height;
+        top: $header-height-mobile;
         left: 0;
         top: 0;
         right: 0;
@@ -40,6 +45,10 @@ $header-height: 96px;
         
         display: flex;
         flex-direction: column;
+
+        @media (--screen-from-med) {
+            top: 0;
+        }
 
         @media (--screen-from-lrg) {
             width: calc($aside-width - calc($unit * 13));

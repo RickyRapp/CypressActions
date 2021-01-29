@@ -15,16 +15,16 @@ function DashboardTemplate({ dashboardViewStore }) {
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
 					{charity && charity.name ? (
 						<div className="dashboard-card dashboard-card--secondary">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Funds</h3>
+							<h3 className=" u-mar--bottom--med">Your Funds</h3>
 							<div className="dashboard-card__body">
-								<h5 className="dashboard-card__body--amount">
+								<div className="dashboard-card__body--amount">
 									<FormatterResolver
 										// item={{ balance: donor.availableBalance }}
 										field="balance"
 										format={{ type: 'currency' }}
 									/>
 									$1.500,000
-								</h5>
+								</div>
 								<p className="dashboard-card__body--title">AVAILABLE BALANCE</p>
 							</div>
 							<div className="row">
@@ -44,7 +44,7 @@ function DashboardTemplate({ dashboardViewStore }) {
 						</div>
 					) : (
 							<div className="dashboard-card--emptystate">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Funds</h3>
+								<h3 className=" u-mar--bottom--med">Your Funds</h3>
 								<div className="dashboard-card--emptystate__body">
 									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
 									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
@@ -75,7 +75,7 @@ function DashboardTemplate({ dashboardViewStore }) {
 						</div>
 					) : (
 							<div className="dashboard-card--emptystate card--med">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">Your Giving</h3>
+								<h3 className=" u-mar--bottom--med">Your Giving</h3>
 								<div className="dashboard-card--emptystate__body">
 									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
 									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>

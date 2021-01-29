@@ -26,7 +26,7 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
                 <EditFormContent form={form}>
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-12">
-                            <h3 className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">General Data</h3>
+                            <h3 className=" type--color--note u-mar--bottom--sml">General Data</h3>
                             <div className="row u-mar--bottom--med">
                                 <div className="col col-sml-12">
                                     <div className="row">

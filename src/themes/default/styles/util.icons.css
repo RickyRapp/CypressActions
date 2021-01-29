@@ -49,58 +49,59 @@
         }
 
         /* Icon align */
+
         &--middle {
             vertical-align: middle;
         }
 
-        &--arrow-up {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
-            transform: rotate(-180deg);
+        &--arrow-up { 
+            background-image: svg-load('../styles/postcss-svg/caret-up.svg', stroke: $color-note);
+
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
-                transform: rotate(-180deg);
+                background-image: svg-load('../styles/postcss-svg/caret-up.svg', stroke: $white);
             }
+
             &--primary {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
-                transform: rotate(-180deg);
+                background-image: svg-load('../styles/postcss-svg/caret-up.svg', fill: $color-primary);
             }
         }
         
         &--arrow-down {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
+            background-image: svg-load('../styles/postcss-svg/caret-down.svg', stroke: $color-note);
+
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
+                background-image: svg-load('../styles/postcss-svg/caret-down.svg', stroke: $white);
             }
             &--primary {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-text);
+                background-image: svg-load('../styles/postcss-svg/caret-down.svg', stroke: $color-text);
 
                 &:hover,
                 &:active,
                 &:focus {
                     outline: 0;
-                    background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-primary);
+                    background-image: svg-load('../styles/postcss-svg/caret-down.svg', stroke: $color-primary);
                 }
             }
         }
 
         &--arrow-left {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
-            transform: rotate(90deg);
+            background-image: svg-load('../styles/postcss-svg/caret-left.svg', stroke: $color-note);
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
-                transform: rotate(90deg);
+                background-image: svg-load('../styles/postcss-svg/caret-left.svg', stroke: $white);
             }
         }
 
         &--arrow-right {
-            background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $color-note);
-            transform: rotate(-90deg);
+            background-image: svg-load('../styles/postcss-svg/caret-right.svg', stroke: $color-note);
             
             &--positive {
-                background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $white);
-                transform: rotate(-90deg);
+                background-image: svg-load('../styles/postcss-svg/caret-right.svg', stroke: $white);
             }
+        }
+
+        &--arrow-forward {
+            background-image: svg-load('../styles/postcss-svg/arrow-right.svg', stroke: $color-note);
         }
 
         &--search-circle {

@@ -16,7 +16,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
             <EditFormContent form={form}>
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-6">
-                        <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
+                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <NumericInputField field={form.$('cardTransactionAmountExceeding')} />
@@ -25,7 +25,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                                 <NumericInputField field={form.$('cardNonPresentTransactionAmountExceeding')} />
                             </div>
                         </div>
-                        <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
+                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
@@ -34,7 +34,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                                 <NumericInputField field={form.$('checkAmountExceeding')} />
                             </div>
                         </div>
-                        <h3 className="type--lrg type--wgt--medium type--break--all u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
+                        <h3 className=" type--break--all u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />
@@ -42,7 +42,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                         </div>
                     </div>
                     <div className="col col-sml-12 col-lrg-6">
-                        <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
+                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
                         <div className="row u-mar--bottom--sml u-padd--top--tny">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicFieldCheckbox field={form.$('isNewGrantRequestEnabled')} />
@@ -54,7 +54,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                                 <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
                             </div>
                         </div>
-                        <h3 className="type--lrg type--wgt--medium u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
+                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <NumericInputField field={form.$('investmentPoolDropsBelow')} />

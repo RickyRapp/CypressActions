@@ -8,24 +8,42 @@
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-family: $ff-sans;
-    font-weight: $type-weight-extra-bold;
+    font-weight: $type-weight-medium;
     color: $color-text;
 }
 
 h1 {
-    @mixin type-scale $type-xxlarge, 1.75;
-}
-
-h2 {
     @mixin type-scale $type-xlarge, 1.5;
 }
 
-h3 {
+h2 {
     @mixin type-scale $type-large, 1.25;
 }
 
-h4, h5, h6 {
+h3 {
     @mixin type-scale $type-medium, 1;
+}
+
+h4, h5, h6 {
+    @mixin type-scale $type-base, 1;
+}
+
+@media (--screen-from-med) {
+    h1 {
+        @mixin type-scale $type-xxlarge, 1.75;
+    }
+
+    h2 {
+        @mixin type-scale $type-xlarge, 1.5;
+    }
+
+    h3 {
+        @mixin type-scale $type-large, 1.25;
+    }
+
+    h4, h5, h6 {
+        @mixin type-scale $type-medium, 1;
+    }
 }
 
 /**

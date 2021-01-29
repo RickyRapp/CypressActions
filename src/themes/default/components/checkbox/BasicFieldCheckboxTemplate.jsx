@@ -24,7 +24,7 @@ function BasicFieldCheckboxTemplate({ field, disabled, onChange }) {
                 disabled={disabled || otherProps.disabled}
             />
             {renderIf(isSome(field.localizedError))(
-                <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
+                <p className="validation__message">{field.localizedError}</p>
             )}
         </React.Fragment>
     );

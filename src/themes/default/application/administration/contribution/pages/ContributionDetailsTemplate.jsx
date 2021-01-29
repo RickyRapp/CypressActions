@@ -17,12 +17,12 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
             loading={loaderStore.loading}
             layoutFooterVisible={false}
         >
-            <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.DETAILS')}</h3>
+            <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.DETAILS')}</h3>
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     <div className="card card--primary card--med u-mar--bottom--med">
                         <div className="row">
-                            <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.GENERAL_INFORMATION')}</h3>
+                            <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.GENERAL_INFORMATION')}</h3>
                             <div className="col col-sml-12">
                                 <div className="row card--secondary card--tny u-mar--bottom--sml">
                                     <div className="col col-sml-6">
@@ -99,7 +99,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                     </div>
                     <div className="card card--primary card--med u-mar--bottom--med">
                         <div className="row">
-                            <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.PAYMENT_INFORMATION')}</h3>
+                            <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.PAYMENT_INFORMATION')}</h3>
                             <div className="col col-sml-12">
                                 <div className="row card--secondary card--tny u-mar--bottom--sml">
                                     <div className="col col-sml-6">
@@ -188,7 +188,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                 </div>
                 <div className="col col-sml-12 col-lrg-4">
                     <div className="card card--primary card--med u-mar--bottom--med">
-                        <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
+                        <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
                         <div className="row">
                             <div className="col col-sml-12 col-lrg-6">
                                 <div className="card--secondary card--med type--center">

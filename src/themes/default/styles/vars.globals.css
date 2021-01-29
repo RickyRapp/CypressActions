@@ -12,7 +12,7 @@ $unit: 6px;
  * Global radius and rounded
  */
 $radius-full: 1000px;
-$radius-base: 3px;
+$radius-base: 6px;
 
 /* Global heights and widths */
 $header-height: 50px;

@@ -32,7 +32,7 @@ function ContributionConfirmTemplate({ modalParams, t }) {
     return (
         <div className="row w--600--px">
             <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                <h3 className="type--lrg type--wgt--medium">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
+                <h3 className="">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
             </div>
             <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
                 <section style={styleSection}>
