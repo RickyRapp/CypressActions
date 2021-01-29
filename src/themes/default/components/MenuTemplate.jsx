@@ -51,6 +51,8 @@ function renderPrimary(menu, menuStore, translate) {
                                         ) : null}
                                     </div>
                                     <SecondaryMenu items={item.subMenu} />
+                                     {(i + 1) === menu.length &&
+                                    renderMenuFooter(menuStore, translate)}
 
                             </React.Fragment>
                         );
@@ -71,8 +73,8 @@ function renderPrimary(menu, menuStore, translate) {
                                         ) : null}
                                     </div>
                                     {(i + 1) === menu.length &&
-                                            renderMenuFooter(menuStore, translate)
-                                        }
+                                        renderMenuFooter(menuStore, translate)
+                                    }
 
                             </React.Fragment>
                         );
