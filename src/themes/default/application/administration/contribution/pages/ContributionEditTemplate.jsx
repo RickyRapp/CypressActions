@@ -150,7 +150,7 @@ const ContributionEditTemplate = function({ contributionEditViewStore, t }) {
 											<div className="col col-sml-2">
 												<i
 													className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
-														'checked'} u-push`}
+														'checked'}`}
 												></i>
 											</div>
 											<div className="col col-sml-10">

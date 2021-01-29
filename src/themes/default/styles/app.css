@@ -82,6 +82,7 @@
 @import "component.charity-information.css";
 @import "component.material-icons.css";
 @import "component.info-card.css";
+@import "component.toggle.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
