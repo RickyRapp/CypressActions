@@ -12,7 +12,7 @@
 			top: calc($unit * 2);
 			right: calc($unit * 2);
 
-			@media (--screen-from-sml) {
+			@media (--screen-from-med) {
 				display: none;
 			}
 		}
@@ -49,7 +49,7 @@
 			padding: calc($unit * 3) calc($unit * 4);
 
 			font-weight: $type-weight-regular;
-			color: color($white a(50%));
+			color: white;
 			transition: color, background-color 250ms ease-out;
 			cursor: pointer;
 			margin: -1px 0;
@@ -57,18 +57,18 @@
 			border-top: 1px solid color($scandal a(10%));
 			border-bottom: 1px solid color($scandal a(10%));
 
-			@media (--screen-from-sml) {
+			@media (--screen-from-med) {
 				padding: calc($unit * 5) calc($unit * 8.5);
 			}
 
 			&--give {
-				@media (--screen-from-sml) {
+				@media (--screen-from-med) {
+					@mixin type-scale $type-medium, 1;
 					display: flex;
 					align-items: center;
 					justify-content: center;
 					padding: calc($unit * 3) calc($unit * 1);
 					margin: calc($unit * 3) calc($unit * 4);
-					@mixin type-scale $type-base, 1;
 					border: 1px solid color($scandal a(20%));
 					border-radius: calc($unit / 1.6);
 					cursor: pointer;
@@ -86,7 +86,7 @@
 				}
 
 				@media (--screen-from-med) {
-					@mixin type-scale $type-medium, 1.25;
+					@mixin type-scale $type-large, 1.25;
 				}
 			}
 
@@ -114,7 +114,7 @@
 					}
 				}
 
-				@media (--screen-to-sml) {
+				@media (--screen-to-med) {
 					padding: calc($unit * 3) calc($unit * 1);
 					margin: calc($unit * 3) calc($unit * 4);
 				}
@@ -122,7 +122,7 @@
 
 			&--menu {
 
-				@media (--screen-to-sml) {
+				@media (--screen-to-med) {
 					display: none;
 				}
 
@@ -163,71 +163,71 @@
 
 			.u-icon {
 				&--give {
-					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(50%)));
 				}
 
 				&--dashboard {
-					background-image: svg-load('postcss-svg/dashboard.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/dashboard.svg', stroke: color($white a(50%)));
 				}
 
 				&--administration {
-					background-image: svg-load('postcss-svg/cog.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/cog.svg', stroke: color($white a(50%)));
 				}
 
 				&--profile {
-					background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(60%)));
+					background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(50%)));
 				}
 
 				&--activity {
-					background-image: svg-load('postcss-svg/activity.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/activity.svg', stroke: color($white a(50%)));
 				}
 
 				&--booklet {
-					background-image: svg-load('postcss-svg/booklets.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/booklets.svg', stroke: color($white a(50%)));
 				}
 
 				&--booklet-order {
-					background-image: svg-load('postcss-svg/booklet-order.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/booklet-order.svg', stroke: color($white a(50%)));
 				}
 
 				&--investment {
-					background-image: svg-load('postcss-svg/investment.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/investment.svg', stroke: color($white a(50%)));
 				}
 
 				&--donors {
-					background-image: svg-load('postcss-svg/donors.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/donors.svg', stroke: color($white a(50%)));
 				}
 
 				&--users {
-					background-image: svg-load('postcss-svg/users.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/users.svg', stroke: color($white a(50%)));
 				}
 
 				&--charities {
-					background-image: svg-load('postcss-svg/charities.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/charities.svg', stroke: color($white a(50%)));
 				}
 
 				&--third-party-website {
-					background-image: svg-load('postcss-svg/third-party-website.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/third-party-website.svg', stroke: color($white a(50%)));
 				}
 
 				&--contribution {
-					background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(50%)));
 				}
 
 				&--contribution-settings {
-					background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(50%)));
 				}
 
 				&--donations {
-					background-image: svg-load('postcss-svg/donations.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/donations.svg', stroke: color($white a(50%)));
 				}
 
 				&--grant {
-					background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(50%)));
 				}
 
 				&--scheduled-grant {
-					background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(60%)));
+					background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(50%)));
 				}
 
 				&--transfer {
@@ -394,7 +394,7 @@
 
 		&__footer {
 
-			@media (--screen-from-sml) {
+			@media (--screen-from-med) {
 				position: absolute;
 				left: 0;
 				right: 0;
@@ -436,7 +436,7 @@
 			font-weight: $type-weight-light;
 
 			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 12);
-			color: color($white a(75%));
+			color: white;
 			border-bottom: 1px solid color($white a(10%));
 			background-color: color($color-text a(15%));
 
@@ -461,12 +461,12 @@
 			top: calc($unit * 4);
 			left: calc($unit * 4);
 
-			@media (--screen-from-sml) {
+			@media (--screen-from-med) {
 				display: none;
 			}
 		}
 
-		@media (--screen-to-sml) {
+		@media (--screen-to-med) {
 			padding: calc($unit * 12) 0 calc($unit * 6) 0;
 		}
 
@@ -480,7 +480,7 @@
 			transition: color, background-color 250ms ease-out;
 			cursor: pointer;
 
-			@media (--screen-from-sml) {
+			@media (--screen-from-med) {
 				padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 8);
 			}
 

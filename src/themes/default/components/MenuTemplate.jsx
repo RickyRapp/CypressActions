@@ -39,7 +39,7 @@ function renderPrimary(menu, menuStore, translate) {
                             <React.Fragment key={title}>
                                 
                                     <div className={title === "Give" ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} />
+                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} />
                                         {!menuStore.isCollapsed &&
                                             <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
                                                 {title}
@@ -61,7 +61,7 @@ function renderPrimary(menu, menuStore, translate) {
                             <React.Fragment key={title}>
                                 
                                     <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`} title={title} />
+                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} title={title} />
                                         {!menuStore.isCollapsed &&
                                             <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
                                                 {title}
@@ -173,7 +173,7 @@ function renderMenuFooter(menuStore, t) {
         <React.Fragment>
             <div className="nav--primary__footer">
                 <div className="nav--primary__item--logout">
-                    {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i>
+                    {menuStore.isCollapsed ? <i className="u-icon u-icon--xmed u-icon--logout"></i>
                         : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
                     }
                 </div>

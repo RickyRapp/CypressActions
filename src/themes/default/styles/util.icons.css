@@ -42,6 +42,12 @@
             background-size: calc($unit * 4);
         }
 
+        &--xmed {
+            width: calc($unit * 5);
+            height: calc($unit * 5);
+            background-size: calc($unit * 5);
+        }
+
         &--lrg {
             width: calc($unit * 6);
             height: calc($unit * 6);

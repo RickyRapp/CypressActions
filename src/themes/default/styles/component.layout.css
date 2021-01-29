@@ -97,7 +97,7 @@ $header-height-mobile: 72px;
 
         &.is-open {
 
-            @media (--screen-to-med) {
+            @media (--screen-to-lrg) {
                 width: 100%;
             }
         }

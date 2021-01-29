@@ -146,7 +146,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									<a className="btn btn--sml btn--link">Manage</a>
 								</div>
 							</div>
-							<div className="type--med type--wgt--medium type--center u-mar--left--lrg">$25,000 / $100,000</div>
+							<div className="type--med type--wgt--medium type--center">$25,000 / $100,000</div>
 							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml"></div>
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">

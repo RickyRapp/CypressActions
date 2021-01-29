@@ -100,17 +100,23 @@
 		}
 
 		&--range {
-			width: 100%;
 			height: 54px;
-
 			padding: $unit;
 
 			border-radius: $radius-full;
             background-color: $color-background;
             border: 1px solid color($color-text a(30%));
 
-            @media (--screen-to-sml) {
+			flex-grow: 2;
+
+
+            @media (--screen-to-med) {
                 width: 100%;
+			}
+
+			@media (--screen-from-med) {
+                margin-left: calc($unit * 2);
+				margin-right: calc($unit * 2);
 			}
 
 			&--progress {
