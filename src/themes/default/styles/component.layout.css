@@ -87,7 +87,10 @@ $header-height: 96px;
         }
 
         &.is-open {
-            width: 100%;
+
+            @media (--screen-to-med) {
+                width: 100%;
+            }
         }
     }
 

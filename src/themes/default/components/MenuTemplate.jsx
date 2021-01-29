@@ -51,8 +51,7 @@ function renderPrimary(menu, menuStore, translate) {
                                         ) : null}
                                     </div>
                                     <SecondaryMenu items={item.subMenu} />
-                                
-                                    
+
                             </React.Fragment>
                         );
                     } else {
@@ -71,15 +70,19 @@ function renderPrimary(menu, menuStore, translate) {
                                             </span>
                                         ) : null}
                                     </div>
+                                    {(i + 1) === menu.length &&
+                                            renderMenuFooter(menuStore, translate)
+                                        }
 
                             </React.Fragment>
                         );
                     }
+                    
                 })}
             </div>
-            {
+            {/* {
                 renderMenuFooter(menuStore, translate)
-            }
+            } */}
         </React.Fragment>
     );
 }
@@ -156,7 +159,7 @@ function renderMenuHeader(menuStore, t) {
                     alt='logo'
                 />
             </a>
-            <div className="nav--primary__close" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
+            <div className="nav--primary__close" onClick={() => menuStore.toggleMenuOpen()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                 <i className="u-icon u-icon--base u-icon--close-menu"></i>
             </div>
         </div>
