@@ -17,7 +17,7 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorBankAccountEdit } from 'application/donor/donor/components';
 import { ContributionConfirmTemplate } from 'themes/application/donor/contribution/components';
 
-const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) {
+const ContributionCreateTemplate = function ({ contributionCreateViewStore, t }) {
 	const {
 		loaderStore,
 		form,
@@ -227,6 +227,13 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 															store={brokerageInstitutionDropdownStore}
 														/>
 													</div>
+													{brokerageInstitutionDropdownStore &&
+														brokerageInstitutionDropdownStore.value &&
+														brokerageInstitutionDropdownStore.value.name === 'Other' && (
+															<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+																<BasicInput field={form.$('other')} />
+															</div>
+														)}
 													<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 														<BaasicFieldDropdown field={form.$('securityTypeId')} store={securityTypeDropdownStore} />
 													</div>
@@ -389,21 +396,21 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 								</div>
 								{(paymentType.abrv === 'ach' ||
 									(paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
-									<React.Fragment>
-										<div className="col col-sml-12 col-lrg-12">
-											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
-											{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
-										</div>
-										<div className="col col-sml-12 col-lrg-12">
-											{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
+										<React.Fragment>
+											<div className="col col-sml-12 col-lrg-12">
+												{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
+												{bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value).name}
+											</div>
+											<div className="col col-sml-12 col-lrg-12">
+												{t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
 											xxxx-xxxx-xxxx-
 											{
-												bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)
-													.accountNumber
-											}
-										</div>
-									</React.Fragment>
-								)}
+													bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)
+														.accountNumber
+												}
+											</div>
+										</React.Fragment>
+									)}
 								{paymentType.abrv === 'check' && (
 									<div className="col col-sml-12 col-lrg-12">
 										{t('CONTRIBUTION.CREATE.CHECK_NUMBER')}

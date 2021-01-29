@@ -15,7 +15,11 @@ class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
                         await rootStore.application.administration.donorStore.createAutomaticContributionSetting({ donorId: this.donorId, ...resource });
                     },
                     get: async () => {
-                        return rootStore.application.administration.donorStore.getAutomaticContributionSetting(this.donorId);
+                        try {
+                            return await rootStore.application.administration.donorStore.getAutomaticContributionSetting(this.donorId);
+                        } catch (error) {
+                            return null;
+                        }
                     }
                 }
             },
