@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
-import { GrantCreateForm } from 'application/donor/grant/forms';
+import { GrantCreateForm } from 'application/common/grant/forms';
 import moment from 'moment';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -18,7 +18,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
     grantPurposeTypes = [];
     grantRequestId = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { donorId, grantStore }) {
         super(rootStore, {
             name: 'grant-create',
             id: undefined,
@@ -29,7 +29,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                         resource.donorId = this.donorId;
 
                         if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId)) {
-                            await this.rootStore.application.donor.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
+                            await this.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
                         }
                         else {
                             if (resource.isNewCharity) {
@@ -53,15 +53,15 @@ class GrantCreateViewStore extends BaseEditViewStore {
                                     }
                                 }
 
-                                const charityData = await this.rootStore.application.donor.grantStore.suggest(charity);//charityId,bankAccountId
+                                const charityData = await this.grantStore.suggest(charity);//charityId,bankAccountId
                                 resource.charityId = charityData.charityId;
                             }
 
                             if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
-                                await this.rootStore.application.donor.grantStore.createScheduledGrant(resource);
+                                await this.grantStore.createScheduledGrant(resource);
                             }
                             else {
-                                await this.rootStore.application.donor.grantStore.createGrant(resource);
+                                await this.grantStore.createGrant(resource);
                             }
                         }
                     }
@@ -70,7 +70,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
             FormClass: GrantCreateForm
         });
 
-        this.donorId = rootStore.userStore.applicationUser.id;
+        this.donorId = donorId;
+        this.grantStore = grantStore;
 
         if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
             this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
@@ -149,7 +150,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
             });
 
             if (this.grantRequestId) {
-                const data = await this.rootStore.application.grant.grantStore.getGrantRequest(this.grantRequestId, { embed: 'charity,charity.charityAddresses' });
+                const data = await this.grantStore.getGrantRequest(this.grantRequestId, { embed: 'charity,charity.charityAddresses' });
                 this.form.$('charityId').set(data.charityId);
                 this.setCharity(data.charity)
                 this.form.$('amount').set(data.amount);
@@ -289,7 +290,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 ],
                 charityId: this.form.$('charityId').value
             }
-            data = await this.rootStore.application.donor.grantStore.findGrant(params);
+            data = await this.grantStore.findGrant(params);
         }
         if (data) {
             this.previousGrantsTableStore.setData(data.item);
@@ -301,7 +302,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async setDonor() {
-        this.donor = await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId);
+        this.donor = await this.grantStore.getDonorInformation(this.donorId);
     }
 
     @action.bound
@@ -408,7 +409,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.donor.grantStore.searchCharity({
+                    const data = await this.grantStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
@@ -420,7 +421,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
                             'id',
                             'taxId',
                             'name',
-                            'charityAddresses'
+                            'charityAddresses',
+                            'isAchAvailable'
                         ]
                     });
                     return data.item.map(x => {
