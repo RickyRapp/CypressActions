@@ -29,7 +29,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                         resource.donorId = this.donorId;
 
                         if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId)) {
-                            await this.rootStore.application.donor.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
+                            await this.rootStore.application.administration.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
                         }
                         else {
                             if (resource.isNewCharity) {
@@ -58,10 +58,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
                             }
 
                             if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
-                                await this.rootStore.application.donor.grantStore.createScheduledGrant(resource);
+                                await this.rootStore.application.administration.grantStore.createScheduledGrant(resource);
                             }
                             else {
-                                await this.rootStore.application.donor.grantStore.createGrant(resource);
+                                await this.rootStore.application.administration.grantStore.createGrant(resource);
                             }
                         }
                     }
@@ -283,7 +283,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
                 ],
                 charityId: this.form.$('charityId').value
             }
-            data = await this.rootStore.application.donor.grantStore.findGrants(params);
+            data = await this.rootStore.application.administration.grantStore.findGrant(params);
         }
         if (data) {
             this.previousGrantsTableStore.setData(data.item);
@@ -295,7 +295,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async setDonor() {
-        this.donor = await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId);
+        this.donor = await this.rootStore.application.administration.grantStore.getDonorInformation(this.donorId);
     }
 
     @action.bound
@@ -402,7 +402,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.donor.grantStore.searchCharity({
+                    const data = await this.rootStore.application.administration.grantStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
