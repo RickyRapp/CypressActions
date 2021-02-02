@@ -72,7 +72,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='BANK_ACCOUNT.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
@@ -83,7 +83,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--delete u-icon--sml'
+                        icon='u-icon u-icon--delete u-icon--base'
                         label='BANK_ACCOUNT.LIST.BUTTON.DELETE'
                         onlyIcon={true}
                         onClick={() => onDelete(item)}>

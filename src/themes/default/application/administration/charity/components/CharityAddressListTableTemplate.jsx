@@ -30,12 +30,12 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                 <h3 className="u-mar--bottom--tny">
                     {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
                     {maxAddressesEntered ?
-                        <span className="u-icon u-icon--lock u-icon--sml u-mar--left--tny" />
+                        <span className="u-icon u-icon--lock u-icon--base u-mar--left--tny" />
                         :
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--unlocked u-icon--sml'
+                            icon='u-icon u-icon--unlocked u-icon--base'
                             label='ADDRESS.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openAddressModal()}>
@@ -78,7 +78,7 @@ function renderActions({ item, actions, authorization }) {
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
+                        icon='u-icon u-icon--approve u-icon--base' //TODO replace icon with mark primary icon
                         label='ADDRESS.LIST.BUTTON.MARK_PRIMARY'
                         onlyIcon={true}
                         onClick={() => onMarkPrimary(item)}>
@@ -88,7 +88,7 @@ function renderActions({ item, actions, authorization }) {
                     <BaasicButton
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='ADDRESS.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>

@@ -80,7 +80,7 @@ const BaasicDropzoneTemplate = function(props) {
 												{store.options.deleteUploaded && (
 													<BaasicButton
 														className="btn btn--icon"
-														icon={'u-icon u-icon--delete u-icon--sml'}
+														icon={'u-icon u-icon--delete u-icon--base'}
 														label={t('')}
 														onlyIcon={true}
 														onClick={() => onDeleteFn(c)}

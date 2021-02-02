@@ -156,7 +156,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='DONATION.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
@@ -165,7 +165,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onReview) && reviewRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--base'
                         label='DONATION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item)}>

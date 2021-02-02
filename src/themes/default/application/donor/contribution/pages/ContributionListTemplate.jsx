@@ -156,7 +156,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='CONTRIBUTION.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
@@ -167,7 +167,7 @@ function renderActions({ item, actions, actionsRender }) {
                         authorization='theDonorsFundAdministrationSection.update'
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--approve u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--base'
                         label='CONTRIBUTION.LIST.BUTTON.REVIEW'
                         onlyIcon={true}
                         onClick={() => onReview(item)}>
@@ -177,7 +177,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--preview u-icon--sml'
+                        icon='u-icon u-icon--preview u-icon--base'
                         label='CONTRIBUTION.LIST.BUTTON.PREVIEW'
                         onlyIcon={true}
                         onClick={() => onPreview(item)}>
@@ -187,7 +187,7 @@ function renderActions({ item, actions, actionsRender }) {
                     <BaasicButton
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--close u-icon--sml'
+                        icon='u-icon u-icon--close u-icon--base'
                         label='CONTRIBUTION.LIST.BUTTON.CANCEL'
                         onlyIcon={true}
                         onClick={() => onCancel(item)}>

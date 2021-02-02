@@ -61,7 +61,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onSetInactive) && setInactiveRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--decline u-icon--sml"
+						icon="u-icon u-icon--decline u-icon--base"
 						label="SESSION.LIST.IN_PROGRESS.BUTTON.SET_INACTIVE"
 						onlyIcon={true}
 						onClick={() => onSetInactive(item)}
@@ -70,7 +70,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onRemove) && removeFromCacheRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--delete u-icon--sml"
+						icon="u-icon u-icon--delete u-icon--base"
 						label="SESSION.LIST.IN_PROGRESS.BUTTON.REMOVE_FROM_CACHE"
 						onlyIcon={true}
 						onClick={() => onRemove(item)}

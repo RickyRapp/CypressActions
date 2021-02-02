@@ -6,7 +6,7 @@ import { defaultTemplate } from 'core/hoc';
 function BaasicModalTemplate({ modalParams, children, ...other }) {
     return (
         <Modal className="modal__content" overlayClassName="modal__overlay" isOpen={modalParams.isOpen} {...other}>
-            <i className="u-icon u-icon--sml u-icon--close-modal--grey modal__icon--close" onClick={modalParams.close} />
+            <i className="u-icon u-icon--base u-icon--close-modal--grey modal__icon--close" onClick={modalParams.close} />
             {React.cloneElement(children, { modalParams })}
         </Modal>
     );

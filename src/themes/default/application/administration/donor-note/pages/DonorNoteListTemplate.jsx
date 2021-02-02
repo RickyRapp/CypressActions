@@ -72,7 +72,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='DONOR_NOTE.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>

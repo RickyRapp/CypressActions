@@ -526,7 +526,7 @@
 		}
 
 		.nav--primary__item {
-			padding: calc($unit * 3) calc($unit * 3);
+			padding: calc($unit * 3) calc($unit * 2);
 		}
 
 		.nav--primary__icon {

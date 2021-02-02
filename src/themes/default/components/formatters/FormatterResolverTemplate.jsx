@@ -76,7 +76,7 @@ function FormatterResolver({ item, field, format }) {
         case 'image':
             if (_.get(item, field)) {
                 const routeService = new FileStreamRouteService();
-                return <span onClick={() => window.open(routeService.getPreview(_.get(item, field)), format.target)} className="u-icon u-icon--sml u-icon--arrow-right" /> //TODO replace with open in new tab
+                return <span onClick={() => window.open(routeService.getPreview(_.get(item, field)), format.target)} className="u-icon u-icon--base u-icon--arrow-right" /> //TODO replace with open in new tab
             }
             return null;
         case 'function':

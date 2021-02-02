@@ -39,7 +39,7 @@ function renderActions({ item, actions }) {
                 {isSome(onRun) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--base'
                         label='TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN'
                         onlyIcon={true}
                         onClick={() => onRun(item.abrv)}>

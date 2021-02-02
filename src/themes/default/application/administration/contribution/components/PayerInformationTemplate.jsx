@@ -11,7 +11,7 @@ function PayerInformationTemplate({ form, setPayerInfoUsingPrimaryDonorContactIn
                 {!hideButton &&
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with better one
+                        icon='u-icon u-icon--approve u-icon--base' //TODO replace icon with better one
                         label='CONTRIBUTION.CREATE.FIELDS.USE_PRIMARY_CONTACT_INFO_LABEL'
                         onlyIcon={true}
                         onClick={() => setPayerInfoUsingPrimaryDonorContactInfo()}>

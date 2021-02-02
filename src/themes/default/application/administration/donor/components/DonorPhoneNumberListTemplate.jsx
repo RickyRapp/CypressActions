@@ -77,7 +77,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--approve u-icon--sml' //TODO replace icon with mark primary icon
+                        icon='u-icon u-icon--approve u-icon--base' //TODO replace icon with mark primary icon
                         label='PHONE_NUMBER.LIST.BUTTON.MARK_PRIMARY'
                         onlyIcon={true}
                         onClick={() => onMarkPrimary(item)}>
@@ -88,7 +88,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='PHONE_NUMBER.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
@@ -99,7 +99,7 @@ function renderActions({ item, actions, authorization }) {
                         authorization={authorization ? authorization.update : null}
                         className="btn btn--icon"
                         onlyIconClassName="u-mar--right--tny"
-                        icon='u-icon u-icon--delete u-icon--sml'
+                        icon='u-icon u-icon--delete u-icon--base'
                         label='PHONE_NUMBER.LIST.BUTTON.DELETE'
                         onlyIcon={true}
                         onClick={() => onDelete(item)}>

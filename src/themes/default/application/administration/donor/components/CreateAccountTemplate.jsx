@@ -26,7 +26,7 @@ class CreateAccountTemplate extends Component {
                 <h3 className=" type--color--note u-mar--bottom--sml">{t(title)}
                     <BaasicButton
                         className="btn btn--icon u-mar--left--sml"
-                        icon={`u-icon u-icon--${this.showForm ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
+                        icon={`u-icon u-icon--${this.showForm ? 'arrow-down' : 'arrow-right'} u-icon--base`}
                         label={this.showForm ? t('DONOR.CREATE.LOGIN_FORM_FIELDS.HIDE') : t('DONOR.CREATE.LOGIN_FORM_FIELDS.SHOW')}
                         onlyIcon={true}
                         onClick={() => this.onShowFormChange(!this.showForm)}

@@ -314,18 +314,18 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     <div className="row u-mar--top--sml u-mar--bottom--sml">
                         <div className="col col-sml-12 type--center">
                             <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowMoreOptionsClick}>
-                                <i className={!showMoreOptions ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
+                                <i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
                                 {showMoreOptions ? t('BOOKLET_ORDER.CREATE.HIDE_MORE_OPTIONS') : t('BOOKLET_ORDER.CREATE.SHOW_MORE_OPTIONS')}
-                                <i className={!showMoreOptions ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
+                                <i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
                             </button>
                         </div>
                     </div>
                     <div className="row u-mar--bottom--sml">
                         <div className="col col-sml-12 u-mar--bottom--sml type--center">
                             <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowCustomizeBooksClick}>
-                                <i className={!showCustomizeBooks ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
+                                <i className={!showCustomizeBooks ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
                                 {!showCustomizeBooks ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
-                                <i className={!showCustomizeBooks ? "u-icon u-icon--sml u-icon--arrow-down--primary" : "u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180"}></i>
+                                <i className={!showCustomizeBooks ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
                             </button>
                         </div>
                         {form.$('isCustomizedBook').value &&

@@ -341,8 +341,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 								<i
 									className={
 										!showMoreOptions
-											? 'u-icon u-icon--sml u-icon--arrow-down--primary'
-											: 'u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180'
+											? 'u-icon u-icon--base u-icon--arrow-down--primary'
+											: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
 									}
 								></i>
 								{showMoreOptions
@@ -351,8 +351,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 								<i
 									className={
 										!showMoreOptions
-											? 'u-icon u-icon--sml u-icon--arrow-down--primary'
-											: 'u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180'
+											? 'u-icon u-icon--base u-icon--arrow-down--primary'
+											: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
 									}
 								></i>
 							</button>
@@ -364,8 +364,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 								<i
 									className={
 										!showCustomizeBooks
-											? 'u-icon u-icon--sml u-icon--arrow-down--primary'
-											: 'u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180'
+											? 'u-icon u-icon--base u-icon--arrow-down--primary'
+											: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
 									}
 								></i>
 								{!showCustomizeBooks
@@ -374,8 +374,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 								<i
 									className={
 										!showCustomizeBooks
-											? 'u-icon u-icon--sml u-icon--arrow-down--primary'
-											: 'u-icon u-icon--sml u-icon--arrow-down--primary u-rotate--180'
+											? 'u-icon u-icon--base u-icon--arrow-down--primary'
+											: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
 									}
 								></i>
 							</button>

@@ -76,7 +76,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--sml"
+						icon="u-icon u-icon--edit u-icon--base"
 						label="GRANT.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -85,7 +85,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onRedirect) && redirectRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--sml" //TODO: change with redirect icon
+						icon="u-icon u-icon--approve u-icon--base" //TODO: change with redirect icon
 						label="GRANT.LIST.BUTTON.REDIRECT"
 						onlyIcon={true}
 						onClick={() => onRedirect(item)}

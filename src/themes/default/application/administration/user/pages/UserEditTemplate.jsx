@@ -45,12 +45,12 @@ function UserEditTemplate({ userEditViewStore, t }) {
                 </div>
                 <div className="row">
                     <div className="col col-med-6">
-                        <a className="display--b u-mar--right--med" onClick={openMailPasswordReset}><span className="u-icon u-icon--sml u-icon--email" /> Send password reset mail</a>
-                        <a className="display--b u-mar--right--med" onClick={openChangePassword}><span className="u-icon u-icon--sml u-icon--reset" /> Change Password</a>
+                        <a className="display--b u-mar--right--med" onClick={openMailPasswordReset}><span className="u-icon u-icon--base u-icon--email" /> Send password reset mail</a>
+                        <a className="display--b u-mar--right--med" onClick={openChangePassword}><span className="u-icon u-icon--base u-icon--reset" /> Change Password</a>
 
                         {item && <React.Fragment>
-                            <a className="display--b u-mar--right--med" onClick={toggleApprove}>{item.isApproved ? <span><span className="u-icon u-icon--sml u-icon--approve" /><span> Disapprove</span></span> : <span><span className="u-icon u-icon--sml u-icon--decline"></span><span> Approve</span></span>}</a>
-                            <a className="display--b u-mar--right--med" onClick={toggleLock}>{item.isLockedOut ? <span><span className="u-icon u-icon--sml u-icon--lock" /><span> Unlock</span></span> : <span><span className="u-icon u-icon--sml u-icon--unlock"></span><span> Lock</span></span>}</a>
+                            <a className="display--b u-mar--right--med" onClick={toggleApprove}>{item.isApproved ? <span><span className="u-icon u-icon--base u-icon--approve" /><span> Disapprove</span></span> : <span><span className="u-icon u-icon--base u-icon--decline"></span><span> Approve</span></span>}</a>
+                            <a className="display--b u-mar--right--med" onClick={toggleLock}>{item.isLockedOut ? <span><span className="u-icon u-icon--base u-icon--lock" /><span> Unlock</span></span> : <span><span className="u-icon u-icon--base u-icon--unlock"></span><span> Lock</span></span>}</a>
                         </React.Fragment>
                         }
                     </div>

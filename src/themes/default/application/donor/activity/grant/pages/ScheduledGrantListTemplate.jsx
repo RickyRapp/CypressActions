@@ -63,7 +63,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--sml"
+						icon="u-icon u-icon--edit u-icon--base"
 						label="SCHEDULED_GRANT.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -72,7 +72,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--close u-icon--sml"
+						icon="u-icon u-icon--close u-icon--base"
 						label="SCHEDULED_GRANT.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

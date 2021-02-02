@@ -46,7 +46,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                         <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                         {!form.$('charityId').disabled && <BaasicButton
                             className="btn btn--icon"
-                            icon={`u-icon u-icon--preview u-icon--sml`} //TODO: advanced search icon
+                            icon={`u-icon u-icon--preview u-icon--base`} //TODO: advanced search icon
                             label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
                             onlyIcon={true}
                             onClick={openAdvancedSearchModal}
@@ -144,12 +144,12 @@ function renderActions({ item, actions, actionsRender, t }) {
         <td>
             <div className="type--right">
                 {item.isApproved ? (
-                    <span className={'u-icon u-icon--approve u-icon--sml'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
+                    <span className={'u-icon u-icon--approve u-icon--base'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
                 ) : null}
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--sml'
+                        icon='u-icon u-icon--edit u-icon--base'
                         label='SESSION.EDIT.LIST.BUTTON.EDIT_SESSION_CERTIFICATE'
                         onlyIcon={true}
                         onClick={() => onEdit(item)}>
@@ -158,7 +158,7 @@ function renderActions({ item, actions, actionsRender, t }) {
                 {isSome(onRemove) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--decline u-icon--sml'
+                        icon='u-icon u-icon--decline u-icon--base'
                         label='SESSION.EDIT.LIST.BUTTON.REMOVE_SESSION_CERTIFICATE'
                         onlyIcon={true}
                         onClick={() => onRemove(item)}>

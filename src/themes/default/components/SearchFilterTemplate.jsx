@@ -48,7 +48,7 @@ class SearchFilterTemplate extends React.Component {
                                 onKeyPress={this.onKeyPress} />
                             {queryUtility.filter[propertyName] && queryUtility.filter[propertyName] !== '' &&
                                 <span className='filter__btn--clear' onClick={this.onInlineReset}>
-                                    <i className='u-icon u-icon--sml u-icon--close' />
+                                    <i className='u-icon u-icon--base u-icon--close' />
                                 </span>
                             }
                         </div>

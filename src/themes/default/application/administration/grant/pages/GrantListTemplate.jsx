@@ -106,7 +106,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--edit u-icon--sml"
+						icon="u-icon u-icon--edit u-icon--base"
 						label="GRANT.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -116,7 +116,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--approve u-icon--sml" //TODO: change with redirect icon
+						icon="u-icon u-icon--approve u-icon--base" //TODO: change with redirect icon
 						label="GRANT.LIST.BUTTON.REDIRECT"
 						onlyIcon={true}
 						onClick={() => onRedirect(item)}
@@ -126,7 +126,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--preview u-icon--sml"
+						icon="u-icon u-icon--preview u-icon--base"
 						label="GRANT.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}

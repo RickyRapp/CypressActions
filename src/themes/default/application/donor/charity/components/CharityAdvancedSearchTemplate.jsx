@@ -104,7 +104,7 @@ function renderActions({ item, actions }) {
 				{isSome(onSelect) ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--sml" //TODO replace correct icon
+						icon="u-icon u-icon--approve u-icon--base" //TODO replace correct icon
 						label="CHARITY.LIST.BUTTON.SELECT"
 						onlyIcon={true}
 						onClick={() => onSelect(item)}

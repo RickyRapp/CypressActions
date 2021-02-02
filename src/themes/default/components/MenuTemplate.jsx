@@ -46,7 +46,7 @@ function renderPrimary(menu, menuStore, translate) {
                                             </span>}
                                         {item.hasChildren ? (
                                             <span className="nav--primary__icon">
-                                                <span className="u-icon u-icon--sml u-icon--arrow-up"></span>
+                                                <span className="u-icon u-icon--base u-icon--arrow-up"></span>
                                             </span>
                                         ) : null}
                                     </div>
@@ -66,7 +66,7 @@ function renderPrimary(menu, menuStore, translate) {
                                             </span>}
                                         {item.hasChildren ? (
                                             <span className="nav--primary__icon">
-                                                <span className="u-icon u-icon--sml u-icon--arrow-down"></span>
+                                                <span className="u-icon u-icon--base u-icon--arrow-down"></span>
                                             </span>
                                         ) : null}
                                     </div>
@@ -122,7 +122,7 @@ function SecondaryItems({ items, menuStore, t }) {
                                     {title}
                                     {item.hasChildren ? (
                                         <span className="u-push">
-                                            <span className="u-icon u-icon--sml u-icon--arrow-right"></span>
+                                            <span className="u-icon u-icon--base u-icon--arrow-right"></span>
                                         </span>
                                     ) : null}
                                 </li>
@@ -134,7 +134,7 @@ function SecondaryItems({ items, menuStore, t }) {
                                 {title}
                                 {item.hasChildren ? (
                                     <span className="u-push">
-                                        <span className="u-icon u-icon--sml u-icon--arrow-right"></span>
+                                        <span className="u-icon u-icon--base u-icon--arrow-right"></span>
                                     </span>
                                 ) : null}
                             </li>
@@ -173,7 +173,7 @@ function renderMenuFooter(menuStore, t) {
                     }
                 </div>
                 <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
-                    {menuStore.isCollapsed ? <i className="u-icon u-icon--sml u-icon--arrow-right"></i> : <i className="u-icon u-icon--sml u-icon--arrow-left"></i>}
+                    {menuStore.isCollapsed ? <i className="u-icon u-icon--base u-icon--arrow-right"></i> : <i className="u-icon u-icon--base u-icon--arrow-left"></i>}
                 </div>
             </div>
             

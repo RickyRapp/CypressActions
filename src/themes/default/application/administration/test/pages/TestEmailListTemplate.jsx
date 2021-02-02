@@ -43,7 +43,7 @@ function renderActions({ item, actions }) {
                 {isSome(onSend) ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--sml'
+                        icon='u-icon u-icon--approve u-icon--base'
                         label='TEST.TEST_EMAIL.LIST.BUTTON.SEND'
                         onlyIcon={true}
                         onClick={() => onSend(item)}>

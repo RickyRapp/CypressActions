@@ -41,7 +41,7 @@ const ContributionEditTemplate = function({ contributionEditViewStore, t }) {
 	const addButton = (
 		<BaasicButton
 			className="btn btn--icon"
-			icon="u-icon u-icon--unlocked u-icon--sml" //TODO replace with add icon
+			icon="u-icon u-icon--unlocked u-icon--base" //TODO replace with add icon
 			label="CONTRIBUTION.CREATE.ADD_BANK_ACCOUNT_LABEL"
 			onlyIcon={true}
 			onClick={onAddBankAccountClick}

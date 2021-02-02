@@ -97,7 +97,7 @@ const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 								onlyIconClassName="u-mar--right--sml"
 								icon={`u-icon ${
 									isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
-								} u-icon--sml`}
+								} u-icon--base`}
 								label="EXPAND"
 								onlyIcon={true}
 								onClick={() => onExpandPendingTransactionClick()}
@@ -145,7 +145,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onPreview) && previewRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--sml"
+						icon="u-icon u-icon--preview u-icon--base"
 						label="TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}

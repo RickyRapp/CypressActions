@@ -54,7 +54,7 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onPreview) && previewRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--preview u-icon--sml'
+                        icon='u-icon u-icon--preview u-icon--base'
                         label='DONOR_NOTE.LIST.BUTTON.EDIT'
                         onlyIcon={true}
                         onClick={() => onPreview(item)}>

@@ -61,7 +61,7 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                             {!isSome(sessionCertificate.donorApproved) &&
                                 <BaasicButton
                                     className="btn btn--icon"
-                                    icon='u-icon u-icon--email-pass u-icon--sml'
+                                    icon='u-icon u-icon--email-pass u-icon--base'
                                     label='SESSION.EDIT.SEND_APPROVE_EMAIL'
                                     onlyIcon={true}
                                     onClick={() => sendApproveEmail(sessionCertificate)}>

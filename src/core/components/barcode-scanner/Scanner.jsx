@@ -76,7 +76,7 @@ class Scanner extends React.Component {
             <React.Fragment>
                 <BaasicButton
                     className="btn btn--icon"
-                    icon={`u-icon u-icon--${this.running ? 'arrow-down' : 'arrow-right'} u-icon--sml`}
+                    icon={`u-icon u-icon--${this.running ? 'arrow-down' : 'arrow-right'} u-icon--base`}
                     label={this.running ? 'Show' : 'Hide'}
                     onlyIcon={true}
                     disabled={this.hasCamera !== true}

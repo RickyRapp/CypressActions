@@ -78,7 +78,7 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                 </div>
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 <BaasicButton
-                    icon='u-icon u-icon--email-pass u-icon--sml'
+                    icon='u-icon u-icon--email-pass u-icon--base'
                     className="btn btn--base btn--ghost"
                     label={sessionCertificate.reviewToken ? t('SESSION.EDIT.SAVE_RESEND_APPROVE_EMAIL') : t('SESSION.EDIT.SAVE_SEND_APPROVE_EMAIL')}
                     onClick={saveAndSendReviewEmail}

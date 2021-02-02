@@ -68,7 +68,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--sml"
+						icon="u-icon u-icon--edit u-icon--base"
 						label="RECONCILE.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -77,7 +77,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onPreview) && previewRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--sml"
+						icon="u-icon u-icon--preview u-icon--base"
 						label="RECONCILE.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}
@@ -86,7 +86,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCash) && cashRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--sml"
+						icon="u-icon u-icon--approve u-icon--base"
 						label="RECONCILE.LIST.BUTTON.CASH"
 						onlyIcon={true}
 						onClick={() => onCash(item)}

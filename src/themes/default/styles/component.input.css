@@ -135,9 +135,10 @@
     }
 
     &--search {
-        padding-left: calc($unit * 5);
+        padding-left: calc($unit * 6);
+        background-size: calc($unit * 2.5) calc($unit * 2.5);
         
-        background-position: calc($unit * 1.5) center;
+        background-position: calc($unit * 2) center;
         background-image: svg-load('../styles/postcss-svg/search.svg', fill: color($grey-8 a(0.5)));
     }
 

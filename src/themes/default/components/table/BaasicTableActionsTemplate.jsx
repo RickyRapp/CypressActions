@@ -33,12 +33,12 @@ class CommandCell extends GridCell {
         const iconItems = items || [
             {
                 title: 'Edit',
-                icon: 'u-icon u-icon--sml u-icon--edit',
+                icon: 'u-icon u-icon--base u-icon--edit',
                 action: actions.onEdit
             },
             {
                 title: 'Delete',
-                icon: 'u-icon u-icon--sml u-icon--delete',
+                icon: 'u-icon u-icon--base u-icon--delete',
                 action: actions.onDelete
             }
         ];

@@ -70,7 +70,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--edit u-icon--sml"
+						icon="u-icon u-icon--edit u-icon--base"
 						label="GRANT_REQUEST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -80,7 +80,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--approve u-icon--sml"
+						icon="u-icon u-icon--approve u-icon--base"
 						label="GRANT_REQUEST.BUTTON.COMPLETE"
 						onlyIcon={true}
 						onClick={() => onComplete(item)}
@@ -90,7 +90,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--decline u-icon--sml"
+						icon="u-icon u-icon--decline u-icon--base"
 						label="GRANT_REQUEST.BUTTON.DECLINE"
 						onlyIcon={true}
 						onClick={() => onDecline(item)}
