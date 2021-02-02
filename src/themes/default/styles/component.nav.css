@@ -6,6 +6,7 @@
 	&--primary {
 		position: relative;
 		flex-grow: 2;
+		overflow-y: auto;
 
 		&__close {
 			position: absolute;
@@ -15,10 +16,6 @@
 			@media (--screen-from-med) {
 				display: none;
 			}
-		}
-
-		@media (--screen-to-lrg) {
-			overflow-y: auto;
 		}
 
 		&__icon {
@@ -40,6 +37,13 @@
 				justify-content: center;
 				height: $header-height;
 			}
+		}
+		@media (--screen-from-lrg) {
+			position: absolute;
+			top: 99px;
+			left: 0;
+			right: 0;
+			bottom: 99px; 
 		}
 
 		&__item {
