@@ -53,7 +53,7 @@ const CustomDateInput = function (props) {
                     label={undefined}
                     className={error ? 'input input--lrg input--warning' : 'input'}
                 />
-                {renderIf(isSome(error))(<p className="type--tny type--color--warning u-mar--top--nano">{error}</p>)}
+                {renderIf(isSome(error))(<p className="validation__message">{error}</p>)}
             </div>
         </React.Fragment>
     );

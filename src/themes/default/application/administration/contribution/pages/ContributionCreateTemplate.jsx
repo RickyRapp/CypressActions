@@ -279,13 +279,13 @@ const ContributionCreateTemplate = function({ contributionCreateViewStore, t }) 
 					<div className="col col-sml-12 col-lrg-8">
 						<div className="row">
 							<div className="col col-sml-12 col-lrg-12 u-mar--bottom--lrg">
-								<h3 className="type--lrg type--wgt--medium type--color--note">{t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
+								<h3 className=" type--color--note">{t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
 							</div>
 						</div>
 						<div className="card--primary card--med u-mar--bottom--med">
 							<div className="row">
 								<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-									<h4 className="type--lrg type--wgt--medium">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
+									<h4 className="">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
 								</div>
 								<div className="col col-sml-12 col-lrg-12">
 									<div className="card--tny card--secondary u-mar--bottom--sml">

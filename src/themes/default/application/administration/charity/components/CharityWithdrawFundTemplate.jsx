@@ -21,7 +21,7 @@ function CharityWithdrawFundTemplate({ charityWithdrawFundViewStore, t }) {
                 <div className="col col-sml-12 col-lrg-12">
                     <div className="u-mar--bottom--sml">
                         <div className="u-mar--bottom--med">
-                            <h3 className="type--lrg type--wgt--medium" style={{ display: 'inline' }}>
+                            <h3 className="" style={{ display: 'inline' }}>
                                 {t('CHARITY.WITHDRAW_FUND.TITLE')}
                             </h3>
                         </div>

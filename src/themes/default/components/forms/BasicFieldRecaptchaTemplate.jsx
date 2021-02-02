@@ -11,7 +11,7 @@ const BasicFieldRecaptchaTemplate = defaultTemplate(({ field, t }) => {
                 {t(field.label)}
             </label>
             <BaasicRecaptcha verifyCallback={response => field.set(response)} />
-            {renderIf(isSome(field.localizedError))(<p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>)}
+            {renderIf(isSome(field.localizedError))(<p className="validation__message">{field.localizedError}</p>)}
         </div>
     );
 });

@@ -42,7 +42,7 @@ const RowInput = defaultTemplate(({ field, t, showLabel = true, disabled }) => {
                 />
             </div>
             {renderIf(isSome(field.localizedError))(
-                <p className="type--tny type--color--warning u-mar--top--nano w--100">{field.localizedError}</p>
+                <p className="validation__message w--100">{field.localizedError}</p>
             )}
         </div>
     );

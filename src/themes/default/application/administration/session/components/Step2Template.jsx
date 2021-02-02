@@ -7,7 +7,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 	return (
 		<React.Fragment>
 			<div className="scanner card--med">
-				{/* <h3 className="type--lrg type--wgt--medium u-mar--bottom--med u-mar--left--sml">General Data</h3> */}
+				{/* <h3 className=" u-mar--bottom--med u-mar--left--sml">General Data</h3> */}
 				<div className="row">
 					<div className="col col-sml-12 u-mar--bottom--med">
 						<div className="col col-sml-12 u-mar--bottom--lrg">

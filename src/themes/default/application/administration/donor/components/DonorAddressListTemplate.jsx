@@ -26,7 +26,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
     return (
         <div>
             <ListContent>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
+                <h3 className=" u-mar--bottom--tny">
                     {t('ADDRESS.LIST.TITLE')}
                     {maxAddressesEntered ?
                         <BaasicButton

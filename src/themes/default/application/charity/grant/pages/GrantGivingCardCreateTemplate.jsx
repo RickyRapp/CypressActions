@@ -10,7 +10,7 @@ function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
 	return (
 		<ApplicationEditLayout store={grantGivingCardCreateViewStore}>
 			<Content loading={contentLoading}>
-				<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('CHARITY_GIVING_CARD.CREATE.TITLE')}</h3>
+				<h3 className=" u-mar--bottom--med">{t('CHARITY_GIVING_CARD.CREATE.TITLE')}</h3>
 				<div className="card--med card--primary">
 					<div className="row">
 						<div className="form__group col col-sml-12 col-lrg-6">

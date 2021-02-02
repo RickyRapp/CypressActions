@@ -72,9 +72,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 							<div className="dashboard-card__body">
-								<h5 className="dashboard-card__body--amount">
+								<div className="dashboard-card__body--amount">
 									{donor && (
 										<FormatterResolver
 											item={{ balance: donor.availableBalance }}
@@ -82,7 +82,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 											format={{ type: 'currency' }}
 										/>
 									)}
-								</h5>
+								</div>
 								<p className="dashboard-card__body--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</p>
 
 								{donor && (
@@ -119,7 +119,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						</div>
 					) : (
 							<div className="dashboard-card--emptystate">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+								<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 								<div className="dashboard-card--emptystate__body">
 									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
 									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
@@ -135,21 +135,24 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							
 							<div className="dashboard-card__giving-goal">
-								<p className="type--med type--wgt--medium">Giving goal:</p>
+								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
-									<div className="dashboard-card__giving-goal--range--progress">25%</div>
+									<div style={{'width' : '25%'}} className="dashboard-card__giving-goal--range--progress">25%</div>
 								</div>
-								<p className="btn btn--sml btn--link">Manage</p>
+								<div className="dashboard-card__giving-goal__label">
+									<a className="btn btn--sml btn--link">Manage</a>
+								</div>
 							</div>
-							<div className="type--med type--wgt--medium type--center u-mar--left--lrg">$25,000 / $100,000</div>
+							<div className="type--med type--wgt--medium type--center">$25,000 / $100,000</div>
 							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml"></div>
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
 										<span className="type--base type--wgt--medium u-mar--right--med">Donations Per Year</span>
-										<BaasicDropdown store={yearDropdownStore} />
+										<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
 									</div>
 								</div>
 							</div>
@@ -161,7 +164,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						</div>
 					) : (
 							<div className="dashboard-card--emptystate card--med">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_GIVING')}</h3>
+								<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
 								<div className="dashboard-card--emptystate__body">
 									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
 									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
@@ -178,7 +181,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					(!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med type--center">
+								<h3 className=" u-mar--bottom--med type--center">
 									{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
 								</h3>
 								<div className="row type--center u-display--flex u-display--flex--justify--center">
@@ -186,7 +189,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
 												className="btn btn--med btn--med--100 btn--tertiary "
-												icon="u-icon u-icon--arrow-right u-icon--sml"
+												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS"
 											/>
 										</div>
@@ -195,7 +198,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
 												className="btn btn--med btn--med--100 btn--tertiary "
-												icon="u-icon u-icon--arrow-right u-icon--sml"
+												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.ORDER_CERTIFICATES"
 												onClick={orderBookletsOnClick}
 											/>
@@ -205,7 +208,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
 												className="btn btn--med btn--med--100 btn--tertiary "
-												icon="u-icon u-icon--arrow-right u-icon--sml"
+												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.NEW_CONTRIBUTION"
 												onClick={newContributionOnClick}
 											/>
@@ -215,7 +218,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
 												className="btn btn--med btn--med--100 btn--tertiary "
-												icon="u-icon u-icon--arrow-right u-icon--sml"
+												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.NEW_GRANT"
 												onClick={newGrantOnClick}
 											/>
@@ -227,7 +230,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					)}
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
-						<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
+						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						<div className="card--med">
 							<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
 						</div>

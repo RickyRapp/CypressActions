@@ -8,7 +8,7 @@ class ContactInfoTemplate extends Component {
         const { form, t } = this.props;
         return (
             <React.Fragment>
-                <h3 className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t('DONOR.CREATE.CONTACT_INFO_FIELDS.TITLE')}</h3>
+                <h3 className=" type--color--note u-mar--bottom--sml">{t('DONOR.CREATE.CONTACT_INFO_FIELDS.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('addressLine1')} />

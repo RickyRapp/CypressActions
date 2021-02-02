@@ -52,7 +52,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 					<div className="row">
 						<div className="col col-sml-12 col-xxlrg-6">
 							<div className="card--primary card--med u-mar--bottom--med">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
+								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
 								<div className="row">
 									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
@@ -309,7 +309,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 						</div>
 						<div className="col col-sml-12 col-xxlrg-6">
 							<div className="card--primary card--med u-mar--bottom--med">
-								<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
+								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
 								<div className="row">
 									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">

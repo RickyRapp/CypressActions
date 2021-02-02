@@ -20,7 +20,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
     return (
         <section >
             <form className='form' onSubmit={form.onSubmit}>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
+                <h3 className=" u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
                 <div className="row">
                     <div className="form__group col col-sml-12 col-lrg-6">
                         <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} />

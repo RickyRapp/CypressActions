@@ -10,7 +10,7 @@ function GrantRequestTemplate({ grantRequestCreateViewStore, t }) {
 	return (
 		<ApplicationEditLayout store={grantRequestCreateViewStore}>
 			<Content loading={contentLoading}>
-				<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">{t('GRANT_REQUEST.CREATE.TITLE')}</h3>
+				<h3 className=" u-mar--bottom--med">{t('GRANT_REQUEST.CREATE.TITLE')}</h3>
 				<div className="card--sml card--primary">
 					<div className="row">
 						<div className="form__group col col-sml-12 col-lrg-6">

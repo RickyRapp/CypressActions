@@ -26,7 +26,7 @@ const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore,
     return (
         <div>
             <ListContent>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
+                <h3 className=" u-mar--bottom--tny">
                     {t('PHONE_NUMBER.LIST.TITLE')}
                     {maxPhoneNumbersEntered ?
                         <span className="u-icon u-icon--add u-icon--base u-mar--left--tny" />

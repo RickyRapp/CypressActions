@@ -22,7 +22,7 @@ const BasicTextAreaTemplate = defaultTemplate(({ field, t, rows = 3 }) => {
                 rows={rows}
             />
             {renderIf(field.localizedError)(
-                <p className="type--tny type--color--warning u-mar--top--nano">{field.localizedError}</p>
+                <p className="validation__message">{field.localizedError}</p>
             )}
         </div>
     );

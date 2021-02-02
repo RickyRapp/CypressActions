@@ -23,7 +23,7 @@ class CreateAccountTemplate extends Component {
 
         return (
             <React.Fragment>
-                <h3 className="type--lrg type--wgt--medium type--color--note u-mar--bottom--sml">{t(title)}
+                <h3 className=" type--color--note u-mar--bottom--sml">{t(title)}
                     <BaasicButton
                         className="btn btn--icon u-mar--left--sml"
                         icon={`u-icon u-icon--${this.showForm ? 'arrow-down' : 'arrow-right'} u-icon--sml`}

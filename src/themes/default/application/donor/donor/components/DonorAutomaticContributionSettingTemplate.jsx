@@ -26,7 +26,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
         <React.Fragment>
             <div className="row">
                 <div className="col col-sml-12 col-lrg-3">
-                    <h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
+                    <h3 className=" u-mar--bottom--med">
                         {t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}
                     </h3>
                 </div>

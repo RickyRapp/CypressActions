@@ -32,6 +32,7 @@
     font-family: $ff-sans;
     font-weight: $type-weight-medium;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 
     /**
      * Button sizes
@@ -63,7 +64,7 @@
 
     &--med {
         font-size: 15px;
-        min-width: calc($unit * 26);
+        /* min-width: calc($unit * 26); */
         height: calc($unit * 10);
         padding: 0 calc($unit * 4);
         line-height: calc($unit * 10);
@@ -86,7 +87,7 @@
             padding: 0 calc($unit * 4);
             @mixin type-scale $type-base, 1;
 
-            & .u-icon--arrow-right {
+            .u-icon--arrow-forward {
                 margin-left: auto;
             }
         }

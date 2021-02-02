@@ -34,7 +34,7 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                         </div>
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                        <h3 className="type--lrg type--wgt--medium">Voided checks</h3>
+                        <h3 className="">Voided checks</h3>
                         <SimpleBaasicTable tableStore={tableStore} />
                     </div>
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
@@ -50,7 +50,7 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                             onChange={(event) => onChangeVoid(event.target.checked)}
                             label='Void'
                         />
-                        {renderIf(form.$('isCashed').localizedError)(<div className="type--tny type--color--warning u-mar--top--tny"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Select either Cashed or Void.</div>)}
+                        {renderIf(form.$('isCashed').localizedError)(<div className="validation__message"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Select either Cashed or Void.</div>)}
                     </div>
                     {form.$('isCashed').value === false &&
                         <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">

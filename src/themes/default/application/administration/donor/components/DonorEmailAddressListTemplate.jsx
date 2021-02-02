@@ -26,7 +26,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
     return (
         <div>
             <ListContent>
-                <h3 className="type--lrg type--wgt--medium u-mar--bottom--tny">
+                <h3 className=" u-mar--bottom--tny">
                     {t('EMAIL_ADDRESS.LIST.TITLE')}
                     {maxEmailAddressesEntered ?
                         <span className="u-icon u-icon--add u-icon--base u-mar--left--tny" />

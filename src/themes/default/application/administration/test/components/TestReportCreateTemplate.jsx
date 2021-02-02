@@ -27,7 +27,7 @@ const TestReportCreateTemplate = function ({ t, testReportCreateViewStore }) {
                 loading={loaderStore.loading}
             >
                 <h5 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('TEST.TEST_REPORT.CREATE.TITLE')}</h5>
-                <h3 className="type--lrg type--wgt--medium type--color--note u-mar--bottom--tny">{item.name}</h3>
+                <h3 className=" type--color--note u-mar--bottom--tny">{item.name}</h3>
                 <div className="row">
                     {needName &&
                         <div className="form__group col col-lrg-12">

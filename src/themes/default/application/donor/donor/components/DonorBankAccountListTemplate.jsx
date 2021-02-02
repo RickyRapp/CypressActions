@@ -20,7 +20,7 @@ const DonorBankAcountListTemplate = function({ donorBankAccountViewStore, t }) {
 		<div>
 			<div className="row">
 				<div className="col col-sml-12 col-lrg-3">
-					<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">
+					<h3 className=" u-mar--bottom--med">
 						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_BANK_ACCOUNT')}
 					</h3>
 				</div>

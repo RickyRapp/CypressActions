@@ -10,7 +10,7 @@ function Step3Template({ form, t, onPreviousStepClick, barcode, onBarcodeChange,
 				<div className="row">
 					<div className="col col-sml-12 col-lrg-6">
 						<div className="card--primary card--med u-mar--bottom--sml">
-							<h3 className="type--lrg type--wgt--medium u-mar--bottom--med">General Data</h3>
+							<h3 className=" u-mar--bottom--med">General Data</h3>
 							<div className="u-mar--bottom--lrg">
 								<div className="row scanner__table--head">
 									<div className="col col-lrg-3 type--base type--wgt--medium">{t('Certificate Number')}</div>
