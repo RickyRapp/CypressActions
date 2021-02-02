@@ -435,7 +435,7 @@
 			@mixin type-scale $type-base, 1;
 			font-weight: $type-weight-light;
 
-			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 12);
+			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 13);
 			color: white;
 			border-bottom: 1px solid color($white a(10%));
 			background-color: color($color-text a(15%));
