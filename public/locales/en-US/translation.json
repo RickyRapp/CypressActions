@@ -2637,7 +2637,9 @@
             "POOL_TITLE": "Investment Pools",
             "FIELDS": {
                 "AMOUNT_LABEL": "Amount",
-                "AMOUNT_PLACEHOLDER": "Amount"
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "PERCENTAGE_LABEL": "Percentage",
+                "PERCENTAGE_PLACEHOLDER": "Percentage"
             }
         }
     },
