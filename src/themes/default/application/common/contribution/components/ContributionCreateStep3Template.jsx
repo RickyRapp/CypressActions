@@ -29,19 +29,30 @@ const ContributionCreateStep1Template = function ({
                                 </span>
                             </div>
                         </div>
-                        {(paymentType.abrv === 'ach' ||
-                            (paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
-                                <React.Fragment>
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
-                                        {bankAccount.name}
+                        {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
+                            <React.Fragment>
+                                <div className="col col-sml-12 col-lrg-12">
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">
+                                            {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
+                                        </span>
+                                        <span className="type--base type--wgt--bold u-push">
+                                            {bankAccount.name}
+                                        </span>
                                     </div>
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
-                                        xxxx-xxxx-xxxx-{bankAccount.accountNumber}
+                                </div>
+                                <div className="col col-sml-12 col-lrg-12">
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">
+                                            {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
+                                        </span>
+                                        <span className="type--base type--wgt--bold u-push">
+                                            xxxx-xxxx-xxxx-{bankAccount.accountNumber}
+                                        </span>
                                     </div>
-                                </React.Fragment>
-                            )}
+                                </div>
+                            </React.Fragment>
+                        )}
                         {paymentType.abrv === 'check' && (
                             <div className="col col-sml-12 col-lrg-12">
                                 {t('CONTRIBUTION.CREATE.CHECK_NUMBER')}

@@ -41,7 +41,7 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
                     label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
                     onClick={onChangeDefaultAddressClick}>
                 </BaasicButton>}
-        </React.Fragment>}
+        </React.Fragment>
     )
 };
 
