@@ -1,5 +1,5 @@
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
-import { ContributionCreateForm } from 'application/donor/contribution/forms';
+import { ContributionCreateForm } from 'application/common/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -12,7 +12,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
     @observable isThirdPartyFundingAvailable = false;
     donor = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { donorId, contributionStore }) {
         super(rootStore, {
             name: 'contribution-create',
             id: undefined,
@@ -30,7 +30,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                             resource.email = this.donor.donorEmailAddress.email;
                             resource.number = this.donor.donorPhoneNumber.number;
                         }
-                        return rootStore.application.donor.contributionStore.createContribution({ donorId: this.donorId, ...resource });
+                        return this.contributionStore.createContribution({ donorId: this.donorId, ...resource });
                     }
                 }
             },
@@ -40,13 +40,15 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             }
         });
 
+        this.donorId = donorId;
+        this.contributionStore = contributionStore;
+
         this.routes = {
             allContributions: () => {
                 this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 1 });
             }
         }
 
-        this.donorId = rootStore.userStore.applicationUser.id;
 
         this.createBankAccountModalParams();
         this.createConfirmModalParams();
@@ -67,7 +69,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
         }
         else {
             this.loaderStore.resume();
-            this.donor = await this.rootStore.application.donor.contributionStore.getDonorInformation(this.donorId);
+            this.donor = await this.contributionStore.getDonorInformation(this.donorId);
             this.previousContributionsTableStore.setData(this.donor.previousContributions);
             if (!this.previousContributionsTableStore.dataInitialized) {
                 this.previousContributionsTableStore.dataInitialized = true;
@@ -199,7 +201,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
             {
                 fetchFunc: async () => {
                     const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    this.paymentTypes = tempTypes.filter(c => { return c.abrv !== 'bill-pay' })
+                    this.paymentTypes = tempTypes.filter(c => { return !['bill-pay', 'crypto-currency'].includes(c.abrv) })
                     return this.paymentTypes;
                 }
             });
@@ -215,7 +217,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
                         orderDirection: 'desc'
                     }
                     params.donorId = this.donorId;
-                    return this.rootStore.application.donor.contributionStore.findBankAccount(params);
+                    return this.contributionStore.findBankAccount(params);
                 }
             });
     }

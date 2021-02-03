@@ -18,7 +18,8 @@ class DonorInvestmentPoolViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = ['investmentPool,donorInvestmentTransactions']
-                        return rootStore.application.investment.investmentStore.findDonorInvestments({ donorId: this.donorId, ...params });
+                        debugger
+                        return rootStore.application.donor.investmentStore.findDonorInvestments({ donorId: this.donorId, ...params });
                     }
                 }
             }

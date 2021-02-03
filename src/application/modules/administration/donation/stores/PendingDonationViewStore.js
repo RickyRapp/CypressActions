@@ -91,6 +91,8 @@ class PendingDonationViewStore extends BaseListViewStore {
                 isTransferToCharityAccount: this.isTransferToCharityAccount,
                 groupedPendingDonations: this.tableStore.data.map(d => { return { ...d, pendingDonations: d.pendingDonations.filter(c => { return c.checked }) } })
             });
+        this.rootStore.notificationStore.success("Successfully processed.");
+        await this.queryUtility.fetch();
         this.disableSave = false;
     }
 

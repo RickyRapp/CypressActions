@@ -1,5 +1,5 @@
 import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
-import { ContributionCreateForm } from 'application/donor/contribution/forms';
+import { ContributionCreateForm } from 'application/common/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -12,7 +12,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
     @observable step = 2;
     donor = null;
 
-    constructor(rootStore) {
+    constructor(rootStore, { contributionStore }) {
         super(rootStore, {
             name: 'contribution-create',
             id: rootStore.routerStore.routerState.params.id,
@@ -30,10 +30,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
                             resource.email = this.donor.donorEmailAddress.email;
                             resource.number = this.donor.donorPhoneNumber.number;
                         }
-                        return rootStore.application.donor.contributionStore.updateContribution({ id: this.id, donorId: this.donorId, ...resource });
+                        return this.contributionStore.updateContribution({ id: this.id, donorId: this.donorId, ...resource });
                     },
                     get: async (id) => {
-                        const data = await rootStore.application.donor.contributionStore.getContribution(id, { embed: 'payerInformation,donorBankAccount,contributionStatus' });
+                        const data = await this.contributionStore.getContribution(id, { embed: 'payerInformation,donorBankAccount,contributionStatus' });
                         return {
                             ...data,
                             ...data.payerInformation
@@ -48,7 +48,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
             }
         });
 
-        this.donorId = rootStore.userStore.applicationUser.id;
+        this.contributionStore = contributionStore;
 
         this.routes = {
             allContributions: () => {
@@ -71,8 +71,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
         else {
             await this.fetch([
                 super.getResource(this.id),
-                this.setDonor()
             ])
+
+            this.donorId = this.item.donorId;
+            await this.setDonor();
 
             await this.bankAccountDropdownStore.filterAsync();
 
@@ -102,7 +104,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async setDonor() {
-        this.donor = await this.rootStore.application.donor.contributionStore.getDonorInformation(this.donorId);
+        this.donor = await this.contributionStore.getDonorInformation(this.donorId);
     }
 
     @action.bound
@@ -193,7 +195,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
                         orderDirection: 'desc'
                     }
                     params.donorId = this.donorId;
-                    return this.rootStore.application.donor.contributionStore.findBankAccount(params);
+                    return this.contributionStore.findBankAccount(params);
                 }
             });
     }

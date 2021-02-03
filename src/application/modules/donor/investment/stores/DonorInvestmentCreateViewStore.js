@@ -7,6 +7,7 @@ import { action, observable } from 'mobx';
 class DonorInvestmentPoolViewStore extends BaseEditViewStore {
     @observable investmentPools = [];
     @observable step = 1;
+    @observable donor = null;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -25,6 +26,7 @@ class DonorInvestmentPoolViewStore extends BaseEditViewStore {
         this.donorId = rootStore.userStore.applicationUser.id;
 
         this.loadLookups();
+        this.loadDonor();
     }
 
     @action.bound
@@ -35,6 +37,10 @@ class DonorInvestmentPoolViewStore extends BaseEditViewStore {
     async loadLookups() {
         let tempInvestmentPools = await this.rootStore.application.lookup.investmentPoolStore.find();
         this.investmentPools = tempInvestmentPools.map(c => { return { ...c, checked: false, amount: 0, donorId: this.donorId } });
+    }
+
+    async loadDonor() {
+        this.donor = await this.rootStore.application.donor.donorStore.getDonor(this.donorId, { fields: ['availableBalance'] });
     }
 }
 
