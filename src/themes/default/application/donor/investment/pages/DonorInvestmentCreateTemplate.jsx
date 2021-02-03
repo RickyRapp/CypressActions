@@ -101,7 +101,7 @@ const DonorInvestmentCreateTemplate = function({ donorInvestmentCreateViewStore,
 											<div className="col col-sml-12 type--right">
 												<div className="row row__align--end u-mar--bottom--med">
 													<div className="col col-sml-12 type--right">
-														<span className="type--lrg type--color--opaque u-mar--right--base">{t('Total:')}</span>
+														<span className="type--med type--color--opaque u-mar--right--base">{t('Total:')}</span>
 
 														<span className="type--xxlrg">
 															<FormatterResolver
