@@ -78,7 +78,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                             />
                                                                         </div>
                                                                         {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
-                                                                            <div className="counter--prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
+                                                                            <div className="counter__prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
                                                                     </div>
                                                                     <div className="col col-sml-6 counter">
                                                                         <BookletOrderButtonCounterTemplate

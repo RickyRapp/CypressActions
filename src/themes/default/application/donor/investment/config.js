@@ -22,7 +22,8 @@ import { RouterState } from 'mobx-state-router';
                             const { donor: { investmentStore } } = routerStore.rootStore.application;
                             let donorId = routerStore.rootStore.userStore.user.id;
                             const hasInvestments = await investmentStore.hasInvestments(donorId);
-                            if (hasInvestments) {
+                            // debugger
+                            if (false) {
                                 return Promise.resolve();
                             }
                             else {
@@ -44,7 +45,7 @@ import { RouterState } from 'mobx-state-router';
 
                             let donorId = routerStore.rootStore.userStore.user.id;
                             const hasInvestments = await investmentStore.hasInvestments(donorId);
-                            if (hasInvestments) {
+                            if (false) {
                                 return Promise.reject(new RouterState('master.app.main.donor.investment.donor'));
                             }
                             else {

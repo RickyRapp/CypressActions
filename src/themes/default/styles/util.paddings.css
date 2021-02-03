@@ -28,6 +28,10 @@
                 padding-top: calc($unit * 2);
             }
 
+            &--base {
+                padding-top: calc($unit * 3);
+            }
+
             &--med {
                 padding-top: calc($unit * 4);
             }
@@ -60,6 +64,10 @@
 
             &--sml {
                 padding-right: calc($unit * 2);
+            }
+
+            &--base {
+                padding-right: calc($unit * 3);
             }
 
             &--med {
@@ -96,6 +104,10 @@
                 padding-bottom: calc($unit * 2);
             }
 
+            &--base {
+                padding-bottom: calc($unit * 3);
+            }
+
             &--med {
                 padding-bottom: calc($unit * 4);
             }
@@ -128,6 +140,10 @@
 
             &--sml {
                 padding-left: calc($unit * 2);
+            }
+
+            &--base {
+                padding-left: calc($unit * 3);
             }
 
             &--med {
