@@ -13,6 +13,7 @@ import { BankStore } from 'application/administration/bank/stores';
 import { DonationStore } from 'application/administration/donation/stores';
 import { DonorNoteStore } from 'application/administration/donor-note/stores';
 import { ReconcileStore } from 'application/administration/reconcile/stores';
+import { InvestmentStore } from 'application/common/investment/stores';
 
 class AdministrationModuleStore {
     constructor(rootStore) {
@@ -32,6 +33,7 @@ class AdministrationModuleStore {
         this.donationStore = new DonationStore(this);
         this.donorNoteStore = new DonorNoteStore(this);
         this.reconcileStore = new ReconcileStore(this);
+        this.investmentStore = new InvestmentStore(this);
     }
 }
 export default AdministrationModuleStore;

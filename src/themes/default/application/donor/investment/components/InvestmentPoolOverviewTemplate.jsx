@@ -3,12 +3,12 @@ import { BasicCheckbox, BasicFieldCheckbox } from 'core/components';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
-const InvestmentPoolOverviewTemplate = function({ form, pool, t }) {
+const InvestmentPoolOverviewTemplate = function ({ form, pool, t }) {
 	return (
 		<div className="card--primary card--lrg u-mar--bottom--med">
 			<div className="row u-mar--bottom--sml">
 				<div className="col col-sml-12 u-mar--bottom--sml">
-					<span className="type--xlrg type--wgt--medium">Pool Title</span>
+					<span className="type--xlrg type--wgt--medium">{pool.name}</span>
 					<div className="u-push">
 						<BasicFieldCheckbox field={form.$('isChecked')} />
 					</div>

@@ -17,11 +17,10 @@ export default class DonorInvestmentCreateForm extends FormBase {
             labels: {
                 'amount': 'DONOR_INVESTMENT.CREATE.FIELDS.AMOUNT_LABEL',
                 'pools': 'DONOR_INVESTMENT.CREATE.FIELDS.POOLS_LABEL',
-                'pools[].isChecked': 'DONOR_INVESTMENT.CREATE.FIELDS.IS_CHECKED_LABEL',
                 'pools[].percentage': 'DONOR_INVESTMENT.CREATE.FIELDS.PERCENTAGE_LABEL',
             },
             rules: {
-                'amount': 'required|numeric',
+                'amount': 'required|numeric|min:500',
                 'pools[].id': 'required|string',
                 'pools[].isChecked': 'boolean',
                 'pools[].percentage': 'numeric|min:0|max:100',
