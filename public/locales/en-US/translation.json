@@ -673,10 +673,10 @@
                 "FIELDS": {
                     "BANK_ACCOUNT_LABEL": "Bank account",
                     "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
-                    "AMOUNT_LABEL": "Amount",
-                    "AMOUNT_PLACEHOLDER": "Amount",
+                    "AMOUNT_LABEL": "Replenish",
+                    "AMOUNT_PLACEHOLDER": "$",
                     "LOW_BALANCE_AMOUNT_LABEL": "When my balance falls below",
-                    "LOW_BALANCE_AMOUNT_PLACEHOLDER": "",
+                    "LOW_BALANCE_AMOUNT_PLACEHOLDER": "$",
                     "IS_ENABLED_LABEL": "Is enabled",
                     "IS_ENABLED_PLACEHOLDER": "Is enabled"
                 }
@@ -1219,7 +1219,7 @@
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
-                "DATE_CREATED_LABEL": "Date created",
+                "DATE_CREATED_LABEL": "Date",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
                 "PAYMENT_TYPE_NAME_LABEL": "Payment type",
@@ -1889,7 +1889,7 @@
         },
         "CREATE": {
             "TITLE": "Order Vouchers",
-            "ORDER_VOUCHERS_BOOKS": "Order Vouchers Books (50 checks per book)",
+            "ORDER_VOUCHERS_BOOKS": "Order Check Books (50 checks per book)",
             "PREPAID_ONLY": "PREPAID ONLY",
             "DELIVERY_OPTIONS": "Delivery Options",
             "SHIPPING_ADDRESS": "Shipping Address",
