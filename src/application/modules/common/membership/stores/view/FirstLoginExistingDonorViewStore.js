@@ -15,24 +15,24 @@ class FirstLoginExistingDonorViewStore extends BaseViewStore {
 		super();
 		this.rootStore = rootStore;
 		this.passwordRecoveryToken = rootStore.routerStore.routerState.queryParams.passwordRecoveryToken;
-		// if (!this.passwordRecoveryToken) {
-		// 	this.goToLogin().then(() =>
-		// 		this.rootStore.notificationStore.warning('PASSWORD_CHANGE.ERROR_MESSAGE.URL_NOT_VALID')
-		// 	);
-		// }
+		if (!this.passwordRecoveryToken) {
+			this.goToLogin().then(() =>
+				this.rootStore.notificationStore.warning('PASSWORD_CHANGE.ERROR_MESSAGE.URL_NOT_VALID')
+			);
+		}
 		this.createMonthDropdownStore();
 	}
 
 	async createFirstLogin(model) {
 		this.loaderStore.suspend();
 		try {
-			const response = await this.rootStore.application.baasic.apiClient.put('donor/first-login/', model);
-			console.log(response);
+			model.recoveryToken = this.passwordRecoveryToken;
+			const response = await this.rootStore.application.baasic.apiClient.post('donor/first-login/', model);
 			debugger;
-			// await this.rootStore.application.baasic.membershipModule.passwordRecovery.reset({
-			// 	newPassword: model.password,
-			// 	passwordRecoveryToken,
-			// });
+			await this.rootStore.application.baasic.membershipModule.passwordRecovery.reset({
+				newPassword: model.password,
+				passwordRecoveryToken: this.passwordRecoveryToken,
+			});
 
 			this.loaderStore.resume();
 

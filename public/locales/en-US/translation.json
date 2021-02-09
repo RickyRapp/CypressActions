@@ -2681,7 +2681,7 @@
         "PASSWORD_LABEL": "Password",
         "CONFIRM_PASSWORD_LABEL": "Confirm password",
         "SIGNIN_BUTTON": "Submit",
-        "SUCCESS_MESSAGE": "Succes",
+        "SUCCESS_MESSAGE": "Success",
         "ERROR_MESSAGE": "Something went wrong"
     }
 }
