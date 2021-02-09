@@ -5,10 +5,11 @@ import {
 	PasswordChange,
 	PasswordRecovery,
 	RegistrationSuccess,
-	ActivationConfirm
+	ActivationConfirm,
+	FirstLoginExistingDonor,
 } from 'application/common/membership/pages';
 
-(function () {
+(function() {
 	moduleProviderFactory.application.register({
 		routes: [
 			{
@@ -28,34 +29,40 @@ import {
 							}
 
 							return Promise.resolve();
-						}
+						},
 					},
 					{
 						name: 'master.public.membership.registration-success',
 						pattern: '/registration-success',
 						isPublic: true,
-						component: RegistrationSuccess
+						component: RegistrationSuccess,
 					},
 					{
 						name: 'master.public.membership.activation-confirm',
 						pattern: '/account-activation',
 						isPublic: true,
-						component: ActivationConfirm
+						component: ActivationConfirm,
 					},
 					{
 						name: 'master.public.membership.password-recovery',
 						pattern: '/password-recovery',
 						isPublic: true,
-						component: PasswordRecovery
+						component: PasswordRecovery,
 					},
 					{
 						name: 'master.public.membership.password-change',
 						pattern: '/password-change',
 						isPublic: true,
-						component: PasswordChange
-					}
-				]
-			}
-		]
+						component: PasswordChange,
+					},
+					{
+						name: 'master.public.membership.first-login',
+						pattern: '/first-login',
+						isPublic: true,
+						component: FirstLoginExistingDonor,
+					},
+				],
+			},
+		],
 	});
 })();

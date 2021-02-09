@@ -2668,5 +2668,20 @@
             "DEPOSIT_FUNDS": "Deposit Funds",
             "CONTRIBUTE": "Contribute"
         }
+    },
+    "FIRST_LOGIN_EXISTING_DONOR": {
+        "MONTH_LABEL": "Month",
+        "MONTH_PLACEHOLDER": "Month",
+        "DAY_LABEL": "Day",
+        "DAY_PLACEHOLDER": "Day",
+        "YEAR_LABEL": "Year",
+        "YEAR_PLACEHOLDER": "Year",
+        "SECURITY_PIN_LABEL": "Security pin",
+        "CONFIRM_SECURITY_PIN_LABEL": "Confirm security pin",
+        "PASSWORD_LABEL": "Password",
+        "CONFIRM_PASSWORD_LABEL": "Confirm password",
+        "SIGNIN_BUTTON": "Submit",
+        "SUCCESS_MESSAGE": "Succes",
+        "ERROR_MESSAGE": "Something went wrong"
     }
 }

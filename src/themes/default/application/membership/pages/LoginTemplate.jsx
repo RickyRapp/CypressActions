@@ -45,14 +45,6 @@ function LoginTemplate({ currentView, t }) {
 							}
 							label={t('LOGIN.SIGNIN_BUTTON')}
 						/>
-						{/* <BaasicButton
-							className="btn btn--100 btn--secondary"
-							onlyIconClassName="u-mar--right--sml"
-							type="submit"
-							disabled={loginForm.submitting}
-							icon={loginForm.submitting || loginForm.validating ? 'loader--login' : ''}
-							label={t('LOGIN.SIGNIN_BUTTON')}
-						/> */}
 					</div>
 				</form>
 
