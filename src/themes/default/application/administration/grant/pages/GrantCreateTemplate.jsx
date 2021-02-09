@@ -20,6 +20,7 @@ import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 import logo from 'themes/assets/img/logo.svg';
+import { CharityShortInformationTemplate } from 'themes/application/common/grant/components';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
     const {
@@ -112,9 +113,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityZipCode')} />
                                             </div>
-                                            <div className="form__group col col-sml-12">
-                                                <BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
-                                            </div>
                                         </div>
                                         <h4 className="">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
                                         <div className="row">
@@ -131,36 +129,13 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>}
 
                                 {charityDropdownStore.value &&
-                                    <React.Fragment>
-                                        <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
-                                        <div className="row u-mar--top--sml">
-                                            <div className="col col-sml-12 u-mar--bottom--sml">
-                                                <div className="charity-information__card ">
-                                                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
-                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.name}</span>
-                                                </div>
-                                            </div>
-                                            <div className="col col-sml-12 u-mar--bottom--sml">
-                                                <div className="charity-information__card ">
-                                                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.taxId}</span>
-                                                </div>
-                                            </div>
-                                            {!isChangedDefaultAddress &&
-                                                <div className="col col-sml-12 u-mar--bottom--sml">
-                                                    <div className="charity-information__card ">
-                                                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                                                        <span className="type--base type--wgt--medium">{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
-                                                    </div>
-                                                </div>}
-                                        </div>
-                                        {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
-                                            <BaasicButton
-                                                className="btn btn--sml btn--link u-mar--bottom--sml"
-                                                label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
-                                                onClick={onChangeDefaultAddressClick}>
-                                            </BaasicButton>}
-                                    </React.Fragment>}
+                                    <CharityShortInformationTemplate
+                                        charity={charityDropdownStore.value.item}
+                                        onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                                        isChangedDefaultAddress={isChangedDefaultAddress}
+                                        grantRequestId={grantRequestId}
+                                    />}
+
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row">

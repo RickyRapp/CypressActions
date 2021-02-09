@@ -115,6 +115,13 @@ import { moduleProviderFactory } from 'core/providers';
                 order: 15,
                 route: 'master.app.main.administration.test.tab',
                 role: ['Administrators']
+            },
+            {
+                title: 'MENU.INVESTMENTS',
+                icon: 'investment',
+                order: 16,
+                route: 'master.app.main.administration.investment.list',
+                role: ['Administrators']
             }
         ],
         moduleStore: function (context) {

@@ -20,5 +20,10 @@ class ReconcileStore {
         const response = await this.reconcileService.update(resource);
         return response.data;
     }
+
+    async checkUpdate(resource) {
+        const response = await this.reconcileService.checkUpdate(resource);
+        return response.data;
+    }
 }
 export default ReconcileStore;

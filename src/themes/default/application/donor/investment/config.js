@@ -19,8 +19,7 @@ import { RouterState } from 'mobx-state-router';
                         },
                         // eslint-disable-next-line
                         beforeEnter: async (fromState, toState, routerStore) => {
-                            const { investment: { investmentStore } } = routerStore.rootStore.application;
-
+                            const { donor: { investmentStore } } = routerStore.rootStore.application;
                             let donorId = routerStore.rootStore.userStore.user.id;
                             const hasInvestments = await investmentStore.hasInvestments(donorId);
                             if (hasInvestments) {
@@ -41,7 +40,7 @@ import { RouterState } from 'mobx-state-router';
                         },
                         // eslint-disable-next-line
                         beforeEnter: async (fromState, toState, routerStore) => {
-                            const { investment: { investmentStore } } = routerStore.rootStore.application;
+                            const { donor: { investmentStore } } = routerStore.rootStore.application;
 
                             let donorId = routerStore.rootStore.userStore.user.id;
                             const hasInvestments = await investmentStore.hasInvestments(donorId);

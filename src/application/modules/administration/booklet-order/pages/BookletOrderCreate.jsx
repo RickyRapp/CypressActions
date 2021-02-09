@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
-import { BookletOrderCreateTemplate } from 'themes/common/booklet-order/pages';
+import { BookletOrderCreateTemplate } from 'themes/application/common/booklet-order/pages';
 import { BookletOrderCreateViewStore } from 'application/common/booklet-order/stores';
 
 @setCurrentView((rootStore) => new BookletOrderCreateViewStore(rootStore, { donorId: rootStore.routerStore.routerState.params.id }), 'store')

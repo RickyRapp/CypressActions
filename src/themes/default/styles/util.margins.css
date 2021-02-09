@@ -84,6 +84,10 @@
 
             &--sml {
                 margin-right: calc($unit * 2);
+
+                &--alt {
+                    margin-right: calc($unit * 3.5);
+                }
             }
 
             &--base {
@@ -134,6 +138,10 @@
 
             &--base {
                 margin-bottom: calc($unit * 3);
+                
+                &--alt {
+                    margin-bottom: calc($unit * 3.5);
+                }
             }
 
             &--xmed {
@@ -181,6 +189,14 @@
 
             &--sml {
                 margin-left: calc($unit * 2);
+            }
+
+            &--base {
+                margin-left: calc($unit * 3);
+                
+                &--alt {
+                    margin-left: calc($unit * 3.5);
+                }
             }
 
             &--med {

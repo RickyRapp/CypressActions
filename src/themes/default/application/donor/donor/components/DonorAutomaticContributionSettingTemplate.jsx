@@ -54,13 +54,13 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                 </EditFormContent>
                             </div>
                             <div className="info-card--footer">
-                                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                                 <BaasicButton
                                     type="button"
                                     className="btn btn--med btn--med--wide btn--ghost"
                                     onClick={onEnableEditClick}
                                     label="Cancel"
                                 />
+                                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                             </div>
                         </div>
                     </React.Fragment>

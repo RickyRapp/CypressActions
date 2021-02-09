@@ -8,13 +8,37 @@ export default class DonorInvestmentCreateForm extends FormBase {
     setup() {
         return {
             fields: [
+                'amount',
+                'pools',
+                'pools[].id',
+                'pools[].isChecked',
+                'items[].percentage'
+            ],
+            labels: {
+                'amount': 'DONOR_INVESTMENT.CREATE.FIELDS.AMOUNT_LABEL',
+                'pools': 'DONOR_INVESTMENT.CREATE.FIELDS.POOLS_LABEL',
+                'pools[].percentage': 'DONOR_INVESTMENT.CREATE.FIELDS.PERCENTAGE_LABEL',
+            },
+            rules: {
+                'amount': 'required|numeric|min:500',
+                'pools[].id': 'required|string',
+                'pools[].isChecked': 'boolean',
+                'pools[].percentage': 'numeric|min:0|max:100',
+            },
+            options: {
+                'pools[].isChecked': 'checkbox'
+            },
+            extra: {
+                'amount':
                 {
-                    name: 'investmentPoolId',
-                    label: 'DONOR_INVESTMENT.CREATE.FIELDS.INVESTMENT_POOL_LABEL',
-                    placeholder: 'DONOR_INVESTMENT.CREATE.FIELDS.INVESTMENT_POOL_PLACEHOLDER',
-                    rules: 'string'
+                    type: 'c2'
+                },
+                'pools[].percentage':
+                {
+                    type: 'p0',
+                    step: 1
                 }
-            ]
-        };
+            }
+        }
     }
 }

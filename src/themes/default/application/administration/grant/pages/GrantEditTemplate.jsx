@@ -20,7 +20,7 @@ import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 import logo from 'themes/assets/img/logo.svg';
 
-const GrantEditTemplate = function({ grantEditViewStore, t }) {
+const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 	const {
 		contentLoading,
 		form,
@@ -106,9 +106,6 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 											</div>
 											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityZipCode')} />
-											</div>
-											<div className="form__group col col-sml-12">
-												<BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
 											</div>
 										</div>
 										<h4 className="">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>

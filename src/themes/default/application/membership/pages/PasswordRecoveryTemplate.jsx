@@ -21,16 +21,10 @@ function PasswordRecoveryTemplate({ currentView, t }) {
                 <div className='form__group'>
                     <BasicInput field={form.$('userName')} />
                 </div>
-                <div className='form__group spc--top--med'>
-                    <BaasicRecaptcha verifyCallback={onVerifyRecaptcha} />
-                </div>
-                {
-                    form.error && (
-                        <div>
-                            <p className='type--color--warning'>{form.error}</p>
-                        </div>
-                    )
-                }
+                {form.error &&
+                    <div>
+                        <p className='type--color--warning'>{form.error}</p>
+                    </div>}
                 <div className='spc--top--sml'>
                     <BaasicButton className='btn btn--med btn--tertiary display--ib' type='submit' label={t('PASSWORD_RECOVERY.RESET_BUTTON')} disabled={form.submitting || form.validating} />
                     <a className='btn btn--med btn--ghost spc--left--tny' onClick={goToLogin}>{t('PASSWORD_RECOVERY.CANCEL_BUTTON')}</a>

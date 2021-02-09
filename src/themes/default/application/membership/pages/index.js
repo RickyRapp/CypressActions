@@ -4,3 +4,4 @@ export { default as RegistrationSuccessTemplate } from './RegistrationSuccessTem
 export { default as PasswordRecoveryTemplate } from './PasswordRecoveryTemplate';
 export { default as PasswordChangeTemplate } from './PasswordChangeTemplate';
 export { default as UserPreferencesTemplate } from './UserPreferencesTemplate';
+export { default as FirstLoginExistingDonorTemplate } from './FirstLoginExistingDonorTemplate';

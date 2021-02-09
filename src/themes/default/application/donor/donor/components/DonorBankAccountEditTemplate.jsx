@@ -23,16 +23,13 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                 <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
                 <div className="row u-mar--bottom--sml">
                     <div className="form__group col col-sml-12 col-lrg-3">
+                        <BasicInput field={form.$('accountNumber')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-3">
                         <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('name')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountNumber')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('description')} />
                     </div>
                 </div>
 
@@ -106,7 +103,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                     className="btn btn--med btn--ghost"
                     onClick={onCancelEditClick}
                     label='Cancel'
-                    />
+                />
                 <BaasicFormControls
                     form={form}
                     onSubmit={form.onSubmit}

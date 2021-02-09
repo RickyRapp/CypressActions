@@ -1,3 +1,4 @@
+import { RoutingNumberService } from 'application/administration/bank/services';
 import { CharityService, CharityBankAccountService, CharityAddressService } from 'application/common/charity/services';
 import { CharityFileStreamService } from 'common/services';
 
@@ -8,6 +9,7 @@ class CharityStore {
         this.bankAccountService = moduleStore.rootStore.createApplicationService(CharityBankAccountService);
         this.fileStreamService = moduleStore.rootStore.createApplicationService(CharityFileStreamService);
         this.charityAddressService = moduleStore.rootStore.createApplicationService(CharityAddressService);
+        this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
     }
 
     async findCharityBank(params) {
@@ -22,6 +24,11 @@ class CharityStore {
 
     async findAddress(params) {
         const response = await this.charityAddressService.find(params);
+        return response.data;
+    }
+
+    async findRoutingNumber(params) {
+        const response = await this.routingNumberService.find(params);
         return response.data;
     }
 

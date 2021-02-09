@@ -7,15 +7,69 @@
 	display: flex;
 
 	background-color: $white;
-	/*     
-	&__border {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: calc($unit - 1px);
-		background-color: $color-tertiary;
-	} */
+
+	&__first {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		padding: calc($unit * 3);
+
+		&__logo {
+			margin: $unit 0 calc($unit * 4);
+			height: calc($unit * 7);
+			
+			@media (--screen-from-lrg) {
+				height: calc($unit * 10);
+				margin: calc($unit * 8) 0;
+			}
+		}
+
+		&__title {
+			margin-bottom: calc($unit * 3);
+			
+			font-family: $ff-serif;
+			@mixin type-scale $type-xlarge, 1.25;
+			
+			@media (--screen-from-lrg) {
+				@mixin type-scale $type-huge, 2;
+			}
+		}
+
+		&__desc {
+			width: 100;
+			margin-bottom: calc($unit * 3);
+			color: $color-opaque;
+			text-align: center;
+			@mixin type-scale $type-small, 1;
+			
+			@media (--screen-from-lrg) {
+				width: 70%;
+				@mixin type-scale $type-medium, 1.25;
+				padding: calc($unit * 7);
+			}
+
+			@media (--screen-from-xlrg) {
+				width: 60%;
+			}
+		}
+
+		&__form {
+			width: 100%;
+			background-color: $white;
+			padding: calc($unit * 4);
+
+			@media (--screen-from-lrg) {
+				width: 50%;
+				padding: calc($unit * 10);
+			}
+
+			@media (--screen-from-xlrg) {
+				width: 45%;
+			}
+		}
+	}
 
 	&__media {
 		width: 49%;
@@ -23,10 +77,6 @@
 		background: url('../assets/img/login-door.jpg');
 		background-position: center;
 		background-size: cover;
-
-		@media (--screen-to-lrg) {
-			display: none;
-		}
 	}
 
 	&__info {
@@ -66,7 +116,7 @@
 			text-align: center;
 			font-weight: $type-weight-thin;
 			font-family: $ff-serif;
-			
+
 			@media (--screen-from-med) {
 				@mixin type-scale $type-xhuge, 3;
 			}
