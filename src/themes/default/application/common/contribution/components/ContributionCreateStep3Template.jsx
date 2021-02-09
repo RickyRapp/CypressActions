@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
-const ContributionCreateStep1Template = function ({
+const ContributionCreateStep3Template = function ({
     paymentType, routes, previousContributionsTableStore, bankAccount, form, t }) {
 
     return (
@@ -106,7 +106,7 @@ const ContributionCreateStep1Template = function ({
     )
 }
 
-ContributionCreateStep1Template.propTypes = {
+ContributionCreateStep3Template.propTypes = {
     paymentTypes: PropTypes.array.isRequired,
     step: PropTypes.number.isRequired,
     onSelectPaymentType: PropTypes.func.isRequired,
@@ -114,4 +114,4 @@ ContributionCreateStep1Template.propTypes = {
     t: PropTypes.func,
 };
 
-export default defaultTemplate(ContributionCreateStep1Template);
+export default defaultTemplate(ContributionCreateStep3Template);

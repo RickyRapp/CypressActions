@@ -44,6 +44,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		isChangedDefaultAddress,
 		onChangeDefaultAddressClick,
 		grantRequestId,
+		getNumberOfReocurrency
 	} = grantCreateViewStore;
 
 	return (
@@ -114,9 +115,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											</div>
 											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityZipCode')} />
-											</div>
-											<div className="form__group col col-sml-12 u-mar--bottom--xlrg u-mar--top--sml">
-												<BasicFieldCheckbox field={form.$('charityIsInternationalCharity')} />
 											</div>
 										</div>
 										<h4 className="type--med type--wgt--medium type--color--note u-mar--bottom--base">
@@ -212,6 +210,24 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												<BasicFieldCheckbox field={form.$('noEndDate')} />
 											</div>
 										</div>
+										{form.$('amount').value && form.$('noEndDate').value === false && (form.$('numberOfPayments').value || form.$('endDate').value) &&
+											<div className="row">
+												<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+													Accumulated amount:
+													{form.$('numberOfPayments').value &&
+														<FormatterResolver
+															item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
+															field="amount"
+															format={{ type: 'currency' }}
+														/>}
+													{form.$('endDate').value &&
+														<FormatterResolver
+															item={{ amount: form.$('amount').value * getNumberOfReocurrency(form.$('recurringDate').value, form.$('endDate').value, form.$('grantScheduleTypeId').value) }}
+															field="amount"
+															format={{ type: 'currency' }}
+														/>}
+												</div>
+											</div>}
 									</div>
 								)}
 								<div className="row">

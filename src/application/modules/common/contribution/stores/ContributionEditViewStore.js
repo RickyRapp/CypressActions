@@ -3,225 +3,348 @@ import { ContributionCreateForm } from 'application/common/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
-import moment from 'moment';
 import _ from 'lodash';
 
 @applicationContext
 class ContributionEditViewStore extends BaseEditViewStore {
-    @observable paymentTypes = null;
-    @observable step = 2;
-    donor = null;
+	@observable paymentTypes = [];
+	@observable step = 1;
+	@observable isThirdPartyFundingAvailable = false;
+	donor = null;
 
-    constructor(rootStore, { contributionStore }) {
-        super(rootStore, {
-            name: 'contribution-create',
-            id: rootStore.routerStore.routerState.params.id,
-            autoInit: false,
-            actions: () => {
-                return {
-                    update: async (resource) => {
-                        if (!resource.isThirdParty) {
-                            resource.name = this.donor.donorName;
-                            resource.addressLine1 = this.donor.donorAddress.addressLine1;
-                            resource.addressLine2 = this.donor.donorAddress.addressLine2;
-                            resource.city = this.donor.donorAddress.city;
-                            resource.state = this.donor.donorAddress.state;
-                            resource.zipCode = this.donor.donorAddress.zipCode;
-                            resource.email = this.donor.donorEmailAddress.email;
-                            resource.number = this.donor.donorPhoneNumber.number;
-                        }
-                        return this.contributionStore.updateContribution({ id: this.id, donorId: this.donorId, ...resource });
-                    },
-                    get: async (id) => {
-                        const data = await this.contributionStore.getContribution(id, { embed: 'payerInformation,donorBankAccount,contributionStatus' });
-                        return {
-                            ...data,
-                            ...data.payerInformation
-                        }
+	constructor(rootStore, { contributionStore, step }) {
+		super(rootStore, {
+			name: 'contribution-create',
+			id: rootStore.routerStore.routerState.params.id,
+			autoInit: false,
+			actions: () => {
+				return {
+					update: async resource => {
+						if (!resource.isThirdParty) {
+							resource.name = this.donor.donorName;
+							resource.addressLine1 = this.donor.donorAddress.addressLine1;
+							resource.addressLine2 = this.donor.donorAddress.addressLine2;
+							resource.city = this.donor.donorAddress.city;
+							resource.state = this.donor.donorAddress.state;
+							resource.zipCode = this.donor.donorAddress.zipCode;
+							resource.email = this.donor.donorEmailAddress.email;
+							resource.number = this.donor.donorPhoneNumber.number;
+						}
+						return this.contributionStore.updateContribution({ id: this.id, ...resource });
+					},
+					get: async id => {
+						const data = await this.contributionStore.getContribution(id, {
+							embed: 'payerInformation,donorBankAccount,contributionStatus',
+						});
+						return {
+							...data,
+							...data.payerInformation,
+						};
+					},
+				};
+			},
+			FormClass: ContributionCreateForm,
+			onAfterAction: () => {
+				this.nextStep();
+			},
+		});
 
-                    }
-                }
-            },
-            FormClass: ContributionCreateForm,
-            onAfterAction: () => {
-                this.nextStep();
-            }
-        });
+		this.contributionStore = contributionStore;
+		if (step) {
+			this.step = step;
+		}
 
-        this.contributionStore = contributionStore;
+		this.routes = {
+			allContributions: () => {
+				this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 1 });
+			},
+		};
 
-        this.routes = {
-            allContributions: () => {
-                this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 1 });
-            }
-        }
+		this.createBankAccountModalParams();
+		this.createConfirmModalParams();
+		this.createPaymentTypeDropdownStore();
+		this.createBankAccountDropdownStore();
+		this.createBrokerageInstitutionDropdownStore();
+		this.createSecurityTypeDropdownStore();
+		this.createBusinessTypeDropdownStore();
+		this.createPropertyTypeDropdownStore();
+		this.createCollectibleTypeDropdownStore();
+		this.createPreviousContributionsTableStore();
+		this.createThirdPartyDonorAdvisedFundDropdownStore();
+	}
 
-        this.createBankAccountModalParams();
-        this.createConfirmModalParams();
-        this.createPaymentTypeDropdownStore();
-        this.createBankAccountDropdownStore();
-        this.createPreviousContributionsTableStore();
-    }
+	@action.bound
+	async onInit({ initialLoad }) {
+		if (!initialLoad) {
+			this.rootStore.routerStore.goBack();
+		} else {
+			await this.fetch([this.getResource(this.id)]);
 
-    @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                super.getResource(this.id),
-            ])
+			await this.fetch([await this.loadDonor(this.item.donorId), await this.bankAccountDropdownStore.filterAsync()]);
+			this.previousContributionsTableStore.setData(this.donor.previousContributions);
+			if (!this.previousContributionsTableStore.dataInitialized) {
+				this.previousContributionsTableStore.dataInitialized = true;
+			}
 
-            this.donorId = this.item.donorId;
-            await this.setDonor();
+			if (!this.donor.isInitialContributionDone) {
+				this.form.$('amount').set('rules', `required|numeric|min:${this.donor.contributionMinimumInitialAmount}`);
+			}
 
-            await this.bankAccountDropdownStore.filterAsync();
+			if (this.item.donorBankAccount) {
+				this.bankAccountDropdownStore.setValue(this.item.donorBankAccount);
+			}
+		}
+	}
 
-            const dateToEdit = moment(this.item.dateCreated).add(15, 'm');
-            if (!moment().isBetween(moment(this.item.dateCreated), dateToEdit)) {
-                this.rootStore.notificationStore.warning('ERROR_CODE.5005')
-                this.rootStore.routerStore.goBack();
-            }
-            if (!['pending', 'in-process'].includes(this.item.contributionStatus.abrv)) {
-                this.rootStore.notificationStore.warning('ERROR_CODE.5028')
-                this.rootStore.routerStore.goBack();
-            }
-            this.previousContributionsTableStore.setData(this.donor.previousContributions);
-            if (!this.previousContributionsTableStore.dataInitialized) {
-                this.previousContributionsTableStore.dataInitialized = true;
-            }
+	@action.bound
+	async onSubmitClick() {
+		const { isValid } = await this.form.validate({ showErrors: true });
+		if (isValid) {
+			this.confirmModal.open({
+				onCancel: () => {
+					this.confirmModal.close();
+				},
+				form: this.form,
+				paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
+				bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value),
+			});
+		}
+	}
 
-            if (!this.donor.isInitialContributionDone) {
-                this.form.$('amount').set('rules', `required|numeric|min:${this.donor.contributionMinimumInitialAmount}`);
-            }
+	async loadDonor(donorId) {
+		this.donor = await this.contributionStore.getDonorInformation(donorId);
+	}
 
-            if (this.item.donorBankAccount) {
-                this.bankAccountDropdownStore.setValue(this.item.donorBankAccount)
-            }
-        }
-    }
+	@action.bound
+	onSelectPaymentType(id) {
+		this.form.clear();
+		this.bankAccountDropdownStore.setValue(null);
+		this.brokerageInstitutionDropdownStore.setValue(null);
+		this.securityTypeDropdownStore.setValue(null);
+		this.businessTypeDropdownStore.setValue(null);
+		this.propertyTypeDropdownStore.setValue(null);
+		this.collectibleTypeDropdownStore.setValue(null);
+		this.form.$('paymentTypeId').set(id);
+		const paymentType = this.paymentTypes.find(c => c.id === id);
+		if (paymentType) {
+			this.form.$('donorBankAccountId').setRequired(false);
+			this.form.$('checkNumber').setRequired(false);
+			this.form.$('amount').set('rules', 'required|numeric|min:0');
+			this.form.$('brokerageInstitutionId').setRequired(false);
+			this.form.$('securityTypeId').setRequired(false);
+			this.form.$('businessTypeId').setRequired(false);
+			this.form.$('propertyTypeId').setRequired(false);
+			this.form.$('collectibleTypeId').setRequired(false);
+			this.isThirdPartyFundingAvailable = false;
 
-    @action.bound
-    async setDonor() {
-        this.donor = await this.contributionStore.getDonorInformation(this.donorId);
-    }
+			if (paymentType.abrv === 'ach') {
+				this.form.$('donorBankAccountId').setRequired(true);
+				this.isThirdPartyFundingAvailable = true;
+			} else if (paymentType.abrv === 'wire-transfer') {
+				this.isThirdPartyFundingAvailable = true;
+			} else if (paymentType.abrv === 'stock-and-securities') {
+				this.form.$('amount').set('rules', 'required|numeric|min:1000');
+				this.form.$('brokerageInstitutionId').setRequired(true);
+				this.form.$('securityTypeId').setRequired(true);
+			} else if (paymentType.abrv === 'zelle') {
+				this.isThirdPartyFundingAvailable = true;
+			} else if (paymentType.abrv === 'third-party-donor-advised-funds') {
+			} else if (paymentType.abrv === 'check') {
+				this.form.$('checkNumber').setRequired(true);
+				this.isThirdPartyFundingAvailable = true;
+			} else if (paymentType.abrv === 'business-and-private-interests') {
+				this.form.$('businessTypeId').setRequired(true);
+				this.form.$('amount').set('rules', 'required|numeric|min:50000');
+			} else if (paymentType.abrv === 'real-estate') {
+				this.form.$('propertyTypeId').setRequired(true);
+				this.form.$('amount').set('rules', 'required|numeric|min:50000');
+			} else if (paymentType.abrv === 'collectible-assets') {
+				this.form.$('collectibleTypeId').setRequired(true);
+				this.form.$('amount').set('rules', 'required|numeric|min:25000');
+			} else if (paymentType.abrv === 'crypto-currency') {
+			} else if (paymentType.abrv === 'paycheck-direct') {
+			}
+		}
+		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
+		if (this.donor.isInitialContributionDone) {
+			const json = JSON.parse(paymentType.json);
+			this.form.$('amount').set('rules', `required|numeric|min:${json.minimumDeposit}`);
+		}
+		this.nextStep(2);
+	}
 
-    @action.bound
-    async onSubmitClick() {
-        const { isValid } = await this.form.validate({ showErrors: true });
-        if (isValid) {
-            this.confirmModal.open({
-                onCancel: () => this.confirmModal.close(),
-                form: this.form,
-                paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
-                bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value)
-            });
-        }
-    }
+	@action.bound
+	nextStep(step) {
+		if (step) {
+			this.step = step;
+		} else {
+			this.step = this.step + 1;
+		}
+	}
 
-    @action.bound
-    goBack() {
-        this.rootStore.routerStore.goBack();
-    }
+	@action.bound
+	onAddBankAccountClick() {
+		this.bankAccountModal.open({
+			donorId: this.item.donorId,
+			onAfterAction: async () => {
+				await this.bankAccountDropdownStore.filterAsync(null);
+				const sorted = _.orderBy(this.bankAccountDropdownStore.items, ['dateCreated'], ['desc']);
+				this.form.$('donorBankAccountId').set(sorted[0].id);
+				this.bankAccountModal.close();
+			},
+		});
+	}
 
-    @action.bound
-    onSelectPaymentType(id) {
-        this.form.clear();
-        this.bankAccountDropdownStore.onChange(null);
-        this.form.$('paymentTypeId').set(id);
-        const paymentType = this.paymentTypes.find(c => c.id === id);
-        this.form.$('donorBankAccountId').setRequired(paymentType && paymentType.abrv === 'ach')
-        this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check')
-        if (this.donor.isInitialContributionDone) {
-            const json = JSON.parse(paymentType.json);
-            this.form.$('amount').set('rules', `required|numeric|min:${json.minimumDeposit}`);
-        }
-        this.nextStep(2);
-    }
+	createBankAccountModalParams() {
+		this.bankAccountModal = new ModalParams({
+			onClose: () => {
+				this.bankAccountModal.data = {};
+			},
+		});
+	}
 
-    @action.bound
-    nextStep(step) {
-        if (step)
-            this.step = step;
-        else
-            this.step = this.step + 1;
-    }
+	createConfirmModalParams() {
+		this.confirmModal = new ModalParams({});
+	}
 
-    @action.bound
-    onAddBankAccountClick() {
-        this.bankAccountModal.open({
-            donorId: this.donorId,
-            onAfterAction: async () => {
-                await this.bankAccountDropdownStore.filterAsync(null);
-                const sorted = _.orderBy(this.bankAccountDropdownStore.items, ['dateCreated'], ['desc'])
-                this.form.$('donorBankAccountId').set(sorted[0].id);
-                this.bankAccountModal.close();
-            }
-        })
-    }
+	createPaymentTypeDropdownStore() {
+		this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
+				this.paymentTypes = tempTypes.filter(c => {
+					return !['bill-pay', 'crypto-currency'].includes(c.abrv);
+				});
+				return this.paymentTypes;
+			},
+		});
+	}
 
-    createBankAccountModalParams() {
-        this.bankAccountModal = new ModalParams({
-            onClose: () => { this.bankAccountModal.data = {}; }
-        });
-    }
+	createBankAccountDropdownStore() {
+		this.bankAccountDropdownStore = new BaasicDropdownStore(
+			{ initFetch: false },
+			{
+				fetchFunc: async () => {
+					let params = {
+						embed: ['accountHolder'],
+						orderBy: 'dateCreated',
+						orderDirection: 'desc',
+					};
+					params.donorId = this.item.donorId;
+					return this.contributionStore.findBankAccount(params);
+				},
+			}
+		);
+	}
 
-    createConfirmModalParams() {
-        this.confirmModal = new ModalParams({});
-    }
+	createBrokerageInstitutionDropdownStore() {
+		this.brokerageInstitutionDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return [
+					{ id: '1', name: 'Fidelity Investment' },
+					{ id: '2', name: 'Charles Schwab' },
+					{ id: '3', name: 'Vanguard' },
+					{ id: '4', name: 'Goldman Sachs' },
+					{ id: '5', name: 'E - Trade' },
+					{ id: '6', name: 'TD Ameritrade ' },
+					{ id: '7', name: 'Merrill Lynch' },
+					{ id: '8', name: 'Interactive Brokers LLC' },
+					{ id: '9', name: 'JP Morgan ' },
+					{ id: '10', name: 'Morgan Stanley' },
+					{ id: '11', name: 'Other' },
+				];
+			},
+		});
+	}
 
-    createPaymentTypeDropdownStore() {
-        this.paymentTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    this.paymentTypes = tempTypes.filter(c => { return c.abrv !== 'bill-pay' })
-                    return this.paymentTypes;
-                }
-            });
-    }
+	createThirdPartyDonorAdvisedFundDropdownStore() {
+		this.thirdPartyDonorAdvisedFundDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return [
+					{ id: '1', name: 'Fidelity Charitable' },
+					{ id: '2', name: 'Schwab Charitable' },
+					{ id: '3', name: 'JP Morgan Charitable Giving Fund' },
+					{ id: '4', name: 'Vanguard Charitable Endowment Fund' },
+					{ id: '5', name: 'Jewish Communal Fund' },
+					{ id: '6', name: 'Goldman Sachs Philanthropy Fund' },
+					{ id: '7', name: 'Greater Kansas City Community Foundation' },
+					{ id: '8', name: 'The OJC Fund' },
+					{ id: '9', name: 'Renaissance Charitable' },
+					{ id: '10', name: 'National Philanthropic Trust' },
+					{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
+					{ id: '12', name: 'Other' },
+				];
+			},
+		});
+	}
 
-    createBankAccountDropdownStore() {
-        this.bankAccountDropdownStore = new BaasicDropdownStore(
-            {
-                initFetch: false
-            },
-            {
-                fetchFunc: async () => {
-                    let params = {
-                        embed: ['accountHolder'],
-                        orderBy: 'dateCreated',
-                        orderDirection: 'desc'
-                    }
-                    params.donorId = this.donorId;
-                    return this.contributionStore.findBankAccount(params);
-                }
-            });
-    }
+	createSecurityTypeDropdownStore() {
+		this.securityTypeDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return [
+					{ id: '1', name: 'Stocks' },
+					{ id: '2', name: 'Mutual Funds' },
+					{ id: '3', name: 'Bonds' },
+					{ id: '4', name: 'Other' },
+				];
+			},
+		});
+	}
 
-    createPreviousContributionsTableStore() {
-        this.previousContributionsTableStore = new TableViewStore(null, {
-            columns: [
-                {
-                    key: 'dateCreated',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
-                    }
-                },
-                {
-                    key: 'amount',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'currency',
-                        value: '$'
-                    }
-                }
-            ]
-        });
-    }
+	createBusinessTypeDropdownStore() {
+		this.businessTypeDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				let params = {
+					orderBy: 'dateCreated',
+					orderDirection: 'desc',
+				};
+				return this.rootStore.application.lookup.businessTypeStore.find(params);
+			},
+		});
+	}
+
+	createPropertyTypeDropdownStore() {
+		this.propertyTypeDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return [{ id: '1', name: 'Commercial' }, { id: '2', name: 'Residental' }];
+			},
+		});
+	}
+
+	createCollectibleTypeDropdownStore() {
+		this.collectibleTypeDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return [
+					{ id: '1', name: 'Boat' },
+					{ id: '2', name: 'Art' },
+					{ id: '3', name: 'Accessories' },
+					{ id: '4', name: 'Other' },
+				];
+			},
+		});
+	}
+
+	createPreviousContributionsTableStore() {
+		this.previousContributionsTableStore = new TableViewStore(null, {
+			columns: [
+				{
+					key: 'dateCreated',
+					title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
+					format: {
+						type: 'date',
+						value: 'short',
+					},
+				},
+				{
+					key: 'amount',
+					title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
+					format: {
+						type: 'currency',
+						value: '$',
+					},
+				},
+			],
+		});
+	}
 }
 
 export default ContributionEditViewStore;

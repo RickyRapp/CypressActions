@@ -72,14 +72,14 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 </section>
             </div>
             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med type--right">
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--ghost"
                     label={t('EDIT_FORM_LAYOUT.CANCEL')}
                     onClick={onCancel}
                 />
+            </div>
+            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med type--right">
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} />
             </div>
         </div>
     );

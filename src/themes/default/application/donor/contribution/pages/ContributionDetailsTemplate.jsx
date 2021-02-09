@@ -50,18 +50,6 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             <div className="col col-sml-12">
                                 <div className="row card--secondary card--tny u-mar--bottom--sml">
                                     <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.THIRD_PARTY')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && item.isThirdParty ? 'Yes' : 'No'}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
-                                    <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.STATUS')}</div>
                                     </div>
                                     <div className="col col-sml-6">

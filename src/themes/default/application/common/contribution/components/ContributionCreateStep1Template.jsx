@@ -82,7 +82,7 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
 }
 
 ContributionCreateStep1Template.propTypes = {
-    paymentTypes: PropTypes.array.isRequired,
+    paymentTypes: PropTypes.any.isRequired,
     step: PropTypes.number.isRequired,
     onSelectPaymentType: PropTypes.func.isRequired,
     paymentTypeId: PropTypes.string.isRequired,
