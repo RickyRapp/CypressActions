@@ -14,16 +14,16 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 	const { form, monthDropdownStore } = currentView;
 	return (
 		<div className="">
-			<form className="login__first" onSubmit={form.onSubmit}>
-				<img className="login__first__logo" src="/static/media/logo.42428afc.svg" alt="Logo" />
-				<h4 className="login__first__title">All you need to give all you want</h4>
-				<p className="login__first__desc">
+			<form className="login__card" onSubmit={form.onSubmit}>
+				<img className="login__card__logo" src="/static/media/logo.42428afc.svg" alt="Logo" />
+				<h4 className="login__card__title">All you need to give all you want</h4>
+				<p className="login__card__desc">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nihil perferendis eius reprehenderit quis odio
 					dicta quia, ab consectetur cupiditate est incidunt itaque ducimus id. Veniam optio ipsum fuga, quam illum
 					magni vero recusandae eveniet facilis maiores, rerum laborum quia!
 				</p>
 
-				<div className="login__first__form">
+				<div className="login__card__form">
 					<div className="row">
 						<div className="form__group col col-sml-12 col-lrg-4">
 							<BaasicFieldDropdown store={monthDropdownStore} field={form.$('month')} />

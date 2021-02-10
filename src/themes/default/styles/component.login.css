@@ -8,7 +8,7 @@
 
 	background-color: $white;
 
-	&__first {
+	&__card {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -22,32 +22,35 @@
 			
 			@media (--screen-from-lrg) {
 				height: calc($unit * 10);
-				margin: calc($unit * 8) 0;
+				margin: calc($unit * 6) 0;
 			}
 		}
 
-		&__title {
-			margin-bottom: calc($unit * 3);
-			
+		&__title {			
+			margin-bottom: calc($unit * 5);
 			font-family: $ff-serif;
 			@mixin type-scale $type-xlarge, 1.25;
 			
 			@media (--screen-from-lrg) {
-				@mixin type-scale $type-huge, 2;
+				@mixin type-scale $type-huge, 3.5;
 			}
 		}
 
 		&__desc {
-			width: 100;
-			margin-bottom: calc($unit * 3);
+			width: 100%;
+			margin-bottom: calc($unit * 6);
 			color: $color-opaque;
 			text-align: center;
 			@mixin type-scale $type-small, 1;
 			
+			@media (--screen-from-med) {
+				width: 80%;
+			}
+			
 			@media (--screen-from-lrg) {
 				width: 70%;
 				@mixin type-scale $type-medium, 1.25;
-				padding: calc($unit * 7);
+				padding: 0 calc($unit * 7);
 			}
 
 			@media (--screen-from-xlrg) {
@@ -58,14 +61,23 @@
 		&__form {
 			width: 100%;
 			background-color: $white;
-			padding: calc($unit * 4);
+			padding: calc($unit * 3);
+
+			@media (--screen-from-med) {
+				width: 80%;
+				padding: calc($unit * 6);
+			}
 
 			@media (--screen-from-lrg) {
-				width: 50%;
-				padding: calc($unit * 10);
+				width: 60%;
+				padding: calc($unit * 6);
 			}
 
 			@media (--screen-from-xlrg) {
+				width: 50%;
+			}
+			
+			@media (--screen-from-xxlrg) {
 				width: 45%;
 			}
 		}
