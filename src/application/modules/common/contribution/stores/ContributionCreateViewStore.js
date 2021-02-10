@@ -119,7 +119,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
 			if (paymentType.abrv === 'ach') {
 				this.form.$('donorBankAccountId').setRequired(true);
-				this.isThirdPartyFundingAvailable = true;
+				this.isThirdPartyFundingAvailable = false;
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
 			} else if (paymentType.abrv === 'stock-and-securities') {

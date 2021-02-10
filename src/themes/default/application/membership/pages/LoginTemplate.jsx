@@ -13,7 +13,7 @@ function LoginTemplate({ currentView, t }) {
 			<div className="login__info">
 				<form className="login__form" onSubmit={loginForm.onSubmit}>
 					<div className="login__info--logo">
-						<img src={logo} alt="Logo" />
+						<a href="/" ><img src={logo} alt="Logo" /></a>
 					</div>
 					<h4 className="login__info--title">Welcome</h4>
 
@@ -48,7 +48,7 @@ function LoginTemplate({ currentView, t }) {
 					</div>
 				</form>
 
-				<p className="login__info--rights">2020. THE DONORS' FUND. ALL RIGHTS RESERVED.</p>
+				<p className="login__info--rights">{new Date().getFullYear()}. THE DONORS' FUND. ALL RIGHTS RESERVED.</p>
 			</div>
 		</div>
 	);

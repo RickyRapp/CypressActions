@@ -22,6 +22,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 		previousContributionsTableStore,
 		nextStep,
 		onSubmitClick,
+		onAddBankAccountClick,
 		...otherProps
 	} = contributionCreateViewStore;
 
@@ -46,6 +47,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 					nextStep={nextStep}
 					step={step}
 					onSelectPaymentType={onSelectPaymentType}
+					onAddBankAccountClick={onAddBankAccountClick}
 					{...otherProps}
 				/>
 			)}

@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BankAccount, FormatterResolver } from 'core/components';
 import { DonorBankAccountEdit } from 'application/donor/donor/components';
 
-const DonorBankAcountListTemplate = function({ donorBankAccountViewStore, t }) {
+const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) {
 	const {
 		bankAccounts,
 		onEnableEditClick,
@@ -47,22 +47,22 @@ const DonorBankAcountListTemplate = function({ donorBankAccountViewStore, t }) {
 													<p className="type--base type--wgt--bold">{c.name}</p>
 												</div>
 
-												
-                                                <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+
+												<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-                                                        Account Number:
+														Account Number:
 													</p>
 													<p className="type--base type--wgt--bold">{c.accountNumber}</p>
 												</div>
-                                               
-                                                <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+
+												<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-                                                        Description:
+														Description:
 													</p>
 													<p className="type--base type--wgt--bold">{c.description}</p>
 												</div>
-											
-                                            	<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+
+												<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
 														Is Third Party Account?
 													</p>
@@ -81,10 +81,10 @@ const DonorBankAcountListTemplate = function({ donorBankAccountViewStore, t }) {
 									onEditCompleted={onEditCompleted}
 								/>
 							) : (
-								<span className="cursor--pointer" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
-									<button className="btn btn--link btn--sml">Add new bank account</button>
-								</span>
-							)}
+									<span className="cursor--pointer" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
+										<button className="btn btn--link btn--sml">Add new bank account</button>
+									</span>
+								)}
 						</div>
 					</div>
 				</div>

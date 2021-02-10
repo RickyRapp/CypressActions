@@ -84,6 +84,9 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 				if (props.onEditCompleted) {
 					props.onEditCompleted();
 				}
+				if (props.modalParams && props.modalParams.data && props.modalParams.data.onAfterAction) {
+					props.modalParams.data.onAfterAction();
+				}
 			},
 		});
 

@@ -55,8 +55,14 @@ const ContributionCreateStep3Template = function ({
                         )}
                         {paymentType.abrv === 'check' && (
                             <div className="col col-sml-12 col-lrg-12">
-                                {t('CONTRIBUTION.CREATE.CHECK_NUMBER')}
-                                {form.$('checkNumber').value}
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">
+                                        {t('CONTRIBUTION.CREATE.CHECK_NUMBER')}
+                                    </span>
+                                    <span className="type--base type--wgt--bold u-push">
+                                        {form.$('checkNumber').value}
+                                    </span>
+                                </div>
                             </div>
                         )}
 
