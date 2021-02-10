@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { BookletOrderCreateTemplate } from 'themes/application/common/booklet-order/pages';
 import { BookletOrderCreateViewStore } from 'application/common/booklet-order/stores';
 
-@setCurrentView((rootStore) => new BookletOrderCreateViewStore(rootStore, { donorId: rootStore.routerStore.routerState.params.id }), 'store')
+@setCurrentView((rootStore) => new BookletOrderCreateViewStore(rootStore, { donorId: rootStore.routerStore.routerState.params.id, isDonor: false }), 'store')
 @observer
 class BookletOrderCreate extends React.Component {
     render() {

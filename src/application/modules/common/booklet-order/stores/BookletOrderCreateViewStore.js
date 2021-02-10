@@ -15,7 +15,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable isDefaultShippingAddress = true;
     applicationDefaultSetting = null;
 
-    constructor(rootStore, { donorId }) {
+    constructor(rootStore, { donorId, isDonor }) {
         super(rootStore, {
             name: 'booklet-order-create',
             id: undefined,
@@ -35,6 +35,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         });
 
         this.donorId = donorId;
+        this.isDonor = isDonor;
         this.createCustomizedExpirationDateDropdownStore();
     }
 
@@ -50,6 +51,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             ]);
 
             this.setDefaultShippingAddress();
+        }
+    }
+
+    @action.bound
+    onShowAllBooksClick() {
+        if (this.isDonor) {
+            this.rootStore.routerStore.goTo('master.app.main.donor.booklet-order.list')
+        }
+        else {
+            this.rootStore.routerStore.goTo('master.app.main.administration.booklet-order.list', null, { id: this.donorId })
         }
     }
 

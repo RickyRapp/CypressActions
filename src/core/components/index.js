@@ -51,6 +51,8 @@ export { default as TabsHeader } from './tabs/TabsHeader';
 export { default as BasicCheckbox } from './checkbox/BasicCheckbox';
 export { default as BaasicSwitch } from './checkbox/BaasicSwitch';
 export { default as BaasicFieldSwitch } from './checkbox/BaasicFieldSwitch';
+export { default as BaasicToggle } from './checkbox/BaasicToggle';
+export { default as BaasicFieldToggle } from './checkbox/BaasicFieldToggle';
 export { default as BasicQueryCheckbox } from './checkbox/BasicQueryCheckbox';
 export { default as BasicFieldCheckbox } from './checkbox/BasicFieldCheckbox';
 export { default as NullableSwitch } from './checkbox/NullableSwitch';

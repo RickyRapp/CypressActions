@@ -31,7 +31,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         showMoreOptions,
         onShowMoreOptionsClick,
         customizedExpirationDateDropdownStore,
-        isDefaultShippingAddress
+        isDefaultShippingAddress,
+        onShowAllBooksClick
     } = store;
 
     return (
@@ -50,6 +51,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     format={{ type: 'currency' }}
                                 />}</h2>
                             </div>
+                        </div>
+                        <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>
+                            Show all orders
                         </div>
                     </div>
 

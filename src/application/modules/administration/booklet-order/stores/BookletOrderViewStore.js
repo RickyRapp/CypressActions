@@ -145,8 +145,8 @@ class BookletOrderViewStore extends BaseListViewStore {
                     });
                 },
                 initValueFunc: async () => {
-                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.id) {
-                        const id = this.rootStore.routerStore.routerState.queryParams.id;
+                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = this.rootStore.routerStore.routerState.queryParams.donorId;
                         const params = {
                             embed: [
                                 'donorAddresses'

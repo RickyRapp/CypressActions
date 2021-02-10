@@ -44,6 +44,8 @@ export { default as TabsHeaderTemplate } from './tabs/TabsHeaderTemplate';
 export { default as BasicCheckboxTemplate } from './checkbox/BasicCheckboxTemplate';
 export { default as BaasicSwitchTemplate } from './checkbox/BaasicSwitchTemplate';
 export { default as BaasicFieldSwitchTemplate } from './checkbox/BaasicFieldSwitchTemplate';
+export { default as BaasicToggleTemplate } from './checkbox/BaasicToggleTemplate';
+export { default as BaasicFieldToggleTemplate } from './checkbox/BaasicFieldToggleTemplate';
 export { default as BasicQueryCheckboxTemplate } from './checkbox/BasicQueryCheckboxTemplate';
 export { default as BasicFieldCheckboxTemplate } from './checkbox/BasicFieldCheckboxTemplate';
 export { default as NullableSwitchTemplate } from './checkbox/NullableSwitchTemplate';

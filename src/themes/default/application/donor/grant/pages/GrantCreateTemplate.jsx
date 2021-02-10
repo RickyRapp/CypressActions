@@ -14,6 +14,7 @@ import {
 	BaasicFormControls,
 	BasicInput,
 	NumberFormatInputField,
+	BaasicFieldToggle,
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -177,11 +178,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row">
 										<div className="form__group col col-sml-12 type--color--note u-mar--bottom--med">
-											<BasicFieldCheckbox field={form.$('isRecurring')} />
-											{/* <div className={`toggle ${form.$('isRecurring').value ? "toggle--active" : "toggle--deactive"}`}>
-												<button className={`toggle__btn ${form.$('isRecurring').value ? "" : "toggle__btn--active"}`} onClick={()=> form.$('isRecurring').value = !form.$('isRecurring').value}></button>
-												<button className={`toggle__btn ${form.$('isRecurring').value ? "toggle__btn--active" : ""}`} onClick={()=> form.$('isRecurring').value = !form.$('isRecurring').value}></button>
-											</div> */}
+											<BaasicFieldToggle field={form.$('isRecurring')} />
 										</div>
 									</div>
 								)}
@@ -204,10 +201,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												<NumericInputField field={form.$('numberOfPayments')} showLabel={false} />
 											</div>
 											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-												<DatePickerField field={form.$('endDate')} />
-											</div>
-											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-												<BasicFieldCheckbox field={form.$('noEndDate')} />
+												<BaasicFieldToggle field={form.$('noEndDate')} showLabel={true} />
 											</div>
 										</div>
 										{form.$('amount').value && form.$('noEndDate').value === false && (form.$('numberOfPayments').value || form.$('endDate').value) &&
