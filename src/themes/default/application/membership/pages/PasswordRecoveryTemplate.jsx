@@ -23,7 +23,7 @@ function PasswordRecoveryTemplate({ currentView, t }) {
 						</div>
 					)}
 					<div className="type--right u-mar--top--base">
-						<button className="btn btn--med btn--ghost u-mar--right--sml" onClick={goToLogin}>
+						<button className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml" onClick={goToLogin}>
 							{t('PASSWORD_RECOVERY.CANCEL_BUTTON')}
 						</button>
 						<BaasicButton

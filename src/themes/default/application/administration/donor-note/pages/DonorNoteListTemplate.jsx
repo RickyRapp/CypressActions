@@ -32,7 +32,7 @@ const DonorNoteListTemplate = function ({ donorNoteViewStore, t }) {
                         <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                         {noteId &&
                             <BaasicButton
-                                className="btn btn--med btn--ghost"
+                                className="btn btn--med btn--med--wide btn--ghost"
                                 label={t('EDIT_FORM_LAYOUT.CANCEL')}
                                 onClick={onClearFormClick}
                             />}

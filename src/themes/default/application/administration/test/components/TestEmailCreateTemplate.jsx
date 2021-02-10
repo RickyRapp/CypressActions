@@ -83,7 +83,7 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                     <div className="u-mar--left--sml">
                         <BaasicButton
-                            className="btn btn--med btn--ghost"
+                            className="btn btn--med btn--med--wide btn--ghost"
                             label='Set all custom data'
                             onClick={setAllCustom}
                             />

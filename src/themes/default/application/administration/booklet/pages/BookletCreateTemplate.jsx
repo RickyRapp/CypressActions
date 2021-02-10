@@ -134,7 +134,7 @@ const BookletCreateTemplate = function ({ bookletCreateViewStore }) {
 															{(isMixed500Booklet || isMixed2000Booklet) && item.$('bookletContents').size > 1 && (
 																<div className="form__group col col-sml-12 col-xlrg-12 col-xxlrg-4 type--right">
 																	<BaasicButton
-																		className="btn btn--med btn--ghost"
+																		className="btn btn--med btn--med--wide btn--ghost"
 																		type="button"
 																		label="Delete denomination"
 																		onClick={content.onDel}

@@ -23,7 +23,7 @@ function LanguageEditLayoutTemplate({ store, form, loaderStore, t, routeBack }) 
                         }
                         label={t('FORM_CONTROLS.SAVE_BUTTON')}
                     />
-                    <BaasicButton className='btn btn--med btn--ghost display-ib' label={t('EDIT_FORM_LAYOUT.CANCEL')} onClick={back} />
+                    <BaasicButton className='btn btn--med btn--med--wide btn--ghost display-ib' label={t('EDIT_FORM_LAYOUT.CANCEL')} onClick={back} />
                 </div>
             </PageFooter>
             <Translation store={translationStore} />

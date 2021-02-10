@@ -54,7 +54,7 @@ class SearchFilterTemplate extends React.Component {
                         </div>
 
                         <div className="inputgroup--aside">
-                            <button className='btn btn--med btn--secondary' onClick={() => queryUtility.fetch()}>
+                            <button className='btn btn--med btn--med--wide btn--secondary' onClick={() => queryUtility.fetch()}>
                                 <i className='icomoon icon-search tiny align--v--baseline' />
                                 <span className='align--v--bottom'>
                                     {t('GRID.FILTER.SEARCH_BUTTON')}

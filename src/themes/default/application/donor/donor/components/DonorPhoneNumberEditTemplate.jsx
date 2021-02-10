@@ -34,14 +34,14 @@ class DonorPhoneNumberEditTemplate extends Component {
                 <div className="info-card--footer">
                     <BaasicButton
                         type='button'
-                        className="btn btn--med btn--ghost"
+                        className="btn btn--med btn--med--wide btn--ghost"
                         onClick={onCancelEditClick}
                         label='Cancel'
                         />
                     <BaasicFormControls
                         form={form}
                         onSubmit={form.onSubmit}
-                        className="btn btn--med btn--secondary" />
+                        className="btn btn--med btn--med--wide btn--secondary" />
                 </div>
             </EditFormContent>
         );

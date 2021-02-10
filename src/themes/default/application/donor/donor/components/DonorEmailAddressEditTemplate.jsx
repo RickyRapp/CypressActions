@@ -31,11 +31,11 @@ class DonorEmailAddressEditForm extends Component {
 				<div className="col col-sml-12 info-card--footer">
 					<BaasicButton
 						type="button"
-						className="btn btn--med btn--ghost"
+						className="btn btn--med btn--med--wide btn--ghost"
 						onClick={onCancelEditClick}
 						label="Cancel"
 					/>
-					<BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--secondary" />
+					<BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--wide btn--secondary" />
 				</div>
 			</EditFormContent>
 		);
