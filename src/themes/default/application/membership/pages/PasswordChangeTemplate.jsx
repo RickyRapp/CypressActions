@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BasicInput, BaasicButton } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import logo from 'themes/assets/img/new-logo.svg';
 
 function PasswordChangeTemplate({ currentView, t }) {
 	const { passwordChangeForm, goToLogin } = currentView;
@@ -9,7 +10,7 @@ function PasswordChangeTemplate({ currentView, t }) {
 	return (
 		<section>
 			<form className="login__card" onSubmit={passwordChangeForm.onSubmit}>
-				<img className="login__card__logo" src="/static/media/logo.42428afc.svg" alt="Logo" />
+				<img className="login__card__logo" src={logo} alt="Logo" />
 				<h3 className="login__card__title">{t('PASSWORD_CHANGE.NEW_PASSWORD_PLACEHOLDER')}</h3>
 				<div className="login__card__form">
 					<div className="row">

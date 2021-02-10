@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BasicInput, BaasicButton } from 'core/components';
-import logo from 'themes/assets/img/logo.svg';
+import logo from 'themes/assets/img/new-logo.svg';
 
 function LoginTemplate({ currentView, t }) {
 	const { loginForm, routes } = currentView;

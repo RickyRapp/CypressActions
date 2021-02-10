@@ -8,14 +8,14 @@ import {
 	BaasicFieldDropdown,
 	NumberFormatInputField,
 } from 'core/components';
-import logo from 'themes/assets/img/logo.svg';
+import logo from 'themes/assets/img/new-logo.svg';
 
 function FirstLoginExistingDonorTemplate({ currentView, t }) {
 	const { form, monthDropdownStore } = currentView;
 	return (
 		<div className="">
 			<form className="login__card" onSubmit={form.onSubmit}>
-				<img className="login__card__logo" src="/static/media/logo.42428afc.svg" alt="Logo" />
+				<img className="login__card__logo" src={logo} alt="Logo" />
 				<h4 className="login__card__title">All you need to give all you want</h4>
 				<p className="login__card__desc">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nihil perferendis eius reprehenderit quis odio

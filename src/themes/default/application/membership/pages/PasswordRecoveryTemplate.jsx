@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BasicInput, BaasicRecaptcha, BaasicButton } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import logo from 'themes/assets/img/logo.svg';
+import logo from 'themes/assets/img/new-logo.svg';
 
 function PasswordRecoveryTemplate({ currentView, t }) {
 	const { form, loading, onVerifyRecaptcha, goToLogin } = currentView;
