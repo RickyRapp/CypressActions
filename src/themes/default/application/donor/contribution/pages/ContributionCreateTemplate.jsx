@@ -9,7 +9,7 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorBankAccountEdit } from 'application/donor/donor/components';
 import { ContributionCreateStep1Template, ContributionCreateStep2Template, ContributionCreateStep3Template } from 'themes/application/common/contribution/components';
 
-const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
+const ContributionCreateTemplate = function ({ store }) {
 	const {
 		loaderStore,
 		form,
@@ -24,7 +24,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 		onSubmitClick,
 		onAddBankAccountClick,
 		...otherProps
-	} = contributionCreateViewStore;
+	} = store;
 
 	return (
 		<Page loading={loaderStore.loading}>
@@ -67,7 +67,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 };
 
 ContributionCreateTemplate.propTypes = {
-	contributionCreateViewStore: PropTypes.object.isRequired,
+	store: PropTypes.object.isRequired,
 	t: PropTypes.func,
 };
 

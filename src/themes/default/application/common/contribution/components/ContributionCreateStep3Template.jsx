@@ -113,10 +113,11 @@ const ContributionCreateStep3Template = function ({
 }
 
 ContributionCreateStep3Template.propTypes = {
-    paymentTypes: PropTypes.array.isRequired,
-    step: PropTypes.number.isRequired,
-    onSelectPaymentType: PropTypes.func.isRequired,
-    paymentTypeId: PropTypes.string.isRequired,
+    paymentType: PropTypes.object.isRequired,
+    routes: PropTypes.object.isRequired,
+    previousContributionsTableStore: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired,
+    bankAccount: PropTypes.object.isRequired,
     t: PropTypes.func,
 };
 

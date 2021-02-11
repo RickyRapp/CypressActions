@@ -320,9 +320,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												</div>
 												<div className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
 													<div className="col col-sml-12 col-lrg-4">
-														<img src={logo} alt={'logo'} />
-													</div>
-													<div className="col col-sml-12 col-lrg-4">
 														<div className="type--base type--wgt--bold">{charityDropdownStore.value.item.name}</div>
 													</div>
 												</div>

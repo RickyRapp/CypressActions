@@ -147,9 +147,12 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <BaasicFieldDropdown field={form.$('businessTypeId')} store={businessTypeDropdownStore} />
                                             </div>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                <BasicInput field={form.$('businessTypeOther')} />
-                                            </div>
+                                            {businessTypeDropdownStore &&
+                                                businessTypeDropdownStore.value &&
+                                                businessTypeDropdownStore.value.name === 'Other' &&
+                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                    <BasicInput field={form.$('businessTypeOther')} />
+                                                </div>}
                                         </React.Fragment>
                                     )}
                                     {paymentType.abrv === 'real-estate' && (
@@ -157,9 +160,12 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <BaasicFieldDropdown field={form.$('propertyTypeId')} store={propertyTypeDropdownStore} />
                                             </div>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                <BasicInput field={form.$('propertyTypeOther')} />
-                                            </div>
+                                            {propertyTypeDropdownStore &&
+                                                propertyTypeDropdownStore.value &&
+                                                propertyTypeDropdownStore.value.name === 'Other' &&
+                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                    <BasicInput field={form.$('propertyTypeOther')} />
+                                                </div>}
                                         </React.Fragment>
                                     )}
                                     {paymentType.abrv === 'collectible-assets' && (

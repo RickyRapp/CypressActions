@@ -122,7 +122,7 @@ class SessionViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.administration.charityStore.searchCharity({
+                    const data = await this.rootStore.application.administration.charityStore.findCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,

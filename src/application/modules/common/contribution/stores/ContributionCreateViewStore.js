@@ -91,6 +91,15 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				form: this.form,
 				paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
 				bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value),
+				brokerageInstitution: this.brokerageInstitutionDropdownStore.value && this.brokerageInstitutionDropdownStore.value.name === 'Other' ? this.form.$('brokerageInstitutionOther').value : this.brokerageInstitutionDropdownStore.value && this.brokerageInstitutionDropdownStore.value.name,
+				securityType: this.securityTypeDropdownStore.value && this.securityTypeDropdownStore.value.name === 'Other' ? this.form.$('securityTypeOther').value : this.securityTypeDropdownStore.value && this.securityTypeDropdownStore.value.name,
+				securitySymbol: this.form.$('securitySymbol').value,
+				numberOfShares: this.form.$('numberOfShares').value,
+				thirdPartyDonorAdvisedFund: this.thirdPartyDonorAdvisedFundDropdownStore.value && this.thirdPartyDonorAdvisedFundDropdownStore.value.name === 'Other' ? this.form.$('brokerageInstitutionOther').value : this.thirdPartyDonorAdvisedFundDropdownStore.value && this.thirdPartyDonorAdvisedFundDropdownStore.value.name,
+				checkNumber: this.form.$('checkNumber').value,
+				businessType: this.businessTypeDropdownStore.value && this.businessTypeDropdownStore.value.name === 'Other' ? this.form.$('businessTypeOther').value : this.businessTypeDropdownStore.value && this.businessTypeDropdownStore.value.name,
+				propertyType: this.propertyTypeDropdownStore.value && this.propertyTypeDropdownStore.value.name === 'Other' ? this.form.$('propertyTypeOther').value : this.propertyTypeDropdownStore.value && this.propertyTypeDropdownStore.value.name,
+				collectableType: this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name === 'Other' ? this.form.$('collectibleTypeOther').value : this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name
 			});
 		}
 	}
@@ -103,6 +112,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		this.securityTypeDropdownStore.setValue(null);
 		this.businessTypeDropdownStore.setValue(null);
 		this.propertyTypeDropdownStore.setValue(null);
+		this.thirdPartyDonorAdvisedFundDropdownStore.setValue(null);
 		this.collectibleTypeDropdownStore.setValue(null);
 		this.form.$('paymentTypeId').set(id);
 		const paymentType = this.paymentTypes.find(c => c.id === id);
@@ -119,6 +129,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
 			if (paymentType.abrv === 'ach') {
 				this.form.$('donorBankAccountId').setRequired(true);
+				this.form.$('amount').set('rules', 'required|numeric|min:250');
 				this.isThirdPartyFundingAvailable = false;
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
@@ -140,7 +151,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				this.form.$('amount').set('rules', 'required|numeric|min:50000');
 			} else if (paymentType.abrv === 'collectible-assets') {
 				this.form.$('collectibleTypeId').setRequired(true);
-				this.form.$('amount').set('rules', 'required|numeric|min:25000');
+				this.form.$('amount').set('rules', 'required|numeric|min:50000');
 			} else if (paymentType.abrv === 'crypto-currency') {
 			} else if (paymentType.abrv === 'paycheck-direct') {
 			}

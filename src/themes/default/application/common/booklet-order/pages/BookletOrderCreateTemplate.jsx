@@ -12,6 +12,7 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 import { BookletOrderButtonCounterTemplate } from '../components';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
@@ -278,45 +279,58 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     </div>
                 </div>
 
-                <div className="card--primary card--med u-mar--bottom--med">
-                    <div className="row u-mar--top--sml u-mar--bottom--sml">
-                        <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
-                            <span className="type--med type--wgt--medium type--color--note">
-                                {t('BOOKLET_ORDER.CREATE.SHIPPING_ADDRESS')}
-                            </span>
-                        </div>
-                        {isDefaultShippingAddress ?
+                {deliveryMethodTypes && deliveryMethodTypes.length > 0 && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('deliveryMethodTypeId').value) &&
+                    <div className="card--primary card--med u-mar--bottom--med">
+                        {(form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'mail-usps').id || form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'express-mail').id) ?
                             <React.Fragment>
-                                {donor &&
-                                    <Address value={donor.donorAddress} format="booklet-order" />}
-                            </React.Fragment>
-                            :
-                            <React.Fragment>
-                                <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('addressLine1')} />
+                                <div className="row u-mar--top--sml u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
+                                        <span className="type--med type--wgt--medium type--color--note">
+                                            {t('BOOKLET_ORDER.CREATE.SHIPPING_ADDRESS')}
+                                        </span>
+                                    </div>
+                                    {isDefaultShippingAddress ?
+                                        <React.Fragment>
+                                            {donor &&
+                                                <Address value={donor.donorAddress} format="booklet-order" />}
+                                        </React.Fragment>
+                                        :
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('addressLine1')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('addressLine2')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('city')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('state')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('zipCode')} />
+                                            </div>
+                                        </React.Fragment>}
                                 </div>
-                                <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('addressLine2')} />
+                                <BaasicButton
+                                    className="btn btn--med btn--med--100 btn--primary"
+                                    label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
+                                    onClick={() => onChangeShippingAddressClick()}>
+                                </BaasicButton>
+                            </React.Fragment> :
+                            <div className="row u-mar--top--sml u-mar--bottom--sml">
+                                <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
+                                    <span className="type--med type--wgt--medium type--color--note">
+                                        {t('BOOKLET_ORDER.CREATE.PICK_UP_ADDRESS')}
+                                    </span>
                                 </div>
-                                <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('city')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('state')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                                    <BasicInput field={form.$('zipCode')} />
-                                </div>
-                            </React.Fragment>}
-                    </div>
-                    <BaasicButton
-                        className="btn btn--med btn--med--100 btn--primary"
-                        label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
-                        onClick={() => onChangeShippingAddressClick()}>
-                    </BaasicButton>
-                </div>
+                                <Address value={{ addressLine1: '328 3rd Street ', addressLine2: '', city: 'Lakewood', state: 'NJ', zipCode: '08701' }} format="booklet-order" />
+                            </div>
+                        }
+                    </div>}
             </Content>
-            { renderEditLayoutFooterContent({ form })}
+            {renderEditLayoutFooterContent({ form })}
         </ApplicationEditLayout>
     )
 };
