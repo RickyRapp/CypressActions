@@ -32,6 +32,7 @@ class TestEmailViewStore extends BaseViewStore {
 
     async setTableStore() {
         const data = await this.rootStore.application.lookup.emailTypeStore.find();
+        data.push({ id: '00000000-0000-0000-0000-000000000000', name: 'Welcome New System', description: 'Welcome New System' })
 
         this.tableStore.setData(_.orderBy(data, [item => item.name], ['asc']));
         if (!this.tableStore.dataInitialized) {
