@@ -9,7 +9,7 @@ import logo_collapsed from 'themes/styles/postcss-svg/old/logo-collapsed.svg';
 function MenuTemplate({ menuStore, t }) {
     return (
         <NotifyOutsideClick action={() => menuStore.closeMenu()}>
-            <div className={'layout__aside ' +  (menuStore.isCollapsed ? 'is-collapsed' : '') + (menuStore.isOpen ? ' is-open' : '')}>
+            <div className={'layout__aside ' + (menuStore.isCollapsed ? 'is-collapsed' : '') + (menuStore.isOpen ? ' is-open' : '')}>
                 <React.Fragment>{renderPrimary(menuStore.menu, menuStore, t)}</React.Fragment>
             </div>
         </NotifyOutsideClick>
@@ -25,7 +25,7 @@ function renderPrimary(menu, menuStore, translate) {
                 {menu.map((item, i) => {
                     const title = translate(item.title);
                     let className = title === "Give" ? 'nav--primary__item nav--primary__item--give' : 'nav--primary__item';
-                    
+
                     if (menuStore.selectedPath && menuStore.selectedPath.length > 0) {
                         if (menuItemActive(item, menuStore.selectedPath)) {
                             className += ' selected';
@@ -37,44 +37,44 @@ function renderPrimary(menu, menuStore, translate) {
                     if (className.includes('selected') || (item.hasChildren && className.includes('active'))) {
                         return (
                             <React.Fragment key={title}>
-                                
-                                    <div className={title === "Give" ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} />
-                                        {!menuStore.isCollapsed &&
-                                            <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
-                                                {title}
-                                            </span>}
-                                        {item.hasChildren ? (
-                                            <span className="nav--primary__icon">
-                                                <span className="u-icon u-icon--base u-icon--arrow-up"></span>
-                                            </span>
-                                        ) : null}
-                                    </div>
-                                    <SecondaryMenu items={item.subMenu} />
+
+                                <div className={title === "Give" ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
+                                    <span className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} />
+                                    {!menuStore.isCollapsed &&
+                                        <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
+                                            {title}
+                                        </span>}
+                                    {item.hasChildren ? (
+                                        <span className="nav--primary__icon">
+                                            <span className="u-icon u-icon--base u-icon--arrow-up"></span>
+                                        </span>
+                                    ) : null}
+                                </div>
+                                <SecondaryMenu items={item.subMenu} />
 
                             </React.Fragment>
                         );
                     } else {
                         return (
                             <React.Fragment key={title}>
-                                
-                                    <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                        <span className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} title={title} />
-                                        {!menuStore.isCollapsed &&
-                                            <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
-                                                {title}
-                                            </span>}
-                                        {item.hasChildren ? (
-                                            <span className="nav--primary__icon">
-                                                <span className="u-icon u-icon--base u-icon--arrow-down"></span>
-                                            </span>
-                                        ) : null}
-                                    </div>
+
+                                <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
+                                    <span className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} title={title} />
+                                    {!menuStore.isCollapsed &&
+                                        <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
+                                            {title}
+                                        </span>}
+                                    {item.hasChildren ? (
+                                        <span className="nav--primary__icon">
+                                            <span className="u-icon u-icon--base u-icon--arrow-down"></span>
+                                        </span>
+                                    ) : null}
+                                </div>
 
                             </React.Fragment>
                         );
                     }
-                    
+
                 })}
             </div>
             {
@@ -166,17 +166,17 @@ function renderMenuHeader(menuStore, t) {
 function renderMenuFooter(menuStore, t) {
     return (
         <React.Fragment>
-            <div className="nav--primary__footer">
+            <div className="nav--primary__footer" onClick={() => menuStore.rootStore.viewStore.logout()}>
                 <div className="nav--primary__item--logout">
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--xmed u-icon--logout"></i>
-                        : <span onClick={() => menuStore.rootStore.viewStore.logout()}>{t('MENU.FOOTER.LOGOUT')}</span>
+                        : <span>{t('MENU.FOOTER.LOGOUT')}</span>
                     }
                 </div>
                 <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--base u-icon--arrow-right"></i> : <i className="u-icon u-icon--base u-icon--arrow-left"></i>}
                 </div>
             </div>
-            
+
         </React.Fragment>
     )
 }
