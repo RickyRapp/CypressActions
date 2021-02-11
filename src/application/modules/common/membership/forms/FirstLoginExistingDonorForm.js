@@ -9,6 +9,12 @@ export default class FirstLoginExistingDonorForm extends FormBase {
 		return {
 			fields: [
 				{
+					name: 'fundName',
+					label: 'FIRST_LOGIN_EXISTING_DONOR.FUND_NAME_LABEL',
+					placeholder: 'FIRST_LOGIN_EXISTING_DONOR.FUND_NAME_PLACEHOLDER',
+					rules: 'required|string',
+				},
+				{
 					name: 'day',
 					label: 'FIRST_LOGIN_EXISTING_DONOR.DAY_LABEL',
 					placeholder: 'FIRST_LOGIN_EXISTING_DONOR.DAY_PLACEHOLDER',
@@ -55,7 +61,7 @@ export default class FirstLoginExistingDonorForm extends FormBase {
 				},
 				{
 					name: 'confirmSecurityPin',
-					label: 'FIRST_LOGIN_EXISTING_DONOR.SECURITY_PIN_LABEL',
+					label: 'FIRST_LOGIN_EXISTING_DONOR.CONFRIM_SECURITY_PIN_LABEL',
 					rules: 'required|string|digits:4|same:securityPin',
 					type: 'password',
 					extra: {

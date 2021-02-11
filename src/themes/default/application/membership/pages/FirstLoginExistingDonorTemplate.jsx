@@ -25,6 +25,11 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 
 				<div className="login__card__form">
 					<div className="row">
+						<div className="form__group col col-sml-12 col-lrg-12">
+							<BasicInput field={form.$('fundName')} />
+						</div>
+					</div>
+					<div className="row">
 						<div className="form__group col col-sml-12 col-lrg-4">
 							<BaasicFieldDropdown store={monthDropdownStore} field={form.$('month')} />
 						</div>

@@ -21,6 +21,27 @@ class FirstLoginExistingDonorViewStore extends BaseViewStore {
 			);
 		}
 		this.createMonthDropdownStore();
+		this.loadDonorFirstLogin();
+	}
+
+	async loadDonorFirstLogin() {
+		this.loaderStore.suspend();
+		try {
+			const { data } = await this.rootStore.application.baasic.apiClient.get('donor/first-login/' + this.passwordRecoveryToken);
+			if (data && data.fundName) {
+				this.form.$('fundName').set(data.fundName);
+				this.form.$('fundName').setDisabled(true);
+			}
+		} catch ({ statusCode, data }) {
+			this.loaderStore.resume();
+
+			switch (statusCode) {
+				default:
+					this.rootStore.notificationStore.error('FIRST_LOGIN_EXISTING_DONOR.ERROR_MESSAGE', data);
+					break;
+
+			}
+		}
 	}
 
 	async createFirstLogin(model) {
@@ -28,7 +49,6 @@ class FirstLoginExistingDonorViewStore extends BaseViewStore {
 		try {
 			model.recoveryToken = this.passwordRecoveryToken;
 			const response = await this.rootStore.application.baasic.apiClient.post('donor/first-login/', model);
-			debugger;
 			await this.rootStore.application.baasic.membershipModule.passwordRecovery.reset({
 				newPassword: model.password,
 				passwordRecoveryToken: this.passwordRecoveryToken,
