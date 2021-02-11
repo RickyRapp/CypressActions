@@ -10,11 +10,11 @@ function BaasicSwitchTemplate({ label, value, onChange, t, disabled }) {
 	return (
 		<div className="item u-mar--bottom--sml">
 			<div className="row row__align--center">
-				<div className="col col-sml-3">{label && <label>{t(label)}</label>}</div>
-                <div className="col col-sml-1">
+				<div className="col col-sml-7 col-lrg-6 col-xlrg-5 col-xxlrg-4">{label && <label>{t(label)}</label>}</div>
+                <div className="col col-sml-1 col-lrg-1 u-display--none--med">
                     <span className="type--base type--color--note">2.9%</span>
                 </div>
-				<div className="col col-sml-3">
+				<div className="col col-sml-5 col-lrg-3">
 					<div className="input--switch u-clearfix">
 						<BaasicInput
 							type="radio"

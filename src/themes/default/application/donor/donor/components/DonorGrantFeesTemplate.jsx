@@ -17,12 +17,12 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
         <EditFormContent form={form} loading={loaderStore.loading}>
             <h3 className=" u-mar--bottom--sml">{t('DONOR.GRANT_FEES.TITLE')}</h3>
             <div className="row ">
-                <div className="form__group col col-sml-3">
+                <div className="form__group col col-sml-6 col-lrg-6 col-xlrg-5 col-xxlrg-4">
                     <span className="type--base type--wgt--bold type--color--note">
                         {t('DONOR.GRANT_FEES.FIELDS.ONLINE_LABEL')}
                     </span>
                 </div>
-                <div className="form__group col col-sml-1">
+                <div className="form__group col col-sml-1 u-display--none--med">
                     <span className="type--base type--wgt--bold type--color--note">
                         FREE
                     </span>
