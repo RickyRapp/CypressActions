@@ -54,7 +54,12 @@ class TestReportViewStore extends BaseViewStore {
             {
                 name: 'Session report',
                 description: 'Session report PDF',
-                abrv: 'sessionReport  '
+                abrv: 'sessionReport'
+            },
+            {
+                name: 'Check receipt',
+                description: 'PDF check receipt',
+                abrv: 'checkReceipt'
             },
         ]
         this.tableStore.setData(data);
