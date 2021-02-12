@@ -2133,6 +2133,7 @@
             "DONOR_APPROVES": "Donor approves",
             "DONOR_DOES_NOT_APPROVE": "Donor does not approve",
             "BLANK_BOOKLET_MAX_AMOUNT": "Blank booklet max amount by donor",
+            "BLANK_BOOKLET_AMOUNT": "Scanned amount",
             "LIST": {
                 "REMOVE_SESSION_CERTIFICATE": "Removing certificate",
                 "REMOVE_PRIVATE_SESSION_CERTIFICATE": "Certificate is from Private account",
@@ -2140,7 +2141,7 @@
                 "MAKE_REFUND": "Refund?",
                 "MAKE_REFUND_FEE": "Refund fee?",
                 "PRIVATE_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Certificate Fee",
-                "CERTIFICATE_DETAILS": "Update certificate status if necessary",
+                "CERTIFICATE_DETAILS": "Change certificate status if necessary",
                 "TOTAL_REFUND": "Total refund:",
                 "TOTAL_REFUND_CERTIFICATE": "Refund certificate: ",
                 "TOTAL_REFUND_FEE": "Refund fee: ",

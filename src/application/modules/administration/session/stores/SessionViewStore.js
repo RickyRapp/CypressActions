@@ -1,7 +1,10 @@
+import React from 'react';
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionListFilter } from 'application/administration/session/models';
 import { applicationContext } from 'core/utils';
+import { FormatterResolver } from 'core/components';
+import ReactTooltip from 'react-tooltip';
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
@@ -67,8 +70,23 @@ class SessionViewStore extends BaseListViewStore {
                     key: 'amount',
                     title: 'SESSION.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
-                        type: 'currency',
-                        value: '$'
+                        type: 'function',
+                        value: (item) => {
+                            return <React.Fragment>
+                                <FormatterResolver
+                                    item={{ amount: item.amount }}
+                                    field='amount'
+                                    format={{ type: 'currency' }}
+                                />
+                                {item.json &&
+                                    <p data-tip={`${item.json}`} data-type="info">
+                                        ?
+					                    <ReactTooltip />
+                                    </p>
+                                }
+                            </React.Fragment >
+
+                        }
                     }
                 },
                 {

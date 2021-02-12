@@ -5,10 +5,10 @@ import { SessionService } from 'application/administration/session/services';
 
 @applicationContext
 class RemoveSessionCertificateViewStore extends BaseEditViewStore {
-    constructor(rootStore, sessionCertificate, onAfterAction) {
+    constructor(rootStore, grant, onAfterAction) {
         super(rootStore, {
             name: 'session-remove-certificate',
-            id: sessionCertificate.id,
+            id: grant.id,
             autoInit: true,
             actions: () => {
                 return {
@@ -21,7 +21,7 @@ class RemoveSessionCertificateViewStore extends BaseEditViewStore {
                             });
                     },
                     get: async () => {
-                        return sessionCertificate;
+                        return grant;
                     }
                 }
             },
@@ -29,34 +29,19 @@ class RemoveSessionCertificateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
         });
 
-        this.bookletOrder = sessionCertificate.certificate.booklet.bookletOrderItemBooklets[0].bookletOrderItem.bookletOrder;
-        this.denominationType = sessionCertificate.certificate.booklet.denominationType;
-        this.sessionCertificate = sessionCertificate;
-        this.isPrivate = this.bookletOrder.accountType.abrv === 'private';
+        this.bookletOrder = grant.certificate.booklet.bookletOrder;
+        this.grant = grant;
 
-        this.certificateValue = null;
-        this.certificateFeeValue = null;
-        if (this.isPrivate) {
-            if (this.denominationType.abrv === 'blank') {
-                this.certificateValue = sessionCertificate.blankCertificateValue;
-            }
-            else {
-                this.certificateValue = this.denominationType.value;
-            }
-            this.certificateFeeValue = Number((this.certificateValue * sessionCertificate.privateFeeCharge).toFixed(2))
-        }
-        else {
-            this.certificateValue = this.denominationType.value;
-            this.certificateFeeValue = Number((this.certificateValue * this.bookletOrder.regularFeeCharge).toFixed(2))
-        }
+        this.certificateValue = grant.amount;
+        this.certificateFeeValue = Number((this.certificateValue * 0.029).toFixed(2))
 
         this.certificateStatusDropdownStore = new BaasicDropdownStore(null, {
             fetchFunc: async () => {
                 return this.rootStore.application.lookup.certificateStatusStore.find();
             },
             initValueFunc: async () => {
-                this.form.$('certificateStatusId').set(sessionCertificate.certificate.certificateStatus.id)
-                return sessionCertificate.certificate.certificateStatus;
+                this.form.$('certificateStatusId').set(grant.certificate.certificateStatusId)
+                return grant.certificate.certificateStatus;
             }
         });
 

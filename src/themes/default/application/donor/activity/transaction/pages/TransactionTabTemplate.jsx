@@ -16,9 +16,9 @@ const TransactionTabTemplate = function ({ transactionTabViewStore }) {
                     <div label={'ACTIVITY.TRANSACTION_TAB.ALL'}>
                         <Transaction />
                     </div>
-                    <div label={'ACTIVITY.TRANSACTION_TAB.STATEMENTS'}>
+                    {/* <div label={'ACTIVITY.TRANSACTION_TAB.STATEMENTS'}>
                         TODO
-                    </div>
+                    </div> */}
                 </TabLayout>
             </div>
         </div>

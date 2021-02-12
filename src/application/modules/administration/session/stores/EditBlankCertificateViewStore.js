@@ -8,10 +8,10 @@ import { SessionService } from 'application/administration/session/services';
 class EditBlankCertificateViewStore extends BaseEditViewStore {
     sendReviewEmail = false;
 
-    constructor(rootStore, sessionCertificate, onAfterAction) {
+    constructor(rootStore, grant, onAfterAction) {
         super(rootStore, {
             name: 'session-edit-blank-certificate',
-            id: sessionCertificate.id,
+            id: grant.id,
             autoInit: true,
             actions: () => {
                 return {
@@ -37,7 +37,7 @@ class EditBlankCertificateViewStore extends BaseEditViewStore {
                         }
                     },
                     get: async () => {
-                        return sessionCertificate;
+                        return grant;
                     }
                 }
             },
@@ -45,8 +45,8 @@ class EditBlankCertificateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
         });
 
-        this.form.$('blankCertificateValue').set('rules', this.form.$('blankCertificateValue').rules + '|max:' + sessionCertificate.certificate.booklet.donor.blankBookletMaxAmount)
-        this.sessionCertificate = sessionCertificate;
+        this.form.$('blankCertificateValue').set('rules', this.form.$('blankCertificateValue').rules + '|max:' + grant.certificate.booklet.bookletOrder.donor.blankBookletMaxAmount)
+        this.grant = grant;
     }
 
     @action.bound

@@ -13,7 +13,7 @@ import {
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
-const SessionListTemplate = function({ sessionViewStore }) {
+const SessionListTemplate = function ({ sessionViewStore }) {
 	const {
 		routes,
 		tableStore,

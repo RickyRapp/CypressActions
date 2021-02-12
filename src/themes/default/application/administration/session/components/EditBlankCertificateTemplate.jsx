@@ -15,7 +15,7 @@ import { isSome } from 'core/utils';
 const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, t }) {
     const {
         contentLoading,
-        sessionCertificate,
+        grant,
         saveAndSendReviewEmail,
         form
     } = editBlankCertificateViewStore;
@@ -28,17 +28,27 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                 loading={contentLoading}>
                 <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.BLANK_CERTIFICATE_AMOUNT_TITLE')}</h3>
                 <div className="row">
-                    <div className="col col-sml-12 col-lrg-6">
+                    <div className="col col-sml-12 col-lrg-4">
                         <div className="form__group__label">{t('SESSION.EDIT.BLANK_CERTIFICATE_CODE')}</div>
                         <span className="input--preview">
-                            {sessionCertificate.certificate.booklet.code}-{sessionCertificate.certificate.code}
+                            {grant.certificate.booklet.code}-{grant.certificate.code}
                         </span>
                     </div>
-                    <div className="col col-sml-12 col-lrg-6">
+                    <div className="col col-sml-12 col-lrg-4">
+                        <div className="form__group__label">{t('SESSION.EDIT.BLANK_BOOKLET_AMOUNT')}</div>
+                        <span className="input--preview">
+                            <FormatterResolver
+                                item={{ amount: grant.amount }}
+                                field='amount'
+                                format={{ type: 'currency' }}
+                            />
+                        </span>
+                    </div>
+                    <div className="col col-sml-12 col-lrg-4">
                         <div className="form__group__label">{t('SESSION.EDIT.BLANK_BOOKLET_MAX_AMOUNT')}</div>
                         <span className="input--preview">
                             <FormatterResolver
-                                item={{ blankBookletMaxAmount: sessionCertificate.certificate.booklet.donor.blankBookletMaxAmount }}
+                                item={{ blankBookletMaxAmount: grant.certificate.booklet.bookletOrder.donor.blankBookletMaxAmount }}
                                 field='blankBookletMaxAmount'
                                 format={{ type: 'currency' }}
                             />
@@ -47,20 +57,20 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                     <div className="form__group col col-lrg-12">
                         <NumericInputField field={form.$('blankCertificateValue')} />
                     </div>
-                    {sessionCertificate.certificate.booklet.denominationType.abrv === 'blank' &&
+                    {grant.certificate.denominationType.abrv === 'blank' &&
                         <React.Fragment>
                             <div className="form__group col col-lrg-12">
                                 <React.Fragment>
-                                    {isSome(sessionCertificate.isApproved) &&
+                                    {isSome(grant.isApproved) &&
                                         <React.Fragment>
-                                            {sessionCertificate.isApproved &&
+                                            {grant.isApproved &&
                                                 <label className="form__group__label">{t('SESSION.EDIT.DONOR_APPROVED_BLANK_AMOUNT')}</label>}
-                                            {!sessionCertificate.isApproved &&
+                                            {!grant.isApproved &&
                                                 <label className="form__group__label">{t('SESSION.EDIT.DONOR_DOES_NOT_AGREE_WITH_BLANK_AMOUNT')}</label>}
                                         </React.Fragment>}
-                                    {!isSome(sessionCertificate.isApproved) &&
+                                    {!isSome(grant.isApproved) &&
                                         <React.Fragment>
-                                            {sessionCertificate.reviewToken ?
+                                            {grant.reviewToken ?
                                                 <label className="form__group__label">{t('SESSION.EDIT.DONOR_DID_NOT_RESPOND_YET_ON_BLANK_AMOUNT')}</label>
                                                 :
                                                 <label className="form__group__label">{t('SESSION.EDIT.AGREE_EMAIL_NOT_SENT')}</label>}
@@ -80,7 +90,7 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                 <BaasicButton
                     icon='u-icon u-icon--email-pass u-icon--base'
                     className="btn btn--base btn--ghost"
-                    label={sessionCertificate.reviewToken ? t('SESSION.EDIT.SAVE_RESEND_APPROVE_EMAIL') : t('SESSION.EDIT.SAVE_SEND_APPROVE_EMAIL')}
+                    label={grant.reviewToken ? t('SESSION.EDIT.SAVE_RESEND_APPROVE_EMAIL') : t('SESSION.EDIT.SAVE_SEND_APPROVE_EMAIL')}
                     onClick={saveAndSendReviewEmail}
                 />
             </EditFormContent >

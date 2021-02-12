@@ -20,7 +20,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        await rootStore.application.session.sessionStore.update(resource);
+                        await rootStore.application.administration.sessionStore.update(resource);
                     },
                     get: async (id) => {
                         let params = {
@@ -31,11 +31,11 @@ class SessionEditViewStore extends BaseEditViewStore {
                                 'grants.certificate.denominationType',
                                 'grants.certificate.certificateStatus',
                                 'grants.certificate.booklet',
-                                'grants.certificate.booklet.donor',
-                                'grants.certificate.booklet.bookletOrder'
+                                'grants.certificate.booklet.bookletOrder',
+                                'grants.certificate.booklet.bookletOrder.donor'
                             ]
                         }
-                        this.session = await this.rootStore.application.session.sessionStore.getSession(id, params);
+                        this.session = await this.rootStore.application.administration.sessionStore.getSession(id, params);
                         this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value, "asc"));
                         if (!this.tableStore.dataInitialized) {
                             this.tableStore.dataInitialized = true;
@@ -88,9 +88,9 @@ class SessionEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    openRemoveSessionCertificate(sessionCertificate) {
+    openRemoveSessionCertificate(grant) {
         this.removeSessionCertificateModal.open({
-            sessionCertificate: sessionCertificate,
+            grant: grant,
             onAfterAction: () => {
                 this.removeSessionCertificateModal.close();
                 this.getResource(this.id);
@@ -99,9 +99,9 @@ class SessionEditViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    openEditBlankSessionCertificateModal(sessionCertificate) {
+    openEditBlankSessionCertificateModal(grant) {
         this.editBlankSessionCertificateModal.open({
-            sessionCertificate: sessionCertificate,
+            grant: grant,
             onAfterAction: () => {
                 this.editBlankSessionCertificateModal.close();
                 this.getResource(this.id, false);
@@ -129,12 +129,11 @@ class SessionEditViewStore extends BaseEditViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
                         type: 'denomination',
-                        value: 'short',
-                        additionalField: 'blankCertificateValue'
+                        value: 'short'
                     }
                 },
                 {
-                    key: 'amountAfterDeduction',
+                    key: 'amount',
                     title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
                     format: {
                         type: 'currency'
@@ -142,12 +141,12 @@ class SessionEditViewStore extends BaseEditViewStore {
                 }
             ],
             actions: {
-                onRemove: (sessionCertificate) => this.openRemoveSessionCertificate(sessionCertificate),
-                onEdit: (sessionCertificate) => this.openEditBlankSessionCertificateModal(sessionCertificate)
+                onRemove: (grant) => this.openRemoveSessionCertificate(grant),
+                onEdit: (grant) => this.openEditBlankSessionCertificateModal(grant)
             },
             actionsRender: {
-                onEditRender: (sessionCertificate) => {
-                    return sessionCertificate.certificate.denominationType.abrv === 'blank';
+                onEditRender: (grant) => {
+                    return grant.certificate.denominationType.abrv === 'blank';
                 },
             }
         });
@@ -161,7 +160,7 @@ class SessionEditViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.session.sessionStore.searchCharity({
+                    const data = await this.rootStore.application.administration.sessionStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,

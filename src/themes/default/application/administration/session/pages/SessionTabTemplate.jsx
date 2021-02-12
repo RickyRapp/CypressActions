@@ -16,9 +16,9 @@ function SessionTabTemplate({ sessionTabViewStore }) {
                     <div label={'SESSION.TAB.LIST'} className="u-mar--top--sml">
                         <SessionList />
                     </div>
-                    <div label={'SESSION.TAB.IN_PROGRESS'} className="u-mar--top--sml">
+                    {/* <div label={'SESSION.TAB.IN_PROGRESS'} className="u-mar--top--sml">
                         <SessionInProgressList />
-                    </div>
+                    </div> */}
                     <div label={'SESSION.TAB.PENDING_CERTIFICATE'} className="u-mar--top--sml">
                         <SessionPendingCertificateList />
                     </div>

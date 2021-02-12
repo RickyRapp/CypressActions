@@ -5,7 +5,8 @@ import { RemoveSessionCertificateTemplate } from 'themes/application/administrat
 import { RemoveSessionCertificateViewStore } from 'application/administration/session/stores';
 
 @setCurrentView((rootStore, props) => new RemoveSessionCertificateViewStore(
-    rootStore, props.modalParams.data.sessionCertificate,
+    rootStore,
+    props.modalParams.data.grant,
     props.modalParams.data.onAfterAction),
     'removeSessionCertificateViewStore')
 @observer

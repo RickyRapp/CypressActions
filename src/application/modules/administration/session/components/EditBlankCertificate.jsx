@@ -5,7 +5,9 @@ import { EditBlankCertificateTemplate } from 'themes/application/administration/
 import { EditBlankCertificateViewStore } from 'application/administration/session/stores';
 
 @setCurrentView((rootStore, props) => new EditBlankCertificateViewStore(
-    rootStore, props.modalParams.data.sessionCertificate, props.modalParams.data.onAfterAction), 'editBlankCertificateViewStore')
+    rootStore,
+    props.modalParams.data.grant,
+    props.modalParams.data.onAfterAction), 'editBlankCertificateViewStore')
 @observer
 class EditBlankCertificate extends React.Component {
     render() {
