@@ -26,9 +26,10 @@
 			}
 		}
 
-		&__title {			
+		&__title {	
 			margin-bottom: calc($unit * 5);
 			font-family: $ff-serif;
+			text-align: center;		
 			@mixin type-scale $type-xlarge, 1.25;
 			
 			@media (--screen-from-lrg) {
