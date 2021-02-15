@@ -6,6 +6,11 @@ class DonorGivingCardSettingService extends BaseService {
     super(apiClient, new DonorGivingCardSettingRouteService());
     this.apiClient = apiClient;
   }
+
+  activateCard(resource) {
+    const url = this.routeService.activateCard(resource);
+    return this.apiClient.put(url, resource);
+  }
 }
 
 export default DonorGivingCardSettingService;

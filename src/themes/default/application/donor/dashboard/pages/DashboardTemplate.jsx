@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, PageHeader } from 'core/layouts';
-import { BaasicButton, BaasicDropdown, FormatterResolver } from 'core/components';
+import { BaasicButton, BaasicDropdown, BaasicModal, FormatterResolver } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
 import {
@@ -13,6 +13,7 @@ import {
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
 import { AccountManager } from 'application/donor/donor/components';
+import { DonorGivingCardActivationTemplate } from '../../donor/components';
 
 function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const {
@@ -21,6 +22,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		newContributionOnClick,
 		newGrantOnClick,
 		orderBookletsOnClick,
+		activateCardOnClick,
+		activateCardModalParams
 	} = dashboardViewStore;
 
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -136,17 +139,17 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
 							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
-							
+
 							<div className="dashboard-card__giving-goal">
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
-									<div style={{'width' : '25%'}} className="dashboard-card__giving-goal--range--progress">25%</div>
+									<div style={{ 'width': '50%' }} className="dashboard-card__giving-goal--range--progress">Coming soon!</div>
 								</div>
-								<div className="dashboard-card__giving-goal__label">
+								{/* <div className="dashboard-card__giving-goal__label">
 									<a className="btn btn--sml btn--link">Manage</a>
-								</div>
+								</div> */}
 							</div>
-							<div className="type--med type--wgt--medium type--center">$25,000 / $100,000</div>
+							<div className="type--med type--wgt--medium type--center"></div>
 							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml"></div>
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">
@@ -185,12 +188,13 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									{t('DASHBOARD.FINISH_SETTING_UP_YOUR_ACCOUNT')}
 								</h3>
 								<div className="row type--center u-display--flex u-display--flex--justify--center">
-									{!donor.IsInvestmentMade && (
+									{donor.hasCardForActivation && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
 												className="btn btn--med btn--med--100 btn--tertiary "
 												icon="u-icon u-icon--arrow-forward u-icon--med"
-												label="DASHBOARD.BUTTON.VIEW_INVESTMENT_OPTIONS"
+												label="DASHBOARD.BUTTON.ACTIVATE_CARD"
+												onClick={activateCardOnClick}
 											/>
 										</div>
 									)}
@@ -237,6 +241,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					</div>
 				</div>
 			</div>
+			<BaasicModal modalParams={activateCardModalParams}>
+				<DonorGivingCardActivationTemplate />
+			</BaasicModal>
 		</Page>
 	);
 }

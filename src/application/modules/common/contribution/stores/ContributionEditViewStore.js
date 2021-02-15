@@ -212,7 +212,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			fetchFunc: async () => {
 				const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
 				this.paymentTypes = tempTypes.filter(c => {
-					return !['bill-pay', 'crypto-currency'].includes(c.abrv);
+					return !['bill-pay', 'crypto-currency', 'credit-card', 'cash'].includes(c.abrv);
 				});
 				return this.paymentTypes;
 			},

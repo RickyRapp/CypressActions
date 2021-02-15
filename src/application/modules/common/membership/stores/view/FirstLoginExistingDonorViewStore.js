@@ -30,12 +30,21 @@ class FirstLoginExistingDonorViewStore extends BaseViewStore {
 			const { data } = await this.rootStore.application.baasic.apiClient.get('donor/first-login/' + this.passwordRecoveryToken);
 			if (data && data.fundName) {
 				this.form.$('fundName').set(data.fundName);
+				this.form.$('fundName').resetValidation();
 				this.form.$('fundName').setDisabled(true);
 			}
 		} catch ({ statusCode, data }) {
 			this.loaderStore.resume();
 
 			switch (statusCode) {
+				case 500:
+					this.rootStore.notificationStore.error('PASSWORD_CHANGE.ERROR_MESSAGE.TOKEN_EXPIRED', data);
+					this.goToLogin();
+					break;
+				case 404:
+					this.rootStore.notificationStore.error('PASSWORD_CHANGE.ERROR_MESSAGE.UNKNOWN_EXPIRED_TOKEN', data);
+					this.goToLogin();
+					break;
 				default:
 					this.rootStore.notificationStore.error('FIRST_LOGIN_EXISTING_DONOR.ERROR_MESSAGE', data);
 					break;
@@ -64,7 +73,7 @@ class FirstLoginExistingDonorViewStore extends BaseViewStore {
 
 			switch (statusCode) {
 				default:
-					this.rootStore.notificationStore.error('FIRST_LOGIN_EXISTING_DONOR.ERROR_MESSAGE', data);
+					this.rootStore.notificationStore.error('FIRST_LOGIN_EXISTING_DONOR.UNKNOWN_EXPIRED_TOKEN', data);
 					break;
 			}
 		}

@@ -24,7 +24,7 @@ export default class DonorEditForm extends FormBase {
                     name: 'fundName',
                     label: 'DONOR.EDIT.FUND_NAME_LABEL',
                     placeholder: 'DONOR.EDIT.FUND_NAME_PLACEHOLDER',
-                    rules: ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`]
+                    rules: ['required', 'string']
                 },
                 {
                     name: 'prefixTypeId',

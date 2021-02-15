@@ -12,10 +12,9 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
         formatedPlaceholder = t(props.placeholder);
     }
     else if (props.format) {
-        formatedPlaceholder = t(props.format);
-    }
-    else {
-        formatedPlaceholder = props.format;
+        if (_.isString(props.format)) {
+            formatedPlaceholder = t(props.format);
+        }
     }
 
     return (

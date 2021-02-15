@@ -11,6 +11,7 @@ NumericInputField.propTypes = {
     field: PropTypes.object.isRequired,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    formatOptions: PropTypes.object,
 };
 
 export default defaultTemplate(NumericInputField);

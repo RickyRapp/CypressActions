@@ -9,7 +9,7 @@ import {
 	FirstLoginExistingDonor,
 } from 'application/common/membership/pages';
 
-(function() {
+(function () {
 	moduleProviderFactory.application.register({
 		routes: [
 			{
@@ -60,6 +60,14 @@ import {
 						pattern: '/first-login',
 						isPublic: true,
 						component: FirstLoginExistingDonor,
+						beforeEnter: async (fromState, toState, routerStore) => {
+							if (routerStore.rootStore.authStore.isAuthenticated) {
+								await routerStore.rootStore.userStore.resolveUser();
+								return Promise.reject(routerStore.rootStore.getDashboard());
+							}
+
+							return Promise.resolve();
+						},
 					},
 				],
 			},

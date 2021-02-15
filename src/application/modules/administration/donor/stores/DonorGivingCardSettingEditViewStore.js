@@ -47,7 +47,7 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                 if (this.item.givingCard) {
                     this.givingCardDropdownStore.setValue({
                         id: this.item.givingCard.id,
-                        name: `${this.item.givingCard.cardNumber} - ${this.item.givingCard.cvv} - ${this.item.givingCard.expirationDate}`,
+                        name: `${this.item.givingCard.cardNumber} - ${this.item.givingCard.cvv}`,
                     })
                 }
             }
@@ -97,7 +97,7 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                     const data = await this.rootStore.application.administration.givingCardStore.findGivingCard({
                         pageNumber: 1,
                         pageSize: 10,
-                        search: searchQuery,
+                        searchQuery: searchQuery,
                         sort: 'cardNumber|asc',
                         isAssigned: false
                     });
@@ -105,7 +105,7 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                     return data.item.map(c => {
                         return {
                             id: c.id,
-                            name: `${c.cardNumber} - ${c.cvv} - 12/30`,
+                            name: `${c.cardNumber} - ${c.cvv}`,
                         }
                     });
                 }

@@ -5,7 +5,7 @@ import { NumericInput } from 'core/components';
 import { renderIf, isSome } from 'core/utils';
 import '@progress/kendo-react-intl'
 
-const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange, onBlur }) => {
+const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, disabled, onChange, onBlur, formatOptions }) => {
     const required = field.rules && field.rules.indexOf('required') !== -1;
     const maxValue = field.rules && field.rules.indexOf('max') !== -1 ? parseInt((/max:(\d+)/).exec(field.rules)[1]) : undefined;
     const minValue = field.rules && field.rules.indexOf('min') !== -1 ? parseInt((/min:(\d+)/).exec(field.rules)[1]) : undefined;
@@ -51,7 +51,7 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
                 label={field.label}
                 max={maxValue}
                 min={minValue}
-                format={type}
+                format={formatOptions || type}
                 step={step}
                 disabled={disabled || field.disabled}
                 onChange={handleOnChange}

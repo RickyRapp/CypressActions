@@ -166,8 +166,8 @@ function renderMenuHeader(menuStore, t) {
 function renderMenuFooter(menuStore, t) {
     return (
         <React.Fragment>
-            <div className="nav--primary__footer" onClick={() => menuStore.rootStore.viewStore.logout()}>
-                <div className="nav--primary__item--logout">
+            <div className="nav--primary__footer">
+                <div className="nav--primary__item--logout" onClick={() => menuStore.rootStore.viewStore.logout()}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--xmed u-icon--logout"></i>
                         : <span>{t('MENU.FOOTER.LOGOUT')}</span>
                     }

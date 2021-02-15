@@ -3,6 +3,7 @@ import { merge } from 'lodash';
 import { observable, action, computed } from 'mobx';
 import { LoaderStore } from 'core/stores';
 import { FileStreamRouteService } from 'common/services';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 class BaasicUploadStore {
     @observable.ref originalFiles = [];
@@ -43,7 +44,7 @@ class BaasicUploadStore {
         if (_.isArray(files)) {
             this.originalFiles = files;
         }
-        else if (_.isString(files)) { //coreMediaVaultEntryId
+        else if (_.isString(files) && !isNullOrWhiteSpacesOrUndefinedOrEmpty(files)) { //coreMediaVaultEntryId
             this.originalFiles = [files];
         }
     }

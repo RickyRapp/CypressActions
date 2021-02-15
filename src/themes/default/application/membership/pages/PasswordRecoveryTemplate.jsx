@@ -23,15 +23,15 @@ function PasswordRecoveryTemplate({ currentView, t }) {
 						</div>
 					)}
 					<div className="type--right u-mar--top--base">
-						<button className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml" onClick={goToLogin}>
-							{t('PASSWORD_RECOVERY.CANCEL_BUTTON')}
-						</button>
 						<BaasicButton
-							className="btn btn--med btn--primary display--ib"
+							className="btn btn--med btn--primary display--ib u-mar--right--sml"
 							type="submit"
 							label={t('PASSWORD_RECOVERY.RESET_BUTTON')}
 							disabled={form.submitting || form.validating}
 						/>
+						<button className="btn btn--med btn--med--wide btn--ghost" onClick={goToLogin}>
+							{t('PASSWORD_RECOVERY.CANCEL_BUTTON')}
+						</button>
 						{loading && <span className="spc--top--tny display--ib">{t('PASSWORD_RECOVERY.LOGGING_IN')}</span>}
 					</div>
 				</div>

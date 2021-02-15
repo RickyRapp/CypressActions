@@ -12,7 +12,6 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
         tableStore
     } = donorGivingCardSettingListViewStore;
 
-    console.log(tableStore)
     return (
         <div>
             <ListContent>
@@ -21,7 +20,6 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
                 </h3>
                 {tableStore.dataInitialized &&
                     <Content>
-                        <h3 className=" u-mar--bottom--sml">{t('DONOR_GIVING_CARD_SETTING.EDIT.TITLE')}</h3>
                         {tableStore.data.map(c => {
                             return (
                                 <DonorGivingCardSettingEdit key={c.id} setting={c} />

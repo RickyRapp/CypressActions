@@ -22,9 +22,9 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             taxId: data.taxId,
                             charityStatusId: data.charityStatusId,
                             charityTypeId: data.charityTypeId,
-                            contactInformationName: data.contactInformation.name,
-                            contactInformationEmail: data.contactInformation.email,
-                            contactInformationNumber: data.contactInformation.number,
+                            contactInformationName: data.contactInformation && data.contactInformation.name,
+                            contactInformationEmail: data.contactInformation && data.contactInformation.email,
+                            contactInformationNumber: data.contactInformation && data.contactInformation.number,
                             availableBalance: data.availableBalance
                         }
                     },

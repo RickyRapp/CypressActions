@@ -16,11 +16,9 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 		<div className="">
 			<form className="login__card" onSubmit={form.onSubmit}>
 				<img className="login__card__logo" src={logo} alt="Logo" />
-				<h4 className="login__card__title">All you need to give all you want</h4>
+				<h4 className="login__card__title">Welcome to a new way of giving</h4>
 				<p className="login__card__desc">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nihil perferendis eius reprehenderit quis odio
-					dicta quia, ab consectetur cupiditate est incidunt itaque ducimus id. Veniam optio ipsum fuga, quam illum
-					magni vero recusandae eveniet facilis maiores, rerum laborum quia!
+					Updte your profile to meet our new and robust security requirements
 				</p>
 
 				<div className="login__card__form">
@@ -30,6 +28,9 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 						</div>
 					</div>
 					<div className="row">
+						<div className="col col-sml-12 col-lrg-12">
+							<label className="form__group__label">Date of Birth</label>
+						</div>
 						<div className="form__group col col-sml-12 col-lrg-4">
 							<BaasicFieldDropdown store={monthDropdownStore} field={form.$('month')} />
 						</div>
@@ -37,7 +38,12 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 							<NumericInputField field={form.$('day')} />
 						</div>
 						<div className="form__group col col-sml-12 col-lrg-4">
-							<NumericInputField field={form.$('year')} />
+							<NumericInputField
+								field={form.$('year')}
+								formatOptions={{
+									style: 'decimal',
+									useGrouping: false
+								}} />
 						</div>
 					</div>
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
-
 import { NumberFormatInput } from 'core/components';
 import { renderIf, isSome } from 'core/utils';
 import '@progress/kendo-react-intl'

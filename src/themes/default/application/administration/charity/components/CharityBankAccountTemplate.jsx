@@ -21,17 +21,14 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         <EditFormContent form={form}>
             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
             <div className="row">
-                <div className="form__group col col-sml-12 col-lrg-6">
-                    <BasicInput field={form.$('routingNumber')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-6">
-                    <BasicInput field={form.$('name')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-6">
+                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('accountNumber')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6">
-                    <BasicInput field={form.$('description')} />
+                <div className="form__group col col-sml-12 col-lrg-4">
+                    <NumberFormatInputField field={form.$('routingNumber')} />
+                </div>
+                <div className="form__group col col-sml-12 col-lrg-4">
+                    <BasicInput field={form.$('name')} />
                 </div>
             </div>
 

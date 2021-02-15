@@ -38,6 +38,7 @@ export default class FirstLoginExistingDonorForm extends FormBase {
 				{
 					name: 'password',
 					label: 'FIRST_LOGIN_EXISTING_DONOR.PASSWORD_LABEL',
+					placeholder: 'FIRST_LOGIN_EXISTING_DONOR.PASSWORD_PLACEHOLDER',
 					type: 'password',
 					rules: ['required', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
 				},

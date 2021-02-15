@@ -17,7 +17,7 @@ class GivingCardViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        params.embed = ['donor'];
+                        params.embed = ['donorGivingCardSetting', 'donorGivingCardSetting.donor'];
                         return rootStore.application.administration.givingCardStore.findGivingCard(params);
                     }
                 }
@@ -49,7 +49,7 @@ class GivingCardViewStore extends BaseListViewStore {
                     title: 'GIVING_CARD.LIST.COLUMNS.CVV_LABEL'
                 },
                 {
-                    key: 'donor.donorName',
+                    key: 'donorGivingCardSetting.donor.donorName',
                     title: 'GIVING_CARD.LIST.COLUMNS.DONOR_NAME_LABEL'
                 },
                 {

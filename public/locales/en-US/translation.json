@@ -1473,6 +1473,20 @@
         },
         "CREATE": {
             "TITLE": "Request new card"
+        },
+        "ACTIVATION": {
+            "TITLE": "Activate your card",
+            "ERROR_MESSAGE": {
+                "SOMETING_WENT_WRONG": "Something went wrong",
+                "NOT_FOUND": "Card not found",
+                "SUCCESS": "Successfully activated card"
+            },
+            "FIELDS": {
+                "CARD_NUMBER_LABEL": "Card number",
+                "CVV_LABEL": "CVV",
+                "EXPIRATION_DATE_LABEL": "Expiration date",
+                "EXPIRATION_DATE_PLACEHOLDER": "##/##"
+            }
         }
     },
     "GRANT": {
@@ -2672,7 +2686,7 @@
         "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",
         "INVESTMENTS": "Investments",
         "BUTTON": {
-            "VIEW_INVESTMENT_OPTIONS": "Activate card",
+            "ACTIVATE_CARD": "Activate card",
             "ORDER_CERTIFICATES": "Order Checks",
             "NEW_CONTRIBUTION": "New Deposit",
             "NEW_GRANT": "New Grant",
@@ -2690,11 +2704,12 @@
         "FUND_NAME_PLACEHOLDER": "e.g. Gates Family",
         "YEAR_LABEL": "Year",
         "YEAR_PLACEHOLDER": "Year",
-        "SECURITY_PIN_LABEL": "Security pin",
-        "CONFRIM_SECURITY_PIN_LABEL": "Confirm security pin",
+        "SECURITY_PIN_LABEL": "Please enter a 4 digit security PIN",
+        "CONFRIM_SECURITY_PIN_LABEL": "Confirm PIN",
         "PASSWORD_LABEL": "Password",
+        "PASSWORD_PLACEHOLDER": "min: 8 and non-alpha numeric character",
         "CONFIRM_PASSWORD_LABEL": "Confirm password",
-        "SIGNIN_BUTTON": "Submit",
+        "SIGNIN_BUTTON": "Welcome",
         "SUCCESS_MESSAGE": "Success",
         "ERROR_MESSAGE": "Something went wrong"
     }

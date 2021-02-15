@@ -9,6 +9,7 @@ import {
     BaasicFieldDropdown,
     NumericInputField
 } from 'core/components'
+import moment from 'moment';
 
 const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSettingEditViewStore }) {
     const {
@@ -46,15 +47,14 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     <div className="form__group col col-sml-12 col-xlrg-6">
                         <NumericInputField field={form.$('maxTimesPerDay')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-xlrg-6">
-                        {item && item.givingCard && item.givingCard.cardNumber}
-                    </div>
-                    <div className="form__group col col-sml-12 col-xlrg-4">
-                        {item && item.givingCard && item.givingCard.cvv}
-                    </div>
-                    <div className="form__group col col-sml-12 col-xlrg-2">
-                        {item && item.givingCard && item.givingCard.expirationDate}
-                    </div>
+                    {item && item.givingCard &&
+                        <div className="form__group col col-sml-12 col-xlrg-6">
+                            <div className="form__group__label">
+                                Assigned Card
+                        </div>
+                            {item.givingCard.cardNumber} - {item.givingCard.cvv} - {moment(new Date(item.givingCard.expirationDate)).format('MM/YY')}
+                            {!item.givingCard.isActivated && <div>Card is not activated </div>}
+                        </div>}
                 </div>
                 <div className="type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
