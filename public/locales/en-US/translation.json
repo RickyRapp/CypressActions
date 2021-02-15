@@ -49,7 +49,7 @@
         "MANAGE_CHARITIES": "Manage Charities",
         "COMMUNICATION_PREFERENCES": "Communication Preferences",
         "LEGACY": "Legacy",
-        "ORDER_VOUCHERS": "Order Vouchers",
+        "ORDER_VOUCHERS": "Order Checks",
         "ORDERDRAFT_PROTECTION": "Orderdraft protection",
         "NEW_GRANT": "New Grant",
         "NEW_PLEDGE": "New Pledge",
@@ -1912,9 +1912,9 @@
             }
         },
         "CREATE": {
-            "TITLE": "Order Vouchers",
+            "TITLE": "Order Checks",
             "ORDER_VOUCHERS_BOOKS": "Order Check Books (50 checks per book)",
-            "PREPAID_ONLY": "PREPAID ONLY",
+            "PREPAID_ONLY": "PREPAID",
             "DELIVERY_OPTIONS": "Delivery Options",
             "PICK_UP_ADDRESS": "Pick Up Address",
             "SHIPPING_ADDRESS": "Shipping Address",
@@ -1930,11 +1930,13 @@
             "SHOW_MORE_OPTIONS": "SHOW MORE OPTIONS",
             "HIDE_CUSTOMIZE_BOOKS": "HIDE CUSTOMIZE BOOKS",
             "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
+            "ENROLLED_IN_PROTECTION_PLAN": "Enrolled in protection plan",
             "BUTTON": {
                 "ADD": "Add new",
                 "REVIEW": "Review",
                 "EDIT": "Edit",
-                "DELETE": "Delete"
+                "DELETE": "Delete",
+                "ADD_PROTECTION_PLAN": "Enroll in protection plan"
             },
             "FIELDS": {
                 "BOOKLET_COUNT_LABEL": "How many booklets you want?",

@@ -3,6 +3,12 @@ import { BookletOrderCreateForm } from 'application/common/booklet-order/forms';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import moment from 'moment';
+import { ModalParams } from 'core/models';
+import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/forms';
+
+const ErrorType = {
+    InsufficientFunds: 0
+};
 
 @applicationContext
 class BookletOrderCreateViewStore extends BaseEditViewStore {
@@ -32,10 +38,23 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 }
             },
             FormClass: BookletOrderCreateForm,
+            errorActions: {
+                onCreateError: ({ type, error }) => {
+                    switch (type) {
+                        case ErrorType.InsufficientFunds:
+                            rootStore.notificationStore.error('USER.CREATE.USER_CREATE_ERROR', error);
+                            break;
+                        default:
+                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            break;
+                    }
+                }
+            },
         });
 
         this.donorId = donorId;
         this.isDonor = isDonor;
+        this.protectionPlanModalParams = new ModalParams({})
         this.createCustomizedExpirationDateDropdownStore();
     }
 
@@ -46,7 +65,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         }
         else {
             await this.fetch([
-                this.fetchDonor(),
+                this.loadDonor(),
                 this.loadLookups()
             ]);
 
@@ -134,6 +153,45 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+    async onAddProtectionPlanClick() {
+        const form = new DonorAutomaticContributionSettingForm({
+            onSuccess: async () => {
+                if (this.isDonor) {
+                    await this.rootStore.application.donor.donorStore.createAutomaticContributionSetting({ donorId: this.donorId, ...form.values() });
+                }
+                else {
+                    await this.rootStore.application.administration.donorStore.createAutomaticContributionSetting({ donorId: this.donorId, ...form.values() });
+                }
+                this.protectionPlanModalParams.close();
+                await this.loadDonor();
+            }
+        });
+        form.$('isEnabled').set(true);
+        const bankAccountDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    let params = {
+                        donorId: this.donorId,
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    if (this.isDonor) {
+                        const data = await this.rootStore.application.donor.donorStore.findBankAccount(params);
+                        return data.item;
+                    }
+                    else {
+                        const data = await this.rootStore.application.administration.donorStore.findBankAccount(params);
+                        return data.item;
+                    }
+                }
+            });
+        this.protectionPlanModalParams.open({
+            form: form,
+            bankAccountDropdownStore: bankAccountDropdownStore
+        })
+    }
+
+    @action.bound
     async onChangeShippingAddressClick() {
         this.isDefaultShippingAddress = !this.isDefaultShippingAddress;
 
@@ -168,8 +226,13 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.form.$('zipCode').set(this.donor.donorAddress.zipCode);
     }
 
-    async fetchDonor() {
-        this.donor = await this.rootStore.application.donor.bookletOrderStore.getDonorInformation(this.donorId);
+    async loadDonor() {
+        if (this.isDonor) {
+            this.donor = await this.rootStore.application.donor.bookletOrderStore.getDonorInformation(this.donorId);
+        }
+        else {
+            this.donor = await this.rootStore.application.administration.bookletOrderStore.getDonorInformation(this.donorId);
+        }
     }
 
     async loadLookups() {
