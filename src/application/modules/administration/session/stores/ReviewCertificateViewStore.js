@@ -14,17 +14,16 @@ class ReviewCertificateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        const service = new SessionService(rootStore.application.baasic.apiClient);
-                        await service.reviewBlankCertificate({
+                        await rootStore.application.administration.sessionStore.reviewBlankCertificate({
                             id: this.sessionCertificate.id,
                             ...resource
                         });
                     },
                     get: async (reviewToken) => {
-                        const service = new SessionCertificateService(rootStore.application.baasic.apiClient);
-                        let response = await service.reviewToken(reviewToken);
-                        this.sessionCertificate = response.data;
-                        return response.data;
+                        // let response = await rootStore.application.administration.sessionStore.reviewToken(reviewToken);
+                        // this.sessionCertificate = response.data;
+                        // return response.data;
+                        return {};
                     }
                 }
             },

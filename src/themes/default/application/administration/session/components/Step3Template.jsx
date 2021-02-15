@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicFormControls, BaasicButton, BaasicInput } from 'core/components';
+import { BaasicFormControls, BaasicButton, BaasicInput, BaasicModal } from 'core/components';
+import { BlankCertificateModal } from '.';
 
 class Step3Template extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
-	componentDidMount() {
-		document.addEventListener('keydown', this.props.onBarcodeChange, true);
-	}
+	// componentDidMount() {
+	// 	document.addEventListener('keydown', this.props.onBarcodeChange, true);
+	// }
 
-	componentWillUnmount() {
-		document.removeEventListener('keydown', this.props.onBarcodeChange, true);
-	}
+	// componentWillUnmount() {
+	// 	document.removeEventListener('keydown', this.props.onBarcodeChange, true);
+	// }
 
 	render() {
 		const {
-			form, t, onPreviousStepClick, barcode, onBarcodeChange, sessionCertificates
+			form, t, onPreviousStepClick, barcode, onBarcodeChange, sessionCertificates, blankCertificateModal
 		} = this.props;
 
 		return (
@@ -60,15 +61,13 @@ class Step3Template extends React.Component {
 											value={barcode}
 											onChange={onBarcodeChange}
 											maxLength={10}
-											onBlur={(e) => e.currentTarget.focus()}
-											autoFocus
 										/>
 
 									</div>
 								</div>
-								{/* <BaasicModal modalParams={blankCertificateModal} showClose={false}>
-                            <BlankCertificateModal />
-                        </BaasicModal> */}
+								<BaasicModal modalParams={blankCertificateModal} showClose={false}>
+									<BlankCertificateModal />
+								</BaasicModal>
 							</div>
 						</div>
 						<div className="col col-sml-12 col-lrg-6">

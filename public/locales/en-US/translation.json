@@ -2106,6 +2106,7 @@
                 }
             },
             "STEP3": {
+                "BLANK_CERTIFICATE_AMOUNT": "Enter amount for open certificate",
                 "READY_FOR_SCANNING": "Ready for scanning",
                 "BLANK_CERTIFICATE_ENTER_AMOUNT": "Enter amount for open certificate",
                 "BLANK_CERTIFICATE_CODE": "Certificate code",

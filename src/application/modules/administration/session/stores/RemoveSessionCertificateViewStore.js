@@ -1,7 +1,6 @@
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { RemoveSessionCertificateForm } from 'application/administration/session/forms';
-import { SessionService } from 'application/administration/session/services';
 
 @applicationContext
 class RemoveSessionCertificateViewStore extends BaseEditViewStore {
@@ -13,8 +12,7 @@ class RemoveSessionCertificateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        const service = new SessionService(rootStore.application.baasic.apiClient);
-                        await service.removeCertificate(
+                        await rootStore.application.administration.sessionStore.removeCertificate(
                             {
                                 id: this.id,
                                 ...resource

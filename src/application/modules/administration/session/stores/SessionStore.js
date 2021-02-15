@@ -30,5 +30,25 @@ class SessionStore {
         const response = await this.sessionService.addCertificate(resource);
         return response.data;
     }
+
+    async updateBlankCertificate(resource) {
+        const response = await this.sessionService.updateBlankCertificate(resource);
+        return response.data;
+    }
+
+    async updateBlankCertificate(resource) {
+        const response = await this.sessionService.removeCertificate(resource);
+        return response.data;
+    }
+
+    async reviewBlankCertificate(resource) {
+        const response = await this.sessionService.reviewBlankCertificate(resource);
+        return response.data;
+    }
+
+    async reviewToken(resource) {
+        const response = await this.sessionService.reviewToken(resource);
+        return response.data;
+    }
 }
 export default SessionStore;

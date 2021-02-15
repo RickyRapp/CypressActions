@@ -18,7 +18,8 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         onBarcodeChange,
         sessionCertificates,
         currentCount,
-        session
+        session,
+        blankCertificateModal
     } = sessionCreateViewStore;
 
     return (
@@ -53,6 +54,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             form={form}
                             sessionCertificates={sessionCertificates}
                             barcode={barcode}
+                            blankCertificateModal={blankCertificateModal}
                             onBarcodeChange={onBarcodeChange}
                         />
                     </div>}

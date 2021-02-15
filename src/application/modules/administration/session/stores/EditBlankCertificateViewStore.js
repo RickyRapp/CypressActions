@@ -2,7 +2,6 @@ import { action } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { EditBlankCertificateForm } from 'application/administration/session/forms';
-import { SessionService } from 'application/administration/session/services';
 
 @applicationContext
 class EditBlankCertificateViewStore extends BaseEditViewStore {
@@ -17,8 +16,7 @@ class EditBlankCertificateViewStore extends BaseEditViewStore {
                 return {
                     update: async (resource) => {
                         try {
-                            const service = new SessionService(rootStore.application.baasic.apiClient);
-                            await service.updateBlankCertificate({
+                            await rootStore.application.administration.sessionStore.updateBlankCertificate({
                                 id: this.id,
                                 sendReviewEmail: this.sendReviewEmail,
                                 reviewUrl: window.location.host + '/review-certificate/{reviewToken}',

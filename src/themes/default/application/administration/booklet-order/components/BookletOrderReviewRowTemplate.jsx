@@ -17,7 +17,12 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
         },
         {
             fetchFunc: async (searchQuery) => {
-                return fetchFunc(searchQuery, denominationType.id, item.bookletTypeId);
+                const arrayResult = await fetchFunc(searchQuery, denominationType.id, item.bookletTypeId);
+                if (arrayResult.length === 1) {
+                    const temp = item.booklets.slice();
+                    temp.push(arrayResult[0])
+                    bookletDropdownStore.onChange(temp);
+                }
             },
             onChange: (value) => {
                 let booklets = [];

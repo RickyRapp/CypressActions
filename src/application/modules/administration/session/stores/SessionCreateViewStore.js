@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
 import { charityFormatter } from 'core/utils';
+import { ModalParams } from 'core/models';
 
 class SessionViewStore extends BaseEditViewStore {
     steps = [1, 2, 3, 4];
@@ -41,6 +42,7 @@ class SessionViewStore extends BaseEditViewStore {
         });
 
         this.createCharityDropdownStore();
+        this.blankCertificateModal = new ModalParams({});
     }
 
     @action.bound
@@ -95,7 +97,20 @@ class SessionViewStore extends BaseEditViewStore {
                 data = ex.data;
             }
             if (data.isEligible) {
-                this.sessionCertificates.push(data.certificate);
+                if (data.certificate.denominationTypeValue === 0) {
+                    this.blankCertificateModal.open({
+                        certificate: data.certificate,
+                        onClick: (certificate) => {
+                            this.sessionCertificates.push(certificate);
+                            this.blankCertificateModal.close();
+                        },
+                        onClose: () => {
+                        }
+                    });
+                }
+                else {
+                    this.sessionCertificates.push(data.certificate);
+                }
             }
             else {
                 this.handleResponse(data.errorCode);

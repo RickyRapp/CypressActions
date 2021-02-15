@@ -8,7 +8,7 @@ import {
 
 const RemoveSessionCertificateModal = function ({ modalParams, t }) {
     const {
-        sessionCertificate,
+        certificate,
         onClick
     } = modalParams.data;
 
@@ -19,14 +19,14 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                 <div className="form__group col col-lrg-6">
                     <div>
                         <label className="form__group__label">{t('SESSION.CREATE.STEP3.BLANK_CERTIFICATE_CODE')}</label>
-                        {sessionCertificate &&
-                            <span className={"input input--lrg input--text input--disabled"}>{sessionCertificate.bookletCode}-{sessionCertificate.certificateCode}</span>}
+                        {certificate &&
+                            <span className={"input input--lrg input--text input--disabled"}>{certificate.bookletCode}-{certificate.certificateCode}</span>}
                     </div>
                 </div>
                 <div className="form__group col col-lrg-12">
                     <NumericInput
-                        value={sessionCertificate.certificateValue}
-                        onChange={(event) => sessionCertificate.certificateValue = event.target.value}
+                        value={certificate.certificateValue}
+                        onChange={(event) => certificate.certificateValue = event.target.value}
                         label='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_LABEL'
                         placeholder='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_PLACEHOLDER'
                         showLabel={true}
@@ -37,7 +37,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                     <BaasicButton
                         className="btn btn--base btn--primary"
                         label='SESSION.CREATE.STEP3.SET_BLANK_CERTIFICATE_VALUE'
-                        onClick={() => onClick(sessionCertificate)}>
+                        onClick={() => onClick(certificate)}>
                     </BaasicButton>
                 </div>
             </div>

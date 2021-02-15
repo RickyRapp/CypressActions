@@ -46,6 +46,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 abrv: 'check-scheduled-grant-insufficient-funds'
             },
             {
+                name: 'Process grant scheduled payment',
+                description: 'Process grant scheduled payment. Creates pending/approved grant.',
+                abrv: 'process-grant-scheduled-payment'
+            },
+            {
                 name: 'Contribution by automatic contribution setting',
                 description: 'Process contributions specified by automatic contribution settings. Low balance contribution.',
                 abrv: 'contribution-by-automatic-contribution-setting'
