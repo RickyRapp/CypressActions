@@ -32,7 +32,7 @@ class DashboardViewStore extends BaseViewStore {
         const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
-            this.yearDropdownStore.setItems(response.data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
+            this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
         }
         else {
             this.yearDropdownStore.setItems([{ name: initialValue.toString(), id: initialValue }]);
