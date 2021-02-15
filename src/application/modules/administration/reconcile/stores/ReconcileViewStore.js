@@ -4,6 +4,7 @@ import { ReconcileListFilter } from 'application/administration/reconcile/models
 import { ModalParams } from 'core/models';
 import { isSome } from 'core/utils';
 import { ReconcileEditForm } from 'application/administration/reconcile/forms';
+import { saveAs } from '@progress/kendo-file-saver';
 
 class ReconcileViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -65,6 +66,18 @@ class ReconcileViewStore extends BaseListViewStore {
         );
     }
 
+    @action.bound
+    async printReport(reconcile) {
+        let contentType = 'application/pdf';
+        if (reconcile.paymentType.abrv === 'ach-transfer') {
+            contentType = 'text/csv';
+        }
+        const report = await this.rootStore.application.administration.reconcileStore.generateReport({ contentType: contentType, ...reconcile });
+        const nowDate = new Date();
+        const fileName = `${"Check Receipt".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.pdf`;
+        saveAs(report.data, fileName);
+    }
+
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -104,6 +117,7 @@ class ReconcileViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (item) => this.openEditModal(item),
                 onCash: (item) => this.cashConfirm(item),
+                onPrintReport: (item) => this.printReport(item),
                 onPreview: (item) => this.openPreviewModal(item),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
@@ -113,6 +127,9 @@ class ReconcileViewStore extends BaseListViewStore {
                 },
                 onCashRender: (item) => {
                     return !isSome(item.isCashed);
+                },
+                onPrintReportRender: (item) => {
+                    return item.isCashed !== false;
                 },
                 onPreviewRender: (item) => {
                     return item.isCashed && item.json;

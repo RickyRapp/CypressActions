@@ -7,7 +7,7 @@ import { isSome } from 'core/utils';
 import { ReconcileEdit } from 'application/administration/reconcile/components';
 import { ReconcilePreviewTemplate } from 'themes/application/administration/reconcile/components';
 
-const ReconcileListTemplate = function({ reconcileViewStore }) {
+const ReconcileListTemplate = function ({ reconcileViewStore }) {
 	const { tableStore, queryUtility, authorization, editModal, previewModal } = reconcileViewStore;
 
 	return (
@@ -38,8 +38,8 @@ ReconcileListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onPreview, onCash } = actions;
-	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCash)) return null;
+	const { onEdit, onPreview, onCash, onPrintReport } = actions;
+	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCash) && !isSome(onPrintReport)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -59,6 +59,13 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onCashRender) {
 			cashRender = actionsRender.onCashRender(item);
+		}
+	}
+
+	let printReportRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onPrintReportRender) {
+			printReportRender = actionsRender.onPrintReportRender(item);
 		}
 	}
 
@@ -90,6 +97,15 @@ function renderActions({ item, actions, actionsRender }) {
 						label="RECONCILE.LIST.BUTTON.CASH"
 						onlyIcon={true}
 						onClick={() => onCash(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onPrintReport) && printReportRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						icon="u-icon u-icon--approve u-icon--base"
+						label="RECONCILE.LIST.BUTTON.PRINT"
+						onlyIcon={true}
+						onClick={() => onPrintReport(item)}
 					></BaasicButton>
 				) : null}
 			</div>

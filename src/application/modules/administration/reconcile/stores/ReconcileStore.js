@@ -16,6 +16,11 @@ class ReconcileStore {
         return response.data;
     }
 
+    async generateReport(resource) {
+        const response = await this.reconcileService.generateReport(resource);
+        return response;
+    }
+
     async updateReconcile(resource) {
         const response = await this.reconcileService.update(resource);
         return response.data;

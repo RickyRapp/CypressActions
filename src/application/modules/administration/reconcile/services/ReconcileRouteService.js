@@ -12,6 +12,10 @@ class ReconcileRouteService extends BaseRouteService {
     checkUpdate(resource) {
         return super.update(this.base + '/check/{id}', resource);
     }
+
+    generateReport(resource) {
+        return super.update(this.base + '/generate-report', resource);
+    }
 }
 
 export default ReconcileRouteService;
