@@ -2531,7 +2531,8 @@
         "TAB": {
             "EMAIL": "Email",
             "REPORT": "Report",
-            "SCHEDULED_TASK": "Scheduled task"
+            "SCHEDULED_TASK": "Scheduled task",
+            "WELCOME_EMAILS": "Welcome emails"
         },
         "TEST_EMAIL": {
             "LIST": {

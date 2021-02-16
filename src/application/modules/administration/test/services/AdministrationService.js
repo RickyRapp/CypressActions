@@ -12,6 +12,11 @@ class AdministrationService extends BaseService {
         return this.apiClient.put(url);
     }
 
+    sendBatch(name) {
+        const url = this.routeService.sendBatch(name);
+        return this.apiClient.put(url);
+    }
+
     sendEmail(resource) {
         const url = this.routeService.sendEmail(resource);
         return this.apiClient.put(url, resource);

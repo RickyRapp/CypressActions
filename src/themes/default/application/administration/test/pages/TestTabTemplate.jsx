@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { TestEmailList, TestReportList, ScheduledSettingList } from 'application/administration/test/pages';
+import { TestEmailList, TestReportList, ScheduledSettingList, WelcomeExistingAccountsEmails } from 'application/administration/test/pages';
 
 function TestTabTemplate({ testTabViewStore }) {
     const {
@@ -21,6 +21,9 @@ function TestTabTemplate({ testTabViewStore }) {
                     </div>
                     <div label={'TEST.TAB.SCHEDULED_TASK'} className="u-mar--top--sml">
                         <ScheduledSettingList />
+                    </div>
+                    <div label={'TEST.TAB.WELCOME_EMAILS'} className="u-mar--top--sml">
+                        <WelcomeExistingAccountsEmails />
                     </div>
                 </TabLayout>
             </div>
