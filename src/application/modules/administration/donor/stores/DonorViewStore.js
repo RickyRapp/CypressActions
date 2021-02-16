@@ -34,7 +34,7 @@ class DonorViewStore extends BaseListViewStore {
                             'accountNumber',
                             'accountType',
                             'accountType.name',
-                            'availableBalance'
+                            'presentBalance'
                         ];
                         return this.rootStore.application.administration.donorStore.findDonors(params);
                     }
@@ -79,7 +79,7 @@ class DonorViewStore extends BaseListViewStore {
                     title: 'DONOR.LIST.COLUMNS.ACCOUNT_TYPE'
                 },
                 {
-                    key: 'availableBalance',
+                    key: 'presentBalance',
                     title: 'DONOR.LIST.COLUMNS.PRESENT_BALANCE',
                     format: {
                         type: 'currency',

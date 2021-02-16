@@ -22,7 +22,7 @@ class CharityViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [];
-                        params.fields = ['id', 'name', 'taxId', 'dateCreated', 'availableBalance'];
+                        params.fields = ['id', 'name', 'taxId', 'dateCreated', 'presentBalance'];
                         return rootStore.application.administration.charityStore.findCharity(params);
                     }
                 }
@@ -58,7 +58,7 @@ class CharityViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'availableBalance',
+                    key: 'presentBalance',
                     title: 'CHARITY.LIST.COLUMNS.BALANCE_LABEL',
                     format: {
                         type: 'currency',

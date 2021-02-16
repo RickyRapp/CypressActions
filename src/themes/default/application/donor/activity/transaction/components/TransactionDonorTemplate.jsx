@@ -24,10 +24,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 							<div className="transaction__card">
 								<h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5>
 								{donor && (
-									<div
-										className={`transaction__card--amount ${donor.availableBalance >= 0 ? 'transaction__card--amount--plus' : ''
-											}`}
-									>
+									<div className={`transaction__card--amount ${donor.availableBalance >= 0 ? 'transaction__card--amount--plus' : ''}`} >
 										<FormatterResolver
 											item={{ balance: donor.availableBalance }}
 											field="balance"

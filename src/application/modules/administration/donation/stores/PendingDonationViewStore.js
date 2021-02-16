@@ -3,6 +3,7 @@ import { SelectTableWithRowDetailsViewStore, BaseListViewStore, BaasicDropdownSt
 import { PendingDonationListFilter } from 'application/administration/donation/models';
 import { action, observable } from 'mobx';
 import _ from 'lodash';
+import { saveAs } from '@progress/kendo-file-saver';
 
 class PendingDonationViewStore extends BaseListViewStore {
     @observable disableSave = false;
@@ -84,7 +85,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async onReviewClick() {
         this.disableSave = true;
-        await this.rootStore.application.administration.donationStore.reviewPendingDonations(
+        const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(
             {
                 paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,
                 paymentTypeId: this.isTransferToCharityAccount ? null : this.paymentTypeDropdownStore.value.id,
@@ -94,6 +95,20 @@ class PendingDonationViewStore extends BaseListViewStore {
         this.rootStore.notificationStore.success("Successfully processed.");
         await this.queryUtility.fetch();
         this.disableSave = false;
+        console.log(data);
+        await this.downloadReport(data.response);
+    }
+
+    async downloadReport(id) {
+        let contentType = 'application/pdf';
+        if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
+            contentType = 'text/csv';
+        }
+        const report = await this.rootStore.application.administration.reconcileStore.generateReport({ contentType: contentType, id: id });
+        const nowDate = new Date();
+        const fileName = `${"Check Receipt".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.pdf`;
+        saveAs(report.data, fileName);
+        this.rootStore.notificationStore.success("Report generated.");
     }
 
     createPaymentTypeDropdownStore() {

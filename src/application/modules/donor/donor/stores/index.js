@@ -1,4 +1,3 @@
-export { default as DonorViewStore } from './DonorViewStore'
 export { default as DonorAddressViewStore } from './DonorAddressViewStore'
 export { default as DonorEmailAddressViewStore } from './DonorEmailAddressViewStore'
 export { default as DonorPhoneNumberViewStore } from './DonorPhoneNumberViewStore'

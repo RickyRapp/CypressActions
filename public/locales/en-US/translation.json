@@ -2366,7 +2366,8 @@
             "BUTTON": {
                 "EDIT": "Edit",
                 "PREVIEW": "Preview",
-                "CASH": "Cash"
+                "CASH": "Cash",
+                "PRINT": "Print"
             }
         },
         "EDIT": {

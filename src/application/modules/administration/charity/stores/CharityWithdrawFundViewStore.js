@@ -35,7 +35,7 @@ class CharityWithdrawFundViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource(this.id)
             ]);
-            this.form.$('amount').set('rules', this.form.$('amount').rules + `|max:${this.item.availableBalance}`);
+            this.form.$('amount').set('rules', this.form.$('amount').rules + `|max:${this.item.presentBalance}`);
         }
     }
 

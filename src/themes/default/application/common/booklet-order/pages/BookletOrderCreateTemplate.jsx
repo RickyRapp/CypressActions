@@ -51,11 +51,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </div>
                             <div className="col col-sml-12 col-xxlrg-4">
                                 <div className="card--sml card--secondary type--center">
-                                    <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span> {donor && <FormatterResolver
-                                        item={{ availableBalance: donor.availableBalance }}
-                                        field='availableBalance'
-                                        format={{ type: 'currency' }}
-                                    />}</h2>
+                                    <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span>
+                                        {donor && <FormatterResolver
+                                            item={{ availableBalance: donor.availableBalance }}
+                                            field='availableBalance'
+                                            format={{ type: 'currency' }}
+                                        />}</h2>
                                 </div>
                             </div>
                             <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>

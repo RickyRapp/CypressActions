@@ -117,7 +117,7 @@ ContributionCreateStep3Template.propTypes = {
     routes: PropTypes.object.isRequired,
     previousContributionsTableStore: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
-    bankAccount: PropTypes.object.isRequired,
+    bankAccount: PropTypes.object,
     t: PropTypes.func,
 };
 
