@@ -1,3 +1,7 @@
 {
-    "test": "test-prod"
+    "appId": "thedonorsfund",
+    "appUrl": "api.thedonorsfund.org",
+    "appVersion": "",
+    "useSSL": true,
+    "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
 }
