@@ -4,7 +4,7 @@ class PasswordRecoveryStore {
     }
 
     async requestReset({ userName, challengeIdentifier, challengeResponse }) {
-        const recoverUrl = `${window.location.origin}/password-change/{?passwordRecoveryToken}`;
+        const recoverUrl = `${window.location.origin}/app/password-change/{?passwordRecoveryToken}`;
         return await this.moduleStore.rootStore.application.baasic.membershipModule.passwordRecovery.requestReset({
             userName: userName,
             challengeIdentifier: challengeIdentifier,

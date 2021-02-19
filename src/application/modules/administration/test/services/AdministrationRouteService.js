@@ -13,6 +13,10 @@ class AdministrationRouteService extends BaseRouteService {
         return super.update(this.base + '/send-batch-welcome/' + name);
     }
 
+    sendWelcome(id) {
+        return super.update(this.base + '/send-one-welcome/' + id);
+    }
+
     sendEmail(resource) {
         return super.update(this.base + '/send-test-mail', resource);
     }

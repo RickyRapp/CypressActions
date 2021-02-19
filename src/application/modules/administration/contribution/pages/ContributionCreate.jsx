@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { ContributionCreateTemplate } from 'themes/application/administration/contribution/pages';
 import { ContributionCreateViewStore } from 'application/common/contribution/stores';
 
-@setCurrentView((rootStore) => new ContributionCreateViewStore(rootStore, { donorId: rootStore.routerStore.routerState.params.id, contributionStore: rootStore.application.administration.contributionStore }), 'contributionCreateViewStore')
+@setCurrentView((rootStore) => new ContributionCreateViewStore(rootStore, { donorId: rootStore.routerStore.routerState.params.id, contributionStore: rootStore.application.administration.contributionStore }), 'store')
 @observer
 class ContributionCreate extends React.Component {
     render() {

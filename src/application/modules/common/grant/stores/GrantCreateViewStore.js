@@ -93,7 +93,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			await this.fetch([this.setDonor()]);
 			await this.fetch([this.loadLookups()]);
 
-			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${this.donor.availableBalance}`);
+			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${this.donor.availableBalance < 0 ? 0 : this.donor.availableBalance}`);
 
 			this.setFormDefaultRules();
 			this.form.$('isRecurring').observe(({ field }) => {

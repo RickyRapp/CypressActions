@@ -4,9 +4,10 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdownStore } from 'core/stores';
 import { BaasicDropdown } from 'core/components';
 
-const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc }) {
+const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc, bookletTypes }) {
     const isMaxBookletsSelected = item.bookletCount === item.booklets.length;
     const denominationType = denominationTypes.find(c => { return c.id === item.denominationTypeId });
+    const bookletType = bookletTypes.find(c => c.id === item.bookletTypeId)
     const bookletDropdownStore = new BaasicDropdownStore(
         {
             multi: true,
@@ -17,7 +18,7 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
         },
         {
             fetchFunc: async (searchQuery) => {
-                const arrayResult = await fetchFunc(searchQuery, denominationType.id, item.bookletTypeId);
+                const arrayResult = await fetchFunc(searchQuery, denominationType ? denominationType.id : null, item.bookletTypeId);
                 if (arrayResult.length === 1) {
                     const temp = item.booklets.slice();
                     temp.push(arrayResult[0])
@@ -40,7 +41,7 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
     return (
         <div className="row">
             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
-                {denominationType.name}
+                {item && bookletTypes && bookletType.abrv !== 'classic' && bookletType.name} {denominationType && denominationType.name}
             </div>
             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                 {item.bookletCount}

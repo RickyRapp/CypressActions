@@ -3,7 +3,7 @@ import { PasswordRecoveryForm } from 'application/common/membership/forms';
 import { BaseViewStore } from 'core/stores';
 
 class PasswordRecoveryViewStore extends BaseViewStore {
-    recoverUrl = `${window.location.origin}/password-change/{?passwordRecoveryToken}`;
+    recoverUrl = `${window.location.origin}/app/password-change/{?passwordRecoveryToken}`;
     form = new PasswordRecoveryForm({
         onSuccess: async (form) => {
             await this.requestReset({ ...form.values() });

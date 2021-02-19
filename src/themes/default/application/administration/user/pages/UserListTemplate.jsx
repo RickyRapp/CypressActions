@@ -5,15 +5,24 @@ import { BaasicButton, BaasicTable, TableFilter } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
-const UserListTemplate = function({ userViewStore }) {
-	const { tableStore, queryUtility, authorization } = userViewStore;
+const UserListTemplate = function ({ userViewStore }) {
+	const { tableStore, queryUtility, authorization, routes } = userViewStore;
 
 	return (
 		<ApplicationListLayout store={userViewStore} authorization={authorization}>
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
-					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility} />
+					<div className="row u-mar--bottom--med">
+						<div className="col col-sml-12 col-xxlrg-10">
+							<TableFilter queryUtility={queryUtility} />
+						</div>
+						<div className="col col-sml-12 col-xxlrg-2 type--right">
+							<BaasicButton
+								className="btn btn--med btn--primary"
+								label={'LIST_LAYOUT.CREATE_BUTTON'}
+								onClick={routes.create}
+							/>
+						</div>
 					</div>
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 				</div>
@@ -58,16 +67,16 @@ function renderActions({ item, actions, authorization }) {
 						onClick={() => onDisapprove(item)}
 					></BaasicButton>
 				) : (
-					<BaasicButton
-						authorization={authorization ? authorization.update : null}
-						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--approve u-icon--base"
-						label="Approve"
-						onlyIcon={true}
-						onClick={() => onApprove(item)}
-					></BaasicButton>
-				)}
+						<BaasicButton
+							authorization={authorization ? authorization.update : null}
+							className="btn btn--icon"
+							onlyIconClassName="u-mar--right--tny"
+							icon="u-icon u-icon--approve u-icon--base"
+							label="Approve"
+							onlyIcon={true}
+							onClick={() => onApprove(item)}
+						></BaasicButton>
+					)}
 				{item.isLockedOut ? (
 					<BaasicButton
 						authorization={authorization ? authorization.update : null}
@@ -79,16 +88,16 @@ function renderActions({ item, actions, authorization }) {
 						onClick={() => onUnlock(item)}
 					></BaasicButton>
 				) : (
-					<BaasicButton
-						authorization={authorization ? authorization.update : null}
-						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--lock u-icon--base"
-						label="Lock"
-						onlyIcon={true}
-						onClick={() => onLock(item)}
-					></BaasicButton>
-				)}
+						<BaasicButton
+							authorization={authorization ? authorization.update : null}
+							className="btn btn--icon"
+							onlyIconClassName="u-mar--right--tny"
+							icon="u-icon u-icon--lock u-icon--base"
+							label="Lock"
+							onlyIcon={true}
+							onClick={() => onLock(item)}
+						></BaasicButton>
+					)}
 			</div>
 		</td>
 	);

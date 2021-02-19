@@ -1,13 +1,19 @@
-import { SessionService } from 'application/administration/session/services';
+import { SessionPendingCertificateService, SessionService } from 'application/administration/session/services';
 
 class SessionStore {
     constructor(moduleStore) {
         this.moduleStore = moduleStore;
         this.sessionService = moduleStore.rootStore.createApplicationService(SessionService);
+        this.sessionPendingCertificateService = moduleStore.rootStore.createApplicationService(SessionPendingCertificateService);
     }
 
     async findSession(params) {
         const response = await this.sessionService.find(params);
+        return response.data;
+    }
+
+    async findSessionPendingCertificate(params) {
+        const response = await this.sessionPendingCertificateService.find(params);
         return response.data;
     }
 
@@ -31,13 +37,28 @@ class SessionStore {
         return response.data;
     }
 
+    async setBlankCertificate(resource) {
+        const response = await this.sessionService.setBlankCertificate(resource);
+        return response.data;
+    }
+
+    async setBlankCertificateFromOpenSession(resource) {
+        const response = await this.sessionService.setBlankCertificateFromOpenSession(resource);
+        return response.data;
+    }
+
     async updateBlankCertificate(resource) {
         const response = await this.sessionService.updateBlankCertificate(resource);
         return response.data;
     }
 
-    async updateBlankCertificate(resource) {
+    async removeCertificate(resource) {
         const response = await this.sessionService.removeCertificate(resource);
+        return response.data;
+    }
+
+    async removeCertificateFromOpenSession(resource) {
+        const response = await this.sessionService.removeCertificateFromOpenSession(resource);
         return response.data;
     }
 

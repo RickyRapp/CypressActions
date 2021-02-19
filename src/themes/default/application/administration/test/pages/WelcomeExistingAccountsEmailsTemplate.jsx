@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
-import { SimpleBaasicTable, BaasicButton } from 'core/components';
+import { SimpleBaasicTable, BaasicButton, BaasicDropdown } from 'core/components';
 import { Content } from 'core/layouts';
 
 function WelcomeExistingAccountsEmailsTemplate({ welcomeExistingAccountsEmailsViewStore }) {
     const {
-        tableStore
+        tableStore,
+        searchDonorDropdownStore,
+        donorId,
+        onSendEmail
     } = welcomeExistingAccountsEmailsViewStore;
 
     return (
@@ -19,7 +22,25 @@ function WelcomeExistingAccountsEmailsTemplate({ welcomeExistingAccountsEmailsVi
                     loading={tableStore.loading}
                 />
             </div>
-        </Content>
+            <div className="card--primary card--med u-mar--top--med">
+                <div className="row">
+                    <div className="col col-sml-12 col-xxlrg-3 type--right">
+                        <BaasicDropdown
+                            placeholder={'SELECT_DONOR_PLACEHOLDER'}
+                            className='input--dropdown'
+                            store={searchDonorDropdownStore}
+                        />
+                    </div>
+                </div>
+                {donorId &&
+                    <BaasicButton
+                        className="btn btn--icon"
+                        icon='u-icon u-icon--approve u-icon--base'
+                        label='TEST.SCHEDULED_SETTING.LIST.BUTTON.RUN'
+                        onClick={() => onSendEmail()}>
+                    </BaasicButton>}
+            </div>
+        </Content >
     )
 }
 

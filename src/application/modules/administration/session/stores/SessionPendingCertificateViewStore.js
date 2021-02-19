@@ -1,11 +1,8 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { SessionPendingCertificateService } from 'application/administration/session/services';
 import { FilterParams } from 'core/models';
 
 class SessionPendingCertificateViewStore extends BaseListViewStore {
     constructor(rootStore) {
-        const service = new SessionPendingCertificateService(rootStore.application.baasic.apiClient);
-
         super(rootStore, {
             name: 'session',
             authorization: 'theDonorsFundAdministrationSection',
@@ -15,15 +12,13 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
             },
             actions: () => {
                 return {
-                    find: async (params) => {
+                    find: (params) => {
                         params.embed = [
                             'charity',
                             'certificate',
-                            'certificate.booklet',
-                            'certificate.booklet.denominationType'
+                            'certificate.denominationType'
                         ];
-                        const response = await service.find(params);
-                        return response.data;
+                        return rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
                     }
                 }
             }
@@ -36,19 +31,18 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
                 },
                 {
-                    key: 'amountAfterDeduction',
-                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.AMOUNT_AFTER_DEDUCTION_LABEL',
+                    key: 'certificate.denominationType',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
-                        type: 'currency',
-                        value: '$'
+                        type: 'denomination',
+                        value: 'short'
                     }
                 },
                 {
-                    key: 'certificate.booklet.denominationType.value',
-                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DENOMINATION_LABEL',
+                    key: 'blankCertificateValue',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
-                        type: 'currency',
-                        value: '$'
+                        type: 'currency'
                     }
                 },
                 {

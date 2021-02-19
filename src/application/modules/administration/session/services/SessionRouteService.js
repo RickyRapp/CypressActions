@@ -54,6 +54,14 @@ class SessionRouteService extends BaseRouteService {
         return super.create(this.base + '/remove-certificate');
     }
 
+    removeCertificateFromOpenSession() {
+        return super.create(this.sessionScanBase + '/step3-remove-certificate');
+    }
+
+    setBlankCertificateFromOpenSession() {
+        return super.create(this.sessionScanBase + '/step3-set-blank-certificate');
+    }
+
     setBlankCertificate() {
         return super.create(this.base + '/set-blank-certificate');
     }

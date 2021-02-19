@@ -1,9 +1,12 @@
-import { TableViewStore, BaseViewStore } from 'core/stores';
+import { TableViewStore, BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { AdministrationService } from 'application/administration/test/services';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorFormatter } from 'core/utils';
+import { action, observable } from 'mobx';
 
 @applicationContext
 class WelcomeExistingAccountsEmailsViewStore extends BaseViewStore {
+    @observable donorId = null;
+
     constructor(rootStore) {
         super(rootStore)
         this.service = new AdministrationService(rootStore.application.baasic.apiClient)
@@ -52,6 +55,54 @@ class WelcomeExistingAccountsEmailsViewStore extends BaseViewStore {
         if (!this.tableStore.dataInitialized) {
             this.tableStore.dataInitialized = true;
         }
+
+        this.createSearchDonorDropdownStore()
+    }
+
+    @action.bound
+    async onSendEmail() {
+        await this.service.sendWelcome(this.donorId);
+        this.searchDonorDropdownStore.setValue(null);
+        this.donorId = null;
+    }
+
+    createSearchDonorDropdownStore() {
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'GRANT.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.donorStore.searchDonor({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'firstName',
+                            'lastName',
+                            'securityPin',
+                            'donorAddresses'
+                        ]
+                    });
+                    return data.item.map(x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                onChange: (donorId) => {
+                    this.donorId = donorId;
+                }
+            });
     }
 }
 

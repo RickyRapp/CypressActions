@@ -136,8 +136,7 @@ class UserEditViewStore extends BaseEditViewStore {
     @action.bound
     async toggleLock() {
         this.rootStore.modalStore.showConfirm(
-            `Are you sure you want to ${
-            this.item.isLockedOut ? 'unlock' : 'lock'
+            `Are you sure you want to ${this.item.isLockedOut ? 'unlock' : 'lock'
             } user?`,
             async () => {
                 if (this.item.isLockedOut) {
@@ -147,8 +146,7 @@ class UserEditViewStore extends BaseEditViewStore {
                 }
                 await this.getResource(this.item.id);
                 this.rootStore.notificationStore.success(
-                    `Successfully ${
-                    this.item.isLockedOut ? 'locked' : 'unlocked'
+                    `Successfully ${this.item.isLockedOut ? 'locked' : 'unlocked'
                     } user`
                 );
             }
@@ -158,8 +156,7 @@ class UserEditViewStore extends BaseEditViewStore {
     @action.bound
     async toggleApprove() {
         this.rootStore.modalStore.showConfirm(
-            `Are you sure you want to ${
-            this.item.isApproved ? 'disapprove' : 'approve'
+            `Are you sure you want to ${this.item.isApproved ? 'disapprove' : 'approve'
             } user?`,
             async () => {
                 this.loaderStore.suspend();
@@ -171,8 +168,7 @@ class UserEditViewStore extends BaseEditViewStore {
 
                 await this.getResource(this.item.id);
                 this.rootStore.notificationStore.success(
-                    `Successfully ${
-                    this.item.isApproved ? 'approved' : 'disapproved'
+                    `Successfully ${this.item.isApproved ? 'approved' : 'disapproved'
                     } user`
                 );
                 this.loaderStore.resume();
@@ -187,7 +183,7 @@ class UserEditViewStore extends BaseEditViewStore {
             async () => {
                 this.loaderStore.suspend();
                 try {
-                    const recoverUrl = `${window.location.origin}/password-change/{?passwordRecoveryToken}`;
+                    const recoverUrl = `${window.location.origin}/app/password-change/{?passwordRecoveryToken}`;
                     await this.rootStore.application.baasic.membershipModule.passwordRecovery.requestReset({
                         userName: this.item.email,
                         recoverUrl: recoverUrl

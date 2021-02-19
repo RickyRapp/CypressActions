@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
 import {
-	BaasicButton,
 	BaasicModal,
 } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorBankAccountEdit } from 'application/administration/donor/components';
-import { ContributionCreateStep1Template, ContributionCreateStep2Template } from 'themes/application/common/contribution/components';
+import { ContributionCreateStep1Template, ContributionCreateStep2Template, ContributionCreateStep3Template } from 'themes/application/common/contribution/components';
 
-const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
+const ContributionCreateTemplate = function ({ store }) {
 	const {
 		loaderStore,
 		form,
@@ -21,8 +20,11 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 		bankAccountDropdownStore,
 		bankAccountModal,
 		previousContributionsTableStore,
+		nextStep,
+		onSubmitClick,
+		onAddBankAccountClick,
 		...otherProps
-	} = contributionCreateViewStore;
+	} = store;
 
 	return (
 		<Page loading={loaderStore.loading}>
@@ -40,9 +42,12 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 					previousContributionsTableStore={previousContributionsTableStore}
 					bankAccountDropdownStore={bankAccountDropdownStore}
 					form={form}
-					step={step}
 					paymentTypes={paymentTypes}
+					onSubmitClick={onSubmitClick}
+					nextStep={nextStep}
+					step={step}
 					onSelectPaymentType={onSelectPaymentType}
+					onAddBankAccountClick={onAddBankAccountClick}
 					{...otherProps}
 				/>
 			)}
@@ -62,7 +67,7 @@ const ContributionCreateTemplate = function ({ contributionCreateViewStore }) {
 };
 
 ContributionCreateTemplate.propTypes = {
-	contributionCreateViewStore: PropTypes.object.isRequired,
+	store: PropTypes.object.isRequired,
 	t: PropTypes.func,
 };
 

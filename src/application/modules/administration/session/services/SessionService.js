@@ -47,6 +47,16 @@ class SessionService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
+    removeCertificateFromOpenSession(resource) {
+        var url = this.routeService.removeCertificateFromOpenSession();
+        return this.apiClient.post(url, resource);
+    }
+
+    setBlankCertificateFromOpenSession(resource) {
+        var url = this.routeService.setBlankCertificateFromOpenSession();
+        return this.apiClient.post(url, resource);
+    }
+
     setBlankCertificate(resource) {
         var url = this.routeService.setBlankCertificate();
         return this.apiClient.post(url, resource);

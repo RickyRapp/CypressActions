@@ -10,7 +10,8 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
         orderContents,
         fetchFunc,
         denominationTypes,
-        onAddBookletsChange
+        onAddBookletsChange,
+        bookletTypes
     } = bookletOrderReviewViewStore;
 
     return (
@@ -23,6 +24,7 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                                 key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
                                 item={item}
                                 fetchFunc={fetchFunc}
+                                bookletTypes={bookletTypes}
                                 denominationTypes={denominationTypes}
                                 onAddBookletsChange={onAddBookletsChange}
                             />

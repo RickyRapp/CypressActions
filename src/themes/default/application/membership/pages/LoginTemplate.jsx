@@ -30,9 +30,9 @@ function LoginTemplate({ currentView, t }) {
 						</div>
 					)}
 
-					<a className="type--sml btn--link" onClick={routes.forgotPassword}>
+					{/* <a className="type--sml btn--link" onClick={routes.forgotPassword}>
 						{t('LOGIN.FORGOT_PASSWORD_BUTTON')}
-					</a>
+					</a> */}
 
 					<div className="u-group u-mar--top--xlrg">
 						<BaasicButton

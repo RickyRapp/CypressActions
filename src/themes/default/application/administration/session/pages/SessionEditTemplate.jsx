@@ -88,9 +88,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                 />
                 <div className="row u-mar--top--lrg">
                     <div className="form__group col-lrg-12">
-                        {t('SESSION.EDIT.TOTAL_AMOUNT')} ${item && (_.sumBy(item.sessionCertificates, (sessionCert) => {
-                            return (sessionCert.certificate.booklet.denominationType.abrv === 'blank' ? sessionCert.blankCertificateValue : sessionCert.certificate.booklet.denominationType.value) * 100
-                        })) / 100}
+                        {t('SESSION.EDIT.TOTAL_AMOUNT')} ${item && (_.sumBy(item.grants, (grant) => { return grant.certificate.denominationType.abrv === 'blank' ? grant.certificate.openCertificateAmount : grant.certificate.denominationType.value }))}
                     </div>
                     <div className="form__group col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_DEDUCTION')} ${item && item.amount}
