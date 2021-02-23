@@ -125,6 +125,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						icon="u-icon u-icon--edit u-icon--base"
+						onlyIconClassName="u-mar--right--tny"
 						label="SESSION.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -144,6 +145,7 @@ function renderActions({ item, actions, actionsRender }) {
 						authorization="theDonorsFundSessionSection.read"
 						className="btn btn--icon"
 						icon="u-icon u-icon--preview u-icon--base"
+						onlyIconClassName="u-mar--right--tny"
 						label="SESSION.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}
