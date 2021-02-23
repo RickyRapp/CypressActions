@@ -37,8 +37,8 @@ class DonorRouteService extends BaseRouteService {
     return super.update(this.base + '/{id}/general-data', resource);
   }
 
-  updateAccountSettingsData(resource) {
-    return super.update(this.base + '/{id}/account-settings', resource);
+  updateAccountSetting(resource) {
+    return super.update(this.base + '/{id}/account-setting', resource);
   }
 
   updateGrantFees(resource) {

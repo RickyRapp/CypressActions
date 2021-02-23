@@ -121,6 +121,10 @@ class SessionEditViewStore extends BaseEditViewStore {
                     }
                 },
                 {
+                    key: 'certificate.booklet.bookletOrder.donor.donorName',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.DONOR_LABEL',
+                },
+                {
                     key: 'certificate.barcode',
                     title: 'SESSION.EDIT.LIST.COLUMNS.BARCODE_LABEL',
                 },

@@ -12,8 +12,8 @@ class DonorService extends BaseService {
     return this.apiClient.put(url, resource);
   }
 
-  updateAccountSettingsData(resource) {
-    const url = this.routeService.updateAccountSettingsData(resource);
+  updateAccountSetting(resource) {
+    const url = this.routeService.updateAccountSetting(resource);
     return this.apiClient.put(url, resource);
   }
 

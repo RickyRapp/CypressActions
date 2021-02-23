@@ -16,7 +16,10 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                         params.embed = [
                             'charity',
                             'certificate',
-                            'certificate.denominationType'
+                            'certificate.denominationType',
+                            'certificate.booklet',
+                            'certificate.booklet.bookletOrder',
+                            'certificate.booklet.bookletOrder.donor'
                         ];
                         return rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
                     }
@@ -29,6 +32,10 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                },
+                {
+                    key: 'certificate.booklet.bookletORder.donor.donorName',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DONOR_LABEL',
                 },
                 {
                     key: 'certificate.denominationType',

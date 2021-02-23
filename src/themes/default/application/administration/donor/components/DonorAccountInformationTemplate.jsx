@@ -15,7 +15,8 @@ import {
     DonorPhoneNumberList,
     DonorBankAccountList,
     DonorAutomaticContributionSetting,
-    DonorGrantFees
+    DonorGrantFees,
+    DonorAccountSetting
 } from 'application/administration/donor/components';
 
 function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }) {
@@ -73,6 +74,8 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </EditFormContent>
+
+            <DonorAccountSetting />
 
             <div className="row row__align--end">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">

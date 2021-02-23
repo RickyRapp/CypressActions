@@ -3,6 +3,10 @@ import { FormBase } from 'core/components';
 export const donorPhoneNumberFormProperties = {
     fields: [
         {
+            name: 'id',
+            rules: 'string'
+        },
+        {
             name: 'number',
             label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
             rules: 'required|string',

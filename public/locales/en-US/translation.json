@@ -626,32 +626,12 @@
                 "INVESTMENT_POOL_DROPS_BELOW_PLACEHODLER": ""
             }
         },
-        "ACCOUNT_SETTINGS_FIELDS": {
+        "ACCOUNT_SETTING_FIELDS": {
             "TITLE": "Account settings details",
-            "HIDE": "Show",
-            "SHOW": "Hide",
             "LINE_OF_CREDIT_LABEL": "Line of credit",
             "LINE_OF_CREDIT_PLACEHOLDER": "Line of credit",
-            "CERTIFICATE_DEDUCTION_LABEL": "Certificate deduction",
-            "CERTIFICATE_DEDUCTION_PLACEHOLDER": "Certificate deduction",
-            "CERTIFICATE_FEE_LABEL": "Certificate fee",
-            "CERTIFICATE_FEE_PLACEHOLDER": "Certificate fee",
-            "CONTRIBUTION_MINIMUM_ADDITIONAL_LABEL": "Contribution additional amount",
-            "CONTRIBUTION_MINIMUM_ADDITIONAL_PLACEHOLDER": "Contribution additional amount",
-            "EXTRA_BOOKLET_PERCENTAGE_LABEL": "Extra booklet percentage",
-            "EXTRA_BOOKLET_PERCENTAGE_PLACEHOLDER": "Extra booklet percentage",
-            "GRANT_FEE_LABEL_LABEL": "Grant fee",
-            "GRANT_FEE_LABEL_PLACEHOLDER": "Grant fee",
-            "GRANT_MINIMUM_AMOUNT_LABEL": "Grant minimum amount",
-            "GRANT_MINIMUM_AMOUNT_PLACEHOLDER": "Grant minimum amount",
-            "INITIAL_CONTRIBUTION_LABEL": "Initial contribution",
-            "INITIAL_CONTRIBUTION_PLACEHOLDER": "Initial contribution",
-            "CONTRIBUTION_MINIMUM_INITIAL_LABEL": "Contribution initial amount",
-            "CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER": "Contribution initial amount",
             "BLANK_BOOKLET_MAX_LABEL": "Blank booklet max",
-            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Blank booklet max",
-            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
-            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder"
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Blank booklet max"
         },
         "CHARITY_WEBSITE_SETTING": {
             "TITLE": "Charity websites",
@@ -2006,7 +1986,8 @@
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
                 "DENOMINATION_LABEL": "Denomination",
-                "AMOUNT_LABEL": "Amount"
+                "AMOUNT_LABEL": "Amount",
+                "DONOR_LABEL": "Donor"
             }
         }
     },
@@ -2171,6 +2152,7 @@
                     "CODE_LABEL": "Code",
                     "BARCODE_LABEL": "Barcode",
                     "DENOMINATION_LABEL": "Denomination",
+                    "DONOR_LABEL": "Donor",
                     "VALUE_LABEL": "Value"
                 }
             },
@@ -2712,7 +2694,7 @@
         "SECURITY_PIN_LABEL": "Please enter a 4 digit security PIN",
         "CONFRIM_SECURITY_PIN_LABEL": "Confirm PIN",
         "PASSWORD_LABEL": "Password",
-        "PASSWORD_PLACEHOLDER": "min: 8 and non-alpha numeric character",
+        "PASSWORD_PLACEHOLDER": "min: 8, capital, number and symbol",
         "CONFIRM_PASSWORD_LABEL": "Confirm password",
         "SIGNIN_BUTTON": "Welcome",
         "SUCCESS_MESSAGE": "Success",
