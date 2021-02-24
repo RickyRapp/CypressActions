@@ -8,7 +8,7 @@
  * $f-grid-columns - number of columns of the grid
  */
 
-$grid-gutter: 20px;
+$grid-gutter: 42px;
 $grid-columns: 12;
 
 /**

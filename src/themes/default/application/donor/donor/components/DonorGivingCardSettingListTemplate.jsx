@@ -15,8 +15,8 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
     return (
         <div>
             <ListContent>
-                <h3 className=" u-mar--bottom--tny">
-                    {t('DONOR_GIVING_CARD_SETTING.LIST.TITLE')}
+                <h3 className="list--preferences__title">
+                    {t('DONOR_GIVING_CARD_SETTING.LIST.TITLE')} 
                 </h3>
                 {tableStore.dataInitialized &&
                     <Content>
@@ -25,7 +25,7 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
                                 <DonorGivingCardSettingEdit key={c.id} setting={c} />
                             )
                         })}
-                        <h3 className=" u-mar--bottom--sml">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
+                        
                         <DonorGivingCardSettingEdit />
                     </Content>}
             </ListContent>

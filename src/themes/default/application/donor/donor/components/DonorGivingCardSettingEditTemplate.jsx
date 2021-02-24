@@ -28,25 +28,57 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-                {isEdit &&
-                    <div className="row">
-                        <div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
-                            <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
+                {isEdit ?
+                    <div className="list--preferences">
+                        <div className="list--preferences__label">
+                            <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
                         </div>
-                    </div>}
+                        <div className="list--preferences__field">
+                          <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
+                        </div>
+                    </div> 
+                    : 
+                    <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
+                }
+                 <div className="list--preferences">
+                    <div className="list--preferences__label is-dropdown">
+                        Share information <span class="type--color--note u-mar--left--tny">*</span>
+                    </div>
+                    <div className="list--preferences__dd">
+                        <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
+                    </div>
+                </div> 
+
+                <div className="list--preferences">
+                    <div className="list--preferences__label is-dropdown">
+                        Purpose <span class="type--color--note u-mar--left--tny">*</span>
+                    </div>
+                    <div className="list--preferences__dd">
+                        <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+                    </div>
+                </div> 
+
+                <div className="list--preferences">
+                    <div className="list--preferences__label">
+                        Maximum dollar amount per transaction
+                    </div>
+                    <div className="list--preferences__field">
+                        <NumericInputField showLabel={false} field={form.$('maxAmount')} />
+                    </div>
+                </div> 
+
+                <div className="list--preferences">
+                    <div className="list--preferences__label">
+                        Maximum transactions per day
+                    </div>
+                    <div className="list--preferences__field">
+                        <NumericInputField showLabel={false} field={form.$('maxTimesPerDay')} />
+                    </div>
+                </div> 
+
+
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-xlrg-6">
-                        <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-xlrg-6">
-                        <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-xlrg-6">
-                        <NumericInputField field={form.$('maxAmount')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-xlrg-6">
-                        <NumericInputField field={form.$('maxTimesPerDay')} />
-                    </div>
+
                     {item && item.givingCard &&
                         <div className="form__group col col-sml-12 col-xlrg-6">
                             <div className="form__group__label">

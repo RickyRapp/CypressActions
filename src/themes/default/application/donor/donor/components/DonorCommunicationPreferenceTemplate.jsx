@@ -12,59 +12,82 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
     } = donorCommunicationPreferenceViewStore;
 
     return (
-        <div className="card--primary card--med">
+        <div className="card--primary card--med"> 
             <EditFormContent form={form}>
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-6"></div>
-                </div>
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-6">
-                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12 list--preferences--numeric">
-                                <NumericInputField field={form.$('cardTransactionAmountExceeding')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('cardNonPresentTransactionAmountExceeding')} />
+                 
+
+                        <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
+
+                        <div className="list--preferences">
+                            <div className="list--preferences__label">Notify me for a non present transaction exceeding</div>
+                            <div className="list--preferences__field">
+                                <NumericInputField showLabel={false} field={form.$('cardTransactionAmountExceeding')} />
                             </div>
                         </div>
-                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('checkAmountExceeding')} />
+
+                        <div className="list--preferences">
+                            <div className="list--preferences__label">Notify me for card transactions exceeding</div>
+                            <div className="list--preferences__field">
+                                <NumericInputField showLabel={false} field={form.$('cardNonPresentTransactionAmountExceeding')} />
                             </div>
                         </div>
-                        <h3 className=" type--break--all u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />
+
+                        <div className="list--preferences u-mar--bottom--lrg">
+                            <div className="list--preferences__label">Notify me when check inventory running low</div>
+                            <div className="list--preferences__field">
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isCheckInventoryRunningLowEnabled')} />
                             </div>
                         </div>
-                    </div>
-                    <div className="col col-sml-12 col-lrg-6">
-                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
-                        <div className="row u-mar--bottom--sml u-padd--top--tny">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('isNewGrantRequestEnabled')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('isDonorStatementAvailableEnabled')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
+
+                        <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
+
+                        <div className="list--preferences u-mar--bottom--lrg">
+                            <div className="list--preferences__label">Notify me for checks exceeding</div>
+                            <div className="list--preferences__field">
+                                <NumericInputField showLabel={false} field={form.$('checkAmountExceeding')} />
                             </div>
                         </div>
-                        <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('investmentPoolDropsBelow')} />
+
+                        <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
+
+                        <div className="list--preferences">
+                            <div className="list--preferences__label">Notify me for tranasctions exceed</div>
+                            <div className="list--preferences__field">
+                                <NumericInputField showLabel={false} field={form.$('thirdPartyWebsiteAmountExceeding')} />
                             </div>
                         </div>
-                    </div>
-                </div>
+
+                        <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
+                        
+                        <div className="list--preferences">
+                            <div className="list--preferences__label">Notify me when charity sends request</div>
+                            <div className="list--preferences__field">
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isNewGrantRequestEnabled')} />
+                            </div>
+                        </div>
+
+                        <div className="list--preferences">
+                            <div className="list--preferences__label">Notify me when my online statement is made available</div>
+                            <div className="list--preferences__field">
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDonorStatementAvailableEnabled')} />
+                            </div>
+                        </div>
+
+                        <div className="list--preferences u-mar--bottom--lrg">
+                            <div className="list--preferences__label">Notify me when my balance runs below</div>
+                            <div className="list--preferences__field">
+                                <NumericInputField showLabel={false} field={form.$('donorAvailableBalanceRunsBelow')}  />
+                            </div>
+                        </div>
+                        
+                        <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
+                        <div className="list--preferences">
+                            <div className="list--preferences__label">Notify me when a pool drops</div>
+                            <div className="list--preferences__field">
+                                <NumericInputField showLabel={false} field={form.$('investmentPoolDropsBelow')} />
+                            </div>
+                        </div>
+
 
                 <div className="u-mar--bottom--sml type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
