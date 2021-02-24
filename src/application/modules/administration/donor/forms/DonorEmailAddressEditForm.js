@@ -3,6 +3,10 @@ import { FormBase } from 'core/components';
 export const donorEmailAddressFormProperties = {
     fields: [
         {
+            name: 'id',
+            rules: 'string'
+        },
+        {
             name: 'email',
             label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
             placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',

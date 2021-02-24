@@ -21,8 +21,8 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
             loading={loaderStore.loading}
             layoutFooterVisible={false}
         >
-            <div className="card card--form card--primary card--med u-mar--bottom--med">
-                <div className="row u-mar--bottom--lrg">
+            <div className="card--primary card--med u-mar--bottom--med">
+                <div className="row">
                     <div className="col col-sml-12 col-lrg-4">
                         <div className="form__group__label">{t('SESSION.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
                         <span className="input--preview">
@@ -66,19 +66,19 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                 </div>
             </div>
 
-            <div className="card card--form card--primary card--med u-mar--bottom--med">
+            <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">Certificates</h3>
                 <SimpleBaasicTable
                     tableStore={tableStore}
                 />
                 <div className="row u-mar--top--lrg">
-                    <div className="form__group col-lrg-12">
+                    <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT')} ${item && (_.sumBy(item.sessionCertificates, (sessionCert) => {
                             return (sessionCert.certificate.booklet.denominationType.abrv === 'blank' ?
                                 sessionCert.blankCertificateValue : sessionCert.certificate.booklet.denominationType.value) * 100
                         })) / 100}
                     </div>
-                    <div className="form__group col-lrg-12">
+                    <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_DEDUCTION')} ${item && item.amount}
                     </div>
                 </div>

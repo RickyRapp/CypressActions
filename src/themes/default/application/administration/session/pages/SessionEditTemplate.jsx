@@ -39,10 +39,10 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
             loading={contentLoading}
             layoutFooterVisible={false}
         >
-            <div className="card card--form card--primary card--med u-mar--bottom--med">
+            <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">General Data</h3>
-                <div className="row u-mar--bottom--lrg">
-                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                <div className="row">
+                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                         <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                         {!form.$('charityId').disabled && <BaasicButton
                             className="btn btn--icon"
@@ -52,23 +52,23 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                             onClick={openAdvancedSearchModal}
                         />}
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
+                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
                         <BasicInput field={form.$('fullName')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
+                    <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <NumberFormatInputField field={form.$('phoneNumber')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
+                    <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <BasicInput field={form.$('email')} />
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
+                    <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <div>
                             <label className="form__group__label">Confirmation Number</label>
                             {item &&
                                 <span className={"input input--lrg input--text input--disabled"}>{item.confirmationNumber}</span>}
                         </div>
                     </div>
-                    <div className="form__group col col-sml-6 col-lrg-4 u-mar--bottom--med">
+                    <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <div>
                             <label className="form__group__label">Created on</label>
                             {item &&
@@ -80,17 +80,17 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                 {renderEditLayoutFooterContent({ form })}
             </div>
 
-            <div className="card card--form card--primary card--med u-mar--bottom--med">
+            <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">Certificates</h3>
                 <SimpleBaasicTable
                     tableStore={tableStore}
                     actionsComponent={renderActions}
                 />
                 <div className="row u-mar--top--lrg">
-                    <div className="form__group col-lrg-12">
+                    <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT')} ${item && (_.sumBy(item.grants, (grant) => { return grant.certificate.denominationType.abrv === 'blank' ? grant.certificate.openCertificateAmount : grant.certificate.denominationType.value }))}
                     </div>
-                    <div className="form__group col-lrg-12">
+                    <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_DEDUCTION')} ${item && item.amount}
                     </div>
                 </div>
@@ -147,6 +147,7 @@ function renderActions({ item, actions, actionsRender, t }) {
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--base'
                         label='SESSION.EDIT.LIST.BUTTON.EDIT_SESSION_CERTIFICATE'
                         onlyIcon={true}

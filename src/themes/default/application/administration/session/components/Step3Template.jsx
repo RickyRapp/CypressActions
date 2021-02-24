@@ -31,15 +31,19 @@ class Step3Template extends React.Component {
 								<h3 className=" u-mar--bottom--med">General Data</h3>
 								<div className="u-mar--bottom--lrg">
 									<div className="row scanner__table--head">
-										<div className="col col-lrg-3 type--base type--wgt--medium">{t('Certificate Number')}</div>
+										<div className="col col-lrg-1 type--base type--wgt--medium"></div>
+										<div className="col col-lrg-2 type--base type--wgt--medium">{t('Certificate Number')}</div>
 										<div className="col col-lrg-3 type--base type--wgt--medium">{t('Barcode')}</div>
 										<div className="col col-lrg-3 type--base type--wgt--medium">{t('Denomination')}</div>
 										<div className="col col-lrg-3 type--base type--wgt--medium">{t('Amount')}</div>
 									</div>
-									{sessionCertificates.map(c => {
+									{sessionCertificates.map((c, index) => {
 										return (
 											<div className="row scanner__table--body" key={c.barcode}>
-												<div className="col col-lrg-3 type--sml type--wgt--medium">
+												<div className="col col-lrg-1 type--sml type--wgt--medium">
+													{index + 1}.
+												</div>
+												<div className="col col-lrg-2 type--sml type--wgt--medium">
 													{c.bookletCode}-{c.certificateCode}
 												</div>
 												<div className="col col-lrg-3 type--sml type--wgt--medium">{c.barcode}</div>

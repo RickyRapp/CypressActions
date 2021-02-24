@@ -152,6 +152,11 @@ class DonorStore {
         return response.data;
     }
 
+    async updateAccountSetting(resource) {
+        const response = await this.donorService.updateAccountSetting(resource);
+        return response.data;
+    }
+
     async updateAddress(resource) {
         const response = await this.donorAddressService.update(resource);
         return response.data;
