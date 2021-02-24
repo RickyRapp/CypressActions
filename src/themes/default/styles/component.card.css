@@ -43,22 +43,18 @@
 	}
 
 	&--contribution {
+		@mixin type-scale $type-small, 1;
 		position: relative;
 
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: center;
 
-		height: calc($unit * 10);
-
-		padding: calc($unit * 4) calc($unit * 2);
-		margin-bottom: calc($unit * 3);
-
-		background-color: $white;
-		border-radius: $radius-base;
-		box-shadow: $shadow-card;
+		/* background-color: $white; */
 		cursor: pointer;
-		transition: all 250ms ease-in-out;
+		height: calc($unit * 10 - 2px);
+		padding: 0 calc($unit * 4);
+		text-align: left;
 
 		&--primary {
 			&:hover {
@@ -114,6 +110,18 @@
 					border-bottom-left-radius: calc($unit * 2);
 				}
 			}
+		}
+
+		&--standalone {
+			background-color: white;
+			border-radius: $radius-base;
+			margin-bottom: calc($unit * 2);
+		}
+
+		&__inner {
+			display: flex;
+			align-items: center;
+			width: 100%;
 		}
 
 		&--back {

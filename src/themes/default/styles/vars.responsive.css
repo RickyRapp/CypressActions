@@ -16,3 +16,6 @@
 
 @custom-media --screen-from-xxlrg  (min-width: 90em); /* 1440px */
 @custom-media --screen-to-xxlrg    (max-width: 89.9375em); /* 1439px */
+
+@custom-media --screen-from-xxxlrg  (min-width: 102.5em); /* 1640px */
+@custom-media --screen-to-xxxlrg    (max-width: 102.4375em); /* 1639px */

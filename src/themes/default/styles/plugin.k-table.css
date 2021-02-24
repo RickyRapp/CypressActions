@@ -18,3 +18,130 @@ $table-width: 1024px;
         display: none;
     }
 }
+
+.table {
+
+    &--payment {
+        display:flex;
+        flex-wrap: wrap;
+        margin-bottom: calc($unit * 2);
+
+        &__cell {
+            width: 25%;
+            border: 1px solid $color-background;
+            background-color: white;
+            height: calc($unit * 10);
+            padding: 0 calc($unit * 2);
+            text-align: center;
+
+            @media (--screen-from-lrg) {
+
+            }
+
+            &.is-header {
+                background-color: transparent;
+
+                @media (--screen-to-xlrg) {
+                    display: none !important;
+                }
+            }
+
+            &.is-first {
+                border-radius: $radius-base 0 0 $radius-base;
+                width: 100%;
+                padding: 0;
+
+                @media (--screen-from-xlrg) {
+                    width: 30%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-last {
+                border-radius: 0 $radius-base $radius-base 0;
+                width: 50%;
+
+                @media (--screen-from-lrg) {
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    width: 20%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-timeline {
+               width: 50%;
+
+               @media (--screen-from-lrg) {
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    display: flex;
+                    width: 15%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-deductible {
+                display: none;
+
+                @media (--screen-from-lrg) {
+                    display: flex;
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    display: flex;
+                    width: 15%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-minimum {
+                display: none;
+
+                @media (--screen-from-lrg) {
+                    display: flex;
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    display: flex;
+                    width: 20%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+        }
+
+        &__inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            height: calc($unit * 10);
+
+            * {
+                line-height: 1;
+            }
+        }
+    } 
+}

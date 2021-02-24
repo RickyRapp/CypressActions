@@ -15,10 +15,13 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
         <div className="card--primary card--med">
             <EditFormContent form={form}>
                 <div className="row">
+                    <div className="col col-sml-12 col-lrg-6"></div>
+                </div>
+                <div className="row">
                     <div className="col col-sml-12 col-lrg-6">
                         <h3 className=" u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
                         <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
+                            <div className="form__group col col-sml-12 col-lrg-12 list--preferences--numeric">
                                 <NumericInputField field={form.$('cardTransactionAmountExceeding')} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">

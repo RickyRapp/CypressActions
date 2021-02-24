@@ -39,9 +39,9 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                             className="row"
                             onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
                         >
-                            <div className="col col-sml-12 col-lrg-12">
+                            <div className="col col-sml-12 col-lrg-12"> 
                                 <div
-                                    className={`card--contribution card--contribution--primary ${c.id ===
+                                    className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
                                         form.$('paymentTypeId').value && 'checked'}`}
                                 >
                                     <div className="col col-sml-2">

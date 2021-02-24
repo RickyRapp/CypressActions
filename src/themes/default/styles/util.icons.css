@@ -104,6 +104,10 @@
             &--positive {
                 background-image: svg-load('../styles/postcss-svg/caret-right.svg', stroke: $white);
             }
+
+            &--secondary {
+                background-image: svg-load('../styles/postcss-svg/caret-right.svg', stroke: color($color-text a(50%)));
+            }
         }
 
         &--arrow-forward {
