@@ -40,6 +40,7 @@ class SessionViewStore extends BaseListViewStore {
                             'charity',
                             'grants',
                             'grants.certificate',
+                            'grants.donationStatus',
                             'grants.certificate.denominationType'
                         ];
                         return this.rootStore.application.administration.sessionStore.findSession(params);
@@ -86,6 +87,16 @@ class SessionViewStore extends BaseListViewStore {
                                 }
                             </React.Fragment >
 
+                        }
+                    }
+                },
+                {
+                    key: 'grants',
+                    title: 'SESSION.LIST.COLUMNS.SESSION_STATUS_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return item.grants && item.grants.length > 0 && item.grants[0].donationStatus.name
                         }
                     }
                 },

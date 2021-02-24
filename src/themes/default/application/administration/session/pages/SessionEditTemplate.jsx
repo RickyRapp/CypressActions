@@ -43,14 +43,18 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                 <h3 className="u-mar--bottom--med">General Data</h3>
                 <div className="row">
                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                        <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+                        <div className="form__group__label">{t('SESSION.EDIT.FIELDS.CHARITY_LABEL')}</div>
+                        <span className="input input--text input--lrg padd--top--tny input--disabled">
+                            {item && <React.Fragment>{item.charity.name}</React.Fragment>}
+                        </span>
+                        {/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                         {!form.$('charityId').disabled && <BaasicButton
                             className="btn btn--icon"
                             icon={`u-icon u-icon--preview u-icon--base`} //TODO: advanced search icon
                             label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
                             onlyIcon={true}
                             onClick={openAdvancedSearchModal}
-                        />}
+                        />} */}
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
                         <BasicInput field={form.$('fullName')} />
@@ -147,7 +151,7 @@ function renderActions({ item, actions, actionsRender, t }) {
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
+                        onlyIconClassName="u-mar--right--tny"
                         icon='u-icon u-icon--edit u-icon--base'
                         label='SESSION.EDIT.LIST.BUTTON.EDIT_SESSION_CERTIFICATE'
                         onlyIcon={true}

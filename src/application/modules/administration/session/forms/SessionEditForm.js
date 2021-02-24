@@ -9,12 +9,6 @@ export default class SessionEditForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charityId',
-                    label: 'SESSION.EDIT.FIELDS.CHARITY_LABEL',
-                    placeholder: 'SESSION.EDIT.FIELDS.CHARITY_PLACEHOLDER',
-                    rules: 'required|string'
-                },
-                {
                     name: 'fullName',
                     label: 'SESSION.EDIT.FIELDS.FULL_NAME_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.FULL_NAME_PLACEHOLDER',

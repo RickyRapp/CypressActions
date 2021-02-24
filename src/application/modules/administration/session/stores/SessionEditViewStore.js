@@ -20,7 +20,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        await rootStore.application.administration.sessionStore.update(resource);
+                        await rootStore.application.administration.sessionStore.updateSession(resource);
                     },
                     get: async (id) => {
                         let params = {
@@ -48,7 +48,7 @@ class SessionEditViewStore extends BaseEditViewStore {
         });
 
         this.createTableStore();
-        this.createCharityDropdownStore();
+        // this.createCharityDropdownStore();
         this.createCertificateStatusDropdownStore();
 
         this.removeSessionCertificateModal = new ModalParams({});
@@ -66,12 +66,12 @@ class SessionEditViewStore extends BaseEditViewStore {
                 this.getResource(this.id)
             ]);
 
-            if (this.item && this.item.charity) {
-                this.charityDropdownStore.setValue({
-                    id: this.item.charity.id,
-                    name: charityFormatter.format(this.item.charity, { value: 'charity-name-display' }), item: this.item.charity
-                })
-            }
+            // if (this.item && this.item.charity) {
+            //     this.charityDropdownStore.setValue({
+            //         id: this.item.charity.id,
+            //         name: charityFormatter.format(this.item.charity, { value: 'charity-name-display' }), item: this.item.charity
+            //     })
+            // }
         }
     }
 
@@ -133,7 +133,8 @@ class SessionEditViewStore extends BaseEditViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.DENOMINATION_LABEL',
                     format: {
                         type: 'denomination',
-                        value: 'short'
+                        value: 'short',
+                        additionalField: 'certificate.openCertificateAmount'
                     }
                 },
                 {

@@ -11,19 +11,19 @@ export default class ReconcileEditForm extends FormBase {
                 {
                     name: 'isCashed',
                     label: 'RECONCILE.CHECK.EDIT.FIELDS.CHECK_CASHED_LABEL',
-                    placeholder: 'RECONCILE.CHECK.EDIT.FIELDS.CHECK_CASHED_PLACEHOLDER',
+                    placeholder: 'RECONCILE.EDIT.FIELDS.CHECK_CASHED_PLACEHOLDER',
                     rules: 'required|boolean'
                 },
                 {
                     name: 'description',
-                    label: 'RECONCILE.CHECK.EDIT.FIELDS.RECONCILE_DESCRIPTION_LABEL',
-                    placeholder: 'RECONCILE.CHECK.EDIT.FIELDS.RECONCILE_DESCRIPTION_PLACEHOLDER',
+                    label: 'RECONCILE.EDIT.FIELDS.RECONCILE_DESCRIPTION_LABEL',
+                    placeholder: 'RECONCILE.EDIT.FIELDS.RECONCILE_DESCRIPTION_PLACEHOLDER',
                     rules: 'string'
                 },
                 {
                     name: 'newCheckNumber',
-                    label: 'RECONCILE.CHECK.EDIT.FIELDS.NEW_CHECK_NUMBER_LABEL',
-                    placeholder: 'RECONCILE.CHECK.EDIT.FIELDS.NEW_CHECK_NUMBER_PLACEHOLDER',
+                    label: 'RECONCILE.EDIT.FIELDS.NEW_CHECK_NUMBER_LABEL',
+                    placeholder: 'RECONCILE.EDIT.FIELDS.NEW_CHECK_NUMBER_PLACEHOLDER',
                     rules: 'string'
                 }
             ]

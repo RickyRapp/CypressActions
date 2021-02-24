@@ -71,5 +71,10 @@ class SessionStore {
         const response = await this.sessionService.reviewToken(resource);
         return response.data;
     }
+
+    async updateSession(resource) {
+        const response = await this.sessionService.update(resource);
+        return response.data;
+    }
 }
 export default SessionStore;

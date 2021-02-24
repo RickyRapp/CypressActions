@@ -12,6 +12,7 @@ class DonationStore {
     }
 
     async reviewPendingDonations(resource) {
+        debugger
         const response = await this.donationService.reviewPendingDonations(resource);
         return response.data;
     }

@@ -85,6 +85,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async onReviewClick() {
         this.disableSave = true;
+        debugger
         const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(
             {
                 paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,

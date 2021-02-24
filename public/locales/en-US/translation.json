@@ -2018,7 +2018,8 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "STATUS_LABEL": "Status",
                 "AMOUNT_LABEL": "Amount",
-                "CHARITY_NAME_LABEL": "Charity"
+                "CHARITY_NAME_LABEL": "Charity",
+                "SESSION_STATUS_LABEL": "Status"
             },
             "FILTER": {
                 "SELECT_CHARITY_PLACEHOLDER": "Charity",
@@ -2357,7 +2358,9 @@
                 "TRANSACTION_DESCRIPTION_LABEL": "Description",
                 "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
                 "NEW_CHECK_NUMBER_LABEL": "New check number",
-                "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number"
+                "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number",
+                "RECONCILE_DESCRIPTION_LABEL": "Description",
+                "RECONCILE_DESCRIPTION_PLACEHOLDER": "Description"
             }
         }
     },

@@ -90,10 +90,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @computed get mixed500BookletAmount() {
         let amount = 0;
         if (this.orderContents.length > 0) {
-            const mixed500BookletTypeId = this.bookletTypes.find(c => c.abrv === 'mixed_500').id;
-            if (this.orderContents.some(c => c.bookletTypeId === mixed500BookletTypeId)) {
-                const order = this.orderContents.find(c => c.bookletTypeId === mixed500BookletTypeId)
-                amount += 500 * order.bookletCount;
+            const mixed500BookletType = this.bookletTypes.find(c => c.abrv === 'mixed_500');
+            if (mixed500BookletType) {
+                if (this.orderContents.some(c => c.bookletTypeId === mixed500BookletType.id)) {
+                    const order = this.orderContents.find(c => c.bookletTypeId === mixed500BookletType.id)
+                    amount += 500 * order.bookletCount;
+                }
             }
         }
 
@@ -103,10 +105,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @computed get mixed2000BookletAmount() {
         let amount = 0;
         if (this.orderContents.length > 0) {
-            const mixed2000BookletTypeId = this.bookletTypes.find(c => c.abrv === 'mixed_2000').id;
-            if (this.orderContents.some(c => c.bookletTypeId === mixed2000BookletTypeId)) {
-                const order = this.orderContents.find(c => c.bookletTypeId === mixed2000BookletTypeId)
-                amount += 2000 * order.bookletCount;
+            const mixed2000BookletType = this.bookletTypes.find(c => c.abrv === 'mixed_2000');
+            if (mixed2000BookletType) {
+                if (this.orderContents.some(c => c.bookletTypeId === mixed2000BookletType.id)) {
+                    const order = this.orderContents.find(c => c.bookletTypeId === mixed2000BookletType.id)
+                    amount += 2000 * order.bookletCount;
+                }
             }
         }
 
@@ -237,9 +241,9 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     async loadLookups() {
         this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
-        this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find().filter(c => c.value !== '15');
+        this.denominationTypes = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.value !== 15);
         this.deliveryMethodTypes = await this.rootStore.application.lookup.deliveryMethodTypeStore.find();
-        this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find().filter(c => c.abrv === 'classic');
+        this.bookletTypes = (await this.rootStore.application.lookup.bookletTypeStore.find()).filter(c => c.abrv === 'classic');
     }
 
     createCustomizedExpirationDateDropdownStore() {
