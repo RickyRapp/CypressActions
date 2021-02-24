@@ -28,15 +28,15 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                 loading={contentLoading}>
                 <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.BLANK_CERTIFICATE_AMOUNT_TITLE')}</h3>
                 <div className="row">
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('SESSION.EDIT.BLANK_CERTIFICATE_CODE')}</div>
-                        <span className="input--preview">
+                    <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                        <div className="type--med type--wgt--medium">{t('SESSION.EDIT.BLANK_CERTIFICATE_CODE')}</div>
+                        <span className="type--base type--color--opaque">
                             {grant.certificate.booklet.code}-{grant.certificate.code}
                         </span>
                     </div>
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('SESSION.EDIT.BLANK_BOOKLET_AMOUNT')}</div>
-                        <span className="input--preview">
+                    <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                        <div className="type--med type--wgt--medium">{t('SESSION.EDIT.BLANK_BOOKLET_AMOUNT')}</div>
+                        <span className="type--base type--color--opaque">
                             <FormatterResolver
                                 item={{ amount: grant.amount }}
                                 field='amount'
@@ -44,9 +44,9 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                             />
                         </span>
                     </div>
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="form__group__label">{t('SESSION.EDIT.BLANK_BOOKLET_MAX_AMOUNT')}</div>
-                        <span className="input--preview">
+                    <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                        <div className="type--med type--wgt--medium">{t('SESSION.EDIT.BLANK_BOOKLET_MAX_AMOUNT')}</div>
+                        <span className="type--base type--color--opaque">
                             <FormatterResolver
                                 item={{ blankBookletMaxAmount: grant.certificate.booklet.bookletOrder.donor.blankBookletMaxAmount }}
                                 field='blankBookletMaxAmount'
@@ -88,8 +88,10 @@ const EditBlankCertificateTemplate = function ({ editBlankCertificateViewStore, 
                 </div>
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 <BaasicButton
-                    icon='u-icon u-icon--email-pass u-icon--base'
-                    className="btn btn--base btn--ghost"
+                    onlyIconClassName="u-mar--bottom--tny u-mar--right--tny"
+                    onlyIcon={false}
+                    icon='u-icon u-icon--email u-icon--base'
+                    className="btn btn--med btn--ghost u-mar--left--sml"
                     label={grant.reviewToken ? t('SESSION.EDIT.SAVE_RESEND_APPROVE_EMAIL') : t('SESSION.EDIT.SAVE_SEND_APPROVE_EMAIL')}
                     onClick={saveAndSendReviewEmail}
                 />

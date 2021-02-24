@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
+import logo from 'themes/assets/img/new-logo.svg';
 import _ from 'lodash';
 
 const StepCounter = function({ currentStep, steps }) {
 	return (
 		<div className="scanner">
-			<img className="scanner__logo" src="/static/media/logo-app.8f17c777.svg" alt="" />
+			<img className="scanner__logo" src={logo} alt="logo" />
 			<div className="scanner__stepper">
 				{_.map(steps, step => {
 					return <Step key={step} step={step} selected={step === currentStep} />;
