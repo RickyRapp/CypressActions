@@ -30,57 +30,48 @@ function ContributionConfirmTemplate({ modalParams, t }) {
     }
 
     return (
-        <div className="row w--600--px">
-            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                <h3 className="">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                <section style={styleSection}>
-                    <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.PAYMENT_TYPE')}</div>
-                    <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                    <div style={styleChild}>{paymentType.name}</div>
-                </section>
-            </div>
+        <div className="modal__list__wrap">
+            <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
+            <section className="modal__list">
+                <div>{t('CONTRIBUTION.CONFIRM.PAYMENT_TYPE')}</div>
+                <div className="modal__list__divider"></div>
+                <div className="modal__list__amount">{paymentType.name}</div>
+            </section>
+
             {bankAccount &&
                 <React.Fragment>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div style={styleChild}>{bankAccount.name}</div>
-                        </section>
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT_NUMBER')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div>xxxx-xxxx-xxxx-{bankAccount.accountNumber}</div>
-                        </section>
-                    </div>
+                    <section className="modal__list">
+                        <div>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{bankAccount.name}</div>
+                    </section>
+                    <section className="modal__list">
+                        <div>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT_NUMBER')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">xxxx-xxxx-xxxx-{bankAccount.accountNumber}</div>
+                    </section>
                 </React.Fragment>}
-            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
-                <section style={styleSection}>
-                    <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.AMOUNT')}</div>
-                    <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                    <div style={styleChild}>
-                        <FormatterResolver
+                <section className="modal__list">
+                    <div>{t('CONTRIBUTION.CONFIRM.AMOUNT')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">
+                         <FormatterResolver
                             item={{ amount: form.$('amount').value }}
                             field='amount'
                             format={{ type: 'currency' }}
                         />
                     </div>
                 </section>
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med type--right">
-                <BaasicButton
-                    className="btn btn--med btn--med--wide btn--ghost"
-                    label={t('EDIT_FORM_LAYOUT.CANCEL')}
-                    onClick={onCancel}
-                />
-            </div>
+                <div className="u-display--flex">
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                    <div className="u-mar--left--auto">
+                        <BaasicButton
+                            className="btn btn--med btn--med--wide btn--ghost"
+                            label={t('EDIT_FORM_LAYOUT.CANCEL')}
+                            onClick={onCancel}
+                        />
+                    </div>
+                </div>
         </div>
     );
 }

@@ -44,13 +44,13 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                     className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
                                         form.$('paymentTypeId').value && 'checked'}`}
                                 >
-                                    <div className="col col-sml-2">
+                                    <div className="flex--grow--1 u-mar--right--sml">
                                         <i
                                             className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
                                                 'checked'}`}
                                         ></i>
                                     </div>
-                                    <div className="col col-sml-10">
+                                    <div className="flex--grow--2">
                                         <h5
                                             className={
                                                 c.id !== form.$('paymentTypeId').value

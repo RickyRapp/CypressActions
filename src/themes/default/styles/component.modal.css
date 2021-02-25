@@ -13,16 +13,14 @@
 
 		background-color: rgba(0, 0, 0, 0.75);
 		overflow-y: auto;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	&__content {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		/*align to center*/
-		right: auto;
-		bottom: auto;
-
+		position: relative;
 		max-height: calc(100% - 24px);
 		max-width: calc(100% - 24px);
 		overflow-y: auto;
@@ -33,9 +31,6 @@
 
 		outline: none;
 		background: white;
-
-		/*Make modal sit to center of page*/
-		transform: translate(-50%, -50%);
 
 		/* Modal sizes */
 		&--sml {
@@ -63,6 +58,41 @@
 	&__email {
 		white-space: pre-line;
 		margin: 0;
+	}
+
+	&__list {
+		display: flex;
+		padding-bottom: calc($unit * 2);
+		margin-bottom: calc($unit * 2);
+		border-bottom: 1px dotted $color-text;
+
+		@media (--screen-from-sml) {
+			padding-bottom: 0;
+			margin-bottom: 0;
+			border-bottom: 0px;
+		}
+
+		&__amount {
+			white-space: nowrap;
+		}
+
+		&__divider {
+			flex-grow: 2;
+			margin: 0 6px 3px 6px;
+
+			@media (--screen-from-sml) {		
+				border-bottom: 2px dotted $color-text;
+			}
+		}
+
+		&__wrap {
+			width: 100%;
+			max-width: 600px;
+
+			@media (--screen-from-med) {
+				width: 600px;
+			}
+		}
 	}
 }
 

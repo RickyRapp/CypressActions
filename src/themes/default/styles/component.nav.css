@@ -13,7 +13,7 @@
 			top: calc($unit * 2);
 			right: calc($unit * 2);
 
-			@media (--screen-from-med) {
+			@media (--screen-from-lrg) {
 				display: none;
 			}
 		}
