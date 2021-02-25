@@ -23,6 +23,8 @@ const ContributionCreateTemplate = function ({ store }) {
 		nextStep,
 		onSubmitClick,
 		onAddBankAccountClick,
+		bankAccountNumberModal,
+		onShowBankAccountNumberClick,
 		...otherProps
 	} = store;
 
@@ -48,6 +50,7 @@ const ContributionCreateTemplate = function ({ store }) {
 					step={step}
 					onSelectPaymentType={onSelectPaymentType}
 					onAddBankAccountClick={onAddBankAccountClick}
+					onShowBankAccountNumberClick={onShowBankAccountNumberClick}
 					{...otherProps}
 				/>
 			)}
@@ -61,6 +64,9 @@ const ContributionCreateTemplate = function ({ store }) {
 					form={form} />}
 			<BaasicModal modalParams={bankAccountModal}>
 				<DonorBankAccountEdit />
+			</BaasicModal>
+			<BaasicModal modalParams={bankAccountNumberModal}>
+				<div>{bankAccountNumberModal && bankAccountNumberModal.data && bankAccountNumberModal.data.accountNumber}</div>
 			</BaasicModal>
 		</Page>
 	);

@@ -855,7 +855,8 @@
             "BUTTON": {
                 "EDIT": "Edit",
                 "CREATE": "Create",
-                "DELETE": "Delete"
+                "DELETE": "Delete",
+                "GET_ACCOUNT_NUMBER": "Get account number"
             }
         },
         "CREATE": {
@@ -1976,7 +1977,8 @@
                 "DENOMINATION_LABEL": "Denomination",
                 "DENOMINATION_PLACEHOLDER": "Denomination",
                 "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
-                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type",
+                "TRACKING_NUMBER_LABEL": "Tracking Number"
             }
         }
     },

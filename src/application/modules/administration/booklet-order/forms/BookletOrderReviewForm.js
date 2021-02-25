@@ -12,6 +12,11 @@ export default class BookletOrderReviewForm extends FormBase {
                     name: 'id',
                     rules: 'required|string'
                 },
+                {
+                    name: 'trackingNumber',
+                    label: 'BOOKLET_ORDER.REVIEW.FIELDS.TRACKING_NUMBER_LABEL',
+                    rules: 'string'
+                },
             ]
         };
     }

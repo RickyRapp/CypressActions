@@ -33,6 +33,8 @@ class DonorBankAccountViewStore extends BaseListViewStore {
             }
         });
 
+        this.bankAccountNumberModal = new ModalParams({});
+
         this.createTableStore();
     }
 
@@ -58,6 +60,17 @@ class DonorBankAccountViewStore extends BaseListViewStore {
             async () => {
                 await this.rootStore.application.administration.donorStore.deleteBankAccount({ id: bankAccount.id, donorId: this.donorId });
                 await this.queryUtility.fetch();
+            }
+        );
+    }
+
+    @action.bound
+    async getAccountNumber(bankAccount) {
+        const data = await this.rootStore.application.administration.donorStore.getBankAccountAccountNumber(bankAccount.id);
+
+        this.bankAccountNumberModal.open(
+            {
+                accountNumber: data
             }
         );
     }
@@ -120,6 +133,7 @@ class DonorBankAccountViewStore extends BaseListViewStore {
             actions: {
                 onEdit: (bankAccount) => this.openBankAccountModal(bankAccount),
                 onDelete: (bankAccount) => this.deleteBankAccount(bankAccount),
+                onGetAccountNumber: (bankAccount) => this.getAccountNumber(bankAccount),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             disablePaging: true

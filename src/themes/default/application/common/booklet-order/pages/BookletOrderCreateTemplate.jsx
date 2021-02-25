@@ -281,7 +281,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 return (
                                     <div key={c.id} className="col col-sml-12 col-med-12 col-lrg-3 u-mar--bottom--sml">
                                         <BasicRadio
-                                            label={c.name}
+                                            label={c.abrv === 'express-mail' ? `${c.name} (Additional $25)` : c.name}
                                             value={c.id}
                                             field={form.$('deliveryMethodTypeId')}
                                         />

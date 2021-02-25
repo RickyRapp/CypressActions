@@ -13,6 +13,10 @@ class DonorBankAccountRouteService extends BaseRouteService {
     return super.get(this.base + '/{id}/{?embed,fields}', id, options);
   }
 
+  getBankAccountAccountNumber(id) {
+    return super.get(this.base + '/account-number/{id}', id);
+  }
+
   create() {
     return super.create(this.base);
   }

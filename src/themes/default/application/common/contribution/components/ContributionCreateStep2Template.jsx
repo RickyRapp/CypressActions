@@ -7,7 +7,7 @@ import { ContributionConfirmTemplate } from 'themes/application/administration/c
 const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, step, form, bankAccountDropdownStore,
     onSelectPaymentType, t, nextStep, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
     collectibleTypeDropdownStore, propertyTypeDropdownStore, onAddBankAccountClick, businessTypeDropdownStore, onSubmitClick, confirmModal, routes,
-    previousContributionsTableStore, isThirdPartyFundingAvailable }) {
+    previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick }) {
 
     const AddButton = () => (
         <BaasicButton
@@ -39,7 +39,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                             className="row"
                             onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
                         >
-                            <div className="col col-sml-12 col-lrg-12"> 
+                            <div className="col col-sml-12 col-lrg-12">
                                 <div
                                     className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
                                         form.$('paymentTypeId').value && 'checked'}`}
@@ -84,6 +84,14 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                                     store={bankAccountDropdownStore}
                                                     rightLabelComponent={AddButton}
                                                 />
+                                                {onShowBankAccountNumberClick && form.$('donorBankAccountId').value &&
+                                                    <BaasicButton
+                                                        type="button"
+                                                        className="btn btn--icon"
+                                                        icon='u-icon u-icon--preview u-icon--base'
+                                                        onClick={() => onShowBankAccountNumberClick(form.$('donorBankAccountId').value)}
+                                                        onlyIcon={true}
+                                                    />}
                                             </div>
                                         </React.Fragment>
                                     )}

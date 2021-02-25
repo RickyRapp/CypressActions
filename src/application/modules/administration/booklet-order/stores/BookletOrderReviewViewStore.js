@@ -7,6 +7,7 @@ import { join } from 'lodash';
 @applicationContext
 class BookletOrderReviewViewStore extends BaseEditViewStore {
     @observable orderContents = [];
+    @observable order;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -19,18 +20,12 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                         await this.rootStore.application.administration.bookletOrderStore.reviewBookletOrder({ ...resource, bookletOrderContents: this.orderContents });
                     },
                     get: async (id) => {
-                        const params = {
-                            fields: [
-                                'id',
-                                'donorId',
-                                'json'
-                            ]
-                        }
-                        const data = await this.rootStore.application.administration.bookletOrderStore.getBookletOrder(id, params);
+                        const data = await this.rootStore.application.administration.bookletOrderStore.getBookletOrder(id, { embed: 'donor,deliveryMethodType' });
+                        this.order = data;
                         const temp = JSON.parse(data.json)
                         temp.forEach(c => { c.booklets = []; })
                         this.orderContents = temp;
-                        return { id: data.id };
+                        return { id: data.id, trackingNumber: data.trackingNumber };
                     }
                 }
             },

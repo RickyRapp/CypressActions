@@ -50,6 +50,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		};
 
 		this.createBankAccountModalParams();
+		this.createBankAccountNumberModalParams();
 		this.createConfirmModalParams();
 		this.createPaymentTypeDropdownStore();
 		this.createBankAccountDropdownStore();
@@ -186,12 +187,26 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		});
 	}
 
+	@action.bound
+	async onShowBankAccountNumberClick(id) {
+		const data = await this.rootStore.application.administration.donorStore.getBankAccountAccountNumber(id);
+		this.bankAccountNumberModal.open(
+			{
+				accountNumber: data
+			}
+		);
+	}
+
 	createBankAccountModalParams() {
 		this.bankAccountModal = new ModalParams({
 			onClose: () => {
 				this.bankAccountModal.data = {};
 			},
 		});
+	}
+
+	createBankAccountNumberModalParams() {
+		this.bankAccountNumberModal = new ModalParams({});
 	}
 
 	createConfirmModalParams() {
@@ -220,7 +235,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				};
 				params.donorId = this.donorId;
 				return this.contributionStore.findBankAccount(params);
-			},
+			}
 		});
 	}
 

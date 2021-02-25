@@ -18,8 +18,11 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
         tableStore,
         routes,
         bankAccountModal,
-        openBankAccountModal
+        openBankAccountModal,
+        bankAccountNumberModal
     } = donorBankAccountViewStore;
+
+    console.log(bankAccountNumberModal)
 
     return (
         <div>
@@ -45,6 +48,9 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
             <BaasicModal modalParams={bankAccountModal}>
                 <DonorBankAccountEdit />
             </BaasicModal>
+            <BaasicModal modalParams={bankAccountNumberModal}>
+                <div>{bankAccountNumberModal && bankAccountNumberModal.data && bankAccountNumberModal.data.accountNumber}</div>
+            </BaasicModal>
         </div>
     )
 };
@@ -61,8 +67,8 @@ DonorBankAccountListTableTemplate.propTypes = {
 function renderActions({ item, actions, authorization }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit, onDelete } = actions;
-    if (!isSome(onEdit) && !isSome(onDelete)) return null;
+    const { onEdit, onDelete, onGetAccountNumber } = actions;
+    if (!isSome(onEdit) && !isSome(onDelete) && !isSome(onGetAccountNumber)) return null;
 
     return (
         <td>
@@ -87,6 +93,16 @@ function renderActions({ item, actions, authorization }) {
                         label='BANK_ACCOUNT.LIST.BUTTON.DELETE'
                         onlyIcon={true}
                         onClick={() => onDelete(item)}>
+                    </BaasicButton>
+                ) : null}
+                {isSome(onGetAccountNumber) ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon='u-icon u-icon--preview u-icon--base'
+                        label='BANK_ACCOUNT.LIST.BUTTON.GET_ACCOUNT_NUMBER'
+                        onlyIcon={true}
+                        onClick={() => onGetAccountNumber(item)}>
                     </BaasicButton>
                 ) : null}
             </div>

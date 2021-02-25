@@ -87,6 +87,11 @@ class DonorStore {
         return response.data;
     }
 
+    async getBankAccountAccountNumber(id) {
+        const response = await this.donorBankAccountService.getBankAccountAccountNumber(id);
+        return response.data;
+    }
+
     async getCommunicationPreferences(id, options) {
         const response = await this.donorCommunicationPreferenceService.get(id, options);
         return response.data;
