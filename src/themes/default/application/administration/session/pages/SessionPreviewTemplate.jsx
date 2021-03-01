@@ -72,20 +72,19 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                     tableStore={tableStore}
                 />
                 <div className="row u-mar--top--lrg">
-                    <div className="col col-sml-12 u-mar--bottom--sml">
-                        {t('SESSION.EDIT.TOTAL_AMOUNT')} 
-                        <span className="type--med type--wgt--bold u-mar--left--sml">
-                            ${item && (_.sumBy(item.sessionCertificates, (sessionCert) => {
-                                return (sessionCert.certificate.booklet.denominationType.abrv === 'blank' ?
-                                    sessionCert.blankCertificateValue : sessionCert.certificate.booklet.denominationType.value) * 100
-                            })) / 100}
-                        </span>
+                    <div className="form__group col col-lrg-12">
+                        {t('SESSION.EDIT.TOTAL_AMOUNT')} <FormatterResolver
+                            item={{ amount: item && item.amount }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
                     </div>
-                    <div className="col col-sml-12 u-mar--bottom--sml">
-                        {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_DEDUCTION')} 
-                        <span className="type--med type--wgt--bold u-mar--left--sml">
-                            ${item && item.amount}
-                        </span>
+                    <div className="form__group col col-lrg-12">
+                        {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE')} <FormatterResolver
+                            item={{ amount: item && item.totalAmountForCharity }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
                     </div>
                 </div>
             </div>

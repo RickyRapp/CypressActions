@@ -114,7 +114,12 @@ class SessionViewStore extends BaseListViewStore {
                 onPreview: (session) => this.routes.preview(session.id),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            actionsRender: {}
+            actionsRender: {
+                onEditRender: (session) => {
+                    return true;
+                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending'
+                }
+            }
         }));
 
     }

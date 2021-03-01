@@ -2117,7 +2117,7 @@
         "EDIT": {
             "TITLE": "Session edit",
             "CERTIFICATE_VALUE_LABEL": "Blank certificate value",
-            "DONOR_APPROVED_BLANK_AMOUNT": "Approved by donor",
+            "DONOR_APPROVED_BLANK_AMOUNT": "Approved",
             "DONOR_DOES_NOT_AGREE_WITH_BLANK_AMOUNT": "Donor does not agree with blank amount",
             "DONOR_DID_NOT_RESPOND_YET_ON_BLANK_AMOUNT": "Email sent. Donor didn't responded yet.",
             "AGREE_EMAIL_NOT_SENT": "Email is not sent yet.",
@@ -2125,7 +2125,7 @@
             "SAVE_RESEND_APPROVE_EMAIL": "Save and resend review email",
             "SAVE_SET_BLANK_CERTIFICATE_VALUE": "Save",
             "TOTAL_AMOUNT": "Total:",
-            "TOTAL_AMOUNT_AFTER_DEDUCTION": "Total after deduction:",
+            "TOTAL_AMOUNT_AFTER_FEE": "Total after fee:",
             "INSUFFICIENT_FUNDS_ERROR": "Entered amount is greater than the donor set up on his account.",
             "MAX_BLANK_CERTIFICATE_AMOUNT_ERROR": "Entered amount is greater than the donor set up on his account.",
             "NOT_IN_STATUS_FOR_EDIT_WARNING": "Session is not in status for edit.",
@@ -2133,7 +2133,7 @@
             "BLANK_CERTIFICATE_CODE": "Certificate code",
             "DONOR_APPROVES": "Donor approves",
             "DONOR_DOES_NOT_APPROVE": "Donor does not approve",
-            "BLANK_BOOKLET_MAX_AMOUNT": "Blank booklet max amount by donor",
+            "BLANK_BOOKLET_MAX_AMOUNT": "Blank booklet max",
             "BLANK_BOOKLET_AMOUNT": "Scanned amount",
             "LIST": {
                 "REMOVE_SESSION_CERTIFICATE": "Removing certificate",
@@ -2154,6 +2154,7 @@
                 "COLUMNS": {
                     "CODE_LABEL": "Code",
                     "BARCODE_LABEL": "Barcode",
+                    "AMOUNT_AFTER_FEE_LABEL": "Amount after fee",
                     "DENOMINATION_LABEL": "Denomination",
                     "DONOR_LABEL": "Donor",
                     "VALUE_LABEL": "Value"

@@ -9,7 +9,8 @@ import {
     SimpleBaasicTable,
     ApplicationEmptyState,
     BaasicButton,
-    NumberFormatInputField
+    NumberFormatInputField,
+    FormatterResolver
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
@@ -92,10 +93,18 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                 />
                 <div className="row u-mar--top--lrg">
                     <div className="form__group col col-lrg-12">
-                        {t('SESSION.EDIT.TOTAL_AMOUNT')} ${item && (_.sumBy(item.grants, (grant) => { return grant.certificate.denominationType.abrv === 'blank' ? grant.certificate.openCertificateAmount : grant.certificate.denominationType.value }))}
+                        {t('SESSION.EDIT.TOTAL_AMOUNT')} <FormatterResolver
+                            item={{ amount: item && item.amount }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
                     </div>
                     <div className="form__group col col-lrg-12">
-                        {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_DEDUCTION')} ${item && item.amount}
+                        {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE')} <FormatterResolver
+                            item={{ amount: item && item.totalAmountForCharity }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
                     </div>
                 </div>
             </div>
@@ -141,13 +150,10 @@ function renderActions({ item, actions, actionsRender, t }) {
             editRender = actionsRender.onEditRender(item);
         }
     }
-
     return (
         <td>
             <div className="type--right">
-                {item.isApproved ? (
-                    <span className={'u-icon u-icon--approve u-icon--base'} title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
-                ) : null}
+                {item.isCertificateApproved ? <span className='u-icon u-icon--approve u-icon--base' title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} /> : null}
                 {isSome(onEdit) && editRender ? (
                     <BaasicButton
                         className="btn btn--icon"
@@ -158,7 +164,7 @@ function renderActions({ item, actions, actionsRender, t }) {
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
                 ) : null}
-                {isSome(onRemove) ? (
+                {/* {isSome(onRemove) ? (
                     <BaasicButton
                         className="btn btn--icon"
                         icon='u-icon u-icon--decline u-icon--base'
@@ -166,7 +172,7 @@ function renderActions({ item, actions, actionsRender, t }) {
                         onlyIcon={true}
                         onClick={() => onRemove(item)}>
                     </BaasicButton>
-                ) : null}
+                ) : null} */}
             </div>
         </td>
     )

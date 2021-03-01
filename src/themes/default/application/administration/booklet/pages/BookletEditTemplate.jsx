@@ -5,6 +5,7 @@ import { CertificateEditRowTemplate } from 'themes/application/administration/bo
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 import { BaasicButton, Date } from 'core/components';
 import _ from 'lodash';
+import { isSome } from 'core/utils';
 
 function BookletEditTemplate({ bookletEditViewStore }) {
     const {
@@ -39,7 +40,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row">
                         {booklet &&
-                            <div className="form__group col col-lrg-3">
+                            <div className="form__group col col-lrg-2">
                                 <strong>Type: </strong>{booklet.bookletType.name}
                                 {!isMixedBooklet &&
                                     <span>
@@ -55,11 +56,23 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         <div className="form__group col col-lrg-2">
                             <strong>Donor: </strong>
                             {bookletOrder ?
-                                <span>{bookletOrder.donor.donorName} - PrePaid: {booklet.isPrePaid ? 'Yes' : 'No'}</span> : 'N/A'}
+                                <span>{bookletOrder.donor.donorName}  <br /> </span> : 'N/A'}
+                        </div>
+                        <div className="form__group col col-lrg-2">
+                            <strong>Pre Paid: </strong>
+                            {booklet && isSome(booklet.isPrePaid) ?
+                                <span>{booklet.isPrePaid ? 'Yes' : 'No'}</span> : 'N/A'}
+                        </div>
+                        <div className="form__group col col-lrg-2">
+                            <strong>Fee paid by: </strong>
+                            {booklet && isSome(booklet.isSessionFeePayedByCharity) ?
+                                <span>{booklet.isSessionFeePayedByCharity ? 'Charity' : 'Donor'}</span> : 'N/A'}
                         </div>
                         <div className="form__group col col-lrg-3">
                             <strong>Assigned On:</strong> {booklet && booklet.dateAssigned ? <Date value={booklet.dateAssigned} format='full' /> : 'N/A'}
                         </div>
+                    </div>
+                    <div className="row">
                         <div className="form__group col col-lrg-2">
                             <BaasicButton
                                 className="btn btn--base btn--primary"

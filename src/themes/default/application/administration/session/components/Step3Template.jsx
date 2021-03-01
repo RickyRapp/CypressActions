@@ -49,7 +49,7 @@ class Step3Template extends React.Component {
 												<div className="col col-lrg-3 type--sml type--wgt--medium">{c.barcode}</div>
 												<div className="col col-lrg-3 type--sml type--wgt--medium">{`$${c.denominationTypeValue}`}</div>
 												<div className="col col-lrg-3 type--sml type--wgt--medium">
-													${c.certificateValue} {c.insufficientFunds ? ` - maybe insufficient funds` : ''}
+													${c.certificateValue} {c.insufficientFunds ? ` - insufficient funds` : ''}
 												</div>
 											</div>
 										);

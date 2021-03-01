@@ -27,12 +27,13 @@ class SessionEditViewStore extends BaseEditViewStore {
                             embed: [
                                 'charity',
                                 'grants',
+                                'grants.donor',
+                                'grants.charityVirtualTransaction',
+                                'grants.charityVirtualTransaction.paymentTransaction',
                                 'grants.certificate',
                                 'grants.certificate.denominationType',
                                 'grants.certificate.certificateStatus',
-                                'grants.certificate.booklet',
-                                'grants.certificate.booklet.bookletOrder',
-                                'grants.certificate.booklet.bookletOrder.donor'
+                                'grants.certificate.booklet'
                             ]
                         }
                         this.session = await this.rootStore.application.administration.sessionStore.getSession(id, params);
@@ -121,7 +122,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                     }
                 },
                 {
-                    key: 'certificate.booklet.bookletOrder.donor.donorName',
+                    key: 'donor.donorName',
                     title: 'SESSION.EDIT.LIST.COLUMNS.DONOR_LABEL',
                 },
                 {
@@ -129,17 +130,15 @@ class SessionEditViewStore extends BaseEditViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.BARCODE_LABEL',
                 },
                 {
-                    key: 'certificate.denominationType',
-                    title: 'SESSION.EDIT.LIST.COLUMNS.DENOMINATION_LABEL',
+                    key: 'amount',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
                     format: {
-                        type: 'denomination',
-                        value: 'short',
-                        additionalField: 'certificate.openCertificateAmount'
+                        type: 'currency'
                     }
                 },
                 {
-                    key: 'amount',
-                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
+                    key: 'charityVirtualTransaction.paymentTransaction.amount',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.AMOUNT_AFTER_FEE_LABEL',
                     format: {
                         type: 'currency'
                     }

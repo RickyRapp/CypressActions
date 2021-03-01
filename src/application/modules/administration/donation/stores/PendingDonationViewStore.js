@@ -13,7 +13,7 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     constructor(rootStore) {
         const filter = new PendingDonationListFilter();
-        filter.pageSize = 500;
+        filter.pageSize = 100;
         filter.pageNumber = 1;
 
         super(rootStore, {
@@ -85,7 +85,6 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async onReviewClick() {
         this.disableSave = true;
-        debugger
         const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(
             {
                 paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,

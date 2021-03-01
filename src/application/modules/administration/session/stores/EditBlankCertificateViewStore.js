@@ -2,6 +2,7 @@ import { action } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { EditBlankCertificateForm } from 'application/administration/session/forms';
+import { localizationService, validatorService } from 'core/services';
 
 @applicationContext
 class EditBlankCertificateViewStore extends BaseEditViewStore {
@@ -43,14 +44,38 @@ class EditBlankCertificateViewStore extends BaseEditViewStore {
             onAfterAction: onAfterAction,
         });
 
-        this.form.$('blankCertificateValue').set('rules', this.form.$('blankCertificateValue').rules + '|max:' + grant.certificate.booklet.bookletOrder.donor.blankBookletMaxAmount)
         this.grant = grant;
+        this.createBalanceValidators();
     }
 
     @action.bound
     async saveAndSendReviewEmail() {
         this.sendReviewEmail = true;
         this.form.submit()
+    }
+
+    createBalanceValidators() {
+        validatorService.registerAsyncValidator('blankCertificateValueMaxBooklet', async (value, attribute, req, passes) => {
+            try {
+                if (value > this.grant.donor.blankBookletMaxAmount) {
+                    return passes(false, localizationService.t('Amount is greater than the donors setting for max booklet amount.'))
+                }
+                return passes();
+            } catch (err) {
+                return passes(false, localizationService.t('DONOR.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
+            }
+        });
+
+        validatorService.registerAsyncValidator('blankCertificateValueDonorBalance', async (value, attribute, req, passes) => {
+            try {
+                if (value > (this.grant.donor.presentBalance + this.grant.donor.lineOfCredit)) {
+                    return passes(false, localizationService.t('Amount is greater than the donors balance plus line of credit.'))
+                }
+                return passes();
+            } catch (err) {
+                return passes(false, localizationService.t('DONOR.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
+            }
+        });
     }
 }
 

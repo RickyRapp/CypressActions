@@ -17,18 +17,22 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                             embed: [
                                 'charity',
                                 'grants',
+                                'grants.donor',
                                 'grants.certificate',
+                                'grants.charityVirtualTransaction',
+                                'grants.charityVirtualTransaction.paymentTransaction',
                                 'grant.donationStatus',
                                 'grants.certificate.certificateStatus',
-                                'grants.certificate.booklet',
-                                'grants.certificate.booklet.denominationType',
-                                'grants.certificate.booklet.bookletOrder',
-                                'grants.certificate.booklet.bookletOrder.accountType',
+                                'grants.certificate.denominationType',
+                                'grants.certificate.booklet'
                             ]
                         }
                         const data = await rootStore.application.administration.sessionStore.getSession(id, params);
                         this.session = data;
-                        this.tableStore.setData(_.orderBy(data.sessionCertificates, sc => sc.certificate.booklet.denominationType.value, "asc"))
+                        this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value, "asc"));
+                        if (!this.tableStore.dataInitialized) {
+                            this.tableStore.dataInitialized = true;
+                        }
                         return data;
                     }
                 }
@@ -50,21 +54,23 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                     }
                 },
                 {
+                    key: 'donor.donorName',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.DONOR_LABEL',
+                },
+                {
                     key: 'certificate.barcode',
                     title: 'SESSION.EDIT.LIST.COLUMNS.BARCODE_LABEL',
                 },
                 {
-                    key: 'certificate.booklet.denominationType',
-                    title: 'SESSION.EDIT.LIST.COLUMNS.DENOMINATION_LABEL',
+                    key: 'amount',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
                     format: {
-                        type: 'denomination',
-                        value: 'short',
-                        additionalField: 'blankCertificateValue'
+                        type: 'currency'
                     }
                 },
                 {
-                    key: 'amountAfterDeduction',
-                    title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
+                    key: 'charityVirtualTransaction.paymentTransaction.amount',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.AMOUNT_AFTER_FEE_LABEL',
                     format: {
                         type: 'currency'
                     }

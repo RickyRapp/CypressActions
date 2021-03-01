@@ -64,6 +64,8 @@ function FormatterResolver({ item, field, format }) {
             switch (format.value) {
                 case 'yes-no':
                     return <span>{_.get(item, field) ? 'Yes' : 'No'}</span>
+                case 'custom':
+                    return <span>{_.get(item, field) ? format.yesLabel : format.noLabel}</span>
                 default:
                     return null;
             }
