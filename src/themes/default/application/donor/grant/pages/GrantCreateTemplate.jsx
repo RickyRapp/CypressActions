@@ -177,8 +177,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row">
-										<div className="form__group col col-sml-12 type--color--note u-mar--bottom--med">
-											<BaasicFieldToggle field={form.$('isRecurring')} />
+										<div className="form__group col col-sml-12 u-mar--bottom--med">
+											<BaasicFieldToggle field={form.$('isRecurring')} showLabel={true}/>
 										</div>
 									</div>
 								)}
@@ -256,6 +256,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											id="2"
 											checked={isNoteToAdministratorIncluded}
 											label="GRANT.CREATE.INCLUDE_NOTE_TO_ADMINISTRATOR"
+											showLabel={true}
 											onChange={event => onIncludeNoteToAdministratorChange(event.target.checked)}
 										/>
 									</div>
@@ -271,7 +272,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								{renderEditLayoutFooterContent({ form })}
 							</div>
 						</div>
-						<div className="col col-sml-12 col-xxlrg-6">
+						<div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">
 							<div className="card--primary card--med u-mar--bottom--med">
 								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
 								<div className="row">

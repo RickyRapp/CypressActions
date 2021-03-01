@@ -114,6 +114,7 @@
 @import 'util.loader.css';
 @import 'util.height.css';
 @import 'util.cursor.css';
+@import 'util.hide.css';
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc

@@ -6,8 +6,8 @@ import _ from 'lodash';
 
 function BaasicToggleTemplate({ label, value, onChange, disabled, t, showLabel }) {
 	return (
-		<div className="row">
-			<div className="col col-sml-2">
+		<div className="u-display--flex">
+			<div className="">
 				<div className={`toggle ${value ? 'toggle--active' : 'toggle--deactive'}`}>
 					<BaasicButton
 						className={`toggle__btn ${value ? '' : 'toggle__btn--active'}`}
@@ -24,7 +24,7 @@ function BaasicToggleTemplate({ label, value, onChange, disabled, t, showLabel }
 					/>
 				</div>
 			</div>
-			<div className="col col-sml-6">
+			<div className="u-mar--left--sml">
 				<span>{showLabel ? t(label) : null}</span>
 			</div>
 		</div>
