@@ -29,7 +29,11 @@ class DonorEmailAddressEditFormTemplate extends Component {
 						</div>
 						{isAssignableAsPrimary && (
 							<div className="form__group col col-sml-12 col-lrg-2">
-								<BasicFieldCheckbox field={form.$('isPrimary')} />
+								<div className="u-display--flex">
+									<label className="form__field__label u-mar--right--med">Is Primary?</label>
+									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} />
+								</div>
+								
 							</div>
 						)}
 					</div>
