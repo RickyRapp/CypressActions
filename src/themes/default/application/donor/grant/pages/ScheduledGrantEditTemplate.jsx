@@ -46,11 +46,11 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
         <React.Fragment>
             <EditFormLayout store={scheduledGrantEditViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
                 <Content loading={contentLoading} >
-                    <div className="row">
+                    <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <BaasicFieldDropdown
                                             field={form.$('charityId')}
@@ -60,7 +60,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
 
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
                                         <BasicFieldCheckbox field={form.$('isNewCharity')} />
                                     </div>
@@ -80,7 +80,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                 {form.$('isNewCharity').value &&
                                     <div className="card--form card--med u-mar--bottom--med">
                                         <h4 className="">{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
-                                        <div className="row">
+                                        <div className="row row--form">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityName')} />
                                             </div>
@@ -110,7 +110,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             </div>
                                         </div>
                                         <h4 className="">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
-                                        <div className="row">
+                                        <div className="row row--form">
                                             <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('charityContactName')} />
                                             </div>
@@ -126,7 +126,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                 {charityDropdownStore.value &&
                                     <React.Fragment>
                                         <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
-                                        <div className="row u-mar--top--sml">
+                                        <div className="row row--form u-mar--top--sml">
                                             <div className="col col-sml-12 u-mar--bottom--sml">
                                                 <div className="charity-information__card ">
                                                     <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
@@ -156,7 +156,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                     </React.Fragment>}
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
-                                        <div className="row">
+                                        <div className="row row--form">
                                             <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                                 <BasicInput field={form.$('addressLine1')} />
                                             </div>
@@ -175,12 +175,12 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                         </div>
                                     </div>}
 
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                                     </div>
@@ -189,18 +189,18 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             {grantAcknowledgmentName}
                                         </div>}
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                         {/* {grantPurposeTypeDropdownStore.value &&
                                             <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />} */}
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 type--color--note u-mar--bottom--sml">
                                         <BasicCheckbox
                                             id='2'
@@ -210,7 +210,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                     </div>
                                 </div>
                                 {isNoteToAdministratorIncluded &&
-                                    <div className="row">
+                                    <div className="row row--form">
                                         <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                             <BasicTextArea field={form.$('noteToAdministrator')} />
                                         </div>
@@ -221,7 +221,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
                                         <div className="card--secondary card--med type--center">
                                             <div className="type--xxlrg type--wgt--medium type--color--text">
@@ -249,12 +249,12 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
 
                                     {charityDropdownStore && charityDropdownStore.value &&
                                         <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <div className="row">
+                                            <div className="row row--form">
                                                 <div className="col col-sml-12 col-lrg-6">
                                                     <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
                                                 </div>
                                             </div>
-                                            <div className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                                            <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <img src={logo} alt={"logo"} />
                                                 </div>
@@ -262,7 +262,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                                     {charityDropdownStore.value.item.name}
                                                 </div>
                                             </div>
-                                            <div className="row u-padd--top--med">
+                                            <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
@@ -279,7 +279,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                                     <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
                                                 </div>
                                             </div>
-                                            <div className="row u-padd--top--med">
+                                            <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
                                                     <p>{charityDropdownStore.value.item.principalOfficer}</p>
@@ -293,7 +293,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                                     <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
                                                 </div>
                                             </div>
-                                            <div className="row u-padd--top--med">
+                                            <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
                                                     <p>{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
@@ -302,14 +302,14 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                         </div>}
                                 </div>
 
-                                <div className="row u-mar--bottom--med">
+                                <div className="row row--form u-mar--bottom--med">
                                     <div className="card--primary card--med col col-sml-12 col-lrg-12">
                                         <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
                                         <SimpleBaasicTable tableStore={previousGrantsTableStore} />
                                     </div>
                                 </div>
 
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="card--primary card--med col col-sml-12 col-lrg-12">
                                         <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
                                         <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>

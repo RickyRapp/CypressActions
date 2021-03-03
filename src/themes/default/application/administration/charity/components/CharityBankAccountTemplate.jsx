@@ -20,7 +20,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
     return (
         <EditFormContent form={form}>
             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
-            <div className="row">
+            <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('accountNumber')} />
                 </div>
@@ -32,7 +32,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('accountHolderName')} />
                 </div>
@@ -53,7 +53,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('email')} />
                 </div>
@@ -62,7 +62,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row row--form">
                 <div className="col col-sml-12 col-lrg-12">
                     <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
                 </div>

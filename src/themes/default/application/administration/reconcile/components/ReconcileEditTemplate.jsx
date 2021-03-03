@@ -24,7 +24,7 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
     return (
         <form className='form'>
             <section >
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                         <div>
                             <label className="form__group__label">Check number</label>

@@ -232,7 +232,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     </div> */}
 
                         <div className="card--sml">
-                            <div className="row u-display--flex u-display--flex--align--end">
+                            <div className="row row--form u-display--flex u-display--flex--align--end">
                                 <div className="col col-sml-12 col-xlrg-8">
                                     <div className="type--sml type--wgt--medium">
                                         Current Balance:
@@ -271,7 +271,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     </div>
 
                     <div className="card--primary card--med u-mar--bottom--med">
-                        <div className="row u-display--flex u-display--flex--align--center">
+                        <div className="row row--form u-display--flex u-display--flex--align--center">
                             <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                                 <span className="type--med type--wgt--medium type--color--note">
                                     {t('BOOKLET_ORDER.CREATE.DELIVERY_OPTIONS')}
@@ -295,7 +295,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         <div className="card--primary card--med u-mar--bottom--med">
                             {(form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'mail-usps').id || form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'express-mail').id) ?
                                 <React.Fragment>
-                                    <div className="row u-mar--top--sml u-mar--bottom--sml">
+                                    <div className="row row--form u-mar--top--sml u-mar--bottom--sml">
                                         <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                                             <span className="type--med type--wgt--medium type--color--note">
                                                 {t('BOOKLET_ORDER.CREATE.SHIPPING_ADDRESS')}
@@ -326,12 +326,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </React.Fragment>}
                                     </div>
                                     <BaasicButton
-                                        className="btn btn--med btn--med--100 btn--primary"
+                                        className="btn row--form btn--med btn--med--100 btn--primary"
                                         label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
                                         onClick={() => onChangeShippingAddressClick()}>
                                     </BaasicButton>
                                 </React.Fragment> :
-                                <div className="row u-mar--top--sml u-mar--bottom--sml">
+                                <div className="row row--form u-mar--top--sml u-mar--bottom--sml">
                                     <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                                         <span className="type--med type--wgt--medium type--color--note">
                                             {t('BOOKLET_ORDER.CREATE.PICK_UP_ADDRESS')}

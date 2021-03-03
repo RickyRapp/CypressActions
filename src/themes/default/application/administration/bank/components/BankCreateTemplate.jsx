@@ -23,7 +23,7 @@ const BankCreateTemplate = function ({ t, bankCreateViewStore }) {
                 loading={loaderStore.loading}
             >
                 <h3 className=" u-mar--bottom--med">{t(id ? 'BANK.EDIT.TITLE' : 'BANK.CREATE.TITLE')}</h3>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-12">
                         <BasicInput field={form.$('name')} />
                     </div>

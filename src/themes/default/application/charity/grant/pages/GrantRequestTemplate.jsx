@@ -12,7 +12,7 @@ function GrantRequestTemplate({ grantRequestCreateViewStore, t }) {
 			<Content loading={contentLoading}>
 				<h3 className=" u-mar--bottom--med">{t('GRANT_REQUEST.CREATE.TITLE')}</h3>
 				<div className="card--sml card--primary">
-					<div className="row">
+					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-6">
 							<BasicInput field={form.$('phoneNumber')} />
 						</div>

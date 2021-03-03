@@ -9,7 +9,7 @@ class ContactInfoTemplate extends Component {
         return (
             <React.Fragment>
                 <h3 className=" type--color--note u-mar--bottom--sml">{t('DONOR.CREATE.CONTACT_INFO_FIELDS.TITLE')}</h3>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('addressLine1')} />
                     </div>
@@ -29,7 +29,7 @@ class ContactInfoTemplate extends Component {
                         <BasicInput field={form.$('addressDescription')} />
                     </div>
                 </div>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-3">
                         <BasicInput field={form.$('email')} />
                     </div>

@@ -42,7 +42,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                 }
                  <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">
-                        Share information <span class="type--color--note u-mar--left--tny">*</span>
+                        Share information <span className="type--color--note u-mar--left--tny">*</span>
                     </div>
                     <div className="list--preferences__dd">
                         <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
@@ -51,7 +51,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
 
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">
-                        Purpose <span class="type--color--note u-mar--left--tny">*</span>
+                        Purpose <span className="type--color--note u-mar--left--tny">*</span>
                     </div>
                     <div className="list--preferences__dd">
                         <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />

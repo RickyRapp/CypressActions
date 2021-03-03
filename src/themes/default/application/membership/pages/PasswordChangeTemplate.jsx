@@ -13,7 +13,7 @@ function PasswordChangeTemplate({ currentView, t }) {
 				<img className="login__card__logo" src={logo} alt="Logo" />
 				<h3 className="login__card__title">{t('PASSWORD_CHANGE.NEW_PASSWORD_PLACEHOLDER')}</h3>
 				<div className="login__card__form">
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12">
 							<BasicInput field={passwordChangeForm.$('password')} />
 						</div>

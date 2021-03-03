@@ -46,11 +46,11 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 		<React.Fragment>
 			<EditFormLayout store={grantEditViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
 				<Content loading={contentLoading}>
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12 col-xxlrg-6">
 							<div className="card--primary card--med u-mar--bottom--med">
 								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
-								<div className="row">
+								<div className="row row--form">
 									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
 											field={form.$('charityId')}
@@ -59,7 +59,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										/>
 									</div>
 								</div>
-								<div className="row row__align--center">
+								<div className="row row--form row__align--center">
 									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
 										<BasicFieldCheckbox field={form.$('isNewCharity')} />
 									</div>
@@ -79,7 +79,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 								{form.$('isNewCharity').value && (
 									<div className="card--form card--med u-mar--bottom--med">
 										<h4 className="">{t('GRANT.CREATE.NEW_CHARITY_TITLE')}</h4>
-										<div className="row">
+										<div className="row row--form">
 											<div className="form__group col col-sml-12 col-lrg-6">
 												<BasicInput field={form.$('charityName')} />
 											</div>
@@ -109,7 +109,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 											</div>
 										</div>
 										<h4 className="">{t('GRANT.CREATE.NEW_CHARITY_CONTACT_TITLE')}</h4>
-										<div className="row">
+										<div className="row row--form">
 											<div className="form__group col col-sml-12 col-lrg-12">
 												<BasicInput field={form.$('charityContactName')} />
 											</div>
@@ -126,7 +126,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 								{charityDropdownStore.value && (
 									<React.Fragment>
 										<h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
-										<div className="row u-mar--top--sml">
+										<div className="row row--form u-mar--top--sml">
 											<div className="col col-sml-12 u-mar--bottom--sml">
 												<div className="charity-information__card ">
 													<span className="type--base type--wgt--regular type--color--opaque">
@@ -173,7 +173,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 								)}
 								{isChangedDefaultAddress && (
 									<div className="card--secondary card--med u-mar--bottom--sml">
-										<div className="row">
+										<div className="row row--form">
 											<div className="form__group col col-sml-12">
 												<BasicInput field={form.$('addressLine1')} />
 											</div>
@@ -193,12 +193,12 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 									</div>
 								)}
 
-								<div className="row">
+								<div className="row row--form">
 									<div className="form__group col col-sml-12">
 										<NumericInputField field={form.$('amount')} />
 									</div>
 								</div>
-								<div className="row">
+								<div className="row row--form">
 									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
 											field={form.$('grantAcknowledgmentTypeId')}
@@ -213,18 +213,18 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										</div>
 									)}
 								</div>
-								<div className="row">
+								<div className="row row--form">
 									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
 									</div>
 								</div>
-								<div className="row">
+								<div className="row row--form">
 									<div className="form__group col col-sml-12 col-lrg-12">
 										{/* {grantPurposeTypeDropdownStore.value &&
                                             <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />} */}
 									</div>
 								</div>
-								<div className="row">
+								<div className="row row--form">
 									<div className="form__group col col-sml-12 col-lrg-6 type--color--note">
 										<BasicCheckbox
 											id="2"
@@ -235,7 +235,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 									</div>
 								</div>
 								{isNoteToAdministratorIncluded && (
-									<div className="row">
+									<div className="row row--form">
 										<div className="form__group col col-sml-12 col-lrg-12">
 											<BasicTextArea field={form.$('noteToAdministrator')} />
 										</div>
@@ -247,7 +247,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 						<div className="col col-sml-12 col-xxlrg-6">
 							<div className="card--primary card--med u-mar--bottom--med">
 								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
-								<div className="row">
+								<div className="row row--form">
 									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--text">
@@ -344,7 +344,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 									)}
 								</div>
 
-								<div className="row u-mar--bottom--med">
+								<div className="row row--form u-mar--bottom--med">
 									<div className="card--primary card--med col col-sml-12 col-lrg-12">
 										<h4 className=" u-mar--bottom--med">
 											{t('GRANT.CREATE.PREVIOUS_GRANTS')}
@@ -353,7 +353,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 									</div>
 								</div>
 
-								<div className="row">
+								<div className="row row--form">
 									<div className="card--primary card--med col col-sml-12 col-lrg-12">
 										<h4 className=" u-mar--bottom--med">
 											{t('GRANT.CREATE.SIMILAR_GRANTS')}

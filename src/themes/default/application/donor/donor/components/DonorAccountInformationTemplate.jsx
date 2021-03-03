@@ -25,7 +25,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 	return (
 		<div className="card--primary card--med">
 			<EditFormContent form={form}>
-				<div className="row">
+				<div className="row row--form">
 					<div className="col col-sml-12 col-lrg-3">
 						<h3 className=" u-mar--bottom--med">
 							{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}
@@ -35,8 +35,8 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 						<React.Fragment>
 							<div className="col col-sml-12 col-lrg-12">
 								<div className="card--med card--primary">
-									<div className="row">
-										<div className="form__group col col-sml-12 col-xlrg-2 col-xxlrg-1">
+									<div className="row row--form">
+										<div className="form__group col col-sml-12 col-xlrg-2 col-xxlrg-2">
 											<BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
 										</div>
 										<div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-3">
@@ -45,7 +45,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 										<div className="col col-sml-12 col-xlrg-5 col-xxlrg-4">
 											<BasicInput field={form.$('lastName')} />
 										</div>
-										<div className="form__group col col-sml-12 col-lrg-12 col-xxlrg-4">
+										<div className="form__group col col-sml-12 col-lrg-12 col-xxlrg-3">
 											<div>
 												<label className="form__group__label">
 													{t('DONOR.ACCOUNT_INFORMATION_FIELDS.DATE_OF_BIRTH')}
@@ -105,7 +105,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 				</div>
 			</EditFormContent>
 
-			<div className="row row__align--end">
+			<div className="row row--form row__align--end">
 				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
 					<div className="u-separator--primary u-mar--bottom--xlrg u-mar--top--lrg"></div>
 					<DonorAddressList />

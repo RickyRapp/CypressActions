@@ -12,7 +12,7 @@ function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
 			<Content loading={contentLoading}>
 				<h3 className=" u-mar--bottom--med">{t('CHARITY_GIVING_CARD.CREATE.TITLE')}</h3>
 				<div className="card--med card--primary">
-					<div className="row">
+					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-6">
 							<NumericInputField field={form.$('amount')} />
 						</div>

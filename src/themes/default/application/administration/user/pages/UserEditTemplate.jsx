@@ -29,7 +29,7 @@ function UserEditTemplate({ userEditViewStore, t }) {
     return (
         <EditFormLayout store={userEditViewStore} emptyRenderer={<ApplicationEmptyState />} loading={loaderStore.loading}>
             <div className="card--primary card--med">
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-6">
                         <div className="form__group__label">{t('USER.EDIT.USERNAME_LABEL')}</div>
                         <span className="input input--text input--lrg padd--top--tny input--disabled">
@@ -43,7 +43,7 @@ function UserEditTemplate({ userEditViewStore, t }) {
                         <BaasicFieldDropdown field={form.$('roles')} store={roleMultiselectStore} />
                     </div>
                 </div>
-                <div className="row">
+                <div className="row row--form">
                     <div className="col col-med-6">
                         <a className="display--b u-mar--right--med" onClick={openMailPasswordReset}><span className="u-icon u-icon--base u-icon--email" /> Send password reset mail</a>
                         <a className="display--b u-mar--right--med" onClick={openChangePassword}><span className="u-icon u-icon--base u-icon--reset" /> Change Password</a>
