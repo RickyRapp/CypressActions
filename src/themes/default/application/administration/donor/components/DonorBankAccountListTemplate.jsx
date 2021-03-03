@@ -22,8 +22,6 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
         bankAccountNumberModal
     } = donorBankAccountViewStore;
 
-    console.log(bankAccountNumberModal)
-
     return (
         <div>
             <ListContent>

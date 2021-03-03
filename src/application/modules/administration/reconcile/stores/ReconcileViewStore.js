@@ -68,14 +68,17 @@ class ReconcileViewStore extends BaseListViewStore {
 
     @action.bound
     async printReport(reconcile) {
+        let extension = 'pdf';
         let contentType = 'application/pdf';
-        if (reconcile.paymentType.abrv === 'ach-transfer') {
+        if (reconcile.paymentType.abrv === 'ach') {
             contentType = 'text/csv';
+            extension = 'csv'
         }
-        const report = await this.rootStore.application.administration.reconcileStore.generateReport({ contentType: contentType, ...reconcile });
+        const report = await this.rootStore.application.administration.reconcileStore.generateReport({ contentType, ids: [reconcile.id], paymentTypeId: reconcile.paymentType.id });
         const nowDate = new Date();
-        const fileName = `${"Check Receipt".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.pdf`;
+        const fileName = `${"Receipt".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.${extension}`;
         saveAs(report.data, fileName);
+        this.rootStore.notificationStore.success("Report generated.");
     }
 
     createTableStore() {

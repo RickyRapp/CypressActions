@@ -31,7 +31,6 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
     }
 
     const convertToDate = (value) => {
-        console.log(moment(value).toDate())
         return moment(value).toDate()
     }
 

@@ -88,12 +88,7 @@ class ContributionViewStore extends BaseListViewStore {
     renderPaymentType(item) {
         if (item.paymentType.abrv === 'ach' || item.paymentType.abrv === 'wire-transfer') {
             if (item.bankAccount) {
-                if (item.bankAccount.accountNumber.length > 4) {
-                    return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber.substr(item.bankAccount.accountNumber.length - 4)}`;
-                }
-                else {
-                    return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber}`;
-                }
+                return `${item.paymentType.name}${' ...' + item.bankAccount.accountNumber}`;
             }
         }
         return item.paymentType.name;

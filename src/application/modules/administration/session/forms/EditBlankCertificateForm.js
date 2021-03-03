@@ -19,7 +19,7 @@ export default class EditBlankCertificateForm extends FormBase {
                     name: 'blankCertificateValue',
                     label: 'SESSION.EDIT.FIELDS.BLANK_CERTIFICATE_AMOUNT_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.BLANK_CERTIFICATE_AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric|blankCertificateValueDonorBalance|blankCertificateValueMaxBooklet',
+                    rules: 'required|numeric|blankCertificateValueDonorBalance',
                     extra: {
                         type: 'c2'
                     }

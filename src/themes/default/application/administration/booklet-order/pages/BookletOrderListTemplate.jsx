@@ -14,7 +14,7 @@ import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const BookletOrderListTemplate = function({ bookletOrderViewStore }) {
+const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 	const {
 		routes,
 		tableStore,
@@ -110,8 +110,8 @@ BookletOrderListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onReview } = actions;
-	if (!isSome(onEdit) && !isSome(onReview)) return null;
+	const { onEdit, onReview, onDetails } = actions;
+	if (!isSome(onEdit) && !isSome(onReview) && !isSome(onDetails)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -124,6 +124,13 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onReviewRender) {
 			reviewRender = actionsRender.onReviewRender(item);
+		}
+	}
+
+	let detailsRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onDetailsRender) {
+			detailsRender = actionsRender.onDetailsRender(item);
 		}
 	}
 
@@ -147,6 +154,16 @@ function renderActions({ item, actions, actionsRender }) {
 						label="BOOKLET_ORDER.LIST.BUTTON.REVIEW"
 						onlyIcon={true}
 						onClick={() => onReview(item.id)}
+					></BaasicButton>
+				) : null}
+				{isSome(onDetails) && detailsRender ? (
+					<BaasicButton
+						authorization="theDonorsFundAdministrationSection.read"
+						className="btn btn--icon"
+						icon="u-icon u-icon--preview u-icon--base"
+						label="BOOKLET_ORDER.LIST.BUTTON.PREVIEW"
+						onlyIcon={true}
+						onClick={() => onDetails(item.id)}
 					></BaasicButton>
 				) : null}
 			</div>

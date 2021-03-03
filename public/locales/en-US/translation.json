@@ -1889,7 +1889,8 @@
             },
             "BUTTON": {
                 "REVIEW": "Review",
-                "EDIT": "Edit"
+                "EDIT": "Edit",
+                "PREVIEW": "Details"
             }
         },
         "CREATE": {
@@ -1979,6 +1980,26 @@
                 "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
                 "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type",
                 "TRACKING_NUMBER_LABEL": "Tracking Number"
+            }
+        },
+        "PREVIEW": {
+            "TITLE": "Order details",
+            "DONOR_LABEL": "Donor",
+            "STATUS_LABEL": "Status",
+            "CONFRIMATION_NUMBER_LABEL": "Confirmation number",
+            "BOOKLET_LABEL": "Booklets",
+            "DELIVERY_METHOD_LABEL": "Delivery type",
+            "ORDER_LABEL": "Order content",
+            "TRACKING_NUMBER_LABEL": "Tracking Number",
+            "DATE_CREATED_LABEL": "Date created",
+            "DATE_UPDATED_LABEL": "Date updated",
+            "COLUMNS":{
+                "COUNT_LABEL": "Booklet count",
+                "BOOKLET_TYPE_LABEL": "Booklet type",
+                "DENOMINATION_TYPE_LABEL": "Denomination type",
+                "IS_PRE_PAID_LABEL": "Is pre-paid",
+                "BOOKLETS_LABEL": "Assigned booklets",
+                "IS_SESSION_FEE_PAYED_LABEL": "Is fee payed by charity"
             }
         }
     },
