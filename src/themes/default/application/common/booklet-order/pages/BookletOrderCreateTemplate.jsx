@@ -177,7 +177,50 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                         </div>
                                                     </div>
                                                 </div>}
+                                                
                                         </React.Fragment>}
+                                        {/* ToDo - Add Functionality */}
+                                        <div className="col col-sml-12 col-xxlrg-3 card--med u-display--none" >
+                                            <h3 className="u-mar--bottom--med">Selected</h3>
+                                            <table className="table--total">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Check
+                                                        </th>
+                                                        <th>
+                                                            Pcs
+                                                        </th>
+                                                        <th>
+                                                            Amount
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>$0.00</td>
+                                                        <td>1</td>
+                                                        <td>$200.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>$0.00</td>
+                                                        <td>1</td>
+                                                        <td>$200.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>$0.00</td>
+                                                        <td>1</td>
+                                                        <td>$200.00</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th>$500.00</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
                                 </div>
                             )
                         })}
@@ -232,6 +275,23 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                     </div> */}
 
                         <div className="card--sml">
+                            <div className="u-mar--bottom--med">
+                                {donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount &&
+                                    <div className="message--enh">
+                                        <span className="u-mar--right--tny">
+                                            {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
+                                        </span>
+                                        <a href="#" className="u-anchor--underline" onClick={onAddProtectionPlanClick}>
+                                            {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN')}
+                                        </a>
+                                        {/* <BaasicButton
+                                            className="btn btn--link"
+                                            label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
+                                            >
+                                        </BaasicButton> */}
+                                    </div>
+                                }
+                            </div>
                             <div className="row row--form u-display--flex u-display--flex--align--end">
                                 <div className="col col-sml-12 col-xlrg-8">
                                     <div className="type--sml type--wgt--medium">
@@ -245,6 +305,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         </span>
                                     </div>
                                 </div>
+                                
                                 <div className="col col-sml-12 col-xlrg-4">
                                     <div className="type--med type--wgt--medium u-push--from--lrg">Total:
                                     <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
@@ -254,14 +315,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 format={{ type: 'currency' }}
                                             />
                                         </span>
-                                        {donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount &&
-                                            <div>
-                                                <BaasicButton
-                                                    className="btn btn--sml btn--primary"
-                                                    label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
-                                                    onClick={onAddProtectionPlanClick}>
-                                                </BaasicButton>
-                                            </div>}
+                                       
                                         {donor && donor.hasProtectionPlan &&
                                             <div><small>{t('BOOKLET_ORDER.CREATE.ENROLLED_IN_PROTECTION_PLAN')}<i className="u-icon u-icon--approve u-icon--base u-mar--left--sml"></i></small></div>}
                                     </div>

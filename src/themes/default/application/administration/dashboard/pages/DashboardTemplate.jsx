@@ -7,7 +7,7 @@ function DashboardTemplate() {
 	return (
 		<Page>
 			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
 					admin
 				</div>
 			</div>

@@ -27,6 +27,12 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
                         FREE
                     </span>
                 </div>
+                <div className="form__group col col-sml-1 u-display--none--from-med"></div>
+                <div className="form__group col col-sml-1 u-display--none--from-med">
+                    <span className="type--base type--wgt--bold type--color--note">
+                        FREE
+                    </span>
+                </div>
                 <div className="form__group col col-sml-12">
                     <BaasicFieldSwitch field={form.$('isGrantRequestFeePayedByCharity')} />
                 </div>

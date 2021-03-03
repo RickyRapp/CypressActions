@@ -77,7 +77,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 
             <DonorAccountSetting />
 
-            <div className="row row--form row__align--end">
+            <div className="row row__align--end">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <DonorAddressList />
                 </div>

@@ -27,28 +27,37 @@ function TableFilterTemplate(props) {
 	const clearVisible = props.showClear;
 	return (
 		<React.Fragment>
-			<div className={`u-mar--bottom--sml ${searchClassName || ''}`.trim()}>
-				{showSearch && (
-					<SearchFilter
-						className={`input input--lrg input--search ${filterStore.filterVisible ? 'is-expanded' : ''}`}
-						inputWrapperClass={`${inputWrapperClass} u-mar--right--sml`}
-						queryUtility={queryUtility}
-						clearVisible={clearVisible}
-						onSearch={debounceCallback}
-						disableSearch={fetchDisabled}
-					/>
-				)}
-				{showButtons && children && (
-					<Fragment>
-						{showToggle && (
-							<BaasicButton
-								className={`btn btn--icon filter__expand ${filterStore.filterVisible ? 'is-active' : ''}`}
-								icon="btn--ghost btn--icon--lrg u-icon u-icon--filter u-icon--med"
-								onlyIcon={true}
-								onClick={filterStore.toggleFilterVisibility}
-								label={filterStore.filterVisible ? 'GRID.COLLAPSE_FILTERS_BUTTON' : 'GRID.EXPAND_FILTERS_BUTTON'}
+			<div className={`${searchClassName || ''}`.trim()}>
+				<div className="search__wrapper">
+					<div className="u-mar--right--sml">
+						{showSearch && (
+
+							<SearchFilter
+								className={`input input--lrg input--search ${filterStore.filterVisible ? 'is-expanded' : ''}`}
+								inputWrapperClass={`${inputWrapperClass} u-mar--right--sml`}
+								queryUtility={queryUtility}
+								clearVisible={clearVisible}
+								onSearch={debounceCallback}
+								disableSearch={fetchDisabled}
 							/>
 						)}
+					</div>
+					{showButtons && children && (
+						<Fragment>
+							{showToggle && (
+								<BaasicButton
+									className={`btn btn--icon--med btn--ghost btn--med filter__expand ${filterStore.filterVisible ? 'is-active' : ''}`}
+									icon="btn--icon--lrg u-icon u-icon--filter u-icon--med"
+									onlyIcon={true}
+									onClick={filterStore.toggleFilterVisibility}
+									label={filterStore.filterVisible ? 'GRID.COLLAPSE_FILTERS_BUTTON' : 'GRID.EXPAND_FILTERS_BUTTON'}
+								/>
+							)}
+						</Fragment>
+					)}
+				</div>
+				{showButtons && children && (
+					<Fragment>
 						{nextToSearch && (
 							<Fragment>
 								<BaasicButton
@@ -123,11 +132,11 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 				>
 					{/* <h5 className="spc--top--sml">{t('GRID.FILTERS_TITLE')}</h5> */}
 					{showSeparator && <div />}
-					<div className="row">{filters}</div>
+					<div className="row row--form">{filters}</div>
 					{!nextToSearch && (
 						<div className="row u-mar--bottom--sml">
 							<div className="col col-sml-12 col-med-6 col-lrg-4">
-								<div className="row">
+								<div className="row row--form">
 									<div className="col col-sml-6">
 										<BaasicButton
 											className="btn btn--100 btn--primary"

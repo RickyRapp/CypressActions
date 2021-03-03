@@ -193,5 +193,34 @@
                 line-height: 1;
             }
         }
-    } 
+    }
+
+    &--total {
+        width: 100%;
+        border-collapse: collapse;
+
+        th, td {
+            border-bottom: 1px solid $grey-1;
+            text-align: right;
+            padding: calc($unit * 2);
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        tbody {
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+
+        th {
+            background-color: $color-background;
+        }
+    }
 }

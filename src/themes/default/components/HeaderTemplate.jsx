@@ -16,7 +16,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
 
     return (
         <header className="layout__header header">
-            <div className="header__options">
+            <div className="header__options"> 
                 {/* 
                     uncomment this if you need to debug session expiration modal
                     

@@ -1918,6 +1918,7 @@
                 "REVIEW": "Review",
                 "EDIT": "Edit",
                 "DELETE": "Delete",
+                "ADD_PROTECTION_PLAN_MESSAGE": "This order exceeds your account balance. Please add additional funds to your account or sign up for our automatic contributions options.",
                 "ADD_PROTECTION_PLAN": "Enroll in protection plan"
             },
             "FIELDS": {

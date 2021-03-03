@@ -38,42 +38,37 @@ class SearchFilterTemplate extends React.Component {
         } = this.props;
 
         return <React.Fragment>
-            <div className="row">
-                <div className="col col-sml-12">
-                    <div className='inputgroup u-mar--bottom--sml'>
-                        <div className='inputgroup--main u-mar--top--sml'>
-                            <input className={className} type="text" placeholder={placeholder}
-                                value={queryUtility.filter[propertyName] || ""}
-                                onChange={this.onChange}
-                                onKeyPress={this.onKeyPress} />
-                            {queryUtility.filter[propertyName] && queryUtility.filter[propertyName] !== '' &&
-                                <span className='filter__btn--clear' onClick={this.onInlineReset}>
-                                    <i className='u-icon u-icon--base u-icon--close' />
-                                </span>
-                            }
-                        </div>
-
-                        <div className="inputgroup--aside">
-                            <button className='btn btn--med btn--med--wide btn--secondary' onClick={() => queryUtility.fetch()}>
-                                <i className='icomoon icon-search tiny align--v--baseline' />
-                                <span className='align--v--bottom'>
-                                    {t('GRID.FILTER.SEARCH_BUTTON')}
-                                </span>
-                            </button>
-
-                        </div>
-                        {clearVisible &&
-                            <div className="inputgroup--aside inputgroup--aside--special">
-                                <button className='btn btn--sml btn--ghost' onClick={() => queryUtility.resetFilter()}>
-                                    {t('GRID.FILTER.CLEAR_BUTTON')}
-                                </button>
-                            </div>
-                        }
-
-                    </div>
+            <div className='inputgroup u-mar--bottom--sml'>
+                <div className='inputgroup--main u-mar--top--sml'>
+                    <input className={className} type="text" placeholder={placeholder}
+                        value={queryUtility.filter[propertyName] || ""}
+                        onChange={this.onChange}
+                        onKeyPress={this.onKeyPress} />
+                    {queryUtility.filter[propertyName] && queryUtility.filter[propertyName] !== '' &&
+                        <span className='filter__btn--clear' onClick={this.onInlineReset}>
+                            <i className='u-icon u-icon--base u-icon--close' />
+                        </span>
+                    }
                 </div>
-            </div>
 
+                <div className="inputgroup--aside">
+                    <button className='btn btn--med btn--med--wide btn--secondary' onClick={() => queryUtility.fetch()}>
+                        <i className='icomoon icon-search tiny align--v--baseline' />
+                        <span className='align--v--bottom'>
+                            {t('GRID.FILTER.SEARCH_BUTTON')}
+                        </span>
+                    </button>
+
+                </div>
+                {clearVisible &&
+                    <div className="inputgroup--aside inputgroup--aside--special">
+                        <button className='btn btn--sml btn--ghost' onClick={() => queryUtility.resetFilter()}>
+                            {t('GRID.FILTER.CLEAR_BUTTON')}
+                        </button>
+                    </div>
+                }
+
+            </div>
         </React.Fragment>;
     }
 }

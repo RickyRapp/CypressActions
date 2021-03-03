@@ -105,7 +105,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 				</div>
 			</EditFormContent>
 
-			<div className="row row--form row__align--end">
+			<div className="row row__align--end">
 				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
 					<div className="u-separator--primary u-mar--bottom--xlrg u-mar--top--lrg"></div>
 					<DonorAddressList />

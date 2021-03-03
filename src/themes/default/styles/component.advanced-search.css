@@ -3,11 +3,11 @@
 \*------------------------------------*/
 
 .advanced-search {
-	padding: calc($unit * 1.1) calc($unit * 1.8);
+    @mixin type-scale $type-base, 1;
+	padding: calc($unit * 1) calc($unit * 2);
     
     background-color: $bali-hai;
     color: $white;
-    @mixin type-scale $type-base, 1;
     
     border-radius: 25px;
 	border: none;

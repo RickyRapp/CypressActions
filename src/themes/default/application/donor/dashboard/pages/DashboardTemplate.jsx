@@ -50,8 +50,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem name="Total Contributed" type="line" data={dataContributions} />
-				<ChartSeriesItem name="Total Granted" type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
@@ -72,7 +72,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				) : null}
 			</PageHeader>
 			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
 							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
@@ -135,7 +135,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						)}
 				</div>
-				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
+				<div className="col col-sml-12 col-xxlrg-6">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
 							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
