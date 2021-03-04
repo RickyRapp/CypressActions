@@ -21,6 +21,11 @@ class CharityStore {
         const response = await this.charityService.find(params);
         return response.data;
     }
+    
+    async searchCharity(params) {
+        const response = await this.charityService.search(params);
+        return response.data;
+    }
 
     async findAddress(params) {
         const response = await this.charityAddressService.find(params);

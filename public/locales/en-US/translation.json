@@ -2093,7 +2093,9 @@
                 "BUTTONS": {
                     "SAVE": "Continue",
                     "BACK": "Back",
-                    "SEARCH": "Search"
+                    "SEARCH": "Search",
+                    "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
+                    "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
                 },
                 "FIELDS": {
                     "FULL_NAME_LABEL": "Full name",

@@ -29,7 +29,7 @@ const ContributionCreateStep3Template = function ({
                                 </span>
                             </div>
                         </div>
-                        {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('donorBankAccountId').value)) && (
+                        {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('bankAccountId').value)) && (
                             <React.Fragment>
                                 <div className="col col-sml-12 col-lrg-12">
                                     <div className="card--tny card--secondary u-mar--bottom--sml">

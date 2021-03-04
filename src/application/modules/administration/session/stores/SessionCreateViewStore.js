@@ -12,6 +12,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable currentCount = 30;
     @observable session = 30;
     refreshIntervalId = null;
+    @observable isChangedDefaultAddress = null;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -53,6 +54,10 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async onNextStep2Click() {
+        if(!this.isChangedDefaultAddress){
+            const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+            this.setAddress(address);
+        }
         const { isValid } = await this.form.validate({ showErrors: true });
         if (isValid) {
             const data = await this.rootStore.application.administration.sessionStore.createInitialSession(this.form.values());
@@ -153,7 +158,7 @@ class SessionViewStore extends BaseEditViewStore {
         },
             {
                 fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.administration.charityStore.findCharity({
+                    const data = await this.rootStore.application.administration.charityStore.searchCharity({
                         pageNumber: 1,
                         pageSize: 10,
                         search: searchQuery,
@@ -175,7 +180,13 @@ class SessionViewStore extends BaseEditViewStore {
                             item: x
                         }
                     });
-                }
+                },
+				onChange: value => {
+					if (value) {
+						const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+						this.setAddress(address);
+					}
+				},
             });
     }
 
@@ -188,6 +199,23 @@ class SessionViewStore extends BaseEditViewStore {
         }
         return true;
     }
+    
+	@action.bound
+	async onChangeDefaultAddressClick() {
+		this.isChangedDefaultAddress = !this.isChangedDefaultAddress;
+		if (!this.isChangedDefaultAddress && this.charityDropdownStore.value) {
+			const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+			this.setAddress(address);
+		}
+	}
+
+    setAddress(address) {
+		this.form.$('addressLine1').set(address.addressLine1);
+		this.form.$('addressLine2').set(address.addressLine2);
+		this.form.$('city').set(address.city);
+		this.form.$('state').set(address.state);
+		this.form.$('zipCode').set(address.zipCode);
+	}
 }
 
 export default SessionViewStore;

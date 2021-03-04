@@ -106,7 +106,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 				},
 				form: this.form,
 				paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
-				bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value),
+				bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value),
 			});
 		}
 	}
@@ -127,7 +127,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 		this.form.$('paymentTypeId').set(id);
 		const paymentType = this.paymentTypes.find(c => c.id === id);
 		if (paymentType) {
-			this.form.$('donorBankAccountId').setRequired(false);
+			this.form.$('bankAccountId').setRequired(false);
 			this.form.$('checkNumber').setRequired(false);
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 			this.form.$('brokerageInstitutionId').setRequired(false);
@@ -138,7 +138,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			this.isThirdPartyFundingAvailable = false;
 
 			if (paymentType.abrv === 'ach') {
-				this.form.$('donorBankAccountId').setRequired(true);
+				this.form.$('bankAccountId').setRequired(true);
 				this.isThirdPartyFundingAvailable = true;
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
@@ -189,7 +189,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			onAfterAction: async () => {
 				await this.bankAccountDropdownStore.filterAsync(null);
 				const sorted = _.orderBy(this.bankAccountDropdownStore.items, ['dateCreated'], ['desc']);
-				this.form.$('donorBankAccountId').set(sorted[0].id);
+				this.form.$('bankAccountId').set(sorted[0].id);
 				this.bankAccountModal.close();
 			},
 		});

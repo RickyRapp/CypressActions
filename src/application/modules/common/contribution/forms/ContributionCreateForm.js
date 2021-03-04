@@ -34,7 +34,7 @@ export default class ContributionCreateForm extends FormBase {
 					disabled: true,
 				},
 				{
-					name: 'donorBankAccountId',
+					name: 'bankAccountId',
 					label: 'CONTRIBUTION.CREATE.FIELDS.BANK_ACCOUNT_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.BANK_ACCOUNT_PLACEHOLDER',
 					rules: 'string',

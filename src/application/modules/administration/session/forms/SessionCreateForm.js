@@ -51,7 +51,37 @@ export default class SessionCreateForm extends FormBase {
                     label: 'SESSION.EDIT.FIELDS.DESCRIPTION_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
                     rules: 'string'
-                }
+                },
+                {
+					name: 'addressLine1',
+					label: 'ADDRESS.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
+					placeholder: 'ADDRESS.CREATE.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+					rules: 'required|string',
+				},
+				{
+					name: 'addressLine2',
+					label: 'ADDRESS.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
+					placeholder: 'ADDRESS.CREATE.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+					rules: 'string',
+				},
+				{
+					name: 'city',
+					label: 'ADDRESS.CREATE.FIELDS.CITY_LABEL',
+					placeholder: 'ADDRESS.CREATE.FIELDS.CITY_PLACEHOLDER',
+					rules: 'required|string',
+				},
+				{
+					name: 'state',
+					label: 'ADDRESS.CREATE.FIELDS.STATE_LABEL',
+					placeholder: 'ADDRESS.CREATE.FIELDS.STATE_PLACEHOLDER',
+					rules: 'required|string',
+				},
+				{
+					name: 'zipCode',
+					label: 'ADDRESS.CREATE.FIELDS.ZIPCODE_LABEL',
+					placeholder: 'ADDRESS.CREATE.FIELDS.ZIPCODE_PLACEHOLDER',
+					rules: 'required|string',
+				},
             ]
         };
     }

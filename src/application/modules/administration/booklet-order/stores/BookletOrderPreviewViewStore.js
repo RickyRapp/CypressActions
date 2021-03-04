@@ -1,3 +1,4 @@
+import React from 'react';
 import { BasePreviewViewStore, TableViewStore } from 'core/stores';
 import { applicationContext, isSome } from 'core/utils';
 import { action, observable } from 'mobx';
@@ -11,7 +12,11 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
         super(rootStore, {
             name: 'booklet-order-details',
             id: rootStore.routerStore.routerState.params.id,
-            routes: {},
+            routes: {
+                bookletCode: (code) => {
+                    this.rootStore.routerStore.goTo('master.app.main.administration.booklet.list',null, { codes: code });
+                }
+            },
             autoInit: false,
             actions: () => {
                 return {
@@ -105,15 +110,7 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                 {
                     key: 'booklets',
                     title: 'BOOKLET_ORDER.PREVIEW.COLUMNS.BOOKLETS_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if (item.booklets) {
-                                return item.booklets.map(c => { return c.code }).join(', ')
-                            }
-                            return '-'
-                        }
-                    }
+                    cell: this.CustomCellTemplate
                 },
             ],
         });
@@ -123,6 +120,33 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
         this.denominationTypes = await this.rootStore.application.lookup.denominationTypeStore.find();
         this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
     }
+
+    onCodeClick(code){
+        this.routes.bookletCode(code)
+    }
+
+    CustomCellTemplate = (props) => {
+        const { dataItem, field } = props;
+
+        return (
+            <td>
+                <div className="table__status">
+                    {dataItem.booklets.map(c => {
+                        return (
+                            <span 
+                                key={c.code}
+                                className="btn btn--link" 
+                                onClick={() => this.onCodeClick(c.code)}>{c.code}
+                            </span> 
+                        )}
+                    )}
+                </div>
+            </td>
+        );
+    };
 }
 
 export default BookletOrderPreviewViewStore;
+
+
+

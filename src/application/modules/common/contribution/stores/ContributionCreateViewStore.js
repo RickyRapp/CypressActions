@@ -91,7 +91,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				},
 				form: this.form,
 				paymentType: this.paymentTypes.find(c => c.id === this.form.$('paymentTypeId').value),
-				bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('donorBankAccountId').value),
+				bankAccount: this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value),
 				brokerageInstitution: this.brokerageInstitutionDropdownStore.value && this.brokerageInstitutionDropdownStore.value.name === 'Other' ? this.form.$('brokerageInstitutionOther').value : this.brokerageInstitutionDropdownStore.value && this.brokerageInstitutionDropdownStore.value.name,
 				securityType: this.securityTypeDropdownStore.value && this.securityTypeDropdownStore.value.name === 'Other' ? this.form.$('securityTypeOther').value : this.securityTypeDropdownStore.value && this.securityTypeDropdownStore.value.name,
 				securitySymbol: this.form.$('securitySymbol').value,
@@ -118,7 +118,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		this.form.$('paymentTypeId').set(id);
 		const paymentType = this.paymentTypes.find(c => c.id === id);
 		if (paymentType) {
-			this.form.$('donorBankAccountId').setRequired(false);
+			this.form.$('bankAccountId').setRequired(false);
 			this.form.$('checkNumber').setRequired(false);
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 			this.form.$('brokerageInstitutionId').setRequired(false);
@@ -129,7 +129,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			this.isThirdPartyFundingAvailable = false;
 
 			if (paymentType.abrv === 'ach') {
-				this.form.$('donorBankAccountId').setRequired(true);
+				this.form.$('bankAccountId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:250');
 				this.isThirdPartyFundingAvailable = false;
 			} else if (paymentType.abrv === 'wire-transfer') {
@@ -181,7 +181,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			onAfterAction: async () => {
 				await this.bankAccountDropdownStore.filterAsync(null);
 				const sorted = _.orderBy(this.bankAccountDropdownStore.items, ['dateCreated'], ['desc']);
-				this.form.$('donorBankAccountId').set(sorted[0].id);
+				this.form.$('bankAccountId').set(sorted[0].id);
 				this.bankAccountModal.close();
 			},
 		});

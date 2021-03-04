@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BasicInput, BaasicButton, BaasicFieldDropdown, NumberFormatInputField } from 'core/components';
 
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDropdownStore }) {
+function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDropdownStore, isChangedDefaultAddress, onChangeDefaultAddressClick }) {
 	return (
 		<React.Fragment>
 			<div className="scanner card--med">
@@ -18,6 +18,32 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+							{charityDropdownStore && charityDropdownStore.value && 
+								<BaasicButton
+									className="btn btn--sml btn--link u-mar--bottom--sml"
+									label={isChangedDefaultAddress ? 'SESSION.CREATE.STEP2.BUTTONS.SET_DEFAULT_DEFAULT_ADDRESS' : 'SESSION.CREATE.STEP2.BUTTONS.CHANGE_DEFAULT_ADDRESS'}
+									onClick={onChangeDefaultAddressClick}>
+								</BaasicButton>}
+							{isChangedDefaultAddress &&
+								<div className="card--secondary card--med u-mar--bottom--sml">
+									<div className="row">
+										<div className="form__group col col-sml-12">
+											<BasicInput field={form.$('addressLine1')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<BasicInput field={form.$('addressLine2')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<BasicInput field={form.$('city')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<BasicInput field={form.$('state')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+											<BasicInput field={form.$('zipCode')} />
+										</div>
+									</div>
+								</div>}
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<BasicInput field={form.$('description')} />

@@ -80,16 +80,16 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         <React.Fragment>
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                 <BaasicFieldDropdown
-                                                    field={form.$('donorBankAccountId')}
+                                                    field={form.$('bankAccountId')}
                                                     store={bankAccountDropdownStore}
                                                     rightLabelComponent={AddButton}
                                                 />
-                                                {onShowBankAccountNumberClick && form.$('donorBankAccountId').value &&
+                                                {onShowBankAccountNumberClick && form.$('bankAccountId').value &&
                                                     <BaasicButton
                                                         type="button"
                                                         className="btn btn--icon"
                                                         icon='u-icon u-icon--preview u-icon--base'
-                                                        onClick={() => onShowBankAccountNumberClick(form.$('donorBankAccountId').value)}
+                                                        onClick={() => onShowBankAccountNumberClick(form.$('bankAccountId').value)}
                                                         onlyIcon={true}
                                                     />}
                                             </div>

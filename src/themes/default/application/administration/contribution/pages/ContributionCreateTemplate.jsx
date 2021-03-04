@@ -60,7 +60,7 @@ const ContributionCreateTemplate = function ({ store }) {
 					paymentType={paymentTypes.find(c => c.id === form.$('paymentTypeId').value)}
 					routes={routes}
 					previousContributionsTableStore={previousContributionsTableStore}
-					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('donorBankAccountId').value)}
+					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value)}
 					form={form} />}
 			<BaasicModal modalParams={bankAccountModal}>
 				<DonorBankAccountEdit />
