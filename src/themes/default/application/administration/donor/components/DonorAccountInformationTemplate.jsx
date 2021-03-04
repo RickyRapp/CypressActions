@@ -30,11 +30,11 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
     return (
         <div className="card--primary card--med">
             <EditFormContent form={form}>
-                <div className="row">
+                <div className="row row--form">
                     <div className="col col-sml-12 col-lrg-12">
                         <div className="u-mar--bottom--sml">
                             <h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}</h3>
-                            <div className="row">
+                            <div className="row row--form">
                                 <div className="form__group col col-sml-12 col-xlrg-2 col-xxlrg-1">
                                     <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
                                 </div>

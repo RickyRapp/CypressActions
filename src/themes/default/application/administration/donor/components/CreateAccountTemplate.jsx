@@ -33,7 +33,7 @@ class CreateAccountTemplate extends Component {
                     />
                 </h3>
                 {this.showForm &&
-                    <div className="row">
+                    <div className="row row--form">
                         <div className="form__group col col-lrg-3">
                             <BasicInput field={form.$('username')} />
                         </div>

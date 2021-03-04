@@ -21,146 +21,108 @@ function ContributionConfirmTemplate({ modalParams, t }) {
         collectableType
     } = modalParams.data;
 
-    const styleSection = {
-        display: 'flex',
-        alignItems: 'baseline',
-        marginBottom: '10px',
-    }
-
-    const styleChild = {
-        padding: '0',
-        margin: '0'
-    }
-
-    const styleSpan = {
-        padding: '0',
-        margin: '0',
-        flex: '1',
-        overflow: 'hidden'
-    }
-
     return (
-        <div className="row w--600--px">
-            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                <h3 className="">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                <section style={styleSection}>
-                    <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.PAYMENT_TYPE')}</div>
-                    <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                    <div style={styleChild}>{paymentType.name}</div>
-                </section>
-            </div>
+        <div className="modal__list__wrap">
+
+            <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
+            <section className="modal__list u-mar--bottom--med">
+                <div>{t('CONTRIBUTION.CONFIRM.PAYMENT_TYPE')}</div>
+                <div className="modal__list__divider"></div>
+                <div className="modal__list__amount">{paymentType.name}</div>
+            </section>
+
             {bankAccount &&
                 <React.Fragment>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div style={styleChild}>{bankAccount.name}</div>
-                        </section>
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT_NUMBER')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div>xxxx-xxxx-xxxx-{bankAccount.accountNumber}</div>
-                        </section>
-                    </div>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{bankAccount.name}</div>
+                    </section>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT_NUMBER')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">xxxx-xxxx-xxxx-{bankAccount.accountNumber}</div>
+                    </section>
+
                 </React.Fragment>}
             {securitySymbol &&
                 <React.Fragment>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.BROKERAGE_INSTITUTION')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div style={styleChild}>{brokerageInstitution}</div>
-                        </section>
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.SECURITY_TYPE')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div>{securityType}</div>
-                        </section>
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.SECURITY_SYMBOL')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div>{securitySymbol}</div>
-                        </section>
-                    </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                        <section style={styleSection}>
-                            <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.NUMBER_OF_SHARES')}</div>
-                            <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                            <div>{numberOfShares}</div>
-                        </section>
-                    </div>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>{t('CONTRIBUTION.CONFIRM.BROKERAGE_INSTITUTION')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{brokerageInstitution}</div>
+                    </section>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>{t('CONTRIBUTION.CONFIRM.SECURITY_TYPE')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{securityType}</div>
+                    </section>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>{t('CONTRIBUTION.CONFIRM.SECURITY_SYMBOL')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{securitySymbol}</div>
+                    </section>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>{t('CONTRIBUTION.CONFIRM.NUMBER_OF_SHARES')}</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{numberOfShares}</div>
+                    </section>
                 </React.Fragment>}
             {thirdPartyDonorAdvisedFund &&
-                <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <section style={styleSection}>
-                        <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.THIRD_PARTY_DONOR_ADVISED_FUND')}</div>
-                        <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                        <div style={styleChild}>{thirdPartyDonorAdvisedFund}</div>
-                    </section>
-                </div>}
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('CONTRIBUTION.CONFIRM.THIRD_PARTY_DONOR_ADVISED_FUND')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{thirdPartyDonorAdvisedFund}</div>
+                </section>}
             {checkNumber &&
-                <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <section style={styleSection}>
-                        <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.CHECK_NUMBER')}</div>
-                        <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                        <div style={styleChild}>{checkNumber}</div>
-                    </section>
-                </div>}
-            {businessType &&
-                <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <section style={styleSection}>
-                        <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.BUSINESS_TYPE')}</div>
-                        <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                        <div style={styleChild}>{businessType}</div>
-                    </section>
-                </div>}
-            {propertyType &&
-                <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <section style={styleSection}>
-                        <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.PROPERTY_TYPE')}</div>
-                        <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                        <div style={styleChild}>{propertyType}</div>
-                    </section>
-                </div>}
-            {collectableType &&
-                <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <section style={styleSection}>
-                        <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.COLLECTABLE_TYPE')}</div>
-                        <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                        <div style={styleChild}>{collectableType}</div>
-                    </section>
-                </div>}
-            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
-                <section style={styleSection}>
-                    <div style={styleChild}>{t('CONTRIBUTION.CONFIRM.AMOUNT')}</div>
-                    <span style={styleSpan}>   .........................................................................................................................................................   </span>
-                    <div style={styleChild}>
-                        <FormatterResolver
-                            item={{ amount: form.$('amount').value }}
-                            field='amount'
-                            format={{ type: 'currency' }}
-                        />
-                    </div>
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('CONTRIBUTION.CONFIRM.CHECK_NUMBER')}}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{checkNumber}</div>
                 </section>
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                }
+            {businessType &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('CONTRIBUTION.CONFIRM.BUSINESS_TYPE')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{businessType}</div>
+                </section>
+                }
+            {propertyType &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('CONTRIBUTION.CONFIRM.PROPERTY_TYPE')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{propertyType}</div>
+                </section>
+                }
+            {collectableType &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('CONTRIBUTION.CONFIRM.COLLECTABLE_TYPE')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{collectableType}</div>
+                </section>
+                }
+            <section className="modal__list u-mar--bottom--med">
+                <div>{t('CONTRIBUTION.CONFIRM.AMOUNT')}</div>
+                <div className="modal__list__divider"></div>
+                <div className="modal__list__amount">
+                    <FormatterResolver
+                        item={{ amount: form.$('amount').value }}
+                        field='amount'
+                        format={{ type: 'currency' }}
+                    />
+                </div>
+            </section>
+            <div className="u-display--flex">
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--ghost"
                     label={t('EDIT_FORM_LAYOUT.CANCEL')}
                     onClick={onCancel}
                 />
-            </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med type--right">
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} />
+
+                <div className="u-mar--left--auto">
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} />
+                </div>
             </div>
         </div>
     );

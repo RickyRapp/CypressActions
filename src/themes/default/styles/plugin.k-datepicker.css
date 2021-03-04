@@ -134,6 +134,8 @@
     .k-daterangepicker-wrap {
         display: flex !important;
         align-items: center;
+        margin-left: calc(-$grid-gutter / 4);
+        margin-right: calc(-$grid-gutter / 4);
         
         margin-bottom: calc($unit * 2);
 
@@ -142,10 +144,15 @@
             display: none;
         }
 
-        .k-dateinput .k-dateinput-wrap .k-input {
-            height: calc($unit * 6);
-            line-height: calc($unit * 10);
-            padding: 0 calc($unit * 2);
+        .k-dateinput .k-dateinput-wrap {
+            /* border-radius: $radius-base; */
+        
+            .k-input {
+                height: calc($unit * 6);
+                line-height: calc($unit * 10);
+                padding: 0 calc($unit * 2);
+                /* border-radius: $radius-base; */
+            }
         }
     }
 }
@@ -193,4 +200,31 @@ k-calendar date range
 
 .k-datepicker .k-select {
     width: 60px;
+}
+
+.datepicker__item {
+    padding: 0 calc($grid-gutter / 4);
+    width: 50%;
+
+    display: flex;
+    
+    &--main {
+        flex-grow: 2;
+
+        .k-dateinput-wrap {
+            border-radius: 0 $radius-base $radius-base 0;
+        }
+    }
+
+    &--aside {
+        background-color: $color-background;
+        padding: 0 calc($unit * 2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 1px solid color(white blackness(+30%));
+        border-right: 0;
+        margin-right: -1px;
+        border-radius: $radius-base 0 0 $radius-base;
+    }
 }

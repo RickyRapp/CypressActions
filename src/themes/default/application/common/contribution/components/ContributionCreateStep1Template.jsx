@@ -23,7 +23,7 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
                     <div className="table--payment__cell is-header is-deductible">
                         <div className="table--payment__inner">
                             <div className="card--sml type--sml type--wgt--medium type--color--opaque type--center">
-                                Deductible eligibility
+                                AGI Deductible eligibility
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
                                     </div>
                                     <div className="table--payment__cell is-minimum">
                                         <div className="table--payment__inner">
-                                            <p className="type--small type--color--opaque type--wgt--regular">{json.minimumDeposit}</p>
+                                            <p className="type--small type--color--opaque type--wgt--regular">${json.minimumDeposit}</p>
                                         </div>
                                     </div>
                                     <div className="table--payment__cell is-last">

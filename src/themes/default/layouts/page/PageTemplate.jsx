@@ -15,27 +15,28 @@ function PageTemplate({ children, rootStore, loading = false, isError = false, e
                 {...(header ? header[0].props : {})}
                 coreResolving={coreResolving}
             />
+            <div className="layout__content__inner">
+                <div className='container'>
+                    {/* {
+                        !coreResolving &&
+                        <PageNavigation {...(navigation ? navigation[0].props : {})} />
+                    } */}
+                    {
+                        (!empty &&
+                            <MainContent
+                                rootStore={rootStore}
+                                loading={loading || coreResolving}
+                                header={header}
+                                footer={footer}
+                                content={content}
+                                isError={isError}
+                            />
+                        ) || (empty && emptyRenderer)
 
-            <div className='container'>
-                {/* {
-                    !coreResolving &&
-                    <PageNavigation {...(navigation ? navigation[0].props : {})} />
-                } */}
-                {
-                    (!empty &&
-                        <MainContent
-                            rootStore={rootStore}
-                            loading={loading || coreResolving}
-                            header={header}
-                            footer={footer}
-                            content={content}
-                            isError={isError}
-                        />
-                    ) || (empty && emptyRenderer)
-
-                }
+                    }
+                </div>
+                {!(loading || coreResolving) ? <PageFooter {...(footer ? footer[0].props : {})} /> : null}
             </div>
-            {!(loading || coreResolving) ? <PageFooter {...(footer ? footer[0].props : {})} /> : null}
         </React.Fragment>
     );
 }

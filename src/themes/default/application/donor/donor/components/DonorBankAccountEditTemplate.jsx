@@ -21,7 +21,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
         <EditFormContent form={form} >
             <div className="card--med card--primary">
                 <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
-                <div className="row u-mar--bottom--sml">
+                <div className="row row--form u-mar--bottom--sml">
                     <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('accountNumber')} />
                     </div>
@@ -33,15 +33,18 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-sml-12">
-                        <BasicFieldCheckbox field={form.$('isThirdPartyAccount')} />
+                        <div className="u-display--flex">
+                            <label className="form__group__label u-mar--right--med">Third party account?</label>
+                            <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isThirdPartyAccount')} />
+                        </div>
                     </div>
                 </div>
 
                 {form.$('isThirdPartyAccount').value &&
                     <React.Fragment>
-                        <div className="row row__align--end">
+                        <div className="row row--form row__align--end">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicInput field={form.$('accountHolderName')} />
                             </div>
@@ -70,7 +73,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                             </div>
                         </div>
 
-                        <div className="row row__align--end">
+                        <div className="row row--form row__align--end">
                             <div className="form__group col col-sml-6 col-lrg-4">
                                 <BasicInput field={form.$('email')} />
                             </div>

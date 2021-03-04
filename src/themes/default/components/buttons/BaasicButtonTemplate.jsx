@@ -33,7 +33,7 @@ function DefaultContent({
             {isSome(content) ? (
                 content
             ) : (
-                    <div className="u-display--flex u-display--flex--align--center u-display--flex--justify--center">
+                    <div className="u-display--flex u-display--flex--align--center">
                         <span className={icon ? onlyIconClassName : ""}>
                             {!onlyIcon && t(label)}
                         </span>

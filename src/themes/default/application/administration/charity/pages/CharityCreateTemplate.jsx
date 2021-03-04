@@ -24,7 +24,7 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 			<Content loading={contentLoading}>
 				<div className="card--primary card--med u-mar--bottom--med">
 					<h3 className=" u-mar--bottom--med">{t('CHARITY.CREATE.TITLE')}</h3>
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12 col-med-6 col-xlrg-4 u-mar--bottom--sml">
 							<BasicInput field={form.$('name')} />
 						</div>
@@ -59,7 +59,7 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 				</div>
 				<div className="card--primary card--med u-mar--bottom--med">
 					<h3 className=" u-mar--bottom--med">{t('CHARITY.CREATE.CONATCT_INFO_TITLE')}</h3>
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12 col-med-6 col-xlrg-4 u-mar--bottom--sml">
 							<BasicInput field={form.$('contactInformationName')} />
 						</div>
@@ -75,7 +75,7 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 					<h3 className=" u-mar--bottom--med">
 						<BasicFieldCheckbox field={form.$('isNewBankAccount')} />
 					</h3>
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12 col-med-6 col-xlrg-4 u-mar--bottom--sml">
 							<BasicInput field={form.$('bankAccountName')} />
 						</div>
@@ -118,7 +118,7 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 					<h3 className=" u-mar--bottom--med">
 						<BasicFieldCheckbox field={form.$('isNewOnlineAccount')} />
 					</h3>
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12 col-lrg-4">
 							<BasicInput field={form.$('username')} />
 						</div>

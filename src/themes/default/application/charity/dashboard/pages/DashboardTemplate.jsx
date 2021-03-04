@@ -12,7 +12,7 @@ function DashboardTemplate({ dashboardViewStore }) {
 		<Page>
 			<DashboardHeader />
 			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
 					{charity && charity.name ? (
 						<div className="dashboard-card dashboard-card--secondary">
 							<h3 className=" u-mar--bottom--med">Your Funds</h3>
@@ -58,7 +58,7 @@ function DashboardTemplate({ dashboardViewStore }) {
 						)}
 				</div>
 
-				<div className="col col-sml-12 col-xxlrg-6 u-padd--right--sml u-padd--left--sml">
+				<div className="col col-sml-12 col-xxlrg-6">
 					{charity && charity.name ? (
 						<div className="dashboard-card dashboard-card--secondary">
 							<div className="row u-mar--bottom--tny remove--sml">

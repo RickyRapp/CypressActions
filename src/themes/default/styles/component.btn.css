@@ -240,6 +240,10 @@
         padding: 0;
         background-color: transparent;
 
+        &--med {
+            padding: 0 calc($unit * 2);
+        }
+
         .u-icon {
             border-radius: $radius-base;
         }

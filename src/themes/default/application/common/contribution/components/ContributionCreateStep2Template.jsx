@@ -20,7 +20,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
     return (
         <div className="row">
             <div className="col col-sml-12">
-                <div className="row">
+                <div className="row row--form">
                     <div className="col col-sml-12 col-lrg-4 col-xlrg-3">
                         <BaasicButton
                             type="button"
@@ -44,13 +44,13 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                     className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
                                         form.$('paymentTypeId').value && 'checked'}`}
                                 >
-                                    <div className="col col-sml-2">
+                                    <div className="flex--grow--1 u-mar--right--sml">
                                         <i
                                             className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
                                                 'checked'}`}
                                         ></i>
                                     </div>
-                                    <div className="col col-sml-10">
+                                    <div className="flex--grow--2">
                                         <h5
                                             className={
                                                 c.id !== form.$('paymentTypeId').value
@@ -68,11 +68,11 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                 })}
             </div>
             <div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
-                <div className="row">
+                <div className="row row--form">
                     <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
                         <EditFormContent form={form}>
                             <div className="card--primary card--med fullheight">
-                                <div className="row fullheight">
+                                <div className="row row--form fullheight">
                                     <div className="col col-sml-12 col-lrg-12">
                                         <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
                                     </div>
@@ -203,7 +203,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             </div>
                                             {form.$('isThirdParty').value && (
                                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                    <div className="row">
+                                                    <div className="row row--form">
                                                         <div className="form__group col col-sml-12 col-lrg-12">
                                                             <BasicInput field={form.$('name')} />
                                                         </div>

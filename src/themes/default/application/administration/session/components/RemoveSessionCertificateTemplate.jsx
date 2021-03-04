@@ -28,7 +28,7 @@ const RemoveSessionCertificateTemplate = function ({ removeSessionCertificateVie
                 loading={contentLoading}>
 
                 <h3 className="u-mar--bottom--med">{t('SESSION.EDIT.LIST.REMOVE_SESSION_CERTIFICATE')}</h3>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.LIST.PRIVATE_REFUND_MESSAGE')}
                     </div>
@@ -54,7 +54,7 @@ const RemoveSessionCertificateTemplate = function ({ removeSessionCertificateVie
                     </div>
                 </div>
                 <h5 className="u-mar--top--med">{t('SESSION.EDIT.LIST.CERTIFICATE_DETAILS')}</h5>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-12">
                         <BaasicFieldDropdown
                             field={form.$('certificateStatusId')}

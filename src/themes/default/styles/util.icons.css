@@ -31,9 +31,9 @@
         }
 
         &--base {
-            width: calc($unit * 2.5);
-            height: calc($unit * 2.5);
-            background-size: calc($unit * 2.5);
+            width: calc($unit * 3);
+            height: calc($unit * 3);
+            background-size: calc($unit * 3);
         }
 
         &--med {

@@ -15,19 +15,19 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 	return (
 		<div className="">
 			<form className="login__card" onSubmit={form.onSubmit}>
-				<img className="login__card__logo" src={logo} alt="Logo" />
+				<img className="login__card__logo" src={logo} alt="Logo" /> 
 				<h4 className="login__card__title">Welcome to a new way of giving</h4>
 				<p className="login__card__desc">
 					Updte your profile to meet our new and robust security requirements
 				</p>
 
 				<div className="login__card__form">
-					<div className="row">
+					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-12">
 							<BasicInput field={form.$('fundName')} />
 						</div>
 					</div>
-					<div className="row">
+					<div className="row row--form">
 						<div className="col col-sml-12 col-lrg-12">
 							<label className="form__group__label">Date of Birth</label>
 						</div>
@@ -47,7 +47,7 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 						</div>
 					</div>
 
-					<div className="row">
+					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-6">
 							<BasicInput field={form.$('securityPin')} />
 						</div>
@@ -56,7 +56,7 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 						</div>
 					</div>
 
-					<div className="row">
+					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-6">
 							<BasicInput field={form.$('password')} />
 						</div>

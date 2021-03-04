@@ -43,17 +43,23 @@ const CustomDateInput = function (props) {
 
     return (
         <React.Fragment>
-            <div className="col col-sml-6">
-                <label className="type--sml type--wgt--medium">
-                    {label}
-                    {required ? <span className="type--color--note u-mar--left--tny">*</span> : null}
-                </label>
-                <DateInput
-                    {...other}
-                    label={undefined}
-                    className={error ? 'input input--lrg input--warning' : 'input'}
-                />
-                {renderIf(isSome(error))(<p className="validation__message">{error}</p>)}
+            <div className="datepicker__item">
+                <div className="datepicker__item--aside">
+                    <label className="type--sml type--wgt--medium">
+                        {label}
+                        {required ? <span className="type--color--note u-mar--left--tny">*</span> : null}
+                    </label>
+                </div>
+                <div className="datepicker__item--main">
+                    <DateInput
+                        {...other}
+                        label={undefined}
+                        className={error ? 'input input--lrg input--warning' : 'input'}
+                    />
+                    {renderIf(isSome(error))(<p className="validation__message">{error}</p>)}
+                </div>
+                
+                
             </div>
         </React.Fragment>
     );

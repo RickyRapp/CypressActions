@@ -8,7 +8,7 @@
  * $f-grid-columns - number of columns of the grid
  */
 
-$grid-gutter: 20px;
+$grid-gutter: 42px;
 $grid-columns: 12;
 
 /**
@@ -51,6 +51,11 @@ $grid-columns: 12;
             align-items: flex-end;
         }
     }
+
+    &--form {
+        margin-left: calc(-$grid-gutter / 4);
+        margin-right: calc(-$grid-gutter / 4);
+    }
 }
 
 /**
@@ -60,4 +65,12 @@ $grid-columns: 12;
     padding-left: calc($grid-gutter / 2);
     padding-right: calc($grid-gutter / 2);
     transition: all 250ms ease-out;
+}
+
+.row--form {
+
+    .col {
+        padding-left: calc($grid-gutter / 4);
+        padding-right: calc($grid-gutter / 4);
+    }
 }

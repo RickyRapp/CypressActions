@@ -17,12 +17,12 @@ function PayerInformationTemplate({ form, setPayerInfoUsingPrimaryDonorContactIn
                         onClick={() => setPayerInfoUsingPrimaryDonorContactInfo()}>
                     </BaasicButton>}
             </h3>
-            <div className="row">
+            <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.name')} />
                 </div>
             </div>
-            <div className="row">
+            <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.addressLine1')} />
                 </div>
@@ -39,7 +39,7 @@ function PayerInformationTemplate({ form, setPayerInfoUsingPrimaryDonorContactIn
                     <BasicInput field={form.$('payerInformation.zipCode')} />
                 </div>
             </div>
-            <div className="row">
+            <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                     <BasicInput field={form.$('payerInformation.email')} />
                 </div>

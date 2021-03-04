@@ -77,7 +77,7 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 				)}
 			/>
 			<ChartSeries>
-				<ChartSeriesItem type="line" data={dataLine} />
+				<ChartSeriesItem type="line" color="#bc6d11" data={dataLine} />
 			</ChartSeries>
 		</Chart>
 	);

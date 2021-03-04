@@ -84,6 +84,7 @@
 @import "component.info-card.css";
 @import "component.toggle.css";
 @import "component.validation.css";
+@import "component.list.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
@@ -113,6 +114,7 @@
 @import 'util.loader.css';
 @import 'util.height.css';
 @import 'util.cursor.css';
+@import 'util.hide.css';
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc

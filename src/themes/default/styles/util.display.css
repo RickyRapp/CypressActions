@@ -72,6 +72,12 @@
 				}
 			}
 
+			&--from-med {
+				@media (--screen-from-med) {
+					display: none;
+				}
+			}
+
 			&--xlrg {
 				@media (--screen-to-xlrg) {
 					display: none;

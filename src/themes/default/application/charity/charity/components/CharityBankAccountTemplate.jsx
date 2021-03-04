@@ -18,7 +18,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 			<h3 className="type--med type--wgt--medium u-mar--bottom--med">
 				{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}
 			</h3>
-			<div className="row">
+			<div className="row row--form">
 				<div className="form__group col col-sml-12 col-lrg-6">
 					<BasicInput field={form.$('routingNumber')} />
 				</div>
@@ -33,7 +33,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 				</div>
 			</div>
 
-			<div className="row">
+			<div className="row row--form">
 				<div className="form__group col col-sml-12 col-lrg-4">
 					<BasicInput field={form.$('accountHolderName')} />
 				</div>
@@ -54,7 +54,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 				</div>
 			</div>
 
-			<div className="row">
+			<div className="row row--form">
 				<div className="form__group col col-sml-12 col-lrg-4">
 					<BasicInput field={form.$('email')} />
 				</div>
@@ -63,7 +63,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 				</div>
 			</div>
 
-			<div className="row u-mar--bottom--med">
+			<div className="row row--form u-mar--bottom--med">
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="row row__align--end">
 						<BaasicDropzone

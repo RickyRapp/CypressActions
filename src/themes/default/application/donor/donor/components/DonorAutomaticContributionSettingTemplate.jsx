@@ -37,7 +37,11 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                 <EditFormContent form={form} loading={loaderStore.loading}>
                                     <div className="row">
                                         <div className="form__group col col-sml-12 col-lrg-4">
-                                            <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
+                                            <div className="u-display--flex">
+                                                <label className="form__group__label u-mar--right--med">Is enabled?</label>
+                                                <BasicFieldCheckbox field={form.$('isEnabled')} showLabel={false} toggleClass="--toggle" onChange={onChangeIsEnabled} />
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div className="row">

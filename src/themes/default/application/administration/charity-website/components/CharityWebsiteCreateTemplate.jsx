@@ -27,7 +27,7 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                 loading={loaderStore.loading}
             >
                 <h3 className=" u-mar--bottom--med">{t(id ? 'CHARITY_WEBSITE.EDIT.TITLE' : 'CHARITY_WEBSITE.CREATE.TITLE')}</h3>
-                <div className="row">
+                <div className="row row--form">
                     <div className="u-mar--bottom--sml col col-lrg-12">
                         <BasicInput field={form.$('name')} />
                     </div>

@@ -11,7 +11,7 @@ class DonorEmailAddressEditFormTemplate extends Component {
 			<EditFormContent form={form}>
 				<div className="card--med card--primary u-mar--bottom--sml">
 					<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
-					<div className="row">
+					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-3">
 							<BasicInput field={form.$('addressLine1')} />
 						</div>
@@ -29,7 +29,11 @@ class DonorEmailAddressEditFormTemplate extends Component {
 						</div>
 						{isAssignableAsPrimary && (
 							<div className="form__group col col-sml-12 col-lrg-2">
-								<BasicFieldCheckbox field={form.$('isPrimary')} />
+								<div className="u-display--flex">
+									<label className="form__field__label u-mar--right--med">Is Primary?</label>
+									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} />
+								</div>
+								
 							</div>
 						)}
 					</div>

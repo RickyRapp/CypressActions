@@ -24,12 +24,12 @@ function DonorCreateTemplate({ donorCreateViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className="card--primary card--med u-mar--bottom--sml">
                 <EditFormContent form={form}>
-                    <div className="row">
+                    <div className="row row--form">
                         <div className="col col-sml-12 col-lrg-12">
                             <h3 className=" type--color--note u-mar--bottom--sml">General Data</h3>
-                            <div className="row u-mar--bottom--med">
+                            <div className="row row--form u-mar--bottom--med">
                                 <div className="col col-sml-12">
-                                    <div className="row">
+                                    <div className="row row--form">
                                         <div className="form__group col col-lrg-1">
                                             <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
                                         </div>

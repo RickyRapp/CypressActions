@@ -17,7 +17,7 @@ function CharityWithdrawFundTemplate({ charityWithdrawFundViewStore, t }) {
 
     return (
         <EditFormContent form={form}>
-            <div className="row">
+            <div className="row row--form">
                 <div className="col col-sml-12 col-lrg-12">
                     <div className="u-mar--bottom--sml">
                         <div className="u-mar--bottom--med">

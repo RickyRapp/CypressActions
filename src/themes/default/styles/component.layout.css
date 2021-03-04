@@ -105,14 +105,14 @@ $header-height-mobile: 72px;
 
     &__content {
         position: fixed;
-        top: $header-height;
+        top: $header-height-mobile;
         right: 0;
         left: 0;
         bottom: 0;
-        overflow: hidden;
-        overflow-y: auto;
 
-        padding: calc($unit * 3) calc($unit * 2);
+        @media (--screen-from-lrg) {
+            top: $header-height;
+        }
 
         &.is-collapsed {
 
@@ -137,6 +137,25 @@ $header-height-mobile: 72px;
         @media (--screen-from-xlrg) {
             left: $aside-width;
             padding: calc($unit * 3) calc($unit * 8);
+        }
+
+        &__inner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            overflow-y: auto;
+            padding: calc($unit * 3) calc($unit * 2);
+
+            @media (--screen-from-lrg) {
+                padding: calc($unit * 3) calc($unit * 4);
+            }
+            
+            @media (--screen-from-xlrg) {
+                padding: calc($unit * 3) calc($unit * 8);
+            }
         }
     }
 

@@ -9,7 +9,7 @@ class UserProfilePartialForm extends Component {
         return (
             <React.Fragment>
                 <h5 className="u-mar--bottom--sml u-mar--top--med">{t('USER.USER_PROFILE_FIELDS.TITLE')}</h5>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-lrg-6">
                         <BasicInput field={form.$('firstName')}/>
                     </div>

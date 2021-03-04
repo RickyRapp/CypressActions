@@ -42,7 +42,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
         >
             <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">General Data</h3>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                         <div className="form__group__label">{t('SESSION.EDIT.FIELDS.CHARITY_LABEL')}</div>
                         <span className="input input--text input--lrg padd--top--tny input--disabled">
@@ -91,7 +91,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                     tableStore={tableStore}
                     actionsComponent={renderActions}
                 />
-                <div className="row u-mar--top--lrg">
+                <div className="row row--form u-mar--top--lrg">
                     <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT')} <FormatterResolver
                             item={{ amount: item && item.amount }}

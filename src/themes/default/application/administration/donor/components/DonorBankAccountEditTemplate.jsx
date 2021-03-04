@@ -21,7 +21,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
         <section >
             <form className='form' onSubmit={form.onSubmit}>
                 <h3 className=" u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-sml-12 col-lrg-6">
                         <BasicInput field={form.$('accountNumber')} />
                     </div>
@@ -33,7 +33,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row row--form">
                     <div className="form__group col col-sml-12">
                         <BasicFieldCheckbox field={form.$('isThirdPartyAccount')} />
                     </div>
@@ -41,7 +41,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
 
                 {form.$('isThirdPartyAccount').value &&
                     <React.Fragment>
-                        <div className="row">
+                        <div className="row row--form">
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicInput field={form.$('accountHolderName')} />
                             </div>
@@ -70,7 +70,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                             </div>
                         </div>
 
-                        <div className="row">
+                        <div className="row row--form">
                             <div className="form__group col col-sml-6 col-lrg-4">
                                 <BasicInput field={form.$('email')} />
                             </div>

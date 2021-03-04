@@ -30,7 +30,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         <React.Fragment>
             <EditFormContent form={form}>
                 <div className="card--primary card--med u-mar--bottom--sml u-mar--top--sml">
-                    <div className="row">
+                    <div className="row row--form">
                         <div className="col col-sml-12 col-lrg-12">
                             <div className="u-mar--bottom--lrg">
                                 <div className="u-mar--bottom--med">
@@ -45,7 +45,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             onClick={openWithdrawFundModalClick}
                                         />}
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">
                                         <div className="">
                                             <label className="form__group__label u-mar--right--tny">Tax Id:</label>
@@ -63,7 +63,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             />}
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
                                         <BasicInput field={form.$('name')} />
                                     </div>
@@ -80,7 +80,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                             </div>
                             <div className="u-mar--bottom--sml">
                                 <h3 className="type--med type--wgt--medium">Contact info</h3>
-                                <div className="row">
+                                <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
                                     </div>
