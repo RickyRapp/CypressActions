@@ -10,7 +10,7 @@ function DashboardHeaderTemplate(props) {
         <PageHeader>
             {rootStore.userStore.user && rootStore.userStore.user.charity ? (
                 <React.Fragment>
-                    <div>
+                    <div class="col col-sml-12">
                         <span className="type--med type--wgt--medium">{rootStore.userStore.user.charity.name}</span>
                         <p className="type--base type--color--opaque">
                             Tax ID: <span className="type--wgt--bold">{rootStore.userStore.user.charity.taxId}</span>

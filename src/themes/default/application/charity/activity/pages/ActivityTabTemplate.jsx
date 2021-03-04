@@ -25,7 +25,9 @@ const ActivityTabTemplate = function ({ activityTabViewStore }) {
     return (
         <Page>
             <PageHeader hideTitle={true}>
+                <div className="col col-sml-12">
                 <TabsHeader tabsStore={activityTabViewStore}>{children().props.children}</TabsHeader>
+                </div>
             </PageHeader>
 
             <div className='container'>

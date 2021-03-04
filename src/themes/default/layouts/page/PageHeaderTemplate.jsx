@@ -58,7 +58,7 @@ function renderHeaderContent(children, props, routes, hideTitle, t, title) {
 			) : null}
 			{children && contentRender ? (
 				<div className="content__header u-mar--right--sml">
-					<div className="row row__align--end">{contentRender}</div>
+					<div className="row">{contentRender}</div>
 				</div>
 			) : null}
 		</React.Fragment>

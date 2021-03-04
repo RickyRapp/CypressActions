@@ -30,8 +30,8 @@
             }
 
             @media (--screen-to-sml) {
+                @mixin type-scale $type-small, 0.75;
                 padding: calc($unit * 1) calc($unit * 2);
-                @mixin type-scale $type-xsmall, 1;
             }
         }
     }

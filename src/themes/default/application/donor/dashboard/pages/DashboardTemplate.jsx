@@ -61,7 +61,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			<PageHeader>
 				{rootStore.userStore.user && rootStore.userStore.user.donor ? (
 					<React.Fragment>
-						<div>
+						<div className="col col-sml-12">
 							<span className="type--med type--wgt--medium">{rootStore.userStore.user.donor.fundName}</span>
 							<p className="type--base type--color--opaque">
 								Account Number: <span className="type--wgt--bold">{rootStore.userStore.user.donor.accountNumber}</span>

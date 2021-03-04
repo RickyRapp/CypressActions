@@ -31,7 +31,9 @@ function DonorTabTemplate({ donorTabViewStore }) {
     return (
         <Page loading={loaderStore.loading}>
             <PageHeader>
+                <div className="col col-sml-12 header__tabs--lrg">
                 <TabsHeader tabsStore={donorTabViewStore}>{children().props.children}</TabsHeader>
+                </div>
             </PageHeader>
 
             <div className='container'>

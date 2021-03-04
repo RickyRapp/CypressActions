@@ -85,11 +85,16 @@
 	}
 
 	&__media {
-		width: 49%;
-		min-height: 100vh;
-		background: url('../assets/img/login-door.jpg');
-		background-position: center;
-		background-size: cover;
+		display: none;
+
+		@media (--screen-from-sml) {
+			display: block;
+			width: 49%;
+			min-height: 100vh;
+			background: url('../assets/img/login-door.jpg');
+			background-position: center;
+			background-size: cover;
+		}
 	}
 
 	&__info {

@@ -107,4 +107,17 @@
             }
         }
     }
+
+    &__tabs {
+
+        &--lrg {
+
+            .tabs--primary__item {
+
+                @media (--screen-to-sml) {
+                    @mixin type-scale $type-xsmall, 0.6;
+                }
+            }
+        }
+    }
 }
