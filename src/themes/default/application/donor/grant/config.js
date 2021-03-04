@@ -89,7 +89,7 @@ import moment from 'moment';
                     },
                     {
                         name: 'master.app.main.donor.grant.preview',
-                        pattern: '/preview/:editId',
+                        pattern: '/preview/:id',
                         component: GrantPreview,
                         authorization: 'theDonorsFundGrantSection.read',
                         data: {

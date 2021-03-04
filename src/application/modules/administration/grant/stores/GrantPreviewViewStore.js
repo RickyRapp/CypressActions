@@ -27,7 +27,8 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'grantPurposeType',
                                 'donationStatus',
                                 'grantAcknowledgmentType',
-                                'thirdPartyWebsite'
+                                'thirdPartyWebsite',
+                                'grantScheduledPayment'
                             ],
                         }
                         return this.rootStore.application.administration.grantStore.getGrant(id, params);

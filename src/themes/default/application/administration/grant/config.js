@@ -46,7 +46,7 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                     },
                     {
                         name: 'master.app.main.administration.grant.preview',
-                        pattern: '/preview/:editId',
+                        pattern: '/preview/:id',
                         component: GrantPreview,
                         authorization: 'theDonorsFundGrantSection.read',
                         data: {

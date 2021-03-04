@@ -57,6 +57,7 @@ class GrantViewStore extends BaseListViewStore {
                             'donationStatus',
                             'donationType',
                             'grantPurposeType',
+                            'purposeNote',
                             'dateCreated',
                             'scheduledGrantPayment'
                         ];
@@ -139,6 +140,10 @@ class GrantViewStore extends BaseListViewStore {
                 {
                     key: 'grantPurposeType.name',
                     title: 'GRANT.LIST.COLUMNS.GRANT_PURPOSE_TYPE_LABEL',
+                    format: {
+                        type: 'function',
+                        value: this.renderGrantPurposeType
+                    }
                 },
                 {
                     key: 'dateCreated',
@@ -167,6 +172,13 @@ class GrantViewStore extends BaseListViewStore {
                 },
             }
         }));
+    }
+
+    renderGrantPurposeType(item) {
+        if(item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by'){
+            return `${item.grantPurposeType.name} - ${item.purposeNote}`
+        }
+        return item.grantPurposeType.name;
     }
 
     createSearchDonorDropdownStore() {

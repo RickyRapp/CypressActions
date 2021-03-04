@@ -37,19 +37,14 @@ export default class GrantCreateForm extends FormBase {
 					rules: 'required|string',
 				},
 				{
-					name: 'additionalInformation',
-					placeholder: 'GRANT.CREATE.FIELDS.ADDITIONAL_INFORMATION_PLACEHOLDER',
-					rules: 'string',
-				},
-				{
 					name: 'noteToAdministrator',
 					placeholder: 'GRANT.CREATE.FIELDS.NOTE_TO_ADMINISTRATOR_PLACEHOLDER',
 					rules: 'string',
 				},
 				{
-					name: 'purposeMemberName',
-					label: 'GRANT.CREATE.FIELDS.PURPOSE_MEMBER_NAME_LABEL',
-					placeholder: 'GRANT.CREATE.FIELDS.PURPOSE_MEMBER_NAME_PLACEHOLDER',
+					name: 'purposeNote',
+					label: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_LABEL',
+					placeholder: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_PLACEHOLDER',
 					rules: 'string',
 				},
 				{

@@ -21,7 +21,7 @@ import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/donor/charity/components';
 import logo from 'themes/assets/img/logo.svg';
-import { CharityShortInformationTemplate } from 'themes/application/common/grant/components';
+import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	const {
@@ -244,12 +244,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
 									</div>
 								</div>
-								{/* <div className="row">
+								<div className="row">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
                                         {grantPurposeTypeDropdownStore.value &&
-                                            <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />}
+                                            <GrantPurposeTypeTemplate form={form} store={grantPurposeTypeDropdownStore} />}
                                     </div>
-                                </div> */}
+                                </div>
 								<div className="row row__align--center">
 									<div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
 										<BasicCheckbox
@@ -280,7 +280,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{donor && (
 													<FormatterResolver
-														item={{ balance: donor.availableBalance }}
+														item={{ balance: donor.presentBalance }}
 														field="balance"
 														format={{ type: 'currency' }}
 													/>

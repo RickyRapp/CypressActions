@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { defaultTemplate, withAuth } from 'core/hoc';
 import {
     ApplicationEmptyState,
-    FormatterResolver
+    FormatterResolver,
+    Date
 } from 'core/components';
 import { addressFormatter, isSome } from 'core/utils';
 import { PreviewLayout } from 'core/layouts';
@@ -16,18 +17,6 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
         loaderStore,
         isEditable
     } = grantPreviewViewStore;
-
-    const AuthDonorNameRow = withAuth(DonorNameRow);
-    function DonorNameRow() {
-        return <div className="row">
-            <div className="col col-sml-12 col-lrg-6">
-                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
-                <span className="input--preview">
-                    {item && <React.Fragment>{item.donor.donorName}</React.Fragment>}
-                </span>
-            </div>
-        </div>
-    }
 
     return (
         <PreviewLayout
@@ -43,9 +32,14 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                             <GrantProgressTimeline item={item} />
                         </div>}
                     <div className="card--primary card--med u-mar--bottom--med">
-                        <AuthDonorNameRow authorization='theDonorsFundAdministrationSection.update' />
                         <div className="row">
-                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
+                                <span className="input--preview">
+                                    {item && <React.Fragment>{item.donor.donorName}</React.Fragment>}
+                                </span>
+                            </div>
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
@@ -55,7 +49,13 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DATE_CREATED_LABEL')}</div>
+                                <span className="input--preview">
+                                    {item && <Date format="full" value={item.dateCreated} />}
+                                </span>
+                            </div>
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
@@ -65,19 +65,19 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.confirmationNumber}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.PURPOSE_TYPE_LABEL')}</div>
                                 <span className="input--preview">
-                                    {item && <React.Fragment>{item.grantPurposeType.name}</React.Fragment>}
+                                    {item && <React.Fragment>{item.grantPurposeType.name} {`${item.purposeNote ? ' - ' + item.purposeNote : ''}`}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>
@@ -91,10 +91,17 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                 </span>
                             </div>
                             {item && item.thirdPartyWebsite &&
-                                <div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                     <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_WEBSITE_LABEL')}</div>
                                     <span className="input--preview">
                                         {item && <React.Fragment>{item.thirdPartyWebsite.name} - {item.thirdPartyWebsite.url}</React.Fragment>}
+                                    </span>
+                                </div>}
+                            {item && item.grantScheduledPayment &&
+                                <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.SCHEDULED_LABEL')}</div>
+                                    <span className="input--preview">
+                                        {item && <Date format="full" value={item.grantScheduledPayment.dateCreated} />}
                                     </span>
                                 </div>}
                         </div>

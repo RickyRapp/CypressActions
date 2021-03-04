@@ -10,7 +10,7 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
     constructor(rootStore) {
         super(rootStore, {
             name: 'user',
-            id: rootStore.routerStore.routerState.params.editId,
+            id: rootStore.routerStore.routerState.params.id,
             autoInit: false,
             routes: {
                 edit: () => {
@@ -28,11 +28,12 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'grantPurposeType',
                                 'donationStatus',
                                 'grantAcknowledgmentType',
-                                'thirdPartyWebsite'
+                                'thirdPartyWebsite',
+                                'grantScheduledPayment'
                             ],
                             donorId: this.donorId
                         }
-                        return this.rootStore.application.donor.grantStore.getDetails(id, params);
+                        return this.rootStore.application.donor.grantStore.getGrant(id, params);
                     }
                 }
             }
