@@ -165,4 +165,12 @@ $header-height-mobile: 72px;
         
         background-color: $grey-1;
     }
+
+    &--nested {
+
+        .layout__content__inner {
+            position: relative;
+            padding: 0;
+        }
+    }
 }

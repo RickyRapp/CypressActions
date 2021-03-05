@@ -13,7 +13,7 @@ function SessionTabTemplate({ sessionTabViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={sessionTabViewStore}>
-                    <div label={'SESSION.TAB.LIST'} className="u-mar--top--sml">
+                    <div label={'SESSION.TAB.LIST'} className="u-mar--top--sml layout--nested">
                         <SessionList />
                     </div>
                     {/* <div label={'SESSION.TAB.IN_PROGRESS'} className="u-mar--top--sml">
