@@ -26,6 +26,10 @@ class GrantRouteService extends BaseRouteService {
         return super.get(this.base + '/donor-information/{id}', id);
     }
 
+    isEligibleForEdit(id) {
+        return super.get(this.base + '/is-eligible-for-edit/{id}', id);
+    }
+
     create() {
         return super.create(this.base);
     }
@@ -38,8 +42,8 @@ class GrantRouteService extends BaseRouteService {
         return super.update(this.base + '/{id}', resource);
     }
 
-    review(resource) {
-        return super.update(this.base + '/review/{id}', resource);
+    approve(resource) {
+        return super.update(this.base + '/approve/{id}', resource);
     }
 
     export(filter) {

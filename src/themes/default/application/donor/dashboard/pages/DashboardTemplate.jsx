@@ -86,7 +86,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										/>
 									)}
 								</div>
-								<p className="dashboard-card__body--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</p>
+								<p className="dashboard-card__body--title">{t('DASHBOARD.PRESENT_BALANCE')}</p>
 
 								{donor && (
 									<p className="dashboard-card__body--amount--secondary">
@@ -97,7 +97,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										/>
 									</p>
 								)}
-								<p className="dashboard-card__body--title">{t('DASHBOARD.PRESENT_BALANCE')}</p>
+								<p className="dashboard-card__body--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</p>
 							</div>
 
 							<div className="row">

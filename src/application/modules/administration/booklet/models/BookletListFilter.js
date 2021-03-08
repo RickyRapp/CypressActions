@@ -5,6 +5,7 @@ class BookletListFilter extends FilterParams {
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
     @observable bookletStatusIds;
+    @observable bookletTypeIds;
     @observable codes;
     @observable denominationTypeIds;
     @observable donorId;
@@ -24,6 +25,7 @@ class BookletListFilter extends FilterParams {
         this.dateCreatedStartDate = null;
         this.dateCreatedEndDate = null;
         this.bookletStatusIds = null;
+        this.bookletTypeIds = null;
         this.codes = null;
         this.denominationTypeIds = null;
         this.trackingNumber = null;

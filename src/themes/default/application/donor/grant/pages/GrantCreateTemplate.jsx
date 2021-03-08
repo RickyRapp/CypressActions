@@ -45,7 +45,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		isChangedDefaultAddress,
 		onChangeDefaultAddressClick,
 		grantRequestId,
-		getNumberOfReocurrency
+		getNumberOfReocurrency,
+		grantPurposeTypes
 	} = grantCreateViewStore;
 
 	return (
@@ -246,8 +247,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 								<div className="row">
 									<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-										{grantPurposeTypeDropdownStore.value &&
-											<GrantPurposeTypeTemplate form={form} store={grantPurposeTypeDropdownStore} />}
+										{form.$('grantPurposeTypeId').value &&
+											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
 									</div>
 								</div>
 								<div className="row row--form row__align--center">

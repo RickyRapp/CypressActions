@@ -1,7 +1,7 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { GrantRouteService } from 'application/administration/grant/services';
-import { donorFormatter } from 'core/utils';
+import { donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
@@ -158,6 +158,7 @@ class GrantViewStore extends BaseListViewStore {
                 onEdit: (grant) => this.routes.edit(grant.id),
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onPreview: (grant) => this.routes.preview(grant.id),
+                onApprove: (grant) => this.approveGrant(grant),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
@@ -165,17 +166,38 @@ class GrantViewStore extends BaseListViewStore {
                     return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved'
                 },
                 onRedirectRender: (grant) => {
-                    if (grant.scheduledGrantPayment) {
-                        return true;
-                    }
-                    return false;
+                    return isSome(grant.scheduledGrantPayment)
+                },
+                onApproveRender: (grant) => {
+                    return grant.donationStatus.abrv === 'pending';
                 },
             }
         }));
     }
 
+    @action.bound
+    async approveGrant(grant) {
+        this.rootStore.modalStore.showConfirm(
+            'Are you sure you want to approve grant?',
+            async () => {
+                try {
+                    await this.rootStore.application.administration.grantStore.approveGrant({ id: grant.id });
+                    this.queryUtility.fetch();
+                    this.rootStore.notificationStore.success('Successfully approved grant.');
+                } catch ({ data }) {
+                    if (data && data.message) {
+                        this.rootStore.notificationStore.error(data.message);
+                    }
+                    else {
+                        this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+                    }
+                }
+            }
+        );
+    }
+
     renderGrantPurposeType(item) {
-        if(item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by'){
+        if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
             return `${item.grantPurposeType.name} - ${item.purposeNote}`
         }
         return item.grantPurposeType.name;

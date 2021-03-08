@@ -108,14 +108,12 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
                         search: searchQuery,
                         sort: 'name|asc',
                         embed: [
-                            'charityAddresses',
-                            'charityAccountType'
+                            'charityAddresses'
                         ],
                         fields: [
                             'id',
                             'taxId',
                             'name',
-                            'charityAccountType',
                             'charityAddresses'
                         ]
                     });

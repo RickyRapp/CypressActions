@@ -18,6 +18,7 @@ import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/donor/charity/components';
+import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import logo from 'themes/assets/img/logo.svg';
 
 const GrantEditTemplate = function ({ grantEditViewStore, t }) {
@@ -39,7 +40,8 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
         loaderStore,
         grantAcknowledgmentName,
         isChangedDefaultAddress,
-        onChangeDefaultAddressClick
+        onChangeDefaultAddressClick,
+        grantPurposeTypes
     } = grantEditViewStore;
 
     return (
@@ -124,36 +126,12 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                     </div>}
 
                                 {charityDropdownStore.value &&
-                                    <React.Fragment>
-                                        <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
-                                        <div className="row row--form u-mar--top--sml">
-                                            <div className="col col-sml-12 u-mar--bottom--sml">
-                                                <div className="charity-information__card ">
-                                                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
-                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.name}</span>
-                                                </div>
-                                            </div>
-                                            <div className="col col-sml-12 u-mar--bottom--sml">
-                                                <div className="charity-information__card ">
-                                                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.taxId}</span>
-                                                </div>
-                                            </div>
-                                            {!isChangedDefaultAddress &&
-                                                <div className="col col-sml-12 u-mar--bottom--sml">
-                                                    <div className="charity-information__card ">
-                                                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                                                        <span className="type--base type--wgt--medium">{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
-                                                    </div>
-                                                </div>}
-                                        </div>
+                                    <CharityShortInformationTemplate
+                                        charity={charityDropdownStore.value.item}
+                                        onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                                        isChangedDefaultAddress={isChangedDefaultAddress}
+                                    />}
 
-                                        <BaasicButton
-                                            className="btn btn--sml btn--link u-mar--bottom--sml"
-                                            label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
-                                            onClick={onChangeDefaultAddressClick}>
-                                        </BaasicButton>
-                                    </React.Fragment>}
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row row--form">
@@ -196,8 +174,8 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                 </div>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        {/* {grantPurposeTypeDropdownStore.value &&
-                                            <GrantPurposeTypeForm form={form} store={grantPurposeTypeDropdownStore} />} */}
+                                        {form.$('grantPurposeTypeId').value &&
+                                            <GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
                                     </div>
                                 </div>
                                 <div className="row row--form">

@@ -1586,7 +1586,7 @@
                 "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
                 "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below.",
                 "INTERNATIONAL_COMPANY_LABEL": "Are you an international company?",
-                "IS_RECURRING_LABEL": "Repeat payment",
+                "IS_RECURRING_LABEL": "Repeat payment?",
                 "RECURRING_DATE_LABEL": "Starting Date",
                 "RECURRING_DATE_PLACEHOLDER": "Select Starting Date",
                 "IS_NEW_CHARITY_LABEL": "Don't see your charity?"
@@ -1703,6 +1703,12 @@
                         "PAYMENT_NUMBER": "Payment Number"
                     }
                 }
+            },
+            "FIELDS":{
+                "PAYMENT_TYPE_LABEL":"Select Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER":"Payment type",
+                "PAYMENT_NUMBER_LABEL":"Enter payment number",
+                "PAYMENT_NUMBER_PLACEHOLDER":"Payment number"
             }
         }
     },
@@ -1820,6 +1826,8 @@
             },
             "FILTER": {
                 "CODES_PLACEHOLDER": "Codes",
+                "BOOKLET_STATUS_PLACEHOLDER": "Statuses",
+                "BOOKLET_TYPE_PLACEHOLDER": "Types",
                 "DENOMINATION_PLACEHOLDER": "Denominations"
             },
             "EMPTY_STATE": {

@@ -49,7 +49,7 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onAddBookletsChange(item, booklets) {
+    onAddBookletsChange(item, booklets) {
         this.orderContents.find(c => c.bookletTypeId === item.bookletTypeId && c.denominationTypeId === item.denominationTypeId).booklets = booklets;
     }
 

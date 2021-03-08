@@ -48,34 +48,15 @@ import moment from 'moment';
                         beforeEnter:
                             // eslint-disable-next-line
                             async (fromState, toState, routerStore) => {
-                                const { donor: { donorStore, grantStore } } = routerStore.rootStore.application;
-
-                                if (!routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                                    let donorId = routerStore.rootStore.userStore.user.id;
-                                    const data = await donorStore.getDonor(donorId, { fields: 'isInitialContributionDone' });
-                                    if (data.isInitialContributionDone) {
-                                        let id = toState.params.id;
-                                        const grant = await grantStore.getGrant(id, { embed: 'donationStatus', fields: 'dateCreated,donationStatus' });
-                                        if (grant) {
-                                            const dateToEdit = moment(grant.dateCreated).add(15, 'm');
-                                            if (!moment().isBetween(moment(grant.dateCreated), dateToEdit)) {
-                                                routerStore.rootStore.notificationStore.warning('ERROR_CODE.3012');
-                                                return Promise.reject(new RouterState('master.app.main.donor.dashboard'));
-                                            }
-                                            if (!['pending', 'approved'].includes(grant.donationStatus.abrv)) {
-                                                routerStore.rootStore.notificationStore.warning('ERROR_CODE.3011');
-                                                return Promise.reject(new RouterState('master.app.main.donor.dashboard'));
-                                            }
-
-                                        }
-                                        return Promise.resolve();
-                                    }
-                                    else {
-                                        routerStore.rootStore.notificationStore.warning('GRANT.CREATE.MISSING_INITIAL_CONTRIBUTION');
-                                        return Promise.reject(new RouterState('master.app.main.donor.contribution.create'));
-                                    }
+                                const { grantStore } = routerStore.rootStore.application.donor;
+                                let id = toState.params.id;
+                                try {
+                                    await grantStore.isEligibleForEdit(id);
+                                    return Promise.resolve();
+                                } catch ({ data }) {
+                                    routerStore.rootStore.notificationStore.warning(data.message);
+                                    return Promise.reject(new RouterState('master.app.main.donor.dashboard'));
                                 }
-                                return Promise.resolve();
                             }
                     },
                     {

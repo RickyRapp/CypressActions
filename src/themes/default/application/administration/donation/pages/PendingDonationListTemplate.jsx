@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     BaasicButton,
-    BaasicDropdown,
-    BaasicInput,
+    BaasicFieldDropdown,
+    BasicInput,
     BaasicTableWithRowDetails,
     BasicCheckbox,
     FormatterResolver,
+    BaasicFormControls
 } from 'core/components';
-import { isSome } from 'core/utils';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty, isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
 const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
@@ -23,7 +24,8 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         paymentNumber,
         paymentTypeDropdownStore,
         onIsTransferToCharityAccountChange,
-        isTransferToCharityAccount
+        isTransferToCharityAccount,
+        form
     } = pendingDonationViewStore;
 
     const DetailComponent = ({ dataItem }) => {
@@ -73,32 +75,19 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         <ApplicationListLayout store={pendingDonationViewStore} authorization={authorization}>
             <Content>
                 <div className="row u-mar--bottom--med">
-                    <div className="col col-sml-12 u-mar--bottom--sml">
-                        <BasicCheckbox
-                            id='DONATION.REVIEW.LIST.GRANT.FIELDS.IS_TRANSFER_TO_CHARITY_ACCOUNT'
-                            className='input input--lrg'
-                            checked={isTransferToCharityAccount}
-                            onChange={onIsTransferToCharityAccountChange}
-                            label='DONATION.REVIEW.LIST.GRANT.FIELDS.IS_TRANSFER_TO_CHARITY_ACCOUNT' />
+                    <div className="col col-sml-12 col-lrg-3">
+                        <BasicInput field={form.$('paymentNumber')} />
+
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentNumber').value) && selectedGrants > 0 ?
+                            <div>
+                                Check Numbers From: {Number(form.$('paymentNumber').value)} to {selectedGrants + Number(form.$('paymentNumber').value) - 1}
+                            </div>
+                            :
+                            null}
                     </div>
-                    {!isTransferToCharityAccount &&
-                        <React.Fragment>
-                            <div className="col col-sml-12 col-lrg-3">
-                                <BaasicInput
-                                    id='DONATION.REVIEW.LIST.GRANT.FIELDS.PAYMENT_NUMBER'
-                                    className='input input--lrg'
-                                    value={paymentNumber}
-                                    onChange={onPaymentNumberChange}
-                                    placeholder='DONATION.REVIEW.LIST.GRANT.FIELDS.PAYMENT_NUMBER' />
-                                {paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' && paymentNumber && selectedGrants > 0 &&
-                                    <div>
-                                        Check Numbers From: {Number(paymentNumber)} to {selectedGrants + Number(paymentNumber) - 1}
-                                    </div>}
-                            </div>
-                            <div className="col col-sml-6 col-lrg-3">
-                                <BaasicDropdown store={paymentTypeDropdownStore} />
-                            </div>
-                        </React.Fragment>}
+                    <div className="col col-sml-6 col-lrg-3">
+                        <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
+                    </div>
                 </div>
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="table--dragrow--expandable-row">
@@ -112,14 +101,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     </div>
                 </div>
 
-                <BaasicButton
-                    type="button"
-                    label='FORM_CONTROLS.SAVE_BUTTON'
-                    className='btn btn--med btn--med--wide btn--primary u-push'
-                    onClick={onReviewClick}
-                    disabled={disableSave}
-                    rotate
-                />
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </Content>
         </ApplicationListLayout >
     )
@@ -131,49 +113,7 @@ PendingDonationListTemplate.propTypes = {
 };
 
 function renderActions({ item, actions, actionsRender }) {
-    if (!isSome(actions)) return null;
-
-    const { onEdit, onReview } = actions;
-    if (!isSome(onEdit, onReview)) return null;
-
-    let editRender = true;
-    if (isSome(actionsRender)) {
-        if (actionsRender.onEditRender) {
-            editRender = actionsRender.onEditRender(item);
-        }
-    }
-
-    let reviewRender = true;
-    if (isSome(actionsRender)) {
-        if (actionsRender.onReviewRender) {
-            reviewRender = actionsRender.onReviewRender(item);
-        }
-    }
-
-    return (
-        <td>
-            <div className="type--right">
-                {isSome(onEdit) && editRender ? (
-                    <BaasicButton
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--base'
-                        label='DONATION.LIST.BUTTON.EDIT'
-                        onlyIcon={true}
-                        onClick={() => onEdit(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onReview) && reviewRender ? (
-                    <BaasicButton
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--base'
-                        label='DONATION.LIST.BUTTON.REVIEW'
-                        onlyIcon={true}
-                        onClick={() => onReview(item)}>
-                    </BaasicButton>
-                ) : null}
-            </div>
-        </td>
-    )
+    return null;
 }
 
 renderActions.propTypes = {

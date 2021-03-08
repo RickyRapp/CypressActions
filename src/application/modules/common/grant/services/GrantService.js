@@ -27,6 +27,11 @@ class GrantService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    isEligibleForEdit(id) {
+        const url = this.routeService.isEligibleForEdit(id);
+        return this.apiClient.get(url);
+    }
+
     createSetting(resource) {
         const url = this.routeService.createSetting();
         return this.apiClient.post(url, resource);
@@ -37,8 +42,8 @@ class GrantService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
-    review(resource) {
-        const url = this.routeService.review(resource);
+    approve(resource) {
+        const url = this.routeService.approve(resource);
         return this.apiClient.put(url, resource);
     }
 }

@@ -81,8 +81,7 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
         const service = new CharityService(this.rootStore.application.baasic.apiClient);
         await this.tableStore.fetchMore(async (params) => {
             params.embed = [
-                'charityAddresses',
-                'charityAccountType'
+                'charityAddresses'
             ];
             const response = await service.search(params);
             return response.data;

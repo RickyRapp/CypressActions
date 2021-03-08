@@ -45,7 +45,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                             rootStore.notificationStore.error('USER.CREATE.USER_CREATE_ERROR', error);
                             break;
                         default:
-                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
                             break;
                     }
                 }

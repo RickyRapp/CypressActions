@@ -45,7 +45,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         isChangedDefaultAddress,
         onChangeDefaultAddressClick,
         grantRequestId,
-        getNumberOfReocurrency
+        getNumberOfReocurrency,
+        grantPurposeTypes
     } = grantCreateViewStore;
 
     return (
@@ -172,7 +173,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
                                     <div className="row row--form">
                                         <div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
-                                            <BaasicFieldToggle field={form.$('isRecurring')} />
+                                            <BaasicFieldToggle field={form.$('isRecurring')} showLabel={true} />
                                         </div>
                                     </div>}
                                 {form.$('isRecurring').value &&
@@ -190,27 +191,27 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <NumericInputField field={form.$('numberOfPayments')} showLabel={false} />
                                             </div>
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BaasicFieldToggle field={form.$('noEndDate')} showLabel={true}/>
+                                                <BaasicFieldToggle field={form.$('noEndDate')} showLabel={true} />
                                             </div>
                                         </div>
                                         {form.$('amount').value && form.$('noEndDate').value === false && (form.$('numberOfPayments').value || form.$('endDate').value) &&
-											<div className="row">
-												<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-													Accumulated amount:
+                                            <div className="row">
+                                                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                    Accumulated amount:
 													{form.$('numberOfPayments').value &&
-														<FormatterResolver
-															item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
-															field="amount"
-															format={{ type: 'currency' }}
-														/>}
-													{form.$('endDate').value &&
-														<FormatterResolver
-															item={{ amount: form.$('amount').value * getNumberOfReocurrency(form.$('recurringDate').value, form.$('endDate').value, form.$('grantScheduleTypeId').value) }}
-															field="amount"
-															format={{ type: 'currency' }}
-														/>}
-												</div>
-											</div>}
+                                                        <FormatterResolver
+                                                            item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
+                                                            field="amount"
+                                                            format={{ type: 'currency' }}
+                                                        />}
+                                                    {form.$('endDate').value &&
+                                                        <FormatterResolver
+                                                            item={{ amount: form.$('amount').value * getNumberOfReocurrency(form.$('recurringDate').value, form.$('endDate').value, form.$('grantScheduleTypeId').value) }}
+                                                            field="amount"
+                                                            format={{ type: 'currency' }}
+                                                        />}
+                                                </div>
+                                            </div>}
                                     </div>}
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">
@@ -228,8 +229,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        {grantPurposeTypeDropdownStore.value &&
-                                            <GrantPurposeTypeTemplate form={form} store={grantPurposeTypeDropdownStore} />}
+                                        {form.$('grantPurposeTypeId').value &&
+                                            <GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
                                     </div>
                                 </div>
                                 <div className="row row--form">

@@ -27,6 +27,8 @@ class SessionViewStore extends BaseEditViewStore {
                         this.nextStep(4);
                         this.form.clear();
                         this.charityDropdownStore.setValue(null);
+                        this.charityDropdownStore.setFilteredItems([]);
+                        this.charityDropdownStore.setItems([]);
                         this.refreshIntervalId = setInterval(() => {
                             --this.currentCount;
                             if (this.currentCount == 0) {
@@ -54,7 +56,7 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async onNextStep2Click() {
-        if(!this.isChangedDefaultAddress){
+        if (!this.isChangedDefaultAddress) {
             const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
             this.setAddress(address);
         }
@@ -181,12 +183,12 @@ class SessionViewStore extends BaseEditViewStore {
                         }
                     });
                 },
-				onChange: value => {
-					if (value) {
-						const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
-						this.setAddress(address);
-					}
-				},
+                onChange: value => {
+                    if (value) {
+                        const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+                        this.setAddress(address);
+                    }
+                },
             });
     }
 
@@ -199,23 +201,23 @@ class SessionViewStore extends BaseEditViewStore {
         }
         return true;
     }
-    
-	@action.bound
-	async onChangeDefaultAddressClick() {
-		this.isChangedDefaultAddress = !this.isChangedDefaultAddress;
-		if (!this.isChangedDefaultAddress && this.charityDropdownStore.value) {
-			const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
-			this.setAddress(address);
-		}
-	}
+
+    @action.bound
+    async onChangeDefaultAddressClick() {
+        this.isChangedDefaultAddress = !this.isChangedDefaultAddress;
+        if (!this.isChangedDefaultAddress && this.charityDropdownStore.value) {
+            const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+            this.setAddress(address);
+        }
+    }
 
     setAddress(address) {
-		this.form.$('addressLine1').set(address.addressLine1);
-		this.form.$('addressLine2').set(address.addressLine2);
-		this.form.$('city').set(address.city);
-		this.form.$('state').set(address.state);
-		this.form.$('zipCode').set(address.zipCode);
-	}
+        this.form.$('addressLine1').set(address.addressLine1);
+        this.form.$('addressLine2').set(address.addressLine2);
+        this.form.$('city').set(address.city);
+        this.form.$('state').set(address.state);
+        this.form.$('zipCode').set(address.zipCode);
+    }
 }
 
 export default SessionViewStore;

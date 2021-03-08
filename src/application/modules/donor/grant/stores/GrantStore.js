@@ -55,6 +55,11 @@ class GrantStore {
         return response.data;
     }
 
+    async isEligibleForEdit(id) {
+        const response = await this.grantService.isEligibleForEdit(id);
+        return response.data;
+    }
+
     async createGrant(resource) {
         const response = await this.grantService.create(resource);
         return response.data;

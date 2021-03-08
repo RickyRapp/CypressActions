@@ -6,7 +6,8 @@ import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
 const BookletListTemplate = function({ bookletViewStore }) {
-	const { routes, tableStore, queryUtility, authorization, denominationTypeDropdownStore } = bookletViewStore;
+	const { routes, tableStore, queryUtility, authorization, denominationTypeDropdownStore,
+	bookletStatusDropdownStore, bookletTypeDropdownStore } = bookletViewStore;
 
 	return (
 		<ApplicationListLayout store={bookletViewStore} authorization={authorization}>
@@ -15,7 +16,7 @@ const BookletListTemplate = function({ bookletViewStore }) {
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
 						<TableFilter queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
 								<BaasicInput
 									id="codes"
 									className="input input--lrg"
@@ -24,10 +25,22 @@ const BookletListTemplate = function({ bookletViewStore }) {
 									placeholder="BOOKLET.LIST.FILTER.CODES_PLACEHOLDER"
 								/>
 							</div>
-							<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
 								<BaasicDropdown
 									store={denominationTypeDropdownStore}
 									placeholder="BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={bookletStatusDropdownStore}
+									placeholder="BOOKLET.LIST.FILTER.BOOKLET_STATUS_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={bookletTypeDropdownStore}
+									placeholder="BOOKLET.LIST.FILTER.BOOKLET_TYPE_PLACEHOLDER"
 								/>
 							</div>
 						</TableFilter>

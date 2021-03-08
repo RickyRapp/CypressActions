@@ -76,10 +76,10 @@ class UserCreateViewStore extends BaseEditViewStore {
                             rootStore.notificationStore.error('USER.CREATE.USER_CREATE_ERROR', error);
                             break;
                         case ErrorType.Profile:
-                            rootStore.notificationStore.success('USER.CREATE.PROFILE_CREATE_ERROR', error);
+                            rootStore.notificationStore.error('USER.CREATE.PROFILE_CREATE_ERROR', error);
                             break;
                         default:
-                            rootStore.notificationStore.success('EDIT_FORM_LAYOUT.ERROR_CREATE');
+                            rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
                             break;
                     }
                 }

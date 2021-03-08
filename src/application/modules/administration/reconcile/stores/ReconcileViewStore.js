@@ -86,7 +86,16 @@ class ReconcileViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'paymentNumber',
-                    title: 'RECONCILE.LIST.COLUMNS.PAYMENT_NUMBER_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.PAYMENT_NUMBER_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if (item.paymentType.abrv === 'ach' && item.achBatchNumber) {
+                                return `${item.achBatchNumber} - ${item.paymentNumber}`;
+                            }
+                            return item.paymentNumber;
+                        }
+                    }
                 },
                 {
                     key: 'paymentType.name',

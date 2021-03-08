@@ -131,12 +131,12 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
         return (
             <td>
                 <div className="table__status">
-                    {dataItem.booklets.map(c => {
+                    {dataItem.booklets.map((c, i) => {
                         return (
                             <span 
                                 key={c.code}
                                 className="btn btn--link" 
-                                onClick={() => this.onCodeClick(c.code)}>{c.code}
+                                onClick={() => this.onCodeClick(c.code)}>{c.code}{(i + 1) === dataItem.booklets.length ? '' : ', '}
                             </span> 
                         )}
                     )}

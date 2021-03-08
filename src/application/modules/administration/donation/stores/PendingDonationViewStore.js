@@ -1,15 +1,25 @@
 import React from 'react';
 import { SelectTableWithRowDetailsViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { PendingDonationListFilter } from 'application/administration/donation/models';
+import { PendingDonationReviewForm } from 'application/administration/donation/forms';
 import { action, observable } from 'mobx';
 import _ from 'lodash';
 import { saveAs } from '@progress/kendo-file-saver';
+import { isSome } from 'core/utils';
 
 class PendingDonationViewStore extends BaseListViewStore {
     @observable disableSave = false;
     @observable paymentNumber = '';
     @observable isTransferToCharityAccount = false;
     data = null;
+
+    form = new PendingDonationReviewForm({
+        onSuccess: async () => {
+            this.disableSave = true;
+            await this.onReviewClick(this.form.values());
+            this.disableSave = false;
+        }
+    })
 
     constructor(rootStore) {
         const filter = new PendingDonationListFilter();
@@ -73,29 +83,34 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async onPaymentNumberChange(event) {
-        this.paymentNumber = event.target.value;
-    }
-
-    @action.bound
     async onIsTransferToCharityAccountChange(event) {
         this.isTransferToCharityAccount = event.target.checked;
     }
 
     @action.bound
-    async onReviewClick() {
-        this.disableSave = true;
-        const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(
-            {
-                paymentNumber: this.isTransferToCharityAccount ? null : this.paymentNumber,
-                paymentTypeId: this.isTransferToCharityAccount ? null : this.paymentTypeDropdownStore.value.id,
-                isTransferToCharityAccount: this.isTransferToCharityAccount,
-                groupedPendingDonations: this.tableStore.data.map(d => { return { ...d, pendingDonations: d.pendingDonations.filter(c => { return c.checked }) } })
+    async onReviewClick(model) {
+        try {
+            const checkedGroupedDonations = this.tableStore.data.filter(d => {
+                d.pendingDonations = d.pendingDonations.filter(c => c.checked);
+                return d.pendingDonations.length > 0;
             });
-        this.rootStore.notificationStore.success("Successfully processed.");
-        await this.queryUtility.fetch();
-        this.disableSave = false;
-        await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
+            const groupedDonations = checkedGroupedDonations.map(d => { return { ...d, pendingDonations: d.pendingDonations.filter(c => { return c.checked }) } });
+
+            if (groupedDonations.length === 0 || groupedDonations.some(c => c.pendingDonations === null || c.pendingDonations === null || c.pendingDonations.length === 0)) {
+                this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
+                return;
+            }
+            model.groupedPendingDonations = groupedDonations;
+            const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(model);
+            this.rootStore.notificationStore.success("Successfully processed.");
+            await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
+            this.paymentTypeDropdownStore.setValue(null);
+            await this.queryUtility.fetch();
+            this.form.clear();
+        } catch (error) {
+            console.log(error)
+            this.rootStore.notificationStore.error("Something went wrong.");
+        }
     }
 
     async downloadReport(ids, paymentTypeId) {

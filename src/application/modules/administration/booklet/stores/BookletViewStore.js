@@ -18,6 +18,8 @@ class BookletViewStore extends BaseListViewStore {
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.denominationTypeDropdownStore.setValue(null);
+                    this.bookletStatusDropdownStore.setValue(null);
+                    this.bookletTypeDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -39,6 +41,8 @@ class BookletViewStore extends BaseListViewStore {
 
         this.createTableStore();
         this.createDenominationDropdownStore();
+        this.createBookletStatusDropdownStore();
+        this.createBookletTypeDropdownStore();
     }
 
     createTableStore() {
@@ -110,6 +114,34 @@ class BookletViewStore extends BaseListViewStore {
                 },
                 onChange: (denominationType) => {
                     this.queryUtility.filter.denominationTypeIds = denominationType.map((type) => { return type.id });
+                }
+            });
+    }
+    
+    createBookletStatusDropdownStore() {
+        this.bookletStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: async () => {
+                    return this.rootStore.application.lookup.bookletStatusStore.find();
+                },
+                onChange: (status) => {
+                    this.queryUtility.filter.bookletStatusIds = status.map((type) => { return type.id });
+                }
+            });
+    }
+    
+    createBookletTypeDropdownStore() {
+        this.bookletTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: async () => {
+                    return this.rootStore.application.lookup.bookletTypeStore.find();
+                },
+                onChange: (type) => {
+                    this.queryUtility.filter.bookletTypeIds = type.map((type) => { return type.id });
                 }
             });
     }

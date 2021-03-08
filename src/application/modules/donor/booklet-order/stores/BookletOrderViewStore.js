@@ -18,7 +18,6 @@ class BookletOrderViewStore extends BaseListViewStore {
                     this.deliveryMethodTypeDropdownStore.setValue(null);
                     this.bookletOrderStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
-                    this.searchDonorDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -82,6 +81,7 @@ class BookletOrderViewStore extends BaseListViewStore {
             },
             actionsRender: {}
         }));
+        
     }
 
     createBookletOrderStatusDropdownStore() {

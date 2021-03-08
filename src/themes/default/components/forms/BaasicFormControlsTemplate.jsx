@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
+import { isSome } from 'core/utils';
 
 const BaasicFormControlsTemplate = function (props) {
     const { form, onSubmit, controls, label, className, disableSave = false, authorization } = props;
@@ -14,7 +15,7 @@ const BaasicFormControlsTemplate = function (props) {
                     type='submit'
                     className={className}
                     onClick={onSubmit || form.onSubmit}
-                    disabled={disableSave}
+                    disabled={isSome(disableSave) ? disableSave : form.submitting}
                     rotate
                     icon={form.submitting || form.validating ? 'synchronize-arrows-1 rotate' : ''}
                     label={label}

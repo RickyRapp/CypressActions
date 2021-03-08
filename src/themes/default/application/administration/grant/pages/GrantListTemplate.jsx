@@ -14,7 +14,7 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const GrantListTemplate = function({ grantViewStore }) {
+const GrantListTemplate = function ({ grantViewStore }) {
 	const {
 		tableStore,
 		routes,
@@ -82,8 +82,8 @@ GrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onRedirect, onPreview } = actions;
-	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview)) return null;
+	const { onEdit, onRedirect, onPreview, onApprove } = actions;
+	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -96,6 +96,13 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onRedirectRender) {
 			redirectRender = actionsRender.onRedirectRender(item);
+		}
+	}
+
+	let approveRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onApproveRender) {
+			approveRender = actionsRender.onApproveRender(item);
 		}
 	}
 
@@ -130,6 +137,16 @@ function renderActions({ item, actions, actionsRender }) {
 						label="GRANT.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onApprove) && approveRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--approve u-icon--base"
+						label="GRANT.LIST.BUTTON.REVIEW"
+						onlyIcon={true}
+						onClick={() => onApprove(item)}
 					></BaasicButton>
 				) : null}
 			</div>

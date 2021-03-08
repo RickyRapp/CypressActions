@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/administration/grant/pages';
+import { RouterState } from 'mobx-state-router';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -33,7 +34,20 @@ import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } fr
                         authorization: 'theDonorsFundGrantSection.update',
                         data: {
                             title: "GRANT.EDIT.TITLE"
-                        }
+                        },
+                        beforeEnter:
+                            // eslint-disable-next-line
+                            async (fromState, toState, routerStore) => {
+                                const { grantStore } = routerStore.rootStore.application.administration;
+                                let id = toState.params.id;
+                                try {
+                                    await grantStore.isEligibleForEdit(id);
+                                    return Promise.resolve();
+                                } catch ({ data }) {
+                                    routerStore.rootStore.notificationStore.warning(data.message);
+                                    return Promise.reject(new RouterState('master.app.main.administration.dashboard'));
+                                }
+                            }
                     },
                     {
                         name: 'master.app.main.administration.grant.scheduled-edit',
