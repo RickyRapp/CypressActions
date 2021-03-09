@@ -1,5 +1,4 @@
-import { SessionService } from 'application/administration/session/services';
-import { SessionPendingCertificateService } from 'application/common/session/services';
+import { SessionService, SessionPendingCertificateService } from 'application/administration/session/services';
 
 class SessionStore {
     constructor(moduleStore) {

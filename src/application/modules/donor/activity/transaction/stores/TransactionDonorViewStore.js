@@ -12,7 +12,7 @@ class TransactionTabViewStore extends BaseViewStore {
         this.pendingTransactionTableStore = new TableViewStore(null, {
             columns: [
                 {
-                    key: 'paymentTransaction.dateCreated',
+                    key: 'paymentTransaction.dateUpdated',
                     title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',

@@ -49,7 +49,7 @@ class TransactionViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'paymentTransaction.dateCreated',
+                    key: 'paymentTransaction.dateUpdated',
                     title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
