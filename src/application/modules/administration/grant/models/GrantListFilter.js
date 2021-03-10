@@ -3,6 +3,7 @@ import { FilterParams } from "core/models";
 
 class GrantListFilter extends FilterParams {
     @observable donorId;
+    @observable charityId;
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
@@ -21,6 +22,7 @@ class GrantListFilter extends FilterParams {
     reset() {
         super.reset();
         this.donorId = null;
+        this.charityId = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;

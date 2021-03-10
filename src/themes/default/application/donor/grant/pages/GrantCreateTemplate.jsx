@@ -251,24 +251,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
 									</div>
 								</div>
-								<div className="row row--form row__align--center">
-									<div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
-										<BasicCheckbox
-											id="2"
-											checked={isNoteToAdministratorIncluded}
-											label="GRANT.CREATE.INCLUDE_NOTE_TO_ADMINISTRATOR"
-											showLabel={true}
-											onChange={event => onIncludeNoteToAdministratorChange(event.target.checked)}
-										/>
-									</div>
-								</div>
-								{isNoteToAdministratorIncluded && (
-									<div className="row row--form">
-										<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-											<BasicTextArea field={form.$('noteToAdministrator')} />
-										</div>
-									</div>
-								)}
 
 								{renderEditLayoutFooterContent({ form })}
 							</div>

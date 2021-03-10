@@ -1,7 +1,7 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { GrantRouteService } from 'application/administration/grant/services';
-import { donorFormatter, isSome } from 'core/utils';
+import { charityFormatter, donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
@@ -31,6 +31,7 @@ class GrantViewStore extends BaseListViewStore {
                     filter.reset();
                     this.donationStatusDropdownStore.setValue(null);
                     this.searchDonorDropdownStore.setValue(null);
+                    this.searchCharityDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -70,6 +71,7 @@ class GrantViewStore extends BaseListViewStore {
 
         this.createTableStore();
         this.createSearchDonorDropdownStore();
+        this.createSearchCharityDropdownStore();
         this.createDonationStatusDropdownStore();
         this.createExportConfig();
         this.reviewModal = new ModalParams({});
@@ -262,6 +264,37 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 onChange: (donorId) => {
                     this.queryUtility.filter.donorId = donorId;
+                }
+            });
+    }
+
+    createSearchCharityDropdownStore() {
+        this.searchCharityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'GRANT.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.grantStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'taxId',
+                            'name',
+                            'charityAddresses'
+                        ]
+                    });
+                    return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
+                },
+                onChange: (charityId) => {
+                    this.queryUtility.filter.charityId = charityId;
                 }
             });
     }

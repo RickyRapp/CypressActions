@@ -24,6 +24,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		donationStatusDropdownStore,
 		exportConfig,
 		selectDonorModal,
+		searchCharityDropdownStore
 	} = grantViewStore;
 
 	return (
@@ -37,6 +38,9 @@ const GrantListTemplate = function ({ grantViewStore }) {
 						<TableFilter queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={searchCharityDropdownStore} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput

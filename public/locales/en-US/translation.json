@@ -1490,6 +1490,7 @@
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",

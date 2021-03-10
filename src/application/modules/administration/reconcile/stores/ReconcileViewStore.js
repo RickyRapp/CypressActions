@@ -68,6 +68,7 @@ class ReconcileViewStore extends BaseListViewStore {
 
     @action.bound
     async printReport(reconcile) {
+        this.tableStore.suspend();
         let extension = 'pdf';
         let contentType = 'application/pdf';
         if (reconcile.paymentType.abrv === 'ach') {
@@ -78,6 +79,7 @@ class ReconcileViewStore extends BaseListViewStore {
         const nowDate = new Date();
         const fileName = `${"Receipt".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.${extension}`;
         saveAs(report.data, fileName);
+        this.tableStore.resume();
         this.rootStore.notificationStore.success("Report generated.");
     }
 
