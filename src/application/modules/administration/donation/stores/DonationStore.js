@@ -11,6 +11,11 @@ class DonationStore {
         return response.data;
     }
 
+    async achBatchCurrentNumber(resource) {
+        const response = await this.donationService.achBatchCurrentNumber(resource);
+        return response.data;
+    }
+
     async reviewPendingDonations(resource) {
         const response = await this.donationService.reviewPendingDonations(resource);
         return response.data;

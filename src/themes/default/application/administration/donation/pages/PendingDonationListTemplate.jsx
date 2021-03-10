@@ -18,14 +18,10 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         authorization,
         tableStore,
         onChangeChecked,
-        onReviewClick,
-        disableSave,
-        onPaymentNumberChange,
-        paymentNumber,
         paymentTypeDropdownStore,
-        onIsTransferToCharityAccountChange,
-        isTransferToCharityAccount,
-        form
+        achBatchCurrentNumber,
+        form,
+        onAchNextPaymentNumberClick
     } = pendingDonationViewStore;
 
     const DetailComponent = ({ dataItem }) => {
@@ -75,6 +71,9 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         <ApplicationListLayout store={pendingDonationViewStore} authorization={authorization}>
             <Content>
                 <div className="row u-mar--bottom--med">
+                    <div className="col col-sml-6 col-lrg-3">
+                        <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
+                    </div>
                     <div className="col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('paymentNumber')} />
 
@@ -84,9 +83,10 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                             </div>
                             :
                             null}
-                    </div>
-                    <div className="col col-sml-6 col-lrg-3">
-                        <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'ach' &&
+                            <div>
+                                Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
+                            </div>}
                     </div>
                 </div>
                 <div className="card--primary card--med u-mar--bottom--med">

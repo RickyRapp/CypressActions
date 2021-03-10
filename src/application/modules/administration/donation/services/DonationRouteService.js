@@ -13,6 +13,10 @@ class DonationRouteService extends BaseRouteService {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }
 
+    achBatchCurrentNumber({ increment }) {
+        return this.base + `/current-ach-batch-number?increment=${increment}`;
+    }
+
     review(resource) {
         return super.update(this.base + '/review', resource);
     }

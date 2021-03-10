@@ -15,9 +15,9 @@ class PastGrantViewStore extends BaseListViewStore {
 				edit: id => {
 					this.rootStore.routerStore.goTo('master.app.main.donor.grant.edit', { id: id });
 				},
-                preview: (editId) => {
-                    this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: editId });
-                }
+				preview: (editId) => {
+					this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: editId });
+				}
 			},
 			queryConfig: {
 				filter: new PastGrantFilter('dateCreated', 'desc'),

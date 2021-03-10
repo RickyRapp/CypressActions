@@ -12,6 +12,11 @@ class DonationService extends BaseService {
         return this.apiClient.put(url, resource);
     }
 
+    achBatchCurrentNumber(params) {
+        const url = this.routeService.achBatchCurrentNumber(params);
+        return this.apiClient.get(url);
+    }
+
     findPendingDonation(params) {
         const url = this.routeService.findPendingDonation(params);
         return this.apiClient.get(url);

@@ -11,11 +11,11 @@ class GrantRouteService extends BaseRouteService {
     }
 
     findSummaryPastGrant(params) {
-        return super.find(this.base + '/summary/{?donorId,charityId,donationStatusIds,donationTypeIds,embed,fields}', params);
+        return super.find(this.base + '/summary/{?donorId,charityId,donationStatusIds,donationTypeIds,page,rpp,sort,embed,fields}', params);
     }
 
     findPastGrant(params) {
-        return super.find(this.base + '/donor/{?donorId,charityId,donationStatusIds,donationTypeIds,embed,fields}', params);
+        return super.find(this.base + '/donor/{?donorId,charityId,donationStatusIds,donationTypeIds,page,rpp,sort,embed,fields}', params);
     }
 
     get(id, options) {

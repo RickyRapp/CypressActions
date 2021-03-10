@@ -18,7 +18,7 @@ import {
 import { Slider, SliderLabel } from '@progress/kendo-react-inputs';
 import { isSome } from 'core/utils';
 
-const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
+const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const {
 		tableStore,
 		queryUtility,
@@ -100,7 +100,10 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 								</div>
 							</TableFilter>
 						</div>
-						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+						<BaasicTable
+							authorization={authorization}
+							tableStore={tableStore}
+							actionsComponent={renderActions} />
 					</div>
 				</div>
 				<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
@@ -141,7 +144,7 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 										</div>
 									</div>
 								</div>
-								<div className="row u-mar--bottom--med">
+								{/* <div className="row u-mar--bottom--med">
 									<div className="col col-sml-12 col-lrg-12">
 										<span>{t('DONATION.PAST_GRANT.LIST.SUMMARY.SLIDER_LABEL')}</span>
 										{summaryData && (
@@ -163,23 +166,23 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 											</Slider>
 										)}
 									</div>
-								</div>
+								</div> */}
 								<div className="row u-mar--bottom--med">
 									<div className="col col-sml-12 col-lrg-12">
 										<DonutChartContainer />
 									</div>
 								</div>
-								<div className="row">
+								{/* <div className="row">
 									<div className="col col-sml-12 col-lrg-12">
 										<LineChartContainer />
 									</div>
-								</div>
+								</div> */}
 							</React.Fragment>
 						) : (
-							<div className="card--med">
-								<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
-							</div>
-						)}
+								<div className="card--med">
+									<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
+								</div>
+							)}
 					</div>
 				</div>
 			</div>

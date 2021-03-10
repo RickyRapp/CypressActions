@@ -11,6 +11,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @observable disableSave = false;
     @observable paymentNumber = '';
     @observable isTransferToCharityAccount = false;
+    @observable achBatchCurrentNumber = false;
     data = null;
 
     form = new PendingDonationReviewForm({
@@ -40,6 +41,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                         params.embed = ['charity'];
 
                         this.data = await rootStore.application.administration.donationStore.findPendingDonation(params);
+                        this.achBatchCurrentNumber = await rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
                         return {
                             item: this.data,
                             totalRecords: this.data.length
@@ -88,6 +90,12 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
+    async onAchNextPaymentNumberClick() {
+        this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: true });
+        this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
+    }
+
+    @action.bound
     async onReviewClick(model) {
         try {
             const checkedGroupedDonations = this.tableStore.data.filter(d => {
@@ -103,6 +111,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             model.groupedPendingDonations = groupedDonations;
             const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(model);
             this.rootStore.notificationStore.success("Successfully processed.");
+            this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
             await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
             this.paymentTypeDropdownStore.setValue(null);
             await this.queryUtility.fetch();
