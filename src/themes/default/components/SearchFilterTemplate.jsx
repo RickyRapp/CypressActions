@@ -38,37 +38,31 @@ class SearchFilterTemplate extends React.Component {
         } = this.props;
 
         return <React.Fragment>
-            <div className='inputgroup u-mar--bottom--sml'>
-                <div className='inputgroup--main u-mar--top--sml'>
+
+                <div className='u-position--rel search__wrapper__item flex--g--2'>
                     <input className={className} type="text" placeholder={placeholder}
                         value={queryUtility.filter[propertyName] || ""}
                         onChange={this.onChange}
                         onKeyPress={this.onKeyPress} />
                     {queryUtility.filter[propertyName] && queryUtility.filter[propertyName] !== '' &&
                         <span className='filter__btn--clear' onClick={this.onInlineReset}>
-                            <i className='u-icon u-icon--base u-icon--close' />
+                            <i className='u-icon u-icon--sml u-icon--close' />
                         </span>
                     }
                 </div>
 
-                <div className="inputgroup--aside">
-                    <button className='btn btn--med btn--med--wide btn--secondary' onClick={() => queryUtility.fetch()}>
-                        <i className='icomoon icon-search tiny align--v--baseline' />
-                        <span className='align--v--bottom'>
-                            {t('GRID.FILTER.SEARCH_BUTTON')}
-                        </span>
-                    </button>
+                <button className='btn btn--xsml btn--secondary search__wrapper__item' onClick={() => queryUtility.fetch()}>
+                    <i className='icomoon icon-search tiny align--v--baseline' />
+                    <span className='align--v--bottom'>
+                        {t('GRID.FILTER.SEARCH_BUTTON')}
+                    </span>
+                </button>
 
-                </div>
                 {clearVisible &&
-                    <div className="inputgroup--aside inputgroup--aside--special">
-                        <button className='btn btn--sml btn--ghost' onClick={() => queryUtility.resetFilter()}>
-                            {t('GRID.FILTER.CLEAR_BUTTON')}
-                        </button>
-                    </div>
+                    <button className='btn btn--sml btn--ghost search__wrapper__item' onClick={() => queryUtility.resetFilter()}>
+                        {t('GRID.FILTER.CLEAR_BUTTON')}
+                    </button>
                 }
-
-            </div>
         </React.Fragment>;
     }
 }

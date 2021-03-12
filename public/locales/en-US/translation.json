@@ -1561,7 +1561,7 @@
             "CHARITY_INFORMATION_IS_ACH_AVAILABLE": "ACH available",
             "CHARITY_INFORMATION_ADDRESS": "Address",
             "BUTTON": {
-                "CREATE": "Create",
+                "CREATE": "Give",
                 "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
                 "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
             },
@@ -1933,6 +1933,7 @@
             "HIDE_CUSTOMIZE_BOOKS": "HIDE CUSTOMIZE BOOKS",
             "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
             "ENROLLED_IN_PROTECTION_PLAN": "Enrolled in protection plan",
+            "PLACE_ORDER": "Place Order",
             "BUTTON": {
                 "ADD": "Add new",
                 "REVIEW": "Review",

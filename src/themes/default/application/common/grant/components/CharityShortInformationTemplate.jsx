@@ -12,35 +12,35 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
                 <div className="col col-sml-12 u-mar--bottom--sml">
                     <div className="charity-information__card ">
                         <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
-                        <span className="type--base type--wgt--medium">{charity.name}</span>
+                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.name}</span>
                     </div>
                 </div>
                 <div className="col col-sml-12 u-mar--bottom--sml">
                     <div className="charity-information__card ">
                         <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                        <span className="type--base type--wgt--medium">{charity.taxId}</span>
+                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.taxId}</span>
                     </div>
                 </div>
                 <div className="col col-sml-12 u-mar--bottom--sml">
                     <div className="charity-information__card ">
                         <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_IS_ACH_AVAILABLE')}</span>
-                        <span className="type--base type--wgt--medium">{charity.isAchAvailable ? 'Yes' : 'No'}</span>
+                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.isAchAvailable ? 'Yes' : 'No'}</span>
                     </div>
                 </div>
                 {!isChangedDefaultAddress &&
                     <div className="col col-sml-12 u-mar--bottom--sml">
                         <div className="charity-information__card ">
                             <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                            <span className="type--base type--wgt--medium">{addressFormatter.format(charity.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
+                            <span className="type--base type--wgt--medium u-mar--left--auto type--right">{addressFormatter.format(charity.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
                         </div>
                     </div>}
             </div>
             {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
-                <BaasicButton
-                    className="btn btn--sml btn--link u-mar--bottom--sml"
-                    label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
-                    onClick={onChangeDefaultAddressClick}>
-                </BaasicButton>}
+                <a href="#" onClick={onChangeDefaultAddressClick} className="u-mar--bottom--med u-display--b type--underline"> 
+                    <i className="u-icon u-icon--base u-icon--pin u-mar--right--sml"></i>
+                    {isChangedDefaultAddress ? t('GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS') : t('GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS')}
+                </a>
+            }
         </React.Fragment>
     )
 };

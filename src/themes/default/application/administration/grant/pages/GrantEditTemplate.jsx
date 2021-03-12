@@ -70,7 +70,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										<div className="u-push--from--med">
 											<BaasicButton
 												className="advanced-search"
-												icon="u-icon u-icon--arrow-down--positive u-icon--base"
+												icon="u-icon u-icon--arrow-down--primary u-icon--sml u-mar--left--sml"
 												disabled={form.$('isNewCharity').value}
 												label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
 												onClick={openAdvancedSearchModal}

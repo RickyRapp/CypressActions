@@ -16,38 +16,6 @@ function TransactionTemplate({ transactionViewStore }) {
 						</div>
 					</TableFilter>
 				</div>
-				{/* <div className="row">
-                    <div className="col col-sml-6 u-display--flex">
-                        <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--base u-icon--download u-mar--right--tny"></span>
-                            Export
-                        </div>
-                        <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--base u-icon--document u-mar--right--tny"></span>
-                            Print
-                        </div>
-                        <div className="cursor--pointer type--sml type--wgt--medium type--color--note u-mar--right--med u-mar--bottom--sml">
-                            <span className="u-icon u-icon--base u-icon--upload u-mar--right--tny"></span>
-                            Send
-                        </div>
-                    </div>
-
-                    <div className="col col-sml-6 u-display--flex u-display--flex--justify--flex-end"> 
-                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
-                            <span className="card--form card--tny u-icon u-icon--base u-icon--download u-mar--right--tny"></span>
-                        </div>
-                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
-                            <span className="card--form card--tny u-icon u-icon--base u-icon--document u-mar--right--tny"></span>
-                        </div>
-                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
-                            <span className="card--form card--tny u-icon u-icon--base u-icon--upload u-mar--right--tny"></span>
-                        </div>
-                        <div className="cursor--pointer u-mar--right--sml u-mar--bottom--sml">
-                            <span className="card--form card--tny u-icon u-icon--base u-icon--edit u-mar--right--tny"></span>
-                        </div>
-                    </div>
-                    <div className="col col-sml-6"></div>
-                </div> */}
 
 				<BaasicTable tableStore={tableStore} />
 			</div>

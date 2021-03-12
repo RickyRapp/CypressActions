@@ -686,8 +686,7 @@
         }
 
         &--filter {
-            background-image: svg-load('../styles/postcss-svg/filter.svg', fill: $color-primary);
-            transition: all 250ms ease-out;
+            background-image: svg-load('../styles/postcss-svg/filter.svg', fill: $color-text);
         }
 
         &--info {
@@ -743,6 +742,10 @@
         
         &--plus {
             background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
+        }
+
+        &--pin {
+            background-image: svg-load('../styles/postcss-svg/pin.svg', stroke: $color-primary);
         }
         
         &--add {
