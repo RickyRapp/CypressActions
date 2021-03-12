@@ -98,6 +98,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async onReviewClick(model) {
         try {
+            this.tableStore.suspend();
             const checkedGroupedDonations = this.tableStore.data.filter(d => {
                 d.pendingDonations = d.pendingDonations.filter(c => c.checked);
                 return d.pendingDonations.length > 0;
@@ -105,6 +106,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             const groupedDonations = checkedGroupedDonations.map(d => { return { ...d, pendingDonations: d.pendingDonations.filter(c => { return c.checked }) } });
 
             if (groupedDonations.length === 0 || groupedDonations.some(c => c.pendingDonations === null || c.pendingDonations === null || c.pendingDonations.length === 0)) {
+                this.tableStore.resume();
                 this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
                 return;
             }
@@ -116,8 +118,9 @@ class PendingDonationViewStore extends BaseListViewStore {
             this.paymentTypeDropdownStore.setValue(null);
             await this.queryUtility.fetch();
             this.form.clear();
+            this.tableStore.resume();
         } catch (error) {
-            console.log(error)
+            this.tableStore.resume();
             this.rootStore.notificationStore.error("Something went wrong.");
         }
     }

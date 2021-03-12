@@ -5,7 +5,7 @@ import { BaasicButton } from 'core/components';
 import { isSome } from 'core/utils';
 
 const BaasicFormControlsTemplate = function (props) {
-    const { form, onSubmit, controls, label, className, disableSave = false, authorization } = props;
+    const { form, onSubmit, controls, label, className, disableSave, authorization } = props;
 
     return (
         <React.Fragment>
