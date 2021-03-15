@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore, TableViewStore } from 'core/stores';
 import { ReconcileEditForm } from 'application/administration/reconcile/forms';
-import { applicationContext } from 'core/utils';
+import { applicationContext, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import _ from 'lodash';
 
 @applicationContext
@@ -27,7 +27,7 @@ class ReconcileEditViewStore extends BaseEditViewStore {
             onAfterAction: onAfterEdit
         });
 
-        if (reconcile.json) {
+        if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(reconcile.json)) {
             this.createTableStore();
             this.tableStore.setData(_.orderBy(JSON.parse(reconcile.json), ['dateChanged'], ['desc']));
             if (!this.tableStore.dataInitialized) {

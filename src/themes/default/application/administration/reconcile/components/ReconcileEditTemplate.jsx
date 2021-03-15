@@ -31,11 +31,16 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                             </span>
                         </div>
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                        <h3 className="">Voided checks</h3>
-                        <SimpleBaasicTable tableStore={tableStore} />
-                    </div>
+                </div>
+                {tableStore &&
+                    <div className="row">
+                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                            <h3 className="">Voided checks</h3>
+                            <SimpleBaasicTable tableStore={tableStore} />
+                        </div>
+                    </div>}
 
+                <div className="row">
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                         <BasicRadio
                             label={'Cashed'}
@@ -50,6 +55,7 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                             field={form.$('isCashed')}
                         />
                     </div>
+
                     {form.$('isCashed').value === 'false' &&
                         <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                             <BasicInput field={form.$('newCheckNumber')} />
@@ -60,7 +66,7 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                 </div>
                 {renderEditLayoutFooterContent({ form })}
             </div>
-        </EditFormContent>
+        </EditFormContent >
     )
 };
 
