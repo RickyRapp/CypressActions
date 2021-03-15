@@ -968,6 +968,16 @@
                     "CONFIRMATION_NUMBER_LABEL": "Confirmation number"
                 }
             }
+        },
+        "CHECK":{
+            "LIST": {
+                "COLUMNS": {
+                    "CHARITY_LABEL": "Charity",
+                    "DATE_CREATED_LABEL": "Date created",
+                    "CODE_LABEL": "Code",
+                    "AMOUNT_LABEL": "Amount"
+                }
+            }
         }
     },
     "CHARITY_ACTIVITY": {

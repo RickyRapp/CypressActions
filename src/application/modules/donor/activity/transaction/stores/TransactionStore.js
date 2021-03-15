@@ -11,6 +11,11 @@ class TransactionStore {
         return response.data;
     }
 
+    async findPendingCheck(params) {
+        const response = await this.activityService.findPendingCheck(params);
+        return response.data;
+    }
+
     async loadDonorData(id) {
         const response = await this.activityService.loadDonorData(id);
         return response.data;
