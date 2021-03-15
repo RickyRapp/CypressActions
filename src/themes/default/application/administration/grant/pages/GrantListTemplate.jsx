@@ -86,8 +86,8 @@ GrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onRedirect, onPreview, onApprove } = actions;
-	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove)) return null;
+	const { onEdit, onRedirect, onPreview, onApprove, onCancel } = actions;
+	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -107,6 +107,13 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onApproveRender) {
 			approveRender = actionsRender.onApproveRender(item);
+		}
+	}
+
+	let cancelRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onCancelRender) {
+			cancelRender = actionsRender.onCancelRender(item);
 		}
 	}
 
@@ -151,6 +158,16 @@ function renderActions({ item, actions, actionsRender }) {
 						label="GRANT.LIST.BUTTON.REVIEW"
 						onlyIcon={true}
 						onClick={() => onApprove(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onCancel) && cancelRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--delete u-icon--base"
+						label="GRANT.LIST.BUTTON.CANCEL"
+						onlyIcon={true}
+						onClick={() => onCancel(item)}
 					></BaasicButton>
 				) : null}
 			</div>

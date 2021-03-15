@@ -16,16 +16,9 @@ class ReconcileEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        await rootStore.application.administration.reconcileStore.updateReconcile(resource);
+                        await rootStore.application.administration.reconcileStore.checkUpdate(resource);
                     },
                     get: async () => {
-                        if (reconcile.json) {
-                            const oldPaymentNumbers = JSON.parse(reconcile.json)
-                            this.tableStore.setData(_.orderBy(oldPaymentNumbers, ['dateChanged'], ['desc']))
-                            if (!this.tableStore.dataInitialized) {
-                                this.tableStore.dataInitialized = true;
-                            }
-                        }
                         return reconcile;
                     }
                 }
@@ -34,7 +27,13 @@ class ReconcileEditViewStore extends BaseEditViewStore {
             onAfterAction: onAfterEdit
         });
 
-        this.createTableStore();
+        if (reconcile.json) {
+            this.createTableStore();
+            this.tableStore.setData(_.orderBy(JSON.parse(reconcile.json), ['dateChanged'], ['desc']));
+            if (!this.tableStore.dataInitialized) {
+                this.tableStore.dataInitialized = true;
+            }
+        }
     }
 
     @action.bound

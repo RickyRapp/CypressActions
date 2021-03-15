@@ -95,6 +95,11 @@ class GrantStore {
         return response.data;
     }
 
+    async cancelGrant(resource) {
+        const response = await this.grantService.cancel(resource);
+        return response.data;
+    }
+
     async updateScheduledGrant(resource) {
         const response = await this.scheduledGrantService.update(resource);
         return response.data;

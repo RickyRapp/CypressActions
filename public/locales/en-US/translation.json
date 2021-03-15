@@ -1505,7 +1505,8 @@
                 "CREATE": "Create",
                 "DELETE": "Delete",
                 "REVIEW": "Review",
-                "PREVIEW": "Preview"
+                "PREVIEW": "Preview",
+                "CANCEL": "Cancel"
             }
         },
         "PREVIEW": {
@@ -2374,13 +2375,7 @@
                 "PAYMENT_TYPE_LABEL": "Payment type",
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
-                "DESCRIPTION_LABEL": "Description",
-                "OLD_CHECK_NUMBER_LABEL": "Check number",
-                "OLD_CHECK_DATE_CREATED_LABEL": "Date",
-                "OLD_CHECK_DESCRIPTION_LABEL": "Description"
-            },
-            "EMPTY_STATE": {
-                "TITLE": "No checks"
+                "DESCRIPTION_LABEL": "Description"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -2388,6 +2383,22 @@
                 "CASH": "Cash",
                 "PRINT": "Print"
             }
+        },
+        "CHECK": {
+            "LIST": {
+            "TITLE": "Reconcile",
+            "COLUMNS": {
+                "OLD_CHECK_NUMBER_LABEL": "Check number",
+                "OLD_CHECK_DATE_CREATED_LABEL": "Date",
+                "OLD_CHECK_DESCRIPTION_LABEL": "Description"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "PREVIEW": "Preview",
+                "CASH": "Cash",
+                "PRINT": "Print"
+            }
+        }
         },
         "EDIT": {
             "FIELDS": {

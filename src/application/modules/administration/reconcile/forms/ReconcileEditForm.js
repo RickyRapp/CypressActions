@@ -12,7 +12,8 @@ export default class ReconcileEditForm extends FormBase {
                     name: 'isCashed',
                     label: 'RECONCILE.CHECK.EDIT.FIELDS.CHECK_CASHED_LABEL',
                     placeholder: 'RECONCILE.EDIT.FIELDS.CHECK_CASHED_PLACEHOLDER',
-                    rules: 'required|boolean'
+                    rules: 'required|boolean',
+                    type: 'radio'
                 },
                 {
                     name: 'description',

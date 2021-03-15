@@ -161,6 +161,7 @@ class GrantViewStore extends BaseListViewStore {
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onApprove: (grant) => this.approveGrant(grant),
+                onCancel: (grant) => this.cancelGrant(grant),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
@@ -172,6 +173,9 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 onApproveRender: (grant) => {
                     return grant.donationStatus.abrv === 'pending';
+                },
+                onCancelRender: (grant) => {
+                    return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved';
                 },
             }
         }));
@@ -186,6 +190,27 @@ class GrantViewStore extends BaseListViewStore {
                     await this.rootStore.application.administration.grantStore.approveGrant({ id: grant.id });
                     this.queryUtility.fetch();
                     this.rootStore.notificationStore.success('Successfully approved grant.');
+                } catch ({ data }) {
+                    if (data && data.message) {
+                        this.rootStore.notificationStore.error(data.message);
+                    }
+                    else {
+                        this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+                    }
+                }
+            }
+        );
+    }
+
+    @action.bound
+    async cancelGrant(grant) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to cancel grant #${grant.confirmationNumber}?`,
+            async () => {
+                try {
+                    await this.rootStore.application.administration.grantStore.cancelGrant({ id: grant.id });
+                    this.queryUtility.fetch();
+                    this.rootStore.notificationStore.success('Successfully canceled grant.');
                 } catch ({ data }) {
                     if (data && data.message) {
                         this.rootStore.notificationStore.error(data.message);

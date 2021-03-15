@@ -5,27 +5,25 @@ import {
     BasicCheckbox,
     BaasicFormControls,
     BasicTextArea,
-    SimpleBaasicTable
+    SimpleBaasicTable,
+    EditFormContent,
+    BasicRadio
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import { renderIf } from 'core/utils';
+import { isSome, renderIf } from 'core/utils';
 
 const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
     const {
         form,
-        cashedVariable,
-        voidVariable,
-        onChangeCashed,
-        onChangeVoid,
         item,
         tableStore
     } = reconcileEditViewStore;
 
     return (
-        <form className='form'>
-            <section >
-                <div className="row row--form">
-                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+        <EditFormContent form={form} >
+            <div className="card--med card--primary">
+                <div className="row">
+                    <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                         <div>
                             <label className="form__group__label">Check number</label>
                             <span className={"input input--lrg input--text input--disabled"}>
@@ -37,22 +35,22 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                         <h3 className="">Voided checks</h3>
                         <SimpleBaasicTable tableStore={tableStore} />
                     </div>
+
                     <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
-                        <BasicCheckbox
-                            id='1'
-                            checked={cashedVariable}
-                            onChange={(event) => onChangeCashed(event.target.checked)}
-                            label='Cashed'
+                        <BasicRadio
+                            label={'Cashed'}
+                            value={'true'}
+                            field={form.$('isCashed')}
                         />
-                        <BasicCheckbox
-                            id='2'
-                            checked={voidVariable}
-                            onChange={(event) => onChangeVoid(event.target.checked)}
-                            label='Void'
-                        />
-                        {renderIf(form.$('isCashed').localizedError)(<div className="validation__message"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>Select either Cashed or Void.</div>)}
                     </div>
-                    {form.$('isCashed').value === false &&
+                    <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                        <BasicRadio
+                            label={'Voided'}
+                            value={'false'}
+                            field={form.$('isCashed')}
+                        />
+                    </div>
+                    {form.$('isCashed').value === 'false' &&
                         <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                             <BasicInput field={form.$('newCheckNumber')} />
                         </div>}
@@ -61,8 +59,8 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
                     </div>
                 </div>
                 {renderEditLayoutFooterContent({ form })}
-            </section>
-        </form>
+            </div>
+        </EditFormContent>
     )
 };
 
