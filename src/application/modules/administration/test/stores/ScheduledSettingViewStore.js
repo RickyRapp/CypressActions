@@ -52,7 +52,7 @@ class ScheduledSettingViewStore extends BaseViewStore {
             },
             {
                 name: 'Contribution by automatic contribution setting',
-                description: 'Process contributions specified by automatic contribution settings. Low balance contribution.',
+                description: 'Process contributions specified by automatic contribution settings. Balance protection plan.',
                 abrv: 'contribution-by-automatic-contribution-setting'
             },
             {
