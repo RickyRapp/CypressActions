@@ -16,11 +16,11 @@
 			padding-bottom: calc($unit * 2);
 			margin-bottom: calc($unit * 2);
 
-			border-right: 0;
-			border-bottom: 2px solid color($color-opaque a(30%));
+			border-bottom: 0;
+			border-right: 2px solid color($color-opaque a(30%));
         }
         
-        @media (--screen-to-sml) {
+        @media (--screen-to-med) {
             flex-direction: column;
             align-items: center;
         }
@@ -38,10 +38,10 @@
 			color: $color-text;
 
 			@media (--screen-from-xlrg) {
-				@mixin type-scale $type-xxxlarge, 2;
+				@mixin type-scale $type-xxlarge, 1.5;
 			}
 
-			@media (--screen-to-sml) {
+			@media (--screen-to-lrg) {
                 width: 100%;
                 text-align: center;
 				order: 2;
@@ -57,14 +57,14 @@
 
 			color: $bali-hai;
 			text-transform: uppercase;
-			@mixin type-scale $type-small, 1;
+			@mixin type-scale $type-small, 0.75;
 			font-weight: $type-weight-medium;
 
 			@media (--screen-to-xlrg) {
-				@mixin type-scale $type-xsmall, 1;
+				@mixin type-scale $type-xsmall, 0.75;
 			}
 
-			@media (--screen-to-sml) {
+			@media (--screen-to-lrg) {
                 width: 100%;
                 text-align: center;
 				order: 1;
