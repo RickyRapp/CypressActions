@@ -17,7 +17,8 @@ class TransactionTabViewStore extends BaseViewStore {
                     title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
-                        value: 'short'
+                        value: 'short',
+                        cellClass: 'table__cell--date'
                     }
                 },
                 {

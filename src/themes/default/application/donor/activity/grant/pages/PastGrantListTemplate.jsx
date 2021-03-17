@@ -167,10 +167,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 										)}
 									</div>
 								</div> */}
-								<div className="row u-mar--bottom--med">
-									<div className="col col-sml-12 col-lrg-12">
-										<DonutChartContainer />
-									</div>
+								<div className="u-mar--bottom--med">
+									<DonutChartContainer />
 								</div>
 								{/* <div className="row">
 									<div className="col col-sml-12 col-lrg-12">

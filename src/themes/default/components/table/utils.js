@@ -56,6 +56,7 @@ function defaultRenderColumnsTemplate({ t, columns }) {
                 innerColumns = null,
                 format = null,
                 className = '',
+                cellClass='',
                 showColumn = true,
                 headerCell = null,
                 ...otherProps
@@ -67,7 +68,7 @@ function defaultRenderColumnsTemplate({ t, columns }) {
                 : props => <LocalizedCell onClick={onClick} icon={icon} {...props} {...otherProps} format={format} />;
             return showColumn ? (
                 <GridColumn
-                    className={onClick ? `cursor--pointer table--clickable ${className || ''}` : ''}
+                    className={onClick ? `cursor--pointer table--clickable ${className || 'cellClass'}` : `${cellClass}`}
                     key={key || idx}
                     field={key}
                     title={t(title)}

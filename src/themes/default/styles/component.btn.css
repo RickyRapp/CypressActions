@@ -44,6 +44,13 @@
         line-height: calc($unit * 3.5);
     }
 
+    &--xsml {
+        font-size: 12px;
+        height: calc($unit * 5);
+        padding: 0 calc($unit * 2);
+        line-height: calc($unit * 5);
+    }
+
     &--sml {
         font-size: 14px;
         height: calc($unit * 6);
@@ -232,6 +239,16 @@
         
         &:hover {
             text-decoration: underline;
+        }
+
+        &--secondary {
+            padding: 0;
+            color: $color-text;
+            background-color: transparent;
+            
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 

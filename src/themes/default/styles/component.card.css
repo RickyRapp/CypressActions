@@ -27,6 +27,7 @@
 
 	&--form {
 		background-color: color($color-background-seashellt a(60%));
+		border: 1px solid color($color-primary a(25%));
 		border-radius: $radius-base;
 		box-shadow: $shadow-card;
 	}

@@ -25,6 +25,10 @@
     @mixin type-scale $type-base, 1;
     border: 1px solid color(white blackness(+30%));
 
+    @supports (-webkit-touch-callout: none) {
+        font-size: 16px !important;
+    }
+
     &::placeholder {
         color: color(white blackness(+60%));
     }
@@ -58,8 +62,8 @@
      * Input sizes
      */
     &--sml {
-        height: calc($unit * 4);
-        line-height: calc($unit * 4);
+        height: calc($unit * 5);
+        line-height: calc($unit * 5);
         padding: 0 calc($unit * 1);
     }
 

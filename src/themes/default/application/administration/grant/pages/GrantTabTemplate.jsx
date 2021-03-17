@@ -28,11 +28,10 @@ const GrantTabTemplate = function ({ grantTabViewStore }) {
     return (
         <Page loading={loaderStore.loading}>
             <PageHeader>
-                <div className="col col-sml-12">
+                <div className="col col-sml-12 123">
                 <TabsHeader tabsStore={grantTabViewStore}>{children().props.children}</TabsHeader>
                 </div>
             </PageHeader>
-
             <div className='container'>
                 {renderTabsContent(activeIndex, children().props.children)}
             </div>

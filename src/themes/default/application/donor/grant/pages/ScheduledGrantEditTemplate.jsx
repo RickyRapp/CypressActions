@@ -68,7 +68,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                         <div className="u-push--from--med">
                                             <BaasicButton
                                                 className="advanced-search"
-                                                icon="u-icon u-icon--arrow-down--positive u-icon--base"
+                                                icon="u-icon u-icon--arrow-down--primary u-icon--sml u-mar--left--sml"
                                                 disabled={form.$('isNewCharity').value}
                                                 label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
                                                 onClick={openAdvancedSearchModal}
@@ -130,20 +130,20 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             <div className="col col-sml-12 u-mar--bottom--sml">
                                                 <div className="charity-information__card ">
                                                     <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
-                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.name}</span>
+                                                    <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charityDropdownStore.value.item.name}</span>
                                                 </div>
                                             </div>
                                             <div className="col col-sml-12 u-mar--bottom--sml">
                                                 <div className="charity-information__card ">
                                                     <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                                                    <span className="type--base type--wgt--medium">{charityDropdownStore.value.item.taxId}</span>
+                                                    <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charityDropdownStore.value.item.taxId}</span>
                                                 </div>
                                             </div>
                                             {!isChangedDefaultAddress &&
                                                 <div className="col col-sml-12 u-mar--bottom--sml">
                                                     <div className="charity-information__card ">
                                                         <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                                                        <span className="type--base type--wgt--medium">{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
+                                                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
                                                     </div>
                                                 </div>}
                                         </div>

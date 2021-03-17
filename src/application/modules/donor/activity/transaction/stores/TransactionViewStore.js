@@ -54,7 +54,8 @@ class TransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'date',
                         value: 'short'
-                    }
+                    },
+                    cellClass: 'table__cell--date'
                 },
                 {
                     key: 'charity',

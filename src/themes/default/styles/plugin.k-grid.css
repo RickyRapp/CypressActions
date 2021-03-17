@@ -78,7 +78,7 @@
 	max-height: calc(100vh - 98px);
 
 	table {
-		table-layout: fixed;
+		/* table-layout: fixed; */
 	}
 
 	th {
@@ -364,6 +364,22 @@
 }
 
 .k-grid th, .k-grid td {
-	width: calc($unit * 20);
-    @mixin type-scale $type-base, 1;
+    @mixin type-scale $type-small, 0.75;
+
+	@media (--screen-from-med) {
+		@mixin type-scale $type-base, 1;
+	} 
+}
+
+.k-grid {
+
+    .table {
+
+        &__cell {
+
+            &--date {
+                width: 100px;
+            }
+        }
+    }
 }

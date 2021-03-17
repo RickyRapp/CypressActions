@@ -19,7 +19,7 @@ const CharityAdvancedSearchTemplate = function({ charityAdvancedSearchViewStore 
 	return (
 		<ListContent>
 			<Content>
-				<div className="card--tertiary card--med u-mar--bottom--sml">
+				<div className="u-mar--bottom--sml">
 					<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
 						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicInput

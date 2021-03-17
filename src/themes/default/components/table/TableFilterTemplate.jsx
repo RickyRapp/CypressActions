@@ -28,34 +28,35 @@ function TableFilterTemplate(props) {
 	return (
 		<React.Fragment>
 			<div className={`${searchClassName || ''}`.trim()}>
-				<div className="search__wrapper">
-					<div className="u-mar--right--sml">
-						{showSearch && (
 
-							<SearchFilter
-								className={`input input--lrg input--search ${filterStore.filterVisible ? 'is-expanded' : ''}`}
-								inputWrapperClass={`${inputWrapperClass} u-mar--right--sml`}
-								queryUtility={queryUtility}
-								clearVisible={clearVisible}
-								onSearch={debounceCallback}
-								disableSearch={fetchDisabled}
-							/>
-						)}
-					</div>
-					{showButtons && children && (
-						<Fragment>
-							{showToggle && (
-								<BaasicButton
-									className={`btn btn--icon--med btn--ghost btn--med filter__expand ${filterStore.filterVisible ? 'is-active' : ''}`}
-									icon="btn--icon--lrg u-icon u-icon--filter u-icon--med"
-									onlyIcon={true}
-									onClick={filterStore.toggleFilterVisibility}
-									label={filterStore.filterVisible ? 'GRID.COLLAPSE_FILTERS_BUTTON' : 'GRID.EXPAND_FILTERS_BUTTON'}
+						<div className="search__wrapper">
+
+							{showSearch && (
+
+								<SearchFilter
+									className={`input input--med input--search search__input--noborder ${filterStore.filterVisible ? 'is-expanded' : ''}`}
+									inputWrapperClass={`${inputWrapperClass}`}
+									queryUtility={queryUtility}
+									clearVisible={clearVisible}
+									onSearch={debounceCallback}
+									disableSearch={fetchDisabled}
 								/>
 							)}
-						</Fragment>
-					)}
-				</div>
+
+							{showButtons && children && (
+								<Fragment>
+									{showToggle && (
+
+										<div className="search__filter__btn" onClick={filterStore.toggleFilterVisibility} >
+											<i className={`search__filter__btn__icon u-icon u-icon--filter u-icon--base search__wrapper__item`}></i>
+											<span className="search__filter__btn__text search__wrapper__item">Advanced Search</span>
+											<i className={`u-icon u-icon--arrow-down--primary u-icon--sml ${filterStore.filterVisible ? 'u-rotate--180' : ''}`}></i>
+										</div>
+									)}
+								</Fragment>
+							)}
+						</div>
+
 				{showButtons && children && (
 					<Fragment>
 						{nextToSearch && (
@@ -81,7 +82,7 @@ function TableFilterTemplate(props) {
 					</Fragment>
 				)}
 			</div>
-			<div className={`${filterClassName || ''}`.trim()}>
+			<div className={`${filterClassName || 'u-mar--top--sml'}`.trim()}>
 				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled)}
 			</div>
 		</React.Fragment>

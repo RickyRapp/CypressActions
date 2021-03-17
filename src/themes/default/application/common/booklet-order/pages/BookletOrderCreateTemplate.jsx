@@ -68,158 +68,164 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             return (
                                 <div key={bt.id} className="row">
                                     {bt.abrv === 'classic' &&
-                                        <div className="col col-sml-12 col-xxlrg-9 card--med u-align--self--end">
-                                            <div className="row">
-                                                {denominationTypes.map((dt, index) => {
-                                                    const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
-                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) : null;
-                                                    const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
+                                        <div className="col col-sml-12 col-xxlrg-8 u-align--self--end">
+                                                <div className="row">
+                                                    {denominationTypes.map((dt, index) => {
+                                                        const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
+                                                            orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) : null;
+                                                        const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
 
-                                                    return (
-                                                        <React.Fragment key={dt.id}>
-                                                            <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
-                                                                <div className="u-separator--primary">
-                                                                    <div className="row u-mar--bottom--sml u-display--flex--align--center">
-                                                                        <div className="col col-sml-3">
-                                                                            <div className="type--med type--wgt--regular">
-                                                                                <FormatterResolver
-                                                                                    item={{ value: dt.value }}
-                                                                                    field='value'
-                                                                                    format={{ type: 'currency' }}
+                                                        return (
+                                                            <React.Fragment key={dt.id}>
+                                                                <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
+                                                                    <div className="u-separator--primary">
+                                                                        <div className="row u-mar--bottom--sml u-display--flex--align--center">
+                                                                            <div className="col col-sml-3">
+                                                                                <div className="type--med type--wgt--regular">
+                                                                                    <FormatterResolver
+                                                                                        item={{ value: dt.value }}
+                                                                                        field='value'
+                                                                                        format={{ type: 'currency' }}
+                                                                                    />
+                                                                                </div>
+                                                                                {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
+                                                                                    <div className="counter__prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
+                                                                            </div>
+                                                                            <div className="col col-sml-6 counter">
+                                                                                <BookletOrderButtonCounterTemplate
+                                                                                    onRemoveBookletClick={onRemoveBookletClick}
+                                                                                    onAddBookletClick={onAddBookletClick}
+                                                                                    label={order && order.bookletCount.toString() || '0'}
+                                                                                    bookletType={bt}
+                                                                                    denominationType={dt}
                                                                                 />
                                                                             </div>
-                                                                            {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
-                                                                                <div className="counter__prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
-                                                                        </div>
-                                                                        <div className="col col-sml-6 counter">
-                                                                            <BookletOrderButtonCounterTemplate
-                                                                                onRemoveBookletClick={onRemoveBookletClick}
-                                                                                onAddBookletClick={onAddBookletClick}
-                                                                                label={order && order.bookletCount.toString() || '0'}
-                                                                                bookletType={bt}
-                                                                                denominationType={dt}
-                                                                            />
-                                                                        </div>
-                                                                        <div className="col col-sml-3">
-                                                                            <div className="type--med type--wgt--regular type--right">
-                                                                                <FormatterResolver
-                                                                                    item={{ total: bookletAmount }}
-                                                                                    field='total'
-                                                                                    format={{ type: 'currency' }}
-                                                                                />
+                                                                            <div className="col col-sml-3">
+                                                                                <div className="type--med type--wgt--regular type--right">
+                                                                                    <FormatterResolver
+                                                                                        item={{ total: bookletAmount }}
+                                                                                        field='total'
+                                                                                        format={{ type: 'currency' }}
+                                                                                    />
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            {index % 2 === 0 &&
-                                                                <div className="col-xxlrg-1"></div>
-                                                            }
-                                                        </React.Fragment>
-                                                    )
-                                                })}
-                                            </div>
+                                                                {/* {index % 2 === 0 &&
+                                                                    <div className="col-xxlrg-1"></div>
+                                                                } */}
+                                                            </React.Fragment>
+                                                        )
+                                                    })}
+                                                </div>
                                         </div>}
 
                                     {(bt.abrv === 'mixed_500' || bt.abrv === 'mixed_2000') &&
                                         <React.Fragment>
                                             {bt.abrv === 'mixed_500' &&
-                                                <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
-                                                    <div className="row u-mar--bottom--sml u-display--flex--align--center">
-                                                        <div className="col col-sml-3">
-                                                            {bt.name}
-                                                        </div>
-                                                        <div className="col col-sml-6 counter">
-                                                            <BookletOrderButtonCounterTemplate
-                                                                onRemoveBookletClick={onRemoveBookletClick}
-                                                                onAddBookletClick={onAddBookletClick}
-                                                                label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
-                                                                    orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
-                                                                bookletType={bt}
-                                                                denominationType={null}
-                                                            />
-                                                        </div>
-                                                        <div className="col col-sml-3">
-                                                            <div className="type--med type--wgt--regular type--right">
-                                                                <FormatterResolver
-                                                                    item={{ total: mixed500BookletAmount }}
-                                                                    field='total'
-                                                                    format={{ type: 'currency' }}
+                                                <div className="col col-sml-12 col-xxlrg-5 u-align--self--end" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
+
+                                                        <div className="row u-mar--bottom--sml u-display--flex--align--center">
+                                                            <div className="col col-sml-3">
+                                                                {bt.name}
+                                                            </div>
+                                                            <div className="col col-sml-6 counter">
+                                                                <BookletOrderButtonCounterTemplate
+                                                                    onRemoveBookletClick={onRemoveBookletClick}
+                                                                    onAddBookletClick={onAddBookletClick}
+                                                                    label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
+                                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
+                                                                    bookletType={bt}
+                                                                    denominationType={null}
                                                                 />
                                                             </div>
+                                                            <div className="col col-sml-3">
+                                                                <div className="type--med type--wgt--regular type--right">
+                                                                    <FormatterResolver
+                                                                        item={{ total: mixed500BookletAmount }}
+                                                                        field='total'
+                                                                        format={{ type: 'currency' }}
+                                                                    />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+
                                                 </div>}
                                             {bt.abrv === 'mixed_2000' &&
-                                                <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
-                                                    <div className="row u-mar--bottom--sml u-display--flex--align--center">
-                                                        <div className="col col-sml-3">
-                                                            {bt.name}
-                                                        </div>
-                                                        <div className="col col-sml-6 counter">
-                                                            <BookletOrderButtonCounterTemplate
-                                                                onRemoveBookletClick={onRemoveBookletClick}
-                                                                onAddBookletClick={onAddBookletClick}
-                                                                label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
-                                                                    orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
-                                                                bookletType={bt}
-                                                                denominationType={null}
-                                                            />
-                                                        </div>
-                                                        <div className="col col-sml-3">
-                                                            <div className="type--med type--wgt--regular type--right">
-                                                                <FormatterResolver
-                                                                    item={{ total: mixed2000BookletAmount }}
-                                                                    field='total'
-                                                                    format={{ type: 'currency' }}
+                                                <div className="col col-sml-12 col-xxlrg-5u-align--self--end" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
+  
+                                                        <div className="row u-mar--bottom--sml u-display--flex--align--center">
+                                                            <div className="col col-sml-3">
+                                                                {bt.name}
+                                                            </div>
+                                                            <div className="col col-sml-6 counter">
+                                                                <BookletOrderButtonCounterTemplate
+                                                                    onRemoveBookletClick={onRemoveBookletClick}
+                                                                    onAddBookletClick={onAddBookletClick}
+                                                                    label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
+                                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
+                                                                    bookletType={bt}
+                                                                    denominationType={null}
                                                                 />
                                                             </div>
+                                                            <div className="col col-sml-3">
+                                                                <div className="type--med type--wgt--regular type--right">
+                                                                    <FormatterResolver
+                                                                        item={{ total: mixed2000BookletAmount }}
+                                                                        field='total'
+                                                                        format={{ type: 'currency' }}
+                                                                    />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    
                                                 </div>}
                                                 
                                         </React.Fragment>}
                                         {/* ToDo - Add Functionality */}
-                                        <div className="col col-sml-12 col-xxlrg-3 card--med u-display--none" >
+                                        <div className="col col-sml-12 col-xxlrg-4" >
+
                                             <h3 className="u-mar--bottom--med">Selected</h3>
-                                            <table className="table--total">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            Check
-                                                        </th>
-                                                        <th>
-                                                            Pcs
-                                                        </th>
-                                                        <th>
-                                                            Amount
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>$0.00</td>
-                                                        <td>1</td>
-                                                        <td>$200.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>$0.00</td>
-                                                        <td>1</td>
-                                                        <td>$200.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>$0.00</td>
-                                                        <td>1</td>
-                                                        <td>$200.00</td>
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colspan="2">Total</th>
-                                                        <th>$500.00</th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                                <table className="table--total">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Check
+                                                            </th>
+                                                            <th>
+                                                                Pcs
+                                                            </th>
+                                                            <th>
+                                                                Amount
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>$1.00</td>
+                                                            <td>1</td>
+                                                            <td>$200.00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>$2.00</td>
+                                                            <td>1</td>
+                                                            <td>$200.00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>$3.00</td>
+                                                            <td>1</td>
+                                                            <td>$200.00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="2">Total</th>
+                                                            <th>$500.00</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+
                                         </div>
                                 </div>
                             )
@@ -398,7 +404,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </Content>
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount} />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>

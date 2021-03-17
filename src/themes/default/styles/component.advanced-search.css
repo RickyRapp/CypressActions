@@ -3,24 +3,23 @@
 \*------------------------------------*/
 
 .advanced-search {
-    @mixin type-scale $type-base, 1;
-	padding: calc($unit * 1) calc($unit * 2);
-    
-    background-color: $bali-hai;
-    color: $white;
-    
-    border-radius: 25px;
-	border: none;
-	outline: none;
-    
     cursor: pointer;
-    transition: all 250ms ease-in-out;
+    background-color: transparent;
+    border: 0px;
+    color: $color-text;
 
-    & .u-icon {
-        margin-left: calc($unit * 1);
+    &:hover,
+    &:focus {
+        outline: none;
+        border: none;
     }
 
-    &:hover {
-        background-color: color($bali-hai a(70%));
+    &[disabled] {
+        cursor: default;
+        opacity: 0.5;
+    }
+
+    @media (--screen-to-med) {
+        margin-top: calc($unit * 4);
     }
 }

@@ -50,6 +50,16 @@ const TestEmailCreateTemplate = function ({ t, testEmailCreateViewStore }) {
                             label={'aronschlesinger@gmail.com'}
                             onClick={() => form.$('email').set('aronschlesinger@gmail.com')}
                         />
+                        <BaasicButton
+                            className="btn btn--tny btn--primary u-display--b u-mar--bottom--nano"
+                            label={'ibasic@mono-software.com'}
+                            onClick={() => form.$('email').set('ibasic@mono-software.com')}
+                        />
+                        <BaasicButton
+                            className="btn btn--tny btn--primary u-display--b u-mar--bottom--nano"
+                            label={'arajher@mono-software.com'}
+                            onClick={() => form.$('email').set('arajher@mono-software.com')}
+                        />
                     </div>
 
                     {needName &&

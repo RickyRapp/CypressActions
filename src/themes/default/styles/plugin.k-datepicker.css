@@ -12,7 +12,7 @@
     }
 
     &:hover {
-        border-color: color(white blackness(+30%));
+        /* border-color: color(white blackness(+30%)); */
 
         .k-select {
             color: #fff;
@@ -25,7 +25,7 @@
          @mixin type-scale $type-base, 1;
 
         background-color: white;
-        /* border: 1px solid color(white blackness(+30%)); */
+        border: 1px solid color(white blackness(+30%));
         border-right: 0;
         border-radius: $radius-base 0 0 $radius-base;
     
@@ -51,10 +51,7 @@
         }
     }
 
-    /* Removing outter border */
-    .k-picker-wrap {
-        border: 0;
-    }
+    
     
     /* Focus state */
     .k-state-focused {
@@ -64,6 +61,7 @@
         
         input {
             border: 1px solid $color-primary !important;
+            border-right: 0 !important;
         }
     }
 
@@ -72,11 +70,13 @@
         width: calc($unit * 8);
         height: calc($unit * 10);
 
-        color: #fff;
-        background-color: $color-primary;
+        background-color: white;
         background-image: none;
 
         border-radius: 0 $radius-base $radius-base 0;
+        border: 1px solid color(white blackness(+30%));
+        border-left: 0;
+        transition: none;
         
         @media (--screen-to-med) {
             height: calc($unit * 8);
@@ -85,9 +85,32 @@
         }
 
         &:hover {
-            color: #fff;
-            background-color: $color-primary;
+            background-color: white;
             background-image: none;
+        }
+    }
+
+    .k-state-focused {
+        .k-select {
+            border: 1px solid $color-primary !important;
+            border-left: 0 !important;
+            transition: none;
+        }
+    }
+
+    .k-dateinput-wrap {
+        border: 0 !important;
+    }
+
+    /* Removing outter border */
+    .k-picker-wrap {
+        border: 0 !important;
+
+        &:hover {
+            .k-select {
+                background-color: white;
+                background-image: none;
+            }
         }
     }
 
@@ -98,6 +121,21 @@
             line-height: calc($unit * 6) !important;
             padding: 0 calc($unit * 2) !important;
             padding-right: calc($unit * 6) !important;
+        }
+    }
+
+    .k-dateinput {
+        
+        .k-dateinput-wrap {
+            border-right: 0;
+
+            &.k-state-focused  {
+
+                .k-input {
+                    border-right: 0 !important;
+                }
+                
+            }
         }
     }
 }
