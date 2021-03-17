@@ -85,7 +85,7 @@
                 &:active,
                 &:focus {
                     outline: 0;
-                    background-image: svg-load('../styles/postcss-svg/caret-down.svg', stroke: $color-primary);
+                    background-image: svg-load('../styles/postcss-svg/caret-down.svg', stroke: $color-text);
                 }
             }
         }

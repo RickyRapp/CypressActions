@@ -364,7 +364,11 @@
 }
 
 .k-grid th, .k-grid td {
-    @mixin type-scale $type-base, 1;
+    @mixin type-scale $type-small, 0.75;
+
+	@media (--screen-from-med) {
+		@mixin type-scale $type-base, 1;
+	} 
 }
 
 .k-grid {
