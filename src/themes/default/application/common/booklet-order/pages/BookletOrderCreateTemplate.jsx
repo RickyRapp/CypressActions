@@ -60,7 +60,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
                             <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>
-                                Show all orders
+                                Previous Orders
                         </div>
                         </div>
 
@@ -186,7 +186,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         {/* ToDo - Add Functionality */}
                                         <div className="col col-sml-12 col-xxlrg-4" >
 
-                                            <h3 className="u-mar--bottom--med">Selected</h3>
+                                            <h3 className="u-mar--bottom--med">Order Summary</h3>
                                                 <table className="table--total">
                                                     <thead>
                                                         <tr>
@@ -194,7 +194,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 Check
                                                             </th>
                                                             <th>
-                                                                Pcs
+                                                                Count
                                                             </th>
                                                             <th>
                                                                 Amount
@@ -220,7 +220,19 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <th colspan="2">Total</th>
+                                                            <th colspan="2">Total pre-paid</th>
+                                                            <th>$500.00</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="2">Shipping method</th>
+                                                            <th>$500.00</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="2">Shipping fee</th>
                                                             <th>$500.00</th>
                                                         </tr>
                                                     </tfoot>

@@ -60,6 +60,10 @@
             vertical-align: middle;
         }
 
+        &--go-to {
+            background-image: svg-load('../styles/postcss-svg/go-to.svg', stroke: $color-primary);
+        }
+
         &--arrow-up { 
             background-image: svg-load('../styles/postcss-svg/caret-up.svg', stroke: $color-note);
 

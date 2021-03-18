@@ -94,6 +94,9 @@ const ContributionCreateStep3Template = function ({
                         </div>
                     </div>
                 </div>
+                <div className="message message--success"> 
+                    Timeline: Funds will be made available within 3 - 5 business days.
+                </div>
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">

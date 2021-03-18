@@ -6,6 +6,7 @@
 
     &__message {
         @mixin type-scale $type-small, 1;
+        display: block;
         color: $color-warning;
         margin-top: calc($unit * 1);
     }

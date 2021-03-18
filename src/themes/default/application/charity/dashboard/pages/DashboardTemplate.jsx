@@ -64,7 +64,7 @@ function DashboardTemplate({ dashboardViewStore }) {
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
-										<span className="type--base type--wgt--medium u-mar--right--med">Donations Per Year</span>
+										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
 										{/* <BaasicDropdown store={yearDropdownStore} /> */}
 									</div>
 								</div>

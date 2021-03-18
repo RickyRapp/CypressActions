@@ -111,11 +111,13 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									</div>
 								</div>
 								<div className="col col-sml-12 col-med-6">
-									<div className="u-mar--bottom--sml w--100--to-med">
+									<div className="u-mar--bottom--sml w--100--to-med u-position--rel">
 										<BaasicButton
 											className="btn btn--med btn--100 btn--primary--light"
 											label="DASHBOARD.BUTTON.INVEST_FUNDS"
+											disabled={true}
 										/>
+										<div className="message--soon">Coming Soon</div>
 									</div>
 								</div>
 							</div>
@@ -154,7 +156,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
-										<span className="type--base type--wgt--medium u-mar--right--med">Donations Per Year</span>
+										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
 										<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
 									</div>
 								</div>
