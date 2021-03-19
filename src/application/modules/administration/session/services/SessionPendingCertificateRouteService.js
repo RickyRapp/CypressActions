@@ -6,7 +6,7 @@ class SessionPendingCertificateRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?sessionPendingCertificateStatusIds,search,page,rpp,sort,embed,fields}', filter);
     }
 }
 

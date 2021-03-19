@@ -98,9 +98,11 @@ class TransactionTabViewStore extends BaseViewStore {
 
     @action.bound
     async fetchChecksOnHold() {
+        const statuses = await this.rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
         const data = await this.rootStore.application.donor.transactionStore.findPendingCheck(
             {
                 donorId: this.rootStore.userStore.applicationUser.id,
+                sessionPendingCertificateStatusIds: statuses.find(c => c.abrv === 'pending').id,
                 embed: 'charity,certificate,certificate.booklet,certificate.denominationType',
                 sort: 'dateCreated|desc',
                 page: 1,

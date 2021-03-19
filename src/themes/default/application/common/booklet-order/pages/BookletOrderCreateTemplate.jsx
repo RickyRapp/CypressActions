@@ -181,7 +181,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 </div>}
 
                                         </React.Fragment>}
-                                    {/* ToDo - Add Functionality */}
+                                    {/* ToDo - Add Functionality
                                     <div className="col col-sml-12 col-xxlrg-4" >
                                         <h3 className="u-mar--bottom--med">Order Summary</h3>
                                         <table className="table--total">
@@ -235,7 +235,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </tfoot>
                                         </table>
 
-                                    </div>
+                                    </div> */}
                                 </div>
                             )
                         })}

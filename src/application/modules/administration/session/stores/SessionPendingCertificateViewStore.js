@@ -4,7 +4,7 @@ import { FilterParams } from 'core/models';
 class SessionPendingCertificateViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
-            name: 'session',
+            name: 'session-pending-certificates',
             authorization: 'theDonorsFundAdministrationSection',
             routes: {},
             queryConfig: {
@@ -12,7 +12,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
             },
             actions: () => {
                 return {
-                    find: (params) => {
+                    find: async (params) => {
                         params.embed = [
                             'charity',
                             'certificate',
@@ -21,6 +21,10 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                             'certificate.booklet.bookletOrder',
                             'certificate.booklet.bookletOrder.donor'
                         ];
+
+                        const statuses = await rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
+                        params.sessionPendingCertificateStatusIds = statuses.find(c => c.abrv === 'pending').id;
+
                         return rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
                     }
                 }
@@ -34,7 +38,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
                 },
                 {
-                    key: 'certificate.booklet.bookletORder.donor.donorName',
+                    key: 'certificate.booklet.bookletOrder.donor.donorName',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DONOR_LABEL',
                 },
                 {
@@ -61,10 +65,8 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                     }
                 }
             ],
-            actions: {
-            },
-            actionsRender: {
-            }
+            actions: {},
+            actionsRender: {}
         }));
     }
 }
