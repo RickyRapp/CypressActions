@@ -217,19 +217,19 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="2">Total pre-paid</th>
+                                                    <th colSpan="2">Total pre-paid</th>
                                                     <th>$500.00</th>
                                                 </tr>
                                             </tfoot>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="2">Shipping method</th>
+                                                    <th colSpan="2">Shipping method</th>
                                                     <th>$500.00</th>
                                                 </tr>
                                             </tfoot>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="2">Shipping fee</th>
+                                                    <th colSpan="2">Shipping fee</th>
                                                     <th>$500.00</th>
                                                 </tr>
                                             </tfoot>
