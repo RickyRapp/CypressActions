@@ -1,7 +1,7 @@
-import React from 'react';
 import { BasePreviewViewStore, TableViewStore } from 'core/stores';
 import { applicationContext, isSome } from 'core/utils';
 import { action, observable } from 'mobx';
+import { CustomCellTemplate } from 'themes/application/administration/booklet-order/components';
 
 @applicationContext
 class BookletOrderPreviewViewStore extends BasePreviewViewStore {
@@ -14,7 +14,7 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
             id: rootStore.routerStore.routerState.params.id,
             routes: {
                 bookletCode: (code) => {
-                    this.rootStore.routerStore.goTo('master.app.main.administration.booklet.list',null, { codes: code });
+                    this.rootStore.routerStore.goTo('master.app.main.administration.booklet.list', null, { codes: code });
                 }
             },
             autoInit: false,
@@ -110,7 +110,8 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                 {
                     key: 'booklets',
                     title: 'BOOKLET_ORDER.PREVIEW.COLUMNS.BOOKLETS_LABEL',
-                    cell: this.CustomCellTemplate
+                    cell: CustomCellTemplate,
+                    onClick: this.onCodeClick
                 },
             ],
         });
@@ -121,32 +122,10 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
         this.bookletTypes = await this.rootStore.application.lookup.bookletTypeStore.find();
     }
 
-    onCodeClick(code){
+    @action.bound
+    onCodeClick(code) {
         this.routes.bookletCode(code)
     }
-
-    CustomCellTemplate = (props) => {
-        const { dataItem, field } = props;
-
-        return (
-            <td>
-                <div className="table__status">
-                    {dataItem.booklets.map((c, i) => {
-                        return (
-                            <span 
-                                key={c.code}
-                                className="btn btn--link" 
-                                onClick={() => this.onCodeClick(c.code)}>{c.code}{(i + 1) === dataItem.booklets.length ? '' : ', '}
-                            </span> 
-                        )}
-                    )}
-                </div>
-            </td>
-        );
-    };
 }
 
 export default BookletOrderPreviewViewStore;
-
-
-

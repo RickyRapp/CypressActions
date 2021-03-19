@@ -86,10 +86,6 @@ class ContributionEditViewStore extends BaseEditViewStore {
 				this.previousContributionsTableStore.dataInitialized = true;
 			}
 
-			if (!this.donor.isInitialContributionDone) {
-				this.form.$('amount').set('rules', `required|numeric|min:${this.donor.contributionMinimumInitialAmount}`);
-			}
-
 			if (this.item.donorBankAccount) {
 				this.bankAccountDropdownStore.setValue(this.item.donorBankAccount);
 			}
@@ -148,7 +144,6 @@ class ContributionEditViewStore extends BaseEditViewStore {
 				this.form.$('securityTypeId').setRequired(true);
 			} else if (paymentType.abrv === 'zelle') {
 				this.isThirdPartyFundingAvailable = true;
-			} else if (paymentType.abrv === 'third-party-donor-advised-funds') {
 			} else if (paymentType.abrv === 'check') {
 				this.form.$('checkNumber').setRequired(true);
 				this.isThirdPartyFundingAvailable = true;
@@ -161,15 +156,11 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			} else if (paymentType.abrv === 'collectible-assets') {
 				this.form.$('collectibleTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:25000');
-			} else if (paymentType.abrv === 'crypto-currency') {
-			} else if (paymentType.abrv === 'paycheck-direct') {
 			}
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
-		if (this.donor.isInitialContributionDone) {
-			const json = JSON.parse(paymentType.json);
-			this.form.$('amount').set('rules', `required|numeric|min:${json.minimumDeposit}`);
-		}
+		const json = JSON.parse(paymentType.json);
+		this.form.$('amount').set('rules', `required|numeric|min:${json.minimumDeposit}`);
 		this.nextStep(2);
 	}
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { addressFormatter } from 'core/utils';
 import { defaultTemplate } from 'core/hoc';
 
@@ -35,5 +36,10 @@ function AddressTemplate({ format, value }) {
     }
     return addressFormatter.format(value, format);
 }
+
+AddressTemplate.propTypes = {
+    format: PropTypes.string.isRequired,
+    value: PropTypes.object.isRequired
+};
 
 export default defaultTemplate(AddressTemplate);

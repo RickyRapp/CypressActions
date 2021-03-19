@@ -20,7 +20,6 @@ import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 import logo from 'themes/assets/img/logo.svg';
-import { GrantPurposeTypeService } from 'application/common/lookup/grant-purpose-type/services';
 
 const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 	const {

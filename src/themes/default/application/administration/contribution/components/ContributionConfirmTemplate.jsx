@@ -17,7 +17,6 @@ function ContributionConfirmTemplate({ modalParams, t }) {
         checkNumber,
         businessType,
         propertyType,
-        propertyTypeTellUsMode,
         collectableType
     } = modalParams.data;
 
@@ -80,28 +79,28 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{checkNumber}</div>
                 </section>
-                }
+            }
             {businessType &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('CONTRIBUTION.CONFIRM.BUSINESS_TYPE')}</div>
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{businessType}</div>
                 </section>
-                }
+            }
             {propertyType &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('CONTRIBUTION.CONFIRM.PROPERTY_TYPE')}</div>
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{propertyType}</div>
                 </section>
-                }
+            }
             {collectableType &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('CONTRIBUTION.CONFIRM.COLLECTABLE_TYPE')}</div>
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{collectableType}</div>
                 </section>
-                }
+            }
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('CONTRIBUTION.CONFIRM.AMOUNT')}</div>
                 <div className="modal__list__divider"></div>

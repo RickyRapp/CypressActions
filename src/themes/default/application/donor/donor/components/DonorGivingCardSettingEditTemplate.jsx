@@ -34,20 +34,20 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                             <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
                         </div>
                         <div className="list--preferences__field">
-                          <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
+                            <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                         </div>
-                    </div> 
-                    : 
+                    </div>
+                    :
                     <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
                 }
-                 <div className="list--preferences">
+                <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">
                         Share information <span className="type--color--note u-mar--left--tny">*</span>
                     </div>
                     <div className="list--preferences__dd">
                         <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
                     </div>
-                </div> 
+                </div>
 
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">
@@ -56,7 +56,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     <div className="list--preferences__dd">
                         <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                     </div>
-                </div> 
+                </div>
 
                 <div className="list--preferences">
                     <div className="list--preferences__label">
@@ -65,7 +65,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     <div className="list--preferences__field">
                         <NumericInputField showLabel={false} field={form.$('maxAmount')} />
                     </div>
-                </div> 
+                </div>
 
                 <div className="list--preferences">
                     <div className="list--preferences__label">
@@ -74,8 +74,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     <div className="list--preferences__field">
                         <NumericInputField showLabel={false} field={form.$('maxTimesPerDay')} />
                     </div>
-                </div> 
-
+                </div>
 
                 <div className="row">
 

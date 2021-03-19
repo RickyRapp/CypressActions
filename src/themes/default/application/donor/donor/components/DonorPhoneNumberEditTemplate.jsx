@@ -37,7 +37,7 @@ class DonorPhoneNumberEditTemplate extends Component {
                         className="btn btn--med btn--med--wide btn--ghost"
                         onClick={onCancelEditClick}
                         label='Cancel'
-                        />
+                    />
                     <BaasicFormControls
                         form={form}
                         onSubmit={form.onSubmit}
@@ -53,6 +53,7 @@ DonorPhoneNumberEditTemplate.propTypes = {
     onCancelEditClick: PropTypes.func,
     form: PropTypes.object,
     t: PropTypes.func,
+    isAssignableAsPrimary: PropTypes.bool,
 };
 
 export default defaultTemplate(DonorPhoneNumberEditTemplate);

@@ -68,7 +68,8 @@ BookletOrderReviewRowTemplate.propTypes = {
     item: PropTypes.object.isRequired,
     fetchFunc: PropTypes.func.isRequired,
     onAddBookletsChange: PropTypes.func.isRequired,
-    denominationTypes: PropTypes.array.isRequired
+    denominationTypes: PropTypes.array.isRequired,
+    bookletTypes: PropTypes.array.isRequired,
 };
 
 const listNoDataRender = (element, isMaxBookletsSelected) => {

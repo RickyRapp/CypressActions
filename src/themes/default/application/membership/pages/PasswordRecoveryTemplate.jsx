@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BasicInput, BaasicRecaptcha, BaasicButton } from 'core/components';
+import { BasicInput, BaasicButton } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import logo from 'themes/assets/img/new-logo.svg';
 
 function PasswordRecoveryTemplate({ currentView, t }) {
-	const { form, loading, onVerifyRecaptcha, goToLogin } = currentView;
+	const { form, loading, goToLogin } = currentView;
 	return (
 		<section>
 			<form className="login__card" onSubmit={form.onSubmit}>

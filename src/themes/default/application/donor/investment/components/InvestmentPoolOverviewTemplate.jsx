@@ -1,9 +1,9 @@
 import React from 'react';
-import { BasicCheckbox, BasicFieldCheckbox } from 'core/components';
+import { BasicFieldCheckbox } from 'core/components';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
-const InvestmentPoolOverviewTemplate = function ({ form, pool, t }) {
+const InvestmentPoolOverviewTemplate = function ({ form, pool }) {
 	return (
 		<div className="card--primary card--lrg u-mar--bottom--med">
 			<div className="row u-mar--bottom--sml">
@@ -91,7 +91,8 @@ const InvestmentPoolOverviewTemplate = function ({ form, pool, t }) {
 
 InvestmentPoolOverviewTemplate.propTypes = {
 	pool: PropTypes.object.isRequired,
-	t: PropTypes.func.isRequired,
+	t: PropTypes.func,
+	form: PropTypes.object,
 };
 
 export default defaultTemplate(InvestmentPoolOverviewTemplate);

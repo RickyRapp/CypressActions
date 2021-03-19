@@ -26,7 +26,7 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
 
             <div className="list--preferences">
                 <div className="list--preferences__label is-dropdown">
-                    Default share information <span class="type--color--note u-mar--left--tny">*</span>
+                    Default share information <span className="type--color--note u-mar--left--tny">*</span>
                 </div>
                 <div className="list--preferences__dd">
                     <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
@@ -40,7 +40,7 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
             </div>
             <div className="list--preferences">
                 <div className="list--preferences__label is-dropdown">
-                    Share informations when exceed amount <span class="type--color--note u-mar--left--tny">*</span>
+                    Share informations when exceed amount <span className="type--color--note u-mar--left--tny">*</span>
                 </div>
                 <div className="list--preferences__dd">
                     <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeByAmountId')} store={grantAcknowledgmentTypeByAmountDropwdownStore} />

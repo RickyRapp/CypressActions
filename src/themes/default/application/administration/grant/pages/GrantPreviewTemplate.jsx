@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTemplate, withAuth } from 'core/hoc';
+import { defaultTemplate } from 'core/hoc';
 import {
     ApplicationEmptyState,
     FormatterResolver,

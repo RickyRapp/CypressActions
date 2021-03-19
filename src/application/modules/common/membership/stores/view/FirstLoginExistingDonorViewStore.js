@@ -57,7 +57,7 @@ class FirstLoginExistingDonorViewStore extends BaseViewStore {
 		this.loaderStore.suspend();
 		try {
 			model.recoveryToken = this.passwordRecoveryToken;
-			const response = await this.rootStore.application.baasic.apiClient.post('donor/first-login/', model);
+			await this.rootStore.application.baasic.apiClient.post('donor/first-login/', model);
 			await this.rootStore.application.baasic.membershipModule.passwordRecovery.reset({
 				newPassword: model.password,
 				passwordRecoveryToken: this.passwordRecoveryToken,

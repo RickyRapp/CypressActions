@@ -25,8 +25,6 @@ class DonorCreateViewStore extends BaseEditViewStore {
                         securityPin: resource.securityPin,
                         confirmSecurityPin: resource.securityPin,
                         lineOfCredit: applicationDefaultSetting.regularLineOfCreditAmount,
-                        contributionMinimumInitialAmount: applicationDefaultSetting.regularMinimumInitialContributionAmount,
-                        contributionMinimumAdditionalAmount: applicationDefaultSetting.regularMinimumAdditionalContributionAmount,
                         grantFeePercentage: applicationDefaultSetting.regularGrantFeePercentage,
                         extraBookletPercentage: applicationDefaultSetting.extraBookletPercentage,
                         notificationLimitRemainderAmount: applicationDefaultSetting.regularNotificationLimitRemainderAmount,

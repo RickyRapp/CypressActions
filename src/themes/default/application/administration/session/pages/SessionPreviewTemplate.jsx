@@ -5,7 +5,6 @@ import {
     ApplicationEmptyState, FormatterResolver, Date, SimpleBaasicTable
 } from 'core/components';
 import { PreviewLayout } from 'core/layouts';
-import _ from 'lodash'
 
 function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
     const {

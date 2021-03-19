@@ -4,13 +4,10 @@ import {
 	BaasicFieldDropdown,
 	DatePickerField,
 	NumericInputField,
-	BasicFieldCheckbox,
 	BaasicButton,
 	BaasicModal,
 	SimpleBaasicTable,
 	FormatterResolver,
-	BasicCheckbox,
-	BasicTextArea,
 	BaasicFormControls,
 	BasicInput,
 	NumberFormatInputField,
@@ -31,8 +28,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		grantScheduleTypeDropdownStore,
 		charityDropdownStore,
 		charityTypeDropdownStore,
-		isNoteToAdministratorIncluded,
-		onIncludeNoteToAdministratorChange,
 		donor,
 		onCharitySelected,
 		advancedSearchModal,
@@ -67,9 +62,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row row--form u-mar--bottom--med row__align--center">
-										
+
 										<div className="col col-sml-12 col-lrg-6">
-											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true}/>
+											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} />
 										</div>
 										<div className="col col-sml-12 col-lrg-6 ">
 											<div className="u-push--from--med">
@@ -230,14 +225,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											store={grantAcknowledgmentTypeDropdownStore}
 										/>
 									</div>
-										{grantAcknowledgmentName && (
-											<div className="form__group col col-sml-12">
-												<div className="charity-information__card charity-information__card--secondary">
-													{grantAcknowledgmentName}
-												</div>
+									{grantAcknowledgmentName && (
+										<div className="form__group col col-sml-12">
+											<div className="charity-information__card charity-information__card--secondary">
+												{grantAcknowledgmentName}
 											</div>
-										)}
-									
+										</div>
+									)}
+
 									<div className="form__group col col-sml-12 ">
 										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
 									</div>
@@ -245,7 +240,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										{form.$('grantPurposeTypeId').value &&
 											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
 									</div>
-									
+
 								</div>
 
 								{renderEditLayoutFooterContent({ form })}
@@ -348,15 +343,15 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											</div>
 										</div>
 									) : (
-											<div className="col col-sml-12 u-mar--bottom--med">
-												<div className="card--primary card--med">
-													<h4 className="type--base type--wgt--medium u-mar--bottom--sml">
-														{t('GRANT.CREATE.PROFILE_INFO')}
-													</h4>
-													<p className="type--med type--color--opaque">Search for a charity to view profile info</p>
-												</div>
+										<div className="col col-sml-12 u-mar--bottom--med">
+											<div className="card--primary card--med">
+												<h4 className="type--base type--wgt--medium u-mar--bottom--sml">
+													{t('GRANT.CREATE.PROFILE_INFO')}
+												</h4>
+												<p className="type--med type--color--opaque">Search for a charity to view profile info</p>
 											</div>
-										)}
+										</div>
+									)}
 								</div>
 
 								<div className="row row--form u-mar--bottom--med">

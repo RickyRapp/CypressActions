@@ -5,7 +5,6 @@ import { PendingDonationReviewForm } from 'application/administration/donation/f
 import { action, observable } from 'mobx';
 import _ from 'lodash';
 import { saveAs } from '@progress/kendo-file-saver';
-import { isSome } from 'core/utils';
 
 class PendingDonationViewStore extends BaseListViewStore {
     @observable disableSave = false;

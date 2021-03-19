@@ -1,7 +1,6 @@
 import { action, observable } from 'mobx';
 import { BaseEditViewStore } from 'core/stores';
 import { ReviewBlankCertificateForm } from 'application/administration/session/forms';
-import { SessionService } from 'application/administration/session/services';
 
 class ReviewCertificateViewStore extends BaseEditViewStore {
     @observable sessionCertificate = null;
@@ -19,7 +18,7 @@ class ReviewCertificateViewStore extends BaseEditViewStore {
                             ...resource
                         });
                     },
-                    get: async (reviewToken) => {
+                    get: async () => {
                         // let response = await rootStore.application.administration.sessionStore.reviewToken(reviewToken);
                         // this.sessionCertificate = response.data;
                         // return response.data;

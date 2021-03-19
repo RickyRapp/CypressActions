@@ -132,11 +132,6 @@ class DonorStore {
         return response.data;
     }
 
-    async createAutomaticContributionSetting(resource) {
-        const response = await this.donorService.createAutomaticContributionSetting(resource);
-        return response.data;
-    }
-
     async createGivingCardSetting(resource) {
         const response = await this.donorGivingCardSettingService.create(resource);
         return response.data;

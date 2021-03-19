@@ -22,7 +22,7 @@ function renderPrimary(menu, menuStore, translate) {
             {renderMenuHeader(menuStore, translate)}
 
             <div className={menuStore.isOpen ? 'nav--primary' : 'nav--primary'}>
-                {menu.map((item, i) => {
+                {menu.map((item) => {
                     const title = translate(item.title);
                     let className = title === "Give" ? 'nav--primary__item nav--primary__item--give' : 'nav--primary__item';
 

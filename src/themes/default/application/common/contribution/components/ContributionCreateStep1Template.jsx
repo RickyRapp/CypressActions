@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
-const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelectPaymentType, paymentTypeId, t }) {
+const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelectPaymentType, paymentTypeId }) {
 
     return (
         <React.Fragment>
@@ -42,7 +42,6 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
                 </div>
             </div>
 
-
             {paymentTypes &&
                 paymentTypes.map(c => {
                     const json = JSON.parse(c.json);
@@ -64,7 +63,7 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
                             </div>
                             {step === 1 && (
                                 <React.Fragment>
-        
+
                                     <div className="table--payment__cell is-timeline">
                                         <div className="table--payment__inner">
                                             <p className="type--small type--color--opaque type--wgt--regular">{json.timeline}</p>

@@ -204,8 +204,7 @@
         "6001": "Missing address.",
         "6002": "Only donations per one charity.",
         "6003": "Missing reserved not done transaction.",
-        "7000": "Insufficient funds. Necessary amount is: ",
-        "7001": "Missing initial contribution. You will be redirect to contribution page."
+        "7000": "Insufficient funds. Necessary amount is: "
     },
     "BREADCRUMBS": {
         "CREATE": "Create",
@@ -1925,7 +1924,6 @@
             "MOST_COMMON_DENOMINATIONS": "Common Denominations:",
             "TOTAL_WITH_FEE": "Total with fee",
             "TOTAL": "Total",
-            "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
             "PRIVATE_FEE_APPLIED": "Fee Will Be Applied When Scanning Certificate.",
             "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
             "HIDE_MORE_OPTIONS": "SHOW LESS OPTIONS",
@@ -2298,14 +2296,6 @@
                 "REGULAR_LINE_OF_CREDIT_PLACEHOLDER": "Regular line of credit amount",
                 "PRIVATE_LINE_OF_CREDIT_LABEL": "Private line of credit amount",
                 "PRIVATE_LINE_OF_CREDIT_PLACEHOLDER": "Private line of credit amount",
-                "REGULAR_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_LABEL": "Regular minimum additional contribution amount",
-                "REGULAR_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_PLACEHOLDER": "Regular minimum additional contribution amount",
-                "PRIVATE_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_LABEL": "Private minimum additional contribution amount",
-                "PRIVATE_MINIMUM_ADDITIONAL_CONTRIBUTION_AMOUNT_PLACEHOLDER": "Private minimum additional contribution amount",
-                "REGULAR_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_LABEL": "Regular minimum initial contribution amount",
-                "REGULAR_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_PLACEHOLDER": "Regular minimum initial contribution amount",
-                "PRIVATE_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_LABEL": "Private minimum initial contribution amount",
-                "PRIVATE_MINIMUM_INITIAL_CONTRIBUTION_AMOUNT_PLACEHOLDER": "Private minimum initial contribution amount",
                 "REGULAR_MINIMUM_GRANT_AMOUNT_LABEL": "Regular minimum grant amount",
                 "REGULAR_MINIMUM_GRANT_AMOUNT_PLACEHOLDER": "Regular minimum grant amount",
                 "PRIVATE_MINIMUM_GRANT_AMOUNT_LABEL": "Private minimum grant amount",

@@ -58,8 +58,7 @@ const CustomDateInput = function (props) {
                     />
                     {renderIf(isSome(error))(<p className="validation__message">{error}</p>)}
                 </div>
-                
-                
+
             </div>
         </React.Fragment>
     );

@@ -32,7 +32,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                 </div>
             </div>
             <div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
-                {paymentTypes.map((c, index) => {
+                {paymentTypes.map((c) => {
                     return (
                         <div
                             key={c.id}
@@ -277,10 +277,27 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
 }
 
 ContributionCreateStep2Template.propTypes = {
-    paymentTypes: PropTypes.any.isRequired,
-    step: PropTypes.number.isRequired,
-    onSelectPaymentType: PropTypes.func.isRequired,
+    paymentTypes: PropTypes.array,
+    paymentType: PropTypes.object,
+    step: PropTypes.any,
+    form: PropTypes.object,
+    bankAccountDropdownStore: PropTypes.any,
+    onSelectPaymentType: PropTypes.func,
     t: PropTypes.func,
+    nextStep: PropTypes.any,
+    thirdPartyDonorAdvisedFundDropdownStore: PropTypes.any,
+    securityTypeDropdownStore: PropTypes.any,
+    brokerageInstitutionDropdownStore: PropTypes.any,
+    collectibleTypeDropdownStore: PropTypes.any,
+    propertyTypeDropdownStore: PropTypes.any,
+    onAddBankAccountClick: PropTypes.func,
+    businessTypeDropdownStore: PropTypes.any,
+    onSubmitClick: PropTypes.func,
+    confirmModal: PropTypes.any,
+    routes: PropTypes.any,
+    previousContributionsTableStore: PropTypes.any,
+    isThirdPartyFundingAvailable: PropTypes.bool,
+    onShowBankAccountNumberClick: PropTypes.func,
 };
 
 export default defaultTemplate(ContributionCreateStep2Template);

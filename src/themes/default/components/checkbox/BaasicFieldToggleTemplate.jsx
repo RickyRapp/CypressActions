@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicToggle } from 'core/components';
-import _ from 'lodash';
 
 function BaasicFieldToggleTemplate({ field, disabled, onChange, showLabel = false }) {
     const { ...otherProps } = field.bind();
-    const onChangeFn = e => {
+    const onChangeFn = () => {
         field.onChange(!field.value);
         if (onChange) {
             onChange(!field.value);
@@ -27,6 +26,7 @@ BaasicFieldToggleTemplate.propTypes = {
     field: PropTypes.any.isRequired,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
+    showLabel: PropTypes.bool
 };
 
 export default defaultTemplate(BaasicFieldToggleTemplate);

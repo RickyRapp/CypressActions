@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     DonorThirdPartyWebsiteSetting,
@@ -30,8 +29,5 @@ function DonorSecurityAndPreferencesData() {
         </div>
     )
 }
-
-DonorSecurityAndPreferencesData.propTypes = {
-};
 
 export default defaultTemplate(DonorSecurityAndPreferencesData);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicFormControls, BaasicButton, BaasicInput, BaasicModal } from 'core/components';
+import { BaasicFormControls, BaasicButton, BaasicModal } from 'core/components';
 import { BlankCertificateModal } from '.';
 
 class Step3Template extends React.Component {
@@ -108,6 +108,7 @@ Step3Template.propTypes = {
 	barcode: PropTypes.string.isRequired,
 	onBarcodeChange: PropTypes.func.isRequired,
 	sessionCertificates: PropTypes.any.isRequired,
+	blankCertificateModal: PropTypes.any
 };
 
 export default defaultTemplate(Step3Template);

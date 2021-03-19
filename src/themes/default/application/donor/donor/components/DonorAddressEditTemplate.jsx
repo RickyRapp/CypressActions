@@ -33,7 +33,7 @@ class DonorEmailAddressEditFormTemplate extends Component {
 									<label className="form__field__label u-mar--right--med">Is Primary?</label>
 									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} />
 								</div>
-								
+
 							</div>
 						)}
 					</div>
@@ -57,6 +57,7 @@ DonorEmailAddressEditFormTemplate.propTypes = {
 	onCancelEditClick: PropTypes.func,
 	form: PropTypes.object,
 	t: PropTypes.func,
+	isAssignableAsPrimary: PropTypes.bool,
 };
 
 export default defaultTemplate(DonorEmailAddressEditFormTemplate);

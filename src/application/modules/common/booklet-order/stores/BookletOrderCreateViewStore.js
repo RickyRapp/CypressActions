@@ -2,7 +2,6 @@ import { action, observable, computed } from 'mobx';
 import { BookletOrderCreateForm } from 'application/common/booklet-order/forms';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import moment from 'moment';
 import { ModalParams } from 'core/models';
 import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/forms';
 

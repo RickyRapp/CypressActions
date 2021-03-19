@@ -10,7 +10,7 @@ import {
     NumericInputField
 } from 'core/components'
 
-const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSettingEditViewStore }) {
+const DonorGivingCardSettingEditTemplate = function ({ donorGivingCardSettingEditViewStore }) {
     const {
         loaderStore,
         form,
@@ -60,7 +60,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
 
 DonorGivingCardSettingEditTemplate.propTypes = {
     donorGivingCardSettingEditViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func
 };
 
 export default defaultTemplate(DonorGivingCardSettingEditTemplate);

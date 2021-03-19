@@ -1,9 +1,9 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc'
-import { BasicInput, BasicTextArea, BasicFieldCheckbox } from 'core/components';
+import { BasicInput, BasicTextArea } from 'core/components';
 import PropTypes from 'prop-types';
 
-function GrantPurposeTypeTemplate({ grantPurposeType, form, t }
+function GrantPurposeTypeTemplate({ grantPurposeType, form }
 ) {
     return (
         <React.Fragment>

@@ -1,7 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/donor/grant/pages';
 import { RouterState } from 'mobx-state-router';
-import moment from 'moment';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -17,25 +16,7 @@ import moment from 'moment';
                         authorization: 'theDonorsFundGrantSection.create',
                         data: {
                             title: "GRANT.CREATE.TITLE"
-                        },
-                        beforeEnter:
-                            // eslint-disable-next-line
-                            async (fromState, toState, routerStore) => {
-                                const { donor: { donorStore } } = routerStore.rootStore.application;
-
-                                if (!routerStore.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
-                                    let donorId = routerStore.rootStore.userStore.user.id;
-                                    const data = await donorStore.getDonor(donorId, { fields: 'isInitialContributionDone' });
-                                    if (data.isInitialContributionDone) {
-                                        return Promise.resolve();
-                                    }
-                                    else {
-                                        routerStore.rootStore.notificationStore.warning('GRANT.CREATE.MISSING_INITIAL_CONTRIBUTION');
-                                        return Promise.reject(new RouterState('master.app.main.donor.contribution.create'));
-                                    }
-                                }
-                                return Promise.resolve();
-                            }
+                        }
                     },
                     {
                         name: 'master.app.main.donor.grant.edit',

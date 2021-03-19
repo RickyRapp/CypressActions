@@ -5,7 +5,7 @@ import { ApplicationEditLayout, Content } from 'core/layouts';
 import { BookletOrderReviewRowTemplate } from 'themes/application/administration/booklet-order/components';
 import { BasicInput } from 'core/components';
 
-const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore, t }) {
+const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
     const {
         contentLoading,
         orderContents,

@@ -6,9 +6,8 @@ import {
     FormatterResolver,
     Date
 } from 'core/components';
-import { addressFormatter, isSome } from 'core/utils';
+import { addressFormatter } from 'core/utils';
 import { PreviewLayout } from 'core/layouts';
-import { GrantProgressTimeline } from 'application/administration/grant/components';
 import _ from 'lodash'
 
 function GrantPreviewTemplate({ grantPreviewViewStore, t }) {

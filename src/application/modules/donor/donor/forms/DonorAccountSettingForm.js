@@ -56,24 +56,6 @@ export default class DonorEditForm extends FormBase {
                     }
                 },
                 {
-                    name: 'contributionMinimumAdditionalAmount',
-                    label: 'DONOR.ACCOUNT_SETTINGS_FIELDS.CONTRIBUTION_MINIMUM_ADDITIONAL_LABEL',
-                    placeholder: 'DONOR.ACCOUNT_SETTINGS_FIELDS.CONTRIBUTION_MINIMUM_ADDITIONAL_PLACEHOLDER',
-                    rules: 'required|numeric|min:0',
-                    extra: {
-                        type: 'c2'
-                    }
-                },
-                {
-                    name: 'contributionMinimumInitialAmount',
-                    label: 'DONOR.ACCOUNT_SETTINGS_FIELDS.CONTRIBUTION_MINIMUM_INITIAL_LABEL',
-                    placeholder: 'DONOR.ACCOUNT_SETTINGS_FIELDS.CONTRIBUTION_MINIMUM_INITIAL_PLACEHOLDER',
-                    rules: 'required|numeric|min:0',
-                    extra: {
-                        type: 'c2'
-                    }
-                },
-                {
                     name: 'extraBookletPercentage',
                     label: 'DONOR.ACCOUNT_SETTINGS_FIELDS.EXTRA_BOOKLET_PERCENTAGE_LABEL',
                     placeholder: 'DONOR.ACCOUNT_SETTINGS_FIELDS.EXTRA_BOOKLET_PERCENTAGE_PLACEHOLDER',
@@ -101,13 +83,6 @@ export default class DonorEditForm extends FormBase {
                     extra: {
                         type: 'c2'
                     }
-                },
-                {
-                    name: 'isInitialContributionDone',
-                    label: 'DONOR.ACCOUNT_SETTINGS_FIELDS.INITIAL_CONTRIBUTION_LABEL',
-                    placeholder: 'DONOR.ACCOUNT_SETTINGS_FIELDS.INITIAL_CONTRIBUTION_PLACEHOLDER',
-                    rules: 'required|boolean',
-                    type: 'checkbox'
                 }
             ]
         };

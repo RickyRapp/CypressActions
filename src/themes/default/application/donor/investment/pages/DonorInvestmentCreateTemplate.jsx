@@ -5,8 +5,6 @@ import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 import {
     BaasicButton,
     BaasicFormControls,
-    BaasicInput,
-    BasicInput,
     FormatterResolver,
     NumericInputField,
 } from 'core/components';

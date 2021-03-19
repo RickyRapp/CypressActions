@@ -5,8 +5,7 @@ import {
 	BasicInput,
 	BaasicButton,
 	NumericInputField,
-	BaasicFieldDropdown,
-	NumberFormatInputField,
+	BaasicFieldDropdown
 } from 'core/components';
 import logo from 'themes/assets/img/new-logo.svg';
 
@@ -15,7 +14,7 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 	return (
 		<div className="">
 			<form className="login__card" onSubmit={form.onSubmit}>
-				<img className="login__card__logo" src={logo} alt="Logo" /> 
+				<img className="login__card__logo" src={logo} alt="Logo" />
 				<h4 className="login__card__title">Welcome to a new way of giving</h4>
 				<p className="login__card__desc">
 					Updte your profile to meet our new and robust security requirements

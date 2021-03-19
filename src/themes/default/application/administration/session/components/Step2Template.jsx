@@ -18,7 +18,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-							{charityDropdownStore && charityDropdownStore.value && 
+							{charityDropdownStore && charityDropdownStore.value &&
 								<BaasicButton
 									className="btn btn--sml btn--link u-mar--bottom--sml"
 									label={isChangedDefaultAddress ? 'SESSION.CREATE.STEP2.BUTTONS.SET_DEFAULT_DEFAULT_ADDRESS' : 'SESSION.CREATE.STEP2.BUTTONS.CHANGE_DEFAULT_ADDRESS'}
@@ -81,6 +81,8 @@ Step2Template.propTypes = {
 	onNextStepClick: PropTypes.func.isRequired,
 	charityDropdownStore: PropTypes.object.isRequired,
 	t: PropTypes.func,
+	isChangedDefaultAddress: PropTypes.bool,
+	onChangeDefaultAddressClick: PropTypes.func,
 };
 
 export default defaultTemplate(Step2Template);

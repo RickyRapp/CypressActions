@@ -132,7 +132,6 @@ class SessionViewStore extends BaseEditViewStore {
             const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
             this.sessionCertificates.push(data.response);
         } catch (ex) {
-            console.log(ex)
             try {
                 await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode });
                 this.rootStore.notificationStore.warning("Something went wrong. Check is not updated with entered amount and it's removed from session.");

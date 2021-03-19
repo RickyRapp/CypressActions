@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BaasicButton } from 'core/components';
 import { addressFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { defaultTemplate } from 'core/hoc';
 
@@ -36,7 +35,7 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
                     </div>}
             </div>
             {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
-                <a href="#" onClick={onChangeDefaultAddressClick} className="u-mar--bottom--med u-display--b type--underline"> 
+                <a href="#" onClick={onChangeDefaultAddressClick} className="u-mar--bottom--med u-display--b type--underline">
                     <i className="u-icon u-icon--base u-icon--pin u-mar--right--sml"></i>
                     {isChangedDefaultAddress ? t('GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS') : t('GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS')}
                 </a>
@@ -47,7 +46,11 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
 
 CharityShortInformationTemplate.propTypes = {
     charity: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    onChangeDefaultAddressClick: PropTypes.func,
+    isChangedDefaultAddress: PropTypes.bool,
+    grantRequestId: PropTypes.string,
+
 };
 
 export default defaultTemplate(CharityShortInformationTemplate);

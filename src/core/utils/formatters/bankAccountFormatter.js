@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 class BankAccountFormatter {
     format(bankAccount, format) {
         let formattedBankAccount = '';

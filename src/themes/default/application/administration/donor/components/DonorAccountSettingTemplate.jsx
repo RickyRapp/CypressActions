@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    BasicInput,
-    BaasicFieldDropdown,
     BaasicFormControls,
     EditFormContent,
-    NumberFormatInputField,
-    Date,
     NumericInputField
 } from 'core/components';
 

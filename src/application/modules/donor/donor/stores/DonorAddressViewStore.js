@@ -1,7 +1,6 @@
 import { action, observable } from 'mobx';
-import { TableViewStore, BaseViewStore } from 'core/stores';
+import { BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { FilterParams, ModalParams } from 'core/models';
 import { DonorAddressEditForm } from 'application/donor/donor/forms';
 
 @applicationContext

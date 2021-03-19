@@ -15,7 +15,6 @@ import {
 	ChartTitle,
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
-import { Slider, SliderLabel } from '@progress/kendo-react-inputs';
 import { isSome } from 'core/utils';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
@@ -65,7 +64,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		categories = summaryData.donationsByTimePeriod.map(c => c.month);
 		dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
 	}
-	const LineChartContainer = () => (
+
+	const LineChartContainer = () => (// eslint-disable-line
 		<Chart>
 			<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
 			<ChartCategoryAxis>
@@ -177,10 +177,10 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 								</div> */}
 							</React.Fragment>
 						) : (
-								<div className="card--med">
-									<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
-								</div>
-							)}
+							<div className="card--med">
+								<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    BaasicButton,
     BaasicFieldDropdown,
     BasicInput,
     BaasicTableWithRowDetails,
@@ -10,7 +9,7 @@ import {
     FormatterResolver,
     BaasicFormControls
 } from 'core/components';
-import { isNullOrWhiteSpacesOrUndefinedOrEmpty, isSome } from 'core/utils';
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 
 const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
@@ -93,7 +92,6 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     <div className="table--dragrow--expandable-row">
                         <BaasicTableWithRowDetails
                             tableStore={tableStore}
-                            actionsComponent={renderActions}
                             detailComponent={DetailComponent}
                             loading={tableStore.loading}
                             className="k-grid--actions"
@@ -110,17 +108,6 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
 PendingDonationListTemplate.propTypes = {
     pendingDonationViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
-};
-
-function renderActions({ item, actions, actionsRender }) {
-    return null;
-}
-
-renderActions.propTypes = {
-    item: PropTypes.object,
-    actions: PropTypes.object,
-    actionsRender: PropTypes.object,
-    authorization: PropTypes.any
 };
 
 export default defaultTemplate(PendingDonationListTemplate);

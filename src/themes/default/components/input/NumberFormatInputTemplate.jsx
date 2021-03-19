@@ -1,6 +1,7 @@
 import React from 'react';
 import { defaultTemplate } from 'core/hoc';
 import NumberFormat from 'react-number-format';
+import _ from 'lodash';
 
 const NumberFormatInputTemplate = defaultTemplate((props) => {
     const { t, onChange, onBlur, labelClassName, label } = props;

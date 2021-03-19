@@ -36,7 +36,7 @@ const DonorGivingCardActivationTemplate = function ({ t, modalParams }) {
 }
 
 DonorGivingCardActivationTemplate.propTypes = {
-    modelParams: PropTypes.object,
+    modalParams: PropTypes.object,
     t: PropTypes.func.isRequired
 };
 

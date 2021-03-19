@@ -5,10 +5,10 @@ import {
     BasicInput,
     BaasicFormControls,
     NumberFormatInputField,
-    BasicFieldCheckbox, BaasicButton, BaasicFieldDropzone, EditFormContent
+    BasicFieldCheckbox, BaasicButton, EditFormContent
 } from 'core/components';
 
-function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
+function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
     const {
         title,
         form,

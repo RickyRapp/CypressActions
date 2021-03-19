@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    BaasicFieldDropdown,
     BasicInput,
     Date,
     BaasicModal,
@@ -15,7 +14,6 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
 import { EditFormLayout, PageFooter } from 'core/layouts';
-import _ from 'lodash';
 import { EditBlankCertificate, RemoveSessionCertificate } from 'application/administration/session/components';
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 
@@ -23,15 +21,12 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
     const {
         contentLoading,
         form,
-        charityDropdownStore,
         item,
         tableStore,
         removeSessionCertificateModal,
         editBlankSessionCertificateModal,
         onCharitySelected,
-        advancedSearchModal,
-        openAdvancedSearchModal
-    } = sessionEditViewStore;
+        advancedSearchModal } = sessionEditViewStore;
 
     return (
         <EditFormLayout
@@ -135,7 +130,6 @@ function renderEditLayoutFooterContent({ form }) {
             <BaasicFormControls form={form} onSubmit={form.onSubmit} />
         </div>
     </PageFooter>
-
 }
 
 function renderActions({ item, actions, actionsRender, t }) {

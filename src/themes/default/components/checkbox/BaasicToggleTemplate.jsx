@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
-import _ from 'lodash';
 
 function BaasicToggleTemplate({ label, value, onChange, disabled, t, showLabel }) {
 	return (
@@ -37,6 +36,7 @@ BaasicToggleTemplate.propTypes = {
 	disabled: PropTypes.bool,
 	showLabel: PropTypes.bool,
 	label: PropTypes.string,
+	t: PropTypes.func,
 };
 
 export default defaultTemplate(BaasicToggleTemplate);
