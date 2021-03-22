@@ -65,6 +65,7 @@ class Step3Template extends React.Component {
 											value={barcode}
 											onChange={onBarcodeChange}
 											maxLength={10}
+											onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
 										/>
 
 									</div>

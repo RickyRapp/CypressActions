@@ -326,7 +326,7 @@
         "TITLE": "Change Password",
         "NEW_PASSWORD_LABEL": "New Password",
         "NEW_PASSWORD_PLACEHOLDER": "Enter new password",
-        "CONFIRM_PASSWORD_LABEL": "CONFIRM PASSWORD",
+        "CONFIRM_PASSWORD_LABEL": "Confirm password",
         "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
         "SUCCESS_MESSAGE": "Your password has been changed",
         "ERROR_MESSAGE": {
