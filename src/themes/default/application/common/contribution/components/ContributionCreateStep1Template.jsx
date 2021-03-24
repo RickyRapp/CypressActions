@@ -66,24 +66,24 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
 
                                     <div className="table--payment__cell is-timeline">
                                         <div className="table--payment__inner">
-                                            <p className="type--small type--color--opaque type--wgt--regular">{json.timeline}</p>
+                                            <p className="type--small type--color--opaque type--wgt--regular">{json && json.timeline}</p>
                                         </div>
                                     </div>
                                     <div className="table--payment__cell is-deductible">
                                         <div className="table--payment__inner">
                                             <p className="type--small type--color--opaque type--wgt--regular">
-                                                {json.deductibleEligibility}
+                                                {json && json.deductibleEligibility}
                                             </p>
                                         </div>
                                     </div>
                                     <div className="table--payment__cell is-minimum">
                                         <div className="table--payment__inner">
-                                            <p className="type--small type--color--opaque type--wgt--regular">${json.minimumDeposit}</p>
+                                            <p className="type--small type--color--opaque type--wgt--regular">${json && json.minimumDeposit}</p>
                                         </div>
                                     </div>
                                     <div className="table--payment__cell is-last">
                                         <div className="table--payment__inner">
-                                            <p className="type--small type--color--opaque type--wgt--regular type--center">{json.more}</p>
+                                            <p className="type--small type--color--opaque type--wgt--regular type--center">{json && json.more}</p>
                                         </div>
 
                                     </div>

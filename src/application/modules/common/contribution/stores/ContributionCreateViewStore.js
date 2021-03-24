@@ -152,7 +152,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
 		const json = JSON.parse(paymentType.json);
-		this.form.$('amount').set('rules', `required|numeric|min:${json.minimumDeposit}`);
+		this.form.$('amount').set('rules', `required|numeric|min:${json ? json.minimumDeposit : 0}`);
 		this.nextStep(2);
 	}
 
@@ -208,9 +208,16 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		this.paymentTypeDropdownStore = new BaasicDropdownStore(null, {
 			fetchFunc: async () => {
 				const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
-				this.paymentTypes = tempTypes.filter(c => {
-					return !['bill-pay', 'crypto-currency', 'credit-card', 'cash'].includes(c.abrv);
-				});
+				if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
+					this.paymentTypes = tempTypes.filter(c => {
+						return !['bill-pay', 'crypto-currency', 'cash'].includes(c.abrv);
+					});
+				}
+				else {
+					this.paymentTypes = tempTypes.filter(c => {
+						return !['bill-pay', 'crypto-currency', 'credit-card', 'cash'].includes(c.abrv);
+					});
+				}
 				return this.paymentTypes;
 			},
 		});
