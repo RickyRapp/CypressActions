@@ -30,6 +30,7 @@ class GrantViewStore extends BaseListViewStore {
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.donationStatusDropdownStore.setValue(null);
+                    this.donationTypeDropdownStore.setValue(null);
                     this.searchDonorDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
                 }
@@ -73,6 +74,7 @@ class GrantViewStore extends BaseListViewStore {
         this.createSearchDonorDropdownStore();
         this.createSearchCharityDropdownStore();
         this.createDonationStatusDropdownStore();
+        this.createDonationTypeDropdownStore();
         this.createExportConfig();
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
@@ -166,16 +168,16 @@ class GrantViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (grant) => {
-                    return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved'
+                    return grant.donationType.abrv !== 'session' && (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved')
                 },
                 onRedirectRender: (grant) => {
                     return isSome(grant.scheduledGrantPayment)
                 },
                 onApproveRender: (grant) => {
-                    return grant.donationStatus.abrv === 'pending';
+                    return grant.donationType.abrv !== 'session' && grant.donationStatus.abrv === 'pending';
                 },
                 onCancelRender: (grant) => {
-                    return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved';
+                    return grant.donationType.abrv !== 'session' && (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved');
                 },
             }
         }));
@@ -334,6 +336,20 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 onChange: (donationStatus) => {
                     this.queryUtility.filter.donationStatusIds = donationStatus.map(c => { return c.id });
+                }
+            });
+    }
+
+    createDonationTypeDropdownStore() {
+        this.donationTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: () => {
+                    return this.rootStore.application.lookup.donationTypeStore.find();
+                },
+                onChange: (donationType) => {
+                    this.queryUtility.filter.donationTypeIds = donationType.map(c => { return c.id });
                 }
             });
     }

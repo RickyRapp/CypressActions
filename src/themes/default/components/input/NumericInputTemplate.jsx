@@ -33,6 +33,7 @@ const NumericInputTemplate = defaultTemplate(props => {
                 value={value}
                 placeholder={t(placeholder)}
                 spinners={false}
+                step={0}
             />
         </div>
     );

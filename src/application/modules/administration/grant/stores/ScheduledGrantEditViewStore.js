@@ -223,11 +223,14 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 	async setPreviousGrantTable(value) {
 		let data = [];
 		if (value) {
+			const donationTypes = await this.rootStore.application.lookup.donationTypes.find();
+			const visibleDonations = ['online', 'grant-request', 'giving-card', 'charity-website']
 			const params = {
 				donorId: this.item.donorId,
 				embed: ['donationStatus'],
 				fields: ['id', 'amount', 'dateCreated'],
 				charityId: value,
+				donationTypeIds: donationTypes.filter(c => visibleDonations.includes(c.abrv)).map(c => c.id).join(',')
 			};
 			data = await this.rootStore.application.administration.grantStore.findGrant(params);
 		}

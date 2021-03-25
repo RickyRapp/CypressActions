@@ -1502,6 +1502,7 @@
                 "SELECT_CHARITY_PLACEHOLDER": "Charity",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
+                "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
                 "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },

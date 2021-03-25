@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page } from 'core/layouts';
 import {
-	BaasicModal, FormDebug,
+	BaasicModal,
 } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorBankAccountEdit } from 'application/donor/donor/components';
@@ -23,7 +23,6 @@ const ContributionEditTemplate = function ({ store }) {
 		nextStep,
 		onSubmitClick,
 		onAddBankAccountClick,
-		bankAccountNumberModal,
 		onShowBankAccountNumberClick,
 		...otherProps
 	} = store;

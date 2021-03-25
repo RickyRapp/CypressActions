@@ -3,7 +3,7 @@ import { BaseRouteService } from 'core/services';
 class GrantRouteService extends BaseRouteService {
     constructor() {
         super('grant');
-        this.filterFields = 'donorId,charityId,confirmationNumber,donationStatusIds,search,name,taxId,grantId,page,rpp,sort,embed,fields'
+        this.filterFields = 'donorId,charityId,confirmationNumber,donationStatusIds,donationTypeIds,search,name,taxId,grantId,page,rpp,sort,embed,fields'
     }
 
     find(filter) {

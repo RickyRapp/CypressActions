@@ -37,7 +37,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                             ]
                         }
                         this.session = await this.rootStore.application.administration.sessionStore.getSession(id, params);
-                        this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value, "asc"));
+                        this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value || g.certificate.openCertificateAmount, "desc"));
                         if (!this.tableStore.dataInitialized) {
                             this.tableStore.dataInitialized = true;
                         }
