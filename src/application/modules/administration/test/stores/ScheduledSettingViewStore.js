@@ -82,6 +82,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Process update charity with charity from file',
                 description: `Updates/insert charities from temp table (charities from files)`,
                 abrv: 'update-charity-with-charity-from-file'
+            },
+            {
+                name: 'Process monthly grant fee',
+                description: `Generates fee from Acumulated monthly grant fee`,
+                abrv: 'monthly-grant-fee'
             }
         ];
 
