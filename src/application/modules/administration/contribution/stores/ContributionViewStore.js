@@ -246,7 +246,8 @@ class ContributionViewStore extends BaseListViewStore {
                             'id',
                             'accountNumber',
                             'donorName',
-                            'donorAddresses'
+                            'securityPin',
+                            'donorAddresses',
                         ]
                     });
                     return data.item.map(c => {
@@ -268,7 +269,7 @@ class ContributionViewStore extends BaseListViewStore {
                                 'accountNumber',
                                 'donorName',
                                 'securityPin',
-                                'donorAddresses'
+                                'donorAddresses',
                             ]
                         }
                         const data = await this.rootStore.application.administration.donorStore.getDonor(id, params);

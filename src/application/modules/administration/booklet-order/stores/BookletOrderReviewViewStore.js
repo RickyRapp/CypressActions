@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { BookletOrderReviewForm } from 'application/administration/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
-import { join } from 'lodash';
+import { join, orderBy } from 'lodash';
 
 @applicationContext
 class BookletOrderReviewViewStore extends BaseEditViewStore {
@@ -23,8 +23,8 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                         const data = await this.rootStore.application.administration.bookletOrderStore.getBookletOrder(id, { embed: 'donor,deliveryMethodType' });
                         this.order = data;
                         const temp = JSON.parse(data.json)
-                        temp.forEach(c => { c.booklets = []; })
-                        this.orderContents = temp;
+                        temp.forEach(c => { c.booklets = []; c.denominationTypeValue = this.denominationTypes.find(d => d.id === c.denominationTypeId).value }); //denominationTypeValue is added only for sorting
+                        this.orderContents = orderBy(temp, ['denominationTypeValue'], ['desc']);
                         return { id: data.id, trackingNumber: data.trackingNumber };
                     }
                 }

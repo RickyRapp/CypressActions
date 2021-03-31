@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { FormatterResolver } from 'core/components';
 import { DonorPhoneNumberEditTemplate } from 'themes/application/donor/donor/components';
 
-const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
+const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
 	const { phoneNumbers, onEnableEditClick, onCancelEditClick, isEditEnabled, form, editId } = donorPhoneNumberViewStore;
 
 	let primaryPhoneNumber = null;
@@ -25,13 +25,12 @@ const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
 					</h3>
 				</div>
 				<div
-					className={`col col-sml-12 col-lrg-${
-						(isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId) ||
-						undefined === editId ||
-						(secondaryPhoneNumber && secondaryPhoneNumber.id === editId)
+					className={`col col-sml-12 col-lrg-${(isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId) ||
+							undefined === editId ||
+							(secondaryPhoneNumber && secondaryPhoneNumber.id === editId)
 							? '12'
 							: '9'
-					}`}
+						}`}
 				>
 					<div className="row">
 						<div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
@@ -74,7 +73,7 @@ const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
 						</div>
 						<div className="col col-sml-12 col-lrg-12">
 							{isEditEnabled &&
-							((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
+								((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
 								<DonorPhoneNumberEditTemplate
 									form={form}
 									title="Secondary"
@@ -83,14 +82,14 @@ const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
 								/>
 							) : (
 								<span
-                                    className="cursor--pointer type--color--opaque type--sml"
-                                    title={`Click to ${secondaryPhoneNumber ? 'edit' : 'insert'}`}
+									className="cursor--pointer type--color--opaque type--sml"
+									title={`Click to ${secondaryPhoneNumber ? 'edit' : 'insert'}`}
 									onClick={() => onEnableEditClick(secondaryPhoneNumber)}
 								>
 									{secondaryPhoneNumber ? (
 										<FormatterResolver item={secondaryPhoneNumber} field="number" format={{ type: 'phone-number' }} />
 									) : (
-										<span className="type--base type--color--opaque type--wgt--medium">Add new phone number</span>
+										<span className="btn btn--link btn--sml">Add new phone number</span>
 									)}
 								</span>
 							)}

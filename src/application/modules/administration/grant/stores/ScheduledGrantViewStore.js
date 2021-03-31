@@ -160,10 +160,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'id',
                             'accountNumber',
                             'donorName',
-                            'firstName',
-                            'lastName',
                             'securityPin',
-                            'donorAddresses'
+                            'donorAddresses',
                         ]
                     });
                     return data.item.map(x => {
@@ -184,10 +182,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                                 'id',
                                 'accountNumber',
                                 'donorName',
-                                'firstName',
-                                'lastName',
                                 'securityPin',
-                                'donorAddresses'
+                                'donorAddresses',
                             ]
                         }
                         const data = await this.rootStore.application.administration.grantStore.getDonor(id, params);

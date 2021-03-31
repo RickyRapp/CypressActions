@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
-import { GrantRouteService } from 'application/administration/grant/services';
+import { GrantRouteService } from 'application/common/grant/services';
 import { charityFormatter, donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
@@ -252,10 +252,8 @@ class GrantViewStore extends BaseListViewStore {
                             'id',
                             'accountNumber',
                             'donorName',
-                            'firstName',
-                            'lastName',
                             'securityPin',
-                            'donorAddresses'
+                            'donorAddresses',
                         ]
                     });
                     return data.item.map(x => {
@@ -276,10 +274,8 @@ class GrantViewStore extends BaseListViewStore {
                                 'id',
                                 'accountNumber',
                                 'donorName',
-                                'firstName',
-                                'lastName',
                                 'securityPin',
-                                'donorAddresses'
+                                'donorAddresses',
                             ]
                         }
                         const data = await this.rootStore.application.administration.grantStore.getDonor(id, params);
@@ -358,15 +354,17 @@ class GrantViewStore extends BaseListViewStore {
         this.exportConfig = {
             fileName: `Grants_${moment().format("YYYY-MM-DD_HH-mm-ss")}`,
             columns: [
-                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 3, title: 'Charity type', key: 'CHARITY TYPE', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') },
-                { id: 4, title: 'Charity address', key: 'CHARITY ADDRESS', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') },
-                { id: 5, title: 'Account number', key: 'ACCOUNT NUMBER', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read') },
-                { id: 6, title: 'TaxId', key: 'TAX ID', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 7, title: 'Amount', key: 'AMOUNT', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 8, title: 'Confirmation number', key: 'CONFIRMATION NUMBER', selected: true, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') },
-                { id: 9, title: 'Status', key: 'STATUS', selected: false, visible: this.rootStore.permissionStore.hasPermission('theDonorsFundGrantSection.read') }
+                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: true },
+                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: true },
+                { id: 3, title: 'Charity type', key: 'CHARITY TYPE', visible: true },
+                { id: 4, title: 'Charity address', key: 'CHARITY ADDRESS', visible: true },
+                { id: 5, title: 'Account number', key: 'ACCOUNT NUMBER', visible: true },
+                { id: 6, title: 'TaxId', key: 'TAX ID', selected: true, visible: true },
+                { id: 7, title: 'Amount', key: 'AMOUNT', selected: true, visible: true },
+                { id: 8, title: 'Confirmation number', key: 'CONFIRMATION NUMBER', selected: true, visible: true },
+                { id: 9, title: 'Grant status', key: 'STATUS', selected: false, visible: true },
+                { id: 10, title: 'Payment method', key: 'PAYMENT METHOD', selected: false, visible: true },
+                { id: 11, title: 'Grant address', key: 'GRANT ADDRESS', selected: false, visible: true },
             ],
             exportUrlFunc: (exportData) => {
                 const routeService = new GrantRouteService();

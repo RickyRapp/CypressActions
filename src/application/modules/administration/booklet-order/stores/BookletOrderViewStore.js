@@ -163,7 +163,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                                 'accountNumber',
                                 'donorName',
                                 'securityPin',
-                                'donorAddresses'
+                                'donorAddresses',
                             ]
                         }
                         const data = await this.rootStore.application.administration.donorStore.getDonor(id, params);

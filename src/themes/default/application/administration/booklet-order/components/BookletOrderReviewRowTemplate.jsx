@@ -43,10 +43,10 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
             <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
                 {item && bookletTypes && bookletType.abrv !== 'classic' && bookletType.name} {denominationType && denominationType.name}
             </div>
-            <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+            <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml">
                 {item.bookletCount}
             </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+            <div className="form__group col col-sml-12 col-lrg-9 u-mar--bottom--sml">
                 <BaasicDropdown
                     store={bookletDropdownStore}
                     value={item.booklets.slice()}

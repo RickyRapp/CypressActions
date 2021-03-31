@@ -86,10 +86,8 @@ class WelcomeExistingAccountsEmailsViewStore extends BaseViewStore {
                             'id',
                             'accountNumber',
                             'donorName',
-                            'firstName',
-                            'lastName',
                             'securityPin',
-                            'donorAddresses'
+                            'donorAddresses',
                         ]
                     });
                     return data.item.map(x => {

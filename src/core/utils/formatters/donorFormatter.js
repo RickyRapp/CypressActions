@@ -9,11 +9,11 @@ class DonorFormatter {
                     case 'dropdown': {
                         let formattedDonorName = donor.donorName;
                         if (donor.securityPin) {
-                            formattedDonorName += ', ' + donor.securityPin;
+                            formattedDonorName += ', PIN: ' + donor.securityPin;
                         }
                         if (donor.donorAddresses && donor.donorAddresses.length > 0) {
                             const address = _.find(donor.donorAddresses, { isPrimary: true });
-                            formattedDonorName += ', ' + addressFormatter.format(address, 'full');
+                            formattedDonorName += ', ADDRESS: ' + addressFormatter.format(address, 'full');
                         }
                         return formattedDonorName;
                     }
