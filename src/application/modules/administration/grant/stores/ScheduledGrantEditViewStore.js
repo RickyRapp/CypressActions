@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
 import { addressFormatter, applicationContext, donorFormatter } from 'core/utils';
-import { GrantEditForm } from 'application/administration/grant/forms';
+import { GrantEditForm } from 'application/common/grant/forms';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -223,7 +223,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 	async setPreviousGrantTable(value) {
 		let data = [];
 		if (value) {
-			const donationTypes = await this.rootStore.application.lookup.donationTypes.find();
+			const donationTypes = await this.rootStore.application.lookup.donationTypeStore.find();
 			const visibleDonations = ['online', 'grant-request', 'giving-card', 'charity-website']
 			const params = {
 				donorId: this.item.donorId,

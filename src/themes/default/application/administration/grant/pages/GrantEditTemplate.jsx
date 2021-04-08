@@ -8,8 +8,6 @@ import {
 	BaasicModal,
 	SimpleBaasicTable,
 	FormatterResolver,
-	BasicCheckbox,
-	BasicTextArea,
 	BaasicFormControls,
 	BasicInput,
 	NumberFormatInputField,
@@ -29,8 +27,6 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 		grantAcknowledgmentTypeDropdownStore,
 		charityDropdownStore,
 		charityTypeDropdownStore,
-		isNoteToAdministratorIncluded,
-		onIncludeNoteToAdministratorChange,
 		donor,
 		onCharitySelected,
 		advancedSearchModal,
@@ -185,23 +181,6 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
 									</div>
 								</div>
-								<div className="row row--form">
-									<div className="form__group col col-sml-12 col-lrg-6 type--color--note">
-										<BasicCheckbox
-											id="2"
-											checked={isNoteToAdministratorIncluded}
-											label="GRANT.CREATE.INCLUDE_NOTE_TO_ADMINISTRATOR"
-											onChange={event => onIncludeNoteToAdministratorChange(event.target.checked)}
-										/>
-									</div>
-								</div>
-								{isNoteToAdministratorIncluded && (
-									<div className="row row--form">
-										<div className="form__group col col-sml-12 col-lrg-12">
-											<BasicTextArea field={form.$('noteToAdministrator')} />
-										</div>
-									</div>
-								)}
 								{renderEditLayoutFooterContent({ form })}
 							</div>
 						</div>

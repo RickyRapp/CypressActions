@@ -130,7 +130,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         this.rootStore.modalStore.showConfirm('SCHEDULED_GRANT.CANCEL.QUESTION',
             async () => {
                 try {
-                    await this.rootStore.application.grant.grantStore.cancelScheduledGrant({ id: id });
+                    await this.rootStore.application.donor.grantStore.cancelScheduledGrant({ id: id });
                     this.rootStore.notificationStore.success('SCHEDULED_GRANT.CANCEL.SUCCESS');
                 } catch (error) {
                     this.rootStore.notificationStore.error('SCHEDULED_GRANT.CANCEL.ERROR');

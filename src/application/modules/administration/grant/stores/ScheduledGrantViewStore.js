@@ -129,12 +129,23 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (grant) => this.routes.edit(grant.id),
+                onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.id),
+                onCancel: (scheduledGrant) => this.onCancel(scheduledGrant.id, scheduledGrant.name),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
-                onEditRender: (grant) => {
-                    return !grant.done;
+                onEditRender: (scheduledGrant) => {
+                    if (scheduledGrant.done) {
+                        return false;
+                    }
+
+                    if (moment(scheduledGrant.startFutureDate).isSameOrBefore(moment())) {
+                        return false;
+                    }
+                    return true;
+                },
+                onCancelRender: (scheduledGrant) => {
+                    return !scheduledGrant.done;
                 }
             }
         }));
@@ -220,6 +231,21 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         }
 
         return base;
+    }
+
+    @action.bound async
+    onCancel(id) {
+        this.rootStore.modalStore.showConfirm('SCHEDULED_GRANT.CANCEL.QUESTION',
+            async () => {
+                try {
+                    await this.rootStore.application.administration.grantStore.cancelScheduledGrant({ id: id });
+                    this.rootStore.notificationStore.success('SCHEDULED_GRANT.CANCEL.SUCCESS');
+                } catch (error) {
+                    this.rootStore.notificationStore.error('SCHEDULED_GRANT.CANCEL.ERROR');
+                }
+                await this.queryUtility.fetch();
+            }
+        );
     }
 }
 

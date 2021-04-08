@@ -182,7 +182,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} showLabel={false} />
                                             </div>
                                         </div>
-                                        <div className="row">
+                                        <div className="row row--form">
                                             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                 <NumericInputField field={form.$('numberOfPayments')} showLabel={false} />
                                             </div>

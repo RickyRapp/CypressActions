@@ -6,7 +6,7 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const ScheduledGrantListTemplate = function({ scheduledGrantViewStore }) {
+const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 	const {
 		tableStore,
 		routes,
@@ -53,8 +53,8 @@ ScheduledGrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onRedirect } = actions;
-	if (!isSome(onEdit) && !isSome(onRedirect)) return null;
+	const { onEdit, onCancel } = actions;
+	if (!isSome(onEdit) && !isSome(onCancel)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -63,10 +63,10 @@ function renderActions({ item, actions, actionsRender }) {
 		}
 	}
 
-	let redirectRender = true;
+	let cancelRender = true;
 	if (isSome(actionsRender)) {
-		if (actionsRender.onRedirectRender) {
-			redirectRender = actionsRender.onRedirectRender(item);
+		if (actionsRender.onCancelRender) {
+			cancelRender = actionsRender.onCancelRender(item);
 		}
 	}
 
@@ -82,13 +82,13 @@ function renderActions({ item, actions, actionsRender }) {
 						onClick={() => onEdit(item)}
 					></BaasicButton>
 				) : null}
-				{isSome(onRedirect) && redirectRender ? (
+				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--base" //TODO: change with redirect icon
+						icon="u-icon u-icon--delete u-icon--base" //TODO: change with redirect icon
 						label="GRANT.LIST.BUTTON.REDIRECT"
 						onlyIcon={true}
-						onClick={() => onRedirect(item)}
+						onClick={() => onCancel(item)}
 					></BaasicButton>
 				) : null}
 			</div>
