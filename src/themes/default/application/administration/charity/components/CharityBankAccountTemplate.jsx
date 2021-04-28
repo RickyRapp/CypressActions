@@ -34,15 +34,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
 
             <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
-                    <BasicInput field={form.$('accountHolderName')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-4">
-                    <BasicInput field={form.$('addressLine1')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-4">
-                    <BasicInput field={form.$('addressLine2')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('city')} />
                 </div>
                 <div className="form__group col col-sml-12 col-lrg-4">
