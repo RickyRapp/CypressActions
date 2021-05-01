@@ -6,6 +6,7 @@ class ContributionListFilter extends FilterParams {
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
+    @observable paymentNumber;
     @observable dateCreatedFrom;
     @observable dateCreatedTo;
     @observable contributionStatusIds;
@@ -27,6 +28,7 @@ class ContributionListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
+        this.paymentNumber = null;
         this.dateCreatedFrom = null;
         this.dateCreatedTo = null;
         this.contributionStatusIds = null;
