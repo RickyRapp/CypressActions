@@ -79,6 +79,24 @@ const ContributionListTemplate = function({ contributionViewStore }) {
 										placeholder="CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER"
 									/>
 								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="amountRangeMin"
+										className="input input--lrg"
+										value={queryUtility.filter.amountRangeMin || ''}
+										onChange={event => (queryUtility.filter.amountRangeMin = event.target.value)}
+										placeholder="CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="amountRangeMax"
+										className="input input--lrg"
+										value={queryUtility.filter.amountRangeMax || ''}
+										onChange={event => (queryUtility.filter.amountRangeMax = event.target.value)}
+										placeholder="CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER"
+									/>
+								</div>
 								<div className="col col-sml-12 u-mar--bottom--sml">
 									<div className="row">
 										<div className="col col-sml-12 col-lrg-8">
