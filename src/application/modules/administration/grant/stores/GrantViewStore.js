@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { GrantRouteService } from 'application/common/grant/services';
 import { charityFormatter, donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -33,6 +33,7 @@ class GrantViewStore extends BaseListViewStore {
                     this.donationTypeDropdownStore.setValue(null);
                     this.searchDonorDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
+                    this.dateCreatedDateRangeQueryStore.reset();
                 }
             },
             actions: () => {
@@ -76,8 +77,10 @@ class GrantViewStore extends BaseListViewStore {
         this.createDonationStatusDropdownStore();
         this.createDonationTypeDropdownStore();
         this.createExportConfig();
+        
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
 
     @action.bound

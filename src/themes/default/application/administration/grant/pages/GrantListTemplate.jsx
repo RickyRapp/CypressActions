@@ -9,6 +9,7 @@ import {
 	BaasicInput,
 	Export,
 	BaasicModal,
+	DateRangeQueryPicker,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
@@ -25,7 +26,8 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		exportConfig,
 		selectDonorModal,
 		searchCharityDropdownStore,
-		donationTypeDropdownStore
+		donationTypeDropdownStore,
+		dateCreatedDateRangeQueryStore,
 	} = grantViewStore;
 
 	return (
@@ -82,6 +84,18 @@ const GrantListTemplate = function ({ grantViewStore }) {
 									placeholder="GRANT.LIST.FILTER.GRANT_TYPE_PLACEHOLDER"
 								/>
 							</div>
+							<div className="col col-sml-12 u-mar--bottom--sml">
+									<div className="row">
+										<div className="col col-sml-12 col-lrg-8">
+											<DateRangeQueryPicker
+												queryUtility={queryUtility}
+												store={dateCreatedDateRangeQueryStore}
+												fromPropertyName="dateCreatedFrom"
+												toPropertyName="dateCreatedTo"
+											/>
+										</div>
+									</div>
+								</div>
 						</TableFilter>
 					</div>
 					<div className="col col-sml-12 col-xxlrg-2 type--right">
