@@ -1,4 +1,4 @@
-import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore, DateRangeQueryPickerStore } from 'core/stores';
 import { charityFormatter } from 'core/utils';
 import { observable } from 'mobx';
 import moment from 'moment';
@@ -26,6 +26,7 @@ class PastGrantViewStore extends BaseListViewStore {
 					this.charityDropdownStore.setValue(null);
 					this.donationStatusDropdownStore.setValue(null);
 					this.donationTypeDropdownStore.setValue(null);
+					this.dateCreatedDateRangeQueryStore.reset();
 				},
 			},
 			actions: () => {
@@ -52,6 +53,8 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.createCharityDropdownStore();
 		this.createDonationStatusDropdownStore();
 		this.createDonationTypeDropdownStore();
+
+		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
 	}
 
 	createCharityDropdownStore() {

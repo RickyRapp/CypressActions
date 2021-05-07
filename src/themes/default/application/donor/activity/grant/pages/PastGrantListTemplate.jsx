@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton } from 'core/components';
+import { BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, DateRangeQueryPicker } from 'core/components';
 import { Content } from 'core/layouts';
 import {
 	Chart,
@@ -25,6 +25,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		charityDropdownStore,
 		donationTypeDropdownStore,
 		donationStatusDropdownStore,
+		dateCreatedDateRangeQueryStore,
 		summaryData,
 	} = pastGrantViewStore;
 
@@ -97,6 +98,18 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 								</div>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={donationStatusDropdownStore} />
+								</div>
+								<div className="col col-sml-12 u-mar--bottom--sml">
+									<div className="row">
+										<div className="col col-sml-12 col-lrg-8">
+											<DateRangeQueryPicker
+												queryUtility={queryUtility}
+												store={dateCreatedDateRangeQueryStore}
+												fromPropertyName="dateCreatedFrom"
+												toPropertyName="dateCreatedTo"
+											/>
+										</div>
+									</div>
 								</div>
 							</TableFilter>
 						</div>
