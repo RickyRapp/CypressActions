@@ -27,8 +27,8 @@ class GrantListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
-        this.dateCreatedStartDate = null;
-        this.dateCreatedEndDate = null;
+        this.dateCreatedFrom = null;
+        this.dateCreatedTo = null;
         this.donationStatusIds = null;
         this.donationTypeIds = null;
     }
