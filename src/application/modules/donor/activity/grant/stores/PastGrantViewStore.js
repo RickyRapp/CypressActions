@@ -31,7 +31,7 @@ class PastGrantViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						params.embed = ['charity', 'donationType', 'donationStatus', 'donor'];
+						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,
 							...params,
@@ -156,6 +156,14 @@ class PastGrantViewStore extends BaseListViewStore {
 							key: 'donationStatus.name',
 							title: 'DONATION.PAST_GRANT.LIST.COLUMNS.DONATION_STATUS_LABEL',
 						},
+						{
+							key: 'desciption',
+							title: 'GRANT.LIST.COLUMNS.DESCRIPTION',
+							format: {
+								type: 'function',
+								value: this.getDescription
+							}
+						},
 					],
 					actions: {
 						onEdit: grant => this.routes.edit(grant.id),
@@ -176,6 +184,19 @@ class PastGrantViewStore extends BaseListViewStore {
 			)
 		);
 	}
+	
+	getDescription(item) {
+        if(item.donationType.abrv === "online"){
+			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
+				return `${item.grantPurposeType.name} - ${item.purposeNote}`
+			}
+			return item.grantPurposeType.name;
+        }
+		else{
+			return item.session.fullName;
+		} 
+    }
+
 }
 
 export default PastGrantViewStore;

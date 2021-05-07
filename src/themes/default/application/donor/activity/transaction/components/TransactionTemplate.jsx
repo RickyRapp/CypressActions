@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, DateRangeQueryPicker, TableFilter } from 'core/components';
 
-function TransactionTemplate({ transactionViewStore }) {
+function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
 	const { tableStore, dateCreatedDateRangeQueryStore, queryUtility } = transactionViewStore;
-
 	return (
 		<div>
 			<div className="card--tertiary card--med">
+				{hideSearch ? null: 
 				<div className="u-mar--bottom--med">
 					<TableFilter queryUtility={queryUtility}>
 						<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
@@ -16,8 +16,8 @@ function TransactionTemplate({ transactionViewStore }) {
 						</div>
 					</TableFilter>
 				</div>
-
-				<BaasicTable tableStore={tableStore} />
+				}
+				<BaasicTable tableStore={tableStore} hidePager={hidePager} />
 			</div>
 		</div>
 	);
@@ -26,6 +26,8 @@ function TransactionTemplate({ transactionViewStore }) {
 TransactionTemplate.propTypes = {
 	transactionViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired,
+	hideSearch: PropTypes.bool,
+    hidePager: PropTypes.bool,
 };
 
 export default defaultTemplate(TransactionTemplate);

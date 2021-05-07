@@ -26,6 +26,8 @@ const BaasicTableTemplate = function ({
     t,
     onScroll,
     infiniteScrollCallback,
+    hideSearch,
+    hidePager,
     ...otherProps
 }) {
     const {
@@ -57,6 +59,7 @@ const BaasicTableTemplate = function ({
                     {...getSortingParams(tableStore)}
                     {...getPagingProps(tableStore)}
                     onRowClick={event => onRowClick(event.dataItem)}
+                    pageable = {hidePager ? false : true}
                     rowRender={customRowRender ? customRowRender : onRowClick ? rowRender : null}
                 >
                     {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization, batchActionsComponent) : null}
@@ -84,8 +87,9 @@ BaasicTableTemplate.propTypes = {
     t: PropTypes.func,
     onScroll: PropTypes.func,
     infiniteScrollCallback: PropTypes.func,
-};
-
+    hideSearch: PropTypes.bool,
+    hidePager: PropTypes.bool,
+}
 BaasicTableTemplate.defaultProps = {
     scrollable: 'none',
 };

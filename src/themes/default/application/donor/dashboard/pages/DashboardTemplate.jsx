@@ -14,6 +14,7 @@ import {
 } from '@progress/kendo-react-charts';
 import { AccountManager } from 'application/donor/donor/components';
 import { DonorGivingCardActivationTemplate } from '../../donor/components';
+import { Transaction } from 'application/donor/activity/transaction/components';
 
 function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const {
@@ -23,7 +24,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		newGrantOnClick,
 		orderBookletsOnClick,
 		activateCardOnClick,
-		activateCardModalParams
+		activateCardModalParams,
 	} = dashboardViewStore;
 
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -238,7 +239,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					<div className="card card--primary card--med u-mar--bottom--med">
 						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						<div className="card--med">
-							<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
+						<Transaction 
+						hideSearch = {true}
+						hidePager = {true}/>
 						</div>
 					</div>
 				</div>

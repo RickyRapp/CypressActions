@@ -1491,6 +1491,7 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount",
                 "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION": "Desciption",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "GRANT_STATUS_NAME_LABEL": "Status",
                 "GRANT_TYPE_NAME_LABEL": "Type",
