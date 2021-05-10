@@ -10,6 +10,8 @@ class PastGrantFilter extends FilterParams {
     @observable charityId;
     @observable donationTypeIds;
     @observable donationStatusIds;
+    @observable grantMemo;
+    @observable bookletCertificateCode;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -29,6 +31,8 @@ class PastGrantFilter extends FilterParams {
         this.charityId = null;
         this.donationTypeIds = null;
         this.donationStatusIds = null;
+        this.grantMemo = null;
+        this.bookletCertificateCode = null;
     }
 }
 
