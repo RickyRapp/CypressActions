@@ -37,6 +37,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
+									id="confirmationNumber"
 									className="input input--lrg"
 									value={queryUtility.filter.confirmationNumber || ''}
 									onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
@@ -45,6 +46,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
+									id="paymentNumber"
 									className="input input--lrg"
 									value={queryUtility.filter.paymentNumber || ''}
 									onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
