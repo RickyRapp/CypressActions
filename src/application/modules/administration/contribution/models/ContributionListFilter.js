@@ -3,9 +3,8 @@ import { FilterParams } from "core/models";
 
 class ContributionListFilter extends FilterParams {
     @observable donorId;
-    @observable amountRangeMin;
-    @observable amountRangeMax;
     @observable confirmationNumber;
+    @observable dollarRange;
     @observable paymentNumber;
     @observable dateCreatedFrom;
     @observable dateCreatedTo;
@@ -13,6 +12,7 @@ class ContributionListFilter extends FilterParams {
     @observable paymentTypeIds;
     @observable nameOnCheck;
     @observable accountTypeId;
+
 
     constructor(orderBy, orderDirection) {
         super();
@@ -25,9 +25,8 @@ class ContributionListFilter extends FilterParams {
     reset() {
         super.reset();
         this.donorId = null;
-        this.amountRangeMin = null;
-        this.amountRangeMax = null;
         this.confirmationNumber = null;
+        this.dollarRange = null;
         this.paymentNumber = null;
         this.dateCreatedFrom = null;
         this.dateCreatedTo = null;

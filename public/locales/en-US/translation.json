@@ -1225,7 +1225,8 @@
                 "PRIVATE_PLACEHOLDER": "Private",
                 "NAME_ON_CHECK_PLACEHOLDER": "Name on check",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
-                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
+                "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500"
             },
             "EMPTY_STATE": {
                 "TITLE": "No deposits",

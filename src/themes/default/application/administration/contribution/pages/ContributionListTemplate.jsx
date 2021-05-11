@@ -15,7 +15,7 @@ import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 import { ContributionReview } from 'application/administration/contribution/components';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const ContributionListTemplate = function({ contributionViewStore }) {
+const ContributionListTemplate = function ({ contributionViewStore }) {
 	const {
 		routes,
 		tableStore,
@@ -81,20 +81,11 @@ const ContributionListTemplate = function({ contributionViewStore }) {
 								</div>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicInput
-										id="amountRangeMin"
+										id="dollarRange"
 										className="input input--lrg"
-										value={queryUtility.filter.amountRangeMin || ''}
-										onChange={event => (queryUtility.filter.amountRangeMin = event.target.value)}
-										placeholder="CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MIN_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="amountRangeMax"
-										className="input input--lrg"
-										value={queryUtility.filter.amountRangeMax || ''}
-										onChange={event => (queryUtility.filter.amountRangeMax = event.target.value)}
-										placeholder="CONTRIBUTION.LIST.FILTER.AMOUNT_RANGE_MAX_PLACEHOLDER"
+										value={queryUtility.filter.dollarRange || ''}
+										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+										placeholder="CONTRIBUTION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
 									/>
 								</div>
 								<div className="col col-sml-12 u-mar--bottom--sml">
