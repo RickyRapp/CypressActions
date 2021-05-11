@@ -9,7 +9,7 @@ class SessionListFilter extends FilterParams {
     @observable dateCreatedTo;
     @observable bookletCertificateCode;
     @observable paymentTypeIds;
-    @observable sessionStatusIds;
+    @observable donationStatusIds;
     @observable paymentNumber;
     @observable charityId;
 
@@ -30,7 +30,8 @@ class SessionListFilter extends FilterParams {
         this.dateCreatedTo = null;
         this.bookletCertificateCode = null;
         this.paymentTypeIds = null;
-        this.sessionStatusIds = null;
+        this.donationStatusIds = null;
+        this.paymentTypeIds = null;
         this.paymentNumber = null;
         this.charityId = null;
     }

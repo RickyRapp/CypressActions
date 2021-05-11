@@ -80,10 +80,10 @@ class SessionViewStore extends BaseListViewStore {
                                     format={{ type: 'currency' }}
                                 />
                                 {item.json &&
-                                    <p data-tip={`${item.json}`} data-type="info">
+                                    <span data-tip={`${item.json}`} data-type="info">
                                         ?
 					                    <ReactTooltip />
-                                    </p>
+                                    </span>
                                 }
                             </React.Fragment >
 
