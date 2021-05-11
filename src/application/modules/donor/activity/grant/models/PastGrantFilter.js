@@ -2,8 +2,7 @@ import { action, observable } from 'mobx';
 import { FilterParams } from "core/models";
 
 class PastGrantFilter extends FilterParams {
-    @observable amountRangeMin;
-    @observable amountRangeMax;
+    @observable dollarRange;
     @observable confirmationNumber;
     @observable dateCreatedTo;
     @observable dateCreatedFrom;
@@ -23,8 +22,7 @@ class PastGrantFilter extends FilterParams {
     @action.bound
     reset() {
         super.reset();
-        this.amountRangeMin = null;
-        this.amountRangeMax = null;
+        this.dollarRange = null;
         this.confirmationNumber = null;
         this.dateCreatedTo = null;
         this.dateCreatedFrom = null;
