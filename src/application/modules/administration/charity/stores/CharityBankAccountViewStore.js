@@ -20,9 +20,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                         description: data.description,
                         coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                         isThirdPartyAccount: data.isThirdPartyAccount,
-                        city: data.accountHolder.city,
-                        state: data.accountHolder.state,
-                        zipCode: data.accountHolder.zipCode,
                         email: data.accountHolder.email,
                         number: data.accountHolder.number
                     };

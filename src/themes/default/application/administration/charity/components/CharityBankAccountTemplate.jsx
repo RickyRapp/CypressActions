@@ -31,19 +31,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <BasicInput field={form.$('name')} />
                 </div>
             </div>
-
-            <div className="row row--form">
-                <div className="form__group col col-sml-12 col-lrg-4">
-                    <BasicInput field={form.$('city')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-4">
-                    <BasicInput field={form.$('state')} />
-                </div>
-                <div className="form__group col col-sml-12 col-lrg-4">
-                    <BasicInput field={form.$('zipCode')} />
-                </div>
-            </div>
-
             <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('email')} />
@@ -52,13 +39,11 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <NumberFormatInputField field={form.$('number')} />
                 </div>
             </div>
-
             <div className="row row--form">
                 <div className="col col-sml-12 col-lrg-12">
                     <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
                 </div>
             </div>
-
             <div className="type--right">
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
