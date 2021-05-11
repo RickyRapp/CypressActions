@@ -75,6 +75,15 @@ const GrantListTemplate = function ({ grantViewStore }) {
 									placeholder="GRANT.LIST.FILTER.GRANT_TYPE_PLACEHOLDER"
 								/>
 							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="purposeNote"
+									className="input input--lrg"
+									value={queryUtility.filter.purposeNote || ''}
+									onChange={event => (queryUtility.filter.purposeNote = event.target.value)}
+									placeholder="GRANT.LIST.FILTER.INFORMATION_FROM_GRANT_PURPOSE_FIELDS"
+								/>
+							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
 								<div className="row">
 									<div className="col col-sml-12 col-lrg-8">
