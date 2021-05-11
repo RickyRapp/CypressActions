@@ -15,7 +15,7 @@ class GrantRouteService extends BaseRouteService {
     }
 
     findPastGrant(params) {
-        return super.find(this.base + '/donor/{?donorId,charityId,donationStatusIds,donationTypeIds,amountRangeMin,amountRangeMax,confirmationNumber,bookletCertificateCode,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', params);
+        return super.find(this.base + '/donor/{?donorId,charityId,donationStatusIds,donationTypeIds,amountRangeMin,amountRangeMax,confirmationNumber,grantMemo,bookletCertificateCode,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', params);
     }
 
     get(id, options) {
