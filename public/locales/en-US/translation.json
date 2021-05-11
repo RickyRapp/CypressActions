@@ -1506,7 +1506,9 @@
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "GRANT_MEMO_PLACEHOLDER": "Grant memo",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
-                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
+                "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500",
+                "INFORMATION_FROM_GRANT_PURPOSE_FIELDS": "Information from Grant purpose fields"
             },
             "EMPTY_STATE": {
                 "TITLE": "No grants",

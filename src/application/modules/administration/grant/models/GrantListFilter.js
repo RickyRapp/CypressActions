@@ -4,13 +4,13 @@ import { FilterParams } from "core/models";
 class GrantListFilter extends FilterParams {
     @observable donorId;
     @observable charityId;
-    @observable amountRangeMin;
-    @observable amountRangeMax;
+    @observable dollarRange;
     @observable confirmationNumber;
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
     @observable donationStatusIds;
     @observable donationTypeIds;
+    @observable purposeNote;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -24,13 +24,13 @@ class GrantListFilter extends FilterParams {
         super.reset();
         this.donorId = null;
         this.charityId = null;
-        this.amountRangeMin = null;
-        this.amountRangeMax = null;
+        this.dollarRange = null;
         this.confirmationNumber = null;
         this.dateCreatedFrom = null;
         this.dateCreatedTo = null;
         this.donationStatusIds = null;
         this.donationTypeIds = null;
+        this.purposeNote = null;
     }
 }
 
