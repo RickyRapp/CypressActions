@@ -901,7 +901,7 @@
                 "DESCRIPTION_PLACEHOLDER": "Description",
                 "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
                 "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
-                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Acount holder name",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Account holder name",
                 "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name",
                 "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
                 "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
@@ -1504,6 +1504,7 @@
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
+                "GRANT_MEMO_PLACEHOLDER": "Grant memo",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
                 "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
             },
