@@ -1505,7 +1505,8 @@
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
-                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
+                "DOLLAR_RANGE_PLACEHOLDER": "e.g. $100 or $100-$500"
             },
             "EMPTY_STATE": {
                 "TITLE": "No grants",
