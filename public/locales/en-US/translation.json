@@ -1845,7 +1845,8 @@
                 "CODES_PLACEHOLDER": "Codes",
                 "BOOKLET_STATUS_PLACEHOLDER": "Statuses",
                 "BOOKLET_TYPE_PLACEHOLDER": "Types",
-                "DENOMINATION_PLACEHOLDER": "Denominations"
+                "DENOMINATION_PLACEHOLDER": "Denominations",
+                "DONORS_NAME": "Donors name"
             },
             "EMPTY_STATE": {
                 "TITLE": "No booklets"
