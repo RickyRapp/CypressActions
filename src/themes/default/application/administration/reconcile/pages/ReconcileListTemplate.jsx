@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, BaasicModal } from 'core/components';
+import { BaasicButton, BaasicTable, TableFilter, BaasicModal, BaasicDropdown } from 'core/components';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { isSome } from 'core/utils';
 import { ReconcileEdit } from 'application/administration/reconcile/components';
 import { ReconcilePreviewTemplate } from 'themes/application/administration/reconcile/components';
 
 const ReconcileListTemplate = function ({ reconcileViewStore }) {
-	const { tableStore, queryUtility, authorization, editModal, previewModal } = reconcileViewStore;
+	const { tableStore, queryUtility, paymentTypeDropdownStore, authorization, editModal, previewModal } = reconcileViewStore;
 
 	return (
 		<ApplicationListLayout store={reconcileViewStore} authorization={authorization}>
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility}></TableFilter>
+						<TableFilter queryUtility={queryUtility}>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={paymentTypeDropdownStore}
+									placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+								/>
+							</div>
+						</TableFilter>
 					</div>
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 				</div>

@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { ModalParams } from 'core/models';
 import { isSome } from 'core/utils';
@@ -32,6 +32,8 @@ class ReconcileViewStore extends BaseListViewStore {
         this.createTableStore();
         this.editModal = new ModalParams({});
         this.previewModal = new ModalParams({});
+
+        this.createPaymentTypeDropodownStore();
     }
 
     @action.bound
@@ -151,6 +153,20 @@ class ReconcileViewStore extends BaseListViewStore {
             }
         }));
     }
+    createPaymentTypeDropodownStore() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: () => {
+                    return this.rootStore.application.lookup.paymentTypeStore.find();
+                },
+                onChange: (paymentType) => {
+                    this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });
+                }
+            });
+
+        }
 }
 
 export default ReconcileViewStore;
