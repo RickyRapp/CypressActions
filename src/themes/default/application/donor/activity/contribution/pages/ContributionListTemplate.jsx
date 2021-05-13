@@ -66,6 +66,14 @@ const ContributionListTemplate = function({ contributionViewStore }) {
 								placeholder="CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER"
 							/>
 						</div>
+						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="dollarRange"
+										value={queryUtility.filter.dollarRange || ''}
+										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+										placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+									/>
+								</div>
 						<div className="col col-sml-12 u-mar--bottom--sml">
 							<div className="row row--form">
 								<div className="col col-sml-12 col-lrg-6">
