@@ -32,7 +32,6 @@ class ContributionListFilter extends FilterParams {
         this.contributionStatusIds = null;
         this.paymentTypeIds = null;
         this.accountTypeId = null;
-
     }
 }
 

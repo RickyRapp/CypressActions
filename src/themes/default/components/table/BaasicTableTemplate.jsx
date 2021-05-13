@@ -26,7 +26,6 @@ const BaasicTableTemplate = function ({
     t,
     onScroll,
     infiniteScrollCallback,
-    hideSearch,
     hidePager,
     ...otherProps
 }) {

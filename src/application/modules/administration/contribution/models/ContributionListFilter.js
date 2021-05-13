@@ -13,7 +13,6 @@ class ContributionListFilter extends FilterParams {
     @observable nameOnCheck;
     @observable accountTypeId;
 
-
     constructor(orderBy, orderDirection) {
         super();
         this.reset();

@@ -164,7 +164,9 @@ class PastGrantViewStore extends BaseListViewStore {
 							title: 'GRANT.LIST.COLUMNS.DESCRIPTION',
 							format: {
 								type: 'function',
-								value: this.getDescription
+								value: (item) => {
+									return this.getDescription(item);
+								}
 							}
 						},
 					],
