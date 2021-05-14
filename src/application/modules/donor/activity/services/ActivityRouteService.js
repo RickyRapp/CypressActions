@@ -14,7 +14,7 @@ class ActivityRouteService extends BaseRouteService {
     }
 
     findTransactions(filter) {
-        return super.find(this.base + '/transactions/{?donorId,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/transactions/{?donorId,searchQuery,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
     }
 
     findPendingCheck(filter) {
