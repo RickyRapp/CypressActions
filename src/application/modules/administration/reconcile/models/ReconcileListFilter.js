@@ -4,6 +4,7 @@ import { FilterParams } from "core/models";
 class ReconcileListFilter extends FilterParams {
     @observable dateCreatedStartDate;
     @observable dateCreatedEndDate;
+    @observable paymentTypeIds;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -17,6 +18,7 @@ class ReconcileListFilter extends FilterParams {
         super.reset();
         this.dateCreatedStartDate = null;
         this.dateCreatedEndDate = null;
+        this.paymentTypeIds = null;
     }
 }
 

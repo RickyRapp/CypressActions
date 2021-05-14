@@ -2390,6 +2390,9 @@
                 "PREVIEW": "Preview",
                 "CASH": "Cash",
                 "PRINT": "Print"
+            },
+            "FILTER": {
+                "PAYMENT_TYPE_PLACEHOLDER":"Payment type"
             }
         },
         "CHECK": {

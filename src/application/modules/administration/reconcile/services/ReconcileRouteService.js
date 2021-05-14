@@ -6,7 +6,7 @@ class ReconcileRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,paymentTypeIds,page,rpp,sort,embed,fields}', filter);
     }
 
     checkUpdate(resource) {
