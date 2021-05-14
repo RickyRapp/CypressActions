@@ -11,6 +11,7 @@ class ContributionListFilter extends FilterParams {
     @observable paymentTypeIds;
     @observable nameOnCheck;
     @observable accountTypeId;
+    @observable dollarRange;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -30,7 +31,7 @@ class ContributionListFilter extends FilterParams {
         this.contributionStatusIds = null;
         this.paymentTypeIds = null;
         this.accountTypeId = null;
-
+        this.dollarRange = null;
     }
 }
 
