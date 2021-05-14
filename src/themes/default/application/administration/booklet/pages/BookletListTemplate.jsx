@@ -43,6 +43,15 @@ const BookletListTemplate = function({ bookletViewStore }) {
 									placeholder="BOOKLET.LIST.FILTER.BOOKLET_TYPE_PLACEHOLDER"
 								/>
 							</div>
+							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+								<BaasicInput
+									id="donorsName"
+									className="input input--lrg"
+									value={queryUtility.filter.donorsName || ''}
+									onChange={event => (queryUtility.filter.donorsName = event.target.value)}
+									placeholder="BOOKLET.LIST.FILTER.DONORS_NAME"
+								/>
+							</div>
 						</TableFilter>
 					</div>
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />

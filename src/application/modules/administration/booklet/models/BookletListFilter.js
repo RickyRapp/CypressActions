@@ -11,6 +11,7 @@ class BookletListFilter extends FilterParams {
     @observable donorId;
     @observable trackingNumber;
     @observable deliveryMethodTypeIds;
+    @observable donorsName;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -30,6 +31,7 @@ class BookletListFilter extends FilterParams {
         this.denominationTypeIds = null;
         this.trackingNumber = null;
         this.deliveryMethodTypeIds = null;
+        this.donorsName = null;
     }
 }
 
