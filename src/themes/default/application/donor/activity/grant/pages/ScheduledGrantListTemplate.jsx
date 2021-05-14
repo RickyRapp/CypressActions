@@ -1,19 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, EmptyState } from 'core/components';
+import { BaasicButton, BaasicTable, BaasicDropdown, DateRangeQueryPicker, BaasicInput, TableFilter, EmptyState } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 
-const ScheduledGrantListTemplate = function({ scheduledGrantViewStore }) {
-	const { tableStore, routes, queryUtility, authorization } = scheduledGrantViewStore;
+const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
+	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore } = scheduledGrantViewStore;
 
 	return (
 		<Content emptyRenderer={renderEmpty(routes)}>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="u-mar--bottom--med">
-					<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}></TableFilter>
+					<TableFilter queryUtility={queryUtility}>
+						{/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+							<BaasicDropdown store={charityDropdownStore} />
+						</div> */}
+						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+							<BaasicInput
+								id="dollarRange"
+								value={queryUtility.filter.dollarRange || ''}
+								onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+								placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+							/>
+						</div>
+						{/* <div className="col col-sml-12 u-mar--bottom--sml">
+							<div className="row">
+								<div className="col col-sml-12 col-lrg-8">
+									<DateRangeQueryPicker
+										queryUtility={queryUtility}
+										store={dateCreatedDateRangeQueryStore}
+										fromPropertyName="dateCreatedFrom"
+										toPropertyName="dateCreatedTo"
+									/>
+								</div>
+							</div>
+						</div> */}
+					</TableFilter>
 				</div>
 				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 			</div>

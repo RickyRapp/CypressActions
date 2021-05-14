@@ -9,6 +9,7 @@ class ScheduledGrantListFilter extends FilterParams {
     @observable dateCreatedEndDate;
     @observable donationStatusIds;
     @observable paymentTypeIds;
+    @observable dollarRange;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -27,6 +28,7 @@ class ScheduledGrantListFilter extends FilterParams {
         this.dateCreatedEndDate = null;
         this.donationStatusIds = null;
         this.paymentTypeIds = null;
+        this.dollarRange = null;
     }
 }
 
