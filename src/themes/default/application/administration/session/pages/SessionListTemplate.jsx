@@ -74,6 +74,46 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 									mask=""
 								/>
 							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="dollarRange"
+                                    value={queryUtility.filter.dollarRange || ''}
+                                    onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="fundraiserName"
+                                    value={queryUtility.filter.fundraiserName || ''}
+                                    onChange={event => (queryUtility.filter.fundraiserName = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.FUNDRAISER_NAME_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="phoneNumber"
+                                    value={queryUtility.filter.phoneNumber || ''}
+                                    onChange={event => (queryUtility.filter.phoneNumber = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.PHONE_NUMBER_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="sessionEmail"
+                                    value={queryUtility.filter.sessionEmail || ''}
+                                    onChange={event => (queryUtility.filter.sessionEmail = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.EMAIL_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="usernameCreatedSession"
+                                    value={queryUtility.filter.usernameCreatedSession || ''}
+                                    onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
+                                />
+                            </div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
 								<div className="row">
 									<div className="col col-sml-12 col-lrg-8">

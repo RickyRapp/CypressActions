@@ -12,6 +12,11 @@ class SessionListFilter extends FilterParams {
     @observable donationStatusIds;
     @observable paymentNumber;
     @observable charityId;
+    @observable dollarRange;
+    @observable phoneNumber;
+    @observable sessionEmail;
+    @observable usernameCreatedSession;
+    @observable fundraiserName;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -34,6 +39,11 @@ class SessionListFilter extends FilterParams {
         this.paymentTypeIds = null;
         this.paymentNumber = null;
         this.charityId = null;
+        this.dollarRange = null;
+        this.phoneNumber = null;
+        this.sessionEmail = null;
+        this.username = null;
+        this.fundraiserName = null;
     }
 }
 
