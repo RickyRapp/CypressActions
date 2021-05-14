@@ -1536,7 +1536,8 @@
                 "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
                 "DONOR_NAME_LABEL": "Donor",
                 "SCHEDULED_LABEL": "Scheduled",
-                "CHARITY_WEBSITE_LABEL": "Created over charity website"
+                "CHARITY_WEBSITE_LABEL": "Created over charity website",
+                "ADDRESS": "Address"
             }
         },
         "CREATE": {
