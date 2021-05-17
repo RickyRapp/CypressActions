@@ -14,9 +14,9 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="u-mar--bottom--med">
 					<TableFilter queryUtility={queryUtility}>
-						{/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+						{ <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicDropdown store={charityDropdownStore} />
-						</div> */}
+						</div> }
 						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicInput
 								id="dollarRange"
@@ -25,7 +25,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 								placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
 							/>
 						</div>
-						{/* <div className="col col-sml-12 u-mar--bottom--sml">
+						{<div className="col col-sml-12 u-mar--bottom--sml">
 							<div className="row">
 								<div className="col col-sml-12 col-lrg-8">
 									<DateRangeQueryPicker
@@ -36,7 +36,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 									/>
 								</div>
 							</div>
-						</div> */}
+						</div>}
 					</TableFilter>
 				</div>
 				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
