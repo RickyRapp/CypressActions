@@ -45,7 +45,7 @@ export default class GrantCreateForm extends FormBase {
 					name: 'purposeNote',
 					label: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_PLACEHOLDER',
-					rules: 'required|string|max:25',
+					rules: 'required|string|max:35',
 				},
 				{
 					name: 'charityEventAttending',
