@@ -2078,7 +2078,12 @@
                 "SESSION_STATUS_PLACEHOLDER": "Session status",
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
                 "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
-                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number"
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500",
+                "FUNDRAISER_NAME_PLACEHOLDER": "Fundraiser name",
+                "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "EMAIL_PLACEHOLDER": "Email address",
+                "USERNAME_CREATED_SESSION_PLACEHOLDER": "Username that created the session"
             },
             "BUTTON": {
                 "GO_TO_CREATE_PAGE": "Proceed without scanner",
