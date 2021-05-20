@@ -5,7 +5,7 @@ import { action } from 'mobx';
 
 @applicationContext
 class TransactionViewStore extends BaseListViewStore {
-    constructor(rootStore) {
+    constructor(rootStore, props) {
         super(rootStore, {
             name: 'transaction',
             routes: {},
@@ -26,6 +26,7 @@ class TransactionViewStore extends BaseListViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
+        this.hidePager = props.hidePager;
 
         this.createTableStore();
         this.createDateCreatedDateRangeQueryStore();
@@ -97,7 +98,8 @@ class TransactionViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {},
-            disableSorting: true
+            disableSorting: true,
+            disablePaging: this.hidePager
         }));
     }
 }
