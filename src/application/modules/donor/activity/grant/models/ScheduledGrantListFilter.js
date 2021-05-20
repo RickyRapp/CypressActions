@@ -5,10 +5,12 @@ class ScheduledGrantListFilter extends FilterParams {
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable confirmationNumber;
-    @observable dateCreatedStartDate;
-    @observable dateCreatedEndDate;
+    @observable dateCreatedTo;
+    @observable dateCreatedFrom;
     @observable donationStatusIds;
     @observable paymentTypeIds;
+    @observable dollarRange;
+    @observable charityId;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -23,10 +25,12 @@ class ScheduledGrantListFilter extends FilterParams {
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.confirmationNumber = null;
-        this.dateCreatedStartDate = null;
-        this.dateCreatedEndDate = null;
+        this.dateCreatedTo = null;
+        this.dateCreatedFrom = null;
         this.donationStatusIds = null;
         this.paymentTypeIds = null;
+        this.dollarRange = null;
+        this.charityId = null;
     }
 }
 
