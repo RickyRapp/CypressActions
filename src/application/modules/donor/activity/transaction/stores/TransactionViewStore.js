@@ -59,19 +59,8 @@ class TransactionViewStore extends BaseListViewStore {
                     cellClass: 'table__cell--date'
                 },
                 {
-                    key: 'charity',
+                    key: 'description',
                     title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if (item.charity) {
-                                return item.charity.name;
-                            }
-                            else {
-                                return item.paymentTransaction.description;
-                            }
-                        }
-                    }
                 },
                 {
                     key: 'type',
