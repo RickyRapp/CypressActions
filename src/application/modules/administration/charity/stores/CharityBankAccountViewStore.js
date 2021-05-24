@@ -13,16 +13,21 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             actions: {
                 get: async () => {
                     const data = await rootStore.application.administration.charityStore.getCharityBank(this.id, { embed: 'accountHolder' });
-                    return {
-                        name: data.name,
-                        accountNumber: data.accountNumber,
-                        routingNumber: data.routingNumber,
-                        description: data.description,
-                        coreMediaVaultEntryId: data.coreMediaVaultEntryId,
-                        isThirdPartyAccount: data.isThirdPartyAccount,
-                        email: data.accountHolder.email,
-                        number: data.accountHolder.number
-                    };
+                    if (data) {
+                        return {
+                            name: data.name,
+                            accountNumber: data.accountNumber,
+                            routingNumber: data.routingNumber,
+                            description: data.description,
+                            coreMediaVaultEntryId: data.coreMediaVaultEntryId,
+                            isThirdPartyAccount: data.isThirdPartyAccount,
+                            email: data.accountHolder.email,
+                            number: data.accountHolder.number
+                        };
+                    } else {
+                        this.id = null;
+                        return null;
+                    }
                 },
                 update: async (resource) => {
                     await this.rootStore.application.administration.charityStore.updateBankAccount({ charityId: this.charityId, id: this.id, ...resource });
@@ -68,12 +73,11 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async deleteBankAccount(bankAccount) {
+    async deleteBankAccount() {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to delete bank account?`,
             async () => {
-                await this.rootStore.application.bank.bankStore.deleteCharityBank({ id: bankAccount.id, charityId: this.id });
-                await this.queryUtility.fetch();
+                await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
             }
         );
     }
@@ -104,7 +108,9 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 this.form.$('coreMediaVaultEntryId').clear();
             }
         });
+
     }
+
 }
 
 export default CharityBankAccountViewStore;
