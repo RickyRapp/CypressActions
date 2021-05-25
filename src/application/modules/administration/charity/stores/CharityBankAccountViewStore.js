@@ -78,6 +78,8 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             `Are you sure you want to delete bank account?`,
             async () => {
                 await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
+                this.form.clear();
+                this.rootStore.notificationStore.success('Successfully deleted Bank account');
             }
         );
     }
