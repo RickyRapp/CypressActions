@@ -1,7 +1,8 @@
-import { BaseListViewStore, DateRangeQueryPickerStore, TableViewStore } from 'core/stores';
+import { BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { TransactionListFilter } from 'application/donor/activity/transaction/models';
 import { action } from 'mobx';
+import _ from 'lodash';
 
 @applicationContext
 class TransactionViewStore extends BaseListViewStore {
@@ -14,11 +15,15 @@ class TransactionViewStore extends BaseListViewStore {
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.dateCreatedDateRangeQueryStore.reset();
+                    this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
                 }
             },
             actions: () => {
                 return {
                     find: async (params) => {
+                        params.embed = [
+                            'paymentTransaction',
+                        ]
                         return this.rootStore.application.donor.transactionStore.findTransactions({ donorId: this.donorId, ...params });
                     }
                 }
@@ -30,6 +35,7 @@ class TransactionViewStore extends BaseListViewStore {
 
         this.createTableStore();
         this.createDateCreatedDateRangeQueryStore();
+        this.createTransactionTypeStore();
     }
 
     @action.bound
@@ -43,7 +49,28 @@ class TransactionViewStore extends BaseListViewStore {
     }
 
     createDateCreatedDateRangeQueryStore() {
-        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
+    }
+
+    createTransactionTypeStore() {
+        const transactionTypes = [
+            { id: 0, name: 'All Transactions', key: 'all' },
+            { id: 1, name: 'All Credit transactions', key: 'credit' },
+            { id: 2, name: 'All Debit transaction', key: 'debit' },
+            { id: 3, name: 'Fees', key: 'fees' },
+            { id: 4, name: 'Icoming/outgoing transfers', key: 'transfers' }
+        ];
+        this.transactionTypeStore = new BaasicDropdownStore(
+            {
+                placeholder: 'CHOOSE_TRANSACTION_TYPE'
+            },
+            {
+                onChange: type => {
+                    this.queryUtility.filter.paymentTransactionType = transactionTypes[type].key;
+                },
+            },
+            transactionTypes);
+        this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
     }
 
     createTableStore() {
