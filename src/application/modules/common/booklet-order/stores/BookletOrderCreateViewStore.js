@@ -87,8 +87,14 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get prepaidBooks() {
-        if(this.donor)
-            return this.donor.contribution.amount;
+        if(this.donor) {
+            if(this.donor.contribution) {
+                return this.donor.contribution.amount;
+            } else {
+                return 0;
+            }
+        } 
+
     }
 
     @computed get mixed500BookletAmount() {
