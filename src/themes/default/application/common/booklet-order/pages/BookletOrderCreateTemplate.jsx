@@ -30,6 +30,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         mixed2000BookletAmount,
         bookletTypes,
         totalAmount,
+        prepaidBooks,
         showMoreOptions,
         onShowMoreOptionsClick,
         isDefaultShippingAddress,
@@ -294,7 +295,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                         <div className="card--sml">
                             <div className="u-mar--bottom--med">
-                                {donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount &&
+                                {donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount && prepaidBooks < totalAmount &&
                                     <div className="message--enh">
                                         <span className="u-mar--right--tny">
                                             {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
@@ -416,7 +417,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </Content>
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount && prepaidBooks < totalAmount} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>
