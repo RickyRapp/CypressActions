@@ -16,6 +16,7 @@ class TransactionViewStore extends BaseListViewStore {
                     filter.reset();
                     this.dateCreatedDateRangeQueryStore.reset();
                     this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+                    this.showPresentBalance = true;
                 }
             },
             actions: () => {
@@ -32,6 +33,7 @@ class TransactionViewStore extends BaseListViewStore {
 
         this.donorId = rootStore.userStore.applicationUser.id;
         this.hidePager = props.hidePager;
+        this.showPresentBalance = true;
 
         this.createTableStore();
         this.createDateCreatedDateRangeQueryStore();
@@ -55,10 +57,10 @@ class TransactionViewStore extends BaseListViewStore {
     createTransactionTypeStore() {
         const transactionTypes = [
             { id: 0, name: 'All Transactions', key: 'all' },
-            { id: 1, name: 'All Credit transactions', key: 'credit' },
-            { id: 2, name: 'All Debit transaction', key: 'debit' },
+            { id: 1, name: 'Credit transactions', key: 'credit' },
+            { id: 2, name: 'Debit transaction', key: 'debit' },
             { id: 3, name: 'Fees', key: 'fees' },
-            { id: 4, name: 'Icoming/outgoing transfers', key: 'transfers' }
+            { id: 4, name: 'Incoming/outgoing transfers', key: 'transfers' }
         ];
         this.transactionTypeStore = new BaasicDropdownStore(
             {
@@ -67,6 +69,7 @@ class TransactionViewStore extends BaseListViewStore {
             {
                 onChange: type => {
                     this.queryUtility.filter.paymentTransactionType = transactionTypes[type].key;
+                    this.showPresentBalance = type > 0 ? false : true;
                 },
             },
             transactionTypes);
@@ -105,8 +108,17 @@ class TransactionViewStore extends BaseListViewStore {
                     key: 'paymentTransaction.presentBalance',
                     title: 'ACTIVITY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
                     format: {
-                        type: 'currency',
-                        value: '$'
+                        type: 'function',
+                        value: (item) => {
+                            if(!this.showPresentBalance) 
+                                return null;
+
+                            let formatter = new Intl.NumberFormat('en-US', {
+                                style: 'currency',
+                                currency: 'USD',
+                                });
+                            return formatter.format(item.paymentTransaction.presentBalance);
+                        }
                     }
                 }
             ],
