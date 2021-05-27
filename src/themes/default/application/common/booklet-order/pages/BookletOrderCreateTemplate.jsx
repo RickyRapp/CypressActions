@@ -80,11 +80,14 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                     <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                         <div className="col col-sml-3">
                                                                             <div className="type--med type--wgt--regular">
-                                                                                <FormatterResolver
+                                                                                {
+                                                                                    dt.value == 0 ? "Blank checks" :  
+                                                                                    <FormatterResolver
                                                                                     item={{ value: dt.value }}
                                                                                     field='value'
                                                                                     format={{ type: 'currency' }}
                                                                                 />
+                                                                                }
                                                                             </div>
                                                                             {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
                                                                                 <div className="counter__prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
