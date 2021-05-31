@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page, PageHeader } from 'core/layouts';
-import { DonorAccountInformation, DonorSecurityAndPreferencesData, DonorCommunicationPreference } from 'application/administration/donor/components';
+import { DonorAccountInformation, DonorSecurityAndPreferencesData, DonorCommunicationPreference, DonorRecordActivityList } from 'application/administration/donor/components';
 import renderTabsContent from 'core/utils/renderTabsContent';
 import { TabsHeader } from 'core/components';
 import { DonorNoteList } from 'application/administration/donor-note/pages';
@@ -29,6 +29,9 @@ function DonorTabTemplate({ donorTabViewStore, rootStore }) {
                 <div label={'DONOR.TAB.EMAIL'}>
                     <EmailList donorId={rootStore.routerStore.routerState.params.id} />
                 </div>
+                <div label={'DONOR.TAB.RECORD'}>
+                    <DonorRecordActivityList donorId={rootStore.routerStore.routerState.params.id} />
+                </div>
             </React.Fragment>
         )
     }
@@ -44,8 +47,9 @@ function DonorTabTemplate({ donorTabViewStore, rootStore }) {
             <div className='container'>
                 {renderTabsContent(activeIndex, children().props.children)}
             </div>
-
-            <DonorNoteList />
+            {activeIndex == 4 ? '' :
+            <DonorNoteList />}
+    
         </Page>
     );
 }

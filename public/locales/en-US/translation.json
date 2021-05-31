@@ -482,7 +482,8 @@
             "ACCOUNT_INFORMATION": "Account Information",
             "SECURITY_AND_PREFERENCES": "Security And Preferences",
             "COMMUNICATION_PREFERENCE": "Communication Preferences",
-            "EMAIL": "Emails"
+            "EMAIL": "Emails",
+            "RECORD": "Records"
         },
         "LIST": {
             "TITLE": "Donors",
