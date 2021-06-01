@@ -1,13 +1,14 @@
 import { action } from 'mobx';
 import { TableViewStore, DateRangeQueryPickerStore, BaseListViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { DonorRecordActivityFilter } from 'application/administration/donor/models'
+import { DonorRecordActivityFilter } from 'application/administration/donor/models';
+import moment from 'moment';
 
 @applicationContext
 class DonorRecordActivityViewStore extends BaseListViewStore {
     constructor(rootStore, donorId) {
             super(rootStore, {
-                name: 'transaction',
+                name: 'donor-record-activity',
                 routes: {},
                 queryConfig: {
                     filter: new DonorRecordActivityFilter(),
@@ -18,8 +19,16 @@ class DonorRecordActivityViewStore extends BaseListViewStore {
                 actions: () => {
                     return {
                         find: async (params) => {
-                            return this.rootStore.application.donor.transactionStore.findTransactions({ donorId: this.donorId, ...params });
-
+                            params = {
+                                donorId: this.donorId
+                            },
+                            params.embed = [
+                                'donor',
+                                'coreuser',
+                            ]
+                            const data = this.rootStore.application.administration.donorStore.getRecordActivityList({ donorId: this.donorId, ...params });
+                            //const temp = JSON.parse(data.json)
+                            return data;
                         }
                     }
                 }
@@ -27,7 +36,7 @@ class DonorRecordActivityViewStore extends BaseListViewStore {
     
         this.userId = rootStore.userStore.applicationUser.id;      
         this.donorId = donorId;
-        console.log(rootStore.routerStore)
+
         this.createTableStore();
         this.createDateCreatedDateRangeQueryStore();
     }
@@ -50,20 +59,42 @@ class DonorRecordActivityViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
+                    key: 'coreUser.userName',
+                    title: 'DONOR.DONOR_RECORD_ACTIVITY.LIST.COLUMNS.USERNAME'
+                },
+                {
                     key: 'userAction',
-                    title: 'USER.LIST.COLUMNS.USERNAME'
+                    title: 'DONOR.DONOR_RECORD_ACTIVITY.LIST.COLUMNS.USER_ACTION',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return item.userAction == 1 ? 'Create' : item.userAction == 2 ? 'Update' : 'Delete'
+                        }
+                    }
                 },
                 {
-                    key: 'userEmail',
-                    title: 'USER.LIST.COLUMNS.EMAIL'
+                    key: 'json',
+                    title: 'DONOR.DONOR_RECORD_ACTIVITY.LIST.COLUMNS.DESCRIPTION',
+                    format: {
+                        type: 'function',
+                        value: (item) => { return JSON.parse(item.json) }
+                    }
                 },
                 {
-                    key: 'isApproved',
-                    title: 'USER.LIST.COLUMNS.APPROVED'
+                    key: 'dateCreated',
+                    title: 'DONOR.DONOR_RECORD_ACTIVITY.LIST.COLUMNS.DATE_CREATED',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
                 },
                 {
-                    key: 'dateTime',
-                    title: 'USER.LIST.COLUMNS.LOCKED_OUT'
+                    key: 'dateCreated',
+                    title: 'DONOR.DONOR_RECORD_ACTIVITY.LIST.COLUMNS.TIME_CREATED',
+                    format: {
+                        type: 'function',
+                        value: (item) => { return moment(item.dateCreated).format("hh:mm A"); }
+                    }
                 }
             ],
         }));

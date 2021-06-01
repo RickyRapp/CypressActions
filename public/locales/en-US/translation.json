@@ -626,6 +626,17 @@
                 "INVESTMENT_POOL_DROPS_BELOW_PLACEHODLER": "$"
             }
         },
+        "DONOR_RECORD_ACTIVITY": {
+            "LIST": {
+                "COLUMNS": {
+                    "USERNAME": "Username",
+                    "USER_ACTION": "User Action",
+                    "DESCRIPTION": "Description",
+                    "DATE_CREATED": "Date Created",
+                    "TIME_CREATED": "Time Created"
+                }
+            }
+        },
         "ACCOUNT_SETTING_FIELDS": {
             "TITLE": "Account settings details",
             "LINE_OF_CREDIT_LABEL": "Line of credit",

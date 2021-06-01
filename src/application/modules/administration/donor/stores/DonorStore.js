@@ -5,7 +5,8 @@ import {
     DonorService,
     DonorCommunicationPreferenceService,
     DonorBankAccountService,
-    DonorGivingCardSettingService
+    DonorGivingCardSettingService,
+    DonorRecordActivityService
 } from 'application/common/donor/services';
 import { DonorFileStreamService } from 'common/services';
 
@@ -20,6 +21,7 @@ class DonorStore {
         this.donorCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(DonorCommunicationPreferenceService);
         this.donorFileStreamService = moduleStore.rootStore.createApplicationService(DonorFileStreamService);
         this.donorGivingCardSettingService = moduleStore.rootStore.createApplicationService(DonorGivingCardSettingService);
+        this.donorRecordActivityService = moduleStore.rootStore.createApplicationService(DonorRecordActivityService);
     }
 
     async findDonors(params) {
@@ -209,6 +211,11 @@ class DonorStore {
 
     async deleteBankAccount(resource) {
         const response = await this.donorBankAccountService.delete(resource);
+        return response.data;
+    }
+
+    async getRecordActivityList(params) {
+        const response = await this.donorRecordActivityService.find(params);
         return response.data;
     }
 }
