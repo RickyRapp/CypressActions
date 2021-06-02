@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
+import moment from 'moment';
 import {
     BasicInput,
     BaasicFieldDropdown,
@@ -49,7 +50,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                         <label className="form__group__label">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.DATE_OF_BIRTH')}</label>
                                         {item &&
                                             <span className={"input input--lrg input--text input--disabled"}>
-                                                <Date format="full-date" value={item.dateOfBirth} />
+                                                <Date format="full-date" value={moment(item.dateOfBirth).utcOffset(1)} />
                                             </span>}
                                     </div>
                                 </div>
