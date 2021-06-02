@@ -11,7 +11,7 @@ import {
 	BaasicModal,
 	DateRangeQueryPicker,
 } from 'core/components';
-import { isSome } from 'core/utils';
+import { isSome, canEditCancel } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
@@ -124,8 +124,10 @@ GrantListTemplate.propTypes = {
 
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
-
+	
+	const abilityToCancelEdit = canEditCancel(item.dateCreated);
 	const { onEdit, onRedirect, onPreview, onApprove, onCancel } = actions;
+
 	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel)) return null;
 
 	let editRender = true;
@@ -159,7 +161,7 @@ function renderActions({ item, actions, actionsRender }) {
 	return (
 		<td>
 			<div className="type--right">
-				{isSome(onEdit) && editRender ? (
+				{isSome(onEdit) && editRender && abilityToCancelEdit ? (
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
@@ -199,7 +201,7 @@ function renderActions({ item, actions, actionsRender }) {
 						onClick={() => onApprove(item)}
 					></BaasicButton>
 				) : null}
-				{isSome(onCancel) && cancelRender ? (
+				{isSome(onCancel) && cancelRender && abilityToCancelEdit ? (
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"

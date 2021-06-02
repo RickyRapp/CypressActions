@@ -1,7 +1,7 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { GrantRouteService } from 'application/common/grant/services';
-import { charityFormatter, donorFormatter, isSome } from 'core/utils';
+import { charityFormatter, donorFormatter, isSome, canEditCancel } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
@@ -162,11 +162,11 @@ class GrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (grant) => this.routes.edit(grant.id),
+                onEdit: (grant) => { if (canEditCancel(grant.dateCreated)) { this.routes.edit(grant.id) } else { this.queryUtility.fetch();this.rootStore.notificationStore.error('GRANT.NOTIFICATIONS.ACTION_BUTTONS.EDIT'); } },
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onApprove: (grant) => this.approveGrant(grant),
-                onCancel: (grant) => this.cancelGrant(grant),
+                onCancel: (grant) => { if (canEditCancel(grant.dateCreated)) { this.cancelGrant(grant) } else { this.queryUtility.fetch();this.rootStore.notificationStore.error('GRANT.NOTIFICATIONS.ACTION_BUTTONS.CANCEL'); } },
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {

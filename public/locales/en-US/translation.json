@@ -1664,6 +1664,12 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "AMOUNT_LABEL": "Amount"
             }
+        },
+        "NOTIFICATIONS": {
+            "ACTION_BUTTONS": {
+                "EDIT": "After 15 min changes are not allowed",
+                "CANCEL": "After 15 min cancel is not allowed"
+            }
         }
     },
     "GRANT_REQUEST": {
