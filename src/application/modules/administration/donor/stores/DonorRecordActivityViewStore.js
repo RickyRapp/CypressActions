@@ -22,13 +22,8 @@ class DonorRecordActivityViewStore extends BaseListViewStore {
                             params = {
                                 donorId: this.donorId
                             },
-                            params.embed = [
-                                'donor',
-                                'coreuser',
-                            ]
-                            const data = this.rootStore.application.administration.donorStore.getRecordActivityList({ donorId: this.donorId, ...params });
-                            //const temp = JSON.parse(data.json)
-                            return data;
+                            params.embed = ['donor','coreuser']
+                            return this.rootStore.application.administration.donorStore.getRecordActivityList(params);
                         }
                     }
                 }
