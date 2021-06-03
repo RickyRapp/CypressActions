@@ -196,8 +196,22 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	onGrantPurposeTypeChange(value) {
+		this.setFieldRules(value);
 		this.setSimilarGrantTable(value);
 	}
+
+	@action.bound
+    setFieldRules(selectedOption) {
+        this.resetFieldRules();
+        if (selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id && selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'general-fund').id) {
+            this.form.$('purposeNote').set('rules', 'required');
+        }
+    }
+
+    @action.bound
+    resetFieldRules() {
+        this.form.$('purposeNote').set('rules', '');
+    }
 
 	@action.bound
 	onNewCharityChange(value) {
