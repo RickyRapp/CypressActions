@@ -56,6 +56,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 							}
 
 							if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
+								if (resource.isRecurring == false) {
+									const data = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
+									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
+									resource.numberOfPayments = 1;
+								}
 								await this.grantStore.createScheduledGrant(resource);
 							} else {
 								await this.grantStore.createGrant(resource);
