@@ -1,4 +1,4 @@
-import { CharityService } from 'application/donor/charity/services';
+import { CharityService } from 'application/common/charity/services';
 import { GrantService, GrantRequestService, ScheduledGrantService } from 'application/common/grant/services';
 
 class GrantStore {

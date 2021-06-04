@@ -56,20 +56,21 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             field={form.$('charityId')}
                                             store={charityDropdownStore}
                                             additionalLabel='My Favorite Charities'
+                                            disabled={true}
                                         />
-
                                     </div>
                                 </div>
                                 <div className="row row--form">
                                     <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
-                                        <BasicFieldCheckbox field={form.$('isNewCharity')} />
+                                        <BasicFieldCheckbox field={form.$('isNewCharity')} disabled={true} />
                                     </div>
                                     <div className="col col-sml-12 u-mar--bottom--sml">
                                         <div className="u-push--from--med">
                                             <BaasicButton
                                                 className="advanced-search"
                                                 icon="u-icon u-icon--arrow-down--primary u-icon--sml u-mar--left--sml"
-                                                disabled={form.$('isNewCharity').value}
+                                                // disabled={form.$('isNewCharity').value}
+                                                disabled={true}
                                                 label="GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON"
                                                 onClick={openAdvancedSearchModal}
                                             />
@@ -177,7 +178,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
 
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                        <NumericInputField field={form.$('amount')} />
+                                        <NumericInputField field={form.$('amount')} disabled={true} />
                                     </div>
                                 </div>
                                 <div className="row row--form">

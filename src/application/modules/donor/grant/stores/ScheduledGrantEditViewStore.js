@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
 import { addressFormatter, applicationContext, donorFormatter } from 'core/utils';
-import { GrantEditForm } from 'application/donor/grant/forms';
+import { GrantEditForm } from 'application/common/grant/forms';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -45,14 +45,14 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 								},
 							};
 
-							const charityData = await this.rootStore.application.grant.grantStore.suggest(charity); //charityId
+							const charityData = await this.rootStore.application.donor.grantStore.suggest(charity); //charityId
 							resource.charityId = charityData.charityId;
 						}
 
-						await this.rootStore.application.grant.grantStore.updateScheduledGrant(resource);
+						await this.rootStore.application.donor.grantStore.updateScheduledGrant(resource);
 					},
 					get: async id => {
-						return this.rootStore.application.grant.grantStore.getScheduledGrant(id, {
+						return this.rootStore.application.donor.grantStore.getScheduledGrant(id, {
 							embed: 'charity,charity.charityAddresses',
 						});
 					},
@@ -235,7 +235,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 				charityId: value,
 				donationTypeIds: donationTypes.filter(c => visibleDonations.includes(c.abrv)).map(c => c.id).join(',')
 			};
-			data = await this.rootStore.application.grant.grantStore.findGrants(params);
+			data = await this.rootStore.application.donor.grantStore.findGrant(params);
 		}
 		if (data) {
 			this.previousGrantsTableStore.setData(data.item);
@@ -247,7 +247,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async setDonor() {
-		this.donor = await this.rootStore.application.grant.grantStore.getDonorInformation(this.item.donorId);
+		this.donor = await this.rootStore.application.donor.grantStore.getDonorInformation(this.item.donorId);
 	}
 
 	@action.bound
@@ -338,7 +338,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 			},
 			{
 				fetchFunc: async searchQuery => {
-					const data = await this.rootStore.application.grant.grantStore.searchCharity({
+					const data = await this.rootStore.application.donor.grantStore.searchCharity({
 						pageNumber: 1,
 						pageSize: 10,
 						search: searchQuery,
