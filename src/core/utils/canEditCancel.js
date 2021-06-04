@@ -1,4 +1,6 @@
 import moment from 'moment';
 export default function canEditCancel(value) {
-    return moment().isBefore(moment.utc(value).add(15, 'minutes').format('l LT'));
+    let currentTime = moment().utcOffset(new Date().getTimezoneOffset());    
+    const dateToEdit = moment.utc(value).add(15, 'm');
+    return moment(currentTime).isBetween(moment(value), dateToEdit);
 }
