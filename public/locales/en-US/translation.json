@@ -1540,6 +1540,25 @@
                 "ADDRESS": "Address"
             }
         },
+        "SCHEDULED_GRANT": {
+            "PREVIEW": {
+                "TITLE": "Scheduled Grant",
+                "FIELDS": {
+                    "CHARITY_LABEL": "Charity",
+                    "AMOUNT_LABEL": "Amount",
+                    "DATE_CREATED_LABEL": "Date created",
+                    "NUMBER_OF_PAYMENTS": "Number of Payments",
+                    "REMAINING_PAYMENTS": "Remaining payments",
+                    "STATUS_NAME_LABEL": "Status",
+                    "PURPOSE_TYPE_LABEL": "Purpose",
+                    "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
+                    "DONOR_NAME_LABEL": "Donor",
+                    "SCHEDULED_LABEL": "Scheduled",
+                    "CHARITY_WEBSITE_LABEL": "Created over charity website",
+                    "ADDRESS": "Address"
+                }
+            }
+        },
         "CREATE": {
             "TITLE": "Give",
             "FROM_TITLE": "Grant Details",
@@ -1748,7 +1767,8 @@
             },
             "BUTTON": {
                 "EDIT": "Edit",
-                "CANCEL": "Cancel"
+                "CANCEL": "Cancel",
+                "VIEW": "View"
             }
         },
         "EDIT": {

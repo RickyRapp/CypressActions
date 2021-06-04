@@ -12,7 +12,10 @@ class ScheduledGrantViewStore extends BaseListViewStore {
             routes: {
                 edit: (id) => {
                     this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-edit', { id: id });
-                }
+                },
+                preview: (editId) => {
+					this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', { id: editId });
+				}
             },
             queryConfig: {
                 filter: new ScheduledGrantListFilter('dateCreated', 'desc'),
@@ -141,6 +144,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
+                onPreview: (scheduledGrant) => this.routes.preview(scheduledGrant.id),
                 onEdit: (scheduledGrant) => this.routes.edit(scheduledGrant.id),
                 onCancel: (scheduledGrant) => this.onCancel(scheduledGrant.id, scheduledGrant.name),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
