@@ -14,10 +14,11 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
     const {
         form,
         imageUploadStore,
-        id
+        id,
+        deleteBankAccount,
     } = charityBankAccountViewStore;
 
-    return (
+    return (<div>
         <EditFormContent form={form}>
             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
             <div className="row row--form">
@@ -48,6 +49,13 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
         </EditFormContent >
+
+        <div className="type--right">
+        <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
+            {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
+        </button>
+        </div>
+    </div>
     )
 };
 

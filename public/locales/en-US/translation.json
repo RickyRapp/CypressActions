@@ -934,6 +934,7 @@
                 "EDIT": "Edit",
                 "CREATE": "Create",
                 "DELETE": "Delete",
+                "DELETE_BANK_ACCOUNT": "Delete Bank Account",
                 "USE_PRIMARY_ADDRESS": "Use primary",
                 "USE_PRIMARY_EMAIL_ADDRESS": "Use primary",
                 "USE_PRIMARY_PHONE_NUMBER": "Use primary"
