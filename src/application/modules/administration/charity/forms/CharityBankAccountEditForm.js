@@ -101,7 +101,7 @@ export default class CharityBankAccountEditForm extends FormBase {
                 {
                     name: 'number',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_NUMBER_LABEL',
-                    rules: 'required_if:isThirdPartyAccount,true|string',
+                    rules: 'string',
                     extra: {
                         format: '(###) ###-####'
                     }

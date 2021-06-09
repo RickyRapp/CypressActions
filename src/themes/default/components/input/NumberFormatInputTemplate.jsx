@@ -17,12 +17,13 @@ const NumberFormatInputTemplate = defaultTemplate((props) => {
             formatedPlaceholder = t(props.format);
         }
     }
-
+    const requiredMark = props.required ? <span className="type--color--note u-mar--left--tny">*</span> : null;
     return (
         <div onFocus={handleFocus}>
             {props.showLabel &&
                 <label className={labelClassName || ''}>
                     {t(label)}
+                    {requiredMark}
                 </label>}
             <NumberFormat
                 className={props.className}
