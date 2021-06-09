@@ -14,9 +14,9 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="u-mar--bottom--med">
 					<TableFilter queryUtility={queryUtility}>
-						{ <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+						{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicDropdown store={charityDropdownStore} />
-						</div> }
+						</div>}
 						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicInput
 								id="dollarRange"
@@ -64,8 +64,15 @@ ScheduledGrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onCancel } = actions;
-	if (!isSome(onEdit) && !isSome(onCancel)) return null;
+	const { onPreview, onEdit, onCancel } = actions;
+	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCancel)) return null;
+
+	let previewRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onPreviewRender) {
+			previewRender = actionsRender.onPreviewRender(item);
+		}
+	}
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -84,6 +91,16 @@ function renderActions({ item, actions, actionsRender }) {
 	return (
 		<td>
 			<div className="type--right">
+				{isSome(onPreview) && previewRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--preview u-icon--base"
+						label="SCHEDULED_GRANT.LIST.BUTTON.VIEW"
+						onlyIcon={true}
+						onClick={() => onPreview(item)}
+					></BaasicButton>
+				) : null}
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"

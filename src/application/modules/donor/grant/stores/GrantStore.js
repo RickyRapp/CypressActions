@@ -75,6 +75,11 @@ class GrantStore {
         return response.data;
     }
 
+    async getScheduledGrant(id, params) {
+        const response = await this.scheduledGrantService.get(id, params);
+        return response.data;
+    }
+
     async suggest(resource) {
         const response = await this.charityService.suggest(resource);
         return response.data.response;
