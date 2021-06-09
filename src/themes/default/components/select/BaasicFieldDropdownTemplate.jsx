@@ -46,7 +46,7 @@ const BaasicFieldDropdownTemplate = function ({
 		'input--warning': !field.isValid && field.touched && !field.isDirty,
 	});
 
-	store.options.disabled = field.disabled;
+	store.options.disabled = disabled;
 
 	return (
 		<React.Fragment>
