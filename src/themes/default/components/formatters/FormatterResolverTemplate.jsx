@@ -123,8 +123,8 @@ function FormatterResolver({ item, field, format }) {
                     else if (coreUser.displayName) {
                         return coreUser.displayName;
                     }
-                    else if (coreUser.username) {
-                        return coreUser.username;
+                    else if (coreUser.userName) {
+                        return coreUser.userName;
                     }
                     return '';
                 }
