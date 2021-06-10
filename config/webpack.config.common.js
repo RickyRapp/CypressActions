@@ -30,6 +30,7 @@ const alias = {
     'react-native': 'react-native-web',
     'themes': paths.appSrc + '/themes/' + themeName,
     'core': paths.appSrc + '/core',
+    'common': paths.appSrc + '/common',
     'application': paths.appSrc + '/application/modules'
 };
 
