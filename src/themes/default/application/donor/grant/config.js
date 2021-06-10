@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/donor/grant/pages';
+import { GrantCreate, GrantEdit, ScheduledGrantEdit, ScheduledGrantPreview, GrantPreview } from 'application/donor/grant/pages';
 import { RouterState } from 'mobx-state-router';
 
 (function () {
@@ -47,6 +47,15 @@ import { RouterState } from 'mobx-state-router';
                         authorization: 'theDonorsFundGrantSection.update',
                         data: {
                             title: "GRANT.EDIT.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.donor.grant.scheduled-preview',
+                        pattern: '/scheduled-preview/:id',
+                        component: ScheduledGrantPreview,
+                        authorization: 'theDonorsFundGrantSection.read',
+                        data: {
+                            title: "GRANT.SCHEDULED_GRANT.PREVIEW.TITLE"
                         }
                     },
                     {

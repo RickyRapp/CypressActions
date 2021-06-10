@@ -1,4 +1,4 @@
-import { CharityService } from 'application/donor/charity/services';
+import { CharityService } from 'application/common/charity/services';
 import { GrantService, GrantRequestService, ScheduledGrantService } from 'application/common/grant/services';
 
 class GrantStore {
@@ -72,6 +72,11 @@ class GrantStore {
 
     async createGrantRequest(resource) {
         const response = await this.grantRequestService.createGrant(resource);
+        return response.data;
+    }
+
+    async getScheduledGrant(id, params) {
+        const response = await this.scheduledGrantService.get(id, params);
         return response.data;
     }
 

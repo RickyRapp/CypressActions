@@ -52,7 +52,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 						await rootStore.application.administration.grantStore.updateScheduledGrant(resource);
 					},
 					get: async id => {
-						return rootStore.application.administration.grantStore.getScheduledGrant(id, {
+						return this.rootStore.application.administration.grantStore.getScheduledGrant(id, {
 							embed: 'charity,charity.charityAddresses',
 						});
 					},
