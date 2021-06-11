@@ -122,6 +122,13 @@ import { moduleProviderFactory } from 'core/providers';
                 order: 16,
                 route: 'master.app.main.administration.investment.list',
                 role: ['Administrators']
+            },
+            {
+                title: 'MENU.CREDIT_DEBIT',
+                icon: 'contribution',
+                order: 17,
+                route: 'master.app.main.administration.credit-debit.list',
+                role: ['Administrators']
             }
         ],
         moduleStore: function (context) {

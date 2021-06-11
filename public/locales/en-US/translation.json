@@ -58,7 +58,8 @@
         "ACTIVITY": "Activity",
         "CHARITY_PROFILE": "Profile",
         "GRANT_REQUEST": "Request donation",
-        "CHARITY_GIVING_CARD": "Accept Card"
+        "CHARITY_GIVING_CARD": "Accept Card",
+        "CREDIT_DEBIT": "Credit/Debit"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -1937,6 +1938,14 @@
                 "DENOMINATION_LABEL": "Denomination",
                 "DENOMINATION_PLACEHOLDER": "Denomination"
             }
+        }
+    },
+    "CREDIT_DEBIT": {
+        "LIST": {
+            "TITLE": "Credit/Debit"
+        },
+        "CREATE": {
+            "TITLE": "Donor Credit"
         }
     },
     "BOOKLET_ORDER": {
