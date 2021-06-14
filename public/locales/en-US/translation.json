@@ -992,7 +992,7 @@
                 }
             }
         },
-        "CHECK":{
+        "CHECK": {
             "LIST": {
                 "COLUMNS": {
                     "CHARITY_LABEL": "Charity",
@@ -1772,11 +1772,11 @@
                     }
                 }
             },
-            "FIELDS":{
-                "PAYMENT_TYPE_LABEL":"Select Payment type",
-                "PAYMENT_TYPE_PLACEHOLDER":"Payment type",
-                "PAYMENT_NUMBER_LABEL":"Enter payment number",
-                "PAYMENT_NUMBER_PLACEHOLDER":"Payment number"
+            "FIELDS": {
+                "PAYMENT_TYPE_LABEL": "Select Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "PAYMENT_NUMBER_LABEL": "Enter payment number",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number"
             }
         }
     },
@@ -1942,10 +1942,33 @@
     },
     "CREDIT_DEBIT": {
         "LIST": {
-            "TITLE": "Credit/Debit"
+            "TITLE": "Credit/Debit",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Amount",
+                "DESCRIPTION_LABEL": "Description",
+                "CREATED_BY_CORE_USER_LABEL": "Manually entered by user"
+            }
         },
         "CREATE": {
-            "TITLE": "Donor Credit"
+            "TITLE": "Donor Credit",
+            "FROM_TITLE": "Credit Details",
+            "BUTTON": {
+                "CREATE": "Send Credit"
+            },
+            "FIELDS": {
+                "AMOUNT_LABEL": "Credit amount",
+                "DESCRIPTION_LABEL": "Description",
+                "AMOUNT_PLACEHOLDER": "Please enter credit amount",
+                "DESCRIPTION_PLACEHOLDER": "Credit description"
+            }
+        },
+        "PREVIEW": {
+            "FIELDS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "PRESENT_BALANCE": "Present Balance"
+            }
         }
     },
     "BOOKLET_ORDER": {
@@ -2080,7 +2103,7 @@
             "TRACKING_NUMBER_LABEL": "Tracking Number",
             "DATE_CREATED_LABEL": "Date created",
             "DATE_UPDATED_LABEL": "Date updated",
-            "COLUMNS":{
+            "COLUMNS": {
                 "COUNT_LABEL": "Booklet count",
                 "BOOKLET_TYPE_LABEL": "Booklet type",
                 "DENOMINATION_TYPE_LABEL": "Denomination type",
@@ -2457,24 +2480,24 @@
                 "PRINT": "Print"
             },
             "FILTER": {
-                "PAYMENT_TYPE_PLACEHOLDER":"Payment type"
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type"
             }
         },
         "CHECK": {
             "LIST": {
-            "TITLE": "Reconcile",
-            "COLUMNS": {
-                "OLD_CHECK_NUMBER_LABEL": "Check number",
-                "OLD_CHECK_DATE_CREATED_LABEL": "Date",
-                "OLD_CHECK_DESCRIPTION_LABEL": "Description"
-            },
-            "BUTTON": {
-                "EDIT": "Edit",
-                "PREVIEW": "Preview",
-                "CASH": "Cash",
-                "PRINT": "Print"
+                "TITLE": "Reconcile",
+                "COLUMNS": {
+                    "OLD_CHECK_NUMBER_LABEL": "Check number",
+                    "OLD_CHECK_DATE_CREATED_LABEL": "Date",
+                    "OLD_CHECK_DESCRIPTION_LABEL": "Description"
+                },
+                "BUTTON": {
+                    "EDIT": "Edit",
+                    "PREVIEW": "Preview",
+                    "CASH": "Cash",
+                    "PRINT": "Print"
+                }
             }
-        }
         },
         "EDIT": {
             "FIELDS": {

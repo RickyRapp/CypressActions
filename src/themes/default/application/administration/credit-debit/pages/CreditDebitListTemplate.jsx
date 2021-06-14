@@ -2,15 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-	BaasicButton,
 	BaasicTable,
 	TableFilter,
 	BaasicDropdown,
-	BaasicInput,
 	DateRangeQueryPicker,
 	BaasicModal,
 } from 'core/components';
-import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
@@ -35,25 +32,6 @@ const CreditDebitListTemplate = function ({ creditDebitViewStore }) {
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
-
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="confirmationNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.confirmationNumber || ''}
-									onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="trackingNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.trackingNumber || ''}
-									onChange={event => (queryUtility.filter.trackingNumber = event.target.value)}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER"
-								/>
-							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
 								<div className="row">
 									<div className="col col-sml-8">
@@ -69,7 +47,7 @@ const CreditDebitListTemplate = function ({ creditDebitViewStore }) {
 						</TableFilter>
 					</div>
 
-					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+					<BaasicTable authorization={authorization} tableStore={tableStore} />
 				</div>
 			</Content>
 			<BaasicModal modalParams={selectDonorModal}>
@@ -82,77 +60,6 @@ const CreditDebitListTemplate = function ({ creditDebitViewStore }) {
 CreditDebitListTemplate.propTypes = {
 	creditDebitViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func,
-};
-
-function renderActions({ item, actions, actionsRender }) {
-	if (!isSome(actions)) return null;
-
-	const { onEdit, onReview, onDetails } = actions;
-	if (!isSome(onEdit) && !isSome(onReview) && !isSome(onDetails)) return null;
-
-	let editRender = true;
-	if (isSome(actionsRender)) {
-		if (actionsRender.onEditRender) {
-			editRender = actionsRender.onEditRender(item);
-		}
-	}
-
-	let reviewRender = true;
-	if (isSome(actionsRender)) {
-		if (actionsRender.onReviewRender) {
-			reviewRender = actionsRender.onReviewRender(item);
-		}
-	}
-
-	let detailsRender = true;
-	if (isSome(actionsRender)) {
-		if (actionsRender.onDetailsRender) {
-			detailsRender = actionsRender.onDetailsRender(item);
-		}
-	}
-
-	return (
-		<td>
-			<div className="type--right">
-				{isSome(onEdit) && editRender ? (
-					<BaasicButton
-						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--base"
-						label="BOOKLET_ORDER.LIST.BUTTON.EDIT"
-						onlyIcon={true}
-						onClick={() => onEdit(item)}
-					></BaasicButton>
-				) : null}
-				{isSome(onReview) && reviewRender ? (
-					<BaasicButton
-						authorization="theDonorsFundAdministrationSection.update"
-						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--base"
-						label="BOOKLET_ORDER.LIST.BUTTON.REVIEW"
-						onlyIcon={true}
-						onClick={() => onReview(item.id)}
-					></BaasicButton>
-				) : null}
-				{isSome(onDetails) && detailsRender ? (
-					<BaasicButton
-						authorization="theDonorsFundAdministrationSection.read"
-						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--base"
-						label="BOOKLET_ORDER.LIST.BUTTON.PREVIEW"
-						onlyIcon={true}
-						onClick={() => onDetails(item.id)}
-					></BaasicButton>
-				) : null}
-			</div>
-		</td>
-	);
-}
-
-renderActions.propTypes = {
-	item: PropTypes.object,
-	actions: PropTypes.object,
-	actionsRender: PropTypes.object,
-	authorization: PropTypes.any,
 };
 
 export default defaultTemplate(CreditDebitListTemplate);

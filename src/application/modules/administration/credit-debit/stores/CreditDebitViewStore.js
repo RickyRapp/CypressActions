@@ -18,7 +18,6 @@ class CreditDebitViewStore extends BaseListViewStore {
                 filter: new CreditDebitListFilter('dateCreated', 'desc'),
                 onResetFilter: (filter) => {
                     filter.reset();
-                    this.deliveryMethodTypeDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                     this.searchDonorDropdownStore.setValue(null);
                 }
@@ -28,6 +27,7 @@ class CreditDebitViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'donor',
+                            'coreUser'
                         ];
 
                         params.fields = [
@@ -36,6 +36,9 @@ class CreditDebitViewStore extends BaseListViewStore {
                             'dateCreated',
                             'amount',
                             'donor',
+                            'description',
+                            'coreUser',
+                            'userId'
                         ];
                         return this.rootStore.application.administration.creditDebitStore.findCreditDebit(params);
                     }
@@ -59,36 +62,45 @@ class CreditDebitViewStore extends BaseListViewStore {
             });
     }
 
+    @action.bound
+    onClickDonorFromFilter(donorId) {
+        this.rootStore.routerStore.goTo('master.app.main.administration.credit-debit.create', { id: donorId })
+    }
+
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    title: 'CREDIT_DEBIT.LIST.COLUMNS.DONOR_NAME_LABEL',
                     disableClick: true
                 },
                 {
                     key: 'dateCreated',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'CREDIT_DEBIT.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
                     }
                 },
                 {
-                    key: 'confirmationNumber',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL'
-                },
-                {
                     key: 'amount',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.AMOUNT_LABEL',
+                    title: 'CREDIT_DEBIT.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency'
                     }
                 },
                 {
-                    key: 'bookletOrderStatus.name',
-                    title: 'BOOKLET_ORDER.LIST.COLUMNS.STATUS_LABEL',
+                    key: 'description',
+                    title: 'CREDIT_DEBIT.LIST.COLUMNS.DESCRIPTION_LABEL'
+                },
+                {
+                    key: 'coreUser',
+                    title: 'CREDIT_DEBIT.LIST.COLUMNS.CREATED_BY_CORE_USER_LABEL',
+                    format: {
+                        type: 'created-by',
+                        value: 'short'
+                    }
                 }
             ],
             actions: {

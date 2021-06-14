@@ -109,10 +109,9 @@ export default class RootStore {
                 return Promise.reject(new RouterState('master.public.membership.login'));
             }
             if (options.authorization && options.authorization.length > 0) {
-                debugger
-                // if (!permissionStore.hasPermission(options.authorization)) {
-                //     return Promise.reject(new RouterState('master.app.unauthorized'));
-                // }
+                //  if (!permissionStore.hasPermission(options.authorization)) {
+                //      return Promise.reject(new RouterState('master.app.unauthorized'));
+                //  }
             }
             if (options.role && options.role.length > 0) {
                 let l = options.role.length;

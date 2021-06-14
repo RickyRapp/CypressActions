@@ -23,7 +23,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 				<div className="col col-sml-12 u-mar--bottom--sml">
 					{/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
 					<div className="row">
-						<div className="col col-sml-12 col-med-4">
+						<div className="col col-sml-12 col-med-3">
 							<div className="transaction__card">
 								
 								{donor && (
@@ -39,7 +39,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 
 							</div>
 						</div>
-						<div className="col col-sml-12 col-med-4">
+						<div className="col col-sml-12 col-med-3">
 							<div className="transaction__card">
 								
 								{donor && (
@@ -58,8 +58,8 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 
 							</div>
 						</div>
-						<div className="col col-sml-12 col-med-4">
-							<div className="transaction__card transaction__card--last">
+						<div className="col col-sml-12 col-med-3">
+							<div className="transaction__card">
 								
 								{donor && (
 									<div
@@ -70,6 +70,21 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 									</div>
 								)}
 								<h5 className="transaction__card--title">Investments balance</h5>
+
+							</div>
+						</div>
+						<div className="col col-sml-12 col-med-3">
+							<div className="transaction__card transaction__card--last">
+								
+								{donor && (
+									<div
+										className={`transaction__card--amount ${donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
+											}`}
+									>
+										<FormatterResolver item={{ balance: 0 }} field="balance" format={{ type: 'currency' }} />
+									</div>
+								)}
+								<h5 className="transaction__card--title">Credit by Admins</h5>
 
 							</div>
 						</div>
