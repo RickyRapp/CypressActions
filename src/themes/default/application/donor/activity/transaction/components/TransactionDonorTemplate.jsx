@@ -78,10 +78,10 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 								
 								{donor && (
 									<div
-										className={`transaction__card--amount ${donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
+										className={`transaction__card--amount ${donor.creditBalance >= 0 ? 'transaction__card--amount--plus' : ''
 											}`}
 									>
-										<FormatterResolver item={{ balance: 0 }} field="balance" format={{ type: 'currency' }} />
+										<FormatterResolver item={{ balance: donor.creditBalance }} field="balance" format={{ type: 'currency' }} />
 									</div>
 								)}
 								<h5 className="transaction__card--title">Credit by Admins</h5>
