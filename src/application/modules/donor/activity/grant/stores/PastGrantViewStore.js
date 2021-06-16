@@ -1,7 +1,6 @@
 import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore, DateRangeQueryPickerStore } from 'core/stores';
-import { charityFormatter } from 'core/utils';
-import { observable } from 'mobx';
-import moment from 'moment';
+import { charityFormatter, canEditCancel } from 'core/utils';
+import { observable, action } from 'mobx';
 import { PastGrantFilter } from 'application/donor/activity/grant/models';
 
 class PastGrantViewStore extends BaseListViewStore {
@@ -55,6 +54,27 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.createDonationTypeDropdownStore();
 
 		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
+	}
+
+	@action.bound
+	async cancelGrant(grant) {
+		this.rootStore.modalStore.showConfirm(
+			`Are you sure you want to cancel grant with charity name ${grant.charity.name}?`,
+			async () => {
+				try {
+					await this.rootStore.application.donor.grantStore.cancelGrant({ id: grant.id });
+					this.queryUtility.fetch();
+					this.rootStore.notificationStore.success('Successfully canceled grant.');
+				} catch ({ data }) {
+					if (data && data.message) {
+						this.rootStore.notificationStore.error(data.message);
+					}
+					else {
+						this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+					}
+				}
+			}
+		);
 	}
 
 	createCharityDropdownStore() {
@@ -180,12 +200,24 @@ class PastGrantViewStore extends BaseListViewStore {
 						onEdit: grant => this.routes.edit(grant.id),
 						onPreview: (grant) => this.routes.preview(grant.id),
 						onSort: column => this.queryUtility.changeOrder(column.key),
+						onCancel: grant => this.cancelGrant(grant)
 					},
 					actionsRender: {
 						onEditRender: grant => {
-							if (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved') {
-								const dateToEdit = moment(grant.dateCreated).add(15, 'minutes');
-								return moment().isBetween(grant.dateCreated, dateToEdit);
+							if (grant.donationStatus.abrv !== 'canceled') {
+								if (grant.donationStatus.abrv === 'pending') {
+									return canEditCancel(grant.dateCreated);
+								}
+								return true;
+							}
+							return false;
+						},
+						onCancelRender: (grant) => {
+							if (grant.donationStatus.abrv !== 'canceled') {
+								if (grant.donationStatus.abrv === 'pending') {
+									return canEditCancel(grant.dateCreated);
+								}
+								return true;
 							}
 							return false;
 						},
@@ -195,18 +227,18 @@ class PastGrantViewStore extends BaseListViewStore {
 			)
 		);
 	}
-	
+
 	getDescription(item) {
-        if(item.donationType.abrv === "online"){
+		if (item.donationType.abrv === "online") {
 			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 				return `${item.grantPurposeType.name} - ${item.purposeNote}`
 			}
 			return item.grantPurposeType.name;
-        }
-		else{
+		}
+		else {
 			return item.session.fullName;
-		} 
-    }
+		}
+	}
 
 	getTransactionType(item) {
 		if (item.donationType.abrv === "session") {

@@ -162,11 +162,11 @@ class GrantViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onEdit: (grant) => { if (canEditCancel(grant.dateCreated)) { this.routes.edit(grant.id) } else { this.queryUtility.fetch();this.rootStore.notificationStore.error('GRANT.NOTIFICATIONS.ACTION_BUTTONS.EDIT'); } },
+                onEdit: (grant) => this.routes.edit(grant.id),
                 onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onApprove: (grant) => this.approveGrant(grant),
-                onCancel: (grant) => { if (canEditCancel(grant.dateCreated)) { this.cancelGrant(grant) } else { this.queryUtility.fetch();this.rootStore.notificationStore.error('GRANT.NOTIFICATIONS.ACTION_BUTTONS.CANCEL'); } },
+                onCancel: (grant) => this.cancelGrant(grant),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {

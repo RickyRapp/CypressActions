@@ -125,7 +125,6 @@ GrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 	
-	const abilityToCancelEdit = canEditCancel(item.dateCreated);
 	const { onEdit, onRedirect, onPreview, onApprove, onCancel } = actions;
 
 	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel)) return null;
@@ -161,7 +160,7 @@ function renderActions({ item, actions, actionsRender }) {
 	return (
 		<td>
 			<div className="type--right">
-				{isSome(onEdit) && editRender && abilityToCancelEdit ? (
+				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
@@ -201,7 +200,7 @@ function renderActions({ item, actions, actionsRender }) {
 						onClick={() => onApprove(item)}
 					></BaasicButton>
 				) : null}
-				{isSome(onCancel) && cancelRender && abilityToCancelEdit ? (
+				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
