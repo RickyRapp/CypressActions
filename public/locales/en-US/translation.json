@@ -533,7 +533,14 @@
             "SECURITY_PIN_LABEL": "Security pin",
             "SECURITY_PIN_PLACEHOLDER": "Security pin",
             "ACCOUNT_MANAGER_LABEL": "Account manager",
-            "ACCOUNT_MANAGER_PLACEHOLDER": "Account manager"
+            "ACCOUNT_MANAGER_PLACEHOLDER": "Account manager",
+            "DAY_LABEL": "Day",
+            "DAY_PLACEHOLDER": "Day",
+            "MONTH_LABEL": "Month",
+            "MONTH_PLACEHOLDER": "Month",
+            "YEAR_LABEL": "Year",
+            "YEAR_PLACEHOLDER":"Year"
+
         },
         "CREATE": {
             "TITLE": "Create",

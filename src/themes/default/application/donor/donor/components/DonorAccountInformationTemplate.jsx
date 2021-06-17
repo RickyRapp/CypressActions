@@ -10,6 +10,7 @@ import {
 	NumberFormatInputField,
 	Date,
 	BaasicButton,
+	NumericInputField
 } from 'core/components';
 import {
 	DonorAddressList,
@@ -21,7 +22,7 @@ import {
 } from 'application/donor/donor/components';
 
 function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }) {
-	const { form, prefixTypeDropdownStore, item, isEditEnabled, onEnableEditClick } = donorAccountInformationViewStore;
+	const { form, monthDropdownStore, prefixTypeDropdownStore, item, isEditEnabled, onEnableEditClick } = donorAccountInformationViewStore;
 
 	return (
 		<div className="card--primary card--med">
@@ -46,17 +47,22 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 										<div className="col col-sml-12 col-xlrg-5 col-xxlrg-4">
 											<BasicInput field={form.$('lastName')} />
 										</div>
-										<div className="form__group col col-sml-12 col-lrg-12 col-xxlrg-3">
-											<div>
-												<label className="form__group__label">
-													{t('DONOR.ACCOUNT_INFORMATION_FIELDS.DATE_OF_BIRTH')}
-												</label>
-												{item && (
-													<span className={'input input--lrg input--text input--disabled'}>
-														<Date format="full-date" value={moment(item.dateOfBirth).utcOffset(1)} />
-													</span>
-												)}
-											</div>
+										<div className="col col-sml-12 col-lrg-12">
+											<label className="form__group__label">Date of Birth</label>
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-3">
+											<BaasicFieldDropdown store={monthDropdownStore} field={form.$('month')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-3">
+											<NumericInputField field={form.$('day')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-3">
+											<NumericInputField
+												field={form.$('year')}
+												formatOptions={{
+													style: 'decimal',
+													useGrouping: false
+												}} />
 										</div>
 										<div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-4">
 											<BasicInput field={form.$('fundName')} />

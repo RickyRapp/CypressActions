@@ -2,8 +2,8 @@ import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorEditForm } from 'application/administration/donor/forms';
 import { action } from 'mobx';
 import { applicationContext } from 'core/utils';
-import moment from 'moment'
-import _ from 'lodash'
+import moment from 'moment';
+import _ from 'lodash';
 
 @applicationContext
 class DonorAccountInformationViewStore extends BaseEditViewStore {
