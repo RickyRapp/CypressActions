@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NumericInputField, BaasicFormControls, BasicTextArea } from 'core/components';
+import { NumericInputField, BaasicFormControls, BasicTextArea, BaasicFieldSwitch } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
 
@@ -18,23 +18,26 @@ const CreditDebitCreateTemplate = function ({ creditDebitCreateViewStore, t }) {
                 <Content loading={contentLoading}>
                     <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
-                                <h3 className=" u-mar--bottom--med">{t('CREDIT_DEBIT.CREATE.FROM_TITLE')}</h3>
-                                <div className="card--primary card--med u-mar--bottom--med">
-                                    <div className="row">
-                                        <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-                                            <div className="type--base type--wgt--medium type--color--note">{t('CREDIT_DEBIT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
-                                            <span className="input--preview--uppercase">
-                                                {donor && <React.Fragment>{donor.donorName}</React.Fragment>}
-                                            </span>
-                                        </div>
-                                        <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-                                            <div className="type--base type--wgt--medium type--color--note">{t('CREDIT_DEBIT.PREVIEW.FIELDS.PRESENT_BALANCE')}</div>
-                                            <span className="input--preview">
-                                                {donor && <React.Fragment>{donor.presentBalance}</React.Fragment>}
-                                            </span>
-                                        </div>
+                            <h3 className=" u-mar--bottom--med">{t('CREDIT_DEBIT.CREATE.FROM_TITLE')}</h3>
+                            <div className="card--primary card--med u-mar--bottom--med">
+                                <div className="row">
+                                    <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                        <div className="type--base type--wgt--medium type--color--note">{t('CREDIT_DEBIT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
+                                        <span className="input--preview--uppercase">
+                                            {donor && <React.Fragment>{donor.donorName}</React.Fragment>}
+                                        </span>
+                                    </div>
+                                    <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                        <div className="type--base type--wgt--medium type--color--note">{t('CREDIT_DEBIT.PREVIEW.FIELDS.PRESENT_BALANCE')}</div>
+                                        <span className="input--preview">
+                                            {donor && <React.Fragment>{donor.presentBalance}</React.Fragment>}
+                                        </span>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12 col-xxlrg-12 u-align--self--end">
+                                <BaasicFieldSwitch field={form.$('isDebit')} regular={true} />
+                            </div>
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">

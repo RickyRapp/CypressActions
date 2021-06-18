@@ -1952,10 +1952,10 @@
             }
         },
         "CREATE": {
-            "TITLE": "Donor Credit",
-            "FROM_TITLE": "Credit Details",
+            "TITLE": "Donor Credit/Debit",
+            "FROM_TITLE": "Details",
             "BUTTON": {
-                "CREATE": "Send Credit"
+                "CREATE": "Send"
             },
             "FIELDS": {
                 "AMOUNT_LABEL": "Credit amount",
@@ -1963,6 +1963,11 @@
                 "AMOUNT_PLACEHOLDER": "Please enter credit amount",
                 "DESCRIPTION_PLACEHOLDER": "Credit description"
             }
+        },
+        "FIELDS": {
+            "CREDIT_DEBIT_LABEL": "Choose credit or debit:",
+            "CREDIT_DEBIT_LABEL_TRUE": "CREDIT",
+            "CREDIT_DEBIT_LABEL_FALSE": "DEBIT"
         },
         "PREVIEW": {
             "FIELDS": {

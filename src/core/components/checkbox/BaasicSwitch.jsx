@@ -10,7 +10,8 @@ BaasicSwitch.propTypes = {
     value: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string,
+    regular: PropTypes.bool
 };
 
 export default BaasicSwitch;

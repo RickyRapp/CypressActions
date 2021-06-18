@@ -9,6 +9,12 @@ export default class CreditDebitCreateForm extends FormBase {
 		return {
 			fields: [
 				{
+					name: 'isDebit',
+					label: 'CREDIT_DEBIT.FIELDS.CREDIT_DEBIT_LABEL',
+					rules: 'required|boolean',
+					type: 'checkbox'
+				},
+				{
 					name: 'amount',
 					label: 'CREDIT_DEBIT.CREATE.FIELDS.AMOUNT_LABEL',
 					placeholder: 'CREDIT_DEBIT.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
