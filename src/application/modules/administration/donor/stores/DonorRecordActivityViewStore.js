@@ -11,7 +11,7 @@ class DonorRecordActivityViewStore extends BaseListViewStore {
                 name: 'donor-record-activity',
                 routes: {},
                 queryConfig: {
-                    filter: new DonorRecordActivityFilter(),
+                    filter: new DonorRecordActivityFilter('dateCreated', 'desc'),
                     onResetFilter: (filter) => {
                         filter.reset();
                     }
@@ -19,10 +19,8 @@ class DonorRecordActivityViewStore extends BaseListViewStore {
                 actions: () => {
                     return {
                         find: async (params) => {
-                            params = {
-                                donorId: this.donorId
-                            },
-                            params.embed = ['donor','coreuser']
+                            params.embed = ['donor','coreuser'];
+                            params.donorId = this.donorId;
                             return this.rootStore.application.administration.donorStore.getRecordActivityList(params);
                         }
                     }
