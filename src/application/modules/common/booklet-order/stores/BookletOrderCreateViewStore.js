@@ -89,7 +89,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @computed get prepaidBooks() {
         if(this.donor) {
             if(this.donor.contribution) {
-                return this.donor.contribution.amount;
+                return this.donor.contribution.map(a => a.amount).reduce((a, b) => a + b) + this.donor.lineOfCredit + this.donor.availableBalance;
             } else {
                 return 0;
             }
