@@ -37,7 +37,8 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                     <BaasicButton
                         className="btn btn--base btn--primary"
                         label='SESSION.CREATE.STEP3.SET_BLANK_CERTIFICATE_VALUE'
-                        onClick={() => onClick(certificate)}>
+                        onClick={() => onClick(certificate)}
+                        disabled={certificate.certificateValue < 1 ? true : false}>
                     </BaasicButton>
                 </div>
             </div>

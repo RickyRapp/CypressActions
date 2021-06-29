@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
+import { SessionService } from 'application/administration/session/services';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -15,6 +16,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable isChangedDefaultAddress = null;
 
     constructor(rootStore) {
+        const service = new SessionService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'session-create',
             id: undefined,
@@ -46,6 +48,47 @@ class SessionViewStore extends BaseEditViewStore {
 
         this.createCharityDropdownStore();
         this.blankCertificateModal = new ModalParams({});
+        this.service = service;
+    }
+
+    @action.bound
+    async cancelCertificate(certificate) {
+        // this.modalStore.showConfirm(
+        //     `Are you sure you want to remove session from cache?`,
+        //     async () => {
+        //         await this.service.removeSessionFromCache({ key: key });
+        //         await this.queryUtility.fetch();
+        //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
+        //     }
+        // );
+        await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode });
+        this.rootStore.notificationStore.success(`Successfully removed from cache`);
+    }
+
+    @action.bound
+    async removeFromCache(key) {
+        // this.rootStore.modalStore.showConfirm(
+        //     `-Are you sure you want to remove session from cache?`,
+        //     async () => {
+        //         await this.service.removeSessionFromCache({ key: key });
+        //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
+        //     }
+        // );
+        await this.service.removeSessionFromCache({ key: this.form.$('key').value });
+        this.rootStore.notificationStore.success(`Successfully removed from cache`);
+    }
+
+    @action.bound
+    async editCheck(item) {
+        this.blankCertificateModal.open({
+            certificate: item,
+            onClick: (certificate) => {
+                this.setBlankCertificate(certificate);
+                this.blankCertificateModal.close();
+            },
+            onClose: () => {
+            }
+        });
     }
 
     @action.bound

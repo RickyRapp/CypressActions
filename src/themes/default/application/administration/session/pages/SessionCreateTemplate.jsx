@@ -16,12 +16,16 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         onPreviousStep3Click,
         barcode,
         onBarcodeChange,
+        cancelCertificate,
+        editCheck,
+        removeFromCache,
         sessionCertificates,
         currentCount,
         session,
         blankCertificateModal,
         isChangedDefaultAddress,
-        onChangeDefaultAddressClick 
+        onChangeDefaultAddressClick,
+        modalStore
     } = sessionCreateViewStore;
 
     return (
@@ -60,6 +64,10 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             barcode={barcode}
                             blankCertificateModal={blankCertificateModal}
                             onBarcodeChange={onBarcodeChange}
+                            cancelCertificate={cancelCertificate}
+                            editCheck={editCheck}
+                            removeFromCache={removeFromCache}
+                            modalStore={modalStore}
                         />
                     </div>}
                 {currentStep === 4 &&
