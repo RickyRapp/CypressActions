@@ -1226,7 +1226,8 @@
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
                 "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
                 "PAYMENT_TYPE_NAME_LABEL": "Payment type",
-                "PAYER_INFORMATION_NAME_LABEL": "Payer"
+                "PAYER_INFORMATION_NAME_LABEL": "Payer",
+                "PAYMENT_NUMBER_LABEL": "Payment number"
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",

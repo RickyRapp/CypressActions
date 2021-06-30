@@ -194,6 +194,10 @@ class ContributionViewStore extends BaseListViewStore {
                     title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
                 },
                 {
+                    key: 'checkNumber',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_NUMBER_LABEL',
+                },
+                {
                     key: 'dateCreated',
                     title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
