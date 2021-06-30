@@ -100,7 +100,7 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                             <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ADDRESS')}</div>
                                 <span className="input--preview">
-                                    {item && <React.Fragment>{`${item.addressLine1}, ${item.city}, ${item.state}, ${item.zipCode}`}</React.Fragment>}
+                                    {item && <React.Fragment>{`${item.addressLine1}, ${item.addressLine2 ? item.addressLine2 + ', ': ''} ${item.city}, ${item.state}, ${item.zipCode}`}</React.Fragment>}
                                 </span>
                             </div>
                         </div>
