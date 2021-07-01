@@ -26,6 +26,7 @@ export { default as renderIf } from './templates/renderIf';
 export * from './layout';
 
 export { default as dateFormatter } from './date/dateFormatter';
+export { default as tzFormatter } from './date/tzFormatter';
 export { default as addressFormatter } from './formatters/addressFormatter';
 export { default as charityFormatter } from './formatters/charityFormatter';
 export { default as donorFormatter } from './formatters/donorFormatter';

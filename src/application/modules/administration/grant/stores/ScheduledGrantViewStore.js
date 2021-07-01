@@ -144,7 +144,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     key: 'nextDate',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.NEXT_DATE_LABEL',
                     format: {
-                        type: 'date',
+                        type: 'date-no_utc',
                         value: 'short'
                     }
                 },

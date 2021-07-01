@@ -2,7 +2,7 @@ import React from 'react';
 
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-
+import moment from 'moment';
 import { defaultTemplate } from 'core/hoc';
 import { Date, Address } from 'core/components';
 import { donorFormatter, charityFormatter } from 'core/utils';
@@ -23,6 +23,13 @@ function FormatterResolver({ item, field, format }) {
             const date = _.get(item, field);
             if (date) {
                 return <Date value={date} format={format.value} />
+            }
+            return null;
+        }
+        case 'date-no_utc': {
+            const date = _.get(item, field);
+            if (date) {
+                return <Date value={moment.utc(date).format('L')} format={format.value} />
             }
             return null;
         }

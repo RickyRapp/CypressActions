@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { isSome, renderIf } from 'core/utils';
+import { isSome, renderIf, tzFormatter } from 'core/utils';
 import { DatePicker } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
@@ -31,7 +31,7 @@ const DatePickerFieldTemplate = function ({ field, disabled, t, showLabel = true
     }
 
     const convertToDate = (value) => {
-        return moment(value).toDate()
+        return moment(tzFormatter(value)).toDate()
     }
 
     return (
