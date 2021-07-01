@@ -47,6 +47,8 @@ class DateRangeQueryPickerTemplate extends React.Component {
                         end = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate();
                     }
                     this.store.setValue({ start: start, end: end });
+                } else {
+                    this.store.setValue({ start: null, end: null });
                 }
                 this.queryUtility.filter[this.fromPropertyName] = moment(this.store.value.start).format('YYYY-MM-DD');
                 this.queryUtility.filter[this.toPropertyName] = moment(this.store.value.end).format('YYYY-MM-DD');
