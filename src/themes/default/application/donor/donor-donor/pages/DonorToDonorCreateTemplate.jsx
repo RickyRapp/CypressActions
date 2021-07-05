@@ -13,7 +13,7 @@ import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
 import { TransferConfirmTemplate } from 'themes/application/donor/donor-donor/components';
 
-const DonorDonorCreateTemplate = function ({ donorDonorCreateViewStore, t }) {
+const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t }) {
     const {
         contentLoading,
         form,
@@ -25,11 +25,11 @@ const DonorDonorCreateTemplate = function ({ donorDonorCreateViewStore, t }) {
         grantAcknowledgmentName,
         onSubmitClick,
         confirmModal
-    } = donorDonorCreateViewStore;
+    } = donorToDonorCreateViewStore;
 
     return (
         <React.Fragment>
-            <EditFormLayout store={donorDonorCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
+            <EditFormLayout store={donorToDonorCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
                 <Content loading={contentLoading}>
                     <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
@@ -148,8 +148,8 @@ const DonorDonorCreateTemplate = function ({ donorDonorCreateViewStore, t }) {
     );
 };
 
-DonorDonorCreateTemplate.propTypes = {
-    donorDonorCreateViewStore: PropTypes.object.isRequired,
+DonorToDonorCreateTemplate.propTypes = {
+    donorToDonorCreateViewStore: PropTypes.object.isRequired,
     confirmModal: PropTypes.any,
     form: PropTypes.object,
     onSubmitClick: PropTypes.func,
@@ -168,4 +168,4 @@ DonorDonorCreateTemplate.propTypes = {
 //     form: PropTypes.any,
 // };
 
-export default defaultTemplate(DonorDonorCreateTemplate);
+export default defaultTemplate(DonorToDonorCreateTemplate);

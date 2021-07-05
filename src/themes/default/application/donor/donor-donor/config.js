@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { DonorDonorCreate } from 'application/donor/donor-donor/pages';
+import { DonorToDonorCreate } from 'application/donor/donor-donor/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -11,7 +11,7 @@ import { DonorDonorCreate } from 'application/donor/donor-donor/pages';
                     {
                         name: 'master.app.main.donor.donor-donor.create',
                         pattern: '/create',
-                        component: DonorDonorCreate,
+                        component: DonorToDonorCreate,
                         authorization: 'theDonorsFundGrantSection.create',
                         data: {
                             title: "DONOR-DONOR.CREATE.TITLE"

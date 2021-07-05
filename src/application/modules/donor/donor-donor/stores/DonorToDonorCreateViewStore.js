@@ -1,11 +1,11 @@
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
 import { applicationContext, donorFormatter } from 'core/utils';
-import { DonorDonorCreateForm } from 'application/donor/donor-donor/forms';
+import { DonorToDonorCreateForm } from 'application/donor/donor-donor/forms';
 import { ModalParams } from 'core/models';
 
 @applicationContext
-class DonorDonorCreateViewStore extends BaseEditViewStore {
+class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	@observable grantAcknowledgmentName = null;
 	donor = null;
 	donorBalance = null;
@@ -26,7 +26,7 @@ class DonorDonorCreateViewStore extends BaseEditViewStore {
 					},
 				};
 			},
-			FormClass: DonorDonorCreateForm,
+			FormClass: DonorToDonorCreateForm,
 		});
 
 		this.donorId = donorId;
@@ -194,4 +194,4 @@ class DonorDonorCreateViewStore extends BaseEditViewStore {
 	}
 }
 
-export default DonorDonorCreateViewStore;
+export default DonorToDonorCreateViewStore;
