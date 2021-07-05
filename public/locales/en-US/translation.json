@@ -42,6 +42,7 @@
         "BANKS": "Banks",
         "TESTING": "Test",
         "INVESTMENTS": "Investments",
+        "SEND_A_GIFT": "Send a gift",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
         "PROFILE": "Profile",
@@ -1502,6 +1503,46 @@
                 "CVV_LABEL": "CVV",
                 "EXPIRATION_DATE_LABEL": "Expiration date",
                 "EXPIRATION_DATE_PLACEHOLDER": "##/##"
+            }
+        }
+    },
+    "DONOR-DONOR": {
+        "CREATE": {
+            "TITLE": "Send a Gift",
+            "FROM_TITLE": "Share the power of giving",
+            "TITLE_LABEL": "Share your Giving Power with a new or existing donor",
+            "TRANSFERS": "Transfers",
+            "RECENT_TRANSFERS": "Recent transfers",
+            "BALANCE": "Your available balance",
+            "SEND_TO": "Send to",
+            "SEND_TO_INFO_TITLE": "Enter recipients account number or email address",
+            "ADD_ANOTHER_RECIPIENT": "Add another recipient",
+            "FAQ": "FAQ",
+            "FAQ_WHAT_IS_GIFT": "What is a Giving Gift?",
+            "FAQ_WHAT_IS_GIFT_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor.",
+            "FAQ_NON_EXISTING_DONOR": "Can I gift to a non-existing donor?",
+            "FAQ_NON_EXISTING_DONOR_ANSWER": "Absolutely! Simply include their email address as a recipient of this gift. We will then send an email inviting them to accept your gift.",
+            "FAQ_WRONG_EMAIL_ADDRESS": "What if my gift went to a wrong email address?",
+            "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor",
+            "BUTTON": {
+                "CREATE": "Review gift"
+            },
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Enter Amount",
+                "ACKNOWLEDGMENT_TYPE_LABEL": "Information shared",
+                "ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Select",
+                "CONTACT_INFORMATION_EMAIL_LABEL": "Email or account number",
+                "CONTACT_INFORMATION_EMAIL_PLACEHOLDER": "Enter acc number or email address",
+                "CONTACT_INFORMATION_NAME_LABEL": "Name",
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Full name"
+            }
+        },
+        "LIST": {
+            "COLUMNS": {
+                "DATE_CREATED_LABEL": "Date",
+                "NAME_LABEL": "Name",
+                "AMOUNT_LABEL": "Amount"
             }
         }
     },

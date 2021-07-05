@@ -75,7 +75,7 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 </section>}
             {checkNumber &&
                 <section className="modal__list u-mar--bottom--med">
-                    <div>{t('CONTRIBUTION.CONFIRM.CHECK_NUMBER')}}</div>
+                    <div>{t('CONTRIBUTION.CONFIRM.CHECK_NUMBER')}</div>
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{checkNumber}</div>
                 </section>

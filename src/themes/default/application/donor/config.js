@@ -39,6 +39,13 @@ import { moduleProviderFactory } from 'core/providers';
                 route: 'master.app.main.donor.contribution.create',
                 role: ['Users']
             },
+            {
+                title: 'MENU.SEND_A_GIFT',
+                icon: 'contribution',
+                order: 5,
+                route: 'master.app.main.donor.donor-donor.create',
+                role: ['Users']
+            },
             // {
             //     title: 'MENU.INVESTMENTS',
             //     icon: 'investment',
