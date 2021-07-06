@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
-const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelectPaymentType, paymentTypeId }) {
+const ContributionCreateStep1Template = function ({ isAdmin, paymentTypes, step, onSelectPaymentType, paymentTypeId }) {
 
     return (
         <React.Fragment>
@@ -27,13 +27,18 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
                             </div>
                         </div>
                     </div>
-                    <div className="table--payment__cell is-header is-minimum">
-                        <div className="table--payment__inner">
-                            <div className="card--sml type--sml type--wgt--medium type--color--opaque type--center">
-                                Minimum Deposit
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        !isAdmin ?
+                                <div className="table--payment__cell is-header is-minimum">
+                                    <div className="table--payment__inner">
+                                        <div className="card--sml type--sml type--wgt--medium type--color--opaque type--center">
+                                            Minimum Deposit
+                                        </div>
+                                    </div>
+                                </div>
+                         : null
+                    }
+                    
                     <div className="table--payment__cell is-header is-last">
                         <div className="table--payment__inner">
                             <div className="card--sml type--sml type--wgt--medium type--color--opaque type--center">More</div>
@@ -76,11 +81,15 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="table--payment__cell is-minimum">
-                                        <div className="table--payment__inner">
-                                            <p className="type--small type--color--opaque type--wgt--regular">${json && json.minimumDeposit}</p>
-                                        </div>
-                                    </div>
+                                    {
+                                        !isAdmin ? 
+                                        <div className="table--payment__cell is-minimum">
+                                            <div className="table--payment__inner">
+                                                <p className="type--small type--color--opaque type--wgt--regular">${json && json.minimumDeposit}</p>
+                                            </div>
+                                        </div> : null
+                                    }
+                                    
                                     <div className="table--payment__cell is-last">
                                         <div className="table--payment__inner">
                                             <p className="type--small type--color--opaque type--wgt--regular type--center">{json && json.more}</p>
@@ -97,6 +106,7 @@ const ContributionCreateStep1Template = function ({ paymentTypes, step, onSelect
 }
 
 ContributionCreateStep1Template.propTypes = {
+    isAdmin: PropTypes.bool,
     paymentTypes: PropTypes.any.isRequired,
     step: PropTypes.number.isRequired,
     onSelectPaymentType: PropTypes.func.isRequired,
