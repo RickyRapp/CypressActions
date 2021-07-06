@@ -420,7 +420,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 		this.grantPurposeTypeDropdownStore.setItems(
 			this.grantPurposeTypes.filter(c => {
-				return ['where-deemed-most-needed', 'general-fund', 'in-honor-of', 'solicited-by', 'other'].includes(c.abrv);
+				return ['where-deemed-most-needed', 'general-fund', 'in-honor-of', 'solicited-by', 'other', 'in-memory-of'].includes(c.abrv);
 			})
 		);
 		const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;

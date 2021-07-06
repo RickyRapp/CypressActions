@@ -13,6 +13,9 @@ function GrantPurposeTypeTemplate({ grantPurposeType, form }
             {grantPurposeType.abrv === 'solicited-by' &&
                 <BasicInput field={form.$('purposeNote')} />}
 
+            {grantPurposeType.abrv === 'in-memory-of' &&
+                <BasicInput field={form.$('purposeNote')} />}
+
             {grantPurposeType.abrv === 'other' &&
                 <BasicTextArea field={form.$('purposeNote')} label="Note" placeholder="Note" />}
         </React.Fragment>
