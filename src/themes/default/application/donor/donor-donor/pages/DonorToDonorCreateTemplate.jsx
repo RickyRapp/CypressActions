@@ -24,6 +24,8 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
         loaderStore,
         grantAcknowledgmentName,
         onSubmitClick,
+        addAnotherRecipient,
+        //addAnotherRecipientForm,
         confirmModal
     } = donorToDonorCreateViewStore;
 
@@ -63,10 +65,21 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                     </div>
                                     <div className="u-mar--bottom--med">
                                         <div className="col col-sml-12 col-med-12 col-xlrg-12 u-mar--bottom--sml">
-                                            <h4>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</h4>
+                                            {/* <h4>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</h4> */}
+                                            <a onClick={() => addAnotherRecipient(true)}>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
                                         </div>
                                     </div>
                                 </div>
+                                {/* {addAnotherRecipientForm && (
+                                    <div className="row row--form u-mar--bottom--med">
+                                        <div className="col col-sml-7 col-med-9 col-xlrg-7 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('contactInformationEmailAnother')} />
+                                        </div>
+                                        <div className="col col-sml-5 col-med-3 col-xlrg-5 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('contactInformationNameAnother')} />
+                                        </div>
+                                    </div>
+                                )} */}
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown
@@ -89,13 +102,13 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                     </div>
                                 </div>
                                 <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-                                    <BaasicButton                                             
-                                            type="button"
-                                            className="btn btn--med btn--med--wide btn--secondary"
-                                            onClick={onSubmitClick}
-                                            icon={form.validating ? 'synchronize-arrows-1 rotate' : ''} 
-                                            form={form} onSubmit={onSubmitClick} 
-                                            label="DONOR-DONOR.CREATE.BUTTON.CREATE" />
+                                    <BaasicButton
+                                        type="button"
+                                        className="btn btn--med btn--med--wide btn--secondary"
+                                        onClick={onSubmitClick}
+                                        icon={form.validating ? 'synchronize-arrows-1 rotate' : ''}
+                                        form={form} onSubmit={onSubmitClick}
+                                        label="DONOR-DONOR.CREATE.BUTTON.CREATE" />
                                 </div>
                             </div>
                         </div>

@@ -12,16 +12,17 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	applicationDefaultSetting = {};
 	grantAcknowledgmentTypes = [];
 	grantRequestId = null;
+	addAnotherRecipientForm = null;
 
-	constructor(rootStore, { donorId, grantStore }) {
+	constructor(rootStore, { donorId, donorToDonorStore }) {
 		super(rootStore, {
-			name: 'grant-create',
+			name: 'donor-to-donor-create',
 			id: undefined,
 			autoInit: false,
 			actions: () => {
 				return {
 					create: async resource => {
-						debugger
+						
 						resource.donorId = this.donorId;
 					},
 				};
@@ -30,7 +31,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 		});
 
 		this.donorId = donorId;
-		this.grantStore = grantStore;
+		this.donorToDonorStore = donorToDonorStore;
 
 		if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
 			this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
@@ -57,7 +58,11 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	async onSubmitClick() {
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
-			debugger
+			const data = await this.donorToDonorStore.findRecipient(
+				{
+					email: 'test;'
+				});
+			this.data = data;
 			this.confirmModal.open({
 				onCancel: () => {
 					this.confirmModal.close();
@@ -99,13 +104,14 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 		}
 	}
 
-	@action.bound
-	openAdvancedSearchModal() {
-		this.advancedSearchModal.open();
-	}
-
 	createConfirmModalParams() {
 		this.confirmModal = new ModalParams({});
+	}
+
+	@action.bound
+	addAnotherRecipient(data) {
+		this.addAnotherRecipientForm = data;
+		return;
 	}
 
 	@action.bound
@@ -117,7 +123,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async setDonor() {
-		this.donor = await this.grantStore.getDonorInformation(this.donorId);
+		this.donor = await this.donorToDonorStore.getDonorInformation(this.donorId);
 		this.donorBalance = await this.rootStore.application.donor.transactionStore.loadDonorData(this.donorId);
 	}
 

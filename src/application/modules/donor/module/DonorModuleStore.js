@@ -7,6 +7,7 @@ import { CharityStore } from 'application/donor/charity/stores';
 import { DashboardStore } from 'application/donor/dashboard/stores';
 import { InvestmentStore } from 'application/common/investment/stores';
 import { BankStore } from 'application/administration/bank/stores';
+import { DonorToDonorStore } from 'application/donor/donor-donor/stores';
 
 class DonorModuleStore {
 	constructor(rootStore) {
@@ -20,6 +21,7 @@ class DonorModuleStore {
 		this.dashboardStore = new DashboardStore(this);
 		this.investmentStore = new InvestmentStore(this);
 		this.bankStore = new BankStore(this);
+		this.donorToDonorStore = new DonorToDonorStore(this);
 	}
 }
 export default DonorModuleStore;
