@@ -70,6 +70,34 @@ const DonorListTemplate = function({ donorViewStore }) {
 									</div>
 								</div>
 							</div>
+							<div className="col col-sml-12">
+								<div className="row">
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicInput
+											className="input input--lrg"
+											value={queryUtility.filter['pin'] || ''}
+											onChange={event => (queryUtility.filter['pin'] = event.target.value)}
+											placeholder="DONOR.LIST.FILTER.SECURITY_PIN_PLACEHOLDER"
+										/>
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicInput
+											className="input input--lrg"
+											value={queryUtility.filter['phone'] || ''}
+											onChange={event => (queryUtility.filter['phone'] = event.target.value)}
+											placeholder="DONOR.LIST.FILTER.PHONE_PLACEHOLDER"
+										/>
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicInput
+											className="input input--lrg"
+											value={queryUtility.filter['address'] || ''}
+											onChange={event => (queryUtility.filter['address'] = event.target.value)}
+											placeholder="DONOR.LIST.FILTER.ADDRESS_PLACEHOLDER"
+										/>
+									</div>
+								</div>
+							</div>
 						</TableFilter>
 					</div>
 

@@ -500,7 +500,10 @@
                 "EMAILS_PLACEHOLDER": "Emails (,)",
                 "REGULAR_PLACEHOLDER": "Regular",
                 "PRIVATE_PLACEHOLDER": "Private",
-                "ACCOUNT_NUMBER_PLACEHOLDER": "Account Number"
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account Number",
+                "SECURITY_PIN_PLACEHOLDER" : "Security pin",
+                "PHONE_PLACEHOLDER": "Phone number",
+                "ADDRESS_PLACEHOLDER": "Address"
             },
             "EMPTY_STATE": {
                 "TITLE": "No donors",

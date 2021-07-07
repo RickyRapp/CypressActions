@@ -7,6 +7,9 @@ class DonorListFilter extends FilterParams {
     @observable emails;
     @observable accountTypeId;
     @observable accountNumber;
+    @observable pin;
+    @observable phone;
+    @observable address;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -23,6 +26,9 @@ class DonorListFilter extends FilterParams {
         this.emails = null;
         this.accountTypeId = null;
         this.accountNumber = null;
+        this.pin = null;
+        this.phone = null;
+        this.address = null;
     }
 }
 
