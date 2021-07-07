@@ -6,21 +6,31 @@ import { defaultTemplate } from 'core/hoc';
 function TransferConfirmTemplate({ modalParams, t }) {
     const {
         form,
+        item,
+        accNumber,
         onCancel,
     } = modalParams.data;
 
     return (
-        <div className="modal__list__wrap">
 
-            <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.CONFIRM.TITLE')}</h3>
+        <div className="modal__list__wrap">
+            <h3 className="u-mar--bottom--med">{t('DONOR-DONOR.CONFIRM.TITLE')}</h3>
+            {item &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('DONOR-DONOR.CONFIRM.DONOR_NAME')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{item}</div>
+                </section>
+            }
+
             <section className="modal__list u-mar--bottom--med">
-                <div>{t('CONTRIBUTION.CONFIRM.PAYMENT_TYPE')}</div>
+                <div> {!accNumber ? t('DONOR-DONOR.CONFIRM.EMAIL') : t('DONOR-DONOR.CONFIRM.ACCOUNT_NUMBER')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{form.$('contactInformationName').value}</div>
+                <div className="modal__list__amount">{form.$('contactInformationEmail').value}</div>
             </section>
 
             <section className="modal__list u-mar--bottom--med">
-                <div>{t('CONTRIBUTION.CONFIRM.AMOUNT')}</div>
+                <div>{t('DONOR-DONOR.CONFIRM.AMOUNT')}</div>
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount">
                     <FormatterResolver
@@ -30,15 +40,15 @@ function TransferConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
+
             <div className="u-display--flex">
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--ghost"
                     label={t('EDIT_FORM_LAYOUT.CANCEL')}
                     onClick={onCancel}
                 />
-
                 <div className="u-mar--left--auto">
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} />
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'DONOR-DONOR.CREATE.COMPLETE_GIFT'} />
                 </div>
             </div>
         </div>

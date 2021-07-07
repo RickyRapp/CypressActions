@@ -18,14 +18,12 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
         contentLoading,
         form,
         grantAcknowledgmentTypeDropdownStore,
-        //donor,
         donorBalance,
         recentTransfersTableStore,
         loaderStore,
         grantAcknowledgmentName,
         onSubmitClick,
         addAnotherRecipient,
-        //addAnotherRecipientForm,
         confirmModal
     } = donorToDonorCreateViewStore;
 
@@ -65,7 +63,6 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                     </div>
                                     <div className="u-mar--bottom--med">
                                         <div className="col col-sml-12 col-med-12 col-xlrg-12 u-mar--bottom--sml">
-                                            {/* <h4>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</h4> */}
                                             <a onClick={() => addAnotherRecipient(true)}>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
                                         </div>
                                     </div>

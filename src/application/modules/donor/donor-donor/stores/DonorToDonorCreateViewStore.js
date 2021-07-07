@@ -22,7 +22,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 			actions: () => {
 				return {
 					create: async resource => {
-						
+
 						resource.donorId = this.donorId;
 					},
 				};
@@ -58,16 +58,41 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	async onSubmitClick() {
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
-			const data = await this.donorToDonorStore.findRecipient(
+			let searchCriteria = this.form.$('contactInformationEmail').value;
+			this.email = searchCriteria;
+			this.accNumber = null;
+			if (!isNaN(searchCriteria)) {
+				this.accNumber = searchCriteria;
+				this.email = null;
+			}
+
+			const data = await this.rootStore.application.administration.donorStore.findDonors(
 				{
-					email: 'test;'
+					emails: this.email,
+					accountNumber: this.accNumber,
+					embed: ['accountType'],
+					fields: [
+						'donorName',
+						'firstName',
+						'lastName',
+						'accountNumber',
+						'accountType',
+						'accountType.name',
+						'presentBalance',
+					]
 				});
-			this.data = data;
+			if (data.item.length > 0) {
+				let splitedNames = data.item[0].donorName.split(' ');
+				this.item = splitedNames.slice(0, 1).join(' ') + ' ' + splitedNames.slice(-1).join(' ').charAt(0) + '.';
+			}
+
 			this.confirmModal.open({
 				onCancel: () => {
 					this.confirmModal.close();
 				},
-				form: this.form
+				form: this.form,
+				item: this.item,
+				accNumber: this.accNumber
 			});
 		}
 	}
@@ -148,7 +173,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	onGrantAcknowledgmentTypeChange(value) {
 		this.setGrantAcknowledgmentName(value);
-	}	
+	}
 
 	async loadLookups() {
 		this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
@@ -156,7 +181,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 		this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
 
 		const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;
-		
+
 		this.setSimilarGrantTable(defaultPurposeTypeId);
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);

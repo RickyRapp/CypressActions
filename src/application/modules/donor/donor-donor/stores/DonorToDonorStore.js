@@ -13,8 +13,8 @@ class DonorToDonorStore {
         return response.data;
     }
 
-    async findRecipient(id) {
-        const response = await this.donorToDonorService.findRecipient(id);
+    async findRecipient(filter) {
+        const response = await this.donorToDonorService.findRecipient(filter);
         return response.data;
     }
 

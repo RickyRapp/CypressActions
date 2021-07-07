@@ -6,7 +6,7 @@ class DonorToDonorRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,donorId,email,accountNumber,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,donorId,emailOrAccNumber,page,rpp,sort,embed,fields}', filter);
     }
 
     loadDonorData(id) {

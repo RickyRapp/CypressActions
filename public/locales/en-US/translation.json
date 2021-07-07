@@ -1524,6 +1524,7 @@
             "FAQ_NON_EXISTING_DONOR_ANSWER": "Absolutely! Simply include their email address as a recipient of this gift. We will then send an email inviting them to accept your gift.",
             "FAQ_WRONG_EMAIL_ADDRESS": "What if my gift went to a wrong email address?",
             "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor",
+            "COMPLETE_GIFT": "Send Gift",
             "BUTTON": {
                 "CREATE": "Review gift"
             },
@@ -1544,6 +1545,13 @@
                 "NAME_LABEL": "Name",
                 "AMOUNT_LABEL": "Amount"
             }
+        },
+        "CONFIRM": {
+            "TITLE": "Confirm Details",
+            "EMAIL": "Email",
+            "AMOUNT": "Transfer Amount",
+            "DONOR_NAME": "Donor Name:",
+            "ACCOUNT_NUMBER":"Account Number"
         }
     },
     "GRANT": {
