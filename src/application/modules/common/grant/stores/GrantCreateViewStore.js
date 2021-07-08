@@ -543,6 +543,41 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		});
 	}
 
+	@action.bound
+    async createResource(resource) {
+        if (!this.actions.create) return;
+		const { modalStore } = this.rootStore;
+		modalStore.showConfirm((`Grant acknowledgment name: ${this.grantAcknowledgmentName}
+		\n\r
+		Recepient charity: ${this.charityDropdownStore.value.name}
+		\n\r
+		Given amount: $${this.form.$('amount').$value}`), async () => {
+			this.form.setFieldsDisabled(true);
+			this.loaderStore.suspend();
+			try {
+				if (this.translationStore) {
+					this.translationStore.applyMetadata(resource);
+				}
+
+				await this.actions.create(resource);
+
+				if (this.onAfterAction) {
+					this.onAfterAction();
+				}
+				else {
+					await this.rootStore.routerStore.goBack();
+					await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+				}
+			}
+			catch (err) {
+				return this.onCreateError(err);
+			} finally {
+				this.form.setFieldsDisabled(false);
+				this.loaderStore.resume();
+			}
+		})
+    }
+
 	@computed get oneTimeGrantId() {
 		return this.grantScheduleTypes ? this.grantScheduleTypes.find(item => item.abrv === 'one-time').id : null;
 	}
