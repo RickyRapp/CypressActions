@@ -187,4 +187,12 @@
 			padding: calc($unit * 5);
 		}
 	}
+
+	&--enh {
+        background-color: color($color-primary a(10%));
+        padding: calc($unit * 6);
+        box-shadow: $shadow-card;
+        border: 1px solid color($color-primary a(50%));
+		border-radius: $radius-base;
+    }
 }

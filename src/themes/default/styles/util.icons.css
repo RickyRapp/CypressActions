@@ -748,6 +748,10 @@
             background-image: svg-load('../styles/postcss-svg/plus.svg', stroke: $grey-5);
         }
 
+        &--expand {
+            background-image: svg-load('../styles/postcss-svg/icon-plus.svg', stroke: $color-primary);
+        }
+
         &--pin {
             background-image: svg-load('../styles/postcss-svg/pin.svg', stroke: $color-primary);
         }

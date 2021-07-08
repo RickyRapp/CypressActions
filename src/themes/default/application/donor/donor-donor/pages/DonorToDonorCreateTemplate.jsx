@@ -39,29 +39,32 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
 
                                 <div className="row row--form u-mar--bottom--sml">
                                     <div className="form__group col col-sml-12">
-
-                                        <span className="type--base type--wgt--medium type--color--text">
-                                            {t('DONOR-DONOR.CREATE.BALANCE')}:{' '}
-                                            {donorBalance && (
+                                    <div className="type--center">
+                                        <div className="dashboard-card__body--amount">
+                                        {donorBalance && (
                                                 <FormatterResolver
                                                     item={{ balance: donorBalance.availableBalance }}
                                                     field="balance"
                                                     format={{ type: 'currency' }}
                                                 />
                                             )}
-                                        </span>
+                                        </div>
+                                        <p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="card--primary card--med u-mar--bottom--med">
                                 <h2>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h2>
                                 <h4 className=" u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
                                 <div className="row row--form">
-                                    <div className="col col-sml-7 col-med-9 col-xlrg-7 u-mar--bottom--sml">
+                                    <div className="col col-sml-7 col-med-12 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationEmail')} />
                                     </div>
-                                    <div className="col col-sml-5 col-med-3 col-xlrg-5 u-mar--bottom--sml">
+                                    <div className="col col-sml-5 col-med-12 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
                                     </div>
-                                    <div className="u-mar--bottom--med">
+                                    <div>
                                         <div className="col col-sml-12 col-med-12 col-xlrg-12 u-mar--bottom--sml">
                                             <a onClick={() => addAnotherRecipient(true)}>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
                                         </div>
@@ -94,7 +97,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 </div>
 
                                 <div className="row row--form">
-                                    <div className="form__group col col-sml-12 col-lrg-6">
+                                    <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
@@ -125,22 +128,35 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
 
                                 <div className="row row--form u-mar--bottom--med">
                                     <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card--primary card--med">
-                                            <h4 className="type--base type--wgt--medium u-mar--bottom--med type--color--note">
+                                        <div className="card--enh card--med">
+                                        <h4 className="type--base type--wgt--medium u-mar--bottom--med type--color--note">
                                                 {t('DONOR-DONOR.CREATE.FAQ')}
                                             </h4>
-                                            <div className="u-mar--bottom--med">
-                                                <h4>{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT')}</h4>
-                                                <span>{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}</span>
-                                            </div>
-                                            <div className="u-mar--bottom--med">
-                                                <h4>{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR')}</h4>
-                                                <span>{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR_ANSWER')}</span>
-                                            </div>
-                                            <div className="u-mar--bottom--med">
-                                                <h4>{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS')}</h4>
-                                                <span>{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS_ANSWER')}</span>
-                                            </div>
+                                            <ul className="list--faq">
+                                                <li className="list--faq__item js-faq-item">
+                                                    <i className="list--faq__icon js-faq-icon is-expanded"></i>
+                                                    <div className="list--faq__text">
+                                                        <h4>{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT')}</h4>
+                                                        <span className="js-faq-hidden list--faq__answer is-expanded">{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}</span>
+                                                    </div>
+                                                </li>
+
+                                                <li className="list--faq__item js-faq-item">
+                                                    <i className="list--faq__icon js-faq-icon"></i>
+                                                    <div className="list--faq__text">
+                                                        <h4>{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR')}</h4>
+                                                        <span className="js-faq-hidden list--faq__answer">{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR_ANSWER')}</span>
+                                                    </div>
+                                                </li>
+
+                                                <li className="list--faq__item js-faq-item">
+                                                    <i className="list--faq__icon js-faq-icon"></i>
+                                                    <div className="list--faq__text">
+                                                        <h4>{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS')}</h4>
+                                                        <span className="js-faq-hidden list--faq__answer">{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS_ANSWER')}</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

@@ -65,4 +65,45 @@ $dd-width-sml: 200px;
             border-bottom: 1px solid $grey-2;
         }
     }
+
+    &--faq {
+
+        &__item {
+            display: flex; 
+            margin-bottom: calc($unit * 4);
+        }
+
+        &__text {
+            width: calc(100% - $unit * 6);
+        }
+
+        &__answer {
+            display: none;
+
+            &.is-expanded {
+                display: block;
+            }
+        }
+
+        &__icon {
+            display: inline-block;
+
+            background-repeat: no-repeat;
+            background-position: center center;
+            vertical-align: middle;
+
+            transition: all 250ms ease-in-out;
+            width: calc($unit * 4);
+            height: calc($unit * 4);
+            background-size: calc($unit * 2);
+            background-image: svg-load('../styles/postcss-svg/icon-plus.svg', stroke: $color-primary);
+            border: 1px solid $color-primary;
+            border-radius: 50%;
+            margin-right: calc($unit * 2);
+
+            &.is-expanded {
+                transform: rotate(45deg);
+            }
+        }
+    }
 }
