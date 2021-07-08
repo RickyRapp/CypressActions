@@ -128,6 +128,12 @@ import { moduleProviderFactory } from 'core/providers';
                 icon: 'contribution',
                 order: 17,
                 route: 'master.app.main.administration.credit-debit.list',
+				role: ['Administrators']
+			},
+                title: 'MENU.DONOR-DONOR',
+                icon: 'contribution',
+                order: 18,
+                route: 'master.app.main.administration.donor-donor.template',
                 role: ['Administrators']
             }
         ],

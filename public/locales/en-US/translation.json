@@ -60,7 +60,8 @@
         "CHARITY_PROFILE": "Profile",
         "GRANT_REQUEST": "Request donation",
         "CHARITY_GIVING_CARD": "Accept Card",
-        "CREDIT_DEBIT": "Credit/Debit"
+        "CREDIT_DEBIT": "Credit/Debit",
+        "DONOR-DONOR": "Donor To Donor"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -2862,6 +2863,23 @@
                 "AMOUNT_PLACEHOLDER": "Amount",
                 "PERCENTAGE_LABEL": "Percentage",
                 "PERCENTAGE_PLACEHOLDER": "Percentage"
+            }
+        }
+    },
+    "DONOR_DONOR_ADMIN": {
+        "TITLE": "Transaction Donor to Donor",
+        "CREATE": {
+            "BUTTON": {
+                "TRANSACTION": "Make Transaction"
+            },
+            "FIELDS": {
+                "DONOR_FROM": "Sender",
+                "DONOR_FROM_PLACEHOLDER": "Select Donor Sender",
+                "DONOR_TO": "Recipient",
+                "DONOR_TO_PLACEHOLDER": "Select Donor Recipient",
+                "IGNORE_INSUFFICIENT_FUNDS": "Ignore insufficient funds",
+                "AMOUNT_LABEL": "Transaction amount",
+                "AMOUNT_PLACEHOLDER": "Enter Amount"
             }
         }
     },
