@@ -76,8 +76,8 @@ function ScheduledGrantPreviewTemplate({ scheduledGrantPreviewViewStore, t }) {
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.SCHEDULED_GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>
-                                        {item.grantAcknowledgmentType.abrv === 'name-fund-name-and-address' &&
-                                            `${item.donor.donorName} - ${item.donor.fundName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
+                                        {item.grantAcknowledgmentType.abrv === 'name-and-address' &&
+                                            `${item.donor.donorName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
                                         {item.grantAcknowledgmentType.abrv === 'fund-name-and-address' &&
                                             `${item.donor.fundName} - ${addressFormatter.format(_.find(item.donor.donorAddresses, { isPrimary: true }), 'full')}`}
                                         {item.grantAcknowledgmentType.abrv === 'fund-name' && item.donor.fundName}

@@ -24,8 +24,8 @@ class DonorFormatter {
             }
             case 'grant-acknowledgment-type': {
                 switch (format.value) {
-                    case 'name-fund-name-and-address': {
-                        return `${donor.donorName} - ${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`
+                    case 'name-and-address': {
+                        return `${donor.donorName} - ${addressFormatter.format(donor.donorAddress, 'full')}`
                     }
                     case 'fund-name-and-address': {
                         return `${donor.fundName} - ${addressFormatter.format(donor.donorAddress, 'full')}`

@@ -429,8 +429,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.setSimilarGrantTable(defaultPurposeTypeId);
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
+		// localStorage.clear(); - may be needed, because previouse abrv was cached
 		const defaultGrantAcknowledgmentTypeId = this.grantAcknowledgmentTypes.find(
-			c => c.abrv === 'name-fund-name-and-address'
+			c => c.abrv === 'name-and-address'
 		).id;
 		this.grantAcknowledgmentTypeDropdownStore.setValue(defaultGrantAcknowledgmentTypeId);
 		this.form.$('grantAcknowledgmentTypeId').set(defaultGrantAcknowledgmentTypeId);
