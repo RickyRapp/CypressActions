@@ -186,7 +186,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
 		const defaultGrantAcknowledgmentTypeId = this.grantAcknowledgmentTypes.find(
-			c => c.abrv === 'name-fund-name-and-address'
+			c => c.abrv === 'name-and-address'
 		).id;
 		this.grantAcknowledgmentTypeDropdownStore.setValue(defaultGrantAcknowledgmentTypeId);
 		this.form.$('grantAcknowledgmentTypeId').set(defaultGrantAcknowledgmentTypeId);
