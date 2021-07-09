@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicFieldDropdown, NumericInputField, BasicFieldCheckbox } from 'core/components';
+import { BaasicFormControls, BaasicFieldDropdown, NumericInputField, BasicFieldCheckbox } from 'core/components';
 
 const DonorToDonorTemplate = function ({ donorToDonorViewStore, t }) {
     const {
@@ -54,11 +54,7 @@ const DonorToDonorTemplate = function ({ donorToDonorViewStore, t }) {
                             </div>}
                         <div className="row row--form">
                             <div className="form__group col col-sml-12">
-                                <BaasicButton
-                                    className="btn btn--med btn--primary"
-                                    label={'DONOR_DONOR_ADMIN.CREATE.BUTTON.TRANSACTION'}
-
-                                />
+                                <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'DONOR_DONOR_ADMIN.CREATE.BUTTON.TRANSACTION'} />
                             </div>
                         </div>
 

@@ -21,9 +21,7 @@ class DonorToDonorViewStore extends BaseEditViewStore {
                 return {
                     create: async resource => {
                         resource.donorId = this.donorId;
-
-                        // call
-
+                        const data = await rootStore.application.administration.donorToDonorStore.createTransaction(resource);
                     },
                 };
             },
@@ -54,17 +52,8 @@ class DonorToDonorViewStore extends BaseEditViewStore {
             this.form.$('donorRecipientId').observe(({ field }) => {
                 this.donorRecipientId = field.value
             });
-
-            // this.form.$('amount').onBlur = event => {
-            //     this.onBlurAmount(event.target.value);
-            // };
         }
     }
-
-    // @action.bound
-	// async onBlurAmount(value) {
-	// 	this.setAmount(value);
-	// }
 
     @action.bound
     setFormDefaultRules() {
@@ -72,23 +61,6 @@ class DonorToDonorViewStore extends BaseEditViewStore {
             this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
         }
     }
-
-    // @action.bound
-    // async onCharitySelected(charity) {
-    //     this.setCharity(charity);
-    //     this.advancedSearchModal.close();
-    // }
-
-    // setCharity(charity) {
-    //     this.charityDropdownStore.setValue({
-    //         id: charity.id,
-    //         name: charityFormatter.format(charity, { value: 'charity-name-display' }),
-    //         item: charity,
-    //     });
-    //     this.form.$('charityId').set(charity.id);
-    //     const address = charity.charityAddresses.find(c => c.isPrimary);
-    //     this.setAddress(address);
-    // }
 
     createDonorSenderDropdownStore() {
         this.selectDonorSenderDropdownStore = new BaasicDropdownStore({
@@ -157,41 +129,6 @@ class DonorToDonorViewStore extends BaseEditViewStore {
                 onChange: this.onChange
             });
     }
-
-    // createCharityDropdownStore() {
-    //     this.charityDropdownStore = new BaasicDropdownStore(
-    //         {
-    //             placeholder: 'GRANT.CREATE.FIELDS.SELECT_CHARITY',
-    //             initFetch: false,
-    //             filterable: true,
-    //         },
-    //         {
-    //             fetchFunc: async searchQuery => {
-    //                 const data = await this.donorToDonorStore.searchCharity({
-    //                     pageNumber: 1,
-    //                     pageSize: 10,
-    //                     search: searchQuery,
-    //                     sort: 'name|asc',
-    //                     embed: ['charityAddresses'],
-    //                     fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
-    //                 });
-    //                 return data.item.map(x => {
-    //                     return {
-    //                         id: x.id,
-    //                         name: charityFormatter.format(x, { value: 'charity-name-display' }),
-    //                         item: x,
-    //                     };
-    //                 });
-    //             },
-    //             onChange: value => {
-    //                 if (value) {
-    //                     //
-
-    //                 }
-    //             },
-    //         }
-    //     );
-    // }
 
 }
 
