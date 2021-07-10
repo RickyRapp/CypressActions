@@ -26,7 +26,7 @@ function TransferConfirmTemplate({ modalParams, t }) {
             <section className="modal__list u-mar--bottom--med">
                 <div> {!accNumber ? t('DONOR-DONOR.CONFIRM.EMAIL') : t('DONOR-DONOR.CONFIRM.ACCOUNT_NUMBER')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{form.$('contactInformationEmail').value}</div>
+                <div className="modal__list__amount">{form.$('emailOrAccountNumber').value}</div>
             </section>
 
             <section className="modal__list u-mar--bottom--med">

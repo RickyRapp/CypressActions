@@ -12,10 +12,15 @@ class DonorToDonorService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    findRecipient(filter) {
+    findDonorToDonorAsync(filter) {
         const url = this.routeService.find(filter);
         return this.apiClient.get(url);
     }
+
+    createTransaction(resource) {
+        const url = this.routeService.create(resource);
+        return this.apiClient.post(url, resource);
+      }
 }
 
 export default DonorToDonorService;

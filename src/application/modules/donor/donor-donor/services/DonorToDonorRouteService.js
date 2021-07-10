@@ -12,6 +12,10 @@ class DonorToDonorRouteService extends BaseRouteService {
     loadDonorData(id) {
         return super.get(this.base + '/donor-information/{id}', id);
     }
+
+    create() {
+        return super.create(this.base);
+      }
 }
 
 export default DonorToDonorRouteService;

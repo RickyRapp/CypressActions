@@ -13,10 +13,19 @@ class DonorToDonorStore {
         return response.data;
     }
 
-    async findRecipient(filter) {
-        const response = await this.donorToDonorService.findRecipient(filter);
+    async findDonorToDonorAsync(filter) {
+        const response = await this.donorToDonorService.findDonorToDonorAsync(filter);
         return response.data;
     }
 
+    async createTransaction(resource) {
+        const response = await this.donorToDonorService.createTransaction(resource);
+        return response.data;
+    }
+
+    async getDonorToDonorInfo(resource) {
+        const response = await this.donorToDonorService.getDonorToDonorInfo(resource);
+        return response.data;
+    }
 }
 export default DonorToDonorStore;

@@ -24,7 +24,7 @@ export default class DonorToDonorCreateForm extends FormBase {
 					rules: 'required|string',
 				},
                 {
-                    name: 'contactInformationEmail',
+                    name: 'emailOrAccountNumber',
                     label: 'DONOR-DONOR.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_LABEL',
                     placeholder: 'DONOR-DONOR.CREATE.FIELDS.CONTACT_INFORMATION_EMAIL_PLACEHOLDER',
                     rules: 'required|string'

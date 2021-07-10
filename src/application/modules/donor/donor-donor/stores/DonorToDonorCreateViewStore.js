@@ -21,9 +21,15 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 			autoInit: false,
 			actions: () => {
 				return {
-					create: async resource => {
-
-						resource.donorId = this.donorId;
+					create: async (resource) => {
+						resource.donorSenderId = this.donorId;
+						resource.createdBy = this.donorId;
+						resource.fullName = resource.contactInformationName;
+						
+						if (this.donorRecipientId)
+							resource.donorRecipientId = this.donorRecipientId
+						
+						 await rootStore.application.donor.donorToDonorStore.createTransaction(resource);
 					},
 				};
 			},
@@ -58,7 +64,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	async onSubmitClick() {
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
-			let searchCriteria = this.form.$('contactInformationEmail').value;
+			let searchCriteria = this.form.$('emailOrAccountNumber').value;
 			this.email = searchCriteria;
 			this.accNumber = null;
 			if (!isNaN(searchCriteria)) {
@@ -72,6 +78,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 					accountNumber: this.accNumber,
 					embed: ['accountType'],
 					fields: [
+						'id',
 						'donorName',
 						'firstName',
 						'lastName',
@@ -82,6 +89,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 					]
 				});
 			if (data.item.length > 0) {
+				this.donorRecipientId = data.item[0].id;
 				let splitedNames = data.item[0].donorName.split(' ');
 				this.item = splitedNames.slice(0, 1).join(' ') + ' ' + splitedNames.slice(-1).join(' ').charAt(0) + '.';
 			}
@@ -148,13 +156,17 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async setDonor() {
-		this.donor = await this.donorToDonorStore.getDonorInformation(this.donorId);
+		//this.donor = await this.donorToDonorStore.getDonorInformation(this.donorId);
+		const params = {
+			donorId: this.donorId,
+		}
+		this.donorToDonorRecentTransfers = await this.donorToDonorStore.findDonorToDonorAsync(params);
 		this.donorBalance = await this.rootStore.application.donor.transactionStore.loadDonorData(this.donorId);
 	}
 
 	@action.bound
-	setSimilarGrantTable(value) {
-		this.recentTransfersTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
+	setRecentTransfersTable() {
+		this.recentTransfersTableStore.setData(this.donorToDonorRecentTransfers.item);
 		if (!this.recentTransfersTableStore.dataInitialized) {
 			this.recentTransfersTableStore.dataInitialized = true;
 		}
@@ -178,11 +190,8 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	async loadLookups() {
 		this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
 		this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
-		this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
 
-		const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;
-
-		this.setSimilarGrantTable(defaultPurposeTypeId);
+		this.setRecentTransfersTable();
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
 		const defaultGrantAcknowledgmentTypeId = this.grantAcknowledgmentTypes.find(
@@ -209,7 +218,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 					},
 				},
 				{
-					key: 'name',
+					key: 'fullName',
 					title: 'DONOR-DONOR.LIST.COLUMNS.NAME_LABEL',
 				},
 				{
