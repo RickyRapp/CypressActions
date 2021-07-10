@@ -21,7 +21,7 @@ class DonorToDonorViewStore extends BaseEditViewStore {
                 return {
                     create: async resource => {
                         resource.donorId = this.donorId;
-                        const data = await rootStore.application.administration.donorToDonorStore.createTransaction(resource);
+                        await rootStore.application.administration.donorToDonorStore.createTransaction(resource);
                     },
                 };
             },

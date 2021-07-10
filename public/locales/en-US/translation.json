@@ -2880,6 +2880,11 @@
                 "IGNORE_INSUFFICIENT_FUNDS": "Ignore insufficient funds",
                 "AMOUNT_LABEL": "Transaction amount",
                 "AMOUNT_PLACEHOLDER": "Enter Amount"
+            },
+            "PLACEHOLDERS": {
+                "DONOR_FROM": "Select Donor Sender",
+                "DONOR_TO": "Select Donor To",
+                "TRANSACTION_AMOUNT": "Transaction amount"
             }
         }
     },

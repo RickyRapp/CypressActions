@@ -17,7 +17,7 @@ const DonorToDonorTemplate = function ({ donorToDonorViewStore, t }) {
                 <div className="row row--form">
                     <div className="col col-sml-12 col-xxlrg-6">
                         <div className="row row--form u-mar--bottom--sml">
-                            <h3 className=" u-mar--bottom--med">{'Select Donor From'}</h3>
+                            <h3 className=" u-mar--bottom--med">{t('DONOR_DONOR_ADMIN.CREATE.PLACEHOLDERS.DONOR_FROM')}</h3>
                             <div className="form__group col col-sml-12">
                                 <BaasicFieldDropdown
                                     field={form.$('donorSenderId')}
@@ -28,7 +28,7 @@ const DonorToDonorTemplate = function ({ donorToDonorViewStore, t }) {
                         </div>
                         {donorSenderId &&
                             <div className="row row--form u-mar--bottom--sml">
-                                <h3 className=" u-mar--bottom--med">{'Select Donor To'}</h3>
+                                <h3 className=" u-mar--bottom--med">{t('DONOR_DONOR_ADMIN.CREATE.PLACEHOLDERS.DONOR_TO')}</h3>
                                 <div className="form__group col col-sml-12">
                                     <BaasicFieldDropdown
                                         field={form.$('donorRecipientId')}
@@ -40,7 +40,7 @@ const DonorToDonorTemplate = function ({ donorToDonorViewStore, t }) {
                         {donorRecipientId &&
                             <div className="row row--form u-mar--bottom--sml">
                                 <div className="col col-sml-12 col-lrg-12">
-                                    <h3 className=" u-mar--bottom--med">{'Transaction amount'}</h3>
+                                    <h3 className=" u-mar--bottom--med">{t('DONOR_DONOR_ADMIN.CREATE.PLACEHOLDERS.TRANSACTION_AMOUNT')}</h3>
                                 </div>
                                 <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                     <NumericInputField field={form.$('amount')} />
