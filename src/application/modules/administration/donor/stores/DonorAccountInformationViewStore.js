@@ -2,6 +2,8 @@ import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { DonorEditForm } from 'application/administration/donor/forms';
 import { action } from 'mobx';
 import { applicationContext } from 'core/utils';
+import moment from 'moment';
+import _ from 'lodash';
 
 @applicationContext
 class DonorAccountInformationViewStore extends BaseEditViewStore {
@@ -12,7 +14,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
             autoInit: false,
             actions: {
                 get: async (id) => {
-                    return rootStore.application.administration.donorStore.getDonor(
+                    return this.rootStore.application.administration.donorStore.getDonor(
                         id,
                         {
                             fields: 'prefixTypeId,firstName,lastName,dateOfBirth,fundName,securityPin,accountType,accountManager,accountManagerId',
@@ -29,6 +31,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
         this.donorId = this.id;
 
         this.createAccountManagerDropdownStore();
+        this.createMonthDropdownStore();
         this.createPrefixTypeDropdownStore();
     }
 
@@ -46,6 +49,10 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                     name: `${this.item.accountManager.firstName} ${this.item.accountManager.lastName}`,
                 })
             }
+            const date = moment(this.item.dateOfBirth);
+            this.form.$('month').set(_.find(this.monthDropdownStore.items, { id: (date.month()+1).toString() }).id);
+            this.form.$('day').set(date.date());
+            this.form.$('year').set(date.year());
         }
     }
 
@@ -80,6 +87,28 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
             }
         });
     }
+
+    createMonthDropdownStore() {
+		this.monthDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return [
+					{ id: '1', name: 'January' },
+					{ id: '2', name: 'February' },
+					{ id: '3', name: 'March' },
+					{ id: '4', name: 'April' },
+					{ id: '5', name: 'May' },
+					{ id: '6', name: 'June' },
+					{ id: '7', name: 'July' },
+					{ id: '8', name: 'August' },
+					{ id: '9', name: 'September' },
+					{ id: '10', name: 'October' },
+					{ id: '11', name: 'November' },
+					{ id: '12', name: 'December' },
+				];
+			},
+		});
+	}
+
 }
 
 export default DonorAccountInformationViewStore;
