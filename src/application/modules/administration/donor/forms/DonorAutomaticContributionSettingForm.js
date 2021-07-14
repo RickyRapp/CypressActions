@@ -27,7 +27,7 @@ export default class DonorAutomaticContributionSettingForm extends FormBase {
                     name: 'lowBalanceAmount',
                     label: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.LOW_BALANCE_AMOUNT_LABEL',
                     placeholder: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.LOW_BALANCE_AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric',
+                    rules: 'required|numeric|min:250',
                     extra: {
                         type: 'c2'
                     }

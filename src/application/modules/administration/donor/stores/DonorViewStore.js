@@ -34,7 +34,10 @@ class DonorViewStore extends BaseListViewStore {
                             'accountNumber',
                             'accountType',
                             'accountType.name',
-                            'presentBalance'
+                            'presentBalance',
+                            'pin',
+                            'phone',
+                            'address'
                         ];
                         return this.rootStore.application.administration.donorStore.findDonors(params);
                     }

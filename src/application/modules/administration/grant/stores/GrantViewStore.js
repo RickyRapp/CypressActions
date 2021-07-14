@@ -229,7 +229,7 @@ class GrantViewStore extends BaseListViewStore {
     }
 
     renderGrantPurposeType(item) {
-        if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
+        if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by' || item.grantPurposeType.abrv === 'in-memory-of') {
             return `${item.grantPurposeType.name} - ${item.purposeNote}`
         }
         return item.grantPurposeType.name;

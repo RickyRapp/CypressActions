@@ -32,6 +32,7 @@ const ContributionCreateTemplate = function ({ store }) {
 		<Page loading={loaderStore.loading}>
 			{step === 1 &&
 				<ContributionCreateStep1Template
+					isAdmin={true}
 					paymentTypes={paymentTypes}
 					paymentTypeId={form.$('paymentTypeId').value}
 					onSelectPaymentType={onSelectPaymentType}
