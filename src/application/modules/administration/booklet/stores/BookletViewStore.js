@@ -2,9 +2,24 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/sto
 import { applicationContext } from 'core/utils';
 import { BookletListFilter } from 'application/administration/booklet/models';
 import _ from 'lodash';
+import { action, observable, toJS } from 'mobx';
+import { BookletExportForm } from '../forms';
+import { saveAs } from '@progress/kendo-file-saver';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
+    @observable resourcesModel = {codeEnd: 0, codeStart: 0};
+    @observable form = new BookletExportForm({
+        onSuccess: async form => {
+            this.loaderStore.suspend();
+            const item = form.values();
+            const data = await this.rootStore.application.administration.bookletStore.export(item);
+            this.rootStore.notificationStore.success((data && data.message) ? data.message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
+            this.loaderStore.resume();
+            return data;
+        }
+    });
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'booklet',
@@ -43,6 +58,17 @@ class BookletViewStore extends BaseListViewStore {
         this.createDenominationDropdownStore();
         this.createBookletStatusDropdownStore();
         this.createBookletTypeDropdownStore();
+        this.fileName = '';
+    }
+    @action.bound
+    async exportExcel() {
+        const data = await this.rootStore.application.administration.bookletStore.exportBooklets(toJS(this.resourcesModel));
+        try {
+            this.fileName = `Booklets ${this.resourcesModel.codeStart} - ${this.resourcesModel.codeEnd}.xlsx`;
+            saveAs(data, this.fileName);
+        } catch (err) {
+            this.rootStore.notificationStore.error("Error", err);
+        }
     }
 
     createTableStore() {

@@ -25,5 +25,10 @@ class BookletStore {
         const response = await this.bookletService.updateCertificate(resource);
         return response.data;
     }
+
+    async exportBooklets(resource) {
+        const response = await this.bookletService.export(resource);
+        return response.data;
+    }
 }
 export default BookletStore;

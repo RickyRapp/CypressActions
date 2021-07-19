@@ -28,6 +28,9 @@ class BookletRouteService extends BaseRouteService {
     inventory() {
         return super.get(this.base + 'inventory');
     }
+    export(resource) {
+        return super.find(this.base + '/export{?codeEnd,codeStart}', resource)
+    }
 }
 
 export default BookletRouteService;
