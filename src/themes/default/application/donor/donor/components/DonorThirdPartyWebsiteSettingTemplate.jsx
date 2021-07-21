@@ -5,7 +5,6 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BasicFieldCheckbox,
     BaasicFieldDropdown,
     NumericInputField
 } from 'core/components'
@@ -15,8 +14,7 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
         loaderStore,
         form,
         grantAcknowledgmentTypeDropdownStore,
-        grantPurposeTypeDropdownStore,
-        onChangeIsEnabled
+        grantPurposeTypeDropdownStore
     } = donorThirdPartyWebsiteSettingViewStore;
 
     return (
@@ -28,9 +26,6 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
             <div className="list--preferences">
                 <div className="list--preferences__label">
                     <h3>{t('DONOR.CHARITY_WEBSITE_SETTING.TITLE')}</h3>
-                </div>
-                <div className="list--preferences__field">
-                    <BasicFieldCheckbox showLabel={false} toggleClass="--toggle" field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                 </div>
             </div>
                 
