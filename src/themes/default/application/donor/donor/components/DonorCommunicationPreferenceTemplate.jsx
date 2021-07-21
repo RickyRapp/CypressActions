@@ -24,16 +24,9 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                 </div>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label">Notify me for card transactions exceeding</div>
+                    <div className="list--preferences__label">Notify me for all card transactions exceeding</div>
                     <div className="list--preferences__field">
                         <NumericInputField showLabel={false} field={form.$('cardNonPresentTransactionAmountExceeding')} />
-                    </div>
-                </div>
-
-                <div className="list--preferences u-mar--bottom--lrg">
-                    <div className="list--preferences__label">Notify me when check inventory running low</div>
-                    <div className="list--preferences__field">
-                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isCheckInventoryRunningLowEnabled')} />
                     </div>
                 </div>
 
@@ -46,10 +39,17 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                     </div>
                 </div>
 
+                <div className="list--preferences u-mar--bottom--lrg">
+                    <div className="list--preferences__label">Notify me when check inventory running low</div>
+                    <div className="list--preferences__field">
+                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isCheckInventoryRunningLowEnabled')} />
+                    </div>
+                </div>
+
                 <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label">Notify me for tranasctions exceed</div>
+                    <div className="list--preferences__label">Notify me for tranasctions exceeding</div>
                     <div className="list--preferences__field">
                         <NumericInputField showLabel={false} field={form.$('thirdPartyWebsiteAmountExceeding')} />
                     </div>
@@ -58,7 +58,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                 <h3 className="list--preferences__title">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label">Notify me when charity sends request</div>
+                    <div className="list--preferences__label">Notify me when a charity sends a request</div>
                     <div className="list--preferences__field">
                         <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isNewGrantRequestEnabled')} />
                     </div>
@@ -72,7 +72,7 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                 </div>
 
                 <div className="list--preferences u-mar--bottom--lrg">
-                    <div className="list--preferences__label">Notify me when my balance runs below</div>
+                    <div className="list--preferences__label">Notify me when my balance falls below</div>
                     <div className="list--preferences__field">
                         <NumericInputField showLabel={false} field={form.$('donorAvailableBalanceRunsBelow')} />
                     </div>
