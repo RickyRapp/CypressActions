@@ -16,17 +16,17 @@ function YesNoViewTemplate({
 }) {
     return (
         <div>
-            <span className="type--base w--500--max w--100 u-padd--right--med u-mar--top--med">{t(message)}</span>
+            <div className="type--base w--500--max u-mar--top--med u-mar--bottom--med">{t(message)}</div>
             <div className="u-mar--top--med">
                 <BaasicButton
-                    className="btn btn--sml btn--sml--wide btn--primary u-mar--right--sml"
+                    className="btn btn--med btn--med--wide btn--primary u-mar--right--sml"
                     onClick={onConfirm}
                     disabled={loading}
                     rotate
                     icon={loading ? 'synchronize-arrows-1 rotate' : ''}
                     label={t(yesLabel)}
                 />
-                <BaasicButton className="btn btn--sml btn--sml--wide btn--ghost" onClick={onCancel} disabled={loading} label={t(noLabel)} />
+                <BaasicButton className="btn btn--med btn--med--wide btn--ghost" onClick={onCancel} disabled={loading} label={t(noLabel)} />
             </div>
         </div>
     );
