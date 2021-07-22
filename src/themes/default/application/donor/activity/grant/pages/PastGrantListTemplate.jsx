@@ -216,7 +216,15 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									</div>
 								</div> */}
 								<div className="u-mar--bottom--med">
-									<DonutChartContainer />
+									<div className="dashboard-card__giving-goal">
+										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
+										<div className="dashboard-card__giving-goal--range">
+											<div style={{ 'width': '50%' }} className="dashboard-card__giving-goal--range--progress">Coming soon!</div>
+										</div>
+										{/* <div className="dashboard-card__giving-goal__label">
+											<a className="btn btn--sml btn--link">Manage</a>
+										</div> */}
+									</div>
 								</div>
 								{/* <div className="row">
 									<div className="col col-sml-12 col-lrg-12">
