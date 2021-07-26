@@ -25,8 +25,7 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
                                 <DonorGivingCardSettingEdit key={c.id} setting={c} />
                             )
                         })}
-                        
-                        <DonorGivingCardSettingEdit />
+                        {!tableStore.data.length > 0 && <DonorGivingCardSettingEdit /> }
                     </Content>}
             </ListContent>
         </div>
