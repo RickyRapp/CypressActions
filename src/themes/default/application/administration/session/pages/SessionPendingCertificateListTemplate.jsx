@@ -39,4 +39,3 @@ SessionPendingCertificateListTemplate.propTypes = {
 };
 
 export default defaultTemplate(SessionPendingCertificateListTemplate);
-

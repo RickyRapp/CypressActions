@@ -103,7 +103,7 @@ class TransactionTabViewStore extends BaseViewStore {
             {
                 donorId: this.rootStore.userStore.applicationUser.id,
                 sessionPendingCertificateStatusIds: statuses.find(c => c.abrv === 'pending').id,
-                embed: 'charity,certificate,certificate.booklet,certificate.denominationType',
+                embed: 'charity,certificate,certificate.booklet,certificate.denominationType,certificate.booklet.bookletOrder,certificate.booklet.bookletOrder.donor',
                 sort: 'dateCreated|desc',
                 page: 1,
                 rpp: 50
