@@ -395,7 +395,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 				</Content>
 			</EditFormLayout>
 			<BaasicModal modalParams={advancedSearchModal}>
-				<CharityAdvancedSearch onSelected={onCharitySelected} />
+				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />
 			</BaasicModal>
 		</React.Fragment>
 	);

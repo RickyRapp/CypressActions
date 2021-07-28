@@ -4,7 +4,7 @@ import { CharityListFilter } from 'application/donor/charity/models';
 import { action } from 'mobx';
 
 class CharityAdvancedSearchViewStore extends BaseListViewStore {
-    constructor(rootStore, onSelected) {
+    constructor(rootStore, onSelected, showSearch, expanded) {
         super(rootStore, {
             name: 'advanced-charity',
             routes: {},
@@ -31,7 +31,8 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                 }
             }
         });
-
+        this.showSearch = showSearch;
+        this.expanded = expanded;
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
