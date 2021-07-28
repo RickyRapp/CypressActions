@@ -213,7 +213,6 @@ class PastGrantViewStore extends BaseListViewStore {
 							return false;
 						},
 						onCancelRender: (grant) => {
-							console.log(grant);
 							if (grant.donationStatus.abrv !== 'canceled') {
 								if (grant.donationStatus.abrv === 'pending' || ((grant.grantPurposeType.abrv === 'where-deemed-most-needed' || grant.grantPurposeType.abrv === 'general-fund') && grant.donationStatus.abrv === 'approved')) {
 									return canEditCancel(grant.dateCreated);

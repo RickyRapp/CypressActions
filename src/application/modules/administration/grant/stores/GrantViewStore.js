@@ -1,7 +1,7 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { GrantRouteService } from 'application/common/grant/services';
-import { charityFormatter, donorFormatter, isSome, canEditCancel } from 'core/utils';
+import { charityFormatter, donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'

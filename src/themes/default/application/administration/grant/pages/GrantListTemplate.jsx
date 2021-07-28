@@ -11,7 +11,7 @@ import {
 	BaasicModal,
 	DateRangeQueryPicker,
 } from 'core/components';
-import { isSome, canEditCancel } from 'core/utils';
+import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 
