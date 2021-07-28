@@ -282,6 +282,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
 		}
+		if(value > this.donor.availableBalance) {
+			const { modalStore } = this.rootStore;
+			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
+				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
+			})
+		}
 	}
 
 	@action.bound
@@ -379,6 +385,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	async setDonor() {
 		this.donor = await this.grantStore.getDonorInformation(this.donorId);
+        const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
+		this.donor.availableBalance = dataDonor.presentBalance;
 	}
 
 	@action.bound
