@@ -38,7 +38,8 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 create: async (resource) => {
                     const response = await this.rootStore.application.administration.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
-                        await this.rootStore.application.administration.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response.data);
+                        //response only returns new bankAccountId
+                        await this.rootStore.application.administration.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response);
                     }
                 }
             },
