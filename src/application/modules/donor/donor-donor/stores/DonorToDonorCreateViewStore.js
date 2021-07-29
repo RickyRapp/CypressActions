@@ -156,7 +156,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async setDonor() {
-		//this.donor = await this.donorToDonorStore.getDonorInformation(this.donorId);
+		this.donor = await this.donorToDonorStore.getDonorInformation(this.donorId);
 		const params = {
 			donorId: this.donorId,
 		}
@@ -174,11 +174,12 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	setGrantAcknowledgmentName(value) {
-		if (value)
+		if (value) {
 			this.grantAcknowledgmentName = donorFormatter.format(this.donor, {
 				type: 'grant-acknowledgment-type',
 				value: this.grantAcknowledgmentTypes.find(c => c.id === value).abrv,
 			});
+		}
 		else this.grantAcknowledgmentName = null;
 	}
 
