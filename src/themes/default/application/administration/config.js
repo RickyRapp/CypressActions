@@ -130,6 +130,7 @@ import { moduleProviderFactory } from 'core/providers';
                 route: 'master.app.main.administration.credit-debit.list',
 				role: ['Administrators']
 			},
+            {
                 title: 'MENU.DONOR-DONOR',
                 icon: 'contribution',
                 order: 18,
