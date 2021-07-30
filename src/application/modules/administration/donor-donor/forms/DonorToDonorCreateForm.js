@@ -18,7 +18,7 @@ export default class DonorToDonorCreateForm extends FormBase {
 					name: 'amount',
 					label: 'DONOR_DONOR_ADMIN.CREATE.FIELDS.AMOUNT_LABEL',
 					placeholder: 'DONOR_DONOR_ADMIN.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-					rules: 'required|numeric|min:100',
+					rules: 'required|numeric|min:1',
 					extra: {
 						type: 'c2',
 					},
