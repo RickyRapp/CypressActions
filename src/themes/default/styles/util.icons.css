@@ -699,6 +699,10 @@
             &--positive {
                 background-image: svg-load('../styles/postcss-svg/info.svg', fill: $white);
             }
+
+            &--link {
+                background-image: svg-load('../styles/postcss-svg/info.svg', fill: $color-primary);
+            }
         }
 
         &--search {

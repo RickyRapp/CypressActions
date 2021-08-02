@@ -145,16 +145,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         <div className="row">
                                             {(bt.abrv === 'mixed_500' || bt.abrv === 'mixed_2000') &&
                                                 <React.Fragment>
-
                                                     {bt.abrv === 'mixed_500' &&
-
-
-
                                                         <div className="col card--med col-sml-12 col-xxlrg-5 u-align--self--end" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
                                                             <div className="u-separator--primary">
                                                                 <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                     <div className="col col-sml-3">
-                                                                        <a onClick={click500}>{bt.name}</a>
+                                                                        <a onClick={click500}>{bt.name} <i className="u-icon u-icon--base u-icon--info--link"></i></a>
                                                                     </div>
                                                                     <div className="col col-sml-6 counter">
                                                                         <BookletOrderButtonCounterTemplate
@@ -186,7 +182,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                             <div className="u-separator--primary">
                                                                 <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                     <div className="col col-sml-3">
-                                                                        <a onClick={click2000}>{bt.name}</a>
+                                                                        <a onClick={click2000}>{bt.name} <i className="u-icon u-icon--base u-icon--info--link"></i></a>
                                                                     </div>
                                                                     <div className="col col-sml-6 counter">
                                                                         <BookletOrderButtonCounterTemplate
