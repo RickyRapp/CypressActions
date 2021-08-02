@@ -15,17 +15,15 @@ function GrantConfirmDetailsTemplate({ modalParams, t }) {
     return (
         <div className="modal__list__wrap">
             <h3 className="u-mar--bottom--med">{t('GRANT.CREATE.CONFIRM.TITLE')}</h3>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('GRANT.CREATE.CONFIRM.ACKNOWLEDGEMENT_NAME')}</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{grantAcknowledgmentName}</div>
+            <section className="u-mar--bottom--med">
+                <div className="type--wgt--bold">{t('GRANT.CREATE.CONFIRM.ACKNOWLEDGEMENT_NAME')}</div>
+                <div>{grantAcknowledgmentName}</div>
             </section>
             {charityName &&
                 <React.Fragment>
-                    <section className="modal__list u-mar--bottom--med">
-                        <div>{t('GRANT.CREATE.CONFIRM.RECEPIENT_CHARITY')}</div>
-                        <div className="modal__list__divider"></div>
-                        <div className="modal__list__amount">{charityName}</div>
+                    <section className="u-mar--bottom--med">
+                        <div className="type--wgt--bold">{t('GRANT.CREATE.CONFIRM.RECEPIENT_CHARITY')}</div>
+                        <div>{charityName}</div>
                     </section>
                 </React.Fragment>}
             <section className="modal__list u-mar--bottom--med">
