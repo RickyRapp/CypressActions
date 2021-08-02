@@ -27,15 +27,13 @@ function GrantConfirmTemplate({ modalParams, t }) {
         <div className="modal__list__wrap">
 
             <h3 className="u-mar--bottom--med">{t('GRANT.CONFIRM.TITLE')}</h3>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('GRANT.CONFIRM.GRANT_ACKNOWLEDGMENT_NAME')}</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{grantAcknowledgmentName}</div>
+            <section className="u-mar--bottom--med">
+                <div className="type--wgt--bold">{t('GRANT.CONFIRM.GRANT_ACKNOWLEDGMENT_NAME')}</div>
+                <div>{grantAcknowledgmentName}</div>
             </section>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('GRANT.CONFIRM.RECEPIENT_CHARITY')}</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__wrap">{charity.name}</div>
+            <section className="u-mar--bottom--med">
+                <div className="type--wgt--bold">{t('GRANT.CONFIRM.RECEPIENT_CHARITY')}</div>
+                <div>{charity.name}</div>
             </section>
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.GIVEN_AMOUNT')}</div>
@@ -48,7 +46,6 @@ function GrantConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
-            <br />
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.SCHEDULED_DATE')}</div>
                 <div className="modal__list__divider"></div>
