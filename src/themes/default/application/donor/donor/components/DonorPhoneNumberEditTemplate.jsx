@@ -22,12 +22,13 @@ class DonorPhoneNumberEditTemplate extends Component {
                         <div className="form__group col col-sml-12 col-lrg-3">
                             <NumberFormatInputField field={form.$('number')} />
                         </div>
-                        <div className="form__group col col-sml-12 col-lrg-6">
+                        <div className="form__group col col-sml-12 col-lrg-9">
                             <BasicInput field={form.$('description')} />
                         </div>
                         {isAssignableAsPrimary &&
                             <div className="form__group col col-sml-12 col-lrg-2">
-                                <BasicFieldCheckbox field={form.$('isPrimary')} />
+                                <label className="form__group__label u-mar--right--med">Primary</label>
+                                <BasicFieldCheckbox toggleClass='--toggle' field={form.$('isPrimary')} />
                             </div>}
                     </div>
                 </div>

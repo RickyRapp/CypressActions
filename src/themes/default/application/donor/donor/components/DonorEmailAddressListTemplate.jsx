@@ -62,12 +62,12 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
                                                 <p className="type--base type--wgt--bold"> {primaryEmailAddress.email} </p>
                                             </div>
                                             <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is notify enable?</p>
+											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Notifications</p>
                                                 <p className="type--base type--wgt--bold">{primaryEmailAddress.isNotifyEnabled ? "Yes" : "No"}</p>
                                             </div>
                                             <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-                                                <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is primary?</p>
-                                                <p className="type--base type--wgt--bold">{primaryEmailAddress.isPrimary ? "Yes" : "No"}</p>
+                                                <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Primary</p>
+                                                <p className="type--base type--wgt--bold">{primaryEmailAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ""}</p>
                                             </div>
 										</div>
 									) : (
@@ -81,7 +81,6 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
 							((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId) ? (
 								<DonorEmailAddressEditTemplate
 									form={form}
-									title="Secondary"
 									onCancelEditClick={onCancelEditClick}
 									isAssignableAsPrimary={true}
 								/>

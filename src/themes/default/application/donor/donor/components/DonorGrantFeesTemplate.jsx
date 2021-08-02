@@ -18,7 +18,7 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
             <h3 className=" u-mar--bottom--sml">{t('DONOR.GRANT_FEES.TITLE')}</h3>
             <div className="row ">
                 <div className="form__group col col-sml-6 col-lrg-6 col-xlrg-5 col-xxlrg-4">
-                    <span className="type--base type--wgt--bold type--color--note">
+                    <span className="type--base type--wgt--bold">
                         {t('DONOR.GRANT_FEES.FIELDS.ONLINE_LABEL')}
                     </span>
                 </div>

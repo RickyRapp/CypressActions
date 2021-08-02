@@ -671,17 +671,17 @@
             }
         },
         "AUTOMATIC_CONTRIBUTION_SETTING": {
-            "TITLE": "Balance protection plan",
+            "TITLE": "Auto replenish plan",
             "EDIT": {
                 "FIELDS": {
-                    "BANK_ACCOUNT_LABEL": "Bank account",
+                    "BANK_ACCOUNT_LABEL": "From bank account",
                     "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
                     "AMOUNT_LABEL": "Replenish",
                     "AMOUNT_PLACEHOLDER": "$",
                     "LOW_BALANCE_AMOUNT_LABEL": "When my balance falls below",
                     "LOW_BALANCE_AMOUNT_PLACEHOLDER": "$",
-                    "IS_ENABLED_LABEL": "Is enabled",
-                    "IS_ENABLED_PLACEHOLDER": "Is enabled"
+                    "IS_ENABLED_LABEL": "Enable",
+                    "IS_ENABLED_PLACEHOLDER": "Enable"
                 }
             }
         },
@@ -698,7 +698,7 @@
         "GRANT_FEES": {
             "TITLE": "Fees",
             "FIELDS": {
-                "ONLINE_LABEL": "Online grants are free!",
+                "ONLINE_LABEL": "Online grants",
                 "GRANT_REQUEST_LABEL": "Grant request fee is payed by:",
                 "GRANT_REQUEST_LABEL_TRUE": "Me",
                 "GRANT_REQUEST_LABEL_FALSE": "Charity",
@@ -852,8 +852,8 @@
             "FIELDS": {
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number",
-                "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description",
+                "DESCRIPTION_LABEL": "Description or Extension",
+                "DESCRIPTION_PLACEHOLDER": "Description or Extension",
                 "PRIMARY_LABEL": "Primary"
             }
         }
