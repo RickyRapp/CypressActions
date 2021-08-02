@@ -325,7 +325,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
         this.denominationTypes = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.value !== 15);
         this.deliveryMethodTypes = await this.rootStore.application.lookup.deliveryMethodTypeStore.find();
-        this.bookletTypes = (await this.rootStore.application.lookup.bookletTypeStore.find()).filter(c => c.abrv === 'classic');
+        this.bookletTypes = (await this.rootStore.application.lookup.bookletTypeStore.find());
     }
 
     createCustomizedExpirationDateDropdownStore() {
