@@ -45,21 +45,22 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             onClick={openWithdrawFundModalClick}
                                         />}
                                 </div>
-                                <div className="row row--form">
-                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-2 u-mar--bottom--sml">
+                                <div className="flex flex--primary w--100">
+                                    <div className="form__group">
                                         <div>
                                             <label className="form__group__label">Tax Id</label>
                                             {item &&
-                                                <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
+                                                <h2><NumberFormat format="##-#######" displayType="text" value={item.taxId} /></h2>
+                                            }
                                         </div>
                                     </div>
-                                    <div className="form__group col col-sml-12 col-med-6 col-lrg-2 u-mar--bottom--sml">
+                                    <div className="form__group">
                                         {item &&
                                             <Barcode
                                                 type={BarcodeFormat.QR_CODE}
                                                 value={charityFormatter.format(item.taxId, { value: 'tax-id' })}
-                                                height={100}
-                                                width={100}
+                                                height={150}
+                                                width={150}
                                             />}
                                     </div>
                                 </div>
