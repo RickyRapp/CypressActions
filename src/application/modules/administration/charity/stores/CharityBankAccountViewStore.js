@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
+import { BaasicUploadStore, BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/administration/charity/forms';
 
@@ -48,6 +48,23 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
 
         this.charityId = rootStore.routerStore.routerState.params.id;
         this.createImageUploadStore();
+        this.createBankAccountDropdownStore();
+    }
+
+    createBankAccountDropdownStore() {
+        this.bankAccountDropdownStore = new BaasicDropdownStore(null,
+            {
+                fetchFunc: async () => {
+                    // eslint-disable-next-line
+                    let params = {
+                        donorId: this.donorId,
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    const data = await this.rootStore.application.administration.charityStore.getCharity(this.charityId, { embed: 'charityBankAccounts' });
+                    return data.charityBankAccounts;
+                }
+            });
     }
 
     @action.bound
@@ -65,14 +82,24 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                     this.getResource(this.id)
                 ]);
             }
-
+            // if(this.charity.charityBankAccounts && this.charity.charityBankAccounts.length > 1) {
+            //     alert("Multiple bank accounts");
+            // }
             this.form.$('routingNumber').onBlur = (event) => {
                 this.onBlurRoutingNumber(event.target.value)
             };
             this.imageUploadStore.setInitialItems(this.form.$('coreMediaVaultEntryId').value)
         }
     }
-
+    @action.bound
+    async selectCharity(){
+        this.id = null;
+        this.form.clear();
+        this.id = this.bankAccountDropdownStore.value.id;
+        await this.fetch([
+            this.getResource(this.id)
+        ]);
+    }
     @action.bound
     async deleteBankAccount() {
         this.rootStore.modalStore.showConfirm(
@@ -83,6 +110,14 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 this.rootStore.notificationStore.success('Successfully deleted Bank account');
             }
         );
+    }
+
+    @action.bound
+    async resetBankAccount() {
+        
+        this.id = null;
+        this.bankAccountDropdownStore.value = null;
+        this.form.clear();
     }
 
     async getCharityInfo() {
