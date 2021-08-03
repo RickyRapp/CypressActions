@@ -34,6 +34,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         bookletTypes,
         totalAmount,
         prepaidBooksChecks,
+        totalPrepaidAmount,
+        prepaidBooks,
         showMoreOptions,
         showAddOnitems,
         onShowMoreOptionsClick,
@@ -45,7 +47,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         customizedExpirationDateDropdownStore,
         confirmModal,
         click500,
-        click2000
+        click2000,
+        tableData
     } = store;
     
     return (
@@ -205,7 +208,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         </div>
                                     </div>
 
-                                    {/* ToDo - Add Functionality
                                     <div className="col col-sml-12 col-xxlrg-4" >
                                         <h3 className="u-mar--bottom--med">Order Summary</h3>
                                         <table className="table--total">
@@ -248,7 +250,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <td>$3.00</td>
                                                     <td>1</td>
                                                     <td>$200.00</td>
-                                                </tr> 
+                                                </tr> */}
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -270,8 +272,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </tfoot>
                                         </table>
 
-                                    </div> */}
-
+                                    </div>
                                 </div>
                             )
                         })}
