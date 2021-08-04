@@ -5,8 +5,11 @@ import { PastGrantFilter } from 'application/donor/activity/grant/models';
 import { localStorageProvider } from 'core/providers';
 import { GrantRouteService } from 'application/common/grant/services';
 import moment from 'moment';
+import { applicationContext } from 'core/utils';
+@applicationContext
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
+    @observable donor = null;
 
 	constructor(rootStore) {
 		super(rootStore, {
@@ -54,9 +57,22 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.createDonationStatusDropdownStore();
 		this.createDonationTypeDropdownStore();
 		this.createExportConfig();
+		this.createYearDropdownStore();
 
 		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
 	}
+
+	@action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.fetch([
+                this.fetchDonorData()
+            ]);
+        }
+    }
 
 	@action.bound
 	async cancelGrant(grant) {
@@ -107,6 +123,22 @@ class PastGrantViewStore extends BaseListViewStore {
                 return routeService.exportDonor(filter);
             }
         }
+	}
+	createYearDropdownStore() {
+        this.yearDropdownStore = new BaasicDropdownStore();
+    }
+	@action.bound
+    async fetchDonorData() {
+        const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
+        let initialValue = new Date().getFullYear();
+        if (data.donationsPerYear.length > 0) {
+            this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
+        }
+        else {
+            this.yearDropdownStore.setItems([{ name: initialValue.toString(), id: initialValue }]);
+        }
+        this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
+        this.donor = data;
     }
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(

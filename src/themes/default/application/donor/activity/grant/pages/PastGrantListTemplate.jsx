@@ -6,13 +6,13 @@ import { Content } from 'core/layouts';
 
 import {
 	Chart,
-	//ChartArea,
+	ChartArea,
 	ChartCategoryAxis,
 	ChartCategoryAxisItem,
-	//ChartLegend,
+	ChartLegend,
 	ChartSeries,
 	ChartSeriesItem,
-	//ChartSeriesLabels,
+	ChartSeriesLabels,
 	ChartTitle,
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
@@ -28,18 +28,20 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		summaryData,
-		exportConfig
+		exportConfig,
+		donor,
+		yearDropdownStore
 	} = pastGrantViewStore;
 
-	// var dataDonut = [];
-	// if (summaryData) {
-	// 	dataDonut = summaryData.donationsByCharityType.map(c => {
-	// 		return { charityType: c.charityType.name, value: c.amount, color: c.color };
-	// 	});
-	// }
+	var dataDonut = [];
+	if (summaryData) {
+		dataDonut = summaryData.donationsByCharityType.map(c => {
+			return { charityType: c.charityType.name, value: c.amount, color: c.color };
+		});
+	}
 
-	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
-	/*const DonutChartContainer = () => {
+	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
+	const DonutChartContainer = () => {
 		return (
 			<Chart>
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
@@ -59,17 +61,27 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				</ChartSeries>
 			</Chart>
 		);
-	};*/
+	};
 
-	let categories = [];
-	let dataLine = [];
+	//let dataLine = [];
 	if (summaryData) {
 		categories = summaryData.donationsByTimePeriod.map(c => c.month);
-		dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+		//dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+	};
+	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let dataGrants = [];
+	let dataContributions = [];
+	if (donor) {
+		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
+			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
+		}
+		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
+			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
+		}
 	}
 
-	const LineChartContainer = () => (// eslint-disable-line
-		<Chart>
+	const LineChartContainer = () => (
+		<Chart style={{ height: 260 }}>
 			<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
 			<ChartCategoryAxis>
 				<ChartCategoryAxisItem categories={categories} />
@@ -79,11 +91,36 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 					<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
 				)}
 			/>
+			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem type="line" color="#bc6d11" data={dataLine} />
+				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
+	// let categories = [];
+	// let dataLine = [];
+	// if (summaryData) {
+	// 	categories = summaryData.donationsByTimePeriod.map(c => c.month);
+	// 	dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+	// }
+
+	// const LineChartContainer = () => (// eslint-disable-line
+	// 	<Chart>
+	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
+	// 		<ChartCategoryAxis>
+	// 			<ChartCategoryAxisItem categories={categories} />
+	// 		</ChartCategoryAxis>
+	// 		<ChartTooltip
+	// 			render={({ point }) => (
+	// 				<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+	// 			)}
+	// 		/>
+	// 		<ChartSeries>
+	// 			<ChartSeriesItem type="line" color="#bc6d11" data={dataLine} />
+	// 		</ChartSeries>
+	// 	</Chart>
+	// );
 
 	return (
 		<Content>
@@ -230,6 +267,12 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 											<a className="btn btn--sml btn--link">Manage</a>
 										</div> */}
 									</div>
+									<DonutChartContainer />
+									<div className="u-display--flex row__align--center">
+										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
+										<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+									</div>
+									<LineChartContainer />
 								</div>
 								{/* <div className="row">
 									<div className="col col-sml-12 col-lrg-12">
