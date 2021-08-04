@@ -33,7 +33,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		yearDropdownStore
 	} = pastGrantViewStore;
 	//Color palette
-	let colors = ["#bc6d11","#223a5e","#6685b3","#dbaa70","#99bdf3","#f4d0a6","#666666","#777777","#888888"];
+	let colors = ["#99bdf3", "#F9EA9A","#dFFCAD4","#223A5E","#C36C36","#D8D4F2","#E0EEC6","#5DB7DE","#CEB1BE"];
 	
 	let dataDonut = [];
 	if (summaryData) {
@@ -44,16 +44,18 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	for (let i = 0; i < dataDonut.length; i++) {
 		dataDonut[i].color = colors[i];
 	}
+
 	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
 	const DonutChartContainer = () => {
 		return (
 			<Chart>
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
-				<ChartLegend visible={false} />
+				<ChartLegend position="bottom" visible={true} />
 				<ChartArea background="none" />
 				<ChartTooltip render={({ point }) => ( 
 					point ? '$' + point.value.toFixed(2) + ' ' + point.category : null)}
 				/>
+				<ChartTooltip />
 				<ChartSeries>
 					<ChartSeriesItem
 						type="donut"
@@ -63,7 +65,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 						field="value"
 						colorField="color"
 					>
-						<ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} />
+						<ChartSeriesLabels visible={false} position="outsideEnd" background="none" content={labelContent} />
 					</ChartSeriesItem>
 				</ChartSeries>
 			</Chart>
