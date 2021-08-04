@@ -419,7 +419,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	setSimilarGrantTable(value) {
-		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
+		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.charityTypeId === value));
 		if (!this.similarGrantsTableStore.dataInitialized) {
 			this.similarGrantsTableStore.dataInitialized = true;
 		}
@@ -448,7 +448,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.grantScheduleTypes = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 		this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
 		this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
-
+		this.charityTypes = await this.rootStore.application.lookup.charityTypeStore.find();
 		this.grantPurposeTypeDropdownStore.setItems(
 			this.grantPurposeTypes.filter(c => {
 				return ['where-deemed-most-needed', 'general-fund', 'in-honor-of', 'solicited-by', 'other', 'in-memory-of'].includes(c.abrv);
@@ -456,8 +456,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		);
 		const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;
 		this.grantPurposeTypeDropdownStore.setValue(defaultPurposeTypeId);
+
+		const defaultCharityTypeId = this.charityTypes.find(c => c.abrv === 'human-services').id;
+
 		this.form.$('grantPurposeTypeId').set(defaultPurposeTypeId);
-		this.setSimilarGrantTable(defaultPurposeTypeId);
+		this.setSimilarGrantTable(defaultCharityTypeId);
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
 		// localStorage.clear(); - may be needed, because previouse abrv was cached
@@ -509,7 +512,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
 					});
 					return data.item.map(x => {
 						return {
@@ -520,6 +523,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					});
 				},
 				onChange: value => {
+					this.setSimilarGrantTable(this.charityDropdownStore.value.item.charityTypeId);
 					if (value) {
 						const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
 						this.setAddress(address);
