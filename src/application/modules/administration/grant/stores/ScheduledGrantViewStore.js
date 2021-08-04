@@ -172,14 +172,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (scheduledGrant) => {
-                    if (scheduledGrant.done) {
-                        return false;
-                    }
-
-                    if (moment(scheduledGrant.startFutureDate).isSameOrBefore(moment())) {
-                        return false;
-                    }
-                    return true;
+                    return !scheduledGrant.done;
                 },
                 onCancelRender: (scheduledGrant) => {
                     return !scheduledGrant.done;
