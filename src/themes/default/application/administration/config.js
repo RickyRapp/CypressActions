@@ -134,7 +134,7 @@ import { moduleProviderFactory } from 'core/providers';
                 title: 'MENU.DONOR-DONOR',
                 icon: 'contribution',
                 order: 18,
-                route: 'master.app.main.administration.donor-donor.template',
+                route: 'master.app.main.administration.donor-donor.list',
                 role: ['Administrators']
             }
         ],

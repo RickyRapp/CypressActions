@@ -20,5 +20,10 @@ class TransactionStore {
         const response = await this.activityService.loadDonorData(id);
         return response.data;
     }
+
+    async findDonorToDonorTransactions(params) {
+        const response = await this.activityService.findDonorToDonorTransactions(params);
+        return response.data;
+    }
 }
 export default TransactionStore;

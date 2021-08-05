@@ -28,6 +28,11 @@ class ActivityRouteService extends BaseRouteService {
     loadDonorData(id) {
         return super.get(this.base + '/donor-information/{id}', id);
     }
+
+    findDonorToDonorTransactions(filter) {
+        return super.find(this.base + '/donor-to-donor-transactions/{?donorId,searchQuery,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
+    }
+
 }
 
 export default ActivityRouteService;

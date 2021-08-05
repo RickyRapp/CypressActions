@@ -2868,6 +2868,16 @@
     },
     "DONOR_DONOR_ADMIN": {
         "TITLE": "Transaction Donor to Donor",
+        "LIST": {
+            "TITLE": "Donor to Donor Transactions",
+            "COLUMNS": {
+                "EMAIL_ACCOUNT_NUMBER": "Recipient Email or account number",
+                "FULLNAME": "Full name",
+                "AMOUNT":"Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "SENDER": "Sender"
+            }
+        },
         "CREATE": {
             "BUTTON": {
                 "TRANSACTION": "Make Transaction"

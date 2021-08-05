@@ -31,6 +31,12 @@ class ActivityService extends BaseService {
         const url = this.routeService.loadDonorData(donorId);
         return this.apiClient.get(url);
     }
+
+    findDonorToDonorTransactions(filter) {
+        const url = this.routeService.findDonorToDonorTransactions(filter);
+        return this.apiClient.get(url);
+    }
+
 }
 
 export default ActivityService;
