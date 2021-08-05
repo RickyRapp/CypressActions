@@ -51,6 +51,9 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
 				<ChartLegend visible={false} />
 				<ChartArea background="none" />
+				<ChartTooltip render={({ point }) => ( 
+					point ? '$' + point.value.toFixed(2) + ' ' + point.category : null)}
+				/>
 				<ChartSeries>
 					<ChartSeriesItem
 						type="donut"
