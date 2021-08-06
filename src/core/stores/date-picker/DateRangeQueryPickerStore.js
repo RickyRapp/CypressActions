@@ -35,6 +35,14 @@ class DateRangeQueryPickerStore {
                         {
                             id: 3,
                             name: 'Last month'
+                        },
+                        {
+                            id: 4,
+                            name: 'Year to date'
+                        },
+                        {
+                            id: 5,
+                            name: 'All time'
                         }
                     ]
                 }
