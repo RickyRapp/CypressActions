@@ -27,10 +27,17 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		activateCardModalParams,
 	} = dashboardViewStore;
 
-	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let categoriesDays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 	let dataGrants = [];
 	let dataContributions = [];
 	if (donor) {
+		if(yearDropdownStore.value.id == 7) {
+			for (let i = 0; i < 7; i++) {
+				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+			}
+		}
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
 		}
@@ -38,11 +45,10 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
-
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={categories} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? categoriesDays: categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -51,7 +57,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
+				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={yearDropdownStore.value.id === 2021 ? dataContributions : donor.donationsPerWeek[1].contributions.slice()} />
 				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>

@@ -1,9 +1,8 @@
 import { DonorGivingCardActivationForm } from 'application/donor/donor/forms';
 import { ModalParams } from 'core/models';
 import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { applicationContext, uuid } from 'core/utils';
 import { action, observable } from 'mobx';
-
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
     @observable donor = null;
@@ -32,7 +31,11 @@ class DashboardViewStore extends BaseViewStore {
         const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
-            this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
+            let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
+            donations.push({name: 'Past Week', id: 7}, {name: 'Past Month', id: 30});
+            this.yearDropdownStore.setItems(donations);
+            //this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
+            //this.yearDropdownStore.setItems({name: 'Past Week', id: uuid()});
         }
         else {
             this.yearDropdownStore.setItems([{ name: initialValue.toString(), id: initialValue }]);
