@@ -28,14 +28,42 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	} = dashboardViewStore;
 
 	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-	let categoriesDays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 	let dataGrants = [];
 	let dataContributions = [];
+	let chartDays = [];
+
 	if (donor) {
 		if(yearDropdownStore.value.id == 7) {
+			const todayDate = new Date();
+			let dayOfWeek = todayDate.getDay();
+			let counter = 0;
+			if(dayOfWeek === 0) {
+				chartDays = categoriesDays;
+			} else {
+				dayOfWeek+=1;
+				while(counter < 7) {
+					if(dayOfWeek < 7) {
+						chartDays.push(categoriesDays[dayOfWeek++]);
+						counter++;
+					}
+					else {
+						dayOfWeek = 0;
+					}
+				}
+			}
 			for (let i = 0; i < 7; i++) {
 				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+			}
+			for (let i = 0; i < 7; i++) {
+				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+			}
+		}
+		if(yearDropdownStore.value.id === 30) {
+			for (let i = 0; i < 4; i++) {
+				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
+				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
 			}
 		}
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
@@ -48,7 +76,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? categoriesDays: categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays: categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -57,7 +85,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={yearDropdownStore.value.id === 2021 ? dataContributions : donor.donationsPerWeek[1].contributions.slice()} />
+				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
 				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
