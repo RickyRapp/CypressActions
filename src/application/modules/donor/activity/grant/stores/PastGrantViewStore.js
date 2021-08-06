@@ -229,7 +229,7 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		if (item.donationType.abrv === "online") {
+		if (item.donationType.abrv === "online" || item.donationType.abrv === 'charity-website') {
 			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 				return `${item.grantPurposeType.name} - ${item.purposeNote}`
 			}
