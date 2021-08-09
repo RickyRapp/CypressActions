@@ -17,7 +17,7 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
         ></BaasicButton>
     );
     return (
-        <div className="row">
+        <div>
 
                     {/* <div className="col col-sml-12 col-lrg-4 col-xlrg-3">
                         <BaasicButton
