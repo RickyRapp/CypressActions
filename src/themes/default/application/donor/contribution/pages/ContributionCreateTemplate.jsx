@@ -23,6 +23,8 @@ const ContributionCreateTemplate = function ({ store }) {
 		nextStep,
 		onSubmitClick,
 		onAddBankAccountClick,
+		clipboardText,
+		downloadTxtFile,
 		...otherProps
 	} = store;
 
@@ -57,6 +59,8 @@ const ContributionCreateTemplate = function ({ store }) {
 				<ContributionCreateStep3Template
 					paymentType={paymentTypes.find(c => c.id === form.$('paymentTypeId').value)}
 					routes={routes}
+					clipboardText={clipboardText}
+					downloadTxtFile={downloadTxtFile}
 					previousContributionsTableStore={previousContributionsTableStore}
 					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value)}
 					form={form} />}

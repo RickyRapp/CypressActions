@@ -4,8 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, copyDivToClipboard }) {
-
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile }) {
+        console.log(clipboardText);
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
@@ -98,7 +98,8 @@ const ContributionCreateStep3Template = function ({
                 {
                     paymentType.abrv === 'wire-transfer' ? 
                     <div>
-                        <a className="btn btn--link btn--med" onClick={copyDivToClipboard}>Copy to clipboard</a>
+                        <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(clipboardText)}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a className="btn btn--link btn--med" onClick={downloadTxtFile}>Download</a>
                         <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
                             <br />
                             <h4>Please provide your bank or financial institution with the following information</h4>
@@ -110,8 +111,10 @@ const ContributionCreateStep3Template = function ({
                             <p>JP Morgan Chase</p>
                             <p>ABA (routing number): 021000021</p>
                             <p>Account number: 883220399</p>
-                            <p>Wire Memo: xxxx-xxxx-xxxx-{bankAccount.accountNumber}</p>
-
+                            <br />
+                            <p><b>Wire Memo:</b></p>
+                            <p> xxxx-xxxx-xxxx-{bankAccount.accountNumber} (your full account number goes here)</p>
+                            <br />
                             <b className="type--color--note">Timeline: Funds will be made available to your account as soon as they are received!</b>
                         </div>
                     </div> : null
@@ -148,7 +151,8 @@ ContributionCreateStep3Template.propTypes = {
     form: PropTypes.object.isRequired,
     bankAccount: PropTypes.object,
     t: PropTypes.func,
-    copyDivToClipboard: PropTypes.func
+    clipboardText: PropTypes.string,
+    downloadTxtFile: PropTypes.func
 };
 
 export default defaultTemplate(ContributionCreateStep3Template);

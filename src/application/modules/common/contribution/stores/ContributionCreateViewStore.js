@@ -10,6 +10,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	@observable paymentTypes = [];
 	@observable step = 1;
 	@observable isThirdPartyFundingAvailable = false;
+	@observable clipboardText = '1';
 	donor = null;
 
 	constructor(rootStore, { donorId, contributionStore }) {
@@ -78,8 +79,31 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
+	downloadTxtFile () {
+		console.log(this.clipboardText);
+		const element = document.createElement("a");
+		const file = new Blob([this.clipboardText], {type: 'text/plain'});
+		element.href = URL.createObjectURL(file);
+		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
+		document.body.appendChild(element); // Required for this to work in FireFox
+		element.click();
+	}
+
+	@action.bound
 	async onSubmitClick() {
+		console.log(this.bankAccountDropdownStore.items);
+		const accountNumber = (this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value).accountNumber);
 		const { isValid } = await this.form.validate({ showErrors: true });
+		this.clipboardText = `Beneficiary:\n
+		The Donors Fund\n
+		328 3rd Street, Lakewood NJ 08701\n
+		\n
+		Beneficiary bank:\n
+		JP Morgan Chase\n
+		ABA (routing number): 021000021\n
+		Account number: 883220399\n
+		Wire Memo: xxxx-xxxx-xxxx-${accountNumber} (your full account number goes here)`;
+		console.log(this.clipboardText);
 		if (isValid) {
 			this.confirmModal.open({
 				onCancel: () => {
@@ -123,13 +147,18 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			this.form.$('propertyTypeId').setRequired(false);
 			this.form.$('collectibleTypeId').setRequired(false);
 			this.isThirdPartyFundingAvailable = false;
-
+			if(paymentType.abrv !== 'wire-transfer') {
+				this.form.$('amount').set('label', 'Amount');
+				this.form.$('bankAccountId').set('label', 'Choose Bank Account');
+			}
 			if (paymentType.abrv === 'ach') {
 				this.form.$('bankAccountId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:250');
 				this.isThirdPartyFundingAvailable = false;
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
+				this.form.$('amount').set('label', 'Tell us how much you will be sending');
+				this.form.$('bankAccountId').set('label', 'Choose sending bank (optional)');
 			} else if (paymentType.abrv === 'stock-and-securities') {
 				this.form.$('amount').set('rules', 'required|numeric|min:1000');
 				this.form.$('brokerageInstitutionId').setRequired(true);
@@ -235,16 +264,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				return this.contributionStore.findBankAccount(params);
 			}
 		});
-	}
-	
-	@action.bound
-	copyDivToClipboard() {
-		var range = document.createRange();
-		range.selectNode(document.getElementById("clipboard-info"));
-		window.getSelection().removeAllRanges(); // clear current selection
-		window.getSelection().addRange(range); // to select text
-		document.execCommand("copy");
-		window.getSelection().removeAllRanges();// to deselect
 	}
 	
 	createBrokerageInstitutionDropdownStore() {
