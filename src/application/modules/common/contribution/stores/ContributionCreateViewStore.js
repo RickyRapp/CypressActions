@@ -8,7 +8,8 @@ import _ from 'lodash';
 @applicationContext
 class ContributionCreateViewStore extends BaseEditViewStore {
 	@observable paymentTypes = [];
-	@observable step = 1;
+	@observable selectedType = null;
+	@observable step = 2;
 	@observable isThirdPartyFundingAvailable = false;
 	@observable clipboardText = '1';
 	donor = null;
@@ -62,6 +63,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		this.createCollectibleTypeDropdownStore();
 		this.createPreviousContributionsTableStore();
 		this.createThirdPartyDonorAdvisedFundDropdownStore();
+		this.initializePaymentType();
 	}
 
 	@action.bound
@@ -77,7 +79,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 		}
 	}
-
+	
 	@action.bound
 	downloadTxtFile () {
 		const element = document.createElement("a");
@@ -135,6 +137,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		this.form.$('paymentTypeId').set(id);
 		const paymentType = this.paymentTypes.find(c => c.id === id);
 		if (paymentType) {
+			this.selectedType = JSON.parse(paymentType.json);
 			this.form.$('bankAccountId').setRequired(false);
 			this.form.$('checkNumber').setRequired(false);
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
@@ -246,7 +249,17 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				}
 				return this.paymentTypes;
 			},
+			onChange: (id) => {
+				this.onSelectPaymentType(id);
+			}
 		});
+	}
+
+	async initializePaymentType() {
+		const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
+		this.form.$('paymentTypeId').set(tempTypes[0].id);
+		this.selectedType = JSON.parse(tempTypes[0].json);
+		this.paymentTypeDropdownStore.value = tempTypes[0].id;
 	}
 
 	createBankAccountDropdownStore() {
