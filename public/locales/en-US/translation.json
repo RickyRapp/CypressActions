@@ -1310,7 +1310,7 @@
             "AMOUNT": "Amount",
             "ADD_BANK_ACCOUNT": "Add New Bank",
             "CONTINUE": "Continue",
-            "COMPLETE_DEPOSIT": "Complete deposit",
+            "COMPLETE_DEPOSIT": "Proceed To Next Step",
             "FIELDS": {
                 "PAYMENT_TYPE_LABEL": "Select Payment type",
                 "PAYMENT_TYPE_PLACEHOLDER": "Select",

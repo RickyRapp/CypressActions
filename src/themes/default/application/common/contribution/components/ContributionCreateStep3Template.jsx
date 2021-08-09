@@ -17,6 +17,7 @@ const ContributionCreateStep3Template = function ({
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                            <p><b>Step 2</b></p>
                             <h4 className="">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
                         </div>
                         <div className="col col-sml-12 col-lrg-12">
@@ -94,8 +95,8 @@ const ContributionCreateStep3Template = function ({
                         </div>
                     </div>
                 </div>
-                <div className="message message--success"> 
-                    Timeline: Funds will be made available within 3 - 5 business days.
+                <div className="type--color--note"> 
+                    <b>Timeline: Funds will be made available within 3 - 5 business days.</b>
                 </div>
             </div>
             <div className="col col-sml-12 col-lrg-4">

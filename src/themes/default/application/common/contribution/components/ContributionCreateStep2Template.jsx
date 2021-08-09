@@ -74,6 +74,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                             <div className="card--primary card--med fullheight">
                                 <div className="row row--form fullheight">
                                     <div className="col col-sml-12 col-lrg-12">
+                                        <p><b>Step 1</b></p>
                                         <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
                                     </div>
                                     {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
