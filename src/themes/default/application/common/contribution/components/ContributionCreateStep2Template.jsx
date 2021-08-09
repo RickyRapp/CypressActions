@@ -16,11 +16,9 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
             onClick={onAddBankAccountClick}
         ></BaasicButton>
     );
-
     return (
         <div className="row">
-            <div className="col col-sml-12">
-                <div className="row row--form">
+
                     {/* <div className="col col-sml-12 col-lrg-4 col-xlrg-3">
                         <BaasicButton
                             type="button"
@@ -29,17 +27,8 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                             label={'Overview'}
                         />
                     </div> */}
-                </div>
-            </div>
-            <div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
-                <div className="card--primary card--med">
-                    <div className="u-display--flex u-display--flex--column u-display--flex--justify--space-between fullheight">
-                        <div>
-                            <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Payment type</h5>
-                        </div>
-                        <BaasicDropdown store={paymentTypeDropdownStore} />
-                    </div>
-                </div>
+
+
                     {/* {paymentTypes.map((c) => {
                     return (
                         <div
@@ -113,12 +102,17 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <BasicInput field={form.$('checkNumber')} />
                 })} */}
-                </div>
-                <div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
+
                     <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
+                            
+                        
                             <EditFormContent form={form}>
-                                <div className="card--primary card--med ">
+                                <div className="card--primary card--med u-mar--bottom--med">
+                                    <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Payment type</h5>
+                                    <BaasicDropdown store={paymentTypeDropdownStore} />
+                                </div>
+                                <div className="card--primary card--med">
                                     <div className="row row--form fullheight">
                                         <div className="col col-sml-12 col-lrg-12">
                                             <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
@@ -318,28 +312,36 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                             </div>
                             <br />
                             <div className="card--primary card--med">
-                                <div className="u-display--flex u-display--flex--column u-display--flex--justify--space-between fullheight">
+                                <div>
                                     <div>
                                         <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
                                             Information
                                         </h5>
                                         {selectedType ? 
                                         <div>
-                                            <p><b>Deductible Eligibility:</b> {selectedType ? selectedType.deductibleEligibility : null}</p>
-                                            <p><b>Minimum Deposit:</b> {selectedType ? <FormatterResolver
-                                                item={{ amount: selectedType.minimumDeposit }}
-                                                field='amount'
-                                                format={{ type: 'currency' }}
-                                            /> : null}</p>
-                                            {selectedType ? (selectedType.more ? <p><b>More: </b>{selectedType.more}</p> : null) : null}
-                                        </div> : <p>No information to show</p>}
+                                            <div className="modal__list u-mar--bottom--med">
+                                                <div>Deductible Eligibility</div>
+                                                <div className="modal__list__divider"></div>
+                                                <div className="modal__list__label">{selectedType && selectedType.deductibleEligibility ? selectedType.deductibleEligibility : 'No information to show'}</div> 
+                                            </div>
+                                            <div className="modal__list u-mar--bottom--med">
+                                                <div>Minimum Deposit</div>
+                                                <div className="modal__list__divider"></div>
+                                                <div className="modal__list__label">{selectedType ? <FormatterResolver item={{ amount: selectedType.minimumDeposit }} field='amount' format={{ type: 'currency' }}/> : null}</div>
+                                            </div>
+                                            <div className="modal__list u-mar--bottom--med">
+                                                <div>More</div>
+                                                <div className="modal__list__divider"></div>
+                                                <div className="modal__list__label">{selectedType ? (selectedType.more ? <span> {selectedType.more}</span> : null) : null}</div>
+                                            </div>                                         
+                                        </div> : <div></div>}
                                         
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
             </div>
             )
 }
