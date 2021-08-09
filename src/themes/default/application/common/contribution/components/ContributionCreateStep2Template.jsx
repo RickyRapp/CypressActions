@@ -80,6 +80,11 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                     {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
                                         <React.Fragment>
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                {paymentType.abrv === 'wire-transfer' ? 
+                                                <div>
+                                                    <p className="type--color--note">Sending us a wire</p>
+                                                    <br />
+                                                </div> : null}
                                                 <BaasicFieldDropdown
                                                     field={form.$('bankAccountId')}
                                                     store={bankAccountDropdownStore}

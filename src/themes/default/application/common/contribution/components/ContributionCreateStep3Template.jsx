@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t }) {
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, copyDivToClipboard }) {
 
     return (
         <div className="row">
@@ -95,9 +95,34 @@ const ContributionCreateStep3Template = function ({
                         </div>
                     </div>
                 </div>
-                <div className="type--color--note"> 
-                    <b>Timeline: Funds will be made available within 3 - 5 business days.</b>
-                </div>
+                {
+                    paymentType.abrv === 'wire-transfer' ? 
+                    <div>
+                        <a className="btn btn--link btn--med" onClick={copyDivToClipboard}>Copy to clipboard</a>
+                        <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
+                            <br />
+                            <h4>Please provide your bank or financial institution with the following information</h4>
+                            <br />
+                            <p><b>Beneficiary:</b></p>
+                            <p> The Donors Fund</p>
+                            <p>328 3rd Street, Lakewood NJ 08701</p>
+                            <p><b>Beneficiary bank:</b></p>
+                            <p>JP Morgan Chase</p>
+                            <p>ABA (routing number): 021000021</p>
+                            <p>Account number: 883220399</p>
+                            <p>Wire Memo: xxxx-xxxx-xxxx-{bankAccount.accountNumber}</p>
+
+                            <b className="type--color--note">Timeline: Funds will be made available to your account as soon as they are received!</b>
+                        </div>
+                    </div> : null
+                }
+                {
+                    paymentType.abrv !== 'wire-transfer' ? 
+                    <div className="type--color--note"> 
+                        <b>Timeline: Funds will be made available within 3 - 5 business days.</b>
+                    </div> : null
+                }
+                
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -123,6 +148,7 @@ ContributionCreateStep3Template.propTypes = {
     form: PropTypes.object.isRequired,
     bankAccount: PropTypes.object,
     t: PropTypes.func,
+    copyDivToClipboard: PropTypes.func
 };
 
 export default defaultTemplate(ContributionCreateStep3Template);

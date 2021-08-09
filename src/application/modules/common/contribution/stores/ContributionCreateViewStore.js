@@ -236,7 +236,17 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 		});
 	}
-
+	
+	@action.bound
+	copyDivToClipboard() {
+		var range = document.createRange();
+		range.selectNode(document.getElementById("clipboard-info"));
+		window.getSelection().removeAllRanges(); // clear current selection
+		window.getSelection().addRange(range); // to select text
+		document.execCommand("copy");
+		window.getSelection().removeAllRanges();// to deselect
+	}
+	
 	createBrokerageInstitutionDropdownStore() {
 		this.brokerageInstitutionDropdownStore = new BaasicDropdownStore(null, {
 			fetchFunc: async () => {
