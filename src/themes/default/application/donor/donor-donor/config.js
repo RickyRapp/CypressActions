@@ -1,5 +1,6 @@
 import { moduleProviderFactory } from 'core/providers';
 import { DonorToDonorCreate } from 'application/donor/donor-donor/pages';
+import { DonorToDonorConfirmation } from 'application/donor/donor-donor/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -17,6 +18,14 @@ import { DonorToDonorCreate } from 'application/donor/donor-donor/pages';
                             title: "DONOR-DONOR.CREATE.TITLE"
                         }
                     },
+                    {
+                        name: 'master.app.main.donor.donor-donor.success',
+                        pattern: '/success',
+                        component: DonorToDonorConfirmation,
+                        data: {
+                            title: "DONOR-DONOR.CREATE.TITLE"
+                        }
+                    }
                 ]
             }
         ]

@@ -1518,6 +1518,8 @@
             "SEND_TO": "Send to",
             "SEND_TO_INFO_TITLE": "Enter recipients account number or email address",
             "ADD_ANOTHER_RECIPIENT": "Add another recipient",
+            "ADD_ANOTHER_RECIPIENT_+": "+ ",
+            "ADD_ANOTHER_RECIPIENT_-": "- ",
             "FAQ": "FAQ",
             "FAQ_WHAT_IS_GIFT": "What is a Giving Gift?",
             "FAQ_WHAT_IS_GIFT_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor.",
@@ -1552,7 +1554,9 @@
             "EMAIL": "Email",
             "AMOUNT": "Transfer Amount",
             "DONOR_NAME": "Donor Name:",
-            "ACCOUNT_NUMBER":"Account Number"
+            "ACCOUNT_NUMBER":"Account Number",
+            "SECOND_DONOR_NAME": "Second recipient",
+            "SECOND_EMAIL": "Second email"
         }
     },
     "GRANT": {
