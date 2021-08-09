@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile }) {
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
@@ -115,16 +115,41 @@ const ContributionCreateStep3Template = function ({
                             <p> xxxx-xxxx-xxxx-{bankAccount.accountNumber} (your full account number goes here)</p>
                             <br />
                             <b className="type--color--note">Timeline: Funds will be made available to your account as soon as they are received!</b>
+                            </div>
+                    </div> : null
+                }
+                    {
+                    paymentType.abrv === 'stock-and-securities' ? 
+                    <div>
+                        <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
+                        Beneficiary – Donors’ Fund Inc\n
+                        Address - 328 3rd St Lakewood NJ 08701\n
+                        EIN (tax ID) – 47-4844275\n
+                        Brokerage Firm – Fidelity Investment\n
+                        DTC – 0226\n
+                        Brokerage Number - Z50762458`
+                        )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a className="btn btn--link btn--med" onClick={downloadStockTxtFile}>Download</a>
+                        <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
+                            <h4>Please provide your brokerage firm or financial advisor with the following information so they can initiate the transfer.</h4>
+                            <br />
+                            <p><b>Beneficiary</b> – Donors’ Fund Inc</p>
+                            <p><b>Address</b> - 328 3rd St Lakewood NJ 08701</p>
+                            <p><b>EIN (tax ID)</b> – 47-4844275</p>
+                            <p><b>Brokerage Firm</b>– Fidelity Investment</p> 
+                            <p><b>DTC</b> – 0226</p>
+                            <p><b>Brokerage Number</b>- Z50762458</p> 
+                            <br />
+                            <b className="type--color--note">What happens next? Once we receive the security transfer we will initiate a selling order and then fund your account with the full selling price.</b>
                         </div>
                     </div> : null
                 }
                 {
-                    paymentType.abrv !== 'wire-transfer' ? 
+                    paymentType.abrv !== 'wire-transfer' && paymentType.abrv !== 'stock-and-securities' ? 
                     <div className="type--color--note"> 
                         <b>Timeline: Funds will be made available within 3 - 5 business days.</b>
                     </div> : null
                 }
-                
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">

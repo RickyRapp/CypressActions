@@ -22,6 +22,7 @@ const ContributionCreateTemplate = function ({ store }) {
 		previousContributionsTableStore,
 		nextStep,
 		onSubmitClick,
+		downloadStockTxtFile,
 		onAddBankAccountClick,
 		clipboardText,
 		downloadTxtFile,
@@ -62,6 +63,7 @@ const ContributionCreateTemplate = function ({ store }) {
 					clipboardText={clipboardText}
 					downloadTxtFile={downloadTxtFile}
 					previousContributionsTableStore={previousContributionsTableStore}
+					downloadStockTxtFile={downloadStockTxtFile}
 					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value)}
 					form={form} />}
 			<BaasicModal modalParams={bankAccountModal}>
