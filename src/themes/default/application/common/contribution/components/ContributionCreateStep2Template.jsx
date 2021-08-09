@@ -28,7 +28,6 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                         />
                     </div> */}
 
-
                     {/* {paymentTypes.map((c) => {
                     return (
                         <div
@@ -106,7 +105,6 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                     <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
                             
-                        
                             <EditFormContent form={form}>
                                 <div className="card--primary card--med u-mar--bottom--med">
                                     <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Payment type</h5>
@@ -320,6 +318,11 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                         {selectedType ? 
                                         <div>
                                             <div className="modal__list u-mar--bottom--med">
+                                                <div>Timeline</div>
+                                                <div className="modal__list__divider"></div>
+                                                <div className="modal__list__label">{selectedType ? (selectedType.timeline ? <span> {selectedType.timeline}</span> : null) : 'No information to show'}</div>
+                                            </div> 
+                                            <div className="modal__list u-mar--bottom--med">
                                                 <div>Deductible Eligibility</div>
                                                 <div className="modal__list__divider"></div>
                                                 <div className="modal__list__label">{selectedType && selectedType.deductibleEligibility ? selectedType.deductibleEligibility : 'No information to show'}</div> 
@@ -327,15 +330,18 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                             <div className="modal__list u-mar--bottom--med">
                                                 <div>Minimum Deposit</div>
                                                 <div className="modal__list__divider"></div>
-                                                <div className="modal__list__label">{selectedType ? <FormatterResolver item={{ amount: selectedType.minimumDeposit }} field='amount' format={{ type: 'currency' }}/> : null}</div>
+                                                <div className="modal__list__label">{selectedType ? <FormatterResolver item={{ amount: selectedType.minimumDeposit }} field='amount' format={{ type: 'currency' }}/> : 'No information to show'}</div>
                                             </div>
                                             <div className="modal__list u-mar--bottom--med">
                                                 <div>More</div>
                                                 <div className="modal__list__divider"></div>
-                                                <div className="modal__list__label">{selectedType ? (selectedType.more ? <span> {selectedType.more}</span> : null) : null}</div>
+                                                <div className="modal__list__label">{selectedType ? (selectedType.more ? <span> {selectedType.more}</span> : null) : 'No information to show'}</div>
                                             </div>                                         
-                                        </div> : <div></div>}
-                                        
+                                        </div> : <div className="modal__list u-mar--bottom--med">
+                                                    <div>Details</div>
+                                                    <div className="modal__list__divider"></div>
+                                                    <div className="modal__list__label"><span>No information to show</span></div>
+                                                </div>}
                                     </div>
                                 </div>
                             </div>
