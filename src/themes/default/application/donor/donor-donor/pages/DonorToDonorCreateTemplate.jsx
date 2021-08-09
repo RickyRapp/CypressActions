@@ -24,7 +24,8 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
         grantAcknowledgmentName,
         onSubmitClick,
         addAnotherRecipient,
-        confirmModal
+        confirmModal,
+        addAnotherRecipientForm
     } = donorToDonorCreateViewStore;
 
     return (
@@ -39,17 +40,17 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
 
                                 <div className="row row--form u-mar--bottom--sml">
                                     <div className="form__group col col-sml-12">
-                                    <div className="type--center">
-                                        <div className="dashboard-card__body--amount">
-                                        {donorBalance && (
-                                                <FormatterResolver
-                                                    item={{ balance: donorBalance.availableBalance }}
-                                                    field="balance"
-                                                    format={{ type: 'currency' }}
-                                                />
-                                            )}
-                                        </div>
-                                        <p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
+                                        <div className="type--center">
+                                            <div className="dashboard-card__body--amount">
+                                                {donorBalance && (
+                                                    <FormatterResolver
+                                                        item={{ balance: donorBalance.availableBalance }}
+                                                        field="balance"
+                                                        format={{ type: 'currency' }}
+                                                    />
+                                                )}
+                                            </div>
+                                            <p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,20 +67,22 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                     </div>
                                     <div>
                                         <div className="col col-sml-12 col-med-12 col-xlrg-12 u-mar--bottom--sml">
-                                            <a onClick={() => addAnotherRecipient(true)}>+ {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
+                                            <a onClick={() => addAnotherRecipient(true)}>
+                                                {t(!addAnotherRecipientForm ? 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_+' : 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_-')}
+                                                {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
                                         </div>
                                     </div>
                                 </div>
-                                {/* {addAnotherRecipientForm && (
+                                {addAnotherRecipientForm && (
                                     <div className="row row--form u-mar--bottom--med">
-                                        <div className="col col-sml-7 col-med-9 col-xlrg-7 u-mar--bottom--sml">
+                                        <div className="col col-sml-7 col-med-12 col-lrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('emailOrAccountNumberAnother')} />
                                         </div>
-                                        <div className="col col-sml-5 col-med-3 col-xlrg-5 u-mar--bottom--sml">
+                                        <div className="col col-sml-5 col-med-12 col-lrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('contactInformationNameAnother')} />
                                         </div>
                                     </div>
-                                )} */}
+                                )}
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown
@@ -129,7 +132,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 <div className="row row--form u-mar--bottom--med">
                                     <div className="col col-sml-12 col-lrg-12">
                                         <div className="card--enh card--med">
-                                        <h4 className="type--base type--wgt--medium u-mar--bottom--med type--color--note">
+                                            <h4 className="type--base type--wgt--medium u-mar--bottom--med type--color--note">
                                                 {t('DONOR-DONOR.CREATE.FAQ')}
                                             </h4>
                                             <ul className="list--faq">
@@ -181,17 +184,5 @@ DonorToDonorCreateTemplate.propTypes = {
     onSubmitClick: PropTypes.func,
     t: PropTypes.func.isRequired,
 };
-
-// function renderEditLayoutFooterContent({ form }) {
-//     return (
-//         <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-//             <BaasicFormControls form={form} onSubmit={onSubmitClick} label="DONOR-DONOR.CREATE.BUTTON.CREATE" />
-//         </div>
-//     );
-// }
-
-// renderEditLayoutFooterContent.propTypes = {
-//     form: PropTypes.any,
-// };
 
 export default defaultTemplate(DonorToDonorCreateTemplate);

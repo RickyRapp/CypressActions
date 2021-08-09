@@ -7,12 +7,12 @@ import { ModalParams } from 'core/models';
 @applicationContext
 class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	@observable grantAcknowledgmentName = null;
+	@observable addAnotherRecipientForm = null;
 	donor = null;
 	donorBalance = null;
 	applicationDefaultSetting = {};
 	grantAcknowledgmentTypes = [];
 	grantRequestId = null;
-	addAnotherRecipientForm = null;
 
 	constructor(rootStore, { donorId, donorToDonorStore }) {
 		super(rootStore, {
@@ -25,15 +25,16 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						resource.donorSenderId = this.donorId;
 						resource.createdBy = this.donorId;
 						resource.fullName = resource.contactInformationName;
-						
+
 						if (this.donorRecipientId)
 							resource.donorRecipientId = this.donorRecipientId
-						
-						 await rootStore.application.donor.donorToDonorStore.createTransaction(resource);
+
+						//await rootStore.application.donor.donorToDonorStore.createTransaction(resource);
+						return this.rootStore.routerStore.goTo('master.app.main.donor.donor-donor.success');
 					},
 				};
 			},
-			FormClass: DonorToDonorCreateForm,
+			FormClass: DonorToDonorCreateForm
 		});
 
 		this.donorId = donorId;
@@ -66,7 +67,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 		if (isValid) {
 			let searchCriteria = this.form.$('emailOrAccountNumber').value;
 			this.email = searchCriteria;
-			this.accNumber = null;
+			this.accNumber = null; this.item2 = null;
 			if (!isNaN(searchCriteria)) {
 				this.accNumber = searchCriteria;
 				this.email = null;
@@ -88,10 +89,47 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						'presentBalance',
 					]
 				});
+
 			if (data.item.length > 0) {
 				this.donorRecipientId = data.item[0].id;
 				let splitedNames = data.item[0].donorName.split(' ');
 				this.item = splitedNames.slice(0, 1).join(' ') + ' ' + splitedNames.slice(-1).join(' ').charAt(0) + '.';
+			}
+
+			if (this.addAnotherRecipientForm) {
+				let searchCriteria2 = this.form.$('emailOrAccountNumberAnother').value;
+				this.email2 = searchCriteria2;
+				this.accNumber = null;
+
+				if (!isNaN(searchCriteria)) {
+					this.accNumber2 = searchCriteria2;
+					this.email2 = null;
+				}
+
+				const data2 = await this.rootStore.application.administration.donorStore.findDonors(
+					{
+						emails: this.email2,
+						accountNumber: this.accNumber2,
+						embed: ['accountType'],
+						fields: [
+							'id',
+							'donorName',
+							'firstName',
+							'lastName',
+							'accountNumber',
+							'accountType',
+							'accountType.name',
+							'presentBalance',
+						]
+					});
+				
+				if (data2.item.length > 0) {
+					this.donorRecipientId2 = data2.item[0].id;
+					let splitedNames2 = data2.item[0].donorName.split(' ');
+					this.item2 = splitedNames2.slice(0, 1).join(' ') + ' ' + splitedNames2.slice(-1).join(' ').charAt(0) + '.';
+				} else {
+					this.item2 = null;
+				}
 			}
 
 			this.confirmModal.open({
@@ -100,7 +138,9 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 				},
 				form: this.form,
 				item: this.item,
-				accNumber: this.accNumber
+				accNumber: this.accNumber,
+				item2: this.item2,
+				recipient2: this.addAnotherRecipientForm
 			});
 		}
 	}
@@ -142,9 +182,9 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	addAnotherRecipient(data) {
-		this.addAnotherRecipientForm = data;
-		return;
+	addAnotherRecipient() {
+		this.addAnotherRecipientForm = !this.addAnotherRecipientForm;
+		this.form.$('anotherRecipientForm').set(this.addAnotherRecipientForm);
 	}
 
 	@action.bound
