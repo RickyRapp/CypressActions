@@ -30,7 +30,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         mixed2000BookletAmount,
         bookletTypes,
         totalAmount,
-        prepaidBooks,
+        prepaidBooksChecks,
         showMoreOptions,
         onShowMoreOptionsClick,
         isDefaultShippingAddress,
@@ -50,7 +50,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </div>
                             <div className="col col-sml-12 col-xxlrg-4">
                                 <div className="card--sml card--secondary type--center">
-                                    <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance:</span>
+                                    <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance: </span>
                                         {donor && <FormatterResolver
                                             item={{ availableBalance: donor.availableBalance }}
                                             field='availableBalance'
@@ -100,6 +100,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                                 label={order && order.bookletCount.toString() || '0'}
                                                                                 bookletType={bt}
                                                                                 denominationType={dt}
+                                                                                denominationTypeValue={dt}
                                                                             />
                                                                         </div>
                                                                         <div className="col col-sml-3">
@@ -295,7 +296,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                         <div className="card--sml">
                             <div className="u-mar--bottom--med">
-                                {donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount && prepaidBooks < totalAmount &&
+                                {donor && !donor.hasProtectionPlan && prepaidBooksChecks &&
                                     <div className="message--enh">
                                         <span className="u-mar--right--tny">
                                             {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
@@ -417,7 +418,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </Content>
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && donor.availableBalance < totalAmount && prepaidBooks < totalAmount} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && prepaidBooksChecks} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>
