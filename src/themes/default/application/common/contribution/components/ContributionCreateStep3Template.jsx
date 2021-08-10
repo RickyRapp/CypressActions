@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadThirdPartyTxtFile, downloadZelleTxtFile }) {
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadThirdPartyTxtFile, downloadZelleTxtFile, downloadCheckTxtFile }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
@@ -195,6 +195,26 @@ const ContributionCreateStep3Template = function ({
                     <br />
                     <p><b>Memo for purpose of grant: </b>xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
                 </div> : null}
+                {
+                    paymentType.abrv === 'check' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
+                    Make checks payable to: The Donors Fund\n
+                    Mail to: 328 3rd Street, Lakewood NJ 08701\n
+                    Check Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a className="btn btn--link btn--med" onClick={downloadCheckTxtFile}>Download</a></div> : null
+
+                }
+
+                {paymentType.abrv === 'check' ? 
+                <div className="card--primary card--med u-mar--bottom--med">
+                    <h4>Please use the following information to send us the check</h4>
+                    <br />
+                    <p><b>Make checks payable to: </b>The Donors Fund</p>
+                    <p><b>Mail to: </b>328 3rd Street, Lakewood NJ 08701</p>
+                    <br />
+                    <p><b>Check Memo: </b>xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
+                </div> : null}
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -224,7 +244,8 @@ ContributionCreateStep3Template.propTypes = {
     clipboardText: PropTypes.string,
     downloadTxtFile: PropTypes.func,
     downloadStockTxtFile: PropTypes.func,
-    downloadThirdPartyTxtFile: PropTypes.func
+    downloadThirdPartyTxtFile: PropTypes.func,
+    downloadCheckTxtFile: PropTypes.func
 };
 
 export default defaultTemplate(ContributionCreateStep3Template);

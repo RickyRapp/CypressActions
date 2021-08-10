@@ -28,6 +28,7 @@ const ContributionCreateTemplate = function ({ store }) {
 		downloadTxtFile,
 		downloadZelleTxtFile,
 		downloadThirdPartyTxtFile,
+		downloadCheckTxtFile,
 		...otherProps
 	} = store;
 
@@ -69,6 +70,7 @@ const ContributionCreateTemplate = function ({ store }) {
 					downloadStockTxtFile={downloadStockTxtFile}
 					downloadThirdPartyTxtFile={downloadThirdPartyTxtFile}
 					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value)}
+					downloadCheckTxtFile={downloadCheckTxtFile}
 					form={form} />}
 			<BaasicModal modalParams={bankAccountModal}>
 				<DonorBankAccountEdit />

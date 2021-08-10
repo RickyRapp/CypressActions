@@ -171,6 +171,20 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
+	downloadCheckTxtFile () {
+		const element = document.createElement("a");
+		const file = new Blob([`
+		Make checks payable to: The Donors Fund\n
+		Mail to: 328 3rd Street, Lakewood NJ 08701\n
+		Check Memo: xxxx-xxxx-xxxx-xxxx (your full account number)\n
+		Amount: $${this.form.$('amount').value.toFixed(2)}`], {type: 'text/plain'});
+		element.href = URL.createObjectURL(file);
+		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
+		document.body.appendChild(element);
+		element.click();
+	}
+
+	@action.bound
 	onSelectPaymentType(id) {
 		this.form.clear();
 		this.bankAccountDropdownStore.setValue(null);

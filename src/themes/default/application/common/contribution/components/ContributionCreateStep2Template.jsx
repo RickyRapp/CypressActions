@@ -87,6 +87,10 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                     </div>
 
                                     {paymentType.abrv === 'third-party-donor-advised-funds' ? 
+                                        <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'check' ? 'Sending us check payment' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
+                                    </div>
+
+                                    {paymentType.abrv === 'check' ? 
                                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                     <p className="type--color--note">Tell us how much you will be sending</p>
                                                     <br />
