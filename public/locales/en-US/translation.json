@@ -1557,6 +1557,15 @@
             "ACCOUNT_NUMBER":"Account Number",
             "SECOND_DONOR_NAME": "Second recipient",
             "SECOND_EMAIL": "Second email"
+        },
+        "CONFIRMATION": {
+            "SUCCESS": "Success! You've successfully send your Gift!",
+            "GIFT_SUMMARY": "Gift Summary",
+            "RECIPIENT_INFO": "Donor recipient info (email or account number)",
+            "RECIPIENT_NAME": "Donor recipient name",
+            "AMOUNT": "AMOUNT",
+            "ANOTHER_RECIPIENT": "Another Donor recipient info",
+            "ANOTHER_RECIPIENT_NAME": "Donor recipient name"
         }
     },
     "GRANT": {

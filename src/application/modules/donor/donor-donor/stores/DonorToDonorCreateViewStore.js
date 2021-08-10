@@ -8,11 +8,13 @@ import { ModalParams } from 'core/models';
 class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	@observable grantAcknowledgmentName = null;
 	@observable addAnotherRecipientForm = null;
+	@observable summaryInfo = false;
 	donor = null;
 	donorBalance = null;
 	applicationDefaultSetting = {};
 	grantAcknowledgmentTypes = [];
 	grantRequestId = null;
+	currentlyExpanded = 'whatIsGift';
 
 	constructor(rootStore, { donorId, donorToDonorStore }) {
 		super(rootStore, {
@@ -25,16 +27,20 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						resource.donorSenderId = this.donorId;
 						resource.createdBy = this.donorId;
 						resource.fullName = resource.contactInformationName;
-
 						if (this.donorRecipientId)
-							resource.donorRecipientId = this.donorRecipientId
+							resource.donorRecipientId = this.donorRecipientId;
+						if (this.donorRecipientId2)
+							resource.donorRecipientId2 = this.donorRecipientId2;
 
-						//await rootStore.application.donor.donorToDonorStore.createTransaction(resource);
-						return this.rootStore.routerStore.goTo('master.app.main.donor.donor-donor.success');
+						await rootStore.application.donor.donorToDonorStore.createTransaction(resource);
 					},
 				};
 			},
-			FormClass: DonorToDonorCreateForm
+			FormClass: DonorToDonorCreateForm,
+			onAfterAction: () => {
+				this.confirmModal.close();
+				this.summaryInfo = true;
+			},
 		});
 
 		this.donorId = donorId;
@@ -58,6 +64,23 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 		} else {
 			await this.fetch([this.setDonor()]);
 			await this.fetch([this.loadLookups()]);
+		}
+	}
+
+	@action.bound
+	openFAQ(faq) {
+		let elements = document.getElementsByClassName(faq);
+		if (this.currentlyExpanded === faq) {
+			for (let i = 0; i < elements.length; i++)
+				elements[i].classList.remove('is-expanded')
+			this.currentlyExpanded = '';
+		} else {
+			for (let i = 0; i < elements.length; i++)
+				elements[i].classList.add('is-expanded')
+			elements = document.getElementsByClassName(this.currentlyExpanded);
+			for (let i = 0; i < elements.length; i++)
+				elements[i].classList.remove('is-expanded')
+			this.currentlyExpanded = faq;
 		}
 	}
 
@@ -122,7 +145,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 							'presentBalance',
 						]
 					});
-				
+
 				if (data2.item.length > 0) {
 					this.donorRecipientId2 = data2.item[0].id;
 					let splitedNames2 = data2.item[0].donorName.split(' ');
