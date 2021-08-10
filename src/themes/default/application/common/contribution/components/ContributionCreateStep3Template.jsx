@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadZelleTxtFile }) {
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadThirdPartyTxtFile, downloadZelleTxtFile }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
@@ -173,6 +173,28 @@ const ContributionCreateStep3Template = function ({
                                     /></p>
                     </div> : null
                 }
+                {
+                    paymentType.abrv === 'third-party-donor-advised-funds' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
+                    Charity name: The Donors Fund\n
+                    EIN (tax ID): 47-4844275\n
+                    328 3rd Street, Lakewood NJ 08701\n
+                    Memo for purpose of grant: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a className="btn btn--link btn--med" onClick={downloadThirdPartyTxtFile}>Download</a></div> : null
+
+                }
+
+                {paymentType.abrv === 'third-party-donor-advised-funds' ? 
+                <div className="card--primary card--med u-mar--bottom--med">
+                    <h4>Please use the following information to initiate a grant from your donor-advised fund</h4>
+                    <br />
+                    <p><b>Charity name: </b>The Donors Fund</p>
+                    <p><b>EIN (tax ID): </b>47-4844275</p>
+                    <p>328 3rd Street, Lakewood NJ 08701</p>
+                    <br />
+                    <p><b>Memo for purpose of grant: </b>xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
+                </div> : null}
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -201,7 +223,8 @@ ContributionCreateStep3Template.propTypes = {
     t: PropTypes.func,
     clipboardText: PropTypes.string,
     downloadTxtFile: PropTypes.func,
-    downloadStockTxtFile: PropTypes.func
+    downloadStockTxtFile: PropTypes.func,
+    downloadThirdPartyTxtFile: PropTypes.func
 };
 
 export default defaultTemplate(ContributionCreateStep3Template);

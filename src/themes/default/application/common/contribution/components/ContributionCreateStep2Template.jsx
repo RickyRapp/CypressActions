@@ -83,6 +83,10 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                         <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'zelle' ? 'Sending us a Zelle or Quickpay Payment' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
                                     </div>
                                     {paymentType.abrv === 'zelle' ? 
+                                        <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'third-party-donor-advised-funds' ? 'Sending us a payment from a Third Party Donor Advised Fund' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
+                                    </div>
+
+                                    {paymentType.abrv === 'third-party-donor-advised-funds' ? 
                                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                                     <p className="type--color--note">Tell us how much you will be sending</p>
                                                     <br />
@@ -147,6 +151,95 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                                             onlyIcon={true}
                                                         />}
                                                 </div>
+                                            </React.Fragment>
+                                    )}
+                                    {paymentType.abrv === 'third-party-donor-advised-funds' && (
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BaasicFieldDropdown
+                                                    field={form.$('thirdPartyDonorAdvisedFundId')}
+                                                    store={thirdPartyDonorAdvisedFundDropdownStore}
+                                                />
+                                                <BasicInput field={form.$('thirdPartyDonorAdvisedFundName')} />
+                                            </div>
+                                            {thirdPartyDonorAdvisedFundDropdownStore &&
+                                                thirdPartyDonorAdvisedFundDropdownStore.value &&
+                                                thirdPartyDonorAdvisedFundDropdownStore.value.name === 'Other' && (
+                                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                        <BasicInput field={form.$('thirdPartyDonorAdvisedFundOther')} />
+                                                    </div>
+                                                )}
+                                        </React.Fragment>
+                                    )}
+                                    {paymentType.abrv === 'stock-and-securities' && (
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BaasicFieldDropdown
+                                                    field={form.$('brokerageInstitutionId')}
+                                                    store={brokerageInstitutionDropdownStore}
+                                                />
+                                            </div>
+                                            {brokerageInstitutionDropdownStore &&
+                                                brokerageInstitutionDropdownStore.value &&
+                                                brokerageInstitutionDropdownStore.value.name === 'Other' && (
+                                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                        <BasicInput field={form.$('brokerageInstitutionOther')} />
+                                                    </div>
+                                                )}
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BaasicFieldDropdown field={form.$('securityTypeId')} store={securityTypeDropdownStore} />
+                                            </div>
+                                            {securityTypeDropdownStore &&
+                                                securityTypeDropdownStore.value &&
+                                                securityTypeDropdownStore.value.name === 'Other' && (
+                                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                        <BasicInput field={form.$('securityTypeOther')} />
+                                                    </div>
+                                                )}
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BasicInput field={form.$('securitySymbol')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <NumericInputField field={form.$('numberOfShares')} />
+                                            </div>
+                                        </React.Fragment>
+                                    )}
+                                    {paymentType.abrv === 'business-and-private-interests' && (
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BaasicFieldDropdown field={form.$('businessTypeId')} store={businessTypeDropdownStore} />
+                                            </div>
+                                            {businessTypeDropdownStore &&
+                                                businessTypeDropdownStore.value &&
+                                                businessTypeDropdownStore.value.name === 'Other' &&
+                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                    <BasicInput field={form.$('businessTypeOther')} />
+                                                </div>}
+                                        </React.Fragment>
+                                    )}
+                                    {paymentType.abrv === 'real-estate' && (
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BaasicFieldDropdown field={form.$('propertyTypeId')} store={propertyTypeDropdownStore} />
+                                            </div>
+                                            {propertyTypeDropdownStore &&
+                                                propertyTypeDropdownStore.value &&
+                                                propertyTypeDropdownStore.value.name === 'Other' &&
+                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                    <BaasicFieldDropdown
+                                                        field={form.$('bankAccountId')}
+                                                        store={bankAccountDropdownStore}
+                                                        rightLabelComponent={AddButton}
+                                                    />
+                                                    {onShowBankAccountNumberClick && form.$('bankAccountId').value &&
+                                                        <BaasicButton
+                                                            type="button"
+                                                            className="btn btn--icon"
+                                                            icon='u-icon u-icon--preview u-icon--base'
+                                                            onClick={() => onShowBankAccountNumberClick(form.$('bankAccountId').value)}
+                                                            onlyIcon={true}
+                                                        />}
+                                                </div>}
                                             </React.Fragment>
                                         )}
                                         {paymentType.abrv === 'check' && (

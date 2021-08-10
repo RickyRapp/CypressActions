@@ -17,7 +17,8 @@ function ContributionConfirmTemplate({ modalParams, t }) {
         checkNumber,
         businessType,
         propertyType,
-        collectableType
+        collectableType,
+        thirdPartyDonorAdvisedFundName
     } = modalParams.data;
 
     return (
@@ -73,6 +74,13 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{thirdPartyDonorAdvisedFund}</div>
                 </section>}
+            {thirdPartyDonorAdvisedFundName &&
+            <section className="modal__list u-mar--bottom--med">
+                <div>Fund Holder Name</div>
+                <div className="modal__list__divider"></div>
+                <div className="modal__list__amount">{thirdPartyDonorAdvisedFundName}</div>
+            </section> 
+            }
             {checkNumber &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('CONTRIBUTION.CONFIRM.CHECK_NUMBER')}</div>

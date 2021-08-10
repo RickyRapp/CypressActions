@@ -118,6 +118,21 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
+	downloadThirdPartyTxtFile () {
+		const element = document.createElement("a");
+		const file = new Blob([`
+		Charity name: The Donors Fund\n
+		EIN (tax ID): 47-4844275\n
+		328 3rd Street, Lakewood NJ 08701\n
+		Memo for purpose of grant: xxxx-xxxx-xxxx-xxxx (your full account number)\n
+		Amount: $${this.form.$('amount').value.toFixed(2)}`], {type: 'text/plain'});
+		element.href = URL.createObjectURL(file);
+		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
+		document.body.appendChild(element); // Required for this to work in FireFox
+		element.click();
+	}
+
+	@action.bound
 	async onSubmitClick() {
 		if(this.bankAccountDropdownStore.value !== null) {
 			const accountNumber = (this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value).accountNumber);
@@ -149,7 +164,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				checkNumber: this.form.$('checkNumber').value,
 				businessType: this.businessTypeDropdownStore.value && this.businessTypeDropdownStore.value.name === 'Other' ? this.form.$('businessTypeOther').value : this.businessTypeDropdownStore.value && this.businessTypeDropdownStore.value.name,
 				propertyType: this.propertyTypeDropdownStore.value && this.propertyTypeDropdownStore.value.name === 'Other' ? this.form.$('propertyTypeOther').value : this.propertyTypeDropdownStore.value && this.propertyTypeDropdownStore.value.name,
-				collectableType: this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name === 'Other' ? this.form.$('collectibleTypeOther').value : this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name
+				collectableType: this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name === 'Other' ? this.form.$('collectibleTypeOther').value : this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name,
+				thirdPartyDonorAdvisedFundName: this.form.$('thirdPartyDonorAdvisedFundName').value
 			});
 		}
 	}
