@@ -16,6 +16,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable bookletTypes = [];
     @observable orderContents = [];
     @observable donor = null;
+    @observable totalPrePaidBooks = 0;
     @observable showMoreOptions = false;
     @observable isDefaultShippingAddress = true;
     applicationDefaultSetting = null;
@@ -86,16 +87,29 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
     }
 
-    @computed get prepaidBooks() {
-        if(this.donor) {
-            if(this.donor.contribution.length > 0) {
-                return this.donor.contribution
-                    .map(a => a.amount)
-                    .reduce((a, b) => a + b) + this.donor.lineOfCredit + this.donor.availableBalance;
+
+    @computed get prepaidBooksChecks() {
+        if (this.prepaidBooksContribution && this.donor.availableBalance < this.totalAmount) {
+            if (this.totalPrePaidBooks > 0) {
+                return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
+            } else {
+                return this.donor.availableBalance < this.totalAmount
+            }
+        } else {
+            if (this.donor)
+                return this.donor.availableBalance < this.totalAmount
+        }
+    }
+
+    @computed get prepaidBooksContribution() {
+        if (this.donor) {
+            if (this.donor.contribution) {
+                return this.donor.contribution.map(a => a.amount).reduce((a, b) => a + b, 0) + this.donor.lineOfCredit;
+
             } else {
                 return 0;
             }
-        } 
+        }
 
     }
 
@@ -152,6 +166,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             return;
         }
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount - 1 };
+
+        let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
+        if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
+            this.totalPrePaidBooks -= dt.value * 50;
     }
 
     @action.bound
@@ -166,6 +184,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
         const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount + 1 };
+
+        let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
+        if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
+            this.totalPrePaidBooks += dt.value * 50;
     }
 
     @action.bound
