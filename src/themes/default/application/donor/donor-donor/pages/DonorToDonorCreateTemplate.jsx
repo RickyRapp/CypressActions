@@ -25,19 +25,20 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
         onSubmitClick,
         addAnotherRecipient,
         confirmModal,
-        addAnotherRecipientForm
+        addAnotherRecipientForm,
+        openFAQ,
+        summaryInfo
     } = donorToDonorCreateViewStore;
 
     return (
         <React.Fragment>
             <EditFormLayout store={donorToDonorCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
                 <Content loading={contentLoading}>
-                    <div className="row row--form">
+                    {!summaryInfo && <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h2>{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h2>
                                 <h4 className=" u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
-
                                 <div className="row row--form u-mar--bottom--sml">
                                     <div className="form__group col col-sml-12">
                                         <div className="type--center">
@@ -98,7 +99,6 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                         </div>
                                     )}
                                 </div>
-
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
@@ -128,7 +128,6 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="row row--form u-mar--bottom--med">
                                     <div className="col col-sml-12 col-lrg-12">
                                         <div className="card--enh card--med">
@@ -137,26 +136,24 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                             </h4>
                                             <ul className="list--faq">
                                                 <li className="list--faq__item js-faq-item">
-                                                    <i className="list--faq__icon js-faq-icon is-expanded"></i>
+                                                    <i className="list--faq__icon js-faq-icon whatIsGift is-expanded cursor--pointer" onClick={() => openFAQ('whatIsGift')}></i>
                                                     <div className="list--faq__text">
                                                         <h4>{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT')}</h4>
-                                                        <span className="js-faq-hidden list--faq__answer is-expanded">{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}</span>
+                                                        <span className="js-faq-hidden list--faq__answer whatIsGift is-expanded">{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}</span>
                                                     </div>
                                                 </li>
-
                                                 <li className="list--faq__item js-faq-item">
-                                                    <i className="list--faq__icon js-faq-icon"></i>
+                                                    <i className="list--faq__icon js-faq-icon existingDonor cursor--pointer" onClick={() => openFAQ('existingDonor')}></i>
                                                     <div className="list--faq__text">
                                                         <h4>{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR')}</h4>
-                                                        <span className="js-faq-hidden list--faq__answer">{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR_ANSWER')}</span>
+                                                        <span className="js-faq-hidden list--faq__answer existingDonor">{t('DONOR-DONOR.CREATE.FAQ_NON_EXISTING_DONOR_ANSWER')}</span>
                                                     </div>
                                                 </li>
-
                                                 <li className="list--faq__item js-faq-item">
-                                                    <i className="list--faq__icon js-faq-icon"></i>
+                                                    <i className="list--faq__icon js-faq-icon wrongEmail cursor--pointer" onClick={() => openFAQ('wrongEmail')}></i>
                                                     <div className="list--faq__text">
                                                         <h4>{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS')}</h4>
-                                                        <span className="js-faq-hidden list--faq__answer">{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS_ANSWER')}</span>
+                                                        <span className="js-faq-hidden list--faq__answer wrongEmail">{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS_ANSWER')}</span>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -166,14 +163,83 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
 
                             </div>
                         </div>
-                    </div>
+                    </div>}
+                    {summaryInfo &&
+                        <div className="col col-sml-12 col-lrg-8">
+                            <div className="row">
+                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--lrg">
+                                    <h3 className=" type--color--note">{t('DONOR-DONOR.CONFIRMATION.SUCCESS')}</h3>
+                                </div>
+                            </div>
+                            <div className="card--primary card--med u-mar--bottom--med">
+                                <div className="row">
+                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        <h4 className="">{t('DONOR-DONOR.CONFIRMATION.GIFT_SUMMARY')}</h4>
+                                    </div>
+                                    <div className="col col-sml-12 col-lrg-12">
+                                        <div className="card--tny card--secondary u-mar--bottom--sml">
+                                            <span className="type--base type--wgt--medium type--color--opaque">
+                                                {t('DONOR-DONOR.CONFIRMATION.RECIPIENT_INFO')}
+                                            </span>
+                                            <span className="type--base type--wgt--bold u-push">
+                                                {form.$('emailOrAccountNumber').value}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="col col-sml-12 col-lrg-12">
+                                        <div className="card--tny card--secondary u-mar--bottom--lrg">
+                                            <span className="type--base type--wgt--medium type--color--opaque">
+                                                {t('DONOR-DONOR.CONFIRMATION.RECIPIENT_NAME')}
+                                            </span>
+                                            <span className="type--base type--wgt--bold u-push">
+                                                {form.$('contactInformationName').value}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {form.$('emailOrAccountNumberAnother').value && <div className="col col-sml-12 col-lrg-12">
+                                        <div className="card--tny card--secondary u-mar--bottom--sml">
+                                            <span className="type--base type--wgt--medium type--color--opaque">
+                                                {t('DONOR-DONOR.CONFIRMATION.ANOTHER_RECIPIENT')}
+                                            </span>
+                                            <span className="type--base type--wgt--bold u-push">
+                                                {form.$('emailOrAccountNumberAnother').value}
+                                            </span>
+                                        </div>
+                                    </div>}
+                                    {form.$('contactInformationNameAnother').value && <div className="col col-sml-12 col-lrg-12">
+                                        <div className="card--tny card--secondary u-mar--bottom--lrg">
+                                            <span className="type--base type--wgt--medium type--color--opaque">
+                                                {t('DONOR-DONOR.CONFIRMATION.ANOTHER_RECIPIENT_NAME')}
+                                            </span>
+                                            <span className="type--base type--wgt--bold u-push">
+                                                {form.$('contactInformationNameAnother').value}
+                                            </span>
+                                        </div>
+                                    </div>}
+                                    <div className="col col-sml-12 col-lrg-12">
+                                        <div className="card--tny card--secondary u-mar--bottom--lrg">
+                                            <span className="type--base type--wgt--medium type--color--opaque">
+                                                {t('DONOR-DONOR.CONFIRMATION.AMOUNT')}
+                                            </span>
+                                            <span className="type--base type--wgt--bold u-push">
+                                                <FormatterResolver
+                                                    item={{ amount: form.$('amount').value }}
+                                                    field="amount"
+                                                    format={{ type: 'currency' }}
+                                                />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </Content>
             </EditFormLayout>
             <BaasicModal modalParams={confirmModal}>
                 <TransferConfirmTemplate form={form} />
             </BaasicModal>
         </React.Fragment>
-
     );
 };
 
@@ -182,7 +248,7 @@ DonorToDonorCreateTemplate.propTypes = {
     confirmModal: PropTypes.any,
     form: PropTypes.object,
     onSubmitClick: PropTypes.func,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 export default defaultTemplate(DonorToDonorCreateTemplate);
