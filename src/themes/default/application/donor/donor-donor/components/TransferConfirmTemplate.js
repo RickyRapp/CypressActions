@@ -7,8 +7,10 @@ function TransferConfirmTemplate({ modalParams, t }) {
     const {
         form,
         item,
+        item2,
         accNumber,
         onCancel,
+        recipient2
     } = modalParams.data;
 
     return (
@@ -28,6 +30,20 @@ function TransferConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount">{form.$('emailOrAccountNumber').value}</div>
             </section>
+
+            {item2 && recipient2 &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('DONOR-DONOR.CONFIRM.SECOND_DONOR_NAME')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{item2}</div>
+                </section>
+            }
+            {recipient2 &&
+            <section className="modal__list u-mar--bottom--med">
+                <div> {!accNumber ? t('DONOR-DONOR.CONFIRM.SECOND_EMAIL') : t('DONOR-DONOR.CONFIRM.ACCOUNT_NUMBER')}</div>
+                <div className="modal__list__divider"></div>
+                <div className="modal__list__amount">{form.$('emailOrAccountNumberAnother').value}</div>
+            </section>}
 
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('DONOR-DONOR.CONFIRM.AMOUNT')}</div>
