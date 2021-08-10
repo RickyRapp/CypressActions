@@ -220,6 +220,18 @@ export default class ContributionCreateForm extends FormBase {
 					placeholder: 'Fund holder name',
 					rules: 'string',
 				},
+				{
+					name: 'nameOfEmployment',
+					label: 'Name Of Employment',
+					placeholder: 'Name Of Employment',
+					rules: 'string',
+				},
+				{
+					name: 'payrollCompany',
+					label: 'Payroll Company',
+					placeholder: 'Payroll Company',
+					rules: 'string',
+				},
 			],
 		};
 	}

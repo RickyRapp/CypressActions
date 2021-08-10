@@ -175,6 +175,14 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                                 )}
                                         </React.Fragment>
                                     )}
+                                    {paymentType.abrv === 'paycheck-direct' && (
+                                        <React.Fragment>
+                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <BasicInput field={form.$('nameOfEmployment')} />
+                                                <BasicInput field={form.$('payrollCompany')} />
+                                            </div>
+                                        </React.Fragment>
+                                    )}
                                     {paymentType.abrv === 'stock-and-securities' && (
                                         <React.Fragment>
                                             <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">

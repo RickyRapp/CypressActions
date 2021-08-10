@@ -18,7 +18,9 @@ function ContributionConfirmTemplate({ modalParams, t }) {
         businessType,
         propertyType,
         collectableType,
-        thirdPartyDonorAdvisedFundName
+        thirdPartyDonorAdvisedFundName,
+        nameOfEmployment,
+        payrollCompany
     } = modalParams.data;
 
     return (
@@ -31,6 +33,24 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__amount">{paymentType.name}</div>
             </section>
 
+            {nameOfEmployment &&
+                <React.Fragment>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>Name of Employment</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{nameOfEmployment}</div>
+                    </section>
+                </React.Fragment>
+            }
+            {payrollCompany &&
+                <React.Fragment>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>Payroll Company</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{payrollCompany}</div>
+                    </section>
+                </React.Fragment>
+            }
             {bankAccount &&
                 <React.Fragment>
                     <section className="modal__list u-mar--bottom--med">

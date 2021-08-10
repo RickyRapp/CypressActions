@@ -165,7 +165,9 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				businessType: this.businessTypeDropdownStore.value && this.businessTypeDropdownStore.value.name === 'Other' ? this.form.$('businessTypeOther').value : this.businessTypeDropdownStore.value && this.businessTypeDropdownStore.value.name,
 				propertyType: this.propertyTypeDropdownStore.value && this.propertyTypeDropdownStore.value.name === 'Other' ? this.form.$('propertyTypeOther').value : this.propertyTypeDropdownStore.value && this.propertyTypeDropdownStore.value.name,
 				collectableType: this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name === 'Other' ? this.form.$('collectibleTypeOther').value : this.collectibleTypeDropdownStore.value && this.collectibleTypeDropdownStore.value.name,
-				thirdPartyDonorAdvisedFundName: this.form.$('thirdPartyDonorAdvisedFundName').value
+				thirdPartyDonorAdvisedFundName: this.form.$('thirdPartyDonorAdvisedFundName').value,
+				nameOfEmployment: this.form.$('nameOfEmployment').value,
+				payrollCompany: this.form.$('payrollCompany').value,
 			});
 		}
 	}
@@ -181,6 +183,23 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		element.href = URL.createObjectURL(file);
 		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
 		document.body.appendChild(element);
+		element.click();
+	}
+	@action.bound
+	downloadPayrollDirectTxtFile () {
+		const element = document.createElement("a");
+		const file = new Blob([`
+		Beneficiary: The Donors Fund
+		328 3rd Street, Lakewood NJ 08701
+
+		Beneficiary bank:
+		JP Morgan Chase
+		ABA (routing number): 021000021
+		Account number: 883220399
+		Amount: $${this.form.$('amount').value.toFixed(2)}`], {type: 'text/plain'});
+		element.href = URL.createObjectURL(file);
+		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
+		document.body.appendChild(element); // Required for this to work in FireFox
 		element.click();
 	}
 
@@ -206,6 +225,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			this.form.$('businessTypeId').setRequired(false);
 			this.form.$('propertyTypeId').setRequired(false);
 			this.form.$('collectibleTypeId').setRequired(false);
+			this.form.$('nameOfEmployment').setRequired(false);
 			this.isThirdPartyFundingAvailable = false;
 			if(paymentType.abrv !== 'wire-transfer') {
 				this.form.$('amount').set('label', 'Amount');
@@ -237,6 +257,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			} else if (paymentType.abrv === 'collectible-assets') {
 				this.form.$('collectibleTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:50000');
+			} else if(paymentType.abrv === 'paycheck-direct') {
+				this.form.$('nameOfEmployment').setRequired(true);
 			}
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');

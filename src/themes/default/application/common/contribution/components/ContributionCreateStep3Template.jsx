@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadThirdPartyTxtFile, downloadZelleTxtFile, downloadCheckTxtFile }) {
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadThirdPartyTxtFile, downloadZelleTxtFile, downloadCheckTxtFile, downloadPayrollDirectTxtFile }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
@@ -215,6 +215,35 @@ const ContributionCreateStep3Template = function ({
                     <br />
                     <p><b>Check Memo: </b>xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
                 </div> : null}
+                {
+                    paymentType.abrv === 'paycheck-direct' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
+                    Beneficiary: The Donors Fund
+                    328 3rd Street, Lakewood NJ 08701
+
+                    Beneficiary bank:
+                    JP Morgan Chase
+                    ABA (routing number): 021000021
+                    Account number: 883220399
+
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a className="btn btn--link btn--med" onClick={downloadPayrollDirectTxtFile}>Download</a></div> : null
+
+                }
+
+                {paymentType.abrv === 'paycheck-direct' ? 
+                <div className="card--primary card--med u-mar--bottom--med">
+                    <h4>Please provide your employer or payroll company with the following information</h4>
+                    <br />
+                    <p><b>Beneficiary:</b> The Donors Fund</p>
+                    <p>328 3rd Street, Lakewood NJ 08701</p>
+
+                    <p><b>Beneficiary bank:</b></p>
+                    <p>JP Morgan Chase</p>
+                    <p><b>ABA (routing number):</b> 021000021</p>
+                    <p><b>Account number:</b> 883220399</p>
+                </div> : null}
+
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -245,7 +274,8 @@ ContributionCreateStep3Template.propTypes = {
     downloadTxtFile: PropTypes.func,
     downloadStockTxtFile: PropTypes.func,
     downloadThirdPartyTxtFile: PropTypes.func,
-    downloadCheckTxtFile: PropTypes.func
+    downloadCheckTxtFile: PropTypes.func,
+    downloadPayrollDirectTxtFile: PropTypes.func
 };
 
 export default defaultTemplate(ContributionCreateStep3Template);

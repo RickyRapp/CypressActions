@@ -23,6 +23,7 @@ const ContributionCreateTemplate = function ({ store }) {
 		nextStep,
 		onSubmitClick,
 		downloadStockTxtFile,
+		downloadPayrollDirectTxtFile,
 		onAddBankAccountClick,
 		clipboardText,
 		downloadTxtFile,
@@ -62,6 +63,7 @@ const ContributionCreateTemplate = function ({ store }) {
 			{step === 3 &&
 				<ContributionCreateStep3Template
 					paymentType={paymentTypes.find(c => c.id === form.$('paymentTypeId').value)}
+					downloadPayrollDirectTxtFile={downloadPayrollDirectTxtFile}
 					routes={routes}
 					clipboardText={clipboardText}
 					downloadTxtFile={downloadTxtFile}
