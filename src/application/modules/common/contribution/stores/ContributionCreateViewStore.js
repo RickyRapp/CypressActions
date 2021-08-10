@@ -79,9 +79,12 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	downloadTxtFile () {
+	downloadZelleTxtFile () {
 		const element = document.createElement("a");
-		const file = new Blob([this.clipboardText], {type: 'text/plain'});
+		const file = new Blob([`
+		Our Zelle email address - QP@TheDonorsFund.org\n
+		Zelle Memo: xxxx-xxxx-xxxx-xxxx (your full account number)\n
+		Amount: $${this.form.$('amount').value.toFixed(2)}`], {type: 'text/plain'});
 		element.href = URL.createObjectURL(file);
 		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
 		document.body.appendChild(element); // Required for this to work in FireFox

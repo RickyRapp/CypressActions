@@ -25,6 +25,7 @@ const ContributionCreateTemplate = function ({ store }) {
 		onAddBankAccountClick,
 		clipboardText,
 		downloadTxtFile,
+		downloadZelleTxtFile,
 		...otherProps
 	} = store;
 
@@ -61,6 +62,7 @@ const ContributionCreateTemplate = function ({ store }) {
 					routes={routes}
 					clipboardText={clipboardText}
 					downloadTxtFile={downloadTxtFile}
+					downloadZelleTxtFile={downloadZelleTxtFile}
 					previousContributionsTableStore={previousContributionsTableStore}
 					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value)}
 					form={form} />}
