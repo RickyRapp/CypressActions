@@ -75,7 +75,14 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 		})
 	}
 	//#endregion
-
+    @action.bound
+    async click500(){
+        this.onSubmitClick(500);
+    }
+    @action.bound
+    async click2000(){
+        this.onSubmitClick(2000);
+    }
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {
@@ -221,11 +228,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async onAddBookletClick(bookletTypeId, denominationTypeId) {
-        let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
-        if(bookletTypeId === "da5ad427-682e-4b3c-82cf-acd10183e857")
-            this.onSubmitClick(500)
-        if(bookletTypeId === "9644930e-e26a-430c-a856-acd10183e857")
-            this.onSubmitClick(2000);
         if (this.orderContents.length === 0 || !this.orderContents.some(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)) {
             this.orderContents.push({
                 bookletTypeId: bookletTypeId,
@@ -239,7 +241,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
         if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
             this.totalPrePaidBooks += dt.value * 50;
-        this.generateTableData(this.orderContents[index], dtvalue);
+        this.generateTableData(this.orderContents[index], dt.value);
     }
 
     generateTableData(order, index) {

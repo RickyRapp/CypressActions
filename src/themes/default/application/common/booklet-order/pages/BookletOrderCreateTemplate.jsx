@@ -17,6 +17,7 @@ import { BookletOrderButtonCounterTemplate } from '../components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
+import propTypes from 'prop-types';
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
@@ -45,7 +46,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         protectionPlanModalParams,
         customizedExpirationDateDropdownStore,
         tableData,
-        confirmModal
+        confirmModal,
+        click500,
+        click2000
     } = store;
 
     return (
@@ -67,9 +70,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         />}</h2>
                                 </div>
                             </div>
+
                             <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>
-                                   <span className="type--underline cursor--pointer">Previous Orders</span>
+                                <span className="type--underline cursor--pointer">Previous Orders</span>
                             </div>
+
                         </div>
 
 
@@ -140,16 +145,16 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         <div className="row">
                                             {(bt.abrv === 'mixed_500' || bt.abrv === 'mixed_2000') &&
                                                 <React.Fragment>
-                                                    
+
                                                     {bt.abrv === 'mixed_500' &&
 
-                                                    
-                
+
+
                                                         <div className="col card--med col-sml-12 col-xxlrg-5 u-align--self--end" style={{ display: `${showMoreOptions ? 'block' : 'none'}` }}>
                                                             <div className="u-separator--primary">
                                                                 <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                     <div className="col col-sml-3">
-                                                                        {bt.name}
+                                                                        <a onClick={click500}>{bt.name}</a>
                                                                     </div>
                                                                     <div className="col col-sml-6 counter">
                                                                         <BookletOrderButtonCounterTemplate
@@ -173,7 +178,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
 
                                                     }
                                                     {bt.abrv === 'mixed_2000' &&
@@ -181,7 +186,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                             <div className="u-separator--primary">
                                                                 <div className="row u-mar--bottom--sml u-display--flex--align--center">
                                                                     <div className="col col-sml-3">
-                                                                        {bt.name}
+                                                                        <a onClick={click2000}>{bt.name}</a>
                                                                     </div>
                                                                     <div className="col col-sml-6 counter">
                                                                         <BookletOrderButtonCounterTemplate
@@ -209,7 +214,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             }
                                         </div>
                                     </div>
-                                        
+
                                     {/* ToDo - Add Functionality
                                     <div className="col col-sml-12 col-xxlrg-4" >
                                         <h3 className="u-mar--bottom--med">Order Summary</h3>
@@ -276,7 +281,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         </table>
 
                                     </div> */}
-                                    
+
                                 </div>
                             )
                         })}
