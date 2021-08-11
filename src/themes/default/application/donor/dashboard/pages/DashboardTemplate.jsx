@@ -35,6 +35,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let chartDays = [];
 
 	if (donor) {
+		
 		if(yearDropdownStore.value.id == 7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
@@ -85,8 +86,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
