@@ -17,7 +17,7 @@ import { BookletOrderButtonCounterTemplate } from '../components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
-import propTypes from 'prop-types';
+
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
@@ -50,7 +50,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         click500,
         click2000
     } = store;
-
+    
     return (
         <React.Fragment>
             <ApplicationEditLayout store={store}>

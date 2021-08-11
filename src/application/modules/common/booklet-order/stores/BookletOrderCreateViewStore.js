@@ -113,34 +113,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get prepaidBooksChecks() {
-
-        if (this.prepaidBooksContribution && this.donor.availableBalance < this.totalAmount) {
+        
             if (this.totalPrePaidBooks > 0) {
                 return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
             } else {
-                return !this.donor.hasProtectionPlan && this.donor.availableBalance < this.totalAmount
+                return false;
             }
-        }
-    }
-
-    @computed get totalPrepaidAmount() {
-        return this.prepaidBookletAmount;
-    }
-
-    @computed get prepaidBooks() {
-        if (this.donor) {
-            if (this.donor.contribution.length > 0) {
-                return this.donor.contribution
-                    .map(a => a.amount)
-                    .reduce((a, b) => a + b) + this.donor.lineOfCredit + this.donor.availableBalance;
-            }
-        } else {
-            if (this.totalPrePaidBooks > 0)
-                return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
-
-            if (this.donor)
-                return !this.donor.hasProtectionPlan && this.donor.availableBalance < this.totalAmount
-        }
     }
 
     @computed get prepaidBooksContribution() {
@@ -219,11 +197,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             return;
         }
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount - 1 };
-
-        let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
-        if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
-            this.totalPrePaidBooks -= dt.value * 50;
-        this.generateTableData(this.orderContents[index], dtvalue);
+        const classicBookletTypeId = this.bookletTypes.find(c => c.abrv === 'classic').id;
+        if(bookletTypeId === classicBookletTypeId) {
+            let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
+            if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
+                this.totalPrePaidBooks -= dt.value * 50;
+        }
     }
 
     @action.bound
@@ -238,22 +217,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
         const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount + 1 };
-        let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
-        if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
-            this.totalPrePaidBooks += dt.value * 50;
-        this.generateTableData(this.orderContents[index], dt.value);
-    }
-
-    generateTableData(order, index) {
-        let bookletAmount = order ? index * order.bookletCount * 50 : 0;
-        if (this.tableData.length > 0) {
-            const foundIndex = this.tableData.findIndex(x => x.id === index);
-            if (foundIndex != -1) {
-                this.tableData[foundIndex] = { ...this.tableData[foundIndex], count: order.bookletCount, amount: bookletAmount }
-                return this.tableData;
-            }
+        const classicBookletTypeId = this.bookletTypes.find(c => c.abrv === 'classic').id;
+        if(bookletTypeId === classicBookletTypeId) {
+            let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
+            if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
+                this.totalPrePaidBooks += dt.value * 50;
         }
-        return this.tableData.push({ id: index, count: order.bookletCount, amount: bookletAmount })
     }
 
     @action.bound
