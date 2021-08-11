@@ -68,6 +68,7 @@
     "moment-timezone": "^0.5.23",
     "normalize.css": "^8.0.1",
     "object-assign": "4.1.1",
+    "plaid": "^8.5.2",
     "postcss-calc": "^6.0.2",
     "postcss-color-function": "^4.0.0",
     "postcss-custom-media": "^6.0.0",
