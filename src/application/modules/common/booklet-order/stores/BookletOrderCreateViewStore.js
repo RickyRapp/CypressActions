@@ -56,8 +56,25 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.donorId = donorId;
         this.isDonor = isDonor;
         this.protectionPlanModalParams = new ModalParams({})
+        this.createConfirmModalParams();
         this.createCustomizedExpirationDateDropdownStore();
     }
+
+    createConfirmModalParams() {
+		this.confirmModal = new ModalParams({});
+	}
+
+    //#region MODAL
+	@action.bound
+	async onSubmitClick(bookletAmount) {
+        this.confirmModal.open({
+            onCancel: () => {
+                this.confirmModal.close();
+            },
+            bookletAmount: bookletAmount
+		})
+	}
+	//#endregion
 
     @action.bound
     async onInit({ initialLoad }) {
@@ -205,6 +222,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @action.bound
     async onAddBookletClick(bookletTypeId, denominationTypeId) {
         let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
+        if(bookletTypeId === "da5ad427-682e-4b3c-82cf-acd10183e857")
+            this.onSubmitClick(500)
+        if(bookletTypeId === "9644930e-e26a-430c-a856-acd10183e857")
+            this.onSubmitClick(2000);
         if (this.orderContents.length === 0 || !this.orderContents.some(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)) {
             this.orderContents.push({
                 bookletTypeId: bookletTypeId,

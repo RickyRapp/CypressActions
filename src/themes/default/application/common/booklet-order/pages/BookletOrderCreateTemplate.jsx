@@ -16,6 +16,7 @@ import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 import { BookletOrderButtonCounterTemplate } from '../components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
+import { BookletOrderMixedPopup } from '../components';
 
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
@@ -43,7 +44,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         onAddProtectionPlanClick,
         protectionPlanModalParams,
         customizedExpirationDateDropdownStore,
-        tableData
+        tableData,
+        confirmModal
     } = store;
 
     return (
@@ -475,13 +477,18 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
             <BaasicModal modalParams={protectionPlanModalParams} >
                 <DonorAutomaticContributionEditTemplate />
             </BaasicModal>
+            <BaasicModal modalParams={confirmModal}>
+                <BookletOrderMixedPopup />
+            </BaasicModal>
+
         </React.Fragment>
     )
 };
 
 BookletOrderCreateTemplate.propTypes = {
     store: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    confirmModal: PropTypes.any
 };
 
 export default defaultTemplate(BookletOrderCreateTemplate);
