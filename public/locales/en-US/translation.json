@@ -1559,7 +1559,7 @@
             "SECOND_EMAIL": "Second email"
         },
         "CONFIRMATION": {
-            "SUCCESS": "Success! You've successfully send your Gift!",
+            "SUCCESS": "Success! You've successfully sent your Gift!",
             "GIFT_SUMMARY": "Gift Summary",
             "RECIPIENT_INFO": "Donor recipient info (email or account number)",
             "RECIPIENT_NAME": "Donor recipient name",
