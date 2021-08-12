@@ -75,10 +75,15 @@ $dd-width-sml: 200px;
 
         &__text {
             width: calc(100% - $unit * 6);
+
+            h4 {
+                margin-bottom: calc($unit * 2);
+            }
         }
 
         &__answer {
             display: none;
+            color: $bali-hai;
 
             &.is-expanded {
                 display: block;
