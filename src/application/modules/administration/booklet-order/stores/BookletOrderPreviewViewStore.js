@@ -47,7 +47,6 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
             this.rootStore.routerStore.goBack();
         } else {
             await this.fetch([this.getResource(this.id), this.loadLookups()]);
-
             if (this.item) {
                 if (this.item.json) {
                     let tempArray = JSON.parse(this.item.json);
@@ -59,8 +58,8 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                         if (this.item.bookletOrderStatus.abrv === 'finished') {
                             tempArray[index].booklets = this.item.booklets.filter(c => {
                                 return (
-                                    c.bookletType.id === tempArray[index].bookletTypeId &&
-                                    (!isSome(tempArray[index].denominationTypeId) || c.certificates.some(d => d.denominationType.id === tempArray[index].denominationTypeId))
+                                    c.bookletType.id === tempArray[index].bookletTypeId 
+                                    //&& (!isSome(tempArray[index].denominationTypeId) || c.certificates.some(d => d.denominationType.id === tempArray[index].denominationTypeId))
                                 )
                             })
                         }
