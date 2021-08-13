@@ -2,7 +2,7 @@ import { BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore, Tabl
 import { applicationContext } from 'core/utils';
 import { TransactionListFilter } from 'application/donor/activity/transaction/models';
 import { action } from 'mobx';
-import _ from 'lodash';
+import _, { find } from 'lodash';
 
 @applicationContext
 class TransactionViewStore extends BaseListViewStore {
@@ -16,6 +16,7 @@ class TransactionViewStore extends BaseListViewStore {
                     filter.reset();
                     this.dateCreatedDateRangeQueryStore.reset();
                     this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+                    //this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
                     this.showPresentBalance = true;
                 }
             },
@@ -38,6 +39,7 @@ class TransactionViewStore extends BaseListViewStore {
         this.createTableStore();
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
+        this.createTransactionPeriodStore();
     }
 
     @action.bound
@@ -56,7 +58,7 @@ class TransactionViewStore extends BaseListViewStore {
 
     createTransactionTypeStore() {
         const transactionTypes = [
-            { id: 0, name: 'All Transactions', key: 'all' },
+            { id: 0, name: 'Transactions Type', key: 'all' },
             { id: 1, name: 'Credit transactions', key: 'credit' },
             { id: 2, name: 'Debit transaction', key: 'debit' },
             { id: 3, name: 'Fees', key: 'fees' },
@@ -74,6 +76,37 @@ class TransactionViewStore extends BaseListViewStore {
             },
             transactionTypes);
         this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+    }
+
+    createTransactionPeriodStore() {
+        const transactionPeriod = [
+            { id: 0, name: 'Transactions Period', key: 'all' },
+            { id: 1, name: 'This year', key: 'current' },
+            { id: 2, name: '2020', key: 'debit' },
+            { id: 3, name: '2021', key: 'fees' },
+            { id: 4, name: 'Incoming/outgoing transfers', key: 'transfers' }
+        ];
+        this.transactionPeriod = new BaasicDropdownStore(
+            {
+                placeholder: 'CHOOSE_TRANSACTION_TYPE'
+            },
+            {
+                onChange: type => {
+                    //this.queryUtility.filter.transactionPeriod = transactionPeriod[type].key;
+                    this.queryUtility.filter.paymentTransactionType = transactionPeriod[type].key;
+                    //this.showPresentBalance = type > 0 ? false : true;
+                    debugger
+                    // if (transactionPeriod[type].key == 'all' || transactionPeriod[type].key == 'current') {
+
+                    //     start = moment(new Date(now_utc)).startOf('year').toDate();
+                    //     end = moment(new Date(now_utc)).toDate();
+                    // } 
+     
+                    this.find;
+                },
+            },
+            transactionPeriod);
+        this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
     }
 
     createTableStore() {
@@ -110,13 +143,13 @@ class TransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            if(!this.showPresentBalance) 
+                            if (!this.showPresentBalance)
                                 return null;
 
                             let formatter = new Intl.NumberFormat('en-US', {
                                 style: 'currency',
                                 currency: 'USD',
-                                });
+                            });
                             return formatter.format(item.paymentTransaction.presentBalance);
                         }
                     }

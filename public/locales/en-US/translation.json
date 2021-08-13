@@ -978,8 +978,8 @@
             "COLUMNS": {
                 "CHARITY_LABEL": "Description",
                 "DONOR_NAME_LABEL": "Donor",
-                "DATE_CREATED_LABEL": "Date created",
-                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date",
+                "AMOUNT_LABEL": "Credit/Debit",
                 "STATUS_LABEL": "Status",
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
                 "PENDING_TRANSACTION_DESCRIPTION_LABEL": "Description",
