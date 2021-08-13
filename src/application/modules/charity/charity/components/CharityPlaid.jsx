@@ -12,17 +12,17 @@ class CharityPlaid extends Component {
 
   componentDidMount = async () =>{
     const body = {
-        client_id: "6113918b27beb40012ab1757",
-	    secret: "00777a6e53df23607520a7f67b629b",
+        client_id: ApplicationSettings.plaidClientId,
+	    secret: ApplicationSettings.plaidSecret,
         user: {
             client_user_id: "unique_user_id",
           },
-          client_name: 'The Donors\' Fund',
+          client_name: ApplicationSettings.plaidClientName,
           products: ["auth"],
           country_codes: ['US'],
           language: 'en'
     }
-    var path = "https://sandbox.plaid.com/link/token/create";
+    var path = ApplicationSettings.plaidPath+"/link/token/create";
     await axios.post(path,body).then(res=> {
             this.setState({linkToken: res.data["link_token"]});
     });
@@ -31,15 +31,22 @@ class CharityPlaid extends Component {
   handleOnSuccess = async (public_token) => {
     // send token to client server
     var data = {
+      client_id: ApplicationSettings.plaidClientId,
+      secret: ApplicationSettings.plaidSecret,
       public_token: public_token
     }
-    var response = await axios.post("/exchange_public_token", data);
-    //console.log(response);
+    var response = await axios.post(ApplicationSettings.plaidPath+"/item/public_token/exchange", data);
+    if(response.data["access_token"] == null || response.data["access_token"] == undefined) {
+        //ToDo - access_token = null/undefined
+    } else {
+        //ToDo - add logic for update user info - for example, set bool checkBankAcc on true...
+    }
     //to do set accessToken into sessionStorage then move onto UI calls in other components.
     sessionStorage.setItem("accessToken", response.data["access_token"]);
   }
   handleOnExit() {
     // handle the case when your user exits Link
+    //ToDo - handling when close Plaid window and other errors...
   }
 
   render() {
@@ -50,7 +57,7 @@ class CharityPlaid extends Component {
        {linkToken.toString !== 'undefined' ? 
        <PlaidLink 
        token={linkToken.toString()} 
-       env="sandbox" 
+       env={ApplicationSettings.env} 
        onSuccess={this.handleOnSuccess}
        onExit={this.handleOnExit}>
          Connect Bank Account
