@@ -87,17 +87,20 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
     }
 
-
     @computed get prepaidBooksChecks() {
+
         if (this.prepaidBooksContribution && this.donor.availableBalance < this.totalAmount) {
             if (this.totalPrePaidBooks > 0) {
                 return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
             } else {
-                return this.donor.availableBalance < this.totalAmount
+                return !this.donor.hasProtectionPlan && this.donor.availableBalance < this.totalAmount
             }
         } else {
+            if (this.totalPrePaidBooks > 0)
+                return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
+
             if (this.donor)
-                return this.donor.availableBalance < this.totalAmount
+                return !this.donor.hasProtectionPlan && this.donor.availableBalance < this.totalAmount
         }
     }
 
@@ -105,12 +108,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         if (this.donor) {
             if (this.donor.contribution) {
                 return this.donor.contribution.map(a => a.amount).reduce((a, b) => a + b, 0) + this.donor.lineOfCredit;
-
             } else {
                 return 0;
             }
         }
-
     }
 
     @computed get mixed500BookletAmount() {
@@ -124,7 +125,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 }
             }
         }
-
         return amount;
     }
 

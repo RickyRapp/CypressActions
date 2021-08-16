@@ -60,7 +60,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </div>
                             <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>
                                 Previous Orders
-                        </div>
+                            </div>
                         </div>
 
                         {bookletTypes.map(bt => {
@@ -82,12 +82,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                         <div className="col col-sml-3">
                                                                             <div className="type--med type--wgt--regular">
                                                                                 {
-                                                                                    dt.value == 0 ? "Blank checks" :  
-                                                                                    <FormatterResolver
-                                                                                    item={{ value: dt.value }}
-                                                                                    field='value'
-                                                                                    format={{ type: 'currency' }}
-                                                                                />
+                                                                                    dt.value == 0 ? "Blank checks" :
+                                                                                        <FormatterResolver
+                                                                                            item={{ value: dt.value }}
+                                                                                            field='value'
+                                                                                            format={{ type: 'currency' }}
+                                                                                        />
                                                                                 }
                                                                             </div>
                                                                             {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
@@ -316,7 +316,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 <div className="col col-sml-12 col-xlrg-8">
                                     <div className="type--sml type--wgt--medium">
                                         Current Balance:
-                                    <span className="type--med type--color--note u-mar--left--sml u-push--to--lrg">
+                                        <span className="type--med type--color--note u-mar--left--sml u-push--to--lrg">
                                             {donor && <FormatterResolver
                                                 item={{ availableBalance: donor.availableBalance }}
                                                 field='availableBalance'
@@ -328,7 +328,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                                 <div className="col col-sml-12 col-xlrg-4">
                                     <div className="type--med type--wgt--medium u-push--from--lrg">Total:
-                                    <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
+                                        <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
                                             <FormatterResolver
                                                 item={{ total: totalAmount }}
                                                 field='total'
@@ -418,7 +418,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </Content>
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && !donor.hasProtectionPlan && prepaidBooksChecks} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && prepaidBooksChecks} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>
