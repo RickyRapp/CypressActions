@@ -3,7 +3,6 @@ import { Page } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
 
-
 function DashboardTemplate() {
 	return (
 		<Page>

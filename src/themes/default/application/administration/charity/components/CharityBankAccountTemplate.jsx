@@ -18,6 +18,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         imageUploadStore,
         id,
         deleteBankAccount,
+        getBankAccounts,
         bankAccountDropdownStore,
         selectCharity,
         resetBankAccount
@@ -77,6 +78,12 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         </EditFormContent >
 
         <div className="type--right">
+        <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
+            {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
+        </button>
+        <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
+            Get Bank Accounts
+        </button>
            
         </div>
     </div>

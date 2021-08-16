@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 import { BaasicUploadStore, BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/administration/charity/forms';
+import axios from 'axios';
 import { CharityFileStreamService } from 'common/services';
 
 @applicationContext
@@ -174,6 +175,27 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             }
         });
 
+    }
+
+    async getBankAccounts() {
+        const access_token = sessionStorage.getItem("plaidAccessToken");
+        //console.log("Access token is", access_token);
+        var data = {
+          client_id: ApplicationSettings.plaidClientId,
+          secret: ApplicationSettings.plaidSecret,
+          access_token: access_token
+        }
+        const response = await axios.post(ApplicationSettings.plaidPath+"/auth/get",data).catch((err) => {
+          if(err) {
+            // handle error
+            // access_token is null or ather errors...
+          }
+        });
+        if(response) {
+            //handle response data - ToDo
+            // const accountData = response.accounts;
+            // const numbers = response.numbers;
+        }
     }
 
 }

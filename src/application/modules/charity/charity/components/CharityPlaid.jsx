@@ -50,21 +50,6 @@ class CharityPlaid extends Component {
     //ToDo - handling when close Plaid window and other errors...
   }
 
-  getAccountData = async() => {
-    const access_token = sessionStorage.getItem("plaidAccessToken");
-    console.log("Access token je", access_token);
-    var data = {
-      client_id: ApplicationSettings.plaidClientId,
-      secret: ApplicationSettings.plaidSecret,
-      access_token: access_token
-    }
-    const response = await axios.post(ApplicationSettings.plaidPath+"/auth/get",data).catch((err) => {
-      // handle error
-    });
-    const accountData = response.accounts;
-    const numbers = response.numbers;
-  }
-
   render() {
     const {linkToken} = this.state
 
@@ -80,11 +65,6 @@ class CharityPlaid extends Component {
          </PlaidLink> 
          : null
         }
-        <BaasicButton
-										className="btn btn--med btn--100 btn--primary--light"
-										label="Get Bank Info Account"
-										onClick={this.getAccountData}
-									/>
       </div>
     );
   }
