@@ -7,7 +7,7 @@
     "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v",
     "plaidClientId": "6113918b27beb40012ab1757",
     "plaidSecret": "00777a6e53df23607520a7f67b629b",
-    "plaidEnv": "sandbox",
-    "plaidClientName": "The Donors' Fund Prod",
-    "plaidPath": "https://sandbox.plaid.com"
+    "plaidEnv": "production",
+    "plaidClientName": "The Donors' Fund Production",
+    "plaidPath": "https://production.plaid.com"
 }

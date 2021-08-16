@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {PlaidLink} from "react-plaid-link";
 import axios from 'axios';
+import { BaasicButton } from 'core/components';
 
 class CharityPlaid extends Component {
   constructor() {
@@ -40,13 +41,28 @@ class CharityPlaid extends Component {
         //ToDo - access_token = null/undefined
     } else {
         //ToDo - add logic for update user info - for example, set bool checkBankAcc on true...
+        //to do set accessToken into sessionStorage then move onto UI calls in other components.
+        sessionStorage.setItem("plaidAccessToken", response.data["access_token"]);
     }
-    //to do set accessToken into sessionStorage then move onto UI calls in other components.
-    sessionStorage.setItem("accessToken", response.data["access_token"]);
   }
   handleOnExit() {
-    // handle the case when your user exits Link
+    // handle the case when your user exits Link 
     //ToDo - handling when close Plaid window and other errors...
+  }
+
+  getAccountData = async() => {
+    const access_token = sessionStorage.getItem("plaidAccessToken");
+    console.log("Access token je", access_token);
+    var data = {
+      client_id: ApplicationSettings.plaidClientId,
+      secret: ApplicationSettings.plaidSecret,
+      access_token: access_token
+    }
+    const response = await axios.post(ApplicationSettings.plaidPath+"/auth/get",data).catch((err) => {
+      // handle error
+    });
+    const accountData = response.accounts;
+    const numbers = response.numbers;
   }
 
   render() {
@@ -60,10 +76,15 @@ class CharityPlaid extends Component {
        env={ApplicationSettings.env} 
        onSuccess={this.handleOnSuccess}
        onExit={this.handleOnExit}>
-         Connect Bank Account
+         <BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Verify Bank Account" />
          </PlaidLink> 
          : null
         }
+        <BaasicButton
+										className="btn btn--med btn--100 btn--primary--light"
+										label="Get Bank Info Account"
+										onClick={this.getAccountData}
+									/>
       </div>
     );
   }
