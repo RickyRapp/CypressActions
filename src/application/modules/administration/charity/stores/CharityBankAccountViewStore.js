@@ -185,16 +185,21 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
           secret: ApplicationSettings.plaidSecret,
           access_token: access_token
         }
-        const response = await axios.post(ApplicationSettings.plaidPath+"/auth/get",data).catch((err) => {
-          if(err) {
-            // handle error
-            // access_token is null or ather errors...
-          }
-        });
-        if(response) {
-            //handle response data - ToDo
-            // const accountData = response.accounts;
-            // const numbers = response.numbers;
+        var response;
+        if(access_token != null) {
+            response = axios.post(ApplicationSettings.plaidPath+"/auth/get",data).catch((err) => {
+                if(err) {
+                  // handle error
+                  // access_token is null or ather errors...
+                }
+              });
+              if(response) {
+                  //handle response data - ToDo
+                  // const accountData = response.accounts;
+                  // const numbers = response.numbers;
+              }
+        } else {
+            response = null;
         }
     }
 
