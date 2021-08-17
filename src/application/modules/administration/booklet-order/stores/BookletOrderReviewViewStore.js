@@ -20,7 +20,7 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                         await this.rootStore.application.administration.bookletOrderStore.reviewBookletOrder({ ...resource, bookletOrderContents: this.orderContents });
                     },
                     get: async (id) => {
-                        const data = await this.rootStore.application.administration.bookletOrderStore.getBookletOrder(id, { embed: 'donor,deliveryMethodType' });
+                        const data = await this.rootStore.application.administration.bookletOrderStore.getBookletOrder(id, { embed: 'donor,deliveryMethodType,booklets' });
                         this.order = data;
                         const temp = JSON.parse(data.json)
                         temp.forEach(c => { c.booklets = []; c.denominationTypeValue = this.denominationTypes.find(d => d.id === c.denominationTypeId).value }); //denominationTypeValue is added only for sorting
