@@ -124,7 +124,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 				this.email2 = searchCriteria2;
 				this.accNumber = null;
 
-				if (!isNaN(searchCriteria)) {
+				if (!isNaN(searchCriteria2)) {
 					this.accNumber2 = searchCriteria2;
 					this.email2 = null;
 				}
@@ -221,8 +221,9 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	async setDonor() {
 		this.donor = await this.donorToDonorStore.getDonorInformation(this.donorId);
 		const params = {
-			donorId: this.donorId,
+			donorId: this.donorId
 		}
+		params.embed = ['paymentTransaction'];
 		this.donorToDonorRecentTransfers = await this.donorToDonorStore.findDonorToDonorAsync(params);
 		this.donorBalance = await this.rootStore.application.donor.transactionStore.loadDonorData(this.donorId);
 	}
