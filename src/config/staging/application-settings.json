@@ -5,9 +5,9 @@
     "appVersion": "",
     "useSSL": true,
     "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v",
-    "plaidClientId": "6113918b27beb40012ab1757",
-    "plaidSecret": "00777a6e53df23607520a7f67b629b",
-    "plaidEnv": "sandbox",
+    "plaidClientId": "6014307bf66e29000fb5c2bf",
+    "plaidSecret": "f7e8d14943810dcbfb49130378a049",
+    "plaidEnv": "development",
     "plaidClientName": "The Donors' Fund Staging",
-    "plaidPath": "https://sandbox.plaid.com"
+    "plaidPath": "https://development.plaid.com"
 }
