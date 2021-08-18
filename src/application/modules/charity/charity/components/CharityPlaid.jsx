@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import {PlaidLink} from "react-plaid-link";
 import axios from 'axios';
-import { BaasicButton } from 'core/components';
+import {inject} from 'mobx-react';
 import { localStorageProvider } from "core/providers";
 
+@inject(i => ({
+  notificationStore: i.rootStore.notificationStore
+}))
+
 class CharityPlaid extends Component {
-  constructor() {
-    super();
+  constructor(rootStore) {
+    super(rootStore);
+    this.notificationStore = rootStore.notificationStore;
     this.state = {
       linkToken: "",
     };
@@ -41,15 +46,18 @@ class CharityPlaid extends Component {
     var response = await axios.post(ApplicationSettings.plaidPath+"/item/public_token/exchange", data);
     if(response.data["access_token"] == null || response.data["access_token"] == undefined) {
         //ToDo - access_token = null/undefined
+        this.notificationStore.err('Access token error');
     } else {
         //ToDo - add logic for update user info - for example, set bool checkBankAcc on true...
         //to do set accessToken into sessionStorage then move onto UI calls in other components.
         sessionStorage.setItem("plaidAccessToken", response.data["access_token"]);
+        this.notificationStore.success('Access token response is not null, the response is ok');
     }
   }
   handleOnExit() {
     // handle the case when your user exits Link 
     //ToDo - handling when close Plaid window and other errors...
+    this.notificationStore.err('Close Plaid window and other errors');
   }
 
   render() {
