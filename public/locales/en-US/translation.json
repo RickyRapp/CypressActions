@@ -1527,7 +1527,7 @@
             "FAQ_NON_EXISTING_DONOR": "Can I gift to a non-existing donor?",
             "FAQ_NON_EXISTING_DONOR_ANSWER": "Absolutely! Simply include their email address as a recipient of this gift. We will then send an email inviting them to accept your gift.",
             "FAQ_WRONG_EMAIL_ADDRESS": "What if my gift went to a wrong email address?",
-            "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor",
+            "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "So long as the recipient hasn't accepted your gift, you will have the ability to cancel the transaction.",
             "COMPLETE_GIFT": "Send Gift",
             "BUTTON": {
                 "CREATE": "Review gift"
@@ -1555,7 +1555,7 @@
             "EMAIL": "Email",
             "AMOUNT": "Transfer Amount",
             "DONOR_NAME": "Donor Name:",
-            "ACCOUNT_NUMBER":"Account Number",
+            "ACCOUNT_NUMBER": "Account Number",
             "SECOND_DONOR_NAME": "Second recipient",
             "SECOND_EMAIL": "Second email"
         },
@@ -2919,7 +2919,7 @@
             "COLUMNS": {
                 "EMAIL_ACCOUNT_NUMBER": "Recipient Email or account number",
                 "FULLNAME": "Full name",
-                "AMOUNT":"Amount",
+                "AMOUNT": "Amount",
                 "DATE_CREATED_LABEL": "Date created",
                 "SENDER": "Sender"
             }
