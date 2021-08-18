@@ -176,7 +176,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
         });
 
     }
-
+    @action.bound
     async getBankAccounts() {
         const access_token = sessionStorage.getItem("plaidAccessToken");
         //console.log("Access token is", access_token);
@@ -191,9 +191,11 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 if(err) {
                   // handle error
                   // access_token is null or ather errors...
+                  this.rootStore.notificationStore.err('Bank accounts error', err);
                 }
               });
               if(response) {
+                this.rootStore.notificationStore.success('Bank accounts response is not null, the response is ok');
                   //handle response data - ToDo
                   // const accountData = response.accounts;
                   // const numbers = response.numbers;
