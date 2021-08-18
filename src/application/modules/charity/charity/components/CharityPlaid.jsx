@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {PlaidLink} from "react-plaid-link";
 import axios from 'axios';
 import { BaasicButton } from 'core/components';
+import { localStorageProvider } from "core/providers";
 
 class CharityPlaid extends Component {
   constructor() {
@@ -12,11 +13,12 @@ class CharityPlaid extends Component {
   }
 
   componentDidMount = async () =>{
+    var userInfo = localStorageProvider.get("baasic-user-info-thedonorsfund");
     const body = {
         client_id: ApplicationSettings.plaidClientId,
 	    secret: ApplicationSettings.plaidSecret,
         user: {
-            client_user_id: "unique_user_id",
+            client_user_id: userInfo.id != null ? userInfo.id : "unique_user_id",
           },
           client_name: ApplicationSettings.plaidClientName,
           products: ["auth"],
@@ -25,7 +27,7 @@ class CharityPlaid extends Component {
     }
     var path = ApplicationSettings.plaidPath+"/link/token/create";
     await axios.post(path,body).then(res=> {
-            this.setState({linkToken: res.data["link_token"]});
+        this.setState({linkToken: res.data["link_token"]});
     });
   }
 
@@ -61,7 +63,7 @@ class CharityPlaid extends Component {
        env={ApplicationSettings.env} 
        onSuccess={this.handleOnSuccess}
        onExit={this.handleOnExit}>
-         <BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Verify Bank Account" />
+         <div className="btn btn--med btn--100 btn--primary--light">Verify Bank Account</div>
          </PlaidLink> 
          : null
         }
