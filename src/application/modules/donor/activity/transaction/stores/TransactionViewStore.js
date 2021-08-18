@@ -2,7 +2,7 @@ import { BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore, Tabl
 import { applicationContext } from 'core/utils';
 import { TransactionListFilter } from 'application/donor/activity/transaction/models';
 import { action } from 'mobx';
-import _, { find } from 'lodash';
+import _ from 'lodash';
 
 @applicationContext
 class TransactionViewStore extends BaseListViewStore {
@@ -16,7 +16,7 @@ class TransactionViewStore extends BaseListViewStore {
                     filter.reset();
                     this.dateCreatedDateRangeQueryStore.reset();
                     this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
-                    //this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+                    this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
                     this.showPresentBalance = true;
                 }
             },
@@ -79,12 +79,13 @@ class TransactionViewStore extends BaseListViewStore {
     }
 
     createTransactionPeriodStore() {
+        const currentYear = new Date().getFullYear();
         const transactionPeriod = [
-            { id: 0, name: 'Transactions Period', key: 'all' },
-            { id: 1, name: 'This year', key: 'current' },
-            { id: 2, name: '2020', key: 'debit' },
-            { id: 3, name: '2021', key: 'fees' },
-            { id: 4, name: 'Incoming/outgoing transfers', key: 'transfers' }
+            { id: 0, name: 'Transactions Period', key: 0 },
+            { id: 1, name: 'This year', key: currentYear },
+            { id: 2, name: (currentYear-1).toString(), key: currentYear-1 },
+            { id: 3, name: (currentYear-2).toString(), key: currentYear-2 },
+            { id: 4, name: (currentYear-3).toString(), key: currentYear-3 }
         ];
         this.transactionPeriod = new BaasicDropdownStore(
             {
@@ -92,17 +93,8 @@ class TransactionViewStore extends BaseListViewStore {
             },
             {
                 onChange: type => {
-                    //this.queryUtility.filter.transactionPeriod = transactionPeriod[type].key;
-                    this.queryUtility.filter.paymentTransactionType = transactionPeriod[type].key;
-                    //this.showPresentBalance = type > 0 ? false : true;
-                    debugger
-                    // if (transactionPeriod[type].key == 'all' || transactionPeriod[type].key == 'current') {
-
-                    //     start = moment(new Date(now_utc)).startOf('year').toDate();
-                    //     end = moment(new Date(now_utc)).toDate();
-                    // } 
-     
-                    this.find;
+                    this.queryUtility.filter.paymentTransactionPeriod = transactionPeriod[type].key;
+                    this.queryUtility.fetch();
                 },
             },
             transactionPeriod);

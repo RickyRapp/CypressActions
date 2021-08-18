@@ -961,7 +961,7 @@
         "GRANTS": "Grants",
         "TRANSACTION_TAB": {
             "ALL": "All Transactions",
-            "STATEMENTS": "Statements"
+            "STATEMENTS": "Statements & Reports"
         },
         "GRANT_TAB": {
             "PAST_GRANT": "Past Grants",
