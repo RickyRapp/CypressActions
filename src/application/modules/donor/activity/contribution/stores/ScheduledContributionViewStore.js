@@ -1,5 +1,5 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { DonorContributionSettingService } from 'application/donor/donor/services';
+import { DonorContributionSettingService } from 'application/common/donor/services';
 import { applicationContext } from 'core/utils';
 import { FilterParams } from 'core/models';
 import moment from 'moment';

@@ -1266,7 +1266,9 @@
                 "REVIEW": "Review",
                 "CANCEL": "Cancel",
                 "PREVIEW": "Preview"
-            }
+            },
+            "OVERVIEW-TRANSACTIONS": "Overview (Transactions)",
+            "BY-TIMELINE": "By timeline (Total for time period)"
         },
         "CONFIRM": {
             "TITLE": "Confirm Details",

@@ -8,6 +8,7 @@ import moment from 'moment';
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
 	@observable accountTypes = null;
+	@observable summaryData = null;
 	contributionStatuses = [];
 
 	constructor(rootStore) {
@@ -40,6 +41,10 @@ class ContributionViewStore extends BaseListViewStore {
 					find: async params => {
 						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus'];
 
+						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
+							donorId: this.donorId,
+							...params,
+						});
 						return rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
 					},
 				};
