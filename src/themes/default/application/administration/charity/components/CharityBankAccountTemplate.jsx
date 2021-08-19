@@ -21,8 +21,11 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         getBankAccounts,
         bankAccountDropdownStore,
         selectCharity,
-        resetBankAccount
+        resetBankAccount,
+        verifiedByPlaid,
     } = charityBankAccountViewStore;
+
+
     return (<div>
         <EditFormContent form={form}>
             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')} &nbsp; {id ? <a onClick={resetBankAccount}>(New account?)</a> : null }</h3>
@@ -81,10 +84,13 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
             {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
         </button>
-        <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
-            Get Bank Accounts
-        </button>
-           
+        {
+        verifiedByPlaid ?   <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
+                                Get Bank Account
+                            </button> 
+                            : null
+        }
+        
         </div>
     </div>
     )
@@ -92,7 +98,8 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
 
 CharityBankAccountEditTemplate.propTypes = {
     charityBankAccountViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
+    getBankAccounts: PropTypes.func
 };
 
 export default defaultTemplate(CharityBankAccountEditTemplate);

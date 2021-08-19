@@ -8,6 +8,7 @@ import { CharityFileStreamService } from 'common/services';
 @applicationContext
 class CharityBankAccountViewStore extends BaseEditViewStore {
     @observable image = null;
+    @observable verifiedByPlaid = null;
     constructor(rootStore) {
         super(rootStore, {
             name: 'bank-account',
@@ -48,7 +49,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             },
             FormClass: CharityBankAccountEditForm
         });
-
         this.charityId = rootStore.routerStore.routerState.params.id;
         this.createImageUploadStore();
         this.createBankAccountDropdownStore();
@@ -150,6 +150,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
 
     async getCharityInfo() {
         this.charity = await this.rootStore.application.administration.charityStore.getCharity(this.charityId, { embed: 'charityBankAccounts' });
+        this.verifiedByPlaid = this.charity.verifiedByPlaid;
     }
 
     async onBlurRoutingNumber(value) {
@@ -177,9 +178,9 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
 
     }
     @action.bound
-    async getBankAccounts() {
-        const access_token = sessionStorage.getItem("plaidAccessToken");
-        //console.log("Access token is", access_token);
+    getBankAccounts() {
+        const access_token = this.charity.accessToken;
+        
         var data = {
           client_id: ApplicationSettings.plaidClientId,
           secret: ApplicationSettings.plaidSecret,
@@ -187,21 +188,39 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
         }
         var response;
         if(access_token != null) {
-            response = axios.post(ApplicationSettings.plaidPath+"/auth/get",data).catch((err) => {
+            response = axios.post(ApplicationSettings.plaidPath+"/auth/get",data).then((response) => {
+                if(response) {
+                    const accountData = response.data.accounts;
+                    const accountNumbers = response.data.numbers;
+                    
+                    let account;
+                    for(const item in accountNumbers) {
+                        if(accountNumbers[item].length > 0) {
+                            for (let i = 0; i < accountNumbers[item].length; i++) {
+                                if(accountNumbers[item][i].account_id === accountData[0].account_id)
+                                    {
+                                        account = accountNumbers[item][i];
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+                    
+                    this.form.$('routingNumber').set(account.routing);
+                    this.form.$('name').value = accountData[0].name;
+                    this.form.$('accountNumber').value = account.account;
+                    
+
+                    //handle response data - ToDo
+                    // const accountData = response.accounts;
+                    // const numbers = response.numbers;
+                }
+            }).catch((err) => {
                 if(err) {
                   // handle error
                   // access_token is null or ather errors...
-                  this.rootStore.notificationStore.err('Bank accounts error', err);
                 }
               });
-              if(response) {
-                this.rootStore.notificationStore.success('Bank accounts response is not null, the response is ok');
-                  //handle response data - ToDo
-                  // const accountData = response.accounts;
-                  // const numbers = response.numbers;
-              }
-        } else {
-            response = null;
         }
     }
 
