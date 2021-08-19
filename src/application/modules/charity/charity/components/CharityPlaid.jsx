@@ -62,8 +62,8 @@ class CharityPlaid extends Component {
 
   render() {
     const {linkToken} = this.state
-
     return (
+      !this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid ?
       <div>
        {linkToken.toString !== 'undefined' ? 
        <PlaidLink 
@@ -75,7 +75,8 @@ class CharityPlaid extends Component {
          </PlaidLink> 
          : null
         }
-      </div>
+      </div> : 
+      <div><br /><small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small></div>
     );
   }
 }
