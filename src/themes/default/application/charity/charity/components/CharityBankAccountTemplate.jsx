@@ -12,7 +12,7 @@ import { defaultTemplate } from 'core/hoc';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t }) {
-	const { form, imageUploadStore, id, getBankAccounts } = charityBankAccountViewStore;
+	const { form, imageUploadStore, id, getBankAccounts, verifiedByPlaid } = charityBankAccountViewStore;
 	return (
 		<EditFormContent form={form}>
 			<h3 className="type--med type--wgt--medium u-mar--bottom--med">
@@ -78,9 +78,12 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 				<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 			</div>
 			<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-				<button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
-				Get Bank Account
-				</button>
+			{
+        verifiedByPlaid ?   <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
+                                Get Bank Account
+                            </button> 
+                            : null
+        }
             </div>
 		</EditFormContent>
 	);

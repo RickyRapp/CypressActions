@@ -114,9 +114,8 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
           secret: ApplicationSettings.plaidSecret,
           access_token: access_token
         }
-        var response;
         if(access_token != null) {
-            response = axios.post(ApplicationSettings.plaidPath+"/auth/get",data).then((response) => {
+            axios.post(ApplicationSettings.plaidPath+"/auth/get",data).then((response) => {
                 if(response) {
                     const accountData = response.data.accounts;
                     const accountNumbers = response.data.numbers;

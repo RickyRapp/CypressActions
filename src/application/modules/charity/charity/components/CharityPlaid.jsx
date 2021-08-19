@@ -69,10 +69,12 @@ class CharityPlaid extends Component {
         }
     }
   }
-  handleOnExit() {
+
+  handleOnExit = async() => {
     // handle the case when your user exits Link 
     //ToDo - handling when close Plaid window and other errors...
-    //this.notificationStore.error('Close Plaid window and other errors');
+    if(!this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid)
+      this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
   }
 
   render() {
