@@ -11,7 +11,6 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
-
 const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t }) {
 	const { form, imageUploadStore, id, getBankAccounts } = charityBankAccountViewStore;
 	return (
@@ -86,8 +85,6 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 		</EditFormContent>
 	);
 };
-
-
 
 CharityBankAccountEditTemplate.propTypes = {
 	charityBankAccountViewStore: PropTypes.object.isRequired,

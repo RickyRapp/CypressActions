@@ -210,7 +210,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                     this.form.$('name').value = accountData[0].name;
                     this.form.$('accountNumber').value = account.account;
                     
-
                     //handle response data - ToDo
                     // const accountData = response.accounts;
                     // const numbers = response.numbers;
@@ -219,6 +218,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 if(err) {
                   // handle error
                   // access_token is null or ather errors...
+                  this.rootStore.notificationStore.error('Bank accounts error', err);
                 }
               });
         }

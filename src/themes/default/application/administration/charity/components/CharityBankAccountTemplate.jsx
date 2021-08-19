@@ -25,7 +25,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         verifiedByPlaid,
     } = charityBankAccountViewStore;
 
-
     return (<div>
         <EditFormContent form={form}>
             <h3 className="type--med type--wgt--medium u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')} &nbsp; {id ? <a onClick={resetBankAccount}>(New account?)</a> : null }</h3>

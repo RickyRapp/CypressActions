@@ -5,13 +5,15 @@ import {inject} from 'mobx-react';
 import { localStorageProvider } from "core/providers";
 
 @inject(i => ({
-  notificationStore: i.rootStore.notificationStore
+  notificationStore: i.rootStore.notificationStore,
+  charityStore: i.rootStore.application.charity.charityStore
 }))
 
 class CharityPlaid extends Component {
   constructor(rootStore) {
     super(rootStore);
     this.notificationStore = rootStore.notificationStore;
+    this.charityStore = rootStore.charityStore;
     this.state = {
       linkToken: "",
     };
@@ -46,22 +48,36 @@ class CharityPlaid extends Component {
     var response = await axios.post(ApplicationSettings.plaidPath+"/item/public_token/exchange", data);
     if(response.data["access_token"] == null || response.data["access_token"] == undefined) {
         //ToDo - access_token = null/undefined
-        this.notificationStore.err('Access token error');
+        this.notificationStore.error('Access token error');
     } else {
-        //ToDo - add logic for update user info - for example, set bool checkBankAcc on true...
         //to do set accessToken into sessionStorage then move onto UI calls in other components.
         sessionStorage.setItem("plaidAccessToken", response.data["access_token"]);
-        this.notificationStore.success('Access token response is not null, the response is ok');
+        
+        var userInfo = localStorageProvider.get("baasic-user-info-thedonorsfund");
+        var resource = {
+          verifiedByPlaid: true,
+          accessToken: response.data["access_token"]
+        }
+        var updateResponse = await this.charityStore.updateWithPlaidCharity({ id: userInfo.id, ...resource });
+        if(updateResponse.statusCode == 200) {
+          this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid = resource.verifiedByPlaid;
+          this.notificationStore.rootStore.userStore.applicationUser.charity.accessToken = resource.accessToken;
+          this.notificationStore.success('Charity is updated successfully - Bank Account is verified!');
+          this.forceUpdate();
+        } else if(updateResponse.error != null) {
+          this.notificationStore.error('Charity is updated not successfully');
+        }
     }
   }
   handleOnExit() {
     // handle the case when your user exits Link 
     //ToDo - handling when close Plaid window and other errors...
-    this.notificationStore.err('Close Plaid window and other errors');
+    //this.notificationStore.error('Close Plaid window and other errors');
   }
 
   render() {
     const {linkToken} = this.state
+
     return (
       !this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid ?
       <div>
