@@ -9,7 +9,6 @@ import {
     BaasicModal,
     SimpleBaasicTable,
     FormatterResolver,
-    BaasicFormControls,
     BasicInput,
     NumberFormatInputField,
     BaasicFieldToggle,
@@ -20,6 +19,7 @@ import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmp
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 import logo from 'themes/assets/img/logo.svg';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
+import { GrantConfirmTemplate } from '../components';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
     const {
@@ -30,10 +30,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantScheduleTypeDropdownStore,
         charityDropdownStore,
         charityTypeDropdownStore,
+        confirmModal,
         donor,
         onCharitySelected,
         advancedSearchModal,
         openAdvancedSearchModal,
+        onSubmitClick,
         previousGrantsTableStore,
         similarGrantsTableStore,
         loaderStore,
@@ -230,7 +232,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 </div>
 
-                                {renderEditLayoutFooterContent({ form })}
+                                <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                    <BaasicButton form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+                                </div>
+                                
                             </div>
                         </div>
                         <div className="col col-sml-12 col-xxlrg-6">
@@ -341,23 +346,19 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
             <BaasicModal modalParams={advancedSearchModal}>
                 <CharityAdvancedSearch onSelected={onCharitySelected} />
             </BaasicModal>
+            <BaasicModal modalParams={confirmModal}>
+                <GrantConfirmTemplate form={form} />
+            </BaasicModal>
         </React.Fragment >
     )
 };
 
 GrantCreateTemplate.propTypes = {
     grantCreateViewStore: PropTypes.object.isRequired,
+    onSubmitClick: PropTypes.func,
+    form: PropTypes.object,
+    confirmModal: PropTypes.any,
     t: PropTypes.func.isRequired
-};
-
-function renderEditLayoutFooterContent({ form }) {
-    return <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-        <BaasicFormControls form={form} onSubmit={form.onSubmit} label='GRANT.CREATE.BUTTON.CREATE' />
-    </div>
-}
-
-renderEditLayoutFooterContent.propTypes = {
-    form: PropTypes.any
 };
 
 export default defaultTemplate(GrantCreateTemplate);

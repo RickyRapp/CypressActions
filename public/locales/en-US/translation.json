@@ -1569,6 +1569,16 @@
         }
     },
     "GRANT": {
+        "CONFIRM" : {
+            "TITLE" : "Confirm Details",
+            "GRANT_ACKNOWLEDGMENT_NAME" : "Grant Acknowledgment Name",
+            "RECEPIENT_CHARITY" : "Recepient Charity",
+            "GIVEN_AMOUNT" : "Given Amount",
+            "GIVE_GRANT" : "Give Grant",
+            "RECURRING" : "Recurring Grant?",
+            "SCHEDULED_DATE" : "Scheduled Date",
+            "PURPOSE" : "Purpose"
+        },
         "TAB": {
             "LIST": "Grants",
             "SCHEDULED_LIST": "Scheduled grants",
