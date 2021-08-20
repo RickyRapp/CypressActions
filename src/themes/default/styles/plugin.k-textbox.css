@@ -18,6 +18,10 @@
 	}
 
 	.k-multiselect-wrap {
+		display: flex;
+		align-items: flex-start !important;
+		flex-direction: column;
+
 		border: 1px solid color($white blackness(+30%));
 		border-radius: $radius-base;
 		max-height: 138px;
@@ -28,6 +32,11 @@
 			height: calc($unit * 6 - 2px);
 			padding: 0 calc($unit * 1.5);
 			line-height: calc($unit * 6);
+		}
+
+		&:before,
+		&:after {
+			display: none;
 		}
 	}
 
@@ -42,7 +51,7 @@
 
 		border-radius: $radius-base;
 		border-color: color($white blackness(+30%));
-        
+
 		&:hover {
 			background-color: $white;
 		}
@@ -146,6 +155,11 @@
 	}
 }
 
+.k-searchbar {
+	display: flex;
+	align-items: center;
+}
+
 /* Kendo dropdown */
 
 .k-list {
@@ -196,7 +210,7 @@
 	}
 }
 
-.k-textbox-container .k-dropdown-wrap, 
+.k-textbox-container .k-dropdown-wrap,
 .k-dropdown .k-dropdown-wrap {
 	height: calc($unit * 10);
 	padding-top: 0;
@@ -217,8 +231,7 @@
 }
 
 .k-pager {
-
-	.k-textbox-container .k-dropdown-wrap, 
+	.k-textbox-container .k-dropdown-wrap,
 	.k-dropdown .k-dropdown-wrap {
 		height: calc($unit * 6);
 		line-height: 18px;
@@ -287,16 +300,13 @@
 	}
 }
 
-
-
 .form-field--sml.k-dropdown .k-dropdown-wrap {
-
 	@mixin type-scale $type-base, 1;
-	
+
 	height: calc($unit * 6);
 	padding-top: 0;
 	margin-top: calc($unit / 2);
-	
+
 	font-family: $ff-sans;
 	font-weight: $type-weight-medium;
 
