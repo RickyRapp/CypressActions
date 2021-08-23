@@ -29,7 +29,7 @@
 
 		input {
 			width: 100%;
-			height: calc($unit * 6 - 2px);
+			height: 24px;
 			padding: 0 calc($unit * 1.5);
 			line-height: calc($unit * 6);
 		}
@@ -133,7 +133,7 @@
 	.k-multiselect-wrap {
 		.k-button {
 			padding: 0 calc($unit * 1.5);
-			margin: 5px;
+			margin: 3px 5px 0 5px;
 			background: color($color-primary a(0.2));
 			border: 0;
 			border-radius: 1000px;

@@ -28,10 +28,9 @@ const ExportTemplate = function ({ store, t }) {
             </div>
             <div className="col col-sml-12 col-xxlrg-2 type--right u-mar--top--sml">
                 <BaasicButton
-                    className="btn btn--primary btn--med btn--med--wide"
+                    className="btn btn--primary btn--med"
                     onClick={onExportClick}
                     label={t('EXPORT')}
-                    icon={loading ? 'synchronize-arrows-1 rotate' : ''}
                     disabled={loading}
                 />
             </div>
