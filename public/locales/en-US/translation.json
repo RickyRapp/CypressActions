@@ -2208,7 +2208,8 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "DENOMINATION_LABEL": "Denomination",
                 "AMOUNT_LABEL": "Amount",
-                "DONOR_LABEL": "Donor"
+                "DONOR_LABEL": "Donor",
+                "CONFIRMATION_LABEL": "Confirmation Number"
             }
         }
     },
