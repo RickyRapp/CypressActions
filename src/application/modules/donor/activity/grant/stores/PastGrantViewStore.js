@@ -31,7 +31,7 @@ class PastGrantViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet'];
+						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,
 							...params,
@@ -229,11 +229,13 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		if (item.donationType.abrv === "online" || item.donationType.abrv === 'charity-website') {
+		if (item.donationType.abrv === "online") {
 			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 				return `${item.grantPurposeType.name} - ${item.purposeNote}`
 			}
 			return item.grantPurposeType.name;
+		} else if (item.donationType.abrv === 'charity-website') {
+			return `Grant: ${item.charity.name}`;
 		}
 		else {
 			return item.session.fullName;
@@ -243,6 +245,8 @@ class PastGrantViewStore extends BaseListViewStore {
 	getTransactionType(item) {
 		if (item.donationType.abrv === "session") {
 			return ((((item.donationType.name + ' ') + item.certificate.booklet.code) + ' - ') + item.certificate.code);
+		} else if (item.donationType.abrv === 'charity-website') {
+			return item.thirdPartyWebsite.url;
 		} else {
 			return item.donationType.name;
 		}
