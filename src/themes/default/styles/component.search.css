@@ -65,6 +65,7 @@
         border: 1px solid color(white blackness(+30%));
         border-radius: $radius-base;
         max-width: 650px;
+        background-color: white;
 
         @media(--screen-from-med) {
             padding: $unit calc($unit * 4) $unit $unit;
