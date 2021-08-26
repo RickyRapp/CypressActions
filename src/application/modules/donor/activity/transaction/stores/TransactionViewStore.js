@@ -101,70 +101,94 @@ class TransactionViewStore extends BaseListViewStore {
         this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
     }
 
-    createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
-            columns: [
-                {
-                    key: 'paymentTransaction.dateUpdated',
-                    title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
+    createTableStore(isMobile) {
+        if(window.innerWidth > 750) {
+            this.setTableStore(new TableViewStore(this.queryUtility, {
+                columns: [
+                    {
+                        key: 'paymentTransaction.dateUpdated',
+                        title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
+                        format: {
+                            type: 'date',
+                            value: 'short'
+                        },
+                        cellClass: 'table__cell--date'
                     },
-                    cellClass: 'table__cell--date'
-                },
-                {
-                    key: 'description',
-                    title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if(item.paymentTransaction.description != null) {
-                                if(item.paymentTransaction.description.includes('Refund Contribution'))
-                                    return `Declined deposit: ${item.paymentTransaction.description.split(' ')[2]}`;
+                    {
+                        key: 'description',
+                        title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
+                    },
+                    {
+                        key: 'type',
+                        title: 'ACTIVITY.LIST.COLUMNS.TRANSACTION_TYPE_LABEL',
+                    },
+                    {
+                        key: 'paymentTransaction',
+                        title: 'ACTIVITY.LIST.COLUMNS.AMOUNT_LABEL',
+                        format: {
+                            type: 'transaction-currency',
+                            value: '$'
+                        }
+                    },
+                    {
+                        key: 'paymentTransaction.presentBalance',
+                        title: 'ACTIVITY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
+                                if(!this.showPresentBalance) 
+                                    return null;
+    
+                                let formatter = new Intl.NumberFormat('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                    });
+                                return formatter.format(item.paymentTransaction.presentBalance);
                             }
-                            return item.description;
                         }
                     }
+                ],
+                actions: {
+                    onSort: (column) => this.queryUtility.changeOrder(column.key)
                 },
-                {
-                    key: 'type',
-                    title: 'ACTIVITY.LIST.COLUMNS.TRANSACTION_TYPE_LABEL',
-                },
-                {
-                    key: 'paymentTransaction',
-                    title: 'ACTIVITY.LIST.COLUMNS.AMOUNT_LABEL',
-                    format: {
-                        type: 'transaction-currency',
-                        value: '$'
-                    }
-                },
-                {
-                    key: 'paymentTransaction.presentBalance',
-                    title: 'ACTIVITY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if (!this.showPresentBalance)
-                                return null;
-
-                            let formatter = new Intl.NumberFormat('en-US', {
-                                style: 'currency',
-                                currency: 'USD',
-                            });
-                            return formatter.format(item.paymentTransaction.presentBalance);
+                actionsRender: {},
+                disableSorting: true,
+                disablePaging: this.hidePager
+            }));
+        } else {
+            this.setTableStore(new TableViewStore(this.queryUtility, {
+                columns: [
+                    {
+                        key: 'paymentTransaction.dateUpdated',
+                        title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
+                        format: {
+                            type: 'date',
+                            value: 'short'
+                        },
+                        cellClass: 'table__cell--date'
+                    },
+                    {
+                        key: 'description',
+                        title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
+                    },
+                    {
+                        key: 'paymentTransaction',
+                        title: 'ACTIVITY.LIST.COLUMNS.AMOUNT_LABEL',
+                        format: {
+                            type: 'transaction-currency',
+                            value: '$'
                         }
-                    }
-                }
-            ],
-            actions: {
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
-            },
-            actionsRender: {},
-            disableSorting: true,
-            disablePaging: this.hidePager
-        }));
-    }
+                    },
+                ],
+                actions: {
+                    onSort: (column) => this.queryUtility.changeOrder(column.key)
+                },
+                actionsRender: {},
+                disableSorting: true,
+                disablePaging: this.hidePager
+            }));
+        }
+    }    
 }
 
 export default TransactionViewStore;
