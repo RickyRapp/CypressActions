@@ -13,8 +13,12 @@
 	.k-header {
 
 		color: $bali-hai;
-		@mixin type-scale $type-small, 1;
+		@mixin type-scale $type-xsmall, 1;
 		font-weight: $type-weight-bold;
+
+		@media (--screen-to-med) {
+			padding: 8px !important;
+		}
 
 		&:last-child {		
 			max-width: calc($unit * 26);
@@ -166,6 +170,10 @@
 				border-bottom: 1px solid $grey-1;
 				border-left: 0;
 				background-color: #ffffff;
+
+				@media (--screen-to-med) {
+					padding: 8px !important;
+				}
 
 				&.table__body--data--last {		
 					max-width: calc($unit * 26);
@@ -364,7 +372,7 @@
 }
 
 .k-grid th, .k-grid td {
-    @mixin type-scale $type-small, 0.75;
+    @mixin type-scale $type-xsmall, 0.75;
 
 	@media (--screen-from-med) {
 		@mixin type-scale $type-base, 1;

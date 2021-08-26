@@ -23,6 +23,30 @@
 		background-color: $white;
 		border-radius: $radius-base;
 		box-shadow: $shadow-card;
+
+		padding: calc($unit * 4);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 3);
+		}
+
+		&--on-lrg {
+			@media (--screen-from-lrg) {
+				background-color: $white;
+				border-radius: $radius-base;
+				box-shadow: $shadow-card;
+				padding: calc($unit * 4);
+			}
+		}
+
+		&--to-lrg {
+			@media (--screen-to-lrg) {
+				background-color: $white;
+				border-radius: $radius-base;
+				box-shadow: $shadow-card;
+				padding: calc($unit * 4);
+			}
+		}
 	}
 
 	&--form {

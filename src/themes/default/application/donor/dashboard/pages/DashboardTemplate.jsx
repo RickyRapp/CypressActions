@@ -189,7 +189,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 							<div className="type--med type--wgt--medium type--center"></div>
 							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml"></div>
-							<div className="row u-mar--bottom--tny remove--sml">
+							<div className="row u-mar--bottom--tny">
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
 										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
