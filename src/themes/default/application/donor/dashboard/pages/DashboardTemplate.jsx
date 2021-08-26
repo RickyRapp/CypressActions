@@ -177,7 +177,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				<div className="col col-sml-12 col-xxlrg-6">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card">
-							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
 
 							<div className="dashboard-card__giving-goal">
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
