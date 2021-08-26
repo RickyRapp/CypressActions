@@ -183,23 +183,24 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<div className="dashboard-card__giving-goal--range">
 									<div style={{ 'width': '50%' }} className="dashboard-card__giving-goal--range--progress">Coming soon!</div>
 								</div>
-								{/* <div className="dashboard-card__giving-goal__label">
-									<a className="btn btn--sml btn--link">Manage</a>
-								</div> */}
 							</div>
-							<div className="type--med type--wgt--medium type--center"></div>
-							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml"></div>
-							<div className="row u-mar--bottom--tny">
-								<div className="col col-sml-12">
-									<div className="u-display--flex row__align--center">
-										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
-										<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+
+							<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml dashboard-card__separator"></div>
+							
+							<div className="dashboard-card__chart">
+								<div className="row u-mar--bottom--tny">
+									<div className="col col-sml-12">
+										<div className="u-display--flex row__align--center">
+											<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
+											<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+										</div>
 									</div>
 								</div>
-							</div>
-							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12">
-									<LineChartContainer />
+								
+								<div className="row u-mar--bottom--med">
+									<div className="col col-sml-12">
+										<LineChartContainer />
+									</div>
 								</div>
 							</div>
 						</div>

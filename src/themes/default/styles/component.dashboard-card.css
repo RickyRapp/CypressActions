@@ -75,20 +75,37 @@
 	}
 
 	&__title {
+		order: 1;
 
 		@media (--screen-to-sml) {
 			text-align: center;
+			order: 1;
 		}
+	}
+
+	&__separator {
+		order: 3;
+	}
+
+	&__chart {
+		order: 2;
+
+		@media (--screen-from-med) {
+			order: 4;
+		}
+
 	}
 
 	&__giving-goal {
 		width: 100%;
         margin-bottom: $unit;
+		order: 4;
 
 		@media (--screen-from-sml) {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			order: 2;
 		}
 
 		&__label {
