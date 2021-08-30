@@ -1,12 +1,13 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { GrantRouteService } from 'application/common/grant/services';
 import { charityFormatter, donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
-
+import GrantDeclineForm from 'application/common/grant/forms';
 class GrantViewStore extends BaseListViewStore {
+    @observable declinationTypeId;
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant',
@@ -23,7 +24,7 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 preview: (editId) => {
                     this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: editId });
-                }
+                },
             },
             queryConfig: {
                 filter: new GrantListFilter('dateCreated', 'desc'),
@@ -64,11 +65,11 @@ class GrantViewStore extends BaseListViewStore {
                             'dateCreated',
                             'scheduledGrantPayment'
                         ];
-
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
-            }
+            },
+            FormClass: GrantDeclineForm,
         });
 
         this.createTableStore();
@@ -81,6 +82,7 @@ class GrantViewStore extends BaseListViewStore {
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
+        this.declineModal = new ModalParams({});
     }
 
     @action.bound
@@ -167,7 +169,8 @@ class GrantViewStore extends BaseListViewStore {
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onApprove: (grant) => this.approveGrant(grant),
                 onCancel: (grant) => this.cancelGrant(grant),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onDecline: (grant) => this.onDeclineClick(grant)
             },
             actionsRender: {
                 onEditRender: (grant) => {
@@ -182,9 +185,49 @@ class GrantViewStore extends BaseListViewStore {
                 onCancelRender: (grant) => {
                     return grant.donationType.abrv !== 'session' && (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved');
                 },
+                onDeclineRender: (grant) => {
+                    return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved';
+                }
             }
         }));
     }
+
+    //#region MODAL
+	@action.bound
+	async onDeclineClick(grant) {
+		this.declineModal.open({
+            onCancel: () => {
+                this.declineModal.close();
+            },
+            onDecline: async () => {
+                    const declinationReason = document.getElementsByName('declinationReason');
+                    let reasonId;
+                    for(let i = 0; i < declinationReason.length; i++) {
+                        if(declinationReason[i].checked)
+                            reasonId = declinationReason[i].id;
+                    }
+                    try {
+                        if(reasonId>4 || reasonId<1 || typeof reasonId === 'undefined') {
+                            this.rootStore.notificationStore.error('Declination reason not selected!');
+                            return;
+                        }
+                        await this.rootStore.application.administration.grantStore.declineGrant({ id: grant.id , declinationTypeId: reasonId});
+                        this.queryUtility.fetch();
+                        this.rootStore.notificationStore.success('Successfully declined grant.');
+                        this.declineModal.close();
+                    } catch ({ data }) {
+                        if (data && data.message) {
+                            this.rootStore.notificationStore.error(data.message);
+                        }
+                        else {
+                            this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+                        }
+                    }
+            },
+            declinationTypeId: this.declinationTypeId
+        })
+	}
+	//#endregion
 
     @action.bound
     async approveGrant(grant) {

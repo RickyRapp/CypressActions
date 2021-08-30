@@ -14,6 +14,7 @@ import {
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
+import { GrantDeclineTemplate } from 'application/administration/grant/components';
 
 const GrantListTemplate = function ({ grantViewStore }) {
 	const {
@@ -28,6 +29,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		searchCharityDropdownStore,
 		donationTypeDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		declineModal,
 	} = grantViewStore;
 
 	return (
@@ -113,21 +115,26 @@ const GrantListTemplate = function ({ grantViewStore }) {
 			<BaasicModal modalParams={selectDonorModal}>
 				<SelectDonor />
 			</BaasicModal>
+			<BaasicModal modalParams={declineModal}>
+                <GrantDeclineTemplate />
+            </BaasicModal>
 		</Content>
 	);
 };
 
 GrantListTemplate.propTypes = {
 	grantViewStore: PropTypes.object.isRequired,
+	onDeclineClick: PropTypes.func,
+    declineModal: PropTypes.any,
 	t: PropTypes.func,
 };
 
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 	
-	const { onEdit, onRedirect, onPreview, onApprove, onCancel } = actions;
+	const { onEdit, onRedirect, onPreview, onApprove, onCancel, onDecline } = actions;
 
-	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel)) return null;
+	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel) && !isSome(onDecline)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -147,6 +154,13 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onApproveRender) {
 			approveRender = actionsRender.onApproveRender(item);
+		}
+	}
+
+	let declineRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onDeclineRender) {
+			declineRender = actionsRender.onDeclineRender(item);
 		}
 	}
 
@@ -198,6 +212,16 @@ function renderActions({ item, actions, actionsRender }) {
 						label="GRANT.LIST.BUTTON.REVIEW"
 						onlyIcon={true}
 						onClick={() => onApprove(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onDecline) && declineRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--decline u-icon--base"
+						label="GRANT.LIST.BUTTON.DECLINE"
+						onlyIcon={true}
+						onClick={() => onDecline(item)}
 					></BaasicButton>
 				) : null}
 				{isSome(onCancel) && cancelRender ? (

@@ -1620,7 +1620,8 @@
                 "DELETE": "Delete",
                 "REVIEW": "Review",
                 "PREVIEW": "Preview",
-                "CANCEL": "Cancel"
+                "CANCEL": "Cancel",
+                "DECLINE": "Decline"
             }
         },
         "PREVIEW": {

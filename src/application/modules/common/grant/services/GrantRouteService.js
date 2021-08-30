@@ -46,6 +46,10 @@ class GrantRouteService extends BaseRouteService {
         return super.update(this.base + '/approve/{id}', resource);
     }
 
+    decline(resource) {
+        return super.update(this.base + '/decline/{id}', resource);
+    }
+
     cancel(resource) {
         return super.update(this.base + '/cancel/{id}', resource);
     }
