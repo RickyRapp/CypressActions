@@ -38,7 +38,7 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                 }
             }
         });
-
+        this.certificateStatusLookup = null;
         this.createTableStore();
     }
 
@@ -48,7 +48,7 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
             this.rootStore.routerStore.goBack();
         } else {
             await this.fetch([this.getResource(this.id), this.loadLookups()]);
-
+            this.certificateStatusLookup = await this.rootStore.application.lookup.certificateStatusStore.find();
             if (this.item) {
                 if (this.item.json) {
                     let tempArray = JSON.parse(this.item.json);
@@ -104,7 +104,6 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            console.log(item);
                             return item.isPrePaid ? (item.isSessionFeePayedByCharity ? 'Yes' : 'No') : '-'
                         }
                     }
@@ -115,6 +114,32 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                     cell: CustomCellTemplate,
                     onClick: this.onCodeClick
                 },
+                {
+                    key: 'used',
+                    title: 'Used certificates',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            let usedCount = 0;
+                            let totalCount = 0;
+                            if(typeof item !== 'undefined' && item.bookletCount > 0){
+                                const usedId = this.certificateStatusLookup.find(c => c.abrv === 'used').id;
+                                for (let i = 0; i < item.booklets.length; i++) {
+                                    if(typeof item.booklets[i] !== 'undefined' || typeof item.booklets[i].certificates !== 'undefined'){
+                                        //usedCount += item.booklets[i].certificates.find(c => c.certificateStatusId === usedId).length;
+                                        totalCount += item.booklets[i].certificates.length;
+                                        item.booklets[i].certificates.forEach(certificate => {
+                                            if(certificate.certificateStatusId === usedId)
+                                            usedCount += 1;
+                                        });
+                                    }
+                                }
+                            }
+                            
+                            return `${parseInt(usedCount)}/${parseInt(totalCount)}`;
+                        }
+                    }
+                }
                 /*{
                     key: 'certificates',
                     title: 'BOOKLET.LIST.COLUMNS.CERTIFICATES_LABEL',
