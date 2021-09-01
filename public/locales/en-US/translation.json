@@ -691,7 +691,8 @@
                 "FIELDS": {
                     "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Default share information",
                     "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Share informations when exceed amount",
-                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Share information for transactions that exceeds amount"
+                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Share information for transactions that exceeds amount",
+                    "EXCEED_AMOUNT_LABEL": "Exceed limit for verification"
                 }
             }
         },
@@ -1486,12 +1487,17 @@
                 "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
                 "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
                 "IS_ENABLED_LABEL": "Is enabled",
+                "IS_STOLEN_LABEL": "Is stolen?",
+                "IS_LOST_LABEL": "Is lost?",
                 "GIVING_CARD_LABEL": "Giving card",
-                "SELECT_GIVING_CARD": "Select giving card"
+                "SELECT_GIVING_CARD": "Select giving card",
+                "REPORT_DESCRIPTION": "Please let us know what happened"
             }
         },
         "CREATE": {
-            "TITLE": "Request new card"
+            "TITLE": "Request new card",
+            "REPORT_STOLEN_TITLE": "Stolen/Lost Card Report",
+            "REPORT_STOLEN_LABEL": "Report a card lost/stolen"
         },
         "ACTIVATION": {
             "TITLE": "Activate your card",
@@ -2621,6 +2627,7 @@
                 "DESCRIPTION_LABEL": "Description",
                 "LOST_OR_STOLEN_LABEL": "Lost or stolen",
                 "POSSIBLE_LOST_OR_STOLEN_LABEL": "Possible lost or stolen",
+                "LOST_OR_STOLEN_DESCRIPTION_LABEL": "Lost/Stolen description",
                 "LOCKED_LABEL": "Locked",
                 "CVV_LABEL": "CVV"
             },

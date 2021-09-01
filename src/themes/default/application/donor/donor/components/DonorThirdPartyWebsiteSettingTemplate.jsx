@@ -39,11 +39,11 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
             <div className="list--preferences">
                 <div className="list--preferences__label is-dropdown">Purpose</div>
                 <div className="list--preferences__dd">
-                    <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+                    <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} disabled={true}/>
                 </div>
             </div>
 
-            <div className="list--preferences">
+            {/* <div className="list--preferences">
                 <div className="list--preferences__label">Maximum dollar amount per transaction</div>
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('maxAmount')} />
@@ -57,7 +57,7 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('maxTimesPerDay')} />
                 </div>
-            </div>
+            </div> */}
                 <div className="type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>

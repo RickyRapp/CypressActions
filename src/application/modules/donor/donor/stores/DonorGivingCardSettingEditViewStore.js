@@ -1,10 +1,11 @@
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonorGivingCardSettingForm } from 'application/donor/donor/forms';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
 class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
+    @observable reportCard = false;
     constructor(rootStore, setting) {
         super(rootStore, {
             name: 'giving-card-setting-edit',
@@ -13,7 +14,12 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        await rootStore.application.donor.donorStore.updateGivingCardSetting(resource);
+                        // if(resource.isLost || resource.isStolen) {
+                        //     await 
+                        // } else {
+                            resource.givingCardId = this.item.givingCardId;
+                            await rootStore.application.donor.donorStore.updateGivingCardSetting(resource);
+                        //}
                     },
                     create: async (resource) => {
                         //resource.isEnabled = true;
@@ -28,7 +34,6 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
-
         this.createGrantPurposeTypeDropdownStore();
         this.createGrantAcknowledgmentTypeDropdownStore();
     }
@@ -64,6 +69,12 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
         this.form.$('grantAcknowledgmentTypeId').resetValidation();
         this.form.$('grantPurposeTypeId').setRequired(this.form.$('isEnabled').value);
         this.form.$('grantPurposeTypeId').resetValidation();
+    }
+
+    @action.bound
+    setCardAction() {
+        this.reportCard = !this.reportCard;
+        this.form.$('isEnabled').value = !(this.form.$('isEnabled').value);
     }
 
     createGrantPurposeTypeDropdownStore() {

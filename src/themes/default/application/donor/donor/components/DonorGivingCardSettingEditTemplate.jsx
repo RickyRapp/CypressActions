@@ -6,7 +6,8 @@ import {
     EditFormContent,
     BaasicFormControls,
     BaasicFieldDropdown,
-    NumericInputField
+    NumericInputField,
+    BasicInput
 } from 'core/components'
 import moment from 'moment';
 
@@ -18,9 +19,11 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
         isEdit,
         grantAcknowledgmentTypeDropdownStore,
         grantPurposeTypeDropdownStore,
-        toggleEdit
+        toggleEdit,
+        onChangeIsEnabled,
+        reportCard,
+        setCardAction
     } = donorGivingCardSettingEditViewStore;
-
     return (
         <div>
             <EditFormContent form={form}
@@ -34,6 +37,11 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                         </div>
                         <div className="list--preferences__field">
                             <a onClick={() => toggleEdit()}>{form.$('isEnabled').value ? "Cancel Edit" : "Edit Settings"}</a>
+                            {!reportCard ? <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3> : <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</h3>}
+                        </div>
+                        <div className="list--preferences__field">
+                            {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) && (!reportCard ? <a onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</a>)}
+                            {/* <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} /> */}
                         </div>
                         {/* <div className="list--preferences__field">
                             <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
@@ -42,7 +50,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     :
                     <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
                 }
-                <div className="list--preferences">
+                {!reportCard ? <div><div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">
                         Share information <span className="type--color--note u-mar--left--tny">*</span>
                     </div>
@@ -87,15 +95,17 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                         </div>
                             {item.givingCard.cardNumber} - {item.givingCard.cvv} - {moment(new Date(item.givingCard.expirationDate)).format('MM/YY')}
                             {!item.givingCard.isActivated && <div>Card is not activated </div>}
+                            {item.givingCard.isLost && <div style={{color: 'salmon', fontWeight: 'bold'}}>Card is reported lost! </div>}
+                            {item.givingCard.isStolen && <div style={{color: 'salmon', fontWeight: 'bold'}}>Card is reported stolen! </div>}
                         </div>}
-                    {item && !item.givingCard && 
-                    <div className="form__group col col-sml-12 col-xlrg-6">
-                        <div className="form__group__label">
-                                Card Requested
-                                <div>Note: Card is not assigned yet</div>
-                        </div>
+                </div></div> : 
+                <div>
+                    <BasicFieldCheckbox showLabel={true} field={form.$('isStolen')} onChange={onChangeIsEnabled} />&nbsp;&nbsp;
+                    <BasicFieldCheckbox showLabel={true} field={form.$('isLost')} onChange={onChangeIsEnabled} /> <br /><br />
+                    <BasicInput field={form.$('reportDescription')} /> <br /><br />
+                    <span className="card--primary">Important! Please be aware that once you complete this report, your card will immediately be disabled.</span>
                     </div>}
-                </div>
+                
                 <div className="type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
