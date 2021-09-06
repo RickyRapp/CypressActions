@@ -32,6 +32,11 @@ class CharityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    approve(id) {
+        const url = this.routeService.approve(id);
+        return this.apiClient.put(url, id);
+    }
+
     taxIdExists(taxId) {
         const url = this.routeService.taxIdExists(taxId);
         return this.apiClient.get(url);

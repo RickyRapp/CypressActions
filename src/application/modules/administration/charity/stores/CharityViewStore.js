@@ -22,7 +22,7 @@ class CharityViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = [];
-                        params.fields = ['id', 'name', 'taxId', 'dateCreated', 'presentBalance'];
+                        params.fields = ['id', 'name', 'taxId', 'dateCreated', 'presentBalance', 'isApproved'];
                         return rootStore.application.administration.charityStore.findCharity(params);
                     }
                 }
@@ -68,7 +68,11 @@ class CharityViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (item) => this.routes.edit(item.id),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onApprove: (item) => {
+                    this.rootStore.application.administration.charityStore.approveCharity(item.id);
+                    this.queryUtility.fetch()
+                }
             }
         }));
     }

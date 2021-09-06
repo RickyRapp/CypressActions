@@ -41,6 +41,10 @@ class CharityRouteService extends BaseRouteService {
         return super.update(this.base + '/{id}', resource);
     }
 
+    approve(id) {
+        return super.update(this.base + '/approve/{id}', {id: id});
+    }
+
     search(filter) {
         return super.find(this.base + '/search/{?id,search,name,dba,taxId,address,charityTypeIds,page,rpp,sort,embed,fields,exceptId}', filter);
     }

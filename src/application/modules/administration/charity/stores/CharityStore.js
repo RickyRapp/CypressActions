@@ -71,6 +71,11 @@ class CharityStore {
         return response.data;
     }
 
+    async approveCharity(resource) {
+        const response = await this.charityService.approve(resource);
+        return response.data;
+    }
+
     async updateAddress(params) {
         const response = await this.charityAddressService.update(params);
         return response.data;
