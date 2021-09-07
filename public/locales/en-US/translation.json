@@ -50,6 +50,7 @@
         "PROFILE": "Profile",
         "CHARITY_PROFILE_SETTING": "Profile Settings",
         "MANAGE_CHARITIES": "Manage Charities",
+        "MANAGE_ACCOUNT": "Manage Account",
         "COMMUNICATION_PREFERENCES": "Communication Preferences",
         "LEGACY": "Legacy",
         "ORDER_VOUCHERS": "Order Checks",
@@ -64,7 +65,12 @@
         "CHARITY_GIVING_CARD": "Accept Card",
         "CREDIT_DEBIT": "Credit/Debit",
         "DONOR-DONOR": "Donor To Donor",
-        "GIVING_GOALS": "Giving Goals"
+        "GIVING_GOALS": "Giving Goals",
+        "WITHDRAW": "Withdraw Funds",
+        "REMOTE_DEPOSIT": "Remote Deposit",
+        "APIS_AND_PAYMENTS": "APIs and Payments",
+        "INVEST_FUNDS": "Invest Funds",
+        "ACCEPT_STOCKS_AND_SECURITIES": "Accept Stocks and Securities"
     },
     "CORE": {
         "DATE_FORMAT": {

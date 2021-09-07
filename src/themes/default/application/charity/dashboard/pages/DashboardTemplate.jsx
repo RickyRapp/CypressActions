@@ -1,13 +1,40 @@
 import React from 'react';
 import { Page } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, FormatterResolver } from 'core/components';
+import { BaasicButton, FormatterResolver, BaasicDropdown } from 'core/components';
 import PropTypes from 'prop-types';
 import { DashboardHeader } from 'application/charity/dashboard/components';
-
+import {
+	Chart,
+	ChartSeries,
+	ChartSeriesItem,
+	ChartCategoryAxis,
+	ChartCategoryAxisItem,
+	ChartLegend,
+	ChartTooltip,
+} from '@progress/kendo-react-charts';
 function DashboardTemplate({ dashboardViewStore }) {
-	const { charity, newContributionOnClick } = dashboardViewStore;
-
+	const { charity, newContributionOnClick, yearDropdownStore } = dashboardViewStore;
+	
+	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let dataGrants = [];
+	
+	const LineChartContainer = () => (
+		<Chart style={{ height: 260 }}>
+			<ChartCategoryAxis>
+				<ChartCategoryAxisItem categories={categories} />
+			</ChartCategoryAxis>
+			<ChartTooltip
+				render={({ point }) => (
+					<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+				)}
+			/>
+			<ChartLegend position="bottom" orientation="horizontal" />
+			<ChartSeries>
+				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
+			</ChartSeries>
+		</Chart>
+	);
 	return (
 		<Page>
 			<DashboardHeader />
@@ -31,12 +58,12 @@ function DashboardTemplate({ dashboardViewStore }) {
 								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
 									<BaasicButton
 										className="btn btn--med btn--100 btn--primary--light"
-										label="Deposit Funds"
+										label="Withdraw Funds"
 										onClick={newContributionOnClick}
 									/>
 								</div></div>
 								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
-									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Invest Funds" />
+									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" />
 								</div></div>
 
 							</div>
@@ -64,12 +91,13 @@ function DashboardTemplate({ dashboardViewStore }) {
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
 										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
-										{/* <BaasicDropdown store={yearDropdownStore} /> */}
+										{/* <LineChartContainer /> */}
+										<BaasicDropdown store={yearDropdownStore} />
 									</div>
 								</div>
 							</div>
 							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12">{/* <LineChartContainer /> */}</div>
+								<div className="col col-sml-12"><LineChartContainer /></div>
 							</div>
 						</div>
 					) : (
@@ -87,6 +115,45 @@ function DashboardTemplate({ dashboardViewStore }) {
 						</div>
 					)}
 				</div>
+				<div className="col col-sml-12 col-lrg-12">
+							<div className="u-mar--bottom--med u-mar--top--med">
+								<h3 className=" u-mar--bottom--med type--center">
+									Finish setting up your account
+								</h3>
+								<div className="row type--center u-display--flex u-display--flex--justify--center">
+									{charity && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-forward u-icon--med"
+												label="ENROLL FOR DIRECT DEPOSIT"
+												onClick={() => alert(true)}
+											/>
+										</div>
+									)}
+									{charity && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-forward u-icon--med"
+												label="VIEW INVESTMENT OPTIONS"
+												onClick={() => alert(true)}
+											/>
+										</div>
+									)}
+									{charity && (
+										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+											<BaasicButton
+												className="btn btn--med btn--med--100 btn--tertiary "
+												icon="u-icon u-icon--arrow-forward u-icon--med"
+												label="CONNECT TO YOUR WEBSITE"
+												onClick={() => alert(true)}
+											/>
+										</div>
+									)}
+								</div>
+							</div>
+						</div>
 			</div>
 		</Page>
 	);
