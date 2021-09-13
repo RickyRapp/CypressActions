@@ -24,7 +24,7 @@ function WelcomeExistingAccountsEmailsTemplate({ welcomeExistingAccountsEmailsVi
             </div>
             <div className="card--primary card--med u-mar--top--med">
                 <div className="row">
-                    <div className="col col-sml-12 col-xxlrg-3 type--right">
+                    <div className="col col-sml-12 col-xxlrg-6 type--right">
                         <BaasicDropdown
                             placeholder={'SELECT_DONOR_PLACEHOLDER'}
                             className='input--dropdown'

@@ -100,7 +100,7 @@
 	.k-label {
 		opacity: 0;
 		top: 50%;
-		right: calc($unit * 5);
+		/* right: calc($unit * 5); */
 		left: calc($unit * 2);
 		transform: translateY(-50%) !important;
 
