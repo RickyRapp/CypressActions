@@ -2,7 +2,7 @@ import { action } from 'mobx';
 import { LoginForm } from 'application/common/membership/forms';
 import { BaseViewStore } from 'core/stores';
 import { RouterState } from 'mobx-state-router';
-
+import { BasicLookupsService } from 'application/common/lookup/basic-lookups/services';
 class LoginViewStore extends BaseViewStore {
 	routes = {
 		forgotPassword: () => this.rootStore.routerStore.goTo('master.public.membership.password-recovery'),
@@ -21,8 +21,8 @@ class LoginViewStore extends BaseViewStore {
 
 	constructor(rootStore) {
 		super();
-
 		this.rootStore = rootStore;
+		this.basicLookupsService = new BasicLookupsService(rootStore.application.baasic.apiClient);
 		this.app = rootStore.application.baasic;
 	}
 
@@ -41,6 +41,14 @@ class LoginViewStore extends BaseViewStore {
 					data: { roles: roles },
 				} = await this.app.membershipModule.login.loadUserData({ embed: 'permissions' });
 				if (roles) {
+					if(localStorage.getItem('apiVersion') !== null) {
+						if(localStorage.getItem('apiVersion') !== ApplicationSettings.apiVersion) {
+							await this.basicLookupsService.invalidate();
+						}
+					}
+					if(localStorage.getItem('apiVersion') === null) {
+						localStorage.setItem('apiVersion', ApplicationSettings.apiVersion);
+					}
 					if (roles.includes('Users')) {
 						this.rootStore.routerStore.goTo(new RouterState('master.app.main.donor.dashboard'));
 					} else if (roles.includes('Charities')) {

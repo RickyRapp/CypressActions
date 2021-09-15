@@ -2,6 +2,7 @@
     "appId": "thedonorsfund",
     "appUrl": "api.thedonorsfund.local",
     "appVersion": "",
+    "apiVersion": "1.0.0",
     "useSSL": false,
     "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
 }

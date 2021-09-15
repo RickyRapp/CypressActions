@@ -1,6 +1,7 @@
 {
     "appId": "thedonorsfund",
     "appUrl": "api.tdfcharitable.org",
+    "apiVersion": "1.0.0",
     "appVersion": "",
     "useSSL": true,
     "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
