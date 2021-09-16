@@ -97,6 +97,10 @@ class QueryUtility {
 
     @action.bound
     changePage(page, updateUrlParams = true) {
+
+        this.filter.dateCreatedFrom == 'Invalid date' ? this.filter.dateCreatedFrom = null : this.filter.dateCreatedFrom;
+        this.filter.dateCreatedTo == 'Invalid date' ? this.filter.dateCreatedTo = null : this.filter.dateCreatedTo;
+
         this.filter.pageNumber = page;
 
         if (this.onChangePage) {

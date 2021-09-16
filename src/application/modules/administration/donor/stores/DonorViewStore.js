@@ -25,7 +25,7 @@ class DonorViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        params.embed = ['accountType'];
+                        params.embed = ['accountType', 'pendingTransactions'];
                         params.fields = [
                             'id',
                             'donorName',
@@ -35,6 +35,7 @@ class DonorViewStore extends BaseListViewStore {
                             'accountType',
                             'accountType.name',
                             'presentBalance',
+                            'availableBalance',
                             'pin',
                             'phone',
                             'address'
@@ -84,6 +85,14 @@ class DonorViewStore extends BaseListViewStore {
                 {
                     key: 'presentBalance',
                     title: 'DONOR.LIST.COLUMNS.PRESENT_BALANCE',
+                    format: {
+                        type: 'currency',
+                        value: '$'
+                    }
+                },
+                {
+                    key: 'availableBalance',
+                    title: 'DONOR.LIST.COLUMNS.AVAILABLE_BALANCE',
                     format: {
                         type: 'currency',
                         value: '$'

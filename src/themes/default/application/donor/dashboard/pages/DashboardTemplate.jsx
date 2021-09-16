@@ -74,7 +74,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</PageHeader>
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					{donor && donor.isContributionMade ? (
+					{donor && (donor.isContributionMade || donor.availableBalance) ? (
 						<div className="dashboard-card">
 							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 							<div className="dashboard-card__body">
@@ -124,19 +124,19 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					) : (
-							<div className="dashboard-card--emptystate">
-								<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-								<div className="dashboard-card--emptystate__body">
-									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-									<BaasicButton
-										className="btn btn--secondary btn--med btn--med--wide"
-										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-										onClick={newContributionOnClick}
-									/>
-								</div>
+						<div className="dashboard-card--emptystate">
+							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
+							<div className="dashboard-card--emptystate__body">
+								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+								<BaasicButton
+									className="btn btn--secondary btn--med btn--med--wide"
+									label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+									onClick={newContributionOnClick}
+								/>
 							</div>
-						)}
+						</div>
+					)}
 				</div>
 				<div className="col col-sml-12 col-xxlrg-6">
 					{donor && donor.isContributionMade ? (
@@ -169,19 +169,19 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					) : (
-							<div className="dashboard-card--emptystate card--med">
-								<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
-								<div className="dashboard-card--emptystate__body">
-									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-									<BaasicButton
-										className="btn btn--secondary btn--med btn--med--wide"
-										label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-										onClick={newContributionOnClick}
-									/>
-								</div>
+						<div className="dashboard-card--emptystate card--med">
+							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
+							<div className="dashboard-card--emptystate__body">
+								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+								<BaasicButton
+									className="btn btn--secondary btn--med btn--med--wide"
+									label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+									onClick={newContributionOnClick}
+								/>
 							</div>
-						)}
+						</div>
+					)}
 				</div>
 				{donor &&
 					(!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) && (
@@ -239,9 +239,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					<div className="card card--primary card--med u-mar--bottom--med">
 						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						<div className="card--med">
-						<Transaction 
-						hideSearch = {true}
-						hidePager = {true}/>
+							<Transaction
+								hideSearch={true}
+								hidePager={true} />
 						</div>
 					</div>
 				</div>
