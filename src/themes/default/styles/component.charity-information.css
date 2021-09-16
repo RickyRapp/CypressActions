@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    # component.charity-information
+\*------------------------------------*/
+
+.charity-information {
+    &__card {
+        display: flex;
+        justify-content: flex-start;
+
+        padding: calc($unit * 2) calc($unit * 4);
+        background-color: $color-background;
+        border-radius: $radius-base;
+        
+        &--secondary {
+            text-align: left;
+            font-weight: $type-weight-medium;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+/*------------------------------------*\
+    # utils.width
+\*------------------------------------*/
+
+.w {
+    &--20 {
+        width: 20%;
+    }
+    
+    &--30 {
+        width: 30%;
+    }
+
+    &--50 {
+        width: 50%;
+
+        &--px {
+            width: 50px;
+        }
+    }
+
+    &--100 {
+        width: 100%;
+
+        &--px {
+            width: 100px;
+        }
+
+        &--from {
+            &-med {
+                @media (--screen-from-med) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &--to {
+            &-lrg {
+                @media (--screen-to-lrg) {
+                    width: 100%;
+                }
+            }
+            &-med {
+                @media (--screen-to-med) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &--200 {
+        &--px {
+            width: 200px;
+        }
+    }
+
+    &--300 {
+        &--px {
+            width: 300px;
+        }
+    }
+
+    &--360 {
+        &--px {
+            width: 360px;
+        }
+    }
+
+    &--400 {
+        &--px{
+            width: 400px;
+        }
+    }
+
+    &--500 {
+        &--max{
+            width: 100%;
+            max-width: 500px;
+        }
+    }
+
+    &--600 {
+        &--px{
+            width: 600px;
+        }
+    }
+}

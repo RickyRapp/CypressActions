@@ -1,0 +1,118 @@
+/*------------------------------------*\
+    # components.modal
+\*------------------------------------*/
+
+.modal {
+	&__overlay {
+		z-index: 13;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		background-color: rgba(0, 0, 0, 0.75);
+		overflow-y: auto;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__content {
+		position: relative;
+		max-height: calc(100% - 24px);
+		max-width: calc(100% - 24px);
+		overflow-y: auto;
+		
+		padding: calc($unit * 4);
+		padding-top: calc($unit * 6);
+		border: none;
+		border-radius: $radius-base;
+
+		outline: none;
+		background: white;
+
+		/* Modal sizes */
+		&--sml {
+			width: 768px;
+		}
+	}
+
+	&__icon {
+		&--close {
+			position: absolute;
+			right: calc($unit * 1.5);
+			top: calc($unit * 1.5);
+
+			font-weight: $type-weight-bold !important;
+
+			cursor: pointer;
+			color: $grey-3;
+
+			&:hover {
+				color: $color-primary;
+			}
+		}
+	}
+
+	&__email {
+		white-space: pre-line;
+		margin: 0;
+	}
+
+	&__list {
+		display: flex;
+		padding-bottom: calc($unit * 2);
+		margin-bottom: calc($unit * 2);
+		border-bottom: 1px dotted $color-text;
+
+		@media (--screen-from-sml) {
+			padding-bottom: 0;
+			margin-bottom: 0;
+			border-bottom: 0px;
+		}
+
+		&__amount {
+			white-space: nowrap;
+		}
+
+		&__divider {
+			flex-grow: 2;
+			margin: 0 6px 3px 6px;
+
+			@media (--screen-from-sml) {		
+				border-bottom: 2px dotted $color-text;
+			}
+		}
+
+		&__wrap {
+			width: 100%;
+			max-width: 600px;
+
+			@media (--screen-from-med) {
+				width: 600px;
+			}
+		}
+	}
+}
+
+/*override of react modal window*/
+.ReactModal {
+	&__Content {
+		opacity: 0;
+
+		@media (--screen-to-lrg) {
+			width: 90%;
+		}
+
+		&--after-open {
+			opacity: 1;
+			transition: all 250ms ease-in-out;
+		}
+
+		&--before-close {
+			opacity: 0;
+		}
+	}
+}

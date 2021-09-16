@@ -1,0 +1,550 @@
+/*------------------------------------*\
+    # component.nav
+\*------------------------------------*/
+
+.nav {
+	&--primary {
+		position: relative;
+		flex-grow: 2;
+		overflow-y: auto;
+
+		&__close {
+			position: absolute;
+			top: calc($unit * 2);
+			right: calc($unit * 2);
+
+			@media (--screen-from-lrg) {
+				display: none;
+			}
+		}
+
+		&__icon {
+			margin-left: auto;
+
+			&--collapsed {
+				margin: 0 auto;
+			}
+		}
+
+		&__logo {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			padding: calc($unit * 3) calc($unit * 4);
+			border-bottom: 1px solid color($scandal a(20%));
+
+			@media (--screen-from-med) {
+				justify-content: center;
+				height: $header-height;
+			}
+		}
+		@media (--screen-from-lrg) {
+			position: absolute;
+			top: 99px;
+			left: 0;
+			right: 0;
+			bottom: 99px; 
+		}
+
+		&__item {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: calc($unit * 3) calc($unit * 4);
+
+			font-weight: $type-weight-regular;
+			color: white;
+			transition: color, background-color 250ms ease-out;
+			cursor: pointer;
+			margin: -1px 0;
+
+			border-top: 1px solid color($scandal a(10%));
+			border-bottom: 1px solid color($scandal a(10%));
+
+			@media (--screen-from-med) {
+				padding: calc($unit * 5) calc($unit * 8.5);
+			}
+
+			&--give {
+				
+				
+					@mixin type-scale $type-medium, 1;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: calc($unit * 3) calc($unit * 1);
+					margin: calc($unit * 3) calc($unit * 4);
+					border: 1px solid color($scandal a(20%));
+					border-radius: calc($unit / 1.6);
+					cursor: pointer;
+					transition: all 250ms ease-out;
+
+					&:hover {
+						color: color($color-note a(70%));
+						border-color: color($color-note a(70%));
+						background-color: $color-text !important;
+					}
+
+					&:before {
+						width: 0 !important;
+					}
+				
+
+				@media (--screen-from-med) {
+					@mixin type-scale $type-large, 1.25;
+				}
+			}
+
+			&--logout {
+				@mixin type-scale $type-base, 1;
+				display: flex;
+				justify-content: center;
+				padding: calc($unit * 3) calc($unit * 1);
+				margin: calc($unit * 3) calc($unit * 4);
+
+				color: color($white a(80%));
+
+				text-transform: uppercase;
+				border: 1px solid color($scandal a(20%));
+				border-radius: calc($unit / 1.6);
+				cursor: pointer;
+				transition: all 250ms ease-out;
+
+				&:hover {
+					color: color($color-note a(70%));
+					border-color: color($color-note a(70%));
+
+					& .u-icon--logout {
+						background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-note);
+					}
+				}
+
+				@media (--screen-to-med) {
+					padding: calc($unit * 3) calc($unit * 1);
+					margin: calc($unit * 3) calc($unit * 4);
+				}
+			}
+
+			&--menu {
+
+				@media (--screen-to-med) {
+					display: none;
+				}
+
+				position: absolute;
+				right: 0;
+				bottom: calc($unit * 18);
+
+				display: flex;
+				padding: calc($unit * 3) calc($unit * 1);
+
+				border-top-left-radius: calc($unit * 1);
+				border-bottom-left-radius: calc($unit * 1);
+				background-color: $lavander;
+				cursor: pointer;
+			}
+
+			&.active {
+				color: $white;
+				background-color: $smalt-blue;
+			}
+
+			&:hover {
+				& .nav--secondary__text {
+					color: color($white a(100%));
+				}
+			}
+
+			&:before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				width: 5px;
+				background-color: transparent;
+			}
+
+			.u-icon {
+				&--give {
+					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(50%)));
+				}
+
+				&--dashboard {
+					background-image: svg-load('postcss-svg/dashboard.svg', stroke: color($white a(50%)));
+				}
+
+				&--administration {
+					background-image: svg-load('postcss-svg/cog.svg', stroke: color($white a(50%)));
+				}
+
+				&--profile {
+					background-image: svg-load('postcss-svg/profile.svg', fill: color($white a(50%)));
+				}
+
+				&--activity {
+					background-image: svg-load('postcss-svg/activity.svg', stroke: color($white a(50%)));
+				}
+
+				&--booklet {
+					background-image: svg-load('postcss-svg/booklets.svg', stroke: color($white a(50%)));
+				}
+
+				&--booklet-order {
+					background-image: svg-load('postcss-svg/booklet-order.svg', stroke: color($white a(50%)));
+				}
+
+				&--investment {
+					background-image: svg-load('postcss-svg/investment.svg', stroke: color($white a(50%)));
+				}
+
+				&--donors {
+					background-image: svg-load('postcss-svg/donors.svg', stroke: color($white a(50%)));
+				}
+
+				&--users {
+					background-image: svg-load('postcss-svg/users.svg', stroke: color($white a(50%)));
+				}
+
+				&--charities {
+					background-image: svg-load('postcss-svg/charities.svg', stroke: color($white a(50%)));
+				}
+
+				&--third-party-website {
+					background-image: svg-load('postcss-svg/third-party-website.svg', stroke: color($white a(50%)));
+				}
+
+				&--contribution {
+					background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(50%)));
+				}
+
+				&--contribution-settings {
+					background-image: svg-load('postcss-svg/contribution.svg', stroke: color($white a(50%)));
+				}
+
+				&--donations {
+					background-image: svg-load('postcss-svg/donations.svg', stroke: color($white a(50%)));
+				}
+
+				&--grant {
+					background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(50%)));
+				}
+
+				&--scheduled-grant {
+					background-image: svg-load('postcss-svg/grant.svg', stroke: color($white a(50%)));
+				}
+
+				&--transfer {
+					background-image: svg-load('postcss-svg/transfer.svg', stroke: color($white a(60%)));
+				}
+
+				&--test {
+					background-image: svg-load('postcss-svg/test.svg', stroke: color($white a(60%)));
+				}
+
+				&--sessions {
+					background-image: svg-load('postcss-svg/sessions.svg', stroke: color($white a(60%)));
+				}
+
+				&--reconcile {
+					background-image: svg-load('postcss-svg/reconcile.svg', stroke: color($white a(60%)));
+				}
+
+				&--fidelity-cards {
+					background-image: svg-load('postcss-svg/fidelity-cards.svg', stroke: color($white a(60%)));
+				}
+
+				&--banks {
+					background-image: svg-load('postcss-svg/banks.svg', stroke: color($white a(60%)));
+				}
+
+				&--default-settings {
+					background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($white a(60%)));
+				}
+			}
+
+			&:hover,
+			&:focus,
+			&:active,
+			&.active,
+			&.selected {
+				color: $color-primary;
+				background-color: color($grey-8 a(15%));
+
+				/* &:before {
+					background-color: $scandal;
+				} */
+
+				.u-icon {
+					&--give {
+						background-image: svg-load('postcss-svg/give.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--dashboard {
+						background-image: svg-load('postcss-svg/dashboard.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--administration {
+						background-image: svg-load('postcss-svg/cog.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--profile {
+						background-image: svg-load('postcss-svg/profile.svg', fill: color($color-note a(100%)));
+					}
+
+					&--activity {
+						background-image: svg-load('postcss-svg/activity.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--booklet {
+						background-image: svg-load('postcss-svg/booklets.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--booklet-order {
+						background-image: svg-load('postcss-svg/booklet-order.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--investment {
+						background-image: svg-load('postcss-svg/investment.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--donors {
+						background-image: svg-load('postcss-svg/donors.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--users {
+						background-image: svg-load('postcss-svg/users.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--charities {
+						background-image: svg-load('postcss-svg/charities.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--third-party-website {
+						background-image: svg-load('postcss-svg/third-party-website.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--contribution {
+						background-image: svg-load('postcss-svg/contribution.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--contribution-settings {
+						background-image: svg-load('postcss-svg/contribution.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--donations {
+						background-image: svg-load('postcss-svg/donations.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--grant {
+						background-image: svg-load('postcss-svg/grant.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--scheduled-grant {
+						background-image: svg-load('postcss-svg/grant.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--transfer {
+						background-image: svg-load('postcss-svg/transfer.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--test {
+						background-image: svg-load('postcss-svg/test.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--sessions {
+						background-image: svg-load('postcss-svg/sessions.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--reconcile {
+						background-image: svg-load('postcss-svg/reconcile.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--fidelity-cards {
+						background-image: svg-load('postcss-svg/fidelity-cards.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--banks {
+						background-image: svg-load('postcss-svg/banks.svg', stroke: color($color-note a(100%)));
+					}
+
+					&--default-settings {
+						background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($color-note a(100%)));
+					}
+				}
+			}
+		}
+
+		&__collapse {
+			margin: 0 auto;
+			text-align: center;
+			cursor: pointer;
+
+			position: absolute;
+			bottom: calc($unit * 4);
+			left: 0;
+			right: 0;
+
+			i {
+				transform: rotate(180deg);
+			}
+		}
+
+		&__close {
+			position: absolute;
+			top: calc($unit * 4.5);
+			right: calc($unit * 3);
+		}
+
+		&__footer {
+
+			@media (--screen-from-med) {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+		}
+	}
+
+	&--secondary {
+
+		&__text {
+			position: relative;
+			display: block;
+
+			@mixin type-scale $type-large, 1.5;
+
+			@media (--screen-to-xlrg) {
+				@mixin type-scale $type-base, 1;
+
+				@media (--screen-from-med) {
+					@mixin type-scale $type-medium, 1.25;
+				}
+			}
+			font-weight: $type-weight-regular;
+			color: color($white a(100%));
+			transition: color, background-color 250ms ease-out;
+			cursor: pointer;
+
+			&:hover,
+			&:focus,
+			&:active,
+			&.active {
+				color: color($white a(100%));
+			}
+		}
+
+		&__item {
+			@mixin type-scale $type-base, 1;
+			font-weight: $type-weight-light;
+
+			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 13);
+			color: white;
+			border-bottom: 1px solid color($white a(10%));
+			background-color: color($color-text a(15%));
+
+			cursor: pointer;
+			transition: all 250ms ease-out;
+
+			&:hover {
+				color: $white;
+				background-color: color($smalt-blue a(35%));
+			}
+
+			&.active {
+				color: $white;
+				background-color: color($smalt-blue a(20%));
+			}
+		}
+	}
+
+	&--tertiary {
+		&__back {
+			position: absolute;
+			top: calc($unit * 4);
+			left: calc($unit * 4);
+
+			@media (--screen-from-med) {
+				display: none;
+			}
+		}
+
+		@media (--screen-to-med) {
+			padding: calc($unit * 12) 0 calc($unit * 6) 0;
+		}
+
+		&__item {
+			position: relative;
+			display: block;
+			padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 4);
+
+			font-weight: $type-weight-regular;
+			color: color($white a(50%));
+			transition: color, background-color 250ms ease-out;
+			cursor: pointer;
+
+			@media (--screen-from-med) {
+				padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 8);
+			}
+
+			&:hover,
+			&:focus,
+			&:active,
+			&.active {
+				color: $color-primary;
+				background-color: color($white a(10%));
+			}
+		}
+	}
+}
+
+.is-collapsed {
+	@media (--screen-from-sml) {
+
+		.nav--primary__collapse {
+			i {
+				transform: rotate(0deg);
+			}
+
+			&[aria-label-expand]:hover:after {
+				
+					@mixin type-scale $type-small, 1;
+					content: attr(aria-label-expand);
+					position: absolute;
+					right: 0;
+					top: calc(50% - $unit * 3);
+					padding: $unit;
+					display: block;
+					background-color: black;
+					color: white;
+					white-space: nowrap;
+					transform: translateX(90%);
+					border-radius: $radius-base;
+
+			}
+		}
+
+		.nav--primary__item {
+			padding: calc($unit * 3) calc($unit * 2);
+		}
+
+		.nav--primary__icon {
+			/*position: absolute;
+			top: calc($unit * 2);
+			right: $unit;*/
+			display: none;
+		}
+
+		.nav--primary__item--logout {
+			right: calc($unit * 1);
+			left: calc($unit * 1);
+			margin: calc($unit * 3) calc($unit * 1);
+		}
+
+		.header__logo {
+			height: 40px;
+		}
+	}
+}

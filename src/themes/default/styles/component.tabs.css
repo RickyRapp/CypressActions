@@ -1,0 +1,109 @@
+/*------------------------------------*\
+    # component.tabs
+\*------------------------------------*/
+
+.tabs {
+    &--primary {
+        display: inline-flex;
+
+        &__item {
+            display: block;
+            padding: calc($unit * 2) calc($unit * 4);
+            
+            @mixin type-scale $type-medium, 1.25;
+
+            @media (--screen-from-med) {
+                @mixin type-scale $type-xmedium, 1.5;
+            }
+            font-weight: $type-weight-medium;
+            text-align: center;
+            color: $grey-4;
+            
+            float: left;
+            
+            &:hover {
+                color: color($color-primary a(0.5));
+            }
+
+            &.active {
+                color: $color-primary;
+            }
+
+            @media (--screen-to-sml) {
+                @mixin type-scale $type-small, 0.75;
+                padding: calc($unit * 1) calc($unit * 2);
+            }
+        }
+    }
+
+    &--secondary {
+        border-right: 0;
+        border-radius: $radius-base;
+
+        &__item {
+            opacity: 0.6;
+            display: block;
+
+            padding: $unit;
+            background-color: white;
+
+            @mixin type-scale $type-small, 1;
+            font-weight: $type-weight-bold;
+
+            border-right: 1px solid $grey-2;
+            border-left: 1px solid transparent;
+            border-top: 1px solid white;
+            border-bottom: 1px solid white;
+            cursor: pointer;
+            transition: all 150ms ease-in-out;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &.is-active {
+                border: 1px solid $grey-2;
+                border-right: white;
+                opacity: 1;
+            }
+        }
+    }
+
+    &--filter {
+        display: inline-flex;
+
+        &__item {
+            display: block;
+            padding: calc($unit * 2) calc($unit * 4);
+            
+            @mixin type-scale $type-base, 1;
+
+            @media (--screen-from-xlrg) {
+                @mixin type-scale $type-medium, 1.25;
+            }
+
+            font-weight: $type-weight-medium;
+            text-align: center;
+            color: $grey-4;
+            
+            float: left;
+            border-bottom: 2px solid transparent;
+
+            &:hover {
+                color: color($color-text a(0.5));
+            }
+
+            &.active {
+                color: $color-text;
+
+                border-bottom: 2px solid $color-text;
+            }
+
+            @media (--screen-to-sml) {
+                padding: calc($unit * 1) calc($unit * 2);
+                @mixin type-scale $type-small, 1;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,24 @@
+/*------------------------------------*\
+    #view.login
+\*------------------------------------*/
+
+.login {
+
+    &__top {
+        background-color: $color-tertiary;
+        padding: calc($unit * 8) calc($unit * 4) calc($unit * 12) calc($unit * 4);
+        text-align: center;
+
+        @media (--screen-from-sml) {
+        	padding: calc($unit * 14) calc($unit * 4) calc($unit * 18) calc($unit * 4);
+        }
+
+        &__logo {
+            max-width: 200px;
+
+            @media (--screen-from-sml) {
+            	max-width: 250px;
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+/*------------------------------------*\
+    # component.message
+\*------------------------------------*/
+
+.message {
+    padding: calc($unit * 2);
+    border-radius: $radius-base;
+
+    &--warning {
+        background-color: color($color-warning lightness(+20%));
+        color: $color-text;
+    }
+
+    &--success {
+        background-color: color($color-success a(20%));
+        color: $color-success;
+        border: 1px solid $color-success;
+    }
+
+    &--note {
+        background-color: color($color-note a(20%));
+        color: $color-note;
+        border: 1px solid $color-note;
+    }
+
+    &--enh {
+        background-color: color($color-primary a(10%));
+        color: $color-primary;
+        padding: $unit calc($unit * 2);
+        border-radius: $radius-base;
+    }
+
+    &--soon {
+        @mixin type-scale $type-small, 1;
+        color: $color-primary;
+        text-transform: uppercase;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 6px);
+    }
+}

@@ -1,0 +1,48 @@
+/*------------------------------------*\
+    # modules.inputgroup
+\*------------------------------------*/
+
+.inputgroup {
+    display: table;
+    position: relative;
+    border-collapse: separate;
+    width: 100%;
+
+    &--main {
+        display: table-cell;
+        width: 100%;
+        z-index: 2;
+        position: relative;
+
+        &__input {
+            border-radius: $radius-base 0 0 $radius-base;
+            border-right: 0;
+            
+            &.is-expanded {
+                border-radius: $radius-base;
+                border: 1px solid color(white blackness(+30%));
+            }
+        }
+    }
+
+    &--aside { 
+        /* display: table-cell; */
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+        position: relative;
+
+        &__button {
+            border-radius: 0 $radius-base $radius-base 0;
+        }
+
+        &--secondary {
+            padding-left: calc($unit * 2);
+        }
+    }
+
+    & .btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

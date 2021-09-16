@@ -1,0 +1,11 @@
+/*------------------------------------*\
+    # plugin.k-datepicker
+\*------------------------------------*/
+
+.datepicker {
+    &__btn {
+        position: absolute;
+        right: 36px;
+        top: 50%;
+    }
+}

@@ -1,0 +1,198 @@
+/*------------------------------------*\
+    # component.card
+\*------------------------------------*/
+
+.card {
+	&--primary {
+		background-color: $white;
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
+	}
+
+	&--secondary {
+		border-radius: $radius-base;
+		background-color: $color-background;
+
+		&--light {
+			background-color: $color-background-seashellt;
+			border-radius: $radius-base;
+		}
+	}
+
+	&--tertiary {
+		background-color: $white;
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
+	}
+
+	&--form {
+		background-color: color($color-background-seashellt a(60%));
+		border: 1px solid color($color-primary a(25%));
+		border-radius: $radius-base;
+		box-shadow: $shadow-card;
+	}
+
+	&--session {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: calc($unit * 99);
+
+		&--start {
+			justify-content: start;
+		}
+	}
+
+	&--contribution {
+		@mixin type-scale $type-small, 1;
+		position: relative;
+
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		/* background-color: $white; */
+		cursor: pointer;
+		height: calc($unit * 10 - 2px);
+		padding: 0 calc($unit * 4);
+		text-align: left;
+
+		&--primary {
+			&:hover {
+				background-color: color($color-background-seashellt a(100%));
+
+				&::after {
+					content: '';
+					width: calc($unit / 1.7);
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					background-color: $color-note;
+				}
+
+				&::before {
+					content: '';
+					width: calc($unit * 1.6);
+					height: calc($unit * 1.6);
+					position: absolute;
+					top: 42%;
+					right: calc(-$unit * 0.9);
+					transform: translate(-50%, -50%);
+					transform: rotate(45deg);
+					background-color: $color-note;
+					border-bottom-left-radius: calc($unit * 2);
+				}
+			}
+
+			&.checked {
+				background-color: $color-background-seashellt;
+
+				&::after {
+					content: '';
+					width: calc($unit / 1.7);
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					background-color: $color-note;
+				}
+
+				&::before {
+					content: '';
+					width: calc($unit * 1.6);
+					height: calc($unit * 1.6);
+					position: absolute;
+					top: 42%;
+					right: calc(-$unit * 0.9);
+					transform: translate(-50%, -50%);
+					transform: rotate(45deg);
+					background-color: $color-note;
+					border-bottom-left-radius: calc($unit * 2);
+				}
+			}
+		}
+
+		&--standalone {
+			background-color: white;
+			border-radius: $radius-base;
+			margin-bottom: calc($unit * 2);
+		}
+
+		&__inner {
+			display: flex;
+			align-items: center;
+			width: 100%;
+		}
+
+		&--back {
+			position: relative;
+			padding-left: calc($unit * 11);
+			margin-bottom: calc($unit - 2px);
+			text-transform: none;
+			/* background-color: transparent;
+			color: $color-primary;
+			border: 1px solid $color-primary; */
+
+			&:hover {
+				color: color($color-primary blackness(+10%));
+			}
+			/* justify-content: flex-start;
+
+			&:hover {
+				background-color: $almond;
+			} */
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: calc($unit * 5);
+				top: 38%;
+				width: 14px;
+				height: 14px;
+				background-image: svg-load('../styles/postcss-svg/arrow-left-s.svg', fill: $color-note);
+				background-repeat: no-repeat;
+			}
+		}
+	}
+
+	&--tny {
+		padding: calc($unit * 2);
+	}
+
+	&--sml {
+		padding: calc($unit * 3);
+	}
+
+	&--med {
+		padding: calc($unit * 4);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 3);
+		}
+	}
+
+	&--lrg {
+		padding: calc($unit * 6);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 4);
+		}
+	}
+
+	&--xlrg {
+		padding: calc($unit * 7.5);
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 5);
+		}
+	}
+
+	&--enh {
+        background-color: color($color-primary a(10%));
+        padding: calc($unit * 6);
+        box-shadow: $shadow-card;
+        border: 1px solid color($color-primary a(50%));
+		border-radius: $radius-base;
+    }
+}

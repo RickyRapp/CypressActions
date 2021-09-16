@@ -1,0 +1,221 @@
+/*------------------------------------*\
+    # plugins.devex
+\*------------------------------------*/
+
+.dxgvControl_DevEx, .dxgvDisabled_DevEx {
+    border: 1px solid $grey-2;
+    background-color: #fff;
+
+    table-layout: fixed;
+
+    @mixin type-scale $type-tiny, 1;
+    font-family: $ff-sans;
+
+    font-weight: $type-weight-medium;
+}
+
+.dxgvHeader_DevEx {
+    padding: calc($unit * 2) $unit;
+    position: relative;
+
+    background: none;
+    background-color: $color-primary;
+    border: none;
+}
+
+.dxgvHeader_DevEx table {
+    color: #fff; 
+}
+
+.dxgvFilterRow_DevEx {
+    background-color: #fff;
+}
+
+.dxgvFilterRow_DevEx td.dxgv {
+    padding: calc($unit * 2) $unit;
+}
+
+.dxgvHeader_DevEx td {
+    font-weight: $type-weight-medium;
+}
+
+.dxeTextBox_DevEx {
+    border: 1px solid $grey-2;
+    border-radius: $radius-base;
+
+    background-color: color($grey-1 a(50%));
+}
+
+.dxeTextBoxSys td.dxic {
+    padding: $unit;
+}
+
+.dxeTextBox_DevEx .dxeEditArea_DevEx {
+    background-color: transparent;
+}
+
+.dxgvFilterRow_DevEx td.dxgv {
+    border-bottom: 1px solid $grey-2;
+}
+
+.dxgvDataRow_DevEx td.dxgv {
+    border-right: none;
+    padding: calc($unit * 2) $unit;
+    word-break: break-word;
+}
+
+.dxgvDataRow_DevEx {
+    border-bottom: 1px solid $grey-2;
+    padding: $unit;
+    word-break: break-word;
+}
+
+.dxgvHSDC {
+    padding-right: 0 !important;
+}
+
+.no--records td {
+    padding: calc($unit * 3) 0;
+    text-align: center;
+}
+
+.table--monitor {
+    @mixin type-scale $type-xsmall, 1;
+}
+
+.table--monitor td {
+    padding-left: calc($unit);
+    padding-right: calc($unit);    
+}
+
+.existing-tickets {
+    border: 1px solid $grey-2;
+    @mixin type-scale $type-tiny, 1;
+    font-family: $ff-sans;
+}
+
+.existing-tickets table {
+    width: 100%;    
+}
+
+.existing-tickets tr {
+    background-color: #fff !important;
+    border-bottom: 1px solid $grey-2;
+
+    &:hover {
+        background-color: #f6f8f9 !important;
+    }
+}
+
+.existing-tickets tr td,
+.existing-tickets tr th  {
+    padding: $unit calc($unit / 2);
+}
+
+.doc-search-table {
+    background-color: #ffffff;
+    border-bottom: 1px solid $grey-2;
+    padding: $unit 0;
+}
+
+.dxgvHeader_Aqua {
+    background: none;
+    background-color: $color-primary;
+    color: #fff;
+    border: none;
+    font-weight: $type-weight-bold;
+    padding: 5px;
+}
+
+.dxgvHeader_Aqua table {
+    color: #fff;    
+}
+
+.dxgvControl_Aqua, .dxgvDisabled_Aqua {
+    border: 1px solid $grey-2;
+    background-color: #fff;
+
+    table-layout: fixed;
+
+    @mixin type-scale $type-tiny, 1;
+    font-family: $ff-sans;
+}
+
+.DXhyperlink {
+    font-family: $ff-sans !important;
+}
+
+.dxgvDataRow_Aqua td.dxgv {
+    border-right: none;
+    border-bottom: 1px solid $grey-2;
+}
+
+.DXhyperlink:link {
+    color: $color-primary !important;
+    text-decoration: none;
+
+    &:hover{
+        color: color($color-primary a(80%)) !important;
+    }
+}
+
+.dxeBase {
+    @mixin type-scale $type-base, 1;
+    font-family: $ff-sans;
+}
+
+.dxgvFocusedRow_Aqua,.dxgvSelectedRow_Aqua {
+    background-color: color($color-primary a(30%));
+}
+
+.dxgvFilterRow_Aqua {
+    background-color: #fff;
+}
+
+.dxgvFilterRow_Aqua td.dxgv {
+    padding: $unit;
+    border-bottom: 1px solid $grey-2;
+}
+
+.dxeTextBox_Aqua{
+    border: 1px solid $grey-2;
+    font-family: $ff-sans !important;
+}
+
+.table--invoice th{
+    padding: $unit 0;
+    @mixin type-scale $type-base, 1;
+    font-family: $ff-sans;
+    font-weight: bold;
+}
+
+.table--invoice td {
+    padding: 0 $unit;
+}
+
+.table--occupants,
+.table--log {
+    font-family: $ff-sans;
+    border: 1px solid $grey-2;
+    @mixin type-scale $type-xsmall, 1;
+}
+
+.table--occupants th,
+.table--log th {
+    padding: $unit calc($unit / 2);
+}
+
+.table--occupants td,
+.table--log td {
+    padding: $unit calc($unit / 2);
+    font-family: $ff-sans;
+    border-bottom: 1px solid $grey-2;
+}
+
+.CheckBoxSmall {
+    font-family: $ff-sans;
+}
+
+.dxgvControl_Aqua {
+    width: 100% !important;
+}

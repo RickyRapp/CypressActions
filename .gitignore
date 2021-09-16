@@ -19,9 +19,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-src/.vs/slnx.sqlite
-src/.vs/slnx.sqlite-journal
-*.sublime-workspace
-.vscode/settings.json
-src/.vs/src/v15/.suo
-src/.vs/VSWorkspaceState.json
+
+\.idea/
+.vs/
+.vscode/
+build.zip

@@ -1,0 +1,226 @@
+/*------------------------------------*\
+    # component.table
+\*------------------------------------*/
+
+.table {
+	display: table;
+	border-spacing: 0px;
+	
+	&--primary {
+		table-layout: fixed;
+		width: 100%;
+		border-collapse: collapse;
+		background-color: #ffffff;
+		border: 1px solid $grey-2;
+
+		&__thead {
+			display: table-header-group;
+		}
+
+		&__tbody {
+			display: table-row-group;
+		}
+
+		&__tfoot {
+			display: table-footer-group;
+		}
+
+		&__tr {
+			display: table-row;
+		}
+
+		&__th {
+			@mixin type-scale $type-small, 1;
+			display: table-cell;
+			padding: calc($unit * 1.5) calc($unit * 2);
+			text-align: left;
+			color: $white;
+			background-color: $color-primary;
+			font-weight: $type-weight-regular;
+		}
+
+		&__td {
+			display: table-cell;
+			padding: calc($unit * 1.5) calc($unit * 2);
+			border-bottom: 1px solid $grey-2;
+			text-align: left;
+			font-weight: $type-weight-regular;
+		}
+	}
+
+	&__icons {
+		display: flex;
+		text-align: right;
+	}
+
+	&__head {
+		height: calc($unit * 6);
+		background-color: $color-background;
+
+		&--data {
+            height: calc($unit * 10);
+        }
+	}
+
+	&__body {
+
+		&--data {
+			display: flex;
+			align-items: center;
+			height: calc($unit * 6);
+		}
+	}
+
+    &--payment {
+        display:flex;
+        flex-wrap: wrap;
+        margin-bottom: calc($unit * 2);
+
+        &__cell {
+            width: 25%;
+            border: 1px solid $color-background;
+            background-color: white;
+            height: calc($unit * 10);
+            padding: 0 calc($unit * 2);
+            text-align: center;
+
+            @media (--screen-from-lrg) {
+
+            }
+
+            &.is-header {
+                background-color: transparent;
+
+                @media (--screen-to-xlrg) {
+                    display: none !important;
+                }
+            }
+
+            &.is-first {
+                border-radius: $radius-base 0 0 $radius-base;
+                width: 100%;
+                padding: 0;
+
+                @media (--screen-from-xlrg) {
+                    width: 30%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-last {
+                border-radius: 0 $radius-base $radius-base 0;
+                width: 50%;
+
+                @media (--screen-from-lrg) {
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    width: 20%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-timeline {
+               width: 50%;
+
+               @media (--screen-from-lrg) {
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    display: flex;
+                    width: 15%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-deductible {
+                display: none;
+
+                @media (--screen-from-lrg) {
+                    display: flex;
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    display: flex;
+                    width: 15%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+
+            &.is-minimum {
+                display: none;
+
+                @media (--screen-from-lrg) {
+                    display: flex;
+                    width: 25%;
+                }
+
+                @media (--screen-from-xlrg) {
+                    display: flex;
+                    width: 20%;
+                }
+
+                @media (--screen-from-xxxlrg) {
+                    width: 20%;
+                }
+            }
+        }
+
+        &__inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            height: calc($unit * 10);
+
+            * {
+                line-height: 1;
+            }
+        }
+    }
+
+    &--total {
+        width: 100%;
+        border-collapse: collapse;
+
+        th, td {
+            border-bottom: 1px solid $grey-1;
+            text-align: right;
+            padding: calc($unit * 2);
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        tbody {
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+
+        th {
+            background-color: $color-background;
+        }
+    }
+}

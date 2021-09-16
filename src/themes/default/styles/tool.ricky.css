@@ -1,0 +1,76 @@
+/*------------------------------------*\
+    # tools.ricky
+\*------------------------------------*/
+
+/**
+ * Custom grid based on flexbox.
+ * $f-grid-gutter - amount of space between columns
+ * $f-grid-columns - number of columns of the grid
+ */
+
+$grid-gutter: 42px;
+$grid-columns: 12;
+
+/**
+ * The flex-col mixin is used for building flexbox grid columns
+ */
+@define-mixin grid-span $flex-span: 1, $context: $grid-columns {
+    width: calc($(flex-span) / $(context) * 100%);
+}
+
+/**
+ * The flex-col mixin is used for building flexbox grid columns
+ */
+@define-mixin grid-push $flex-span: 1, $context: $grid-columns {
+    margin-left: calc($(flex-span) / $(context) * 100%);
+}
+
+/**
+ * The flex-col mixin is used for building flexbox grid columns
+ */
+@define-mixin grid-pull $flex-span: 1, $context: $grid-columns {
+    margin-right: calc($(flex-span) / $(context) * 100%);
+}
+
+/**
+ * Row
+ */
+.row {
+    margin-left: calc(-$grid-gutter / 2);
+    margin-right: calc(-$grid-gutter / 2);
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+
+    &__align {
+        &--center {
+            align-items: center;
+        }
+
+        &--end {
+            align-items: flex-end;
+        }
+    }
+
+    &--form {
+        margin-left: calc(-$grid-gutter / 4);
+        margin-right: calc(-$grid-gutter / 4);
+    }
+}
+
+/**
+ * Column
+ */
+.col {
+    padding-left: calc($grid-gutter / 2);
+    padding-right: calc($grid-gutter / 2);
+    transition: all 250ms ease-out;
+}
+
+.row--form {
+
+    .col {
+        padding-left: calc($grid-gutter / 4);
+        padding-right: calc($grid-gutter / 4);
+    }
+}

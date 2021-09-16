@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    # component.scrollbar
+\*------------------------------------*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #d2cfcf;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #909090;
+    border-radius: $radius-full;
+
+    border: 2px solid transparent;
+    background-clip: content-box;
+    transition: all 250ms ease-in-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #767575;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}

@@ -1,0 +1,81 @@
+/*------------------------------------*\
+    # components.separator
+\*------------------------------------*/
+
+.u {
+	&-separator {
+		&--primary {
+			border-bottom: 1px solid color($grey-7 lightness(+55%));
+
+			&--calendar {
+				border-right: 1px solid color($grey-7 lightness(+55%));
+
+				&:last-child {
+					border-right: transparent;
+				}
+			}
+		}
+
+		&--last {
+			&:last-child {
+				border-bottom: 1px solid transparent;
+			}
+		}
+
+		&--top {
+			&--primary {
+				border-top: 1px solid color($grey-7 lightness(+55%));
+			}
+		}
+
+		&--right {
+			&--primary {
+				border-right: 1px solid color($grey-7 lightness(+55%));
+
+				&--from {
+					&--xlrg {
+						@media (--screen-from-xlrg) {
+							border-right: 1px solid color($grey-7 lightness(+55%));
+						}
+					}
+				}
+			}
+        }
+
+		&--bottom {
+			&--primary {
+				border-bottom: 1px solid color($grey-7 lightness(+55%));
+
+				&--to {
+					&--xlrg {
+						@media (--screen-to-xlrg) {
+							border-bottom: 1px solid color($grey-7 lightness(+55%));
+						}
+					}
+				}
+			}
+        }
+
+        
+
+		&--left {
+			&--primary {
+				border-left: 1px solid color($grey-7 lightness(+55%));
+			}
+		}
+
+		&--mar {
+			&--18 {
+				margin-right: calc($unit * 3);
+				margin-left: calc($unit * 3);
+			}
+		}
+
+		&--neg {
+			&--12 {
+				margin-right: calc($unit * -2);
+				margin-left: calc($unit * -2);
+			}
+		}
+	}
+}

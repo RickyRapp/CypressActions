@@ -1,0 +1,24 @@
+/*------------------------------------*\
+    # util.clearing
+\*------------------------------------*/
+
+@define-mixin clearfix {
+    &:after {
+        content: "";
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden;
+        font-size: 0;
+    }
+}
+
+.u {
+    &-clearfix {
+        @mixin clearfix;
+    }
+
+    &-group {
+        overflow: hidden;
+    }
+}

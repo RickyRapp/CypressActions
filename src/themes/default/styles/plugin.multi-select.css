@@ -1,0 +1,63 @@
+/*------------------------------------*\
+    # plugins.multi-select
+\*------------------------------------*/
+
+.multiselect {
+
+    &.focused {
+        .dropdown-container {
+            border: 1px solid $color-primary;
+            box-shadow: none;
+            border-radius: $radius-base;
+        
+            .dropdown-heading-dropdown-arrow {
+                transform: rotate(-180deg);
+            }
+        }
+    }
+
+    .dropdown-container {
+        cursor: pointer;
+        
+        &:focus-within {
+            box-shadow: none;
+        }
+    }
+
+
+    .dropdown-heading {
+        height: calc($unit * 6 - 2px);
+    }
+
+    .dropdown-heading-dropdown-arrow {
+        background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
+        background-repeat: no-repeat;
+        background-position: center center;
+        vertical-align: middle;
+
+        width: calc($unit * 2);
+        height: calc($unit * 2);
+        background-size: calc($unit * 2);
+
+        font-size: 0;
+
+        transition: all 250ms ease-in-out;
+
+        path {
+            display: none;
+        }
+    }
+
+    .dropdown-content {
+        z-index: 2;
+        
+        .item-renderer {
+            display: flex;
+
+            input {
+                vertical-align: top;
+                margin-top: 4px;
+            }
+        }
+    }
+}

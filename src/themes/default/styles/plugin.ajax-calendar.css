@@ -1,0 +1,33 @@
+/*------------------------------------*\
+    # plugin.ajax-calendar
+\*------------------------------------*/
+.ajax__calendar, 
+.ajax__calendar_title,
+.ajax__calendar_body,
+.ajax__calendar_footer, 
+.ajax__calendar_today {
+    font-family: $ff-sans;
+}
+
+.ajax__calendar .ajax__calendar_day {
+    text-align: center;
+    padding: 2px 0;
+    border-radius: 50%;
+}
+
+.ajax__calendar .ajax__calendar_container {
+    border: 1px solid $grey-3 !important;
+    color: $color-text !important;
+    border-radius: $radius-base;
+    box-shadow: $z-depth-2;    
+}
+
+.ajax__calendar_container {
+    padding: calc($unit / 2) 0 !important;
+}
+
+.ajax__calendar .ajax__calendar_active .ajax__calendar_day {
+    border-radius: 50%;
+    border-color: color($color-primary blackness(+20%)) !important;
+    color: $color-primary !important;
+}

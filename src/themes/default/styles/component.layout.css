@@ -1,0 +1,176 @@
+/*------------------------------------*\
+    # component.layout
+\*------------------------------------*/
+
+$aside-width: 362px;
+$aside-sml-width: 70px;
+$aside-secondary-width: 300px;
+$header-height: 96px;
+$header-height-mobile: 72px;
+
+.layout {
+    
+    &__header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: $header-height-mobile;
+        z-index: 6;
+
+        @media (--screen-from-med) {
+            height: $header-height;
+        }
+
+        @media (--screen-from-lrg) {
+            left: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
+            left: $aside-width;
+        }
+    }
+
+    &__aside {
+        position: fixed;
+        top: $header-height-mobile;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        overflow: hidden;
+        background-color: $color-text;
+        z-index: 9;
+        
+        display: flex;
+        flex-direction: column;
+
+        @media (--screen-from-med) {
+            top: 0;
+        }
+
+        @media (--screen-from-lrg) {
+            width: calc($aside-width - calc($unit * 13));
+        }
+        
+        @media (--screen-from-xlrg) {
+            width: $aside-width;
+        }
+
+        &--secondary {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: $color-secondary;
+            z-index: 99;
+
+            @media (--screen-from-lrg) {
+                top: $header-height;
+                left: $aside-width;
+                width: $aside-secondary-width;
+            }
+        }
+
+
+        &.is-collapsed {
+
+            @media (--screen-from-lrg) {
+                width: $aside-sml-width;
+
+                .nav__text {
+                    display: none;
+                }
+
+                .nav--secondary {
+                    display: none;
+                }
+            }          
+            
+            & .nav--primary__item--give {
+                margin: calc($unit * 3) calc($unit * 1);
+                padding: calc($unit * 3) calc($unit * 2);
+            }  
+        }
+
+        &.is-open {
+
+            @media (--screen-to-lrg) {
+                width: 100%;
+            }
+        }
+    }
+
+    &__content {
+        position: fixed;
+        top: $header-height-mobile;
+        right: 0;
+        left: 0;
+        bottom: 0;
+
+        @media (--screen-from-lrg) {
+            top: $header-height;
+        }
+
+        &.is-collapsed {
+
+            @media (--screen-from-lrg) {
+                left: $aside-sml-width;
+            }
+
+            & .layout__header {
+                left: $aside-sml-width;
+
+                @media (--screen-to-lrg) {
+                    left: 0;
+                } 
+            }
+        }
+        
+        @media (--screen-from-lrg) {
+            left: calc($aside-width - calc($unit * 13));
+            padding: calc($unit * 3) calc($unit * 4);
+        }
+        
+        @media (--screen-from-xlrg) {
+            left: $aside-width;
+            padding: calc($unit * 3) calc($unit * 8);
+        }
+
+        &__inner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            overflow-y: auto;
+            padding: calc($unit * 3) calc($unit * 2);
+
+            @media (--screen-from-lrg) {
+                padding: calc($unit * 3) calc($unit * 4);
+            }
+            
+            @media (--screen-from-xlrg) {
+                padding: calc($unit * 3) calc($unit * 8);
+            }
+        }
+    }
+
+    &--error {
+        height: 100vh;
+        padding-top: 10vh;
+        
+        background-color: $grey-1;
+    }
+
+    &--nested {
+
+        .layout__content__inner {
+            position: relative;
+            padding: 0;
+        }
+    }
+}

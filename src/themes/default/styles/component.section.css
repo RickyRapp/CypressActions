@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    # component.section
+\*------------------------------------*/
+
+.section {
+    &--primary {
+        padding: calc($unit * 20) calc($unit * 8);
+    }
+
+    &--alt {
+        background-color: $grey-1;
+    }
+
+    &--docs {
+        max-width: 1440px;
+        padding: calc($unit * 6);
+    }
+}

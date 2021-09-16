@@ -1,0 +1,52 @@
+/*------------------------------------*\
+    # component.tags
+\*------------------------------------*/
+
+.tags {
+    &--primary {
+        float: left;
+        
+        display: inline-block;
+        position: relative;
+
+        padding: 0 calc($unit * 1.5);
+        margin-right: $unit;
+        margin-bottom: calc($unit);
+
+        @mixin type-scale $type-xsmall, 1;
+        color: $color-text;
+
+        border: 1px solid $color-primary;
+        border-radius: $radius-full;
+        white-space: nowrap;
+
+        &--filter {
+            padding-right: calc($unit * 4);
+        }
+    }
+
+    &--filter {
+        &__remove {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+
+            width: calc($unit * 2.5);
+            height: calc($unit * 2.5);
+
+            text-align: center;
+            line-height: calc($unit * 2);
+
+            background-color: $color-primary;
+            background-image: svg-load('../styles/postcss-svg/close-modal.svg', fill: #fff);
+            background-size: calc($unit * 1.5);
+            background-position: center;
+            background-repeat: no-repeat;
+
+            border-radius: $radius-full;
+            cursor: pointer;
+        }
+    }
+}

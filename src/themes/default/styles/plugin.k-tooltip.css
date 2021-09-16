@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    # plugin.k-tooltip
+\*------------------------------------*/
+
+.k-tooltip {
+    background-color: color(#000000 a(0.8));
+    text-align: center;
+    border-radius: $radius-base;
+    max-width: 320px;
+    
+    .k-callout {
+        color: color(#000000 a(0.8));
+    }
+    
+    .k-tooltip-content {
+        @mixin type-scale $type-xsmall, 1;
+    }
+}

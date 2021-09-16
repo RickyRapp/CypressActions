@@ -1,0 +1,198 @@
+/*------------------------------------*\
+    # utils.type
+\*------------------------------------*/
+
+.type {
+	/* Font letterform */
+	&--sans {
+		font-family: $ff-sans;
+	}
+
+	&--serif {
+		font-family: $ff-serif;
+	}
+
+	/* Font sizes */
+	&--tny {
+		@mixin type-scale $type-tiny, 0.75;
+	}
+
+	&--xsml {
+		@mixin type-scale $type-xsmall, 1;
+	}
+
+	&--sml {
+		@mixin type-scale $type-small, 1;
+	}
+
+	&--base,
+	&--label {
+		@mixin type-scale $type-base, 1;
+	}
+
+	&--med {
+		@mixin type-scale $type-base, 1;
+
+		@media (--screen-from-med) {
+			@mixin type-scale $type-medium, 1.25;
+		}
+	}
+
+	&--xmed {
+		@mixin type-scale $type-base, 1;
+
+		@media (--screen-from-med) {
+			@mixin type-scale $type-xmedium, 1.25;
+		}
+	}
+
+	&--lrg {
+		@mixin type-scale $type-medium, 1.25;
+
+		@media (--screen-from-med) {
+			@mixin type-scale $type-large, 1.5;
+		}
+	}
+
+	&--xlrg {
+		@mixin type-scale $type-large, 1.5;
+		@media (--screen-from-med) {
+			@mixin type-scale $type-xlarge, 2;
+		}
+	}
+
+	&--xxlrg {
+		@mixin type-scale $type-large, 1.5;
+		@media (--screen-from-med) {
+			@mixin type-scale $type-xxlarge, 2;
+		}
+	}
+
+	&--xxxlrg {
+		@mixin type-scale $type-xlarge, 1.5;
+		@media (--screen-from-med) {
+			@mixin type-scale $type-xxxlarge, 2;
+		}
+	}
+
+	&--huge {
+		@mixin type-scale $type-huge, 1.5;
+		@media (--screen-from-med) {
+			@mixin type-scale $type-huge, 2;
+		}
+	}
+
+	/* Font weights */
+	&--wgt {
+		&--thin {
+			font-weight: $type-weight-thin;
+		}
+
+		&--light {
+			font-weight: $type-weight-light;
+		}
+
+		&--regular {
+			font-weight: $type-weight-regular;
+		}
+
+		&--medium {
+			font-weight: $type-weight-medium;
+		}
+
+		&--bold {
+			font-weight: $type-weight-bold;
+		}
+	}
+
+	/* Type colors */
+	&--color {
+		&--text {
+			color: $color-text;
+		}
+
+		&--opaque {
+			color: $bali-hai;
+		}
+
+		&--primary {
+			color: $color-primary;
+		}
+
+		&--secondary {
+			color: $color-secondary;
+		}
+
+		&--negative {
+			color: white;
+		}
+
+		&--warning {
+			color: $color-warning;
+		}
+
+		&--success {
+			color: $color-success;
+		}
+
+		&--note {
+			color: $color-note;
+		}
+	}
+
+	/* Type case */
+	&--uppercase {
+		text-transform: uppercase;
+	}
+
+	&--lowercase {
+		text-transform: lowercase;
+	}
+
+	&--underline {
+		text-decoration: underline;
+	}
+
+	&--narrow {
+		letter-spacing: 0.0625em;
+	}
+
+	&--wide {
+		letter-spacing: 0.5px;
+	}
+
+	/* Type positioning */
+	&--center {
+		text-align: center;
+	}
+
+	&--left {
+		text-align: left;
+	}
+
+	&--right {
+		text-align: right;
+
+		&--from {
+			&--med {
+				@media (--screen-from-med) {
+					text-align: right;
+				}
+			}
+		}
+	}
+
+	/* Breaking text */
+	&--break {
+		&--all {
+			word-break: break-all;
+		}
+	}
+
+	&--ellipsis {
+		text-overflow: ellipsis;
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+}

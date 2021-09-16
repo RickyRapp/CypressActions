@@ -1,0 +1,177 @@
+/*------------------------------------*\
+    # plugins.rbc-calendar
+\*------------------------------------*/
+
+.rbc-calendar {
+    .rbc-toolbar {
+        justify-content: space-between;
+
+        .btn-primary {
+            background-color: $color-primary;
+            color: white;
+            border: 0;
+            outline: none;
+
+            &:hover {
+                background: color($color-primary blackness(+10%));
+            }
+        }
+
+        .btn-blank {
+            border: 0;
+        }
+
+        .btn-next {
+            vertical-align: 0;
+        }
+
+        .btn-tny {
+            height: calc($unit * 4);
+            line-height: calc($unit * 4);
+            padding: 0 calc($unit * 2);
+        }
+
+        .rbc-month {
+            display: inline-block;
+            min-width: 160px;
+
+            font-weight: $type-weight-bold;
+            @mixin type-scale $type-medium, 1;
+            text-align: center;
+
+            vertical-align: middle;
+        }
+
+        .rbc-switch {
+            display: flex;
+            padding: calc($unit / 2);
+            background-color: #ffffff;
+            border: 1px solid color(white blackness(+30%));
+            border-radius: $radius-base;
+        }
+
+        .k-datepicker__btn {
+            padding: 0 $unit;
+            border: 0;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+
+    .rbc-date-cell {
+        a {
+            text-decoration: underline;
+        }
+
+        &.rbc-now {
+            color: $color-primary;
+
+            &:hover {
+                color: color(#ffffff a(0.6));
+            }
+        }
+    }
+
+    /* Month view */
+    .rbc-month-view {
+        .rbc-header {
+            color: #ffffff;
+            background-color: $color-primary;
+            border-width: 0;
+            height: calc($unit * 6);
+    
+            span {
+                font-size: 14px;
+                line-height: calc($unit * 6);
+                font-weight: normal;
+            }
+        }
+
+        .rbc-day-bg {
+            background-color: white;
+
+            &.rbc-off-range-bg {
+                background-color: #efefef;
+            }
+
+            &.rbc-today {
+                position: relative;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    border-top: calc($unit * 2) solid $color-primary;
+                    border-right: calc($unit * 2) solid transparent;
+                    border-bottom: calc($unit * 2) solid transparent;
+                    border-left: calc($unit * 2) solid $color-primary;
+                }
+            }
+
+            &.rbc-week-row {
+                background-color: #EBF3FF;
+            }
+        }
+
+        .rbc-show-more {
+            background-color: transparent;
+        }
+    }
+
+    /* Week view */
+    .rbc-time-view {
+        background-color: white;
+
+        .rbc-time-header {
+            .rbc-time-header-cell, .rbc-today {
+                background-color: $color-primary;
+                color: white;
+            }
+            
+            .rbc-allday-cell .rbc-today {
+                background-color: #EAF6FF;
+            }
+        }
+    }
+
+    .rbc-agenda-view {
+        position: relative;
+        background-color: white;
+
+        .rbc-agenda-table {
+            .rbc-header {
+                background-color: $color-primary;
+                color: white;
+            }
+        }
+
+        .rbc-agenda-empty {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            text-align: center;
+            font-weight: $type-weight-bold;
+
+            &:before {
+                content: '';
+                display: block;
+                margin: 0 auto;
+                background-image: svg-load('../assets/img/list-empty-state.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 150px;
+                width: 150px;
+                height: 150px;
+            }
+        }
+    }
+
+    .rbc-agenda-view, .rbc-time-view, .rbc-month-view {
+        flex: auto;
+    }
+}

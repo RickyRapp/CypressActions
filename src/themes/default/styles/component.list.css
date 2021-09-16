@@ -1,0 +1,109 @@
+/*------------------------------------*\
+    # components.list
+\*------------------------------------*/
+
+$field-width: 300px;
+$field-width-sml: 100px;
+
+$dd-width: 300px;
+$dd-width-sml: 200px;
+
+.list {
+
+    &--preferences {
+        display: flex;
+        align-items: center;
+
+        padding-bottom: calc($unit * 2);
+        margin-bottom: calc($unit * 2);
+        border-bottom: 1px dotted $grey-2;
+        height: 73px;
+
+        &__label {
+            width: calc(100% - $field-width-sml);
+            font-weight: $type-weight-light;
+
+            @media (--screen-from-lrg) {
+                width: calc(100% - $field-width);
+            }
+
+            .is-dropdown {
+                width: calc(100% - $dd-width-sml);
+
+                @media (--screen-from-lrg) {
+                    width: calc(100% - $dd-width);
+                }
+            }
+        }
+
+        &__field {
+            width: $field-width-sml;
+
+            display: flex;
+            justify-content: flex-end;
+
+            & > div {
+                width: 100%;
+            }
+
+            @media (--screen-from-lrg) {
+                width: $field-width;
+            }
+        }
+
+        &__dd {
+            width: $dd-width-sml;
+
+            @media (--screen-from-lrg) {
+                width: $dd-width;
+            }
+        }
+
+        &__title {
+            padding-bottom: calc($unit * 2);
+            margin-bottom: calc($unit * 2);
+            border-bottom: 1px solid $grey-2;
+        }
+    }
+
+    &--faq {
+
+        &__item {
+            display: flex; 
+            margin-bottom: calc($unit * 4);
+        }
+
+        &__text {
+            width: calc(100% - $unit * 6);
+        }
+
+        &__answer {
+            display: none;
+
+            &.is-expanded {
+                display: block;
+            }
+        }
+
+        &__icon {
+            display: inline-block;
+
+            background-repeat: no-repeat;
+            background-position: center center;
+            vertical-align: middle;
+
+            transition: all 250ms ease-in-out;
+            width: calc($unit * 4);
+            height: calc($unit * 4);
+            background-size: calc($unit * 2);
+            background-image: svg-load('../styles/postcss-svg/icon-plus.svg', stroke: $color-primary);
+            border: 1px solid $color-primary;
+            border-radius: 50%;
+            margin-right: calc($unit * 2);
+
+            &.is-expanded {
+                transform: rotate(45deg);
+            }
+        }
+    }
+}

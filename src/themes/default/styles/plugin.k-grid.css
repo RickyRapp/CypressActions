@@ -1,0 +1,385 @@
+/*------------------------------------*\
+    # plugin.k-grid
+\*------------------------------------*/
+
+/* Header sort icon color */
+.k-grid-header {
+
+	.k-icon {
+		color: $color-note;
+		order: 1;
+	}
+
+	.k-header {
+
+		color: $bali-hai;
+		@mixin type-scale $type-small, 1;
+		font-weight: $type-weight-bold;
+
+		&:last-child {		
+			max-width: calc($unit * 26);
+			text-align: right;
+		}
+	}
+
+	.k-link {
+		display: flex !important;
+		align-items: center;
+	}
+
+	.k-no-sortable {
+		&:after {
+			display: none;
+		}
+	}
+
+	&[sortable='false'] {
+		&:after {
+			display: none;
+		}
+	}
+}
+
+/* Paginator */
+.k-pager-numbers .k-link,
+.k-pager-nav {
+	color: $color-primary;
+	border-radius: $radius-base;
+	cursor: pointer;
+
+	&:hover {
+		color: $color-primary;
+		background-color: color($bali-hai a(0.1));
+	}
+}
+
+.k-pager-numbers .k-state-selected {
+	background-color: $bali-hai;
+	color: #fff;
+
+	border-radius: $radius-base;
+
+	transition: all 250ms ease-in-out;
+
+	&:hover {
+		background: color($bali-hai blackness(+10%));
+		color: #fff;
+	}
+}
+
+.k-pager-nav {
+	color: $grey-4;
+}
+
+/* Table */
+.k-grid {
+	position: relative;
+	overflow: auto;
+	max-height: calc(100vh - 98px);
+
+	table {
+		/* table-layout: fixed; */
+	}
+
+	th {
+		color: $color-text;
+		background-color: $color-background;
+		border-width: 0;
+
+		&.k-hierarchy-cell {
+			background-color: $color-background !important;
+			
+			.k-link {
+				&:after {
+					display: none;
+				}
+			}
+		}
+
+		label {
+			&:before {
+				border: 2px solid #ffffff !important;
+			}
+		}
+
+		.input--check {
+			&:checked {
+				& + label {
+					&:before {
+						background-color: #ffffff !important;
+					}
+					&:after {
+						background-image: svg-load('../styles/postcss-svg/defaults/icon--check.svg', fill: $color-primary);
+					}
+				}
+			}
+		}
+
+	}
+
+	tbody {
+		tr {
+			color: $color-text;
+			background-color: #ffffff;
+			font-weight: $type-weight-regular;
+
+			&:hover {
+				background-color: #f6f8f9;
+			}
+
+			&.is-active {
+				td {
+					background-color: color($color-primary a(0.2));
+				}
+			}
+
+			/* Overiding even row's background color */
+			&.k-alt {
+				background-color: #ffffff;
+
+				&:hover {
+					background-color: #f6f8f9;
+				}
+			}
+
+			&.k-grid-norecords {
+				&:hover {
+					background-color: #fff;
+				}
+
+				/* Remove drag dots when there is no records available */
+				td:first-child {
+					&:after {
+						display: none;
+					}
+				}
+
+				td {
+					text-align: left;
+				}
+			}
+
+			td {
+				position: relative;
+				min-height: calc($unit * 5.5);
+				
+				border-bottom: 1px solid $grey-1;
+				border-left: 0;
+				background-color: #ffffff;
+
+				&.table__body--data--last {		
+					max-width: calc($unit * 26);
+					min-height: calc($unit * 7);		
+				}
+
+				&.actions {
+					text-align: right;
+				}
+
+				&.is-open {
+					font-weight: $type-weight-bold;
+
+					&:first-child {
+						&:after {
+							content: '';
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							left: 0;
+							width: 4px;
+							background-color: color($color-primary a(0.8));
+						}
+					}
+				}
+			}
+		}
+
+		.k-hierarchy-cell {
+			.k-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: $color-primary;
+			}
+		}
+	}
+
+	.k-grid-pager {
+		position: sticky;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+	/* Expanded row */
+	.k-detail-row {
+		&:hover {
+			background-color: #ffffff;
+		}
+
+		.k-detail-cell {
+			padding: $unit calc($unit * 2);
+		}
+
+		th {
+			background-color: #ffffff;
+			color: $color-text;
+			border-bottom: 2px solid $grey-4;
+		}
+
+		tbody {
+			tr {
+				&:last-child {
+					td {
+						border-bottom: 0;
+					}
+				}
+			}
+
+			td {
+				&:last-child {
+					text-align: left;
+				}
+			}
+		}
+	}
+
+	&-drag {
+		cursor: move;
+
+		&-item {
+			position: relative;
+			display: inline-block;
+
+			margin-right: auto;
+			margin-bottom: calc($unit / 2);
+			padding: calc($unit / 2);
+
+			border-radius: $radius-base;
+
+			&:after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: -16px;
+				transform: translateY(-50%);
+
+				width: calc($unit * 3);
+				height: calc($unit * 3);
+
+				background-image: svg-load('../styles/postcss-svg/dragdots.svg', fill: $grey-3);
+				background-repeat: no-repeat;
+				background-size: calc($unit * 3);
+
+				cursor: move;
+			}
+
+			&:hover {
+				background-color: $grey-1;
+			}
+
+			&-cell {
+				display: flex;
+				flex-direction: column;
+			}
+		}
+	}
+
+	.k-grid-toolbar {
+		border: 0;
+		background-color: transparent;
+	}
+
+	&-blast {
+		border: 0;
+
+		.k-grid-toolbar {
+			order: 3;
+			padding: 0;
+			padding-top: calc($unit * 2);
+		}
+
+		table {
+			order: 1;
+			box-sizing: border-box;
+			border: 1px solid $grey-2;
+			border-bottom: 0;
+		}
+
+		.k-grid-pager {
+			order: 2;
+			border: 1px solid $grey-2;
+			border-top: 0;
+		}
+	}
+
+	.btn--ghost {
+		color: $color-primary;
+	}
+
+	&--actions {
+		thead {
+			th:last-child {
+				a {
+					justify-content: flex-end;
+				}
+			}
+		}
+	}
+
+	/* Kendo grid responsive solution */
+
+	&.monitor {
+		.k-grid-header table {
+			min-width: 1400px;
+		}
+
+		.k-grid-container table{
+			min-width: 1400px;
+		}
+	}
+
+	&.main-search {
+		.k-grid-header table {
+			min-width: 1400px;
+		}
+
+		.k-grid-container table{
+			min-width: 1400px;
+		}
+	}
+
+	&.time-reports {
+		table {
+			min-width: 1400px;
+		}
+	}
+}
+
+/* Change text selection background color on Kendo elements */
+.k-widget ::selection,
+.k-block ::selection,
+.k-panel ::selection {
+	background-color: $color-primary;
+}
+
+.k-grid th, .k-grid td {
+    @mixin type-scale $type-small, 0.75;
+
+	@media (--screen-from-med) {
+		@mixin type-scale $type-base, 1;
+	} 
+}
+
+.k-grid {
+
+    .table {
+
+        &__cell {
+
+            &--date {
+                width: 100px;
+            }
+        }
+    }
+}

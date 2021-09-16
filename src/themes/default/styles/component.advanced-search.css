@@ -1,0 +1,25 @@
+/*------------------------------------*\
+    # component.advanced-search
+\*------------------------------------*/
+
+.advanced-search {
+    cursor: pointer;
+    background-color: transparent;
+    border: 0px;
+    color: $color-text;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        border: none;
+    }
+
+    &[disabled] {
+        cursor: default;
+        opacity: 0.5;
+    }
+
+    @media (--screen-to-med) {
+        margin-top: calc($unit * 4);
+    }
+}

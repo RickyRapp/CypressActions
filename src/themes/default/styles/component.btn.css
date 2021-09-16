@@ -1,0 +1,317 @@
+/*------------------------------------*\
+    # component.btn
+\*------------------------------------*/
+
+.btn {
+    /**
+     * Button base
+    */
+    display: inline-block;
+    vertical-align: middle;
+
+    touch-action: manipulation;
+    user-select: none;
+
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+    border: 0;
+    border-radius: $radius-base;
+
+    transition: all 250ms ease-in-out;
+
+    &:focus {
+        outline: 0;
+        box-shadow: transparent;
+    }
+
+    /**
+     * Button base project styling
+    */
+    font-family: $ff-sans;
+    font-weight: $type-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    /**
+     * Button sizes
+    */
+    &--tny {
+        font-size: 12px;
+        height: calc($unit * 3.5);
+        padding: 0 calc($unit * 1);
+        line-height: calc($unit * 3.5);
+    }
+
+    &--xsml {
+        font-size: 12px;
+        height: calc($unit * 5);
+        padding: 0 calc($unit * 2);
+        line-height: calc($unit * 5);
+    }
+
+    &--sml {
+        font-size: 14px;
+        height: calc($unit * 6);
+        padding: 0 calc($unit * 2);
+        line-height: calc($unit * 6);
+
+        &--wide {
+            padding: 0 calc($unit * 4);
+        }
+    }
+    
+    &--base {
+        font-size: 16px;
+        height: calc($unit * 7);
+        padding: 0 calc($unit * 3);
+        line-height: calc($unit * 7);
+    }
+
+    &--med {
+        font-size: 15px;
+        /* min-width: calc($unit * 26); */
+        height: calc($unit * 10);
+        padding: 0 calc($unit * 4);
+        line-height: calc($unit * 10);
+        
+        &--wide {
+            padding: 0 calc($unit * 8);
+
+        }
+
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            padding: 0 calc($unit * 4);
+            @mixin type-scale $type-small, 1;
+        }
+
+        &--100 {
+            width: 100%;
+            max-width: 360px;
+            padding: 0 calc($unit * 4);
+            @mixin type-scale $type-base, 1;
+
+            .u-icon--arrow-forward {
+                margin-left: auto;
+            }
+        }
+    }
+
+    &--lrg {
+        height: calc($unit * 10);
+        padding: 0 calc($unit * 6);
+        line-height: calc($unit * 10);
+    }
+
+    &--100 {
+        width: 100%;
+        height: calc($unit * 10);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @mixin type-scale $type-base, 1;
+
+        @media (--screen-to-med) {
+            height: calc($unit * 8);
+            line-height: calc($unit * 8);
+            padding: 0 calc($unit * 4);
+            @mixin type-scale $type-small, 1;
+        }
+    }
+
+    /**
+     * Button styles
+    */
+    &--primary {
+        background: $bali-hai;
+        color: $white;
+
+        &:hover {
+            background: color($bali-hai a(65%));
+        }
+
+        &--light {
+            background-color: $color-background;
+            color: $color-text;
+
+            &:hover {
+                background: color($color-background a(80%));
+            }
+        }
+    }
+
+    &--secondary {
+        background: $color-text;
+        color: $white;
+        
+        &:hover {
+            color: color($white a(80%));
+            background: color($color-text a(80%));
+        }
+        
+        &--light {
+            background: $color-background-clear-day;
+            color: $color-note;
+            
+            &:hover {
+                background: color($color-background-clear-day blackness(+5%));
+            }
+        }
+    }
+
+    &--tertiary {
+        background: $white;
+        color: $zest;
+
+        &:hover {
+            background: $lavander;
+            color: $color-text;
+        }
+    }
+
+    &--show {
+        width: 100%;
+        height: calc($unit * 10);
+        display: flex;
+        justify-content: space-between;
+        padding: 0 calc($unit * 6);
+        line-height: calc($unit * 10);
+        
+        align-items: center;
+        color: $color-text;
+        background-color: $color-background;
+        border-radius: calc($unit * 4);
+
+        @mixin type-scale $type-base, 1;
+
+        @media (--screen-to-sml) {
+            padding: 0 calc($unit * 4);
+
+            @mixin type-scale $type-small, 1;
+        }
+    }
+
+    &--warning {
+        background: $color-warning;
+        color: white;
+
+        &:hover {
+            background: color($color-warning blackness(+10%));
+        }
+    }
+
+    &--neutral {
+        background: $grey-6;
+        color: white;
+
+        &:hover {
+            background: color($grey-6 blackness(+10%));
+        }
+    }
+
+    &--ghost {
+        background-color: transparent;
+        color: $color-primary;
+        border: 1px solid $color-primary;
+        
+        &:hover {
+            color: color($color-primary blackness(+10%));
+        }
+    }
+
+    &--blank {
+        background-color: transparent;
+        color: $color-primary;
+        border: transparent;
+        
+        &:hover {
+            color: color($color-primary blackness(+10%));
+        }
+    }
+    
+    &--link {
+        padding: 0;
+        color: $color-primary;
+        background-color: transparent;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &--secondary {
+            padding: 0;
+            color: $color-text;
+            background-color: transparent;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    /* Fake button as Kendo tooltip position fix */
+    &--icon {
+        padding: 0;
+        background-color: transparent;
+
+        &--med {
+            padding: 0 calc($unit * 2);
+        }
+
+        .u-icon {
+            border-radius: $radius-base;
+        }
+
+        /* Sizes */
+        &--sml {
+            padding: calc($unit * 3 - 1px) calc($unit * 3 - 1px);
+        }
+        
+        &--lrg {
+            padding: calc($unit * 4 - 1px) calc($unit * 4 - 1px);
+        }
+    }
+
+    &.is-disabled,
+    &[disabled] {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    &[aria-busy="true"] {
+        animation: button-busy 1500ms ease-in-out infinite;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
+
+        &:focus {
+            box-shadow: none !important;
+        }
+
+        &:active {
+            transform: none !important;
+        }
+    }
+
+    &--back-to-top {
+        position: fixed;
+        bottom: 48px;
+        right: 48px;
+        padding-top: calc($unit * 1.5);
+    }
+}
+
+/* Busy button animation */
+@keyframes button-busy {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}

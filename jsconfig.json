@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "themes/*": [
+        "src/themes/default/*"
+      ],
+      "core/*": [
+        "src/core/*"
+      ],
+      "common/*": [
+        "src/common/*"
+      ],
+      "application/*": [
+        "src/application/modules/*"
+      ]
+    },
+    "jsx": "react",
+    "experimentalDecorators": true
+  }
+}

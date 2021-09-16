@@ -1,0 +1,47 @@
+/*------------------------------------*\
+    # component.toggle
+\*------------------------------------*/
+
+.toggle {
+	width: calc($unit * 8);
+	height: calc($unit * 4);
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+	padding: calc($unit / 2);
+
+	border-radius: $radius-full;
+    
+    &--active {
+        background: $zest;
+    }
+
+    &--deactive {
+        background: $bali-hai;
+    }
+
+	&__btn {
+		width: 45%;
+        height: 100%;
+        
+        background-color: transparent;
+        border: 0;
+        outline: none;
+        transition: all 150ms ease-in-out;
+
+		&--active {
+			border-radius: $radius-full;
+            background: $white;
+            
+            cursor: pointer;
+        }
+        
+        &--deactive {
+            border-radius: $radius-full;
+            background: $white;
+            
+            cursor: pointer;
+        }
+	}
+}

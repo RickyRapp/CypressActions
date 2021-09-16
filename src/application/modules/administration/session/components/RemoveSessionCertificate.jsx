@@ -1,0 +1,19 @@
+import React from 'react';
+import { observer } from 'mobx-react';
+import { setCurrentView } from 'core/utils';
+import { RemoveSessionCertificateTemplate } from 'themes/application/administration/session/components';
+import { RemoveSessionCertificateViewStore } from 'application/administration/session/stores';
+
+@setCurrentView((rootStore, props) => new RemoveSessionCertificateViewStore(
+    rootStore,
+    props.modalParams.data.grant,
+    props.modalParams.data.onAfterAction),
+    'removeSessionCertificateViewStore')
+@observer
+class RemoveSessionCertificate extends React.Component {
+    render() {
+        return <RemoveSessionCertificateTemplate {...this.props} />
+    }
+}
+
+export default RemoveSessionCertificate;

@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    # component.info-card
+\*------------------------------------*/
+
+.info-card {
+	&--scale {
+		padding: 12px 0;
+		cursor: pointer;
+		transition: all 250ms ease-out;
+
+		&:hover {
+			padding: 12px 12px;
+			background-color: $white;
+			border-radius: $radius-base;
+			box-shadow: $shadow-card;
+		}
+	}
+
+	&--footer {
+		width: 100%;
+		text-align: right;
+		margin-top: calc($unit * 3);
+
+		& .btn {
+			&:first-child {
+				margin-right: 12px;
+			}
+		}
+
+		@media (--screen-to-med) {
+			text-align: center;
+			& .btn {
+				min-width: 48%;
+
+				&:first-child {
+					margin-right: 2%;
+				}
+			}
+		}
+	}
+}

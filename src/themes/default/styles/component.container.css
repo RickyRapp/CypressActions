@@ -1,0 +1,20 @@
+/*------------------------------------*\
+    # component.container
+\*------------------------------------*/
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    
+    &--sml {
+    	max-width: 768px;
+    }
+    
+    &--base {
+        max-width: 1024px;
+    }
+
+    &--lrg {
+        max-width: 1440px;
+    }
+}

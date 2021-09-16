@@ -1,0 +1,2962 @@
+{
+    "MENU": {
+        "FOOTER": {
+            "LOGOUT": "Logout",
+            "COLLAPSE": "Collapse",
+            "EXPAND": "Expand"
+        },
+        "USERS": "Users",
+        "ROLES": "Roles",
+        "PERMISSIONS": "Permissions",
+        "APPLICATION": "Application",
+        "ADMINISTRATION": "Administration",
+        "BOOKLET": "Certificates",
+        "SESSION": "Session",
+        "GRANT": "Grant",
+        "DEPOSIT": "Deposit",
+        "DASHBOARD": "Dashboard",
+        "DONORS": "Donors",
+        "DONOR_EDIT": "Profile",
+        "CHARITIES": "Charities",
+        "MANAGE_CHARITY_ACCOUNT": "Manage Account",
+        "DEPOSITS": "Deposits",
+        "GRANTS": "Grants",
+        "DONATIONS": "Donations",
+        "SCHEDULED_GRANTS": "Scheduled grants",
+        "FUND_TRANSFERS": "Fund transfers",
+        "FUND_TRANSFER": "Fund transfer",
+        "BOOKLETS": "Booklets",
+        "BOOKLET_ORDERS": "Booklet orders",
+        "SESSIONS": "Sessions",
+        "SESSION_CERTIFICATES": "Certificates",
+        "SESSION_IN_PROGRESS": "Session in progress",
+        "SCANNER_CONNECTIONS": "Scanner connections",
+        "APPLICATION_DEFAULT_SETTING": "Default setting",
+        "SCHEDULED_SETTINGS": "Scheduled settings",
+        "RECONCILE": "Reconcile",
+        "GIVING_CARDS": "Giving cards",
+        "CHARITY_WEBSITE": "Charity websites",
+        "CHARITY_GRANTS": "Grants",
+        "CHARITY_GRANT_REQUESTS": "Request Donation",
+        "CHARITY_CERTIFICATES": "Certificates",
+        "BANKS": "Banks",
+        "TESTING": "Test",
+        "INVESTMENTS": "Investments",
+        "SEND_A_GIFT": "Send a gift",
+        "MANAGE_FUND": "Manage Fund",
+        "PROFILE_SETTING": "Profile Settings",
+        "PROFILE": "Profile",
+        "CHARITY_PROFILE_SETTING": "Profile Settings",
+        "MANAGE_CHARITIES": "Manage Charities",
+        "COMMUNICATION_PREFERENCES": "Communication Preferences",
+        "LEGACY": "Legacy",
+        "ORDER_VOUCHERS": "Order Checks",
+        "ORDERDRAFT_PROTECTION": "Orderdraft protection",
+        "NEW_GRANT": "New Grant",
+        "NEW_PLEDGE": "New Pledge",
+        "GIVE": "Give",
+        "NEW_REMAINDER": "New Remainder",
+        "ACTIVITY": "Activity",
+        "CHARITY_PROFILE": "Profile",
+        "GRANT_REQUEST": "Request donation",
+        "CHARITY_GIVING_CARD": "Accept Card",
+        "CREDIT_DEBIT": "Credit/Debit",
+        "DONOR-DONOR": "Donor To Donor"
+    },
+    "CORE": {
+        "DATE_FORMAT": {
+            "short": "MM/DD/YYYY",
+            "full": "LLL",
+            "full-time-offset": "LTS Z",
+            "kendo-input-short": "M/d/y",
+            "kendo-input-medium": "MM/DD/YYYY hh:mm",
+            "full-date": "MMMM, dddd, MM/DD/YYYY"
+        }
+    },
+    "HEADER": {
+        "USER_MENU": {
+            "CHANGE_PASSWORD": "Change Password",
+            "LOGOUT": "Logout",
+            "MY_PROFILE": "Profile"
+        }
+    },
+    "ERROR_MESSAGES": {
+        "REQUIRED": "The [:attribute] field is required.",
+        "ACCEPTED": "The [:attribute] must be accepted.",
+        "AFTER": "The [:attribute] must be after [:after].",
+        "AFTER_OR_EQUAL": "The [:attribute] must be equal or after [:after_or_equal].",
+        "ALPHA": "The [:attribute] field must contain only alphabetic characters.",
+        "ALPHA_DASH": "The [:attribute] field may only contain alpha-numeric characters, as well as dashes and underscores.",
+        "ALPHA_NUM": "The [:attribute] field must be alphanumeric.",
+        "BEFORE": "The [:attribute] must be before [:before].",
+        "BEFORE_OR_EQUAL": "The [:attribute] must be equal or before [:before_or_equal].",
+        "BETWEEN": "The [:attribute] field must be between [:min] and [:max].",
+        "CONFIRMED": "The [:attribute] confirmation does not match.",
+        "DATE": "The [:attribute] is not a valid date format.",
+        "DEF": "The [:attribute] attribute has ERRORs.",
+        "DIFFERENT": "The [:attribute] and [:different] must be different.",
+        "DIGITS": "The [:attribute] must be [:digits] digits.",
+        "EMAIL": "The [:attribute] format is invalid.",
+        "IN": "The selected [:attribute] is invalid.",
+        "INTEGER": "The [:attribute] must be an integer.",
+        "MAX": {
+            "NUMERIC": "The [:attribute] may not be greater than [:max].",
+            "STRING": "The [:attribute] may not be greater than [:max] characters."
+        },
+        "MIN": {
+            "NUMERIC": "The [:attribute] must be at least [:min].",
+            "STRING": "The [:attribute] must be at least [:min] characters."
+        },
+        "NOT_IN": "The selected [:attribute] is invalid.",
+        "NUMERIC": "The [:attribute] must be a number.",
+        "PRESENT": "The [:attribute] field must be present (but can be empty).",
+        "REGEX": "The [:attribute] format is invalid.",
+        "REQUIRED_IF": "The [:attribute] field is required.",
+        "REQUIRED_UNLESS": "The [:attribute] field is required when [:other] is not [:value].",
+        "REQUIRED_WITH": "The [:attribute] field is required when [:field] is not empty.",
+        "REQUIRED_WITH_ALL": "The [:attribute] field is required when [:fields] are not empty.",
+        "REQUIRED_WITHOUT": "The [:attribute] field is required when [:field] is empty.",
+        "REQUIRED_WITHOUT_ALL": "The [:attribute] field is required when [:fields] are empty.",
+        "SAME": "The [:attribute] and [:same] fields must match.",
+        "SIZE": {
+            "NUMERIC": "The [:attribute] must be [:size].",
+            "STRING": "The [:attribute] must be [:size] characters."
+        },
+        "STRING": "The [:attribute] must be a string.",
+        "URL": "The [:attribute] format is invalid.",
+        "CUSTOM": {
+            "AFTER_DATE": "END TIME cannot be before START TIME.",
+            "BEFORE_DATE": "START TIME cannot be after END TIME.",
+            "MIN_DATE": "Invalid date.",
+            "MAX_DATE": "Invalid date.",
+            "BEFORE_OR_EQUAL": "The [:attribute] must be equal or before [:before_or_equal_date]",
+            "LESS_THAN": "FROM value cannot be greater than or equal to TO value.",
+            "GREATER_THAN": "TO value cannot be less than or equal to FROM value.",
+            "ORG_STRUCT_REGEX": "Name can only contain alphanumeric characters, spaces, -, _, and ."
+        },
+        "REQUIIRED_WITH_ALL": "ERROR_MESSAGES.REQUIIRED_WITH_ALL"
+    },
+    "ERROR_CODE": {
+        "400": "The request could not be understood due to invalid data.",
+        "404": "Requested resource could not be found.",
+        "500": "Unhandled error occurred, please contact support team.",
+        "1000": "Validation failed.",
+        "1100": "The e-mail address already exists in the database for the application.",
+        "1101": "The provider user key already exists in the database for the application.",
+        "1102": "The user name already exists in the database for the application.",
+        "1103": "The password answer is not formatted correctly.",
+        "1104": "The invalid culture name.",
+        "1105": "The e-mail address is not formatted correctly.",
+        "1106": "The password is not formatted correctly.",
+        "1107": " The provider user key is of an invalid type or format.",
+        "1108": "The password question is not formatted correctly.",
+        "1109": "The invalid time zone identifier.",
+        "1110": "The user name was not found.",
+        "1111": "Password doesn't match regex.",
+        "1112": "Password has too few alphanumeric characters.",
+        "1113": "Password is too short.",
+        "1114": "The user was not created, for a reason defined by the provider.",
+        "2000": "Validation failed.",
+        "2100": "The e-mail address already exists in the database for the application.",
+        "2101": "The provider user key already exists in the database for the application.",
+        "2102": "The user name already exists in the database for the application.",
+        "2103": "The password answer is not formatted correctly.",
+        "2104": "The invalid culture name.",
+        "2105": "The e-mail address is not formatted correctly.",
+        "2106": "The password is not formatted correctly.",
+        "2107": " The provider user key is of an invalid type or format.",
+        "2108": "The password question is not formatted correctly.",
+        "2109": "The invalid time zone identifier.",
+        "2110": "The user name was not found.",
+        "2111": "Password doesn't match regex.",
+        "2112": "Password has too few alphanumeric characters.",
+        "2113": "Password is too short.",
+        "2114": "The user was not created, for a reason defined by the provider.",
+        "3000": "Grant is canceled.",
+        "3001": "Insufficient funds.",
+        "3002": "Grant information invalid.",
+        "3003": "Charity not found.",
+        "3004": "Charity is not active.",
+        "3005": "Donor not found",
+        "3006": "Grant is processed.",
+        "3007": "Missing reserved not done transaction.",
+        "3008": "Scheduled payment already done.",
+        "3011": "Cannot edit in this status.",
+        "3012": "Time expired for editing.",
+        "3100": "Invalid card number.",
+        "3101": "Possible lost or stolen.",
+        "3102": "Card reported as lost or stolen.",
+        "3103": "Card is not assigned.",
+        "3104": "Card is locked.",
+        "4000": "Scanner connection not initialized.",
+        "4001": "Session already active.",
+        "4002": "Barcode not found.",
+        "4003": "Certificate not clean.",
+        "4004": "Booklet not assigned.",
+        "4005": "Certificate not active.",
+        "4006": "Charity not active.",
+        "4007": "Certificate already used in open session.",
+        "4008": "Insufficient funds.",
+        "4009": "Certificate already scanned.",
+        "5000": "Setting not enabled.",
+        "5001": "Cannot have two low balance settings.",
+        "5003": "Please, enter minimum amount.",
+        "5005": "Time expired for editing.",
+        "5028": "Cannot edit in this status.",
+        "6000": "Missing bank account.",
+        "6001": "Missing address.",
+        "6002": "Only donations per one charity.",
+        "6003": "Missing reserved not done transaction.",
+        "7000": "Insufficient funds. Necessary amount is: "
+    },
+    "BREADCRUMBS": {
+        "CREATE": "Create",
+        "EDIT": "Edit",
+        "PREVIEW": "Preview",
+        "SETTINGS": "Settings",
+        "LANGUAGE": "Localization"
+    },
+    "MODAL": {
+        "YES_NO_CONFIRM_LABEL": "YES",
+        "YES_NO_CANCEL_LABEL": "NO"
+    },
+    "LIST_LAYOUT": {
+        "SETTINGS_BUTTON": "Settings",
+        "CREATE_BUTTON": "Create New",
+        "BACK_BUTTON": "Back",
+        "SAVE_BUTTON": "Save",
+        "CONFIRM_DELETE": "Are you sure you want to delete selected resource?",
+        "CONFIRM_BATCH_DELETE": "Are you sure you want to delete selected resources?",
+        "CONFIRM_BATCH_UPDATE": "Are you sure you want to update selected resources?",
+        "SUCCESS_DELETE": "Successfully removed selected resource",
+        "SUCCESS_BATCH_DELETE": "Successfully removed selected resources",
+        "SUCCESS_BATCH_UPDATE": "Successfully updated selected resources",
+        "ERROR_DELETE": "Error occurred while trying to remove selected resource",
+        "ERROR_BATCH_DELETE": "Error occurred while trying to remove selected resources",
+        "ERROR_BATCH_UPDATE": "Error occurred while trying to update selected resources"
+    },
+    "EDIT_LAYOUT": {
+        "NEW": "New"
+    },
+    "EDIT_FORM_LAYOUT": {
+        "BREADCRUMB_CREATE": "Create",
+        "BREADCRUMB_EDIT": "Edit",
+        "SUCCESS_CREATE": "Successfully created resource",
+        "ERROR_CREATE": "Error occurred while trying to create resource",
+        "SUCCESS_UPDATE": "Successfully updated selected resource",
+        "ERROR_UPDATE": "Error occurred while trying to update selected resource",
+        "SUCCESS_DELETE": "Successfully deleted selected resource",
+        "ERROR_DELETE": "Error occurred while trying to delete selected resource",
+        "CANCEL": "Cancel",
+        "LANGUAGES": "Translation",
+        "DELETE": "Delete"
+    },
+    "PREVIEW_LAYOUT": {
+        "NEW": "New",
+        "EDIT_BUTTON": "Edit",
+        "CANCEL_BUTTON": "Cancel"
+    },
+    "APPLICATION_EDIT_LAYOUT": {
+        "EMPTY_STATE_TITLE": "Application Not Selected",
+        "EMPTY_STATE_DESCRIPTION": "Select an application from the application selector."
+    },
+    "ITEM_SETTINGS": {
+        "SUCCESS_CREATE": "Successfully created resource settings",
+        "ERROR_CREATE": "Errror occurred while trying to create resource settings",
+        "SUCCESS_UPDATE": "Successfully updated resource settings",
+        "ERROR_UPDATE": "Error occurred while trying to update resource settings"
+    },
+    "LANGUAGE_EDIT_LAYOUT": {
+        "BREADCRUMB": "Language",
+        "LANGUAGE_COLUMN": "Language",
+        "SUCCESS_UPDATE": "Successfully updated resource language",
+        "ERROR_UPDATE": "Error occurred while trying to update resource language"
+    },
+    "DATEPICKER": {
+        "CLEAR_BUTTON": "Clear",
+        "CHOOSE_A_TIME_PERIOD_PLACEHOLDER": "Choose a time period"
+    },
+    "DROPDOWN": {
+        "CLEAR_BUTTON": "Clear"
+    },
+    "DROPZONE": {
+        "TITLE": "Upload"
+    },
+    "FORM_CONTROLS": {
+        "SAVE_BUTTON": "Save",
+        "EDIT_BUTTON": "Edit",
+        "CONFIRM_BUTTON": "Confirm"
+    },
+    "LIST_SELECT_LAYOUT": {
+        "EMPTY_MESSAGE": "There is no information about selected item"
+    },
+    "LOGIN": {
+        "TITLE": "The Donors Fund",
+        "DESCRIPTION": "Login to app with your credentials. If you have problem with login, contact support.",
+        "FORGOT_PASSWORD_BUTTON": "Forgot you Password?",
+        "SIGNIN_BUTTON": "Sign In",
+        "USERNAME_LABEL": "Email",
+        "USERNAME_PLACEHOLDER": "Enter Email",
+        "PASSWORD_LABEL": "Password",
+        "PASSWORD_PLACEHOLDER": "Enter password",
+        "INVALID_CREDENTIALS": "Invalid username or password"
+    },
+    "REGISTER": {
+        "SIGN_UP_BUTTON": "Sign up",
+        "SUCCESSFULL_REGISTRATION": "Registration successfull",
+        "ACTIVATION_LINK_SENT": "Activation link has been sent to your email address",
+        "ACTIVATION_MESSAGE": "Your account has been activated",
+        "ACTIVATION": {
+            "REQUEST_NOT_UNDERSTOOD_BY_SYSTEM": "Requested action could not be understood by the system",
+            "AUTHENTICATION_NEEDED": "Requested action requires authentication",
+            "SYSTEM_REJECTION": "System refuses to fulfill the requested action",
+            "NON_EXISTING_USER": "Specified user account does not exist in the system",
+            "SYSTEM_CONFLICT": "Requested action could not be carried out because of a conflict in the system",
+            "GENERIC_ERROR": "A generic error has occurred on the system"
+        }
+    },
+    "PASSWORD_RECOVERY": {
+        "TITLE": "FORGOT YOUR PASSWORD?",
+        "DESCRIPTION": "Enter your signup username or e-mail, and we'll send you a link to reset your password.",
+        "RESET_BUTTON": "Reset Password",
+        "CANCEL_BUTTON": "Cancel",
+        "USERNAME_LABEL": "Username",
+        "USERNAME_PLACEHOLDER": "Please enter username or email",
+        "LOGGING_IN": "Logging in...",
+        "RESET_PASSWORD_EMAIL_SENT_MESSAGE": "An e-mail containing a link to reset the password on your account has been sent"
+    },
+    "PASSWORD_CHANGE": {
+        "TITLE": "Change Password",
+        "NEW_PASSWORD_LABEL": "New Password",
+        "NEW_PASSWORD_PLACEHOLDER": "Enter new password",
+        "CONFIRM_PASSWORD_LABEL": "Confirm password",
+        "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
+        "SUCCESS_MESSAGE": "Your password has been changed",
+        "ERROR_MESSAGE": {
+            "TOKEN_EXPIRED": "Password recovery token expired",
+            "ERROR": "Error occured",
+            "UNKNOWN_EXPIRED_TOKEN": "Unknown or expired password recovery token",
+            "URL_NOT_VALID": "Password recovery URL is not valid. Please try again"
+        }
+    },
+    "LANGUAGE": {
+        "LIST": {
+            "TITLE": "Languages",
+            "COLUMNS": {
+                "NAME": "Name",
+                "ISO": "ISO",
+                "CULTURE": "Culture"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Language",
+            "NAME_LABEL": "NAME",
+            "NAME_PLACEHOLDER": "Enter language name",
+            "ISO_LABEL": "ISO",
+            "ISO_PLACEHOLDER": "Enter ISO",
+            "CULTURE_LABEL": "CULTURE",
+            "CULTURE_PLACEHOLDER": "Enter culture"
+        }
+    },
+    "select-language": "Choose language",
+    "NOTIFICATIONS": {
+        "SUCCESS": "Success",
+        "ERROR": "Error"
+    },
+    "USER": {
+        "LIST": {
+            "TITLE": "Users",
+            "COLUMNS": {
+                "USERNAME": "Username",
+                "EMAIL": "Email",
+                "APPROVED": "Approved",
+                "LOCKED_OUT": "Locked Out",
+                "FIRST_NAME": "First name",
+                "LAST_NAME": "Last name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No users",
+                "ACTION": "Create new user",
+                "APPLICATION_TITLE": "Select an application",
+                "APPLICATION_DESCRIPTION": "Please select an application first."
+            }
+        },
+        "EDIT": {
+            "TITLE": "User details",
+            "USERNAME_LABEL": "Username",
+            "USERNAME_PLACEHOLDER": "Enter username",
+            "EMAIL_LABEL": "Email",
+            "EMAIL_PLACEHOLDER": "Enter email",
+            "ROLES_LABEL": "Roles",
+            "ROLES_PLACEHOLDER": "Select user roles"
+        },
+        "USER_PROFILE_FIELDS": {
+            "TITLE": "User profile",
+            "BIRTHDAY_LABEL": "Date of birth",
+            "STREET_LABEL": "Address",
+            "ZIP_LABEL": "ZIP",
+            "CITY_LABEL": "City",
+            "COUNTRY_LABEL": "Country",
+            "MOBILE_PHONE_LABEL": "Mobile phone",
+            "EMAIL_LABEL": "Email"
+        },
+        "CREATE": {
+            "USER_CREATE_SUCCESS": "Successfully created new user",
+            "USER_CREATE_ERROR": "Errror occurred while trying to create user",
+            "PROFILE_CREATE_ERROR": "Errror occurred while trying to create user profile",
+            "TITLE": "User",
+            "USERNAME_LABEL": "Username",
+            "USERNAME_PLACEHOLDER": "Enter username",
+            "EMAIL_LABEL": "Email",
+            "EMAIL_PLACEHOLDER": "Enter email",
+            "FIRST_NAME_LABEL": "First name",
+            "LAST_NAME_LABEL": "Last name",
+            "CONFIRM_EMAIL_LABEL": "Confirm email",
+            "CONFIRM_EMAIL_PLACEHOLDER": "Enter confirm email",
+            "PASSWORD_LABEL": "Password",
+            "PASSWORD_PLACEHOLDER": "Enter Password",
+            "CONFIRM_PASSWORD_LABEL": "Confirm password",
+            "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
+            "ROLES_LABEL": "Roles",
+            "ROLES_PLACEHOLDER": "Select user roles"
+        },
+        "PASSWORD_CHANGE": {
+            "TITLE": "User",
+            "PASSWORD_LABEL": "New password",
+            "PASSWORD_PLACEHOLDER": "Enter new password",
+            "CONFIRM_PASSWORD_LABEL": "Confirm password",
+            "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
+            "SEND_PASSWORD_CHANGE_EMAIL_LABEL": "Send email notification"
+        }
+    },
+    "ROLE": {
+        "LIST": {
+            "TITLE": "Roles",
+            "COLUMNS": {
+                "NAME": "Name",
+                "DESCRIPTION": "Description"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No roles",
+                "DESCRIPTION": "There are currently no roles in the system."
+            }
+        },
+        "EDIT": {
+            "TITLE": "Role",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Enter role name",
+            "DESCRIPTION_LABEL": "Description",
+            "DESCRIPTION_PLACEHOLDER": "Enter role description"
+        }
+    },
+    "GRID": {
+        "FILTERS_TITLE": "Filters",
+        "FILTERS_BUTTON": "Show/Hide",
+        "EXPAND_FILTERS_BUTTON": "Expand/Collapse",
+        "COLLAPSE_FILTERS_BUTTON": "Expand/Collapse",
+        "FILTER": {
+            "SEARCH_BUTTON": "Search",
+            "CLEAR_BUTTON": "Clear"
+        },
+        "ACTIONS_COLUMN": "Actions"
+    },
+    "User": "User",
+    "Status": "Status",
+    "SuperAdmin": "SuperAdmin",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "Submit": "Submit",
+    "Are you sure you want to send password reset mail?": "Are you sure you want to send password reset mail?",
+    "YES": "YES",
+    "NO": "NO",
+    "Are you sure you want to disapprove user?": "Are you sure you want to disapprove user?",
+    "Are you sure you want to lock user?": "Are you sure you want to lock user?",
+    "SELECT_DONOR": "Select donor",
+    "SELECT_DONOR_PLACEHOLDER": "Select donor",
+    "SELECT_DONOR_FROM_FILTER": "Use donor from filter",
+    "CHOOSE_TYPE_EXPORT": "Export type",
+    "CHOOSE_LIMIT_EXPORT": "Export size",
+    "CHOOSE_EXPORT_COLUMNS": "Export fields",
+    "EXPORT_TYPES": "Export type",
+    "EXPORT_LIMITS": "Export limit",
+    "EXPORT_FIELDS": "Export fields",
+    "DONOR": {
+        "TAB": {
+            "ACCOUNT_INFORMATION": "Account Information",
+            "SECURITY_AND_PREFERENCES": "Security And Preferences",
+            "COMMUNICATION_PREFERENCE": "Communication Preferences",
+            "EMAIL": "Emails",
+            "RECORD": "Records"
+        },
+        "LIST": {
+            "TITLE": "Donors",
+            "COLUMNS": {
+                "DONOR_NAME": "Name",
+                "ACCOUNT_NUMBER": "Account Number",
+                "PRESENT_BALANCE": "Balance",
+                "ACCOUNT_TYPE": "Type",
+                "AVAILABLE_BALANCE": "Available balance"
+            },
+            "FILTER": {
+                "FIRST_NAME_PLACEHOLDER": "First name",
+                "LAST_NAME_PLACEHOLDER": "Last name",
+                "EMAILS_PLACEHOLDER": "Emails (,)",
+                "REGULAR_PLACEHOLDER": "Regular",
+                "PRIVATE_PLACEHOLDER": "Private",
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account Number",
+                "SECURITY_PIN_PLACEHOLDER" : "Security pin",
+                "PHONE_PLACEHOLDER": "Phone number",
+                "ADDRESS_PLACEHOLDER": "Address"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No donors",
+                "ACTION": "Create new donor",
+                "APPLICATION_TITLE": "Select an application",
+                "APPLICATION_DESCRIPTION": "Please select an application first."
+            },
+            "BUTTON": {
+                "EDIT": "Edit"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Profile Settings",
+            "SUCCESS": "Successfully updated",
+            "FIRST_NAME_LABEL": "First name",
+            "FIRST_NAME_PLACEHOLDER": "First name",
+            "LAST_NAME_LABEL": "Last name",
+            "LAST_NAME_PLACEHOLDER": "Last name",
+            "MIDDLE_NAME_LABEL": "Middle name",
+            "MIDDLE_NAME_PLACEHOLDER": "Middle name",
+            "FUND_NAME_LABEL": "Fund name",
+            "FUND_NAME_PLACEHOLDER": "Fund name",
+            "PREFIX_TYPE_LABEL": "Prefix",
+            "PREFIX_TYPE_PLACEHOLDER": "Prefix",
+            "DELIVERY_METHOD_TYPE_LABEL": "Delivery Method",
+            "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery Method",
+            "BLANK_BOOKLET_MAX_LABEL": "Open certificate max amount",
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Open certificate max amount",
+            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
+            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
+            "SECURITY_PIN_LABEL": "Security pin",
+            "SECURITY_PIN_PLACEHOLDER": "Security pin",
+            "ACCOUNT_MANAGER_LABEL": "Account manager",
+            "ACCOUNT_MANAGER_PLACEHOLDER": "Account manager",
+            "DAY_LABEL": "Day",
+            "DAY_PLACEHOLDER": "Day",
+            "MONTH_LABEL": "Month",
+            "MONTH_PLACEHOLDER": "Month",
+            "YEAR_LABEL": "Year",
+            "YEAR_PLACEHOLDER":"Year"
+
+        },
+        "CREATE": {
+            "TITLE": "Create",
+            "SUCCESS": "Successfully created",
+            "FIRST_NAME_LABEL": "First name",
+            "FIRST_NAME_PLACEHOLDER": "First name",
+            "LAST_NAME_LABEL": "Last name",
+            "LAST_NAME_PLACEHOLDER": "Last name",
+            "MIDDLE_NAME_LABEL": "Middle name",
+            "MIDDLE_NAME_PLACEHOLDER": "Middle name",
+            "FUND_NAME_LABEL": "Fund name",
+            "FUND_NAME_PLACEHOLDER": "Fund name",
+            "PREFIX_TYPE_LABEL": "Prefix",
+            "PREFIX_TYPE_PLACEHOLDER": "Prefix",
+            "DELIVERY_METHOD_TYPE_LABEL": "Delivery Method",
+            "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery Method",
+            "BLANK_BOOKLET_MAX_LABEL": "Open certificate max amount",
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Open certificate max amount",
+            "LOW_BALANCE_REMAINDER_LABEL": "Low balance remainder",
+            "LOW_BALANCE_REMAINDER_PLACEHOLDER": "Low balance remainder",
+            "HOW_DID_YOU_HEAR_ABOUT_US_LABEL": "How did you hear about us?",
+            "HOW_DID_YOU_HEAR_ABOUT_US_PLACEHOLDER": "How did you hear about us?",
+            "SECURITY_PIN_LABEL": "Security pin",
+            "SECURITY_PIN_PLACEHOLDER": "Security pin",
+            "ACCOUNT_TYPE_LABEL": "Type",
+            "ACCOUNT_TYPE_PLACEHOLDER": "Type",
+            "HOW_DID_YOU_HEAR_ABOUT_US_DESCRIPTION_LABEL": "Short description how you heard about us",
+            "HOW_DID_YOU_HEAR_ABOUT_US_DESCRIPTION_PLACEHOLDER": "Short description",
+            "DATE_OF_BIRTH_LABEL": "Date of birth",
+            "DATE_OF_BIRTH_PLACEHOLDER": "Date of birth",
+            "CONTACT_INFO_FIELDS": {
+                "TITLE": "Contact info"
+            },
+            "LOGIN_FORM_FIELDS": {
+                "TITLE": "Login info",
+                "USERNAME_LABEL": "Username/Email",
+                "USERNAME_PLACEHOLDER": "Username/Email",
+                "PASSWORD_LABEL": "Password",
+                "PASSWORD_PLACEHOLDER": "Password",
+                "CONFIRM_PASSWORD_LABEL": "Confirm password",
+                "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password",
+                "SHOW": "Show",
+                "HIDE": "Hide",
+                "IS_APPROVED_LABEL": "Is Ddnor Approved?",
+                "SEND_APPROVE_EMAIL_LABEL": "Send Approve Account Email",
+                "ENTER_USERNAME_EMAIL_TOOLTIP": "Please, enter Username/Email on which we will sent you confirmation email.",
+                "ERROR_MESSAGES": {
+                    "USERNAME_CONFLICT": "Username already exist"
+                }
+            },
+            "ERROR_MESSAGES": {
+                "FUND_NAME_CONFLICT": "Fund name already exist",
+                "GENERAL_ERROR": "Something gone wrong."
+            }
+        },
+        "ACCOUNT_INFORMATION_FIELDS": {
+            "TITLE_PROFILE": "Profile Information",
+            "TITLE_ADDRESS": "Address",
+            "TITLE_EMAIL_ADDRESS": "Email Address",
+            "TITLE_PHONE_NUMBER": "Phone Number",
+            "TITLE_BANK_ACCOUNT": "Bank Account",
+            "DATE_OF_BIRTH": "Date Of Birth"
+        },
+        "COMMUNICATION_PREFERENCE": {
+            "TITLE": "Communication Preferences",
+            "TITLE_CARD": "Card",
+            "TITLE_CHECK": "Check",
+            "TITLE_CHARITY_WEBSITE": "Charity Website",
+            "TITLE_GENERAL": "General",
+            "TITLE_INVESTMENT": "Investment",
+            "FIELDS": {
+                "CARD_TRANSACTION_AMOUNT_EXCEEDING_LABEL": "Notify me for a non present transaction exceeding",
+                "CARD_TRANSACTION_AMOUNT_EXCEEDING_PLACEHOLDER": "$",
+                "CARD_NON_PRESENT_TRANSACTION_AMOUNT_EXCEEDING_LABEL": "Notify me for card transactions exceeding",
+                "CARD_NON_PRESENT_TRANSACTION_AMOUNT_EXCEEDING_PLACEHOLDER": "$",
+                "CHECK_AMOUNT_EXCEEDING_LABEL": "Notify me for checks exceeding",
+                "CHECK_AMOUNT_EXCEEDING_PLACEHOLDER": "$",
+                "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_LABEL": "Notify me when check inventory running low",
+                "IS_CHECK_INVENTORY_RUNNING_LOW_ENABLED_PLACEHOLDER": "$",
+                "CHARITY_WEBSITE_AMOUNT_EXCEEDING_LABEL": "Notify me for tranasctions exceed",
+                "CHARITY_WEBSITE_AMOUNT_EXCEEDING_PLACEHODLER": "$",
+                "IS_NEW_GRANT_REQUEST_ENABLED_LABEL": "Notify me when charity sends request",
+                "IS_NEW_GRANT_REQUEST_ENABLED_PLACEHOLDER": "$",
+                "DONOR_AVAILABLE_BALANCE_RUNS_BELOW_LABEL": "Notify me when my balance runs below",
+                "DONOR_AVAILABLE_BALANCE_RUNS_BELOW_PLACEHODLER": "$",
+                "IS_DONOR_STATEMENT_AVAILABLE_ENABLED_LABEL": "Notify me when my online statement is made available",
+                "IS_DONOR_STATEMENT_AVAILABLE_ENABLED_PLACEHOLDER": "$",
+                "INVESTMENT_POOL_DROPS_BELOW_LABEL": "Notify me when a pool drops",
+                "INVESTMENT_POOL_DROPS_BELOW_PLACEHODLER": "$"
+            }
+        },
+        "DONOR_RECORD_ACTIVITY": {
+            "LIST": {
+                "COLUMNS": {
+                    "USERNAME": "Username",
+                    "USER_ACTION": "User Action",
+                    "DESCRIPTION": "Description",
+                    "DATE_CREATED": "Date Created",
+                    "TIME_CREATED": "Time Created"
+                }
+            }
+        },
+        "ACCOUNT_SETTING_FIELDS": {
+            "TITLE": "Account settings details",
+            "LINE_OF_CREDIT_LABEL": "Line of credit",
+            "LINE_OF_CREDIT_PLACEHOLDER": "Line of credit",
+            "BLANK_BOOKLET_MAX_LABEL": "Blank booklet max",
+            "BLANK_BOOKLET_MAX_PLACEHOLDER": "Blank booklet max"
+        },
+        "CHARITY_WEBSITE_SETTING": {
+            "TITLE": "Charity websites",
+            "EDIT": {
+                "FIELDS": {
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
+                    "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                    "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                    "MAX_AMOUNT_PLACEHOLDER": "Enter number",
+                    "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                    "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
+                    "IS_ENABLED_LABEL": "Is enabled"
+                }
+            }
+        },
+        "AUTOMATIC_CONTRIBUTION_SETTING": {
+            "TITLE": "Balance protection plan",
+            "EDIT": {
+                "FIELDS": {
+                    "BANK_ACCOUNT_LABEL": "Bank account",
+                    "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
+                    "AMOUNT_LABEL": "Replenish",
+                    "AMOUNT_PLACEHOLDER": "$",
+                    "LOW_BALANCE_AMOUNT_LABEL": "When my balance falls below",
+                    "LOW_BALANCE_AMOUNT_PLACEHOLDER": "$",
+                    "IS_ENABLED_LABEL": "Is enabled",
+                    "IS_ENABLED_PLACEHOLDER": "Is enabled"
+                }
+            }
+        },
+        "CERTIFICATE_SETTING": {
+            "TITLE": "Checks",
+            "EDIT": {
+                "FIELDS": {
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Default share information",
+                    "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Share informations when exceed amount",
+                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Share information for transactions that exceeds amount"
+                }
+            }
+        },
+        "GRANT_FEES": {
+            "TITLE": "Fees",
+            "FIELDS": {
+                "ONLINE_LABEL": "Online grants are free!",
+                "GRANT_REQUEST_LABEL": "Grant request fee is payed by:",
+                "GRANT_REQUEST_LABEL_TRUE": "Me",
+                "GRANT_REQUEST_LABEL_FALSE": "Charity",
+                "CHARITY_WEBSITE_LABEL": "Charity website fee is payed by:",
+                "CHARITY_WEBSITE_LABEL_TRUE": "Me",
+                "CHARITY_WEBSITE_LABEL_FALSE": "Charity",
+                "GIVING_CARD_LABEL": "Giving card fee is payed by:",
+                "GIVING_CARD_LABEL_TRUE": "Me",
+                "GIVING_CARD_LABEL_FALSE": "Charity",
+                "SESSION_LABEL": "Checks fee is payed by:",
+                "SESSION_LABEL_TRUE": "Me",
+                "SESSION_LABEL_FALSE": "Charity"
+            }
+        }
+    },
+    "ADDRESS": {
+        "LIST": {
+            "TITLE": "Addresses",
+            "COLUMNS": {
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "CITY_LABEL": "City",
+                "STATE_LABEL": "State",
+                "ZIP_CODE_LABEL": "Zip code",
+                "PRIMARY_LABEL": "Primary"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No addresses",
+                "ACTION": "Create new address"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "MARK_PRIMARY": "Mark primary"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add address",
+            "FIELDS": {
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit address",
+            "FIELDS": {
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
+            }
+        }
+    },
+    "EMAIL_ADDRESS": {
+        "LIST": {
+            "TITLE": "Email addresses",
+            "COLUMNS": {
+                "EMAIL_LABEL": "Email",
+                "PRIMARY_LABEL": "Primary",
+                "NOTIFY_LABEL": "Notifications enabled"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No email addresses",
+                "ACTION": "Create new email address"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "MARK_PRIMARY": "Mark primary"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add email address",
+            "FIELDS": {
+                "EMAIL_LABEL": "Email",
+                "EMAIL_PLACEHOLDER": "Email",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit email address",
+            "FIELDS": {
+                "EMAIL_LABEL": "Email",
+                "EMAIL_PLACEHOLDER": "Email",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "NOTIFY_LABEL": "Enable notifications",
+                "NOTIFY_PLACEHOLDER": "Enable notifications",
+                "PRIMARY_LABEL": "Is Primary?",
+                "PRIMARY_PLACEHOLDER": "Is Primary?"
+            }
+        }
+    },
+    "PHONE_NUMBER": {
+        "LIST": {
+            "TITLE": "Phone numbers",
+            "COLUMNS": {
+                "NUMBER_LABEL": "Number",
+                "PRIMARY_LABEL": "Primary"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No phone numbers",
+                "ACTION": "Create new phone number"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "MARK_PRIMARY": "Mark primary"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add phone number",
+            "FIELDS": {
+                "NUMBER_LABEL": "Phone",
+                "NUMBER_PLACEHOLDER": "Phone",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Primary"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit phone number",
+            "FIELDS": {
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "PRIMARY_LABEL": "Primary"
+            }
+        }
+    },
+    "BANK_ACCOUNT": {
+        "LIST": {
+            "TITLE": "Bank accounts",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ROUTING_NUMBER_LABEL": "Routing number",
+                "ACCOUNT_HOLDER_ADDRESS_LABEL": "Address",
+                "ACCOUNT_HOLDER_EMAIL_ADDRESS_LABEL": "Email address",
+                "ACCOUNT_HOLDER_PHONE_NUMBER_LABEL": "Phone number",
+                "IS_THIRD_PARTY_ACCOUNT_LABEL": "Third party",
+                "IMAGE_LABEL": "Image"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No bank accounts",
+                "ACTION": "Create new bank account"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "GET_ACCOUNT_NUMBER": "Get account number"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add bank account",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ROUTING_NUMBER_LABEL": "Routing number",
+                "ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
+                "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Account holder name",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit bank account",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "ROUTING_NUMBER_LABEL": "Routing number",
+                "ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "THIRD_PARTY_BANK_ACCOUNT_LABEL": "Third party account?",
+                "THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER": "Third party account?",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL": "Account holder name",
+                "THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER": "Account holder name",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "DELETE_BANK_ACCOUNT": "Delete Bank Account",
+                "USE_PRIMARY_ADDRESS": "Use primary",
+                "USE_PRIMARY_EMAIL_ADDRESS": "Use primary",
+                "USE_PRIMARY_PHONE_NUMBER": "Use primary"
+            }
+        }
+    },
+    "ACTIVITY": {
+        "MY_GIVING": "My Giving",
+        "TRANSACTIONS": "All Transactions",
+        "DEPOSITS": "Deposits",
+        "GRANTS": "Grants",
+        "TRANSACTION_TAB": {
+            "ALL": "All Transactions",
+            "STATEMENTS": "Statements"
+        },
+        "GRANT_TAB": {
+            "PAST_GRANT": "Past Grants",
+            "SCHEDULED_LIST": "Scheduled grants",
+            "GRANT_REQUEST": "Grant requests",
+            "CERTIFICATE_LIST": "Certificates",
+            "BOOKLET_ORDER_LIST": "Booklet orders"
+        },
+        "DEPOSIT_TAB": {
+            "CONTRIBUTION": "Deposits",
+            "SCHEDULED_CONTRIBUTION": "Scheduled Deposits"
+        },
+        "LIST": {
+            "COLUMNS": {
+                "CHARITY_LABEL": "Description",
+                "DONOR_NAME_LABEL": "Donor",
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Amount",
+                "STATUS_LABEL": "Status",
+                "TRANSACTION_TYPE_LABEL": "Transaction Type",
+                "PENDING_TRANSACTION_DESCRIPTION_LABEL": "Description",
+                "PENDING_TRANSACTION_AMOUNT_LABEL": "Amount",
+                "PRESENT_BALANCE_LABEL": "Present Balance"
+            },
+            "MONTHLY_FEE": {
+                "COLUMNS": {
+                    "FEE_AMOUNT_LABEL": "Fee amount",
+                    "GRANT_AMOUNT_LABEL": "Grant amount",
+                    "CONFIRMATION_NUMBER_LABEL": "Confirmation number"
+                }
+            }
+        },
+        "CHECK": {
+            "LIST": {
+                "COLUMNS": {
+                    "CHARITY_LABEL": "Charity",
+                    "DATE_CREATED_LABEL": "Date created",
+                    "CODE_LABEL": "Code",
+                    "AMOUNT_LABEL": "Amount"
+                }
+            }
+        }
+    },
+    "CHARITY_ACTIVITY": {
+        "TAB_TITLE": "Activity",
+        "ALL_TRANSACTIONS": "All Transactions",
+        "GRANTS": "Grants",
+        "LIST": {
+            "COLUMNS": {
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Balance",
+                "TRANSACTION_TYPE_LABEL": "Transaction Type",
+                "PRESENT_BALANCE_LABEL": "Present Balance"
+            }
+        }
+    },
+    "CHARITY": {
+        "TAB": {
+            "GENERAL_DATA": "General data",
+            "PERSONAL_DATA": "Personal data",
+            "EMAIL": "Emails"
+        },
+        "LIST": {
+            "TITLE": "Charities",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "TAX_ID_LABEL": "Tax id",
+                "DATE_CREATED_LABEL": "Date created",
+                "BALANCE_LABEL": "Balance",
+                "ADDRESS_LABEL": "Address"
+            },
+            "FILTER": {
+                "NAME_PLACEHOLDER": "Name",
+                "EMAILS_PLACEHOLDER": "Emails",
+                "ADDRESS_PLACEHOLDER": "Address",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "CHARITY_TYPE_PLACEHOLDER": "Charity type",
+                "DBA_PLACEHOLDER": "DBA"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No charities",
+                "ACTION": "Create new charity"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "LOAD_MORE": "Load more"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Add New Charity",
+            "CONATCT_INFO_TITLE": "Add Contact Informations",
+            "ERROR_MESSAGES": {
+                "TAX_ID_CONFLICT": "Tax ID already exist",
+                "USERNAME_CONFLICT": "Username already exist",
+                "GENERAL_ERROR": "Something gone wrong"
+            },
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "CHARITY_ACCOUNT_LABEL": "Account",
+                "CHARITY_ACCOUNT_PLACEHOLDER": "Account",
+                "TAX_ID_LABEL": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "DBA_LABEL": "DBA",
+                "DBA_PLACEHOLDER": "DBA",
+                "CHARITY_TYPE_LABEL": "Category",
+                "CHARITY_TYPE_PLACEHOLDER": "Type",
+                "CHARITY_STATUS_LABEL": "Status",
+                "CHARITY_STATUS_PLACEHOLDER": "Status",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
+                "CONTACT_INFORMATION_NAME_LABEL": "Name",
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name",
+                "CONTACT_INFORMATION_EMAIL_LABEL": "Email",
+                "CONTACT_INFORMATION_EMAIL_PLACEHOLDER": "Email",
+                "CONTACT_INFORMATION_NUMBER_LABEL": "Number",
+                "CONTACT_INFORMATION_NUMBER_PLACEHOLDER": "Number",
+                "IS_NEW_BANK_ACCOUNT_LABEL": "Add bank account",
+                "BANK_ACCOUNT_NAME_LABEL": "Name",
+                "BANK_ACCOUNT_NAME_PLACEHOLDER": "Name",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL": "Account number",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_LABEL": "Routing number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number",
+                "LOGIN_FORM_FIELDS": {
+                    "TITLE": "Login info",
+                    "USERNAME_LABEL": "Username/Email",
+                    "USERNAME_PLACEHOLDER": "Username/Email",
+                    "PASSWORD_LABEL": "Password",
+                    "PASSWORD_PLACEHOLDER": "Password",
+                    "CONFIRM_PASSWORD_LABEL": "Confirm password",
+                    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm password"
+                },
+                "IS_ONLINE_ACCOUNT_ENABLED_LABEL": "Is online account enabled?",
+                "NOTIFY_ADMINISTRATORS_LABEL": "Notify administrators?",
+                "SEND_WELCOME_EMAIL_LABEL": "Send welcome email?"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit charity",
+            "BUTTON": {
+                "WITHDRAW_FUNDS": "Withdraw Funds"
+            },
+            "FIELDS": {
+                "TITLE": "General data",
+                "BALANCE_LABEL": "Balance",
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "TAX_ID_LABEL": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "DBA_LABEL": "DBA",
+                "DBA_PLACEHOLDER": "DBA",
+                "CHARITY_TYPE_LABEL": "Type",
+                "CHARITY_TYPE_PLACEHOLDER": "Type",
+                "CHARITY_STATUS_LABEL": "Status",
+                "CHARITY_STATUS_PLACEHOLDER": "Status",
+                "ADDRESS_TITLE": "Addresses",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code",
+                "CONTACT_INFORMATION_NAME_LABEL": "Name",
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Name",
+                "BANK_ACCOUNT_TITLE": "Bank account",
+                "BANK_ACCOUNT_NAME_LABEL": "Name",
+                "BANK_ACCOUNT_NAME_PLACEHOLDER": "Name",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_LABEL": "Account number",
+                "BANK_ACCOUNT_ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_LABEL": "Routing number",
+                "BANK_ACCOUNT_ROUTING_NUMBER_PLACEHOLDER": "Routing number",
+                "BANK_ACCOUNT_DESCRIPTION_LABEL": "Description",
+                "BANK_ACCOUNT_DESCRIPTION_PLACEHOLDER": "Description",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ACCOUNT_HOLDER_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ACCOUNT_HOLDER_CITY_LABEL": "City",
+                "ACCOUNT_HOLDER_CITY_PLACEHOLDER": "City",
+                "ACCOUNT_HOLDER_STATE_LABEL": "State",
+                "ACCOUNT_HOLDER_STATE_PLACEHOLDER": "State",
+                "ACCOUNT_HOLDER_ZIPCODE_LABEL": "Zip code",
+                "ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER": "Zip code",
+                "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
+                "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
+                "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
+            }
+        },
+        "WITHDRAW_FUND": {
+            "TITLE": "Withdraw funds",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount to withdraw",
+                "AMOUNT_PLACEHOLDER": "Enter amount",
+                "PAYMENT_TYPE_LABEL": "Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Select payment type",
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Enter payment number"
+            }
+        },
+        "PREVIEW": {
+            "TITLE": "Online account details",
+            "FIELDS": {
+                "ACCOUNT_CREATED_LABEL": "Account created",
+                "USERNAME_LABEL": "Username",
+                "ACCOUNT_TYPE_LABEL": "Account type",
+                "SUBSCRIPTION_TYPE_LABEL": "Subscription type",
+                "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
+                "SUBSCRIPTION_NEXT_DATE_LABEL": "Date to renew"
+            }
+        }
+    },
+    "CHARITY_GRANTS": {
+        "LIST": {
+            "TITLE": "Grants",
+            "COLUMNS": {
+                "DONOR_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "DATE_CREATED_LABEL": "Date created",
+                "PHONE_NUMBER_LABEL": "Phone number"
+            }
+        }
+    },
+    "CHARITY_CERTIFICATES": {
+        "LIST": {
+            "TITLE": "Certificates",
+            "COLUMNS": {
+                "DONOR_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "DATE_PROCESSED_LABEL": "Date processed",
+                "CODE_LABEL": "CODE"
+            }
+        }
+    },
+    "CONTRIBUTION": {
+        "LIST": {
+            "TITLE": "Deposits",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
+                "PAYMENT_TYPE_NAME_LABEL": "Payment type",
+                "PAYER_INFORMATION_NAME_LABEL": "Payer",
+                "PAYMENT_NUMBER_LABEL": "Payment number"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "CONTRIBUTION_STATUS_PLACEHOLDER": "Deposit status",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
+                "REGULAR_PLACEHOLDER": "Regular",
+                "PRIVATE_PLACEHOLDER": "Private",
+                "NAME_ON_CHECK_PLACEHOLDER": "Name on check",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
+                "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No deposits",
+                "ACTION": "Create new deposit"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "REVIEW": "Review",
+                "CANCEL": "Cancel",
+                "PREVIEW": "Preview"
+            }
+        },
+        "CONFIRM": {
+            "TITLE": "Confirm Details",
+            "PAYMENT_TYPE": "Payment Type",
+            "BANK_ACCOUNT": "Bank Account",
+            "BANK_ACCOUNT_NUMBER": "Bank Account Number",
+            "BROKERAGE_INSTITUTION": "Brokerage Institution",
+            "SECURITY_TYPE": "Security Type",
+            "SECURITY_SYMBOL": "Security Symbol",
+            "NUMBER_OF_SHARES": "Number Of Shares",
+            "THIRD_PARTY_DONOR_ADVISED_FUND": "Third party Donor Advised Fund",
+            "CHECK_NUMBER": "Check Number",
+            "BUSINESS_TYPE": "Business Type",
+            "PROPERTY_TYPE": "Property Type",
+            "PROPERTY_TYPE_TELL_US_MORE": "Tell Us More",
+            "COLLECTABLE_TYPE": "Collectable Type",
+            "AMOUNT": "Amount"
+        },
+        "CREATE": {
+            "TITLE": "New Deposit",
+            "LINK": "Link",
+            "ACH": "Via Ach",
+            "BILL PAY": "Via Bill Pay",
+            "CASH": "Via Cash",
+            "CHECK": "Via Check",
+            "CREDIT CARD": "Via Credit Card",
+            "WIRE TRANSFER": "Via Wire Transfer",
+            "STOCK AND MUTUAL FUNDS": "Via Stock And Mutual Funds",
+            "CHASE QUICKPAY": "Via Chase QuickPay",
+            "FUND_YOUR_ACCOUNT": "Fund Your Account",
+            "ADD_BANK_ACCOUNT_LABEL": "Add Bank Account",
+            "DONATE_SECURITIES": "Maximize the tax advantages of your donation! Donate Securities.",
+            "PREVIOUS_CONTRIBUTIONS": "Recent Deposits",
+            "ALL_CONTRIBUTIONS": "All Deposits",
+            "SUCCESS": "Success! You've initiated your deposit!",
+            "SUMMARY": "Deposit Summary",
+            "PAYMENT_TYPE": "Payment Type",
+            "BANK_ACCOUNT_NAME": "Bank Name",
+            "BANK_ACCOUNT_NUMBER": "Bank Account Number",
+            "CHECK_NUMBER": "Check Number",
+            "AMOUNT": "Amount",
+            "ADD_BANK_ACCOUNT": "Add New Bank",
+            "CONTINUE": "Continue",
+            "COMPLETE_DEPOSIT": "Complete deposit",
+            "FIELDS": {
+                "PAYMENT_TYPE_LABEL": "Select Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Select",
+                "IS_AGREE_TO_POLICIES_AND_GUIDELINES_LABEL": "I agree to Policies and Guidelines",
+                "BANK_ACCOUNT_LABEL": "Choose Bank Account",
+                "BANK_ACCOUNT_PLACEHOLDER": "Select",
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Enter Amount",
+                "IS_THIRD_PARTY_LABEL": "Is this a third-party deposit?",
+                "CHECK_NUMBER_LABEL": "Check number",
+                "CHECK_NUMBER_PLACEHOLDER": "Enter check number",
+                "FINANCIAL_INSTITUTION_LABEL": "Financial institution",
+                "FINANCIAL_INSTITUTION_PLACEHOLDER": "Financial institution",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "FINANCIAL_INSTITUTION_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "FINANCIAL_INSTITUTION_CITY_LABEL": "City",
+                "FINANCIAL_INSTITUTION_CITY_PLACEHOLDER": "City",
+                "FINANCIAL_INSTITUTION_STATE_LABEL": "State",
+                "FINANCIAL_INSTITUTION_STATE_PLACEHOLDER": "State",
+                "FINANCIAL_INSTITUTION_ZIP_CODE_LABEL": "Zip code",
+                "FINANCIAL_INSTITUTION_ZIP_CODE_PLACEHOLDER": "Zip code",
+                "FINANCIAL_INSTITUTION_PHONE_NUMBER_LABEL": "Phone number",
+                "FINANCIAL_INSTITUTION_PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "ACCOUNT_NUMBER_LABEL": "Account number",
+                "ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
+                "SECURITY_TYPE_LABEL": "Security type",
+                "SECURITY_TYPE_PLACEHOLDER": "Security type",
+                "SECURITY_SYMBOL_LABEL": "Security symbol",
+                "SECURITY_SYMBOL_PLACEHOLDER": "Security symbol",
+                "NUMBER_OF_SHARES_LABEL": "Number of shares",
+                "NUMBER_OF_SHARES_PLACEHOLDER": "Number of shares",
+                "ESTIMATED_VALUE_LABEL": "Estimated value",
+                "ESTIMATED_VALUE_PLACEHOLDER": "Estimated value",
+                "TRANSACTION_ID_LABEL": "Transaction Id",
+                "TRANSACTION_ID_PLACEHOLDER": "Transaction Id",
+                "MEMO_LABEL": "Memo",
+                "MEMO_PLACEHOLDER": "Memo",
+                "PAYER_INFORMATION_TITLE": "Payer info",
+                "PAYER_INFORMATION_NAME_LABEL": "Payer name",
+                "PAYER_INFORMATION_NAME_PLACEHOLDER": "Payer name",
+                "USE_PRIMARY_CONTACT_INFO_LABEL": "Use primary contact info",
+                "SETTING_TYPE_LABEL": "Setting",
+                "SETTING_TYPE_PLACEHOLDER": "Setting",
+                "SETTING_START_DATE_LABEL": "Date",
+                "SETTING_START_DATE_PLACEHOLDER": "Date",
+                "PAYER_INFORMATION_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "PAYER_INFORMATION_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "PAYER_INFORMATION_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "PAYER_INFORMATION_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "PAYER_INFORMATION_CITY_LABEL": "City",
+                "PAYER_INFORMATION_CITY_PLACEHOLDER": "City",
+                "PAYER_INFORMATION_STATE_LABEL": "State",
+                "PAYER_INFORMATION_STATE_PLACEHOLDER": "State",
+                "PAYER_INFORMATION_ZIPCODE_LABEL": "Zip code",
+                "PAYER_INFORMATION_ZIPCODE_PLACEHOLDER": "Zip code",
+                "PAYER_INFORMATION_EMAIL_LABEL": "Email",
+                "PAYER_INFORMATION_EMAIL_PLACEHOLDER": "Email",
+                "PAYER_INFORMATION_NUMBER_LABEL": "Number",
+                "PAYER_INFORMATION_NUMBER_PLACEHOLDER": "Number",
+                "BUSINESS_TYPE_LABEL": "Business Type",
+                "BUSINESS_TYPE_PLACEHOLDER": "Business Type",
+                "OTHER_LABEL": "Additional information",
+                "OTHER_PLACEHOLDER": "Additional information",
+                "PROPERTY_TYPE_LABEL": "Property Type",
+                "PROPERTY_TYPE_PLACEHOLDER": "Property Type",
+                "PROPERTY_TYPE_OTHER_LABEL": "Tell us more (field for notes - optional)",
+                "PROPERTY_TYPE_OTHER_PLACEHOLDER": "",
+                "COLLECTIBLE_TYPE_LABEL": "Collectible Type",
+                "COLLECTIBLE_TYPE_PLACEHOLDER": "Collectible Type",
+                "THIRD_PARTY_DONOR_ADVISED_FUND_LABEL": "Third Party Donor Advised Fund",
+                "THIRD_PARTY_DONOR_ADVISED_FUND_PLACEHOLDER": "Third Party Donor Advised Fund",
+                "BROKERAGE_INSTITUTION_LABEL": "Brokerage Institution",
+                "BROKERAGE_INSTITUTION_PLACEHOLDER": "Brokerage Institution"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit deposit",
+            "SUCCESS": "You've edited your deposit!"
+        },
+        "REVIEW": {
+            "TITLE": "Review",
+            "FIELDS": {
+                "STATUS_LABEL": "Status",
+                "STATUS_PLACEHOLDER": "Status",
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount"
+            }
+        },
+        "DETAILS": {
+            "TITLE": "Deposits",
+            "DETAILS": "Deposit Details",
+            "GENERAL_INFORMATION": "General Information",
+            "DONOR_NAME": "Donor's Name",
+            "CONFRIMATION_NUMBER": "Confirmation Number",
+            "THIRD_PARTY": "Third Party",
+            "STATUS": "Status",
+            "DATE_CREATED": "Date Created",
+            "DATE_UPDATED": "Date Updated",
+            "PAYMENT_INFORMATION": "Payment Information",
+            "PAYMENT_TYPE": "Payment Type",
+            "AMOUNT": "Amount",
+            "SUMMARY": "Summary",
+            "TOTAL_MONEY_GIVEN": "Total money given",
+            "TOTAL_MONEY_UPCOMING": "Total money upcoming",
+            "PAYER_ADDRESS": "Address",
+            "PAYER_NUMBER": "Number",
+            "PAYER_EMAIL": "Email",
+            "PAYER_NAME": "Name"
+        }
+    },
+    "DONOR_CONTRIBUTION_SETTING": {
+        "LIST": {
+            "TITLE": "Recurring deposit settings",
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "START_DATE_LABEL": "Start date",
+                "NEXT_DATE_LABEL": "Next date",
+                "CONTRIBUTION_SETTING_TYPE_LABEL": "Type",
+                "DONOR_BANK_ACCOUNT_LABEL": "Bank account",
+                "ENABLED_LABEL": "Enabled"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "CONTRIBUTION_SETTING_TYPE_PLACEHOLDER": "Deposit type",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No deposits",
+                "ACTION": "Create new deposit"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CANCEL": "Cancel"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit deposit setting",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "START_DATE_LABEL": "Start date",
+                "DONOR_BANK_ACCOUNT_LABEL": "Bank account",
+                "IS_ENABLED_LABEL": "Enabled?"
+            }
+        },
+        "CANCEL": {
+            "TITLE": "Cancel contribution setting",
+            "QUESTION": "Are you sure you want to cancel selected resource?",
+            "SUCCESS": "Successfully canceled selected resource",
+            "ERROR": "Error occurred while trying to cancel resource"
+        }
+    },
+    "DONOR_GIVING_CARD_SETTING": {
+        "LIST": {
+            "TITLE": "Giving cards",
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "ENABLED_LABEL": "Enabled"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit giving card setting",
+            "FIELDS": {
+                "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                "MAX_AMOUNT_PLACEHOLDER": "Enter number",
+                "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
+                "IS_ENABLED_LABEL": "Is enabled",
+                "GIVING_CARD_LABEL": "Giving card",
+                "SELECT_GIVING_CARD": "Select giving card"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Request new card"
+        },
+        "ACTIVATION": {
+            "TITLE": "Activate your card",
+            "ERROR_MESSAGE": {
+                "SOMETING_WENT_WRONG": "Something went wrong",
+                "NOT_FOUND": "Card not found",
+                "SUCCESS": "Successfully activated card"
+            },
+            "FIELDS": {
+                "CARD_NUMBER_LABEL": "Card number",
+                "CVV_LABEL": "CVV",
+                "EXPIRATION_DATE_LABEL": "Expiration date",
+                "EXPIRATION_DATE_PLACEHOLDER": "##/##"
+            }
+        }
+    },
+    "DONOR-DONOR": {
+        "CREATE": {
+            "TITLE": "Send a Gift",
+            "FROM_TITLE": "Share the power of giving",
+            "TITLE_LABEL": "Share your Giving Power with a new or existing donor",
+            "TRANSFERS": "Transfers",
+            "RECENT_TRANSFERS": "Recent transfers",
+            "BALANCE": "Your available balance",
+            "SEND_TO": "Send to",
+            "SEND_TO_INFO_TITLE": "Enter recipients account number or email address",
+            "ADD_ANOTHER_RECIPIENT": "Add another recipient",
+            "ADD_ANOTHER_RECIPIENT_+": "+ ",
+            "ADD_ANOTHER_RECIPIENT_-": "- ",
+            "FAQ": "FAQ",
+            "FAQ_WHAT_IS_GIFT": "What is a Giving Gift?",
+            "FAQ_WHAT_IS_GIFT_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor.",
+            "FAQ_NON_EXISTING_DONOR": "Can I gift to a non-existing donor?",
+            "FAQ_NON_EXISTING_DONOR_ANSWER": "Absolutely! Simply include their email address as a recipient of this gift. We will then send an email inviting them to accept your gift.",
+            "FAQ_WRONG_EMAIL_ADDRESS": "What if my gift went to a wrong email address?",
+            "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor",
+            "COMPLETE_GIFT": "Send Gift",
+            "BUTTON": {
+                "CREATE": "Review gift"
+            },
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Enter Amount",
+                "ACKNOWLEDGMENT_TYPE_LABEL": "Information shared",
+                "ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Select",
+                "CONTACT_INFORMATION_EMAIL_LABEL": "Email or account number",
+                "CONTACT_INFORMATION_EMAIL_PLACEHOLDER": "Enter acc number or email address",
+                "CONTACT_INFORMATION_NAME_LABEL": "Name",
+                "CONTACT_INFORMATION_NAME_PLACEHOLDER": "Full name"
+            }
+        },
+        "LIST": {
+            "COLUMNS": {
+                "DATE_CREATED_LABEL": "Date",
+                "NAME_LABEL": "Name",
+                "AMOUNT_LABEL": "Amount"
+            }
+        },
+        "CONFIRM": {
+            "TITLE": "Confirm Details",
+            "EMAIL": "Email",
+            "AMOUNT": "Transfer Amount",
+            "DONOR_NAME": "Donor Name:",
+            "ACCOUNT_NUMBER":"Account Number",
+            "SECOND_DONOR_NAME": "Second recipient",
+            "SECOND_EMAIL": "Second email"
+        },
+        "CONFIRMATION": {
+            "SUCCESS": "Success! You've successfully send your Gift!",
+            "GIFT_SUMMARY": "Gift Summary",
+            "RECIPIENT_INFO": "Donor recipient info (email or account number)",
+            "RECIPIENT_NAME": "Donor recipient name",
+            "AMOUNT": "AMOUNT",
+            "ANOTHER_RECIPIENT": "Another Donor recipient info",
+            "ANOTHER_RECIPIENT_NAME": "Donor recipient name"
+        }
+    },
+    "GRANT": {
+        "CONFIRM" : {
+            "TITLE" : "Confirm Details",
+            "GRANT_ACKNOWLEDGMENT_NAME" : "Grant Acknowledgment Name",
+            "RECEPIENT_CHARITY" : "Recepient Charity",
+            "GIVEN_AMOUNT" : "Given Amount",
+            "GIVE_GRANT" : "Give Grant",
+            "RECURRING" : "Recurring Grant?",
+            "SCHEDULED_DATE" : "Scheduled Date",
+            "PURPOSE" : "Purpose"
+        },
+        "TAB": {
+            "LIST": "Grants",
+            "SCHEDULED_LIST": "Scheduled grants",
+            "REQUEST": "Grant requests"
+        },
+        "LIST": {
+            "TITLE": "Grants",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION": "Desciption",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "GRANT_STATUS_NAME_LABEL": "Status",
+                "GRANT_TYPE_NAME_LABEL": "Type",
+                "CHARITY_LABEL": "Charity",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "GRANT_STATUS_PLACEHOLDER": "Grant status",
+                "GRANT_TYPE_PLACEHOLDER": "Grant type",
+                "GRANT_MEMO_PLACEHOLDER": "Grant memo",
+                "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
+                "AMOUNT_RANGE_MAX_PLACEHOLDER": "Max amount",
+                "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500",
+                "INFORMATION_FROM_GRANT_PURPOSE_FIELDS": "Information from Grant purpose fields"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No grants",
+                "ACTION": "Create new grant"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create",
+                "DELETE": "Delete",
+                "REVIEW": "Review",
+                "PREVIEW": "Preview",
+                "CANCEL": "Cancel"
+            }
+        },
+        "PREVIEW": {
+            "TITLE": "Grants",
+            "FIELDS": {
+                "CHARITY_LABEL": "Charity",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "CONFIRMATION_NUMBER_LABEL": "Conf. number",
+                "STATUS_NAME_LABEL": "Status",
+                "PURPOSE_TYPE_LABEL": "Purpose",
+                "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
+                "DONOR_NAME_LABEL": "Donor",
+                "SCHEDULED_LABEL": "Scheduled",
+                "CHARITY_WEBSITE_LABEL": "Created over charity website",
+                "ADDRESS": "Address"
+            }
+        },
+        "SCHEDULED_GRANT": {
+            "PREVIEW": {
+                "TITLE": "Scheduled Grant",
+                "FIELDS": {
+                    "CHARITY_LABEL": "Charity",
+                    "AMOUNT_LABEL": "Amount",
+                    "DATE_CREATED_LABEL": "Date created",
+                    "NUMBER_OF_PAYMENTS": "Number of Payments",
+                    "REMAINING_PAYMENTS": "Remaining payments",
+                    "STATUS_NAME_LABEL": "Status",
+                    "PURPOSE_TYPE_LABEL": "Purpose",
+                    "ACKNOWLEDGMENT_LABEL": "Acknowledgment",
+                    "DONOR_NAME_LABEL": "Donor",
+                    "SCHEDULED_LABEL": "Scheduled",
+                    "CHARITY_WEBSITE_LABEL": "Created over charity website",
+                    "ADDRESS": "Address"
+                }
+            }
+        },
+        "CREATE": {
+            "TITLE": "Give",
+            "FROM_TITLE": "Grant Details",
+            "ADVANCED_CHARITY_FILTER_BUTTON": "Advanced search",
+            "INCLUDE_NOTE_TO_ADMINISTRATOR": "Include note to administrator?",
+            "CURRENT_BALANCE": "Current balance",
+            "UPCOMING_GRANTS_THIS_YEAR": "Upcoming grants this year",
+            "RULLING_YEAR": "Rulling Year",
+            "EIN": "EIN",
+            "IRS_FILING_REQUIREMENT": "IRS Filling Requirement",
+            "PRINCIPAL_OFFICER": "Principal Officer",
+            "CAUSE_AREA": "Cause Area (NTEE Code)",
+            "DOWNLOAD_TAX_FORMS": "Download Tax Forms",
+            "MAIN_ADDRESS": "Main address",
+            "PROFILE_INFO": "Charity's profile",
+            "PREVIOUS_GRANTS": "Previous Grants",
+            "SIMILAR_GRANTS": "Similar Grants",
+            "INSIGHTS": "Insights",
+            "NEW_CHARITY_TITLE": "Add charity's information here",
+            "NEW_CHARITY_CONTACT_TITLE": "Contact Information",
+            "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
+            "CHARITY_INFORMATION_TITLE": "Charity Information",
+            "CHARITY_INFORMATION_NAME": "Charity Name",
+            "CHARITY_INFORMATION_TAX_ID": "Tax ID",
+            "CHARITY_INFORMATION_IS_ACH_AVAILABLE": "ACH available",
+            "CHARITY_INFORMATION_ADDRESS": "Address",
+            "BUTTON": {
+                "CREATE": "Give",
+                "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
+                "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
+            },
+            "FIELDS": {
+                "AMOUNT_LABEL": "Gift amount",
+                "AMOUNT_PLACEHOLDER": "Min $100",
+                "CHARITY_LABEL": "Find a charity",
+                "CHARITY_PLACEHOLDER": "Search by charity name or tax ID",
+                "GRANT_PURPOSE_TYPE_LABEL": "Select Purpose",
+                "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Select",
+                "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Information shared",
+                "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Select",
+                "GRANT_SCHEDULE_TYPE_PLACEHOLDER": "Select Recurring Option",
+                "GRANT_SCHEDULE_TYPE_LABEL": "Schedule your gift",
+                "START_FUTURE_DATE_LABEL": "Schedule the Donation",
+                "START_FUTURE_DATE_PLACEHOLDER": "Select the Date",
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "NUMBER_OF_PAYMENTS_LABEL": "Enter Number of Payments",
+                "NUMBER_OF_PAYMENTS_PLACEHOLDER": "Enter Number of Payments",
+                "END_DATE_LABEL": "Select Ending Date",
+                "END_DATE_PLACEHOLDER": "Select Ending Date",
+                "NO_END_DATE_LABEL": "Ongoing",
+                "NO_END_DATE_PLACEHOLDER": "Ongoing",
+                "ADDITIONAL_INFORMATION_LABEL": "Additional information",
+                "ADDITIONAL_INFORMATION_PLACEHOLDER": "Additional information",
+                "NOTE_TO_ADMINISTRATOR_PLACEHOLDER": "Your Message",
+                "MEMBERSHIP_LABEL": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
+                "PURPOSE_NOTE_LABEL": "Name",
+                "PURPOSE_NOTE_PLACEHOLDER": "Name",
+                "NON_BINDING_PLEDGE_LABEL": "Donor-advised funds can be used for a non-binding pledge. However, the IRS prohibits grants from a donor-advised fund from being used for a legally binding pledge.",
+                "CHARITY_EVENT_LABEL": "Attending",
+                "CHARITY_EVENT_ATTENDING_MESSAGE": "The IRS prohibits using donor-advised funds to pay for tickets to attend a CHARITY event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
+                "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
+                "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below.",
+                "INTERNATIONAL_COMPANY_LABEL": "Are you an international company?",
+                "IS_RECURRING_LABEL": "Repeat payment?",
+                "RECURRING_DATE_LABEL": "Starting Date",
+                "RECURRING_DATE_PLACEHOLDER": "Select Starting Date",
+                "IS_NEW_CHARITY_LABEL": "Don't see your charity?"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit grant"
+        },
+        "REVIEW": {
+            "TITLE": "Review",
+            "FIELDS": {
+                "STATUS_LABEL": "Status",
+                "STATUS_PLACEHOLDER": "Status",
+                "DONOR_NAME_LABEL": "Donor",
+                "AMOUNT_LABEL": "Amount"
+            }
+        },
+        "NOTIFICATIONS": {
+            "ACTION_BUTTONS": {
+                "EDIT": "After 15 min changes are not allowed",
+                "CANCEL": "After 15 min cancel is not allowed"
+            }
+        }
+    },
+    "GRANT_REQUEST": {
+        "TITLE": "Grant Request",
+        "LIST": {
+            "TITLE": "Grant Requests",
+            "COLUMNS": {
+                "CHARITY_LABEL": "Charity",
+                "PHONE_NUMBER_LABEL": "Phone Number",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status"
+            }
+        },
+        "CREATE": {
+            "TITLE": "New Grant Request",
+            "FIELDS": {
+                "PHONE_NUMBER_LABEL": "Phone Number",
+                "PHONE_NUMBER_PLACEHOLDER": "Phone Number",
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount"
+            },
+            "ERROR_MESSAGES": {
+                "PHONE_NUMBER_NOT_EXIST": "Phone Number Does Not Exist In Our System."
+            }
+        },
+        "BUTTON": {
+            "COMPLETE": "Complete Request",
+            "DECLINE": "Decline"
+        }
+    },
+    "CHARITY_GIVING_CARD": {
+        "TITLE": "Giving Card",
+        "CREATE": {
+            "TITLE": "New Grant Request",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Enter amount",
+                "CARD_NUMBER_LABEL": "Card number",
+                "EXPIRATION_DATE_LABEL": "Expiration date",
+                "EXPIRATION_DATE_PLACEHOLDER": "MM/YY",
+                "CVV_LABEL": "Cvv",
+                "NOTE_LABEL": "Note",
+                "NOTE_PLACEHOLDER": "Enter note"
+            }
+        }
+    },
+    "DONATION": {
+        "PAST_GRANT": {
+            "LIST": {
+                "TITLE": "Donations",
+                "COLUMNS": {
+                    "CHARITY_LABEL": "Charity name",
+                    "AMOUNT_LABEL": "Amount",
+                    "DATE_CREATED_LABEL": "Date",
+                    "CONFIRMATION_NUMBER_LABEL": "Voucher #",
+                    "DONATION_STATUS_LABEL": "Status",
+                    "DONATION_TYPE_LABEL": "Transaction Type"
+                },
+                "EMPTY_STATE": {
+                    "TITLE": "No donations"
+                },
+                "BUTTON": {},
+                "FILTER": {
+                    "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                    "SELECT_DONATION_STATUS_PLACEHOLDER": "Status",
+                    "SELECT_DONATION_TYPE_PLACEHOLDER": "Type"
+                },
+                "SUMMARY": {
+                    "TITLE": "Summary",
+                    "SLIDER_LABEL": "Amount given this year",
+                    "DONAUT_CHART_TITLE": "Amount donated by category",
+                    "LINE_CHART_TITLE": "Amount donated by time period"
+                }
+            }
+        },
+        "REVIEW": {
+            "LIST": {
+                "TITLE": "Review Pending Donations",
+                "COLUMNS": {
+                    "CHARITY_LABEL": "Charity",
+                    "AMOUNT_LABEL": "Amount",
+                    "ONLINE_LABEL": "Online",
+                    "CHARITY_WEBSITE_LABEL": "Charity Website",
+                    "GRANT_REQUEST_LABEL": "Grant Request",
+                    "GIVING_CARD_LABEL": "Giving Card",
+                    "SESSION_LABEL": "Session",
+                    "ACH_AVAILABLE_LABEL": "ACH available"
+                },
+                "GRANT": {
+                    "COLUMNS": {
+                        "CHECKED": "",
+                        "DONOR_NAME": "Donor",
+                        "CHARITY_AMOUNT": "Amount for charity"
+                    },
+                    "FIELDS": {
+                        "IS_TRANSFER_TO_CHARITY_ACCOUNT": "Transfer to charity account",
+                        "PAYMENT_NUMBER": "Payment Number"
+                    }
+                }
+            },
+            "FIELDS": {
+                "PAYMENT_TYPE_LABEL": "Select Payment type",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "PAYMENT_NUMBER_LABEL": "Enter payment number",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number"
+            }
+        }
+    },
+    "SCHEDULED_GRANT": {
+        "LIST": {
+            "TITLE": "Scheduled grants",
+            "COLUMNS": {
+                "CHARITY_NAME_LABEL": "Charity",
+                "DONOR_NAME_LABEL": "Donor",
+                "NAME_LABEL": "Name",
+                "AMOUNT_LABEL": "Amount",
+                "DONE_LABEL": "Done",
+                "GRANT_SCHEDULE_TYPE_NAME_LABEL": "Frequency",
+                "DATE_CREATED_LABEL": "Date created",
+                "NEXT_DATE_LABEL": "Next date"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Select donor"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CANCEL": "Cancel",
+                "VIEW": "View"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit scheduled grants",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "CHARITY_LABEL": "Charity",
+                "CHARITY_PLACEHOLDER": "Charity",
+                "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Purpose",
+                "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Acknowlegment",
+                "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Acknowlegment",
+                "GRANT_SCHEDULE_TYPE_LABEL": "Schedule",
+                "GRANT_SCHEDULE_TYPE_PLACEHOLDER": "Schedule",
+                "START_FUTURE_DATE_LABEL": "Date",
+                "START_FUTURE_DATE_PLACEHOLDER": "Date",
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "NUMBER_OF_PAYMENTS_LABEL": "Payments",
+                "NUMBER_OF_PAYMENTS_PLACEHOLDER": "Payments",
+                "END_DATE_LABEL": "End date",
+                "END_DATE_PLACEHOLDER": "End date",
+                "NO_END_DATE_LABEL": "No end date",
+                "NO_END_DATE_PLACEHOLDER": "No end date",
+                "ADDITIONAL_INFORMATION_LABEL": "Additional",
+                "ADDITIONAL_INFORMATION_PLACEHOLDER": "Additional",
+                "MEMBERSHIP_LABEL": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
+                "PURPOSE_MEMBER_NAME_LABEL": "Name",
+                "PURPOSE_MEMBER_NAME_PLACEHOLDER": "Name",
+                "NON_BINDING_PLEDGE_LABEL": "Donor-advised funds can be used for a non-binding pledge. However, the IRS prohibits grants from a donor-advised fund from being used for a legally binding pledge.",
+                "CHARITY_EVENT_LABEL": "Attending",
+                "CHARITY_EVENT_ATTENDING_MESSAGE": "The IRS prohibits using donor-advised funds to pay for tickets to attend a charity event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
+                "CHARITY_EVENT_NOT_ATTENDING_MESSAGE": "The IRS prohibits to use a donor advised fund to pay for tickets to attend a charity event.",
+                "OTHER_LABEL": "Creating your own custom purpose may result in a longer approval process, as it may require us to consult with the charity to confirm the grant meets our program guidelines. Please enter your custom use below."
+            }
+        },
+        "CANCEL": {
+            "TITLE": "Cancel scheduled grant",
+            "QUESTION": "Are you sure you want to cancel selected resource?",
+            "SUCCESS": "Successfully canceled selected resource",
+            "ERROR": "Error occurred while trying to cancel resource"
+        }
+    },
+    "FUND_TRANSFER": {
+        "LIST": {
+            "TITLE": "Fund transfers",
+            "COLUMNS": {
+                "CHARITY_NAME_LABEL": "Charity",
+                "SENDER_DONOR_NAME_LABEL": "Sender donor",
+                "RECIPIENT_DONOR_NAME_LABEL": "Recipient donor",
+                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description",
+                "CREATED_BY_LABEL": "Created by"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No fund transfers"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create fund transfers",
+            "INSUFICIENT_FUNDS_MESSAGE": "Insuficient funds",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "SENDER_DONOR_LABEL": "Sender",
+                "SENDER_DONOR_PLACEHOLDER": "Sender",
+                "RECIPIENT_DONOR_LABEL": "Recipient",
+                "RECIPIENT_DONOR_PLACEHOLDER": "Recipient"
+            }
+        }
+    },
+    "BOOKLET": {
+        "TAB": {
+            "BOOKLET": "Booklets",
+            "BOOKLET_ORDER": "Orders",
+            "SCANNED_CERTIFICATES": "Scanned"
+        },
+        "LIST": {
+            "TITLE": "Booklets",
+            "COLUMNS": {
+                "CODE_LABEL": "Code",
+                "DENOMINATION_LABEL": "Denomination",
+                "ASSIGNED_TO_LABEL": "Assigned to",
+                "DATE_ASSIGNED_LABEL": "Assigned on",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status",
+                "TYPE_LABEL": "Type",
+                "SHARE_NAME_LABEL": "Share name",
+                "CERTIFICATES_LABEL": "Certificates",
+                "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"
+            },
+            "FILTER": {
+                "CODES_PLACEHOLDER": "Codes",
+                "BOOKLET_STATUS_PLACEHOLDER": "Statuses",
+                "BOOKLET_TYPE_PLACEHOLDER": "Types",
+                "DENOMINATION_PLACEHOLDER": "Denominations",
+                "DONORS_NAME": "Donors name"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No booklets"
+            },
+            "BUTTON": {
+                "EDIT": "Edit"
+            }
+        },
+        "CREATE": {
+            "BUTTON": {
+                "ADD": "Add new",
+                "DELETE": "Delete"
+            },
+            "TITLE": "Create booklet",
+            "FIELDS": {
+                "BOOKLET_TYPE_LABEL": "Booklet type",
+                "BOOKLET_COUNT_LABEL": "How many booklets you want?",
+                "COUNT_LABEL": "Certificate per booklet",
+                "COUNT_PLACEHOLDER": "Certificate per booklet",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit booklet",
+            "BUTTON": {
+                "ACTIVE": "Active",
+                "INACTIVE": "Inactive",
+                "CLEAN_CERTIFICATE_STATUS": "Clean",
+                "CANCELED_CERTIFICATE_STATUS": "Canceled",
+                "SAVE_ROW_CHANGES": "Save row",
+                "IS_ACTIVE": "Is active"
+            },
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination"
+            }
+        }
+    },
+    "CREDIT_DEBIT": {
+        "LIST": {
+            "TITLE": "Credit/Debit",
+            "COLUMNS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Amount",
+                "DESCRIPTION_LABEL": "Description",
+                "CREATED_BY_CORE_USER_LABEL": "Manually entered by user"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Donor Credit/Debit",
+            "FROM_TITLE": "Details",
+            "BUTTON": {
+                "CREATE": "Send"
+            },
+            "FIELDS": {
+                "AMOUNT_LABEL": "Credit amount",
+                "DESCRIPTION_LABEL": "Description",
+                "AMOUNT_PLACEHOLDER": "Please enter credit amount",
+                "DESCRIPTION_PLACEHOLDER": "Credit description"
+            }
+        },
+        "FIELDS": {
+            "CREDIT_DEBIT_LABEL": "Choose credit or debit:",
+            "CREDIT_DEBIT_LABEL_TRUE": "CREDIT",
+            "CREDIT_DEBIT_LABEL_FALSE": "DEBIT"
+        },
+        "PREVIEW": {
+            "FIELDS": {
+                "DONOR_NAME_LABEL": "Donor",
+                "PRESENT_BALANCE": "Present Balance"
+            }
+        }
+    },
+    "BOOKLET_ORDER": {
+        "LIST": {
+            "TITLE": "Booklet orders",
+            "COLUMNS": {
+                "CODE_LABEL": "Code",
+                "DENOMINATION_LABEL": "Denominaiton",
+                "DONOR_NAME_LABEL": "Donor",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status",
+                "CERTIFICATES_LABEL": "Certificates",
+                "CREATED_BY_LABEL": "Created by",
+                "AMOUNT_LABEL": "Amount"
+            },
+            "FILTER": {
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "BOOKLET_CODES_PLACEHOLDER": "Codes",
+                "BOOKLET_ORDER_STATUS_PLACEHOLDER": "Order status",
+                "DELIVERY_TYPE_PLACEHOLDER": "Delivery type",
+                "TRACKING_NUMBER_PLACEHOLDER": "Tracking number",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No booklet orders"
+            },
+            "BUTTON": {
+                "REVIEW": "Review",
+                "EDIT": "Edit",
+                "PREVIEW": "Details"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Order Checks",
+            "ORDER_VOUCHERS_BOOKS": "Order Check Books (50 checks per book)",
+            "PREPAID_ONLY": "PREPAID",
+            "DELIVERY_OPTIONS": "Delivery Options",
+            "PICK_UP_ADDRESS": "Pick Up Address",
+            "SHIPPING_ADDRESS": "Shipping Address",
+            "CHANGE_SHIPPING_ADDRESS": "CHANGE SHIPPING ADDRESS",
+            "SET_DEFAULT_SHIPPING_ADDRESS": "SET DEFAULT SHIPPING ADDRESS",
+            "MOST_COMMON_DENOMINATIONS": "Common Denominations:",
+            "TOTAL_WITH_FEE": "Total with fee",
+            "TOTAL": "Total",
+            "PRIVATE_FEE_APPLIED": "Fee Will Be Applied When Scanning Certificate.",
+            "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
+            "HIDE_MORE_OPTIONS": "SHOW LESS OPTIONS",
+            "SHOW_MORE_OPTIONS": "SHOW MORE OPTIONS",
+            "HIDE_CUSTOMIZE_BOOKS": "HIDE CUSTOMIZE BOOKS",
+            "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
+            "ENROLLED_IN_PROTECTION_PLAN": "Enrolled in protection plan",
+            "PLACE_ORDER": "Place Order",
+            "BUTTON": {
+                "ADD": "Add new",
+                "REVIEW": "Review",
+                "EDIT": "Edit",
+                "DELETE": "Delete",
+                "ADD_PROTECTION_PLAN_MESSAGE": "This order exceeds your account balance. Please add additional funds to your account or sign up for our automatic contributions options.",
+                "ADD_PROTECTION_PLAN": "Enroll in protection plan"
+            },
+            "FIELDS": {
+                "BOOKLET_COUNT_LABEL": "How many booklets you want?",
+                "BOOKLET_COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type",
+                "BOOKLET_TYPE_LABEL": "Booklet type",
+                "BOOKLET_TYPE_PLACEHOLDER": "Booklet type",
+                "DENOMINATION_TYPE_LABEL": "Denomination type",
+                "DENOMINATION_TYPE_PLACEHOLDER": "Denomination type",
+                "CUSTOMIZE_YOUR_BOOKS_LABEL": "Customize Your Books",
+                "CUSTOMIZED_NAME_PLACEHOLDER": "Enter Name",
+                "CUSTOMIZED_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "CUSTOMIZED_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CUSTOMIZED_CITY_PLACEHOLDER": "City",
+                "CUSTOMIZED_STATE_PLACEHOLDER": "State",
+                "CUSTOMIZED_ZIPCODE_PLACEHOLDER": "Zip code",
+                "CUSTOMIZED_EXPIRATION_DATE_PLACEHOLDER": "Expiration Date",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code"
+            }
+        },
+        "EDIT": {
+            "BUTTON": {
+                "ACTIVE": "Active",
+                "INACTIVE": "Inactive",
+                "CLEAN_CERTIFICATE_STATUS": "Clean",
+                "CANCELED_CERTIFICATE_STATUS": "Canceled",
+                "SAVE_ROW_CHANGES": "Save row",
+                "IS_ACTIVE": "Is active"
+            },
+            "TITLE": "Create booklet",
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type"
+            }
+        },
+        "REVIEW": {
+            "TITLE": "Assign booklets",
+            "FIELDS": {
+                "BOOKLET_LABEL": "Booklet",
+                "BOOKLET_PLACEHOLDER": "Booklet",
+                "DENOMINATION_LABEL": "Denomination",
+                "DENOMINATION_PLACEHOLDER": "Denomination",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type",
+                "TRACKING_NUMBER_LABEL": "Tracking Number"
+            }
+        },
+        "PREVIEW": {
+            "TITLE": "Order details",
+            "DONOR_LABEL": "Donor",
+            "STATUS_LABEL": "Status",
+            "CONFRIMATION_NUMBER_LABEL": "Confirmation number",
+            "BOOKLET_LABEL": "Booklets",
+            "DELIVERY_METHOD_LABEL": "Delivery type",
+            "ORDER_LABEL": "Order content",
+            "TRACKING_NUMBER_LABEL": "Tracking Number",
+            "DATE_CREATED_LABEL": "Date created",
+            "DATE_UPDATED_LABEL": "Date updated",
+            "COLUMNS": {
+                "COUNT_LABEL": "Booklet count",
+                "BOOKLET_TYPE_LABEL": "Booklet type",
+                "DENOMINATION_TYPE_LABEL": "Denomination type",
+                "IS_PRE_PAID_LABEL": "Is pre-paid",
+                "BOOKLETS_LABEL": "Assigned booklets",
+                "IS_SESSION_FEE_PAYED_LABEL": "Is fee payed by charity"
+            }
+        }
+    },
+    "SESSION_PENDING_CERTIFICATE": {
+        "LIST": {
+            "COLUMNS": {
+                "CHARITY_NAME_LABEL": "Charity",
+                "DATE_CREATED_LABEL": "Date created",
+                "DENOMINATION_LABEL": "Denomination",
+                "AMOUNT_LABEL": "Amount",
+                "DONOR_LABEL": "Donor"
+            }
+        }
+    },
+    "SESSION": {
+        "TAB": {
+            "LIST": "Sessions",
+            "IN_PROGRESS": "In progress",
+            "PENDING_CERTIFICATE": "Pending certificates"
+        },
+        "PREVIEW": {
+            "TITLE": "Details",
+            "SELECT_SCANNER": "Select scanner",
+            "FIELDS": {
+                "CHARITY_LABEL": "Charity",
+                "ORGANIZATION_NAME_LABEL": "Name / Email / Tax ID",
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "FULL_NAME_LABEL": "Full name",
+                "PHONE_NUMBER_LABEL": "Phone number",
+                "EMAIL_LABEL": "Email"
+            }
+        },
+        "LIST": {
+            "TITLE": "Sessions",
+            "SELECT_SCANNER": "Select scanner",
+            "COLUMNS": {
+                "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "DATE_CREATED_LABEL": "Date created",
+                "STATUS_LABEL": "Status",
+                "AMOUNT_LABEL": "Amount",
+                "CHARITY_NAME_LABEL": "Charity",
+                "SESSION_STATUS_LABEL": "Status"
+            },
+            "FILTER": {
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "BOOKLET_CERTIFICATE_CODE_PLACEHOLDER": "Booklet and certificate code",
+                "SESSION_STATUS_PLACEHOLDER": "Session status",
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
+                "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500",
+                "FUNDRAISER_NAME_PLACEHOLDER": "Fundraiser name",
+                "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "EMAIL_PLACEHOLDER": "Email address",
+                "USERNAME_CREATED_SESSION_PLACEHOLDER": "Username that created the session"
+            },
+            "BUTTON": {
+                "GO_TO_CREATE_PAGE": "Proceed without scanner",
+                "SKIP_TO_CREATE_PAGE": "Skip",
+                "PREVIEW": "Preview",
+                "EDIT": "Edit"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No sessions"
+            },
+            "IN_PROGRESS": {
+                "TITLE": "Sessions in progress",
+                "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",
+                "SESSION_NOT_FOUND_ERROR": "Session not found for given key.",
+                "COLUMNS": {
+                    "KEY_LABEL": "Key",
+                    "FULL_NAME_LABEL": "Full name",
+                    "PHONE_NUMBER_LABEL": "Phone number",
+                    "EMAIL_LABEL": "Email",
+                    "CHARITY_NAME_LABEL": "Charity name",
+                    "CHARITY_EMAIL_LABEL": "Charity email",
+                    "IS_ACTIVE_LABEL": "Is active",
+                    "TAX_ID_LABEL": "Tax Id",
+                    "SESSION_CERTIFICATES_LABEL": "Certificates"
+                },
+                "BUTTON": {
+                    "SET_INACTIVE": "Deactivate"
+                }
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create session",
+            "STEP1": {
+                "SELECT_LANGUAGE_ENG": "To begin please select a language",
+                "SELECT_LANGUAGE_HEB": "כדי להתחיל בבקשה בחר שפה",
+                "ENG_LANGUAGE": "English",
+                "HEB_LANGUAGE": "עברי"
+            },
+            "STEP2": {
+                "BUTTONS": {
+                    "SAVE": "Continue",
+                    "BACK": "Back",
+                    "SEARCH": "Search",
+                    "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
+                    "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
+                },
+                "FIELDS": {
+                    "FULL_NAME_LABEL": "Full name",
+                    "FULL_NAME_PLACEHOLDER": "Full name",
+                    "PHONE_NUMBER_LABEL": "Phone number",
+                    "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                    "EMAIL_LABEL": "Email",
+                    "EMAIL_PLACEHOLDER": "Email",
+                    "CHARITY_LABEL": "Charity",
+                    "CHARITY_PLACEHOLDER": "Charity",
+                    "DESCRIPTION_LABEL": "Description",
+                    "DESCRIPTION_PLACEHOLDER": "Description",
+                    "KEY_LABEL": "Load existing session",
+                    "KEY_PLACEHOLDER": "Key"
+                }
+            },
+            "STEP3": {
+                "BLANK_CERTIFICATE_AMOUNT": "Enter amount for open certificate",
+                "READY_FOR_SCANNING": "Ready for scanning",
+                "BLANK_CERTIFICATE_ENTER_AMOUNT": "Enter amount for open certificate",
+                "BLANK_CERTIFICATE_CODE": "Certificate code",
+                "CERTIFICATE_VALUE_LABEL": "Certificate amount",
+                "CERTIFICATE_VALUE_PLACEHOLDER": "Amount",
+                "SET_BLANK_CERTIFICATE_VALUE": "Save"
+            },
+            "STEP4": {
+                "BUTTONS": {
+                    "FINISH": "Finish"
+                },
+                "SESSION_NUMBER": "Session number",
+                "TOTAL": "Total",
+                "FINISH_MESSAGE1": "To complete the session please click the finish button and hand the certificates to the cashier desk. ",
+                "FINISH_MESSAGE2": "Please make a note of your session number as this can be used for more information should you wish to contact us. ",
+                "FINISH_MESSAGE3": "That You for using The Donors Fund. ",
+                "AUTOCLOSE_MESSAGE": "This page will close in "
+            },
+            "FIELDS": {
+                "COUNT_LABEL": "Count",
+                "COUNT_PLACEHOLDER": "Count"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Session edit",
+            "CERTIFICATE_VALUE_LABEL": "Blank certificate value",
+            "DONOR_APPROVED_BLANK_AMOUNT": "Approved",
+            "DONOR_DOES_NOT_AGREE_WITH_BLANK_AMOUNT": "Donor does not agree with blank amount",
+            "DONOR_DID_NOT_RESPOND_YET_ON_BLANK_AMOUNT": "Email sent. Donor didn't responded yet.",
+            "AGREE_EMAIL_NOT_SENT": "Email is not sent yet.",
+            "SAVE_SEND_APPROVE_EMAIL": "Save and send review email",
+            "SAVE_RESEND_APPROVE_EMAIL": "Save and resend review email",
+            "SAVE_SET_BLANK_CERTIFICATE_VALUE": "Save",
+            "TOTAL_AMOUNT": "Total:",
+            "TOTAL_AMOUNT_AFTER_FEE": "Total after fee:",
+            "INSUFFICIENT_FUNDS_ERROR": "Entered amount is greater than the donor set up on his account.",
+            "MAX_BLANK_CERTIFICATE_AMOUNT_ERROR": "Entered amount is greater than the donor set up on his account.",
+            "NOT_IN_STATUS_FOR_EDIT_WARNING": "Session is not in status for edit.",
+            "BLANK_CERTIFICATE_AMOUNT_TITLE": "Blank certificate",
+            "BLANK_CERTIFICATE_CODE": "Certificate code",
+            "DONOR_APPROVES": "Donor approves",
+            "DONOR_DOES_NOT_APPROVE": "Donor does not approve",
+            "BLANK_BOOKLET_MAX_AMOUNT": "Blank booklet max",
+            "BLANK_BOOKLET_AMOUNT": "Scanned amount",
+            "LIST": {
+                "REMOVE_SESSION_CERTIFICATE": "Removing certificate",
+                "REMOVE_PRIVATE_SESSION_CERTIFICATE": "Certificate is from Private account",
+                "REMOVE_REGULAR_SESSION_CERTIFICATE": "Certificate is from Regular account",
+                "MAKE_REFUND": "Refund?",
+                "MAKE_REFUND_FEE": "Refund fee?",
+                "PRIVATE_REFUND_MESSAGE": "Refund will cancel pending transaction and decrease Accumulated Monthly Certificate Fee",
+                "CERTIFICATE_DETAILS": "Change certificate status if necessary",
+                "TOTAL_REFUND": "Total refund:",
+                "TOTAL_REFUND_CERTIFICATE": "Refund certificate: ",
+                "TOTAL_REFUND_FEE": "Refund fee: ",
+                "BLANK_SESSION_APPROVED": "Approved",
+                "BUTTON": {
+                    "REMOVE_SESSION_CERTIFICATE": "Remove",
+                    "EDIT_SESSION_CERTIFICATE": "Edit"
+                },
+                "COLUMNS": {
+                    "CODE_LABEL": "Code",
+                    "BARCODE_LABEL": "Barcode",
+                    "AMOUNT_AFTER_FEE_LABEL": "Amount after fee",
+                    "DENOMINATION_LABEL": "Denomination",
+                    "DONOR_LABEL": "Donor",
+                    "VALUE_LABEL": "Value"
+                }
+            },
+            "FIELDS": {
+                "FULL_NAME_LABEL": "Full name",
+                "FULL_NAME_PLACEHOLDER": "Full name",
+                "CHARITY_LABEL": "Charity",
+                "CHARITY_PLACEHOLDER": "Charity",
+                "PHONE_NUMBER_LABEL": "Phone number",
+                "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "EMAIL_LABEL": "Email",
+                "EMAIL_PLACEHOLDER": "Email",
+                "CHARITY_NAME_LABEL": "Charity name",
+                "CHARITY_NAME_PLACEHOLDER": "Charity name",
+                "TAX_ID_LABEL": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "CHARITY_EMAIL_LABEL": "Charity email",
+                "CHARITY_EMAIL_PLACEHOLDER": "Charity email",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "BLANK_CERTIFICATE_AMOUNT_LABEL": "Enter amount for open certificate",
+                "BLANK_CERTIFICATE_AMOUNT_PLACEHOLDER": "Blank certificate amount",
+                "NOTE_LABEL": "Note",
+                "NOTE_PLACEHOLDER": "Note",
+                "CERTIFICATE_STATUS_LABEL": "Certificate status",
+                "CERTIFICATE_STATUS_PLACEHOLDER": "Certificate status",
+                "IS_ACTIVE_LABEL": "Is active",
+                "MAKE_REFUND_LABEL": "Make refund",
+                "MAKE_REFUND_FEE_LABEL": "Make refund fee"
+            }
+        },
+        "STATUS_CODE": {
+            "SCANNER_CONNECTION_NOT_INITIALIZED_ERROR": "Scanner not initialized.",
+            "SESSION_ALREADY_ACTIVE_ERROR": "Session is already active.",
+            "BARCODE_NOT_FOUND_ERROR": "Barcode not found.",
+            "CERTIFICATE_NOT_CLEAN_ERROR": "Certificate is not in status for scanning.",
+            "BOOKLET_NOT_ASSIGNED_ERROR": "Booklet is not assigned.",
+            "CERTIFICATE_NOT_ACTIVE_ERROR": "Certificate is not active.",
+            "CHARITY_NOT_ACTIVE_ERROR": "Charity is not active.",
+            "CERTIFICATE_ALREADY_USED_IN_OPEN_SESSION_ERROR": "Certificate is already used in other active session.",
+            "CERTIFICATE_ALREADY_SCANNED_ERROR": "Certificate is already scanned.",
+            "INSUFFICIENT_FUNDS_ERROR": "Insufficient funds.",
+            "CERTIFICATE_SUCCESSFULLY_SCANNED_SUCCESS": "Certificate added."
+        },
+        "REVIEW": {
+            "Review": "Review",
+            "DESCRIPTION": "Review certificate. If you agree with amount click approve, if not click disaprove.",
+            "FIELDS": {
+                "CODE": "Code",
+                "AMOUNT": "Amount"
+            },
+            "BUTTON": {
+                "APPROVE": "Approve",
+                "DISAPPROVE": "Disapprove"
+            }
+        }
+    },
+    "SCANNER_CONNECTION": {
+        "LIST": {
+            "TITLE": "Scanner connections",
+            "COLUMNS": {
+                "SCANNER_NAME_LABEL": "Scanner",
+                "USER_NAME_LABEL": "Connected user",
+                "IS_ACTIVE_LABEL": "Active connection",
+                "DATE_CREATED_LABEL": "Date connected",
+                "CONNECTION_ID_LABEL": "Connection Id"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No scanner connections"
+            }
+        }
+    },
+    "APPLICATION_DEFAULT_SETTING": {
+        "EDIT": {
+            "TITLE": "Default setting",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description",
+                "REGULAR_CERTIFICATE_DEDUCTION_PERCENTAGE_LABEL": "Regular certificate deduction percentage",
+                "REGULAR_CERTIFICATE_DEDUCTION_PERCENTAGE_PLACEHOLDER": "Regular certificate deduction percentage",
+                "PRIVATE_CERTIFICATE_DEDUCTION_PERCENTAGE_LABEL": "Private certificate deduction percentage",
+                "PRIVATE_CERTIFICATE_DEDUCTION_PERCENTAGE_PLACEHOLDER": "Private certificate deduction percentage",
+                "REGULAR_CERTIFICATE_FEE_PERCENTAGE_LABEL": "Regular certificate fee percentage",
+                "REGULAR_CERTIFICATE_FEE_PERCENTAGE_PLACEHOLDER": "Regular certificate fee percentage",
+                "PRIVATE_CERTIFICATE_FEE_PERCENTAGE_LABEL": "Private certificate fee percentage",
+                "PRIVATE_CERTIFICATE_FEE_PERCENTAGE_PLACEHOLDER": "Private certificate fee percentage",
+                "REGULAR_GRANT_FEE_PERCENTAGE_LABEL": "Regular grant fee percentage",
+                "REGULAR_GRANT_FEE_PERCENTAGE_PLACEHOLDER": "Regular grant fee percentage",
+                "PRIVATE_GRANT_FEE_PERCENTAGE_LABEL": "Private grant fee percentage",
+                "PRIVATE_GRANT_FEE_PERCENTAGE_PLACEHOLDER": "Private grant fee percentage",
+                "REGULAR_LINE_OF_CREDIT_LABEL": "Regular line of credit amount",
+                "REGULAR_LINE_OF_CREDIT_PLACEHOLDER": "Regular line of credit amount",
+                "PRIVATE_LINE_OF_CREDIT_LABEL": "Private line of credit amount",
+                "PRIVATE_LINE_OF_CREDIT_PLACEHOLDER": "Private line of credit amount",
+                "REGULAR_MINIMUM_GRANT_AMOUNT_LABEL": "Regular minimum grant amount",
+                "REGULAR_MINIMUM_GRANT_AMOUNT_PLACEHOLDER": "Regular minimum grant amount",
+                "PRIVATE_MINIMUM_GRANT_AMOUNT_LABEL": "Private minimum grant amount",
+                "PRIVATE_MINIMUM_GRANT_AMOUNT_PLACEHOLDER": "Private minimum grant amount",
+                "REGULAR_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_LABEL": "Regular notification limit remander amount",
+                "REGULAR_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_PLACEHOLDER": "Regular notification limit remander amount",
+                "PRIVATE_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_LABEL": "Private notification limit remander amount",
+                "PRIVATE_NOTIFICATION_LIMIT_REMAINDER_AMOUNT_PLACEHOLDER": "Private notification limit remander amount",
+                "BLANK_BOOKLET_MAX_AMOUNT_LABEL": "Open certificate max amount",
+                "BLANK_BOOKLET_MAX_AMOUNT_PLACEHOLDER": "Open certificate max amount",
+                "EXTRA_BOOKLET_PERCENTAGE_LABEL": "Extra booklet percentage",
+                "EXTRA_BOOKLET_PERCENTAGE_PLACEHOLDER": "Extra booklet percentage",
+                "EXPRESS_MAIL_FEE_AMOUNT_LABEL": "Express mail fee amount",
+                "EXPRESS_MAIL_FEE_AMOUNT_PLACEHOLDER": "Express mail fee amount",
+                "GRANT_MINIMUM_REGULAR_AMOUNT_LABEL": "Grant regular amount",
+                "GRANT_MINIMUM_REGULAR_AMOUNT_PLACEHOLDER": "Grant regular amount",
+                "DELIVERY_METHOD_TYPE_LABEL": "Delivery type",
+                "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery type",
+                "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Grant acknowledgment type",
+                "GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER": "Grant acknowledgment type",
+                "GRANT_PURPOSE_TYPE_LABEL": "Grant purpose type",
+                "GRANT_PURPOSE_TYPE_PLACEHOLDER": "Grant purpose type"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No scanner connections"
+            }
+        }
+    },
+    "SESSION_CERTIFICATE": {
+        "LIST": {
+            "TITLE": "Scanned certificates",
+            "COLUMNS": {
+                "CERTIFICATE_CODE_LABEL": "Certificate code",
+                "DATE_CREATED_LABEL": "Date created",
+                "AMOUNT_LABEL": "Amount",
+                "CHARITY_NAME_LABEL": "Charity",
+                "DONOR_NAME_LABEL": "Donor",
+                "DENOMINATION_LABEL": "Denomination",
+                "DATE_PROCESSED_LABEL": "Date"
+            },
+            "FILTER": {
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "BOOKLET_CERTIFICATE_CODE_PLACEHOLDER": "Booklet and certificate code"
+            },
+            "BUTTON": {},
+            "EMPTY_STATE": {
+                "TITLE": "No scanned certificates"
+            }
+        }
+    },
+    "DONOR_NOTE": {
+        "LIST": {
+            "TITLE": "Notes",
+            "COLUMNS": {
+                "NOTE_LABEL": "Note",
+                "DATE_CREATED_LABEL": "Date created",
+                "CREATED_BY_LABEL": "Created by"
+            },
+            "BUTTON": {
+                "EDIT": "Edit"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No scanned certificates"
+            }
+        },
+        "FIELDS": {
+            "NOTE_LABEL": "Note",
+            "NOTE_PLACEHOLDER": "Note"
+        }
+    },
+    "RECONCILE": {
+        "LIST": {
+            "TITLE": "Reconcile",
+            "COLUMNS": {
+                "AMOUNT_LABEL": "Amount",
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "PAYMENT_TYPE_LABEL": "Payment type",
+                "CHARITY_NAME_LABEL": "Charity",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "PREVIEW": "Preview",
+                "CASH": "Cash",
+                "PRINT": "Print"
+            },
+            "FILTER": {
+                "PAYMENT_TYPE_PLACEHOLDER": "Payment type"
+            }
+        },
+        "CHECK": {
+            "LIST": {
+                "TITLE": "Reconcile",
+                "COLUMNS": {
+                    "OLD_CHECK_NUMBER_LABEL": "Check number",
+                    "OLD_CHECK_DATE_CREATED_LABEL": "Date",
+                    "OLD_CHECK_DESCRIPTION_LABEL": "Description"
+                },
+                "BUTTON": {
+                    "EDIT": "Edit",
+                    "PREVIEW": "Preview",
+                    "CASH": "Cash",
+                    "PRINT": "Print"
+                }
+            }
+        },
+        "EDIT": {
+            "FIELDS": {
+                "TRANSACTION_DESCRIPTION_LABEL": "Description",
+                "TRANSACTION_DESCRIPTION_PLACEHOLDER": "Description",
+                "NEW_CHECK_NUMBER_LABEL": "New check number",
+                "NEW_CHECK_NUMBER_PLACEHOLDER": "New check number",
+                "RECONCILE_DESCRIPTION_LABEL": "Description",
+                "RECONCILE_DESCRIPTION_PLACEHOLDER": "Description"
+            }
+        }
+    },
+    "GIVING_CARD": {
+        "LIST": {
+            "TITLE": "Giving cards",
+            "COLUMNS": {
+                "CARD_NUMBER_LABEL": "Card number",
+                "DONOR_NAME_LABEL": "Assigned to donor",
+                "DATE_CREATED_LABEL": "Date created",
+                "DESCRIPTION_LABEL": "Description",
+                "LOST_OR_STOLEN_LABEL": "Lost or stolen",
+                "POSSIBLE_LOST_OR_STOLEN_LABEL": "Possible lost or stolen",
+                "LOCKED_LABEL": "Locked",
+                "CVV_LABEL": "CVV"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No giving cards"
+            },
+            "BUTTON": {
+                "LOCK": "Lock",
+                "UNLOCK": "Unlock"
+            }
+        }
+    },
+    "CHARITY_WEBSITE": {
+        "LIST": {
+            "TITLE": "Charity websites",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "IP_LABEL": "IP address",
+                "URL_LABEL": "URL address",
+                "IS_DELETED_LABEL": "Deleted",
+                "DATE_CREATED_LABEL": "Date created",
+                "CHARITY_LABEL": "Charity"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No charity websites"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create charity website access",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "IP_LABEL": "IP",
+                "URL_LABEL": "URL",
+                "URL_PLACEHOLDER": "URL",
+                "CHARITY_LABEL": "Charity",
+                "CHARITY_PLACEHOLDER": "Charity"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit charity website access",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "IP_LABEL": "IP",
+                "URL_LABEL": "URL",
+                "URL_PLACEHOLDER": "URL"
+            }
+        }
+    },
+    "BANK": {
+        "TAB": {
+            "LIST": "Banks",
+            "ROUTING_NUMBER": "Routing numbers"
+        },
+        "LIST": {
+            "TITLE": "Banks",
+            "COLUMNS": {
+                "NAME_LABEL": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DATE_CREATED_LABEL": "Date created",
+                "ROUTING_NUMBERS_COUNT_LABEL": "Routing numbers"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No banks"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create bank",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit bank",
+            "FIELDS": {
+                "NAME_LABEL": "Name",
+                "NAME_PLACEHOLDER": "Name",
+                "DESCRIPTION_LABEL": "Description",
+                "DESCRIPTION_PLACEHOLDER": "Description"
+            }
+        }
+    },
+    "ROUTING_NUMBER": {
+        "LIST": {
+            "TITLE": "Routing numbers",
+            "COLUMNS": {
+                "BANK_LABEL": "Bank",
+                "REGION_LABEL": "Region",
+                "DATE_CREATED_LABEL": "Date created",
+                "NUMBER_LABEL": "Number"
+            },
+            "FILTER": {
+                "NUMBER_PLACEHOLDER": "Routing number",
+                "BANK_PLACEHOLDER": "Bank"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No banks"
+            },
+            "BUTTON": {
+                "EDIT": "Edit",
+                "CREATE": "Create"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Create routing number",
+            "FIELDS": {
+                "BANK_LABEL": "Bank",
+                "BANK_PLACEHOLDER": "Bank",
+                "REGION_LABEL": "Region",
+                "REGION_PLACEHOLDER": "Region",
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Edit routing number",
+            "FIELDS": {
+                "BANK_LABEL": "Bank",
+                "BANK_PLACEHOLDER": "Bank",
+                "REGION_LABEL": "Region",
+                "REGION_PLACEHOLDER": "Region",
+                "NUMBER_LABEL": "Number",
+                "NUMBER_PLACEHOLDER": "Number"
+            }
+        }
+    },
+    "TEST": {
+        "TAB": {
+            "EMAIL": "Email",
+            "REPORT": "Report",
+            "SCHEDULED_TASK": "Scheduled task",
+            "WELCOME_EMAILS": "Welcome emails"
+        },
+        "TEST_EMAIL": {
+            "LIST": {
+                "TITLE": "Emails",
+                "COLUMNS": {
+                    "NAME_LABEL": "Template",
+                    "DESCRIPTION_LABEL": "Description"
+                },
+                "BUTTON": {
+                    "SEND": "Prepare for sending"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Set test data for email: ",
+                "FIELDS": {
+                    "AMOUNT_LABEL": "Amount",
+                    "AMOUNT_PLACEHOLDER": "Amount",
+                    "NAME_LABEL": "Name",
+                    "NAME_PLACEHOLDER": "Name",
+                    "EMAIL_LABEL": "Email",
+                    "EMAIL_PLACEHOLDER": "Email",
+                    "PAYMENT_TYPE_LABEL": "Payment type",
+                    "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
+                    "ACCOUNT_TYPE_LABEL": "Account type",
+                    "ACCOUNT_TYPE_PLACEHOLDER": "Account type",
+                    "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                    "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                    "DELIVERY_METHOD_TYPE_LABEL": "Delivery method",
+                    "DELIVERY_METHOD_TYPE_PLACEHOLDER": "Delivery method"
+                }
+            }
+        },
+        "TEST_REPORT": {
+            "LIST": {
+                "TITLE": "Reports",
+                "COLUMNS": {
+                    "NAME_LABEL": "Template",
+                    "DESCRIPTION_LABEL": "Description"
+                },
+                "BUTTON": {
+                    "GENERATE": "Prepare for generating"
+                }
+            },
+            "CREATE": {
+                "TITLE": "Set test data for report: ",
+                "FIELDS": {
+                    "NAME_LABEL": "Name",
+                    "NAME_PLACEHOLDER": "Name",
+                    "PREVIEW_PRINT_LABEL": "Preview print",
+                    "PREVIEW_PRINT_PLACEHOLDER": "Preview print"
+                }
+            }
+        },
+        "SCHEDULED_SETTING": {
+            "LIST": {
+                "TITLE": "Scheduled tasks",
+                "COLUMNS": {
+                    "NAME_LABEL": "Task",
+                    "DESCRIPTION_LABEL": "Description"
+                },
+                "EMPTY_STATE": {
+                    "TITLE": "No scheduled tasks"
+                },
+                "BUTTON": {
+                    "RUN": "Run scheduled tasks"
+                }
+            }
+        }
+    },
+    "EMAIL": {
+        "LIST": {
+            "TITLE": "Emails",
+            "COLUMNS": {
+                "SUBJECT_LABEL": "Subject",
+                "EMAIL_TYPE_NAME_LABEL": "Email type",
+                "EMAIL_SENDER_LABEL": "Sender",
+                "DATE_CREATED_LABEL": "Date sent",
+                "TO_LABEL": "To email"
+            },
+            "EMPTY_STATE": {
+                "TITLE": "No grant requests",
+                "ACTION": "Create new grant requests"
+            }
+        }
+    },
+    "INVESTMENT_POOL": {
+        "LIST": {
+            "TITLE": "Investments",
+            "HISTORY_TITLE": "Pool History",
+            "COLUMNS": {
+                "NAME": "Pool",
+                "CURRENT_SHARE_VALUE": "Current share value",
+                "TOTAL_VALUE_IN_POOL": "Total pool value",
+                "NUMBER_OF_SHARES": "Number of shares",
+                "POOL_HISTORY_NAME": "Pool",
+                "POOL_HISTORY_VALUE": "Value",
+                "POOL_HISTORY_CHANGE": "Change",
+                "POOL_HISTORY_DATE_CREATED": "Date created"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Title",
+            "FIELDS": {
+                "PERCENTAGE_CHANGE_LABEL": "Percentage change",
+                "PERCENTAGE_CHANGE_PLACEHOLDER": "Change",
+                "DOLLAR_CHANGE_LABEL": "Pool value",
+                "DOLLAR_VALUE_PLACEHOLDER": "Pool value"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Invest funds",
+            "POOL_TITLE": "Investment Pools",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount"
+            }
+        }
+    },
+    "DONOR_INVESTMENT": {
+        "LIST": {
+            "TITLE": "Investments",
+            "HISTORY_TITLE": "Pool History",
+            "COLUMNS": {
+                "NAME": "Pool",
+                "AMOUNT": "Amount"
+            }
+        },
+        "EDIT": {
+            "TITLE": "Title",
+            "FIELDS": {
+                "PERCENTAGE_CHANGE_LABEL": "Percentage change",
+                "PERCENTAGE_CHANGE_PLACEHOLDER": "Change",
+                "DOLLAR_CHANGE_LABEL": "Pool value",
+                "DOLLAR_VALUE_PLACEHOLDER": "Pool value"
+            }
+        },
+        "CREATE": {
+            "TITLE": "Invest funds",
+            "POOL_TITLE": "Investment Pools",
+            "FIELDS": {
+                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_PLACEHOLDER": "Amount",
+                "PERCENTAGE_LABEL": "Percentage",
+                "PERCENTAGE_PLACEHOLDER": "Percentage"
+            }
+        }
+    },
+    "DONOR_DONOR_ADMIN": {
+        "TITLE": "Transaction Donor to Donor",
+        "LIST": {
+            "TITLE": "Donor to Donor Transactions",
+            "COLUMNS": {
+                "EMAIL_ACCOUNT_NUMBER": "Recipient Email or account number",
+                "FULLNAME": "Full name",
+                "AMOUNT":"Amount",
+                "DATE_CREATED_LABEL": "Date created",
+                "SENDER": "Sender"
+            }
+        },
+        "CREATE": {
+            "BUTTON": {
+                "TRANSACTION": "Make Transaction"
+            },
+            "FIELDS": {
+                "DONOR_FROM": "Sender",
+                "DONOR_FROM_PLACEHOLDER": "Select Donor Sender",
+                "DONOR_TO": "Recipient",
+                "DONOR_TO_PLACEHOLDER": "Select Donor Recipient",
+                "IGNORE_INSUFFICIENT_FUNDS": "Ignore insufficient funds",
+                "AMOUNT_LABEL": "Transaction amount",
+                "AMOUNT_PLACEHOLDER": "Enter Amount"
+            },
+            "PLACEHOLDERS": {
+                "DONOR_FROM": "Select Donor Sender",
+                "DONOR_TO": "Select Donor To",
+                "TRANSACTION_AMOUNT": "Transaction amount"
+            }
+        }
+    },
+    "DASHBOARD": {
+        "YOUR_FUNDS": "Your Funds",
+        "YOUR_GIVING": "Your Giving",
+        "FINISH_SETTING_UP_YOUR_ACCOUNT": "Finish setting up your account",
+        "RECENT_ACTIVITY": "Recent Activity",
+        "AVAILABLE_BALANCE": "Available balance",
+        "AVAILABLE_BALANCE_DESCRIPTION": "Not including investment pool",
+        "PRESENT_BALANCE": "Present Balance",
+        "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",
+        "INVESTMENTS": "Investments",
+        "BUTTON": {
+            "ACTIVATE_CARD": "Activate card",
+            "ORDER_CERTIFICATES": "Order Checks",
+            "NEW_CONTRIBUTION": "New Deposit",
+            "NEW_GRANT": "New Grant",
+            "INVEST_FUNDS": "Invest Funds",
+            "DEPOSIT_FUNDS": "Deposit Funds",
+            "CONTRIBUTE": "Deposit"
+        }
+    },
+    "FIRST_LOGIN_EXISTING_DONOR": {
+        "MONTH_LABEL": "Month",
+        "MONTH_PLACEHOLDER": "Month",
+        "DAY_LABEL": "Day",
+        "DAY_PLACEHOLDER": "Day",
+        "FUND_NAME_LABEL": "Fund name",
+        "FUND_NAME_PLACEHOLDER": "e.g. Gates Family",
+        "YEAR_LABEL": "Year",
+        "YEAR_PLACEHOLDER": "Year",
+        "SECURITY_PIN_LABEL": "Please enter a 4 digit security PIN",
+        "CONFRIM_SECURITY_PIN_LABEL": "Confirm PIN",
+        "PASSWORD_LABEL": "Password",
+        "PASSWORD_PLACEHOLDER": "min: 8, capital, number and symbol",
+        "CONFIRM_PASSWORD_LABEL": "Confirm password",
+        "SIGNIN_BUTTON": "Welcome",
+        "SUCCESS_MESSAGE": "Success",
+        "ERROR_MESSAGE": "Something went wrong"
+    }
+}

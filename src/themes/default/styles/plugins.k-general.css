@@ -1,0 +1,81 @@
+/*------------------------------------*\
+    # plugins.kendo-general
+\*------------------------------------*/
+
+/*
+    Override loader overlay
+      -make halftransparent to see through
+*/
+.k-loading-image {
+    background-color: rgba(255,255,255,0.3);
+}
+
+/*
+    treeview search
+        -when searched item is selected in treeview toggle color of the text (item)
+*/
+.rc-tree-node-selected .rc-tree-title {
+    color: white;
+}
+
+/*
+    Override kendo uploader
+        -change text for icon in upload box component
+*/
+.k-widget.k-upload {
+    border-bottom: 0px;
+}
+
+.k-widget.k-upload .k-dropzone {
+    flex-direction: column;
+    background-color: color($color-primary a(5%));
+    border: 1px dashed $color-primary;
+    box-shadow: none;
+
+    &.k-dropzone-active {
+        border: 1px dashed $color-primary;
+        background-color: color($color-primary a(10%));
+    }
+ 
+    div.k-button.k-upload-button {
+        margin: 36px auto;
+        background-color: white;
+        border: 1px solid $color-primary;
+        background-image: none;
+
+        &:after {
+            position: relative;
+            display: block !important;
+            opacity: 1 !important;
+            width: 100%;
+            height: 42px;
+            background-image: svg-load('postcss-svg/upload.svg', fill: $color-primary);
+            background-repeat: no-repeat;
+            background-position: center center;
+            vertical-align: middle;
+
+            background-size: 24px;
+            }
+
+        span {
+            opacity: 0;
+            display: none;
+        }
+    }
+
+    /*margin on hint tekst*/
+    .k-dropzone-hint {
+        margin-bottom: calc($unit * 2);
+        overflow: visible;
+        font-style: normal;
+        color: $color-primary;
+    }
+    
+    /*
+        -upload status block
+           -Treba zakomentirati kad Vlatka pokusa rjesiti
+    */
+    .k-upload-status.k-upload-status-total {
+        display: none;
+    }
+}

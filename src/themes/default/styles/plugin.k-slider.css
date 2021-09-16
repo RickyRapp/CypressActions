@@ -1,0 +1,21 @@
+/*------------------------------------*\
+    # plugin.k-datepicker
+\*------------------------------------*/
+
+.k-slider {
+    &.k-slider-horizontal {
+        width: 100%;
+
+        & .k-tick {
+            background-image: none;
+        
+            & .k-label {
+                left: -5px !important;
+            }
+            
+            &:last-child {
+                left: 93% !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+/*------------------------------------*\
+    # component.emptystate
+\*------------------------------------*/
+
+.emptystate {
+
+    &--vertical {
+        text-align: center;
+
+        &.centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &__image {
+            margin-bottom: calc($unit * 2);
+
+            img {
+                width: 250px;
+            }
+            
+        }
+        
+        &__title {
+            @mixin type-scale $type-medium, 1;
+            color: #4d4d4d;
+            margin-bottom: calc($unit * 2);
+            overflow-wrap: break-word;
+            
+            @media (--screen-to-sml) {
+                @mixin type-scale $type-base, 1;
+            }
+        }
+
+        &__description {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        &--sml {
+            img {
+                width: 140px;
+            }
+
+            .emptystate--vertical__title {
+                @mixin type-scale $type-small, 1;
+                margin-bottom: $unit;
+            }
+        }
+
+    }
+    &--horizontal {
+        text-align: center;
+
+        &__image {
+            margin-bottom: calc($unit * 2);
+        }
+
+        &__title {
+            @mixin type-scale $type-medium, 1;
+            color: #4d4d4d;
+            margin-bottom: calc($unit * 2);
+        }
+
+        &__description {
+            max-width: 500px;
+        }
+    }
+}

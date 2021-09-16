@@ -1,0 +1,66 @@
+/*------------------------------------*\
+    # component.badge
+\*------------------------------------*/
+
+.badge {
+    min-width: 16px;
+    display: inline-block;
+    border-radius: 4px;
+    padding: calc($unit / 2);
+    @mixin type-scale $type-tiny, 0.5;
+    font-weight: $type-weight-regular;
+    
+    text-align: center;
+
+    &--primary {
+        background-color: $color-primary;
+        color: #fff;
+    }
+
+    &--warning {
+        background-color: $color-warning;
+        color: #fff;
+    }
+
+    &--note {
+        background-color: $color-note;
+        color: #fff;
+    }
+
+    &--success {
+        background-color: $color-success;
+        color: #fff;
+    }
+
+    &--pink {
+        background-color: #e91e63;
+        color: #fff;
+    }
+
+    &--ticket {
+        padding: 0 $unit;
+        min-width: 20px;
+        height: 20px;
+
+        font-weight: $type-weight-medium;
+        line-height: 20px;
+        
+        border-radius: 1000px;
+    }
+
+    &--status {
+        display: inline-block;
+        width: calc($unit * 1.5);
+        height: calc($unit * 1.5);
+        background-size: calc($unit * 1.5);
+        border-radius: $radius-full;
+
+        &--success {
+            background-color: $color-success;
+        }
+
+        &--warning {
+            background-color: $color-warning;
+        }
+    }
+}

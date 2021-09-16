@@ -1,0 +1,123 @@
+/*------------------------------------*\
+    # utils.anchor
+\*------------------------------------*/
+
+.u {
+	&-anchor {
+		&--negative {
+			color: #ffffff;
+			text-decoration: underline;
+
+			transition: all 250ms ease-out;
+
+			&:hover {
+				color: color(#ffffff a(0.6));
+			}
+			&:focus {
+				outline: 0;
+				color: color($color-secondary lightness(+10));
+			}
+			&:visited {
+				color: color($color-secondary lightness(+20));
+			}
+		}
+
+		&--primary {
+			color: $color-primary;
+			text-decoration: none;
+
+			transition: all 250ms ease-out;
+
+			&:hover {
+				color: color($color-primary a(0.6));
+			}
+			&:focus {
+				outline: 0;
+				color: color($color-primary a(0.8));
+			}
+			&:visited {
+				color: $color-primary;
+			}
+
+			&--icon {
+				&:hover {
+					.u-icon--mail {
+						background-image: svg-load('../styles/postcss-svg/mail.svg', fill: color($color-primary a(0.6)));
+					}
+
+					.u-icon--password {
+						background-image: svg-load('../styles/postcss-svg/password.svg', fill: color($color-primary a(0.6)));
+					}
+				}
+			}
+		}
+
+		&--underline {
+			text-decoration: underline;
+		}
+
+		&--success {
+			color: $color-success;
+			text-decoration: none;
+
+			transition: all 250ms ease-out;
+
+			&:hover {
+				color: color($color-success a(0.6));
+			}
+			&:focus {
+				outline: 0;
+				color: color($color-success a(0.6));
+			}
+			&:visited {
+				color: $color-success;
+			}
+
+			&--icon {
+				&:hover {
+					.u-icon--approve--success {
+						background-image: svg-load('../styles/postcss-svg/approve.svg', fill: color($color-success a(0.6)));
+					}
+
+					.u-icon--unlock--success {
+						background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: color($color-success a(0.6)));
+					}
+				}
+			}
+		}
+
+		&--warning {
+			color: $color-warning;
+			text-decoration: none;
+
+			transition: all 250ms ease-out;
+
+			&:hover {
+				color: color($color-warning a(0.6));
+			}
+			&:focus {
+				outline: 0;
+				color: color($color-warning a(0.6));
+			}
+			&:visited {
+				color: $color-warning;
+			}
+
+			&--icon {
+				&:hover {
+					.u-icon--decline--warning {
+						background-image: svg-load('../styles/postcss-svg/decline.svg', fill: color($color-warning a(0.6)));
+					}
+
+					.u-icon--lock--warning {
+						background-image: svg-load('../styles/postcss-svg/lock.svg', fill: color($color-warning a(0.6)));
+					}
+				}
+			}
+		}
+		&--disabled {
+			opacity: 0.5;
+			cursor: default;
+		}
+	}
+}

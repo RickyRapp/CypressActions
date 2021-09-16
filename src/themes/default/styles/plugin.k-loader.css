@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    # plugin.k-loader
+\*------------------------------------*/
+
+.k-loading-mask {
+    position: fixed;
+    top: $header-height;
+    /* left: $aside-width; */
+    height: 4px;
+    display: block;
+    width: 100%;
+    background-color: color($color-primary a(30%));
+    border-radius: 2px;
+    background-clip: padding-box;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.k-loading-image {
+    
+    &:before {
+        content: "";
+        position: absolute;
+        background-color: $color-primary;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: auto;
+        will-change: left, right;
+        -webkit-animation: loader 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+        animation: loader 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+        border: 0;
+        border-radius: 0;
+    }
+    
+    &:after {
+        content: "";
+        position: absolute;
+        background-color: $color-primary;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: auto;
+        will-change: left, right;
+        -webkit-animation: loader-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        animation: loader-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        -webkit-animation-delay: 1.15s;
+        animation-delay: 1.15s;
+        border: 0;
+        border-radius: 0;
+    }
+}
+
+.k-loading-color {
+    display: none;
+}
