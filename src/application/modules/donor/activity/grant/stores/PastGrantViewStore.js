@@ -293,25 +293,29 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		if (item.donationType.abrv === "online" || item.donationType.abrv === "charity-website") {
+		if (item.donationType.abrv === "online" || item.donationType.abrv === 'charity-website') {
 			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 				return `${item.grantPurposeType.name} - ${item.purposeNote}`
 			}
 			return item.grantPurposeType.name;
-		} else if (item.donationType.abrv === 'charity-website') {
+		}
+		// else if(item.donationType.abrv === "giving-card") {
+		// 	return `Grant: ${item.charity.name}`;
+		// }
+		else{
 			return `Grant: ${item.charity.name}`;
-		}
-		else {
-			return item.session.fullName;
-		}
+		} 
 	}
 
 	getTransactionType(item) {
 		if (item.donationType.abrv === "session") {
 			return ((((item.donationType.name + ' ') + item.certificate.booklet.code) + ' - ') + item.certificate.code);
-		} else if (item.donationType.abrv === 'charity-website') {
-			return item.thirdPartyWebsite.url;
-		} else {
+		} 
+		//	else if (item.donationType.abrv === 'charity-website') {
+		// 	console.log(item);
+		// 	return 'item.thirdPartyWebsite.url';
+		// } 
+		else {
 			return item.donationType.name;
 		}
 	}
