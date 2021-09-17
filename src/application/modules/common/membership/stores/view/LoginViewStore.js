@@ -43,7 +43,7 @@ class LoginViewStore extends BaseViewStore {
 				if (roles) {
 					if(localStorage.getItem('apiVersion') !== null) {
 						if(localStorage.getItem('apiVersion') !== ApplicationSettings.apiVersion) {
-							await this.basicLookupsService.invalidate();
+							localStorage.clear();
 						}
 					}
 					if(localStorage.getItem('apiVersion') === null) {
