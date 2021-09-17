@@ -116,7 +116,7 @@ class SessionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (session) => {
-                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending'
+                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved'
                 }
             }
         }));

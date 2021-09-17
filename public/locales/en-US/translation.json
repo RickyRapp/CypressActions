@@ -504,7 +504,7 @@
                 "REGULAR_PLACEHOLDER": "Regular",
                 "PRIVATE_PLACEHOLDER": "Private",
                 "ACCOUNT_NUMBER_PLACEHOLDER": "Account Number",
-                "SECURITY_PIN_PLACEHOLDER" : "Security pin",
+                "SECURITY_PIN_PLACEHOLDER": "Security pin",
                 "PHONE_PLACEHOLDER": "Phone number",
                 "ADDRESS_PLACEHOLDER": "Address"
             },
@@ -546,8 +546,7 @@
             "MONTH_LABEL": "Month",
             "MONTH_PLACEHOLDER": "Month",
             "YEAR_LABEL": "Year",
-            "YEAR_PLACEHOLDER":"Year"
-
+            "YEAR_PLACEHOLDER": "Year"
         },
         "CREATE": {
             "TITLE": "Create",
@@ -2351,6 +2350,8 @@
             "SAVE_SET_BLANK_CERTIFICATE_VALUE": "Save",
             "TOTAL_AMOUNT": "Total:",
             "TOTAL_AMOUNT_AFTER_FEE": "Total after fee:",
+            "TOTAL_COUNT": "Total count:",
+            "TOTAL_CHECKS_ON_HOLD": "Checks on hold:",
             "INSUFFICIENT_FUNDS_ERROR": "Entered amount is greater than the donor set up on his account.",
             "MAX_BLANK_CERTIFICATE_AMOUNT_ERROR": "Entered amount is greater than the donor set up on his account.",
             "NOT_IN_STATUS_FOR_EDIT_WARNING": "Session is not in status for edit.",
@@ -2410,7 +2411,16 @@
                 "CERTIFICATE_STATUS_PLACEHOLDER": "Certificate status",
                 "IS_ACTIVE_LABEL": "Is active",
                 "MAKE_REFUND_LABEL": "Make refund",
-                "MAKE_REFUND_FEE_LABEL": "Make refund fee"
+                "MAKE_REFUND_FEE_LABEL": "Make refund fee",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code"
             }
         },
         "STATUS_CODE": {
