@@ -5,7 +5,6 @@ import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/compone
 
 const ContributionCreateStep3Template = function ({
     paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile }) {
-        console.log(clipboardText);
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">

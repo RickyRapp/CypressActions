@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker } from 'core/components';
+import { Export, BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker } from 'core/components';
 import { Content } from 'core/layouts';
+
 import {
 	Chart,
-	ChartArea,
+	//ChartArea,
 	ChartCategoryAxis,
 	ChartCategoryAxisItem,
-	ChartLegend,
+	//ChartLegend,
 	ChartSeries,
 	ChartSeriesItem,
-	ChartSeriesLabels,
+	//ChartSeriesLabels,
 	ChartTitle,
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
@@ -27,17 +28,18 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		summaryData,
+		exportConfig
 	} = pastGrantViewStore;
 
-	let dataDonut = [];
-	if (summaryData) {
-		dataDonut = summaryData.donationsByCharityType.map(c => {
-			return { charityType: c.charityType.name, value: c.amount, color: c.color };
-		});
-	}
+	// var dataDonut = [];
+	// if (summaryData) {
+	// 	dataDonut = summaryData.donationsByCharityType.map(c => {
+	// 		return { charityType: c.charityType.name, value: c.amount, color: c.color };
+	// 	});
+	// }
 
-	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
-	const DonutChartContainer = () => {
+	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
+	/*const DonutChartContainer = () => {
 		return (
 			<Chart>
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
@@ -57,7 +59,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				</ChartSeries>
 			</Chart>
 		);
-	};
+	};*/
 
 	let categories = [];
 	let dataLine = [];
@@ -85,6 +87,9 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 
 	return (
 		<Content>
+			<div className="card--primary card--med u-mar--bottom--sml">
+				<Export config={exportConfig} />
+			</div>
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">

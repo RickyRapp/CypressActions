@@ -3,7 +3,8 @@ import { charityFormatter, canEditCancel } from 'core/utils';
 import { observable, action } from 'mobx';
 import { PastGrantFilter } from 'application/donor/activity/grant/models';
 import { localStorageProvider } from 'core/providers';
-
+import { GrantRouteService } from 'application/common/grant/services';
+import moment from 'moment';
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
 
@@ -37,7 +38,6 @@ class PastGrantViewStore extends BaseListViewStore {
 							donorId: this.donorId,
 							...params,
 						});
-						console.log(tableData);
 						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
 							donorId: this.donorId,
 							...params,
@@ -49,11 +49,11 @@ class PastGrantViewStore extends BaseListViewStore {
 		});
 
 		this.donorId = rootStore.userStore.applicationUser.id;
-		console.log(rootStore);
 		this.createTableStore();
 		this.createCharityDropdownStore();
 		this.createDonationStatusDropdownStore();
 		this.createDonationTypeDropdownStore();
+		this.createExportConfig();
 
 		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
 	}
@@ -80,11 +80,34 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 	@action.bound
 	async grantAgain(grant) {
-		console.log(grant);
 		localStorageProvider.add("ExistingGrant", true);
 		localStorageProvider.add("ExistingGrantObject", JSON.stringify(grant));
 		this.rootStore.routerStore.goTo("master.app.main.donor.grant.create", {grant: grant});
 	}
+
+	createExportConfig() {
+        this.exportConfig = {
+            fileName: `Grants_${moment().format("YYYY-MM-DD_HH-mm-ss")}`,
+            columns: [
+                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: true },
+                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: true },
+                { id: 3, title: 'TaxId', key: 'TAX ID', selected: true, visible: true },
+                { id: 4, title: 'Amount', key: 'AMOUNT', selected: true, visible: true },
+                { id: 5, title: 'Grant status', key: 'STATUS', selected: true, visible: true },
+                { id: 6, title: 'Payment method', key: 'PAYMENT METHOD', selected: true, visible: true },
+                { id: 7, title: 'Grant address', key: 'GRANT ADDRESS', selected: true, visible: true },
+            ],
+            exportUrlFunc: (exportData) => {
+                const routeService = new GrantRouteService();
+                let filter = this.queryUtility.filter;
+                filter.exportFields = exportData.exportFields;
+				filter.donorId = this.donorId;
+                filter.exportLimit = exportData.exportLimit;
+                filter.exportType = exportData.exportType;
+                return routeService.exportDonor(filter);
+            }
+        }
+    }
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(
 			{

@@ -1,5 +1,5 @@
 import { BasePreviewViewStore, TableViewStore } from 'core/stores';
-import { applicationContext, isSome } from 'core/utils';
+import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
 import { CustomCellTemplate } from 'themes/application/administration/booklet-order/components';
 

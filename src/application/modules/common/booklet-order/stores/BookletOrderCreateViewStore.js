@@ -8,7 +8,6 @@ import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/f
 const ErrorType = {
     InsufficientFunds: 0
 };
-
 @applicationContext
 class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable denominationTypes = [];
@@ -88,7 +87,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @computed get totalAmount() {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
     }
-
 
     @computed get prepaidBooksChecks() {
 

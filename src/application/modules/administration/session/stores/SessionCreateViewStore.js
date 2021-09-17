@@ -66,7 +66,7 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async removeFromCache(key) {
+    async removeFromCache() {
         // this.rootStore.modalStore.showConfirm(
         //     `-Are you sure you want to remove session from cache?`,
         //     async () => {
