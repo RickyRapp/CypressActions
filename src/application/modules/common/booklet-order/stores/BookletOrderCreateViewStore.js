@@ -187,6 +187,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async onRemoveBookletClick(bookletTypeId, denominationTypeId) {
+        let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
         if (this.orderContents.length === 0 || !this.orderContents.some(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)) {
             return;
         }
@@ -200,6 +201,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
         if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
             this.totalPrePaidBooks -= dt.value * 50;
+        this.generateTableData(this.orderContents[index], dtvalue);
     }
 
     @action.bound
