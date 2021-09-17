@@ -7,8 +7,10 @@ import {
     BasicRadio,
     BaasicFormControls,
     Address,
-    BaasicModal
+    BaasicModal,
+    BaasicFieldDropdown
 } from 'core/components';
+
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 import { BookletOrderButtonCounterTemplate } from '../components';
@@ -31,12 +33,17 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         bookletTypes,
         totalAmount,
         prepaidBooksChecks,
+        totalPrepaidAmount,
         showMoreOptions,
+        showAddOnitems,
         onShowMoreOptionsClick,
         isDefaultShippingAddress,
         onShowAllBooksClick,
+        onShowAddOnItemsClick,
         onAddProtectionPlanClick,
-        protectionPlanModalParams
+        protectionPlanModalParams,
+        customizedExpirationDateDropdownStore,
+        tableData
     } = store;
 
     return (
@@ -83,6 +90,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                             <div className="type--med type--wgt--regular">
                                                                                 {
                                                                                     dt.value == 0 ? "Blank checks" :
+                                                                                    dt.value == 0 ? "Open checks" :
                                                                                         <FormatterResolver
                                                                                             item={{ value: dt.value }}
                                                                                             field='value'
@@ -186,7 +194,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 </div>}
 
                                         </React.Fragment>}
-                                    {/* ToDo - Add Functionality
+                                    {/* ToDo - Add Functionality */}
+
                                     <div className="col col-sml-12 col-xxlrg-4" >
                                         <h3 className="u-mar--bottom--med">Order Summary</h3>
                                         <table className="table--total">
@@ -194,22 +203,33 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <tr>
                                                     <th>
                                                         Check
-                                                        </th>
+                                                    </th>
                                                     <th>
                                                         Count
-                                                        </th>
+                                                    </th>
                                                     <th>
                                                         Amount
-                                                        </th>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                {tableData.map((item, index) => {
+                                                   return (
+                                                        <tr key={index}>
+                                                            <td>${item.id}</td>
+                                                            <td>
+                                                                {item.count}
+                                                            </td>
+                                                            <td>${item.amount}</td>
+                                                        </tr>
+                                                   )     
+                                                })}
+                                                {/* <tr>
                                                     <td>$1.00</td>
-                                                    <td>1</td>
+                                                    <td>{checkSummary1}</td>
                                                     <td>$200.00</td>
-                                                </tr>
-                                                <tr>
+                                                </tr> */}
+                                                {/* <tr>
                                                     <td>$2.00</td>
                                                     <td>1</td>
                                                     <td>$200.00</td>
@@ -218,12 +238,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <td>$3.00</td>
                                                     <td>1</td>
                                                     <td>$200.00</td>
-                                                </tr>
+                                                </tr> */}
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Total pre-paid</th>
-                                                    <th>$500.00</th>
+                                                    <th>${totalPrepaidAmount}</th>
                                                 </tr>
                                             </tfoot>
                                             <tfoot>
@@ -240,7 +260,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </tfoot>
                                         </table>
 
-                                    </div> */}
+                                    </div>
                                 </div>
                             )
                         })}
@@ -253,46 +273,61 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </button>
                             </div>
                         </div>
-                        {/* <div className="row u-mar--bottom--sml">
-                        <div className="col col-sml-12 u-mar--bottom--sml type--center">
-                            <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
-                                <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                {!form.$('isCustomizedBook').value ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
-                                <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                            </button>
+
+                        <div className="row u-mar--top--sml u-mar--bottom--sml">
+                            <div className="col col-sml-12 type--center">
+                                <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
+                                    <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
+                                    <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                </button>
+                            </div>
+                            {showAddOnitems &&
+                                <div className="col col-sml-12 col-xlrg-12">
+
+                                </div>}
                         </div>
-                        {form.$('isCustomizedBook').value &&
-                            <React.Fragment>
-                                {donor && donor.accountType.abrv === 'regular' &&
-                                    <div className="col col-sml-12 col-xlrg-12">
-                                        <strong>
-                                            Additional charge of $5 per book
-                                </strong>
-                                    </div>}
-                                <div className="col col-sml-12 col-xlrg-3">
-                                    <BasicInput field={form.$('customizedName')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-3">
-                                    <BasicInput field={form.$('customizedAddressLine1')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-3">
-                                    <BasicInput field={form.$('customizedAddressLine2')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-2">
-                                    <BasicInput field={form.$('customizedCity')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-2">
-                                    <BasicInput field={form.$('customizedState')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-2">
-                                    <BasicInput field={form.$('customizedZipCode')} />
-                                </div>
-                                <div className="col col-sml-12 col-xlrg-3">
-                                    <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
-                                </div>
-                            </React.Fragment>
-                        }
-                    </div> */}
+
+                        <div className="row u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--sml type--center">
+                                <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
+                                    <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    {!form.$('isCustomizedBook').value ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
+                                    <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                </button>
+                            </div>
+                            {form.$('isCustomizedBook').value &&
+                                <React.Fragment>
+                                    {donor && donor.accountType.abrv === 'regular' &&
+                                        <div className="col col-sml-12 col-xlrg-12">
+                                            <strong>
+                                                Additional charge of $5 per book
+                                            </strong>
+                                        </div>}
+                                    <div className="col col-sml-12 col-xlrg-3">
+                                        <BasicInput field={form.$('customizedName')} />
+                                    </div>
+                                    <div className="col col-sml-12 col-xlrg-3">
+                                        <BasicInput field={form.$('customizedAddressLine1')} />
+                                    </div>
+                                    <div className="col col-sml-12 col-xlrg-3">
+                                        <BasicInput field={form.$('customizedAddressLine2')} />
+                                    </div>
+                                    <div className="col col-sml-12 col-xlrg-2">
+                                        <BasicInput field={form.$('customizedCity')} />
+                                    </div>
+                                    <div className="col col-sml-12 col-xlrg-2">
+                                        <BasicInput field={form.$('customizedState')} />
+                                    </div>
+                                    <div className="col col-sml-12 col-xlrg-2">
+                                        <BasicInput field={form.$('customizedZipCode')} />
+                                    </div>
+                                    <div className="col col-sml-12 col-xlrg-3">
+                                        <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
+                                    </div>
+                                </React.Fragment>
+                            }
+                        </div>
 
                         <div className="card--sml">
                             <div className="u-mar--bottom--med">

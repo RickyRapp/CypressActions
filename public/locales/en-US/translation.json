@@ -2108,6 +2108,8 @@
             "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
             "ENROLLED_IN_PROTECTION_PLAN": "Enrolled in protection plan",
             "PLACE_ORDER": "Place Order",
+            "SHOW_ADD_ON_ITEMS": "SHOW ADD ON ITEMS",
+            "HIDE_ADD_ON_ITEMS": "HIDE ADD ON ITEMS",
             "BUTTON": {
                 "ADD": "Add new",
                 "REVIEW": "Review",
