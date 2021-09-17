@@ -2,6 +2,7 @@ import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewSt
 import { charityFormatter, canEditCancel } from 'core/utils';
 import { observable, action } from 'mobx';
 import { PastGrantFilter } from 'application/donor/activity/grant/models';
+import { localStorageProvider } from 'core/providers';
 
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
@@ -31,11 +32,12 @@ class PastGrantViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite'];
+						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,
 							...params,
 						});
+						console.log(tableData);
 						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
 							donorId: this.donorId,
 							...params,
@@ -47,7 +49,7 @@ class PastGrantViewStore extends BaseListViewStore {
 		});
 
 		this.donorId = rootStore.userStore.applicationUser.id;
-
+		console.log(rootStore);
 		this.createTableStore();
 		this.createCharityDropdownStore();
 		this.createDonationStatusDropdownStore();
@@ -76,7 +78,13 @@ class PastGrantViewStore extends BaseListViewStore {
 			}
 		);
 	}
-
+	@action.bound
+	async grantAgain(grant) {
+		console.log(grant);
+		localStorageProvider.add("ExistingGrant", true);
+		localStorageProvider.add("ExistingGrantObject", JSON.stringify(grant));
+		this.rootStore.routerStore.goTo("master.app.main.donor.grant.create", {grant: grant});
+	}
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(
 			{
@@ -200,7 +208,8 @@ class PastGrantViewStore extends BaseListViewStore {
 						onEdit: grant => this.routes.edit(grant.id),
 						onPreview: (grant) => this.routes.preview(grant.id),
 						onSort: column => this.queryUtility.changeOrder(column.key),
-						onCancel: grant => this.cancelGrant(grant)
+						onCancel: grant => this.cancelGrant(grant),
+						onGrantAgain: grant => this.grantAgain(grant)
 					},
 					actionsRender: {
 						onEditRender: grant => {

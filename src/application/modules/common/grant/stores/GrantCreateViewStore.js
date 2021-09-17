@@ -3,8 +3,9 @@ import { BaasicDropdownStore, BaseEditViewStore, ModalStore, TableViewStore } fr
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { GrantCreateForm } from 'application/common/grant/forms';
 import moment from 'moment';
-import { charityFormatter } from 'core/utils';
+import { charityFormatter, addressFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { localStorageProvider } from 'core/providers';
 
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
@@ -27,7 +28,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				return {
 					create: async resource => {
 						resource.donorId = this.donorId;
-
 						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId)) {
 							await this.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
 						} else {
@@ -95,8 +95,43 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (!initialLoad) {
 			this.rootStore.routerStore.goBack();
 		} else {
-			await this.fetch([this.setDonor()]);
+			await this.setDonor();
+			this.onCharitySelected
 			await this.fetch([this.loadLookups()]);
+			const isExistingGrant = localStorageProvider.get('ExistingGrant');
+			if(isExistingGrant) {
+				const grant = (localStorageProvider.get('ExistingGrantObject'));
+				localStorageProvider.remove('ExistingGrantObject');
+				localStorageProvider.remove('ExistingGrant');
+				this.charityDropdownStore.setValue({
+					id: grant.charityId,
+					name: charityFormatter.format(grant.charity, { value: 'charity-name-display' }),
+					item: grant.charity,
+				});
+				console.log(this.charityDropdownStore);
+				this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
+				this.onCharityChange(grant.charityId);
+				this.setSimilarGrantTable(grant.grantPurposeTypeId);
+				this.setAmount(grant.amount);
+				this.form.$('amount').value = grant.amount;
+				this.form.$('charityId').value = grant.charityId;
+				console.log(grant.charity.charityAddresses.find(c => {
+					return c.isPrimary === true;
+				}));
+				this.setAddress(grant.charity.charityAddresses.find(c => {
+					return c.isPrimary === true;
+				}));
+				const formattedCharityAddress = addressFormatter.format(
+					grant.charity.charityAddresses.find(c => {
+						return c.isPrimary === true;
+					}),
+					'full'
+				);
+				console.log(formattedCharityAddress);
+				const formattedGrantAddress = addressFormatter.format(grant, 'full');
+				this.isChangedDefaultAddress = formattedCharityAddress === formattedGrantAddress;
+			}
+			
 
 			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
 

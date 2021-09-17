@@ -252,7 +252,7 @@ PastGrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onPreview, onCancel } = actions;
+	const { onEdit, onPreview, onCancel, onGrantAgain } = actions;
 	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCancel)) return null;
 
 	let editRender = true;
@@ -309,6 +309,14 @@ function renderActions({ item, actions, actionsRender }) {
 						onClick={() => onCancel(item)}
 					></BaasicButton>
 				) : null}
+				<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--approve u-icon--base"
+						label="Grant Again"
+						onlyIcon={true}
+						onClick={() => onGrantAgain(item)}
+					></BaasicButton>
 			</div>
 		</td>
 	);
