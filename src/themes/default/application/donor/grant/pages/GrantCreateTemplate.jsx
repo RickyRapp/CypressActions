@@ -13,6 +13,7 @@ import {
 	NumberFormatInputField,
 	BaasicFieldToggle,
 } from 'core/components';
+import { GrantConfirmDetailsTemplate } from 'themes/application/donor/grant/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
@@ -40,7 +41,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		onChangeDefaultAddressClick,
 		grantRequestId,
 		getNumberOfReocurrency,
-		grantPurposeTypes
+		grantPurposeTypes,
+		confirmModal
 	} = grantCreateViewStore;
 
 	return (
@@ -394,6 +396,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 					</div>
 				</Content>
 			</EditFormLayout>
+			<BaasicModal modalParams={confirmModal}>
+				<GrantConfirmDetailsTemplate form={form} />
+			</BaasicModal>
 			<BaasicModal modalParams={advancedSearchModal}>
 				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />
 			</BaasicModal>
@@ -404,6 +409,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 GrantCreateTemplate.propTypes = {
 	grantCreateViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired,
+	confirmModal: PropTypes.any,
+	form: PropTypes.any
 };
 
 function renderEditLayoutFooterContent({ form }) {
@@ -415,7 +422,7 @@ function renderEditLayoutFooterContent({ form }) {
 }
 
 renderEditLayoutFooterContent.propTypes = {
-	form: PropTypes.any,
+	form: PropTypes.any
 };
 
 export default defaultTemplate(GrantCreateTemplate);

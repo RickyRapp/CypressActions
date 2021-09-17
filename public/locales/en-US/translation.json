@@ -1727,6 +1727,13 @@
                 "RECURRING_DATE_LABEL": "Starting Date",
                 "RECURRING_DATE_PLACEHOLDER": "Select Starting Date",
                 "IS_NEW_CHARITY_LABEL": "Don't see your charity?"
+            },
+            "CONFIRM": {
+                "TITLE": "Confirm details",
+                "ACKNOWLEDGEMENT_NAME": "Grant acknowledgment name",
+                "RECEPIENT_CHARITY": "Recepient charity",
+                "AMOUNT": "Given amount",
+                "CONFIRM_DETAILS": "Confirm details"
             }
         },
         "EDIT": {

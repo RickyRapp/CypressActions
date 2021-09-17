@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'mobx';
-import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/stores';
+import { BaasicDropdownStore, BaseEditViewStore, ModalStore, TableViewStore } from 'core/stores';
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { GrantCreateForm } from 'application/common/grant/forms';
 import moment from 'moment';
@@ -222,17 +222,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-    setFieldRules(selectedOption) {
-        this.resetFieldRules();
-        if (selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id && selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'general-fund').id) {
-            this.form.$('purposeNote').set('rules', 'required');
-        }
-    }
+	setFieldRules(selectedOption) {
+		this.resetFieldRules();
+		if (selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id && selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'general-fund').id) {
+			this.form.$('purposeNote').set('rules', 'required');
+		}
+	}
 
-    @action.bound
-    resetFieldRules() {
-        this.form.$('purposeNote').set('rules', '');
-    }
+	@action.bound
+	resetFieldRules() {
+		this.form.$('purposeNote').set('rules', '');
+	}
 
 	@action.bound
 	onNewCharityChange(value) {
@@ -577,6 +577,54 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				},
 			],
 		});
+	}
+
+	@action.bound
+	async onSubmitClick(resource) {
+		const { isValid } = await this.form.validate({ showErrors: true });
+		if (isValid) {
+			this.confirmModal.open({
+				onCancel: () => {
+					this.confirmModal.close();
+				},
+				onSubmit: async () => {
+						this.form.setFieldsDisabled(true);
+						this.loaderStore.suspend();
+						try {
+							if (this.translationStore) {
+								this.translationStore.applyMetadata(resource);
+							}
+							await this.actions.create(resource);
+							
+							if (this.onAfterAction) {
+								this.onAfterAction();
+							}
+							else {
+								await this.rootStore.routerStore.goBack();
+								await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+							}
+						}
+						catch (err) {
+							return this.onCreateError(err);
+						} finally {
+							this.form.setFieldsDisabled(false);
+							this.loaderStore.resume();
+						}
+				},
+				form: this.form,
+				grantAcknowledgmentName: this.grantAcknowledgmentName,
+				charityName: this.charityDropdownStore.value.name
+			});
+		}
+	}
+
+	@action.bound
+	async createResource(resource) {
+		this.onSubmitClick(resource);
+	}
+
+	createConfirmModalParams() {
+		this.confirmModal = new ModalParams({});
 	}
 
 	@computed get oneTimeGrantId() {
