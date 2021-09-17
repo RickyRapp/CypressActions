@@ -32,14 +32,18 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		donor,
 		yearDropdownStore
 	} = pastGrantViewStore;
-
-	var dataDonut = [];
+	//Color palette
+	let colors = ["#bc6d11","#223a5e","#6685b3","#dbaa70","#99bdf3","#f4d0a6","#666666","#777777","#888888"];
+	
+	let dataDonut = [];
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
 			return { charityType: c.charityType.name, value: c.amount, color: c.color };
 		});
 	}
-
+	for (let i = 0; i < dataDonut.length; i++) {
+		dataDonut[i].color = colors[i];
+	}
 	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
 	const DonutChartContainer = () => {
 		return (
