@@ -82,8 +82,19 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	
 	@action.bound
 	downloadTxtFile () {
+		//const element = document.createElement("a");
+		//const file = new Blob([this.clipboardText], {type: 'text/plain'});
+	}
+
+	@action.bound
+	downloadStockTxtFile () {
 		const element = document.createElement("a");
-		const file = new Blob([this.clipboardText], {type: 'text/plain'});
+		const file = new Blob([`Beneficiary – Donors’ Fund Inc\n
+		Address - 328 3rd St Lakewood NJ 08701\n
+		EIN (tax ID) – 47-4844275\n
+		Brokerage Firm – Fidelity Investment\n
+		DTC – 0226\n
+		Brokerage Number - Z50762458`], {type: 'text/plain'});
 		element.href = URL.createObjectURL(file);
 		element.download = `Deposit_${(new Date()).toISOString()}.txt`;
 		document.body.appendChild(element); // Required for this to work in FireFox
@@ -92,17 +103,20 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onSubmitClick() {
-		const accountNumber = (this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value).accountNumber);
+		if(this.bankAccountDropdownStore.value !== null) {
+			const accountNumber = (this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value).accountNumber);
+			this.clipboardText = `Beneficiary:\n
+			The Donors Fund\n
+			328 3rd Street, Lakewood NJ 08701\n
+			\n
+			Beneficiary bank:\n
+			JP Morgan Chase\n
+			ABA (routing number): 021000021\n
+			Account number: 883220399\n
+			Wire Memo: xxxx-xxxx-xxxx-${accountNumber} (your full account number goes here)`;
+		}
 		const { isValid } = await this.form.validate({ showErrors: true });
-		this.clipboardText = `Beneficiary:\n
-		The Donors Fund\n
-		328 3rd Street, Lakewood NJ 08701\n
-		\n
-		Beneficiary bank:\n
-		JP Morgan Chase\n
-		ABA (routing number): 021000021\n
-		Account number: 883220399\n
-		Wire Memo: xxxx-xxxx-xxxx-${accountNumber} (your full account number goes here)`;
+		
 		if (isValid) {
 			this.confirmModal.open({
 				onCancel: () => {
