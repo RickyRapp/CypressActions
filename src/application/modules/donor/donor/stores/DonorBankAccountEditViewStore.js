@@ -21,6 +21,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						description: data.description,
 						coreMediaVaultEntryId: data.coreMediaVaultEntryId,
 						isThirdPartyAccount: data.isThirdPartyAccount,
+						isPrimary: data.isPrimary,
 						accountHolderName: data.accountHolder && data.accountHolder.name,
 						addressLine1: data.accountHolder && data.accountHolder.addressLine1,
 						addressLine2: data.accountHolder && data.accountHolder.addressLine2,

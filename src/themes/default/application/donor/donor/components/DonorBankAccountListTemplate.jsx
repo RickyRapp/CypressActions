@@ -58,6 +58,13 @@ const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) 
 													<p className="type--base type--wgt--bold">{c.description}</p>
 												</div>
 
+												<div className="col col-sml-6 col-xxlrg-4">
+													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+														Primary
+													</p>
+													<p className="type--base type--wgt--bold">{c.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
+												</div>
+
 											</div>
 										</div>
 									</div>
