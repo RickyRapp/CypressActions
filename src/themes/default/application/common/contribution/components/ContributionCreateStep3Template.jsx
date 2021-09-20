@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, SimpleBaasicTable } from 'core/components';
 
 const ContributionCreateStep3Template = function ({
-    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile }) {
+    paymentType, routes, previousContributionsTableStore, bankAccount, form, t, clipboardText, downloadTxtFile, downloadStockTxtFile, downloadZelleTxtFile }) {
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
@@ -94,6 +94,7 @@ const ContributionCreateStep3Template = function ({
                         </div>
                     </div>
                 </div>
+
                 {
                     paymentType.abrv === 'wire-transfer' ? 
                     <div>
@@ -147,7 +148,29 @@ const ContributionCreateStep3Template = function ({
                 {
                     paymentType.abrv !== 'wire-transfer' && paymentType.abrv !== 'stock-and-securities' ? 
                     <div className="type--color--note"> 
-                        <b>Timeline: Funds will be made available within 3 - 5 business days.</b>
+                        <b>Timeline: Funds will be made available within 3 - 5 business days.</b> </div> : null 
+                }
+                {
+                    paymentType.abrv === 'zelle' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
+                    Our Zelle email address - QP@TheDonorsFund.org\n
+                    Zelle Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a className="btn btn--link btn--med" onClick={downloadZelleTxtFile}>Download</a></div> : null
+
+                }
+
+                {paymentType.abrv === 'zelle' ? 
+                    <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
+                        <h4>Please use the below email address to initiate your Zelle or QuickPay payment.</h4>
+                        <br />
+                        <p><b>Our Zelle email address:</b> QP@TheDonorsFund.org</p>
+                        <p><b>Zelle Memo:</b> xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
+                        <p><b>Amount:</b> <FormatterResolver
+                                        item={{ amount: form.$('amount').value }}
+                                        field="amount"
+                                        format={{ type: 'currency' }}
+                                    /></p>
                     </div> : null
                 }
             </div>
@@ -174,9 +197,11 @@ ContributionCreateStep3Template.propTypes = {
     previousContributionsTableStore: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
     bankAccount: PropTypes.object,
+    downloadZelleTxtFile: PropTypes.func,
     t: PropTypes.func,
     clipboardText: PropTypes.string,
-    downloadTxtFile: PropTypes.func
+    downloadTxtFile: PropTypes.func,
+    downloadStockTxtFile: PropTypes.func
 };
 
 export default defaultTemplate(ContributionCreateStep3Template);
