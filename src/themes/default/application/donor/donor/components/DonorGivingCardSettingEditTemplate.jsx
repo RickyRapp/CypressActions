@@ -5,7 +5,6 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BasicFieldCheckbox,
     BaasicFieldDropdown,
     NumericInputField
 } from 'core/components'
@@ -19,7 +18,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
         isEdit,
         grantAcknowledgmentTypeDropdownStore,
         grantPurposeTypeDropdownStore,
-        onChangeIsEnabled
+        toggleEdit
     } = donorGivingCardSettingEditViewStore;
 
     return (
@@ -28,14 +27,17 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-                {isEdit ?
+                {isEdit && item ?
                     <div className="list--preferences">
                         <div className="list--preferences__label">
-                            <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
+                            <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.EDIT.TITLE')}</h3>
                         </div>
                         <div className="list--preferences__field">
-                            <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
+                            <a onClick={() => toggleEdit()}>{form.$('isEnabled').value ? "Cancel Edit" : "Edit Settings"}</a>
                         </div>
+                        {/* <div className="list--preferences__field">
+                            <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
+                        </div> */}
                     </div>
                     :
                     <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3>
@@ -86,6 +88,13 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                             {item.givingCard.cardNumber} - {item.givingCard.cvv} - {moment(new Date(item.givingCard.expirationDate)).format('MM/YY')}
                             {!item.givingCard.isActivated && <div>Card is not activated </div>}
                         </div>}
+                    {item && !item.givingCard && 
+                    <div className="form__group col col-sml-12 col-xlrg-6">
+                        <div className="form__group__label">
+                                Card Requested
+                                <div>Note: Card is not assigned yet</div>
+                        </div>
+                    </div>}
                 </div>
                 <div className="type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />

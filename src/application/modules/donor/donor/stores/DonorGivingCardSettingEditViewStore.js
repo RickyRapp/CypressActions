@@ -16,6 +16,7 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                         await rootStore.application.donor.donorStore.updateGivingCardSetting(resource);
                     },
                     create: async (resource) => {
+                        //resource.isEnabled = true;
                         await rootStore.application.donor.donorStore.createGivingCardSetting({ donorId: this.donorId, ...resource });
                     },
                     get: async () => {
@@ -45,6 +46,11 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                 this.onChangeIsEnabled();
             }
         }
+    }
+    @action.bound
+    toggleEdit() {
+        this.form.$('isEnabled').value = !this.form.$('isEnabled').value;
+        this.onChangeIsEnabled();
     }
 
     @action.bound

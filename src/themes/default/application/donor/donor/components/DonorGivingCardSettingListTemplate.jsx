@@ -9,7 +9,7 @@ import { DonorGivingCardSettingEdit } from 'application/donor/donor/components';
 
 const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingListViewStore, t }) {
     const {
-        tableStore
+        tableStore, toggleNewCard, isNewCard
     } = donorGivingCardSettingListViewStore;
 
     return (
@@ -22,10 +22,11 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
                     <Content>
                         {tableStore.data.map(c => {
                             return (
-                                <DonorGivingCardSettingEdit key={c.id} setting={c} />
+                                (!isNewCard && <DonorGivingCardSettingEdit key={c.id} setting={c} />)
                             )
                         })}
-                        {!tableStore.data.length > 0 && <DonorGivingCardSettingEdit /> }
+                        {isNewCard && <DonorGivingCardSettingEdit />}
+                        {tableStore.data.length > 0 ? <a onClick={() => toggleNewCard()}>{isNewCard ? "My Cards" : "Request New Card"}</a> : <DonorGivingCardSettingEdit />}
                     </Content>}
             </ListContent>
         </div>

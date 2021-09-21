@@ -1,9 +1,11 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { FilterParams } from 'core/models';
+import { action, observable } from 'mobx';
 
 @applicationContext
 class DonorGivingCardSettingListViewStore extends BaseListViewStore {
+    @observable isNewCard = false;
     constructor(rootStore) {
         super(rootStore, {
             name: 'donor-giving-card-list',
@@ -24,7 +26,6 @@ class DonorGivingCardSettingListViewStore extends BaseListViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
-
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -36,6 +37,11 @@ class DonorGivingCardSettingListViewStore extends BaseListViewStore {
             disablePaging: true,
             disableSorting: true
         }));
+    }
+    
+    @action.bound
+    toggleNewCard() {
+       this.isNewCard = !this.isNewCard; 
     }
 }
 
