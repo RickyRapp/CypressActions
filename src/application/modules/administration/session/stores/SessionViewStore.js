@@ -1,13 +1,18 @@
 import React from 'react';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionListFilter } from 'application/administration/session/models';
 import { applicationContext } from 'core/utils';
 import { FormatterResolver } from 'core/components';
+import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
+    charities = [];
+	@observable charity = null;
+    @observable charityInputValue = null;
+	@observable filteredCharities = [];
     constructor(rootStore) {
         super(rootStore, {
             name: 'session',
@@ -122,6 +127,47 @@ class SessionViewStore extends BaseListViewStore {
         }));
 
     }
+
+    @action.bound
+	setCharityId(id) {
+		//this.form.$('charityId').set(id);
+		const charity = this.filteredCharities.find(x => x.value === id);
+        this.queryUtility.filter.charityId = id;
+        this.charity = charity;
+		//this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.rootStore.application.administration.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});
+        console.log(data);
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+        console.log(mapped);
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+        console.log(options);
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
 
     createSearchCharityDropdownStore() {
         this.searchCharityDropdownStore = new BaasicDropdownStore({

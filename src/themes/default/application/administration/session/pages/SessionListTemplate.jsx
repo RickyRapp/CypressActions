@@ -12,6 +12,7 @@ import {
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
+import AsyncSelect from 'react-select/async';
 
 const SessionListTemplate = function ({ sessionViewStore }) {
 	const {
@@ -23,7 +24,17 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 		paymentTypeDropdownStore,
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
-	} = sessionViewStore;
+		filterCharities,
+        setCharityId,
+    } = sessionViewStore;
+
+    const promiseOptions = inputValue =>
+    new Promise(resolve => {
+        setTimeout(() => {
+            resolve(filterCharities(inputValue));
+        }, 1000);
+    });
+
 
 	return (
 		<ApplicationListLayout store={sessionViewStore} authorization={authorization}>
@@ -33,7 +44,8 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 					<div className="u-mar--bottom--med">
 						<TableFilter queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchCharityDropdownStore} />
+								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
+								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput

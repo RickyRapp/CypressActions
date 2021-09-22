@@ -25,7 +25,9 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         blankCertificateModal,
         isChangedDefaultAddress,
         onChangeDefaultAddressClick,
-        modalStore
+        modalStore,
+        filterCharities,
+        setCharityId,
     } = sessionCreateViewStore;
 
     return (
@@ -51,7 +53,9 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             onPreviousStepClick={onPreviousStep2Click}
                             charityDropdownStore={charityDropdownStore}
                             isChangedDefaultAddress={isChangedDefaultAddress}
-                            onChangeDefaultAddressClick={onChangeDefaultAddressClick} 
+                            onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                            filterCharities={filterCharities}
+                            setCharityId={setCharityId} 
                         />
                     </div>}
 

@@ -586,6 +586,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	setCharityId(id) {
 		this.form.$('charityId').set(id);
 		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
 		this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
@@ -609,7 +610,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		mapped.forEach(item => {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
-		console.log(options);
 		this.filteredCharities = options;
 		return options;
 	};
@@ -706,9 +706,39 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	// }
 
 	@action.bound
-	async createResource(resource) {
-		this.onSubmitClick(resource);
-	}
+    async createResource(resource) {
+        if (!this.actions.create) return;
+		const { modalStore } = this.rootStore;
+		modalStore.showConfirm((`Grant acknowledgment name: ${this.grantAcknowledgmentName}
+		\n\r
+		Recepient charity: ${this.charity.label}
+		\n\r
+		Given amount: $${this.form.$('amount').$value}`), async () => {
+			this.form.setFieldsDisabled(true);
+			this.loaderStore.suspend();
+			try {
+				if (this.translationStore) {
+					this.translationStore.applyMetadata(resource);
+				}
+
+				await this.actions.create(resource);
+
+				if (this.onAfterAction) {
+					this.onAfterAction();
+				}
+				else {
+					await this.rootStore.routerStore.goBack();
+					await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+				}
+			}
+			catch (err) {
+				return this.onCreateError(err);
+			} finally {
+				this.form.setFieldsDisabled(false);
+				this.loaderStore.resume();
+			}
+		})
+    }
 
 	@computed get oneTimeGrantId() {
 		return this.grantScheduleTypes ? this.grantScheduleTypes.find(item => item.abrv === 'one-time').id : null;

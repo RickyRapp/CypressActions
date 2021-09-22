@@ -14,6 +14,10 @@ class SessionViewStore extends BaseEditViewStore {
     @observable session = 30;
     refreshIntervalId = null;
     @observable isChangedDefaultAddress = null;
+    charities = [];
+	@observable charity = null;
+    @observable charityInputValue = null;
+	@observable filteredCharities = [];
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -96,6 +100,43 @@ class SessionViewStore extends BaseEditViewStore {
         this.form.$('language').set(language);
         this.nextStep(2);
     }
+
+    @action.bound
+	setCharityId(id) {
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+        this.queryUtility.filter.charityId = id;
+		//this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.rootStore.application.administration.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
 
     @action.bound
     async onNextStep2Click() {

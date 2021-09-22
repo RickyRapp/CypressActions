@@ -372,7 +372,7 @@ GrantCreateTemplate.propTypes = {
 };
 function renderEditLayoutFooterContent({ form }) {
     return <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-        <BaasicFormControls form={form} onSubmit={() => console.log(form)} label='GRANT.CREATE.BUTTON.CREATE' />
+        <BaasicFormControls form={form} onSubmit={form.onSubmit} label='GRANT.CREATE.BUTTON.CREATE' />
     </div>
 }
 

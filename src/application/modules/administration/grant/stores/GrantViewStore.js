@@ -7,7 +7,14 @@ import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
 import GrantDeclineForm from 'application/common/grant/forms';
 class GrantViewStore extends BaseListViewStore {
+<<<<<<< HEAD
     @observable declinationTypeId;
+=======
+    charities = [];
+	@observable charity = null;
+    @observable charityInputValue = null;
+	@observable filteredCharities = [];
+>>>>>>> 6548053f (Charity Search Engine finished)
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant',
@@ -65,6 +72,10 @@ class GrantViewStore extends BaseListViewStore {
                             'dateCreated',
                             'scheduledGrantPayment'
                         ];
+<<<<<<< HEAD
+=======
+                        console.log(this.queryUtility);
+>>>>>>> 6548053f (Charity Search Engine finished)
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
@@ -111,6 +122,45 @@ class GrantViewStore extends BaseListViewStore {
             }
         });
     }
+
+    @action.bound
+	setCharityId(id) {
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+        this.queryUtility.filter.charityId = id;
+        console.log(this.queryUtility);
+		//this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.rootStore.application.administration.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
+
 
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {

@@ -19,6 +19,7 @@ import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/donor/charity/components';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
+import AsyncSelect from 'react-select/async';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	const {
@@ -42,8 +43,20 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		grantRequestId,
 		getNumberOfReocurrency,
 		grantPurposeTypes,
+<<<<<<< HEAD
 		confirmModal
+=======
+        filterCharities,
+        setCharityId,
+>>>>>>> 6548053f (Charity Search Engine finished)
 	} = grantCreateViewStore;
+
+	const promiseOptions = inputValue =>
+        new Promise(resolve => {
+            setTimeout(() => {
+                resolve(filterCharities(inputValue));
+            }, 1000);
+        });
 
 	return (
 		<React.Fragment>
@@ -55,11 +68,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
 								<div className="row row--form">
 									<div className="form__group col col-sml-12">
-										<BaasicFieldDropdown
+										{/* <BaasicFieldDropdown
 											field={form.$('charityId')}
 											store={charityDropdownStore}
 											additionalLabel="My Favorite Charities"
-										/>
+										/> */}
+											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
 									</div>
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (

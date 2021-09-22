@@ -2,8 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BasicInput, BaasicButton, BaasicFieldDropdown, NumberFormatInputField } from 'core/components';
+import AsyncSelect from 'react-select/async';
+function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDropdownStore, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId }) {
+    const promiseOptions = inputValue =>
+    new Promise(resolve => {
+        setTimeout(() => {
+            resolve(filterCharities(inputValue));
+        }, 1000);
+    });
 
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDropdownStore, isChangedDefaultAddress, onChangeDefaultAddressClick }) {
 	return (
 		<React.Fragment>
 			<div className="scanner card--med">
@@ -17,7 +24,8 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 							<NumberFormatInputField field={form.$('phoneNumber')} />
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
-							<BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+							{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} /> */}
+							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
 							{charityDropdownStore && charityDropdownStore.value &&
 								<BaasicButton
 									className="btn btn--sml btn--link u-mar--bottom--sml"

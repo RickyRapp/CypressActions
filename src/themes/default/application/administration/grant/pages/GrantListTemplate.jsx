@@ -15,6 +15,7 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
 import { GrantDeclineTemplate } from 'application/administration/grant/components';
+import AsyncSelect from 'react-select/async';
 
 const GrantListTemplate = function ({ grantViewStore }) {
 	const {
@@ -30,7 +31,16 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		donationTypeDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		declineModal,
+		filterCharities,
+        setCharityId,
 	} = grantViewStore;
+
+	const promiseOptions = inputValue =>
+	new Promise(resolve => {
+		setTimeout(() => {
+			resolve(filterCharities(inputValue));
+		}, 1000);
+	});
 
 	return (
 		<Content>
@@ -45,7 +55,8 @@ const GrantListTemplate = function ({ grantViewStore }) {
 								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchCharityDropdownStore} />
+								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
+								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
