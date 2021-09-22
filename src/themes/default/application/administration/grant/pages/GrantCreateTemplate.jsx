@@ -20,6 +20,7 @@ import { CharityAdvancedSearch } from 'application/administration/charity/compon
 import logo from 'themes/assets/img/logo.svg';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import { GrantConfirmTemplate } from '../components';
+import AsyncSelect from 'react-select/async';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
     const {
@@ -44,8 +45,17 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         onChangeDefaultAddressClick,
         grantRequestId,
         getNumberOfReocurrency,
-        grantPurposeTypes
+        grantPurposeTypes,
+        filterCharities,
+        setCharityId,
     } = grantCreateViewStore;
+
+    const promiseOptions = inputValue =>
+        new Promise(resolve => {
+            setTimeout(() => {
+                resolve(filterCharities(inputValue));
+            }, 1000);
+        });
 
     return (
         <React.Fragment>
@@ -57,12 +67,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">
-                                        <BaasicFieldDropdown
+                                        {/* <BaasicFieldDropdown
                                             field={form.$('charityId')}
                                             store={charityDropdownStore}
                                             additionalLabel='My Favorite Charities'
-                                        />
-
+                                        /> */}
+                                        <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
                                     </div>
                                 </div>
                                 {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
@@ -196,7 +206,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="row">
                                                 <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                                     Accumulated amount:
-													{form.$('numberOfPayments').value &&
+                                                    {form.$('numberOfPayments').value &&
                                                         <FormatterResolver
                                                             item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
                                                             field="amount"
@@ -359,6 +369,15 @@ GrantCreateTemplate.propTypes = {
     form: PropTypes.object,
     confirmModal: PropTypes.any,
     t: PropTypes.func.isRequired
+};
+function renderEditLayoutFooterContent({ form }) {
+    return <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+        <BaasicFormControls form={form} onSubmit={() => console.log(form)} label='GRANT.CREATE.BUTTON.CREATE' />
+    </div>
+}
+
+renderEditLayoutFooterContent.propTypes = {
+    form: PropTypes.any
 };
 
 export default defaultTemplate(GrantCreateTemplate);

@@ -12,13 +12,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
+	@observable charityInputValue = null;
+	@observable filteredCharities = [];
 	donor = null;
 	applicationDefaultSetting = {};
 	grantScheduleTypes = [];
 	grantAcknowledgmentTypes = [];
 	grantPurposeTypes = [];
 	grantRequestId = null;
-
+	charities = [];
+	@observable charity = null;
+	
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
 			name: 'grant-create',
@@ -89,6 +93,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.createConfirmModalParams();
 		this.advancedSearchModal = new ModalParams({});
 	}
+
+	
 
 	@action.bound
 	async onInit({ initialLoad }) {
@@ -424,9 +430,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.setCharity(charity);
 		this.advancedSearchModal.close();
 	}
+
 	createConfirmModalParams() {
 		this.confirmModal = new ModalParams({});
 	}
+	promiseOptions = inputValue =>
+        new Promise(resolve => {
+            setTimeout(() => {
+                resolve(this.filterCharities(inputValue));
+            }, 1000);
+    });
+
 	setCharity(charity) {
 		this.charityDropdownStore.setValue({
 			id: charity.id,
@@ -471,6 +485,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.form.$('city').set(address.city);
 		this.form.$('state').set(address.state);
 		this.form.$('zipCode').set(address.zipCode);
+	}
+
+	@action.bound
+	setCharityVal(val) {
+		this.charityInputValue = val;
+		this.filterCharities(val);
 	}
 
 	async loadLookups() {
@@ -562,6 +582,43 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			}
 		);
 	}
+	@action.bound
+	setCharityId(id) {
+		this.form.$('charityId').set(id);
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		console.log(options);
+		this.filteredCharities = options;
+		return options;
+	};
+
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
 
 	createPreviousGrantsTableStore() {
 		this.previousGrantsTableStore = new TableViewStore(null, {
