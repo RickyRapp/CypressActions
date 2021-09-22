@@ -45,8 +45,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		dataDonut[i].color = colors[i];
 	}
 
-	const labelContent = e => ` \n $${e.value.toFixed(2)}`;
-	const DonutChartContainer = () => {
+	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
+	const DonutChartContainer = () => {// eslint-disable-line
 		return (
 			<Chart>
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />

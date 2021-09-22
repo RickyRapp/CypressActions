@@ -298,14 +298,14 @@ class PastGrantViewStore extends BaseListViewStore {
 				return `${item.grantPurposeType.name} - ${item.purposeNote}`
 			}
 			return item.grantPurposeType.name;
-		}
+        }
 		// else if(item.donationType.abrv === "giving-card") {
 		// 	return `Grant: ${item.charity.name}`;
 		// }
 		else{
 			return `Grant: ${item.charity.name}`;
 		} 
-	}
+    }
 
 	getTransactionType(item) {
 		if (item.donationType.abrv === "session") {
