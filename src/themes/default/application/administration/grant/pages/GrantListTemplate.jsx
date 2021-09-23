@@ -27,7 +27,6 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		donationStatusDropdownStore,
 		exportConfig,
 		selectDonorModal,
-		searchCharityDropdownStore,
 		donationTypeDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		declineModal,

@@ -7,7 +7,6 @@ import {
     BaasicFormControls,
     BasicInput,
     NumberFormatInputField,
-    BaasicFieldDropdown,
 } from 'core/components'
 import { PageFooter } from 'core/layouts';
 import AsyncSelect from 'react-select/async';

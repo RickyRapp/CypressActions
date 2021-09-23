@@ -6,7 +6,6 @@ import moment from 'moment';
 import { charityFormatter, addressFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { localStorageProvider } from 'core/providers';
-
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
 	@observable isNoteToAdministratorIncluded = false;
@@ -93,8 +92,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.createConfirmModalParams();
 		this.advancedSearchModal = new ModalParams({});
 	}
-
-	
 
 	@action.bound
 	async onInit({ initialLoad }) {
@@ -613,7 +610,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.filteredCharities = options;
 		return options;
 	};
-
 	
 	@action.bound
 	async charityLoadOptions(inputValue) {

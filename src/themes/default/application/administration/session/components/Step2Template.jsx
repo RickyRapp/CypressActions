@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BasicInput, BaasicButton, BaasicFieldDropdown, NumberFormatInputField } from 'core/components';
+import { BasicInput, BaasicButton, NumberFormatInputField } from 'core/components';
 import AsyncSelect from 'react-select/async';
 function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDropdownStore, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId }) {
     const promiseOptions = inputValue =>
@@ -91,6 +91,8 @@ Step2Template.propTypes = {
 	t: PropTypes.func,
 	isChangedDefaultAddress: PropTypes.bool,
 	onChangeDefaultAddressClick: PropTypes.func,
+	filterCharities: PropTypes.func,
+	setCharityId: PropTypes.func,
 };
 
 export default defaultTemplate(Step2Template);

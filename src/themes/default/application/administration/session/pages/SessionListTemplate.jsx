@@ -20,7 +20,6 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 		tableStore,
 		queryUtility,
 		authorization,
-		searchCharityDropdownStore,
 		paymentTypeDropdownStore,
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
@@ -34,7 +33,6 @@ const SessionListTemplate = function ({ sessionViewStore }) {
             resolve(filterCharities(inputValue));
         }, 1000);
     });
-
 
 	return (
 		<ApplicationListLayout store={sessionViewStore} authorization={authorization}>

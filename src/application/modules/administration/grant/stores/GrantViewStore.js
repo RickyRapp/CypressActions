@@ -7,14 +7,11 @@ import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
 import GrantDeclineForm from 'application/common/grant/forms';
 class GrantViewStore extends BaseListViewStore {
-<<<<<<< HEAD
     @observable declinationTypeId;
-=======
     charities = [];
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
->>>>>>> 6548053f (Charity Search Engine finished)
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant',
@@ -72,10 +69,6 @@ class GrantViewStore extends BaseListViewStore {
                             'dateCreated',
                             'scheduledGrantPayment'
                         ];
-<<<<<<< HEAD
-=======
-                        console.log(this.queryUtility);
->>>>>>> 6548053f (Charity Search Engine finished)
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
@@ -128,7 +121,6 @@ class GrantViewStore extends BaseListViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
         this.queryUtility.filter.charityId = id;
-        console.log(this.queryUtility);
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
@@ -160,7 +152,6 @@ class GrantViewStore extends BaseListViewStore {
 	async charityLoadOptions(inputValue) {
 		await this.filterCharities(inputValue);
 	};
-
 
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {

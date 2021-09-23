@@ -95,7 +95,6 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
 	} 
 	@action.bound
 	async filterCharities(inputValue) {
-        console.log(this.rootStore);
 		const data = await this.rootStore.application.administration.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,

@@ -145,8 +145,7 @@ class SessionViewStore extends BaseListViewStore {
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
 			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
-		});
-        console.log(data);
+		});        
 		const mapped = data.item.map(x => {
 			return {
 				id: x.id,
@@ -154,12 +153,10 @@ class SessionViewStore extends BaseListViewStore {
 				item: x,
 			};
 		});
-        console.log(mapped);
 		let options = [];
 		mapped.forEach(item => {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
-        console.log(options);
 		this.filteredCharities = options;
 		return options;
 	};

@@ -43,12 +43,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		grantRequestId,
 		getNumberOfReocurrency,
 		grantPurposeTypes,
-<<<<<<< HEAD
-		confirmModal
-=======
+		confirmModal,
         filterCharities,
         setCharityId,
->>>>>>> 6548053f (Charity Search Engine finished)
 	} = grantCreateViewStore;
 
 	const promiseOptions = inputValue =>
@@ -73,7 +70,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											store={charityDropdownStore}
 											additionalLabel="My Favorite Charities"
 										/> */}
-											<AsyncSelect classNamePrefix="react-select" onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
+											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
 									</div>
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
