@@ -105,7 +105,8 @@ class SessionViewStore extends BaseEditViewStore {
 	setCharityId(id) {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
-        this.queryUtility.filter.charityId = id;
+        this.form.$('charityId').value = id;
+        //this.queryUtility.filter.charityId = id;
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
@@ -141,7 +142,7 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async onNextStep2Click() {
         if (!this.isChangedDefaultAddress) {
-            const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+            const address = this.charity.item.charityAddresses.find(c => c.isPrimary);
             this.setAddress(address);
         }
         const { isValid } = await this.form.validate({ showErrors: true });
