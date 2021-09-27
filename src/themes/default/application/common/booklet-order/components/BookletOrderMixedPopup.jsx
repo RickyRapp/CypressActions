@@ -1,11 +1,10 @@
 import React from 'react';
-import { BaasicButton, BaasicFormControls, FormatterResolver } from 'core/components';
+import { BaasicButton } from 'core/components';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
-function GrantConfirmTemplate({ modalParams, t }) {
+function GrantConfirmTemplate({ modalParams }) {
     const {
-        form,
         bookletAmount,
         onCancel
     } = modalParams.data;
@@ -114,7 +113,6 @@ function GrantConfirmTemplate({ modalParams, t }) {
                 </table>
                 </React.Fragment>
             }
-          
 
             <div className="u-display--flex">
                 <BaasicButton

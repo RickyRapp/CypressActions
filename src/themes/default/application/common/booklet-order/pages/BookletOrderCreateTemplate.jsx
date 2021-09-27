@@ -18,7 +18,6 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
 
-
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
         contentLoading,
@@ -35,7 +34,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         bookletTypes,
         totalAmount,
         prepaidBooksChecks,
-        totalPrepaidAmount,
         showMoreOptions,
         showAddOnitems,
         onShowMoreOptionsClick,
@@ -45,7 +43,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         onAddProtectionPlanClick,
         protectionPlanModalParams,
         customizedExpirationDateDropdownStore,
-        tableData,
         confirmModal,
         click500,
         click2000
@@ -76,7 +73,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             </div>
 
                         </div>
-
 
                         {bookletTypes.map(bt => {
                             return (
@@ -140,7 +136,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </div>
                                         </div>}
 
-
                                     <div className="col col-sml-12 col-xxlrg-8 u-align--self--end">
                                         <div className="row">
                                             {(bt.abrv === 'mixed_500' || bt.abrv === 'mixed_2000') &&
@@ -174,7 +169,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-
 
                                                     }
                                                     {bt.abrv === 'mixed_2000' &&

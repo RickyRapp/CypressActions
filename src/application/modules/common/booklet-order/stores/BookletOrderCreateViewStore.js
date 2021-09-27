@@ -187,6 +187,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @action.bound
     async onRemoveBookletClick(bookletTypeId, denominationTypeId) {
+        //eslint-disable-next-line
         let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
         if (this.orderContents.length === 0 || !this.orderContents.some(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)) {
             return;

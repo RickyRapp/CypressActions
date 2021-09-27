@@ -7,7 +7,8 @@ import {
     BaasicFormControls,
     BaasicFieldDropdown,
     NumericInputField,
-    BasicInput
+    BasicInput,
+    BasicFieldCheckbox
 } from 'core/components'
 import moment from 'moment';
 

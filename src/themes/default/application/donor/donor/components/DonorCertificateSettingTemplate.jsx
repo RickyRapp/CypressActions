@@ -13,8 +13,7 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
     const {
         loaderStore,
         form,
-        grantAcknowledgmentTypeDropdownStore,
-        grantAcknowledgmentTypeByAmountDropwdownStore
+        grantAcknowledgmentTypeDropdownStore
     } = donorCertificateSettingViewStore;
 
     return (

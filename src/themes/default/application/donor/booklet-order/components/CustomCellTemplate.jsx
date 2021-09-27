@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 
 const CustomCellTemplate = (props) => {
+    /* eslint-disable */
     const { dataItem, onClick } = props;
 
     return (

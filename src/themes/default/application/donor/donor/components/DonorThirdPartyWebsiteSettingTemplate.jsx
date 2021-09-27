@@ -5,8 +5,7 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BaasicFieldDropdown,
-    NumericInputField
+    BaasicFieldDropdown
 } from 'core/components'
 
 const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebsiteSettingViewStore }) {

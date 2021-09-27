@@ -101,7 +101,7 @@ class TransactionViewStore extends BaseListViewStore {
         this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
     }
 
-    createTableStore(isMobile) {
+    createTableStore() {
         if(window.innerWidth > 750) {
             this.setTableStore(new TableViewStore(this.queryUtility, {
                 columns: [
@@ -117,6 +117,14 @@ class TransactionViewStore extends BaseListViewStore {
                     {
                         key: 'description',
                         title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
+                                if(item.paymentTransaction && item.paymentTransaction.description && item.paymentTransaction.description.includes('Refund Contribution'))
+                                    return `Declined ${item.description}`;
+                                return item.description;
+                            }
+                        }
                     },
                     {
                         key: 'type',
