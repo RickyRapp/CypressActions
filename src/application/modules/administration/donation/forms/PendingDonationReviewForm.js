@@ -25,7 +25,7 @@ export default class PendingDonationReviewForm extends FormBase {
                     label: 'Payment Date',
                     placeholder: 'Payment Date',
                     type: 'date',
-                    rules: 'required',
+                    rules: `required|min_date:${moment().format('YYYY-MM-DD')}`,
 					value: moment().format('YYYY-MM-DD'),
 					options: {
 						validateOnChange: false,
