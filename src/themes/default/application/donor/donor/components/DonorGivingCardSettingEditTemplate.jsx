@@ -38,7 +38,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                         </div>
                         <div className="list--preferences__field">
                             <a onClick={() => toggleEdit()}>{form.$('isEnabled').value ? "Cancel Edit" : "Edit Settings"}</a>
-                            {!reportCard ? <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</h3> : <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</h3>}
+                            {!reportCard ? null : <h3 className="list--preferences__title">{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</h3>}
                         </div>
                         <div className="list--preferences__field">
                             {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) && (!reportCard ? <a onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</a>)}
