@@ -86,7 +86,7 @@ class ContributionViewStore extends BaseListViewStore {
 			async () => {
 				this.loaderStore.suspend();
 				try {
-					await this.rootStore.application.contribution.contributionStore.reviewContribution({
+					await this.rootStore.application.donor.contributionStore.reviewContribution({
 						id: item.id,
 						contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id,
 					});

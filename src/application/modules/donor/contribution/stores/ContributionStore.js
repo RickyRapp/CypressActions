@@ -37,5 +37,10 @@ class ContributionStore {
         const response = await this.contributionService.update(resource);
         return response.data;
     }
+
+    async reviewContribution(resource) {
+        const response = await this.contributionService.review(resource);
+        return response.data;
+    }
 }
 export default ContributionStore;
