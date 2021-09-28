@@ -99,7 +99,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.rootStore.routerStore.goBack();
 		} else {
 			await this.setDonor();
-			this.onCharitySelected
+			//this.onCharitySelected
 			await this.fetch([this.loadLookups()]);
 			const isExistingGrant = localStorageProvider.get('ExistingGrant');
 			if(isExistingGrant) {
@@ -585,6 +585,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
 		this.setAddress(charity.item.charityAddresses[0]);
+		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	} 
 	@action.bound
 	async filterCharities(inputValue) {
@@ -594,7 +595,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
 		});
 		const mapped = data.item.map(x => {
 			return {
