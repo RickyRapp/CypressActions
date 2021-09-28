@@ -237,7 +237,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				},
 				form: this.form,
 				grantAcknowledgmentName: this.grantAcknowledgmentName,
-				charity: this.charityDropdownStore.items.find(c => c.id === this.form.$('charityId').value),
+				charity: this.charity,
 				amount: this.form.$('amount').value,
 				date: this.form.$('startFutureDate').$value,
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
@@ -701,40 +701,40 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	// 	}
 	// }
 
-	@action.bound
-    async createResource(resource) {
-        if (!this.actions.create) return;
-		const { modalStore } = this.rootStore;
-		modalStore.showConfirm((`Grant acknowledgment name: ${this.grantAcknowledgmentName}
-		\n\r
-		Recepient charity: ${this.charity.label}
-		\n\r
-		Given amount: $${this.form.$('amount').$value}`), async () => {
-			this.form.setFieldsDisabled(true);
-			this.loaderStore.suspend();
-			try {
-				if (this.translationStore) {
-					this.translationStore.applyMetadata(resource);
-				}
+	// @action.bound
+    // async createResource(resource) {
+    //     if (!this.actions.create) return;
+	// 	const { modalStore } = this.rootStore;
+	// 	modalStore.showConfirm((`Grant acknowledgment name: ${this.grantAcknowledgmentName}
+	// 	\n\r
+	// 	Recepient charity: ${this.charity.label}
+	// 	\n\r
+	// 	Given amount: $${this.form.$('amount').$value}`), async () => {
+	// 		this.form.setFieldsDisabled(true);
+	// 		this.loaderStore.suspend();
+	// 		try {
+	// 			if (this.translationStore) {
+	// 				this.translationStore.applyMetadata(resource);
+	// 			}
 
-				await this.actions.create(resource);
+	// 			await this.actions.create(resource);
 
-				if (this.onAfterAction) {
-					this.onAfterAction();
-				}
-				else {
-					await this.rootStore.routerStore.goBack();
-					await setTimeout(() => this.notifySuccessCreate(this.name), 10);
-				}
-			}
-			catch (err) {
-				return this.onCreateError(err);
-			} finally {
-				this.form.setFieldsDisabled(false);
-				this.loaderStore.resume();
-			}
-		})
-    }
+	// 			if (this.onAfterAction) {
+	// 				this.onAfterAction();
+	// 			}
+	// 			else {
+	// 				await this.rootStore.routerStore.goBack();
+	// 				await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+	// 			}
+	// 		}
+	// 		catch (err) {
+	// 			return this.onCreateError(err);
+	// 		} finally {
+	// 			this.form.setFieldsDisabled(false);
+	// 			this.loaderStore.resume();
+	// 		}
+	// 	})
+    // }
 
 	@computed get oneTimeGrantId() {
 		return this.grantScheduleTypes ? this.grantScheduleTypes.find(item => item.abrv === 'one-time').id : null;

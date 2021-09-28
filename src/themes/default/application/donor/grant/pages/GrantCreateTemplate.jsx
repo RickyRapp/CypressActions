@@ -13,13 +13,13 @@ import {
 	NumberFormatInputField,
 	BaasicFieldToggle,
 } from 'core/components';
-import { GrantConfirmDetailsTemplate } from 'themes/application/donor/grant/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/donor/charity/components';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import AsyncSelect from 'react-select/async';
+import { GrantConfirmTemplate } from 'themes/application/administration/grant/components';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	const {
@@ -46,6 +46,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		confirmModal,
         filterCharities,
         setCharityId,
+		onSubmitClick
 	} = grantCreateViewStore;
 
 	const promiseOptions = inputValue =>
@@ -256,7 +257,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
 								</div>
 
-								{renderEditLayoutFooterContent({ form })}
+								<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                    <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+                                </div>
+
 							</div>
 						</div>
 						<div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">
@@ -407,9 +411,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 					</div>
 				</Content>
 			</EditFormLayout>
-			<BaasicModal modalParams={confirmModal}>
+			{/* <BaasicModal modalParams={confirmModal}>
 				<GrantConfirmDetailsTemplate form={form} />
-			</BaasicModal>
+			</BaasicModal> */}
+			<BaasicModal modalParams={confirmModal}>
+                <GrantConfirmTemplate form={form} />
+            </BaasicModal>
 			<BaasicModal modalParams={advancedSearchModal}>
 				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />
 			</BaasicModal>
@@ -421,7 +428,8 @@ GrantCreateTemplate.propTypes = {
 	grantCreateViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired,
 	confirmModal: PropTypes.any,
-	form: PropTypes.any
+	form: PropTypes.any,
+    onSubmitClick: PropTypes.func
 };
 
 function renderEditLayoutFooterContent({ form }) {

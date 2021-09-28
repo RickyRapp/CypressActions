@@ -12,7 +12,8 @@ function GrantConfirmTemplate({ modalParams, t }) {
     const declinationReason = [{id: 1, name:'Legally binding pledge'},
     {id: 2, name:'Charity failed to provide necessary documents'},
     {id: 3, name:'Charity has seen its status revoked by the IRS'},
-    {id: 4, name:'This grant does not comply with the Donors Funds’ Policies and guidelines'}]
+    {id: 4, name:'This grant does not comply with the Donors Funds’ Policies and guidelines'},
+    {id: 5, name:'Earmarked grant'}]
 
     return (
         <div className="modal__list__wrap">

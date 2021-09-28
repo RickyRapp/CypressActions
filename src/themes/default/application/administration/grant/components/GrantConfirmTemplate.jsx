@@ -22,7 +22,6 @@ function GrantConfirmTemplate({ modalParams, t }) {
         purpose,
         onCancel
     } = modalParams.data;
-
     return (
         <div className="modal__list__wrap">
 
@@ -35,7 +34,7 @@ function GrantConfirmTemplate({ modalParams, t }) {
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.RECEPIENT_CHARITY')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{charity.name}</div>
+                <div className="modal__list__amount--secondary">{charity.item.name}</div>
             </section>
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.GIVEN_AMOUNT')}</div>

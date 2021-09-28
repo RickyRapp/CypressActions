@@ -248,7 +248,7 @@ class GrantViewStore extends BaseListViewStore {
                             reasonId = declinationReason[i].id;
                     }
                     try {
-                        if(reasonId>4 || reasonId<1 || typeof reasonId === 'undefined') {
+                        if(reasonId>5 || reasonId<1 || typeof reasonId === 'undefined') {
                             this.rootStore.notificationStore.error('Declination reason not selected!');
                             return;
                         }
