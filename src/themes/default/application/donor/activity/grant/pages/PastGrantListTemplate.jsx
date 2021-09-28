@@ -73,14 +73,51 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	};
 
 	//let dataLine = [];
-	if (summaryData) {
-		categories = summaryData.donationsByTimePeriod.map(c => c.month);
-		//dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
-	};
-	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	// if (summaryData) {
+	// 	categories = summaryData.donationsByTimePeriod.map(c => c.month);
+	// 	//dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+	// };
+	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+	//let categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	let dataGrants = [];
 	let dataContributions = [];
+	let chartDays = [];
+
 	if (donor) {
+		
+		if(yearDropdownStore.value.id == 7) {
+			const todayDate = new Date();
+			let dayOfWeek = todayDate.getDay();
+			let counter = 0;
+			if(dayOfWeek === 0) {
+				chartDays = categoriesDays;
+			} else {
+				dayOfWeek+=1;
+				while(counter < 7) {
+					if(dayOfWeek < 7) {
+						chartDays.push(categoriesDays[dayOfWeek++]);
+						counter++;
+					}
+					else {
+						dayOfWeek = 0;
+					}
+				}
+			}
+			for (let i = 0; i < 7; i++) {
+				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+			}
+			for (let i = 0; i < 7; i++) {
+				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+			}
+		}
+		if(yearDropdownStore.value.id === 30) {
+			for (let i = 0; i < 4; i++) {
+				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
+				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+			}
+		}
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
 		}
@@ -88,12 +125,10 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
-
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
-			<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={categories} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays: categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -102,11 +137,31 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
+
+
+	// const LineChartContainer = () => (
+	// 	<Chart style={{ height: 260 }}>
+	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
+	// 		<ChartCategoryAxis>
+	// 			<ChartCategoryAxisItem categories={categories} />
+	// 		</ChartCategoryAxis>
+	// 		<ChartTooltip
+	// 			render={({ point }) => (
+	// 				<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+	// 			)}
+	// 		/>
+	// 		<ChartLegend position="bottom" orientation="horizontal" />
+	// 		<ChartSeries>
+	// 			<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
+	// 			<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
+	// 		</ChartSeries>
+	// 	</Chart>
+	// );
 	// let categories = [];
 	// let dataLine = [];
 	// if (summaryData) {
