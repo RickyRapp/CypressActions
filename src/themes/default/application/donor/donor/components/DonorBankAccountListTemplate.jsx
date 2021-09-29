@@ -12,7 +12,6 @@ const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) 
 		isEditEnabled,
 		editId,
 	} = donorBankAccountViewStore;
-
 	return (
 		<div>
 			<div className="row">
@@ -58,12 +57,13 @@ const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) 
 													<p className="type--base type--wgt--bold">{c.description}</p>
 												</div>
 
-												<div className="col col-sml-6 col-xxlrg-4">
+												{ bankAccounts.length > 0 ?
+													<div className="col col-sml-6 col-xxlrg-4">
 													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
 														Primary
 													</p>
 													<p className="type--base type--wgt--bold">{c.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
-												</div>
+												</div> : null }
 
 											</div>
 										</div>
@@ -76,6 +76,7 @@ const DonorBankAcountListTemplate = function ({ donorBankAccountViewStore, t }) 
 									editId={editId}
 									onCancelEditClick={onCancelEditClick}
 									onEditCompleted={onEditCompleted}
+									bankAccountCount={bankAccounts.length}
 								/>
 							) : (
 								<span className="cursor--pointer" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
