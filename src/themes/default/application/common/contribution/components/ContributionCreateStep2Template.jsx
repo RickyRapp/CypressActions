@@ -8,7 +8,7 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
     t, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
     collectibleTypeDropdownStore, propertyTypeDropdownStore, onAddBankAccountClick, businessTypeDropdownStore, onSubmitClick, confirmModal, routes,
     previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick, paymentTypeDropdownStore }) {
-
+    
     const AddButton = () => (
         <BaasicButton
             className="btn btn--tny btn--primary u-mar--bottom--tny"
@@ -130,13 +130,18 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                             
                             <EditFormContent form={form}>
                                 <div className="card--primary card--med u-mar--bottom--med">
-                                    <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Payment type</h5>
+                                    <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Step 1 {paymentType.abrv === 'wire-transfer' ? ' - Sending us a wire' : (paymentType.abrv === 'stock-and-securities' ? ' - Sending us securities' : (paymentType.abrv === 'zelle' ? ' - Sending us a Zelle or Quickpay Payment' : (paymentType.abrv === 'third-party-donor-advised-funds' ? ' - Sending us a payment from a Third Party Donor Advised Fund' : (paymentType.abrv === 'check' ? ' - Sending us check payment' : (paymentType.abrv === 'paycheck-direct' ? ' - What is this?' : null)))))}</h5>
+                                    {paymentType.abrv === 'paycheck-direct' ? <div><div style={{color: '#C36C36'}}>Payroll Direct is a tool to allocate a portion of your payroll directly to your charitable giving account</div><br /></div> : null}
+                                    <div className='form__group__label'>Payment type</div>
                                     <BaasicDropdown store={paymentTypeDropdownStore} />
                                 </div>
                                 <div className="card--primary card--med">
                                     <div className="row row--form fullheight">
                                         <div className="col col-sml-12 col-lrg-12">
-                                            <h5 className="type--med type--wgt--medium">{t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
+                                            <h5 className="type--med type--wgt--medium">
+                                            Tell us how much you will be sending
+                                                
+                                                </h5>
                                         </div>
                                         {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
                                             <React.Fragment>

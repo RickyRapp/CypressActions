@@ -210,7 +210,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     async onAddBookletClick(bookletTypeId, denominationTypeId) {
         if(this.orderContents.length > 0) {
             const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId);
-            if(this.orderContents[index].bookletCount >= 100) {
+            if(typeof this.orderContents[index] !== 'undefined' && this.orderContents[index].bookletCount >= 100) {
                 this.rootStore.notificationStore.error('Booklet count must be between 1 and 100');
                 return;
             }

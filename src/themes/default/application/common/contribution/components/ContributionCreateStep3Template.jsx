@@ -10,7 +10,7 @@ const ContributionCreateStep3Template = function ({
             <div className="col col-sml-12 col-lrg-8">
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--lrg">
-                        <h3 className=" type--color--note">{t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
+                        <h3 className=" type--color--note">Step 2 - {t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
                     </div>
                 </div>
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -98,8 +98,6 @@ const ContributionCreateStep3Template = function ({
                 {
                     paymentType.abrv === 'wire-transfer' ? 
                     <div>
-                        <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(clipboardText)}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a className="btn btn--link btn--med" onClick={downloadTxtFile}>Download</a>
                         <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
                             <br />
                             <h4>Please provide your bank or financial institution with the following information</h4>
@@ -116,21 +114,18 @@ const ContributionCreateStep3Template = function ({
                             <p> xxxx-xxxx-xxxx-{bankAccount.accountNumber} (your full account number goes here)</p>
                             <br />
                             <b className="type--color--note">Timeline: Funds will be made available to your account as soon as they are received!</b>
+                            <br />
+                            <BaasicButton className="btn btn--100 btn--primary" onClick={() => {navigator.clipboard.writeText(clipboardText)}} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <BaasicButton className="btn btn--100 btn--primary" onClick={downloadTxtFile} label="Download"></BaasicButton>
                             </div>
-                    </div> : null
+                        </div> : null
                 }
                     {
                     paymentType.abrv === 'stock-and-securities' ? 
                     <div>
-                        <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
-                        Beneficiary – Donors’ Fund Inc\n
-                        Address - 328 3rd St Lakewood NJ 08701\n
-                        EIN (tax ID) – 47-4844275\n
-                        Brokerage Firm – Fidelity Investment\n
-                        DTC – 0226\n
-                        Brokerage Number - Z50762458`
+                        {/* <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(
                         )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a className="btn btn--link btn--med" onClick={downloadStockTxtFile}>Download</a>
+                        <a className="btn btn--link btn--med" onClick={downloadStockTxtFile}>Download</a> */}
                         <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
                             <h4>Please provide your brokerage firm or financial advisor with the following information so they can initiate the transfer.</h4>
                             <br />
@@ -142,15 +137,20 @@ const ContributionCreateStep3Template = function ({
                             <p><b>Brokerage Number</b>- Z50762458</p> 
                             <br />
                             <b className="type--color--note">What happens next? Once we receive the security transfer we will initiate a selling order and then fund your account with the full selling price.</b>
+                            <br /><br />
+                            <BaasicButton className="btn btn--100 btn--primary" onClick={() => {navigator.clipboard.writeText(`
+                            Beneficiary – Donors’ Fund Inc\n
+                            Address - 328 3rd St Lakewood NJ 08701\n
+                            EIN (tax ID) – 47-4844275\n
+                            Brokerage Firm – Fidelity Investment\n
+                            DTC – 0226\n
+                            Brokerage Number - Z50762458`)}} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <BaasicButton className="btn btn--100 btn--primary" onClick={downloadStockTxtFile} label="Download"></BaasicButton>
                         </div>
                     </div> : null
                 }
-                {
-                    paymentType.abrv !== 'wire-transfer' && paymentType.abrv !== 'stock-and-securities' ? 
-                    <div className="type--color--note"> 
-                        <b>Timeline: Funds will be made available within 3 - 5 business days.</b> </div> : null 
-                }
-                {
+                
+                {/* {
                     paymentType.abrv === 'zelle' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Our Zelle email address - QP@TheDonorsFund.org\n
                     Zelle Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
@@ -158,7 +158,7 @@ const ContributionCreateStep3Template = function ({
                     )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a className="btn btn--link btn--med" onClick={downloadZelleTxtFile}>Download</a></div> : null
 
-                }
+                } */}
 
                 {paymentType.abrv === 'zelle' ? 
                     <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
@@ -170,10 +170,17 @@ const ContributionCreateStep3Template = function ({
                                         item={{ amount: form.$('amount').value }}
                                         field="amount"
                                         format={{ type: 'currency' }}
-                                    /></p>
+                        /></p>
+                        <br />
+                        <div><BaasicButton className="btn btn--100 btn--primary" onClick={() => {navigator.clipboard.clipboard.writeText(`
+                    Our Zelle email address - QP@TheDonorsFund.org\n
+                    Zelle Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                   <BaasicButton className="btn btn--100 btn--primary" onClick={downloadZelleTxtFile} label="Download"></BaasicButton></div>
                     </div> : null
                 }
-                {
+                {/* {
                     paymentType.abrv === 'third-party-donor-advised-funds' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Charity name: The Donors Fund\n
                     EIN (tax ID): 47-4844275\n
@@ -183,7 +190,7 @@ const ContributionCreateStep3Template = function ({
                     )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a className="btn btn--link btn--med" onClick={downloadThirdPartyTxtFile}>Download</a></div> : null
 
-                }
+                } */}
 
                 {paymentType.abrv === 'third-party-donor-advised-funds' ? 
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -194,8 +201,17 @@ const ContributionCreateStep3Template = function ({
                     <p>328 3rd Street, Lakewood NJ 08701</p>
                     <br />
                     <p><b>Memo for purpose of grant: </b>xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
+                    <br />
+                    <div><BaasicButton className="btn btn--100 btn--primary" onClick={() => {navigator.clipboard.writeText(`
+                    Charity name: The Donors Fund\n
+                    EIN (tax ID): 47-4844275\n
+                    328 3rd Street, Lakewood NJ 08701\n
+                    Memo for purpose of grant: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                   <BaasicButton className="btn btn--100 btn--primary" onClick={downloadThirdPartyTxtFile} label="Download"></BaasicButton></div>
                 </div> : null}
-                {
+                {/* {
                     paymentType.abrv === 'check' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Make checks payable to: The Donors Fund\n
                     Mail to: 328 3rd Street, Lakewood NJ 08701\n
@@ -204,7 +220,7 @@ const ContributionCreateStep3Template = function ({
                     )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a className="btn btn--link btn--med" onClick={downloadCheckTxtFile}>Download</a></div> : null
 
-                }
+                } */}
 
                 {paymentType.abrv === 'check' ? 
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -214,8 +230,15 @@ const ContributionCreateStep3Template = function ({
                     <p><b>Mail to: </b>328 3rd Street, Lakewood NJ 08701</p>
                     <br />
                     <p><b>Check Memo: </b>xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</p>
+                    <div><BaasicButton className="btn btn--100 btn--primary" onClick={() => {navigator.clipboard.writeText(`
+                    Make checks payable to: The Donors Fund\n
+                    Mail to: 328 3rd Street, Lakewood NJ 08701\n
+                    Check Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                   <BaasicButton className="btn btn--100 btn--primary" onClick={downloadCheckTxtFile} label="Download"></BaasicButton></div>
                 </div> : null}
-                {
+                {/* {
                     paymentType.abrv === 'paycheck-direct' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Beneficiary: The Donors Fund
                     328 3rd Street, Lakewood NJ 08701
@@ -229,7 +252,7 @@ const ContributionCreateStep3Template = function ({
                     )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a className="btn btn--link btn--med" onClick={downloadPayrollDirectTxtFile}>Download</a></div> : null
 
-                }
+                } */}
 
                 {paymentType.abrv === 'paycheck-direct' ? 
                 <div className="card--primary card--med u-mar--bottom--med">
@@ -242,7 +265,26 @@ const ContributionCreateStep3Template = function ({
                     <p>JP Morgan Chase</p>
                     <p><b>ABA (routing number):</b> 021000021</p>
                     <p><b>Account number:</b> 883220399</p>
+                    <br />
+                    <div><BaasicButton className="btn btn--100 btn--primary" onClick={() => {navigator.clipboard.writeText(`
+                    Beneficiary: The Donors Fund
+                    328 3rd Street, Lakewood NJ 08701
+
+                    Beneficiary bank:
+                    JP Morgan Chase
+                    ABA (routing number): 021000021
+                    Account number: 883220399
+
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                    )}} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                   <BaasicButton className="btn btn--100 btn--primary" onClick={downloadPayrollDirectTxtFile} label="Download"></BaasicButton></div>
                 </div> : null}
+
+                {
+                    paymentType.abrv !== 'wire-transfer' && paymentType.abrv !== 'stock-and-securities' ? 
+                    <div className="type--color--note"> 
+                        <b>Timeline: Funds will be made available within 3 - 5 business days.</b> </div> : null 
+                }
 
             </div>
             <div className="col col-sml-12 col-lrg-4">

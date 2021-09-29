@@ -1049,7 +1049,8 @@
                 "EDIT": "Edit",
                 "CREATE": "Create",
                 "DELETE": "Delete",
-                "LOAD_MORE": "Load more"
+                "LOAD_MORE": "Load more",
+                "SELECT": "Select"
             }
         },
         "CREATE": {
