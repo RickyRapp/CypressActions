@@ -21,7 +21,8 @@ class DonorEmailAddressEditForm extends Component {
 						<div className="form__group col col-sml-12 col-lrg-3">
 							<div className="u-display--flex">
 								<label className="form__group__label u-mar--right--med">Notifications</label>
-								<BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isNotifyEnabled')} disabled={form.$('isPrimary').value} />
+								<BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isNotifyEnabled')} /> 
+								{/* disabled={form.$('isPrimary').value} */}
 							</div>
 						</div>
 						{isAssignableAsPrimary && (
