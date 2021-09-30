@@ -30,32 +30,32 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
     } = donorAccountInformationViewStore;
 
     return (
-        <div className="card--primary card--med">
+        <div className="card--primary card--med u-mar--bottom--sml">
             <EditFormContent form={form}>
                 <div className="row row--form">
                     <div className="col col-sml-12 col-lrg-12">
                         <div className="u-mar--bottom--sml">
                             <h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}</h3>
                             <div className="row row--form">
-                                <div className="form__group col col-sml-12 col-xlrg-2 col-xxlrg-1">
+                                <div className="form__group col col-sml-12 col-xlrg-2 col-xxlrg-2">
                                     <BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-3">
+                                <div className="form__group col col-sml-12 col-xlrg-5 col-xxlrg-5">
                                     <BasicInput field={form.$('firstName')} />
                                 </div>
-                                <div className="col col-sml-12 col-xlrg-5 col-xxlrg-4">
+                                <div className="col col-sml-12 col-xlrg-5 col-xxlrg-5">
                                     <BasicInput field={form.$('lastName')} />
                                 </div>
-                                <div className="col col-sml-12 col-lrg-12">
+                                <div className="col col-sml-12 col-lrg-12 u-mar--top--sml u-mar--bottom--sml">
                                     <label className="form__group__label">Date of Birth</label>
                                 </div>
-                                <div className="form__group col col-sml-12 col-lrg-3">
+                                <div className="form__group col col-sml-12 col-med-4 col-xxlrg-3">
                                     <BaasicFieldDropdown store={monthDropdownStore} field={form.$('month')} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-lrg-2">
+                                <div className="form__group col col-sml-12 col-med-4 col-xxlrg-2">
                                     <NumericInputField field={form.$('day')} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-lrg-3">
+                                <div className="form__group col col-sml-12 col-med-4 col-xxlrg-2">
                                     <NumericInputField
                                         field={form.$('year')}
                                         formatOptions={{
@@ -63,10 +63,11 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
                                             useGrouping: false
                                         }} />
                                 </div>
+                                <div className="col col-sml-12 col-xxlrg-2"></div>
                                 <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-5">
                                     <BasicInput field={form.$('fundName')} />
                                 </div>
-                                <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-3">
+                                <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-2">
                                     <NumberFormatInputField field={form.$('securityPin')} />
                                 </div>
                                 {item && item.accountType.abrv === 'private' &&
