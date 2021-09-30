@@ -33,7 +33,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility} visibleByDefault={false}>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility} visibleByDefault={false}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
@@ -78,7 +78,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 								/>
 							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row">
+								<div className="row row--form">
 									<div className="col col-sml-8">
 										<DateRangeQueryPicker
 											queryUtility={queryUtility}

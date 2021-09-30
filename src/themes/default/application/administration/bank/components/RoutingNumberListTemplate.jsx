@@ -29,7 +29,7 @@ const RoutingNumberListTemplate = function({ routingNumberViewStore }) {
 				</div>
 				<div className="card--tertiary card--med u-mar--top--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} showDefaultSearchFilter={false}>
 							<div className="col col-sml-3 u-mar--bottom--sml">
 								<BaasicDropdown store={bankDropdownStore} placeholder="ROUTING_NUMBER.LIST.FILTER.BANK_PLACEHOLDER" />
 							</div>

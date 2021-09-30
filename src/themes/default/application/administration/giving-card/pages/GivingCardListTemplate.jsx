@@ -13,7 +13,7 @@ const GivingCardListTemplate = function({ givingCardViewStore }) {
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility}></TableFilter>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}></TableFilter>
 					</div>
 
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />

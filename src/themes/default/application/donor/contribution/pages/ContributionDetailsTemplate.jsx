@@ -21,7 +21,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     <div className="card card--primary card--med u-mar--bottom--med">
-                        <div className="row">
+                        <div className="row row--form">
                             <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.GENERAL_INFORMATION')}</h3>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
@@ -96,7 +96,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                         </div>
                     </div>
                     <div className="card card--primary card--med u-mar--bottom--med">
-                        <div className="row">
+                        <div className="row row--form">
                             <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.PAYMENT_INFORMATION')}</h3>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">

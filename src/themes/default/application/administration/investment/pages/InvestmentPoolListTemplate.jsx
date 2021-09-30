@@ -26,7 +26,7 @@ const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
         <ApplicationListLayout store={investmentPoolViewStore} authorization={authorization}>
             <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} >
+                    <TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} >
                     </TableFilter>
                     <BaasicButton
                         className="btn btn--med btn--med--wide btn--ghost"
