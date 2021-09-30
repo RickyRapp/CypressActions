@@ -143,7 +143,6 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		</Chart>
 	);
 
-
 	// const LineChartContainer = () => (
 	// 	<Chart style={{ height: 260 }}>
 	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />

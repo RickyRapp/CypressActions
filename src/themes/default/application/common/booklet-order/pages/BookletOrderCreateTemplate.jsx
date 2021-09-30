@@ -35,7 +35,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         totalAmount,
         prepaidBooksChecks,
         totalPrepaidAmount,
-        prepaidBooks,
         showMoreOptions,
         showAddOnitems,
         onShowMoreOptionsClick,
@@ -50,7 +49,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         click2000,
         tableData
     } = store;
-    
+
     return (
         <React.Fragment>
             <ApplicationEditLayout store={store}>
@@ -70,39 +69,38 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         />}</h2>
                                 </div>
                                 <div> {/* className="col col-sml-12 col-xxlrg-12" */}
-                                        <h3 className="u-mar--bottom--med">Order Summary</h3>
-                                        <table className="table--total">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Check
-                                                    </th>
-                                                    <th>
-                                                        Count
-                                                    </th>
-                                                    <th>
-                                                        Amount
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {tableData.map((item, index) => {
-                                                    console.log(item);
-                                                    if(item.count > 0) return (
-                                                        <tr key={index}>
-                                                            <td>${item.id}</td>
-                                                            <td>
-                                                            </td>
-                                                            <td>${item.amount}</td>
-                                                        </tr>
-                                                   )         
-                                                })}
-                                                {/* <tr>
+                                    <h3 className="u-mar--bottom--med">Order Summary</h3>
+                                    <table className="table--total">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Check
+                                                </th>
+                                                <th>
+                                                    Count
+                                                </th>
+                                                <th>
+                                                    Amount
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {tableData.map((item, index) => {
+                                                if (item.count > 0) return (
+                                                    <tr key={index}>
+                                                        <td>${item.id}</td>
+                                                        <td>
+                                                        </td>
+                                                        <td>${item.amount}</td>
+                                                    </tr>
+                                                )
+                                            })}
+                                            {/* <tr>
                                                     <td>$1.00</td>
                                                     <td>{checkSummary1}</td>
                                                     <td>$200.00</td>
                                                 </tr> */}
-                                                {/* <tr>
+                                            {/* <tr>
                                                     <td>$2.00</td>
                                                     <td>1</td>
                                                     <td>$200.00</td>
@@ -112,28 +110,28 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <td>1</td>
                                                     <td>$200.00</td>
                                                 </tr> */}
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Total pre-paid</th>
-                                                    <th>${totalPrepaidAmount}</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Shipping method</th>
-                                                    <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Shipping fee</th>
-                                                    <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colSpan="2">Total pre-paid</th>
+                                                <th>${totalPrepaidAmount}</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tfoot>
+                                            <tr>
+                                                <th colSpan="2">Shipping method</th>
+                                                <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tfoot>
+                                            <tr>
+                                                <th colSpan="2">Shipping fee</th>
+                                                <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
 
-                                    </div>
+                                </div>
                             </div>
 
                             <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>
@@ -152,7 +150,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
                                                         orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) : null;
                                                     const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
-                                                    console.log(dt);
                                                     return dt.abrv !== 'mixed-500' && dt.abrv !== 'mixed-2000' ? (
                                                         <React.Fragment key={dt.id}>
                                                             <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
@@ -162,12 +159,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                             <div className="type--med type--wgt--regular">
                                                                                 {
                                                                                     dt.value == 0 ? "Blank checks" :
-                                                                                    dt.value == 0 ? "Open checks" :
-                                                                                        <FormatterResolver
-                                                                                            item={{ value: dt.value }}
-                                                                                            field='value'
-                                                                                            format={{ type: 'currency' }}
-                                                                                        />
+                                                                                        dt.value == 0 ? "Open checks" :
+                                                                                            <FormatterResolver
+                                                                                                item={{ value: dt.value }}
+                                                                                                field='value'
+                                                                                                format={{ type: 'currency' }}
+                                                                                            />
                                                                                 }
                                                                             </div>
                                                                             {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
@@ -273,13 +270,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             }
                                         </div>
                                     </div>
-
-                                    
                                 </div>
                             )
                         })}
-
-
 
                         <div className="row u-mar--top--sml u-mar--bottom--sml">
                             <div className="col col-sml-12 type--center">
