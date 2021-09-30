@@ -69,6 +69,71 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             format={{ type: 'currency' }}
                                         />}</h2>
                                 </div>
+                                <div> {/* className="col col-sml-12 col-xxlrg-12" */}
+                                        <h3 className="u-mar--bottom--med">Order Summary</h3>
+                                        <table className="table--total">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Check
+                                                    </th>
+                                                    <th>
+                                                        Count
+                                                    </th>
+                                                    <th>
+                                                        Amount
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {tableData.map((item, index) => {
+                                                    console.log(item);
+                                                    if(item.count > 0) return (
+                                                        <tr key={index}>
+                                                            <td>${item.id}</td>
+                                                            <td>
+                                                            </td>
+                                                            <td>${item.amount}</td>
+                                                        </tr>
+                                                   )         
+                                                })}
+                                                {/* <tr>
+                                                    <td>$1.00</td>
+                                                    <td>{checkSummary1}</td>
+                                                    <td>$200.00</td>
+                                                </tr> */}
+                                                {/* <tr>
+                                                    <td>$2.00</td>
+                                                    <td>1</td>
+                                                    <td>$200.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>$3.00</td>
+                                                    <td>1</td>
+                                                    <td>$200.00</td>
+                                                </tr> */}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Total pre-paid</th>
+                                                    <th>${totalPrepaidAmount}</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Shipping method</th>
+                                                    <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Shipping fee</th>
+                                                    <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+                                    </div>
                             </div>
 
                             <div className="col col-sml-12 col-xxlrg-4" onClick={onShowAllBooksClick}>
@@ -87,8 +152,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
                                                         orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) : null;
                                                     const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
-
-                                                    return (
+                                                    console.log(dt);
+                                                    return dt.abrv !== 'mixed-500' && dt.abrv !== 'mixed-2000' ? (
                                                         <React.Fragment key={dt.id}>
                                                             <div className="col col-sml-12 col-xxlrg-5 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
                                                                 <div className="u-separator--primary">
@@ -134,7 +199,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                     <div className="col-xxlrg-1"></div>
                                                                 } */}
                                                         </React.Fragment>
-                                                    )
+                                                    ) : null
                                                 })}
                                             </div>
                                         </div>}
@@ -157,6 +222,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                             label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
                                                                                 orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
                                                                             bookletType={bt}
+                                                                            //denominationTypes.find(dt => dt.abrv == 'mixed-500')
                                                                             denominationType={null}
                                                                         />
                                                                     </div>
@@ -208,74 +274,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         </div>
                                     </div>
 
-                                    <div className="col col-sml-12 col-xxlrg-4" >
-                                        <h3 className="u-mar--bottom--med">Order Summary</h3>
-                                        <table className="table--total">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Check
-                                                    </th>
-                                                    <th>
-                                                        Count
-                                                    </th>
-                                                    <th>
-                                                        Amount
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {tableData.map((item, index) => {
-                                                   if(item.count > 0) return (
-                                                        <tr key={index}>
-                                                            <td>${item.id}</td>
-                                                            <td>
-                                                                {item.count}
-                                                            </td>
-                                                            <td>${item.amount}</td>
-                                                        </tr>
-                                                   );
-                                                })}
-                                                {/* <tr>
-                                                    <td>$1.00</td>
-                                                    <td>{checkSummary1}</td>
-                                                    <td>$200.00</td>
-                                                </tr> */}
-                                                {/* <tr>
-                                                    <td>$2.00</td>
-                                                    <td>1</td>
-                                                    <td>$200.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$3.00</td>
-                                                    <td>1</td>
-                                                    <td>$200.00</td>
-                                                </tr> */}
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Total pre-paid</th>
-                                                    <th>${totalPrepaidAmount}</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Shipping method</th>
-                                                    <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Shipping fee</th>
-                                                    <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-
-                                    </div>
+                                    
                                 </div>
                             )
                         })}
+
+
 
                         <div className="row u-mar--top--sml u-mar--bottom--sml">
                             <div className="col col-sml-12 type--center">

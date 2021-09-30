@@ -120,21 +120,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 return false;
             }
     }
-    @computed get totalPrepaidAmount() {
-        return this.prepaidBookletAmount;
-    }
-
-    @computed get prepaidBooks() {
-        if (this.donor) {
-            if (this.donor.contribution.length > 0) {
-                return this.donor.contribution
-                    .map(a => a.amount)
-                    .reduce((a, b) => a + b) + this.donor.lineOfCredit + this.donor.availableBalance;
-            } else {
-                return false;
-            }
-    }
-        }
 
     @computed get prepaidBooksContribution() {
         if (this.donor) {
@@ -200,6 +185,18 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         return 0;
     }
 
+    generateTableData(order, index) {
+        let bookletAmount = order ? index * order.bookletCount * 50 : 0;
+        if (this.tableData.length > 0) {
+            const foundIndex = this.tableData.findIndex(x => x.id === index);
+            if (foundIndex != -1) {
+                this.tableData[foundIndex] = { ...this.tableData[foundIndex], count: order.bookletCount, amount: bookletAmount }
+                return this.tableData;
+            }
+        }
+        return this.tableData.push({ id: index, count: order.bookletCount, amount: bookletAmount });
+    }
+
     @action.bound
     async onRemoveBookletClick(bookletTypeId, denominationTypeId) {
         //eslint-disable-next-line
@@ -219,10 +216,13 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
                 this.totalPrePaidBooks -= dt.value * 50;
         }
+        this.generateTableData(this.orderContents[index], dtvalue);
     }
 
     @action.bound
     async onAddBookletClick(bookletTypeId, denominationTypeId) {
+        let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
+        
         if(this.orderContents.length > 0) {
             const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId);
             if(typeof this.orderContents[index] !== 'undefined' && this.orderContents[index].bookletCount >= 100) {
@@ -247,18 +247,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 this.totalPrePaidBooks += dt.value * 50;
         }
         this.generateTableData(this.orderContents[index], dtvalue);
-    }
-
-    generateTableData(order, index) {
-        let bookletAmount = order ? index * order.bookletCount * 50 : 0;
-        if (this.tableData.length > 0) {
-            const foundIndex = this.tableData.findIndex(x => x.id === index);
-            if (foundIndex != -1) {
-                this.tableData[foundIndex] = { ...this.tableData[foundIndex], count: order.bookletCount, amount: bookletAmount }
-                return this.tableData;
-            }
-        }
-        return this.tableData.push({ id: index, count: order.bookletCount, amount: bookletAmount })
     }
 
     @action.bound
