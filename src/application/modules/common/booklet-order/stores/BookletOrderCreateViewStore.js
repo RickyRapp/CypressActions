@@ -112,6 +112,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
     }
 
+    @computed get totalPrepaidAmount() {
+        return this.prepaidBookletAmount;
+    }
+
     @computed get prepaidBooksChecks() {
         
             if (this.totalPrePaidBooks > 0) {
