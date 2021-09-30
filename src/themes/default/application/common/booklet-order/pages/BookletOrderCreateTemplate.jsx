@@ -226,7 +226,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </thead>
                                             <tbody>
                                                 {tableData.map((item, index) => {
-                                                   return (
+                                                   if(item.count > 0) return (
                                                         <tr key={index}>
                                                             <td>${item.id}</td>
                                                             <td>
@@ -234,7 +234,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                             </td>
                                                             <td>${item.amount}</td>
                                                         </tr>
-                                                   )     
+                                                   );
                                                 })}
                                                 {/* <tr>
                                                     <td>$1.00</td>
@@ -261,13 +261,13 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Shipping method</th>
-                                                    <th>$500.00</th>
+                                                    <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
                                                 </tr>
                                             </tfoot>
                                             <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Shipping fee</th>
-                                                    <th>$500.00</th>
+                                                    <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
