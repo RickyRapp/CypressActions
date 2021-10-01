@@ -47,7 +47,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         confirmModal,
         click500,
         click2000,
-        tableData
+        tableData,
+        onShowBookletsClick
     } = store;
 
     return (
@@ -59,10 +60,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             <div className="col col-sml-12 col-xxlrg-8">
                                 <h4 style={{ display: "inline-block" }} className=" type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
                                 
-                                <div className="" onClick={onShowAllBooksClick}>
-                                    <span className="type--underline cursor--pointer">Previous Orders</span>
+                                <div className="">
+                                    <span onClick={onShowAllBooksClick} className="type--underline cursor--pointer">Previous Orders</span>&nbsp;|&nbsp;
+                                    <span onClick={onShowBookletsClick} className="type--underline cursor--pointer">My Checkbooks</span>
                                 </div>
-
                                 {bookletTypes.map(bt => {
                                     return (
                                         <div key={bt.id} className="row">

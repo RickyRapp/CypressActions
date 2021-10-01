@@ -108,6 +108,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         }
     }
 
+    @action.bound
+    onShowBookletsClick() {
+        if (this.isDonor) {
+            this.rootStore.routerStore.goTo('master.app.main.donor.booklet.list')
+        }
+        else {
+            this.rootStore.routerStore.goTo('master.app.main.administration.booklet.list')
+        }
+    }
+
     @computed get totalAmount() {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
     }
