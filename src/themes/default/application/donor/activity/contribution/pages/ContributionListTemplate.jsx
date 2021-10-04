@@ -100,7 +100,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 	return (
 		<Content>
 			<div className="row row--form">
-				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
+				<div className="col col-sml-12 u-mar--bottom--med">
 					<div className="u-mar--top--sml u-mar--bottom--sml">
 						<BaasicButton
 							type="button"

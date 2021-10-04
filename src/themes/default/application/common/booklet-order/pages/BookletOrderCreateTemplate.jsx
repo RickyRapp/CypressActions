@@ -326,10 +326,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedCity')} />
                                     </div>
-                                    <div className="col col-sml-12 col-xlrg-2">
+                                    <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedState')} />
                                     </div>
-                                    <div className="col col-sml-12 col-xlrg-2">
+                                    <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedZipCode')} />
                                     </div>
                                     <div className="col col-sml-12 col-xlrg-2">
