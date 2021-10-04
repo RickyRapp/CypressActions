@@ -37,7 +37,7 @@ function DefaultContent({
                         <span className={icon ? onlyIconClassName : ""}>
                             {!onlyIcon && t(label)}
                         </span>
-                        {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName}`} /> : <i className={`${iconName(icon)}`} />}
+                        {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName ? onlyIconClassName : ""}`} /> : <i className={`${iconName(icon)}`} />}
                     </div>
                 )}
         </button>

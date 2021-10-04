@@ -298,7 +298,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>}
                         </div>
 
-                        <div className="row u-mar--bottom--sml">
+                        <div className="row row--form u-mar--bottom--sml">
                             <div className="col col-sml-12 u-mar--bottom--sml type--center">
                                 <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
                                     <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
@@ -309,21 +309,21 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             {form.$('isCustomizedBook').value &&
                                 <React.Fragment>
                                     {donor && donor.accountType.abrv === 'regular' &&
-                                        <div className="col col-sml-12 col-xlrg-12">
+                                        <div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
                                             <strong>
                                                 Additional charge of $5 per book
                                             </strong>
                                         </div>}
-                                    <div className="col col-sml-12 col-xlrg-3">
+                                    <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedName')} />
                                     </div>
-                                    <div className="col col-sml-12 col-xlrg-3">
+                                    <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedAddressLine1')} />
                                     </div>
-                                    <div className="col col-sml-12 col-xlrg-3">
+                                    <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedAddressLine2')} />
                                     </div>
-                                    <div className="col col-sml-12 col-xlrg-2">
+                                    <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
                                         <BasicInput field={form.$('customizedCity')} />
                                     </div>
                                     <div className="col col-sml-12 col-xlrg-2">
@@ -332,7 +332,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="col col-sml-12 col-xlrg-2">
                                         <BasicInput field={form.$('customizedZipCode')} />
                                     </div>
-                                    <div className="col col-sml-12 col-xlrg-3">
+                                    <div className="col col-sml-12 col-xlrg-2">
                                         <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
                                     </div>
                                 </React.Fragment>
