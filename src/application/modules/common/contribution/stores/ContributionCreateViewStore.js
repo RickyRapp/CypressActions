@@ -77,6 +77,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			if (!this.previousContributionsTableStore.dataInitialized) {
 				this.previousContributionsTableStore.dataInitialized = true;
 			}
+			this.onSelectPaymentType(this.paymentTypeDropdownStore.value);
 		}
 	}
 	
@@ -238,7 +239,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
 				this.form.$('amount').set('label', 'Tell us how much you will be sending');
-				this.form.$('bankAccountId').set('label', 'Choose sending bank (optional)');
+				this.form.$('bankAccountId').set('label', 'Choose sending bank');
 			} else if (paymentType.abrv === 'stock-and-securities') {
 				this.form.$('amount').set('rules', 'required|numeric|min:1000');
 				this.form.$('brokerageInstitutionId').setRequired(true);

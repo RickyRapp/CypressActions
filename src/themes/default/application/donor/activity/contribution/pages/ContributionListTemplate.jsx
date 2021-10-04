@@ -33,8 +33,16 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 		paymentTypeDropdownStore,
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
-		summaryData
+		summaryData,
+		depositTab,
+		setDepositTab,
+		timelineSummary
+		//sumYear
 	} = contributionViewStore;
+
+	const monthNames = ["January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December"
+ 	];
 
 	let dataDonut = [];
 	if (summaryData) {
@@ -42,7 +50,6 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 			return { charityType: c.charityType.name, value: c.amount, color: c.color };
 		});
 	}
-
 	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
 	const DonutChartContainer = () => {
 		return (
@@ -97,20 +104,22 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 					<div className="u-mar--top--sml u-mar--bottom--sml">
 						<BaasicButton
 							type="button"
-							className="btn btn--med btn--med--wide btn--primary"
+							className={depositTab === 0 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide btn--tertiary u-mar--left--med"}
+							onClick={() => setDepositTab(0)}
 							// onClick={onSubmitClick}
 							// form={form} onSubmit={onSubmitClick}
 							label="CONTRIBUTION.LIST.OVERVIEW-TRANSACTIONS" />
 						<BaasicButton
 							type="button"
-							className="btn btn--med btn--med--wide btn--tertiary u-mar--left--med"
+							className={depositTab === 1 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide btn--tertiary u-mar--left--med"}
+							onClick={() => setDepositTab(1)}
 							// onClick={onSubmitClick}
 							// form={form} onSubmit={onSubmitClick}
 							label="CONTRIBUTION.LIST.BY-TIMELINE" />
 					</div>
 				</div>
 				<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
-					<div className="card--tertiary card--med u-mar--bottom--sml">
+					{depositTab === 0 ? <div className="card--tertiary card--med u-mar--bottom--sml">
 						<div className="u-mar--bottom--med">
 							<TableFilter queryUtility={queryUtility}>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
@@ -175,7 +184,37 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 							</TableFilter>
 						</div>
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
-					</div>
+					</div> :
+					<div className="card--tertiary card--med u-mar--bottom--sml">
+						<table className="table--secondary u-mar--bottom--med">
+                    <thead className="table--secondary__thead">
+                        <tr>
+                            <th className="table--secondary__th">Time Period</th>
+                            <th className="table--secondary__th">Amount by Period</th>
+                        </tr>
+                    </thead>
+                    <tbody className="table--secondary__tbody">
+						{timelineSummary && timelineSummary.map(x => 
+							 <tr className="table--secondary__row">
+                            <th className="table--secondary__th">{monthNames[x.month - 1]} {(new Date()).getFullYear()}</th>
+                            <td className="table--secondary__td">${x.sumByMonth.toFixed(2)}</td>
+                        </tr>)
+						}
+                        
+                    </tbody>
+                    <tfoot className="table--secondary__tfoot">
+                        <tr className="table--secondary__row">
+                            <th className="table--secondary__th">
+                                Current timeline period:
+                            </th>
+                            <th className="table--secondary__th">
+                                {(new Date()).getFullYear()}
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+					</div> 
+					 }
 				</div>
 				<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
 					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>

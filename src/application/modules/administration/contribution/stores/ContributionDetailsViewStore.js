@@ -20,7 +20,7 @@ class ContributionDetailsViewStore extends BasePreviewViewStore {
                             ]
                         }
 
-                        return rootStore.application.administration.contributionStore.getContribution(id, params);
+                        return rootStore.application.administration.contributionStore.getDetails(id, params);
                     }
                 }
             }

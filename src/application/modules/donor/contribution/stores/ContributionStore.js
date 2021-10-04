@@ -23,6 +23,11 @@ class ContributionStore {
         return response.data;
     }
 
+    async findTimelineSummary(params) {
+        const response = await this.contributionService.findSummary(params);
+        return response.data;
+    }
+
     async findBankAccount(params) {
         const response = await this.donorBankAccountService.find(params);
         return response.data.item;
@@ -40,6 +45,11 @@ class ContributionStore {
 
     async reviewContribution(resource) {
         const response = await this.contributionService.review(resource);
+        return response.data;
+    }
+
+    async getDetails(id, params) {
+        const response = await this.contributionService.getDetails(id, params);
         return response.data;
     }
 }

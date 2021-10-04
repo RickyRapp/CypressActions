@@ -9,6 +9,9 @@ import moment from 'moment';
 class ContributionViewStore extends BaseListViewStore {
 	@observable accountTypes = null;
 	@observable summaryData = null;
+	@observable timelineSummary = null;
+	@observable allData = null;
+	@observable depositTab = 0;
 	contributionStatuses = [];
 
 	constructor(rootStore) {
@@ -40,12 +43,18 @@ class ContributionViewStore extends BaseListViewStore {
 				return {
 					find: async params => {
 						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus'];
-
 						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
-							donorId: this.donorId,
-							...params,
+								donorId: this.donorId,
+								...params,
 						});
-						return rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
+						this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ donorId: this.donorId, ...params });
+						this.allData = await rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
+
+						if(this.depositTab == 1) {
+							return this.timelineSummary;
+						} else {
+							return this.allData;
+						}
 					},
 				};
 			},
@@ -102,70 +111,107 @@ class ContributionViewStore extends BaseListViewStore {
 	}
 
 	createTableStore() {
-		this.setTableStore(
-			new TableViewStore(this.queryUtility, {
-				columns: [
-					{
-						key: 'dateCreated',
-						title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
-						format: {
-							type: 'date',
-							value: 'short',
+		if(this.depositTab === 0) {
+			this.setTableStore(
+				new TableViewStore(this.queryUtility, {
+					columns: [
+						{
+							key: 'dateCreated',
+							title: 'CONTRIBUTION.LIST.COLUMNS.DATE_CREATED_LABEL',
+							format: {
+								type: 'date',
+								value: 'short',
+							},
+						},
+						{
+							key: 'confirmationNumber',
+							title: 'CONTRIBUTION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+						},
+						{
+							key: 'contributionStatus.name',
+							title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
+						},
+						{
+							key: 'paymentType.name',
+							title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
+							format: {
+								type: 'function',
+								value: this.renderPaymentType,
+							},
+						},
+						{
+							key: 'payerInformation.name',
+							title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
+						},
+						{
+							key: 'amount',
+							title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
+							format: {
+								type: 'currency',
+								value: '$',
+							},
+						},
+					],
+					actions: {
+						onEdit: contribution => this.routes.edit(contribution.id, contribution.donorId),
+						onCancel: contribution => this.openCancelContribution(contribution),
+						onPreview: contribution => this.routes.preview(contribution.id, contribution.donorId),
+						onSort: column => this.queryUtility.changeOrder(column.key),
+					},
+					actionsRender: {
+						onEditRender: item => {
+							if (item.contributionStatus.abrv === 'pending') {
+								const dateToEdit = moment(item.dateCreated).add(15, 'm');
+								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+							}
+							return false;
+						},
+						onCancelRender: item => {
+							if (item.contributionStatus.abrv === 'pending') {
+								const dateToEdit = moment(item.dateCreated).add(30, 'm');
+								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+							}
+							return false;
 						},
 					},
-					{
-						key: 'confirmationNumber',
-						title: 'CONTRIBUTION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
-					},
-					{
-						key: 'contributionStatus.name',
-						title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
-					},
-					{
-						key: 'paymentType.name',
-						title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
-						format: {
-							type: 'function',
-							value: this.renderPaymentType,
+				})
+			);
+		} else {
+			this.setTableStore(
+				new TableViewStore(this.queryUtility, {
+					columns: [
+						{
+							key: 'month',
+							title: 'Time Period',
 						},
-					},
-					{
-						key: 'payerInformation.name',
-						title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
-					},
-					{
-						key: 'amount',
-						title: 'CONTRIBUTION.LIST.COLUMNS.AMOUNT_LABEL',
-						format: {
-							type: 'currency',
-							value: '$',
-						},
-					},
-				],
-				actions: {
-					onEdit: contribution => this.routes.edit(contribution.id, contribution.donorId),
-					onCancel: contribution => this.openCancelContribution(contribution),
-					onPreview: contribution => this.routes.preview(contribution.id, contribution.donorId),
-					onSort: column => this.queryUtility.changeOrder(column.key),
-				},
-				actionsRender: {
-					onEditRender: item => {
-						if (item.contributionStatus.abrv === 'pending') {
-							const dateToEdit = moment(item.dateCreated).add(15, 'm');
-							return moment().isBetween(moment(item.dateCreated), dateToEdit);
+						{
+							key: 'sumByMonth',
+							title: 'Sum for Period',
+							format: {
+								type: 'function',
+								value: (res) => {
+									return res;
+								}
+							}
 						}
-						return false;
-					},
-					onCancelRender: item => {
-						if (item.contributionStatus.abrv === 'pending') {
-							const dateToEdit = moment(item.dateCreated).add(30, 'm');
-							return moment().isBetween(moment(item.dateCreated), dateToEdit);
-						}
-						return false;
-					},
-				},
-			})
-		);
+					]
+				})
+				);
+		}
+	}
+
+	@action.bound
+	setDepositTab(tab){
+		this.depositTab = tab;
+		if(tab === 0) {
+			this.createTableStore();		
+			this.tableStore.setData(this.allData);
+			this.queryUtility.fetch();
+		} else {
+			this.createTableStore();		
+			this.tableStore.setData(this.timelineSummary);
+			this.queryUtility.fetch();
+		}
 	}
 
 	createPaymentTypeDropdownStore() {
