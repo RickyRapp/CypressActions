@@ -36,17 +36,17 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let chartDays = [];
 
 	if (donor) {
-		
-		if(yearDropdownStore.value.id == 7) {
+
+		if (yearDropdownStore.value.id == 7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
 			let counter = 0;
-			if(dayOfWeek === 0) {
+			if (dayOfWeek === 0) {
 				chartDays = categoriesDays;
 			} else {
-				dayOfWeek+=1;
-				while(counter < 7) {
-					if(dayOfWeek < 7) {
+				dayOfWeek += 1;
+				while (counter < 7) {
+					if (dayOfWeek < 7) {
 						chartDays.push(categoriesDays[dayOfWeek++]);
 						counter++;
 					}
@@ -62,7 +62,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
 			}
 		}
-		if(yearDropdownStore.value.id === 30) {
+		if (yearDropdownStore.value.id === 30) {
 			for (let i = 0; i < 4; i++) {
 				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
 				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
@@ -78,7 +78,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays: categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -87,8 +87,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
@@ -197,7 +197,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										</div>
 									</div>
 								</div>
-								
+
 								<div className="row u-mar--bottom--med">
 									<div className="col col-sml-12">
 										<LineChartContainer />
@@ -275,11 +275,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
 						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
-						<div className="card--med">
-							<Transaction
-								hideSearch={true}
-								hidePager={true} />
-						</div>
+						<Transaction
+							hideSearch={true}
+							hidePager={true} />
 					</div>
 				</div>
 			</div>

@@ -12,9 +12,10 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
     } = donorCommunicationPreferenceViewStore;
 
     return (
-        <div className="card--primary card--med">
+        <div className="card--primary card--med u-mar--bottom--med">
             <EditFormContent form={form}>
                 <div className="row">
+
                     <div className="col col-sml-12 col-lrg-6">
                         <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
                         <div className="row u-mar--bottom--sml">
@@ -23,21 +24,6 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <NumericInputField field={form.$('cardNonPresentTransactionAmountExceeding')} />
-                            </div>
-                        </div>
-                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('checkAmountExceeding')} />
-                            </div>
-                        </div>
-                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />
                             </div>
                         </div>
                     </div>
@@ -54,6 +40,28 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                                 <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
                             </div>
                         </div>
+                    </div>
+                    <div className="col col-sml-12 col-lrg-6">
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('checkAmountExceeding')} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col col-sml-12 col-lrg-6">
+                        <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHARITY_WEBSITE')}</h3>
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('thirdPartyWebsiteAmountExceeding')} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col col-sml-12 col-lrg-6">
                         <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_INVESTMENT')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">

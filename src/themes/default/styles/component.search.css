@@ -61,10 +61,13 @@
     &__wrapper {
         display: flex;
         align-items: center;
+        
+        height: 60px;
+
         padding: $unit calc($unit * 2) $unit 0;
         border: 1px solid color(white blackness(+30%));
         border-radius: $radius-base;
-        max-width: 650px;
+        /* max-width: 650px; */
         background-color: white;
 
         @media(--screen-from-med) {

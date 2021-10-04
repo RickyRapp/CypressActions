@@ -61,3 +61,12 @@
         }
     }
 }
+
+.css-g1d714-ValueContainer {
+    height: 60px;
+}
+
+.css-1pahdxg-control {
+    border-color: $zest !important;
+    box-shadow: 0 0 0 1px transparent !important;
+}
