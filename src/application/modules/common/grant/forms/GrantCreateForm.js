@@ -181,7 +181,7 @@ export default class GrantCreateForm extends FormBase {
 					name: 'charityContactEmail',
 					label: 'EMAIL_ADDRESS.CREATE.FIELDS.EMAIL_LABEL',
 					placeholder: 'EMAIL_ADDRESS.CREATE.FIELDS.EMAIL_PLACEHOLDER',
-					rules: 'email',
+					rules: 'required_if:isNewCharity,true|email',
 				},
 				{
 					name: 'charityContactNumber',

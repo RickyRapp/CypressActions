@@ -194,9 +194,10 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
                         </tr>
                     </thead>
                     <tbody className="table--secondary__tbody">
-						{timelineSummary && timelineSummary.map(x => 
-							 <tr className="table--secondary__row">
-                            <th className="table--secondary__th">{monthNames[x.month - 1]} {(new Date()).getFullYear()}</th>
+						{timelineSummary && timelineSummary.map(x =>
+						
+							 <tr className="table--secondary__row" style={x.month == (new Date()).getFullYear() ? {borderTop: '3px solid #d4d4d4'} : null}>
+                            <th className="table--secondary__th">{x.month <= 12 ? `${monthNames[x.month - 1]} ${(new Date()).getFullYear()}` : `Year of ${x.month}`}</th>
                             <td className="table--secondary__td">${x.sumByMonth.toFixed(2)}</td>
                         </tr>)
 						}
@@ -205,10 +206,10 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
                     <tfoot className="table--secondary__tfoot">
                         <tr className="table--secondary__row">
                             <th className="table--secondary__th">
-                                Current timeline period:
+                                {/* Current timeline period: */}
                             </th>
                             <th className="table--secondary__th">
-                                {(new Date()).getFullYear()}
+                                {/* {(new Date()).getFullYear()} */}
                             </th>
                         </tr>
                     </tfoot>
