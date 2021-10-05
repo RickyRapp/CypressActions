@@ -19,14 +19,12 @@ class GrantsViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        console.log(params);
                         params.grantsOnly = true;
                         params.embed = [
                             'donationType',
                             'donationStatus'
                         ];
                         const list = await rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
-                        console.log(list);
                         return list;
                     }
                 }
