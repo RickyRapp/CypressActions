@@ -245,12 +245,12 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (
 													<FormatterResolver
-														item={{ amount: summaryData.totalMoneyUpcoming }}
+														item={{ amount: summaryData.totalMoneyUpcomingThisYear }}
 														field="amount"
 														format={{ type: 'currency' }}
 													/>
 												)}
-												<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming</p>
+												<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
 											</div>
 										</div>
 									</div>

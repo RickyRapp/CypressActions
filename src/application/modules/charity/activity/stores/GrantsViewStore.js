@@ -1,16 +1,17 @@
 import { FilterParams } from 'core/models';
 import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 
-class AllTransactionViewStore extends BaseListViewStore {
+class GrantsViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
-            name: 'charity-all-transaction',
+            name: 'charity-grants',
             authorization: 'theDonorsFundDonationSection',
             routes: {},
             queryConfig: {
                 filter: new FilterParams(),
                 onResetFilter: (filter) => {
                     filter.reset();
+                    filter.grantsOnly = true;
                     this.donationStatusDropdownStore.setValue(null);
                     this.donationTypeDropdownStore.setValue(null);
                 }
@@ -18,11 +19,15 @@ class AllTransactionViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
+                        console.log(params);
+                        params.grantsOnly = true;
                         params.embed = [
                             'donationType',
                             'donationStatus'
                         ];
-                        return rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+                        const list = await rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+                        console.log(list);
+                        return list;
                     }
                 }
             }
@@ -115,4 +120,4 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 }
 
-export default AllTransactionViewStore;
+export default GrantsViewStore;

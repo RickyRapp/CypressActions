@@ -1009,6 +1009,7 @@
         "TAB_TITLE": "Activity",
         "ALL_TRANSACTIONS": "All Transactions",
         "GRANTS": "Grants",
+        "REMOTE DEPOSITS": "Remote Deposits",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",

@@ -47,8 +47,12 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
 		this.routes = {
 			allContributions: () => {
-				this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 1 });
-			},
+				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
+					this.rootStore.routerStore.goTo('master.app.main.administration.contribution.list');
+				} else {
+					this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 1 });
+				}
+			}
 		};
 
 		this.createBankAccountModalParams();
