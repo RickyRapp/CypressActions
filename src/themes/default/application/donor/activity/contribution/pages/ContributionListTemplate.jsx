@@ -225,7 +225,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 						{summaryData ? (
 							<React.Fragment>
 								<div className="row row--form">
-									<div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{summaryData && (
@@ -240,7 +240,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 										</div>
 									</div>
 
-									<div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary--light card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (

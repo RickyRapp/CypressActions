@@ -73,6 +73,10 @@
 			border-bottom: 0px;
 		}
 
+		&__label {
+			text-align: right;
+		}
+
 		&__amount {
 			white-space: nowrap;
 

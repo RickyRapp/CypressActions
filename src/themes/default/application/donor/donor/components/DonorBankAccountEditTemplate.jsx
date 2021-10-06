@@ -37,17 +37,21 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                 <div className="row row--form">
                     <div className="form__group col col-sml-12">
                         <div className="u-display--flex">
-                            <label className="form__group__label u-mar--right--med">Third party account?</label>
-                            <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isThirdPartyAccount')} />
-                            {bankAccountCount>0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
-                            <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isPrimary')} /></span>:null}
+                            <div>
+                                <label className="form__group__label u-mar--right--med">Third party account?</label>
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isThirdPartyAccount')} />
+                            </div>
+                            <div>
+                                {bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isPrimary')} /></span> : null}
+                            </div>
                         </div>
                         <div className="u-display--flex">
-                            
+
                         </div>
                     </div>
                 </div>
-                
+
                 {form.$('isThirdPartyAccount').value &&
                     <React.Fragment>
                         <div className="row row--form row__align--end">

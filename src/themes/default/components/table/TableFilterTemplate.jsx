@@ -143,7 +143,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					{showSeparator && <div />}
 					<div className="row row--form">{filters}</div>
 					{!nextToSearch && (
-						<div className="row row--form u-mar--top--tny">
+						<div className="row row--form u-mar--top--tny u-mar--bottom--sml">
 
 							<div className="col col-sml-6 col-lrg-3">
 								<BaasicButton

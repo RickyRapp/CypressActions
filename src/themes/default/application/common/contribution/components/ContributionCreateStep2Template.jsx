@@ -137,15 +137,14 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                         </div>
                         <div className="card--primary card--med">
                             <div className="row row--form fullheight">
-                                <div className="col col-sml-12 col-lrg-12">
+                                <div className="col col-sml-12 col-lrg-12 u-mar--border--sml">
                                     <h5 className="type--med type--wgt--medium">
                                         Tell us how much you will be sending
-
                                     </h5>
                                 </div>
                                 {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
                                     <React.Fragment>
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med u-mar--top--sml">
                                             <BaasicFieldDropdown
                                                 field={form.$('bankAccountId')}
                                                 store={bankAccountDropdownStore}
