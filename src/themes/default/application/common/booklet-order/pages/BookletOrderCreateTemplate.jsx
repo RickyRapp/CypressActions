@@ -140,11 +140,13 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                                 <BookletOrderButtonCounterTemplate
                                                                                     onRemoveBookletClick={onRemoveBookletClick}
                                                                                     onAddBookletClick={onAddBookletClick}
-                                                                                    label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
-                                                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
+                                                                                    label=
+                                                                                    // {order && order.bookletCount.toString() || '0'}
+                                                                                    {orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === denominationTypes.find(dt => dt.abrv == 'mixed-500').id) ?
+                                                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === denominationTypes.find(dt => dt.abrv == 'mixed-500').id).bookletCount.toString() : '0'}
                                                                                     bookletType={bt}
                                                                                     //denominationTypes.find(dt => dt.abrv == 'mixed-500')
-                                                                                    denominationType={null}
+                                                                                    denominationType={denominationTypes.find(dt => dt.abrv == 'mixed-500')}
                                                                                 />
                                                                             </div>
                                                                             <div className="col col-sml-3">
@@ -172,10 +174,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                                 <BookletOrderButtonCounterTemplate
                                                                                     onRemoveBookletClick={onRemoveBookletClick}
                                                                                     onAddBookletClick={onAddBookletClick}
-                                                                                    label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === null) ?
-                                                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === null).bookletCount.toString() : '0'}
+                                                                                    label={orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === denominationTypes.find(dt => dt.abrv == 'mixed-2000').id) ?
+                                                                                        orderContents.find(s => s.bookletTypeId === bt.id && s.denominationTypeId === denominationTypes.find(dt => dt.abrv == 'mixed-2000').id).bookletCount.toString() : '0'}
                                                                                     bookletType={bt}
-                                                                                    denominationType={null}
+                                                                                    denominationType={denominationTypes.find(dt => dt.abrv == 'mixed-2000')}
                                                                                 />
                                                                             </div>
                                                                             <div className="col col-sml-3">
@@ -229,6 +231,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <tr key={index}>
                                                         <td>${item.id}</td>
                                                         <td>
+                                                            {item.count}
                                                         </td>
                                                         <td>${item.amount}</td>
                                                     </tr>

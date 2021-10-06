@@ -200,7 +200,8 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     generateTableData(order, index) {
-        let bookletAmount = order ? index * order.bookletCount * 50 : 0;
+        const isMixed = order.bookletTypeId === this.bookletTypes.find(c => c.abrv === 'mixed_500').id || order.bookletTypeId === this.bookletTypes.find(c => c.abrv === 'mixed_2000').id;
+        let bookletAmount = order ? (isMixed ? index : index * order.bookletCount * order.bookletCount * 50) : 0;
         if (this.tableData.length > 0) {
             const foundIndex = this.tableData.findIndex(x => x.id === index);
             if (foundIndex != -1) {
