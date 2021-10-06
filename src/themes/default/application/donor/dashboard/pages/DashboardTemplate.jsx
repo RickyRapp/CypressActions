@@ -221,7 +221,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					)}
 				</div>
 				{donor &&
-					(!donor.isGrantMade || !donor.isContributionMade || !donor.isBookletOrderMade || !donor.isInvestmentMade) && (
+					(!donor.isGrantMade || !donor.isContributionMade || !donor.isOrderCertificatesMade || !donor.isInvestmentMade) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
 								<h3 className=" u-mar--bottom--med type--center">
@@ -238,7 +238,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 											/>
 										</div>
 									)}
-									{!donor.isBookletOrderMade && (
+									{!donor.isOrderCertificatesMade && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
 												className="btn btn--med btn--med--100 btn--tertiary "
