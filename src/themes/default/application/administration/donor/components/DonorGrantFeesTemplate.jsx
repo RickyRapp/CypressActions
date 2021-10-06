@@ -22,16 +22,19 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
                         {t('DONOR.GRANT_FEES.FIELDS.ONLINE_LABEL')}
                     </span>
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-2">
+                <div className="form__group col col-sml-12 col-xxlrg-5">
                     <BaasicFieldSwitch field={form.$('isGrantRequestFeePayedByCharity')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-2">
+                <div className="form__group col col-sml-12 col-xxlrg-5">
                     <BaasicFieldSwitch field={form.$('isCharityWebsiteFeePayedByCharity')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-2 u-align--self--end">
+
+                <div className="form__group col col-sml-12 col-xxlrg-2 u-align--self--end"></div>
+
+                <div className="form__group col col-sml-12 col-xxlrg-5 u-align--self--end">
                     <BaasicFieldSwitch field={form.$('isGivingCardFeePayedByCharity')} />
                 </div>
-                <div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-2 u-align--self--end">
+                <div className="form__group col col-sml-12 col-xxlrg-5 u-align--self--end">
                     <BaasicFieldSwitch field={form.$('isSessionFeePayedByCharity')} />
                 </div>
             </div>

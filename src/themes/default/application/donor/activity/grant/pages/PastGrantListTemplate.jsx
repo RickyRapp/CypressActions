@@ -194,7 +194,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
 						<div className="u-mar--bottom--med">
-							<TableFilter queryUtility={queryUtility}>
+							<TableFilter colClassName={"col col-sml-12 col-lrg-12"} queryUtility={queryUtility}>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={charityDropdownStore} />
 								</div>
@@ -240,7 +240,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									/>
 								</div>
 								<div className="col col-sml-12 u-mar--bottom--sml">
-									<div className="row">
+									<div className="row row--form">
 										<div className="col col-sml-12 col-lrg-8">
 											<DateRangeQueryPicker
 												queryUtility={queryUtility}

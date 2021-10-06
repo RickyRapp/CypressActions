@@ -47,9 +47,9 @@ const GrantListTemplate = function ({ grantViewStore }) {
 				<Export config={exportConfig} />
 			</div>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
-				<div className="row u-mar--bottom--med">
+				<div className="row row--form u-mar--bottom--med">
 					<div className="col col-sml-12 col-xxlrg-10">
-						<TableFilter queryUtility={queryUtility}>
+						<TableFilter colClassName={"col col-sml-12 col-xxlrg-8"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
@@ -97,7 +97,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
 								/>
 							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row">
+								<div className="row row--form">
 									<div className="col col-sml-12 col-lrg-8">
 										<DateRangeQueryPicker
 											queryUtility={queryUtility}

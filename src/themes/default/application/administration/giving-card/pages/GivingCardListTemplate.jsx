@@ -13,7 +13,7 @@ const GivingCardListTemplate = function({ givingCardViewStore }) {
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility}></TableFilter>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}></TableFilter>
 					</div>
 
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
@@ -40,7 +40,7 @@ function renderActions({ item, actions }) {
 					<BaasicButton
 						className="btn btn--icon"
 						icon={`u-icon u-icon--${item.isLockedOut ? 'unlock' : 'lock'} u-icon--base`}
-						label={`FIDELITY_RECOMMENDATION_CARD.LIST.BUTTON.${item.isLockedOut ? 'UNLOCK' : 'LOCK'}`}
+						label={`${item.isLockedOut ? 'UNLOCK' : 'LOCK'}`}
 						onlyIcon={true}
 						onClick={() => onToggleLock(item)}
 					></BaasicButton>

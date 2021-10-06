@@ -99,19 +99,19 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 
 	return (
 		<Content>
-			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
+			<div className="row row--form">
+				<div className="col col-sml-12 u-mar--bottom--med">
 					<div className="u-mar--top--sml u-mar--bottom--sml">
 						<BaasicButton
 							type="button"
-							className={depositTab === 0 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide btn--tertiary u-mar--left--med"}
+							className={depositTab === 0 ? "btn btn--med btn--med--wide btn--primary u-mar--right--med" : "btn btn--med btn--med--wide btn--tertiary u-mar--right--med"}
 							onClick={() => setDepositTab(0)}
 							// onClick={onSubmitClick}
 							// form={form} onSubmit={onSubmitClick}
 							label="CONTRIBUTION.LIST.OVERVIEW-TRANSACTIONS" />
 						<BaasicButton
 							type="button"
-							className={depositTab === 1 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide btn--tertiary u-mar--left--med"}
+							className={depositTab == 1 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide"}
 							onClick={() => setDepositTab(1)}
 							// onClick={onSubmitClick}
 							// form={form} onSubmit={onSubmitClick}
@@ -171,7 +171,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 								</div>
 								<div className="col col-sml-12 u-mar--bottom--sml">
 									<div className="row row--form">
-										<div className="col col-sml-12 col-lrg-6">
+										<div className="col col-sml-12 col-lrg-8">
 											<DateRangeQueryPicker
 												queryUtility={queryUtility}
 												store={dateCreatedDateRangeQueryStore}
@@ -218,14 +218,14 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 					 }
 				</div>
 				<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
-					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
+					<div className={`card--primary card--med ${!summaryData ? "fullheight" : ""}`}>
 						<h4 className="type--med type--wgt--medium u-mar--bottom--med">
 							{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}
 						</h4>
 						{summaryData ? (
 							<React.Fragment>
-								<div className="row">
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+								<div className="row row--form">
+									<div className="col col-sml-12 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{summaryData && (
@@ -240,7 +240,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 										</div>
 									</div>
 
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary--light card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (

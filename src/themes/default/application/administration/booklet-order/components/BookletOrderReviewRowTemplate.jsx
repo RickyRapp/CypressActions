@@ -40,10 +40,10 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
 
     return (
         <div className="row">
-            <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml">
+            <div className="form__group col col-sml-6 col-lrg-2 u-mar--bottom--sml u-padd--top--base">
                 {item && bookletTypes && bookletType.abrv !== 'classic' && bookletType.name} {denominationType && denominationType.name}
             </div>
-            <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml">
+            <div className="form__group col col-sml-6 col-lrg-1 u-mar--bottom--sml u-padd--top--base">
                 {item.bookletCount}
             </div>
             <div className="form__group col col-sml-12 col-lrg-9 u-mar--bottom--sml">

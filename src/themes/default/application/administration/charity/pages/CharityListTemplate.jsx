@@ -15,7 +15,7 @@ const CharityListTemplate = function({ charityViewStore }) {
 			<Content emptyRenderer={renderEmpty(routes)}>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+						<TableFilter colClassName={"col col-sml-12 col-xxlrg-6"} queryUtility={queryUtility} showDefaultSearchFilter={false}>
 							<div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
 								<BaasicInput
 									className="input input--lrg"

@@ -95,11 +95,11 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     <div className="modal__list__amount">{thirdPartyDonorAdvisedFund}</div>
                 </section>}
             {thirdPartyDonorAdvisedFundName &&
-            <section className="modal__list u-mar--bottom--med">
-                <div>Fund Holder Name</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{thirdPartyDonorAdvisedFundName}</div>
-            </section> 
+                <section className="modal__list u-mar--bottom--med">
+                    <div>Fund Holder Name</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{thirdPartyDonorAdvisedFundName}</div>
+                </section>
             }
             {checkNumber &&
                 <section className="modal__list u-mar--bottom--med">
@@ -140,15 +140,19 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
-            <div className="u-display--flex">
-                <BaasicButton
-                    className="btn btn--med btn--med--wide btn--ghost"
-                    label={t('EDIT_FORM_LAYOUT.CANCEL')}
-                    onClick={onCancel}
-                />
-
-                <div className="u-mar--left--auto">
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} />
+            <div className="row">
+                <div className="col col-sml-12 col-lrg-6">
+                    <BaasicButton
+                        className="btn btn--med btn--med--100 btn--ghost u-mar--bottom--sml"
+                        classNameExtend="u-display--flex--justify--center"
+                        label={t('EDIT_FORM_LAYOUT.CANCEL')}
+                        onClick={onCancel}
+                    />
+                </div>
+                <div className="col col-sml-12 col-lrg-6">
+                    <div className="u-mar--left--auto">
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--100 btn--secondary" label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} classNameExtend="u-display--flex--justify--center" />
+                    </div>
                 </div>
             </div>
         </div>

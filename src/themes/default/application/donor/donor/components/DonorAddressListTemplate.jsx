@@ -20,9 +20,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 		<div>
 			<div className="row">
 				<div className="col col-sml-12 col-lrg-3">
-					<h3 className=" u-mar--bottom--med">
-						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_ADDRESS')}
-					</h3>
+					<h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_ADDRESS')}</h3>
 				</div>
 				<div
 					className={`col col-sml-12 col-lrg-${
@@ -72,8 +70,10 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 												<p className="type--base type--wgt--bold">{primaryAddress.zipCode}</p>
 											</div>
 											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Is primary?</p>
-												<p className="type--base type--wgt--bold">{primaryAddress.isPrimary ? "Yes" : "No"}</p>
+												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+													Is primary?
+												</p>
+												<p className="type--base type--wgt--bold">{primaryAddress.isPrimary ? 'Yes' : 'No'}</p>
 											</div>
 										</div>
 									) : (
@@ -92,6 +92,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 								/>
 							) : (
 								<span
+									className="cursor--pointer type--color--opaque type--sml"
 									title={`Click to ${secondaryAddress ? 'edit' : 'insert'}`}
 									onClick={() => onEnableEditClick(secondaryAddress)}
 								>

@@ -41,20 +41,15 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </div>
             </div>
             <div className="row row--form">
-                <div className="col col-sml-12 col-lrg-12">
-                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
-                </div>
+                <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
             </div>
-            <div className="type--right">
+            <div className="type--right u-mar--bottom--med">
+                <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
+                    {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
+                </button>
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} />
             </div>
         </EditFormContent >
-
-        <div className="type--right">
-        <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
-            {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
-        </button>
-        </div>
     </div>
     )
 };

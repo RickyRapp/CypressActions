@@ -25,7 +25,7 @@ const DonorNoteListTemplate = function ({ donorNoteViewStore, t }) {
             </h3>
             <form className='form'>
                 <div className="row">
-                    <div className="form__group col col-lrg-6">
+                    <div className="form__group col col-sml-6 col-xlrg-6">
                         <BasicTextArea field={form.$('note')} rows={3} />
                     </div>
                     <div className="form__group col col-sml-12 u-mar--bottom--med type--right">

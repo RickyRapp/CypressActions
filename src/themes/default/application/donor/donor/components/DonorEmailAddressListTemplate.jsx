@@ -59,7 +59,7 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
 										<div className="row">
                                             <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Email:</p>
-                                                <p className="type--base type--wgt--bold"> {primaryEmailAddress.email} </p>
+                                                <p className="type--base type--wgt--bold type--break--all"> {primaryEmailAddress.email} </p>
                                             </div>
                                             <div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 											    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Notifications</p>

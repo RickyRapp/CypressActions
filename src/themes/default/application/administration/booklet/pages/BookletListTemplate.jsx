@@ -32,7 +32,7 @@ const BookletListTemplate = function({ bookletViewStore }) {
         </div>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility}>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
 								<BaasicInput
 									id="codes"

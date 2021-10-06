@@ -4,12 +4,12 @@
 
 .info-card {
 	&--scale {
-		padding: 12px 0;
+		padding: calc($unit * 4) 0;
 		cursor: pointer;
 		transition: all 250ms ease-out;
 
 		&:hover {
-			padding: 12px 12px;
+			padding: calc($unit * 4);
 			background-color: $white;
 			border-radius: $radius-base;
 			box-shadow: $shadow-card;
