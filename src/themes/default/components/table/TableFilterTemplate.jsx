@@ -145,7 +145,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					{!nextToSearch && (
 						<div className="row row--form u-mar--top--tny">
 
-							<div className="col col-sml-6">
+							<div className="col col-sml-6 col-lrg-3">
 								<BaasicButton
 									className="btn btn--100 btn--primary"
 									label="GRID.FILTER.SEARCH_BUTTON"
@@ -153,7 +153,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 									disabled={fetchDisabled}
 								/>
 							</div>
-							<div className="col col-sml-6">
+							<div className="col col-sml-6 col-lrg-3">
 								<BaasicButton
 									className="btn btn--100 btn--ghost"
 									label="GRID.FILTER.CLEAR_BUTTON"
