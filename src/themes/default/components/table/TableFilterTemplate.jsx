@@ -34,9 +34,8 @@ function TableFilterTemplate(props) {
 						<div className="search__wrapper">
 							{showSearch && (
 								<SearchFilter
-									className={`input input--med input--search search__input--noborder ${
-										filterStore.filterVisible ? 'is-expanded' : ''
-									}`}
+									className={`input input--med input--search search__input--noborder ${filterStore.filterVisible ? 'is-expanded' : ''
+										}`}
 									inputWrapperClass={`${inputWrapperClass}`}
 									queryUtility={queryUtility}
 									clearVisible={clearVisible}
@@ -54,9 +53,8 @@ function TableFilterTemplate(props) {
 											></i>
 											<span className="search__filter__btn__text search__wrapper__item">Advanced Search</span>
 											<i
-												className={`u-icon u-icon--arrow-down--primary u-icon--sml ${
-													filterStore.filterVisible ? 'u-rotate--180' : ''
-												}`}
+												className={`u-icon u-icon--arrow-down--primary u-icon--sml ${filterStore.filterVisible ? 'u-rotate--180' : ''
+													}`}
 											></i>
 										</div>
 									)}
@@ -146,25 +144,22 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					<div className="row row--form">{filters}</div>
 					{!nextToSearch && (
 						<div className="row row--form u-mar--top--tny">
-							<div className="col col-sml-12 col-med-6 col-lrg-4">
-								<div className="row row--form">
-									<div className="col col-sml-6">
-										<BaasicButton
-											className="btn btn--100 btn--primary"
-											label="GRID.FILTER.SEARCH_BUTTON"
-											onClick={() => queryUtility.fetch()}
-											disabled={fetchDisabled}
-										/>
-									</div>
-									<div className="col col-sml-6">
-										<BaasicButton
-											className="btn btn--100 btn--ghost"
-											label="GRID.FILTER.CLEAR_BUTTON"
-											onClick={() => queryUtility.resetFilter()}
-											disabled={fetchDisabled}
-										/>
-									</div>
-								</div>
+
+							<div className="col col-sml-6">
+								<BaasicButton
+									className="btn btn--100 btn--primary"
+									label="GRID.FILTER.SEARCH_BUTTON"
+									onClick={() => queryUtility.fetch()}
+									disabled={fetchDisabled}
+								/>
+							</div>
+							<div className="col col-sml-6">
+								<BaasicButton
+									className="btn btn--100 btn--ghost"
+									label="GRID.FILTER.CLEAR_BUTTON"
+									onClick={() => queryUtility.resetFilter()}
+									disabled={fetchDisabled}
+								/>
 							</div>
 						</div>
 					)}

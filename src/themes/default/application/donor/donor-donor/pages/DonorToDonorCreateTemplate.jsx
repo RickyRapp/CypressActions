@@ -60,14 +60,14 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 <h2>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h2>
                                 <h4 className=" u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
                                 <div className="row row--form">
-                                    <div className="col col-sml-7 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('emailOrAccountNumber')} />
                                     </div>
-                                    <div className="col col-sml-5 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
                                     </div>
                                     <div>
-                                        <div className="col col-sml-12 col-med-12 col-xlrg-12 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
                                             <a onClick={() => addAnotherRecipient(true)}>
                                                 {t(!addAnotherRecipientForm ? 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_+' : 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_-')}
                                                 {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
@@ -76,10 +76,10 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 </div>
                                 {addAnotherRecipientForm && (
                                     <div className="row row--form u-mar--bottom--med">
-                                        <div className="col col-sml-7 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('emailOrAccountNumberAnother')} />
                                         </div>
-                                        <div className="col col-sml-5 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('contactInformationNameAnother')} />
                                         </div>
                                     </div>

@@ -60,7 +60,7 @@ function GrantConfirmTemplate({ modalParams, t }) {
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.PURPOSE')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{purpose.name}</div>
+                <div className="modal__list__amount--secondary">{purpose.name}</div>
             </section>
 
             <div className="u-display--flex">

@@ -104,14 +104,14 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 					<div className="u-mar--top--sml u-mar--bottom--sml">
 						<BaasicButton
 							type="button"
-							className={depositTab === 0 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide btn--tertiary u-mar--left--med"}
+							className={depositTab === 0 ? "btn btn--med btn--med--wide btn--primary u-mar--right--med" : "btn btn--med btn--med--wide btn--tertiary u-mar--right--med"}
 							onClick={() => setDepositTab(0)}
 							// onClick={onSubmitClick}
 							// form={form} onSubmit={onSubmitClick}
 							label="CONTRIBUTION.LIST.OVERVIEW-TRANSACTIONS" />
 						<BaasicButton
 							type="button"
-							className={depositTab === 1 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide btn--tertiary u-mar--left--med"}
+							className={depositTab == 1 ? "btn btn--med btn--med--wide btn--primary" : "btn btn--med btn--med--wide"}
 							onClick={() => setDepositTab(1)}
 							// onClick={onSubmitClick}
 							// form={form} onSubmit={onSubmitClick}
