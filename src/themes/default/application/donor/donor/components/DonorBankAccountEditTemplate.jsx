@@ -39,11 +39,11 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                         <div className="u-display--flex">
                             <div>
                                 <label className="form__group__label u-mar--right--med">Third party account?</label>
-                                <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isThirdPartyAccount')} />
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isThirdPartyAccount')} />
                             </div>
                             <div>
                                 {bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
-                                <BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isPrimary')} /></span> : null}
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
                             </div>
                         </div>
                         <div className="u-display--flex">

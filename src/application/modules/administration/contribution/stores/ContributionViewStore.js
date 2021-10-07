@@ -96,6 +96,8 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     async openCancelContribution(item) {
+        const pageNumber = this.tableStore.pageNumber;
+
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to cancel contribution (#${item.confirmationNumber}) created 
             on: ${moment(item.dateCreated).format('dddd, MMMM Do YYYY, h:mm:ss A')} with amount: $${item.amount.toFixed(2)}`,
@@ -103,7 +105,7 @@ class ContributionViewStore extends BaseListViewStore {
                 this.loaderStore.suspend();
                 try {
                     await this.rootStore.application.administration.contributionStore.reviewContribution({ id: item.id, contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id });
-                    await this.queryUtility.fetch();
+                    this.queryUtility.changePage(pageNumber);
                     this.rootStore.notificationStore.success('Contribution canceled');
                 }
                 catch (err) {
@@ -118,6 +120,8 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     async openReviewContribution(item) {
+        const pageNumber = this.tableStore.pageNumber;
+
         let message = 'You are about to set contribution to '
         let newStatusId = null;
         if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'pending').id) {
@@ -144,7 +148,7 @@ class ContributionViewStore extends BaseListViewStore {
                 this.loaderStore.suspend();
                 try {
                     await this.rootStore.application.administration.contributionStore.reviewContribution({ id: item.id, contributionStatusId: newStatusId });
-                    this.queryUtility.fetch();
+                    this.queryUtility.changePage(pageNumber);
                     this.rootStore.notificationStore.success('Contribution reviewed.');
                 }
                 catch (err) {
