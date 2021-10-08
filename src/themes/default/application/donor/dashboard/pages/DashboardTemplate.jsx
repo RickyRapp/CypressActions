@@ -36,7 +36,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let chartDays = [];
 
 	if (donor) {
-
 		if (yearDropdownStore.value.id == 7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
@@ -221,7 +220,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					)}
 				</div>
 				{donor &&
-					(!donor.isGrantMade || !donor.isContributionMade || !donor.isOrderCertificatesMade || !donor.isInvestmentMade) && (
+				//|| !donor.isInvestmentMade - this isn't implemented yet
+					(!donor.isGrantMade || !donor.isContributionMade || !donor.isOrderCertificatesMade) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
 								<h3 className=" u-mar--bottom--med type--center">
