@@ -138,7 +138,7 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                         <div className="card--primary card--med">
                             <div className="row row--form fullheight">
                                 <div className="col col-sml-12 col-lrg-12 u-mar--border--sml">
-                                    <h5 className="type--med type--wgt--medium">
+                                    <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
                                         Tell us how much you will be sending
                                     </h5>
                                 </div>
@@ -222,9 +222,9 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                 )}
                                 {paymentType.abrv === 'business-and-private-interests' && (
                                     <React.Fragment>
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        {/* <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <BaasicFieldDropdown field={form.$('businessTypeId')} store={businessTypeDropdownStore} />
-                                        </div>
+                                        </div> */}
                                         {businessTypeDropdownStore &&
                                             businessTypeDropdownStore.value &&
                                             businessTypeDropdownStore.value.name === 'Other' &&
@@ -235,9 +235,9 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                                 )}
                                 {paymentType.abrv === 'real-estate' && (
                                     <React.Fragment>
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        {/* <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <BaasicFieldDropdown field={form.$('propertyTypeId')} store={propertyTypeDropdownStore} />
-                                        </div>
+                                        </div> */}
                                         {propertyTypeDropdownStore &&
                                             propertyTypeDropdownStore.value &&
                                             propertyTypeDropdownStore.value.name === 'Other' &&

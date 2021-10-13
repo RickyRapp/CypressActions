@@ -86,7 +86,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						icon="u-icon u-icon--delete u-icon--base" //TODO: change with redirect icon
-						label="GRANT.LIST.BUTTON.REDIRECT"
+						label="GRANT.LIST.BUTTON.DELETE"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
 					></BaasicButton>

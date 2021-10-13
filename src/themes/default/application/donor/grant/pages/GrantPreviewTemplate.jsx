@@ -25,14 +25,14 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
             layoutFooterVisible={isEditable}
         >
             <div className="row">
-                <div className="col col-sml-12 col-lrg-8">
+                <div className="col col-sml-12 col-lrg-4">
                     {/* {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
                         <div className="card--primary card--med u-mar--bottom--med">
                             <GrantProgressTimeline item={item} />
                         </div>} */}
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row">
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
@@ -42,13 +42,13 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DATE_CREATED_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <Date format="full" value={item.dateCreated} />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
@@ -58,19 +58,19 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.confirmationNumber}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.PURPOSE_TYPE_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.grantPurposeType.name} {`${item.purposeNote ? ' - ' + item.purposeNote : ''}`}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>
@@ -84,20 +84,20 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                 </span>
                             </div>
                             {item && item.thirdPartyWebsite &&
-                                <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <div className="col col-sml-12 u-mar--bottom--med">
                                     <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_WEBSITE_LABEL')}</div>
                                     <span className="input--preview">
                                         {item && <React.Fragment>{item.thirdPartyWebsite.name} - {item.thirdPartyWebsite.url}</React.Fragment>}
                                     </span>
                                 </div>}
                             {item && item.grantScheduledPayment &&
-                                <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <div className="col col-sml-12 u-mar--bottom--med">
                                     <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.SCHEDULED_LABEL')}</div>
                                     <span className="input--preview">
                                         {item && <Date format="full" value={item.grantScheduledPayment.dateCreated} />}
                                     </span>
                                 </div>}
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ADDRESS')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{`${item.addressLine1}, ${item.addressLine2 ? item.addressLine2 + ', ': ''} ${item.city}, ${item.state}, ${item.zipCode}`}</React.Fragment>}

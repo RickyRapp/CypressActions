@@ -617,7 +617,7 @@
             &:active,
             &:focus {
                 outline: 0;
-                background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-primary);
+                background-image: svg-load('../styles/postcss-svg/delete.svg', fill: $color-primary);
             }
             
             &--warning {

@@ -206,6 +206,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                         <BasicCheckbox
                                             id='2'
                                             checked={isNoteToAdministratorIncluded}
+                                            showLabel
                                             label='GRANT.CREATE.INCLUDE_NOTE_TO_ADMINISTRATOR'
                                             onChange={event => onIncludeNoteToAdministratorChange(event.target.checked)} />
                                     </div>

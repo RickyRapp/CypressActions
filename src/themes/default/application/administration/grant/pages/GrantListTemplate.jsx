@@ -199,7 +199,7 @@ function renderActions({ item, actions, actionsRender }) {
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
 						icon="u-icon u-icon--approve u-icon--base" //TODO: change with redirect icon
-						label="GRANT.LIST.BUTTON.REDIRECT"
+						label="GRANT.LIST.BUTTON.DELETE"
 						onlyIcon={true}
 						onClick={() => onRedirect(item)}
 					></BaasicButton>
