@@ -79,6 +79,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                         <Step4Template
                             onNextStepClick={onNextStep4Click}
                             currentCount={currentCount}
+                            sessionCertificates={sessionCertificates}
                             session={session}
                         />
                     </div>}

@@ -132,7 +132,7 @@ class Step3Template extends React.Component {
 									/>}
 								</div>
 								<div className="col col-sml-6">
-									<span className=" type--color--note">Grant total</span> (including insufficient checks)
+									<span className=" type--color--note">Grand total</span> (including insufficient checks)
 								</div>
 								<div className="col col-sml-6">
 									{sessionCertificates.length > 0 && <FormatterResolver
