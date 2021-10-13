@@ -15,6 +15,7 @@ import {
 import { AccountManager } from 'application/donor/donor/components';
 import { DonorGivingCardActivationTemplate } from '../../donor/components';
 import { Transaction } from 'application/donor/activity/transaction/components';
+import { GivingGoalsTemplate } from '../components';
 
 function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const {
@@ -25,6 +26,15 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		orderBookletsOnClick,
 		activateCardOnClick,
 		activateCardModalParams,
+		givingGoalsModalParams,
+		newIncomeOnClick,
+		oneTime,
+		yearly,
+		percentageYear,
+		percentageMonth,
+		editIncomeOnClick,
+		yearlyGoal,
+		oneTimeGoal
 	} = dashboardViewStore;
 
 	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -74,6 +84,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
+	
+	const grantsThisYear = dataGrants[dataGrants.length - 1];
+	const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
+	const yearlyGoalAmount = (yearly * (percentageYear / 100));
+
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
@@ -109,7 +124,76 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</PageHeader>
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					{donor && (donor.isContributionMade || donor.availableBalance) ? (
+					<div className="dashboard-card--emptystate">
+						<h3 className="dashboard-card__title u-mar--bottom--sml">Giving Goals</h3>
+						<div className="dashboard-card--emptystate__body">
+							<section className="modal__list">
+								<div>% of Yearly Income</div>
+								<div className="modal__list__divider"></div>
+								<div className="modal__list__amount--secondary">
+									<h2>
+										<FormatterResolver
+											item={{ amount: yearly * (percentageYear / 100) }}
+											field='amount'
+											format={{ type: 'currency' }}
+										/>
+									</h2>
+								</div>
+								{/* ${yearly * (percentageYear / 100)} */}
+							</section>
+							{yearly > 0 ?
+								<section className="modal__list u-mar--bottom--lrg">
+									<div className="type--base type--color--opaque">{percentageYear}% of ${yearly} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(yearlyGoal)}>Manage</a></div>
+								</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
+							<section className="modal__list">
+								<div>% of One-Time Income</div>
+								<div className="modal__list__divider"></div>
+								<div className="modal__list__amount--secondary">
+									<h2>
+										<FormatterResolver
+											item={{ amount: oneTime * (percentageMonth / 100) }}
+											field='amount'
+											format={{ type: 'currency' }}
+										/>
+									</h2>
+								</div>
+									{/* ${oneTime * (percentageMonth/100)} */}
+							</section>
+							{oneTime > 0 ?
+								<section className="modal__list u-mar--bottom--xlrg">
+									<div className="type--base type--color--opaque">{percentageMonth}% of ${oneTime} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a></div>
+								</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
+							<section className="modal__list">
+								<div className="col col-sml-12 col-med-6">
+									{
+										oneTime > 0 ?
+											null :
+											<div className="u-mar--bottom--sml w--100--to-med">
+												<BaasicButton
+													className="btn btn--med btn--100 btn--primary--light"
+													label="New One Time Income"
+													onClick={() => newIncomeOnClick(false)}
+												/>
+											</div>
+									}
+								</div>
+								<div className="col col-sml-12 col-med-6">
+									{
+										yearly > 0 ?
+											null :
+											<div className="u-mar--bottom--sml w--100--to-med">
+												<BaasicButton
+													className="btn btn--med btn--100 btn--primary--light"
+													label="New Yearly Time Income"
+													onClick={() => newIncomeOnClick(true)}
+												/>
+											</div>
+									}
+								</div>
+							</section>
+						</div>
+					</div>
+					{/* {donor && (donor.isContributionMade || donor.availableBalance) ? (
 						<div className="dashboard-card">
 							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
 							<div className="dashboard-card__body">
@@ -171,17 +255,17 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								/>
 							</div>
 						</div>
-					)}
+					)} */}
 				</div>
 				<div className="col col-sml-12 col-xxlrg-6">
 					{donor && donor.isContributionMade ? (
-						<div className="dashboard-card">
+						<div className="dashboard-card u-mar--bottom--sml">
 							<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
 
 							<div className="dashboard-card__giving-goal">
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
-									<div style={{ 'width': '50%' }} className="dashboard-card__giving-goal--range--progress">Coming soon!</div>
+									<div style={{ 'width': `${((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) : 100}%` }} className="dashboard-card__giving-goal--range--progress">{((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100).toFixed(2) : (100).toFixed(2)}%</div>
 								</div>
 							</div>
 
@@ -220,7 +304,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					)}
 				</div>
 				{donor &&
-				//|| !donor.isInvestmentMade - this isn't implemented yet
+					//|| !donor.isInvestmentMade - this isn't implemented yet
 					(!donor.isGrantMade || !donor.isContributionMade || !donor.isOrderCertificatesMade) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
@@ -283,6 +367,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</div>
 			<BaasicModal modalParams={activateCardModalParams}>
 				<DonorGivingCardActivationTemplate />
+			</BaasicModal>
+			<BaasicModal modalParams={givingGoalsModalParams}>
+				<GivingGoalsTemplate />
 			</BaasicModal>
 		</Page>
 	);

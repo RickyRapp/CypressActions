@@ -5,7 +5,8 @@ import {
     DonorService,
     DonorCommunicationPreferenceService,
     DonorBankAccountService,
-    DonorGivingCardSettingService
+    DonorGivingCardSettingService,
+    DonorGivingGoalService
 } from 'application/common/donor/services';
 import { DonorFileStreamService } from 'common/services';
 
@@ -20,6 +21,7 @@ class DonorStore {
         this.donorCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(DonorCommunicationPreferenceService);
         this.donorFileStreamService = moduleStore.rootStore.createApplicationService(DonorFileStreamService);
         this.donorGivingCardSettingService = moduleStore.rootStore.createApplicationService(DonorGivingCardSettingService);
+        this.donorGivingGoalService = moduleStore.rootStore.createApplicationService(DonorGivingGoalService);
     }
 
     async findDonors(params) {

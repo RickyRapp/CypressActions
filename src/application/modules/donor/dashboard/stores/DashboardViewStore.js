@@ -1,4 +1,4 @@
-import { DonorGivingCardActivationForm } from 'application/donor/donor/forms';
+import { DonorGivingCardActivationForm, DonorGivingGoalsForm } from 'application/donor/donor/forms';
 import { ModalParams } from 'core/models';
 import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
@@ -6,12 +6,22 @@ import { action, observable } from 'mobx';
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
     @observable donor = null;
+    @observable yearlyGoal = null;
+    @observable oneTimeGoal = null;
+    @observable yearly = 0;
+    @observable oneTime = 0;
+    @observable percentageYear = 1;
+    @observable percentageMonth = 1;
 
     constructor(rootStore) {
         super(rootStore);
 
         this.createYearDropdownStore();
+        this.createBankAccountDropdownStore();
         this.activateCardModalParams = new ModalParams({});;
+        this.givingGoalsModalParams = new ModalParams({});
+
+        this.donorId = rootStore.userStore.applicationUser.id;
     }
 
     @action.bound
@@ -23,6 +33,29 @@ class DashboardViewStore extends BaseViewStore {
             await this.fetch([
                 this.fetchDonorData()
             ]);
+            this.incomeType = await this.rootStore.application.lookup.incomeTypeStore.find();
+
+            const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({donorId: this.donorId});
+            
+            try {
+                this.oneTimeGoal = resp.data.item.find(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id);
+                this.oneTime = this.oneTimeGoal.amount;
+                this.percentageMonth = this.oneTimeGoal.percentage;
+            } 
+            //eslint-disable-next-line
+            catch(e) {
+                
+            }
+
+            try {
+                this.yearlyGoal = resp.data.item.find(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'yearly').id);
+                this.yearly = this.yearlyGoal.amount;
+                this.percentageYear = this.yearlyGoal.percentage;
+            } 
+            //eslint-disable-next-line
+            catch(e) {
+                
+            }
         }
     }
 
@@ -91,6 +124,106 @@ class DashboardViewStore extends BaseViewStore {
         this.rootStore.routerStore.goTo('master.app.main.donor.booklet-order.create');
     }
 
+    @action.bound
+    async newIncomeOnClick(isYearly = false) {
+        const form = new DonorGivingGoalsForm({
+            onSuccess: async (form) => {
+                try {
+                    await this.rootStore.application.donor.donorStore.donorGivingGoalService.create({ ...form.values(), donorId: this.rootStore.userStore.applicationUser.id })
+                    this.givingGoalsModalParams.close();
+                    if(isYearly) {
+                        this.yearly = form.$('amount').value;
+                        this.percentageYear = form.$('percentage').value;
+                    } else {
+                        this.oneTime = form.$('amount').value;
+                        this.percentageMonth = form.$('percentage').value;
+                    }
+                    
+                    this.rootStore.notificationStore.success('Successfully added giving goal');
+                } catch ({ statusCode, data }) {
+
+                    switch (statusCode) {
+                        case 404:
+                            this.rootStore.notificationStore.error('Not found');
+                            break;
+
+                        default:
+                            this.rootStore.notificationStore.error('Something went wrong');
+                            break;
+                    }
+                }
+            }
+        });
+        if(this.bankAccountDropdownStore.items.length == 0)
+            this.rootStore.notificationStore.error('You have no bank account, please create one');
+
+        if(isYearly)
+            form.$('isYearly').value = 'true';
+        this.givingGoalsModalParams.open({form: form, bankAccountDropdownStore: this.bankAccountDropdownStore});
+    }
+
+    @action.bound
+    async editIncomeOnClick(goal) {
+        const form = new DonorGivingGoalsForm({
+            onSuccess: async (form) => {
+                try {
+                    await this.rootStore.application.donor.donorStore.donorGivingGoalService.update({ ...form.values(), donorId: this.rootStore.userStore.applicationUser.id, id: goal.id })
+                    
+                    this.givingGoalsModalParams.close();
+                    
+                    if(form.$('isYearly').value !== 'true') {
+                        this.yearly = form.$('amount').value;
+                        this.percentageYear = form.$('percentage').value;
+                    } else {
+                        this.oneTime = form.$('amount').value;
+                        this.percentageMonth = form.$('percentage').value;
+                    }
+
+                    this.rootStore.notificationStore.success('Successfully updated giving goal');
+                } catch ({ statusCode, data }) {
+
+                    switch (statusCode) {
+                        case 404:
+                            this.rootStore.notificationStore.error('DONOR_GIVING_CARD_SETTING.ACTIVATION.ERROR_MESSAGE.NOT_FOUND');
+                            break;
+
+                        default:
+                            this.rootStore.notificationStore.error('DONOR_GIVING_CARD_SETTING.ACTIVATION.ERROR_MESSAGE.SOMETING_WENT_WRONG');
+                            break;
+                    }
+                }
+            }
+        });
+        form.$('isYearly').value = (goal.incomeTypeId === this.incomeType.find(x => x.abrv === 'yearly').id).toString();
+        form.$('amount').value = goal.amount;
+        form.$('percentage').value = goal.percentage;
+        form.$('note').value = goal.note;
+        form.$('autoMonthlyContribution').value = goal.autoMonthlyContribution;
+        form.$('autoDeduction').value = goal.autoDeduction;
+        form.$('donorBankAccountId').value = goal.donorBankAccountId;
+
+        this.givingGoalsModalParams.open({form: form, bankAccountDropdownStore: this.bankAccountDropdownStore});
+    }
+
+    createBankAccountDropdownStore() {
+        this.bankAccountDropdownStore = new BaasicDropdownStore({initFetch: true},
+            {
+                fetchFunc: async () => {
+                    try {
+                       let params = {
+                        donorId: this.rootStore.userStore.applicationUser.id,
+                        orderBy: 'dateCreated',
+                        orderDirection: 'desc'
+                    }
+                    const data = await this.rootStore.application.donor.donorStore.findBankAccount(params);
+                    return data.item; 
+                    } catch (e) {
+                        this.rootStore.notificationStore.error('Cannot fetch donor bank accounts');
+                    }
+                    
+                }
+            });
+    }
 }
 
 export default DashboardViewStore;

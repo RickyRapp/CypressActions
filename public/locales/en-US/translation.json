@@ -2972,7 +2972,8 @@
             "INVEST_FUNDS": "Invest Funds",
             "DEPOSIT_FUNDS": "Deposit Funds",
             "CONTRIBUTE": "Deposit"
-        }
+        },
+        "NEW_INCOME": "Select your option"
     },
     "FIRST_LOGIN_EXISTING_DONOR": {
         "MONTH_LABEL": "Month",

@@ -23,6 +23,7 @@ import { BookletStatusStore } from 'application/common/lookup/booklet-status/sto
 import { InvestmentPoolStore } from 'application/common/lookup/investment-pool/stores';
 import { BusinessTypeStore } from 'application/common/lookup/business-type/stores';
 import { SessionPendingCertificateStatusStore } from 'application/common/lookup/session-pending-certificate-status/stores';
+import { IncomeTypeStore } from 'application/common/lookup/income-type/stores';
 
 class LookupModuleStore {
     constructor(rootStore) {
@@ -52,6 +53,7 @@ class LookupModuleStore {
         this.investmentPoolStore = new InvestmentPoolStore(this);
         this.businessTypeStore = new BusinessTypeStore(this);
         this.sessionPendingCertificateStatusStore = new SessionPendingCertificateStatusStore(this);
+        this.incomeTypeStore = new IncomeTypeStore(this);
     }
 }
 export default LookupModuleStore;
