@@ -117,7 +117,7 @@ const ContributionCreateStep3Template = function ({
                                 <p>Account number: 883220399</p>
                                 <br />
                                 <p><b>Wire Memo:</b></p>
-                                <p> xxxx-xxxx-xxxx-{bankAccount.accountNumber} (your full account number goes here)</p>
+                                <p> xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number goes here)</p>
                                 <br />
                                 <b className="type--color--note u-mar--bottom--sml">Timeline: Funds will be made available to your account as soon as they are received!</b>
                                 <br />
