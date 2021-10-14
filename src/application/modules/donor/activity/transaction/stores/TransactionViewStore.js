@@ -1,4 +1,4 @@
-import { BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
+import { BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore, TableViewStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { TransactionListFilter } from 'application/donor/activity/transaction/models';
 import { action } from 'mobx';
@@ -164,7 +164,7 @@ class TransactionViewStore extends BaseListViewStore {
                 disablePaging: this.hidePager
             }));
         } else {
-            this.setTableStore(new TableViewStore(this.queryUtility, {
+            this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
                 columns: [
                     {
                         key: 'paymentTransaction.dateUpdated',
@@ -186,7 +186,7 @@ class TransactionViewStore extends BaseListViewStore {
                             type: 'transaction-currency',
                             value: '$'
                         }
-                    },
+                    }
                 ],
                 actions: {
                     onSort: (column) => this.queryUtility.changeOrder(column.key)
@@ -196,7 +196,7 @@ class TransactionViewStore extends BaseListViewStore {
                 disablePaging: this.hidePager
             }));
         }
-    }    
+    }
 }
 
 export default TransactionViewStore;

@@ -1,10 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicTable, DateRangeQueryPicker, BaasicDropdown, TableFilter } from 'core/components';
+import { BaasicTable, DateRangeQueryPicker, BaasicDropdown, TableFilter, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
 
 function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
 	const { tableStore, dateCreatedDateRangeQueryStore, transactionTypeStore, transactionPeriod, queryUtility } = transactionViewStore;
+
+	const DetailComponent = ({ dataItem }) => {
+		{
+			return (
+				<div>
+					<p><b>Payment Transaction Type:</b> {dataItem.paymentTransaction.paymentTransactionType.description}&emsp;&emsp;<b>Description:</b> {dataItem.description}</p>
+					<p><b>Transaction Type:</b> {dataItem.type}</p>
+					<p><b>Present Balance:</b><FormatterResolver
+                                    item={{ amount: dataItem.paymentTransaction.presentBalance }}
+                                    field='amount'
+                                    format={{ type: 'currency' }}
+                                /></p>
+				</div>
+				)
+		}
+	}
+	DetailComponent.propTypes = {
+        dataItem: PropTypes.object.isRequired
+    };
+
 	return (
 		<div>
 			<div className="card--tertiary card--med">
@@ -27,7 +47,22 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
 						<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} />
 					</div>
 				</div>
-				<BaasicTable tableStore={tableStore} hidePager={hidePager} />
+				{/* <BaasicTable tableStore={tableStore} hidePager={hidePager} /> */}
+				<div className="card--primary card--med u-mar--bottom--med">
+                    {
+					window.innerWidth > 750 ? <div>
+						<BaasicTable tableStore={tableStore} hidePager={hidePager} />
+					</div> : 
+					<div className="table--dragrow--expandable-row">
+                        <BaasicTableWithRowDetails
+                            tableStore={tableStore}
+                            detailComponent={DetailComponent}
+                            loading={tableStore.loading}
+                            className="k-grid--actions"
+                        />
+                    </div>
+					}
+                </div>
 			</div>
 		</div>
 	);
