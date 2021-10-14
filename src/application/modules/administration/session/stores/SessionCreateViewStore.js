@@ -81,7 +81,9 @@ class SessionViewStore extends BaseEditViewStore {
         //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
         //     }
         // );
+        await this.service.inActivateSession({ key: this.form.$('key').value });
         await this.service.removeSessionFromCache({ key: this.form.$('key').value });
+        this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
         this.rootStore.notificationStore.success(`Successfully removed from cache`);
     }
 
