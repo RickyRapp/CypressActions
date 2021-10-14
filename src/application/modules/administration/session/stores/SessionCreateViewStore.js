@@ -56,7 +56,7 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async cancelCertificate(certificate) {
+    async cancelCertificate(barcode) {
         // this.modalStore.showConfirm(
         //     `Are you sure you want to remove session from cache?`,
         //     async () => {
@@ -65,7 +65,10 @@ class SessionViewStore extends BaseEditViewStore {
         //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
         //     }
         // );
-        await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode });
+        await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: barcode });
+        this.sessionCertificates = this.sessionCertificates.filter(obj => {
+            return obj.barcode !== barcode;
+        });
         this.rootStore.notificationStore.success(`Successfully removed from cache`);
     }
 
