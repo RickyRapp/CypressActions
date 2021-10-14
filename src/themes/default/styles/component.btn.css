@@ -128,15 +128,16 @@
     &--primary {
         background: $bali-hai;
         color: $white;
-
+        
         &:hover {
             background: color($bali-hai a(65%));
+            color: $white;
         }
 
         &--light {
             background-color: $color-background;
             color: $color-text;
-
+            
             &:hover {
                 background: color($color-background a(80%));
             }

@@ -26,7 +26,7 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
                             )
                         })}
                         {isNewCard && <DonorGivingCardSettingEdit />}
-                        {tableStore.data.length > 0 ? <a onClick={() => toggleNewCard()}>{isNewCard ? "My Cards" : "Request New Card"}</a> : <DonorGivingCardSettingEdit />}
+                        {tableStore.data.length > 0 ? <a className="btn btn--primary btn--med" onClick={() => toggleNewCard()}>{isNewCard ? "My Cards" : "Request New Card"}</a> : <DonorGivingCardSettingEdit />}
                     </Content>}
             </ListContent>
         </div>

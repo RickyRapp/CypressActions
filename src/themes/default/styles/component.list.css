@@ -12,15 +12,20 @@ $dd-width-sml: 200px;
 
     &--preferences {
         display: flex;
-        align-items: center;
+        flex-direction: column;
 
         padding-bottom: calc($unit * 2);
         margin-bottom: calc($unit * 2);
         border-bottom: 1px dotted $grey-2;
-        height: 73px;
+        min-height: 73px;
+        
+        @media(--screen-from-lrg) {
+            align-items: center;
+            flex-direction: row;
+        }
 
         &__label {
-            width: calc(100% - $field-width-sml);
+            width: 100%;
             font-weight: $type-weight-light;
 
             @media (--screen-from-lrg) {
@@ -37,10 +42,11 @@ $dd-width-sml: 200px;
         }
 
         &__field {
-            width: $field-width-sml;
+            width: 100%;
 
             display: flex;
             justify-content: flex-end;
+            flex-direction: column;
 
             & > div {
                 width: 100%;
@@ -52,7 +58,7 @@ $dd-width-sml: 200px;
         }
 
         &__dd {
-            width: $dd-width-sml;
+            width: 100%;
 
             @media (--screen-from-lrg) {
                 width: $dd-width;
