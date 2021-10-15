@@ -60,14 +60,14 @@ class Step3Template extends React.Component {
 													${c.certificateValue} {c.insufficientFunds ? ` - insufficient funds` : ''}
 												</div>
 												<div className="col col-lrg-2 type--sml type--wgt--medium">
-													<BaasicButton
+													{c.isBlank ? <BaasicButton
 														className="btn btn--icon"
 														onlyIconClassName="u-mar--right--tny"
 														icon="u-icon u-icon--edit u-icon--base"
 														label="CONTRIBUTION.LIST.BUTTON.EDIT"
 														onlyIcon={true}
 														onClick={() => editCheck(c)}
-													></BaasicButton>
+													></BaasicButton> : null}
 													<BaasicButton
 														className="btn btn--icon"
 														onlyIconClassName="u-mar--right--tny"

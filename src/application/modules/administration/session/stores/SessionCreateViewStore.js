@@ -96,6 +96,7 @@ class SessionViewStore extends BaseEditViewStore {
                 this.blankCertificateModal.close();
             },
             onClose: () => {
+                this.cancelCertificate(item.certificate.barcode);
             }
         });
     }
@@ -194,14 +195,17 @@ class SessionViewStore extends BaseEditViewStore {
                 data = ex.data;
             }
             if (data.isEligible) {
+                data.certificate.isBlank = false;
                 if (data.certificate.denominationTypeValue === 0) {
                     this.blankCertificateModal.open({
                         certificate: data.certificate,
                         onClick: (certificate) => {
+                            certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
                             this.blankCertificateModal.close();
                         },
                         onClose: () => {
+                            this.cancelCertificate(data.certificate.barcode);
                         }
                     });
                 }
@@ -220,6 +224,7 @@ class SessionViewStore extends BaseEditViewStore {
     async setBlankCertificate(certificate) {
         try {
             const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
+            data.response.isBlank = true;
             this.sessionCertificates.push(data.response);
         } catch (ex) {
             try {
@@ -284,8 +289,9 @@ class SessionViewStore extends BaseEditViewStore {
     handleResponse(errorCode) {
         if (errorCode >= 4001 && errorCode <= 4010) {
             this.rootStore.notificationStore.error('ERROR_CODE.' + errorCode);
-        }
-        else {
+        } else if (errorCode == 4016) {
+            this.rootStore.notificationStore.error('Certificate not in status for session');
+        } else {
             this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
         }
         return true;
