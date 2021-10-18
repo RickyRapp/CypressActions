@@ -176,11 +176,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.form.$('zipCode').set(field.value);
 			});
 			this.form.$('charityContactEmail').observe(({ field }) => {
-				this.form.$('charityContactNumber').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+				this.form.$('charityContactEmail').set(field.value);
 			});
 			this.form.$('charityContactNumber').observe(({ field }) => {
-				this.form.$('charityContactEmail').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+				this.form.$('charityContactNumber').set(field.value);
 			});
+			// this.form.$('charityContactEmail').observe(({ field }) => {
+			// 	this.form.$('charityContactEmail').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+			// });
+			// this.form.$('charityContactNumber').observe(({ field }) => {
+			// 	this.form.$('charityContactNumber').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+			// });
 
 			if (this.grantRequestId) {
 				const data = await this.grantStore.getGrantRequest(this.grantRequestId, {
