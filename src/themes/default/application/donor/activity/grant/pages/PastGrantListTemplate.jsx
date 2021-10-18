@@ -191,7 +191,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				<Export config={exportConfig} />
 			</div>
 			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
 						<div className="u-mar--bottom--med">
 							<TableFilter colClassName={"col col-sml-12 col-lrg-12"} queryUtility={queryUtility}>
@@ -259,15 +259,15 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 							actionsComponent={renderActions} />
 					</div>
 				</div>
-				<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
 					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
 						<h4 className="type--med type--wgt--medium u-mar--bottom--med">
 							{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}
 						</h4>
 						{summaryData ? (
 							<React.Fragment>
-								<div className="row">
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+								<div className="row row--form">
+									<div className="col col-sml-12 col-med-6 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{summaryData && (
@@ -282,7 +282,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 										</div>
 									</div>
 
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-med-6 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary--light card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (

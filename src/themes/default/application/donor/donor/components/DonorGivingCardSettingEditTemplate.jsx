@@ -33,7 +33,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
             >
                 {isEdit && item ?
                     <div>
-                        {!reportCard && <h3 className="u-mar--bottom--med">{t('DONOR_GIVING_CARD_SETTING.EDIT.TITLE')}</h3>}
+                        {!reportCard && <h3 className="u-mar--bottom--sml">{t('DONOR_GIVING_CARD_SETTING.EDIT.TITLE')}</h3>}
                         {/* <div className="list--preferences__field">
                             <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                         </div> */}

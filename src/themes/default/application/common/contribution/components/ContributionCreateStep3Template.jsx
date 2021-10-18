@@ -13,7 +13,7 @@ const ContributionCreateStep3Template = function ({
                 <div className="card--primary card--med u-mar--bottom--med">
 
                     <p><b>Step 2</b></p>
-                    <h4 className="">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
+                    <h4 className="u-mar--bottom--sml">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
 
                     <div className="card--tny card--secondary u-mar--bottom--sml">
                         <span className="type--base type--wgt--medium type--color--opaque">
@@ -273,15 +273,16 @@ const ContributionCreateStep3Template = function ({
                         <h4>Please provide your employer or payroll company with the following information</h4>
                         <br />
                         <p><b>Beneficiary:</b> The Donors Fund</p>
-                        <p>328 3rd Street, Lakewood NJ 08701</p>
+                        <p className="u-mar--bottom--sml">328 3rd Street, Lakewood NJ 08701</p>
 
                         <p><b>Beneficiary bank:</b></p>
-                        <p>JP Morgan Chase</p>
-                        <p><b>ABA (routing number):</b> 021000021</p>
-                        <p><b>Account number:</b> 883220399</p>
+                        <p className="u-mar--bottom--sml">JP Morgan Chase</p>
+                        <p className="u-mar--bottom--sml"><b>ABA (routing number):</b> 021000021</p>
+                        <p className="u-mar--bottom--sml"><b>Account number:</b> 883220399</p>
                         <br />
-                        <div><BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                            navigator.clipboard.writeText(`
+                        <div className="u-display--flex">
+                            <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
+                                navigator.clipboard.writeText(`
                     Beneficiary: The Donors Fund
                     328 3rd Street, Lakewood NJ 08701
 
@@ -291,8 +292,8 @@ const ContributionCreateStep3Template = function ({
                     Account number: 883220399
 
                     Amount: $${form.$('amount').value.toFixed(2)}`
-                            )
-                        }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                                )
+                            }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
                             <BaasicButton className="btn btn--100 btn--primary" onClick={downloadPayrollDirectTxtFile} label="Download"></BaasicButton></div>
                     </div> : null}
 
