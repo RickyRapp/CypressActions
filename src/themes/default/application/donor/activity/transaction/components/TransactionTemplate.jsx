@@ -29,7 +29,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
 		<div>
 			<div className="card--tertiary card--med">
 				<div className="row u-mar--bottom--base">
-					<div className="col col-sml-12 col-lrg-6 col-xxlrg-9 u-mar--bottom--sml">
+					<div className="col col-sml-12 col-lrg-6 col-xxlrg-9">
 						{hideSearch ? null :
 							<div>
 								<TableFilter queryUtility={queryUtility}>
