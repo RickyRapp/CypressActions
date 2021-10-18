@@ -4,8 +4,12 @@
 
 .counter {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
+	
+	@media(--screen-from-sml) {
+		justify-content: center;
+	}
 
 	&__icon {
 		width: calc($unit * 2);
@@ -26,8 +30,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
 		width: calc($unit * 7);
-		height: calc($unit * 7);
+		height: calc($unit * 5);
+
 		padding: 0 calc($unit * 2);
 		line-height: calc($unit * 6);
 
@@ -40,6 +46,11 @@
 		cursor: pointer;
 
 		transition: all 250ms ease-in-out;
+
+		@media (--screen-from-sml) {
+			width: calc($unit * 7);
+			height: calc($unit * 7);
+		}
 
 		&--minus {
 			border-top-left-radius: $radius-base;
@@ -71,8 +82,10 @@
 	}
 
 	&__prepaid {
+		display: inline-block;
 		min-width: calc($unit * 17);
 		max-width: calc($unit * 22);
+
 		text-align: center;
 
 		background-color: $zest-light;

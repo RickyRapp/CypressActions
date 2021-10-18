@@ -57,10 +57,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 <Content loading={contentLoading} >
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row u-mar--bottom--lrg">
-                            <div className="col col-sml-12 col-xxlrg-8">
+                            <div className="col col-sml-12 col-xxlrg-12 col-xxxlrg-8">
                                 <h4 style={{ display: "inline-block" }} className=" type--color--note u-mar--bottom--sml">{t('BOOKLET_ORDER.CREATE.ORDER_VOUCHERS_BOOKS')}</h4>
-                                
-                                <div className="">
+
+                                <div className="u-mar--bottom--med">
                                     <span onClick={onShowAllBooksClick} className="type--underline cursor--pointer">Previous Orders</span>&nbsp;|&nbsp;
                                     <span onClick={onShowBookletsClick} className="type--underline cursor--pointer">My Checkbooks</span>
                                 </div>
@@ -68,7 +68,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     return (
                                         <div key={bt.id} className="row">
                                             {bt.abrv === 'classic' &&
-                                                <div className="col col-sml-12 col-xxlrg-12 u-align--self--end">
+                                                <div className="col col-sml-12 u-align--self--end">
                                                     <div className="row">
                                                         {denominationTypes.map((dt, index) => {
                                                             const order = orderContents.some(s => s.bookletTypeId === bt.id && s.denominationTypeId === dt.id) ?
@@ -76,10 +76,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                             const bookletAmount = order ? dt.value * order.bookletCount * 50 : 0;
                                                             return dt.abrv !== 'mixed-500' && dt.abrv !== 'mixed-2000' ? (
                                                                 <React.Fragment key={dt.id}>
-                                                                    <div className="col col-sml-12 col-xxlrg-6 card--med u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
+                                                                    <div className="col col-sml-12 col-xxxlrg-6 card--med u-padd--top--none u-align--self--end" style={{ display: `${index < 6 || showMoreOptions ? 'block' : 'none'}` }}>
                                                                         <div className="u-separator--primary">
-                                                                            <div className="row u-mar--bottom--sml u-display--flex--align--center">
-                                                                                <div className="col col-sml-3">
+                                                                            <div className="row u-display--flex--align--center u-mar--bottom--sml">
+                                                                                <div className="col col-sml-6 col-med-3 u-mar--bottom--sml">
                                                                                     <div className="type--med type--wgt--regular">
                                                                                         {
                                                                                             dt.value == 0 ? "Blank checks" :
@@ -94,7 +94,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                                     {(dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5) &&
                                                                                         <div className="counter__prepaid">{t('BOOKLET_ORDER.CREATE.PREPAID_ONLY')}</div>}
                                                                                 </div>
-                                                                                <div className="col col-sml-6 counter">
+                                                                                <div className="col col-sml-6 col-med-6 counter u-mar--bottom--sml">
                                                                                     <BookletOrderButtonCounterTemplate
                                                                                         onRemoveBookletClick={onRemoveBookletClick}
                                                                                         onAddBookletClick={onAddBookletClick}
@@ -104,8 +104,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                                                         denominationTypeValue={dt}
                                                                                     />
                                                                                 </div>
-                                                                                <div className="col col-sml-3">
-                                                                                    <div className="type--med type--wgt--regular type--right">
+                                                                                <div className="col col-sml-6 col-med-3">
+                                                                                    <div className="type--med type--wgt--regular type--right--from--med">
                                                                                         <FormatterResolver
                                                                                             item={{ total: bookletAmount }}
                                                                                             field='total'
@@ -200,7 +200,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     )
                                 })}
                             </div>
-                            <div className="col col-sml-12 col-xxlrg-4">
+                            <div className="col col-sml-12 col-xxxlrg-4">
                                 <div className="card--sml card--secondary type--center">
                                     <h2 className="type--xlrg type--wgt--medium type--color--note"> <span className="type--med type--color--text">Balance: </span>
                                         {donor && <FormatterResolver
@@ -417,7 +417,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         <div className="card--primary card--med u-mar--bottom--med">
                             {(form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'mail-usps').id || form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'express-mail').id) ?
                                 <React.Fragment>
-                                    <div className="row row--form u-mar--top--sml u-mar--bottom--sml">
+                                    <div className="row row--form">
                                         <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                                             <span className="type--med type--wgt--medium type--color--note">
                                                 {t('BOOKLET_ORDER.CREATE.SHIPPING_ADDRESS')}
@@ -446,12 +446,15 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <BasicInput field={form.$('zipCode')} />
                                                 </div>
                                             </React.Fragment>}
+                                        <div className="col col-sml-12 type--center u-mar--top--sml">
+                                            <BaasicButton
+                                                className="btn row--form btn--med btn--med--100 btn--primary"
+                                                label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
+                                                onClick={() => onChangeShippingAddressClick()}>
+                                            </BaasicButton>
+                                        </div>
                                     </div>
-                                    <BaasicButton
-                                        className="btn row--form btn--med btn--med--100 btn--primary"
-                                        label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
-                                        onClick={() => onChangeShippingAddressClick()}>
-                                    </BaasicButton>
+
                                 </React.Fragment> :
                                 <div className="row row--form u-mar--top--sml u-mar--bottom--sml">
                                     <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">

@@ -104,7 +104,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
-                                <div className="u-mar--top--sml u-mar--bottom--sml type--right--from--med">
+                                <div className="type--right">
                                     <BaasicButton
                                         type="button"
                                         className="btn btn--med btn--med--wide btn--secondary"
