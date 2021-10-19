@@ -66,11 +66,13 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 							<div className="scanner__footer">
 								<BaasicButton
 									className="btn btn--med btn--med--100 btn--primary u-mar--right--sml"
+									classNameExtend="u-display--flex--justify--center"
 									onClick={onPreviousStepClick}
 									label="SESSION.CREATE.STEP2.BUTTONS.BACK"
-								/>
+									/>
 								<BaasicButton
 									className="btn btn--med btn--med--100 btn--secondary"
+									classNameExtend="u-display--flex--justify--center"
 									onClick={onNextStepClick}
 									label="SESSION.CREATE.STEP2.BUTTONS.SAVE"
 								/>

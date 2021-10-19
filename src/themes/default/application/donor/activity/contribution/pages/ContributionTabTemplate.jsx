@@ -17,7 +17,12 @@ const ContributionTabTemplate = function ({ contributionTabViewStore }) {
                         <ContributionList />
                     </div>
                     <div label={'ACTIVITY.DEPOSIT_TAB.SCHEDULED_CONTRIBUTION'}>
-                        <ScheduledContributionList />
+                        {/* <ScheduledContributionList /> */}
+                        <div className="card--primary card--med type--center">
+                            <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
+                            <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p>
+                        </div>
+
                     </div>
                 </TabLayout>
             </div>
