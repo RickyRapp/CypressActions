@@ -148,13 +148,14 @@ $header-height-mobile: 72px;
             overflow: hidden;
             overflow-y: auto;
             padding: calc($unit * 3) calc($unit * 2);
-
+            
             @media (--screen-from-lrg) {
                 padding: calc($unit * 3) calc($unit * 4);
             }
             
             @media (--screen-from-xlrg) {
                 padding: calc($unit * 3) calc($unit * 8);
+                padding-right: calc($unit * 4);
             }
         }
     }

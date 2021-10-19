@@ -48,7 +48,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
 					</div>
 				</div>
 				{/* <BaasicTable tableStore={tableStore} hidePager={hidePager} /> */}
-				<div className="card--primary card--med u-mar--bottom--med">
+				<div className="card--primary u-mar--bottom--med">
                     {
 					window.innerWidth > 750 ? <div>
 						<BaasicTable tableStore={tableStore} hidePager={hidePager} />

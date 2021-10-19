@@ -44,7 +44,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let dataGrants = [];
 	let dataContributions = [];
 	let chartDays = [];
-
 	if (donor) {
 		if (yearDropdownStore.value.id == 7) {
 			const todayDate = new Date();
@@ -84,7 +83,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
-	
+
 	const grantsThisYear = dataGrants[dataGrants.length - 1];
 	const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
@@ -157,7 +156,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 										/>
 									</h2>
 								</div>
-									{/* ${oneTime * (percentageMonth/100)} */}
+								{/* ${oneTime * (percentageMonth/100)} */}
 							</section>
 							{oneTime > 0 ?
 								<section className="modal__list u-mar--bottom--xlrg">
@@ -265,7 +264,10 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							<div className="dashboard-card__giving-goal">
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
-									<div style={{ 'width': `${((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) : 100}%` }} className="dashboard-card__giving-goal--range--progress">{((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100).toFixed(2) : (100).toFixed(2)}%</div>
+									<div style={{ 'width': `${((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) : 100}%` }} className={`dashboard-card__giving-goal--range--progress${((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) >= 95 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>{((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100).toFixed(2) : (100).toFixed(2)}%</div>
+									<p className="dashboard-card__giving-goal__income">
+										<span className="type--wgt--regular type--base type--color--opaque">Yearly Income:</span>{" "}
+										$50,000.00</p>
 								</div>
 							</div>
 

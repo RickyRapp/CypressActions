@@ -4,10 +4,10 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, BaasicDropdown, BaasicFieldDropdown, BaasicModal, BasicFieldCheckbox, BasicInput, EditFormContent, FormatterResolver, NumericInputField, SimpleBaasicTable } from 'core/components';
 import { ContributionConfirmTemplate } from 'themes/application/administration/contribution/components';
 
-const ContributionCreateStep2Template = function ({ selectedType, paymentType, form, bankAccountDropdownStore,
-    t, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
+const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, step, form, bankAccountDropdownStore,
+    onSelectPaymentType, t, nextStep, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
     collectibleTypeDropdownStore, propertyTypeDropdownStore, onAddBankAccountClick, businessTypeDropdownStore, onSubmitClick, confirmModal, routes,
-    previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick, paymentTypeDropdownStore }) {
+    previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick, selectedType, paymentTypeDropdownStore }) {
 
     const AddButton = () => (
         <BaasicButton
@@ -18,51 +18,8 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
     );
     return (
         <div>
-
-            {/* <div className="col col-sml-12 col-lrg-4 col-xlrg-3">
-                        <BaasicButton
-                            type="button"
-                            className="btn btn--link btn--med card--contribution--back"
-                            onClick={() => nextStep(step - 1)}
-                            label={'Overview'}
-                        />
-                    </div> */}
-
-            {/* {paymentTypes.map((c) => {
-                    return (
-                        <div
-                            key={c.id}
-                            className="row"
-                            onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
-                        >
-                            <div className="col col-sml-12 col-lrg-12">
-                                <div
-                                    className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
-                                        form.$('paymentTypeId').value && 'checked'}`}
-                                >
-                                    <div className="flex--grow--1 u-mar--right--sml">
-                                        <i
-                                            className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
-                                                'checked'}`}
-                                        ></i>
-                                    </div>
-                                    <div className="flex--grow--2">
-                                        <h5
-                                            className={
-                                                c.id !== form.$('paymentTypeId').value
-                                                    ? 'type--base type--wgt--medium'
-                                                    : 'type--base type--wgt--medium type--color--note'
-                                            }
-                                        >
-                                            {c.name}
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+            {/* 
+        </div>
             <div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
                 <div className="row row--form">
                     <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
@@ -126,15 +83,63 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                 })} */}
 
             <div className="row row--form">
-                <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
+                {window.innerWidth > 767 &&
+                    <React.Fragment>
 
-                    <EditFormContent form={form}>
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Step 1 {paymentType.abrv === 'wire-transfer' ? ' - Sending us a wire' : (paymentType.abrv === 'stock-and-securities' ? ' - Sending us securities' : (paymentType.abrv === 'zelle' ? ' - Sending us a Zelle or Quickpay Payment' : (paymentType.abrv === 'third-party-donor-advised-funds' ? ' - Sending us a payment from a Third Party Donor Advised Fund' : (paymentType.abrv === 'check' ? ' - Sending us check payment' : (paymentType.abrv === 'paycheck-direct' ? ' - What is this?' : null)))))}</h5>
-                            {paymentType.abrv === 'paycheck-direct' ? <div><div style={{ color: '#C36C36' }}>Payroll Direct is a tool to allocate a portion of your payroll directly to your charitable giving account</div><br /></div> : null}
-                            <div className='form__group__label'>Payment type</div>
-                            <BaasicDropdown store={paymentTypeDropdownStore} />
+                        <div className="col col-sml-12 u-mar--bottom--sml">
+                            <BaasicButton
+                                type="button"
+                                className="btn btn--link btn--med card--contribution--back"
+                                onClick={() => nextStep(step - 1)}
+                                label={'Overview'}
+                            />
                         </div>
+                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-3 u-mar--bottom--sml">
+                            {paymentTypes.map((c) => {
+                                return (
+                                    <div
+                                        key={c.id}
+                                        onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
+                                    >
+                                        <div
+                                            className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
+                                                form.$('paymentTypeId').value && 'checked'}`}
+                                        >
+                                            <div className="flex--grow--1 u-mar--right--sml">
+                                                <i
+                                                    className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
+                                                        'checked'}`}
+                                                ></i>
+                                            </div>
+                                            <div className="flex--grow--2">
+                                                <h5
+                                                    className={
+                                                        c.id !== form.$('paymentTypeId').value
+                                                            ? 'type--base type--wgt--medium'
+                                                            : 'type--base type--wgt--medium type--color--note'
+                                                    }
+                                                >
+                                                    {c.name}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </React.Fragment>
+                }
+
+                <div className="col col-sml-12 col-lrg-6 col-xxlrg-5 u-mar--bottom--med">
+                    <EditFormContent form={form}>
+                        {window.innerWidth <= 767 &&
+                            <div className="card--primary card--med u-mar--bottom--med">
+                                <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Step 1 {paymentType.abrv === 'wire-transfer' ? ' - Sending us a wire' : (paymentType.abrv === 'stock-and-securities' ? ' - Sending us securities' : (paymentType.abrv === 'zelle' ? ' - Sending us a Zelle or Quickpay Payment' : (paymentType.abrv === 'third-party-donor-advised-funds' ? ' - Sending us a payment from a Third Party Donor Advised Fund' : (paymentType.abrv === 'check' ? ' - Sending us check payment' : (paymentType.abrv === 'paycheck-direct' ? ' - What is this?' : null)))))}</h5>
+                                {paymentType.abrv === 'paycheck-direct' ? <div><div style={{ color: '#C36C36' }}>Payroll Direct is a tool to allocate a portion of your payroll directly to your charitable giving account</div><br /></div> : null}
+                                <div className='form__group__label'>Payment type</div>
+                                <BaasicDropdown store={paymentTypeDropdownStore} />
+                            </div>
+                        }
                         <div className="card--primary card--med">
                             <div className="row row--form fullheight">
                                 <div className="col col-sml-12 col-lrg-12 u-mar--border--sml">
@@ -417,7 +422,7 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                         </BaasicModal>
                     </EditFormContent>
                 </div>
-                <div className="col col-sml-12 col-xxlrg-5 u-mar--bottom--med">
+                <div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
                     <div className="card--primary card--med">
                         <div className="u-display--flex u-display--flex--column u-display--flex--justify--space-between fullheight">
                             <div>
@@ -474,7 +479,7 @@ const ContributionCreateStep2Template = function ({ selectedType, paymentType, f
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 
