@@ -272,14 +272,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{donor && (
 													<FormatterResolver
-														item={{ balance: donor.presentBalance }}
+														item={{ balance: donor.availableBalance }}
 														field="balance"
 														format={{ type: 'currency' }}
 													/>
 												)}
 											</div>
 											<p className="type--xsml type--wgt--medium type--color--text">
-												{t('GRANT.CREATE.CURRENT_BALANCE')}
+												{t('GRANT.CREATE.AVAILABLE_BALANCE')}
 											</p>
 										</div>
 									</div>

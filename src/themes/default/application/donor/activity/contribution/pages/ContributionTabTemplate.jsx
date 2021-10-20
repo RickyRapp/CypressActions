@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { ContributionList, ScheduledContributionList } from 'application/donor/activity/contribution/pages';
+import { ContributionList } from 'application/donor/activity/contribution/pages';
 import { TransactionDonor } from 'application/donor/activity/transaction/components';
 
 const ContributionTabTemplate = function ({ contributionTabViewStore }) {

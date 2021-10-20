@@ -61,7 +61,8 @@
         "GRANT_REQUEST": "Request donation",
         "CHARITY_GIVING_CARD": "Accept Card",
         "CREDIT_DEBIT": "Credit/Debit",
-        "DONOR-DONOR": "Donor To Donor"
+        "DONOR-DONOR": "Donor To Donor",
+        "GIVING_GOALS": "Giving Goals"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -1674,6 +1675,7 @@
             "ADVANCED_CHARITY_FILTER_BUTTON": "Advanced search",
             "INCLUDE_NOTE_TO_ADMINISTRATOR": "Include note to administrator?",
             "CURRENT_BALANCE": "Current balance",
+            "AVAILABLE_BALANCE": "Available balance",
             "UPCOMING_GRANTS_THIS_YEAR": "Upcoming grants this year",
             "RULLING_YEAR": "Rulling Year",
             "EIN": "EIN",

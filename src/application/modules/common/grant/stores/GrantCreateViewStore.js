@@ -63,18 +63,27 @@ class GrantCreateViewStore extends BaseEditViewStore {
 									const data = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
 									resource.numberOfPayments = 1;
+									this.grantId = result.response;
 								}
-								await this.grantStore.createScheduledGrant(resource);
 							} else {
-								await this.grantStore.createGrant(resource);
+								var result = await this.grantStore.createGrant(resource);
+								this.grantId = result.response;
 							}
 						}
 					},
 				};
 			},
+			onAfterAction: () => {
+				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
+					this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
+				} else {
+					this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
+				}
+				this.rootStore.notificationStore.success('Successfully created a grant');
+			},
 			FormClass: GrantCreateForm,
 		});
-
+		
 		this.donorId = donorId;
 		this.grantStore = grantStore;
 
@@ -245,7 +254,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				grantAcknowledgmentName: this.grantAcknowledgmentName,
 				charity: this.charity,
 				amount: this.form.$('amount').value,
-				date: this.form.$('startFutureDate').$value,
+				date: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
 				purpose: this.grantPurposeTypeDropdownStore.items.find(c => c.id === this.form.$('grantPurposeTypeId').value)
 			});
@@ -320,7 +329,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
 		}
-		if(value > this.donor.availableBalance) {
+		if(value > this.donor.availableBalance && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
 			const { modalStore } = this.rootStore;
 			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
 				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");

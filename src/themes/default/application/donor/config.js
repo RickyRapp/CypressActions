@@ -73,6 +73,13 @@ import { moduleProviderFactory } from 'core/providers';
                         role: ['Users'],
                         route: 'master.app.main.donor.booklet-order.create'
                     },
+                    // {
+                    //     title: 'MENU.GIVING_GOALS',
+                    //     icon: 'grant',
+                    //     order: 3,
+                    //     role: ['Users'],
+                    //     route: 'master.app.main.donor.giving-goals.create'
+                    // },
                 ]
             }
         ],

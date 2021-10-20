@@ -4,6 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver } from 'core/components';
 
 function Step4Template({ t, onNextStepClick, currentCount, session, sessionCertificates }) {
+
 	return (
 		<React.Fragment>
 			<div className="scanner__finish--card">
@@ -42,7 +43,7 @@ function Step4Template({ t, onNextStepClick, currentCount, session, sessionCerti
 									/>}
 								</div>
 								<div className="col col-sml-6">
-									<span className=" type--color--note">Grant total</span> (including insufficient checks)
+									<span className=" type--color--note">Grand total</span> (including insufficient checks)
 								</div>
 								<div className="col col-sml-6">
 									{sessionCertificates.length > 0 && <FormatterResolver

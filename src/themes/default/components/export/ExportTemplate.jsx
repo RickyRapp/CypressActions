@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdown, BaasicButton } from 'core/components';
 
-const ExportTemplate = function ({ store, t }) {
+const ExportTemplate = function ({ store, t, hideLimit }) {
     const {
         onExportClick,
         exportLimitStore,
@@ -18,14 +18,24 @@ const ExportTemplate = function ({ store, t }) {
                 <label className="form__group__label">{t('EXPORT_TYPES')}</label>
                 <BaasicDropdown store={exportTypeStore} />
             </div>
-            <div className="col col-sml-6 col-lrg-3 col-xxlrg-2">
-                <label className="form__group__label">{t('EXPORT_LIMITS')}</label>
-                <BaasicDropdown store={exportLimitStore} />
-            </div>
-            <div className="col col-sml-12 col-lrg-6 col-xxlrg-6 u-mar--top--sml">
-                <label className="form__group__label">{t('EXPORT_FIELDS')}</label>
-                <BaasicDropdown store={exportFieldStore} />
-            </div>
+            {
+                hideLimit ? null : 
+                <div className="col col-sml-6 col-lrg-3 col-xxlrg-2">
+                    <label className="form__group__label">{t('EXPORT_LIMITS')}</label>
+                    <BaasicDropdown store={exportLimitStore} />
+                </div>
+            }
+            {
+                hideLimit ? 
+                <div className="col col-sml-12 col-lrg-9 col-xxlrg-8 u-mar--top--sml">
+                    <label className="form__group__label">{t('EXPORT_FIELDS')}</label>
+                    <BaasicDropdown store={exportFieldStore} />
+                </div> : 
+                <div className="col col-sml-12 col-lrg-6 col-xxlrg-6 u-mar--top--sml">
+                    <label className="form__group__label">{t('EXPORT_FIELDS')}</label>
+                    <BaasicDropdown store={exportFieldStore} />
+                </div>
+            }
             <div className="col col-sml-12 col-xxlrg-2 type--right u-mar--top--sml">
                 <BaasicButton
                     className="btn btn--primary btn--med"
@@ -40,7 +50,8 @@ const ExportTemplate = function ({ store, t }) {
 
 ExportTemplate.propTypes = {
     store: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    hideLimit: PropTypes.bool
 };
 
 export default defaultTemplate(ExportTemplate);

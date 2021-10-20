@@ -106,7 +106,7 @@ class TransactionTabViewStore extends BaseViewStore {
                 embed: 'charity,certificate,certificate.booklet,certificate.denominationType,certificate.booklet.bookletOrder,certificate.booklet.bookletOrder.donor',
                 sort: 'dateCreated|desc',
                 page: 1,
-                rpp: 50
+                rpp: 1000
             });
         this.checksOnHoldTableStore.setData(data.item);
         if (!this.checksOnHoldTableStore.dataInitialized) {

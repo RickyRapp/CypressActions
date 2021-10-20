@@ -22,6 +22,7 @@ function GrantConfirmTemplate({ modalParams, t }) {
         purpose,
         onCancel
     } = modalParams.data;
+
     return (
         <div className="modal__list__wrap">
 

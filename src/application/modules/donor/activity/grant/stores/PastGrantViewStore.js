@@ -1,4 +1,4 @@
-import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore, DateRangeQueryPickerStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, TableViewStore } from 'core/stores';
 import { charityFormatter, canEditCancel } from 'core/utils';
 import { observable, action } from 'mobx';
 import { PastGrantFilter } from 'application/donor/activity/grant/models';
@@ -10,6 +10,7 @@ import { applicationContext } from 'core/utils';
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
     @observable donor = null;
+	@observable showMoreOptions = false;
 
 	constructor(rootStore) {
 		super(rootStore, {
@@ -118,7 +119,7 @@ class PastGrantViewStore extends BaseListViewStore {
                 let filter = this.queryUtility.filter;
                 filter.exportFields = exportData.exportFields;
 				filter.donorId = this.donorId;
-                filter.exportLimit = exportData.exportLimit;
+                filter.exportLimit = 1000;
                 filter.exportType = exportData.exportType;
                 return routeService.exportDonor(filter);
             }
@@ -213,7 +214,7 @@ class PastGrantViewStore extends BaseListViewStore {
 
 	createTableStore() {
 		this.setTableStore(
-			new SelectTableWithRowDetailsViewStore(
+			new TableViewStore(
 				this.queryUtility,
 				{
 					columns: [
@@ -293,6 +294,11 @@ class PastGrantViewStore extends BaseListViewStore {
 				true
 			)
 		);
+	}
+
+	@action.bound
+	onShowMoreOptionsClick() {
+		this.showMoreOptions = !this.showMoreOptions;
 	}
 
 	getDescription(item) {

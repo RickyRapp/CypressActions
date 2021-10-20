@@ -30,7 +30,9 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		summaryData,
 		exportConfig,
 		donor,
-		yearDropdownStore
+		yearDropdownStore,
+		onShowMoreOptionsClick,
+		showMoreOptions
 	} = pastGrantViewStore;
 	//Color palette
 	let colors = ["#99bdf3", "#F9EA9A","#A8C69F","#223A5E","#C36C36","#D8D4F2","#E0EEC6","#5DB7DE","#CEB1BE"];
@@ -187,9 +189,21 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 
 	return (
 		<Content>
+			<div className="row u-mar--top--sml u-mar--bottom--sml">
+				<div className="col col-sml-12 type--center">
+					<button type="button" className="btn btn--show type--wgt--medium" onClick={onShowMoreOptionsClick}>
+						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+						{showMoreOptions ? 'HIDE EXPORT' : 'SHOW EXPORT'}
+						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+					</button>
+				</div>
+            </div>
+			{showMoreOptions ? 
 			<div className="card--primary card--med u-mar--bottom--sml">
-				<Export config={exportConfig} />
-			</div>
+				<Export config={exportConfig} hideLimit={true}/>
+			</div> 
+			: null }
+			
 			<div className="row">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, DateRangeQueryPicker, BaasicDropdown, TableFilter, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
 
-function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
+function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hidePeriod }) {
 	const { tableStore, dateCreatedDateRangeQueryStore, transactionTypeStore, transactionPeriod, queryUtility } = transactionViewStore;
 
 	const DetailComponent = ({ dataItem }) => {
@@ -43,9 +43,13 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager }) {
 							</div>
 						}
 					</div>
-					<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
-						<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} />
-					</div>
+					{
+						hidePeriod ? null : 
+						<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
+							<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} />
+						</div>
+					}
+					
 				</div>
 				{/* <BaasicTable tableStore={tableStore} hidePager={hidePager} /> */}
 				<div className="card--primary u-mar--bottom--med">
@@ -73,6 +77,7 @@ TransactionTemplate.propTypes = {
 	t: PropTypes.func.isRequired,
 	hideSearch: PropTypes.bool,
 	hidePager: PropTypes.bool,
+	hidePeriod: PropTypes.bool,
 };
 
 export default defaultTemplate(TransactionTemplate);
