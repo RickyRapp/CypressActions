@@ -7,6 +7,12 @@
 		background-color: $white;
 		border-radius: $radius-base;
 		box-shadow: $shadow-card;
+
+		&.show {
+			box-shadow: none;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
 	}
 
 	&--secondary {

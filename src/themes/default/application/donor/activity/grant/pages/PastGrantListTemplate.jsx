@@ -35,8 +35,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		showMoreOptions
 	} = pastGrantViewStore;
 	//Color palette
-	let colors = ["#99bdf3", "#F9EA9A","#A8C69F","#223A5E","#C36C36","#D8D4F2","#E0EEC6","#5DB7DE","#CEB1BE"];
-	
+	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
+
 	let dataDonut = [];
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
@@ -54,7 +54,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
 				<ChartLegend position="bottom" visible={true} />
 				<ChartArea background="none" />
-				<ChartTooltip render={({ point }) => ( 
+				<ChartTooltip render={({ point }) => (
 					point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)}
 				/>
 				<ChartTooltip />
@@ -88,17 +88,17 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let chartDays = [];
 
 	if (donor) {
-		
-		if(yearDropdownStore.value.id == 7) {
+
+		if (yearDropdownStore.value.id == 7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
 			let counter = 0;
-			if(dayOfWeek === 0) {
+			if (dayOfWeek === 0) {
 				chartDays = categoriesDays;
 			} else {
-				dayOfWeek+=1;
-				while(counter < 7) {
-					if(dayOfWeek < 7) {
+				dayOfWeek += 1;
+				while (counter < 7) {
+					if (dayOfWeek < 7) {
 						chartDays.push(categoriesDays[dayOfWeek++]);
 						counter++;
 					}
@@ -114,7 +114,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
 			}
 		}
-		if(yearDropdownStore.value.id === 30) {
+		if (yearDropdownStore.value.id === 30) {
 			for (let i = 0; i < 4; i++) {
 				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
 				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
@@ -130,7 +130,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays: categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -139,8 +139,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}`: (0).toFixed(2)}`} type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
@@ -189,21 +189,21 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 
 	return (
 		<Content>
-			<div className="row u-mar--top--sml u-mar--bottom--sml">
+			<div className={`row u-mar--top--sml ${!showMoreOptions ? "u-mar--bottom--sml" : ""}`}>
 				<div className="col col-sml-12 type--center">
-					<button type="button" className="btn btn--show type--wgt--medium" onClick={onShowMoreOptionsClick}>
+					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
 						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
 						{showMoreOptions ? 'HIDE EXPORT' : 'SHOW EXPORT'}
 						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
 					</button>
 				</div>
-            </div>
-			{showMoreOptions ? 
-			<div className="card--primary card--med u-mar--bottom--sml">
-				<Export config={exportConfig} hideLimit={true}/>
-			</div> 
-			: null }
-			
+			</div>
+			{showMoreOptions ?
+				<div className={`card--primary card--med u-mar--bottom--sml ${showMoreOptions ? "show" : ""}`}>
+					<Export config={exportConfig} hideLimit={true} />
+				</div>
+				: null}
+
 			<div className="row">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
@@ -435,13 +435,13 @@ function renderActions({ item, actions, actionsRender }) {
 					></BaasicButton>
 				) : null}
 				<BaasicButton
-						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--approve u-icon--base"
-						label="Grant Again"
-						onlyIcon={true}
-						onClick={() => onGrantAgain(item)}
-					></BaasicButton>
+					className="btn btn--icon"
+					onlyIconClassName="u-mar--right--tny"
+					icon="u-icon u-icon--approve u-icon--base"
+					label="Grant Again"
+					onlyIcon={true}
+					onClick={() => onGrantAgain(item)}
+				></BaasicButton>
 			</div>
 		</td>
 	);

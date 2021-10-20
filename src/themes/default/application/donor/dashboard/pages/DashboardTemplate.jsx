@@ -34,7 +34,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		percentageMonth,
 		editIncomeOnClick,
 		yearlyGoal,
-		oneTimeGoal
+		oneTimeGoal,
+		showMoreOptions,
+		onShowMoreOptionsClick
 	} = dashboardViewStore;
 
 	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -123,7 +125,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</PageHeader>
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					
+
 					{donor && (donor.isContributionMade || donor.availableBalance) ? (
 						<div className="dashboard-card">
 							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
@@ -200,10 +202,10 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
 										<FormatterResolver
-                            item={{ amount: (oneTimeGoalAmount + yearlyGoalAmount) }}
-                            field='amount'
-                            format={{ type: 'currency' }}
-                        /></p>
+											item={{ amount: (oneTimeGoalAmount + yearlyGoalAmount) }}
+											field='amount'
+											format={{ type: 'currency' }}
+										/></p>
 								</div>
 							</div>
 
@@ -294,76 +296,83 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					)}
-				<div className="col col-sml-12 col-lrg-12">
-				<div className="dashboard-card--emptystate">
-						<h3 className="dashboard-card__title u-mar--bottom--sml">Giving Goals</h3>
-						<div className="dashboard-card--emptystate__body">
-							<section className="modal__list">
-								<div>% of Yearly Income</div>
-								<div className="modal__list__divider"></div>
-								<div className="modal__list__amount--secondary">
-									<h2>
-										<FormatterResolver
-											item={{ amount: yearly * (percentageYear / 100) }}
-											field='amount'
-											format={{ type: 'currency' }}
-										/>
-									</h2>
-								</div>
-								{/* ${yearly * (percentageYear / 100)} */}
-							</section>
-							{yearly > 0 ?
-								<section className="modal__list u-mar--bottom--lrg">
-									<div className="type--base type--color--opaque">{percentageYear}% of ${yearly} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(yearlyGoal)}>Manage</a></div>
-								</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
-							<section className="modal__list">
-								<div>% of One-Time Income</div>
-								<div className="modal__list__divider"></div>
-								<div className="modal__list__amount--secondary">
-									<h2>
-										<FormatterResolver
-											item={{ amount: oneTime * (percentageMonth / 100) }}
-											field='amount'
-											format={{ type: 'currency' }}
-										/>
-									</h2>
-								</div>
+				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
+						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+						{showMoreOptions ? 'HIDE GIVING GOALS' : 'SHOW GIVING GOALS'}
+						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+					</button>
+					{showMoreOptions &&
+						<div className={`card--primary card--med ${showMoreOptions ? "show" : ""}`}>
+							<h3 className="dashboard-card__title u-mar--bottom--sml">Giving Goals</h3>
+							<div className="dashboard-card--emptystate__body">
+								<section className="modal__list">
+									<div>% of Yearly Income</div>
+									<div className="modal__list__divider"></div>
+									<div className="modal__list__amount--secondary">
+										<h2>
+											<FormatterResolver
+												item={{ amount: yearly * (percentageYear / 100) }}
+												field='amount'
+												format={{ type: 'currency' }}
+											/>
+										</h2>
+									</div>
+									{/* ${yearly * (percentageYear / 100)} */}
+								</section>
+								{yearly > 0 ?
+									<section className="modal__list u-mar--bottom--lrg">
+										<div className="type--base type--color--opaque">{percentageYear}% of ${yearly} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(yearlyGoal)}>Manage</a></div>
+									</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
+								<section className="modal__list">
+									<div>% of One-Time Income</div>
+									<div className="modal__list__divider"></div>
+									<div className="modal__list__amount--secondary">
+										<h2>
+											<FormatterResolver
+												item={{ amount: oneTime * (percentageMonth / 100) }}
+												field='amount'
+												format={{ type: 'currency' }}
+											/>
+										</h2>
+									</div>
 									{/* ${oneTime * (percentageMonth/100)} */}
-							</section>
-							{oneTime > 0 ?
-								<section className="modal__list u-mar--bottom--xlrg">
-									<div className="type--base type--color--opaque">{percentageMonth}% of ${oneTime} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a></div>
-								</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
-							<section className="modal__list">
-								<div className="col col-sml-12 col-med-6">
-									{
-										oneTime > 0 ?
-											null :
-											<div className="u-mar--bottom--sml w--100--to-med">
-												<BaasicButton
-													className="btn btn--med btn--100 btn--primary--light"
-													label="New One Time Income"
-													onClick={() => newIncomeOnClick(false)}
-												/>
-											</div>
-									}
-								</div>
-								<div className="col col-sml-12 col-med-6">
-									{
-										yearly > 0 ?
-											null :
-											<div className="u-mar--bottom--sml w--100--to-med">
-												<BaasicButton
-													className="btn btn--med btn--100 btn--primary--light"
-													label="New Yearly Time Income"
-													onClick={() => newIncomeOnClick(true)}
-												/>
-											</div>
-									}
-								</div>
-							</section>
+								</section>
+								{oneTime > 0 ?
+									<section className="modal__list u-mar--bottom--xlrg">
+										<div className="type--base type--color--opaque">{percentageMonth}% of ${oneTime} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a></div>
+									</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
+								<section className="modal__list">
+									<div className="col col-sml-12 col-med-6">
+										{
+											oneTime > 0 ?
+												null :
+												<div className="u-mar--bottom--sml w--100--to-med">
+													<BaasicButton
+														className="btn btn--med btn--100 btn--primary--light"
+														label="New One Time Income"
+														onClick={() => newIncomeOnClick(false)}
+													/>
+												</div>
+										}
+									</div>
+									<div className="col col-sml-12 col-med-6">
+										{
+											yearly > 0 ?
+												null :
+												<div className="u-mar--bottom--sml w--100--to-med">
+													<BaasicButton
+														className="btn btn--med btn--100 btn--primary--light"
+														label="New Yearly Time Income"
+														onClick={() => newIncomeOnClick(true)}
+													/>
+												</div>
+										}
+									</div>
+								</section>
+							</div>
 						</div>
-					</div>
+					}
 				</div>
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">

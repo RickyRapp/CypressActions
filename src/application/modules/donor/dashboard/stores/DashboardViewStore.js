@@ -12,6 +12,7 @@ class DashboardViewStore extends BaseViewStore {
     @observable oneTime = 0;
     @observable percentageYear = 1;
     @observable percentageMonth = 1;
+    @observable showMoreOptions = false;
 
     constructor(rootStore) {
         super(rootStore);
@@ -35,26 +36,26 @@ class DashboardViewStore extends BaseViewStore {
             ]);
             this.incomeType = await this.rootStore.application.lookup.incomeTypeStore.find();
 
-            const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({donorId: this.donorId});
-            
+            const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({ donorId: this.donorId });
+
             try {
                 this.oneTimeGoal = resp.data.item.find(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id);
                 this.oneTime = this.oneTimeGoal.amount;
                 this.percentageMonth = this.oneTimeGoal.percentage;
-            } 
+            }
             //eslint-disable-next-line
-            catch(e) {
-                
+            catch (e) {
+
             }
 
             try {
                 this.yearlyGoal = resp.data.item.find(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'yearly').id);
                 this.yearly = this.yearlyGoal.amount;
                 this.percentageYear = this.yearlyGoal.percentage;
-            } 
+            }
             //eslint-disable-next-line
-            catch(e) {
-                
+            catch (e) {
+
             }
         }
     }
@@ -65,7 +66,7 @@ class DashboardViewStore extends BaseViewStore {
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({name: 'This Week', id: 7}, {name: 'This Month', id: 30});
+            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 });
             this.yearDropdownStore.setItems(donations);
             //this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
             //this.yearDropdownStore.setItems({name: 'Past Week', id: uuid()});
@@ -89,6 +90,11 @@ class DashboardViewStore extends BaseViewStore {
     @action.bound
     async newGrantOnClick() {
         this.rootStore.routerStore.goTo('master.app.main.donor.grant.create');
+    }
+
+    @action.bound
+    onShowMoreOptionsClick() {
+        this.showMoreOptions = !this.showMoreOptions;
     }
 
     @action.bound
@@ -131,14 +137,14 @@ class DashboardViewStore extends BaseViewStore {
                 try {
                     await this.rootStore.application.donor.donorStore.donorGivingGoalService.create({ ...form.values(), donorId: this.rootStore.userStore.applicationUser.id })
                     this.givingGoalsModalParams.close();
-                    if(isYearly) {
+                    if (isYearly) {
                         this.yearly = form.$('amount').value;
                         this.percentageYear = form.$('percentage').value;
                     } else {
                         this.oneTime = form.$('amount').value;
                         this.percentageMonth = form.$('percentage').value;
                     }
-                    
+
                     this.rootStore.notificationStore.success('Successfully added giving goal');
                 } catch ({ statusCode, data }) {
 
@@ -154,12 +160,12 @@ class DashboardViewStore extends BaseViewStore {
                 }
             }
         });
-        if(this.bankAccountDropdownStore.items.length == 0)
+        if (this.bankAccountDropdownStore.items.length == 0)
             this.rootStore.notificationStore.error('You have no bank account, please create one');
 
-        if(isYearly)
+        if (isYearly)
             form.$('isYearly').value = 'true';
-        this.givingGoalsModalParams.open({form: form, bankAccountDropdownStore: this.bankAccountDropdownStore});
+        this.givingGoalsModalParams.open({ form: form, bankAccountDropdownStore: this.bankAccountDropdownStore });
     }
 
     @action.bound
@@ -168,10 +174,10 @@ class DashboardViewStore extends BaseViewStore {
             onSuccess: async (form) => {
                 try {
                     await this.rootStore.application.donor.donorStore.donorGivingGoalService.update({ ...form.values(), donorId: this.rootStore.userStore.applicationUser.id, id: goal.id })
-                    
+
                     this.givingGoalsModalParams.close();
-                    
-                    if(form.$('isYearly').value !== 'true') {
+
+                    if (form.$('isYearly').value !== 'true') {
                         this.yearly = form.$('amount').value;
                         this.percentageYear = form.$('percentage').value;
                     } else {
@@ -202,25 +208,25 @@ class DashboardViewStore extends BaseViewStore {
         form.$('autoDeduction').value = goal.autoDeduction;
         form.$('donorBankAccountId').value = goal.donorBankAccountId;
 
-        this.givingGoalsModalParams.open({form: form, bankAccountDropdownStore: this.bankAccountDropdownStore});
+        this.givingGoalsModalParams.open({ form: form, bankAccountDropdownStore: this.bankAccountDropdownStore });
     }
 
     createBankAccountDropdownStore() {
-        this.bankAccountDropdownStore = new BaasicDropdownStore({initFetch: true},
+        this.bankAccountDropdownStore = new BaasicDropdownStore({ initFetch: true },
             {
                 fetchFunc: async () => {
                     try {
-                       let params = {
-                        donorId: this.rootStore.userStore.applicationUser.id,
-                        orderBy: 'dateCreated',
-                        orderDirection: 'desc'
-                    }
-                    const data = await this.rootStore.application.donor.donorStore.findBankAccount(params);
-                    return data.item; 
+                        let params = {
+                            donorId: this.rootStore.userStore.applicationUser.id,
+                            orderBy: 'dateCreated',
+                            orderDirection: 'desc'
+                        }
+                        const data = await this.rootStore.application.donor.donorStore.findBankAccount(params);
+                        return data.item;
                     } catch (e) {
                         this.rootStore.notificationStore.error('Cannot fetch donor bank accounts');
                     }
-                    
+
                 }
             });
     }
