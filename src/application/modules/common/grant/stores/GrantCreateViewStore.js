@@ -20,6 +20,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	grantPurposeTypes = [];
 	grantRequestId = null;
 	charities = [];
+	isFuture = false;
 	@observable charity = null;
 	
 	constructor(rootStore, { donorId, grantStore }) {
@@ -57,13 +58,14 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								const charityData = await this.grantStore.suggest(charity); //charityId,bankAccountId
 								resource.charityId = charityData.charityId;
 							}
-
 							if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
 								if (resource.isRecurring == false) {
 									const data = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
 									resource.numberOfPayments = 1;
-									this.grantId = result.response;
+									var resultRec = await this.grantStore.createScheduledGrant(resource);
+									this.grantId = resultRec.response;
+									this.isFuture = true;
 								}
 							} else {
 								var result = await this.grantStore.createGrant(resource);
@@ -75,9 +77,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			},
 			onAfterAction: () => {
 				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
-					this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
+					if(!this.isFuture)
+						this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
 				} else {
-					this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
+					if(!this.isFuture)
+						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
+					else
+						this.rootStore.routerStore.goBack();
 				}
 				this.rootStore.notificationStore.success('Successfully created a grant');
 			},

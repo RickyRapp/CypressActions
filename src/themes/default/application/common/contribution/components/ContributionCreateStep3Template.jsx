@@ -228,7 +228,7 @@ const ContributionCreateStep3Template = function ({
 
                             <div className="u-display--flex">
                                 <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                                    navigator.clipboard.clipboard.writeText(`
+                                    navigator.clipboard.writeText(`
                             Our Zelle email address - QP@TheDonorsFund.org\n
                             Zelle Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
                             Amount: $${form.$('amount').value.toFixed(2)}`
