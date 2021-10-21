@@ -22,7 +22,7 @@ class TransactionTabViewStore extends BaseViewStore {
                     }
                 },
                 {
-                    key: 'paymentTransaction.description',
+                    key: 'description',
                     title: 'ACTIVITY.LIST.COLUMNS.PENDING_TRANSACTION_DESCRIPTION_LABEL'
                 },
                 {
