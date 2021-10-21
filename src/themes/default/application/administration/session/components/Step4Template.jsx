@@ -16,75 +16,77 @@ function Step4Template({ t, onNextStepClick, currentCount, session, sessionCerti
 						<span className="type--med type--wgt--bold u-push">
 							{t('SESSION.CREATE.STEP4.TOTAL')}:{' '}
 							<span className="type--wgt--bold u-mar--left--sml">{sessionCertificates.length > 0 && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}</span>
+								item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+								field='amount'
+								format={{ type: 'currency' }}
+							/>}</span>
 						</span>
 					</div>
-					<div className="row col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
-								<div className="col col-sml-6 type--base type--wgt--medium">
-									Checks scanned
-								</div>
-								<div className="col col-sml-6 type--sml type--wgt--medium">{`${sessionCertificates.length}`}</div>
-								
-								<div className="col col-sml-6 type--base type--wgt--medium">
-									Fees
-								</div>
-								<span className="col col-sml-6 input--preview">
-									{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => (c.isBlank ? c.certificateValue : (c.denominationTypeValue - c.certificateValue))).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}
-								</span>
+					<div className="col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
+						<div className="row">
+							<div className="col col-sml-6 u-mar--bottom--sml type--base type--wgt--medium">
+								Checks scanned
+							</div>
+							<div className="col col-sml-6 u-mar--bottom--sml type--sml type--wgt--medium">{`${sessionCertificates.length}`}</div>
 
-								{
-									sessionCertificates.filter(x => x.insufficientFunds).length > 0 ?
-									<div>
-										<div className="col col-sml-6">
+							<div className="col col-sml-6 u-mar--bottom--sml type--base type--wgt--medium">
+								Fees
+							</div>
+							<span className="col col-sml-6 u-mar--bottom--sml input--preview">
+								{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+									item={{ amount: sessionCertificates.map(c => (c.isBlank ? c.certificateValue : (c.denominationTypeValue - c.certificateValue))).reduce((a, b) => a + b) }}
+									field='amount'
+									format={{ type: 'currency' }}
+								/>}
+							</span>
+
+							{
+								sessionCertificates.filter(x => x.insufficientFunds).length > 0 ?
+									<React.Fragment>
+										<div className="col col-sml-6 u-mar--bottom--sml">
 											Insufficient checks
 										</div>
-										<div className="col col-sml-6">
+										<div className="col col-sml-6 u-mar--bottom--sml">
 											{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
 												item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
 												field='amount'
 												format={{ type: 'currency' }}
 											/>}
 										</div>
-									</div> : 
-									<div>
-										<div className="col col-sml-6">
+									</React.Fragment> :
+									<React.Fragment>
+										<div className="col col-sml-6 u-mar--bottom--sml">
 											Insufficient checks
 										</div>
-										<div className="col col-sml-6">
+										<div className="col col-sml-6 u-mar--bottom--sml">
 											No insufficient checks
 										</div>
-									</div>
-								}
-								
-								<div className="col col-sml-6">
-									<span className=" type--color--note">Grand total</span> (before insufficient funds)
-								</div>
-								<div className="col col-sml-6">
-									{sessionCertificates.length > 0 && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => c.denominationTypeValue).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}
-								</div>
+									</React.Fragment>
+							}
 
-								<div className="col col-sml-6">
-									<span className=" type--color--note">Grand total</span> (including insufficient checks)
-								</div>
-								<div className="col col-sml-6">
-									{sessionCertificates.length > 0 && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}
-								</div>
+							<div className="col col-sml-6 u-mar--bottom--sml">
+								<span className=" type--color--note">Grand total</span> (before insufficient funds)
 							</div>
+							<div className="col col-sml-6 u-mar--bottom--sml">
+								{sessionCertificates.length > 0 && <FormatterResolver
+									item={{ amount: sessionCertificates.map(c => c.denominationTypeValue).reduce((a, b) => a + b) }}
+									field='amount'
+									format={{ type: 'currency' }}
+								/>}
+							</div>
+
+							<div className="col col-sml-6 u-mar--bottom--sml">
+								<span className=" type--color--note">Grand total</span> (including insufficient checks)
+							</div>
+							<div className="col col-sml-6 u-mar--bottom--sml">
+								{sessionCertificates.length > 0 && <FormatterResolver
+									item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+									field='amount'
+									format={{ type: 'currency' }}
+								/>}
+							</div>
+						</div>
+					</div>
 					<div className="col col-lrg-12 type--center u-mar--top--lrg">
 						<div className="type--med type--wgt--regular">{t('SESSION.CREATE.STEP4.FINISH_MESSAGE1')}</div>
 						<div className="type--med type--wgt--regular">{t('SESSION.CREATE.STEP4.FINISH_MESSAGE2')}</div>

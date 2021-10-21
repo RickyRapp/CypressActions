@@ -17,15 +17,15 @@ class Step3Template extends React.Component {
 	// }
 	render() {
 		const {
-			form, 
-			t, 
-			onPreviousStepClick, 
-			barcode, 
-			onBarcodeChange, 
-			sessionCertificates, 
-			blankCertificateModal, 
-			cancelCertificate, 
-			editCheck, 
+			form,
+			t,
+			onPreviousStepClick,
+			barcode,
+			onBarcodeChange,
+			sessionCertificates,
+			blankCertificateModal,
+			cancelCertificate,
+			editCheck,
 			removeFromCache
 		} = this.props;
 
@@ -145,16 +145,18 @@ class Step3Template extends React.Component {
 						</div>
 						<div className="col col-lrg-6">
 							<div className="scanner__footer">
-								<BaasicButton
-									className="btn btn--med btn--med--wide btn--primary u-mar--right--sml"
-									onClick={onPreviousStepClick}
-									label="SESSION.CREATE.STEP2.BUTTONS.BACK"
-								/>
-								<BaasicButton
-									className="btn btn--med btn--med--wide btn--primary u-mar--right--sml"
-									onClick={removeFromCache}
-									label="Cancel Session"
-								/>
+								<div>
+									<BaasicButton
+										className="btn btn--med btn--med--wide btn--primary u-mar--right--sml"
+										onClick={onPreviousStepClick}
+										label="SESSION.CREATE.STEP2.BUTTONS.BACK"
+									/>
+									<BaasicButton
+										className="btn btn--med btn--med--wide btn--primary u-mar--right--sml"
+										onClick={removeFromCache}
+										label="Cancel Session"
+									/>
+								</div>
 								<BaasicFormControls
 									form={form}
 									onSubmit={form.onSubmit}
