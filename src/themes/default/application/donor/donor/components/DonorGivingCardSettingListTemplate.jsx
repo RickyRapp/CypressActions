@@ -9,9 +9,8 @@ import { DonorGivingCardSettingEdit } from 'application/donor/donor/components';
 
 const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingListViewStore, t }) {
     const {
-        tableStore, toggleNewCard, isNewCard
+        tableStore, isNewCard, toggleNewCard
     } = donorGivingCardSettingListViewStore;
-
     return (
         <div>
             <ListContent>
@@ -26,7 +25,7 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
                             )
                         })}
                         {isNewCard && <DonorGivingCardSettingEdit />}
-                        {tableStore.data.length > 0 ? <a className="btn btn--primary btn--med" onClick={() => toggleNewCard()}>{isNewCard ? "My Cards" : "Request New Card"}</a> : <DonorGivingCardSettingEdit />}
+                        {tableStore.recordCount == 0 ? (!isNewCard ? <a className="btn btn--primary btn--med" onClick={() => toggleNewCard()}>Request New Card</a> : null) : null}
                     </Content>}
             </ListContent>
         </div>

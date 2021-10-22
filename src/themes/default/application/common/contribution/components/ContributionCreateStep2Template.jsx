@@ -194,7 +194,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         </div>
                                     </React.Fragment>
                                 )}
-                                {paymentType.abrv === 'stock-and-securities' && (
+                                {/* {paymentType.abrv === 'stock-and-securities' && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <BaasicFieldDropdown
@@ -226,7 +226,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             <NumericInputField field={form.$('numberOfShares')} />
                                         </div>
                                     </React.Fragment>
-                                )}
+                                )} */}
                                 {paymentType.abrv === 'business-and-private-interests' && (
                                     <React.Fragment>
                                         {/* <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
@@ -270,7 +270,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         <BasicInput field={form.$('checkNumber')} />
                                     </div>
                                 )}
-                                {paymentType.abrv === 'third-party-donor-advised-funds' && (
+                                {/* {paymentType.abrv === 'third-party-donor-advised-funds' && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <BaasicFieldDropdown
@@ -286,7 +286,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                                 </div>
                                             )}
                                     </React.Fragment>
-                                )}
+                                )} */}
                                 {paymentType.abrv === 'stock-and-securities' && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">

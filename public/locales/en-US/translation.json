@@ -1,4 +1,5 @@
 {
+    "MAILING_ADDRESS": "1777 Ave of the States, Suite 103, Lakewood NJ 08701",
     "MENU": {
         "FOOTER": {
             "LOGOUT": "Logout",
@@ -1499,7 +1500,8 @@
         },
         "CREATE": {
             "TITLE": "Request new card",
-            "REPORT_STOLEN_TITLE": "Stolen/Lost Card Report",
+            "GO_BACK": "Back to my card",
+            "REPORT_STOLEN_TITLE": "Freeze card",
             "REPORT_STOLEN_LABEL": "Report a card lost/stolen"
         },
         "ACTIVATION": {
@@ -1511,6 +1513,7 @@
             },
             "FIELDS": {
                 "CARD_NUMBER_LABEL": "Card number",
+                "LAST_4_DIGITS": "Card number (only last 4 digits)",
                 "CVV_LABEL": "CVV",
                 "EXPIRATION_DATE_LABEL": "Expiration date",
                 "EXPIRATION_DATE_PLACEHOLDER": "##/##"
@@ -2967,7 +2970,7 @@
         "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",
         "INVESTMENTS": "Investments",
         "BUTTON": {
-            "ACTIVATE_CARD": "Activate card",
+            "ACTIVATE_CARD": "Activate your starting package",
             "ORDER_CERTIFICATES": "Order Checks",
             "NEW_CONTRIBUTION": "New Deposit",
             "NEW_GRANT": "New Grant",

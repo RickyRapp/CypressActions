@@ -122,6 +122,7 @@ class ContributionViewStore extends BaseListViewStore {
 								type: 'date',
 								value: 'short',
 							},
+							onClick: (item) => {this.routes.preview(item.id, item.donorId)}
 						},
 						{
 							key: 'confirmationNumber',

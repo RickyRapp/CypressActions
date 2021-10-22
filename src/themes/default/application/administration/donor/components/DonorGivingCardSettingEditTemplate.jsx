@@ -27,7 +27,7 @@ const DonorGivingCardSettingEditTemplate = function ({ donorGivingCardSettingEdi
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-                {isEdit &&
+                {isEdit && !form.$('isEnabled').value &&
                     <div className="row">
                         <div className="form__group col col-sml-12 col-xlrg-6 col-xxlrg-4">
                             <BasicFieldCheckbox field={form.$('isEnabled')} onChange={onChangeIsEnabled} />

@@ -38,7 +38,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		showMoreOptions,
 		onShowMoreOptionsClick
 	} = dashboardViewStore;
-
 	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
@@ -245,7 +244,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				</div>
 				{donor &&
 					//|| !donor.isInvestmentMade - this isn't implemented yet
-					(!donor.isGrantMade || !donor.isContributionMade || !donor.isOrderCertificatesMade) && (
+					(!donor.isGrantMade || !donor.isContributionMade || !donor.isOrderCertificatesMade || donor.hasCardForActivation) && (
 						<div className="col col-sml-12 col-lrg-12">
 							<div className="u-mar--bottom--med u-mar--top--med">
 								<h3 className=" u-mar--bottom--med type--center">

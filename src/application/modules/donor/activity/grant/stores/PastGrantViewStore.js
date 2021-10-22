@@ -95,6 +95,31 @@ class PastGrantViewStore extends BaseListViewStore {
 			}
 		);
 	}
+
+	setAddress(address) {
+		this.form.$('addressLine1').set(address.addressLine1);
+		this.form.$('addressLine2').set(address.addressLine2);
+		this.form.$('city').set(address.city);
+		this.form.$('state').set(address.state);
+		this.form.$('zipCode').set(address.zipCode);
+	}
+	@action.bound
+	setSimilarGrantTable(value) {
+		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.charityTypeId === value).sort());
+		if (!this.similarGrantsTableStore.dataInitialized) {
+			this.similarGrantsTableStore.dataInitialized = true;
+		}
+	}
+
+	@action.bound
+	setCharityId(id) {
+		this.form.$('charityId').set(id);
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+		this.setAddress(charity.item.charityAddresses[0]);
+		this.setSimilarGrantTable(this.charity.item.charityTypeId);
+	} 
+
 	@action.bound
 	async grantAgain(grant) {
 		localStorageProvider.add("ExistingGrant", true);

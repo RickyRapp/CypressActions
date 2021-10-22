@@ -26,9 +26,9 @@ class Step3Template extends React.Component {
 			blankCertificateModal,
 			cancelCertificate,
 			editCheck,
-			removeFromCache
+			removeFromCache,
+			charity
 		} = this.props;
-
 		return (
 			<React.Fragment>
 				<div className="card--lrg">
@@ -105,8 +105,14 @@ class Step3Template extends React.Component {
 							{/* <div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
 								How to scan certificates
 							</div> */}
-
 							<div className="row col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
+								<div className="col col-sml-6 type--base type--wgt--medium">
+									Charity
+								</div>
+								<div className="col col-sml-6 type--sml type--wgt--medium">{charity.label}</div>
+							</div>
+							<div className="row col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
+								
 								<div className="col col-sml-6 type--base type--wgt--medium">
 									Checks scanned
 								</div>
@@ -182,7 +188,8 @@ Step3Template.propTypes = {
 	blankCertificateModal: PropTypes.any,
 	cancelCertificate: PropTypes.any,
 	editCheck: PropTypes.any,
-	removeFromCache: PropTypes.any
+	removeFromCache: PropTypes.any,
+	charity: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(Step3Template);

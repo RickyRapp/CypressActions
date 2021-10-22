@@ -61,7 +61,7 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     <section className="modal__list u-mar--bottom--med">
                         <div>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT_NUMBER')}</div>
                         <div className="modal__list__divider"></div>
-                        <div className="modal__list__amount">xxxx-xxxx-xxxx-{bankAccount.accountNumber}</div>
+                        <div className="modal__list__amount">{bankAccount? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx'}</div>
                     </section>
 
                 </React.Fragment>}

@@ -462,7 +462,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             {t('BOOKLET_ORDER.CREATE.PICK_UP_ADDRESS')}
                                         </span>
                                     </div>
-                                    <Address value={{ addressLine1: '328 3rd Street ', addressLine2: '', city: 'Lakewood', state: 'NJ', zipCode: '08701' }} format="booklet-order" />
+                                    <Address value={{ addressLine1: '1777 Ave of the States, Suite 103', addressLine2: '', city: 'Lakewood', state: 'NJ', zipCode: '08701' }} format="booklet-order" />
                                 </div>
                             }
                         </div>}

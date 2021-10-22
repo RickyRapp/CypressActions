@@ -60,6 +60,8 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
 
     @action.bound
     onChangeIsEnabled() {
+        this.form.$('isEnabled').value = true;
+
         this.form.$('grantAcknowledgmentTypeId').set('disabled', !this.form.$('isEnabled').value);
         this.form.$('grantPurposeTypeId').set('disabled', !this.form.$('isEnabled').value);
         this.form.$('maxAmount').set('disabled', !this.form.$('isEnabled').value);
@@ -74,7 +76,7 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
     @action.bound
     setCardAction() {
         this.reportCard = !this.reportCard;
-        this.form.$('isEnabled').value = !(this.form.$('isEnabled').value);
+        //this.form.$('isEnabled').value = !(this.form.$('isEnabled').value);
     }
 
     createGrantPurposeTypeDropdownStore() {

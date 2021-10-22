@@ -3,6 +3,8 @@ import { ContributionCreateForm } from 'application/common/contribution/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { localizationService } from 'core/services';
+
 import _ from 'lodash';
 
 @applicationContext
@@ -128,7 +130,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		const file = new Blob([`
 		Charity name: The Donors Fund\n
 		EIN (tax ID): 47-4844275\n
-		328 3rd Street, Lakewood NJ 08701\n
+		${localizationService.t('MAILING_ADDRESS')}\n
 		Memo for purpose of grant: xxxx-xxxx-xxxx-xxxx (your full account number)\n
 		Amount: $${this.form.$('amount').value.toFixed(2)}`], {type: 'text/plain'});
 		element.href = URL.createObjectURL(file);
@@ -143,7 +145,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			const accountNumber = (this.bankAccountDropdownStore.items.find(c => c.id === this.form.$('bankAccountId').value).accountNumber);
 			this.clipboardText = `Beneficiary:\n
 			The Donors Fund\n
-			328 3rd Street, Lakewood NJ 08701\n
+			${localizationService.t('MAILING_ADDRESS')}\n
 			\n
 			Beneficiary bank:\n
 			JP Morgan Chase\n
@@ -182,7 +184,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		const element = document.createElement("a");
 		const file = new Blob([`
 		Make checks payable to: The Donors Fund\n
-		Mail to: 328 3rd Street, Lakewood NJ 08701\n
+		Mail to: ${localizationService.t('MAILING_ADDRESS')}\n
 		Check Memo: xxxx-xxxx-xxxx-xxxx (your full account number)\n
 		Amount: $${this.form.$('amount').value.toFixed(2)}`], {type: 'text/plain'});
 		element.href = URL.createObjectURL(file);
@@ -195,7 +197,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		const element = document.createElement("a");
 		const file = new Blob([`
 		Beneficiary: The Donors Fund
-		328 3rd Street, Lakewood NJ 08701
+		${localizationService.t('MAILING_ADDRESS')}
 
 		Beneficiary bank:
 		JP Morgan Chase

@@ -21,6 +21,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	grantRequestId = null;
 	charities = [];
 	isFuture = false;
+	isGrantAgain = false;
 	@observable charity = null;
 	
 	constructor(rootStore, { donorId, grantStore }) {
@@ -117,7 +118,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			//this.onCharitySelected
 			await this.fetch([this.loadLookups()]);
 			const isExistingGrant = localStorageProvider.get('ExistingGrant');
+			
 			if(isExistingGrant) {
+				this.isGrantAgain = true;
 				const grant = (localStorageProvider.get('ExistingGrantObject'));
 				localStorageProvider.remove('ExistingGrantObject');
 				localStorageProvider.remove('ExistingGrant');
@@ -126,6 +129,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					name: charityFormatter.format(grant.charity, { value: 'charity-name-display' }),
 					item: grant.charity,
 				});
+
 				this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 				this.onCharityChange(grant.charityId);
 				this.setSimilarGrantTable(grant.grantPurposeTypeId);
@@ -135,6 +139,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.setAddress(grant.charity.charityAddresses.find(c => {
 					return c.isPrimary === true;
 				}));
+				await this.filterCharities(grant.charity.name);
+				this.setCharityId(grant.charityId);
 				const formattedCharityAddress = addressFormatter.format(
 					grant.charity.charityAddresses.find(c => {
 						return c.isPrimary === true;

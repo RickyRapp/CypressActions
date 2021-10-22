@@ -45,7 +45,7 @@ const ContributionCreateStep3Template = function ({
                                     </div>
                                     <div className="col col-sml-6 type--right">
                                         <span className="type--base type--wgt--bold u-push">
-                                            xxxx-xxxx-xxxx-{bankAccount.accountNumber}
+                                            {bankAccount.accountNumber}
                                         </span>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@ const ContributionCreateStep3Template = function ({
                                 </div>
                                 <div className="card--tny card--secondary u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                    <span className="type--base type--wgt--bold u-push">328 3rd Street, Lakewood NJ 08701</span>
+                                    <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                 </div>
                                 <div className="card--tny card--secondary u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Beneficiary bank</span>
@@ -128,7 +128,7 @@ const ContributionCreateStep3Template = function ({
                                 </div>
                                 <div className="card--tny card--secondary u-mar--bottom--med">
                                     <span className="type--base type--wgt--medium type--color--opaque">Wire Memo</span>
-                                    <span className="type--base type--wgt--bold u-push">xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number goes here)</span>
+                                    <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx'} (your full account number goes here)</span>
                                 </div>
 
                                 <p className="type--color--note type--wgt--bold u-mar--bottom--med">Timeline: Funds will be made available to your account as soon as they are received!</p>
@@ -156,7 +156,7 @@ const ContributionCreateStep3Template = function ({
                                 </div>
                                 <div className="card--tny card--secondary u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                    <span className="type--base type--wgt--bold u-push">328 3rd St Lakewood NJ 08701</span>
+                                    <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                 </div>
                                 <div className="card--tny card--secondary u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
@@ -182,7 +182,7 @@ const ContributionCreateStep3Template = function ({
                                     <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
                                         navigator.clipboard.writeText(`
                                     Beneficiary – Donors’ Fund Inc\n
-                                    Address - 328 3rd St Lakewood NJ 08701\n
+                                    Address - ${t('MAILING_ADDRESS')}\n
                                     EIN (tax ID) – 47-4844275\n
                                     Brokerage Firm – Fidelity Investment\n
                                     DTC – 0226\n
@@ -214,7 +214,7 @@ const ContributionCreateStep3Template = function ({
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">Zelle Memo</span>
-                                <span className="type--base type--wgt--bold u-push">xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</span>
+                                <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--med">
                                 <span className="type--base type--wgt--medium type--color--opaque">Amount</span>
@@ -230,7 +230,7 @@ const ContributionCreateStep3Template = function ({
                                 <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
                                     navigator.clipboard.writeText(`
                             Our Zelle email address - QP@TheDonorsFund.org\n
-                            Zelle Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                            Zelle Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
                             Amount: $${form.$('amount').value.toFixed(2)}`
                                     )
                                 }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -242,7 +242,7 @@ const ContributionCreateStep3Template = function ({
                     paymentType.abrv === 'third-party-donor-advised-funds' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Charity name: The Donors Fund\n
                     EIN (tax ID): 47-4844275\n
-                    328 3rd Street, Lakewood NJ 08701\n
+                    {t('MAILING_ADDRESS')}\n
                     Memo for purpose of grant: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
                     Amount: $${form.$('amount').value.toFixed(2)}`
                     )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -264,19 +264,19 @@ const ContributionCreateStep3Template = function ({
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                <span className="type--base type--wgt--bold u-push">328 3rd Street, Lakewood NJ 08701</span>
+                                <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--med">
                                 <span className="type--base type--wgt--medium type--color--opaque">Memo for purpose of grant</span>
-                                <span className="type--base type--wgt--bold u-push">xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</span>
+                                <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
                             </div>
                             <div className="u-display--flex">
                                 <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
                                     navigator.clipboard.writeText(`
                     Charity name: The Donors Fund\n
                     EIN (tax ID): 47-4844275\n
-                    328 3rd Street, Lakewood NJ 08701\n
-                    Memo for purpose of grant: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                    ${t('MAILING_ADDRESS')}\n
+                    Memo for purpose of grant: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
                     Amount: $${form.$('amount').value.toFixed(2)}`
                                     )
                                 }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -286,7 +286,7 @@ const ContributionCreateStep3Template = function ({
                 {/* {
                     paymentType.abrv === 'check' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Make checks payable to: The Donors Fund\n
-                    Mail to: 328 3rd Street, Lakewood NJ 08701\n
+                    Mail to: {t('MAILING_ADDRESS')}\n
                     Check Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
                     Amount: $${form.$('amount').value.toFixed(2)}`
                     )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -304,19 +304,19 @@ const ContributionCreateStep3Template = function ({
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">Mail to</span>
-                                <span className="type--base type--wgt--bold u-push">328 3rd Street, Lakewood NJ 08701</span>
+                                <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--med">
                                 <span className="type--base type--wgt--medium type--color--opaque">Check Memo</span>
-                                <span className="type--base type--wgt--bold u-push">xxxx-xxxx-xxxx-{bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)</span>
+                                <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
                             </div>
 
                             <div className="u-display--flex">
                                 <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
                                     navigator.clipboard.writeText(`
                                 Make checks payable to: The Donors Fund\n
-                                Mail to: 328 3rd Street, Lakewood NJ 08701\n
-                                Check Memo: xxxx-xxxx-xxxx-${bankAccount ? bankAccount.accountNumber : 'xxxx'} (your full account number)\n
+                                Mail to: ${t('MAILING_ADDRESS')}\n
+                                Check Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
                                 Amount: $${form.$('amount').value.toFixed(2)}`
                                     )
                                 }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -326,7 +326,7 @@ const ContributionCreateStep3Template = function ({
                 {/* {
                     paymentType.abrv === 'paycheck-direct' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Beneficiary: The Donors Fund
-                    328 3rd Street, Lakewood NJ 08701
+                    {t('MAILING_ADDRESS')}
 
                     Beneficiary bank:
                     JP Morgan Chase
@@ -349,7 +349,7 @@ const ContributionCreateStep3Template = function ({
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                <span className="type--base type--wgt--bold u-push">328 3rd Street, Lakewood NJ 08701</span>
+                                <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                             </div>
                             <div className="card--tny card--secondary u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">Beneficiary bank</span>
@@ -368,7 +368,7 @@ const ContributionCreateStep3Template = function ({
                                 <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
                                     navigator.clipboard.writeText(`
                     Beneficiary: The Donors Fund
-                    328 3rd Street, Lakewood NJ 08701
+                    ${t('MAILING_ADDRESS')}
 
                     Beneficiary bank:
                     JP Morgan Chase

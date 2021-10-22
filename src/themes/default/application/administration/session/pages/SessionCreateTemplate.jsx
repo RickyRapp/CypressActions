@@ -28,6 +28,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         modalStore,
         filterCharities,
         setCharityId,
+        charity
     } = sessionCreateViewStore;
 
     return (
@@ -72,6 +73,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             editCheck={editCheck}
                             removeFromCache={removeFromCache}
                             modalStore={modalStore}
+                            charity={charity}
                         />
                     </div>}
                 {currentStep === 4 &&

@@ -38,12 +38,11 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                             <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
                         </div> */}
                         <div className="list--prefences u-display--flex u-mar--bottom--med">
-                            <div className="list--preferences__field">
+                            {!form.$('isEnabled').value && <div className="list--preferences__field">
                                 {!reportCard ? null : <h3 className="u-mar--bottom--sml">{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</h3>}
-                                <a className={`btn btn--${form.$('isEnabled').value ? "ghost" : "primary"} btn--med  u-mar--right--sml`} onClick={() => toggleEdit()}>{form.$('isEnabled').value ? "Cancel Edit" : "Edit Settings"}</a>
-                            </div>
+                                {!form.$('isEnabled').value && <a className={`btn btn--${form.$('isEnabled').value ? "ghost" : "primary"} btn--med  u-mar--right--sml`} onClick={() => toggleEdit()}>{form.$('isEnabled').value ? "Cancel Edit" : "Edit Settings"}</a>}
+                            </div>}
                             <div className="list--preferences__field">
-                                {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) && (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.TITLE')}</a>)}
                                 {/* <BasicFieldCheckbox showLabel={false} field={form.$('isEnabled')} onChange={onChangeIsEnabled} /> */}
                             </div>
                         </div>
@@ -94,7 +93,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                                 <div className="form__group__label">
                                     Assigned Card
                                 </div>
-                                {item.givingCard.cardNumber} - {item.givingCard.cvv} - {moment(new Date(item.givingCard.expirationDate)).format('MM/YY')}
+                                {item.givingCard.isActivated && `${item.givingCard.cardNumber} - ${item.givingCard.cvv} - ${moment(new Date(item.givingCard.expirationDate)).format('MM/YY')}`}
                                 {!item.givingCard.isActivated && <div>Card is not activated </div>}
                                 {item.givingCard.isLost && <div style={{ color: 'salmon', fontWeight: 'bold' }}>Card is reported lost! </div>}
                                 {item.givingCard.isStolen && <div style={{ color: 'salmon', fontWeight: 'bold' }}>Card is reported stolen! </div>}
@@ -108,6 +107,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     </div>}
 
                 <div className="type--right">
+                    {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) && (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.GO_BACK')}</a>)}&nbsp;&nbsp;
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>
             </EditFormContent>
