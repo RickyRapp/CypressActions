@@ -73,6 +73,10 @@
 			border-bottom: 0px;
 		}
 
+		&--secondary {
+			justify-content: flex-end;
+		}
+
 		&__label {
 			text-align: right;
 		}

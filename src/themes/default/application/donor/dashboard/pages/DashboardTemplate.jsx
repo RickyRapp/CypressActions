@@ -304,7 +304,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					{showMoreOptions &&
 						<div className={`card--primary card--med ${showMoreOptions ? "show" : ""}`}>
 							<h3 className="dashboard-card__title u-mar--bottom--sml">Giving Goals</h3>
-							<div className="dashboard-card--emptystate__body">
+							<div className="u-mar--top--med">
 								<section className="modal__list">
 									<div>% of Yearly Income</div>
 									<div className="modal__list__divider"></div>
@@ -341,33 +341,29 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									<section className="modal__list u-mar--bottom--xlrg">
 										<div className="type--base type--color--opaque">{percentageMonth}% of ${oneTime} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a></div>
 									</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
-								<section className="modal__list">
-									<div className="col col-sml-12 col-med-6">
-										{
-											oneTime > 0 ?
-												null :
-												<div className="u-mar--bottom--sml w--100--to-med">
-													<BaasicButton
-														className="btn btn--med btn--100 btn--primary--light"
-														label="New One Time Income"
-														onClick={() => newIncomeOnClick(false)}
-													/>
-												</div>
-										}
-									</div>
-									<div className="col col-sml-12 col-med-6">
-										{
-											yearly > 0 ?
-												null :
-												<div className="u-mar--bottom--sml w--100--to-med">
-													<BaasicButton
-														className="btn btn--med btn--100 btn--primary--light"
-														label="New Yearly Time Income"
-														onClick={() => newIncomeOnClick(true)}
-													/>
-												</div>
-										}
-									</div>
+								<section className="modal__list modal__list--secondary">
+									{
+										oneTime > 0 ?
+											null :
+											<div className="u-mar--bottom--sml u-mar--right--sml">
+												<BaasicButton
+													className="btn btn--med btn--100 btn--primary--light"
+													label="New One Time Income"
+													onClick={() => newIncomeOnClick(false)}
+												/>
+											</div>
+									}
+									{
+										yearly > 0 ?
+											null :
+											<div className="u-mar--bottom--sml">
+												<BaasicButton
+													className="btn btn--med btn--100 btn--primary--light"
+													label="New Yearly Time Income"
+													onClick={() => newIncomeOnClick(true)}
+												/>
+											</div>
+									}
 								</section>
 							</div>
 						</div>
