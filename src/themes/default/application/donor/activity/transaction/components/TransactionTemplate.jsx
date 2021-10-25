@@ -10,20 +10,32 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 		{
 			return (
 				<div>
-					<p><b>Payment Transaction Type:</b> {dataItem.paymentTransaction.paymentTransactionType.description}&emsp;&emsp;<b>Description:</b> {dataItem.description}</p>
-					<p><b>Transaction Type:</b> {dataItem.type}</p>
-					<p><b>Present Balance:</b><FormatterResolver
-                                    item={{ amount: dataItem.paymentTransaction.presentBalance }}
-                                    field='amount'
-                                    format={{ type: 'currency' }}
-                                /></p>
+					<p className="type--sml u-mar--bottom--sml">
+						<p className="type--base type--wgt--bold">Payment Transaction Type:</p>
+						{dataItem.paymentTransaction.paymentTransactionType.description}&emsp;&emsp;
+					</p>
+					<p className="type--sml u-mar--bottom--sml">
+						<p className="type--base type--wgt--bold">Description:</p>
+						{dataItem.description}
+					</p>
+					<p className="type--sml u-mar--bottom--sml">
+						<p className="type--base type--wgt--bold">Transaction Type:</p>
+						{dataItem.type}
+					</p>
+					<p className="type--sml u-mar--bottom--sml">
+						<p className="type--base type--wgt--bold">Present Balance:</p>
+						<FormatterResolver
+							item={{ amount: dataItem.paymentTransaction.presentBalance }}
+							field='amount'
+							format={{ type: 'currency' }}
+						/></p>
 				</div>
-				)
+			)
 		}
 	}
 	DetailComponent.propTypes = {
-        dataItem: PropTypes.object.isRequired
-    };
+		dataItem: PropTypes.object.isRequired
+	};
 
 	return (
 		<div>
@@ -44,29 +56,29 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 						}
 					</div>
 					{
-						hidePeriod ? null : 
-						<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
-							<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} />
-						</div>
+						hidePeriod ? null :
+							<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
+								<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} />
+							</div>
 					}
-					
+
 				</div>
 				{/* <BaasicTable tableStore={tableStore} hidePager={hidePager} /> */}
 				<div className="card--primary u-mar--bottom--med">
-                    {
-					window.innerWidth > 750 ? <div>
-						<BaasicTable tableStore={tableStore} hidePager={hidePager} />
-					</div> : 
-					<div className="table--dragrow--expandable-row">
-                        <BaasicTableWithRowDetails
-                            tableStore={tableStore}
-                            detailComponent={DetailComponent}
-                            loading={tableStore.loading}
-                            className="k-grid--actions"
-                        />
-                    </div>
+					{
+						window.innerWidth > 750 ? <div>
+							<BaasicTable tableStore={tableStore} hidePager={hidePager} />
+						</div> :
+							<div className="table--dragrow--expandable-row">
+								<BaasicTableWithRowDetails
+									tableStore={tableStore}
+									detailComponent={DetailComponent}
+									loading={tableStore.loading}
+									className="k-grid--actions"
+								/>
+							</div>
 					}
-                </div>
+				</div>
 			</div>
 		</div>
 	);
