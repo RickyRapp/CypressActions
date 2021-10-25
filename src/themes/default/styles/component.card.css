@@ -25,6 +25,12 @@
 		}
 	}
 
+	&--inline {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
 	&--tertiary {
 		background-color: $white;
 		border-radius: $radius-base;

@@ -105,47 +105,66 @@ class Step3Template extends React.Component {
 							{/* <div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
 								How to scan certificates
 							</div> */}
-							<div className="row col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
-								<div className="col col-sml-6 type--base type--wgt--medium">
-									Charity
+							<div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
+								<div className="card--tny card--secondary card--inline u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										Charity
+									</span>
+									<span className="type--base type--wgt--bold u-push w--400--px">
+										{charity.label}
+									</span>
 								</div>
-								<div className="col col-sml-6 type--sml type--wgt--medium">{charity.label}</div>
 							</div>
-							<div className="row col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
-								
-								<div className="col col-sml-6 type--base type--wgt--medium">
-									Checks scanned
+
+							<div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
+								<div className="card--tny card--secondary u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										Checks scanned
+									</span>
+									<span className="type--base type--wgt--bold u-push">
+										{`${sessionCertificates.length}`}
+									</span>
 								</div>
-								<div className="col col-sml-6 type--sml type--wgt--medium">{`${sessionCertificates.length}`}</div>
-								<div className="col col-sml-6 type--base type--wgt--medium">{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}</div>
-								<span className="col col-sml-6 input--preview">
-									{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}
-								</span>
+
+								<div className="card--tny card--secondary u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}
+									</span>
+									<span className="type--base type--wgt--bold u-push">
+										{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+											item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+											field='amount'
+											format={{ type: 'currency' }}
+										/>}
+									</span>
+								</div>
 							</div>
-							<div className="row col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
-								<div className="col col-sml-6">
-									Insufficient checks
+							
+							<div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
+								<div className="card--tny card--secondary u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										Insufficient checks
+									</span>
+									<span className="type--base type--wgt--bold u-push">
+										{sessionCertificates.length > 0 && !sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+											item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+											field='amount'
+											format={{ type: 'currency' }}
+										/>}
+									</span>
 								</div>
-								<div className="col col-sml-6">
-									{sessionCertificates.length > 0 && !sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}
-								</div>
-								<div className="col col-sml-6">
-									<span className=" type--color--note">Grand total</span> (including insufficient checks)
-								</div>
-								<div className="col col-sml-6">
-									{sessionCertificates.length > 0 && <FormatterResolver
-										item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>}
+
+								<div className="card--tny card--secondary u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										<span className=" type--color--note">Grand total</span> (including insufficient checks)
+									</span>
+									<span className="type--base type--wgt--bold u-push">
+										{sessionCertificates.length > 0 && <FormatterResolver
+											item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+											field='amount'
+											format={{ type: 'currency' }}
+										/>}
+									</span>
 								</div>
 							</div>
 						</div>

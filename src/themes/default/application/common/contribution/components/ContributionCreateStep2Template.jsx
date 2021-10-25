@@ -169,10 +169,12 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                 {paymentType.abrv === 'third-party-donor-advised-funds' && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BaasicFieldDropdown
-                                                field={form.$('thirdPartyDonorAdvisedFundId')}
-                                                store={thirdPartyDonorAdvisedFundDropdownStore}
-                                            />
+                                            <div className="u-mar--bottom--med">
+                                                <BaasicFieldDropdown
+                                                    field={form.$('thirdPartyDonorAdvisedFundId')}
+                                                    store={thirdPartyDonorAdvisedFundDropdownStore}
+                                                />
+                                            </div>
                                             <BasicInput field={form.$('thirdPartyDonorAdvisedFundName')} />
                                         </div>
                                         {thirdPartyDonorAdvisedFundDropdownStore &&

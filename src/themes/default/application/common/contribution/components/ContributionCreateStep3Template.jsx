@@ -8,7 +8,31 @@ const ContributionCreateStep3Template = function ({
     return (
         <div className="row">
             <div className="col col-sml-12 col-lrg-8">
-                <h3 className="type--color--note u-mar--bottom--sml">Step 2 - {t('CONTRIBUTION.CREATE.SUCCESS')}</h3>
+                {/* <h3 className="type--color--note u-mar--bottom--sml">Step 2 - {t('CONTRIBUTION.CREATE.SUCCESS')}</h3> */}
+
+                {paymentType.abrv === 'wire-transfer' &&
+                    <h3 className="type--color--note u-mar--bottom--sml">Please provide your bank or financial institution with the following information</h3>
+                }
+
+                {paymentType.abrv === 'stock-and-securities' &&
+                    <h3 className="type--color--note u-mar--bottom--sml">Please provide your brokerage firm or financial advisor with the following information so they can initiate the transfer.</h3>
+                }
+
+                {paymentType.abrv === 'zelle' &&
+                    <h3 className="type--color--note u-mar--bottom--sml">Please use the below email address to initiate your Zelle or QuickPay payment.</h3>
+                }
+
+                {paymentType.abrv === 'third-party-donor-advised-funds' &&
+                    <h3 className="type--color--note u-mar--bottom--sml">Please use the following information to initiate a grant from your donor-advised fund</h3>
+                }
+
+                {paymentType.abrv === 'check' &&
+                    <h3 className="type--color--note u-mar--bottom--sml">Please use the following information to send us the check</h3>
+                }
+
+                {paymentType.abrv === 'paycheck-direct' &&
+                    <h3 className="type--color--note u-mar--bottom--sml">Please provide your employer or payroll company with the following information</h3>
+                }
 
                 <div className="card--primary card--med u-mar--bottom--med">
 
@@ -23,10 +47,22 @@ const ContributionCreateStep3Template = function ({
                             {paymentType.name}
                         </span>
                     </div>
+                    
+                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                        <span className="type--base type--wgt--medium type--color--opaque">
+                            {t('CONTRIBUTION.CREATE.AMOUNT')}
+                        </span>
+                        <span className="type--base type--wgt--bold u-push">
+                            <FormatterResolver
+                                item={{ amount: form.$('amount').value }}
+                                field="amount"
+                                format={{ type: 'currency' }}
+                            />
+                        </span>
+                    </div>
 
                     {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('bankAccountId').value)) && (
                         <React.Fragment>
-
                             <div className="card--tny card--secondary u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">
                                     {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
@@ -51,6 +87,43 @@ const ContributionCreateStep3Template = function ({
                                 </div>
                             </div>
 
+                            {paymentType.abrv === "wire-transfer" &&
+                                <div className="u-mar--bottom--med" id="clipboard-info">
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
+                                        <span className="type--base type--wgt--bold u-push">Donors’ Fund Inc</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Address</span>
+                                        <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Beneficiary bank</span>
+                                        <span className="type--base type--wgt--bold u-push">JP Morgan Chase</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">ABA (routing number)</span>
+                                        <span className="type--base type--wgt--bold u-push">021000021</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Account number</span>
+                                        <span className="type--base type--wgt--bold u-push">883220399</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--med">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Wire Memo</span>
+                                        <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx'} (your full account number goes here)</span>
+                                    </div>
+
+                                    <p className="type--color--note type--wgt--bold u-mar--bottom--med">Timeline: Funds will be made available to your account as soon as they are received!</p>
+
+                                    <div className="u-separator--primary u-mar--bottom--med"></div>
+
+                                    <div className="u-display--flex">
+                                        <BaasicButton className="btn btn--100 btn--primary" onClick={() => { navigator.clipboard.writeText(clipboardText) }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <BaasicButton className="btn btn--100 btn--primary" onClick={downloadTxtFile} label="Download"></BaasicButton>
+                                    </div>
+                                </div>
+                            }
                         </React.Fragment>
                     )}
                     {paymentType.abrv === 'check' && (
@@ -87,28 +160,158 @@ const ContributionCreateStep3Template = function ({
                         </React.Fragment>
                     )}
 
-                    <div className="card--tny card--secondary u-mar--bottom--sml">
-                        <span className="type--base type--wgt--medium type--color--opaque">
-                            {t('CONTRIBUTION.CREATE.AMOUNT')}
-                        </span>
-                        <span className="type--base type--wgt--bold u-push">
-                            <FormatterResolver
-                                item={{ amount: form.$('amount').value }}
-                                field="amount"
-                                format={{ type: 'currency' }}
-                            />
-                        </span>
-                    </div>
-                </div>
+                    {
+                        paymentType.abrv === 'stock-and-securities' ?
+                            <div>
+                                {/* <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(
+                        )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a className="btn btn--link btn--med" onClick={downloadStockTxtFile}>Download</a> */}
+                                <div className="u-mar--bottom--med" id="clipboard-info">
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
+                                        <span className="type--base type--wgt--bold u-push">Donors’ Fund Inc</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Address</span>
+                                        <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
+                                        <span className="type--base type--wgt--bold u-push">47-4844275</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Brokerage Firm</span>
+                                        <span className="type--base type--wgt--bold u-push">Fidelity Investment</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">DTC</span>
+                                        <span className="type--base type--wgt--bold u-push">0226</span>
+                                    </div>
+                                    <div className="card--tny card--secondary u-mar--bottom--med">
+                                        <span className="type--base type--wgt--medium type--color--opaque">Brokerage Number</span>
+                                        <span className="type--base type--wgt--bold u-push">Z50762458</span>
+                                    </div>
 
-                {
-                    paymentType.abrv === 'wire-transfer' ?
+                                    <p className="type--color--note type--wgt--bold u-mar--bottom--med">What happens next? Once we receive the security transfer we will initiate a selling order and then fund your account with the full selling price.</p>
+                                    <div className="u-separator--primary u-mar--bottom--med"></div>
+
+                                    <div className="u-display--flex">
+                                        <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
+                                            navigator.clipboard.writeText(`
+                                    Beneficiary – Donors’ Fund Inc\n
+                                    Address - ${t('MAILING_ADDRESS')}\n
+                                    EIN (tax ID) – 47-4844275\n
+                                    Brokerage Firm – Fidelity Investment\n
+                                    DTC – 0226\n
+                                    Brokerage Number - Z50762458`)
+                                        }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <BaasicButton className="btn btn--100 btn--primary" onClick={downloadStockTxtFile} label="Download"></BaasicButton>
+                                    </div>
+                                </div>
+                            </div> : null
+                    }
+                    {paymentType.abrv === 'zelle' ?
                         <div>
-                            <h3 className="type--color--note u-mar--bottom--sml">Please provide your bank or financial institution with the following information</h3>
-                            <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
+                            <div className="u-mar--bottom--med" id="clipboard-info">
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Our Zelle email address</span>
+                                    <span className="type--base type--wgt--bold u-push">QP@TheDonorsFund.org</span>
+                                </div>
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Zelle Memo</span>
+                                    <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
+                                </div>
+                                {/* <div className="card--tny card--secondary u-mar--bottom--med">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Amount</span>
+                                    <span className="type--base type--wgt--bold u-push">
+                                        <FormatterResolver
+                                            item={{ amount: form.$('amount').value }}
+                                            field="amount"
+                                            format={{ type: 'currency' }}
+                                        /></span>
+                                </div> */}
+                                
+                                <div className="u-display--flex">
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
+                                        navigator.clipboard.writeText(`
+                            Our Zelle email address - QP@TheDonorsFund.org\n
+                            Zelle Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
+                            Amount: $${form.$('amount').value.toFixed(2)}`
+                                        )
+                                    }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadZelleTxtFile} label="Download"></BaasicButton></div>
+                            </div>
+                        </div> : null
+                    }
+
+                    {paymentType.abrv === 'third-party-donor-advised-funds' ?
+                        <div>
+                            <div className="u-mar--bottom--med">
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Charity name</span>
+                                    <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
+                                </div>
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
+                                    <span className="type--base type--wgt--bold u-push">47-4844275</span>
+                                </div>
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Address</span>
+                                    <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
+                                </div>
+                                <div className="card--tny card--secondary u-mar--bottom--med">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Memo for purpose of grant</span>
+                                    <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
+                                </div>
+                                <div className="u-display--flex">
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
+                                        navigator.clipboard.writeText(`
+                    Charity name: The Donors Fund\n
+                    EIN (tax ID): 47-4844275\n
+                    ${t('MAILING_ADDRESS')}\n
+                    Memo for purpose of grant: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                                        )
+                                    }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadThirdPartyTxtFile} label="Download"></BaasicButton></div>
+                            </div>
+                        </div> : null}
+
+                    {paymentType.abrv === 'check' ?
+                        <div>
+                            <div className="u-mar--bottom--med">
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Make checks payable to</span>
+                                    <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
+                                </div>
+                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Mail to</span>
+                                    <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
+                                </div>
+                                <div className="card--tny card--secondary u-mar--bottom--med">
+                                    <span className="type--base type--wgt--medium type--color--opaque">Check Memo</span>
+                                    <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
+                                </div>
+
+                                <div className="u-display--flex">
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
+                                        navigator.clipboard.writeText(`
+                                Make checks payable to: The Donors Fund\n
+                                Mail to: ${t('MAILING_ADDRESS')}\n
+                                Check Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
+                                Amount: $${form.$('amount').value.toFixed(2)}`
+                                        )
+                                    }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadCheckTxtFile} label="Download"></BaasicButton></div>
+                            </div>
+                        </div> : null}
+
+                    {paymentType.abrv === 'paycheck-direct' ?
+                        <div>
+                            <div className="u-mar--bottom--med">
                                 <div className="card--tny card--secondary u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
-                                    <span className="type--base type--wgt--bold u-push">Donors’ Fund Inc</span>
+                                    <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
                                 </div>
                                 <div className="card--tny card--secondary u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Address</span>
@@ -122,77 +325,35 @@ const ContributionCreateStep3Template = function ({
                                     <span className="type--base type--wgt--medium type--color--opaque">ABA (routing number)</span>
                                     <span className="type--base type--wgt--bold u-push">021000021</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary u-mar--bottom--med">
                                     <span className="type--base type--wgt--medium type--color--opaque">Account number</span>
                                     <span className="type--base type--wgt--bold u-push">883220399</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--med">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Wire Memo</span>
-                                    <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx'} (your full account number goes here)</span>
-                                </div>
-
-                                <p className="type--color--note type--wgt--bold u-mar--bottom--med">Timeline: Funds will be made available to your account as soon as they are received!</p>
-
-                                <div className="u-separator--primary u-mar--bottom--med"></div>
-
-                                <div className="u-display--flex">
-                                    <BaasicButton className="btn btn--100 btn--primary" onClick={() => { navigator.clipboard.writeText(clipboardText) }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadTxtFile} label="Download"></BaasicButton>
-                                </div>
-                            </div>
-                        </div> : null
-                }
-                {
-                    paymentType.abrv === 'stock-and-securities' ?
-                        <div>
-                            {/* <a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(
-                        )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a className="btn btn--link btn--med" onClick={downloadStockTxtFile}>Download</a> */}
-                            <h3 className="type--color--note u-mar--bottom--sml">Please provide your brokerage firm or financial advisor with the following information so they can initiate the transfer.</h3>
-                            <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
-                                    <span className="type--base type--wgt--bold u-push">Donors’ Fund Inc</span>
-                                </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                    <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
-                                </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
-                                    <span className="type--base type--wgt--bold u-push">47-4844275</span>
-                                </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Brokerage Firm</span>
-                                    <span className="type--base type--wgt--bold u-push">Fidelity Investment</span>
-                                </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">DTC</span>
-                                    <span className="type--base type--wgt--bold u-push">0226</span>
-                                </div>
-                                <div className="card--tny card--secondary u-mar--bottom--med">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Brokerage Number</span>
-                                    <span className="type--base type--wgt--bold u-push">Z50762458</span>
-                                </div>
-
-                                <p className="type--color--note type--wgt--bold u-mar--bottom--med">What happens next? Once we receive the security transfer we will initiate a selling order and then fund your account with the full selling price.</p>
-                                <div className="u-separator--primary u-mar--bottom--med"></div>
 
                                 <div className="u-display--flex">
                                     <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
                                         navigator.clipboard.writeText(`
-                                    Beneficiary – Donors’ Fund Inc\n
-                                    Address - ${t('MAILING_ADDRESS')}\n
-                                    EIN (tax ID) – 47-4844275\n
-                                    Brokerage Firm – Fidelity Investment\n
-                                    DTC – 0226\n
-                                    Brokerage Number - Z50762458`)
+                    Beneficiary: The Donors Fund
+                    ${t('MAILING_ADDRESS')}
+
+                    Beneficiary bank:
+                    JP Morgan Chase
+                    ABA (routing number): 021000021
+                    Account number: 883220399
+
+                    Amount: $${form.$('amount').value.toFixed(2)}`
+                                        )
                                     }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadStockTxtFile} label="Download"></BaasicButton>
-                                </div>
+                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadPayrollDirectTxtFile} label="Download"></BaasicButton></div>
                             </div>
-                        </div> : null
-                }
+                        </div> : null}
+
+                    {
+                        paymentType.abrv !== 'wire-transfer' && paymentType.abrv !== 'stock-and-securities' ?
+                            <div className="type--color--note u-mar--bottom--sml">
+                                <b>Timeline: Funds will be made available within 3 - 5 business days.</b> </div> : null
+                    }
+                </div>
 
                 {/* {
                     paymentType.abrv === 'zelle' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
@@ -204,40 +365,6 @@ const ContributionCreateStep3Template = function ({
 
                 } */}
 
-                {paymentType.abrv === 'zelle' ?
-                    <div>
-                        <h3 className="type--color--note u-mar--bottom--sml">Please use the below email address to initiate your Zelle or QuickPay payment.</h3>
-                        <div className="card--primary card--med u-mar--bottom--med" id="clipboard-info">
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Our Zelle email address</span>
-                                <span className="type--base type--wgt--bold u-push">QP@TheDonorsFund.org</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Zelle Memo</span>
-                                <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--med">
-                                <span className="type--base type--wgt--medium type--color--opaque">Amount</span>
-                                <span className="type--base type--wgt--bold u-push">
-                                    <FormatterResolver
-                                        item={{ amount: form.$('amount').value }}
-                                        field="amount"
-                                        format={{ type: 'currency' }}
-                                    /></span>
-                            </div>
-
-                            <div className="u-display--flex">
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                                    navigator.clipboard.writeText(`
-                            Our Zelle email address - QP@TheDonorsFund.org\n
-                            Zelle Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
-                            Amount: $${form.$('amount').value.toFixed(2)}`
-                                    )
-                                }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={downloadZelleTxtFile} label="Download"></BaasicButton></div>
-                        </div>
-                    </div> : null
-                }
                 {/* {
                     paymentType.abrv === 'third-party-donor-advised-funds' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Charity name: The Donors Fund\n
@@ -250,39 +377,6 @@ const ContributionCreateStep3Template = function ({
 
                 } */}
 
-                {paymentType.abrv === 'third-party-donor-advised-funds' ?
-                    <div>
-                        <h3 className="type--color--note u-mar--bottom--sml">Please use the following information to initiate a grant from your donor-advised fund</h3>
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Charity name</span>
-                                <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
-                                <span className="type--base type--wgt--bold u-push">47-4844275</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--med">
-                                <span className="type--base type--wgt--medium type--color--opaque">Memo for purpose of grant</span>
-                                <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
-                            </div>
-                            <div className="u-display--flex">
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                                    navigator.clipboard.writeText(`
-                    Charity name: The Donors Fund\n
-                    EIN (tax ID): 47-4844275\n
-                    ${t('MAILING_ADDRESS')}\n
-                    Memo for purpose of grant: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
-                    Amount: $${form.$('amount').value.toFixed(2)}`
-                                    )
-                                }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={downloadThirdPartyTxtFile} label="Download"></BaasicButton></div>
-                        </div>
-                    </div> : null}
                 {/* {
                     paymentType.abrv === 'check' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Make checks payable to: The Donors Fund\n
@@ -294,35 +388,6 @@ const ContributionCreateStep3Template = function ({
 
                 } */}
 
-                {paymentType.abrv === 'check' ?
-                    <div>
-                        <h3 className="type--color--note u-mar--bottom--sml">Please use the following information to send us the check</h3>
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Make checks payable to</span>
-                                <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Mail to</span>
-                                <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--med">
-                                <span className="type--base type--wgt--medium type--color--opaque">Check Memo</span>
-                                <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
-                            </div>
-
-                            <div className="u-display--flex">
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                                    navigator.clipboard.writeText(`
-                                Make checks payable to: The Donors Fund\n
-                                Mail to: ${t('MAILING_ADDRESS')}\n
-                                Check Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
-                                Amount: $${form.$('amount').value.toFixed(2)}`
-                                    )
-                                }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={downloadCheckTxtFile} label="Download"></BaasicButton></div>
-                        </div>
-                    </div> : null}
                 {/* {
                     paymentType.abrv === 'paycheck-direct' ? <div><a className="btn btn--link btn--med" onClick={() => {navigator.clipboard.writeText(`
                     Beneficiary: The Donors Fund
@@ -338,56 +403,6 @@ const ContributionCreateStep3Template = function ({
                     <a className="btn btn--link btn--med" onClick={downloadPayrollDirectTxtFile}>Download</a></div> : null
 
                 } */}
-
-                {paymentType.abrv === 'paycheck-direct' ?
-                    <div>
-                        <h3 className="type--color--note u-mar--bottom--sml">Please provide your employer or payroll company with the following information</h3>
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
-                                <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Address</span>
-                                <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">Beneficiary bank</span>
-                                <span className="type--base type--wgt--bold u-push">JP Morgan Chase</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">ABA (routing number)</span>
-                                <span className="type--base type--wgt--bold u-push">021000021</span>
-                            </div>
-                            <div className="card--tny card--secondary u-mar--bottom--med">
-                                <span className="type--base type--wgt--medium type--color--opaque">Account number</span>
-                                <span className="type--base type--wgt--bold u-push">883220399</span>
-                            </div>
-
-                            <div className="u-display--flex">
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                                    navigator.clipboard.writeText(`
-                    Beneficiary: The Donors Fund
-                    ${t('MAILING_ADDRESS')}
-
-                    Beneficiary bank:
-                    JP Morgan Chase
-                    ABA (routing number): 021000021
-                    Account number: 883220399
-
-                    Amount: $${form.$('amount').value.toFixed(2)}`
-                                    )
-                                }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <BaasicButton className="btn btn--100 btn--primary" onClick={downloadPayrollDirectTxtFile} label="Download"></BaasicButton></div>
-                        </div>
-                    </div> : null}
-
-                {
-                    paymentType.abrv !== 'wire-transfer' && paymentType.abrv !== 'stock-and-securities' ?
-                        <div className="type--color--note u-mar--bottom--sml">
-                            <b>Timeline: Funds will be made available within 3 - 5 business days.</b> </div> : null
-                }
-
             </div>
             <div className="col col-sml-12 col-lrg-4">
                 <div className="card--primary card--med u-mar--bottom--med">
