@@ -138,6 +138,53 @@ class Step3Template extends React.Component {
 										/>}
 									</span>
 								</div>
+
+								<div className="card--tny card--secondary u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										Fees
+									</span>
+									<span className="type--base type--wgt--bold u-push">
+									{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+										item={{ amount: sessionCertificates.map(c => (c.isBlank ? c.certificateValue : (c.denominationTypeValue - c.certificateValue))).reduce((a, b) => a + b) }}
+										field='amount'
+										format={{ type: 'currency' }}
+									/>}
+									</span>
+								</div>
+
+								{/* <div className="col col-sml-6">
+									Fees
+								</div>
+								<div className="col col-sml-6">
+									{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+										item={{ amount: sessionCertificates.map(c => (c.isBlank ? c.certificateValue : (c.denominationTypeValue - c.certificateValue))).reduce((a, b) => a + b) }}
+										field='amount'
+										format={{ type: 'currency' }}
+									/>}
+								</div> */}
+
+								<div className="card--tny card--secondary u-mar--bottom--sml">
+									<span className="type--base type--wgt--medium type--color--opaque">
+										Total (before fees)
+									</span>
+									<span className="type--base type--wgt--bold u-push">
+									{sessionCertificates.length > 0 && <FormatterResolver
+										item={{ amount: sessionCertificates.map(c => c.denominationTypeValue).reduce((a, b) => a + b) }}
+										field='amount'
+										format={{ type: 'currency' }}
+									/>}
+									</span>
+								</div>
+								{/* <div className="col col-sml-6">
+									<span className=" type--color--note">Total</span> (before fees)
+								</div>
+								<div className="col col-sml-6">
+									{sessionCertificates.length > 0 && <FormatterResolver
+										item={{ amount: sessionCertificates.map(c => c.denominationTypeValue).reduce((a, b) => a + b) }}
+										field='amount'
+										format={{ type: 'currency' }}
+									/>}
+								</div> */}
 							</div>
 							
 							<div className="card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">

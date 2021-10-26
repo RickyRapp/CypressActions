@@ -1,6 +1,6 @@
 import { DonorGivingCardActivationForm, DonorGivingGoalsForm } from 'application/donor/donor/forms';
 import { ModalParams } from 'core/models';
-import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
+import { BaasicDropdownStore, BaseViewStore, TableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
 @applicationContext
@@ -10,6 +10,7 @@ class DashboardViewStore extends BaseViewStore {
     @observable oneTimeGoal = null;
     @observable yearly = 0;
     @observable oneTime = 0;
+    @observable oneTimeToGive = 0;
     @observable percentageYear = 1;
     @observable percentageMonth = 1;
     @observable showMoreOptions = false;
@@ -23,6 +24,8 @@ class DashboardViewStore extends BaseViewStore {
         this.givingGoalsModalParams = new ModalParams({});
 
         this.donorId = rootStore.userStore.applicationUser.id;
+
+        this.createTableStore();
     }
 
     @action.bound
@@ -37,11 +40,17 @@ class DashboardViewStore extends BaseViewStore {
             this.incomeType = await this.rootStore.application.lookup.incomeTypeStore.find();
 
             const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({ donorId: this.donorId });
-
+            this.tableStore.setData(resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear()));
+            if (!this.tableStore.dataInitialized) {
+                this.tableStore.dataInitialized = true;
+            }
             try {
-                this.oneTimeGoal = resp.data.item.find(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id);
-                this.oneTime = this.oneTimeGoal.amount;
-                this.percentageMonth = this.oneTimeGoal.percentage;
+                this.oneTimeGoal = resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear());
+                this.oneTime = this.oneTimeGoal.map(item => item.amount).reduce((a, b) => a + b);
+                this.oneTimeToGive = this.oneTimeGoal.map(item => (item.amount * (item.percentage/100))).reduce((a, b) => a + b);
+                if(this.oneTimeGoal.length == 1) {
+                    this.percentageMonth = this.oneTimeGoal[0].percentage;
+                }
             }
             //eslint-disable-next-line
             catch (e) {
@@ -66,7 +75,7 @@ class DashboardViewStore extends BaseViewStore {
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 });
+            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Week', id: -7 }, { name: 'Last Month', id: -30 });
             this.yearDropdownStore.setItems(donations);
             //this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
             //this.yearDropdownStore.setItems({name: 'Past Week', id: uuid()});
@@ -160,8 +169,8 @@ class DashboardViewStore extends BaseViewStore {
                 }
             }
         });
-        if (this.bankAccountDropdownStore.items.length == 0)
-            this.rootStore.notificationStore.error('You have no bank account, please create one');
+        // if (this.bankAccountDropdownStore.items.length == 0)
+        //     this.rootStore.notificationStore.error('You have no bank account, please create one');
 
         if (isYearly)
             form.$('isYearly').value = 'true';
@@ -229,6 +238,52 @@ class DashboardViewStore extends BaseViewStore {
 
                 }
             });
+    }
+    createTableStore() {
+        this.tableStore = new TableViewStore(null, {
+            columns: [
+                {
+                    key: 'dateCreated',
+                    title: 'Date created',
+                    format: {
+						type: 'date',
+						value: 'short',
+					},
+                },
+                {
+                    key: 'amount',
+                    title: 'Income',
+                    format: {
+						type: 'currency',
+						value: '$',
+					},
+                },
+                {
+                    key: 'percentage',
+                    title: 'Percentage',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return `${item.percentage}%`; 
+                        }
+                    }
+                },
+                {
+                    key: 'note',
+                    title: 'Note'
+                },
+                {
+                    key: 'amount',
+                    title: 'Goal amount',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return `$${((item.percentage / 100) * item.amount).toFixed(2)}`;
+                        }
+                    }
+                }
+            ]
+        });
     }
 }
 

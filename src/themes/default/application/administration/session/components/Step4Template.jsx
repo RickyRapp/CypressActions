@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver } from 'core/components';
 
-function Step4Template({ t, onNextStepClick, currentCount, session, sessionCertificates }) {
+function Step4Template({ t, onNextStepClick, currentCount, session, sessionCertificates, charity }) {
 	return (
 		<React.Fragment>
 			<div className="scanner__finish--card">
@@ -24,6 +24,11 @@ function Step4Template({ t, onNextStepClick, currentCount, session, sessionCerti
 					</div>
 					<div className="col col-lrg-12 card--primary card--med type--base type--wgt--regular u-mar--bottom--sml">
 						<div className="row">
+							<div className="col col-sml-6 u-mar--bottom--sml type--base type--wgt--medium">
+								Charity
+							</div>
+							<div className="col col-sml-6 u-mar--bottom--sml type--sml type--wgt--medium">{`${charity.label}`}</div>
+
 							<div className="col col-sml-6 u-mar--bottom--sml type--base type--wgt--medium">
 								Checks scanned
 							</div>
@@ -65,7 +70,7 @@ function Step4Template({ t, onNextStepClick, currentCount, session, sessionCerti
 							}
 
 							<div className="col col-sml-6 u-mar--bottom--sml">
-								<span className=" type--color--note">Grand total</span> (before insufficient funds)
+								<span className=" type--color--note">Total</span> (before fees)
 							</div>
 							<div className="col col-sml-6 u-mar--bottom--sml">
 								{sessionCertificates.length > 0 && <FormatterResolver
@@ -116,7 +121,8 @@ Step4Template.propTypes = {
 	onNextStepClick: PropTypes.func.isRequired,
 	session: PropTypes.object.isRequired,
 	currentCount: PropTypes.number.isRequired,
-	sessionCertificates: PropTypes.any
+	sessionCertificates: PropTypes.any,
+	charity: PropTypes.object.isRequired
 };
 
 export default defaultTemplate(Step4Template);

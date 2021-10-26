@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BasicFieldCheckbox, BasicInput, BasicRadio, NumericInputField } from 'core/components';
+import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BasicFieldCheckbox, BasicInput, /*BasicRadio,*/ NumericInputField } from 'core/components';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 //import propTypes from 'prop-types';
@@ -19,10 +19,10 @@ function GrantConfirmTemplate({ modalParams, t }) {
         <div className="modal__list__wrap">
 
             <h3 className="u-mar--bottom--med">{t('DASHBOARD.NEW_INCOME')}</h3>
-            <section className="u-mar--bottom--med">
+            {/* <section className="u-mar--bottom--med">
                 <BasicRadio label={'Yearly income'} value={'true'} field={form.$('isYearly')}/>
                 <BasicRadio label={'One-Time income'} value={'false'} field={form.$('isYearly')}/>
-            </section>
+            </section> */}
             <section className="u-mar--bottom--med">
                 <NumericInputField field={form.$('amount')} />
                 <NumericInputField field={form.$('percentage')} />
@@ -41,8 +41,8 @@ function GrantConfirmTemplate({ modalParams, t }) {
                     </section>
                 </div>}
             
-            <section className="u-mar--bottom--lrg">
-                <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore}/>
+            <section className="u-mar--bottom--lrg" style={{display: 'none'}}>
+                <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} value={null}/>
             </section>
             <div className="u-display--flex">
                 <BaasicButton

@@ -83,6 +83,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             currentCount={currentCount}
                             sessionCertificates={sessionCertificates}
                             session={session}
+                            charity={charity}
                         />
                     </div>}
             </form>

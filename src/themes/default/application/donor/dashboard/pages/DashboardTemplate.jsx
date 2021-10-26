@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, PageHeader } from 'core/layouts';
-import { BaasicButton, BaasicDropdown, BaasicModal, FormatterResolver } from 'core/components';
+import { BaasicButton, BaasicDropdown, BaasicModal, FormatterResolver, SimpleBaasicTable } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import PropTypes from 'prop-types';
 import {
@@ -34,9 +34,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		percentageMonth,
 		editIncomeOnClick,
 		yearlyGoal,
-		oneTimeGoal,
+		//oneTimeGoal,
+		oneTimeToGive,
 		showMoreOptions,
-		onShowMoreOptionsClick
+		onShowMoreOptionsClick,
+		tableStore
 	} = dashboardViewStore;
 	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -46,7 +48,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let dataContributions = [];
 	let chartDays = [];
 	if (donor) {
-		if (yearDropdownStore.value.id == 7) {
+		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
 			let counter = 0;
@@ -64,18 +66,35 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					}
 				}
 			}
-			for (let i = 0; i < 7; i++) {
-				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
-			}
-			for (let i = 0; i < 7; i++) {
-				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+			if(yearDropdownStore.value.id == -7) {
+				for (let i = 0; i < 7; i++) {
+					dataGrants.push(donor.donationsPerPastWeek[i].grants[0]);
+				}
+				for (let i = 0; i < 7; i++) {
+					dataContributions.push(donor.donationsPerPastWeek[i].contributions[0]);
+				}
+			} else {
+				for (let i = 0; i < 7; i++) {
+					dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+				}
+				for (let i = 0; i < 7; i++) {
+					dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+				}
 			}
 		}
-		if (yearDropdownStore.value.id === 30) {
-			for (let i = 0; i < 4; i++) {
+		if (yearDropdownStore.value.id === 30 || yearDropdownStore.value.id === -30) {
+			if(yearDropdownStore.value.id == -30) {
+				for (let i = 0; i < 4; i++) {
+					dataGrants.push(donor.donationsPerPastMonth[i].grants[0]);
+					dataContributions.push(donor.donationsPerPastMonth[i].contributions[0]);
+				}
+			} else {
+				for (let i = 0; i < 4; i++) {
 				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
 				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+				}
 			}
+			
 		}
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
@@ -86,13 +105,13 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	}
 
 	const grantsThisYear = dataGrants[dataGrants.length - 1];
-	const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
+	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
 
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -197,11 +216,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							<div className="dashboard-card__giving-goal">
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
-									<div style={{ 'width': `${((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) : 100}%` }} className={`dashboard-card__giving-goal--range--progress${((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) >= 95 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>{((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeGoalAmount + yearlyGoalAmount)) * 100).toFixed(2) : (100).toFixed(2)}%</div>
+									<div style={{ 'width': `${((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) : 100}%` }} className={`dashboard-card__giving-goal--range--progress${((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) >= 95 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>{((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100).toFixed(2) : (100).toFixed(2)}%</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
 										<FormatterResolver
-											item={{ amount: (oneTimeGoalAmount + yearlyGoalAmount) }}
+											item={{ amount: (oneTimeToGive + yearlyGoalAmount) }}
 											field='amount'
 											format={{ type: 'currency' }}
 										/></p>
@@ -329,7 +348,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									<div className="modal__list__amount--secondary">
 										<h2>
 											<FormatterResolver
-												item={{ amount: oneTime * (percentageMonth / 100) }}
+												item={{ amount: oneTimeToGive }} 
+												/*oneTime * (percentageMonth / 100) */
 												field='amount'
 												format={{ type: 'currency' }}
 											/>
@@ -339,33 +359,40 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								</section>
 								{oneTime > 0 ?
 									<section className="modal__list u-mar--bottom--xlrg">
-										<div className="type--base type--color--opaque">{percentageMonth}% of ${oneTime} income &nbsp;&nbsp; <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a></div>
+										<div className="type--base type--color--opaque">{percentageMonth !== 1 ? percentageMonth : null}% of ${oneTime} total one-time incomes &nbsp;&nbsp; </div> 
+										{/* <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a> */}
 									</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
-								<section className="modal__list modal__list--secondary">
-									{
-										oneTime > 0 ?
-											null :
-											<div className="u-mar--bottom--sml u-mar--right--sml">
-												<BaasicButton
-													className="btn btn--med btn--100 btn--primary--light"
-													label="New One Time Income"
-													onClick={() => newIncomeOnClick(false)}
-												/>
-											</div>
-									}
-									{
-										yearly > 0 ?
-											null :
-											<div className="u-mar--bottom--sml">
-												<BaasicButton
-													className="btn btn--med btn--100 btn--primary--light"
-													label="New Yearly Time Income"
-													onClick={() => newIncomeOnClick(true)}
-												/>
-											</div>
-									}
+								<section className="modal__list">
+									
+										{
+											oneTime < 0 ?
+												null :
+												<div className="u-mar--bottom--xlrg w--100--to-med">
+													<BaasicButton
+														className="btn btn--med btn--100 btn--primary--light"
+														label="New One Time Income"
+														onClick={() => newIncomeOnClick(false)}
+													/>
+												</div>
+										}
+									
+										{
+											yearly > 0 ?
+												null :
+												<div className="u-mar--bottom--xlrg w--100--to-med">
+													<BaasicButton
+														className="btn btn--med btn--100 btn--primary--light"
+														label="New Yearly Income"
+														onClick={() => newIncomeOnClick(true)}
+													/>
+												</div>
+										}
+									
 								</section>
+								
 							</div>
+							<h3 className="dashboard-card__title u-mar--bottom--med">One-Time Incomes This Year</h3>
+								<SimpleBaasicTable tableStore={tableStore} />
 						</div>
 					}
 				</div>

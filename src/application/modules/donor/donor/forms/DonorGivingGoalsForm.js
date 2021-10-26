@@ -48,7 +48,8 @@ export default class DonorGivingGoalsForm extends FormBase {
                 {
                     name: 'donorBankAccountId',
                     label: 'Choose bank account',
-                    rules: 'required|string'
+                    rules: 'string',
+                    value: null
                 },
             ]
         }
