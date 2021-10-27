@@ -17,6 +17,7 @@ import {
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
+import { localStorageProvider } from 'core/providers';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const {
@@ -338,7 +339,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									<div className="dashboard-card__giving-goal">
 										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 										<div className="dashboard-card__giving-goal--range">
-											<div style={{ 'width': '50%' }} className="dashboard-card__giving-goal--range--progress">Coming soon!</div>
+											<div style={{ 'width': `${ ((localStorageProvider.get('grantsThisYear')/localStorageProvider.get('totalGoal'))*100).toFixed(2) >= 100 ? 100 : ((localStorageProvider.get('grantsThisYear')/localStorageProvider.get('totalGoal'))*100).toFixed(2) }%`}} className="dashboard-card__giving-goal--range--progress">{((localStorage.getItem('grantsThisYear')/localStorage.getItem('totalGoal'))*100).toFixed(2) >= 100 ? 100 : ((localStorage.getItem('grantsThisYear')/localStorage.getItem('totalGoal'))*100).toFixed(2) }%</div>
 										</div>
 										{/* <div className="dashboard-card__giving-goal__label">
 											<a className="btn btn--sml btn--link">Manage</a>

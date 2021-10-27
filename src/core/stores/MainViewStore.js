@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { observable, action, computed } from 'mobx';
 import { BaseViewStore } from 'core/stores';
+import { localStorageProvider } from 'core/providers';
 
 class NavigationOptions {
     @observable loading = false;
@@ -128,6 +129,13 @@ export default class MainViewStore extends BaseViewStore {
 
         await baasicApp.membershipModule.login.logout(token.token, token.type);
         authStore.resetSignInRedirect();
+
+        let keys = localStorageProvider.getKeys();
+        keys.forEach(key => {
+            if(key !== 'apiVersion' && key !== 'baasic-message-bus-thedonorsfund')
+                localStorageProvider.remove(key);
+        });
+        
         this.rootStore.navigateLogin();
     }
 }

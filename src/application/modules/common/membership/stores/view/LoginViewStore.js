@@ -3,6 +3,7 @@ import { LoginForm } from 'application/common/membership/forms';
 import { BaseViewStore } from 'core/stores';
 import { RouterState } from 'mobx-state-router';
 import { BasicLookupsService } from 'application/common/lookup/basic-lookups/services';
+import { localStorageProvider } from 'core/providers';
 class LoginViewStore extends BaseViewStore {
 	routes = {
 		forgotPassword: () => this.rootStore.routerStore.goTo('master.public.membership.password-recovery'),
@@ -28,6 +29,11 @@ class LoginViewStore extends BaseViewStore {
 
 	@action async login({ username, password }) {
 		this.loaderStore.suspend();
+		let keys = localStorageProvider.getKeys();
+        keys.forEach(key => {
+            if(key !== 'apiVersion' && key !== 'baasic-message-bus-thedonorsfund')
+                localStorageProvider.remove(key);
+        });
 		if (this.rootStore.authStore.isAuthenticated) {
 			await this.rootStore.viewStore.logout();
 		}

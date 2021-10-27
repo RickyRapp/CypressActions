@@ -193,8 +193,8 @@ class Step3Template extends React.Component {
 										Insufficient checks
 									</span>
 									<span className="type--base type--wgt--bold u-push">
-										{sessionCertificates.length > 0 && !sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-											item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+										{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+											item={{ amount: 0 }}
 											field='amount'
 											format={{ type: 'currency' }}
 										/>}

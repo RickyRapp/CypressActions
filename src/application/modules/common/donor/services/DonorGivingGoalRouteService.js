@@ -24,6 +24,10 @@ class DonorGivingCardSettingRouteService extends BaseRouteService {
   activateCard(resource) {
     return super.update(this.base + '/activate-card', resource);
   }
+  
+  delete(resource) {
+    return super.delete(this.base + '/{id}', resource);
+  }
 }
 
 export default DonorGivingCardSettingRouteService;

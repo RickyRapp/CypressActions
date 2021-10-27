@@ -1,5 +1,6 @@
 import { DonorGivingCardActivationForm, DonorGivingGoalsForm } from 'application/donor/donor/forms';
 import { ModalParams } from 'core/models';
+import { localStorageProvider } from 'core/providers';
 import { BaasicDropdownStore, BaseViewStore, TableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
@@ -27,7 +28,16 @@ class DashboardViewStore extends BaseViewStore {
 
         this.createTableStore();
     }
+    @action.bound 
+    async createOneTimeIncomeTable(){
+        localStorageProvider.add('totalGoal', parseFloat(this.oneTimeToGive + (this.yearly * (this.percentageYear / 100))))
+        const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({ donorId: this.donorId });
 
+        this.tableStore.setData(resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear()));
+        if (!this.tableStore.dataInitialized) {
+            this.tableStore.dataInitialized = true;
+        }
+    }
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {
@@ -39,11 +49,8 @@ class DashboardViewStore extends BaseViewStore {
             ]);
             this.incomeType = await this.rootStore.application.lookup.incomeTypeStore.find();
 
-            const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({ donorId: this.donorId });
-            this.tableStore.setData(resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear()));
-            if (!this.tableStore.dataInitialized) {
-                this.tableStore.dataInitialized = true;
-            }
+            const resp = await this.rootStore.application.donor.donorStore.donorGivingGoalService.find({ donorId: this.donorId }); 
+            
             try {
                 this.oneTimeGoal = resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear());
                 this.oneTime = this.oneTimeGoal.map(item => item.amount).reduce((a, b) => a + b);
@@ -66,6 +73,8 @@ class DashboardViewStore extends BaseViewStore {
             catch (e) {
 
             }
+            this.createOneTimeIncomeTable();
+
         }
     }
 
@@ -75,7 +84,7 @@ class DashboardViewStore extends BaseViewStore {
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Week', id: -7 }, { name: 'Last Month', id: -30 });
+            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Week', id: -7 }, { name: 'Last Month', id: -30 }, { name: 'All Time', id: 1 });
             this.yearDropdownStore.setItems(donations);
             //this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
             //this.yearDropdownStore.setItems({name: 'Past Week', id: uuid()});
@@ -104,6 +113,13 @@ class DashboardViewStore extends BaseViewStore {
     @action.bound
     onShowMoreOptionsClick() {
         this.showMoreOptions = !this.showMoreOptions;
+    }
+
+    @action.bound
+    noGivingGoals() {
+        this.showMoreOptions = true;
+        const card = document.getElementById('giving-goals-card');
+        card.scrollIntoView();
     }
 
     @action.bound
@@ -155,6 +171,7 @@ class DashboardViewStore extends BaseViewStore {
                     }
 
                     this.rootStore.notificationStore.success('Successfully added giving goal');
+                    this.createOneTimeIncomeTable();
                 } catch ({ statusCode, data }) {
 
                     switch (statusCode) {
@@ -195,6 +212,7 @@ class DashboardViewStore extends BaseViewStore {
                     }
 
                     this.rootStore.notificationStore.success('Successfully updated giving goal');
+                    this.createOneTimeIncomeTable();
                 } catch ({ statusCode, data }) {
 
                     switch (statusCode) {
@@ -215,9 +233,9 @@ class DashboardViewStore extends BaseViewStore {
         form.$('note').value = goal.note;
         form.$('autoMonthlyContribution').value = goal.autoMonthlyContribution;
         form.$('autoDeduction').value = goal.autoDeduction;
-        form.$('donorBankAccountId').value = goal.donorBankAccountId;
+        //form.$('donorBankAccountId').value = goal.donorBankAccountId;
 
-        this.givingGoalsModalParams.open({ form: form, bankAccountDropdownStore: this.bankAccountDropdownStore });
+        this.givingGoalsModalParams.open({ form: form }); //, bankAccountDropdownStore: this.bankAccountDropdownStore });
     }
 
     createBankAccountDropdownStore() {
@@ -281,9 +299,29 @@ class DashboardViewStore extends BaseViewStore {
                             return `$${((item.percentage / 100) * item.amount).toFixed(2)}`;
                         }
                     }
-                }
-            ]
+                },
+            ],
+            actions: {
+                onEdit: (column) => this.onEditGoal(column),
+                onDelete: async (column) => await this.onDeleteGoal(column)
+            },
         });
+    }
+    async onDeleteGoal(goal) {
+        try {
+            await this.rootStore.application.donor.donorStore.donorGivingGoalService.delete({id: goal.id});
+            this.rootStore.notificationStore.success('Successfully deleted giving goal');
+            this.createOneTimeIncomeTable();
+        } catch(e) {
+            this.rootStore.notificationStore.error('Giving goal could not be deleted');
+        }
+    }
+    onEditGoal(goal) {
+        try {
+            this.editIncomeOnClick(goal);
+        } catch(e) {
+            this.rootStore.notificationStore.error('Giving goal could not be edited');
+        }
     }
 }
 

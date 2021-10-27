@@ -16,6 +16,8 @@ import { AccountManager } from 'application/donor/donor/components';
 import { DonorGivingCardActivationTemplate } from '../../donor/components';
 import { Transaction } from 'application/donor/activity/transaction/components';
 import { GivingGoalsTemplate } from '../components';
+import { localStorageProvider } from 'core/providers';
+import moment from 'moment';
 
 function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const {
@@ -38,16 +40,19 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		oneTimeToGive,
 		showMoreOptions,
 		onShowMoreOptionsClick,
-		tableStore
+		tableStore,
+		noGivingGoals
 	} = dashboardViewStore;
 	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-	//let categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	let categoriesYears = [];
 	let dataGrants = [];
 	let dataContributions = [];
 	let chartDays = [];
-	if (donor) {
+	//let isMultipleYears = false;
+
+	function checkWeek(donor) {
 		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
@@ -66,7 +71,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					}
 				}
 			}
-			if(yearDropdownStore.value.id == -7) {
+			if (yearDropdownStore.value.id == -7) {
 				for (let i = 0; i < 7; i++) {
 					dataGrants.push(donor.donationsPerPastWeek[i].grants[0]);
 				}
@@ -82,20 +87,23 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				}
 			}
 		}
+	}
+	function checkMonth(donor) {
 		if (yearDropdownStore.value.id === 30 || yearDropdownStore.value.id === -30) {
-			if(yearDropdownStore.value.id == -30) {
+			if (yearDropdownStore.value.id == -30) {
 				for (let i = 0; i < 4; i++) {
 					dataGrants.push(donor.donationsPerPastMonth[i].grants[0]);
 					dataContributions.push(donor.donationsPerPastMonth[i].contributions[0]);
 				}
 			} else {
 				for (let i = 0; i < 4; i++) {
-				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
-				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+					dataGrants.push(donor.donationsPerMonth[i].grants[0]);
+					dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
 				}
 			}
-			
 		}
+	}
+	function checkYear(donor) {
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
 		}
@@ -103,15 +111,44 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
+	if (donor) {
+		checkWeek(donor);
+		checkMonth(donor);
+		checkYear(donor);
+		
+		if (yearDropdownStore.value.id === 1) {
+			const today = moment();
+			const minDate = moment(donor.minDate);
+			if(today.diff(minDate, 'days') < 7) {
+				yearDropdownStore.value.id = 7;
+				checkWeek(donor);
+			} else if(today.diff(minDate, 'days') < 31) {
+				yearDropdownStore.value.id = 30;
+				checkMonth(donor);
+			} else if(today.diff(minDate, 'days') < 366) {
+				yearDropdownStore.value.id = donor.donationsPerYear[0].year;
+				checkYear(donor);
+			} else {
+				let multipleYears = [];
+				for (let i = 0; i < donor.donationsPerYear.length; i++) {
+					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1], contributions: donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] });
+					categoriesYears.push(donor.donationsPerYear[i].year);
+					dataGrants.push(multipleYears[i].grants);
+					dataContributions.push(multipleYears[i].contributions);
+				}
+			}
+		}
+	}
 
 	const grantsThisYear = dataGrants[dataGrants.length - 1];
+	localStorageProvider.add('grantsThisYear', grantsThisYear);
 	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
 
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : categoriesWeeks))} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -216,7 +253,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							<div className="dashboard-card__giving-goal">
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
-									<div style={{ 'width': `${((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) : 100}%` }} className={`dashboard-card__giving-goal--range--progress${((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) >= 95 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>{((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100).toFixed(2) : (100).toFixed(2)}%</div>
+									<div 
+									style={{ 'width': `${((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) : 100}%` }}
+									className={`dashboard-card__giving-goal--range--progress${((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) >= 95 ||  (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
+										{((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100) <= 100 ? ((grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100).toFixed(2) + '%' : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : (100).toFixed(2) + '%')}
+									</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
 										<FormatterResolver
@@ -314,7 +355,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					)}
-				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med" id="giving-goals-card">
 					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
 						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
 						{showMoreOptions ? 'HIDE GIVING GOALS' : 'SHOW GIVING GOALS'}
@@ -348,7 +389,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									<div className="modal__list__amount--secondary">
 										<h2>
 											<FormatterResolver
-												item={{ amount: oneTimeToGive }} 
+												item={{ amount: oneTimeToGive }}
 												/*oneTime * (percentageMonth / 100) */
 												field='amount'
 												format={{ type: 'currency' }}
@@ -359,40 +400,40 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								</section>
 								{oneTime > 0 ?
 									<section className="modal__list u-mar--bottom--xlrg">
-										<div className="type--base type--color--opaque">{percentageMonth !== 1 ? percentageMonth : null}% of ${oneTime} total one-time incomes &nbsp;&nbsp; </div> 
+										<div className="type--base type--color--opaque">{percentageMonth !== 1 ? percentageMonth : null}% of ${oneTime} total one-time incomes &nbsp;&nbsp; </div>
 										{/* <a onClick={() => editIncomeOnClick(oneTimeGoal)}>Manage</a> */}
 									</section> : <section className="modal__list u-mar--bottom--lrg"></section>}
 								<section className="modal__list">
-									
-										{
-											oneTime < 0 ?
-												null :
-												<div className="u-mar--bottom--xlrg w--100--to-med">
-													<BaasicButton
-														className="btn btn--med btn--100 btn--primary--light"
-														label="New One Time Income"
-														onClick={() => newIncomeOnClick(false)}
-													/>
-												</div>
-										}
-									
-										{
-											yearly > 0 ?
-												null :
-												<div className="u-mar--bottom--xlrg w--100--to-med">
-													<BaasicButton
-														className="btn btn--med btn--100 btn--primary--light"
-														label="New Yearly Income"
-														onClick={() => newIncomeOnClick(true)}
-													/>
-												</div>
-										}
-									
+
+									{
+										oneTime < 0 ?
+											null :
+											<div className="u-mar--bottom--xlrg u-mar--right--sml">
+												<BaasicButton
+													className="btn btn--med btn--100 btn--primary--light"
+													label="New One Time Income"
+													onClick={() => newIncomeOnClick(false)}
+												/>
+											</div>
+									}
+
+									{
+										yearly > 0 ?
+											null :
+											<div className="u-mar--bottom--xlrg w--100--to-med">
+												<BaasicButton
+													className="btn btn--med btn--100 btn--primary--light"
+													label="New Yearly Income"
+													onClick={() => newIncomeOnClick(true)}
+												/>
+											</div>
+									}
+
 								</section>
-								
+
 							</div>
 							<h3 className="dashboard-card__title u-mar--bottom--med">One-Time Incomes This Year</h3>
-								<SimpleBaasicTable tableStore={tableStore} />
+							<SimpleBaasicTable tableStore={tableStore} />
 						</div>
 					}
 				</div>

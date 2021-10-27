@@ -121,6 +121,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			
 			if(isExistingGrant) {
 				this.isGrantAgain = true;
+				this.rootStore.notificationStore.warning('Please wait... Charity info is loading')
 				const grant = (localStorageProvider.get('ExistingGrantObject'));
 				localStorageProvider.remove('ExistingGrantObject');
 				localStorageProvider.remove('ExistingGrant');

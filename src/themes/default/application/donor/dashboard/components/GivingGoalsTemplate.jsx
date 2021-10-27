@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaasicButton, BaasicFieldDropdown, BaasicFormControls, BasicFieldCheckbox, BasicInput, /*BasicRadio,*/ NumericInputField } from 'core/components';
+import { BaasicButton, BaasicFormControls, BasicFieldCheckbox, BasicInput, /*BasicRadio,*/ NumericInputField } from 'core/components';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 //import propTypes from 'prop-types';
@@ -13,7 +13,7 @@ import { defaultTemplate } from 'core/hoc';
 
 function GrantConfirmTemplate({ modalParams, t }) {
     const {
-        data: {form, bankAccountDropdownStore}
+        data: { form } //bankAccountDropdownStore
     } = modalParams;
     return (
         <div className="modal__list__wrap">
@@ -41,9 +41,9 @@ function GrantConfirmTemplate({ modalParams, t }) {
                     </section>
                 </div>}
             
-            <section className="u-mar--bottom--lrg" style={{display: 'none'}}>
+            {/* <section className="u-mar--bottom--lrg" style={{display: 'none'}}>
                 <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} value={null}/>
-            </section>
+            </section> */}
             <div className="u-display--flex">
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--ghost"
