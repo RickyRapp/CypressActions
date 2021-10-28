@@ -50,7 +50,7 @@
 		background-image: none !important;
 
 		border-radius: $radius-base;
-		border-color: color($white blackness(+30%));
+		border-color: color($color-text a(0.5));
 
 		&:hover {
 			background-color: $white;

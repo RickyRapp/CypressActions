@@ -49,7 +49,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 										<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
 									</div>
 									<div className="col col-sml-12 col-lrg-6 col-xxlrg-6">
-										<BaasicDropdown store={transactionTypeStore} />
+										<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
 									</div>
 								</TableFilter>
 							</div>
@@ -58,7 +58,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 					{
 						hidePeriod ? null :
 							<div className="col col-sml-12 col-lrg-6 col-xxlrg-3">
-								<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} />
+								<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} className="input--dropdown--secondary" />
 							</div>
 					}
 

@@ -177,7 +177,6 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						icon="u-icon u-icon--edit u-icon--base"
-						onlyIconClassName="u-mar--right--tny"
 						label="SESSION.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -186,7 +185,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--close u-icon--base"
+						icon="u-icon u-icon--close u-icon--base u-mar--left--sml"
 						label="SESSION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
@@ -196,8 +195,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						authorization="theDonorsFundSessionSection.read"
 						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--base"
-						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--preview u-icon--base u-mar--left--sml"
 						label="SESSION.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}

@@ -85,7 +85,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--delete u-icon--base" //TODO: change with redirect icon
+						icon="u-icon u-icon--delete u-icon--base u-mar--left u-mar--left--sml" //TODO: change with redirect icon
 						label="GRANT.LIST.BUTTON.DELETE"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

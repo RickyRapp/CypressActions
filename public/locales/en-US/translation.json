@@ -2566,7 +2566,8 @@
                 "CREATED_BY_LABEL": "Created by"
             },
             "BUTTON": {
-                "EDIT": "Edit"
+                "EDIT": "Edit",
+                "PREVIEW": "Preview"
             },
             "EMPTY_STATE": {
                 "TITLE": "No scanned certificates"

@@ -22,7 +22,6 @@ function DefaultContent({
     content = null,
     type = 'button',
     className,
-    classNameExtend,
     onlyIconClassName,
     onAction,
     label,
@@ -34,13 +33,11 @@ function DefaultContent({
             {isSome(content) ? (
                 content
             ) : (
-                    <div className={`u-display--flex u-display--flex--align--center ${classNameExtend ? classNameExtend : ""}`}>
-                        <span className={icon ? onlyIconClassName : ""}>
-                            {!onlyIcon && t(label)}
-                        </span>
-                        {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName ? onlyIconClassName : ""}`} /> : <i className={`${iconName(icon)}`} />}
-                    </div>
-                )}
+                <React.Fragment>
+                    {!onlyIcon && t(label)}
+                    {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName ? onlyIconClassName : ""}`} /> : icon ? <i className={`${iconName(icon)} u-mar--left--sml`} /> : null}
+                </React.Fragment>
+            )}
         </button>
     ) : null;
 }
@@ -51,7 +48,6 @@ DefaultContent.propTypes = {
     content: PropTypes.any,
     type: PropTypes.string,
     className: PropTypes.string,
-    classNameExtend: PropTypes.string,
     onlyIconClassName: PropTypes.string,
     onAction: PropTypes.func,
     label: PropTypes.string,

@@ -82,7 +82,7 @@ function renderActions({ item, actions, authorization }) {
 						authorization={authorization ? authorization.update : null}
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--unlocked u-icon--base"
+						icon="u-icon u-icon--unlock u-icon--base"
 						label="Unlock"
 						onlyIcon={true}
 						onClick={() => onUnlock(item)}

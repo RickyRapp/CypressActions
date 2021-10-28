@@ -20,6 +20,7 @@ function TableFilterTemplate(props) {
 		hideOnFetch,
 		debounce,
 		colClassName,
+		btnClassName
 	} = props;
 
 	const debounceCallback = _.debounce(queryUtility.fetch, debounce);
@@ -90,7 +91,7 @@ function TableFilterTemplate(props) {
 				)}
 			</div>
 			<div className={`${filterClassName || 'u-mar--top--sml'}`.trim()}>
-				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled)}
+				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled, btnClassName)}
 			</div>
 		</React.Fragment>
 	);
@@ -114,6 +115,7 @@ TableFilterTemplate.propTypes = {
 	hideOnFetch: PropTypes.bool,
 	debounce: PropTypes.number,
 	colClassName: PropTypes.string,
+	btnClassName: PropTypes.string
 };
 
 TableFilterTemplate.defaultProps = {
@@ -125,9 +127,10 @@ TableFilterTemplate.defaultProps = {
 	fetchDisabled: false,
 	hideOnFetch: false,
 	debounce: 300,
+	btnClassName: "col col-sml-6 col-lrg-3 col-xlrg-2"
 };
 
-function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled) {
+function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled, btnClassName) {
 	if (!filters || React.Children.count(filters) === 0) return null;
 
 	return (
@@ -145,7 +148,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					{!nextToSearch && (
 						<div className="row row--form u-mar--top--sml u-mar--bottom--sml">
 
-							<div className="col col-sml-6 col-lrg-3">
+							<div className={btnClassName}>
 								<BaasicButton
 									className="btn btn--100 btn--primary"
 									label="GRID.FILTER.SEARCH_BUTTON"
@@ -153,7 +156,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 									disabled={fetchDisabled}
 								/>
 							</div>
-							<div className="col col-sml-6 col-lrg-3">
+							<div className={btnClassName}>
 								<BaasicButton
 									className="btn btn--100 btn--ghost"
 									label="GRID.FILTER.CLEAR_BUTTON"

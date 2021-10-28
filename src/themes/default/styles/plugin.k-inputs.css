@@ -43,6 +43,10 @@
 
 .k-dropdown .k-dropdown-wrap {
 	margin-top: 0;
+	
+	&.k-state-focused {
+		border-radius: $radius-base !important;
+	}
 }
 
 .k-list .k-item {
@@ -66,7 +70,9 @@
 .react-select__control {
 	min-height: 60px !important;
 
-	&:hover, &:focus, &--is-focused {
+	&:hover,
+	&:focus,
+	&--is-focused {
 		border-color: $color-primary !important;
 		box-shadow: 0 0 0 1px $color-primary !important;
 	}

@@ -27,7 +27,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
     return (
         <div>
             <ListContent>
-                <h3 className="u-mar--bottom--tny">
+                <h3 className="u-mar--bottom--sml">
                     {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
                     {maxAddressesEntered ?
                         <span className="u-icon u-icon--lock u-icon--base u-mar--left--tny" />
@@ -35,7 +35,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--unlocked u-icon--base'
+                            icon='u-icon u-icon--unlock u-icon--base u-mar--left--tny'
                             label='ADDRESS.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openAddressModal()}>

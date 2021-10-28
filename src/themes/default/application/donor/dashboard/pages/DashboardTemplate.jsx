@@ -314,7 +314,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									{donor.hasCardForActivation && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
-												className="btn btn--med btn--med--100 btn--tertiary "
+												className="btn btn--med btn--tertiary "
 												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.ACTIVATE_CARD"
 												onClick={activateCardOnClick}
@@ -324,7 +324,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									{!donor.isOrderCertificatesMade && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
-												className="btn btn--med btn--med--100 btn--tertiary "
+												className="btn btn--med btn--tertiary "
 												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.ORDER_CERTIFICATES"
 												onClick={orderBookletsOnClick}
@@ -334,7 +334,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									{!donor.isContributionMade && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
-												className="btn btn--med btn--med--100 btn--tertiary "
+												className="btn btn--med btn--tertiary "
 												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.NEW_CONTRIBUTION"
 												onClick={newContributionOnClick}
@@ -344,7 +344,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									{!donor.isGrantMade && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton
-												className="btn btn--med btn--med--100 btn--tertiary "
+												className="btn btn--med btn--tertiary "
 												icon="u-icon u-icon--arrow-forward u-icon--med"
 												label="DASHBOARD.BUTTON.NEW_GRANT"
 												onClick={newGrantOnClick}

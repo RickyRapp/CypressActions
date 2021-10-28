@@ -65,7 +65,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <BasicInput field={form.$('email')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4">
                         <BasicInput field={form.$('description')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-6">

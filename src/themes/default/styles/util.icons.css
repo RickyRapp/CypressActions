@@ -280,6 +280,14 @@
 				outline: 0;
 				background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $color-note);
 			}
+			
+			&--primary {
+				background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $color-note);
+			}
+		}
+		
+		&--money {
+			background-image: svg-load('../styles/postcss-svg/money.svg', stroke: $color-note);
 		}
 
 		&--check {
@@ -480,13 +488,13 @@
 		}
 
 		&--edit {
-			background-image: svg-load('../styles/postcss-svg/edit.svg', fill: $color-primary);
+			background-image: svg-load('../styles/postcss-svg/edit.svg', stroke: $color-primary);
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/edit.svg', fill: $color-primary);
+				background-image: svg-load('../styles/postcss-svg/edit.svg', stroke: $color-primary);
 			}
 		}
 

@@ -6,7 +6,8 @@
 	/**
      * Button base
     */
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	vertical-align: middle;
 
 	touch-action: manipulation;

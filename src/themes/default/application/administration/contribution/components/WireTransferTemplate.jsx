@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const WireTransferTemplate = ({ bankAccountDropdownStore, field, openBankAccountModal = null }) => {
     const addButton = <BaasicButton
         className="btn btn--icon"
-        icon='u-icon u-icon--unlocked u-icon--base' //TODO replace with add icon
+        icon='u-icon u-icon--unlock u-icon--base' //TODO replace with add icon
         label='CONTRIBUTION.CREATE.FIELDS.ADD_BANK_ACCOUNT_LABEL'
         onlyIcon={true}
         onClick={openBankAccountModal}>

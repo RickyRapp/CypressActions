@@ -10,7 +10,7 @@
         align-items: center;
         
         background-color: transparent;
-        border: 1px solid $grey-2;
+        border: 1px solid color($color-text a(0.4));
         
         .k-input {
             height: 100%;
