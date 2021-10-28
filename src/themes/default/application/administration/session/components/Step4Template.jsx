@@ -53,7 +53,7 @@ function Step4Template({ t, onNextStepClick, currentCount, session, sessionCerti
 										</div>
 										<div className="col col-sml-6 u-mar--bottom--sml">
 											{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-												item={{ amount: sessionCertificates.map(c => c.certificateValue).reduce((a, b) => a + b) }}
+												item={{ amount: sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) }}
 												field='amount'
 												format={{ type: 'currency' }}
 											/>}

@@ -194,7 +194,7 @@ class Step3Template extends React.Component {
 									</span>
 									<span className="type--base type--wgt--bold u-push">
 										{sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-											item={{ amount: 0 }}
+											item={{ amount: sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) }}
 											field='amount'
 											format={{ type: 'currency' }}
 										/>}

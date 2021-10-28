@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
 import { SessionService } from 'application/administration/session/services';
@@ -312,6 +312,13 @@ class SessionViewStore extends BaseEditViewStore {
         this.form.$('city').set(address.city);
         this.form.$('state').set(address.state);
         this.form.$('zipCode').set(address.zipCode);
+    }
+    @computed get insufficientAmount() {
+        /*sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+											item={{ amount: 0 }}
+											field='amount'
+											format={{ type: 'currency' }} */
+        this.sessionCertificates.length > 0 ? this.sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) : 0;
     }
 }
 
