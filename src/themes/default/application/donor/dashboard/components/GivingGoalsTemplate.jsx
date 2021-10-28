@@ -5,10 +5,10 @@ import { defaultTemplate } from 'core/hoc';
 //import propTypes from 'prop-types';
 
 /*Grant acknowledgment name: ${this.grantAcknowledgmentName}
-		\n\r
-		Recepient charity: ${this.charityDropdownStore.value.name}
-		\n\r
-		Given amount: $${this.form.$('amount').$value}`), async () => {
+        \n\r
+        Recepient charity: ${this.charityDropdownStore.value.name}
+        \n\r
+        Given amount: $${this.form.$('amount').$value}`), async () => {
  */
 
 function GrantConfirmTemplate({ modalParams, t }) {
@@ -24,23 +24,25 @@ function GrantConfirmTemplate({ modalParams, t }) {
                 <BasicRadio label={'One-Time income'} value={'false'} field={form.$('isYearly')}/>
             </section> */}
             <section className="u-mar--bottom--med">
-                <NumericInputField field={form.$('amount')} />
+                <div className="u-mar--bottom--med">
+                    <NumericInputField field={form.$('amount')} />
+                </div>
                 <NumericInputField field={form.$('percentage')} />
             </section>
-            {form.$('isYearly').value == 'true' ? null : 
-            <section className="u-mar--bottom--med">
-                <BasicInput field={form.$('note')} />
-            </section>
+            {form.$('isYearly').value == 'true' ? null :
+                <section className="u-mar--bottom--med">
+                    <BasicInput field={form.$('note')} />
+                </section>
             }
             {form ? null : <div>
-                    <section className="u-mar--bottom--med">
-                        <BasicFieldCheckbox field={form.$('autoMonthlyContribution')} label="Set up automatic monthly contribution?" />
-                    </section>
-                    <section className="u-mar--bottom--med">
-                        <BasicFieldCheckbox field={form.$('autoDeduction')} label="Automatically deduct from my bank account?"/>
-                    </section>
-                </div>}
-            
+                <section className="u-mar--bottom--med">
+                    <BasicFieldCheckbox field={form.$('autoMonthlyContribution')} label="Set up automatic monthly contribution?" />
+                </section>
+                <section className="u-mar--bottom--med">
+                    <BasicFieldCheckbox field={form.$('autoDeduction')} label="Automatically deduct from my bank account?" />
+                </section>
+            </div>}
+
             {/* <section className="u-mar--bottom--lrg" style={{display: 'none'}}>
                 <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} value={null}/>
             </section> */}
