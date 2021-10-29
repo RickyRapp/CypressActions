@@ -2979,7 +2979,8 @@
             "DEPOSIT_FUNDS": "Deposit Funds",
             "CONTRIBUTE": "Deposit"
         },
-        "NEW_INCOME": "Select your option"
+        "NEW_YEARLY_INCOME": "New yearly income",
+        "NEW_ONETIME_INCOME": "New one-time income"
     },
     "FIRST_LOGIN_EXISTING_DONOR": {
         "MONTH_LABEL": "Month",

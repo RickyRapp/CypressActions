@@ -12,7 +12,8 @@ import {
 	ChartLegend,
 	ChartSeries,
 	ChartSeriesItem,
-	ChartSeriesLabels,
+	ChartSeriesItemTooltip,
+	//ChartSeriesLabels,
 	ChartTitle,
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
@@ -41,19 +42,19 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let dataDonut = [];
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
-			return { charityType: c.charityType.name, value: c.amount, color: c.color };
+			return { charityType: c.charityType.name, value: c.amount, color: c.color, legend: `${c.charityType.name} ${summaryData ? ((c.amount/summaryData.totalMoneyGiven)*100).toFixed(2) + '%' : c.charityType.name}` };
 		});
 	}
 	for (let i = 0; i < dataDonut.length; i++) {
 		dataDonut[i].color = colors[i];
 	}
 
-	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
+	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
 	const DonutChartContainer = () => {// eslint-disable-line
 		return (
 			<Chart>
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
-				<ChartLegend position="bottom" visible={true} />
+				<ChartLegend position="right" visible={true} />
 				<ChartArea background="none" />
 				<ChartTooltip render={({ point }) => (
 					point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)}
@@ -64,11 +65,14 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 						type="donut"
 						startAngle={150}
 						data={dataDonut}
-						categoryField="charityType"
+						categoryField="legend"
 						field="value"
 						colorField="color"
+						border={'1px'}
 					>
-						<ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} />
+						{/* $${point.value.toFixed(2)} */}
+						<ChartSeriesItemTooltip render={({point}) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
+						{/* <ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} /> */}
 					</ChartSeriesItem>
 				</ChartSeries>
 			</Chart>

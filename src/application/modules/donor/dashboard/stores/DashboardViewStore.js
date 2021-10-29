@@ -37,6 +37,8 @@ class DashboardViewStore extends BaseViewStore {
         if (!this.tableStore.dataInitialized) {
             this.tableStore.dataInitialized = true;
         }
+        this.oneTimeGoal = resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear());
+        this.oneTimeToGive = this.oneTimeGoal.map(item => (item.amount * (item.percentage/100))).reduce((a, b) => a + b);
     }
     @action.bound
     async onInit({ initialLoad }) {

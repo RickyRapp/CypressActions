@@ -22,7 +22,6 @@ function GrantConfirmTemplate({ modalParams, t }) {
         purpose,
         onCancel
     } = modalParams.data;
-
     return (
         <div className="modal__list__wrap">
 
@@ -53,15 +52,19 @@ function GrantConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount">{date}</div>
             </section>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('GRANT.CONFIRM.RECURRING')}</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount">{recurring}</div>
-            </section>
+            {
+                form.$('isRecurring').value && 
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('GRANT.CONFIRM.RECURRING')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{recurring}</div>
+                </section>
+            }
+            
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.PURPOSE')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{purpose.name}</div>
+                <div className="modal__list__amount--secondary">{purpose.name} {form.$('purposeNote').value.length > 0 ? ` - ${form.$('purposeNote').value}` : null}</div>
             </section>
 
             <div className="u-display--flex">

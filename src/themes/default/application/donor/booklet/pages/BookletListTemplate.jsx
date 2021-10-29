@@ -7,7 +7,7 @@ import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
 const BookletListTemplate = function({ bookletViewStore }) {
 	const { routes, tableStore, queryUtility, authorization, denominationTypeDropdownStore,
-	bookletStatusDropdownStore, bookletTypeDropdownStore } = bookletViewStore;
+	bookletStatusDropdownStore } = bookletViewStore;
 
 	return (
 		<ApplicationListLayout store={bookletViewStore} authorization={authorization}>
@@ -54,7 +54,7 @@ const BookletListTemplate = function({ bookletViewStore }) {
 									placeholder="BOOKLET.LIST.FILTER.BOOKLET_STATUS_PLACEHOLDER"
 								/>
 							</div>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+							{/* <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
 								<BaasicDropdown
 									store={bookletTypeDropdownStore}
 									placeholder="BOOKLET.LIST.FILTER.BOOKLET_TYPE_PLACEHOLDER"
@@ -68,7 +68,7 @@ const BookletListTemplate = function({ bookletViewStore }) {
 									onChange={event => (queryUtility.filter.donorsName = event.target.value)}
 									placeholder="BOOKLET.LIST.FILTER.DONORS_NAME"
 								/>
-							</div>
+							</div> */}
 						</TableFilter>
 					</div>
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />

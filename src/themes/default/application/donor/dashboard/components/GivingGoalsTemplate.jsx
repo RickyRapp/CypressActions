@@ -18,7 +18,7 @@ function GrantConfirmTemplate({ modalParams, t }) {
     return (
         <div className="modal__list__wrap">
 
-            <h3 className="u-mar--bottom--med">{t('DASHBOARD.NEW_INCOME')}</h3>
+            <h3 className="u-mar--bottom--med">{form.$('isYearly').value == 'true' ? t('DASHBOARD.NEW_YEARLY_INCOME'):t('DASHBOARD.NEW_ONETIME_INCOME')}</h3>
             {/* <section className="u-mar--bottom--med">
                 <BasicRadio label={'Yearly income'} value={'true'} field={form.$('isYearly')}/>
                 <BasicRadio label={'One-Time income'} value={'false'} field={form.$('isYearly')}/>
