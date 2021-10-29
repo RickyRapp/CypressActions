@@ -118,6 +118,14 @@
 			order: 2;
 		}
 
+		&--goal {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+
+			color: $color-text;
+		}
+
 		&__label {
 			@media (--screen-to-sml) {
 				margin-bottom: calc($unit * 2);
@@ -139,6 +147,7 @@
 		}
 
 		&--range {
+			position: relative;
 			height: 54px;
 			padding: $unit;
 
