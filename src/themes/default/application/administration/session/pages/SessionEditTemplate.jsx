@@ -27,7 +27,6 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
         editBlankSessionCertificateModal,
         onCharitySelected,
         advancedSearchModal } = sessionEditViewStore;
-
     return (
         <EditFormLayout
             store={sessionEditViewStore}
@@ -127,7 +126,11 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                         {t('SESSION.EDIT.TOTAL_COUNT')} {item && item.grants.length}
                     </div>
                     <div className="form__group col col-lrg-12">
-                        {t('SESSION.EDIT.TOTAL_CHECKS_ON_HOLD')} {item && item.amount}
+                        {t('SESSION.EDIT.TOTAL_CHECKS_ON_HOLD')} <FormatterResolver
+                            item={{ amount: item && item.totalPending }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
                     </div>
                 </div>
             </div>

@@ -38,7 +38,7 @@ class DashboardViewStore extends BaseViewStore {
             this.tableStore.dataInitialized = true;
         }
         this.oneTimeGoal = resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear());
-        this.oneTimeToGive = this.oneTimeGoal.map(item => (item.amount * (item.percentage/100))).reduce((a, b) => a + b);
+        this.oneTimeToGive = this.oneTimeGoal.length > 0 ? this.oneTimeGoal.map(item => (item.amount * (item.percentage/100))).reduce((a, b) => a + b) : 0;
     }
     @action.bound
     async onInit({ initialLoad }) {
@@ -56,7 +56,7 @@ class DashboardViewStore extends BaseViewStore {
             try {
                 this.oneTimeGoal = resp.data.item.filter(x => x.incomeTypeId === this.incomeType.find(x => x.abrv === 'one-time').id && (new Date(x.dateCreated)).getFullYear() == (new Date()).getFullYear());
                 this.oneTime = this.oneTimeGoal.map(item => item.amount).reduce((a, b) => a + b);
-                this.oneTimeToGive = this.oneTimeGoal.map(item => (item.amount * (item.percentage/100))).reduce((a, b) => a + b);
+                this.oneTimeToGive = this.oneTimeGoal.length ? this.oneTimeGoal.map(item => (item.amount * (item.percentage/100))).reduce((a, b) => a + b) : 0;
                 if(this.oneTimeGoal.length == 1) {
                     this.percentageMonth = this.oneTimeGoal[0].percentage;
                 }
@@ -310,17 +310,20 @@ class DashboardViewStore extends BaseViewStore {
         });
     }
     async onDeleteGoal(goal) {
-        try {
-            await this.rootStore.application.donor.donorStore.donorGivingGoalService.delete({id: goal.id});
-            this.rootStore.notificationStore.success('Successfully deleted giving goal');
-            this.createOneTimeIncomeTable();
-        } catch(e) {
-            this.rootStore.notificationStore.error('Giving goal could not be deleted');
-        }
+        this.rootStore.modalStore.showConfirm('LIST_LAYOUT.CONFIRM_DELETE', async () => {
+            try {
+                await this.rootStore.application.donor.donorStore.donorGivingGoalService.delete({id: goal.id});
+                this.rootStore.notificationStore.success('LIST_LAYOUT.SUCCESS_DELETE');
+                this.createOneTimeIncomeTable();  
+            } catch (err) {
+                this.rootStore.notificationStore.error('LIST_LAYOUT.ERROR_DELETE', err);
+            }
+        });
     }
     onEditGoal(goal) {
         try {
             this.editIncomeOnClick(goal);
+            this.createOneTimeIncomeTable();  
         } catch(e) {
             this.rootStore.notificationStore.error('Giving goal could not be edited');
         }

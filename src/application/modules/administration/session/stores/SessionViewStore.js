@@ -85,8 +85,8 @@ class SessionViewStore extends BaseListViewStore {
                                     format={{ type: 'currency' }}
                                 />
                                 {item.json &&
-                                    <span data-tip={`${item.json}`} data-type="info">
-                                        ?
+                                    <span data-tip={`${item.json}`} data-type="info" style={{cursor: 'pointer'}}>
+                                        <b>&nbsp;[?]</b>
 					                    <ReactTooltip />
                                     </span>
                                 }
