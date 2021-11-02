@@ -111,7 +111,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
-	if (donor) {
+	if (donor && donor.donationsPerYear.length > 0) {
 		checkWeek(donor);
 		checkMonth(donor);
 		checkYear(donor);
@@ -256,9 +256,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
 									<div
-										style={{ 'width': `${givingTotal <= 100 ? givingTotal : 100}%` }}
+										style={{ 'width': `${givingTotal <= 100 ? givingTotal : givingTotal == 0 ? 100 : 0}%` }}
 										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : (100).toFixed(2) + '%')}
+										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : givingTotal == 0 ? (100).toFixed(2) + '%' : 0 + '%')}
 									</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
