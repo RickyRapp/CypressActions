@@ -141,7 +141,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	}
 
 	const grantsThisYear = dataGrants[dataGrants.length - 1];
-	localStorageProvider.add('grantsThisYear', grantsThisYear);
+	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id == (new Date()).getFullYear())
+		localStorageProvider.add('grantsThisYear', grantsThisYear);
 	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
 	const givingTotal = (grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100;

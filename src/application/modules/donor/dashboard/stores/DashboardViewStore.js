@@ -76,7 +76,6 @@ class DashboardViewStore extends BaseViewStore {
 
             }
             this.createOneTimeIncomeTable();
-
         }
     }
 
@@ -86,7 +85,8 @@ class DashboardViewStore extends BaseViewStore {
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Week', id: -7 }, { name: 'Last Month', id: -30 }, { name: 'All Time', id: 1 });
+            //{ name: 'Last Week', id: -7 }
+            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Month', id: -30 }, { name: 'All Time', id: 1 });
             this.yearDropdownStore.setItems(donations);
             //this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
             //this.yearDropdownStore.setItems({name: 'Past Week', id: uuid()});
@@ -96,6 +96,7 @@ class DashboardViewStore extends BaseViewStore {
         }
         this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
         this.donor = data;
+        this.yearDropdownStore.setValue({ name: 'This Month', id: 30 });
     }
 
     createYearDropdownStore() {

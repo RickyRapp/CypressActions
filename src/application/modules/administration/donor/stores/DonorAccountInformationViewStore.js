@@ -51,7 +51,7 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
             }
             const date = moment(this.item.dateOfBirth);
             this.form.$('month').set(_.find(this.monthDropdownStore.items, { id: (date.month()+1).toString() }).id);
-            this.form.$('day').set(date.date());
+            this.form.$('day').set(date.utc().date());
             this.form.$('year').set(date.year());
         }
     }

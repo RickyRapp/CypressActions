@@ -42,7 +42,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let dataDonut = [];
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
-			return { charityType: c.charityType.name, value: c.amount, color: c.color, legend: `${c.charityType.name} ${summaryData ? ((c.amount/summaryData.totalMoneyGiven)*100).toFixed(2) + '%' : c.charityType.name}` };
+			return { charityType: c.charityType.name, value: c.amount, color: c.color, legend: `${c.charityType.name} ${summaryData ? ((c.amount / summaryData.totalMoneyGiven) * 100).toFixed(2) + '%' : c.charityType.name}` };
 		});
 	}
 	for (let i = 0; i < dataDonut.length; i++) {
@@ -71,7 +71,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 						border={'1px'}
 					>
 						{/* $${point.value.toFixed(2)} */}
-						<ChartSeriesItemTooltip render={({point}) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
+						<ChartSeriesItemTooltip render={({ point }) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
 						{/* <ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} /> */}
 					</ChartSeriesItem>
 				</ChartSeries>
@@ -343,8 +343,11 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									<div className="dashboard-card__giving-goal">
 										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 										<div className="dashboard-card__giving-goal--range">
-											<div style={{ 'width': `${ ((localStorageProvider.get('grantsThisYear')/localStorageProvider.get('totalGoal'))*100).toFixed(2) >= 100 ? 100 : ((localStorageProvider.get('grantsThisYear')/localStorageProvider.get('totalGoal'))*100).toFixed(2) }%`}} className="dashboard-card__giving-goal--range--progress">{((localStorage.getItem('grantsThisYear')/localStorage.getItem('totalGoal'))*100).toFixed(2) >= 100 ? 100 : ((localStorage.getItem('grantsThisYear')/localStorage.getItem('totalGoal'))*100).toFixed(2) }%</div>
-										</div>
+											<div style={{ 'width': `${((localStorageProvider.get('grantsThisYear') / localStorageProvider.get('totalGoal')) * 100).toFixed(2) >= 100 ? 100 : ((localStorageProvider.get('grantsThisYear') / localStorageProvider.get('totalGoal')) * 100).toFixed(2)}%` }} 
+												className="dashboard-card__giving-goal--range--progress">
+													{isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal') * 100) ? <span>No goals set up</span> : null}
+												{((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2) >= 100 ? 100 : (isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) ? null : ((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2))}{!isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) ? '%' : null}</div>
+											</div>
 										{/* <div className="dashboard-card__giving-goal__label">
 											<a className="btn btn--sml btn--link">Manage</a>
 										</div> */}

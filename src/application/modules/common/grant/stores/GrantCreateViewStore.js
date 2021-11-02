@@ -33,7 +33,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				return {
 					create: async resource => {
 						resource.donorId = this.donorId;
-						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId)) {
+						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId) && !resource.isRecurring) {
 							await this.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
 						} else {
 							if (resource.isNewCharity) {
@@ -59,15 +59,19 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								const charityData = await this.grantStore.suggest(charity); //charityId,bankAccountId
 								resource.charityId = charityData.charityId;
 							}
-							if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
+							if (moment(resource.startFutureDate) > moment()) {
 								if (resource.isRecurring == false) {
 									const data = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
 									resource.numberOfPayments = 1;
-									var resultRec = await this.grantStore.createScheduledGrant(resource);
+									const resultRec = await this.grantStore.createScheduledGrant(resource);
 									this.grantId = resultRec.response;
 									this.isFuture = true;
 								}
+							} else if(resource.isRecurring) {
+								// eslint-disable-next-line
+								const resultRec = await this.grantStore.createScheduledGrant(resource);
+								this.grantId = resultRec.response;
 							} else {
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
@@ -78,11 +82,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			},
 			onAfterAction: () => {
 				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
-					if(!this.isFuture)
+					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
 				} else {
-					if(!this.isFuture)
+					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
+					else if(!this.isFuture && this.form.$('isRecurring').value)
+						this.rootStore.routerStore.goBack();
 					else
 						this.rootStore.routerStore.goBack();
 				}
@@ -115,7 +121,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.rootStore.routerStore.goBack();
 		} else {
 			await this.setDonor();
-			//this.onCharitySelected
 			await this.fetch([this.loadLookups()]);
 			const isExistingGrant = localStorageProvider.get('ExistingGrant');
 			
@@ -131,6 +136,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					item: grant.charity,
 				});
 
+				this.form.$('grantPurposeTypeId').value = grant.grantPurposeTypeId;
+				if(grant.grantPurposeType.abrv == 'in-honor-of' || grant.grantPurposeType.abrv == 'in-memory-of' || grant.grantPurposeType.abrv == 'other')
+					this.form.$('purposeNote').value = grant.purposeNote;
+				
 				this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 				this.onCharityChange(grant.charityId);
 				this.setSimilarGrantTable(grant.grantPurposeTypeId);
@@ -532,10 +541,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;
 		this.grantPurposeTypeDropdownStore.setValue(defaultPurposeTypeId);
 
-		const defaultCharityTypeId = this.charityTypes.find(c => c.abrv === 'human-services').id;
+		//const defaultCharityTypeId = this.charityTypes.find(c => c.abrv === 'human-services').id;
 
 		this.form.$('grantPurposeTypeId').set(defaultPurposeTypeId);
-		this.setSimilarGrantTable(defaultCharityTypeId);
+		//this.setSimilarGrantTable(defaultCharityTypeId);
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
 		// localStorage.clear(); - may be needed, because previouse abrv was cached
@@ -687,6 +696,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						value: '$',
 					},
 				},
+				{
+					key: 'charity',
+					title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL'
+				}
 			],
 		});
 	}
