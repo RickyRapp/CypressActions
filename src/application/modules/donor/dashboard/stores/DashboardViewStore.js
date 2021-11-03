@@ -86,8 +86,13 @@ class DashboardViewStore extends BaseViewStore {
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
             //{ name: 'Last Week', id: -7 }
-            donations.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Month', id: -30 }, { name: 'All Time', id: 1 });
-            this.yearDropdownStore.setItems(donations);
+            let donationsSorted = [];
+            donationsSorted.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Month', id: -30 }, { name: 'Year To Date', id: 2 });
+            donations.forEach(element => {
+                donationsSorted.push(element);
+            });
+            donationsSorted.push({ name: 'All Time', id: 1 });
+            this.yearDropdownStore.setItems(donationsSorted);
             //this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
             //this.yearDropdownStore.setItems({name: 'Past Week', id: uuid()});
         }

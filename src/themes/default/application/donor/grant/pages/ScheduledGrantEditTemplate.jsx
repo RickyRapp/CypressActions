@@ -19,6 +19,7 @@ import { Content, EditFormLayout } from 'core/layouts';
 import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityAdvancedSearch } from 'application/donor/charity/components';
 import logo from 'themes/assets/img/logo.svg';
+import { CharityShortInformationTemplate } from 'themes/application/common/grant/components';
 
 const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t }) {
     const {
@@ -123,8 +124,13 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             </div>
                                         </div>
                                     </div>}
-
-                                {charityDropdownStore.value &&
+                                    {charityDropdownStore.value &&
+                                    <CharityShortInformationTemplate
+                                        charity={charityDropdownStore.value.item}
+                                        onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                                        isChangedDefaultAddress={isChangedDefaultAddress}
+                                    />}
+                                {/* {charityDropdownStore.value &&
                                     <React.Fragment>
                                         <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
                                         <div className="row row--form u-mar--top--sml">
@@ -154,7 +160,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             label={isChangedDefaultAddress ? 'GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS' : 'GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS'}
                                             onClick={onChangeDefaultAddressClick}>
                                         </BaasicButton>
-                                    </React.Fragment>}
+                                    </React.Fragment>} */}
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row row--form">

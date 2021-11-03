@@ -67,7 +67,8 @@ class GrantViewStore extends BaseListViewStore {
                             'grantPurposeType',
                             'purposeNote',
                             'dateCreated',
-                            'scheduledGrantPayment'
+                            'scheduledGrantPayment',
+                            'declinationTypeId'
                         ];
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
@@ -88,7 +89,7 @@ class GrantViewStore extends BaseListViewStore {
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
         this.declineModal = new ModalParams({});
     }
-
+    
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open(
@@ -154,6 +155,11 @@ class GrantViewStore extends BaseListViewStore {
 	};
 
     createTableStore() {
+        const declinationReason = [{id: 1, name:'Legally binding pledge'},
+                            {id: 2, name:'Charity failed to provide necessary documents'},
+                            {id: 3, name:'Charity has seen its status revoked by the IRS'},
+                            {id: 4, name:'This grant does not comply with the Donors Funds’ Policies and guidelines'},
+                            {id: 5, name:'Earmarked grant'}];
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -182,6 +188,16 @@ class GrantViewStore extends BaseListViewStore {
                 {
                     key: 'donationStatus.name',
                     title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if(item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined'){
+                                return `Declined - ${(declinationReason.filter(x => x.id == item.declinationTypeId)).length > 0 ? declinationReason.filter(x => x.id == item.declinationTypeId)[0].name : 'other'}`;
+                            } else {
+                                return item.donationStatus.name;
+                            }
+                        }
+                    }
                 },
                 {
                     key: 'donationType.name',

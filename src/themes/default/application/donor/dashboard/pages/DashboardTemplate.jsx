@@ -50,6 +50,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let dataGrants = [];
 	let dataContributions = [];
 	let chartDays = [];
+	let categoriesYearToDate = [];
 	//let isMultipleYears = false;
 
 	function checkWeek(donor) {
@@ -131,11 +132,25 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			} else {
 				let multipleYears = [];
 				for (let i = 0; i < donor.donationsPerYear.length; i++) {
-					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1], contributions: donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] });
+					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants.length > 0 ? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1] : 0, contributions: donor.donationsPerYear[i].contributions.length > 0 ? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] : 0});
 					categoriesYears.push(donor.donationsPerYear[i].year);
 					dataGrants.push(multipleYears[i].grants);
 					dataContributions.push(multipleYears[i].contributions);
 				}
+			}
+		}
+		if (yearDropdownStore.value.id === 2) {
+			const month = parseInt(moment().format("M"));
+			if(month == 1) {
+				yearDropdownStore.value.id = 30;
+				checkMonth(donor);
+			} else if (month == 12) {
+				yearDropdownStore.value.id = donor.donationsPerYear[0].year;
+				checkYear(donor);
+			} else {
+				dataGrants = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).grants.slice(0, month);
+				dataContributions = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).contributions.slice(0, month);
+				categoriesYearToDate = categoriesMonths.slice(0, month);
 			}
 		}
 	}
@@ -145,12 +160,12 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		localStorageProvider.add('grantsThisYear', grantsThisYear);
 	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
-	const givingTotal = (grantsThisYear / (oneTimeToGive + yearlyGoalAmount)) * 100;
+	const givingTotal = (localStorageProvider.get('grantsThisYear') / (oneTimeToGive + yearlyGoalAmount)) * 100;
 
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : categoriesWeeks))} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : (yearDropdownStore.value.id === 2 ? categoriesYearToDate : categoriesWeeks)))} />
 			</ChartCategoryAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -164,7 +179,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</ChartSeries>
 		</Chart>
 	);
-
 	return (
 		<Page>
 			<PageHeader>
@@ -256,7 +270,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
 									<div
-										style={{ 'width': `${givingTotal <= 100 ? givingTotal : givingTotal == 0 ? 100 : 0}%` }}
+										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : 0}%` }}
 										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
 										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : givingTotal == 0 ? (100).toFixed(2) + '%' : 0 + '%')}
 									</div>
