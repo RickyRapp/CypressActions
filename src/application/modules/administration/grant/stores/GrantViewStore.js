@@ -298,6 +298,8 @@ class GrantViewStore extends BaseListViewStore {
                 } catch ({ data }) {
                     if (data && data.message) {
                         this.rootStore.notificationStore.error(data.message);
+                    } else if(data && data.errorCode == 3004) {
+                        this.rootStore.notificationStore.error('Charity is not in active status');
                     }
                     else {
                         this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
