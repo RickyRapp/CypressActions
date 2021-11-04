@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
-import { EditFormContent, BaasicButton, BasicFieldCheckbox, NumericInputField, DatePickerField, BasicInput, BaasicFieldDropdown} from 'core/components';
+import { EditFormContent, BaasicButton, BasicFieldCheckbox, NumericInputField, DatePickerField, BasicInput, BaasicFieldDropdown, NumberFormatInputField} from 'core/components';
 import { Content } from 'core/layouts';
-import { data } from 'autoprefixer';
+import moment from 'moment';
 
 function APITestingTemplate({ apiTestingViewStore}) {
     const {
@@ -15,7 +15,8 @@ function APITestingTemplate({ apiTestingViewStore}) {
         validationToken,
         response,
         requestChange,
-        url
+        url,
+        grantScheduleTypeDropdownStore
     } = apiTestingViewStore;
 
     return (
@@ -38,13 +39,13 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 {form.$('requestType').value == 1 ?
                                 <React.Fragment>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <BasicInput field={form.$('taxId')} />
+                                        <NumberFormatInputField field={form.$('taxId')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                     <div className="form__group col col-sml-12">
-                                        <DatePickerField field={form.$('startFutureDate')} />
+                                        <DatePickerField field={form.$('startFutureDate')} disabled={!form.$('isRecurring').value}/>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml type--color--note">
                                         <BasicFieldCheckbox field={form.$('noEndDate')} />
@@ -56,7 +57,10 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <NumericInputField field={form.$('numberOfPayments')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <BasicInput field={form.$('grantScheduleType')} />
+                                        <BaasicFieldDropdown
+                                            field={form.$('grantScheduleType')}
+                                            store={grantScheduleTypeDropdownStore}
+                                        />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('donor')} />
@@ -69,7 +73,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 : 
                                 <React.Fragment>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <BasicInput field={form.$('taxId')} />
+                                        <NumberFormatInputField field={form.$('taxId')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
@@ -131,18 +135,18 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <p>{"{"}</p>
                                         {form.$('requestType').value == 1 ?
                                         <React.Fragment>
-                                            <p>"taxId": "{form.$('taxId').value}",</p>
+                                            <p>"taxId": "`{form.$('taxId').value.slice(0,2)}-{form.$('taxId').value.slice(2)}`",</p>
                                             <p>"amount": {form.$('amount').value},</p>
-                                            <p>"startFutureDate":{form.$('startFutureDate').value},</p>
+                                            <p>"startFutureDate":"{moment(form.$('startFutureDate').$value).format('YYYY-MM-DD')}",</p>
                                             <p>"noEndDate": {form.$('noEndDate').value ? 'true': 'false'},</p>
                                             <p>"numberOfPayments": {form.$('numberOfPayments').value},</p>
-                                            <p>"grantScheduleType": "{form.$('grantScheduleType').value}",</p>
+                                            <p>"grantScheduleType": "{grantScheduleTypeDropdownStore.value && grantScheduleTypeDropdownStore.value.abrv}",</p>
                                             <p>"donor": "{form.$('donor').value}",</p>
                                             <p>"donorAuthorization": "{form.$('donorAuthorization').value}",</p>
                                             <p>"IsRecurring": {form.$('isRecurring').value ? 'true': 'false'}</p>
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <p>"taxId": "{form.$('taxId').value}",</p>
+                                            <p>"taxId": "{form.$('taxId').value.slice(0,2)}-{form.$('taxId').value.slice(2)}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"cardNumber": {form.$('cardNumber').value},</p>
                                             <p>"description": {form.$('description').value}</p>

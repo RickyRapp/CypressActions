@@ -19,7 +19,10 @@ export default class APITestingForm extends FormBase {
                     name: 'taxId',
                     label: 'TEST.API_TESTING.FIELDS.TAXID',
                     placeholder: 'TEST.API_TESTING.FIELDS.TAXID',
-                    rules: 'string' 
+                    rules: 'string|size:9',
+                    extra: {
+                        format: '##-#######'
+                    }
                 },
                 {
                     name: 'amount',

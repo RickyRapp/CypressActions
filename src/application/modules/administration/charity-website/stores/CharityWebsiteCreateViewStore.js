@@ -34,7 +34,7 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
                         resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
 
                         this.validateIPaddress(resource.ip);
-                        await this.validateCharitySetting(resource.charityId)
+                        //await this.validateCharitySetting(resource.charityId)
 
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
@@ -91,7 +91,7 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
 		this.form.$('charityId').set(id);
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
-		this.setAddress(charity.item.charityAddresses[0]);
+		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
 	async filterCharities(inputValue) {
