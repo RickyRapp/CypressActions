@@ -42,6 +42,7 @@
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
         "TESTING": "Test",
+        "APITESTING": "API Test",
         "INVESTMENTS": "Investments",
         "SEND_A_GIFT": "Transfer funds",
         "MANAGE_FUND": "Manage Fund",
@@ -2780,7 +2781,8 @@
             "EMAIL": "Email",
             "REPORT": "Report",
             "SCHEDULED_TASK": "Scheduled task",
-            "WELCOME_EMAILS": "Welcome emails"
+            "WELCOME_EMAILS": "Welcome emails",
+            "API_TESTING": "API testing"
         },
         "TEST_EMAIL": {
             "LIST": {
@@ -2833,6 +2835,19 @@
                     "PREVIEW_PRINT_PLACEHOLDER": "Preview print"
                 }
             }
+        },
+        "API_TESTING": {
+            "FIELDS": {
+                "TAXID": "Tax Id",
+                "GRANT_SCHEDULE_TYPE": "Grant Schedule Type",
+                "START_FUTURE_DATE": "Start Future Date",
+                "DONOR": "Donor",
+                "DONOR_AUTHORIZATION": "Donor authorization",
+                "CARDNUMBER": "Card Number",
+                "DESCRIPTION": "Description",
+                "REQUEST_TYPE": "Request Type",
+                "STARTFUTUREDATE": "Start future date"  
+            }            
         },
         "SCHEDULED_SETTING": {
             "LIST": {

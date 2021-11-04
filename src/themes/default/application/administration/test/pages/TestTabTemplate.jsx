@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { TestEmailList, TestReportList, ScheduledSettingList, WelcomeExistingAccountsEmails } from 'application/administration/test/pages';
+import { TestEmailList, TestReportList, ScheduledSettingList, WelcomeExistingAccountsEmails, APITesting } from 'application/administration/test/pages';
 
 function TestTabTemplate({ testTabViewStore }) {
     const {
@@ -24,6 +24,9 @@ function TestTabTemplate({ testTabViewStore }) {
                     </div>
                     <div label={'TEST.TAB.WELCOME_EMAILS'} className="u-mar--top--sml">
                         <WelcomeExistingAccountsEmails />
+                    </div>
+                    <div label={'TEST.TAB.API_TESTING'} className="u-mar--top--sml">
+                        <APITesting />
                     </div>
                 </TabLayout>
             </div>
