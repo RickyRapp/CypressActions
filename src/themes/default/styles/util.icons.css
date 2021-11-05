@@ -713,6 +713,10 @@
 		&--close-menu {
 			background-image: svg-load('../styles/postcss-svg/close.svg', fill: white);
 		}
+		
+		&--clipboard {
+			background-image: svg-load('../styles/postcss-svg/clipboard.svg', stroke: $color-primary);
+		}		
 
 		&--robot {
 			background-image: svg-load('../styles/postcss-svg/robot.svg');
