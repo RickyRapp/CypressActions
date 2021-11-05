@@ -225,7 +225,13 @@ class SessionViewStore extends BaseEditViewStore {
         try {
             const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
             data.response.isBlank = true;
-            this.sessionCertificates.push(data.response);
+            // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
+            let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);
+            if(existingCertificateInSession >= 0) {
+                this.sessionCertificates[existingCertificateInSession].certificateValue = certificate.certificateValue;
+            } else {
+                this.sessionCertificates.push(data.response);
+            }
         } catch (ex) {
             try {
                 await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode });
