@@ -26,6 +26,11 @@ class GrantService extends BaseService {
         const url = this.routeService.getDonorInformation(id);
         return this.apiClient.get(url);
     }
+    
+    getDonorFromCard(resource) {
+        const url = this.routeService.getDonorFromCard(resource);
+        return this.apiClient.get(url);
+    }
 
     isEligibleForEdit(id) {
         const url = this.routeService.isEligibleForEdit(id);

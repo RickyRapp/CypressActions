@@ -51,6 +51,17 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             <label className="form__group__label u-mar--right--tny">Tax ID:</label>
                                             {item &&
                                                 <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
+                                            <br />
+                                            <label className="form__group__label">Api Key: </label>
+                                            {item && item.apiKey}&nbsp;
+                                            {item && item.apiKey && <BaasicButton
+                                                className="btn btn--icon"
+                                                onlyIconClassName="u-mar--right--tny"
+                                                icon="u-icon u-icon--clipboard u-icon--base"
+                                                label="Copy to clipboard"
+                                                onlyIcon={true}
+                                                onClick={() => navigator.clipboard.writeText(item.apiKey)}
+                                            ></BaasicButton>}
                                         </div>
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">

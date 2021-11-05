@@ -26,6 +26,10 @@ class GrantRouteService extends BaseRouteService {
         return super.get(this.base + '/donor-information/{id}', id);
     }
 
+    getDonorFromCard(resource) {
+        return super.find(this.base + '/card-number/{?cardNumber,cvv}', resource);
+    }
+
     isEligibleForEdit(id) {
         return super.get(this.base + '/is-eligible-for-edit/{id}', id);
     }

@@ -83,7 +83,7 @@ class UserStore {
                 const data = await charity.charity.charityStore.getCharityLoginProfile(user.id);
                 if (data) {
                     user.charityId = data.id;
-                    user.charity = { name: 'test', taxId: 123456789 };
+                    user.charity = { name: data.name, taxId: data.taxId, apiKey: data.apiKey };
                 }
             }
         } catch (ex) {

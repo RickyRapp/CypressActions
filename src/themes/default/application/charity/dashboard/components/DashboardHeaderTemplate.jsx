@@ -15,6 +15,9 @@ function DashboardHeaderTemplate(props) {
                         <p className="type--base type--color--opaque">
                             Tax ID: <span className="type--wgt--bold">{rootStore.userStore.user.charity.taxId}</span>
                         </p>
+                        <p className="type--base type--color--opaque">
+                            Api Key: <span className="type--wgt--bold">{rootStore.userStore.user.charity.apiKey}</span>
+                        </p>
                     </div>
                 </React.Fragment >)
                 : null}

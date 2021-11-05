@@ -25,7 +25,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             contactInformationName: data.contactInformation.name,
                             contactInformationEmail: data.contactInformation.email,
                             contactInformationNumber: data.contactInformation.number,
-                            presentBalance: data.presentBalance
+                            presentBalance: data.presentBalance,
+                            apiKey: data.apiKey
                         }
                     },
                     update: async (resource) => {
