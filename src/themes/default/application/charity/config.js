@@ -70,7 +70,7 @@ import { moduleProviderFactory } from 'core/providers'
                 title: 'MENU.ACCEPT_STOCKS_AND_SECURITIES',
                 icon: 'banks',
                 order: 9,
-                route: 'master.app.main.charity.dashboard',
+                route: 'master.app.main.charity.accept-security.create',
                 role: ['Charities']
             },
             {

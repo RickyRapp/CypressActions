@@ -1531,6 +1531,18 @@
             }
         }
     },
+    "ACCEPT-SECURITY": {
+        "CREATE": {
+            "DONOR_INFO": "Accepting Stocks and Securities:",
+            "DONOR_INFO_DESCRIPTION": "Enter information about the donor and the donation",
+            "BUTTON_CREATE": "Accept donation",
+            "RECENT_SECURITIES": "Recently accepted",
+            "STOCKS_AND_SECURITIES": "Stocks and Securities",
+            "BROKERAGE_INSTITUTION": "Brokerage Institution",
+            "SECURITY_TYPE": "Security Type",
+            "DONOR": "Donor"
+        }
+    },
     "DONOR-DONOR": {
         "CREATE": {
             "TITLE": "Send a Gift",
