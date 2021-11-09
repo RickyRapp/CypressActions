@@ -30,7 +30,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantPurposeTypeDropdownStore,
         grantAcknowledgmentTypeDropdownStore,
         grantScheduleTypeDropdownStore,
-        charityDropdownStore,
         charityTypeDropdownStore,
         confirmModal,
         donor,
@@ -49,6 +48,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantPurposeTypes,
         filterCharities,
         setCharityId,
+        charity
     } = grantCreateViewStore;
 
     const promiseOptions = inputValue =>
@@ -140,14 +140,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>}
 
-                                {charityDropdownStore.value &&
-                                    <CharityShortInformationTemplate
-                                        charity={charityDropdownStore.value.item}
-                                        onChangeDefaultAddressClick={onChangeDefaultAddressClick}
-                                        isChangedDefaultAddress={isChangedDefaultAddress}
-                                        grantRequestId={grantRequestId}
-                                    />}
-
+                                {charity &&
+                                <CharityShortInformationTemplate
+                                    charity={charity.item}
+                                    onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                                    isChangedDefaultAddress={isChangedDefaultAddress}
+                                    grantRequestId={grantRequestId}
+                                />}
+                                
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row row--form">
@@ -278,7 +278,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>
 
-                                    {charityDropdownStore && charityDropdownStore.value &&
+                                    {charity &&
                                         <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row row--form">
                                                 <div className="col col-sml-12 col-lrg-6">
@@ -290,44 +290,44 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                     <img src={logo} alt={"logo"} />
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
-                                                    {charityDropdownStore.value.item.name}
+                                                    {charity.item.name}
                                                 </div>
                                             </div>
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
-                                                    <p>{charityDropdownStore.value.item.rullingYear}</p>
+                                                    <p>{charity.item.rullingYear}</p>
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.EIN')}</strong>
-                                                    <p>{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
+                                                    <p>{charityFormatter.format(charity.item.taxId, { value: 'tax-id' })}</p>
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <div className="u-separator--primary u-mar--bottom--sml"></div>
                                                     <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
-                                                    <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+                                                    <p>{charity.item.irsFilingRequirement}</p>
                                                 </div>
                                             </div>
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
-                                                    <p>{charityDropdownStore.value.item.principalOfficer}</p>
+                                                    <p>{charity.item.principalOfficer}</p>
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
-                                                    <p>{charityDropdownStore.value.item.nteeCode}</p>
+                                                    <p>{charity.item.nteeCode}</p>
                                                 </div>
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
-                                                    <p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+                                                    <p>{charity.item.irsFilingRequirement}</p>
                                                 </div>
                                             </div>
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-                                                    <p>{addressFormatter.format(charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
+                                                    <p>{addressFormatter.format(charity.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
                                                 </div>
                                             </div>
                                         </div>}

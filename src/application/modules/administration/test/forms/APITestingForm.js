@@ -19,10 +19,7 @@ export default class APITestingForm extends FormBase {
                     name: 'taxId',
                     label: 'TEST.API_TESTING.FIELDS.TAXID',
                     placeholder: 'TEST.API_TESTING.FIELDS.TAXID',
-                    rules: 'string|size:9',
-                    extra: {
-                        format: '##-#######'
-                    }
+                    rules: 'string'
                 },
                 {
                     name: 'amount',
@@ -37,7 +34,7 @@ export default class APITestingForm extends FormBase {
 					name: 'startFutureDate',
                     label: 'TEST.API_TESTING.FIELDS.STARTFUTUREDATE',
                     placeholder: 'TEST.API_TESTING.FIELDS.STARTFUTUREDATE',
-					rules: `required_if:isRecurring,false|min_date:${moment().format('YYYY-MM-DD')}`,
+					rules: `min_date:${moment().format('YYYY-MM-DD')}`,
 					type: 'date',
 					value: moment().format('YYYY-MM-DD'),
 					options: {

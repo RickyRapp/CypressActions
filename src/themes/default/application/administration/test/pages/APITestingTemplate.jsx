@@ -39,13 +39,13 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 {form.$('requestType').value == 1 ?
                                 <React.Fragment>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <NumberFormatInputField field={form.$('taxId')} />
+                                        <BasicInput field={form.$('taxId')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                     <div className="form__group col col-sml-12">
-                                        <DatePickerField field={form.$('startFutureDate')} disabled={!form.$('isRecurring').value}/>
+                                        <DatePickerField field={form.$('startFutureDate')}/>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml type--color--note">
                                         <BasicFieldCheckbox field={form.$('noEndDate')} />
@@ -135,7 +135,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <p>{"{"}</p>
                                         {form.$('requestType').value == 1 ?
                                         <React.Fragment>
-                                            <p>"taxId": "`{form.$('taxId').value.slice(0,2)}-{form.$('taxId').value.slice(2)}`",</p>
+                                            <p>"taxId": "{form.$('taxId').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"startFutureDate":"{moment(form.$('startFutureDate').$value).format('YYYY-MM-DD')}",</p>
                                             <p>"noEndDate": {form.$('noEndDate').value ? 'true': 'false'},</p>

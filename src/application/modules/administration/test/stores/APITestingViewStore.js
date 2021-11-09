@@ -61,7 +61,7 @@ class APITestingViewStore extends BaseEditViewStore {
             var requestData;
             if (this.form.$('requestType').value == 1 && this.grantScheduleTypeDropdownStore.value){
                 requestData = {
-                    taxId: `${this.form.$('taxId').value.slice(0,2)}-${this.form.$('taxId').value.slice(2)}`,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value,
                     startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
                     noEndDate: this.form.$('noEndDate').value,
@@ -73,14 +73,14 @@ class APITestingViewStore extends BaseEditViewStore {
                 }
             } else if (this.form.$('requestType').value == 2){
                 requestData = {
-                    taxId: `${this.form.$('taxId').value.slice(0,2)}-${this.form.$('taxId').value.slice(2)}`,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value,
                     cardNumber: this.form.$('cardNumber').value,
                     description: this.form.$('description').value
                 } 
             } else {
                 requestData = {
-                    taxId: `${this.form.$('taxId').value.slice(0,2)}-${this.form.$('taxId').value.slice(2)}`,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value,
                     noEndDate: this.form.$('noEndDate').value,
                     donor: this.form.$('donor').value,
@@ -99,7 +99,6 @@ class APITestingViewStore extends BaseEditViewStore {
             fetch(this.url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    
                     if(data.error != undefined || data.error != null)
                     {
                         this.response = {
