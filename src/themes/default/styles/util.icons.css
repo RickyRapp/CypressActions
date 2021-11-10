@@ -646,6 +646,21 @@
 				background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-warning);
 			}
 		}
+	
+		&--cancel {
+			background-image: svg-load('../styles/postcss-svg/cancel.svg', stroke: $color-note);
+
+			&:hover,
+			&:active,
+			&:focus {
+				outline: 0;
+				background-image: svg-load('../styles/postcss-svg/cancel.svg', stroke: $color-primary);
+			}
+
+			&--warning {
+				background-image: svg-load('../styles/postcss-svg/cancel.svg', stroke: $color-warning);
+			}
+		}
 
 		&--briefcase {
 			background-image: svg-load('../styles/postcss-svg/briefcase.svg', stroke: $color-primary);
