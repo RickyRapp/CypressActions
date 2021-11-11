@@ -11,7 +11,8 @@ BaasicToggle.propTypes = {
     onChange: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     showLabel: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string,
+    wrapperClassName: PropTypes.string
 };
 
 export default BaasicToggle;

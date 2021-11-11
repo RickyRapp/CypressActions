@@ -62,7 +62,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                             </div>
                         </div>
                         <div>
-                            {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) &&  <BaasicToggle showLabel={true} label={t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')} value={reportCard} onChange={() => setCardAction()}/>} 
+                            {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) &&  <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')} value={reportCard} onChange={() => setCardAction()}/>} 
                             {/* (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.GO_BACK')}</a>)} */}
                         </div>
                     </div>

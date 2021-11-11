@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton } from 'core/components';
 
-function BaasicToggleTemplate({ label, value, onChange, disabled, t, showLabel }) {
+function BaasicToggleTemplate({ label, value, onChange, disabled, t, showLabel, wrapperClassName }) {
 	return (
-		<div className="u-display--flex">
+		<div className={`${wrapperClassName ? wrapperClassName : "u-display--flex"}`}>
 			<div className="">
 				<div className={`toggle ${value ? 'toggle--active' : 'toggle--deactive'}`}>
 					<BaasicButton
@@ -36,6 +36,7 @@ BaasicToggleTemplate.propTypes = {
 	disabled: PropTypes.bool,
 	showLabel: PropTypes.bool,
 	label: PropTypes.string,
+    wrapperClassName: PropTypes.string,
 	t: PropTypes.func,
 };
 
