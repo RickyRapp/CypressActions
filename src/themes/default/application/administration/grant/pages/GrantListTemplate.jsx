@@ -37,7 +37,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
 	const promiseOptions = inputValue =>
 	new Promise(resolve => {
 		setTimeout(() => {
-			resolve(filterCharities(inputValue));
+			resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
 		}, 1000);
 	});
 
@@ -55,7 +55,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
-								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
+								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput

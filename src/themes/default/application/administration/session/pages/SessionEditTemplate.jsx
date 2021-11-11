@@ -26,6 +26,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
         removeSessionCertificateModal,
         editBlankSessionCertificateModal,
         onCharitySelected,
+        saveChanges,
         advancedSearchModal } = sessionEditViewStore;
     return (
         <EditFormLayout
@@ -98,7 +99,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                     </div>
                 </div>
 
-                {renderEditLayoutFooterContent({ form })}
+                {renderEditLayoutFooterContent({ form, saveChanges })}
             </div>
 
             <div className="card--primary card--med u-mar--bottom--med">
@@ -155,10 +156,11 @@ SessionEditTemplate.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-function renderEditLayoutFooterContent({ form }) {
+function renderEditLayoutFooterContent({ form, saveChanges }) {
     return <PageFooter>
         <div>
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            <BaasicButton onClick={() => saveChanges()} className="btn btn--med btn--med--wide btn--secondary" label="Save" />
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--wide btn--secondary u-mar--left--sml" label="Save and Approve" />
         </div>
     </PageFooter>
 }
@@ -212,7 +214,8 @@ renderActions.propTypes = {
 };
 
 renderEditLayoutFooterContent.propTypes = {
-    form: PropTypes.any
+    form: PropTypes.any,
+    saveChanges: PropTypes.func
 };
 
 export default defaultTemplate(SessionEditTemplate);

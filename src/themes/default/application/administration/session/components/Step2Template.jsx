@@ -7,7 +7,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
     const promiseOptions = inputValue =>
     new Promise(resolve => {
         setTimeout(() => {
-            resolve(filterCharities(inputValue));
+            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
         }, 1000);
     });
 
@@ -25,7 +25,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} /> */}
-							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
+							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} />
 							{charityDropdownStore && charityDropdownStore.value &&
 								<BaasicButton
 									className="btn btn--sml btn--link u-mar--bottom--sml"

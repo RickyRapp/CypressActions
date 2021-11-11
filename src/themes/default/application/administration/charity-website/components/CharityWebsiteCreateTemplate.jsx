@@ -25,7 +25,7 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
     const promiseOptions = inputValue =>
     new Promise(resolve => {
         setTimeout(() => {
-            resolve(filterCharities(inputValue));
+            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
         }, 1000);
     });
 
@@ -51,7 +51,7 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                             field={form.$('charityId')}
                             store={charityDropdownStore}
                         /> */}
-						<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
+						<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} />
                     </div>
                 </div>
             </EditFormContent>

@@ -23,7 +23,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	isFuture = false;
 	isGrantAgain = false;
 	@observable charity = null;
-	
+	@observable inputCharity = '';
+
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
 			name: 'grant-create',
@@ -135,7 +136,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					name: charityFormatter.format(grant.charity, { value: 'charity-name-display' }),
 					item: grant.charity,
 				});
-
+				this.inputCharity = this.charityDropdownStore.value.name;
 				this.form.$('grantPurposeTypeId').value = grant.grantPurposeTypeId;
 				if(grant.grantPurposeType.abrv == 'in-honor-of' || grant.grantPurposeType.abrv == 'in-memory-of' || grant.grantPurposeType.abrv == 'other')
 					this.form.$('purposeNote').value = grant.purposeNote;
@@ -621,8 +622,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.form.$('charityId').set(id);
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
-		this.setAddress(charity.item.charityAddresses[0]);
+		this.setAddress(charity && charity.item && charity.item.charityAddresses[0]);
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
+	}
+	@action.bound
+	setInputValue(value) {
+		this.charityInputValue = value;
 	} 
 	@action.bound
 	async filterCharities(inputValue) {

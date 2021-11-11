@@ -48,12 +48,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		onSubmitClick,
 		charity,
 		isGrantAgain,
-		charityDropdownStore
+		charityDropdownStore,
+		//inputCharity,
+		//setInputValue
 	} = grantCreateViewStore;
-	const promiseOptions = inputValue =>
+	const promiseOptions = (inputValue) => 
 			new Promise(resolve => {
 				setTimeout(() => {
-					resolve(filterCharities(inputValue));
+					resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
 				}, 1000);
 			});
         
@@ -75,10 +77,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										{
 											isGrantAgain ?
 											<div>
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} inputValue={charityDropdownStore.value.name} />
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} inputValue={charityDropdownStore.value.name} />
 											</div>
 											:
-											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
+											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} />
 										}
 										
 									</div>
