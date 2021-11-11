@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { isSome } from 'core/utils';
-import { EditFormContent, BaasicButton, BasicFieldCheckbox, NumericInputField, DatePickerField, BasicInput, BaasicFieldDropdown, NumberFormatInputField} from 'core/components';
+import { EditFormContent, BaasicButton, BasicFieldCheckbox, NumericInputField, DatePickerField, BasicInput, BaasicFieldDropdown } from 'core/components';
 import { Content } from 'core/layouts';
 import moment from 'moment';
 
@@ -16,7 +16,8 @@ function APITestingTemplate({ apiTestingViewStore}) {
         response,
         requestChange,
         url,
-        grantScheduleTypeDropdownStore
+        grantScheduleTypeDropdownStore,
+        grantPurposeTypeDropdownStore
     } = apiTestingViewStore;
 
     return (
@@ -63,6 +64,15 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BaasicFieldDropdown
+                                            field={form.$('grantPurposeType')}
+                                            store={grantPurposeTypeDropdownStore}
+                                        />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('purposeNote')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('donor')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
@@ -73,7 +83,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 : 
                                 <React.Fragment>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <NumberFormatInputField field={form.$('taxId')} />
+                                        <BasicInput field={form.$('taxId')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
@@ -141,12 +151,14 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                             <p>"noEndDate": {form.$('noEndDate').value ? 'true': 'false'},</p>
                                             <p>"numberOfPayments": {form.$('numberOfPayments').value},</p>
                                             <p>"grantScheduleType": "{grantScheduleTypeDropdownStore.value && grantScheduleTypeDropdownStore.value.abrv}",</p>
+                                            <p>"grantPurposeType": "{grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.abrv}",</p>
+                                            <p>"purposeNote": "{form.$('purposeNote').value}",</p>
                                             <p>"donor": "{form.$('donor').value}",</p>
                                             <p>"donorAuthorization": "{form.$('donorAuthorization').value}",</p>
                                             <p>"IsRecurring": {form.$('isRecurring').value ? 'true': 'false'}</p>
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <p>"taxId": "{form.$('taxId').value.slice(0,2)}-{form.$('taxId').value.slice(2)}",</p>
+                                            <p>"taxId": "{form.$('taxId').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"cardNumber": {form.$('cardNumber').value},</p>
                                             <p>"description": {form.$('description').value}</p>

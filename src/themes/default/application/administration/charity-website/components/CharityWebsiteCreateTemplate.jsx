@@ -51,7 +51,7 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                             field={form.$('charityId')}
                             store={charityDropdownStore}
                         /> */}
-						<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
+						<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
                     </div>
                 </div>
             </EditFormContent>

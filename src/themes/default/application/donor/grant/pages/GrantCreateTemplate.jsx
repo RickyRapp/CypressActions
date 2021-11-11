@@ -51,11 +51,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		charityDropdownStore
 	} = grantCreateViewStore;
 	const promiseOptions = inputValue =>
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(filterCharities(inputValue));
-            }, 1000);
-        });
+			new Promise(resolve => {
+				setTimeout(() => {
+					resolve(filterCharities(inputValue));
+				}, 1000);
+			});
+        
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -74,10 +75,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										{
 											isGrantAgain ?
 											<div>
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} inputValue={charityDropdownStore.value.name} />
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} inputValue={charityDropdownStore.value.name} />
 											</div>
 											:
-											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
+											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
 										}
 										
 									</div>

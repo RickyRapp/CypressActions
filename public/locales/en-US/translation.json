@@ -2846,7 +2846,9 @@
                 "CARDNUMBER": "Card Number",
                 "DESCRIPTION": "Description",
                 "REQUEST_TYPE": "Request Type",
-                "STARTFUTUREDATE": "Start future date"  
+                "STARTFUTUREDATE": "Start future date",
+                "PURPOSE_NOTE": "Purpose Note",
+                "PURPOSE_TYPE": "Purpose Type"
             }            
         },
         "SCHEDULED_SETTING": {

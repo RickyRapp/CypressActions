@@ -229,6 +229,7 @@ class SessionViewStore extends BaseEditViewStore {
             let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);
             if(existingCertificateInSession >= 0) {
                 this.sessionCertificates[existingCertificateInSession].certificateValue = certificate.certificateValue;
+                this.sessionCertificates[existingCertificateInSession].denominationTypeValue = certificate.denominationTypeValue;
             } else {
                 this.sessionCertificates.push(data.response);
             }

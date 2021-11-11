@@ -8,7 +8,8 @@ import {
     BaasicFieldDropdown,
     NumericInputField,
     BasicInput,
-    BasicFieldCheckbox
+    BasicFieldCheckbox,
+    BaasicToggle
 } from 'core/components'
 import moment from 'moment';
 
@@ -61,7 +62,8 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                             </div>
                         </div>
                         <div>
-                            {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) && (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.GO_BACK')}</a>)}
+                            {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) &&  <BaasicToggle showLabel={true} label={t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')} value={reportCard} onChange={() => setCardAction()}/>} 
+                            {/* (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.GO_BACK')}</a>)} */}
                         </div>
                     </div>
                 }
@@ -80,7 +82,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                             Purpose <span className="type--color--note u-mar--left--tny">*</span>
                         </div>
                         <div className="list--preferences__dd">
-                            <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+                            <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} disabled={true}/>
                         </div>
                     </div>
 

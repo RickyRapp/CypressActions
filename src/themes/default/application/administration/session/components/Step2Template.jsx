@@ -25,7 +25,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} /> */}
-							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
+							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={false} loadOptions={promiseOptions} />
 							{charityDropdownStore && charityDropdownStore.value &&
 								<BaasicButton
 									className="btn btn--sml btn--link u-mar--bottom--sml"

@@ -63,6 +63,12 @@ export default class APITestingForm extends FormBase {
                     rules: 'string'
                 },
                 {
+                    name: 'grantPurposeType',
+                    label: 'TEST.API_TESTING.FIELDS.PURPOSE_TYPE',
+                    placeholder: 'TEST.API_TESTING.FIELDS.PURPOSE_TYPE',
+                    rules: 'string'
+                },
+                {
                     name: 'donor',
                     label: 'TEST.API_TESTING.FIELDS.DONOR',
                     placeholder: 'TEST.API_TESTING.FIELDS.DONOR',
@@ -92,6 +98,12 @@ export default class APITestingForm extends FormBase {
                     name: 'description',
                     label: 'TEST.API_TESTING.FIELDS.DESCRIPTION',
                     placeholder: 'TEST.API_TESTING.FIELDS.DESCRIPTION',
+                    rules: 'string' 
+                },
+                {
+                    name: 'purposeNote',
+                    label: 'TEST.API_TESTING.FIELDS.PURPOSE_NOTE',
+                    placeholder: 'TEST.API_TESTING.FIELDS.PURPOSE_NOTE',
                     rules: 'string' 
                 },        
             ]
