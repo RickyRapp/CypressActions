@@ -16,6 +16,8 @@ import {
 	//ChartSeriesLabels,
 	ChartTitle,
 	ChartTooltip,
+	ChartValueAxis,
+	ChartValueAxisItem,
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
 import { localStorageProvider } from 'core/providers';
@@ -84,14 +86,19 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	// 	categories = summaryData.donationsByTimePeriod.map(c => c.month);
 	// 	//dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
 	// };
-	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let categoriesMonths = [];
+	if(window.innerWidth > 750) {
+		categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	} else {
+		categoriesMonths = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
+	}
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 	//let categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	let dataGrants = [];
 	let dataContributions = [];
 	let chartDays = [];
-
+	
 	if (donor) {
 
 		if (yearDropdownStore.value.id == 7) {
@@ -132,11 +139,19 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
+
+	const labelVisual = (e) => {
+		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};
+
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id === 2021 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
 			</ChartCategoryAxis>
+			<ChartValueAxis>
+				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />
+			</ChartValueAxis>
 			<ChartTooltip
 				render={({ point }) => (
 					<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />

@@ -22,7 +22,7 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
                             {t('SELECT_DONOR_FROM_FILTER')}
                         </a>
                     </div>}
-                <div className="form__group col col-lrg-12">
+                <div className="form__group col col-sml-9 col-lrg-12">
                     <BaasicDropdown
                         placeholder={'SELECT_DONOR_PLACEHOLDER'}
                         className='input--dropdown'
