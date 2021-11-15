@@ -97,7 +97,7 @@ function DashboardTemplate({ dashboardViewStore }) {
 								</div>
 							</div>
 							<div className="row u-mar--bottom--med">
-								<div className="col col-sml-12"><LineChartContainer /></div>
+								<div className="col col-sml-12"><LineChartContainer className="col-xlrg-12 col-xxlrg-12"/></div>
 							</div>
 						</div>
 					) : (

@@ -26,7 +26,7 @@ export default class GrantRequestCreateForm extends FormBase {
                         validateOnChange: false
                     },
                     extra: {
-                        format: '#### #### #### ####'
+                        format: '####-####-####-####'
                     }
                 },
                 {
