@@ -317,7 +317,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     </button>
                                 </div>
                                 {form.$('isCustomizedBook').value &&
-                                    <React.Fragment>
+                                    <div className="row row--form">
                                         {donor && donor.accountType.abrv === 'regular' &&
                                             <div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
                                                 <strong>
@@ -345,7 +345,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         <div className="col col-sml-12 col-xlrg-2">
                                             <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
                                         </div>
-                                    </React.Fragment>
+                                    </div>
                                 }
                             </div>
                         </div>
