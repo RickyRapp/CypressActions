@@ -71,7 +71,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 											</div>
 											<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-													Is primary?
+													Primary
 												</p>
 												<p className="type--base type--wgt--bold">{primaryAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : 'No'}</p>
 											</div>

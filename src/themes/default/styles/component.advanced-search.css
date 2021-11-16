@@ -19,7 +19,7 @@
         opacity: 0.5;
     }
 
-    @media (--screen-to-med) {
+    /* @media (--screen-to-med) {
         margin-top: calc($unit * 4);
-    }
+    } */
 }

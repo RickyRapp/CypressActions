@@ -275,7 +275,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						</div>
 					)}
 				</div>
-				<div className="col col-sml-12 col-xxlrg-6">
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card u-mar--bottom--sml">
 							<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
@@ -473,7 +473,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						<Transaction
 							hideSearch={true}
 							hidePager={true}
-							hidePeriod={true} />
+							hidePeriod={true}
+							noBackground={true}
+							/>
 					</div>
 				</div>
 			</div>

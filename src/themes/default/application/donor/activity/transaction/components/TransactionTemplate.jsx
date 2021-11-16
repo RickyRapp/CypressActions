@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, DateRangeQueryPicker, BaasicDropdown, TableFilter, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
 
-function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hidePeriod }) {
+function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hidePeriod, noBackground }) {
 	const { tableStore, dateCreatedDateRangeQueryStore, transactionTypeStore, transactionPeriod, queryUtility } = transactionViewStore;
 
 	const DetailComponent = ({ dataItem }) => {
@@ -39,7 +39,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 
 	return (
 		<div>
-			<div className="card--tertiary card--med">
+			<div className={`${noBackground ? "" : "card--tertiary card--med"}`}>
 				<div className="row u-mar--bottom--base">
 					<div className="col col-sml-12 col-lrg-6 col-xxlrg-9">
 						{hideSearch ? null :
@@ -90,6 +90,7 @@ TransactionTemplate.propTypes = {
 	hideSearch: PropTypes.bool,
 	hidePager: PropTypes.bool,
 	hidePeriod: PropTypes.bool,
+	noBackground: PropTypes.bool,
 };
 
 export default defaultTemplate(TransactionTemplate);

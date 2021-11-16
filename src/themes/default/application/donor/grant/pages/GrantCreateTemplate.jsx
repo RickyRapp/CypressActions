@@ -43,8 +43,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		getNumberOfReocurrency,
 		grantPurposeTypes,
 		confirmModal,
-        filterCharities,
-        setCharityId,
+		filterCharities,
+		setCharityId,
 		onSubmitClick,
 		charity,
 		isGrantAgain,
@@ -52,13 +52,13 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
-	const promiseOptions = (inputValue) => 
-			new Promise(resolve => {
-				setTimeout(() => {
-					resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
-				}, 1000);
-			});
-        
+	const promiseOptions = (inputValue) =>
+		new Promise(resolve => {
+			setTimeout(() => {
+				resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
+			}, 1000);
+		});
+
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -76,20 +76,19 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										/> */}
 										{
 											isGrantAgain ?
-											<div>
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name}  classNamePrefix="react-select"/>
-											</div>
-											:
-											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+												<div>
+													<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name} classNamePrefix="react-select" />
+												</div>
+												:
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
 										}
-										
+
 									</div>
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row row--form u-mar--bottom--med row__align--center">
-
 										<div className="col col-sml-12 col-lrg-6">
-											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} />
+											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} wrapperClassName={"u-display--flex u-display--none--med"} />
 										</div>
 										<div className="col col-sml-12 col-lrg-6 ">
 											<div className="u-push--from--med">
@@ -197,7 +196,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									<div className="form__group col col-sml-12 col-lrg-6">
 										<NumericInputField field={form.$('amount')} />
 									</div>
-									<div className="form__group col col-sml-12 col-lrg-6">
+									<div className={`form__group col col-sml-12 col-lrg-6`}>
 										<DatePickerField field={form.$('startFutureDate')} />
 									</div>
 								</div>
@@ -276,8 +275,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 
 								<div className="u-mar--top--sml u-mar--bottom--sml type--right">
-                                    <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
-                                </div>
+									<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+								</div>
 
 							</div>
 						</div>
@@ -493,8 +492,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 				<GrantConfirmDetailsTemplate form={form} />
 			</BaasicModal> */}
 			<BaasicModal modalParams={confirmModal}>
-                <GrantConfirmTemplate form={form} />
-            </BaasicModal>
+				<GrantConfirmTemplate form={form} />
+			</BaasicModal>
 			<BaasicModal modalParams={advancedSearchModal}>
 				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />
 			</BaasicModal>
@@ -507,7 +506,7 @@ GrantCreateTemplate.propTypes = {
 	t: PropTypes.func.isRequired,
 	confirmModal: PropTypes.any,
 	form: PropTypes.any,
-    onSubmitClick: PropTypes.func
+	onSubmitClick: PropTypes.func
 };
 
 function renderEditLayoutFooterContent({ form }) {

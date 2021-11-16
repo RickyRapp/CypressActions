@@ -39,7 +39,7 @@ const ContributionCreateStep3Template = function ({
                     <p><b>Step 2</b></p>
                     <h4 className="u-mar--bottom--sml">{t('CONTRIBUTION.CREATE.SUMMARY')}</h4>
 
-                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                         <span className="type--base type--wgt--medium type--color--opaque">
                             {t('CONTRIBUTION.CREATE.PAYMENT_TYPE')}
                         </span>
@@ -47,8 +47,8 @@ const ContributionCreateStep3Template = function ({
                             {paymentType.name}
                         </span>
                     </div>
-                    
-                    <div className="card--tny card--secondary u-mar--bottom--sml">
+
+                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                         <span className="type--base type--wgt--medium type--color--opaque">
                             {t('CONTRIBUTION.CREATE.AMOUNT')}
                         </span>
@@ -63,7 +63,7 @@ const ContributionCreateStep3Template = function ({
 
                     {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('bankAccountId').value)) && (
                         <React.Fragment>
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
+                            <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                 <span className="type--base type--wgt--medium type--color--opaque">
                                     {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
                                 </span>
@@ -72,40 +72,34 @@ const ContributionCreateStep3Template = function ({
                                 </span>
                             </div>
 
-                            <div className="card--tny card--secondary u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <span className="type--base type--wgt--medium type--color--opaque">
-                                            {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
-                                        </span>
-                                    </div>
-                                    <div className="col col-sml-6 type--right">
-                                        <span className="type--base type--wgt--bold u-push">
-                                            {bankAccount.accountNumber}
-                                        </span>
-                                    </div>
-                                </div>
+                            <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
+                                <span className="type--base type--wgt--medium type--color--opaque">
+                                    {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
+                                </span>
+                                <span className="type--base type--wgt--bold u-push">
+                                    {bankAccount.accountNumber}
+                                </span>
                             </div>
 
                             {paymentType.abrv === "wire-transfer" &&
                                 <div className="u-mar--bottom--med" id="clipboard-info">
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
                                         <span className="type--base type--wgt--bold u-push">Donors’ Fund Inc</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Address</span>
                                         <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Beneficiary bank</span>
                                         <span className="type--base type--wgt--bold u-push">JP Morgan Chase</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">ABA (routing number)</span>
                                         <span className="type--base type--wgt--bold u-push">021000021</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Account number</span>
                                         <span className="type--base type--wgt--bold u-push">883220399</span>
                                     </div>
@@ -128,19 +122,14 @@ const ContributionCreateStep3Template = function ({
                     )}
                     {paymentType.abrv === 'check' && (
 
-                        <div className="card--tny card--secondary u-mar--bottom--sml">
-                            <div className="row">
-                                <div className="col col-sml-6">
-                                    <span className="type--base type--wgt--medium type--color--opaque">
-                                        {t('CONTRIBUTION.CREATE.CHECK_NUMBER')}
-                                    </span>
-                                </div>
-                                <div className="col col-sml-6">
-                                    <span className="type--base type--wgt--bold u-push">
-                                        {form.$('checkNumber').value}
-                                    </span>
-                                </div>
-                            </div>
+                        <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
+                            <span className="type--base type--wgt--medium type--color--opaque">
+                                {t('CONTRIBUTION.CREATE.CHECK_NUMBER')}
+                            </span>
+
+                            <span className="type--base type--wgt--bold u-push">
+                                {form.$('checkNumber').value}
+                            </span>
                         </div>
 
                     )}
@@ -167,23 +156,23 @@ const ContributionCreateStep3Template = function ({
                         )}}>Copy to clipboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
                         <a className="btn btn--link btn--med" onClick={downloadStockTxtFile}>Download</a> */}
                                 <div className="u-mar--bottom--med" id="clipboard-info">
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
                                         <span className="type--base type--wgt--bold u-push">Donors’ Fund Inc</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Address</span>
                                         <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
                                         <span className="type--base type--wgt--bold u-push">47-4844275</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">Brokerage Firm</span>
                                         <span className="type--base type--wgt--bold u-push">Fidelity Investment</span>
                                     </div>
-                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                         <span className="type--base type--wgt--medium type--color--opaque">DTC</span>
                                         <span className="type--base type--wgt--bold u-push">0226</span>
                                     </div>
@@ -213,13 +202,18 @@ const ContributionCreateStep3Template = function ({
                     {paymentType.abrv === 'zelle' ?
                         <div>
                             <div className="u-mar--bottom--med" id="clipboard-info">
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Our Zelle email address</span>
-                                    <span className="type--base type--wgt--bold u-push">QP@TheDonorsFund.org</span>
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
+                                    <div className="row">
+                                        <span className="col col-sml-12 col-lrg-6 type--base type--wgt--medium type--color--opaque">Our Zelle email address</span>
+                                        <span className="col col-sml-12 col-lrg-6 type--base type--wgt--bold type--break--all u-push">QP@TheDonorsFund.org</span>
+                                    </div>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
-                                    <span className="type--base type--wgt--medium type--color--opaque">Zelle Memo</span>
-                                    <span className="type--base type--wgt--bold u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
+
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
+                                    <div className="row">
+                                        <span className="col col-sml-12 col-lrg-6 type--base type--wgt--medium type--color--opaque">Zelle Memo</span>
+                                        <span className="col col-sml-12 col-lrg-6 type--base type--wgt--bold type--break--all u-push">{bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} </span>
+                                    </div>
                                 </div>
                                 {/* <div className="card--tny card--secondary u-mar--bottom--med">
                                     <span className="type--base type--wgt--medium type--color--opaque">Amount</span>
@@ -230,16 +224,21 @@ const ContributionCreateStep3Template = function ({
                                             format={{ type: 'currency' }}
                                         /></span>
                                 </div> */}
-                                
-                                <div className="u-display--flex">
-                                    <BaasicButton className="btn btn--100 btn--primary" onClick={() => {
-                                        navigator.clipboard.writeText(`
-                            Our Zelle email address - QP@TheDonorsFund.org\n
-                            Zelle Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
-                            Amount: $${form.$('amount').value.toFixed(2)}`
-                                        )
-                                    }} label="Copy to clipboard"></BaasicButton>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <BaasicButton className="btn btn--100 btn--primary" onClick={downloadZelleTxtFile} label="Download"></BaasicButton></div>
+
+                                <div className="row">
+                                    <div className="col col-sml-12 col-lrg-6">
+                                        <BaasicButton className="btn btn--100 btn--primary u-mar--bottom--sml" onClick={() => {
+                                            navigator.clipboard.writeText(`
+                                        Our Zelle email address - QP@TheDonorsFund.org\n
+                                        Zelle Memo: ${bankAccount ? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx(your full account number)'} \n
+                                        Amount: $${form.$('amount').value.toFixed(2)}`
+                                            )
+                                        }} label="Copy to clipboard"></BaasicButton>
+                                    </div>
+                                    <div className="col col-sml-12 col-lrg-6">
+                                        <BaasicButton className="btn btn--100 btn--primary" onClick={downloadZelleTxtFile} label="Download"></BaasicButton>
+                                    </div>
+                                </div>
                             </div>
                         </div> : null
                     }
@@ -247,15 +246,15 @@ const ContributionCreateStep3Template = function ({
                     {paymentType.abrv === 'third-party-donor-advised-funds' ?
                         <div>
                             <div className="u-mar--bottom--med">
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Charity name</span>
                                     <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">EIN (tax ID)</span>
                                     <span className="type--base type--wgt--bold u-push">47-4844275</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Address</span>
                                     <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                 </div>
@@ -280,11 +279,11 @@ const ContributionCreateStep3Template = function ({
                     {paymentType.abrv === 'check' ?
                         <div>
                             <div className="u-mar--bottom--med">
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Make checks payable to</span>
                                     <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Mail to</span>
                                     <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                 </div>
@@ -309,19 +308,19 @@ const ContributionCreateStep3Template = function ({
                     {paymentType.abrv === 'paycheck-direct' ?
                         <div>
                             <div className="u-mar--bottom--med">
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Beneficiary</span>
                                     <span className="type--base type--wgt--bold u-push">The Donors Fund</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Address</span>
                                     <span className="type--base type--wgt--bold u-push">{t('MAILING_ADDRESS')}</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">Beneficiary bank</span>
                                     <span className="type--base type--wgt--bold u-push">JP Morgan Chase</span>
                                 </div>
-                                <div className="card--tny card--secondary u-mar--bottom--sml">
+                                <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
                                     <span className="type--base type--wgt--medium type--color--opaque">ABA (routing number)</span>
                                     <span className="type--base type--wgt--bold u-push">021000021</span>
                                 </div>

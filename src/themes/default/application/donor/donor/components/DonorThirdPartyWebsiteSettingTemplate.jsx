@@ -22,27 +22,23 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-            <div className="list--preferences">
-                <div className="list--preferences__label">
-                    <h3>{t('DONOR.CHARITY_WEBSITE_SETTING.TITLE')}</h3>
-                </div>
-            </div>
-                
-            <div className="list--preferences">
-                <div className="list--preferences__label is-dropdown">Share information</div>
-                <div className="list--preferences__dd">
-                    <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
-                </div>
-            </div>
+                <h3 className="list--preferences__title">{t('DONOR.CHARITY_WEBSITE_SETTING.TITLE')}</h3>
 
-            <div className="list--preferences">
-                <div className="list--preferences__label is-dropdown">Purpose</div>
-                <div className="list--preferences__dd">
-                    <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} disabled={true}/>
+                <div className="list--preferences">
+                    <div className="list--preferences__label is-dropdown">Share information</div>
+                    <div className="list--preferences__dd">
+                        <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
+                    </div>
                 </div>
-            </div>
 
-            {/* <div className="list--preferences">
+                <div className="list--preferences">
+                    <div className="list--preferences__label is-dropdown">Purpose</div>
+                    <div className="list--preferences__dd">
+                        <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} disabled={true} />
+                    </div>
+                </div>
+
+                {/* <div className="list--preferences">
                 <div className="list--preferences__label">Maximum dollar amount per transaction</div>
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('maxAmount')} />

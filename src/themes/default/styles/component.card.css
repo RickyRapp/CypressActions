@@ -7,14 +7,14 @@
 		background-color: $white;
 		border-radius: $radius-base;
 		box-shadow: $shadow-card;
-		
+
 		&.show {
 			box-shadow: none;
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
 		}
 	}
-	
+
 	&--secondary {
 		border-radius: $radius-base;
 		background-color: $color-background;
@@ -29,6 +29,15 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+	}
+
+	&--column {
+		&--med {
+			@media (--screen-to-med) {
+				display: flex;
+				flex-direction: column;
+			}
+		}
 	}
 
 	&--tertiary {
@@ -225,10 +234,10 @@
 	}
 
 	&--enh {
-        background-color: color($color-primary a(10%));
-        padding: calc($unit * 6);
-        box-shadow: $shadow-card;
-        border: 1px solid color($color-primary a(50%));
+		background-color: color($color-primary a(10%));
+		padding: calc($unit * 6);
+		box-shadow: $shadow-card;
+		border: 1px solid color($color-primary a(50%));
 		border-radius: $radius-base;
-    }
+	}
 }
