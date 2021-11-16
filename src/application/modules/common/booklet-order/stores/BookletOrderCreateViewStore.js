@@ -119,7 +119,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get totalAmount() {
-        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
+        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? 5 : 0);
     }
 
     @computed get totalPrepaidAmount() {

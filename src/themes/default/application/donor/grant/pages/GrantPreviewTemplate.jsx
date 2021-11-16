@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import {
     ApplicationEmptyState,
     FormatterResolver,
-    Date
+    Date,
+    BaasicButton
 } from 'core/components';
 import { addressFormatter } from 'core/utils';
 import { PreviewLayout } from 'core/layouts';
@@ -14,9 +15,10 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
     const {
         item,
         loaderStore,
-        isEditable
+        isEditable,
+        cancelGrant,
+        newGrant
     } = grantPreviewViewStore;
-
     return (
         <PreviewLayout
             store={grantPreviewViewStore}
@@ -107,6 +109,18 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                     </div>
                 </div>
             </div>
+            <BaasicButton
+                className="btn btn--base btn--primary u-mar--right--sml"
+                onClick={newGrant}
+                icon=''
+                label={t('PREVIEW_LAYOUT.NEW_GRANT')}
+            />
+            <BaasicButton
+                className="btn btn--base btn--primary u-mar--right--sml"
+                onClick={cancelGrant}
+                icon=''
+                label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
+            />
         </PreviewLayout>
     )
 }

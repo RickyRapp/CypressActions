@@ -156,7 +156,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									</div>
 								)}
 
-								{charity &&
+								{charity && typeof charity.item == 'undefined' &&
+									<CharityShortInformationTemplate
+										charity={charity}
+										onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+										isChangedDefaultAddress={isChangedDefaultAddress}
+										grantRequestId={grantRequestId}
+									/>}
+								{charity && charity.item &&
 									<CharityShortInformationTemplate
 										charity={charity.item}
 										onChangeDefaultAddressClick={onChangeDefaultAddressClick}
@@ -311,6 +318,66 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										</div>
 									</div>
 
+									{charity && typeof charity.item == 'undefined' ? (
+										<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+											<div className="card--secondary card--med ">
+												<div className="row row--form">
+													<div className="col col-sml-12 col-lrg-6">
+														<h4 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">
+															{t('GRANT.CREATE.PROFILE_INFO')}
+														</h4>
+													</div>
+												</div>
+												<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="type--base type--wgt--bold">{charity.name}</div>
+													</div>
+												</div>
+												<div className="row row--form u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.RULLING_YEAR')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.rullingYear}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.EIN')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityFormatter.format(charity.taxId, { value: 'tax-id' })}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.irsFilingRequirement}</p>
+													</div>
+												</div>
+												<div className="row row--form u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.principalOfficer}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.CAUSE_AREA')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.nteeCode}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.irsFilingRequirement}</p>
+													</div>
+												</div>
+												<div className="row row--form u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">
+															{addressFormatter.format(
+																charity.charityAddresses.filter(c => c.isPrimary === true),
+																'full'
+															)}
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									) : null}
 									{charity && charity.item ? (
 										<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 											<div className="card--secondary card--med ">

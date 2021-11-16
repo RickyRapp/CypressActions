@@ -257,7 +257,9 @@
     "PREVIEW_LAYOUT": {
         "NEW": "New",
         "EDIT_BUTTON": "Edit",
-        "CANCEL_BUTTON": "Cancel"
+        "CANCEL_BUTTON": "Go Back",
+        "CANCEL_GRANT_BUTTON": "Cancel",
+        "NEW_GRANT": "Create New Grant"
     },
     "APPLICATION_EDIT_LAYOUT": {
         "EMPTY_STATE_TITLE": "Application Not Selected",

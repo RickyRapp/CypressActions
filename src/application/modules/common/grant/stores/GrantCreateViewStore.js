@@ -22,6 +22,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	charities = [];
 	isFuture = false;
 	isGrantAgain = false;
+	@observable defaultValue = '';
 	@observable charity = null;
 	@observable inputCharity = '';
 
@@ -352,7 +353,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
 		}
-		if(value > this.donor.availableBalance && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+		if(value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
 			const { modalStore } = this.rootStore;
 			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
 				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
@@ -462,7 +463,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onCharitySelected(charity) {
-		this.setCharity(charity);
+		this.form.$('charityId').set(charity.id);
+		this.defaultValue = charity.name;
+		this.charity = charity;
+		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
+		this.setSimilarGrantTable(charity.charityTypeId);
 		this.advancedSearchModal.close();
 	}
 
