@@ -36,11 +36,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         prepaidBooksChecks,
         totalPrepaidAmount,
         showMoreOptions,
-        showAddOnitems,
+        //showAddOnitems,
         onShowMoreOptionsClick,
         isDefaultShippingAddress,
         onShowAllBooksClick,
-        onShowAddOnItemsClick,
+        //onShowAddOnItemsClick,
         onAddProtectionPlanClick,
         protectionPlanModalParams,
         customizedExpirationDateDropdownStore,
@@ -50,7 +50,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         tableData,
         onShowBookletsClick
     } = store;
-
     return (
         <React.Fragment>
             <ApplicationEditLayout store={store}>
@@ -271,11 +270,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                                             </tr>
                                         </tfoot>
-                                        {(form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0)
+                                        {donor && donor.accountType && donor.accountType.abrv != 'private' && (form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0)
                                         ? <tfoot>
                                             <tr>
                                                 <th colSpan="2">Custom booklet fee</th>
-                                                <th>$5.00</th>
+                                                <th>${(orderContents.reduce((a,b) => a+b.bookletCount, 0) * 5).toFixed(2)}</th>
                                             </tr>
                                         </tfoot> : null}
                                         
@@ -294,7 +293,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
 
-                            <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
+                            {/* <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
                                 <div className="type--center">
                                     <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
                                         <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
@@ -306,7 +305,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="col col-sml-12 col-xlrg-12">
 
                                     </div>}
-                            </div>
+                            </div> */}
 
                             <div className="col col-sml-12 u-mar--bottom--sml u-order--5--xxxlrg">
                                 <div className="u-mar--bottom--sml type--center">
@@ -349,7 +348,6 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 }
                             </div>
                         </div>
-
 
                         <div className="card--sml">
                             {donor && !donor.hasProtectionPlan && prepaidBooksChecks &&

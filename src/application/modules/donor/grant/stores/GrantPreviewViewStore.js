@@ -79,6 +79,10 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
     newGrant() {
         this.rootStore.routerStore.goTo('master.app.main.donor.grant.create');
     }
+    @action.bound
+    editGrant() {
+        this.rootStore.routerStore.goTo('master.app.main.donor.grant.edit', { id: this.id });
+    }
 }
 
 export default GrantPreviewViewStore;

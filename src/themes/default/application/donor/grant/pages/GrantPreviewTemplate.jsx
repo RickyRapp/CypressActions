@@ -17,14 +17,15 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
         loaderStore,
         isEditable,
         cancelGrant,
-        newGrant
+        newGrant,
+        editGrant
     } = grantPreviewViewStore;
     return (
         <PreviewLayout
             store={grantPreviewViewStore}
             emptyRenderer={<ApplicationEmptyState />}
             loading={loaderStore.loading}
-            layoutFooterVisible={isEditable}
+            layoutFooterVisible={false}
         >
             <div className="row">
                 <div className="col col-sml-12 col-lrg-4">
@@ -121,6 +122,13 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                 icon=''
                 label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
             />
+            {isEditable && 
+            <BaasicButton
+                className="btn btn--base btn--primary u-mar--right--sml"
+                onClick={editGrant}
+                icon=''
+                label={t('PREVIEW_LAYOUT.EDIT_BUTTON')}
+            />}
         </PreviewLayout>
     )
 }

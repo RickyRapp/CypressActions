@@ -25,6 +25,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable defaultValue = '';
 	@observable charity = null;
 	@observable inputCharity = '';
+	@observable asyncPlaceholder = 'Start typing Charity name or Tax Id...';
+	@observable moreSettings = false;
 
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
@@ -67,13 +69,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
 									resource.numberOfPayments = 1;
 									const resultRec = await this.grantStore.createScheduledGrant(resource);
-									this.grantId = resultRec.response;
+									this.grantId = resultRec;
 									this.isFuture = true;
 								}
 							} else if(resource.isRecurring) {
 								// eslint-disable-next-line
 								const resultRec = await this.grantStore.createScheduledGrant(resource);
-								this.grantId = resultRec.response;
+								this.grantId = resultRec;
 							} else {
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
@@ -89,10 +91,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				} else {
 					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
-					else if(!this.isFuture && this.form.$('isRecurring').value)
-						this.rootStore.routerStore.goBack();
 					else
-						this.rootStore.routerStore.goBack();
+						this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', {id: this.grantId} )
+					// else if(!this.isFuture && this.form.$('isRecurring').value)
+					// 	this.rootStore.routerStore.goBack();
+					// else
+					// 	this.rootStore.routerStore.goBack();
 				}
 				this.rootStore.notificationStore.success('Successfully created a grant');
 			},
@@ -230,6 +234,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.form.$('amount').set(data.amount);
 			}
 		}
+	}
+
+	@action.bound
+	toggleSettings() {
+		this.moreSettings = !this.moreSettings;
 	}
 
 	@action.bound
@@ -464,7 +473,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	async onCharitySelected(charity) {
 		this.form.$('charityId').set(charity.id);
-		this.defaultValue = charity.name;
+		this.asyncPlaceholder = charity.name;
 		this.charity = charity;
 		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
 		this.setSimilarGrantTable(charity.charityTypeId);

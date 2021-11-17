@@ -18,6 +18,7 @@ class SessionViewStore extends BaseEditViewStore {
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
+    @observable isCharitySelected = false;
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -112,6 +113,7 @@ class SessionViewStore extends BaseEditViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
         this.form.$('charityId').value = id;
+        this.isCharitySelected = true;
         //this.queryUtility.filter.charityId = id;
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 

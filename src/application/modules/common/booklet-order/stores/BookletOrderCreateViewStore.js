@@ -29,14 +29,21 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
+                        const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
                             ...resource,
                             bookletOrderContents: this.orderContents.filter(c => c.bookletCount > 0)
                         });
+                        this.id = data.response;
                     }
                 }
+            },
+            onAfterAction: () => {
+                if(rootStore.userStore.user.roles.includes('Users'))
+                    rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
+                else 
+                    rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
             },
             FormClass: BookletOrderCreateForm,
             errorActions: {

@@ -49,6 +49,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		charity,
 		isGrantAgain,
 		charityDropdownStore,
+		asyncPlaceholder,
+		moreSettings,
+		toggleSettings
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
@@ -80,7 +83,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name} classNamePrefix="react-select" />
 												</div>
 												:
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={asyncPlaceholder}/>
 										}
 
 									</div>
@@ -196,18 +199,28 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									<div className="form__group col col-sml-12 col-lrg-6">
 										<NumericInputField field={form.$('amount')} />
 									</div>
-									<div className={`form__group col col-sml-12 col-lrg-6`}>
+									{window.innerWidth > 750 && <div className={`form__group col col-sml-12 col-lrg-6`}>
 										<DatePickerField field={form.$('startFutureDate')} />
-									</div>
+									</div>}
 								</div>
-								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
+								{window.innerWidth < 750 ?
+									<button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
+									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+									{!moreSettings ? 'More Settings' : 'Less Settings'}
+									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+								</button> : null
+								}
+								{window.innerWidth < 750 && moreSettings && <div className="row row--form"><div className={`form__group col col-sml-12 col-lrg-6`}>
+										<DatePickerField field={form.$('startFutureDate')} />
+									</div></div>}
+								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (moreSettings || window.innerWidth > 750) && (
 									<div className="row row--form">
 										<div className="form__group col col-sml-12">
 											<BaasicFieldToggle field={form.$('isRecurring')} showLabel={true} />
 										</div>
 									</div>
 								)}
-								{form.$('isRecurring').value && (
+								{form.$('isRecurring').value && (moreSettings || window.innerWidth > 750) && (
 									<div className="card--form card--med u-mar--bottom--lrg">
 										<div className="row row--form">
 											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
@@ -250,26 +263,33 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									</div>
 								)}
 								<div className="row row--form">
+								{
+									(moreSettings || window.innerWidth > 750) && 
 									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
 											field={form.$('grantAcknowledgmentTypeId')}
 											store={grantAcknowledgmentTypeDropdownStore}
 										/>
 									</div>
-									{grantAcknowledgmentName && (
+								}
+									
+									{grantAcknowledgmentName && (moreSettings || window.innerWidth > 750) && (
 										<div className="form__group col col-sml-12">
 											<div className="charity-information__card charity-information__card--secondary">
 												{grantAcknowledgmentName}
 											</div>
 										</div>
 									)}
-
-									<div className="form__group col col-sml-12 ">
+									{
+										(moreSettings || window.innerWidth > 750) &&
+										<div className="form__group col col-sml-12 ">
 										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
 									</div>
-									<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-										{form.$('grantPurposeTypeId').value &&
-											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
+									
+									}<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+									{(moreSettings || window.innerWidth > 750) && form.$('grantPurposeTypeId').value &&
+											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />
+									}
 									</div>
 
 								</div>

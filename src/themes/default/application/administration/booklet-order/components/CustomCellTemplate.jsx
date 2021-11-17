@@ -8,7 +8,7 @@ const CustomCellTemplate = (props) => {
     return (
         <td>
             <div className="table__status">
-                {dataItem.booklets.map((c, i) => {
+                {dataItem.booklets ? dataItem.booklets.map((c, i) => {
                     return (
                         <span
                             key={c.code}
@@ -17,7 +17,7 @@ const CustomCellTemplate = (props) => {
                         </span>
                     )
                 }
-                )}
+                ) : <span>Booklets not assigned</span>}
             </div>
         </td>
     );
