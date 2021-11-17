@@ -110,7 +110,7 @@ $header-height-mobile: 72px;
         left: 0;
         bottom: 0;
 
-        @media (--screen-from-lrg) {
+        @media (--screen-from-sml) {
             top: $header-height;
         }
 

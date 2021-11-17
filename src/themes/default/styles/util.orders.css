@@ -3,6 +3,18 @@
 \*------------------------------------*/
 
 .u-order {
+	&--1 {
+		@media (--screen-to-sml) {
+			order: 1;
+		}
+		
+		&--xxxlrg {
+			@media (--screen-to-xxlrg) {
+				order: 1;
+			}
+		}
+	}
+	
 	&--2 {
 		@media (--screen-to-sml) {
 			order: 2;
