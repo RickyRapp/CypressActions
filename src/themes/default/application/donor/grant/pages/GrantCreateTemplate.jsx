@@ -51,7 +51,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		charityDropdownStore,
 		asyncPlaceholder,
 		moreSettings,
-		toggleSettings
+		toggleSettings,
+		isAdvancedInput
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
@@ -83,7 +84,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name} classNamePrefix="react-select" />
 												</div>
 												:
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={asyncPlaceholder}/>
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder}/>
 										}
 
 									</div>

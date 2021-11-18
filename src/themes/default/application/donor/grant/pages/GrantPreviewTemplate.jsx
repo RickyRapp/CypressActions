@@ -18,7 +18,8 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
         isEditable,
         cancelGrant,
         newGrant,
-        editGrant
+        editGrant,
+        isCancelable
     } = grantPreviewViewStore;
     return (
         <PreviewLayout
@@ -131,14 +132,18 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                 />
                             </div>
                         }
-                        <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
-                            <BaasicButton
-                                className="btn btn--base btn--ghost btn--100 u-mar--bottom--sml"
-                                onClick={cancelGrant}
-                                icon=''
-                                label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
-                            />
-                        </div>
+                        {
+                            isCancelable &&
+                                <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
+                                    <BaasicButton
+                                        className="btn btn--base btn--ghost btn--100 u-mar--bottom--sml"
+                                        onClick={cancelGrant}
+                                        icon=''
+                                        label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
+                                    />
+                                </div>
+                        }
+                        
                     </div>
                 </div>
             </div>

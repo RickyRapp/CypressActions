@@ -6,6 +6,7 @@ import moment from 'moment';
 @applicationContext
 class GrantPreviewViewStore extends BasePreviewViewStore {
     @observable isEditable = false;
+    @observable isCancelable = false;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -52,6 +53,7 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
             if (this.item.donationStatus.abrv === 'pending' || this.item.donationStatus.abrv === 'approved') {
                 const dateToEdit = moment(this.item.dateCreated).add(15, 'minutes');
                 this.isEditable = moment().isBetween(this.item.dateCreated, dateToEdit);
+                this.isCancelable = true;
             }
         }
     }

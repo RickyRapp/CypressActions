@@ -25,8 +25,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable defaultValue = '';
 	@observable charity = null;
 	@observable inputCharity = '';
-	@observable asyncPlaceholder = 'Start typing Charity name or Tax Id...';
+	@observable asyncPlaceholder = '';
 	@observable moreSettings = false;
+	@observable isAdvancedInput = false;
 
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
@@ -472,8 +473,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onCharitySelected(charity) {
+		this.isAdvancedInput = true;
 		this.form.$('charityId').set(charity.id);
-		this.asyncPlaceholder = charity.name;
+		this.asyncPlaceholder = charityFormatter.format(charity, {value: 'charity-name-display'});
 		this.charity = charity;
 		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
 		this.setSimilarGrantTable(charity.charityTypeId);
@@ -633,9 +635,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 	@action.bound
 	setCharityId(id) {
+		this.isAdvancedInput = false;
 		this.form.$('charityId').set(id);
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
+		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
 		this.setAddress(charity && charity.item && charity.item.charityAddresses[0]);
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	}

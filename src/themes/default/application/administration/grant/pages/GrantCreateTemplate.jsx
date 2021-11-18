@@ -50,14 +50,15 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         setCharityId,
         charity,
         asyncPlaceholder,
+        isAdvancedInput,
         moreSettings,
-		toggleSettings
+        toggleSettings
     } = grantCreateViewStore;
 
-    const promiseOptions = inputValue =>
+    const promiseOptions = (inputValue) =>
         new Promise(resolve => {
             setTimeout(() => {
-                resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
+                resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
             }, 1000);
         });
 
@@ -76,7 +77,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             store={charityDropdownStore}
                                             additionalLabel='My Favorite Charities'
                                         /> */}
-                                        <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} placeholder={asyncPlaceholder} classNamePrefix="react-select" />
+                                        <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder} />
+                                        {/* <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} placeholder={asyncPlaceholder} classNamePrefix="react-select" /> */}
                                     </div>
                                 </div>
                                 {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
@@ -143,14 +145,21 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>}
 
-                                {charity &&
-                                <CharityShortInformationTemplate
-                                    charity={charity.item}
-                                    onChangeDefaultAddressClick={onChangeDefaultAddressClick}
-                                    isChangedDefaultAddress={isChangedDefaultAddress}
-                                    grantRequestId={grantRequestId}
-                                />}
-                                
+                                {charity && charity.item &&
+                                    <CharityShortInformationTemplate
+                                        charity={charity.item}
+                                        onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                                        isChangedDefaultAddress={isChangedDefaultAddress}
+                                        grantRequestId={grantRequestId}
+                                    />}
+                                {charity && typeof charity.item == 'undefined' &&
+                                    <CharityShortInformationTemplate
+                                        charity={charity}
+                                        onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                                        isChangedDefaultAddress={isChangedDefaultAddress}
+                                        grantRequestId={grantRequestId}
+                                    />}
+
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row row--form">
@@ -178,12 +187,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 </div>
                                 {window.innerWidth < 750 ?
-									<button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
-									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-									{!moreSettings ? 'More Settings' : 'Less Settings'}
-									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-								</button> : null
-								}
+                                    <button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
+                                        <i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                        {!moreSettings ? 'More Settings' : 'Less Settings'}
+                                        <i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    </button> : null
+                                }
                                 {(window.innerWidth > 750 || moreSettings) && <div className="row row--form">
                                     <div className="form__group col col-sml-12">
                                         <DatePickerField field={form.$('startFutureDate')} />
@@ -249,7 +258,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>
                                 }
-                                
+
                                 {
                                     (window.innerWidth > 750 || moreSettings) &&
                                     <div className="row row--form">
@@ -263,7 +272,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 <div className="u-mar--top--sml u-mar--bottom--sml type--right">
                                     <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div className="col col-sml-12 col-xxlrg-6">
@@ -295,7 +304,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>
 
-                                    {charity &&
+                                    {charity && charity.item &&
                                         <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
                                             <div className="row row--form">
                                                 <div className="col col-sml-12 col-lrg-6">
@@ -345,6 +354,59 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
                                                     <p>{addressFormatter.format(charity.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
+                                                </div>
+                                            </div>
+                                        </div>}
+                                    {charity && typeof charity.item == 'undefined' &&
+                                        <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                            <div className="row row--form">
+                                                <div className="col col-sml-12 col-lrg-6">
+                                                    <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
+                                                </div>
+                                            </div>
+                                            <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <img src={logo} alt={"logo"} />
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    {charity.name}
+                                                </div>
+                                            </div>
+                                            <div className="row row--form u-padd--top--med">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                    <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
+                                                    <p>{charity.rullingYear}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                    <strong>{t('GRANT.CREATE.EIN')}</strong>
+                                                    <p>{charityFormatter.format(charity.taxId, { value: 'tax-id' })}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                    <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
+                                                    <p>{charity.irsFilingRequirement}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row row--form u-padd--top--med">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
+                                                    <p>{charity.principalOfficer}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
+                                                    <p>{charity.nteeCode}</p>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
+                                                    <p>{charity.irsFilingRequirement}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row row--form u-padd--top--med">
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                    <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
+                                                    <p>{addressFormatter.format(charity.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
                                                 </div>
                                             </div>
                                         </div>}
