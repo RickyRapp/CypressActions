@@ -24,7 +24,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 				</div>
 				<div
 					className={`col col-sml-12 col-lrg-${
-						(isEditEnabled && primaryAddress && primaryAddress.id === editId) || undefined === editId ? '12' : '9'
+						(isEditEnabled) || undefined === editId ? '12' : '9'
 					}`}
 				>
 					<div className="row">
