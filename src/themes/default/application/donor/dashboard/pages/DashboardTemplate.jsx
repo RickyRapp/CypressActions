@@ -385,6 +385,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					)}
+				{window.innerWidth > 750 &&
 				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med" id="giving-goals-card">
 					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
 						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
@@ -467,6 +468,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						</div>
 					}
 				</div>
+				}
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
 						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
