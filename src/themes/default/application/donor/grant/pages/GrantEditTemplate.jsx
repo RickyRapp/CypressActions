@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     NumericInputField,
-    BasicFieldCheckbox,
+    //BasicFieldCheckbox,
     BaasicButton,
     BaasicModal,
     SimpleBaasicTable,
@@ -63,9 +63,9 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                     </div>
                                 </div>
                                 <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
+                                    {/* <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
                                         <BasicFieldCheckbox field={form.$('isNewCharity')} />
-                                    </div>
+                                    </div> */}
                                     <div className="col col-sml-12 u-mar--bottom--sml">
                                         <div className="u-push--from--med">
                                             <BaasicButton

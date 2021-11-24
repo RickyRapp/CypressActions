@@ -4,7 +4,7 @@ import {
     BaasicFieldDropdown,
     DatePickerField,
     NumericInputField,
-    BasicFieldCheckbox,
+    //BasicFieldCheckbox,
     BaasicButton,
     BaasicModal,
     SimpleBaasicTable,
@@ -83,10 +83,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                 </div>
                                 {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
                                     <div className="row row--form row__align--center">
-                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
+                                        {/* <div style={{display: 'none'}} className="col col-sml-12 col-lrg-6 u-mar--bottom--sml type--color--note">
                                             <BasicFieldCheckbox field={form.$('isNewCharity')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
+                                        </div> */}
+                                        <div className="col col-sml-12 col-med-12 u-mar--bottom--sml">
                                             <div className="u-push--from--med">
                                                 <BaasicButton
                                                     className="advanced-search"
