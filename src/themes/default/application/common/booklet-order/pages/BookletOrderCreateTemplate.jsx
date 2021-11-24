@@ -270,7 +270,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                                             </tr>
                                         </tfoot>
-                                        {donor && donor.accountType && donor.accountType.abrv != 'private' && (form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0)
+                                        {donor && donor.accountType && donor.accountType.abrv != 'private' && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
                                         ? <tfoot>
                                             <tr>
                                                 <th colSpan="2">Custom booklet fee</th>
