@@ -91,10 +91,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row row--form u-mar--bottom--med row__align--center">
-										{/* <div style={{display: 'none'}} className="col col-sml-12 col-lrg-6">
+										<div className="col col-sml-12 col-lrg-6">
 											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} wrapperClassName={"u-display--flex u-display--none--med"} />
-										</div> */}
-										<div className="col col-sml-12 col-lrg-12 ">
+										</div>
+										<div className="col col-sml-12 col-lrg-6 ">
 											<div className="u-push--from--med">
 												<BaasicButton
 													className="advanced-search"
