@@ -305,7 +305,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="col col-sml-12 col-xlrg-12">
 
                                     </div>}
-                            </div> */}
+                            </div> 
 
                             <div className="col col-sml-12 u-mar--bottom--sml u-order--5--xxxlrg">
                                 <div className="u-mar--bottom--sml type--center">
@@ -347,6 +347,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     </div>
                                 }
                             </div>
+                        */}
                         </div>
 
                         <div className="card--sml">
