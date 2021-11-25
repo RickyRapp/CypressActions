@@ -11,12 +11,12 @@ export default class DonorGivingCardSettingForm extends FormBase {
                 {
                     name: 'grantAcknowledgmentTypeId',
                     label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_LABEL',
-                    rules: 'required|string'
+                    rules: 'string'
                 },
                 {
                     name: 'grantPurposeTypeId',
                     label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.GRANT_PURPOSE_TYPE_LABEL',
-                    rules: 'required|string'
+                    rules: 'string'
                 },
                 {
                     name: 'maxAmount',
@@ -39,7 +39,24 @@ export default class DonorGivingCardSettingForm extends FormBase {
                     label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_ENABLED_LABEL',
                     rules: 'required|boolean',
                     type: 'checkbox'
-                }
+                },
+                {
+                    name: 'isStolen',
+                    label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_STOLEN_LABEL',
+                    rules: 'required|boolean',
+                    type: 'checkbox'
+                },
+                {
+                    name: 'isLost',
+                    label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_LOST_LABEL',
+                    rules: 'required|boolean',
+                    type: 'checkbox'
+                },
+                {
+                    name: 'reportDescription',
+                    label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.REPORT_DESCRIPTION',
+                    rules: 'string'
+                },
             ]
         };
     }

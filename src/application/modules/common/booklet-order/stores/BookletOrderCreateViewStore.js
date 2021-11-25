@@ -8,7 +8,6 @@ import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/f
 const ErrorType = {
     InsufficientFunds: 0
 };
-
 @applicationContext
 class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable denominationTypes = [];
@@ -18,7 +17,9 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable donor = null;
     @observable totalPrePaidBooks = 0;
     @observable showMoreOptions = false;
+    @observable showAddOnitems = false;
     @observable isDefaultShippingAddress = true;
+    @observable tableData = [];
     applicationDefaultSetting = null;
 
     constructor(rootStore, { donorId, isDonor }) {
@@ -28,14 +29,21 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
+                        const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
                             ...resource,
                             bookletOrderContents: this.orderContents.filter(c => c.bookletCount > 0)
                         });
+                        this.id = data.response;
                     }
                 }
+            },
+            onAfterAction: () => {
+                if(rootStore.userStore.user.roles.includes('Users'))
+                    rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
+                else 
+                    rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
             },
             FormClass: BookletOrderCreateForm,
             errorActions: {
@@ -55,9 +63,33 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.donorId = donorId;
         this.isDonor = isDonor;
         this.protectionPlanModalParams = new ModalParams({})
+        this.createConfirmModalParams();
         this.createCustomizedExpirationDateDropdownStore();
     }
 
+    createConfirmModalParams() {
+		this.confirmModal = new ModalParams({});
+	}
+
+    //#region MODAL
+	@action.bound
+	async onSubmitClick(bookletAmount) {
+        this.confirmModal.open({
+            onCancel: () => {
+                this.confirmModal.close();
+            },
+            bookletAmount: bookletAmount
+		})
+	}
+	//#endregion
+    @action.bound
+    async click500(){
+        this.onSubmitClick(500);
+    }
+    @action.bound
+    async click2000(){
+        this.onSubmitClick(2000);
+    }
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {
@@ -83,25 +115,35 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         }
     }
 
+    @action.bound
+    onShowBookletsClick() {
+        if (this.isDonor) {
+            this.rootStore.routerStore.goTo('master.app.main.donor.booklet.list')
+        }
+        else {
+            this.rootStore.routerStore.goTo('master.app.main.administration.booklet.list')
+        }
+    }
+
     @computed get totalAmount() {
-        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
+        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0);
+    }
+
+    @computed get customizedFee() {
+        return this.orderContents.reduce((a,b) => a+b.bookletCount, 0)*5;
+    }
+
+    @computed get totalPrepaidAmount() {
+        return this.prepaidBookletAmount;
     }
 
     @computed get prepaidBooksChecks() {
-
-        if (this.prepaidBooksContribution && this.donor.availableBalance < this.totalAmount) {
+        
             if (this.totalPrePaidBooks > 0) {
                 return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
             } else {
-                return !this.donor.hasProtectionPlan && this.donor.availableBalance < this.totalAmount
+                return false;
             }
-        } else {
-            if (this.totalPrePaidBooks > 0)
-                return this.prepaidBooksContribution < this.totalPrePaidBooks && this.donor.availableBalance < this.totalAmount;
-
-            if (this.donor)
-                return !this.donor.hasProtectionPlan && this.donor.availableBalance < this.totalAmount
-        }
     }
 
     @computed get prepaidBooksContribution() {
@@ -155,8 +197,36 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         return 0;
     }
 
+    @computed get prepaidBookletAmount() {
+        if (this.orderContents.length > 0) {
+            let total = 0;
+            const classicBookletTypeId = this.bookletTypes.find(c => c.abrv === 'classic').id;
+            this.orderContents.filter(c => c.bookletTypeId === classicBookletTypeId).forEach(order => {
+                const dtvalue = this.denominationTypes.find(dt => dt.id === order.denominationTypeId).value;
+                total += dtvalue === 1 || dtvalue === 2 || dtvalue === 3 || dtvalue === 5 ? dtvalue * order.bookletCount * 50 : 0
+            });
+            return total;
+        }
+        return 0;
+    }
+
+    generateTableData(order, index) {
+        const isMixed = order.bookletTypeId === this.bookletTypes.find(c => c.abrv === 'mixed_500').id || order.bookletTypeId === this.bookletTypes.find(c => c.abrv === 'mixed_2000').id;
+        let bookletAmount = order ? (isMixed ? index * order.bookletCount : index * order.bookletCount * 50) : 0;
+        if (this.tableData.length > 0) {
+            const foundIndex = this.tableData.findIndex(x => x.id === index);
+            if (foundIndex != -1) {
+                this.tableData[foundIndex] = { ...this.tableData[foundIndex], count: order.bookletCount, amount: bookletAmount }
+                return this.tableData;
+            }
+        }
+        return this.tableData.push({ id: index, count: order.bookletCount, amount: bookletAmount });
+    }
+
     @action.bound
     async onRemoveBookletClick(bookletTypeId, denominationTypeId) {
+        //eslint-disable-next-line
+        let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
         if (this.orderContents.length === 0 || !this.orderContents.some(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)) {
             return;
         }
@@ -166,14 +236,26 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             return;
         }
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount - 1 };
-
-        let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
-        if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
-            this.totalPrePaidBooks -= dt.value * 50;
+        const classicBookletTypeId = this.bookletTypes.find(c => c.abrv === 'classic').id;
+        if(bookletTypeId === classicBookletTypeId) {
+            let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
+            if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
+                this.totalPrePaidBooks -= dt.value * 50;
+        }
+        this.generateTableData(this.orderContents[index], dtvalue);
     }
 
     @action.bound
     async onAddBookletClick(bookletTypeId, denominationTypeId) {
+        let dtvalue = this.denominationTypes.find(dt => dt.id === denominationTypeId).value;
+        
+        if(this.orderContents.length > 0) {
+            const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId);
+            if(typeof this.orderContents[index] !== 'undefined' && this.orderContents[index].bookletCount >= 100) {
+                this.rootStore.notificationStore.error('Booklet count must be between 1 and 100');
+                return;
+            }
+        }
         if (this.orderContents.length === 0 || !this.orderContents.some(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)) {
             this.orderContents.push({
                 bookletTypeId: bookletTypeId,
@@ -184,10 +266,13 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
         const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount + 1 };
-
-        let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
-        if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
-            this.totalPrePaidBooks += dt.value * 50;
+        const classicBookletTypeId = this.bookletTypes.find(c => c.abrv === 'classic').id;
+        if(bookletTypeId === classicBookletTypeId) {
+            let dt = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.id === denominationTypeId)[0];
+            if (dt.value === 1 || dt.value === 2 || dt.value === 3 || dt.value === 5)
+                this.totalPrePaidBooks += dt.value * 50;
+        }
+        this.generateTableData(this.orderContents[index], dtvalue);
     }
 
     @action.bound
@@ -256,6 +341,11 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.showMoreOptions = !this.showMoreOptions;
     }
 
+    @action.bound
+    async onShowAddOnItemsClick() {
+        this.showAddOnitems = !this.showAddOnitems;
+    }
+
     setDefaultShippingAddress() {
         this.form.$('addressLine1').set(this.donor.donorAddress.addressLine1);
         this.form.$('addressLine2').set(this.donor.donorAddress.addressLine2);
@@ -277,7 +367,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
         this.denominationTypes = (await this.rootStore.application.lookup.denominationTypeStore.find()).filter(c => c.value !== 15);
         this.deliveryMethodTypes = await this.rootStore.application.lookup.deliveryMethodTypeStore.find();
-        this.bookletTypes = (await this.rootStore.application.lookup.bookletTypeStore.find()).filter(c => c.abrv === 'classic');
+        this.bookletTypes = (await this.rootStore.application.lookup.bookletTypeStore.find());
     }
 
     createCustomizedExpirationDateDropdownStore() {

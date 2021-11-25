@@ -102,15 +102,16 @@ BookletOrderListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
     if (!isSome(actions)) return null;
 
-    const { onEdit } = actions;
-    if (!isSome(onEdit)) return null;
+    const { onEdit, onDetails } = actions;
+    if (!isSome(onDetails)) return null;
 
-    let editRender = true;
-    if (isSome(actionsRender)) {
-        if (actionsRender.onEditRender) {
-            editRender = actionsRender.onEditRender(item);
-        }
-    }
+    let detailsRender = true;
+    let editRender = false;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onDetailsRender) {
+			detailsRender = actionsRender.onDetailsRender(item);
+		}
+	}
 
     return (
         <td>
@@ -124,6 +125,15 @@ function renderActions({ item, actions, actionsRender }) {
                         onClick={() => onEdit(item)}>
                     </BaasicButton>
                 ) : null}
+                {isSome(onDetails) && detailsRender ? ( 
+					<BaasicButton
+						className="btn btn--icon"
+						icon="u-icon u-icon--preview u-icon--base"
+						label="BOOKLET_ORDER.LIST.BUTTON.PREVIEW"
+						onlyIcon={true}
+						onClick={() => onDetails(item.id)}
+					></BaasicButton>
+				) : null}
             </div>
         </td>
     )

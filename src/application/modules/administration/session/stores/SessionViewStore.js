@@ -1,13 +1,18 @@
 import React from 'react';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionListFilter } from 'application/administration/session/models';
 import { applicationContext } from 'core/utils';
 import { FormatterResolver } from 'core/components';
+import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
+    charities = [];
+	@observable charity = null;
+    @observable charityInputValue = null;
+	@observable filteredCharities = [];
     constructor(rootStore) {
         super(rootStore, {
             name: 'session',
@@ -80,8 +85,8 @@ class SessionViewStore extends BaseListViewStore {
                                     format={{ type: 'currency' }}
                                 />
                                 {item.json &&
-                                    <span data-tip={`${item.json}`} data-type="info">
-                                        ?
+                                    <span data-tip={`${item.json}`} data-type="info" style={{cursor: 'pointer'}}>
+                                        <b>&nbsp;[?]</b>
 					                    <ReactTooltip />
                                     </span>
                                 }
@@ -116,12 +121,50 @@ class SessionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (session) => {
-                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending'
+                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved'
                 }
             }
         }));
 
     }
+
+    @action.bound
+	setCharityId(id) {
+		//this.form.$('charityId').set(id);
+		const charity = this.filteredCharities.find(x => x.value === id);
+        this.queryUtility.filter.charityId = id;
+        this.charity = charity;
+		//this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.rootStore.application.administration.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});        
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
 
     createSearchCharityDropdownStore() {
         this.searchCharityDropdownStore = new BaasicDropdownStore({

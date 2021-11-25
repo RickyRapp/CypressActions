@@ -7,9 +7,9 @@ import {
     BaasicFormControls,
     BasicInput,
     NumberFormatInputField,
-    BaasicFieldDropdown,
 } from 'core/components'
 import { PageFooter } from 'core/layouts';
+import AsyncSelect from 'react-select/async';
 
 const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStore }) {
     const {
@@ -17,8 +17,17 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
         form,
         id,
         validateIPaddress,
-        charityDropdownStore
+        //charityDropdownStore,
+        filterCharities,
+        setCharityId,
     } = charityWebsiteCreateViewStore;
+
+    const promiseOptions = inputValue =>
+    new Promise(resolve => {
+        setTimeout(() => {
+            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
+        }, 1000);
+    });
 
     return (
         <section>
@@ -38,10 +47,11 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                         <BasicInput field={form.$('url')} />
                     </div>
                     <div className="u-mar--bottom--sml col col-lrg-12">
-                        <BaasicFieldDropdown
+                        {/* <BaasicFieldDropdown
                             field={form.$('charityId')}
                             store={charityDropdownStore}
-                        />
+                        /> */}
+						<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
                     </div>
                 </div>
             </EditFormContent>

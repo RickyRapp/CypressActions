@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BasicInput, BaasicButton, BaasicFieldDropdown, NumberFormatInputField } from 'core/components';
+import { BasicInput, BaasicButton, NumberFormatInputField } from 'core/components';
+import AsyncSelect from 'react-select/async';
+function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySelected, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId }) {
+    const promiseOptions = (inputValue) =>
+		new Promise(resolve => {
+			setTimeout(() => {
+				resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
+			}, 1000);
+		});
 
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDropdownStore, isChangedDefaultAddress, onChangeDefaultAddressClick }) {
 	return (
 		<React.Fragment>
 			<div className="scanner card--med">
@@ -17,8 +24,9 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 							<NumberFormatInputField field={form.$('phoneNumber')} />
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
-							<BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-							{charityDropdownStore && charityDropdownStore.value &&
+							{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} /> */}
+							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+							{isCharitySelected &&
 								<BaasicButton
 									className="btn btn--sml btn--link u-mar--bottom--sml"
 									label={isChangedDefaultAddress ? 'SESSION.CREATE.STEP2.BUTTONS.SET_DEFAULT_DEFAULT_ADDRESS' : 'SESSION.CREATE.STEP2.BUTTONS.CHANGE_DEFAULT_ADDRESS'}
@@ -58,11 +66,13 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, charityDrop
 							<div className="scanner__footer">
 								<BaasicButton
 									className="btn btn--med btn--med--100 btn--primary u-mar--right--sml"
+									classNameExtend="u-display--flex--justify--center"
 									onClick={onPreviousStepClick}
 									label="SESSION.CREATE.STEP2.BUTTONS.BACK"
-								/>
+									/>
 								<BaasicButton
 									className="btn btn--med btn--med--100 btn--secondary"
+									classNameExtend="u-display--flex--justify--center"
 									onClick={onNextStepClick}
 									label="SESSION.CREATE.STEP2.BUTTONS.SAVE"
 								/>
@@ -83,6 +93,9 @@ Step2Template.propTypes = {
 	t: PropTypes.func,
 	isChangedDefaultAddress: PropTypes.bool,
 	onChangeDefaultAddressClick: PropTypes.func,
+	filterCharities: PropTypes.func,
+	setCharityId: PropTypes.func,
+	isCharitySelected: PropTypes.bool
 };
 
 export default defaultTemplate(Step2Template);

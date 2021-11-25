@@ -13,7 +13,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 		<Content emptyRenderer={renderEmpty(routes)}>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="u-mar--bottom--med">
-					<TableFilter queryUtility={queryUtility}>
+					<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
 						{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicDropdown store={charityDropdownStore} />
 						</div>}
@@ -26,7 +26,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 							/>
 						</div>
 						{<div className="col col-sml-12 u-mar--bottom--sml">
-							<div className="row">
+							<div className="row row--form">
 								<div className="col col-sml-12 col-lrg-8">
 									<DateRangeQueryPicker
 										queryUtility={queryUtility}
@@ -113,7 +113,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--close u-icon--base"
+						icon="u-icon u-icon--cancel u-icon--base u-mar--left--sml"
 						label="SCHEDULED_GRANT.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

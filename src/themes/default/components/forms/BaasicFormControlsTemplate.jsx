@@ -5,7 +5,7 @@ import { BaasicButton } from 'core/components';
 import { isSome } from 'core/utils';
 
 const BaasicFormControlsTemplate = function (props) {
-    const { form, onSubmit, controls, label, className, disableSave, authorization } = props;
+    const { form, onSubmit, controls, label, className, disableSave, authorization, classNameExtend } = props;
 
     return (
         <React.Fragment>
@@ -14,6 +14,7 @@ const BaasicFormControlsTemplate = function (props) {
                     authorization={authorization}
                     type='submit'
                     className={className}
+                    classNameExtend={classNameExtend}
                     onClick={onSubmit || form.onSubmit}
                     disabled={isSome(disableSave) ? disableSave : form.submitting}
                     rotate
@@ -34,6 +35,7 @@ BaasicFormControlsTemplate.propTypes = {
     controls: PropTypes.object,
     label: PropTypes.string,
     className: PropTypes.string,
+    classNameExtend: PropTypes.string,
     validation: PropTypes.object,
     authorization: PropTypes.any,
     t: PropTypes.any,

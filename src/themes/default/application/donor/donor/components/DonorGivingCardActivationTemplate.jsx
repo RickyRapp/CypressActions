@@ -17,14 +17,11 @@ const DonorGivingCardActivationTemplate = function ({ t, modalParams }) {
             <EditFormContent form={form} >
                 <h3 className=" u-mar--bottom--sml">{t('DONOR_GIVING_CARD_SETTING.ACTIVATION.TITLE')}</h3>
                 <div className="row">
-                    <div className="form__group col col-sml-12 col-xlrg-6">
+                    <div className="form__group col col-sml-12 col-xlrg-8">
                         <NumberFormatInputField field={form.$('cardNumber')} />
                     </div>
-                    <div className="form__group col col-sml-12 col-xlrg-3">
+                    <div className="form__group col col-sml-12 col-xlrg-4">
                         <NumberFormatInputField field={form.$('cvv')} />
-                    </div>
-                    <div className="form__group col col-sml-12 col-xlrg-3">
-                        <NumberFormatInputField field={form.$('expirationDate')} />
                     </div>
                 </div>
                 <div className="type--right">

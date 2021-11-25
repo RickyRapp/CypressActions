@@ -73,7 +73,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-lrg-3">
                             <BaasicButton
                                 className="btn btn--base btn--primary"
                                 label='BOOKLET.EDIT.BUTTON.ACTIVE'
@@ -85,7 +85,7 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                                 onClick={() => isActiveConfirm(false)}
                             />
                         </div>
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-lrg-2">
                             <BaasicButton
                                 className="btn btn--base btn--secondary u-mar--left--sml"
                                 label='BOOKLET.EDIT.BUTTON.CLEAN_CERTIFICATE_STATUS'

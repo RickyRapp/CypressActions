@@ -20,7 +20,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        await rootStore.application.administration.sessionStore.updateSession(resource);
+                        await rootStore.application.administration.sessionStore.updateSession({ isWithApproval: true, ...resource });
                     },
                     get: async (id) => {
                         let params = {
@@ -47,7 +47,11 @@ class SessionEditViewStore extends BaseEditViewStore {
             },
             FormClass: SessionEditForm,
         });
-
+        // this.form.hooks = () => ({
+		// 	onSubmit: (e) => {				
+		// 		console.log(e);
+		// 	}
+		// })
         this.createTableStore();
         // this.createCharityDropdownStore();
         this.createCertificateStatusDropdownStore();
@@ -108,6 +112,17 @@ class SessionEditViewStore extends BaseEditViewStore {
                 this.getResource(this.id, false);
             }
         });
+    }
+
+    @action.bound
+    async saveChanges() {
+        try{
+            await this.rootStore.application.administration.sessionStore.updateSession({ id: this.id, isWithApproval: false, ...this.form.values() });
+            this.rootStore.notificationStore.success('Resource updated successfully');
+            this.rootStore.routerStore.goBack();
+        } catch(e) {
+            this.rootStore.notificationStore.error('Resource not updated')
+        }
     }
 
     createTableStore() {

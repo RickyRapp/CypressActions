@@ -19,7 +19,8 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                             'certificate.denominationType',
                             'certificate.booklet',
                             'certificate.booklet.bookletOrder',
-                            'certificate.booklet.bookletOrder.donor'
+                            'certificate.booklet.bookletOrder.donor',
+                            'session'
                         ];
 
                         const statuses = await rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
@@ -36,6 +37,10 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                },
+                {
+                    key: 'session.confirmationNumber',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CONFIRMATION_LABEL',
                 },
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',

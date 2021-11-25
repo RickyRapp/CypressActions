@@ -36,7 +36,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 				<Content>
 					<div className="card--tertiary card--med u-mar--bottom--sml">
 						<div className="u-mar--bottom--med">
-							<TableFilter queryUtility={queryUtility}>
+							<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={searchDonorDropdownStore} />
 								</div>
@@ -89,7 +89,7 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 									/>
 								</div>
 								<div className="col col-sml-12 u-mar--bottom--sml">
-									<div className="row">
+									<div className="row row--form">
 										<div className="col col-sml-12 col-lrg-8">
 											<DateRangeQueryPicker
 												queryUtility={queryUtility}

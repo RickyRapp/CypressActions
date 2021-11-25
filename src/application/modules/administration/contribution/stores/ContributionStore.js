@@ -42,5 +42,10 @@ class ContributionStore {
         const response = await this.contributionService.review(resource);
         return response.data;
     }
+
+    async getDetails(id, params) {
+        const response = await this.contributionService.getDetails(id, params);
+        return response.data;
+    }
 }
 export default ContributionStore;

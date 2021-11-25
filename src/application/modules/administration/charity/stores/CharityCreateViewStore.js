@@ -180,10 +180,10 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 if (statusCode === 204) {
                     return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.TAX_ID_CONFLICT'))
                 }
-            } catch (err) {
-                if (err.statusCode === 404) {
+                if (statusCode === 200) {
                     return passes();
                 }
+            } catch (err) {
                 return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
             }
         });

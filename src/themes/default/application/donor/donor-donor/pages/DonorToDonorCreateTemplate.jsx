@@ -60,14 +60,14 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 <h2>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h2>
                                 <h4 className=" u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
                                 <div className="row row--form">
-                                    <div className="col col-sml-7 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('emailOrAccountNumber')} />
                                     </div>
-                                    <div className="col col-sml-5 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
                                     </div>
                                     <div>
-                                        <div className="col col-sml-12 col-med-12 col-xlrg-12 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
                                             <a onClick={() => addAnotherRecipient(true)}>
                                                 {t(!addAnotherRecipientForm ? 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_+' : 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_-')}
                                                 {t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}</a>
@@ -76,10 +76,10 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 </div>
                                 {addAnotherRecipientForm && (
                                     <div className="row row--form u-mar--bottom--med">
-                                        <div className="col col-sml-7 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('emailOrAccountNumberAnother')} />
                                         </div>
-                                        <div className="col col-sml-5 col-med-12 col-lrg-6 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('contactInformationNameAnother')} />
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
-                                <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                <div className="type--right">
                                     <BaasicButton
                                         type="button"
                                         className="btn btn--med btn--med--wide btn--secondary"
@@ -165,71 +165,97 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                         </div>
                     </div>}
                     {summaryInfo &&
-                        <div className="col col-sml-12 col-lrg-8">
+                        <div>
                             <div className="row">
                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--lrg">
                                     <h3 className=" type--color--note">{t('DONOR-DONOR.CONFIRMATION.SUCCESS')}</h3>
                                 </div>
                             </div>
                             <div className="card--primary card--med u-mar--bottom--med">
-                                <div className="row">
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                        <h4 className="">{t('DONOR-DONOR.CONFIRMATION.GIFT_SUMMARY')}</h4>
+                                <div>
+                                    <h4 className="u-mar--bottom--sml">{t('DONOR-DONOR.CONFIRMATION.GIFT_SUMMARY')}</h4>
+
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <div className="row">
+                                            <div className="col col-sml-12 col-lrg-6">
+                                                <span className="type--base type--wgt--medium type--color--opaque">
+                                                    {t('DONOR-DONOR.CONFIRMATION.RECIPIENT_INFO')}
+                                                </span>
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-6 type--right--from--med">
+                                                <span className="type--base type--wgt--bold">
+                                                    {form.$('emailOrAccountNumber').value}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="col col-sml-12 col-lrg-12">
+
+                                    <div className="card--tny card--secondary u-mar--bottom--sml">
+                                        <div className="row">
+                                            <div className="col col-sml-12 col-lrg-6">
+                                                <span className="type--base type--wgt--medium type--color--opaque">
+                                                    {t('DONOR-DONOR.CONFIRMATION.RECIPIENT_NAME')}
+                                                </span>
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-6 type--right--from--med">
+                                                <span className="type--base type--wgt--bold">
+                                                    {form.$('contactInformationName').value}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {form.$('emailOrAccountNumberAnother').value &&
                                         <div className="card--tny card--secondary u-mar--bottom--sml">
-                                            <span className="type--base type--wgt--medium type--color--opaque">
-                                                {t('DONOR-DONOR.CONFIRMATION.RECIPIENT_INFO')}
-                                            </span>
-                                            <span className="type--base type--wgt--bold u-push">
-                                                {form.$('emailOrAccountNumber').value}
-                                            </span>
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-6">
+                                                    <span className="type--base type--wgt--medium type--color--opaque">
+                                                        {t('DONOR-DONOR.CONFIRMATION.ANOTHER_RECIPIENT')}
+                                                    </span>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-6 type--right--from--med">
+                                                    <span className="type--base type--wgt--bold">
+                                                        {form.$('emailOrAccountNumberAnother').value}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card--tny card--secondary u-mar--bottom--lrg">
-                                            <span className="type--base type--wgt--medium type--color--opaque">
-                                                {t('DONOR-DONOR.CONFIRMATION.RECIPIENT_NAME')}
-                                            </span>
-                                            <span className="type--base type--wgt--bold u-push">
-                                                {form.$('contactInformationName').value}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    {form.$('emailOrAccountNumberAnother').value && <div className="col col-sml-12 col-lrg-12">
+                                    }
+                                    {form.$('contactInformationNameAnother').value &&
                                         <div className="card--tny card--secondary u-mar--bottom--sml">
-                                            <span className="type--base type--wgt--medium type--color--opaque">
-                                                {t('DONOR-DONOR.CONFIRMATION.ANOTHER_RECIPIENT')}
-                                            </span>
-                                            <span className="type--base type--wgt--bold u-push">
-                                                {form.$('emailOrAccountNumberAnother').value}
-                                            </span>
+                                            <div className="row">
+                                                <div className="col col-sml-12 col-lrg-6">
+                                                    <span className="type--base type--wgt--medium type--color--opaque">
+                                                        {t('DONOR-DONOR.CONFIRMATION.ANOTHER_RECIPIENT_NAME')}
+                                                    </span>
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-6 type--right--from--med">
+                                                    <span className="type--base type--wgt--bold">
+                                                        {form.$('contactInformationNameAnother').value}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>}
-                                    {form.$('contactInformationNameAnother').value && <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card--tny card--secondary u-mar--bottom--lrg">
-                                            <span className="type--base type--wgt--medium type--color--opaque">
-                                                {t('DONOR-DONOR.CONFIRMATION.ANOTHER_RECIPIENT_NAME')}
-                                            </span>
-                                            <span className="type--base type--wgt--bold u-push">
-                                                {form.$('contactInformationNameAnother').value}
-                                            </span>
-                                        </div>
-                                    </div>}
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        <div className="card--tny card--secondary u-mar--bottom--lrg">
-                                            <span className="type--base type--wgt--medium type--color--opaque">
-                                                {t('DONOR-DONOR.CONFIRMATION.AMOUNT')}
-                                            </span>
-                                            <span className="type--base type--wgt--bold u-push">
-                                                <FormatterResolver
-                                                    item={{ amount: form.$('amount').value }}
-                                                    field="amount"
-                                                    format={{ type: 'currency' }}
-                                                />
-                                            </span>
+                                    }
+                                    <div className="card--tny card--secondary">
+                                        <div className="row">
+                                            <div className="col col-sml-12 col-lrg-6">
+                                                <span className="type--base type--wgt--medium type--color--opaque">
+                                                    {t('DONOR-DONOR.CONFIRMATION.AMOUNT')}
+                                                </span>
+                                            </div>
+                                            <div className="col col-sml-12 col-lrg-6 type--right--from--med">
+                                                <span className="type--base type--wgt--bold">
+                                                    <FormatterResolver
+                                                        item={{ amount: form.$('amount').value }}
+                                                        field="amount"
+                                                        format={{ type: 'currency' }}
+                                                    />
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

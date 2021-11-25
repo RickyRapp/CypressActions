@@ -5,5 +5,6 @@ export default {
 	apiRootUrl: ApplicationSettings.appUrl,// eslint-disable-line
 	apiVersion: ApplicationSettings.appVersion,// eslint-disable-line
 	apiKey: ApplicationSettings.appId,// eslint-disable-line
+	appVersion: ApplicationSettings.apiVersion,// eslint-disable-line
 	storageHandler: () => localStorageHandler,	// eslint-disable-line
 };

@@ -61,9 +61,9 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
 
 												<div className="col col-sml-6 col-xxlrg-4">
 													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-														Is Primary?
+														Primary
 													</p>
-													<p className="type--base type--wgt--bold">{primaryPhoneNumber.isPrimary ? 'Yes' : 'No'}</p>
+													<p className="type--base type--wgt--bold">{primaryPhoneNumber.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
 												</div>
 											</div>
 										</div>
@@ -76,7 +76,6 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
 								((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
 								<DonorPhoneNumberEditTemplate
 									form={form}
-									title="Secondary"
 									onCancelEditClick={onCancelEditClick}
 									isAssignableAsPrimary={true}
 								/>

@@ -69,6 +69,10 @@ class GivingCardViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key: 'reportDescription',
+                    title: 'GIVING_CARD.LIST.COLUMNS.LOST_OR_STOLEN_DESCRIPTION_LABEL'
+                },
+                {
                     key: 'isLockedOut',
                     title: 'GIVING_CARD.LIST.COLUMNS.LOCKED_LABEL',
                     format: {

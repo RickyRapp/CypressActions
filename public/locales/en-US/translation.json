@@ -1,4 +1,5 @@
 {
+    "MAILING_ADDRESS": "1777 Ave of the States, Suite 103, Lakewood NJ 08701",
     "MENU": {
         "FOOTER": {
             "LOGOUT": "Logout",
@@ -19,7 +20,7 @@
         "DONOR_EDIT": "Profile",
         "CHARITIES": "Charities",
         "MANAGE_CHARITY_ACCOUNT": "Manage Account",
-        "DEPOSITS": "Deposits",
+        "DEPOSITS": "Deposit funds",
         "GRANTS": "Grants",
         "DONATIONS": "Donations",
         "SCHEDULED_GRANTS": "Scheduled grants",
@@ -41,8 +42,9 @@
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
         "TESTING": "Test",
+        "APITESTING": "API Test",
         "INVESTMENTS": "Investments",
-        "SEND_A_GIFT": "Send a gift",
+        "SEND_A_GIFT": "Transfer funds",
         "MANAGE_FUND": "Manage Fund",
         "PROFILE_SETTING": "Profile Settings",
         "PROFILE": "Profile",
@@ -61,7 +63,8 @@
         "GRANT_REQUEST": "Request donation",
         "CHARITY_GIVING_CARD": "Accept Card",
         "CREDIT_DEBIT": "Credit/Debit",
-        "DONOR-DONOR": "Donor To Donor"
+        "DONOR-DONOR": "Donor To Donor",
+        "GIVING_GOALS": "Giving Goals"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -254,7 +257,9 @@
     "PREVIEW_LAYOUT": {
         "NEW": "New",
         "EDIT_BUTTON": "Edit",
-        "CANCEL_BUTTON": "Cancel"
+        "CANCEL_BUTTON": "Go Back",
+        "CANCEL_GRANT_BUTTON": "Cancel",
+        "NEW_GRANT": "Create New Grant"
     },
     "APPLICATION_EDIT_LAYOUT": {
         "EMPTY_STATE_TITLE": "Application Not Selected",
@@ -293,7 +298,7 @@
     "LOGIN": {
         "TITLE": "The Donors Fund",
         "DESCRIPTION": "Login to app with your credentials. If you have problem with login, contact support.",
-        "FORGOT_PASSWORD_BUTTON": "Forgot you Password?",
+        "FORGOT_PASSWORD_BUTTON": "Forgot your Password?",
         "SIGNIN_BUTTON": "Sign In",
         "USERNAME_LABEL": "Email",
         "USERNAME_PLACEHOLDER": "Enter Email",
@@ -504,7 +509,7 @@
                 "REGULAR_PLACEHOLDER": "Regular",
                 "PRIVATE_PLACEHOLDER": "Private",
                 "ACCOUNT_NUMBER_PLACEHOLDER": "Account Number",
-                "SECURITY_PIN_PLACEHOLDER" : "Security pin",
+                "SECURITY_PIN_PLACEHOLDER": "Security pin",
                 "PHONE_PLACEHOLDER": "Phone number",
                 "ADDRESS_PLACEHOLDER": "Address"
             },
@@ -546,8 +551,7 @@
             "MONTH_LABEL": "Month",
             "MONTH_PLACEHOLDER": "Month",
             "YEAR_LABEL": "Year",
-            "YEAR_PLACEHOLDER":"Year"
-
+            "YEAR_PLACEHOLDER": "Year"
         },
         "CREATE": {
             "TITLE": "Create",
@@ -672,17 +676,17 @@
             }
         },
         "AUTOMATIC_CONTRIBUTION_SETTING": {
-            "TITLE": "Balance protection plan",
+            "TITLE": "Auto replenish plan",
             "EDIT": {
                 "FIELDS": {
-                    "BANK_ACCOUNT_LABEL": "Bank account",
+                    "BANK_ACCOUNT_LABEL": "From bank account",
                     "BANK_ACCOUNT_PLACEHOLDER": "Bank account",
                     "AMOUNT_LABEL": "Replenish",
                     "AMOUNT_PLACEHOLDER": "$",
                     "LOW_BALANCE_AMOUNT_LABEL": "When my balance falls below",
                     "LOW_BALANCE_AMOUNT_PLACEHOLDER": "$",
-                    "IS_ENABLED_LABEL": "Is enabled",
-                    "IS_ENABLED_PLACEHOLDER": "Is enabled"
+                    "IS_ENABLED_LABEL": "Enable",
+                    "IS_ENABLED_PLACEHOLDER": "Enable"
                 }
             }
         },
@@ -692,14 +696,15 @@
                 "FIELDS": {
                     "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Default share information",
                     "GRANT_ACKNOWLEDGMENT_TYPE_BY_AMOUNT_LABEL": "Share informations when exceed amount",
-                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Share information for transactions that exceeds amount"
+                    "ACKNOWLEDGMENT_BY_AMOUNT_LABEL": "Share information for transactions that exceeds amount",
+                    "EXCEED_AMOUNT_LABEL": "Exceed limit for verification"
                 }
             }
         },
         "GRANT_FEES": {
             "TITLE": "Fees",
             "FIELDS": {
-                "ONLINE_LABEL": "Online grants are free!",
+                "ONLINE_LABEL": "Online grants",
                 "GRANT_REQUEST_LABEL": "Grant request fee is payed by:",
                 "GRANT_REQUEST_LABEL_TRUE": "Me",
                 "GRANT_REQUEST_LABEL_FALSE": "Charity",
@@ -853,8 +858,8 @@
             "FIELDS": {
                 "NUMBER_LABEL": "Number",
                 "NUMBER_PLACEHOLDER": "Number",
-                "DESCRIPTION_LABEL": "Description",
-                "DESCRIPTION_PLACEHOLDER": "Description",
+                "DESCRIPTION_LABEL": "Description or Extension",
+                "DESCRIPTION_PLACEHOLDER": "Description or Extension",
                 "PRIMARY_LABEL": "Primary"
             }
         }
@@ -961,7 +966,7 @@
         "GRANTS": "Grants",
         "TRANSACTION_TAB": {
             "ALL": "All Transactions",
-            "STATEMENTS": "Statements"
+            "STATEMENTS": "Statements & Reports"
         },
         "GRANT_TAB": {
             "PAST_GRANT": "Past Grants",
@@ -978,8 +983,8 @@
             "COLUMNS": {
                 "CHARITY_LABEL": "Description",
                 "DONOR_NAME_LABEL": "Donor",
-                "DATE_CREATED_LABEL": "Date created",
-                "AMOUNT_LABEL": "Amount",
+                "DATE_CREATED_LABEL": "Date",
+                "AMOUNT_LABEL": "Credit/Debit",
                 "STATUS_LABEL": "Status",
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
                 "PENDING_TRANSACTION_DESCRIPTION_LABEL": "Description",
@@ -1009,6 +1014,7 @@
         "TAB_TITLE": "Activity",
         "ALL_TRANSACTIONS": "All Transactions",
         "GRANTS": "Grants",
+        "REMOTE DEPOSITS": "Remote Deposits",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
@@ -1049,7 +1055,8 @@
                 "EDIT": "Edit",
                 "CREATE": "Create",
                 "DELETE": "Delete",
-                "LOAD_MORE": "Load more"
+                "LOAD_MORE": "Load more",
+                "SELECT": "Select"
             }
         },
         "CREATE": {
@@ -1266,7 +1273,9 @@
                 "REVIEW": "Review",
                 "CANCEL": "Cancel",
                 "PREVIEW": "Preview"
-            }
+            },
+            "OVERVIEW-TRANSACTIONS": "Overview (Transactions)",
+            "BY-TIMELINE": "By timeline (Total for time period)"
         },
         "CONFIRM": {
             "TITLE": "Confirm Details",
@@ -1310,7 +1319,7 @@
             "AMOUNT": "Amount",
             "ADD_BANK_ACCOUNT": "Add New Bank",
             "CONTINUE": "Continue",
-            "COMPLETE_DEPOSIT": "Complete deposit",
+            "COMPLETE_DEPOSIT": "Proceed To Next Step",
             "FIELDS": {
                 "PAYMENT_TYPE_LABEL": "Select Payment type",
                 "PAYMENT_TYPE_PLACEHOLDER": "Select",
@@ -1382,7 +1391,7 @@
                 "PROPERTY_TYPE_OTHER_PLACEHOLDER": "",
                 "COLLECTIBLE_TYPE_LABEL": "Collectible Type",
                 "COLLECTIBLE_TYPE_PLACEHOLDER": "Collectible Type",
-                "THIRD_PARTY_DONOR_ADVISED_FUND_LABEL": "Third Party Donor Advised Fund",
+                "THIRD_PARTY_DONOR_ADVISED_FUND_LABEL": "Sending from",
                 "THIRD_PARTY_DONOR_ADVISED_FUND_PLACEHOLDER": "Third Party Donor Advised Fund",
                 "BROKERAGE_INSTITUTION_LABEL": "Brokerage Institution",
                 "BROKERAGE_INSTITUTION_PLACEHOLDER": "Brokerage Institution"
@@ -1485,12 +1494,18 @@
                 "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
                 "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
                 "IS_ENABLED_LABEL": "Is enabled",
+                "IS_STOLEN_LABEL": "Is stolen?",
+                "IS_LOST_LABEL": "Is lost?",
                 "GIVING_CARD_LABEL": "Giving card",
-                "SELECT_GIVING_CARD": "Select giving card"
+                "SELECT_GIVING_CARD": "Select giving card",
+                "REPORT_DESCRIPTION": "Please let us know what happened"
             }
         },
         "CREATE": {
-            "TITLE": "Request new card"
+            "TITLE": "Request new card",
+            "GO_BACK": "Back to my card",
+            "REPORT_STOLEN_TITLE": "Freeze card",
+            "REPORT_STOLEN_LABEL": "Report a card lost/stolen"
         },
         "ACTIVATION": {
             "TITLE": "Activate your card",
@@ -1501,6 +1516,7 @@
             },
             "FIELDS": {
                 "CARD_NUMBER_LABEL": "Card number",
+                "LAST_4_DIGITS": "Card number (only last 4 digits)",
                 "CVV_LABEL": "CVV",
                 "EXPIRATION_DATE_LABEL": "Expiration date",
                 "EXPIRATION_DATE_PLACEHOLDER": "##/##"
@@ -1526,7 +1542,7 @@
             "FAQ_NON_EXISTING_DONOR": "Can I gift to a non-existing donor?",
             "FAQ_NON_EXISTING_DONOR_ANSWER": "Absolutely! Simply include their email address as a recipient of this gift. We will then send an email inviting them to accept your gift.",
             "FAQ_WRONG_EMAIL_ADDRESS": "What if my gift went to a wrong email address?",
-            "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "The Giving Gift allows you to share your giving power with a new or existing donor",
+            "FAQ_WRONG_EMAIL_ADDRESS_ANSWER": "So long as the recipient hasn't accepted your gift, you will have the ability to cancel the transaction.",
             "COMPLETE_GIFT": "Send Gift",
             "BUTTON": {
                 "CREATE": "Review gift"
@@ -1554,12 +1570,12 @@
             "EMAIL": "Email",
             "AMOUNT": "Transfer Amount",
             "DONOR_NAME": "Donor Name:",
-            "ACCOUNT_NUMBER":"Account Number",
+            "ACCOUNT_NUMBER": "Account Number",
             "SECOND_DONOR_NAME": "Second recipient",
             "SECOND_EMAIL": "Second email"
         },
         "CONFIRMATION": {
-            "SUCCESS": "Success! You've successfully send your Gift!",
+            "SUCCESS": "Success! You've successfully sent your Gift!",
             "GIFT_SUMMARY": "Gift Summary",
             "RECIPIENT_INFO": "Donor recipient info (email or account number)",
             "RECIPIENT_NAME": "Donor recipient name",
@@ -1619,7 +1635,9 @@
                 "DELETE": "Delete",
                 "REVIEW": "Review",
                 "PREVIEW": "Preview",
-                "CANCEL": "Cancel"
+                "CANCEL": "Cancel",
+                "DECLINE": "Decline",
+                "REDIRECT": "Redirect"
             }
         },
         "PREVIEW": {
@@ -1663,6 +1681,7 @@
             "ADVANCED_CHARITY_FILTER_BUTTON": "Advanced search",
             "INCLUDE_NOTE_TO_ADMINISTRATOR": "Include note to administrator?",
             "CURRENT_BALANCE": "Current balance",
+            "AVAILABLE_BALANCE": "Available balance",
             "UPCOMING_GRANTS_THIS_YEAR": "Upcoming grants this year",
             "RULLING_YEAR": "Rulling Year",
             "EIN": "EIN",
@@ -1725,6 +1744,13 @@
                 "RECURRING_DATE_LABEL": "Starting Date",
                 "RECURRING_DATE_PLACEHOLDER": "Select Starting Date",
                 "IS_NEW_CHARITY_LABEL": "Don't see your charity?"
+            },
+            "CONFIRM": {
+                "TITLE": "Confirm details",
+                "ACKNOWLEDGEMENT_NAME": "Grant acknowledgment name",
+                "RECEPIENT_CHARITY": "Recepient charity",
+                "AMOUNT": "Given amount",
+                "CONFIRM_DETAILS": "Confirm details"
             }
         },
         "EDIT": {
@@ -2096,10 +2122,12 @@
             "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
             "HIDE_MORE_OPTIONS": "SHOW LESS OPTIONS",
             "SHOW_MORE_OPTIONS": "SHOW MORE OPTIONS",
-            "HIDE_CUSTOMIZE_BOOKS": "HIDE CUSTOMIZE BOOKS",
-            "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
+            "HIDE_CUSTOMIZE_BOOKS": "DON'T CUSTOMIZE MY BOOKS",
+            "SHOW_CUSTOMIZE_BOOKS": "CUSTOMIZE MY BOOKS",
             "ENROLLED_IN_PROTECTION_PLAN": "Enrolled in protection plan",
             "PLACE_ORDER": "Place Order",
+            "SHOW_ADD_ON_ITEMS": "SHOW ADD ON ITEMS",
+            "HIDE_ADD_ON_ITEMS": "HIDE ADD ON ITEMS",
             "BUTTON": {
                 "ADD": "Add new",
                 "REVIEW": "Review",
@@ -2198,7 +2226,8 @@
                 "DATE_CREATED_LABEL": "Date created",
                 "DENOMINATION_LABEL": "Denomination",
                 "AMOUNT_LABEL": "Amount",
-                "DONOR_LABEL": "Donor"
+                "DONOR_LABEL": "Donor",
+                "CONFIRMATION_LABEL": "Confirmation Number"
             }
         }
     },
@@ -2342,6 +2371,8 @@
             "SAVE_SET_BLANK_CERTIFICATE_VALUE": "Save",
             "TOTAL_AMOUNT": "Total:",
             "TOTAL_AMOUNT_AFTER_FEE": "Total after fee:",
+            "TOTAL_COUNT": "Total count:",
+            "TOTAL_CHECKS_ON_HOLD": "Checks on hold:",
             "INSUFFICIENT_FUNDS_ERROR": "Entered amount is greater than the donor set up on his account.",
             "MAX_BLANK_CERTIFICATE_AMOUNT_ERROR": "Entered amount is greater than the donor set up on his account.",
             "NOT_IN_STATUS_FOR_EDIT_WARNING": "Session is not in status for edit.",
@@ -2401,7 +2432,16 @@
                 "CERTIFICATE_STATUS_PLACEHOLDER": "Certificate status",
                 "IS_ACTIVE_LABEL": "Is active",
                 "MAKE_REFUND_LABEL": "Make refund",
-                "MAKE_REFUND_FEE_LABEL": "Make refund fee"
+                "MAKE_REFUND_FEE_LABEL": "Make refund fee",
+                "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "ADDRESS_LINE_2_LABEL": "Address line 2",
+                "CITY_LABEL": "City",
+                "CITY_PLACEHOLDER": "City",
+                "STATE_LABEL": "State",
+                "STATE_PLACEHOLDER": "State",
+                "ZIPCODE_LABEL": "Zip code",
+                "ZIPCODE_PLACEHOLDER": "Zip code"
             }
         },
         "STATUS_CODE": {
@@ -2529,7 +2569,8 @@
                 "CREATED_BY_LABEL": "Created by"
             },
             "BUTTON": {
-                "EDIT": "Edit"
+                "EDIT": "Edit",
+                "PREVIEW": "Preview"
             },
             "EMPTY_STATE": {
                 "TITLE": "No scanned certificates"
@@ -2598,6 +2639,7 @@
                 "DESCRIPTION_LABEL": "Description",
                 "LOST_OR_STOLEN_LABEL": "Lost or stolen",
                 "POSSIBLE_LOST_OR_STOLEN_LABEL": "Possible lost or stolen",
+                "LOST_OR_STOLEN_DESCRIPTION_LABEL": "Lost/Stolen description",
                 "LOCKED_LABEL": "Locked",
                 "CVV_LABEL": "CVV"
             },
@@ -2741,7 +2783,8 @@
             "EMAIL": "Email",
             "REPORT": "Report",
             "SCHEDULED_TASK": "Scheduled task",
-            "WELCOME_EMAILS": "Welcome emails"
+            "WELCOME_EMAILS": "Welcome emails",
+            "API_TESTING": "API testing"
         },
         "TEST_EMAIL": {
             "LIST": {
@@ -2794,6 +2837,21 @@
                     "PREVIEW_PRINT_PLACEHOLDER": "Preview print"
                 }
             }
+        },
+        "API_TESTING": {
+            "FIELDS": {
+                "TAXID": "Tax Id",
+                "GRANT_SCHEDULE_TYPE": "Grant Schedule Type",
+                "START_FUTURE_DATE": "Start Future Date",
+                "DONOR": "Donor",
+                "DONOR_AUTHORIZATION": "Donor authorization",
+                "CARDNUMBER": "Card Number",
+                "DESCRIPTION": "Description",
+                "REQUEST_TYPE": "Request Type",
+                "STARTFUTUREDATE": "Start future date",
+                "PURPOSE_NOTE": "Purpose Note",
+                "PURPOSE_TYPE": "Purpose Type"
+            }            
         },
         "SCHEDULED_SETTING": {
             "LIST": {
@@ -2896,7 +2954,7 @@
             "COLUMNS": {
                 "EMAIL_ACCOUNT_NUMBER": "Recipient Email or account number",
                 "FULLNAME": "Full name",
-                "AMOUNT":"Amount",
+                "AMOUNT": "Amount",
                 "DATE_CREATED_LABEL": "Date created",
                 "SENDER": "Sender"
             }
@@ -2932,14 +2990,16 @@
         "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",
         "INVESTMENTS": "Investments",
         "BUTTON": {
-            "ACTIVATE_CARD": "Activate card",
+            "ACTIVATE_CARD": "Activate your welcome package",
             "ORDER_CERTIFICATES": "Order Checks",
             "NEW_CONTRIBUTION": "New Deposit",
             "NEW_GRANT": "New Grant",
             "INVEST_FUNDS": "Invest Funds",
             "DEPOSIT_FUNDS": "Deposit Funds",
             "CONTRIBUTE": "Deposit"
-        }
+        },
+        "NEW_YEARLY_INCOME": "New yearly income",
+        "NEW_ONETIME_INCOME": "New one-time income"
     },
     "FIRST_LOGIN_EXISTING_DONOR": {
         "MONTH_LABEL": "Month",

@@ -35,7 +35,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--unlocked u-icon--base'
+                            icon='u-icon u-icon--unlock u-icon--base'
                             label='ADDRESS.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openAddressModal()}>

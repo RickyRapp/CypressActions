@@ -21,10 +21,11 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     <div className="card card--primary card--med u-mar--bottom--med">
-                        <div className="row">
-                            <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.GENERAL_INFORMATION')}</h3>
+                        <div className="row row--form">
+                            <h3 className="col col-sml-12 u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.GENERAL_INFORMATION')}</h3>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DONOR_NAME')}</div>
                                     </div>
@@ -33,10 +34,12 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                             {item && item.donor.donorName}
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER')}</div>
                                     </div>
@@ -45,10 +48,12 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                             {item && item.confirmationNumber}
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.STATUS')}</div>
                                     </div>
@@ -58,9 +63,11 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DATE_CREATED')}</div>
                                     </div>
@@ -70,9 +77,11 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DATE_UPDATED')}</div>
                                     </div>
@@ -81,15 +90,17 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                             {item && <Date format="kendo-input-medium" value={item.dateUpdated} />}
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="card card--primary card--med u-mar--bottom--med">
-                        <div className="row">
-                            <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.PAYMENT_INFORMATION')}</h3>
+                        <div className="row row--form">
+                            <h3 className="col col-sml-12 u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.PAYMENT_INFORMATION')}</h3>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYMENT_TYPE')}</div>
                                     </div>
@@ -99,9 +110,11 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                             <div className="col col-sml-12">
-                                <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row row--form">
                                     <div className="col col-sml-6">
                                         <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.AMOUNT')}</div>
                                     </div>
@@ -114,12 +127,14 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                             />}
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             {item && item.isThirdParty &&
                                 <React.Fragment>
                                     <div className="col col-sml-12">
-                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="row row--form">
                                             <div className="col col-sml-6">
                                                 <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NAME')}</div>
                                             </div>
@@ -128,10 +143,12 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                                     {item.payerInformation.name}
                                                 </div>
                                             </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col col-sml-12">
-                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="row row--form">
                                             <div className="col col-sml-6">
                                                 <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_EMAIL')}</div>
                                             </div>
@@ -141,9 +158,11 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                                 </div>
                                             </div>
                                         </div>
+                                        </div>
                                     </div>
                                     <div className="col col-sml-12">
-                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="row row--form">
                                             <div className="col col-sml-6">
                                                 <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NUMBER')}</div>
                                             </div>
@@ -152,10 +171,12 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                                     {item.payerInformation.number}
                                                 </div>
                                             </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col col-sml-12">
-                                        <div className="row card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="card--secondary card--tny u-mar--bottom--sml">
+                                        <div className="row row--form">
                                             <div className="col col-sml-6">
                                                 <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_ADDRESS')}</div>
                                             </div>
@@ -168,6 +189,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                                     />}
                                                 </div>
                                             </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </React.Fragment>}
@@ -176,9 +198,9 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                 </div>
                 <div className="col col-sml-12 col-lrg-4">
                     <div className="card card--primary card--med u-mar--bottom--med">
-                        <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
-                        <div className="row">
-                            <div className="col col-sml-12 col-lrg-6">
+                        <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
+                        <div className="row row--form">
+                            <div className="col col-sml-12 u-mar--bottom--sml">
                                 <div className="card--secondary card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
                                         {item && <FormatterResolver
@@ -192,7 +214,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                     </div>
                                 </div>
                             </div>
-                            <div className="col col-sml-12 col-lrg-6">
+                            <div className="col col-sml-12">
                                 <div className="card--secondary--light card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
                                         {item && <FormatterResolver

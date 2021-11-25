@@ -46,12 +46,20 @@ class GrantRouteService extends BaseRouteService {
         return super.update(this.base + '/approve/{id}', resource);
     }
 
+    decline(resource) {
+        return super.update(this.base + '/decline/{id}', resource);
+    }
+
     cancel(resource) {
         return super.update(this.base + '/cancel/{id}', resource);
     }
 
     export(filter) {
         return super.find(this.base + `/search-export/{?exportFields,exportLimit,exportType,${this.filterFields}}`, filter);
+    }
+
+    exportDonor(filter) {
+        return super.find(this.base + `/search-export-donor/{?exportFields,donorId,exportLimit,exportType,${this.filterFields}}`, filter);
     }
 }
 

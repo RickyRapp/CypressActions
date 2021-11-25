@@ -17,7 +17,10 @@ function ContributionConfirmTemplate({ modalParams, t }) {
         checkNumber,
         businessType,
         propertyType,
-        collectableType
+        collectableType,
+        thirdPartyDonorAdvisedFundName,
+        nameOfEmployment,
+        payrollCompany
     } = modalParams.data;
 
     return (
@@ -30,6 +33,24 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__amount">{paymentType.name}</div>
             </section>
 
+            {nameOfEmployment &&
+                <React.Fragment>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>Name of Employment</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{nameOfEmployment}</div>
+                    </section>
+                </React.Fragment>
+            }
+            {payrollCompany &&
+                <React.Fragment>
+                    <section className="modal__list u-mar--bottom--med">
+                        <div>Payroll Company</div>
+                        <div className="modal__list__divider"></div>
+                        <div className="modal__list__amount">{payrollCompany}</div>
+                    </section>
+                </React.Fragment>
+            }
             {bankAccount &&
                 <React.Fragment>
                     <section className="modal__list u-mar--bottom--med">
@@ -40,7 +61,7 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     <section className="modal__list u-mar--bottom--med">
                         <div>{t('CONTRIBUTION.CONFIRM.BANK_ACCOUNT_NUMBER')}</div>
                         <div className="modal__list__divider"></div>
-                        <div className="modal__list__amount">xxxx-xxxx-xxxx-{bankAccount.accountNumber}</div>
+                        <div className="modal__list__amount">{bankAccount? bankAccount.accountNumber : 'xxxx-xxxx-xxxx-xxxx'}</div>
                     </section>
 
                 </React.Fragment>}
@@ -73,6 +94,13 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{thirdPartyDonorAdvisedFund}</div>
                 </section>}
+            {thirdPartyDonorAdvisedFundName &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>Fund Holder Name</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">{thirdPartyDonorAdvisedFundName}</div>
+                </section>
+            }
             {checkNumber &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('CONTRIBUTION.CONFIRM.CHECK_NUMBER')}</div>
@@ -112,15 +140,19 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
-            <div className="u-display--flex">
-                <BaasicButton
-                    className="btn btn--med btn--med--wide btn--ghost"
-                    label={t('EDIT_FORM_LAYOUT.CANCEL')}
-                    onClick={onCancel}
-                />
-
-                <div className="u-mar--left--auto">
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} />
+            <div className="row">
+                <div className="col col-sml-12 col-lrg-6 u-order--2">
+                    <BaasicButton
+                        className="btn btn--med btn--med--100 btn--ghost u-mar--bottom--sml u-mar--top--sml"
+                        classNameExtend="u-display--flex--justify--center"
+                        label={t('EDIT_FORM_LAYOUT.CANCEL')}
+                        onClick={onCancel}
+                    />
+                </div>
+                <div className="col col-sml-12 col-lrg-6">
+                    <div className="u-mar--left--auto">
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--100 btn--secondary u-mar--top--sml" label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} classNameExtend="u-display--flex--justify--center" />
+                    </div>
                 </div>
             </div>
         </div>

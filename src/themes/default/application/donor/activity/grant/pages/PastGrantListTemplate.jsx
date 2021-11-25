@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker } from 'core/components';
+import { Export, BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker } from 'core/components';
 import { Content } from 'core/layouts';
+
 import {
 	Chart,
 	ChartArea,
@@ -11,11 +12,15 @@ import {
 	ChartLegend,
 	ChartSeries,
 	ChartSeriesItem,
-	ChartSeriesLabels,
+	ChartSeriesItemTooltip,
+	//ChartSeriesLabels,
 	ChartTitle,
 	ChartTooltip,
+	ChartValueAxis,
+	ChartValueAxisItem,
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
+import { localStorageProvider } from 'core/providers';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const {
@@ -27,69 +32,203 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		summaryData,
+		exportConfig,
+		donor,
+		yearDropdownStore,
+		onShowMoreOptionsClick,
+		showMoreOptions
 	} = pastGrantViewStore;
+	//Color palette
+	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
 
 	let dataDonut = [];
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
-			return { charityType: c.charityType.name, value: c.amount, color: c.color };
+			return { charityType: c.charityType.name, value: c.amount, color: c.color, legend: `${c.charityType.name} ${summaryData ? ((c.amount / summaryData.totalMoneyGiven) * 100).toFixed(2) + '%' : c.charityType.name}` };
 		});
 	}
+	for (let i = 0; i < dataDonut.length; i++) {
+		dataDonut[i].color = colors[i];
+	}
 
-	const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
-	const DonutChartContainer = () => {
+	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
+	const DonutChartContainer = () => {// eslint-disable-line
 		return (
 			<Chart>
 				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
-				<ChartLegend visible={false} />
+				<ChartLegend position="right" visible={true} />
 				<ChartArea background="none" />
+				<ChartTooltip render={({ point }) => (
+					point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)}
+				/>
+				<ChartTooltip />
 				<ChartSeries>
 					<ChartSeriesItem
 						type="donut"
 						startAngle={150}
 						data={dataDonut}
-						categoryField="charityType"
+						categoryField="legend"
 						field="value"
 						colorField="color"
+						border={'1px'}
 					>
-						<ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} />
+						{/* $${point.value.toFixed(2)} */}
+						<ChartSeriesItemTooltip render={({ point }) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
+						{/* <ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} /> */}
 					</ChartSeriesItem>
 				</ChartSeries>
 			</Chart>
 		);
 	};
 
-	let categories = [];
-	let dataLine = [];
-	if (summaryData) {
-		categories = summaryData.donationsByTimePeriod.map(c => c.month);
-		dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+	//let dataLine = [];
+	// if (summaryData) {
+	// 	categories = summaryData.donationsByTimePeriod.map(c => c.month);
+	// 	//dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+	// };
+	let categoriesMonths = [];
+	if(window.innerWidth > 750) {
+		categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	} else {
+		categoriesMonths = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
+	}
+	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+	//let categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	let dataGrants = [];
+	let dataContributions = [];
+	let chartDays = [];
+	
+	if (donor) {
+
+		if (yearDropdownStore.value.id == 7) {
+			const todayDate = new Date();
+			let dayOfWeek = todayDate.getDay();
+			let counter = 0;
+			if (dayOfWeek === 0) {
+				chartDays = categoriesDays;
+			} else {
+				dayOfWeek += 1;
+				while (counter < 7) {
+					if (dayOfWeek < 7) {
+						chartDays.push(categoriesDays[dayOfWeek++]);
+						counter++;
+					}
+					else {
+						dayOfWeek = 0;
+					}
+				}
+			}
+			for (let i = 0; i < 7; i++) {
+				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+			}
+			for (let i = 0; i < 7; i++) {
+				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+			}
+		}
+		if (yearDropdownStore.value.id === 30) {
+			for (let i = 0; i < 4; i++) {
+				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
+				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+			}
+		}
+		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
+			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
+		}
+		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
+			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
+		}
 	}
 
-	const LineChartContainer = () => (// eslint-disable-line
-		<Chart>
-			<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
+	const labelVisual = (e) => {
+		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};
+
+	const LineChartContainer = () => (
+		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={categories} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
 			</ChartCategoryAxis>
+			<ChartValueAxis>
+				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />
+			</ChartValueAxis>
 			<ChartTooltip
 				render={({ point }) => (
 					<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
 				)}
 			/>
+			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem type="line" color="#bc6d11" data={dataLine} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
 
+	// const LineChartContainer = () => (
+	// 	<Chart style={{ height: 260 }}>
+	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
+	// 		<ChartCategoryAxis>
+	// 			<ChartCategoryAxisItem categories={categories} />
+	// 		</ChartCategoryAxis>
+	// 		<ChartTooltip
+	// 			render={({ point }) => (
+	// 				<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+	// 			)}
+	// 		/>
+	// 		<ChartLegend position="bottom" orientation="horizontal" />
+	// 		<ChartSeries>
+	// 			<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
+	// 			<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
+	// 		</ChartSeries>
+	// 	</Chart>
+	// );
+	// let categories = [];
+	// let dataLine = [];
+	// if (summaryData) {
+	// 	categories = summaryData.donationsByTimePeriod.map(c => c.month);
+	// 	dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
+	// }
+
+	// const LineChartContainer = () => (// eslint-disable-line
+	// 	<Chart>
+	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
+	// 		<ChartCategoryAxis>
+	// 			<ChartCategoryAxisItem categories={categories} />
+	// 		</ChartCategoryAxis>
+	// 		<ChartTooltip
+	// 			render={({ point }) => (
+	// 				<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+	// 			)}
+	// 		/>
+	// 		<ChartSeries>
+	// 			<ChartSeriesItem type="line" color="#bc6d11" data={dataLine} />
+	// 		</ChartSeries>
+	// 	</Chart>
+	// );
+
 	return (
 		<Content>
+			<div className={`row u-mar--top--sml ${!showMoreOptions ? "u-mar--bottom--sml" : ""}`}>
+				<div className="col col-sml-12 type--center">
+					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
+						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+						{showMoreOptions ? 'HIDE EXPORT' : 'SHOW EXPORT'}
+						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+					</button>
+				</div>
+			</div>
+			{showMoreOptions ?
+				<div className={`card--primary card--med u-mar--bottom--sml ${showMoreOptions ? "show" : ""}`}>
+					<Export config={exportConfig} hideLimit={true} />
+				</div>
+				: null}
+
 			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
 						<div className="u-mar--bottom--med">
-							<TableFilter queryUtility={queryUtility}>
+							<TableFilter colClassName={"col col-sml-12 col-lrg-12"} queryUtility={queryUtility}>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={charityDropdownStore} />
 								</div>
@@ -135,7 +274,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									/>
 								</div>
 								<div className="col col-sml-12 u-mar--bottom--sml">
-									<div className="row">
+									<div className="row row--form">
 										<div className="col col-sml-12 col-lrg-8">
 											<DateRangeQueryPicker
 												queryUtility={queryUtility}
@@ -154,15 +293,15 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 							actionsComponent={renderActions} />
 					</div>
 				</div>
-				<div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
 					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
 						<h4 className="type--med type--wgt--medium u-mar--bottom--med">
 							{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}
 						</h4>
 						{summaryData ? (
 							<React.Fragment>
-								<div className="row">
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+								<div className="row row--form">
+									<div className="col col-sml-12 col-med-6 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{summaryData && (
@@ -177,17 +316,17 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 										</div>
 									</div>
 
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-med-6 col-xxxlrg-12 u-mar--bottom--med">
 										<div className="card--secondary--light card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (
 													<FormatterResolver
-														item={{ amount: summaryData.totalMoneyUpcoming }}
+														item={{ amount: summaryData.totalMoneyUpcomingThisYear }}
 														field="amount"
 														format={{ type: 'currency' }}
 													/>
 												)}
-												<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming</p>
+												<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
 											</div>
 										</div>
 									</div>
@@ -216,7 +355,24 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									</div>
 								</div> */}
 								<div className="u-mar--bottom--med">
+									<div className="dashboard-card__giving-goal">
+										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
+										<div className="dashboard-card__giving-goal--range">
+											<div style={{ 'width': `${((localStorageProvider.get('grantsThisYear') / localStorageProvider.get('totalGoal')) * 100).toFixed(2) >= 100 ? 100 : ((localStorageProvider.get('grantsThisYear') / localStorageProvider.get('totalGoal')) * 100).toFixed(2)}%` }} 
+												className={`dashboard-card__giving-goal--range--progress${isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal') * 100) || ((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2) >= 100 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
+													{isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal') * 100) || (typeof localStorage.getItem('totalGoal') == 'undefined' || localStorage.getItem('totalGoal') == 0) ? <span>No goals set up</span> : null}
+												{!(typeof localStorage.getItem('totalGoal') == 'undefined' || localStorage.getItem('totalGoal') == 0) && (((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2) >= 100 ? 100 : (isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) ? null : ((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2)))}{!(typeof localStorage.getItem('totalGoal') == 'undefined' || localStorage.getItem('totalGoal') == 0) && !isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) ? '%' : null}</div>
+											</div>
+										{/* <div className="dashboard-card__giving-goal__label">
+											<a className="btn btn--sml btn--link">Manage</a>
+										</div> */}
+									</div>
 									<DonutChartContainer />
+									<div className="u-display--flex row__align--center">
+										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
+										<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+									</div>
+									<LineChartContainer />
 								</div>
 								{/* <div className="row">
 									<div className="col col-sml-12 col-lrg-12">
@@ -244,7 +400,7 @@ PastGrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onPreview, onCancel } = actions;
+	const { onEdit, onPreview, onCancel, onGrantAgain } = actions;
 	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCancel)) return null;
 
 	let editRender = true;
@@ -295,12 +451,20 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--close u-icon--base"
+						icon="u-icon u-icon--cancel u-icon--base"
 						label="CONTRIBUTION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
 					></BaasicButton>
 				) : null}
+				<BaasicButton
+					className="btn btn--icon"
+					onlyIconClassName="u-mar--right--tny"
+					icon="u-icon u-icon--approve u-icon--base"
+					label="Grant Again"
+					onlyIcon={true}
+					onClick={() => onGrantAgain(item)}
+				></BaasicButton>
 			</div>
 		</td>
 	);

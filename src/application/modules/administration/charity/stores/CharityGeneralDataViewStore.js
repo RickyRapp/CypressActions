@@ -25,11 +25,27 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             contactInformationName: data.contactInformation && data.contactInformation.name,
                             contactInformationEmail: data.contactInformation && data.contactInformation.email,
                             contactInformationNumber: data.contactInformation && data.contactInformation.number,
+                            contactInformation: {
+                                name: data.contactInformation && data.contactInformation.name,
+                                email: data.contactInformation && data.contactInformation.email,
+                                number: data.contactInformation && data.contactInformation.number
+                            },
                             presentBalance: data.presentBalance
                         }
                     },
                     update: async (resource) => {
-                        await this.rootStore.application.administration.charityStore.updateCharity(resource);
+                        resource.contactInformation = {
+                            name: resource.contactInformationName,
+                            email: resource.contactInformationEmail,
+                            number: resource.contactInformationNumber
+                        };
+                        try {
+                            await this.rootStore.application.administration.charityStore.updateCharity(resource);
+                        } catch (e) {
+                            this.rootStore.notificationStore.error('The resource was not updated');
+                        } finally {
+                            this.rootStore.notificationStore.success('Successfully updated Charity general data');
+                        }
                     }
                 }
             },

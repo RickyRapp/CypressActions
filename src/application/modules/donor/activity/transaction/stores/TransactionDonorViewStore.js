@@ -22,7 +22,7 @@ class TransactionTabViewStore extends BaseViewStore {
                     }
                 },
                 {
-                    key: 'paymentTransaction.description',
+                    key: 'description',
                     title: 'ACTIVITY.LIST.COLUMNS.PENDING_TRANSACTION_DESCRIPTION_LABEL'
                 },
                 {
@@ -103,10 +103,10 @@ class TransactionTabViewStore extends BaseViewStore {
             {
                 donorId: this.rootStore.userStore.applicationUser.id,
                 sessionPendingCertificateStatusIds: statuses.find(c => c.abrv === 'pending').id,
-                embed: 'charity,certificate,certificate.booklet,certificate.denominationType',
+                embed: 'charity,certificate,certificate.booklet,certificate.denominationType,certificate.booklet.bookletOrder,certificate.booklet.bookletOrder.donor',
                 sort: 'dateCreated|desc',
                 page: 1,
-                rpp: 50
+                rpp: 1000
             });
         this.checksOnHoldTableStore.setData(data.item);
         if (!this.checksOnHoldTableStore.dataInitialized) {

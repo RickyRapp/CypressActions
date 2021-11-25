@@ -26,7 +26,7 @@ const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
         <ApplicationListLayout store={investmentPoolViewStore} authorization={authorization}>
             <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <TableFilter queryUtility={queryUtility} >
+                    <TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} >
                     </TableFilter>
                     <BaasicButton
                         className="btn btn--med btn--med--wide btn--ghost"
@@ -83,8 +83,8 @@ function renderActions({ item, actions, actionsRender }) {
                 {isSome(onSelect) && selectRender ? (
                     <BaasicButton
                         className="btn btn--icon"
-                        icon='u-icon u-icon--preview u-icon--sml'
-                        label='DONOR_NOTE.LIST.BUTTON.SELECT'
+                        icon='u-icon u-icon--preview u-icon--base'
+                        label='DONOR_NOTE.LIST.BUTTON.PREVIEW'
                         onlyIcon={true}
                         onClick={() => onSelect(item)}>
                     </BaasicButton>

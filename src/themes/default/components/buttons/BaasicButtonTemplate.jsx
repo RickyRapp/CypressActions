@@ -33,13 +33,11 @@ function DefaultContent({
             {isSome(content) ? (
                 content
             ) : (
-                    <div className="u-display--flex u-display--flex--align--center">
-                        <span className={icon ? onlyIconClassName : ""}>
-                            {!onlyIcon && t(label)}
-                        </span>
-                        {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName}`} /> : <i className={`${iconName(icon)}`} />}
-                    </div>
-                )}
+                <React.Fragment>
+                    {!onlyIcon && t(label)}
+                    {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName ? onlyIconClassName : ""}`} /> : icon ? <i className={`${iconName(icon)} u-mar--left--sml`} /> : null}
+                </React.Fragment>
+            )}
         </button>
     ) : null;
 }

@@ -13,8 +13,7 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
     const {
         loaderStore,
         form,
-        grantAcknowledgmentTypeDropdownStore,
-        grantAcknowledgmentTypeByAmountDropwdownStore
+        grantAcknowledgmentTypeDropdownStore
     } = donorCertificateSettingViewStore;
 
     return (
@@ -33,17 +32,25 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
                 </div>
             </div>
             <div className="list--preferences">
-                <div className="list--preferences__label">Share information for transactions that exceeds amount</div>
+                <div className="list--preferences__label">Only share information for transactions that exceed</div>
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('acknowledgmentByAmount')} />
                 </div>
             </div>
-            <div className="list--preferences">
+            {/* <div className="list--preferences">
                 <div className="list--preferences__label is-dropdown">
                     Share informations when exceed amount <span className="type--color--note u-mar--left--tny">*</span>
                 </div>
                 <div className="list--preferences__dd">
                     <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeByAmountId')} store={grantAcknowledgmentTypeByAmountDropwdownStore} />
+                </div>
+            </div> */}
+            <div className="list--preferences">
+                <div className="list--preferences__label is-dropdown">
+                    I would like to verify and approve checks that exceed <span className="type--color--note u-mar--left--tny">*</span>
+                </div>
+                <div className="list--preferences__field">
+                    <NumericInputField showLabel={false} field={form.$('verificationLimitAmount')} />
                 </div>
             </div>
 

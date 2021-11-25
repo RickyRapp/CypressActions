@@ -14,5 +14,7 @@ export { default as DonorCommunicationPreferenceRouteService } from './DonorComm
 export { default as DonorCommunicationPreferenceService } from './DonorCommunicationPreferenceService'
 export { default as DonorGivingCardSettingRouteService } from './DonorGivingCardSettingRouteService'
 export { default as DonorGivingCardSettingService } from './DonorGivingCardSettingService'
+export { default as DonorGivingGoalRouteService } from './DonorGivingGoalRouteService'
+export { default as DonorGivingGoalService } from './DonorGivingGoalService'
 export { default as DonorRecordActivityService } from './DonorRecordActivityService'
 export { default as DonorRecordActivityRouteService } from './DonorRecordActivityRouteService'

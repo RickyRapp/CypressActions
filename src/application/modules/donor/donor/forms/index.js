@@ -13,3 +13,4 @@ export { default as DonorCommunicationPreferenceForm } from './DonorCommunicatio
 export { default as DonorGrantFeesForm } from './DonorGrantFeesForm'
 export { default as DonorGivingCardSettingForm } from './DonorGivingCardSettingForm'
 export { default as DonorGivingCardActivationForm } from './DonorGivingCardActivationForm'
+export { default as DonorGivingGoalsForm } from './DonorGivingGoalsForm'

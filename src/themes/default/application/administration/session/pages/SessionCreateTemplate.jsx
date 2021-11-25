@@ -16,12 +16,21 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         onPreviousStep3Click,
         barcode,
         onBarcodeChange,
+        cancelCertificate,
+        editCheck,
+        removeFromCache,
         sessionCertificates,
         currentCount,
         session,
         blankCertificateModal,
         isChangedDefaultAddress,
-        onChangeDefaultAddressClick 
+        onChangeDefaultAddressClick,
+        modalStore,
+        filterCharities,
+        setCharityId,
+        charity,
+        insufficientAmount,
+        isCharitySelected
     } = sessionCreateViewStore;
 
     return (
@@ -47,7 +56,10 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             onPreviousStepClick={onPreviousStep2Click}
                             charityDropdownStore={charityDropdownStore}
                             isChangedDefaultAddress={isChangedDefaultAddress}
-                            onChangeDefaultAddressClick={onChangeDefaultAddressClick} 
+                            onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+                            filterCharities={filterCharities}
+                            setCharityId={setCharityId}
+                            isCharitySelected={isCharitySelected}
                         />
                     </div>}
 
@@ -60,14 +72,22 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             barcode={barcode}
                             blankCertificateModal={blankCertificateModal}
                             onBarcodeChange={onBarcodeChange}
+                            cancelCertificate={cancelCertificate}
+                            editCheck={editCheck}
+                            removeFromCache={removeFromCache}
+                            modalStore={modalStore}
+                            charity={charity}
+                            insufficientAmount={insufficientAmount}
                         />
                     </div>}
                 {currentStep === 4 &&
-                    <div className="container container--base">
+                    <div className="container container--base u-padd--bottom--med">
                         <Step4Template
                             onNextStepClick={onNextStep4Click}
                             currentCount={currentCount}
+                            sessionCertificates={sessionCertificates}
                             session={session}
+                            charity={charity}
                         />
                     </div>}
             </form>

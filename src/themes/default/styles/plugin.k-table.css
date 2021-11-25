@@ -14,9 +14,9 @@ $table-width: 1024px;
 }
 
 .k-chart {
-    @media (--screen-to-sml) {
+    /* @media (--screen-to-sml) {
         display: none;
-    }
+    } */
 }
 
 .table {

@@ -47,6 +47,11 @@ class GrantService extends BaseService {
         return this.apiClient.put(url, resource);
     }
 
+    decline(resource) {
+        const url = this.routeService.decline(resource);
+        return this.apiClient.put(url, resource);
+    }
+
     cancel(resource) {
         const url = this.routeService.cancel(resource);
         return this.apiClient.put(url, resource);

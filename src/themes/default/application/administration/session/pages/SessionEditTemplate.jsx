@@ -26,8 +26,8 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
         removeSessionCertificateModal,
         editBlankSessionCertificateModal,
         onCharitySelected,
+        saveChanges,
         advancedSearchModal } = sessionEditViewStore;
-
     return (
         <EditFormLayout
             store={sessionEditViewStore}
@@ -38,12 +38,13 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
             <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="u-mar--bottom--med">General Data</h3>
                 <div className="row row--form">
-                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                    {/* <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                         <div className="form__group__label">{t('SESSION.EDIT.FIELDS.CHARITY_LABEL')}</div>
+                        
                         <span className="input input--text input--lrg padd--top--tny input--disabled">
                             {item && <React.Fragment>{item.charity.name}</React.Fragment>}
-                        </span>
-                        {/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
+                        </span> */}
+                    {/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
                         {!form.$('charityId').disabled && <BaasicButton
                             className="btn btn--icon"
                             icon={`u-icon u-icon--preview u-icon--base`} //TODO: advanced search icon
@@ -51,6 +52,9 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                             onlyIcon={true}
                             onClick={openAdvancedSearchModal}
                         />} */}
+                    {/* </div> */}
+                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                        <BasicInput field={form.$('charityName')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--med">
                         <BasicInput field={form.$('fullName')} />
@@ -60,6 +64,24 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <BasicInput field={form.$('email')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4">
+                        <BasicInput field={form.$('description')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-6">
+                        <BasicInput field={form.$('addressLine1')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-6">
+                        <BasicInput field={form.$('addressLine2')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-3">
+                        <BasicInput field={form.$('city')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-3">
+                        <BasicInput field={form.$('state')} />
+                    </div>
+                    <div className="form__group col col-sml-12 col-lrg-3">
+                        <BasicInput field={form.$('zipCode')} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                         <div>
@@ -77,7 +99,7 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                     </div>
                 </div>
 
-                {renderEditLayoutFooterContent({ form })}
+                {renderEditLayoutFooterContent({ form, saveChanges })}
             </div>
 
             <div className="card--primary card--med u-mar--bottom--med">
@@ -97,6 +119,16 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
                     <div className="form__group col col-lrg-12">
                         {t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE')} <FormatterResolver
                             item={{ amount: item && item.totalAmountForCharity }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
+                    </div>
+                    <div className="form__group col col-lrg-12">
+                        {t('SESSION.EDIT.TOTAL_COUNT')} {item && item.grants.length}
+                    </div>
+                    <div className="form__group col col-lrg-12">
+                        {t('SESSION.EDIT.TOTAL_CHECKS_ON_HOLD')} <FormatterResolver
+                            item={{ amount: item && item.totalPending }}
                             field='amount'
                             format={{ type: 'currency' }}
                         />
@@ -124,10 +156,11 @@ SessionEditTemplate.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-function renderEditLayoutFooterContent({ form }) {
+function renderEditLayoutFooterContent({ form, saveChanges }) {
     return <PageFooter>
         <div>
-            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            <BaasicButton onClick={() => saveChanges()} className="btn btn--med btn--med--wide btn--secondary" label="Save" />
+            <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--wide btn--secondary u-mar--left--sml" label="Save and Approve" />
         </div>
     </PageFooter>
 }
@@ -181,7 +214,8 @@ renderActions.propTypes = {
 };
 
 renderEditLayoutFooterContent.propTypes = {
-    form: PropTypes.any
+    form: PropTypes.any,
+    saveChanges: PropTypes.func
 };
 
 export default defaultTemplate(SessionEditTemplate);

@@ -1,6 +1,7 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
+import { SessionService } from 'application/administration/session/services';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -13,8 +14,14 @@ class SessionViewStore extends BaseEditViewStore {
     @observable session = 30;
     refreshIntervalId = null;
     @observable isChangedDefaultAddress = null;
+    charities = [];
+	@observable charity = null;
+    @observable charityInputValue = null;
+	@observable filteredCharities = [];
+    @observable isCharitySelected = false;
 
     constructor(rootStore) {
+        const service = new SessionService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'session-create',
             id: undefined,
@@ -46,6 +53,53 @@ class SessionViewStore extends BaseEditViewStore {
 
         this.createCharityDropdownStore();
         this.blankCertificateModal = new ModalParams({});
+        this.service = service;
+    }
+
+    @action.bound
+    async cancelCertificate(barcode) {
+        // this.modalStore.showConfirm(
+        //     `Are you sure you want to remove session from cache?`,
+        //     async () => {
+        //         await this.service.removeSessionFromCache({ key: key });
+        //         await this.queryUtility.fetch();
+        //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
+        //     }
+        // );
+        await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: barcode });
+        this.sessionCertificates = this.sessionCertificates.filter(obj => {
+            return obj.barcode !== barcode;
+        });
+        this.rootStore.notificationStore.success(`Successfully removed from cache`);
+    }
+
+    @action.bound
+    async removeFromCache() {
+        // this.rootStore.modalStore.showConfirm(
+        //     `-Are you sure you want to remove session from cache?`,
+        //     async () => {
+        //         await this.service.removeSessionFromCache({ key: key });
+        //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
+        //     }
+        // );
+        await this.service.inActivateSession({ key: this.form.$('key').value });
+        await this.service.removeSessionFromCache({ key: this.form.$('key').value });
+        this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        this.rootStore.notificationStore.success(`Successfully removed from cache`);
+    }
+
+    @action.bound
+    async editCheck(item) {
+        this.blankCertificateModal.open({
+            certificate: item,
+            onClick: (certificate) => {
+                this.setBlankCertificate(certificate);
+                this.blankCertificateModal.close();
+            },
+            onClose: () => {
+                this.cancelCertificate(item.certificate.barcode);
+            }
+        });
     }
 
     @action.bound
@@ -55,9 +109,48 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+	setCharityId(id) {
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+        this.form.$('charityId').value = id;
+        this.isCharitySelected = true;
+        //this.queryUtility.filter.charityId = id;
+		//this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.rootStore.application.administration.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
+
+    @action.bound
     async onNextStep2Click() {
         if (!this.isChangedDefaultAddress) {
-            const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+            const address = this.charity.item.charityAddresses.find(c => c.isPrimary);
             this.setAddress(address);
         }
         const { isValid } = await this.form.validate({ showErrors: true });
@@ -104,14 +197,17 @@ class SessionViewStore extends BaseEditViewStore {
                 data = ex.data;
             }
             if (data.isEligible) {
+                data.certificate.isBlank = false;
                 if (data.certificate.denominationTypeValue === 0) {
                     this.blankCertificateModal.open({
                         certificate: data.certificate,
                         onClick: (certificate) => {
+                            certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
                             this.blankCertificateModal.close();
                         },
                         onClose: () => {
+                            this.cancelCertificate(data.certificate.barcode);
                         }
                     });
                 }
@@ -130,7 +226,15 @@ class SessionViewStore extends BaseEditViewStore {
     async setBlankCertificate(certificate) {
         try {
             const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
-            this.sessionCertificates.push(data.response);
+            data.response.isBlank = true;
+            // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
+            let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);
+            if(existingCertificateInSession >= 0) {
+                this.sessionCertificates[existingCertificateInSession].certificateValue = data.response.certificateValue;
+                this.sessionCertificates[existingCertificateInSession].denominationTypeValue = data.response.denominationTypeValue;
+            } else {
+                this.sessionCertificates.push(data.response);
+            }
         } catch (ex) {
             try {
                 await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode });
@@ -194,8 +298,9 @@ class SessionViewStore extends BaseEditViewStore {
     handleResponse(errorCode) {
         if (errorCode >= 4001 && errorCode <= 4010) {
             this.rootStore.notificationStore.error('ERROR_CODE.' + errorCode);
-        }
-        else {
+        } else if (errorCode == 4016) {
+            this.rootStore.notificationStore.error('Certificate not in status for session');
+        } else {
             this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
         }
         return true;
@@ -216,6 +321,13 @@ class SessionViewStore extends BaseEditViewStore {
         this.form.$('city').set(address.city);
         this.form.$('state').set(address.state);
         this.form.$('zipCode').set(address.zipCode);
+    }
+    @computed get insufficientAmount() {
+        /*sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
+											item={{ amount: 0 }}
+											field='amount'
+											format={{ type: 'currency' }} */
+        this.sessionCertificates.length > 0 ? this.sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) : 0;
     }
 }
 

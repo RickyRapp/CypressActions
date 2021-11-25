@@ -22,7 +22,14 @@ const ContributionCreateTemplate = function ({ store }) {
 		previousContributionsTableStore,
 		nextStep,
 		onSubmitClick,
+		downloadStockTxtFile,
+		downloadPayrollDirectTxtFile,
 		onAddBankAccountClick,
+		clipboardText,
+		downloadTxtFile,
+		downloadZelleTxtFile,
+		downloadThirdPartyTxtFile,
+		downloadCheckTxtFile,
 		...otherProps
 	} = store;
 
@@ -56,9 +63,16 @@ const ContributionCreateTemplate = function ({ store }) {
 			{step === 3 &&
 				<ContributionCreateStep3Template
 					paymentType={paymentTypes.find(c => c.id === form.$('paymentTypeId').value)}
+					downloadPayrollDirectTxtFile={downloadPayrollDirectTxtFile}
 					routes={routes}
+					clipboardText={clipboardText}
+					downloadTxtFile={downloadTxtFile}
+					downloadZelleTxtFile={downloadZelleTxtFile}
 					previousContributionsTableStore={previousContributionsTableStore}
+					downloadStockTxtFile={downloadStockTxtFile}
+					downloadThirdPartyTxtFile={downloadThirdPartyTxtFile}
 					bankAccount={bankAccountDropdownStore && bankAccountDropdownStore.items.find(c => c.id === form.$('bankAccountId').value)}
+					downloadCheckTxtFile={downloadCheckTxtFile}
 					form={form} />}
 			<BaasicModal modalParams={bankAccountModal}>
 				<DonorBankAccountEdit />

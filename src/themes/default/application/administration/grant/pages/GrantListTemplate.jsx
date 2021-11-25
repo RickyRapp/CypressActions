@@ -14,6 +14,8 @@ import {
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
+import { GrantDeclineTemplate } from 'application/administration/grant/components';
+import AsyncSelect from 'react-select/async';
 
 const GrantListTemplate = function ({ grantViewStore }) {
 	const {
@@ -25,10 +27,19 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		donationStatusDropdownStore,
 		exportConfig,
 		selectDonorModal,
-		searchCharityDropdownStore,
 		donationTypeDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		declineModal,
+		filterCharities,
+        setCharityId,
 	} = grantViewStore;
+
+	const promiseOptions = inputValue =>
+	new Promise(resolve => {
+		setTimeout(() => {
+			resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
+		}, 1000);
+	});
 
 	return (
 		<Content>
@@ -36,14 +47,15 @@ const GrantListTemplate = function ({ grantViewStore }) {
 				<Export config={exportConfig} />
 			</div>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
-				<div className="row u-mar--bottom--med">
+				<div className="row row--form u-mar--bottom--med">
 					<div className="col col-sml-12 col-xxlrg-10">
-						<TableFilter queryUtility={queryUtility}>
+						<TableFilter colClassName={"col col-sml-12 col-xxlrg-8"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchCharityDropdownStore} />
+								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
+								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
@@ -85,7 +97,7 @@ const GrantListTemplate = function ({ grantViewStore }) {
 								/>
 							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row">
+								<div className="row row--form">
 									<div className="col col-sml-12 col-lrg-8">
 										<DateRangeQueryPicker
 											queryUtility={queryUtility}
@@ -113,21 +125,26 @@ const GrantListTemplate = function ({ grantViewStore }) {
 			<BaasicModal modalParams={selectDonorModal}>
 				<SelectDonor />
 			</BaasicModal>
+			<BaasicModal modalParams={declineModal}>
+                <GrantDeclineTemplate />
+            </BaasicModal>
 		</Content>
 	);
 };
 
 GrantListTemplate.propTypes = {
 	grantViewStore: PropTypes.object.isRequired,
+	onDeclineClick: PropTypes.func,
+    declineModal: PropTypes.any,
 	t: PropTypes.func,
 };
 
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 	
-	const { onEdit, onRedirect, onPreview, onApprove, onCancel } = actions;
+	const { onEdit, onRedirect, onPreview, onApprove, onCancel, onDecline } = actions;
 
-	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel)) return null;
+	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel) && !isSome(onDecline)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -147,6 +164,13 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onApproveRender) {
 			approveRender = actionsRender.onApproveRender(item);
+		}
+	}
+
+	let declineRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onDeclineRender) {
+			declineRender = actionsRender.onDeclineRender(item);
 		}
 	}
 
@@ -175,7 +199,7 @@ function renderActions({ item, actions, actionsRender }) {
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
 						icon="u-icon u-icon--approve u-icon--base" //TODO: change with redirect icon
-						label="GRANT.LIST.BUTTON.REDIRECT"
+						label="GRANT.LIST.BUTTON.DELETE"
 						onlyIcon={true}
 						onClick={() => onRedirect(item)}
 					></BaasicButton>
@@ -198,6 +222,16 @@ function renderActions({ item, actions, actionsRender }) {
 						label="GRANT.LIST.BUTTON.REVIEW"
 						onlyIcon={true}
 						onClick={() => onApprove(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onDecline) && declineRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--decline u-icon--base"
+						label="GRANT.LIST.BUTTON.DECLINE"
+						onlyIcon={true}
+						onClick={() => onDecline(item)}
 					></BaasicButton>
 				) : null}
 				{isSome(onCancel) && cancelRender ? (

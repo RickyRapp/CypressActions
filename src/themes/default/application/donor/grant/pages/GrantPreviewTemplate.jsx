@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import {
     ApplicationEmptyState,
     FormatterResolver,
-    Date
+    Date,
+    BaasicButton
 } from 'core/components';
 import { addressFormatter } from 'core/utils';
 import { PreviewLayout } from 'core/layouts';
@@ -14,25 +15,28 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
     const {
         item,
         loaderStore,
-        isEditable
+        isEditable,
+        cancelGrant,
+        newGrant,
+        editGrant,
+        isCancelable
     } = grantPreviewViewStore;
-
     return (
         <PreviewLayout
             store={grantPreviewViewStore}
             emptyRenderer={<ApplicationEmptyState />}
             loading={loaderStore.loading}
-            layoutFooterVisible={isEditable}
+            layoutFooterVisible={false}
         >
             <div className="row">
-                <div className="col col-sml-12 col-lrg-8">
+                <div className="col col-sml-12 col-lrg-8 col-xxlrg-6 col-xxxlrg-5">
                     {/* {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
                         <div className="card--primary card--med u-mar--bottom--med">
                             <GrantProgressTimeline item={item} />
                         </div>} */}
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row">
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
@@ -42,13 +46,13 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DATE_CREATED_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <Date format="full" value={item.dateCreated} />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.AMOUNT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <FormatterResolver
@@ -58,19 +62,19 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                     />}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.confirmationNumber}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.PURPOSE_TYPE_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{item.grantPurposeType.name} {`${item.purposeNote ? ' - ' + item.purposeNote : ''}`}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ACKNOWLEDGMENT_LABEL')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>
@@ -84,26 +88,62 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                 </span>
                             </div>
                             {item && item.thirdPartyWebsite &&
-                                <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <div className="col col-sml-12 u-mar--bottom--med">
                                     <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_WEBSITE_LABEL')}</div>
                                     <span className="input--preview">
                                         {item && <React.Fragment>{item.thirdPartyWebsite.name} - {item.thirdPartyWebsite.url}</React.Fragment>}
                                     </span>
                                 </div>}
                             {item && item.grantScheduledPayment &&
-                                <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                                <div className="col col-sml-12 u-mar--bottom--med">
                                     <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.SCHEDULED_LABEL')}</div>
                                     <span className="input--preview">
                                         {item && <Date format="full" value={item.grantScheduledPayment.dateCreated} />}
                                     </span>
                                 </div>}
-                            <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
+                            <div className="col col-sml-12">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ADDRESS')}</div>
                                 <span className="input--preview">
-                                    {item && <React.Fragment>{`${item.addressLine1}, ${item.addressLine2 ? item.addressLine2 + ', ': ''} ${item.city}, ${item.state}, ${item.zipCode}`}</React.Fragment>}
+                                    {item && <React.Fragment>{`${item.addressLine1}, ${item.addressLine2 ? item.addressLine2 + ', ' : ''} ${item.city}, ${item.state}, ${item.zipCode}`}</React.Fragment>}
                                 </span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col col-sml-12 col-lrg-8 col-xxlrg-6 col-xxxlrg-5">
+                    <div className="row row--form">
+                        <div className={`col col-sml-12 col-lrg-6`}>
+                            <BaasicButton
+                                className="btn btn--base btn--primary btn--100 u-mar--bottom--sml"
+                                onClick={newGrant}
+                                icon=''
+                                label={t('PREVIEW_LAYOUT.NEW_GRANT')}
+                            />
+                        </div>
+                        {isEditable &&
+                            <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
+                                <BaasicButton
+                                    className="btn btn--base btn--primary btn--100  u-mar--bottom--sml"
+                                    onClick={editGrant}
+                                    icon=''
+                                    label={t('PREVIEW_LAYOUT.EDIT_BUTTON')}
+                                />
+                            </div>
+                        }
+                        {
+                            isCancelable &&
+                                <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
+                                    <BaasicButton
+                                        className="btn btn--base btn--ghost btn--100 u-mar--bottom--sml"
+                                        onClick={cancelGrant}
+                                        icon=''
+                                        label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
+                                    />
+                                </div>
+                        }
+                        
                     </div>
                 </div>
             </div>

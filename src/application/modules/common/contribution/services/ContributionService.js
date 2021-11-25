@@ -21,6 +21,11 @@ class ContributionService extends BaseService {
         const url = this.routeService.review(resource);
         return this.apiClient.put(url, resource);
     }
+
+    findSummary(resource) {
+        const url = this.routeService.findSummary(resource);
+        return this.apiClient.get(url, resource);
+    }
 }
 
 export default ContributionService;

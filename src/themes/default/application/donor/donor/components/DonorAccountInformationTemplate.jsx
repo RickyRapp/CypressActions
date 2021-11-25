@@ -27,7 +27,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 	return (
 		<div className="card--primary card--med">
 			<EditFormContent form={form}>
-				<div className="row row--form">
+				<div className="row">
 					<div className="col col-sml-12 col-lrg-3">
 						<h3 className=" u-mar--bottom--med">
 							{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}
@@ -95,7 +95,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Date Of Birth:</p>
 									<p className="type--base type--wgt--bold">
-										{item && <Date format="full-date" value={moment(item.dateOfBirth).utcOffset(1)} />}
+										{item && <Date format="short" value={moment(item.dateOfBirth).utcOffset(1)} />}
 									</p>
 								</div>
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">

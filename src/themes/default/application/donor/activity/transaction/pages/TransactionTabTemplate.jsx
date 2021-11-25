@@ -8,7 +8,7 @@ import { TransactionDonor } from 'application/donor/activity/transaction/compone
 const TransactionTabTemplate = function ({ transactionTabViewStore }) {
     return (
         <div className="row">
-            <div className="col col-sml-12 col-med-12 col-xxxlrg-8 u-mar--bottom--tny">
+            <div className="col col-sml-12 col-med-12 col-lrg-12 col-xxxlrg-10 u-mar--bottom--tny u-mar--top--sml">
                 <TransactionDonor />
             </div>
             <div className="col col-sml-12 col-med-12 col-lrg-12 u-mar--bottom--lrg">
@@ -16,9 +16,14 @@ const TransactionTabTemplate = function ({ transactionTabViewStore }) {
                     <div label={'ACTIVITY.TRANSACTION_TAB.ALL'}>
                         <Transaction />
                     </div>
-                    {/* <div label={'ACTIVITY.TRANSACTION_TAB.STATEMENTS'}>
-                        TODO
-                    </div> */}
+                    <div label={'ACTIVITY.TRANSACTION_TAB.STATEMENTS'}>
+                        <div className="card--primary card--med type--center">
+                            <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
+                            <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p>
+                        </div>
+                        
+                        {/* <Transaction /> */}
+                    </div>
                 </TabLayout>
             </div>
         </div>

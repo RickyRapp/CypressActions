@@ -25,7 +25,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                 </div>
                 <div className="form__group col col-lrg-12">
                     <NumericInput
-                        value={certificate.certificateValue}
+                        value={certificate.denominationTypeValue}
                         onChange={(event) => certificate.certificateValue = event.target.value}
                         label='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_LABEL'
                         placeholder='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_PLACEHOLDER'
@@ -37,7 +37,8 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                     <BaasicButton
                         className="btn btn--base btn--primary"
                         label='SESSION.CREATE.STEP3.SET_BLANK_CERTIFICATE_VALUE'
-                        onClick={() => onClick(certificate)}>
+                        onClick={() => onClick(certificate)}
+                        disabled={certificate.certificateValue < 1 ? true : false}>
                     </BaasicButton>
                 </div>
             </div>

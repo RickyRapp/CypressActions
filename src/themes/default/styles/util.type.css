@@ -168,6 +168,14 @@
 
 	&--left {
 		text-align: left;
+
+		&--from {
+			&--med {
+				@media (--screen-from-med) {
+					text-align: left;
+				}
+			}
+		}
 	}
 
 	&--right {

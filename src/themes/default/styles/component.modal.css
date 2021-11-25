@@ -22,7 +22,7 @@
 	&__content {
 		position: relative;
 		max-height: calc(100% - 24px);
-		max-width: calc(100% - 24px);
+		max-width: 1200px;
 		overflow-y: auto;
 		
 		padding: calc($unit * 4);
@@ -73,11 +73,24 @@
 			border-bottom: 0px;
 		}
 
+		&--secondary {
+			justify-content: flex-end;
+		}
+
+		&__label {
+			text-align: right;
+		}
+
 		&__amount {
 			white-space: nowrap;
+
+			&--secondary {
+				text-align: right;
+			}
 		}
 
 		&__divider {
+			min-width: calc($unit * 6);
 			flex-grow: 2;
 			margin: 0 6px 3px 6px;
 

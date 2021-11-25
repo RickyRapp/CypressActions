@@ -1,12 +1,17 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { GrantRouteService } from 'application/common/grant/services';
 import { charityFormatter, donorFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
-
+import GrantDeclineForm from 'application/common/grant/forms';
 class GrantViewStore extends BaseListViewStore {
+    @observable declinationTypeId;
+    charities = [];
+	@observable charity = null;
+    @observable charityInputValue = null;
+	@observable filteredCharities = [];
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant',
@@ -23,7 +28,7 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 preview: (editId) => {
                     this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: editId });
-                }
+                },
             },
             queryConfig: {
                 filter: new GrantListFilter('dateCreated', 'desc'),
@@ -62,13 +67,14 @@ class GrantViewStore extends BaseListViewStore {
                             'grantPurposeType',
                             'purposeNote',
                             'dateCreated',
-                            'scheduledGrantPayment'
+                            'scheduledGrantPayment',
+                            'declinationTypeId'
                         ];
-
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
-            }
+            },
+            FormClass: GrantDeclineForm,
         });
 
         this.createTableStore();
@@ -81,8 +87,9 @@ class GrantViewStore extends BaseListViewStore {
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
+        this.declineModal = new ModalParams({});
     }
-
+    
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open(
@@ -110,7 +117,49 @@ class GrantViewStore extends BaseListViewStore {
         });
     }
 
+    @action.bound
+	setCharityId(id) {
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+        this.queryUtility.filter.charityId = id;
+		//this.setAddress(charity.item.charityAddresses[0]);
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.rootStore.application.administration.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
+
     createTableStore() {
+        const declinationReason = [{id: 1, name:'Legally binding pledge'},
+                            {id: 2, name:'Charity failed to provide necessary documents'},
+                            {id: 3, name:'Charity has seen its status revoked by the IRS'},
+                            {id: 4, name:'This grant does not comply with the Donors Funds’ Policies and guidelines'},
+                            {id: 5, name:'Earmarked grant'}];
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
@@ -139,6 +188,16 @@ class GrantViewStore extends BaseListViewStore {
                 {
                     key: 'donationStatus.name',
                     title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if(item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined'){
+                                return `Declined - ${(declinationReason.filter(x => x.id == item.declinationTypeId)).length > 0 ? declinationReason.filter(x => x.id == item.declinationTypeId)[0].name : 'other'}`;
+                            } else {
+                                return item.donationStatus.name;
+                            }
+                        }
+                    }
                 },
                 {
                     key: 'donationType.name',
@@ -167,7 +226,8 @@ class GrantViewStore extends BaseListViewStore {
                 onPreview: (grant) => this.routes.preview(grant.id),
                 onApprove: (grant) => this.approveGrant(grant),
                 onCancel: (grant) => this.cancelGrant(grant),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onDecline: (grant) => this.onDeclineClick(grant)
             },
             actionsRender: {
                 onEditRender: (grant) => {
@@ -182,9 +242,49 @@ class GrantViewStore extends BaseListViewStore {
                 onCancelRender: (grant) => {
                     return grant.donationType.abrv !== 'session' && (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved');
                 },
+                onDeclineRender: (grant) => {
+                    return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved';
+                }
             }
         }));
     }
+
+    //#region MODAL
+	@action.bound
+	async onDeclineClick(grant) {
+		this.declineModal.open({
+            onCancel: () => {
+                this.declineModal.close();
+            },
+            onDecline: async () => {
+                    const declinationReason = document.getElementsByName('declinationReason');
+                    let reasonId;
+                    for(let i = 0; i < declinationReason.length; i++) {
+                        if(declinationReason[i].checked)
+                            reasonId = declinationReason[i].id;
+                    }
+                    try {
+                        if(reasonId>5 || reasonId<1 || typeof reasonId === 'undefined') {
+                            this.rootStore.notificationStore.error('Declination reason not selected!');
+                            return;
+                        }
+                        await this.rootStore.application.administration.grantStore.declineGrant({ id: grant.id , declinationTypeId: reasonId});
+                        this.queryUtility.fetch();
+                        this.rootStore.notificationStore.success('Successfully declined grant.');
+                        this.declineModal.close();
+                    } catch ({ data }) {
+                        if (data && data.message) {
+                            this.rootStore.notificationStore.error(data.message);
+                        }
+                        else {
+                            this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+                        }
+                    }
+            },
+            declinationTypeId: this.declinationTypeId
+        })
+	}
+	//#endregion
 
     @action.bound
     async approveGrant(grant) {
@@ -198,6 +298,8 @@ class GrantViewStore extends BaseListViewStore {
                 } catch ({ data }) {
                     if (data && data.message) {
                         this.rootStore.notificationStore.error(data.message);
+                    } else if(data && data.errorCode == 3004) {
+                        this.rootStore.notificationStore.error('Charity is not in active status');
                     }
                     else {
                         this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');

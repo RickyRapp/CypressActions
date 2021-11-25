@@ -19,7 +19,7 @@ export default class CharityCreateForm extends FormBase {
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
                     rules: 'required|string|size:9|taxIdUnique',
                     options: {
-                        validateOnChange: false
+                        validateOnChange: true
                     },
                     extra: {
                         format: '##-#######'
@@ -216,7 +216,7 @@ export default class CharityCreateForm extends FormBase {
                     name: 'password',
                     label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_PLACEHOLDER',
-                    rules: ['required_if:isNewOnlineAccount,true', 'string', 'min:8', 'regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/'],
+                    rules: 'required_if:isNewOnlineAccount,true|string|min:8|regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/',
                     type: 'password',
                     autoComplete: 'off',
                     disabled: true
@@ -225,7 +225,7 @@ export default class CharityCreateForm extends FormBase {
                     name: 'confirmPassword',
                     label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.CONFIRM_PASSWORD_PLACEHOLDER',
-                    rules: 'string|same:password',
+                    rules: 'string|same:password|required_if:isNewOnlineAccount,true',
                     type: 'password',
                     disabled: true
                 }

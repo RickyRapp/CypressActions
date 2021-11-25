@@ -149,6 +149,11 @@ class DonorStore {
         return response.data;
     }
 
+    async createGivingGoals(resource) {
+        const response = await this.donorGivingCardSettingService.create(resource);
+        return response.data;
+    }
+
     async updateGrantFees(resource) {
         const response = await this.donorService.updateGrantFees(resource);
         return response.data;

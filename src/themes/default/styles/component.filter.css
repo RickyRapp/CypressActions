@@ -20,7 +20,7 @@
 
 			margin-right: calc($unit * 3.5);
 
-			border: 1px solid color(white blackness(+30%));
+			border: 1px solid color($color-text a(0.4));
 			border-radius: $radius-base;
 		}
 	}
@@ -44,7 +44,7 @@
 			padding-top: 0;
 			background-color: #ffffff;
 
-			border: 1px solid #d4d4d4;
+			border: 1px solid color($color-text a(0.4));
 			border-top: 0;
 
 			form {

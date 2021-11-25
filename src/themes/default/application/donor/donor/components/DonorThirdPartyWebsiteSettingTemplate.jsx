@@ -5,9 +5,7 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BasicFieldCheckbox,
-    BaasicFieldDropdown,
-    NumericInputField
+    BaasicFieldDropdown
 } from 'core/components'
 
 const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebsiteSettingViewStore }) {
@@ -15,8 +13,7 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
         loaderStore,
         form,
         grantAcknowledgmentTypeDropdownStore,
-        grantPurposeTypeDropdownStore,
-        onChangeIsEnabled
+        grantPurposeTypeDropdownStore
     } = donorThirdPartyWebsiteSettingViewStore;
 
     return (
@@ -25,30 +22,23 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
             >
-            <div className="list--preferences">
-                <div className="list--preferences__label">
-                    <h3>{t('DONOR.CHARITY_WEBSITE_SETTING.TITLE')}</h3>
-                </div>
-                <div className="list--preferences__field">
-                    <BasicFieldCheckbox showLabel={false} toggleClass="--toggle" field={form.$('isEnabled')} onChange={onChangeIsEnabled} />
-                </div>
-            </div>
-                
-            <div className="list--preferences">
-                <div className="list--preferences__label is-dropdown">Share information</div>
-                <div className="list--preferences__dd">
-                    <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
-                </div>
-            </div>
+                <h3 className="list--preferences__title">{t('DONOR.CHARITY_WEBSITE_SETTING.TITLE')}</h3>
 
-            <div className="list--preferences">
-                <div className="list--preferences__label is-dropdown">Purpose</div>
-                <div className="list--preferences__dd">
-                    <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+                <div className="list--preferences">
+                    <div className="list--preferences__label is-dropdown">Share information</div>
+                    <div className="list--preferences__dd">
+                        <BaasicFieldDropdown showLabel={false} field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
+                    </div>
                 </div>
-            </div>
 
-            <div className="list--preferences">
+                <div className="list--preferences">
+                    <div className="list--preferences__label is-dropdown">Purpose</div>
+                    <div className="list--preferences__dd">
+                        <BaasicFieldDropdown showLabel={false} field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} disabled={true} />
+                    </div>
+                </div>
+
+                {/* <div className="list--preferences">
                 <div className="list--preferences__label">Maximum dollar amount per transaction</div>
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('maxAmount')} />
@@ -62,7 +52,7 @@ const DonorThirdPartyWebsiteSettingTemplate = function ({ t, donorThirdPartyWebs
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('maxTimesPerDay')} />
                 </div>
-            </div>
+            </div> */}
                 <div className="type--right">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </div>

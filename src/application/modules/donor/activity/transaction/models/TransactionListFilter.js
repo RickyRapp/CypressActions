@@ -5,6 +5,7 @@ class TransactionListFilter extends FilterParams {
     @observable dateCreatedFrom;
     @observable dateCreatedTo;
     @observable paymentTransactionType;
+    @observable paymentTransactionPeriod;
 
     constructor() {
         super();
@@ -17,6 +18,7 @@ class TransactionListFilter extends FilterParams {
         this.dateCreatedFrom = null;
         this.dateCreatedTo = null;
         this.paymentTransactionType = null;
+        this.paymentTransactionPeriod = null;
     }
 }
 

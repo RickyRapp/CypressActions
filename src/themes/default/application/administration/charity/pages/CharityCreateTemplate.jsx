@@ -108,7 +108,7 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 						</div>
 
 						<div className="col col-sml-12 col-lrg-12">
-							<div className="row">
+							<div className="row row--form">
 								<BaasicFieldDropzone field={form.$('coreMediaVaultEntryId')} store={imageUploadStore} />
 							</div>
 						</div>

@@ -2,6 +2,10 @@
     # plugin.toastify
 \*------------------------------------*/
 .Toastify {
+    .Toastify__close-button--default {
+        color: white;
+    }
+
     .Toastify__toast {
         border-radius: $radius-base;
     }
@@ -23,7 +27,7 @@
 
     .red-background {
         background-color: color($toastify-red a(0.7));
-        color: #044734;
+        color: white;
         
         /* Progress bar */
         .Toastify__progress-bar--default {

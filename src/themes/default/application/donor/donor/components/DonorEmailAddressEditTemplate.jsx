@@ -20,15 +20,16 @@ class DonorEmailAddressEditForm extends Component {
 						</div>
 						<div className="form__group col col-sml-12 col-lrg-3">
 							<div className="u-display--flex">
-								<label className="form__group__label u-mar--right--med">Enable Notifications</label>
-								<BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isNotifyEnabled')} disabled={form.$('isPrimary').value} />
+								<label className="form__group__label u-mar--right--med">Notifications</label>
+								<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isNotifyEnabled')} /> 
+								{/* disabled={form.$('isPrimary').value} */}
 							</div>
 						</div>
 						{isAssignableAsPrimary && (
 							<div className="form__group col col-sml-12 col-lrg-3">
 								<div className="u-display--flex">
-									<label className="form__group__label u-mar--right--med">Is Primary?</label>
-									<BasicFieldCheckbox toggleClass="--toggle" showLabel="false" field={form.$('isPrimary')} />
+									<label className="form__group__label u-mar--right--med">Primary</label>
+									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} />
 								</div>
 
 							</div>

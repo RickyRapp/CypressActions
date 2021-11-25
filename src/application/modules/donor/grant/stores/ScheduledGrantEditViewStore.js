@@ -53,7 +53,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 					},
 					get: async id => {
 						return this.rootStore.application.donor.grantStore.getScheduledGrant(id, {
-							embed: 'charity,charity.charityAddresses',
+							embed: 'charity,charity.charityAddresses,charity.charityBankAccounts',
 						});
 					},
 				};

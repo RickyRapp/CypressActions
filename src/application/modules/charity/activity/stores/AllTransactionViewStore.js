@@ -89,6 +89,16 @@ class AllTransactionViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key:'description',
+                    title: 'Description',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return item.paymentTransaction.description ? item.paymentTransaction.description : item.paymentTransaction.paymentTransactionType.description;
+                        }
+                    }
+                },
+                {
                     key: 'paymentTransaction.presentBalance',
                     title: 'CHARITY_ACTIVITY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
                     format: {

@@ -7,7 +7,8 @@ import {
     BaasicTableWithRowDetails,
     BasicCheckbox,
     FormatterResolver,
-    BaasicFormControls
+    BaasicFormControls,
+    DatePickerField
 } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
@@ -73,6 +74,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     <div className="col col-sml-6 col-lrg-3">
                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                     </div>
+                    
                     <div className="col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('paymentNumber')} />
 
@@ -87,6 +89,11 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                                 Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
                             </div>}
                     </div>
+
+                    <div className="col col-sml-6 col-lrg-3">
+                        <DatePickerField field={form.$('paymentDate')} />
+                    </div>
+
                 </div>
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="table--dragrow--expandable-row">

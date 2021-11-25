@@ -3,20 +3,31 @@ import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/sto
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { GrantCreateForm } from 'application/common/grant/forms';
 import moment from 'moment';
-import { charityFormatter } from 'core/utils';
+import { charityFormatter, addressFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
-
+import { localStorageProvider } from 'core/providers';
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
+	@observable charityInputValue = null;
+	@observable filteredCharities = [];
 	donor = null;
 	applicationDefaultSetting = {};
 	grantScheduleTypes = [];
 	grantAcknowledgmentTypes = [];
 	grantPurposeTypes = [];
 	grantRequestId = null;
+	charities = [];
+	isFuture = false;
+	isGrantAgain = false;
+	@observable defaultValue = '';
+	@observable charity = null;
+	@observable inputCharity = '';
+	@observable asyncPlaceholder = '';
+	@observable moreSettings = false;
+	@observable isAdvancedInput = false;
 
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
@@ -27,8 +38,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				return {
 					create: async resource => {
 						resource.donorId = this.donorId;
-
-						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId)) {
+						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId) && !resource.isRecurring) {
 							await this.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
 						} else {
 							if (resource.isNewCharity) {
@@ -54,24 +64,46 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								const charityData = await this.grantStore.suggest(charity); //charityId,bankAccountId
 								resource.charityId = charityData.charityId;
 							}
-
-							if (moment(resource.startFutureDate) > moment() || resource.isRecurring === true) {
+							if (moment(resource.startFutureDate) > moment()) {
 								if (resource.isRecurring == false) {
 									const data = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
 									resource.numberOfPayments = 1;
+									const resultRec = await this.grantStore.createScheduledGrant(resource);
+									this.grantId = resultRec;
+									this.isFuture = true;
 								}
-								await this.grantStore.createScheduledGrant(resource);
+							} else if(resource.isRecurring) {
+								// eslint-disable-next-line
+								const resultRec = await this.grantStore.createScheduledGrant(resource);
+								this.grantId = resultRec;
 							} else {
-								await this.grantStore.createGrant(resource);
+								var result = await this.grantStore.createGrant(resource);
+								this.grantId = result.response;
 							}
 						}
 					},
 				};
 			},
+			onAfterAction: () => {
+				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
+					if(!this.isFuture && !this.form.$('isRecurring').value)
+						this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
+				} else {
+					if(!this.isFuture && !this.form.$('isRecurring').value)
+						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
+					else
+						this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', {id: this.grantId} )
+					// else if(!this.isFuture && this.form.$('isRecurring').value)
+					// 	this.rootStore.routerStore.goBack();
+					// else
+					// 	this.rootStore.routerStore.goBack();
+				}
+				this.rootStore.notificationStore.success('Successfully created a grant');
+			},
 			FormClass: GrantCreateForm,
 		});
-
+		
 		this.donorId = donorId;
 		this.grantStore = grantStore;
 
@@ -95,9 +127,47 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (!initialLoad) {
 			this.rootStore.routerStore.goBack();
 		} else {
-			await this.fetch([this.setDonor()]);
+			await this.setDonor();
 			await this.fetch([this.loadLookups()]);
-
+			const isExistingGrant = localStorageProvider.get('ExistingGrant');
+			
+			if(isExistingGrant) {
+				this.isGrantAgain = true;
+				this.rootStore.notificationStore.warning('Please wait... Charity info is loading')
+				const grant = (localStorageProvider.get('ExistingGrantObject'));
+				localStorageProvider.remove('ExistingGrantObject');
+				localStorageProvider.remove('ExistingGrant');
+				this.charityDropdownStore.setValue({
+					id: grant.charityId,
+					name: charityFormatter.format(grant.charity, { value: 'charity-name-display' }),
+					item: grant.charity,
+				});
+				this.inputCharity = this.charityDropdownStore.value.name;
+				this.form.$('grantPurposeTypeId').value = grant.grantPurposeTypeId;
+				if(grant.grantPurposeType.abrv == 'in-honor-of' || grant.grantPurposeType.abrv == 'in-memory-of' || grant.grantPurposeType.abrv == 'other')
+					this.form.$('purposeNote').value = grant.purposeNote;
+				
+				this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
+				this.onCharityChange(grant.charityId);
+				this.setSimilarGrantTable(grant.grantPurposeTypeId);
+				this.setAmount(grant.amount);
+				this.form.$('amount').value = grant.amount;
+				this.form.$('charityId').value = grant.charityId;
+				this.setAddress(grant.charity.charityAddresses.find(c => {
+					return c.isPrimary === true;
+				}));
+				await this.filterCharities(grant.charity.name);
+				this.setCharityId(grant.charityId);
+				const formattedCharityAddress = addressFormatter.format(
+					grant.charity.charityAddresses.find(c => {
+						return c.isPrimary === true;
+					}),
+					'full'
+				);
+				const formattedGrantAddress = addressFormatter.format(grant, 'full');
+				this.isChangedDefaultAddress = formattedCharityAddress === formattedGrantAddress;
+			}
+			
 			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
 
 			this.setFormDefaultRules();
@@ -144,11 +214,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.form.$('zipCode').set(field.value);
 			});
 			this.form.$('charityContactEmail').observe(({ field }) => {
-				this.form.$('charityContactNumber').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+				this.form.$('charityContactEmail').set(field.value);
 			});
 			this.form.$('charityContactNumber').observe(({ field }) => {
-				this.form.$('charityContactEmail').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+				this.form.$('charityContactNumber').set(field.value);
 			});
+			// this.form.$('charityContactEmail').observe(({ field }) => {
+			// 	this.form.$('charityContactEmail').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+			// });
+			// this.form.$('charityContactNumber').observe(({ field }) => {
+			// 	this.form.$('charityContactNumber').setRequired(isNullOrWhiteSpacesOrUndefinedOrEmpty(field.value));
+			// });
 
 			if (this.grantRequestId) {
 				const data = await this.grantStore.getGrantRequest(this.grantRequestId, {
@@ -159,6 +235,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.form.$('amount').set(data.amount);
 			}
 		}
+	}
+
+	@action.bound
+	toggleSettings() {
+		this.moreSettings = !this.moreSettings;
 	}
 
 	@action.bound
@@ -205,9 +286,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				},
 				form: this.form,
 				grantAcknowledgmentName: this.grantAcknowledgmentName,
-				charity: this.charityDropdownStore.items.find(c => c.id === this.form.$('charityId').value),
+				charity: this.charity,
 				amount: this.form.$('amount').value,
-				date: this.form.$('startFutureDate').$value,
+				date: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
 				purpose: this.grantPurposeTypeDropdownStore.items.find(c => c.id === this.form.$('grantPurposeTypeId').value)
 			});
@@ -222,17 +303,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-    setFieldRules(selectedOption) {
-        this.resetFieldRules();
-        if (selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id && selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'general-fund').id) {
-            this.form.$('purposeNote').set('rules', 'required');
-        }
-    }
+	setFieldRules(selectedOption) {
+		this.resetFieldRules();
+		if (selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id && selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'general-fund').id) {
+			this.form.$('purposeNote').set('rules', 'required');
+		}
+	}
 
-    @action.bound
-    resetFieldRules() {
-        this.form.$('purposeNote').set('rules', '');
-    }
+	@action.bound
+	resetFieldRules() {
+		this.form.$('purposeNote').set('rules', '');
+	}
 
 	@action.bound
 	onNewCharityChange(value) {
@@ -281,6 +362,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.amountWithFee = null;
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
+		}
+		if(value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+			const { modalStore } = this.rootStore;
+			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
+				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
+			})
 		}
 	}
 
@@ -379,16 +466,32 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	async setDonor() {
 		this.donor = await this.grantStore.getDonorInformation(this.donorId);
+        //const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
+        const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.donorId);
+		this.donor.availableBalance = dataDonor.presentBalance;
 	}
 
 	@action.bound
 	async onCharitySelected(charity) {
-		this.setCharity(charity);
+		this.isAdvancedInput = true;
+		this.form.$('charityId').set(charity.id);
+		this.asyncPlaceholder = charityFormatter.format(charity, {value: 'charity-name-display'});
+		this.charity = charity;
+		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
+		this.setSimilarGrantTable(charity.charityTypeId);
 		this.advancedSearchModal.close();
 	}
+
 	createConfirmModalParams() {
 		this.confirmModal = new ModalParams({});
 	}
+	promiseOptions = inputValue =>
+        new Promise(resolve => {
+            setTimeout(() => {
+                resolve(this.filterCharities(inputValue));
+            }, 1000);
+    });
+
 	setCharity(charity) {
 		this.charityDropdownStore.setValue({
 			id: charity.id,
@@ -411,7 +514,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	setSimilarGrantTable(value) {
-		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
+		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.charityTypeId === value).sort());
 		if (!this.similarGrantsTableStore.dataInitialized) {
 			this.similarGrantsTableStore.dataInitialized = true;
 		}
@@ -435,12 +538,18 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.form.$('zipCode').set(address.zipCode);
 	}
 
+	@action.bound
+	setCharityVal(val) {
+		this.charityInputValue = val;
+		this.filterCharities(val);
+	}
+
 	async loadLookups() {
 		this.applicationDefaultSetting = await this.rootStore.application.lookup.applicationDefaultSettingStore.find();
 		this.grantScheduleTypes = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 		this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
 		this.grantPurposeTypes = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
-
+		this.charityTypes = await this.rootStore.application.lookup.charityTypeStore.find();
 		this.grantPurposeTypeDropdownStore.setItems(
 			this.grantPurposeTypes.filter(c => {
 				return ['where-deemed-most-needed', 'general-fund', 'in-honor-of', 'solicited-by', 'other', 'in-memory-of'].includes(c.abrv);
@@ -448,8 +557,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		);
 		const defaultPurposeTypeId = this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id;
 		this.grantPurposeTypeDropdownStore.setValue(defaultPurposeTypeId);
+
+		//const defaultCharityTypeId = this.charityTypes.find(c => c.abrv === 'human-services').id;
+
 		this.form.$('grantPurposeTypeId').set(defaultPurposeTypeId);
-		this.setSimilarGrantTable(defaultPurposeTypeId);
+		//this.setSimilarGrantTable(defaultCharityTypeId);
 
 		this.grantAcknowledgmentTypeDropdownStore.setItems(this.grantAcknowledgmentTypes);
 		// localStorage.clear(); - may be needed, because previouse abrv was cached
@@ -501,7 +613,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
 					});
 					return data.item.map(x => {
 						return {
@@ -512,6 +624,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					});
 				},
 				onChange: value => {
+					this.setSimilarGrantTable(this.charityDropdownStore.value.item.charityTypeId);
 					if (value) {
 						const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
 						this.setAddress(address);
@@ -520,6 +633,49 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			}
 		);
 	}
+	@action.bound
+	setCharityId(id) {
+		this.isAdvancedInput = false;
+		this.form.$('charityId').set(id);
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
+		this.setAddress(charity && charity.item && charity.item.charityAddresses[0]);
+		this.setSimilarGrantTable(this.charity.item.charityTypeId);
+	}
+	@action.bound
+	setInputValue(value) {
+		this.charityInputValue = value;
+	} 
+	@action.bound
+	async filterCharities(inputValue) {
+		const data = await this.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+	
+	@action.bound
+	async charityLoadOptions(inputValue) {
+		await this.filterCharities(inputValue);
+	};
 
 	createPreviousGrantsTableStore() {
 		this.previousGrantsTableStore = new TableViewStore(null, {
@@ -563,9 +719,87 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						value: '$',
 					},
 				},
+				{
+					key: 'charity',
+					title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL'
+				}
 			],
 		});
 	}
+
+	// @action.bound
+	// async onSubmitClick(resource) {
+	// 	const { isValid } = await this.form.validate({ showErrors: true });
+	// 	if (isValid) {
+	// 		this.confirmModal.open({
+	// 			onCancel: () => {
+	// 				this.confirmModal.close();
+	// 			},
+	// 			onSubmit: async () => {
+	// 					this.form.setFieldsDisabled(true);
+	// 					this.loaderStore.suspend();
+	// 					try {
+	// 						if (this.translationStore) {
+	// 							this.translationStore.applyMetadata(resource);
+	// 						}
+	// 						await this.actions.create(resource);
+							
+	// 						if (this.onAfterAction) {
+	// 							this.onAfterAction();
+	// 						}
+	// 						else {
+	// 							await this.rootStore.routerStore.goBack();
+	// 							await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+	// 						}
+	// 					}
+	// 					catch (err) {
+	// 						return this.onCreateError(err);
+	// 					} finally {
+	// 						this.form.setFieldsDisabled(false);
+	// 						this.loaderStore.resume();
+	// 					}
+	// 			},
+	// 			form: this.form,
+	// 			grantAcknowledgmentName: this.grantAcknowledgmentName,
+	// 			charityName: this.charityDropdownStore.value.name
+	// 		});
+	// 	}
+	// }
+
+	// @action.bound
+    // async createResource(resource) {
+    //     if (!this.actions.create) return;
+	// 	const { modalStore } = this.rootStore;
+	// 	modalStore.showConfirm((`Grant acknowledgment name: ${this.grantAcknowledgmentName}
+	// 	\n\r
+	// 	Recepient charity: ${this.charity.label}
+	// 	\n\r
+	// 	Given amount: $${this.form.$('amount').$value}`), async () => {
+	// 		this.form.setFieldsDisabled(true);
+	// 		this.loaderStore.suspend();
+	// 		try {
+	// 			if (this.translationStore) {
+	// 				this.translationStore.applyMetadata(resource);
+	// 			}
+
+	// 			await this.actions.create(resource);
+
+	// 			if (this.onAfterAction) {
+	// 				this.onAfterAction();
+	// 			}
+	// 			else {
+	// 				await this.rootStore.routerStore.goBack();
+	// 				await setTimeout(() => this.notifySuccessCreate(this.name), 10);
+	// 			}
+	// 		}
+	// 		catch (err) {
+	// 			return this.onCreateError(err);
+	// 		} finally {
+	// 			this.form.setFieldsDisabled(false);
+	// 			this.loaderStore.resume();
+	// 		}
+	// 	})
+    // }
 
 	@computed get oneTimeGrantId() {
 		return this.grantScheduleTypes ? this.grantScheduleTypes.find(item => item.abrv === 'one-time').id : null;

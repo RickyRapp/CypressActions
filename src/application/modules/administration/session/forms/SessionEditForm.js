@@ -9,6 +9,12 @@ export default class SessionEditForm extends FormBase {
         return {
             fields: [
                 {
+                    name: 'charityName',
+                    label: 'SESSION.EDIT.FIELDS.CHARITY_NAME_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.CHARITY_NAME_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
                     name: 'fullName',
                     label: 'SESSION.EDIT.FIELDS.FULL_NAME_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.FULL_NAME_PLACEHOLDER',
@@ -28,6 +34,36 @@ export default class SessionEditForm extends FormBase {
                     label: 'SESSION.EDIT.FIELDS.EMAIL_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.EMAIL_PLACEHOLDER',
                     rules: 'email'
+                },
+                {
+                    name: 'addressLine1',
+                    label: 'SESSION.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'addressLine2',
+                    label: 'SESSION.EDIT.FIELDS.ADDRESS_LINE_2_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
+                    name: 'city',
+                    label: 'SESSION.EDIT.FIELDS.CITY_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.CITY_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'state',
+                    label: 'SESSION.EDIT.FIELDS.STATE_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.STATE_PLACEHOLDER',
+                    rules: 'required|string'
+                },
+                {
+                    name: 'zipCode',
+                    label: 'SESSION.EDIT.FIELDS.ZIPCODE_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.ZIPCODE_PLACEHOLDER',
+                    rules: 'required|string'
                 },
                 {
                     name: 'description',

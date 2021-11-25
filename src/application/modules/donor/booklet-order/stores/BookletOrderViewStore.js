@@ -9,6 +9,9 @@ class BookletOrderViewStore extends BaseListViewStore {
             routes: {
                 create: () => {
                     this.rootStore.routerStore.goTo('master.app.main.donor.booklet-order.create');
+                },
+                details: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: id });
                 }
             },
             queryConfig: {
@@ -77,9 +80,17 @@ class BookletOrderViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),
             },
-            actionsRender: {}
+            actionsRender: {
+                onDetailsRender: (item) => {
+                    return item.bookletOrderStatus.abrv === 'finished';
+                },
+                onEditRender: (item) => {
+                    return item.bookletOrderStatus.abrv === 'pending';
+                }
+            }
         }));
         
     }

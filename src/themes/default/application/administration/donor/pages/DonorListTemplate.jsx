@@ -15,7 +15,11 @@ const DonorListTemplate = function({ donorViewStore }) {
 			<Content emptyRenderer={renderEmpty(routes)}>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+						<TableFilter
+							queryUtility={queryUtility}
+							showDefaultSearchFilter={false}
+							colClassName={'col col-sml-12 col-xxlrg-8'}
+						>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
 									className="input input--lrg"

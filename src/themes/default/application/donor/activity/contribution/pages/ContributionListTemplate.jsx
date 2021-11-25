@@ -7,12 +7,12 @@ import {
 	TableFilter,
 	BaasicDropdown,
 	BaasicInput,
-	DateRangeQueryPicker,
+	DateRangeQueryPicker
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 
-const ContributionListTemplate = function({ contributionViewStore }) {
+const ContributionListTemplate = function ({ contributionViewStore }) {
 	const {
 		tableStore,
 		queryUtility,
@@ -20,53 +20,81 @@ const ContributionListTemplate = function({ contributionViewStore }) {
 		paymentTypeDropdownStore,
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		depositTab,
+		setDepositTab,
+		timelineSummary
+		//sumYear
 	} = contributionViewStore;
+
+	const monthNames = ["January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December"
+ 	];
 
 	return (
 		<Content>
-			<div className="card--tertiary card--med u-mar--bottom--sml">
-				<div className="u-mar--bottom--med">
-					<TableFilter queryUtility={queryUtility}>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
-							<BaasicInput
-								id="confirmationNumber"
-								className="input input--lrg"
-								value={queryUtility.filter.confirmationNumber || ''}
-								onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-								placeholder="CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="paymentNumber"
-								className="input input--lrg"
-								value={queryUtility.filter.paymentNumber || ''}
-								onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
-								placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicDropdown
-								store={paymentTypeDropdownStore}
-								placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicDropdown
-								store={contributionStatusDropdownStore}
-								placeholder="CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="nameOnCheck"
-								className="input input--lrg"
-								value={queryUtility.filter.nameOnCheck || ''}
-								onChange={event => (queryUtility.filter.nameOnCheck = event.target.value)}
-								placeholder="CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+			<div className="row row--form">
+				<div className="col col-sml-12">
+					<div className="u-mar--top--sml u-mar--bottom--sml">
+						<BaasicButton
+							type="button"
+							className={depositTab === 0 ? "btn btn--med btn--med--wide btn--primary u-mar--right--med u-mar--bottom--sml" : "btn btn--med btn--med--wide btn--tertiary u-mar--right--med u-mar--bottom--sml"}
+							onClick={() => setDepositTab(0)}
+							// onClick={onSubmitClick}
+							// form={form} onSubmit={onSubmitClick}
+							label="CONTRIBUTION.LIST.OVERVIEW-TRANSACTIONS" />
+						<BaasicButton
+							type="button"
+							className={depositTab == 1 ? "btn btn--med btn--med--wide btn--primary u-mar--bottom--sml" : "btn btn--med btn--secondary btn--med--wide u-mar--bottom--sml"}
+							onClick={() => setDepositTab(1)}
+							// onClick={onSubmitClick}
+							// form={form} onSubmit={onSubmitClick}
+							label="CONTRIBUTION.LIST.BY-TIMELINE" />
+					</div>
+				</div>
+				<div className="col col-sml-12 col-xxlrg-12 u-mar--bottom--med">
+					{depositTab === 0 ? <div className="card--tertiary card--med u-mar--bottom--sml">
+						<div className="u-mar--bottom--med">
+							<TableFilter queryUtility={queryUtility}>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
+									<BaasicInput
+										id="confirmationNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.confirmationNumber || ''}
+										onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+										placeholder="CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="paymentNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.paymentNumber || ''}
+										onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
+										placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={paymentTypeDropdownStore}
+										placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={contributionStatusDropdownStore}
+										placeholder="CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="nameOnCheck"
+										className="input input--lrg"
+										value={queryUtility.filter.nameOnCheck || ''}
+										onChange={event => (queryUtility.filter.nameOnCheck = event.target.value)}
+										placeholder="CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicInput
 										id="dollarRange"
 										value={queryUtility.filter.dollarRange || ''}
@@ -74,21 +102,54 @@ const ContributionListTemplate = function({ contributionViewStore }) {
 										placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
 									/>
 								</div>
-						<div className="col col-sml-12 u-mar--bottom--sml">
-							<div className="row row--form">
-								<div className="col col-sml-12 col-lrg-6">
-									<DateRangeQueryPicker
-										queryUtility={queryUtility}
-										store={dateCreatedDateRangeQueryStore}
-										fromPropertyName="dateCreatedFrom"
-										toPropertyName="dateCreatedTo"
-									/>
+								<div className="col col-sml-12 u-mar--bottom--sml">
+									<div className="row row--form">
+										<div className="col col-sml-12 col-lrg-8">
+											<DateRangeQueryPicker
+												queryUtility={queryUtility}
+												store={dateCreatedDateRangeQueryStore}
+												fromPropertyName="dateCreatedFrom"
+												toPropertyName="dateCreatedTo"
+											/>
+										</div>
+									</div>
 								</div>
-							</div>
+							</TableFilter>
 						</div>
-					</TableFilter>
+						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+					</div> :
+					<div className="card--tertiary card--med u-mar--bottom--sml">
+						<table className="table--secondary u-mar--bottom--med">
+                    <thead className="table--secondary__thead">
+                        <tr>
+                            <th className="table--secondary__th">Time Period</th>
+                            <th className="table--secondary__th">Amount by Period</th>
+                        </tr>
+                    </thead>
+                    <tbody className="table--secondary__tbody">
+						{timelineSummary && timelineSummary.map(x =>
+						//eslint-disable-next-line
+							 <tr className="table--secondary__row" style={x.month == (new Date()).getFullYear() ? {borderTop: '3px solid #d4d4d4'} : null}>
+                            <th className="table--secondary__th">{x.month <= 12 ? `${monthNames[x.month - 1]} ${(new Date()).getFullYear()}` : `Year of ${x.month}`}</th>
+                            <td className="table--secondary__td">${x.sumByMonth.toFixed(2)}</td>
+                        </tr>)
+						}
+                        
+                    </tbody>
+                    <tfoot className="table--secondary__tfoot">
+                        <tr className="table--secondary__row">
+                            <th className="table--secondary__th">
+                                {/* Current timeline period: */}
+                            </th>
+                            <th className="table--secondary__th">
+                                {/* {(new Date()).getFullYear()} */}
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+					</div> 
+					 }
 				</div>
-				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 			</div>
 		</Content>
 	);
@@ -120,9 +181,10 @@ function renderActions({ item, actions, actionsRender }) {
 	}
 
 	let cancelRender = true;
+	// added Cancel per ticket #74959
 	if (isSome(actionsRender)) {
 		if (actionsRender.onCancelRender) {
-			cancelRender = actionsRender.onCancelRender(item);
+			cancelRender = (item.contributionStatus.abrv === 'pending');
 		}
 	}
 
@@ -153,7 +215,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--close u-icon--base"
+						icon="u-icon u-icon--close--secondary u-icon--base"
 						label="CONTRIBUTION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

@@ -19,6 +19,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
                             description: props.bankAccount.description,
                             coreMediaVaultEntryId: props.bankAccount.coreMediaVaultEntryId,
                             isThirdPartyAccount: props.bankAccount.isThirdPartyAccount,
+                            isPrimary: props.bankAccount.isPrimary,
                             accountHolderName: props.bankAccount.accountHolder.name,
                             addressLine1: props.bankAccount.accountHolder.addressLine1,
                             addressLine2: props.bankAccount.accountHolder.addressLine2,
@@ -38,6 +39,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
                             description: data.description,
                             coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                             isThirdPartyAccount: data.isThirdPartyAccount,
+                            isPrimary: data.isPrimary,
                             accountHolderName: data.accountHolder.name,
                             addressLine1: data.accountHolder.addressLine1,
                             addressLine2: data.accountHolder.addressLine2,
@@ -54,6 +56,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
                     }
                 },
                 update: async (resource) => {
+                    resource.isPrimary = this.isPrimary;
                     if (!resource.isThirdPartyAccount) {
                         resource.accountHolderName = this.donor.donorName;
                         resource.addressLine1 = this.primaryAddress.addressLine1;

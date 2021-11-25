@@ -76,5 +76,10 @@ class SessionStore {
         const response = await this.sessionService.update(resource);
         return response.data;
     }
+
+    async inActivateSession(resource) {
+        const response = await this.sessionService.inActivateSession(resource);
+        return response.data;
+    }
 }
 export default SessionStore;

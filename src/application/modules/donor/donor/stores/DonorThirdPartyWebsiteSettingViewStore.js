@@ -36,6 +36,7 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
 
     @action.bound
     async onInit({ initialLoad }) {
+        this.form.$('isEnabled').value = true;
         if (!initialLoad) {
             this.rootStore.routerStore.goBack();
         }
@@ -43,6 +44,7 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource(this.donorId),
             ]);
+            this.form.$('isEnabled').value = true;
             this.onChangeIsEnabled();
         }
     }

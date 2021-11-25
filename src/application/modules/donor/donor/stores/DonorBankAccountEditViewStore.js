@@ -21,6 +21,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						description: data.description,
 						coreMediaVaultEntryId: data.coreMediaVaultEntryId,
 						isThirdPartyAccount: data.isThirdPartyAccount,
+						isPrimary: data.isPrimary,
 						accountHolderName: data.accountHolder && data.accountHolder.name,
 						addressLine1: data.accountHolder && data.accountHolder.addressLine1,
 						addressLine2: data.accountHolder && data.accountHolder.addressLine2,
@@ -54,6 +55,9 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 					rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
 				},
 				create: async resource => {
+					if(props.bankAccountCount < 1) {
+						resource.isPrimary = true;
+					}
 					if (!resource.isThirdPartyAccount) {
 						resource.accountHolderName = this.donor.donorName;
 						resource.addressLine1 = this.primaryAddress.addressLine1;
@@ -64,11 +68,16 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						resource.email = this.primaryEmailAddress.email;
 						resource.number = this.primaryPhoneNumber.number;
 					}
-
-					const data = await rootStore.application.donor.donorStore.createBankAccount({
-						donorId: this.donorId,
-						...resource,
-					});
+					let data;
+					try {
+						data = await rootStore.application.donor.donorStore.createBankAccount({
+							donorId: this.donorId,
+							...resource,
+						});
+					} catch (error) {
+						rootStore.notificationStore.error('Create failed', error);
+					}
+					
 					if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
 						await rootStore.application.donor.donorStore.uploadDonorBankAccount(
 							this.imageUploadStore.files[0],
@@ -89,7 +98,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 				}
 			},
 		});
-
+		this.bankAccountCount = props.bankAccountCount;
 		this.donorId = rootStore.userStore.applicationUser.id;
 		this.createImageUploadStore();
 		this.onCancelEditClick = props.onCancelEditClick;

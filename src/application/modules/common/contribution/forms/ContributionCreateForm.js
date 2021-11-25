@@ -214,6 +214,24 @@ export default class ContributionCreateForm extends FormBase {
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.THIRD_PARTY_DONOR_ADVISED_FUND_PLACEHOLDER',
 					rules: 'string',
 				},
+				{
+					name: 'thirdPartyDonorAdvisedFundName',
+					label: 'Fund holder name',
+					placeholder: 'Fund holder name',
+					rules: 'string',
+				},
+				{
+					name: 'nameOfEmployment',
+					label: 'Name Of Employment',
+					placeholder: 'Name Of Employment',
+					rules: 'string',
+				},
+				{
+					name: 'payrollCompany',
+					label: 'Payroll Company',
+					placeholder: 'Payroll Company',
+					rules: 'string',
+				},
 			],
 		};
 	}

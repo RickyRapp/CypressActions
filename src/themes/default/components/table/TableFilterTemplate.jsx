@@ -19,6 +19,8 @@ function TableFilterTemplate(props) {
 		fetchDisabled,
 		hideOnFetch,
 		debounce,
+		colClassName,
+		btnClassName
 	} = props;
 
 	const debounceCallback = _.debounce(queryUtility.fetch, debounce);
@@ -28,13 +30,13 @@ function TableFilterTemplate(props) {
 	return (
 		<React.Fragment>
 			<div className={`${searchClassName || ''}`.trim()}>
-
+				<div className={`${colClassName ? 'row row--form' : ''}`.trim()}>
+					<div className={`${colClassName ? colClassName : ''}`.trim()}>
 						<div className="search__wrapper">
-
 							{showSearch && (
-
 								<SearchFilter
-									className={`input input--med input--search search__input--noborder ${filterStore.filterVisible ? 'is-expanded' : ''}`}
+									className={`input input--med input--search search__input--noborder ${filterStore.filterVisible ? 'is-expanded' : ''
+										}`}
 									inputWrapperClass={`${inputWrapperClass}`}
 									queryUtility={queryUtility}
 									clearVisible={clearVisible}
@@ -46,16 +48,22 @@ function TableFilterTemplate(props) {
 							{showButtons && children && (
 								<Fragment>
 									{showToggle && (
-
-										<div className="search__filter__btn" onClick={filterStore.toggleFilterVisibility} >
-											<i className={`search__filter__btn__icon u-icon u-icon--filter u-icon--base search__wrapper__item`}></i>
+										<div className="search__filter__btn" onClick={filterStore.toggleFilterVisibility}>
+											<i
+												className={`search__filter__btn__icon u-icon u-icon--filter u-icon--base search__wrapper__item`}
+											></i>
 											<span className="search__filter__btn__text search__wrapper__item">Advanced Search</span>
-											<i className={`u-icon u-icon--arrow-down--primary u-icon--sml ${filterStore.filterVisible ? 'u-rotate--180' : ''}`}></i>
+											<i
+												className={`u-icon u-icon--arrow-down--primary u-icon--sml ${filterStore.filterVisible ? 'u-rotate--180' : ''
+													}`}
+											></i>
 										</div>
 									)}
 								</Fragment>
 							)}
 						</div>
+					</div>
+				</div>
 
 				{showButtons && children && (
 					<Fragment>
@@ -83,7 +91,7 @@ function TableFilterTemplate(props) {
 				)}
 			</div>
 			<div className={`${filterClassName || 'u-mar--top--sml'}`.trim()}>
-				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled)}
+				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled, btnClassName)}
 			</div>
 		</React.Fragment>
 	);
@@ -106,6 +114,8 @@ TableFilterTemplate.propTypes = {
 	fetchDisabled: PropTypes.bool,
 	hideOnFetch: PropTypes.bool,
 	debounce: PropTypes.number,
+	colClassName: PropTypes.string,
+	btnClassName: PropTypes.string
 };
 
 TableFilterTemplate.defaultProps = {
@@ -117,9 +127,10 @@ TableFilterTemplate.defaultProps = {
 	fetchDisabled: false,
 	hideOnFetch: false,
 	debounce: 300,
+	btnClassName: "col col-sml-6 col-lrg-3 col-xlrg-2"
 };
 
-function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled) {
+function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled, btnClassName) {
 	if (!filters || React.Children.count(filters) === 0) return null;
 
 	return (
@@ -135,26 +146,23 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					{showSeparator && <div />}
 					<div className="row row--form">{filters}</div>
 					{!nextToSearch && (
-						<div className="row u-mar--bottom--sml">
-							<div className="col col-sml-12 col-med-6 col-lrg-4">
-								<div className="row row--form">
-									<div className="col col-sml-6">
-										<BaasicButton
-											className="btn btn--100 btn--primary"
-											label="GRID.FILTER.SEARCH_BUTTON"
-											onClick={() => queryUtility.fetch()}
-											disabled={fetchDisabled}
-										/>
-									</div>
-									<div className="col col-sml-6">
-										<BaasicButton
-											className="btn btn--100 btn--ghost"
-											label="GRID.FILTER.CLEAR_BUTTON"
-											onClick={() => queryUtility.resetFilter()}
-											disabled={fetchDisabled}
-										/>
-									</div>
-								</div>
+						<div className="row row--form u-mar--top--sml u-mar--bottom--sml">
+
+							<div className={btnClassName}>
+								<BaasicButton
+									className="btn btn--100 btn--primary"
+									label="GRID.FILTER.SEARCH_BUTTON"
+									onClick={() => queryUtility.fetch()}
+									disabled={fetchDisabled}
+								/>
+							</div>
+							<div className={btnClassName}>
+								<BaasicButton
+									className="btn btn--100 btn--ghost"
+									label="GRID.FILTER.CLEAR_BUTTON"
+									onClick={() => queryUtility.resetFilter()}
+									disabled={fetchDisabled}
+								/>
 							</div>
 						</div>
 					)}

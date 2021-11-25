@@ -15,7 +15,7 @@ const CharityListTemplate = function({ charityViewStore }) {
 			<Content emptyRenderer={renderEmpty(routes)}>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+						<TableFilter colClassName={"col col-sml-12 col-xxlrg-6"} queryUtility={queryUtility} showDefaultSearchFilter={false}>
 							<div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
 								<BaasicInput
 									className="input input--lrg"
@@ -74,9 +74,9 @@ CharityListTemplate.propTypes = {
 
 function renderActions({ item, actions, authorization }) {
 	if (!isSome(actions)) return null;
-
-	const { onEdit } = actions;
+	const { onEdit, onApprove } = actions;
 	if (!isSome(onEdit)) return null;
+	if (!isSome(onApprove)) return null;
 
 	return (
 		<td>
@@ -89,6 +89,16 @@ function renderActions({ item, actions, authorization }) {
 						label="CHARITY.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onApprove) && !item.isApproved ? (
+					<BaasicButton
+						authorization={authorization ? authorization.update : null}
+						className="btn btn--icon"
+						icon="u-icon u-icon--approve u-icon--base"
+						label="Approve"
+						onlyIcon={true}
+						onClick={() => onApprove(item)}
 					></BaasicButton>
 				) : null}
 			</div>

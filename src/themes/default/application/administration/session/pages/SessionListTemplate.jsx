@@ -12,6 +12,7 @@ import {
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
+import AsyncSelect from 'react-select/async';
 
 const SessionListTemplate = function ({ sessionViewStore }) {
 	const {
@@ -19,11 +20,19 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 		tableStore,
 		queryUtility,
 		authorization,
-		searchCharityDropdownStore,
 		paymentTypeDropdownStore,
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
-	} = sessionViewStore;
+		filterCharities,
+        setCharityId,
+    } = sessionViewStore;
+
+    const promiseOptions = inputValue =>
+    new Promise(resolve => {
+        setTimeout(() => {
+            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
+        }, 1000);
+    });
 
 	return (
 		<ApplicationListLayout store={sessionViewStore} authorization={authorization}>
@@ -31,9 +40,10 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter queryUtility={queryUtility}>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchCharityDropdownStore} />
+								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
+								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
@@ -115,7 +125,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                                 />
                             </div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row">
+								<div className="row row--form">
 									<div className="col col-sml-12 col-lrg-8">
 										<DateRangeQueryPicker
 											queryUtility={queryUtility}
@@ -167,7 +177,6 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						className="btn btn--icon"
 						icon="u-icon u-icon--edit u-icon--base"
-						onlyIconClassName="u-mar--right--tny"
 						label="SESSION.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -176,7 +185,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--close u-icon--base"
+						icon="u-icon u-icon--cancel u-icon--base u-mar--left--sml"
 						label="SESSION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
@@ -186,8 +195,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						authorization="theDonorsFundSessionSection.read"
 						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--base"
-						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--preview u-icon--base u-mar--left--sml"
 						label="SESSION.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onPreview(item)}

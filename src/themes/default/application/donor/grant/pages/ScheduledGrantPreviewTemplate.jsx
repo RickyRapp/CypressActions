@@ -4,7 +4,8 @@ import { defaultTemplate } from 'core/hoc';
 import {
     ApplicationEmptyState,
     FormatterResolver,
-    Date
+    Date,
+    BaasicButton
 } from 'core/components';
 import { addressFormatter } from 'core/utils';
 import { PreviewLayout } from 'core/layouts';
@@ -14,7 +15,11 @@ function ScheduledGrantPreviewTemplate({ scheduledGrantPreviewViewStore, t }) {
     const {
         item,
         loaderStore,
-        isEditable
+        isEditable,
+        newGrant,
+        editGrant,
+        cancelGrant,
+        isCancelable
     } = scheduledGrantPreviewViewStore;
 
     return (
@@ -22,7 +27,7 @@ function ScheduledGrantPreviewTemplate({ scheduledGrantPreviewViewStore, t }) {
             store={scheduledGrantPreviewViewStore}
             emptyRenderer={<ApplicationEmptyState />}
             loading={loaderStore.loading}
-            layoutFooterVisible={isEditable}
+            layoutFooterVisible={false}
         >
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
@@ -106,6 +111,42 @@ function ScheduledGrantPreviewTemplate({ scheduledGrantPreviewViewStore, t }) {
                                 </span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col col-sml-12 col-lrg-8 col-xxlrg-6 col-xxxlrg-5">
+                    <div className="row row--form">
+                        <div className={`col col-sml-12 col-lrg-6`}>
+                            <BaasicButton
+                                className="btn btn--base btn--primary btn--100 u-mar--bottom--sml"
+                                onClick={newGrant}
+                                icon=''
+                                label={t('PREVIEW_LAYOUT.NEW_GRANT')}
+                            />
+                        </div>
+                        {isEditable &&
+                            <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
+                                <BaasicButton
+                                    className="btn btn--base btn--primary btn--100  u-mar--bottom--sml"
+                                    onClick={editGrant}
+                                    icon=''
+                                    label={t('PREVIEW_LAYOUT.EDIT_BUTTON')}
+                                />
+                            </div>
+                        }
+                        {
+                            isCancelable &&
+                                <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
+                                    <BaasicButton
+                                        className="btn btn--base btn--ghost btn--100 u-mar--bottom--sml"
+                                        onClick={cancelGrant}
+                                        icon=''
+                                        label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
+                                    />
+                                </div>
+                        }
+                        
                     </div>
                 </div>
             </div>
